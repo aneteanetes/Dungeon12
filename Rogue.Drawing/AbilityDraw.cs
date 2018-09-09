@@ -94,7 +94,19 @@ namespace Rogue.Drawing
         {
             AbilityDraw.DrawMainWindow();
             ConsoleColor Class = ConsoleColor.Gray;
-            CharacterDraw.DrawColorHeader(Name, Class);
+
+
+
+
+            //CharacterDraw.DrawColorHeader(Name, Class); =>
+
+            //Console.ForegroundColor = Color;
+            //int Count = (100 / 2) - (Text.Length / 2);
+            //Console.SetCursorPosition(Count + 1, 1);
+            //Console.WriteLine(DrawHelp.FullLine(Text.Length, Text, Text.Length - 1));
+
+
+
             string[] str = text.Split(new Char[] { '\n' });
             Console.ForegroundColor = Class;
             int i = 0;

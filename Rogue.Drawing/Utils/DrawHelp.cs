@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Rogue.Drawing.Impl;
+using Rogue.View.Interfaces;
 
 namespace Rogue.Drawing
 {
@@ -140,23 +142,11 @@ namespace Rogue.Drawing
             }
             return tb;
         }
-        /// <summary>
-        /// Write text in ConsolePosition x,y in center
-        /// </summary>
-        /// <param name="Left">Позиция столбца курсора.</param>            
-        /// <param name="Top">Позиция строки курсора.</param>
-        /// <param name="Length">Допустимая длина.</param>
-        /// <param name="Text">Текст для записи.</param>
-        public static void WriteCenterPosition(int Left, int Top, int Length, string Text)
-        {
-            int c = (Length / 2) - (Text.Length / 2);
-            Console.SetCursorPosition(c + Left, Top);
-            Console.Write(Text);
-        }
+
         /// <summary>
         /// Draw avatar in left window, set char
         /// </summary>
-        public static ColorChar DrawAvatar
+        public static IDrawText DrawAvatar
         {
             set
             {

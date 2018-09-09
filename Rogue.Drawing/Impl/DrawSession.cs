@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Rogue.Settings;
+﻿using System;
+using System.Collections.Generic;
 using Rogue.Types;
 using Rogue.View.Interfaces;
 
@@ -33,6 +33,12 @@ namespace Rogue.Drawing.Impl
             this.buffer[linePos].InsertAt(charPos, text);
         }
 
+        public void Write(int linePos, int charPos, string text, ConsoleColor foreColor = 0, ConsoleColor backColor = 0)
+            => this.Write(linePos, charPos, new DrawText(text, foreColor, backColor));
+
+        public void Write(int linePos, int charPos, string text, IDrawColor foreColor = null, IDrawColor backColor = null)
+            => this.Write(linePos, charPos, new DrawText(text, foreColor, backColor));
+
         public void Batch(int linePos, int charPos, List<IDrawText> lines)
         {
             foreach (var line in lines)
@@ -53,13 +59,27 @@ namespace Rogue.Drawing.Impl
             return this;
         }
 
-        public void Publish()
+        public virtual void Publish()
         {
             if (this.AutoClear)
                 this.Clear();
             
 
             throw new System.NotImplementedException();
+        }
+
+        protected void WriteStatFull(string stringBuffer, int line, ConsoleColor color, ConsoleColor backColor = ConsoleColor.Black)
+        {
+            var pos = (23 / 2) - ((stringBuffer.Length) / 2);
+            stringBuffer = DrawHelp.FullLine(stringBuffer.Length, stringBuffer, stringBuffer.Length - 1);
+            this.Write(line, pos + 1, stringBuffer, color, backColor);
+        }
+
+        protected void WriteStatFull(string stringBuffer, int line, IDrawColor color, IDrawColor backColor = null)
+        {
+            var pos = (23 / 2) - ((stringBuffer.Length) / 2);
+            stringBuffer = DrawHelp.FullLine(stringBuffer.Length, stringBuffer, stringBuffer.Length - 1);
+            this.Write(line, pos + 1, stringBuffer, color, backColor);
         }
     }
 }
