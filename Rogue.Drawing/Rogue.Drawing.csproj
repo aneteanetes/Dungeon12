@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rogue.Map\Rogue.Map.csproj" />
+    <ProjectReference Include="..\Rogue.Settings\Rogue.Settings.csproj" />
+    <ProjectReference Include="..\Rogue.Types\Rogue.Types.csproj" />
+    <ProjectReference Include="..\Rogue.Utils\Rogue.Utils.csproj" />
+    <ProjectReference Include="..\Rogue.View\Rogue.View.csproj" />
+  </ItemGroup>
+
+</Project>

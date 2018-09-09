@@ -6196,38 +6196,7 @@ namespace Rogue
             public List<Item> Items; public List<Ability> Abilityes; public List<Perk> Perks; public List<int> Exp; public List<int> Gold;
         }
 
-        public class Labirinth
-        {
-            public string Name;
-
-            public string _Name, _Affics;
-
-            public ConsoleColor Biom;
-
-            public int Level=1;
-
-            public Cell[][] Map;
-
-            public class Cell
-            {
-                public char Vision;
-
-                public Item Item;
-
-                public Monster Enemy;
-
-                public Wall Wall;
-
-                public ActiveObject Object;
-
-                public Character Player;
-
-                public Trap Trap;
-
-                public bool Empty;
-
-            }            
-        }
+        
 
         public class InventoryTab
         {

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Splash\splash.jpg" />
+    <None Remove="Images\Splash\UML.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Splash\splash.jpg" />
+    <EmbeddedResource Include="Images\Splash\UML.png" />
+  </ItemGroup>
+
+</Project>
