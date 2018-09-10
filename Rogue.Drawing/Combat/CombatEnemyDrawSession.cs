@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using Rogue.Drawing.GUIInfo;
 using Rogue.Drawing.Impl;
 using Rogue.View.Interfaces;
 
-namespace Rogue.Drawing.GUIInfo
+namespace Rogue.Drawing.Combat
 {
-    public class EnemyInfoDrawSession : RightInfoDrawSession
+    public class CombatEnemyDrawSession : RightInfoDrawSession
     {
         public IDrawable Enemy { get; set; }
 
@@ -25,7 +24,7 @@ namespace Rogue.Drawing.GUIInfo
 
             if (Enemy.Name != "Валоран")
             {
-                this.DrawStat(" " + Enemy.GetRace(), 3, ConsoleColor.DarkCyan);
+                this.WriteStatFull(" " + Enemy.GetRace(), 3, ConsoleColor.DarkCyan);
             }
             else
             {
@@ -33,13 +32,13 @@ namespace Rogue.Drawing.GUIInfo
                 this.WriteStatFull("  [Предатель]  ", 3, ConsoleColor.Black, ConsoleColor.Cyan);
             }
 
-            this.DrawStat(" Уровень: " + Enemy.LVL.ToString(), 3, ConsoleColor.DarkGray);
-            this.DrawStat(" Жизнь: " + Enemy.CHP.ToString(), 7, ConsoleColor.Red);
-            this.DrawStat("Урон: " + Enemy.MIDMG.ToString() + "-" + Enemy.MADMG.ToString(), 9, ConsoleColor.DarkYellow);
-            this.DrawStat("Сила атаки: " + Enemy.AD.ToString(), 11, ConsoleColor.DarkRed);
-            this.DrawStat("Сила магии: " + Enemy.AP.ToString(), 12, ConsoleColor.DarkCyan);
-            this.DrawStat("Защита Ф : " + Enemy.ARM.ToString(), 14, ConsoleColor.DarkGreen);
-            this.DrawStat("Защита М : " + Enemy.MRS.ToString(), 15, ConsoleColor.DarkMagenta);
+            this.WriteStatFull(" Уровень: " + Enemy.LVL.ToString(), 3, ConsoleColor.DarkGray);
+            this.WriteStatFull(" Жизнь: " + Enemy.CHP.ToString(), 7, ConsoleColor.Red);
+            this.WriteStatFull("Урон: " + Enemy.MIDMG.ToString() + "-" + Enemy.MADMG.ToString(), 9, ConsoleColor.DarkYellow);
+            this.WriteStatFull("Сила атаки: " + Enemy.AD.ToString(), 11, ConsoleColor.DarkRed);
+            this.WriteStatFull("Сила магии: " + Enemy.AP.ToString(), 12, ConsoleColor.DarkCyan);
+            this.WriteStatFull("Защита Ф : " + Enemy.ARM.ToString(), 14, ConsoleColor.DarkGreen);
+            this.WriteStatFull("Защита М : " + Enemy.MRS.ToString(), 15, ConsoleColor.DarkMagenta);
             this.WriteStatFull("Способности:", 17, ConsoleColor.Yellow);
             
             int i = 19;

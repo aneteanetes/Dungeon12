@@ -7,6 +7,10 @@ namespace Rogue.Drawing.Impl
 {
     public class DrawSession : IDrawSession
     {
+        /// <summary>
+        /// automatic clear this <see cref="DrawRegion"/>
+        /// if disabled - clearing only current symbol
+        /// </summary>
         public bool AutoClear { get; set; } = true;
 
         private List<IDrawText> buffer = new List<IDrawText>();
@@ -80,6 +84,13 @@ namespace Rogue.Drawing.Impl
             var pos = (23 / 2) - ((stringBuffer.Length) / 2);
             stringBuffer = DrawHelp.FullLine(stringBuffer.Length, stringBuffer, stringBuffer.Length - 1);
             this.Write(line, pos + 1, stringBuffer, color, backColor);
+        }
+
+        protected void WriteHeader(string stringBuffer)
+        {
+            int Count = (100 / 2) - (stringBuffer.Length / 2);
+            stringBuffer = DrawHelp.FullLine(stringBuffer.Length, stringBuffer, stringBuffer.Length - 1);
+            this.Write(1, Count + 1, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
         }
     }
 }

@@ -93,13 +93,6 @@ namespace Rogue.Drawing.Character
             return base.Run();
         }
 
-        protected void WriteHeader(string stringBuffer)
-        {
-            int Count = (100 / 2) - (stringBuffer.Length / 2);
-            stringBuffer = DrawHelp.FullLine(stringBuffer.Length, stringBuffer, stringBuffer.Length - 1);
-            this.Write(1, Count + 1, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
-        }
-
         protected string GetSign(int z)
         {
             string s = string.Empty;
