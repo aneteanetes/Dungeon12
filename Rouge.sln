@@ -11,17 +11,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rouge", "Old\Rouge.csproj",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Drawing", "Rogue.Drawing\Rogue.Drawing.csproj", "{4BB75183-E1CA-4A60-B431-5899E0EABACB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Map", "Rogue.Map\Rogue.Map.csproj", "{9B9E9C0D-92F7-42B1-AEEC-860F1AA89105}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Map", "Rogue.Map\Rogue.Map.csproj", "{9B9E9C0D-92F7-42B1-AEEC-860F1AA89105}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Utils", "Rogue.Utils\Rogue.Utils.csproj", "{D0B886CC-F60B-4971-8CB7-5A21F9908242}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Utils", "Rogue.Utils\Rogue.Utils.csproj", "{D0B886CC-F60B-4971-8CB7-5A21F9908242}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Types", "Rogue.Types\Rogue.Types.csproj", "{F57D3377-BA43-4C6F-8E95-9F68D661A72E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Types", "Rogue.Types\Rogue.Types.csproj", "{F57D3377-BA43-4C6F-8E95-9F68D661A72E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Settings", "Rogue.Settings\Rogue.Settings.csproj", "{14EA5A0E-100B-4F86-8721-1D9A997F846A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Settings", "Rogue.Settings\Rogue.Settings.csproj", "{14EA5A0E-100B-4F86-8721-1D9A997F846A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.View", "Rogue.View\Rogue.View.csproj", "{B9C40078-42B9-4B85-823B-8048C67B76E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.View", "Rogue.View\Rogue.View.csproj", "{B9C40078-42B9-4B85-823B-8048C67B76E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Entites", "Rogue.Entites\Rogue.Entites.csproj", "{CC2F84D3-6D43-4192-8C45-07DF5C2E277F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Entites", "Rogue.Entites\Rogue.Entites.csproj", "{CC2F84D3-6D43-4192-8C45-07DF5C2E277F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Transactions", "Rogue.Transactions\Rogue.Transactions.csproj", "{C42239F6-ED1D-43AE-AAEF-3120FBB3627F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,6 +111,14 @@ Global
 		{CC2F84D3-6D43-4192-8C45-07DF5C2E277F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CC2F84D3-6D43-4192-8C45-07DF5C2E277F}.Release|x86.ActiveCfg = Release|Any CPU
 		{CC2F84D3-6D43-4192-8C45-07DF5C2E277F}.Release|x86.Build.0 = Release|Any CPU
+		{C42239F6-ED1D-43AE-AAEF-3120FBB3627F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C42239F6-ED1D-43AE-AAEF-3120FBB3627F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C42239F6-ED1D-43AE-AAEF-3120FBB3627F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C42239F6-ED1D-43AE-AAEF-3120FBB3627F}.Debug|x86.Build.0 = Debug|Any CPU
+		{C42239F6-ED1D-43AE-AAEF-3120FBB3627F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C42239F6-ED1D-43AE-AAEF-3120FBB3627F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C42239F6-ED1D-43AE-AAEF-3120FBB3627F}.Release|x86.ActiveCfg = Release|Any CPU
+		{C42239F6-ED1D-43AE-AAEF-3120FBB3627F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

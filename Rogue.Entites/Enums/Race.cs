@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Rogue.Entites.Alive
+namespace Rogue.Entites.Enums
 {
     public enum Race
     {

@@ -13,18 +13,7 @@ namespace Rogue.Entites.Character
         public Race Race;
 
         public ClassInfo Class { get; set; }
-
-        public string ManaName
-        {
-            get
-            {
-                switch (Class)
-                {
-                   
-                }
-            }
-        }
-
+                
         public int Level;
 
         private int _CHP, _MHP;

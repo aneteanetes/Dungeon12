@@ -6,6 +6,6 @@ namespace Rogue.Entites.Character
     {
         public Class Class { get; set; }
 
-        public string Resource { get; set; }
+        public Resource Resource { get; set; }
     }
 }
