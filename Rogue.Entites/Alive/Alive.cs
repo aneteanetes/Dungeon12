@@ -1,10 +1,12 @@
-﻿using Rogue.Entites.Characteristics;
-using Rogue.Entites.Structural;
-
-namespace Rogue.Entites.Alive
+﻿namespace Rogue.Entites.Alive
 {
+    /// <summary>
+    /// Живой, с уровнем
+    /// </summary>
     public class Alive : Drawable
     {
-        public HitsCharacteristic HitPoints;
+        public int Level { get; set; }
+
+        public long HitPoints { get; set; }
     }
 }

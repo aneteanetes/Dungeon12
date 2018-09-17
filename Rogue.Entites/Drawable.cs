@@ -2,6 +2,9 @@
 
 namespace Rogue.Entites
 {
+    /// <summary>
+    /// Отрисовываемый
+    /// </summary>
     public class Drawable : IDrawable
     {
         public string Icon { get; set; }
