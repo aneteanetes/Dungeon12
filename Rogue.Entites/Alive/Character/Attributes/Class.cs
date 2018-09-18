@@ -1,22 +1,22 @@
-﻿using System;
-
-namespace Rogue.Entites.Alive.Character.Attributes
+﻿namespace Rogue.Entites.Alive.Character.Attributes
 {
+    using System;
+
     /// <summary>
-    /// Помеченый класс является игровым классом
+    /// Помеченный тип относится к этому классу
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-    sealed class ClassAttribute : Attribute
+    public sealed class ClassAttribute : Attribute
     {
-        public string Display { get; set; }
+        public Type Class { get; set; }
 
         /// <summary>
-        /// Помеченый класс является игровым классом
+        /// Помеченный тип относится к этому классу
         /// </summary>
-        /// <param name="display">Наименование класса</param>
-        public ClassAttribute(string display)
+        /// <param name="class">Класс</param>
+        public ClassAttribute(Type @class)
         {
-            this.Display = display;
+            this.Class = @class;
         }
     }
 }
