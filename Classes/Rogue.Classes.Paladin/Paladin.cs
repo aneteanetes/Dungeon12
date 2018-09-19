@@ -4,6 +4,8 @@
 
     public class Paladin : Player
     {
+        public new string Name { get => "Паладин"; set { } }
+
         public long Mana { get; set; }
     }
 }

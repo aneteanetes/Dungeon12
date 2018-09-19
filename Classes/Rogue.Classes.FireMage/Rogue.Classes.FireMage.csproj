@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Rogue.Types\Rogue.Types.csproj" />
+    <ProjectReference Include="..\..\Rogue.Abilities\Rogue.Abilities.csproj" />
+    <ProjectReference Include="..\..\Rogue.Entites\Rogue.Entites.csproj" />
   </ItemGroup>
 
 </Project>

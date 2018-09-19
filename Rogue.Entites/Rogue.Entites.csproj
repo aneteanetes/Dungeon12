@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Rogue.Items\Rogue.Items.csproj" />
     <ProjectReference Include="..\Rogue.Transactions\Rogue.Transactions.csproj" />
     <ProjectReference Include="..\Rogue.Utils\Rogue.Utils.csproj" />
     <ProjectReference Include="..\Rogue.View\Rogue.View.csproj" />
