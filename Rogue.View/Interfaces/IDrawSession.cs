@@ -10,6 +10,8 @@ namespace Rogue.View.Interfaces
 
         IDrawSession Run();
 
+        IEnumerable<IDrawText> Content { get; }
+
         void Publish();
     }
 }

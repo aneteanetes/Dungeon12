@@ -11,6 +11,17 @@ namespace Rogue.Drawing.Console
     /// </summary>
     public class Window : Interface
     {
+        public Window()
+        {
+            this.DrawRegion = new Types.Rectangle
+            {
+                X = 0,
+                Y = 0,
+                Width = 100,
+                Height = 35
+            };
+        }
+
         /// <summary>
         /// Header of window
         /// </summary>
@@ -399,16 +410,16 @@ namespace Rogue.Drawing.Console
             }
         }
 
-        public Window()
-        {
-            this.DrawRegion = new Types.Rectangle
-            {
-                X = this.Left,
-                Y = this.Top,
-                Width = this.Width,
-                Height = this.Height
-            };
-        }
+        //public Window()
+        //{
+        //    this.DrawRegion = new Types.Rectangle
+        //    {
+        //        X = this.Left,
+        //        Y = this.Top,
+        //        Width = this.Width,
+        //        Height = this.Height
+        //    };
+        //}
 
         public override void Publish()
         {

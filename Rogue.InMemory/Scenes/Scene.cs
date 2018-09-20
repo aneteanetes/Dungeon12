@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Avalonia.Input;
-
-namespace Rogue.InMemory.Scenes
+﻿namespace Rogue.InMemory.Scenes
 {
-    public abstract class Scene
+    using System;
+    using System.Collections.Generic;
+    using Avalonia.Input;
+    using Rogue.View.Interfaces;
+
+    public abstract class Scene : IPublisher
     {
         private readonly SceneManager sceneManager;
 
@@ -30,6 +31,17 @@ namespace Rogue.InMemory.Scenes
         protected virtual void Switch<T>() where T : Scene
         {
             this.sceneManager.Change<T>();
+        }
+
+        private readonly List<IDrawSession> drawSessions = new List<IDrawSession>();
+        public void Activate()
+        {
+            this.sceneManager.DrawClient.Draw(drawSessions);
+        }
+
+        public void Publish(List<IDrawSession> drawSessions)
+        {
+            this.drawSessions.AddRange(drawSessions);
         }
     }
 

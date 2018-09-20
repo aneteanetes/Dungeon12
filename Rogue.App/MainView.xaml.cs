@@ -7,6 +7,9 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Threading;
+using Rogue.App.DrawClient;
+using Rogue.InMemory;
+using Rogue.InMemory.Menus;
 using Rogue.Resources;
 using SkiaSharp;
 
@@ -14,6 +17,8 @@ namespace Rogue.App
 {
     public class MainView : Window
     {
+        public SceneManager SceneManager { get; set; }
+
         public MainView()
         {
             InitializeComponent();
@@ -28,6 +33,16 @@ namespace Rogue.App
         {
             AvaloniaXamlLoader.Load(this);
             this.InitImage();
+        }
+
+        public void RunGame()
+        {
+            SceneManager = new SceneManager()
+            {
+                DrawClient = new SkiaDrawClient(this.ViewportBitmap, this.control)
+            };
+
+            SceneManager.Change<MainMenuScene>();
         }
 
         private void InitImage()
@@ -45,12 +60,10 @@ namespace Rogue.App
             //this.ResetBitmap();
             this.LoadImage();
         }
-
         private void Viewport_PointerPressed(object sender, Avalonia.Input.PointerPressedEventArgs e)
         {
-            DrawText("Aвыаddddddddddddddddddddddddddddddddddddddddddddd");
+            //RunGame();
         }
-
         private unsafe void ResetBitmap()
         {
             using (var buf = ViewportBitmap.Lock())
@@ -108,7 +121,6 @@ namespace Rogue.App
             Draw();
            
         }
-
         private unsafe void Draw()
         {
             var width = ViewportBitmap.PixelWidth;
@@ -140,69 +152,7 @@ namespace Rogue.App
                 }
             }
             control.InvalidateVisual();
-            //this.invalidate();
-        }
-
-        private void DrawText(string text)
-        {
-            //DrawingBitmap.LockPixels();
-            var bitmap = DrawingBitmap;
-            //var toBitmap =bitmap new SKBitmap(new SKImageInfo(DrawingBitmap.Width, DrawingBitmap.Height, DrawingBitmap.ColorType, DrawingBitmap.AlphaType));// (int)Math.Round(bitmap.Width * resizeFactor), (int)Math.Round(bitmap.Height * resizeFactor), bitmap.ColorType, bitmap.AlphaType);
-
-            var canvas = new SKCanvas(DrawingBitmap);
-            // Draw a bitmap rescaled
-            //canvas.SetMatrix(SKMatrix.MakeScale(resizeFactor, resizeFactor));
-            canvas.DrawBitmap(bitmap, 0, 0);
-            //canvas.ResetMatrix();
-
-            var font = SKTypeface.FromFamilyName("Arial");
-            var brush = new SKPaint
-            {
-                Typeface = font,
-                TextSize = 64.0f,
-                IsAntialias = true,
-                Color = new SKColor(255, 255, 255, 255)
-            };
-
-            brush.GetFontMetrics(out var fontMetrics);
-            
-            //font
-            
-            canvas.DrawText(text, 0, fontMetrics.XHeight+ fontMetrics.Bottom, brush);
-
-            canvas.Flush();
-
-            var image = SKImage.FromBitmap(DrawingBitmap);
-            var data = image.Encode(SKEncodedImageFormat.Jpeg, 100);
-
-            using (var stream = new FileStream("output.jpg", FileMode.Create, FileAccess.Write))
-                data.SaveTo(stream);
-
-            //data.Dispose();
-            //image.Dispose();
-            //canvas.Dispose();
-            //brush.Dispose();
-            //font.Dispose();
-            //toBitmap.Dispose();
-            //bitmap.Dispose();
-
-            //this.DrawingBitmap = toBitmap;
-
-            this.Draw();
-
-            canvas.Dispose();
-            brush.Dispose();
-            font.Dispose();
-        }
-
-        protected override void OnKeyDown(KeyEventArgs e)
-        {
-            base.OnKeyDown(e);
-        }
-
-        protected override void OnPointerPressed(PointerPressedEventArgs e)
-        {
-            base.OnPointerPressed(e);
+            RunGame();
         }
     }
 }

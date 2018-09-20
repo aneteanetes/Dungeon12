@@ -12,7 +12,7 @@ namespace Rogue.Drawing.Impl
 
         public DrawText(string value)
         {
-            this.Data = value;
+            this.data = value;
         }
 
         public DrawText(string value, DrawColor foregroundColor, DrawColor backgroundColor = null) : this(value)
@@ -27,7 +27,8 @@ namespace Rogue.Drawing.Impl
             this.ForegroundColor = foregroundColor;
         }
 
-        public string Data { get; }
+        private string data = string.Empty;
+        public string Data => data;//string.Join(Environment.NewLine, InnerText.Select(x => x.Data));
 
         public int CharsCount => this.Flat().Sum(x => x.Data.Length);
 
@@ -46,7 +47,15 @@ namespace Rogue.Drawing.Impl
 
         public void InsertAt(int index, IDrawText drawText)
         {
-            throw new NotImplementedException();
+            if(this.InnerText.ElementAtOrDefault(index)==null)
+            {
+                for (int i = -1; i < index; i++)
+                {
+                    this.InnerText.Add(new DrawText(""));
+                }
+            }
+            data += drawText.Data;
+            this.InnerText[index] = drawText;
         }
 
         public void ReplaceAt(int index, IDrawText drawText)

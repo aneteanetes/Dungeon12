@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Rogue.View.Interfaces;
-
-namespace Rogue.Drawing
+﻿namespace Rogue.Drawing
 {
+    using System;
+    using System.Collections.Generic;
+    using Rogue.View.Interfaces;
+    using Rogue.View.Publish;
+
     public class Draw
     {
         List<IDrawSession> DrawSessionBatch = new List<IDrawSession>();
@@ -41,7 +41,7 @@ namespace Rogue.Drawing
 
         public void Publish()
         {
-
+            PublishManager.Publish(DrawSessionBatch);
         }
     }
 }

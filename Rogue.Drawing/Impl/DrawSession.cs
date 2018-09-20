@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Rogue.Types;
 using Rogue.View.Interfaces;
+using Rogue.View.Publish;
 
 namespace Rogue.Drawing.Impl
 {
@@ -31,6 +32,8 @@ namespace Rogue.Drawing.Impl
                 }
             }
         }
+
+        public IEnumerable<IDrawText> Content => this.buffer.ToArray();
 
         public void Write(int linePos, int charPos, IDrawText text)
         {
@@ -67,9 +70,8 @@ namespace Rogue.Drawing.Impl
         {
             if (this.AutoClear)
                 this.Clear();
-            
 
-            throw new System.NotImplementedException();
+            PublishManager.Publish(new List<IDrawSession>() { this });
         }
 
         protected void WriteStatFull(string stringBuffer, int line, ConsoleColor color, ConsoleColor backColor = ConsoleColor.Black)

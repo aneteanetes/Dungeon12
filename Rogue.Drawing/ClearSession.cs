@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Rogue.Drawing.Impl;
-using Rogue.Settings;
-
-namespace Rogue.Drawing
+﻿namespace Rogue.Drawing
 {
+    using Rogue.Drawing.Impl;
+    using Rogue.Settings;
+
     public class ClearSession : DrawSession
     {
+        public ClearSession()
+        {
+            this.AutoClear = false;
+        }
+
         public DrawingSize DrawingSize { get; set; }
 
         public bool ClearAll

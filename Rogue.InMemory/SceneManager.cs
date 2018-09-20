@@ -3,16 +3,20 @@
     using System;
     using System.Collections.Generic;
     using Rogue.InMemory.Scenes;
+    using Rogue.View.Interfaces;
+    using Rogue.View.Publish;
 
     public class SceneManager
     {
+        public IDrawClient DrawClient { get; set; }
+
         private static readonly Dictionary<Type, Scene> SceneCache = new Dictionary<Type, Scene>();
 
         public Scene Current = null;
 
         public void Change<TScene>() where TScene : Scene
         {
-            if (Current.Destroyable)
+            if (Current?.Destroyable ?? false)
                 Current.Destroy();
 
             var sceneType = typeof(TScene);
@@ -25,6 +29,10 @@
 
             nextScene.BeforeActivate();
             this.Current = nextScene;
+
+            PublishManager.Set(Current);
+            this.Current.Draw();
+            this.Current.Activate();
         }
     }
 }
