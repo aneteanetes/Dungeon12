@@ -1,8 +1,7 @@
 ﻿namespace Rogue.InMemory.Scenes
 {
-    public class CharacterScene : Scene
+    public class CharacterScene : GameScene
     {
-
         public SceneTab PopUpTab;
 
         public SceneTab iTab;
@@ -10,6 +9,15 @@
         public SceneTab MerchTab;
 
         public SceneTab Qtab;
+
+        public CharacterScene(SceneManager sceneManager) : base(sceneManager)
+        {
+        }
+
+        public override void Draw()
+        {
+            base.Draw();
+        }
     }
 
     public class SceneTab

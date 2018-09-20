@@ -11,6 +11,8 @@ namespace Rogue.Drawing.WorldMap
     {
         public IView<Biom> BiomView { get; set; }
 
+        public Location Map { get; set; }
+
         public WorldMapHitDrawSession()
         {
             this.DrawRegion = new Types.Rectangle
@@ -29,13 +31,13 @@ namespace Rogue.Drawing.WorldMap
             var color = BiomView.GetView().ForegroundColor;
 
             //name
-            int Count = (23 / 2) - ((Rogue.RAM.Map._Name.Length) / 2);
-            string WriteThis = Rogue.RAM.Map._Name;
+            int Count = (23 / 2) - ((Map._Name.Length) / 2);
+            string WriteThis = Map._Name;
             this.Write(1, Count, new DrawText(WriteThis, color));
 
             //name
-            Count = (23 / 2) - ((Rogue.RAM.Map._Affics.Length) / 2);
-            WriteThis = Rogue.RAM.Map._Affics;
+            Count = (23 / 2) - ((Map._Affics.Length) / 2);
+            WriteThis = Map._Affics;
             this.Write(2, Count, new DrawText(WriteThis, color));
 
             //objects
@@ -66,7 +68,7 @@ namespace Rogue.Drawing.WorldMap
             //quest              
             //Count = (23 / 2) - (("!     -     Задание".Length) / 2);
             //WriteThis = "`" + ConsoleColor.Red.ToString() + "`! - Задание";
-            //winAPIDraw.DrawLeftWindow.AddLine(Count, 10, WriteThis, Rogue.RAM.Map.Biom);
+            //winAPIDraw.DrawLeftWindow.AddLine(Count, 10, WriteThis, Map.Biom);
 
             //objects
             Count = (23 / 2) - (("Жители:".Length) / 2);
@@ -75,13 +77,14 @@ namespace Rogue.Drawing.WorldMap
 
             int q = 14;
 
-            foreach (SystemEngine.Helper.Information.Mob m in SystemEngine.Helper.Information.MobsHere())
-            {
-                Count = (23 / 2) - (("? - " + m.Name).Length / 2);
-                WriteThis = "`" + m.Color.ToString() + "`" + m.Icon + " - " + m.Name;
-                this.Write(q, Count, new DrawText(WriteThis, color));
-                q++;
-            }
+            //mobs here - ненужная хуйня с патчем введётся
+            //foreach (SystemEngine.Helper.Information.Mob m in SystemEngine.Helper.Information.MobsHere())
+            //{
+            //    Count = (23 / 2) - (("? - " + m.Name).Length / 2);
+            //    WriteThis = "`" + m.Color.ToString() + "`" + m.Icon + " - " + m.Name;
+            //    this.Write(q, Count, new DrawText(WriteThis, color));
+            //    q++;
+            //}
 
 
             //DrawEngine.CharMap.DrawCMap(new List<string>()

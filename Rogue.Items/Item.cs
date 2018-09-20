@@ -29,11 +29,21 @@
         /// <summary>
         /// Уровень вещи
         /// </summary>
-        public int Level;
+        public int Level { get; set; }
 
         /// <summary>
         /// Редкость вещи
         /// </summary>
-        public Rarity Rare;
+        public Rarity Rare { get; set; }
+
+        /// <summary>
+        /// очередное дохуя спорное решение во имя запускаемости
+        /// </summary>
+        public static Item Empty => new EmptyItem();
+
+        private class EmptyItem : Item
+        {
+            public override Stats AvailableStats => Stats.None;
+        }
     }
 }

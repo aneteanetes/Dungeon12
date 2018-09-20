@@ -2,8 +2,8 @@
 {
     public interface IDrawable : IDrawContext
     {
-        string Icon { get; set; }
+        string Icon { get; }
 
-        string Name { get; set; }
+        string Name { get; }
     }
 }

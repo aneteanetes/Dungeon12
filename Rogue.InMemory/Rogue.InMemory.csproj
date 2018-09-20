@@ -5,9 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.6.1" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Rogue.Entites\Rogue.Entites.csproj" />
     <ProjectReference Include="..\Rogue.Logging\Rogue.Logging.csproj" />
     <ProjectReference Include="..\Rogue.Map\Rogue.Map.csproj" />
+    <ProjectReference Include="..\Rogue.Utils\Rogue.Utils.csproj" />
   </ItemGroup>
 
 </Project>

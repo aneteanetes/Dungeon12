@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
-using Rogue.Drawing.Impl;
-using Rogue.View.Interfaces;
-
-namespace Rogue.Drawing.Data
+﻿namespace Rogue.Drawing.Data
 {
+    using System.Collections.Generic;
+    using Rogue.Drawing.Impl;
+    using Rogue.Entites.Alive.Character;
+    using Rogue.Entites.Enemy;
+    using Rogue.View.Interfaces;
+
     public class BuffDataDrawSession : DrawSession
     {
         public BuffDataDrawSession()
@@ -11,14 +13,15 @@ namespace Rogue.Drawing.Data
             this.AutoClear = false;
         }
 
-        public IDrawable Enemy { get; set; }
+        public Enemy Enemy { get; set; }
 
-        public IDrawable Player { get; set; }
+        public Player Player { get; set; }
 
         public override IDrawSession Run()
         {
-            this.DrawObject(3, Enemy.States);
-            this.DrawObject(96, Player.States);
+            // здесь будут applicable modifiers
+            //this.DrawObject(3, Enemy.States);
+            //this.DrawObject(96, Player.States);
 
             return base.Run();
         }

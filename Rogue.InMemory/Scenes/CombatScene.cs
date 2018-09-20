@@ -2,8 +2,12 @@
 {
     using Rogue.Entites.Enemy;
 
-    public class CombatScene : Scene
+    public class CombatScene : GameScene
     {
         public Enemy Enemy;
+
+        public CombatScene(SceneManager sceneManager) : base(sceneManager)
+        {
+        }
     }
 }

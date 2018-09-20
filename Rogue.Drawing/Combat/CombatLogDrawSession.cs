@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Rogue.Drawing.Impl;
-using Rogue.View.Interfaces;
-
-namespace Rogue.Drawing.Combat
+﻿namespace Rogue.Drawing.Combat
 {
+    using System;
+    using System.Collections.Generic;
+    using Rogue.Drawing.Impl;
+    using Rogue.Entites;
+    using Rogue.Entites.Alive.Character;
+    using Rogue.Entites.Enemy;
+    using Rogue.View.Interfaces;
+
     public class CombatLogDrawSession : DrawSession
     {
         public CombatLogDrawSession()
@@ -19,9 +21,9 @@ namespace Rogue.Drawing.Combat
             };
         }
 
-        public IDrawable Enemy { get; set; }
+        public Enemy Enemy { get; set; }
 
-        public IDrawable Player { get; set; }
+        public Player Player { get; set; }
 
         public List<IDrawable> Log { get; set; }
 
@@ -34,12 +36,12 @@ namespace Rogue.Drawing.Combat
             }
 
             int pos = (23 / 2) - (Enemy.Name.Length / 2);
-            this.Write(1,pos+1, DrawHelp.FullLine(" ".Length + Enemy.Name.Length, " " + Enemy.Name, " ".Length + Enemy.Name.Length - 1),color);
+            this.Write(1, pos + 1, DrawHelp.FullLine(" ".Length + Enemy.Name.Length, " " + Enemy.Name, " ".Length + Enemy.Name.Length - 1), color);
 
             color = new DrawColor(ConsoleColor.DarkGray);
             pos = (100 / 2) - ((Enemy.Name.Length + " VS ".Length + Player.Name.Length) / 2);
             this.Write(1, pos + 1, DrawHelp.FullLine(Enemy.Name.Length + " VS ".Length + Player.Name.Length, Enemy.Name + " VS " + Player.Name, (Enemy.Name.Length + " VS ".Length + Player.Name.Length) - 1), color);
-            
+
             color = new DrawColor(ConsoleColor.DarkCyan);
 
             int q = 3;
@@ -53,13 +55,11 @@ namespace Rogue.Drawing.Combat
 
             for (int i = 0; i < Log.Count; i++)
             {
-                Console.SetCursorPosition(28, q);
-
                 if (Log[i].Name.Length > 37)
                 {
                     string first = Log[i].Name.Substring(37);
-                    Log.Add(first);
-                    Log[i] = Log[i].Name.Remove(37);
+                    Log.Add(new Drawable() { Name = first, ForegroundColor = new DrawColor(ConsoleColor.Blue) });
+                    Log[i] = new Drawable() { Name = Log[i].Name.Remove(37), ForegroundColor = new DrawColor(ConsoleColor.Blue) };
                     this.Run();
                 }
                 else

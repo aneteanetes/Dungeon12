@@ -8,5 +8,7 @@
         public int Level { get; set; }
 
         public long HitPoints { get; set; }
+
+        public long MaxHitPoints { get; set; }
     }
 }

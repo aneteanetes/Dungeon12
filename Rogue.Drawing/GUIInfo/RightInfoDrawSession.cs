@@ -27,7 +27,9 @@ namespace Rogue.Drawing.GUIInfo
             return base.Run();
         }
 
-        protected void WriteAvatar(string icon, ConsoleColor color)
+        protected void WriteAvatar(string icon, ConsoleColor color) => WriteAvatar(icon, new DrawColor(color));
+
+        protected void WriteAvatar(string icon, IDrawColor color)
         {
             var GUIcolor = ConsoleColor.DarkGreen;
 

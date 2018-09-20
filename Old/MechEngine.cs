@@ -9,6 +9,39 @@ namespace Rogue
 {
     public static class MechEngine
     {
+        public class Labirinth
+        {
+            public string Name;
+
+            public string _Name, _Affics;
+
+            public ConsoleColor Biom;
+
+            public int Level = 1;
+
+            public Cell[][] Map;
+
+            public class Cell
+            {
+                public char Vision;
+
+                public Item Item;
+
+                public Monster Enemy;
+
+                public Wall Wall;
+
+                public ActiveObject Object;
+
+                public Character Player;
+
+                public Trap Trap;
+
+                public bool Empty;
+
+            }
+        }
+
         private static Random r = new Random();
         public class Character
         {

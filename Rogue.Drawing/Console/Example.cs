@@ -17,15 +17,17 @@ namespace Rogue.Drawing.Console
         /// <param name="AnimationType">Window with animation can have one of 3 animations (0-2)</param>
         public static void s(bool Border = true, bool CustomBorder = false, bool Header = false, bool Animation = false, int AnimationType = 0)
         {
-            Window w = new Window();
+            Window w = new Window
+            {
 
-            //Size
-            w.Width = 30;
-            w.Height = 30;
+                //Size
+                Width = 30,
+                Height = 30,
 
-            //Position
-            w.Left = 0;
-            w.Top = 0;
+                //Position
+                Left = 0,
+                Top = 0
+            };
 
             //Border settings
             var b = Additional.BoldBorder;
@@ -133,7 +135,7 @@ namespace Rogue.Drawing.Console
 
             //finally
             w.Text = t;
-            w.Draw();
+            w.Publish();
         }
     }
 }

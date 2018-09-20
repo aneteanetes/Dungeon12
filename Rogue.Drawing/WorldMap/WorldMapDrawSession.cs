@@ -29,7 +29,6 @@ namespace Rogue.Drawing.WorldMap
         {
             string template = string.Empty;
 
-            Console.SetCursorPosition(0, 3);
             switch (Biom.Color)
             {
                 case ConsoleColor.DarkCyan: { template = WorldTemplates.Mount; break; }

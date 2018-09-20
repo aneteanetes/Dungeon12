@@ -1,9 +1,11 @@
-﻿using System;
-using Rogue.Drawing.Impl;
-using Rogue.View.Interfaces;
-
-namespace Rogue.Drawing.Data
+﻿namespace Rogue.Drawing.Data
 {
+    using System;
+    using System.Linq;
+    using Rogue.Drawing.Impl;
+    using Rogue.Entites.Items;
+    using Rogue.View.Interfaces;
+
     public class InventoryDrawSession : DrawSession
     {
         public InventoryDrawSession()
@@ -11,17 +13,19 @@ namespace Rogue.Drawing.Data
             AutoClear = false;
         }
 
+        public Inventory Inventory { get; set; }
+
         public override IDrawSession Run()
         {
             char[] oldchar = new char[] { '\0', '\0', '\0', '\0', '\0', '\0' };
-            ConsoleColor[] oldcol = new ConsoleColor[] { 0, 0, 0, 0, 0, 0 };
+            IDrawColor[] oldcol = new IDrawColor[] { new DrawColor(0), new DrawColor(0), new DrawColor(0), new DrawColor(0), new DrawColor(0), new DrawColor(0) };
 
             for (int i = 0; i < 6; i++)
             {
                 try
                 {
-                    oldchar[i] = Rogue.RAM.Player.Inventory[i].Icon();
-                    oldcol[i] = Convert.ToInt16(Rogue.RAM.Player.Inventory[i].Color);
+                    oldchar[i] = Inventory.Items[i].Icon.First();
+                    oldcol[i] = Inventory.Items[i].ForegroundColor;
                 }
                 catch { }
             }

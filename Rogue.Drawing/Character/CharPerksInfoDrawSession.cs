@@ -1,13 +1,17 @@
-﻿using System;
-using System.Diagnostics;
-using Rogue.Drawing.Impl;
-using Rogue.View.Interfaces;
-
-namespace Rogue.Drawing.Character
+﻿namespace Rogue.Drawing.Character
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using Rogue.Drawing.Impl;
+    using Rogue.Transactions;
+    using Rogue.View.Interfaces;
+
     //maininfoborder
     public class CharPerksInfoDrawSession : DrawSession
     {
+        public IEnumerable<Applicable> Modifiers { get; set; }
+
         public CharPerksInfoDrawSession()
         {
             this.DrawRegion = new Types.Rectangle
@@ -21,6 +25,10 @@ namespace Rogue.Drawing.Character
 
         public int Tab { get; set; }
 
+        public int NowTab { get; set; }
+
+        public int MaxTab { get; set; }
+
         public override IDrawSession Run()
         {
             this.WriteHeader("Особенности персонажа");
@@ -29,66 +37,66 @@ namespace Rogue.Drawing.Character
 
             int ctab = (Tab * 5) - 5;
             int i = 0;
-            for (int q = ctab; q < Tab * 5; q++)
-            {
-                try
-                {
-                    MechEngine.Perk p = Rogue.RAM.Player.Perks[q];
+            // особенности это постоянные бафы, т.е. модификаторы вечные, надо переделывать
+            //for (int q = ctab; q < Tab * 5; q++)
+            //{
+            //    try
+            //    {
 
-                    this.Write(3 + i, 28, new DrawText("┌───┐ " + p.Name, ConsoleColor.Gray));
-                    this.Write(4 + i, 28, new DrawText("│   │ " + p.History, ConsoleColor.Gray));
-                    this.Write(4 + i, 30, new DrawText(p.Icon, p.Color));
+            //        this.Write(3 + i, 28, new DrawText("┌───┐ " + p.Name, ConsoleColor.Gray));
+            //        this.Write(4 + i, 28, new DrawText("│   │ " + p.History, ConsoleColor.Gray));
+            //        this.Write(4 + i, 30, new DrawText(p.Icon, p.Color));
 
-                    string stats = string.Empty;
-                    if (p.AP != 0)
-                    {
-                        stats += " AP" + GetSign(p.AP);
-                    }
-                    if (p.AD != 0)
-                    {
-                        stats += " AD" + GetSign(p.AD);
-                    }
-                    if (p.ARM != 0)
-                    {
-                        stats += " ARM" + GetSign(p.ARM);
-                    }
-                    if (p.HP != 0)
-                    {
-                        stats += " HP" + GetSign(p.HP);
-                    }
-                    if (p.MADMG != 0)
-                    {
-                        stats += " DMG↑" + GetSign(p.MADMG);
-                    }
-                    if (p.MIDMG != 0)
-                    {
-                        stats += " DMG↓" + GetSign(p.MIDMG);
-                    }
-                    if (p.MP != 0)
-                    {
-                        stats += " MP" + GetSign(p.MP);
-                    }
-                    if (p.MRS != 0)
-                    {
-                        stats += " MRS" + GetSign(p.MRS);
-                    }
-                    this.Write(5 + i, 28, new DrawText("└───┘ " + stats, ConsoleColor.Gray));
+            //        string stats = string.Empty;
+            //        if (p.AP != 0)
+            //        {
+            //            stats += " AP" + GetSign(p.AP);
+            //        }
+            //        if (p.AD != 0)
+            //        {
+            //            stats += " AD" + GetSign(p.AD);
+            //        }
+            //        if (p.ARM != 0)
+            //        {
+            //            stats += " ARM" + GetSign(p.ARM);
+            //        }
+            //        if (p.HP != 0)
+            //        {
+            //            stats += " HP" + GetSign(p.HP);
+            //        }
+            //        if (p.MADMG != 0)
+            //        {
+            //            stats += " DMG↑" + GetSign(p.MADMG);
+            //        }
+            //        if (p.MIDMG != 0)
+            //        {
+            //            stats += " DMG↓" + GetSign(p.MIDMG);
+            //        }
+            //        if (p.MP != 0)
+            //        {
+            //            stats += " MP" + GetSign(p.MP);
+            //        }
+            //        if (p.MRS != 0)
+            //        {
+            //            stats += " MRS" + GetSign(p.MRS);
+            //        }
+            //        this.Write(5 + i, 28, new DrawText("└───┘ " + stats, ConsoleColor.Gray));
 
-                    //
-                    stringBuffer = DrawHelp.FullLine(74, DrawHelp.Border(true, 4), 27);
-                    stringBuffer = " " + DrawHelp.Border(true, 8) + stringBuffer.Remove(stringBuffer.Length - 1) + DrawHelp.Border(true, 7);
+            //        //
+            //        stringBuffer = DrawHelp.FullLine(74, DrawHelp.Border(true, 4), 27);
+            //        stringBuffer = " " + DrawHelp.Border(true, 8) + stringBuffer.Remove(stringBuffer.Length - 1) + DrawHelp.Border(true, 7);
 
-                    this.Write(6 + i, 25, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
+            //        this.Write(6 + i, 25, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
 
-                    i = i + 4;
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    //ниуя не пофигу
-                    Debugger.Break();
-                    //пофигу
-                }
-            }
+            //        i = i + 4;
+            //    }
+            //    catch (ArgumentOutOfRangeException)
+            //    {
+            //        //ниуя не пофигу
+            //        Debugger.Break();
+            //        //пофигу
+            //    }
+            //}
 
             return base.Run();
         }
@@ -111,25 +119,24 @@ namespace Rogue.Drawing.Character
         {
             string stringBuffer = string.Empty;
 
-            Rogue.RAM.iTab.NowTab = Tab;
-            Rogue.RAM.iTab.MaxTab = (Rogue.RAM.Player.Perks.Count / 5) + 1;
+            NowTab = Tab;
 
-            if (Rogue.RAM.Player.Perks.Count > 5)
-            {
-                stringBuffer = DrawHelp.FullLine(74, DrawHelp.Border(true, 4), 27);
-                stringBuffer = " " + DrawHelp.Border(true, 8) + stringBuffer.Remove(stringBuffer.Length - 1) + DrawHelp.Border(true, 7);
-                this.Write(22, 25, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
+            //if (Rogue.RAM.Player.Perks.Count > 5)
+            //{
+            //    stringBuffer = DrawHelp.FullLine(74, DrawHelp.Border(true, 4), 27);
+            //    stringBuffer = " " + DrawHelp.Border(true, 8) + stringBuffer.Remove(stringBuffer.Length - 1) + DrawHelp.Border(true, 7);
+            //    this.Write(22, 25, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
                 
-                if (Rogue.RAM.iTab.NowTab >= Rogue.RAM.iTab.MaxTab && Rogue.RAM.iTab.NowTab != 1)
-                {
-                    this.Write(23, 27, new DrawText(" <=", ConsoleColor.DarkGreen));
-                }
+            //    if (Rogue.RAM.iTab.NowTab >= Rogue.RAM.iTab.MaxTab && Rogue.RAM.iTab.NowTab != 1)
+            //    {
+            //        this.Write(23, 27, new DrawText(" <=", ConsoleColor.DarkGreen));
+            //    }
 
-                if (Rogue.RAM.iTab.NowTab < Rogue.RAM.iTab.MaxTab)
-                {
-                    this.Write(23, 70, new DrawText("=> ", ConsoleColor.DarkGreen));
-                }
-            }
+            //    if (Rogue.RAM.iTab.NowTab < Rogue.RAM.iTab.MaxTab)
+            //    {
+            //        this.Write(23, 70, new DrawText("=> ", ConsoleColor.DarkGreen));
+            //    }
+            //}
         }
     }
 }

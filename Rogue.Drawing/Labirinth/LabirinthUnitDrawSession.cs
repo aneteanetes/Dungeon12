@@ -12,7 +12,7 @@ namespace Rogue.Drawing.Labirinth
 
         public override IDrawSession Run()
         {
-            this.Write(0, 0, new DrawText(Object.Icon, Object.ForegroundColor, Object.BackgroundColor);
+            this.Write(0, 0, new DrawText(Object.Icon, Object.ForegroundColor, Object.BackgroundColor));
             return base.Run();
         }
     }

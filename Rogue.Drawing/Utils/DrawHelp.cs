@@ -144,34 +144,6 @@ namespace Rogue.Drawing
         }
 
         /// <summary>
-        /// Draw avatar in left window, set char
-        /// </summary>
-        public static IDrawText DrawAvatar
-        {
-            set
-            {
-                Console.ForegroundColor = Rogue.RAM.CUIColor;
-                int Count = (23 / 2) - ("╔═══════╗".Length / 2);
-                Console.SetCursorPosition(Count + 1, 4);
-                Console.WriteLine("╔═══════╗");
-                int Countt = 5;
-                for (int i = 0; i < 5; i++)
-                {
-                    Console.SetCursorPosition(Count + 1, Countt++);
-                    Console.WriteLine("║       ║");
-                    if (i == 2)
-                    {
-                        Console.ForegroundColor = value.Color;
-                        Console.SetCursorPosition(Count + 5, Countt - 1);
-                        Console.Write(value.Char);
-                        Console.ForegroundColor = Rogue.RAM.CUIColor;
-                    }
-                }
-                Console.SetCursorPosition(Count + 1, Countt);
-                Console.WriteLine("╚═══════╝");
-            }
-        }
-        /// <summary>
         /// Return int value with sign ( - or + )
         /// </summary>
         /// <param name="Number">int value</param>

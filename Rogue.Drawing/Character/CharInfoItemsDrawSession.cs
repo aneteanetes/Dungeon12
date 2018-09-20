@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Rogue.Drawing.Impl;
-using Rogue.View.Interfaces;
-
-namespace Rogue.Drawing.Character
+﻿namespace Rogue.Drawing.Character
 {
+    using System;
+    using Rogue.Drawing.Impl;
+    using Rogue.Entites.Items;
+    using Rogue.View.Interfaces;
+
     public class CharInfoItemsDrawSession :DrawSession
     {
         public CharInfoItemsDrawSession()
@@ -19,6 +18,8 @@ namespace Rogue.Drawing.Character
             };
 
         }
+
+        public Equipment Equipment { get; set; }
 
         public override IDrawSession Run()
         {
@@ -46,7 +47,6 @@ namespace Rogue.Drawing.Character
 
             //Инвентарь
 
-            Console.ForegroundColor = ConsoleColor.Gray;
             int Count = (23 / 2) - ("Экипировка:".Length / 2);
             this.Write(1, Count+1, new DrawText(DrawHelp.FullLine("Экипировка:".Length, "Экипировка:", "Экипировка:".Length - 1), color));
 
@@ -72,17 +72,17 @@ namespace Rogue.Drawing.Character
             string output = " ";
 
             //head
-            ConsoleColor colorBuffer = ConsoleColor.Gray;
+            IDrawColor colorBuffer = new DrawColor(ConsoleColor.Gray);
             Count = (23 / 2) - ("Экипировано:".Length / 2);
             output = "Экипировано:";
             this.Write(12, Count + 1, new DrawText(DrawHelp.FullLine(output.Length, output, output.Length - 1), colorBuffer));
 
 
-            if (Rogue.RAM.Player.Equipment.Helm != null)
+            if (Equipment.Helm != null)
             {
-                itm = Rogue.RAM.Player.Equipment.Helm.Name;
-                ilvl = Rogue.RAM.Player.Equipment.Helm.ILvl.ToString();
-                colorBuffer = Rogue.RAM.Player.Equipment.Helm.Color;
+                itm = Equipment.Helm.Name;
+                ilvl = Equipment.Helm.Level.ToString();
+                colorBuffer = Equipment.Helm.ForegroundColor;
             }
             else
             {
@@ -95,11 +95,11 @@ namespace Rogue.Drawing.Character
             this.Write(14, Count + 1, new DrawText(DrawHelp.FullLine(output.Length, output, output.Length - 1), colorBuffer));
 
             //chest               
-            if (Rogue.RAM.Player.Equipment.Armor != null)
+            if (Equipment.Armor != null)
             {
-                itm = Rogue.RAM.Player.Equipment.Armor.Name;
-                ilvl = Rogue.RAM.Player.Equipment.Armor.ILvl.ToString();
-                colorBuffer = Rogue.RAM.Player.Equipment.Armor.Color;
+                itm = Equipment.Armor.Name;
+                ilvl = Equipment.Armor.Level.ToString();
+                colorBuffer = Equipment.Armor.ForegroundColor;
             }
             else
             {
@@ -113,11 +113,11 @@ namespace Rogue.Drawing.Character
 
             //boots
 
-            if (Rogue.RAM.Player.Equipment.Boots != null)
+            if (Equipment.Boots != null)
             {
-                itm = Rogue.RAM.Player.Equipment.Boots.Name;
-                ilvl = Rogue.RAM.Player.Equipment.Boots.ILvl.ToString();
-                colorBuffer = Rogue.RAM.Player.Equipment.Boots.Color;
+                itm = Equipment.Boots.Name;
+                ilvl = Equipment.Boots.Level.ToString();
+                colorBuffer = Equipment.Boots.ForegroundColor;
             }
             else
             {
@@ -129,11 +129,11 @@ namespace Rogue.Drawing.Character
             this.Write(16, Count + 1, new DrawText(DrawHelp.FullLine(output.Length, output, output.Length - 1), colorBuffer));
 
             //weapon
-            if (Rogue.RAM.Player.Equipment.Weapon != null)
+            if (Equipment.Weapon != null)
             {
-                itm = Rogue.RAM.Player.Equipment.Weapon.Name;
-                ilvl = Rogue.RAM.Player.Equipment.Weapon.ILvl.ToString();
-                colorBuffer = Rogue.RAM.Player.Equipment.Weapon.Color;
+                itm = Equipment.Weapon.Name;
+                ilvl = Equipment.Weapon.Level.ToString();
+                colorBuffer = Equipment.Weapon.ForegroundColor;
             }
             else
             {
@@ -148,11 +148,11 @@ namespace Rogue.Drawing.Character
 
 
             //Offhand
-            if (Rogue.RAM.Player.Equipment.OffHand != null)
+            if (Equipment.OffHand != null)
             {
-                itm = Rogue.RAM.Player.Equipment.OffHand.Name;
-                ilvl = Rogue.RAM.Player.Equipment.OffHand.ILvl.ToString();
-                colorBuffer = Rogue.RAM.Player.Equipment.OffHand.Color;
+                itm = Equipment.OffHand.Name;
+                ilvl = Equipment.OffHand.Level.ToString();
+                colorBuffer = Equipment.OffHand.ForegroundColor;
             }
             else
             {
@@ -164,49 +164,50 @@ namespace Rogue.Drawing.Character
 
             this.Write(18, Count + 1, new DrawText(DrawHelp.FullLine(output.Length, output, output.Length - 1), colorBuffer));
 
-            colorBuffer = ConsoleColor.Red;
-            int gear = MechEngine.Item.GetGearScore();
-            Count = (23 / 2) - (("GearScore: ".Length + MechEngine.Item.GetGearScore().ToString().Length) / 2);
-            output = "GearScore: " + MechEngine.Item.GetGearScore().ToString();
+            colorBuffer = new DrawColor(ConsoleColor.Red);
+            int gear = 0;// MechEngine.Item.GetGearScore();
+            Count = (23 / 2) - (("GearScore: 0".Length) / 2);
+            output = "GearScore: 0";
 
             this.Write(20, Count + 1, new DrawText(DrawHelp.FullLine(output.Length, output, output.Length - 1), colorBuffer));
 
             //Заполнение ячеек
-            if (Rogue.RAM.Player.Equipment.Helm != null)
+            if (Equipment.Helm != null)
             {
-                this.Write(3, 12, new DrawText(Rogue.RAM.Player.Equipment.Helm.Icon(), Rogue.RAM.Player.Equipment.Helm.Color));
+                this.Write(3, 12, new DrawText(Equipment.Helm.Icon, Equipment.Helm.ForegroundColor));
             }
 
-            if (Rogue.RAM.Player.Equipment.Armor != null)
+            if (Equipment.Armor != null)
             {
-                this.Write(6, 12, new DrawText(Rogue.RAM.Player.Equipment.Helm.Icon(), Rogue.RAM.Player.Equipment.Helm.Color));
+                this.Write(6, 12, new DrawText(Equipment.Helm.Icon, Equipment.Armor.ForegroundColor));
             }
 
-            if (Rogue.RAM.Player.Equipment.Weapon != null)
+            if (Equipment.Weapon != null)
             {
-                this.Write(6, 6, new DrawText(Rogue.RAM.Player.Equipment.Helm.Icon(), Rogue.RAM.Player.Equipment.Helm.Color));
+                this.Write(6, 6, new DrawText(Equipment.Helm.Icon, Equipment.Weapon.ForegroundColor));
             }
 
-            if (Rogue.RAM.Player.Equipment.OffHand != null)
+            if (Equipment.OffHand != null)
             {
-                this.Write(6, 18, new DrawText(Rogue.RAM.Player.Equipment.Helm.Icon(), Rogue.RAM.Player.Equipment.Helm.Color));
+                this.Write(6, 18, new DrawText(Equipment.Helm.Icon, Equipment.OffHand.ForegroundColor));
             }
 
-            if (Rogue.RAM.Player.Equipment.Boots != null)
+            if (Equipment.Boots != null)
             {
-                this.Write(9, 12, new DrawText(Rogue.RAM.Player.Equipment.Helm.Icon(), Rogue.RAM.Player.Equipment.Helm.Color));
+                this.Write(9, 12, new DrawText(Equipment.Helm.Icon, Equipment.Boots.ForegroundColor));
             }
 
             //Ab points
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Count = (23 / 2) - (("Очки навыков: ".Length + Rogue.RAM.Player.AbPoint.ToString().Length) / 2);
-            output = "Очки навыков: " + Rogue.RAM.Player.AbPoint.ToString();
-            this.Write(22, Count + 1, new DrawText(DrawHelp.FullLine(output.Length, output, output.Length - 1), colorBuffer));
+            // нет больше, теперь таланты
+            //Console.ForegroundColor = ConsoleColor.Magenta;
+            //Count = (23 / 2) - (("Очки навыков: ".Length + AbPoint.ToString().Length) / 2);
+            //output = "Очки навыков: " + AbPoint.ToString();
+            //this.Write(22, Count + 1, new DrawText(DrawHelp.FullLine(output.Length, output, output.Length - 1), colorBuffer));
 
-            //CrPoints
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Count = (23 / 2) - (("Очки профф: ".Length + Rogue.RAM.Player.CrPoint.ToString().Length) / 2);
-            output = "Очки профф: " + Rogue.RAM.Player.CrPoint.ToString();
+            ////CrPoints
+            //Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            //Count = (23 / 2) - (("Очки профф: ".Length + CrPoint.ToString().Length) / 2);
+            //output = "Очки профф: " + CrPoint.ToString();
 
             this.Write(23, Count + 1, new DrawText(DrawHelp.FullLine(output.Length, output, output.Length - 1), colorBuffer));
 

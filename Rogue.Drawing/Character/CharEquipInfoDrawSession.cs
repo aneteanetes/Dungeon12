@@ -1,5 +1,7 @@
 ﻿using System;
 using Rogue.Drawing.Impl;
+using Rogue.Entites.Items;
+using Rogue.Items;
 using Rogue.View.Interfaces;
 
 namespace Rogue.Drawing.Character
@@ -8,18 +10,17 @@ namespace Rogue.Drawing.Character
     {
         public int Index { get; set; }
 
+        public Equipment Equipment { get; set; }
+
         public override IDrawSession Run()
         {
             this.WriteHeader("Экипировка персонажа");
             
-            MechEngine.Character pl = Rogue.RAM.Player;
-
-
-            this.DrawItem(pl.Equipment.Weapon, 3);
-            this.DrawItem(pl.Equipment.OffHand, 7);
-            this.DrawItem(pl.Equipment.Helm, 11);
-            this.DrawItem(pl.Equipment.Armor, 15);
-            this.DrawItem(pl.Equipment.Boots, 19);
+            this.DrawItem(Equipment.Weapon, 3);
+            this.DrawItem(Equipment.OffHand, 7);
+            this.DrawItem(Equipment.Helm, 11);
+            this.DrawItem(Equipment.Armor, 15);
+            this.DrawItem(Equipment.Boots, 19);
 
             return base.Run();
         }
@@ -34,50 +35,52 @@ namespace Rogue.Drawing.Character
             {
                 this.Write(linePos, 28, new DrawText(DrawHelp.Border(bold, 0, "TopCornLeft") + "───" + DrawHelp.Border(bold, 0, "TopCornRight") + " " + item.Name, ConsoleColor.Gray));
                 
-                this.Write(linePos, 28, new DrawText("│   │ " + "Уровень предмета: [" + item.ILvl + "]", ConsoleColor.Gray));
+                this.Write(linePos, 28, new DrawText("│   │ " + "Уровень предмета: [" + item.Level + "]", ConsoleColor.Gray));
 
-                this.Write(linePos, 30, new DrawText(item.Icon, item.Color));
+                this.Write(linePos, 30, new DrawText(item.Icon, item.ForegroundColor));
 
 
                 var p = item;
                 string stats = string.Empty;
 
-                if (p.AP != 0)
-                {
-                    stats += " AP" + GetSign(p.AP);
-                }
-                if (p.AD != 0)
-                {
-                    stats += " AD" + GetSign(p.AD);
-                }
-                if (p.ARM != 0)
-                {
-                    stats += " ARM" + GetSign(p.ARM);
-                }
-                if (p.MADMG != 0)
-                {
-                    stats += " DMG↑" + GetSign(p.MADMG);
-                }
-                if (p.MIDMG != 0)
-                {
-                    stats += " DMG↓" + GetSign(p.MIDMG);
-                }
-                if (p.ARM != 0)
-                {
-                    stats += " ARM" + GetSign(p.ARM);
-                }
-                if (p.MRS != 0)
-                {
-                    stats += " MRS" + GetSign(p.MRS);
-                }
-                if (p.HP != 0)
-                {
-                    stats += " HP" + GetSign(p.HP);
-                }
-                if (p.MP != 0)
-                {
-                    stats += " MP" + GetSign(p.MP);
-                }
+                //статы теперь через модификаторы, всё нахуй переделывать
+
+                //if (p.AP != 0)
+                //{
+                //    stats += " AP" + GetSign(p.AP);
+                //}
+                //if (p.AD != 0)
+                //{
+                //    stats += " AD" + GetSign(p.AD);
+                //}
+                //if (p.ARM != 0)
+                //{
+                //    stats += " ARM" + GetSign(p.ARM);
+                //}
+                //if (p.MADMG != 0)
+                //{
+                //    stats += " DMG↑" + GetSign(p.MADMG);
+                //}
+                //if (p.MIDMG != 0)
+                //{
+                //    stats += " DMG↓" + GetSign(p.MIDMG);
+                //}
+                //if (p.ARM != 0)
+                //{
+                //    stats += " ARM" + GetSign(p.ARM);
+                //}
+                //if (p.MRS != 0)
+                //{
+                //    stats += " MRS" + GetSign(p.MRS);
+                //}
+                //if (p.HP != 0)
+                //{
+                //    stats += " HP" + GetSign(p.HP);
+                //}
+                //if (p.MP != 0)
+                //{
+                //    stats += " MP" + GetSign(p.MP);
+                //}
                 linePos++;
                 this.Write(linePos, 28, new DrawText(DrawHelp.Border(bold, 0, "BotCornLeft") + "───" + DrawHelp.Border(bold, 0, "BotCornRight") + " " + stats, ConsoleColor.Gray));
 

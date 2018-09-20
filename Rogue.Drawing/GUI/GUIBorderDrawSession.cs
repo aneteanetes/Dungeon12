@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Rogue.Drawing.Impl;
-using Rogue.View.Interfaces;
-
-namespace Rogue.Drawing.GUI
+﻿namespace Rogue.Drawing.GUI
 {
+    using System;
+    using Rogue.Drawing.Impl;
+    using Rogue.Settings;
+    using Rogue.View.Interfaces;
+
     public class GUIBorderDrawSession : DrawSession
     {
+        public DrawingSize DrawingSize { get; set; }
+
         public GUIBorderDrawSession()
         {
             this.DrawRegion = new Types.Rectangle

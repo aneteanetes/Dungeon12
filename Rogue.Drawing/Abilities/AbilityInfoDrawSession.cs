@@ -1,9 +1,11 @@
-﻿using System;
-using Rogue.Drawing.Impl;
-using Rogue.View.Interfaces;
-
-namespace Rogue.Drawing.Abilities
+﻿namespace Rogue.Drawing.Abilities
 {
+    using System;
+    using Rogue.Abilities;
+    using Rogue.Drawing.Impl;
+    using Rogue.Entites.Alive.Character;
+    using Rogue.View.Interfaces;
+
     public class AbilityInfoDrawSession : DrawSession
     {
         public AbilityInfoDrawSession()
@@ -11,9 +13,9 @@ namespace Rogue.Drawing.Abilities
             this.AutoClear = false;
         }
 
-        public IDrawable Ability { get; set; }
+        public Ability Ability { get; set; }
 
-        public IDrawable Player { get; set; }
+        public Player Player { get; set; }
 
         public override IDrawSession Run()
         {
@@ -52,23 +54,23 @@ namespace Rogue.Drawing.Abilities
 
 
             //Mode
-            leftPos = (50 / 2) - (Ability.Mode.Length / 2);
-            this.Write(15, leftPos + 25, Abilities.Mode, ConsoleColor.Red);
+            //leftPos = (50 / 2) - (Ability.Mode.Length / 2);
+            //this.Write(15, leftPos + 25, Abilities.Mode, ConsoleColor.Red);
 
-            //Cost
-            leftPos = (50 / 2) - ((Player.Mana.Name.Length + Ability.Cost.Length + 1) / 2);
-            this.Write(17, leftPos + 25, Rogue.RAM.Player.ManaName + Cost, SystemEngine.Helper.Information.ClassC);
+            ////Cost
+            //leftPos = (50 / 2) - ((Player.Mana.Name.Length + Ability.Cost.Length + 1) / 2);
+            //this.Write(17, leftPos + 25, Rogue.RAM.Player.ManaName + Cost, SystemEngine.Helper.Information.ClassC);
 
-            //Rate
-            leftPos = (25 / 2) - ((Abilitiy.ApRate.Length) / 2);
-            this.Write(19, leftPos + 25, Abilitiy.ApRate, ConsoleColor.DarkRed);
-            
-            //lvlRate
-            leftPos = (75 / 2) - (("Уровень: " + Ability.LvlRate).Length / 2);
-            this.Write(20, leftPos + 25, "Уровень: " + Abilitiy.LvlRate, ConsoleColor.DarkGray);
+            ////Rate
+            //leftPos = (25 / 2) - ((Abilitiy.ApRate.Length) / 2);
+            //this.Write(19, leftPos + 25, Abilitiy.ApRate, ConsoleColor.DarkRed);
+
+            ////lvlRate
+            //leftPos = (75 / 2) - (("Уровень: " + Ability.LvlRate).Length / 2);
+            //this.Write(20, leftPos + 25, "Уровень: " + Abilitiy.LvlRate, ConsoleColor.DarkGray);
 
             //duration
-            string duration = Ability.Duration;
+            string duration = "";// Ability.Duration;
 
             if (duration == "0")
             {
@@ -86,7 +88,7 @@ namespace Rogue.Drawing.Abilities
             this.Write(20, leftPos + 25, duration, ConsoleColor.DarkYellow);
 
             //location
-            string location = "Где используется: " + Ability.Location;
+            string location = "Где используется: ";// + Ability.Location;
             leftPos = (50 / 2) - location.Length / 2;
             this.Write(22, leftPos + 25, location, ConsoleColor.DarkCyan);
 

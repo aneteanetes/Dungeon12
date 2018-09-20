@@ -63,7 +63,7 @@ namespace Rogue.Drawing.Merchant
             }
 
             this.Write(Position + 3, left, itemName, Item.ForegroundColor);
-            this.Write(Position + 4, left, "$:" + Item.Price, ConsoleColor.Yellow);
+            //this.Write(Position + 4, left, "$:" + Item.Price, ConsoleColor.Yellow);
 
             return base.Run();
         }

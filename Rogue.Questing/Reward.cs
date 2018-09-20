@@ -8,8 +8,8 @@
     /// </summary>
     public class Reward
     {
-        public Reward()
-        { Items = new List<Item>(); Abilityes = new List<Ability>(); Perks = new List<Perk>(); Exp = new List<int>(); Gold = new List<int>(); }
-        public List<Item> Items; public List<Ability> Abilityes; public List<Perk> Perks; public List<int> Exp; public List<int> Gold;
+        //public Reward()
+        //{ Items = new List<Item>(); Abilityes = new List<Ability>(); Perks = new List<Perk>(); Exp = new List<int>(); Gold = new List<int>(); }
+        //public List<Item> Items; public List<Ability> Abilityes; public List<Perk> Perks; public List<int> Exp; public List<int> Gold;
     }
 }
