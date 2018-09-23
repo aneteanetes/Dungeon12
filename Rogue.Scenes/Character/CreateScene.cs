@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rogue.InMemory.Character
+namespace Rogue.Scenes.Character
 {
     public class CreateScene
     {

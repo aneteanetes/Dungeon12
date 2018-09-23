@@ -1,10 +1,13 @@
-﻿using Rogue.Types;
-
-namespace Rogue.View.Interfaces
+﻿namespace Rogue.View.Interfaces
 {
+    using System.Collections.Generic;
+    using Rogue.Types;
+
     public interface IDrawText : IDrawContext, IGraph<IDrawText>
     {
-        string Data { get; }
+        IEnumerable<IDrawText> Data { get; }
+
+        string StringData { get; }
 
         int CharsCount { get; }
 

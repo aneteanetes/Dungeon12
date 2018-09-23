@@ -11,17 +11,6 @@ namespace Rogue.Drawing.Console
     /// </summary>
     public class Window : Interface
     {
-        public Window()
-        {
-            this.DrawRegion = new Types.Rectangle
-            {
-                X = 0,
-                Y = 0,
-                Width = 100,
-                Height = 35
-            };
-        }
-
         /// <summary>
         /// Header of window
         /// </summary>
@@ -95,7 +84,7 @@ namespace Rogue.Drawing.Console
         /// <summary>
         /// Use active Sender
         /// </summary>
-        protected void ActivateInterface()
+        public void ActivateInterface()
         {
             if (this.Sender.GetType() == typeof(Button)) { if ((this.Sender as Button).OnClick != null) { (this.Sender as Button).OnClick(); } }
             if (this.Sender.GetType() == typeof(TextBox)) { (this.Sender as TextBox).Run(); }
@@ -129,14 +118,14 @@ namespace Rogue.Drawing.Console
             //    }
             //}
         }
-        protected bool tab()
+        public bool tab()
         {
             if (Focus == this.Controls.Count - 1) { Focus = 0; this.Sender = Controls[0]; } else { Focus++; this.Sender = this.Controls[Focus]; }
             if (this.Sender.OnFocus != null) { this.Sender.OnFocus(); }
             ReconstructInterface(); if (this.Sender.GetType() == typeof(TextBox)) { this.ActivateInterface(); textboxendinput(); if (this.NeedClose) { this.NeedClose = false; return true; } }
             return false;
         }
-        protected bool up()
+        public bool up()
         {
             if (Focus == 0)
             { Focus = this.Controls.Count - 1; this.Sender = Controls[this.Controls.Count - 1]; }
@@ -147,7 +136,7 @@ namespace Rogue.Drawing.Console
             if (this.Sender.GetType() == typeof(TextBox)) { this.ActivateInterface(); textboxendinput(); if (this.NeedClose) { this.NeedClose = false; return true; } }
             return false;
         }
-        protected void textboxendinput()
+        public void textboxendinput()
         {
             if (Focus == 0) { up(); }
             else { tab(); }
@@ -155,8 +144,8 @@ namespace Rogue.Drawing.Console
             //if (Focus == this.Controls.Count - 1) { tab(); }
             //else { up(); }
         }
-        protected bool NeedClose = false;
-        protected bool Constructed = false;
+        public bool NeedClose = false;
+        public bool Constructed = false;
         /// <summary>
         /// First string is Header
         /// </summary>
@@ -317,6 +306,11 @@ namespace Rogue.Drawing.Console
                 if (i == this.Focus) { a = true; }
                 //AddInterface(Controls[i], a);
 
+                var ctrl = Controls[i];
+                ctrl.Construct(a);
+                ctrl.Run();
+                ctrl.Publish();
+
                 //DRAW_MAIN_VOID(Controls[i].Construct(a), this.Left + Controls[i].Left, this.Top + Controls[i].Top, Controls[i].Width, 3);
             }
         }
@@ -409,18 +403,7 @@ namespace Rogue.Drawing.Console
                 }
             }
         }
-
-        //public Window()
-        //{
-        //    this.DrawRegion = new Types.Rectangle
-        //    {
-        //        X = this.Left,
-        //        Y = this.Top,
-        //        Width = this.Width,
-        //        Height = this.Height
-        //    };
-        //}
-
+        
         public override void Publish()
         {
             base.Publish();
@@ -429,6 +412,14 @@ namespace Rogue.Drawing.Console
 
         public override IDrawSession Run()
         {
+            this.DrawRegion = new Types.Rectangle
+            {
+                X = this.Left,
+                Y = this.Top,
+                Width = this.Width,
+                Height = this.Height
+            };
+
             if (!this.Constructed)
                 this.ToConstruct();
 

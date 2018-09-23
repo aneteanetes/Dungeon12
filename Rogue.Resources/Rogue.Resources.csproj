@@ -5,13 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Splash\scene.png" />
     <None Remove="Images\Splash\splash.jpg" />
-    <None Remove="Images\Splash\UML.png" />
+    <None Remove="Images\Splash\start.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Images\Splash\scene.png" />
     <EmbeddedResource Include="Images\Splash\splash.jpg" />
-    <EmbeddedResource Include="Images\Splash\UML.png" />
+    <EmbeddedResource Include="Images\Splash\start.png" />
   </ItemGroup>
 
 </Project>

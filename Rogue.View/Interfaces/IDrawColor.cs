@@ -2,9 +2,9 @@
 {
     public interface IDrawColor
     {
-        int R { get; }
-        int G { get; }
-        int B { get; }
-        int A { get; }
+        byte R { get; }
+        byte G { get; }
+        byte B { get; }
+        byte A { get; }
     }
 }

@@ -1,8 +1,8 @@
-﻿namespace Rogue.InMemory
+﻿namespace Rogue.Scenes
 {
     using System;
     using System.Collections.Generic;
-    using Rogue.InMemory.Scenes;
+    using Rogue.Scenes.Scenes;
     using Rogue.View.Interfaces;
     using Rogue.View.Publish;
 

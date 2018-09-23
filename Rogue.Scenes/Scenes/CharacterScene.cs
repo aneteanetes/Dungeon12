@@ -1,4 +1,4 @@
-﻿namespace Rogue.InMemory.Scenes
+﻿namespace Rogue.Scenes.Scenes
 {
     public class CharacterScene : GameScene
     {

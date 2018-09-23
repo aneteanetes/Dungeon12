@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Avalonia.Controls;
     using Avalonia.Media.Imaging;
     using Rogue.View.Interfaces;
@@ -42,37 +43,107 @@
             var bitmap = DrawingBitmap;
 
             var canvas = new SKCanvas(DrawingBitmap);
-            canvas.DrawBitmap(bitmap, 0, 0);
 
-            var font = SKTypeface.FromFamilyName("Arial");
+            var debug = false;
+
+            float fontSize = 15;
+            var font = SKTypeface.FromFamilyName("Lucida Console");
             var brush = new SKPaint
             {
                 Typeface = font,
-                TextSize = 16.0f,
+                TextSize = fontSize,
                 IsAntialias = true,
-                Color = new SKColor(255, 255, 255, 255)
+                Color = !debug 
+                    ? new SKColor(0, 0, 0, 255)
+                    : new SKColor(200, 150, 200, 255),
+                Style= SKPaintStyle.Fill,
+                SubpixelText=true,
+                
+                //TextScaleX=1.5f,
+                //TextSkewX=1.5f
+                //FilterQuality= SKFilterQuality.High
             };
-
-            brush.GetFontMetrics(out var fontMetrics);
+            //brush.IsAntialias = true;
+            
+            float YStep = 15f;
+            float XStep = 9f;
 
             //font
             foreach (var drawSession in drawSessions)
             {
-                float y = 70+ fontMetrics.XHeight + fontMetrics.Bottom;
+                float y = drawSession.Region.Y * YStep;
+
+                Console.WriteLine($"Y START:{(drawSession.Region.Y) * YStep}");
+
+                var rect = new SKRect(drawSession.Region.X * XStep,
+                    (drawSession.Region.Y) * YStep, // -1 обоссаный костыль на шрифты
+                    (drawSession.Region.X * XStep) + ((drawSession.Region.Width) * XStep),
+                    (drawSession.Region.Height) * YStep);
+
+                canvas.DrawRect(rect, brush);
+                
+
+                //canvas.DrawRect(new SKRect
+                //{
+                //    Location=new SKPoint
+                //    {
+                //        Y = (drawSession.Region.Y - 1) * YStep,
+                //        X= drawSession.Region.X * XStep
+                //    },
+                //    Size = new SKSize
+                //    {
+                //        Height =( drawSession.Region.Height-1) * YStep,
+                //        Width = (drawSession.Region.Width*2) * XStep
+                //    }
+                //}, brush);
+
                 foreach (var line in drawSession.Content)
                 {
-                    foreach (var lne in line.Data.Split(Environment.NewLine))
+                    float x = drawSession.Region.X * XStep;
+                                        
+                    foreach (var lne in line.Data)
                     {
-                        canvas.DrawText(lne, -140, y, brush);
-                        y += fontMetrics.XHeight + fontMetrics.Bottom;
+                        var txt = line.Data.Sum(z => z.StringData.Length);
+
+                        var textSegmentBrush = new SKPaint
+                        {
+                            Typeface = font,
+                            TextSize = fontSize,
+                            IsAntialias = true,
+                            Color = new SKColor(lne.ForegroundColor.R, lne.ForegroundColor.G, lne.ForegroundColor.B, lne.ForegroundColor.A),
+                            Style= SKPaintStyle.Fill                            
+                            //FilterQuality= SKFilterQuality.High
+                        };
+                        textSegmentBrush.IsAntialias = true;
+
+                        //foreach (var @char in lne.StringData)
+                        //{
+                        //    canvas.DrawText(@char.ToString(), x, y, textSegmentBrush);
+                        //    canvas.DrawText(@char.ToString(), x, y, textSegmentBrush);
+                        //    canvas.DrawText(@char.ToString(), x, y, textSegmentBrush);
+                        //    x += XStep;
+                        //}
+
+                        //canvas.DrawPath(path, textSegmentBrush);
+                        canvas.DrawText(lne.StringData, x, y, textSegmentBrush);
+                        canvas.DrawText(lne.StringData, x, y, textSegmentBrush);
+
+                        var measureX = textSegmentBrush.MeasureText(lne.StringData);
+
+                        x += lne.StringData.Length * XStep;
+                        //x += XStep;// - (float)(bounds.Width * 0.12);
                     }
+
+                    y += YStep;// *1.2f;
+
                 }
+
+                if (debug)
+                    break;
+
             }
 
-            canvas.Flush();
-
-            var image = SKImage.FromBitmap(DrawingBitmap);
-            var data = image.Encode(SKEncodedImageFormat.Jpeg, 100);
+            canvas.Flush();            
 
             this.Draw();
 

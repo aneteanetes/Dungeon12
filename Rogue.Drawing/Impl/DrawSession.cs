@@ -35,6 +35,8 @@ namespace Rogue.Drawing.Impl
 
         public IEnumerable<IDrawText> Content => this.buffer.ToArray();
 
+        public Rectangle Region => this._drawRegion;
+
         public void Write(int linePos, int charPos, IDrawText text)
         {
             this.buffer[linePos].InsertAt(charPos, text);
@@ -56,11 +58,6 @@ namespace Rogue.Drawing.Impl
             }
         }
         
-        protected virtual void Clear()
-        {
-            Draw.RunSession<ClearSession>(x => x.DrawRegion = this.DrawRegion);
-        }
-
         public virtual IDrawSession Run()
         {
             return this;
@@ -68,9 +65,6 @@ namespace Rogue.Drawing.Impl
 
         public virtual void Publish()
         {
-            if (this.AutoClear)
-                this.Clear();
-
             PublishManager.Publish(new List<IDrawSession>() { this });
         }
 

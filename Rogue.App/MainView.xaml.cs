@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -8,9 +7,9 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Threading;
 using Rogue.App.DrawClient;
-using Rogue.InMemory;
-using Rogue.InMemory.Menus;
 using Rogue.Resources;
+using Rogue.Scenes;
+using Rogue.Scenes.Menus;
 using SkiaSharp;
 
 namespace Rogue.App
@@ -109,13 +108,24 @@ namespace Rogue.App
             }
         }
 
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            SceneManager.Current.KeyPress(new Scenes.Controls.Keys.KeyArgs
+            {
+                Key = (Scenes.Controls.Keys.Key)e.Key,
+                Modifiers = (Scenes.Controls.Keys.KeyModifiers)e.Modifiers
+            });
+
+            base.OnKeyDown(e);
+        }
+
         private void LoadImage()
         {
-            var stream = ResourceLoader.Load("Rogue.Resources.Images.Splash.splash.jpg");
+            var stream = ResourceLoader.Load("Rogue.Resources.Images.Splash.start.png");
             var bitmap = SKBitmap.Decode(stream);
 
             var dstInfo = new SKImageInfo(900, 600);
-            DrawingBitmap = bitmap = bitmap.Resize(dstInfo, SKBitmapResizeMethod.Hamming);
+            DrawingBitmap = bitmap;// = bitmap.Resize(dstInfo, SKBitmapResizeMethod.Hamming);
             //mybitmap.Resize(dstInfo, SKBitmapResizeMethod.Hamming);
 
             Draw();

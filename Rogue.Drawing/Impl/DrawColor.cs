@@ -8,14 +8,14 @@ namespace Rogue.Drawing.Impl
     {
         public DrawColor(ConsoleColor consoleColor)
         {
-            var rgba = this.ConsoleMap[consoleColor];
+            var rgba = ConsoleMap[consoleColor];
             this.R = rgba.R;
             this.G = rgba.G;
             this.B = rgba.B;
             this.A = rgba.A;
         }
 
-        public DrawColor(int r, int g, int b, int a)
+        public DrawColor(byte r, byte g, byte b, byte a)
         {
             this.R = r;
             this.G = g;
@@ -23,24 +23,24 @@ namespace Rogue.Drawing.Impl
             this.A = a;
         }
 
-        public int R { get; }
+        public byte R { get; }
 
-        public int G { get; }
+        public byte G { get; }
 
-        public int B { get; }
+        public byte B { get; }
 
-        public int A { get; }
+        public byte A { get; }
 
         public static implicit operator DrawColor(ConsoleColor consoleColor) => new DrawColor(consoleColor);
 
-        private Dictionary<ConsoleColor, (int R, int G, int B, int A)> ConsoleMap => new Dictionary<ConsoleColor, (int R, int G, int B, int A)>()
+        private static Dictionary<ConsoleColor, (byte R, byte G, byte B, byte A)> ConsoleMap => new Dictionary<ConsoleColor, (byte R, byte G, byte B, byte A)>()
         {
             { ConsoleColor.Black, (0,0,0,255) },
             { ConsoleColor.Blue, (0,0,255,255) },
             { ConsoleColor.Cyan, (0,255,255,255) },
             { ConsoleColor.DarkBlue, (0,0,128,255) },
             { ConsoleColor.DarkCyan, (0,128,128,255) },
-            { ConsoleColor.DarkGray, (128,128,0,255) },
+            { ConsoleColor.DarkGray, (169,169,169,255) },
             { ConsoleColor.DarkGreen, (0,128,0,255) },
             { ConsoleColor.DarkMagenta, (128,0,128,255) },
             { ConsoleColor.DarkRed, (128,0,0,255) },

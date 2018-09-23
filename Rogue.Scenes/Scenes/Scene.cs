@@ -1,8 +1,9 @@
-﻿namespace Rogue.InMemory.Scenes
+﻿namespace Rogue.Scenes.Scenes
 {
     using System;
     using System.Collections.Generic;
-    using Avalonia.Input;
+    using Rogue.Scenes.Controls.Keys;
+    using Rogue.Scenes.Controls.Pointer;
     using Rogue.View.Interfaces;
 
     public abstract class Scene : IPublisher
@@ -19,9 +20,9 @@
         public virtual void BeforeActivate() { }
 
 
-        public virtual void KeyPress(KeyEventArgs keyEventArgs) { }
+        public virtual void KeyPress(KeyArgs keyEventArgs) { }
 
-        public virtual void MousePress(PointerPressedEventArgs pointerPressedEventArgs) { }
+        public virtual void MousePress(PointerArgs pointerPressedEventArgs) { }
 
 
         public abstract void Draw();
@@ -33,10 +34,16 @@
             this.sceneManager.Change<T>();
         }
 
-        private readonly List<IDrawSession> drawSessions = new List<IDrawSession>();
+        private List<IDrawSession> drawSessions = new List<IDrawSession>();
         public void Activate()
         {
             this.sceneManager.DrawClient.Draw(drawSessions);
+            drawSessions = new List<IDrawSession>();
+        }
+
+        protected void Redraw()
+        {
+            this.Activate();
         }
 
         public void Publish(List<IDrawSession> drawSessions)

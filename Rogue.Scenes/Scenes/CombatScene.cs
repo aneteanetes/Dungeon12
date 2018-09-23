@@ -1,4 +1,4 @@
-﻿namespace Rogue.InMemory.Scenes
+﻿namespace Rogue.Scenes.Scenes
 {
     using Rogue.Entites.Enemy;
 
