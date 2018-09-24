@@ -20,7 +20,7 @@
             {
                 if (drawingBitmap == default)
                 {
-                    drawingBitmap = new SKBitmap(900, 600, SKColorType.Bgra8888, SKAlphaType.Premul);
+                    drawingBitmap = new SKBitmap(1157, 525, SKColorType.Bgra8888, SKAlphaType.Premul);
                 }
 
                 return this.drawingBitmap;
@@ -38,50 +38,173 @@
             this.control = image;
         }
 
+        private void ExperimentalDraw(IEnumerable<IDrawSession> drawSessions)
+        {
+            var bitmap = DrawingBitmap;
+            var canvas = new SKCanvas(DrawingBitmap);
+          
+            float fontSize = 20f;
+            var font = SKTypeface.FromFamilyName("Lucida Console");
+
+            var wtf = new SKColor[]
+            {
+                new SKColor(255, 255, 0, 255),
+                new SKColor(0, 255, 0, 255),
+                new SKColor(0, 0, 255, 255),
+                new SKColor(0, 255, 255, 255),
+            };
+
+            float YUnit= 15f;
+            float XUnit = 11.5625f;
+
+            var blackPaint = new SKPaint { Color = new SKColor(0, 0, 0, 255) };
+
+            foreach (var session in drawSessions)
+            {
+                float y = (session.Region.Y+1) * YUnit;
+                foreach (var line in session.Content)
+                {
+
+                    float x = session.Region.X * XUnit;
+                    foreach (var lne in line.Data)
+                    {
+                        if (line.Data.LastOrDefault() == lne)
+                        {
+                            break;
+                        }
+
+                        var rect = new SKRect
+                        {
+                            Location = new SKPoint
+                            {
+                                X = x,
+                                Y = y- YUnit
+                            },
+                            Size = new SKSize
+                            {
+                                Width = YUnit,
+                                Height = YUnit
+                            }
+                        };
+                        canvas.DrawRect(rect, blackPaint);
+
+                        var textpaint = new SKPaint
+                        {
+                            Typeface = font,
+                            TextSize = fontSize,
+                            IsAntialias = true,
+                            Color = new SKColor(lne.ForegroundColor.R, lne.ForegroundColor.G, lne.ForegroundColor.B, lne.ForegroundColor.A),
+                            Style = SKPaintStyle.Fill
+                        };
+
+                        canvas.DrawText(lne.StringData, x, y, textpaint);
+                        canvas.DrawText(lne.StringData, x, y, textpaint);
+                        
+
+                        x += XUnit;
+                    }
+
+                    y += YUnit;
+
+                }
+            }
+
+
+            canvas.Dispose();
+            font.Dispose();
+
+            this.Draw();
+        }
+
         public void Draw(IEnumerable<IDrawSession> drawSessions)
         {
+            this.ExperimentalDraw(drawSessions);
+            return;
+
             var bitmap = DrawingBitmap;
 
             var canvas = new SKCanvas(DrawingBitmap);
 
+            //canvas.Scale(1.5f);
+
             var debug = false;
 
-            float fontSize = 15;
+            float fontSize = 20f;
             var font = SKTypeface.FromFamilyName("Lucida Console");
+            
+            //brush.IsAntialias = true;
+            
+            float YStep = 17f;
+            float XStep = 17f;
+
+            var wtf = new SKColor[]
+            {
+                new SKColor(255, 255, 0, 255),
+                new SKColor(0, 255, 0, 255),
+                new SKColor(0, 0, 255, 255),
+                new SKColor(0, 255, 255, 255),
+            };
+
             var brush = new SKPaint
             {
                 Typeface = font,
                 TextSize = fontSize,
                 IsAntialias = true,
-                Color = !debug 
-                    ? new SKColor(0, 0, 0, 255)
-                    : new SKColor(200, 150, 200, 255),
-                Style= SKPaintStyle.Fill,
-                SubpixelText=true,
-                
+                Color = //new SKColor(0, 0, 0, 255),//!debug 
+                        //? new SKColor(0, 0, 0, 255)
+                        /*:*/
+                          new SKColor(255, 0, 0, 255),
+                Style = SKPaintStyle.Stroke,
                 //TextScaleX=1.5f,
                 //TextSkewX=1.5f
                 //FilterQuality= SKFilterQuality.High
             };
-            //brush.IsAntialias = true;
-            
-            float YStep = 15f;
-            float XStep = 9f;
+
+            SKRect rectB = new SKRect();
+            brush.MeasureText("@", ref rectB);
+
 
             //font
             foreach (var drawSession in drawSessions)
             {
+                brush = new SKPaint
+                {
+                    Typeface = font,
+                    TextSize = fontSize,
+                    IsAntialias = true,
+                    Color = wtf[drawSessions.ToList().IndexOf(drawSession)],
+                    Style = SKPaintStyle.Stroke,
+                    //TextScaleX=1.5f,
+                    //TextSkewX=1.5f
+                    //FilterQuality= SKFilterQuality.High
+                };
+
                 float y = drawSession.Region.Y * YStep;
 
                 Console.WriteLine($"Y START:{(drawSession.Region.Y) * YStep}");
 
                 var rect = new SKRect(drawSession.Region.X * XStep,
-                    (drawSession.Region.Y) * YStep, // -1 обоссаный костыль на шрифты
+                    (drawSession.Region.Y-1) * YStep, // -1 обоссаный костыль на шрифты
                     (drawSession.Region.X * XStep) + ((drawSession.Region.Width) * XStep),
                     (drawSession.Region.Height) * YStep);
 
+                rect = new SKRect();
+                rect.Location = new SKPoint
+                {
+                    Y = (drawSession.Region.Y) * YStep,
+                    X = drawSession.Region.X * XStep
+                };
+                rect.Size = new SKSize
+                {
+                    Height = (drawSession.Region.Height * YStep),
+                    Width = drawSession.Region.Width * XStep
+                };
+
                 canvas.DrawRect(rect, brush);
-                
+                canvas.DrawRect(rect, brush);
+                canvas.DrawRect(rect, brush);
+                canvas.DrawRect(rect, brush);
+
 
                 //canvas.DrawRect(new SKRect
                 //{

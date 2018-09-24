@@ -219,6 +219,7 @@ namespace Rogue.Drawing.Console
                 count = 1;
             }
 
+
             //Add bottom border
             this.sLines.Add(GetColouredLine(this.Border.LowerLeftCorner + GetLine(this.Width - 2, this.Border.HorizontalLine) + this.Border.LowerRightCorner, new List<short>() { bcolor }, new List<int>(), new List<short>() { 0 }, new List<int>()));
 
@@ -417,13 +418,14 @@ namespace Rogue.Drawing.Console
                 X = this.Left,
                 Y = this.Top,
                 Width = this.Width,
-                Height = this.Height
+                Height = this.Height-4
             };
 
             if (!this.Constructed)
                 this.ToConstruct();
 
             var lines = this.GetLines();
+
             foreach (List<ColouredChar> line in lines)
             {
                 var linePos = lines.IndexOf(line);

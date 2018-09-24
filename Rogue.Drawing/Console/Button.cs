@@ -44,7 +44,7 @@ namespace Rogue.Drawing.Console
             this.DrawRegion = new Types.Rectangle
             {
                 X = this.Window.Left+ this.Left,
-                Y = 8,
+                Y = this.Window.Top+this.Top,
                 Width = this.Width,
                 Height = this.Height
             };

@@ -49,7 +49,7 @@ namespace Rogue.App
             Image viewport = this.Content as Image;
             control = viewport;
             viewport.PointerPressed += Viewport_PointerPressed;
-            var bitmap = new WritableBitmap(900, 600, PixelFormat.Bgra8888);
+            var bitmap = new WritableBitmap(1157, 525, PixelFormat.Bgra8888);
             ViewportBitmap = bitmap;
             viewport.Source = bitmap;
 
@@ -96,7 +96,7 @@ namespace Rogue.App
             {
                 if(drawingBitmap==default)
                 {
-                    drawingBitmap = new SKBitmap(900, 600, SKColorType.Bgra8888, SKAlphaType.Premul);
+                    drawingBitmap = new SKBitmap(1157, 525, SKColorType.Bgra8888, SKAlphaType.Premul);
                 }
 
                 return this.drawingBitmap;
@@ -121,10 +121,10 @@ namespace Rogue.App
 
         private void LoadImage()
         {
-            var stream = ResourceLoader.Load("Rogue.Resources.Images.Splash.start.png");
+            var stream = ResourceLoader.Load("Rogue.Resources.Images.Splash.sceneHD.png");
             var bitmap = SKBitmap.Decode(stream);
 
-            var dstInfo = new SKImageInfo(900, 600);
+            var dstInfo = new SKImageInfo(1157, 525);
             DrawingBitmap = bitmap;// = bitmap.Resize(dstInfo, SKBitmapResizeMethod.Hamming);
             //mybitmap.Resize(dstInfo, SKBitmapResizeMethod.Hamming);
 
