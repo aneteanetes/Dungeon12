@@ -61,6 +61,20 @@
 
             foreach (var session in drawSessions)
             {
+                var rect = new SKRect();
+                rect.Location = new SKPoint
+                {
+                    Y = (session.Region.Y) * YUnit,
+                    X = session.Region.X * XUnit
+                };
+                rect.Size = new SKSize
+                {
+                    Height = (session.Region.Height * YUnit),
+                    Width = session.Region.Width * XUnit
+                };
+
+                canvas.DrawRect(rect, blackPaint);
+
                 float y = (session.Region.Y+1) * YUnit;
                 foreach (var line in session.Content)
                 {
@@ -68,25 +82,6 @@
                     float x = session.Region.X * XUnit;
                     foreach (var lne in line.Data)
                     {
-                        if (line.Data.LastOrDefault() == lne)
-                        {
-                            break;
-                        }
-
-                        var rect = new SKRect
-                        {
-                            Location = new SKPoint
-                            {
-                                X = x,
-                                Y = y- YUnit
-                            },
-                            Size = new SKSize
-                            {
-                                Width = YUnit,
-                                Height = YUnit
-                            }
-                        };
-                        canvas.DrawRect(rect, blackPaint);
 
                         var textpaint = new SKPaint
                         {
