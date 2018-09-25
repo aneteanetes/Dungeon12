@@ -75,7 +75,7 @@ namespace Rogue.Drawing.Impl
         /// </summary>
         /// <param name="index"></param>
         /// <param name="drawText"></param>
-        public void InsertAt(int index, IDrawText drawText)
+        public void ReplaceAt(int index, IDrawText drawText)
         {
             // если мы вставляем что-то, значит пути назад нет, 
             // затираем простое значение, и добавляем внутрь
@@ -168,11 +168,6 @@ namespace Rogue.Drawing.Impl
             var last = this.LastIndex();
             var line = new string(Enumerable.Range(0, index - last).Select(x => ' ').ToArray());
             this.InnerText.Add(new DrawText(line));
-        }
-
-        public void ReplaceAt(int index, IDrawText drawText)
-        {
-            throw new NotImplementedException();
         }
 
         public void Prepend(IDrawText drawText)

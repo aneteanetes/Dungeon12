@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Rogue.Drawing.Impl;
+using Rogue.View.Interfaces;
 
 namespace Rogue.Drawing.Console
 {
@@ -133,7 +134,7 @@ namespace Rogue.Drawing.Console
             return String;
         }
         
-        public virtual List<List<ColouredChar>> Construct(bool Active)
+        public virtual IEnumerable<IDrawText> Construct(bool Active)
         { return null; }
 
         /// <summary>

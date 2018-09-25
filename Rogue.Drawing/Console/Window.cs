@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Rogue.Drawing.Impl;
 using Rogue.View.Interfaces;
 
 namespace Rogue.Drawing.Console
@@ -184,74 +185,41 @@ namespace Rogue.Drawing.Console
             //border color
             short bcolor = Convert.ToInt16(this.BorderColor);
 
-            //Add top border
-            this.sLines.Insert(0, GetColouredLine(this.Border.UpperLeftCorner + GetLine(this.Width - 2, this.Border.HorizontalLine) + this.Border.UpperRightCorner, new List<short>() { bcolor }, new List<int>(), new List<short>() { 0 }, new List<int>()));
+            #region topBorder
 
-            int count = -1;
-            //Add header
-            if (this.Header)
+            var topBorder = DrawText.Empty(this.Width);
+
+            var emptyLine = GetLine(this.Width - 2, this.Border.HorizontalLine);
+
+            topBorder.ReplaceAt(0, new DrawText(this.Border.UpperLeftCorner.ToString(), this.BorderColor));
+            topBorder.ReplaceAt(1, new DrawText(emptyLine, this.BorderColor));
+            topBorder.ReplaceAt(emptyLine.Length + 1, new DrawText(this.Border.UpperRightCorner.ToString(), this.BorderColor));
+
+            this.Write(0, 0, topBorder);
+
+            #endregion
+
+            #region size
+            DrawText lineWithBorders() => new DrawText(Border.VerticalLine + GetLine(this.Width - 2, ' ') + Border.VerticalLine, this.BorderColor);
+
+            for (int i = 1; i < this.Height-1; i++)
             {
-                //left side
-                this.sHeader.Insert(0, new ColouredChar() { Char = this.Border.VerticalLine, Color = bcolor });
-                this.sHeader.Insert(1, new ColouredChar() { Char = ' ', Color = bcolor });
-                //right side
-                this.sHeader.Insert(1, new ColouredChar() { Char = ' ', Color = bcolor });
-                this.sHeader.Add(new ColouredChar() { Char = this.Border.VerticalLine, Color = bcolor });
-
-                //Add nulls to header for border
-                if (this.sHeader.Count < this.Width)
-                {
-                    int w = this.Width - this.sHeader.Count;
-                    for (int j = 0; j < w; j++)
-                    {
-                        this.sHeader.Insert(this.sHeader.Count - 1, new ColouredChar() { Char = ' ', Color = 0 });
-                    }
-                }
-
-                //add
-                this.sLines.Insert(1, this.sHeader);
-
-                this.sLines.Insert(2, GetColouredLine(this.Border.PerpendicularRightward + GetLine(this.Width - 2, this.Border.HorizontalLine) + this.Border.PerpendicularLeftward, new List<short>() { bcolor }, new List<int>(), new List<short>() { 0 }, new List<int>()));
-                count = 3;
-            }
-            else
-            {
-                count = 1;
+                this.Write(i, 0, lineWithBorders());
             }
 
+            #endregion
 
-            //Add bottom border
-            this.sLines.Add(GetColouredLine(this.Border.LowerLeftCorner + GetLine(this.Width - 2, this.Border.HorizontalLine) + this.Border.LowerRightCorner, new List<short>() { bcolor }, new List<int>(), new List<short>() { 0 }, new List<int>()));
+            #region bottomBorder
 
-            for (int i = count; i < this.sLines.Count - 1; i++)
-            {
-                //left side
-                this.sLines[i].Insert(0, new ColouredChar() { Char = this.Border.VerticalLine, Color = bcolor });
-                this.sLines[i].Insert(1, new ColouredChar() { Char = ' ', Color = 0 });
-                //right side
-                this.sLines[i].Add(new ColouredChar() { Char = ' ', Color = 0 });
-                this.sLines[i].Add(new ColouredChar() { Char = this.Border.VerticalLine, Color = bcolor });
+            var bottomBorder = DrawText.Empty(this.Width);
 
-                if (this.sLines[i].Count < this.Width)
-                {
-                    int w = this.Width - this.sLines[i].Count;
-                    for (int j = 0; j < w; j++)
-                    {
-                        this.sLines[i].Insert(this.sLines[i].Count - 2, new ColouredChar() { Char = ' ', Color = 0 });
-                    }
-                }
-            }
+            bottomBorder.ReplaceAt(0, new DrawText(this.Border.LowerLeftCorner.ToString(), this.BorderColor));
+            bottomBorder.ReplaceAt(1, new DrawText(emptyLine, this.BorderColor));
+            bottomBorder.ReplaceAt(emptyLine.Length + 1, new DrawText(this.Border.LowerRightCorner.ToString(), this.BorderColor));
 
-            //if your text have string less count
-            int index = this.sLines.Count - 1;
-            while (this.sLines.Count != this.Height - 4)
-            {
-                if (this.sLines.Count != this.Height - 4)
-                {
-                    this.sLines.Insert(index, new List<ColouredChar>());
-                    this.sLines[index] = GetColouredLine(this.Border.VerticalLine + GetLine(this.Width - 2, ' ') + this.Border.VerticalLine, new List<short>() { bcolor }, new List<int>(), new List<short>() { 0 }, new List<int>());
-                }
-            }
+            this.Write(this.Height-1, 0, bottomBorder);
+
+            #endregion
 
             //Interface
             for (int i = 0; i < this.Controls.Count; i++)
@@ -275,24 +243,12 @@ namespace Rogue.Drawing.Console
         protected void AddInterface(Interface Interface, bool Active)
         {
             //Get line of chars
-            var Line = Interface.Construct(Active);
-
-            //From which string we start merging
-            int MergingLine = Interface.Top;
-
-            //foreach merging line
-            foreach (var l in Line)
+            var lines = Interface.Construct(Active);
+            var mergeLine = Interface.Top+1;
+            foreach (var line in lines)
             {
-                int j = 0;
-                //from which char start merging
-                for (int i = Interface.Left; i < l.Count + Interface.Left; i++)
-                {
-                    this.sLines[MergingLine][i].BackColor = l[j].BackColor;
-                    this.sLines[MergingLine][i].Char = l[j].Char;
-                    this.sLines[MergingLine][i].Color = l[j].Color;
-                    j++;
-                }
-                MergingLine++;
+                this.Write(mergeLine, Interface.Left, line);
+                mergeLine++;
             }
         }
         /// <summary>

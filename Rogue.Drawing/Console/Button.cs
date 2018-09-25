@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Rogue.Drawing.Impl;
 using Rogue.View.Interfaces;
 
 namespace Rogue.Drawing.Console
@@ -18,25 +19,22 @@ namespace Rogue.Drawing.Console
         }
         public Action OnClick;
         private List<List<ColouredChar>> constructed = new List<List<ColouredChar>>();
-        public override List<List<ColouredChar>> Construct(bool Active)
+        public override IEnumerable<IDrawText> Construct(bool Active)
         {
-            short cl = 0;
-            if (Active) { cl = Convert.ToInt16(this.ActiveColor); } else { cl = Convert.ToInt16(this.InactiveColor); }
+            var color = Active
+                ? this.ActiveColor
+                : this.InactiveColor;
 
-            List<List<ColouredChar>> l = new List<List<ColouredChar>>();
-            l.Add(GetColouredLine(Window.Border.UpperLeftCorner + GetLine(this.Width - 2, Window.Border.HorizontalLine) + Window.Border.UpperRightCorner, new List<short>() { Convert.ToInt16(Window.BorderColor) }, new List<int>(), new List<short>(), new List<int>()));
-            l.Add(GetColouredLine(Window.Border.VerticalLine + this.Middle(this.Label) + Window.Border.VerticalLine, new List<short>() { Convert.ToInt16(Window.BorderColor), cl, Convert.ToInt16(Window.BorderColor) }, new List<int>() { (this.Width / 2) - (this.Label.Length / 2), this.Width - 1 }, new List<short>(), new List<int>()));
-            l.Add(GetColouredLine(Window.Border.LowerLeftCorner + GetLine(this.Width - 2, Window.Border.HorizontalLine) + Window.Border.LowerRightCorner, new List<short>() { Convert.ToInt16(Window.BorderColor) }, new List<int>(), new List<short>(), new List<int>()));
+            var top = new DrawText(Window.Border.UpperLeftCorner + GetLine(this.Width - 2, Window.Border.HorizontalLine) + Window.Border.UpperRightCorner, Window.BorderColor);
 
-            var debugText = string.Empty;
-            foreach (var a in l)
-            {
-                debugText += Environment.NewLine + new string(a.Select(x => x.Char).ToArray());
-            }
+            var mid = DrawText.Empty(this.Width);
+            mid.ReplaceAt(0, new DrawText(Window.Border.VerticalLine.ToString(), Window.BorderColor));
+            mid.ReplaceAt(1, new DrawText(this.Middle(this.Label), color));
+            mid.ReplaceAt(this.Width - 1, new DrawText(Window.Border.VerticalLine.ToString(), Window.BorderColor));
 
-            constructed = l;
+            var bot = new DrawText(Window.Border.LowerLeftCorner + GetLine(this.Width - 2, Window.Border.HorizontalLine) + Window.Border.LowerRightCorner, Window.BorderColor);
 
-            return l;
+            return new IDrawText[] { top, mid, bot };
         }
 
         public override IDrawSession Run()

@@ -39,7 +39,7 @@ namespace Rogue.Drawing.Impl
 
         public void Write(int linePos, int charPos, IDrawText text)
         {
-            this.buffer[linePos].InsertAt(charPos, text);
+            this.buffer[linePos].ReplaceAt(charPos, text);
         }
 
         public void Write(int linePos, int charPos, string text, ConsoleColor foreColor = 0, ConsoleColor backColor = 0)
@@ -52,7 +52,7 @@ namespace Rogue.Drawing.Impl
         {
             foreach (var line in lines)
             {
-                this.buffer[linePos].InsertAt(charPos, line);
+                this.buffer[linePos].ReplaceAt(charPos, line);
 
                 linePos++;
             }

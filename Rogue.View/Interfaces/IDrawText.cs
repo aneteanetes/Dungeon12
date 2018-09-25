@@ -15,6 +15,6 @@
 
         void Prepend(IDrawText drawText);
 
-        void InsertAt(int index, IDrawText drawText);
+        void ReplaceAt(int index, IDrawText drawText);
     }
 }

@@ -41,29 +41,29 @@ namespace Rogue.Drawing.Labirinth
                 {
                     if (map[x][y].Enemy != null)
                     {
-                        line.InsertAt(x, new DrawText(/*Enemy.Icon*/"E", /*Enemy.Chest*/ConsoleColor.DarkRed));
+                        line.ReplaceAt(x, new DrawText(/*Enemy.Icon*/"E", /*Enemy.Chest*/ConsoleColor.DarkRed));
                     }
                     else if (map[x][y].Player != null)
                     {
-                        line.InsertAt(x, new DrawText(/*Enemy.Icon*/"@", /*Enemy.Chest*/ConsoleColor.Red));
+                        line.ReplaceAt(x, new DrawText(/*Enemy.Icon*/"@", /*Enemy.Chest*/ConsoleColor.Red));
                     }
                     else if (map[x][y].Item != null)
                     {
-                        line.InsertAt(x, new DrawText(/*Enemy.Icon*/"*", /*Enemy.Chest*/ConsoleColor.Green));
+                        line.ReplaceAt(x, new DrawText(/*Enemy.Icon*/"*", /*Enemy.Chest*/ConsoleColor.Green));
                     }
                     else if (map[x][y].Object != null)
                     {
-                        line.InsertAt(x, new DrawText(/*Enemy.Icon*/"!", /*Enemy.Chest*/ConsoleColor.Cyan));
+                        line.ReplaceAt(x, new DrawText(/*Enemy.Icon*/"!", /*Enemy.Chest*/ConsoleColor.Cyan));
                         //if (map[x][y].Object.Name == "Exit")
                         //else if (map[x][y].Object.Icon == '↨')                        
                     }
                     else if (map[x][y].Wall != null)
                     {
-                        line.InsertAt(x, new DrawText("#", BiomView.GetView().ForegroundColor));
+                        line.ReplaceAt(x, new DrawText("#", BiomView.GetView().ForegroundColor));
                     }
                     else if (map[x][y].Trap != null)
                     {
-                        line.InsertAt(x, new DrawText("`", ConsoleColor.DarkGray));
+                        line.ReplaceAt(x, new DrawText("`", ConsoleColor.DarkGray));
                     }
                 }
 

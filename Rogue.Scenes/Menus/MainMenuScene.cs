@@ -34,7 +34,7 @@
             w.Border.PerpendicularLeftward = '@';
 
             w.Header = true;
-            w.Height = 24;
+            w.Height = 20;
             w.Width = 26;
             w.Left = 36;
             w.Top = 5;
