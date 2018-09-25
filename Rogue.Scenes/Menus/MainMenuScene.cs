@@ -60,7 +60,7 @@
             bng.Top = 6;
             bng.Left = 3;
             bng.Width = 20;
-            bng.Height = 6;
+            bng.Height = 3;
             bng.ActiveColor = ConsoleColor.Red;
             bng.InactiveColor = ConsoleColor.DarkRed;
             bng.CloseAfterUse = true;
@@ -77,7 +77,7 @@
             bfg.Top = 9;
             bfg.Left = 3;
             bfg.Width = 20;
-            bfg.Height = 6;
+            bfg.Height = 3;
             bfg.ActiveColor = ConsoleColor.Red;
             bfg.InactiveColor = ConsoleColor.DarkRed;
             bfg.Label = "Быстрая игра";
@@ -89,7 +89,7 @@
             ba.Top = 12;
             ba.Left = 3;
             ba.Width = 20;
-            ba.Height = 6;
+            ba.Height = 3;
             ba.ActiveColor = ConsoleColor.Red;
             ba.InactiveColor = ConsoleColor.DarkRed;
             ba.Label = "Создатели";
@@ -101,7 +101,7 @@
             bex.Top = 15;
             bex.Left = 3;
             bex.Width = 20;
-            bex.Height = 6;
+            bex.Height = 3;
             bex.ActiveColor = ConsoleColor.Red;
             bex.InactiveColor = ConsoleColor.DarkRed;
             bex.Label = "Выход";
