@@ -120,7 +120,7 @@ namespace Rogue.Drawing.Console
 
             return base.Run();
         }
-        public override List<List<ColouredChar>> Construct(bool Active)
+        public override IEnumerable<IDrawText> Construct(bool Active)
         {
             short cl = 0;
             if (Active) { cl = Convert.ToInt16(this.ActiveColor); } else { cl = Convert.ToInt16(this.InactiveColor); }
@@ -131,7 +131,9 @@ namespace Rogue.Drawing.Console
             l.Add(GetColouredLine(Additional.LightBorder.UpperLeftCorner + GetLine(this.Width - 2, Additional.LightBorder.HorizontalLine) + Additional.LightBorder.UpperRightCorner, new List<short>() { Convert.ToInt16(Window.BorderColor) }, new List<int>(), new List<short>(), new List<int>()));
             l.Add(GetColouredLine(Additional.LightBorder.VerticalLine + printf + GetLine(this.Width - 2 - printf.Length, ' ') + Additional.LightBorder.VerticalLine, new List<short>() { Convert.ToInt16(Window.BorderColor), cl, Convert.ToInt16(Window.BorderColor) }, new List<int>() { 1, this.Width - 1 }, new List<short>(), new List<int>()));
             l.Add(GetColouredLine(Additional.LightBorder.LowerLeftCorner + GetLine(this.Width - 2, Additional.LightBorder.HorizontalLine) + Additional.LightBorder.LowerRightCorner, new List<short>() { Convert.ToInt16(Window.BorderColor) }, new List<int>(), new List<short>(), new List<int>()));
-            return l;
+            //return l;
+
+            return default;
         }
     }
 }

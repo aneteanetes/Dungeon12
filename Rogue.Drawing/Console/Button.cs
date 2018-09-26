@@ -21,6 +21,14 @@ namespace Rogue.Drawing.Console
         private List<List<ColouredChar>> constructed = new List<List<ColouredChar>>();
         public override IEnumerable<IDrawText> Construct(bool Active)
         {
+            this.DrawRegion = new Types.Rectangle
+            {
+                X = this.Window.Left + this.Left,
+                Y = this.Window.Top + this.Top,
+                Width = this.Width,
+                Height = this.Height
+            };
+
             var color = Active
                 ? this.ActiveColor
                 : this.InactiveColor;
@@ -39,13 +47,6 @@ namespace Rogue.Drawing.Console
 
         public override IDrawSession Run()
         {
-            this.DrawRegion = new Types.Rectangle
-            {
-                X = this.Window.Left+ this.Left,
-                Y = this.Window.Top+this.Top,
-                Width = this.Width,
-                Height = this.Height
-            };
 
             var lines = constructed;
             foreach (List<ColouredChar> line in lines)

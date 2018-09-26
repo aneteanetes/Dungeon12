@@ -33,27 +33,44 @@
             w.Border.PerpendicularRightward = '@';
             w.Border.PerpendicularLeftward = '@';
 
-            w.Header = true;
+            //w.Header = true;
             w.Height = 20;
             w.Width = 26;
             w.Left = 36;
             w.Top = 5;
 
-            Text t = new Text(w);
-            t.BackgroundColor = ConsoleColor.Black;
-            t.TextPosition = TextPosition.Center;
-            t.ForegroundColor = ConsoleColor.DarkCyan;
-            t.Write("Hellgates");
-            t.AppendLine();
-            t.TextPosition = TextPosition.Right;
-            t.ForegroundColor = ConsoleColor.Red;
-            t.WriteLine("Альфа");
-            t.TextPosition = TextPosition.Center;
-            t.ForegroundColor = ConsoleColor.Cyan;
-            t.Write("[London]");
-            t.AppendLine();
 
-            w.Text = t;
+            w.AddControl(new Label(w, "Hellgates")
+            {
+                ForegroundColor = ConsoleColor.DarkCyan,
+                Top = 1,
+                Left = 1,
+                Width = w.Width - 2,
+                Height = 1
+            });
+
+            w.AddControl(new HorizontalLine(w)
+            {
+                Width = window.Width,
+                Top = 2
+            });
+
+            w.AddControl(new Label(w, "Remastered")
+            {
+                ForegroundColor = ConsoleColor.Red,
+                Top = 3,
+                Left = window.Width - 10,
+                Width = 10
+            });
+
+            w.AddControl(new Label(w, "[London]")
+            {
+                ForegroundColor = ConsoleColor.DarkCyan,
+                Top = 4,
+                Left = 1,
+                Width = w.Width - 2,
+                Height = 1
+            });
 
             //Controls 
             Button bng = new Button(w);

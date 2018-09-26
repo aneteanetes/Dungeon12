@@ -89,7 +89,7 @@ namespace Rogue.Drawing.Console
         {
             if (this.Sender.GetType() == typeof(Button)) { if ((this.Sender as Button).OnClick != null) { (this.Sender as Button).OnClick(); } }
             if (this.Sender.GetType() == typeof(TextBox)) { (this.Sender as TextBox).Run(); }
-            if (this.Sender.GetType() == typeof(CheckBox)) { if ((this.Sender as CheckBox).OnCheckAdditional != null) { (this.Sender as CheckBox).OnCheckAdditional(); } }
+            //if (this.Sender.GetType() == typeof(CheckBox)) { if ((this.Sender as CheckBox).OnCheckAdditional != null) { (this.Sender as CheckBox).OnCheckAdditional(); } }
             this.Return = Sender.Return;
             if (Sender.CloseAfterUse) { this.NeedClose = true; }
         }
@@ -178,6 +178,15 @@ namespace Rogue.Drawing.Console
         /// </summary>
         protected void ToConstruct()
         {
+
+            this.DrawRegion = new Types.Rectangle
+            {
+                X = this.Left,
+                Y = this.Top,
+                Width = this.Width,
+                Height = this.Height
+            };
+
             Exception();
             if (this.Controls.Count > 0) { ConstructInterfaceMap(); }
             Constructed = true;
@@ -244,7 +253,7 @@ namespace Rogue.Drawing.Console
         {
             //Get line of chars
             var lines = Interface.Construct(Active);
-            var mergeLine = Interface.Top+1;
+            var mergeLine = Interface.Top; //какого хуя тут был магический +1 ?
             foreach (var line in lines)
             {
                 this.Write(mergeLine, Interface.Left, line);
@@ -369,13 +378,6 @@ namespace Rogue.Drawing.Console
 
         public override IDrawSession Run()
         {
-            this.DrawRegion = new Types.Rectangle
-            {
-                X = this.Left,
-                Y = this.Top,
-                Width = this.Width,
-                Height = this.Height-4
-            };
 
             if (!this.Constructed)
                 this.ToConstruct();

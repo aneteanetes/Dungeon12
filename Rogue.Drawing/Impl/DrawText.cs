@@ -103,6 +103,11 @@ namespace Rogue.Drawing.Impl
             // и прикручиваем туда оставшийся кусок
 
             var (segment, positionInLine) = ExistedSegment(index);
+
+            // костыль ебаный
+            if (positionInLine == 0)
+                positionInLine += segment.StringData.Length;
+
             var segmentStart = positionInLine - segment.StringData.Length;
 
             // если в нужном индексе начинается новый отрезок 
@@ -110,20 +115,41 @@ namespace Rogue.Drawing.Impl
             // благополучно сместится
             if (segmentStart == index && segment.StringData.Length==drawText.StringData.Length)
             {
-                this.InnerText.RemoveAt(index);
-                this.InnerText.Insert(index, drawText);
+                var inLineIndex = this.InnerText.IndexOf(segment);
+                this.InnerText.RemoveAt(inLineIndex);
+                this.InnerText.Insert(inLineIndex, drawText);
                 return;
             }
 
             // а вот тут значит нихуя не помогло и надо разбивать отрезок
 
+            var leftSegment = new DrawText(segment.StringData.Substring(0,index), segment.ForegroundColor, segment.BackgroundColor);
 
-            var nextSegment = new DrawText(segment.StringData.Substring(drawText.StringData.Length), segment.ForegroundColor, segment.BackgroundColor);
+            DrawText rightSegment = null;
+
+            try
+            {
+                rightSegment = new DrawText(segment.StringData.Substring(drawText.StringData.Length), segment.ForegroundColor, segment.BackgroundColor);
+            }
+            catch { }
+
 
             var indexInListLine = this.InnerText.IndexOf(segment);
             this.InnerText.RemoveAt(indexInListLine);
-            this.InnerText.Insert(indexInListLine, drawText);
-            this.InnerText.Insert(indexInListLine + 1, nextSegment);
+
+            this.InnerText.Insert(indexInListLine, leftSegment);
+            this.InnerText.Insert(indexInListLine + 1, drawText);
+
+            if (rightSegment != null)
+            {
+                this.InnerText.Insert(indexInListLine + 2, rightSegment);
+            }
+
+
+            //var nextSegment = new DrawText(segment.StringData.Substring(index,drawText.StringData.Length), segment.ForegroundColor, segment.BackgroundColor);
+
+            //this.InnerText.Insert(indexInListLine, drawText);
+            //this.InnerText.Insert(indexInListLine + 1, nextSegment);
 
             //if (this.InnerText.ElementAtOrDefault(index)==null)
             //{
@@ -142,10 +168,15 @@ namespace Rogue.Drawing.Impl
 
             foreach (var item in this.InnerText)
             {
-                if (currentCharInLine >= index)
+                currentCharInLine += item.StringData.Length;
+
+                if (currentCharInLine > index)
                     return (item, currentCharInLine);
 
-                currentCharInLine += item.StringData.Length;
+
+                ////опять же, костыль девелопмент
+                //if (currentCharInLine >= index)
+                //    return (item, currentCharInLine);
 
             }
 

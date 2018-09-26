@@ -129,8 +129,8 @@ namespace Rogue.Drawing.Console
                     String += ' ';
                 }
             }
-            if (this.Width % 2 == 0 && this.Label.Length % 2 != 0) { String = ' ' + String; }
-            if (this.Width % 2 != 0 && this.Label.Length % 2 == 0) { String += ' '; }
+            if (this.Width % 2 == 0 && String.Length % 2 != 0) { String = ' ' + String; }
+            if (this.Width % 2 != 0 && String.Length % 2 == 0) { String += ' '; }
             return String;
         }
         
