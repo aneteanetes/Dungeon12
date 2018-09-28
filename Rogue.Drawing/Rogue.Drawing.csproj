@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="morelinq" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Rogue.Abilities\Rogue.Abilities.csproj" />
     <ProjectReference Include="..\Rogue.Entites\Rogue.Entites.csproj" />
     <ProjectReference Include="..\Rogue.Map\Rogue.Map.csproj" />

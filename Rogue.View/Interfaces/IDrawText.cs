@@ -8,8 +8,8 @@
         IEnumerable<IDrawText> Data { get; }
 
         string StringData { get; }
-
-        int CharsCount { get; }
+        
+        int Length { get; }
 
         void Append(IDrawText drawText);
 

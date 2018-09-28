@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MoreLinq;
 using Rogue.Settings;
 using Rogue.View.Interfaces;
 
@@ -53,7 +54,7 @@ namespace Rogue.Drawing.Impl
             }
         }
 
-        public int CharsCount => this.Flat().Sum(x => x.StringData.Length);
+        public int Length => this.Flat().Sum(x => x.StringData.Length);
 
         private IDrawColor foregroundColor;
 
@@ -77,7 +78,7 @@ namespace Rogue.Drawing.Impl
         /// <param name="drawText"></param>
         public void ReplaceAt(int index, IDrawText drawText)
         {
-            // если мы вставляем что-то, значит пути назад нет, 
+            // если мы заменяем что-то, значит пути назад нет, 
             // затираем простое значение, и добавляем внутрь
             // часть себя что бы превратить в составное
             if(!string.IsNullOrEmpty(this.stringData))
@@ -86,15 +87,56 @@ namespace Rogue.Drawing.Impl
                 this.stringData = null;
             }
 
-            // если такого индекса нет, то добавлем новый 
-            // пустой отрезок от последнего присутствуюшего
-            // индекса, до требуемого индекса
-            //if (!IndexExists(index))
-            //{
-            //    this.FillBeforeIndex(index);
-            //    this.InnerText.Add(drawText);
-            //    return;
-            //}
+            //получаем все отрезки которые затрагивает новый
+            var existed = ExistedElements(index, drawText);
+
+            var first = existed.First();
+
+            //если мы вставляем такую же длину как была в то же место - просто заменяем
+            if (first.StartIndex == index && first.Text.Length == drawText.Length)
+            {
+                var inLineIndex = this.InnerText.IndexOf(first.Text);
+                this.InnerText.RemoveAt(inLineIndex);
+                this.InnerText.Insert(inLineIndex, drawText);
+                return;
+            }
+
+            //проверяем надо ли отрезать слева
+            DrawText newLeft = null;
+            if (first.StartIndex != index)
+            {
+                newLeft = new DrawText(first.Text.StringData.Substring(0, index), first.Text.ForegroundColor, first.Text.BackgroundColor);
+            }
+
+            //проверяем надо ли отрезать справа
+            if (first.EndIndex > (index + drawText.Length))
+            {
+                //элемент заканчивается дальше чем отрезок, надо отрезать правую часть
+                //отрезаем от конца (нового) вставляемого элемента до конца строки
+                var newRight = new DrawText(first.Text.StringData.Substring((index + drawText.Length)), first.Text.ForegroundColor, first.Text.BackgroundColor);
+
+                var indexInListOriginalElement = this.InnerText.IndexOf(first.Text);
+                this.InnerText.Remove(first.Text);
+
+                var offset = 0;
+
+                if (newLeft != null)
+                {
+                    this.InnerText.Insert(indexInListOriginalElement, newLeft);
+                    offset += 1;
+                }
+                this.InnerText.Insert(indexInListOriginalElement + (offset), drawText);
+                this.InnerText.Insert(indexInListOriginalElement + (offset * 2), newRight);
+
+                // если мы отрезали справа, значит дальше нас не интересуют элементы, 
+                // хотя они могли попасть из-за того что при проверке на существующий
+                // мы обязаны смежные элементы включить в коллекцию (хуйзнает зачем)
+                return;
+            }
+
+            //итак, стадия пиздеца когда у нас возможно есть кусок слева, и ещё хуева тонна претендентов на правую часть, или замену
+
+
 
             // если такой индекс есть
             // разрезаем существующий отрезок
@@ -115,15 +157,11 @@ namespace Rogue.Drawing.Impl
             // благополучно сместится
             if (segmentStart == index && segment.StringData.Length==drawText.StringData.Length)
             {
-                var inLineIndex = this.InnerText.IndexOf(segment);
-                this.InnerText.RemoveAt(inLineIndex);
-                this.InnerText.Insert(inLineIndex, drawText);
-                return;
             }
 
             // а вот тут значит нихуя не помогло и надо разбивать отрезок
 
-            var leftSegment = new DrawText(segment.StringData.Substring(0,index), segment.ForegroundColor, segment.BackgroundColor);
+            var leftSegment = new DrawText(segment.StringData.Substring(0,index-1), segment.ForegroundColor, segment.BackgroundColor);
 
             DrawText rightSegment = null;
 
@@ -160,6 +198,57 @@ namespace Rogue.Drawing.Impl
             //}
             //data += drawText.Data;
             //this.InnerText[index] = drawText;
+        }
+
+        //private IEnumerable<>
+
+        private class DrawTextPosition
+        {
+            public int StartIndex { get; set; }
+
+            public IDrawText Text { get; set; }
+
+            public int EndIndex { get => StartIndex + Text.StringData.Length; }
+        }
+
+
+        private IEnumerable<DrawTextPosition> ExistedElements(int index, IDrawText inserted)
+        {
+            List<DrawTextPosition> elements = new List<DrawTextPosition>();
+
+            var futureElement = new DrawTextPosition
+            {
+                StartIndex = index,
+                Text = inserted
+            };
+
+            var carry = 0;
+            foreach (var item in this.InnerText)
+            {
+                carry += item.Length;
+
+                var startElement = carry - item.Length == 0;
+
+                if (startElement && carry > index)
+                {
+                    elements.Add(new DrawTextPosition
+                    {
+                        StartIndex = carry - item.Length,
+                        Text = item
+                    });
+                }
+
+                if (carry <= inserted.Length)
+                {
+                    elements.Add(new DrawTextPosition
+                    {
+                        StartIndex = carry - item.Length,
+                        Text = item
+                    });
+                }
+            }
+
+            return elements.DistinctBy(x => x.Text);
         }
 
         private (IDrawText segment, int positionInLine) ExistedSegment(int index)
