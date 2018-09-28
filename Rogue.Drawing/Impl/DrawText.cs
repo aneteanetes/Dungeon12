@@ -136,71 +136,17 @@ namespace Rogue.Drawing.Impl
 
             //итак, стадия пиздеца когда у нас возможно есть кусок слева, и ещё хуева тонна претендентов на правую часть, или замену
 
-
-
-            // если такой индекс есть
-            // разрезаем существующий отрезок
-            // сохраняем кусок который будет
-            // вставляем в индекс наш отрезок
-            // и прикручиваем туда оставшийся кусок
-
-            var (segment, positionInLine) = ExistedSegment(index);
-
-            // костыль ебаный
-            if (positionInLine == 0)
-                positionInLine += segment.StringData.Length;
-
-            var segmentStart = positionInLine - segment.StringData.Length;
-
-            // если в нужном индексе начинается новый отрезок 
-            // достаточно просто вставить новый туда же и всё
-            // благополучно сместится
-            if (segmentStart == index && segment.StringData.Length==drawText.StringData.Length)
-            {
-            }
-
-            // а вот тут значит нихуя не помогло и надо разбивать отрезок
-
-            var leftSegment = new DrawText(segment.StringData.Substring(0,index-1), segment.ForegroundColor, segment.BackgroundColor);
-
-            DrawText rightSegment = null;
-
-            try
-            {
-                rightSegment = new DrawText(segment.StringData.Substring(drawText.StringData.Length), segment.ForegroundColor, segment.BackgroundColor);
-            }
-            catch { }
-
-
-            var indexInListLine = this.InnerText.IndexOf(segment);
-            this.InnerText.RemoveAt(indexInListLine);
-
-            this.InnerText.Insert(indexInListLine, leftSegment);
-            this.InnerText.Insert(indexInListLine + 1, drawText);
-
-            if (rightSegment != null)
-            {
-                this.InnerText.Insert(indexInListLine + 2, rightSegment);
-            }
-
-
-            //var nextSegment = new DrawText(segment.StringData.Substring(index,drawText.StringData.Length), segment.ForegroundColor, segment.BackgroundColor);
-
-            //this.InnerText.Insert(indexInListLine, drawText);
-            //this.InnerText.Insert(indexInListLine + 1, nextSegment);
-
-            //if (this.InnerText.ElementAtOrDefault(index)==null)
-            //{
-            //    for (int i = -1; i < index; i++)
-            //    {
-            //        this.InnerText.Add(new DrawText(""));
-            //    }
-            //}
-            //data += drawText.Data;
-            //this.InnerText[index] = drawText;
+            // что будем делать:
+            // проверять можно ли полностью поглотить кусок
+            //          если 
+            //               можно: нахуй его из внутренней коллекции, мы знаем индекс первого элемента, просто уёбем его и ничего не потеряем
+            //               нельзся: ну, заебись, мы нашли конец, теперь надо проверить на существование конца при обрезке
+            //
+            // ну всё, мы получили все начальные части, и конечные части, и убрали ненужные
+            // теперь так же по условию существования начала и конца запушим всё в ленту
+            //
+            // и пиздец.
         }
-
-        //private IEnumerable<>
 
         private class DrawTextPosition
         {
