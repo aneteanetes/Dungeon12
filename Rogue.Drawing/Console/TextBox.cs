@@ -28,12 +28,46 @@ namespace Rogue.Drawing.Console
 
         public Action OnEndTyping;
 
+        public override bool Activatable => true;
+
+        private List<Key> NotAllowed = new List<Key>
+        {
+            Key.LeftShift,
+            Key.RightShift,
+            Key.LeftCtrl,
+            Key.RightCtrl
+        };
+
         public void OnKeyPress(KeyArgs args)
         {
+            if (args.Key == Key.Enter)
+            {
+                this.OnEndTyping();
+                return;
+            }
 
+            if (args.Key == Key.Back)
+            {
+                this.String = this.String.Substring(0, this.String.Length - 1);
+            }
+            else if (!NotAllowed.Contains(args.Key))
+            {
+                var symbol = args.Key.ToString();
+                if (args.Modifiers != KeyModifiers.Shift)
+                    symbol = symbol.ToLowerInvariant();
+
+                this.String += symbol;
+            }
+            else
+            {
+                return;
+            }
+
+            this.Run();
+            this.Publish();
         }
 
-        protected string String = "";
+        public string String = "";
         public string Text
         {
             get
@@ -42,88 +76,8 @@ namespace Rogue.Drawing.Console
             }
         }
 
-
         public override IDrawSession Run()
         {
-            if (this.String != "")
-            {
-                string stringBuffer = string.Empty;
-
-                if (this.String.Length >= this.Width - 2)
-                {
-                    stringBuffer= String.Substring(String.Length - (this.Width - 2));
-                }
-                else
-                {
-                    stringBuffer = String;
-                }
-
-                this.Write(Window.Top + this.Top + 1, (Window.Left + this.Left + 1), stringBuffer, this.ActiveColor);
-            }
-
-            //bool end = false;
-            //while (!end)
-            //{
-            //    ConsoleKeyInfo k = Console.ReadKey(true);
-            //    if (k.Key == ConsoleKey.Enter || k.Key == ConsoleKey.Escape) { if (this.OnEndTyping != null) { this.OnEndTyping(); } end = true; break; }
-            //    if (
-            //                    k.KeyChar != (char)27 &&
-            //                    k.KeyChar != '\0' &&
-            //                    k.KeyChar != '\t' &&
-            //                    k.KeyChar != '\\' &&
-            //                    k.KeyChar != '/' &&
-            //                    k.KeyChar != ':' &&
-            //                    k.KeyChar != '*' &&
-            //                    k.KeyChar != '?' &&
-            //                    k.KeyChar != '"' &&
-            //                    k.KeyChar != '<' &&
-            //                    k.KeyChar != '>' &&
-            //                    k.KeyChar != '|' &&
-            //                    k.KeyChar != '.' &&
-            //                    k.KeyChar != ',' &&
-            //                    k.KeyChar != '`' &&
-            //                    k.KeyChar != '~' &&
-            //                    k.KeyChar != '!' &&
-            //                    k.KeyChar != '#' &&
-            //                    k.KeyChar != '№' &&
-            //                    k.KeyChar != '@' &&
-            //                    k.KeyChar != '$' &&
-            //                    k.KeyChar != ';' &&
-            //                    k.KeyChar != '%' &&
-            //                    k.KeyChar != '^' &&
-            //                    k.KeyChar != '&' &&
-            //                    k.KeyChar != '(' &&
-            //                    k.KeyChar != ')' &&
-            //                    k.KeyChar != '-' &&
-            //                    k.KeyChar != '+' &&
-            //                    k.KeyChar != '='
-            //               )
-            //    { this.String += k.KeyChar; }
-            //    for (int i = 0; i < this.String.Length; i++)
-            //    {
-            //        try
-            //        {
-            //            if (String[i] == '\b') { String = String.Substring(0, String.Length - 2); }
-            //        }
-            //        catch { }
-            //    }
-            //    //if string more then textbox
-            //    if (this.String.Length >= this.Width - 2)
-            //    {
-            //        //write substring
-            //        this.Clear();
-            //        Console.SetCursorPosition(Window.Left + this.Left + 1, Window.Top + this.Top + 1);
-            //        Console.Write(String.Substring(this.String.Length - (this.Width - 2)));
-            //    }
-            //    else
-            //    {
-            //        if (k.KeyChar == '\b') { this.Clear(); }
-            //        Console.SetCursorPosition(Window.Left + this.Left + 1, Window.Top + this.Top + 1);
-            //        Console.Write(this.String);
-            //    }
-            //}
-            //Console.CursorVisible = false;
-
             var y = 0;
             var lines = this.Construct(this.Active);
             foreach (var line in lines)
@@ -170,7 +124,7 @@ namespace Rogue.Drawing.Console
             var top = new DrawText(Additional.LightBorder.UpperLeftCorner + GetLine(this.Width - 2, Additional.LightBorder.HorizontalLine) + Additional.LightBorder.UpperRightCorner, Window.BorderColor);
 
             var mid = DrawText.Empty(this.Width, Window.BorderColor);
-            mid.ReplaceAt(0, new DrawText(Additional.LightBorder.ToString(), Window.BorderColor));
+            mid.ReplaceAt(0, new DrawText(Additional.LightBorder.VerticalLine.ToString(), Window.BorderColor));
             mid.ReplaceAt(1, new DrawText(printf + GetLine(this.Width - 2 - printf.Length, ' '), color));
             mid.ReplaceAt(this.Width - 1, new DrawText(Additional.LightBorder.VerticalLine.ToString(), Window.BorderColor));
 

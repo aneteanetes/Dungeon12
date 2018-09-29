@@ -90,11 +90,23 @@ namespace Rogue.Drawing.Console
         public void ActivateInterface(KeyArgs args)
         {
             if (this.Sender.GetType() == typeof(Button)) { (this.Sender as Button).OnClick?.Invoke(); }
-            if (this.Sender.GetType() == typeof(TextBox)) { (this.Sender as TextBox).OnKeyPress(args); }
+            if (this.Sender.GetType() == typeof(TextBox))
+            {
+                //(this.Sender as TextBox).OnKeyPress(args);
+            }
             //if (this.Sender.GetType() == typeof(CheckBox)) { if ((this.Sender as CheckBox).OnCheckAdditional != null) { (this.Sender as CheckBox).OnCheckAdditional(); } }
             this.Return = Sender.Return;
             if (Sender.CloseAfterUse) { this.NeedClose = true; }
         }
+
+        public void PropagateInput(KeyArgs args)
+        {
+            if (this.Sender is TextBox textBox)
+            {
+                textBox.OnKeyPress(args);
+            }
+        }
+
         /// <summary>
         /// After window drawning, this main method
         /// </summary>
@@ -141,15 +153,15 @@ namespace Rogue.Drawing.Console
 
             ReconstructInterface();
 
-            if (this.Sender.GetType() == typeof(TextBox))
-            {
-                this.ActivateInterface(args);
-                textboxendinput(args);
-                if (this.NeedClose)
-                {
-                    this.NeedClose = false; return true;
-                }
-            }
+            //if (this.Sender.GetType() == typeof(TextBox))
+            //{
+            //    this.ActivateInterface(args);
+            //    textboxendinput(args);
+            //    if (this.NeedClose)
+            //    {
+            //        this.NeedClose = false; return true;
+            //    }
+            //}
 
             return false;
         }
@@ -172,15 +184,6 @@ namespace Rogue.Drawing.Console
 
             ReconstructInterface(); //_Draw = this;
 
-            if (this.Sender.GetType() == typeof(TextBox))
-            {
-                this.ActivateInterface(args);
-                textboxendinput(args);
-                if (this.NeedClose)
-                {
-                    this.NeedClose = false; return true;
-                }
-            }
 
             return false;
         }

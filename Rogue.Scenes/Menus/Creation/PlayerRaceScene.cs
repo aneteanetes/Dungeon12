@@ -5,7 +5,7 @@ using Rogue.Scenes.Scenes;
 
 namespace Rogue.Scenes.Menus.Creation
 {
-    public class PlayerRaceScene : Scene
+    public class PlayerRaceScene : GameScene
     {
         public PlayerRaceScene(SceneManager sceneManager) : base(sceneManager)
         {
