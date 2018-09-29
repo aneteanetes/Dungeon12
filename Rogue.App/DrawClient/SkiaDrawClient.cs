@@ -20,7 +20,7 @@
             {
                 if (drawingBitmap == default)
                 {
-                    drawingBitmap = new SKBitmap(1157, 525, SKColorType.Bgra8888, SKAlphaType.Premul);
+                    drawingBitmap = new SKBitmap(1157, 700, SKColorType.Bgra8888, SKAlphaType.Premul);
                 }
 
                 return this.drawingBitmap;
@@ -54,7 +54,7 @@
                 new SKColor(0, 255, 255, 255),
             };
 
-            float YUnit= 15f;
+            float YUnit= 20f;
             float XUnit = 11.5625f;
 
             var blackPaint = new SKPaint { Color = new SKColor(0, 0, 0, 255) };

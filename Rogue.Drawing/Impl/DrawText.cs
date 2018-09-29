@@ -54,7 +54,15 @@ namespace Rogue.Drawing.Impl
             }
         }
 
-        public int Length => this.Flat().Sum(x => x.StringData.Length);
+        public int Length
+        {
+            get
+            {
+                var flatLength= this.Flat().Sum(x => x.StringData.Length);
+
+                return flatLength + (this.stringData?.Length ?? 0);
+            }
+        }
 
         private IDrawColor foregroundColor;
 
@@ -78,6 +86,12 @@ namespace Rogue.Drawing.Impl
         /// <param name="drawText"></param>
         public void ReplaceAt(int index, IDrawText drawText)
         {
+            var drawingRange = new DrawTextPosition()
+            {
+                StartIndex = index,
+                Text = drawText
+            };
+
             // если мы заменяем что-то, значит пути назад нет, 
             // затираем простое значение, и добавляем внутрь
             // часть себя что бы превратить в составное
@@ -103,6 +117,7 @@ namespace Rogue.Drawing.Impl
 
             //проверяем надо ли отрезать слева
             DrawText newLeft = null;
+            DrawText newRight = null;
             if (first.StartIndex != index)
             {
                 newLeft = new DrawText(first.Text.StringData.Substring(0, index), first.Text.ForegroundColor, first.Text.BackgroundColor);
@@ -111,22 +126,25 @@ namespace Rogue.Drawing.Impl
             //проверяем надо ли отрезать справа
             if (first.EndIndex > (index + drawText.Length))
             {
+
+                var cuttingFrom = first.EndIndex - drawingRange.EndIndex;
+
                 //элемент заканчивается дальше чем отрезок, надо отрезать правую часть
                 //отрезаем от конца (нового) вставляемого элемента до конца строки
-                var newRight = new DrawText(first.Text.StringData.Substring((index + drawText.Length)), first.Text.ForegroundColor, first.Text.BackgroundColor);
+                newRight = new DrawText(first.Text.StringData.Substring(first.Text.Length - cuttingFrom, cuttingFrom), first.Text.ForegroundColor, first.Text.BackgroundColor);
 
                 var indexInListOriginalElement = this.InnerText.IndexOf(first.Text);
                 this.InnerText.Remove(first.Text);
 
                 var offset = 0;
 
-                if (newLeft != null)
+                if (newLeft != null && newLeft.Length>0)
                 {
                     this.InnerText.Insert(indexInListOriginalElement, newLeft);
                     offset += 1;
                 }
                 this.InnerText.Insert(indexInListOriginalElement + (offset), drawText);
-                this.InnerText.Insert(indexInListOriginalElement + (offset * 2), newRight);
+                this.InnerText.Insert(indexInListOriginalElement + (++offset), newRight);
 
                 // если мы отрезали справа, значит дальше нас не интересуют элементы, 
                 // хотя они могли попасть из-за того что при проверке на существующий
@@ -135,6 +153,39 @@ namespace Rogue.Drawing.Impl
             }
 
             //итак, стадия пиздеца когда у нас возможно есть кусок слева, и ещё хуева тонна претендентов на правую часть, или замену
+
+            foreach (var item in existed.Skip(1))
+            {
+                // проверяем можно ли полностью поглотить кусок
+                if (item.EndIndex < drawingRange.EndIndex)
+                {
+                    //можно: нахуй его из внутренней коллекции, мы знаем индекс первого элемента, просто уёбем его и ничего не потеряем
+                    this.InnerText.Remove(item.Text);
+                }
+                else if (item.EndIndex>drawingRange.EndIndex)
+                {
+                    //нельзся: ну, заебись, мы нашли конец, теперь надо проверить на существование конца при обрезке
+
+                    var cuttingIndex = item.EndIndex - drawingRange.EndIndex;
+
+                    newRight = new DrawText(first.Text.StringData.Substring(item.Text.Length- 1, cuttingIndex), first.Text.ForegroundColor, first.Text.BackgroundColor);
+
+                    var offset = 0;
+
+                    var indexInListOriginalElement = this.InnerText.IndexOf(first.Text);
+                    this.InnerText.Remove(first.Text);
+
+                    if (newLeft != null && newLeft.Length > 0)
+                    {
+                        this.InnerText.Insert(indexInListOriginalElement, newLeft);
+                        offset += 1;
+                    }
+                    this.InnerText.Insert(indexInListOriginalElement + (offset), drawText);
+                    this.InnerText.Insert(indexInListOriginalElement + (++offset), newRight);
+
+                    break;
+                }
+            }
 
             // что будем делать:
             // проверять можно ли полностью поглотить кусок
@@ -157,6 +208,32 @@ namespace Rogue.Drawing.Impl
             public int EndIndex { get => StartIndex + Text.StringData.Length; }
         }
 
+        private bool CanCutRight(DrawTextPosition cutting, DrawTextPosition insertion)
+        {
+            //элемент заканчивается дальше чем отрезок, надо отрезать правую часть
+            //отрезаем от конца (нового) вставляемого элемента до конца строки
+            var newRight = new DrawText(cutting.Text.StringData.Substring((insertion.StartIndex + insertion.Text.Length)), cutting.Text.ForegroundColor, cutting.Text.BackgroundColor);
+
+            var indexInListOriginalElement = this.InnerText.IndexOf(cutting.Text);
+            this.InnerText.Remove(cutting.Text);
+
+            var offset = 0;
+
+            DrawText newLeft = null;
+            if (newLeft != null)
+            {
+                this.InnerText.Insert(indexInListOriginalElement, newLeft);
+                offset += 1;
+            }
+            this.InnerText.Insert(indexInListOriginalElement + (offset), insertion.Text);
+            this.InnerText.Insert(indexInListOriginalElement + (offset * 2), newRight);
+
+            // если мы отрезали справа, значит дальше нас не интересуют элементы, 
+            // хотя они могли попасть из-за того что при проверке на существующий
+            // мы обязаны смежные элементы включить в коллекцию (хуйзнает зачем)
+            return true;
+        }
+
 
         private IEnumerable<DrawTextPosition> ExistedElements(int index, IDrawText inserted)
         {
@@ -169,14 +246,14 @@ namespace Rogue.Drawing.Impl
             };
 
             var carry = 0;
+            bool startFinded = false;
             foreach (var item in this.InnerText)
             {
                 carry += item.Length;
-
-                var startElement = carry - item.Length == 0;
-
-                if (startElement && carry > index)
+                
+                if (!startFinded && carry > index)
                 {
+                    startFinded = true;
                     elements.Add(new DrawTextPosition
                     {
                         StartIndex = carry - item.Length,
@@ -184,7 +261,7 @@ namespace Rogue.Drawing.Impl
                     });
                 }
 
-                if (carry <= inserted.Length)
+                if (startFinded && carry <= inserted.Length)
                 {
                     elements.Add(new DrawTextPosition
                     {
@@ -194,7 +271,7 @@ namespace Rogue.Drawing.Impl
                 }
             }
 
-            return elements.DistinctBy(x => x.Text);
+            return elements.DistinctBy(x => x.Text).ToList();
         }
 
         private (IDrawText segment, int positionInLine) ExistedSegment(int index)

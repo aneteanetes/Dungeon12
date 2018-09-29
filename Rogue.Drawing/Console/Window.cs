@@ -197,6 +197,7 @@ namespace Rogue.Drawing.Console
             #region topBorder
 
             var topBorder = DrawText.Empty(this.Width);
+            topBorder.ForegroundColor = new DrawColor(this.BorderColor);
 
             var emptyLine = GetLine(this.Width - 2, this.Border.HorizontalLine);
 
@@ -221,6 +222,7 @@ namespace Rogue.Drawing.Console
             #region bottomBorder
 
             var bottomBorder = DrawText.Empty(this.Width);
+            bottomBorder.ForegroundColor = new DrawColor(this.BorderColor);
 
             bottomBorder.ReplaceAt(0, new DrawText(this.Border.LowerLeftCorner.ToString(), this.BorderColor));
             bottomBorder.ReplaceAt(1, new DrawText(emptyLine, this.BorderColor));
@@ -231,12 +233,12 @@ namespace Rogue.Drawing.Console
             #endregion
 
             //Interface
-            for (int i = 0; i < this.Controls.Count; i++)
-            {
-                bool a = false;
-                if (i == this.Focus) { a = true; }
-                AddInterface(Controls[i], a);
-            }
+            //for (int i = 0; i < this.Controls.Count; i++)
+            //{
+            //    bool a = false;
+            //    if (i == this.Focus) { a = true; }
+            //    AddInterface(Controls[i], a);
+            //}
         }
         /// <summary>
         /// Construct Interface Map to Navigation
