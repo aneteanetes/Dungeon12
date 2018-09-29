@@ -17,6 +17,15 @@
         public static T New<T>(this Type type, params object[] argsObj)
             => New<T>(type, typeof(T).GetConstructors().FirstOrDefault(), argsObj);
 
+        /// <summary> 
+        /// Instantiate new object through expression tree with first ctor
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="argsObj"></param>
+        /// <returns></returns>
+        public static object New(this Type type, params object[] argsObj)
+            => New<object>(type, type.GetConstructors().FirstOrDefault(), argsObj);
+
         /// <summary>
         /// Instantiate new object through expression tree
         /// </summary>

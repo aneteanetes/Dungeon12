@@ -1,11 +1,12 @@
 ﻿using System;
 using Rogue.Control.Keys;
 using Rogue.Drawing.Console;
+using Rogue.Entites.Alive.Character;
 using Rogue.Scenes.Scenes;
 
 namespace Rogue.Scenes.Menus.Creation
 {
-    public class PlayerNameScene : GameScene<PlayerRaceScene>
+    public class PlayerNameScene : GameScene<PlayerRaceScene,MainMenuScene>
     {
         public PlayerNameScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -74,7 +75,7 @@ namespace Rogue.Scenes.Menus.Creation
             bng.OnClick = () =>
             {
                 if (this.Player == null)
-                    this.Player = new Entites.Alive.Character.Player();
+                    this.Player = new NameOfPlayer();
                 
                 this.Player.Name = bfg.Text;
 
@@ -120,12 +121,19 @@ namespace Rogue.Scenes.Menus.Creation
                     window.Tab(keyEventArgs); break;
                 case Key.Enter:
                     window.ActivateInterface(keyEventArgs); break;
+                case Key.Escape:
+                    this.Switch<MainMenuScene>(); break;
                 default:
                     window.PropagateInput(keyEventArgs);
                     break;
             }
 
             this.Redraw();
+        }
+
+        private class NameOfPlayer : Player
+        {
+
         }
     }
 }

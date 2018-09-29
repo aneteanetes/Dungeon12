@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
+    using Rogue.Drawing.Utils;
     using Rogue.View.Interfaces;
 
     public abstract class Scene : IPublisher
@@ -26,7 +27,10 @@
 
         public abstract void Draw();
 
-        public virtual void Destroy() { }
+        public virtual void Destroy()
+        {
+
+        }
 
         protected virtual void Switch<T>() where T : GameScene
         {

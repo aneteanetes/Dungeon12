@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using Rogue.Drawing;
+    using Rogue.Drawing.Utils;
     using Rogue.Scenes.Scenes;
     using Rogue.View.Interfaces;
     using Rogue.View.Publish;
@@ -16,9 +18,6 @@
 
         public void Change<TScene>() where TScene : GameScene
         {
-            if (Current?.Destroyable ?? false)
-                Current.Destroy();
-
             var sceneType = typeof(TScene);
 
             if (!SceneCache.TryGetValue(sceneType, out var nextScene))
@@ -27,11 +26,19 @@
                 SceneCache.Add(typeof(TScene), nextScene);
             }
 
+            if (Current?.Destroyable ?? false)
+            {
+                Current.Destroy();
+                SceneCache.Remove(Current.GetType());
+            }
+
             this.Populate(this.Current, nextScene);
             nextScene.BeforeActivate();
             this.Current = nextScene;
 
             PublishManager.Set(Current);
+            Draw.RunSession<ClearSession>();
+
             this.Current.Draw();
             this.Current.Activate();
         }

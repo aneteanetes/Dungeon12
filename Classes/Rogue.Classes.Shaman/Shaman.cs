@@ -4,6 +4,6 @@
 
     public class Shaman : Player
     {
-        public new string Name { get => "Убийца"; set { } }
+        public override string ClassName { get => "Шаман"; }
     }
 }

@@ -6,7 +6,7 @@ namespace Rogue.Entites.Alive.Character
     /// <summary>
     /// Абстрактный класс персонажа
     /// </summary>
-    public class Player : Modified
+    public abstract class Player : Modified
     {
         public Race Race { get; set; }
 
@@ -15,6 +15,8 @@ namespace Rogue.Entites.Alive.Character
         public long MaxExp => EXP * 2;
 
         public int Gold { get; set; }
+
+        public virtual string ClassName { get; }
 
         public virtual string Resource() { return $"Мана: {HitPoints}/{MaxHitPoints}"; }
 

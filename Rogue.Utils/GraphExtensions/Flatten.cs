@@ -11,7 +11,7 @@ namespace Rogue
             return source.Nodes.SelectMany(
               s => s.Nodes.Any()
                 ? s.Nodes.Concat(s.Flat())
-                : new T[] { s.This });
+                : new T[] { s.This }).Distinct();
         }
     }
 }

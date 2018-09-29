@@ -120,7 +120,7 @@ namespace Rogue.Drawing.Impl
             DrawText newRight = null;
             if (first.StartIndex != index)
             {
-                newLeft = new DrawText(first.Text.StringData.Substring(0, index), first.Text.ForegroundColor, first.Text.BackgroundColor);
+                newLeft = new DrawText(first.Text.StringData.Substring(0, index-first.StartIndex), first.Text.ForegroundColor, first.Text.BackgroundColor);
             }
 
             //проверяем надо ли отрезать справа
@@ -154,7 +154,7 @@ namespace Rogue.Drawing.Impl
 
             //итак, стадия пиздеца когда у нас возможно есть кусок слева, и ещё хуева тонна претендентов на правую часть, или замену
 
-            foreach (var item in existed.Skip(1))
+            foreach (var item in existed)
             {
                 // проверяем можно ли полностью поглотить кусок
                 if (item.EndIndex < drawingRange.EndIndex)
@@ -184,6 +184,20 @@ namespace Rogue.Drawing.Impl
                     this.InnerText.Insert(indexInListOriginalElement + (++offset), newRight);
 
                     break;
+                }
+                else if (item.EndIndex==drawingRange.EndIndex)
+                {                    
+                    var offset = 0;
+
+                    var indexInListOriginalElement = this.InnerText.IndexOf(first.Text);
+                    this.InnerText.Remove(first.Text);
+
+                    if (newLeft != null && newLeft.Length > 0)
+                    {
+                        this.InnerText.Insert(indexInListOriginalElement, newLeft);
+                        offset += 1;
+                    }
+                    this.InnerText.Insert(indexInListOriginalElement + (offset), drawText);
                 }
             }
 

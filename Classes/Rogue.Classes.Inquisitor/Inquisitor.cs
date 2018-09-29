@@ -4,7 +4,7 @@
 
     public class Inquisitor : Player
     {
-        public new string Name { get => "Инквизитор"; set { } }
+        public override string ClassName { get => "Инквизитор"; }
 
         public int Lithanies { get; set; }
     }

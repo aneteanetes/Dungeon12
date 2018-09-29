@@ -61,6 +61,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Scenes", "Rogue.Scene
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Control", "Rogue.Control\Rogue.Control.csproj", "{FD2390AC-2D9E-4289-8214-0A75294C39D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Classes", "Rogue.Classes\Rogue.Classes.csproj", "{4BDEA975-0952-4AAC-962B-8C8C1349C865}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -283,6 +285,14 @@ Global
 		{FD2390AC-2D9E-4289-8214-0A75294C39D2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FD2390AC-2D9E-4289-8214-0A75294C39D2}.Release|x86.ActiveCfg = Release|Any CPU
 		{FD2390AC-2D9E-4289-8214-0A75294C39D2}.Release|x86.Build.0 = Release|Any CPU
+		{4BDEA975-0952-4AAC-962B-8C8C1349C865}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BDEA975-0952-4AAC-962B-8C8C1349C865}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BDEA975-0952-4AAC-962B-8C8C1349C865}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4BDEA975-0952-4AAC-962B-8C8C1349C865}.Debug|x86.Build.0 = Debug|Any CPU
+		{4BDEA975-0952-4AAC-962B-8C8C1349C865}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BDEA975-0952-4AAC-962B-8C8C1349C865}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BDEA975-0952-4AAC-962B-8C8C1349C865}.Release|x86.ActiveCfg = Release|Any CPU
+		{4BDEA975-0952-4AAC-962B-8C8C1349C865}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

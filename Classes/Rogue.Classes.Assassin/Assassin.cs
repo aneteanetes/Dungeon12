@@ -4,7 +4,7 @@
 
     public class Assassin : Player
     {
-        public new string Name { get => "Убийца"; set { } }
+        public override string ClassName { get => "Убийца"; }
 
         public long Poisons { get; set; }
     }

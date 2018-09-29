@@ -7,9 +7,9 @@ using Rogue.Scenes.Scenes;
 
 namespace Rogue.Scenes.Menus.Creation
 {
-    public class PlayerRaceScene : GameScene<MainMenuScene, PlayerClassScene>
+    public class PlayerClassScene : GameScene<PlayerSummaryScene,MainMenuScene>
     {
-        public PlayerRaceScene(SceneManager sceneManager) : base(sceneManager)
+        public PlayerClassScene(SceneManager sceneManager) : base(sceneManager)
         {
         }
 
@@ -35,7 +35,7 @@ namespace Rogue.Scenes.Menus.Creation
             w.Left = 25;
             w.Top = 2;
 
-            w.AddControl(new Label(w, "Выберите расу")
+            w.AddControl(new Label(w, "Выберите класс")
             {
                 Align = TextPosition.Center,
                 ForegroundColor = ConsoleColor.DarkCyan,
@@ -54,7 +54,7 @@ namespace Rogue.Scenes.Menus.Creation
             var top = 4;
             var column = 0;
 
-            foreach (var race in Enum.GetValues(typeof(Race)).Cast<Race>())
+            foreach (var @class in Classes.All())
             {
                 Button bng = new Button(w)
                 {
@@ -65,11 +65,13 @@ namespace Rogue.Scenes.Menus.Creation
                     ActiveColor = ConsoleColor.Red,
                     InactiveColor = ConsoleColor.DarkRed,
                     CloseAfterUse = true,
-                    Label = race.ToDisplay(),
+                    Label = @class.ClassName,
                     OnClick = () =>
                     {
-                        this.Player.Race = race;
-                        this.Switch<PlayerClassScene>();
+                        @class.Name = this.Player.Name;
+                        @class.Race = this.Player.Race;
+                        this.Player = @class;
+                        this.Switch<PlayerSummaryScene>();
                     }
                 };
                 w.AddControl(bng);

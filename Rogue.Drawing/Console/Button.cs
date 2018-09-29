@@ -19,6 +19,8 @@ namespace Rogue.Drawing.Console
             this.OnFocus = () => { this.Active = true; };
         }
 
+        public bool Border = true;
+
         public override bool Activatable => true;
 
         public Action OnClick;
@@ -36,15 +38,15 @@ namespace Rogue.Drawing.Console
             var color = Active
                 ? this.ActiveColor
                 : this.InactiveColor;
-
-            var top = new DrawText(Window.Border.UpperLeftCorner + GetLine(this.Width - 2, Window.Border.HorizontalLine) + Window.Border.UpperRightCorner, Window.BorderColor);
+            
+            var top = new DrawText((Border ? Window.Border.UpperLeftCorner : ' ') + GetLine(this.Width - 2, (Border ? Window.Border.HorizontalLine : ' ')) + (Border ? Window.Border.UpperRightCorner : ' '), Window.BorderColor);
 
             var mid = DrawText.Empty(this.Width,Window.BorderColor);
-            mid.ReplaceAt(0, new DrawText(Window.Border.VerticalLine.ToString(), Window.BorderColor));
+            mid.ReplaceAt(0, new DrawText((Border ? Window.Border.VerticalLine.ToString() : " "), Window.BorderColor));
             mid.ReplaceAt(1, new DrawText(this.Middle(this.Label), color));
-            mid.ReplaceAt(this.Width - 1, new DrawText(Window.Border.VerticalLine.ToString(), Window.BorderColor));
+            mid.ReplaceAt(this.Width - 1, new DrawText((Border ? Window.Border.VerticalLine.ToString() : " "), Window.BorderColor));
 
-            var bot = new DrawText(Window.Border.LowerLeftCorner + GetLine(this.Width - 2, Window.Border.HorizontalLine) + Window.Border.LowerRightCorner, Window.BorderColor);
+            var bot = new DrawText((Border ? Window.Border.LowerLeftCorner : ' ') + GetLine(this.Width - 2, (Border ? Window.Border.HorizontalLine : ' ')) + (Border ? Window.Border.LowerRightCorner : ' '), Window.BorderColor);
 
             return new IDrawText[] { top, mid, bot };
         }

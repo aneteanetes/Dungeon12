@@ -4,7 +4,7 @@
 
     public class BloodMage : Player
     {
-        public new string Name { get => "Маг крови"; set { } }
+        public override string ClassName { get => "Маг крови"; }
 
         public long Blood { get; set; }
     }

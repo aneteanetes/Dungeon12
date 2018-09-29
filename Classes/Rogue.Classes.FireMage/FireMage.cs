@@ -4,7 +4,7 @@
 
     public class FireMage : Player
     {
-        public new string Name { get => "Маг огня"; set { } }
+        public override string ClassName { get => "Маг огня"; }
 
         public long Mana { get; set; }
     }

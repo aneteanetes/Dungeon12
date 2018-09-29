@@ -2,6 +2,9 @@
 
 namespace Rogue.Entites.Enums
 {
+    /// <summary>
+    /// Доступные расы для выбора
+    /// </summary>
     public enum Race
     {
         [Display(Name="Человек")]

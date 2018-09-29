@@ -4,7 +4,7 @@
 
     public class Paladin : Player
     {
-        public new string Name { get => "Паладин"; set { } }
+        public override string ClassName { get => "Паладин"; }
 
         public long Mana { get; set; }
     }

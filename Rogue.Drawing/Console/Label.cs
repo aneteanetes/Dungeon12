@@ -26,7 +26,12 @@
         /// <returns></returns>
         public override IEnumerable<IDrawText> Construct(bool Active)
         {
-            if(this.Width==0 && this.Align== TextPosition.Center)
+            if (this.SourceText != null)
+            {
+                return new IDrawText[] { this.SourceText };
+            }
+
+            if (this.Width==0 && this.Align== TextPosition.Center)
             {
                 throw new Exception("Label with align=center can't have Width=0!");
             }
@@ -42,11 +47,6 @@
                 Width = this.Width,
                 Height = 1
             };
-
-            if (this.SourceText != null)
-            {
-                return new IDrawText[] { this.SourceText };
-            }
 
             var line = DrawText.Empty(this.Width, this.ForegroundColor);
             line.ReplaceAt(0, new DrawText(Middle(this.Text), this.ForegroundColor));
