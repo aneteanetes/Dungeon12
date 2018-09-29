@@ -9,7 +9,7 @@
     {
         public TextPosition Align = TextPosition.Center;
 
-        public Label(Window window, string text)
+        public Label(Window window, string text="")
         {
             this.Window = window;
             this.Text = text;
@@ -26,6 +26,15 @@
         /// <returns></returns>
         public override IEnumerable<IDrawText> Construct(bool Active)
         {
+            if(this.Width==0 && this.Align== TextPosition.Center)
+            {
+                throw new Exception("Label with align=center can't have Width=0!");
+            }
+            else if (this.Align!= TextPosition.Center)
+            {
+                this.Width = this.Text.Length;
+            }
+
             this.DrawRegion = new Types.Rectangle
             {
                 X = this.Window.Left + this.Left,
@@ -34,11 +43,18 @@
                 Height = 1
             };
 
+            if (this.SourceText != null)
+            {
+                return new IDrawText[] { this.SourceText };
+            }
+
             var line = DrawText.Empty(this.Width, this.ForegroundColor);
             line.ReplaceAt(0, new DrawText(Middle(this.Text), this.ForegroundColor));
 
             return new IDrawText[] { line };
         }
+
+        public IDrawText SourceText { get; set; }
 
         public override IDrawSession Run()
         {

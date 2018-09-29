@@ -14,9 +14,11 @@
         {
         }
 
+        public override bool Destroyable => throw new System.NotImplementedException();
+
         public override void Draw()
         {
-            base.Draw();
+            //base.Draw();
         }
     }
 

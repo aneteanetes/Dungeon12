@@ -110,10 +110,10 @@ namespace Rogue.App
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            SceneManager.Current.KeyPress(new Scenes.Controls.Keys.KeyArgs
+            SceneManager.Current.KeyPress(new Control.Keys.KeyArgs
             {
-                Key = (Scenes.Controls.Keys.Key)e.Key,
-                Modifiers = (Scenes.Controls.Keys.KeyModifiers)e.Modifiers
+                Key = (Control.Keys.Key)e.Key,
+                Modifiers = (Control.Keys.KeyModifiers)e.Modifiers
             });
 
             base.OnKeyDown(e);

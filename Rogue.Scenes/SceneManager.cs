@@ -10,11 +10,11 @@
     {
         public IDrawClient DrawClient { get; set; }
 
-        private static readonly Dictionary<Type, Scene> SceneCache = new Dictionary<Type, Scene>();
+        private static readonly Dictionary<Type, GameScene> SceneCache = new Dictionary<Type, GameScene>();
 
-        public Scene Current = null;
+        public GameScene Current = null;
 
-        public void Change<TScene>() where TScene : Scene
+        public void Change<TScene>() where TScene : GameScene
         {
             if (Current?.Destroyable ?? false)
                 Current.Destroy();
@@ -27,12 +27,23 @@
                 SceneCache.Add(typeof(TScene), nextScene);
             }
 
+            this.Populate(this.Current, nextScene);
             nextScene.BeforeActivate();
             this.Current = nextScene;
 
             PublishManager.Set(Current);
             this.Current.Draw();
             this.Current.Activate();
+        }
+
+        private void Populate(GameScene previous, GameScene next)
+        {
+            if (previous == null)
+                return;
+
+            next.Player = previous.Player;
+            next.Log = previous.Log;
+            next.Map = previous.Map;
         }
     }
 }

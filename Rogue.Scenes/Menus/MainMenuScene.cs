@@ -1,13 +1,12 @@
 ﻿namespace Rogue.Scenes.Menus
 {
-    using Rogue.Scenes.Character;
-    using Rogue.Scenes.Scenes;
-    using Rogue.Drawing.Console;
     using System;
-    using Rogue.Drawing;
-    using Rogue.Scenes.Controls.Keys;
+    using Rogue.Control.Keys;
+    using Rogue.Drawing.Console;
+    using Rogue.Scenes.Menus.Creation;
+    using Rogue.Scenes.Scenes;
 
-    public class MainMenuScene : Scene<CreateScene>
+    public class MainMenuScene : GameScene<PlayerNameScene>
     {
         public MainMenuScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -84,9 +83,7 @@
             bng.Label = "Новая игра";
             bng.OnClick = () =>
             {
-                throw new Exception("Для демо хуемо и так много");
-                //DrawEngine.ConsoleDraw.WriteTitle("Начало новой игры...\n \n Нажмите любую клавишу для продолжения...");
-                //PlayEngine.GamePlay.NewGame.CharacterCreation();
+                this.Switch<PlayerNameScene>();
             };
             w.AddControl(bng);
 
@@ -139,13 +136,13 @@
             {
                 case Key.Left:
                 case Key.Up:
-                    window.Up(); break;
+                    window.Up(keyEventArgs); break;
                 case Key.Down:
                 case Key.Right:
                 case Key.Tab:
-                    window.Tab(); break;
+                    window.Tab(keyEventArgs); break;
                 case Key.Enter:
-                    window.ActivateInterface(); break;
+                    window.ActivateInterface(keyEventArgs); break;
                 default:
                     break;
             }

@@ -1,4 +1,4 @@
-﻿namespace Rogue.Scenes.Controls.Keys
+﻿namespace Rogue.Control.Keys
 {
     public class KeyArgs
     {

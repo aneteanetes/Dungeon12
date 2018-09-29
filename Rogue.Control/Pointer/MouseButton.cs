@@ -1,4 +1,4 @@
-﻿namespace Rogue.Scenes.Controls.Pointer
+﻿namespace Rogue.Control.Pointer
 {
     public enum MouseButton
     {

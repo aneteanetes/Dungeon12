@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Rogue.Control.Keys;
+using Rogue.Drawing.Impl;
 using Rogue.View.Interfaces;
 
 namespace Rogue.Drawing.Console
@@ -21,17 +23,21 @@ namespace Rogue.Drawing.Console
                 Height = this.Height
             };
 
-            //this.OnFocus = () => { Console.CursorVisible = true; };
+            this.OnFocus = () => { this.Active = true; };
         }
-        public Action OnKeyPress;
+
         public Action OnEndTyping;
+
+        public void OnKeyPress(KeyArgs args)
+        {
+
+        }
+
         protected string String = "";
         public string Text
         {
             get
             {
-                //string s = String;
-                //String = "";
                 return String;
             }
         }
@@ -118,22 +124,59 @@ namespace Rogue.Drawing.Console
             //}
             //Console.CursorVisible = false;
 
+            var y = 0;
+            var lines = this.Construct(this.Active);
+            foreach (var line in lines)
+            {
+                this.Write(y, 0, line);
+                y++;
+            }
+
             return base.Run();
         }
+
         public override IEnumerable<IDrawText> Construct(bool Active)
         {
-            short cl = 0;
-            if (Active) { cl = Convert.ToInt16(this.ActiveColor); } else { cl = Convert.ToInt16(this.InactiveColor); }
+            this.DrawRegion = new Types.Rectangle
+            {
+                X = this.Window.Left + this.Left,
+                Y = this.Window.Top + this.Top,
+                Width = this.Width,
+                Height = this.Height
+            };
+
+            var color = Active
+                ? this.ActiveColor
+                : this.InactiveColor;
+
 
             string printf = "";
-            if (String != "") { if (String.Length >= this.Width - 2) { printf = String.Substring(0, this.Width - 2); } else { printf = String; } } else { printf = this.Label; }
-            List<List<ColouredChar>> l = new List<List<ColouredChar>>();
-            l.Add(GetColouredLine(Additional.LightBorder.UpperLeftCorner + GetLine(this.Width - 2, Additional.LightBorder.HorizontalLine) + Additional.LightBorder.UpperRightCorner, new List<short>() { Convert.ToInt16(Window.BorderColor) }, new List<int>(), new List<short>(), new List<int>()));
-            l.Add(GetColouredLine(Additional.LightBorder.VerticalLine + printf + GetLine(this.Width - 2 - printf.Length, ' ') + Additional.LightBorder.VerticalLine, new List<short>() { Convert.ToInt16(Window.BorderColor), cl, Convert.ToInt16(Window.BorderColor) }, new List<int>() { 1, this.Width - 1 }, new List<short>(), new List<int>()));
-            l.Add(GetColouredLine(Additional.LightBorder.LowerLeftCorner + GetLine(this.Width - 2, Additional.LightBorder.HorizontalLine) + Additional.LightBorder.LowerRightCorner, new List<short>() { Convert.ToInt16(Window.BorderColor) }, new List<int>(), new List<short>(), new List<int>()));
-            //return l;
+            if (String != "")
+            {
+                if (String.Length >= this.Width - 2)
+                {
+                    printf = String.Substring(0, this.Width - 2);
+                }
+                else
+                {
+                    printf = String;
+                }
+            }
+            else
+            {
+                printf = this.Label;
+            }
 
-            return default;
+            var top = new DrawText(Additional.LightBorder.UpperLeftCorner + GetLine(this.Width - 2, Additional.LightBorder.HorizontalLine) + Additional.LightBorder.UpperRightCorner, Window.BorderColor);
+
+            var mid = DrawText.Empty(this.Width, Window.BorderColor);
+            mid.ReplaceAt(0, new DrawText(Additional.LightBorder.ToString(), Window.BorderColor));
+            mid.ReplaceAt(1, new DrawText(printf + GetLine(this.Width - 2 - printf.Length, ' '), color));
+            mid.ReplaceAt(this.Width - 1, new DrawText(Additional.LightBorder.VerticalLine.ToString(), Window.BorderColor));
+
+            var bot = new DrawText(Additional.LightBorder.LowerLeftCorner + GetLine(this.Width - 2, Additional.LightBorder.HorizontalLine) + Additional.LightBorder.LowerRightCorner, Window.BorderColor);
+
+            return new IDrawText[] { top, mid, bot };
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Rogue.Control.Keys;
 using Rogue.Drawing.Impl;
 using Rogue.View.Interfaces;
 
@@ -86,10 +87,10 @@ namespace Rogue.Drawing.Console
         /// <summary>
         /// Use active Sender
         /// </summary>
-        public void ActivateInterface()
+        public void ActivateInterface(KeyArgs args)
         {
-            if (this.Sender.GetType() == typeof(Button)) { if ((this.Sender as Button).OnClick != null) { (this.Sender as Button).OnClick(); } }
-            if (this.Sender.GetType() == typeof(TextBox)) { (this.Sender as TextBox).Run(); }
+            if (this.Sender.GetType() == typeof(Button)) { (this.Sender as Button).OnClick?.Invoke(); }
+            if (this.Sender.GetType() == typeof(TextBox)) { (this.Sender as TextBox).OnKeyPress(args); }
             //if (this.Sender.GetType() == typeof(CheckBox)) { if ((this.Sender as CheckBox).OnCheckAdditional != null) { (this.Sender as CheckBox).OnCheckAdditional(); } }
             this.Return = Sender.Return;
             if (Sender.CloseAfterUse) { this.NeedClose = true; }
@@ -121,7 +122,7 @@ namespace Rogue.Drawing.Console
             //}
         }
 
-        public bool Tab()
+        public bool Tab(KeyArgs args)
         {
             if (Focus == this.ActivatableControls.Count - 1)
             {
@@ -142,7 +143,8 @@ namespace Rogue.Drawing.Console
 
             if (this.Sender.GetType() == typeof(TextBox))
             {
-                this.ActivateInterface(); textboxendinput();
+                this.ActivateInterface(args);
+                textboxendinput(args);
                 if (this.NeedClose)
                 {
                     this.NeedClose = false; return true;
@@ -152,7 +154,7 @@ namespace Rogue.Drawing.Console
             return false;
         }
 
-        public bool Up()
+        public bool Up(KeyArgs args)
         {
             if (Focus == 0)
             {
@@ -172,8 +174,8 @@ namespace Rogue.Drawing.Console
 
             if (this.Sender.GetType() == typeof(TextBox))
             {
-                this.ActivateInterface();
-                textboxendinput();
+                this.ActivateInterface(args);
+                textboxendinput(args);
                 if (this.NeedClose)
                 {
                     this.NeedClose = false; return true;
@@ -182,10 +184,11 @@ namespace Rogue.Drawing.Console
 
             return false;
         }
-        public void textboxendinput()
+
+        public void textboxendinput(KeyArgs args)
         {
-            if (Focus == 0) { Up(); }
-            else { Tab(); }
+            if (Focus == 0) { Up(args); }
+            else { Tab(args); }
             //else if (Focus == this.Controls.Count - 1)
             //if (Focus == this.Controls.Count - 1) { tab(); }
             //else { up(); }
