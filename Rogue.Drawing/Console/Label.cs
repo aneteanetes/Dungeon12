@@ -34,7 +34,7 @@
                 Height = 1
             };
 
-            var line = DrawText.Empty(this.Width);
+            var line = DrawText.Empty(this.Width, this.ForegroundColor);
             line.ReplaceAt(0, new DrawText(Middle(this.Text), this.ForegroundColor));
 
             return new IDrawText[] { line };

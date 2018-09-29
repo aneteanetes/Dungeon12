@@ -58,7 +58,7 @@ namespace Rogue.Drawing.Impl
         {
             get
             {
-                var flatLength= this.Flat().Sum(x => x.StringData.Length);
+                var flatLength = this.Flat().Sum(x => x.StringData.Length);
 
                 return flatLength + (this.stringData?.Length ?? 0);
             }
@@ -95,7 +95,7 @@ namespace Rogue.Drawing.Impl
             // если мы заменяем что-то, значит пути назад нет, 
             // затираем простое значение, и добавляем внутрь
             // часть себя что бы превратить в составное
-            if(!string.IsNullOrEmpty(this.stringData))
+            if (!string.IsNullOrEmpty(this.stringData))
             {
                 this.InnerText.Add(new DrawText(this.stringData, this.ForegroundColor, this.BackgroundColor));
                 this.stringData = null;
@@ -138,7 +138,7 @@ namespace Rogue.Drawing.Impl
 
                 var offset = 0;
 
-                if (newLeft != null && newLeft.Length>0)
+                if (newLeft != null && newLeft.Length > 0)
                 {
                     this.InnerText.Insert(indexInListOriginalElement, newLeft);
                     offset += 1;
@@ -162,13 +162,13 @@ namespace Rogue.Drawing.Impl
                     //можно: нахуй его из внутренней коллекции, мы знаем индекс первого элемента, просто уёбем его и ничего не потеряем
                     this.InnerText.Remove(item.Text);
                 }
-                else if (item.EndIndex>drawingRange.EndIndex)
+                else if (item.EndIndex > drawingRange.EndIndex)
                 {
                     //нельзся: ну, заебись, мы нашли конец, теперь надо проверить на существование конца при обрезке
 
                     var cuttingIndex = item.EndIndex - drawingRange.EndIndex;
 
-                    newRight = new DrawText(first.Text.StringData.Substring(item.Text.Length- 1, cuttingIndex), first.Text.ForegroundColor, first.Text.BackgroundColor);
+                    newRight = new DrawText(first.Text.StringData.Substring(item.Text.Length - 1, cuttingIndex), first.Text.ForegroundColor, first.Text.BackgroundColor);
 
                     var offset = 0;
 
@@ -250,7 +250,7 @@ namespace Rogue.Drawing.Impl
             foreach (var item in this.InnerText)
             {
                 carry += item.Length;
-                
+
                 if (!startFinded && carry > index)
                 {
                     startFinded = true;
@@ -330,12 +330,12 @@ namespace Rogue.Drawing.Impl
         /// </summary>
         /// <param name="length">if not set, then - <see cref="Rogue.Settings.DrawingSize.WindowChars"/> </param>
         /// <returns></returns>
-        public static DrawText Empty(int length = 0)
+        public static DrawText Empty(int length = 0, ConsoleColor foregroundColor = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black)
         {
             if (length == 0)
                 length = DrawingSize.WindowChars;
 
-            return new DrawText(new string(Enumerable.Range(0, length).Select(x => ' ').ToArray()));
+            return new DrawText(new string(Enumerable.Range(0, length).Select(x => ' ').ToArray()), foregroundColor,backgroundColor);
 
         }
     }

@@ -41,6 +41,10 @@ namespace Rogue.Drawing.Console
         /// </summary>
         public string Label;
 
+        public virtual bool Activatable { get; } = false;
+
+        public bool Active { get; set; }
+
         /// <summary>
         /// Result with params of string (abcdef):  (red)a,(red)b,(blue)c,(green)d,(green)e,Exception;
         /// </summary>

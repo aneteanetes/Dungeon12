@@ -16,7 +16,11 @@ namespace Rogue.Drawing.Console
         {
             //this.AutoClear = false;
             this.Window = Window;
+            this.OnFocus = () => { this.Active = true; };
         }
+
+        public override bool Activatable => true;
+
         public Action OnClick;
         private List<List<ColouredChar>> constructed = new List<List<ColouredChar>>();
         public override IEnumerable<IDrawText> Construct(bool Active)
@@ -35,7 +39,7 @@ namespace Rogue.Drawing.Console
 
             var top = new DrawText(Window.Border.UpperLeftCorner + GetLine(this.Width - 2, Window.Border.HorizontalLine) + Window.Border.UpperRightCorner, Window.BorderColor);
 
-            var mid = DrawText.Empty(this.Width);
+            var mid = DrawText.Empty(this.Width,Window.BorderColor);
             mid.ReplaceAt(0, new DrawText(Window.Border.VerticalLine.ToString(), Window.BorderColor));
             mid.ReplaceAt(1, new DrawText(this.Middle(this.Label), color));
             mid.ReplaceAt(this.Width - 1, new DrawText(Window.Border.VerticalLine.ToString(), Window.BorderColor));
@@ -47,18 +51,12 @@ namespace Rogue.Drawing.Console
 
         public override IDrawSession Run()
         {
-
-            var lines = constructed;
-            foreach (List<ColouredChar> line in lines)
+            var y = 0;
+            var lines = this.Construct(this.Active);
+            foreach (var line in lines)
             {
-                var linePos = lines.IndexOf(line);
-
-                foreach (ColouredChar c in line)
-                {
-                    var charPos = line.IndexOf(c);
-
-                    this.Write(linePos, charPos, c.Char.ToString(), (ConsoleColor)c.Color, (ConsoleColor)c.BackColor);
-                }
+                this.Write(y, 0, line);
+                y++;
             }
 
             return base.Run();

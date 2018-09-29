@@ -58,6 +58,7 @@
             float XUnit = 11.5625f;
 
             var blackPaint = new SKPaint { Color = new SKColor(0, 0, 0, 255) };
+            //new SKPaint { Color = new SKColor(124, 57, 89, 255), IsStroke=true };
 
             foreach (var session in drawSessions)
             {
@@ -82,21 +83,31 @@
                     float x = session.Region.X * XUnit;
                     foreach (var lne in line.Data)
                     {
-
-                        var textpaint = new SKPaint
+                        foreach (var range in lne.Data)
                         {
-                            Typeface = font,
-                            TextSize = fontSize,
-                            IsAntialias = true,
-                            Color = new SKColor(lne.ForegroundColor.R, lne.ForegroundColor.G, lne.ForegroundColor.B, lne.ForegroundColor.A),
-                            Style = SKPaintStyle.Fill
-                        };
+                            var textpaint = new SKPaint
+                            {
+                                Typeface = font,
+                                TextSize = fontSize,
+                                IsAntialias = true,
+                                Color = new SKColor(range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B, range.ForegroundColor.A),
+                                Style = SKPaintStyle.Fill
+                            };
 
-                        canvas.DrawText(lne.StringData, x, y, textpaint);
-                        canvas.DrawText(lne.StringData, x, y, textpaint);
-                        
 
-                        x += XUnit;
+                            //canvas.DrawText(range.StringData, x, y, textpaint);
+                            //canvas.DrawText(range.StringData, x, y, textpaint);
+
+                            foreach (var @char in range.StringData)
+                            {
+
+                                canvas.DrawText(@char.ToString(), x, y, textpaint);
+                                canvas.DrawText(@char.ToString(), x, y, textpaint);
+                                x += XUnit;
+                            }
+
+                            //x += XUnit * lne.Length;
+                        }
                     }
 
                     y += YUnit;

@@ -68,6 +68,7 @@ namespace Rogue.Drawing.Console
         /// All interfaces in window
         /// </summary>
         protected List<Interface> Controls = new List<Interface>();
+        protected List<Interface> ActivatableControls = new List<Interface>();
         /// <summary>
         /// Add interface object on window
         /// </summary>
@@ -119,28 +120,72 @@ namespace Rogue.Drawing.Console
             //    }
             //}
         }
-        public bool tab()
+
+        public bool Tab()
         {
-            if (Focus == this.Controls.Count - 1) { Focus = 0; this.Sender = Controls[0]; } else { Focus++; this.Sender = this.Controls[Focus]; }
-            if (this.Sender.OnFocus != null) { this.Sender.OnFocus(); }
-            ReconstructInterface(); if (this.Sender.GetType() == typeof(TextBox)) { this.ActivateInterface(); textboxendinput(); if (this.NeedClose) { this.NeedClose = false; return true; } }
+            if (Focus == this.ActivatableControls.Count - 1)
+            {
+                Focus = 0;
+                this.Sender.Active = false;
+                this.Sender = ActivatableControls[0];
+            }
+            else
+            {
+                Focus++;
+                this.Sender.Active = false;
+                this.Sender = this.ActivatableControls[Focus];
+            }
+
+            this.Sender.OnFocus?.Invoke();
+
+            ReconstructInterface();
+
+            if (this.Sender.GetType() == typeof(TextBox))
+            {
+                this.ActivateInterface(); textboxendinput();
+                if (this.NeedClose)
+                {
+                    this.NeedClose = false; return true;
+                }
+            }
+
             return false;
         }
-        public bool up()
+
+        public bool Up()
         {
             if (Focus == 0)
-            { Focus = this.Controls.Count - 1; this.Sender = Controls[this.Controls.Count - 1]; }
-            else { Focus--; this.Sender = this.Controls[Focus]; }
-            if (this.Sender.OnFocus != null)
-            { this.Sender.OnFocus(); }
+            {
+                Focus = this.ActivatableControls.Count - 1;
+                this.Sender.Active = false;
+                this.Sender = ActivatableControls[this.ActivatableControls.Count - 1];
+            }
+            else
+            {
+                Focus--;
+                this.Sender.Active = false;
+                this.Sender = this.ActivatableControls[Focus];
+            }
+            this.Sender.OnFocus?.Invoke();
+
             ReconstructInterface(); //_Draw = this;
-            if (this.Sender.GetType() == typeof(TextBox)) { this.ActivateInterface(); textboxendinput(); if (this.NeedClose) { this.NeedClose = false; return true; } }
+
+            if (this.Sender.GetType() == typeof(TextBox))
+            {
+                this.ActivateInterface();
+                textboxendinput();
+                if (this.NeedClose)
+                {
+                    this.NeedClose = false; return true;
+                }
+            }
+
             return false;
         }
         public void textboxendinput()
         {
-            if (Focus == 0) { up(); }
-            else { tab(); }
+            if (Focus == 0) { Up(); }
+            else { Tab(); }
             //else if (Focus == this.Controls.Count - 1)
             //if (Focus == this.Controls.Count - 1) { tab(); }
             //else { up(); }
@@ -233,19 +278,19 @@ namespace Rogue.Drawing.Console
             #endregion
 
             //Interface
-            //for (int i = 0; i < this.Controls.Count; i++)
-            //{
-            //    bool a = false;
-            //    if (i == this.Focus) { a = true; }
-            //    AddInterface(Controls[i], a);
-            //}
+            for (int i = 0; i < this.Controls.Count; i++)
+            {
+                AddInterface(Controls[i], Controls[i]==this.Sender);
+            }
         }
         /// <summary>
         /// Construct Interface Map to Navigation
         /// </summary>
         protected void ConstructInterfaceMap()
         {
-            this.Controls = new List<Interface>((from c in ((from b in this.Controls orderby b.Top select b).ToList<Interface>()) orderby c.Left select c).ToList<Interface>()); this.Sender = this.Controls[0];
+            this.ActivatableControls = new List<Interface>((from c in ((from b in this.Controls where b.Activatable orderby b.Top select b).ToList<Interface>()) orderby c.Left select c).ToList<Interface>());
+            this.Sender = this.ActivatableControls[0];
+            this.Focus = 0;
         }
         /// <summary>
         /// Add Interface on window
@@ -268,14 +313,10 @@ namespace Rogue.Drawing.Console
         protected void ReconstructInterface()
         {
             //Interface
-            for (int i = 0; i < this.Controls.Count; i++)
+            for (int i = 0; i < this.ActivatableControls.Count; i++)
             {
-                bool a = false;
-                if (i == this.Focus) { a = true; }
-                //AddInterface(Controls[i], a);
-
-                var ctrl = Controls[i];
-                ctrl.Construct(a);
+                var ctrl = ActivatableControls[i];
+                ctrl.Construct(ActivatableControls[i]==Sender);
                 ctrl.Run();
                 ctrl.Publish();
 
@@ -380,23 +421,8 @@ namespace Rogue.Drawing.Console
 
         public override IDrawSession Run()
         {
-
             if (!this.Constructed)
                 this.ToConstruct();
-
-            var lines = this.GetLines();
-
-            foreach (List<ColouredChar> line in lines)
-            {
-                var linePos = lines.IndexOf(line);
-
-                foreach (ColouredChar c in line)
-                {
-                    var charPos = line.IndexOf(c);
-
-                    this.Write(linePos, charPos, c.Char.ToString(), (ConsoleColor)c.Color, (ConsoleColor)c.BackColor);
-                }
-            }
 
             return base.Run();
         }

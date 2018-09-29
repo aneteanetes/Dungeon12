@@ -40,7 +40,7 @@
             w.Top = 5;
 
 
-            w.AddControl(new Label(w, "Hellgates")
+            w.AddControl(new Label(w, "  Hellgates")
             {
                 ForegroundColor = ConsoleColor.DarkCyan,
                 Top = 1,
@@ -59,13 +59,13 @@
             {
                 ForegroundColor = ConsoleColor.Red,
                 Top = 3,
-                Left = window.Width - 10,
+                Left = 14,
                 Width = 10
             });
 
-            w.AddControl(new Label(w, "[London]")
+            w.AddControl(new Label(w, " [London]")
             {
-                ForegroundColor = ConsoleColor.DarkCyan,
+                ForegroundColor = ConsoleColor.Cyan,
                 Top = 4,
                 Left = 1,
                 Width = w.Width - 2,
@@ -139,11 +139,11 @@
             {
                 case Key.Left:
                 case Key.Up:
-                    window.up(); break;
+                    window.Up(); break;
                 case Key.Down:
                 case Key.Right:
                 case Key.Tab:
-                    window.tab(); break;
+                    window.Tab(); break;
                 case Key.Enter:
                     window.ActivateInterface(); break;
                 default:
