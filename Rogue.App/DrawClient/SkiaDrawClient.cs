@@ -10,7 +10,7 @@
 
     public class SkiaDrawClient : IDrawClient
     {
-        private WritableBitmap ViewportBitmap;
+        private WriteableBitmap ViewportBitmap;
         private Image control;
 
         SKBitmap drawingBitmap;
@@ -32,7 +32,7 @@
             }
         }
 
-        public SkiaDrawClient(WritableBitmap viewportBitmap, Image image)
+        public SkiaDrawClient(WriteableBitmap viewportBitmap, Image image)
         {
             this.ViewportBitmap = viewportBitmap;
             this.control = image;

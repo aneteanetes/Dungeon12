@@ -20,6 +20,7 @@ namespace Rogue.App
 
         public MainView()
         {
+            this.CanResize = false;
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
@@ -48,8 +49,8 @@ namespace Rogue.App
         {
             Image viewport = this.Content as Image;
             control = viewport;
-            viewport.PointerPressed += Viewport_PointerPressed;
-            var bitmap = new WritableBitmap(1157, 700, PixelFormat.Bgra8888);
+            viewport.PointerPressed += Viewport_PointerPressed;            
+            var bitmap = new WriteableBitmap(1157, 700, PixelFormat.Bgra8888);
             ViewportBitmap = bitmap;
             viewport.Source = bitmap;
 
@@ -87,7 +88,7 @@ namespace Rogue.App
         }
 
         private Image control;
-        private WritableBitmap ViewportBitmap;
+        private WriteableBitmap ViewportBitmap;
 
         SKBitmap drawingBitmap;
         private SKBitmap DrawingBitmap
