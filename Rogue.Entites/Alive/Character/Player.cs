@@ -18,12 +18,16 @@ namespace Rogue.Entites.Alive.Character
 
         public virtual string ClassName { get; }
 
-        public virtual string Resource() { return $"Мана: {HitPoints}/{MaxHitPoints}"; }
+        public virtual string Resource => "";
+
+        public virtual string ResourceName => "Мана"; 
+
+        public virtual ConsoleColor ClassColor { get; }
 
         /// <summary>
         /// это пиздец, выпили это нахуй
         /// </summary>
         /// <returns></returns>
-        public virtual ConsoleColor ResourceColor() => ConsoleColor.Blue;
+        public virtual ConsoleColor ResourceColor => ConsoleColor.Blue;
     }
 }

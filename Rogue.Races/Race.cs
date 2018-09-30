@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Rogue.Entites.Enums
+namespace Rogue
 {
     /// <summary>
     /// Доступные расы для выбора

@@ -1,5 +1,7 @@
 ﻿namespace Rogue.Entites.Alive
 {
+    using System;
+    using System.Collections.Generic;
     using Rogue.Transactions;
 
     /// <summary>
@@ -7,14 +9,27 @@
     /// </summary>
     public class Modified : Capable
     {
-        public void Add(Applicable modifier)
+        private static readonly Dictionary<Type, Applicable> Cache = new Dictionary<Type, Applicable>();
+
+        public void Add<T>() where T: Applicable
         {
-            modifier.Apply(this);
+            if (!Cache.TryGetValue(typeof(T), out var perk))
+            {
+                perk = typeof(T).New<T>();
+                Cache.Add(typeof(T), perk);
+            }
+
+            perk.Apply(this);
         }
 
-        public void Remove(Applicable modifier)
+        public void Remove<T>() where T : Applicable
         {
-            modifier.Discard(this);
+            if (!Cache.TryGetValue(typeof(T), out var perk))
+            {
+                return;
+            }
+
+            perk.Discard(this);
         }
     }
 }

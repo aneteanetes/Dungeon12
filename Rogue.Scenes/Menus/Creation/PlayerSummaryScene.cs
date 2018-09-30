@@ -59,7 +59,7 @@ namespace Rogue.Scenes.Menus.Creation
                 w.AddControl(new Label(w)
                 {
                     Top = totalTop,
-                    Left = 1,
+                    Left = 2,
                     SourceText = drawtext,
                     Align= TextPosition.Left,
                     Width=drawtext.Length
@@ -79,9 +79,9 @@ namespace Rogue.Scenes.Menus.Creation
 
             label("Имя: ",(Player.Name, ConsoleColor.DarkGray));
             label("Раса: ", (Player.Race.ToDisplay(), ConsoleColor.Gray));
-            label("Класс: ", (Player.ClassName, Player.ResourceColor()),true);
+            label("Класс: ", (Player.ClassName, Player.ResourceColor),true);
             label("Здоровье: ", (string.Format("{0}/{0}", Player.MaxHitPoints), ConsoleColor.Red));
-            label("Ресурс: ", (Player.Resource(), Player.ResourceColor()),true);
+            label($"{Player.ResourceName}: ", (Player.Resource, Player.ResourceColor),true);
             label("Урон: ", (string.Format("{0}-{1}", Player.MinDMG, Player.MaxDMG), ConsoleColor.DarkYellow));
             label("Сила атаки: ", (Player.AttackPower.ToString(), ConsoleColor.DarkCyan));
             label("Сила магии: ", (Player.AbilityPower.ToString(), ConsoleColor.DarkCyan),true);

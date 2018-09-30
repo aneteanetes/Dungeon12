@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Linq;
 using Rogue.Control.Keys;
 using Rogue.Drawing.Console;
-using Rogue.Entites.Enums;
+using Rogue.Drawing.Impl;
 using Rogue.Scenes.Scenes;
 
 namespace Rogue.Scenes.Menus.Creation
@@ -56,14 +55,17 @@ namespace Rogue.Scenes.Menus.Creation
 
             foreach (var @class in Classes.All())
             {
+                DrawColor usualColor = @class.ClassColor;
+                var activeCOlor = Light(usualColor);
+
                 Button bng = new Button(w)
                 {
                     Top = top,
                     Left = left,
                     Width = 20,
                     Height = 3,
-                    ActiveColor = ConsoleColor.Red,
-                    InactiveColor = ConsoleColor.DarkRed,
+                    ActiveColor = activeCOlor,
+                    InactiveColor = usualColor,
                     CloseAfterUse = true,
                     Label = @class.ClassName,
                     OnClick = () =>
@@ -84,13 +86,19 @@ namespace Rogue.Scenes.Menus.Creation
                     top = 4;
                     left = 24;
                 };                
-            }
-
-            //Controls 
-            
+            }            
 
             w.Run();
             w.Publish();
+        }
+
+        private DrawColor Light(DrawColor color)
+        {
+            var r = color.R;
+            var g = color.G;
+            var b = color.B;
+
+            return new DrawColor(r, g, b, 100);
         }
 
         public override void KeyPress(KeyArgs keyEventArgs)

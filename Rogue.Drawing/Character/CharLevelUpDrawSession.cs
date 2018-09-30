@@ -27,7 +27,7 @@ namespace Rogue.Drawing.Character
             DrawStat("Уровень: +1", 6, ConsoleColor.DarkCyan);
             DrawStat("Золото: +" + Player.Gold, 6, ConsoleColor.Yellow);
             DrawStat("Жизнь: +" + Player.MaxHitPoints.ToString(), 10, ConsoleColor.Red);
-            DrawStat(Player.Resource() + ": +" + Player.Resource().ToString(), 11, ConsoleColor.Blue);
+            DrawStat(Player.Resource + ": +" + Player.Resource, 11, ConsoleColor.Blue);
             DrawStat("DMG↓: +" + Player.MinDMG.ToString(), 13, ConsoleColor.DarkYellow);
             DrawStat("DMG↑: +" + Player.MaxDMG.ToString(), 13, ConsoleColor.DarkYellow);
             DrawStat("Очки навыков: +1", 16, ConsoleColor.Magenta);

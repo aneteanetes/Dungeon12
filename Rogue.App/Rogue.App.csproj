@@ -34,6 +34,7 @@
     <ProjectReference Include="..\Classes\Rogue.Classes.FireMage\Rogue.Classes.FireMage.csproj" />
     <ProjectReference Include="..\Classes\Rogue.Classes.Inquisitor\Rogue.Classes.Inquisitor.csproj" />
     <ProjectReference Include="..\Classes\Rogue.Classes.Paladin\Rogue.Classes.Paladin.csproj" />
+    <ProjectReference Include="..\Rogue.DataAccess\Rogue.DataAccess.csproj" />
     <ProjectReference Include="..\Rogue.Resources\Rogue.Resources.csproj" />
     <ProjectReference Include="..\Rogue.Scenes\Rogue.Scenes.csproj" />
   </ItemGroup>

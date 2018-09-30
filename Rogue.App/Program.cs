@@ -4,8 +4,16 @@
 
     public class Program
     {
+        /// <summary>
+        /// Компилирует БД из json файлов, будет замедлять запуск
+        /// </summary>
+        private static bool CompileDatabase => true;
+
         static void Main(string[] args)
         {
+            if (CompileDatabase)
+                Rogue.DataAccess.Program.Main(new string[0]);
+
             BuildAvaloniaApp().Start<MainView>();
         }
 

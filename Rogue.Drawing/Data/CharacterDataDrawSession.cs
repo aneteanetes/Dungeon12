@@ -47,9 +47,9 @@ namespace Rogue.Drawing.Data
             this.Write(7, positionInLine, new DrawText(WriteThis, ConsoleColor.Red));
 
             //mp
-            positionInLine = (this.DrawRegion.Width / 2) - ((Player.Resource().Length) / 2);
-            WriteThis = Player.Resource();
-            this.Write(8, positionInLine, new DrawText(WriteThis, Player.ResourceColor()));
+            positionInLine = (this.DrawRegion.Width / 2) - ((Player.Resource.Length) / 2);
+            WriteThis = Player.Resource;
+            this.Write(8, positionInLine, new DrawText(WriteThis, Player.ResourceColor));
 
             //dmg
             positionInLine = (this.DrawRegion.Width / 2) - ((6 + Player.MinDMG.ToString().Length + 1 + Player.MaxDMG.ToString().Length) / 2);

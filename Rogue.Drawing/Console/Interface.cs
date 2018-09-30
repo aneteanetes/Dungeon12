@@ -29,12 +29,12 @@ namespace Rogue.Drawing.Console
         /// <summary>
         /// Color of border / label when control active
         /// </summary>
-        public ConsoleColor ActiveColor = ConsoleColor.Black;
+        public DrawColor ActiveColor = ConsoleColor.Black;
 
         /// <summary>
         /// Color of border / label when control inactive
         /// </summary>
-        public ConsoleColor InactiveColor = ConsoleColor.Black;
+        public DrawColor InactiveColor = ConsoleColor.Black;
 
         /// <summary>
         /// Label, or default text
