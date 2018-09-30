@@ -1,4 +1,5 @@
-﻿using Rogue.Drawing.Impl;
+﻿using System.Collections.Generic;
+using Rogue.Drawing.Impl;
 
 namespace Rogue.Data.Perks
 {
@@ -12,8 +13,17 @@ namespace Rogue.Data.Perks
 
         public DrawColor Color { get; set; }
 
+        public string Identity { get; set; }
+
+        public List<Effect> Effects { get; set; }
+    }
+
+    public class Effect
+    {
+        public string Property { get; set; }
+
         public int Value { get; set; }
 
-        public string Property { get; set; }
+        public bool Positive { get; set; }
     }
 }

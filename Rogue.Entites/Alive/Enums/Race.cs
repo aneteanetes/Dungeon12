@@ -32,7 +32,7 @@ namespace Rogue
         Troll = 8,
 
         [Display(Name = "Падший")]
-        FallenAngel = 7,
+        Fallen = 7,
 
         [Display(Name = "Лунный эльф")]
         MoonElf = 5

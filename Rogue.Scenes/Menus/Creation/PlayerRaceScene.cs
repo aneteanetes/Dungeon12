@@ -3,6 +3,7 @@ using System.Linq;
 using Rogue.Control.Keys;
 using Rogue.Drawing.Console;
 using Rogue.Entites.Enums;
+using Rogue.Races.Perks;
 using Rogue.Scenes.Scenes;
 
 namespace Rogue.Scenes.Menus.Creation

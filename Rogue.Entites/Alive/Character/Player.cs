@@ -14,13 +14,17 @@ namespace Rogue.Entites.Alive.Character
 
         public long MaxExp => EXP * 2;
 
-        public int Gold { get; set; }
+        public long Gold { get; set; }
 
         public virtual string ClassName { get; }
 
         public virtual string Resource => "";
 
-        public virtual string ResourceName => "Мана"; 
+        public virtual string ResourceName => "Мана";
+
+        public virtual void AddToResource(double value) { }
+
+        public virtual void RemoveToResource(double value) { }
 
         public virtual ConsoleColor ClassColor { get; }
 

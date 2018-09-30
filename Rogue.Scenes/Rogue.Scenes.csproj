@@ -11,6 +11,7 @@
     <ProjectReference Include="..\Rogue.Entites\Rogue.Entites.csproj" />
     <ProjectReference Include="..\Rogue.Logging\Rogue.Logging.csproj" />
     <ProjectReference Include="..\Rogue.Map\Rogue.Map.csproj" />
+    <ProjectReference Include="..\Rogue.Races\Rogue.Races.csproj" />
     <ProjectReference Include="..\Rogue.Utils\Rogue.Utils.csproj" />
   </ItemGroup>
 

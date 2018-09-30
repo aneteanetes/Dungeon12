@@ -2,6 +2,7 @@
 using Rogue.Control.Keys;
 using Rogue.Drawing.Console;
 using Rogue.Drawing.Impl;
+using Rogue.Races.Perks;
 using Rogue.Scenes.Scenes;
 
 namespace Rogue.Scenes.Menus.Creation
@@ -72,7 +73,10 @@ namespace Rogue.Scenes.Menus.Creation
                     {
                         @class.Name = this.Player.Name;
                         @class.Race = this.Player.Race;
+
                         this.Player = @class;
+                        this.Player.Add<RacePerk>();
+
                         this.Switch<PlayerSummaryScene>();
                     }
                 };

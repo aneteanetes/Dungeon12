@@ -1,0 +1,19 @@
+﻿{
+  "Icon": "»",
+  "Identity": "DarkElf",
+  "Name": "Темные Эльфы",
+  "Description": "Мастера в собирании использовании.",
+  "Color": {
+    "R": 128,
+    "G": 0,
+    "B": 128,
+    "A": 255
+  },
+  "Effects": [
+    {
+      "Property": "AbilityPower",
+      "Value": 1,
+      "Positive": true
+    }
+  ]
+}

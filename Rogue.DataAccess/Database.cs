@@ -15,9 +15,9 @@
             if (!Directory.Exists(MainPath))
                 Directory.CreateDirectory(MainPath);
 
-            using (var db = new LiteDatabase($@"{MainPath}\{typeof(T).Name}.db"))
+            using (var db = new LiteDatabase($@"{MainPath}\Data.db"))
             {
-                var collection = db.GetCollection<T>("customers");
+                var collection = db.GetCollection<T>();
                 
                 if (predicate != null)
                     return collection.Find(predicate);

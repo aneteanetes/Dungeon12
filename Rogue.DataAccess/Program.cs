@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
+using System.Text;
 using LiteDB;
 using Newtonsoft.Json;
 using Rogue.Data.Perks;
@@ -32,8 +33,20 @@ namespace Rogue.DataAccess
             LoadRogueDataAssembly();
             CompileDatabase();
 
-            Console.WriteLine();
-            Console.ReadLine();
+            Test();
+        }
+
+        private static void Test()
+        {
+            using (var db = new LiteDatabase($@"{MainPath}\Data.db"))
+            {
+                var collection = db.GetCollection<ValuePerk>();
+
+                foreach (var item in collection.FindAll())
+                {
+                    Console.WriteLine(JsonConvert.SerializeObject(item));
+                }
+            }
         }
 
         private static void CompileDatabase()
@@ -48,7 +61,7 @@ namespace Rogue.DataAccess
 
                     foreach (var item in data.JsonFiles)
                     {
-                        AddToGenericList(list, JsonConvert.DeserializeObject(File.ReadAllText(item), GetDataType(data.Type)));
+                        AddToGenericList(list, JsonConvert.DeserializeObject(File.ReadAllText(item,Encoding.UTF8), GetDataType(data.Type)));
                     }
 
                     Insert(collection, list);

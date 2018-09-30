@@ -1,0 +1,24 @@
+﻿{
+  "Icon": "H",
+  "Identity": "Troll",
+  "Name": "Тролли",
+  "Description": "Настоящие охотники.",
+  "Color": {
+    "R": 128,
+    "G": 0,
+    "B": 128,
+    "A": 255
+  },
+  "Effects": [
+    {
+      "Property": "AttackPower",
+      "Value": 2,
+      "Positive": true
+    },
+    {
+      "Property": "MaxHitPoints",
+      "Value": 20,
+      "Positive": false
+    }
+  ]
+}

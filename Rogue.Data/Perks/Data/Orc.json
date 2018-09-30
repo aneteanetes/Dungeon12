@@ -1,0 +1,24 @@
+﻿{
+  "Icon": "o",
+  "Identity": "Orc",
+  "Name": "ќрки",
+  "Description": "—амые сильные войны.",
+  "Color": {
+    "R": 0,
+    "G": 215,
+    "B": 0,
+    "A": 255
+  },
+  "Effects": [
+    {
+      "Property": "MinDMG",
+      "Value": 1,
+      "Positive": true
+    },
+    {
+      "Property": "MaxDMG",
+      "Value": 2,
+      "Positive": true
+    }
+  ]
+}

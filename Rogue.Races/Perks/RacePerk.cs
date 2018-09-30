@@ -1,28 +1,101 @@
 ﻿namespace Rogue.Races.Perks
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using FastMember;
+    using Rogue.Data.Perks;
+    using Rogue.DataAccess;
+    using Rogue.Entites.Alive.Character;
     using Rogue.Perks;
     using Rogue.View.Interfaces;
 
     public class RacePerk : Perk
     {
-        public override string Icon => throw new NotImplementedException();
+        private TypeAccessor PlayerAccessor;
+        
+        private string _icon;
+        private string _name;
+        private string _description;
 
-        public override string Name => throw new NotImplementedException();
+        public override string Icon => _icon;
 
-        public override IDrawColor BackgroundColor { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public override IDrawColor ForegroundColor { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override string Name => _name;
 
-        public override string Description => throw new NotImplementedException();
+        public override IDrawColor BackgroundColor { get; set; }
+        public override IDrawColor ForegroundColor { get; set; }
+
+        public override string Description => _description;
+
+        public void Apply(Player player)
+        {
+            var perk = Database.Entity<ValuePerk>(x => x.Identity == player.Race.ToString())
+                .First();
+
+            this._icon = perk.Icon;
+            this._name = perk.Name;
+            this._description = perk.Description;
+            this.ForegroundColor = perk.Color;
+
+            PlayerAccessor = TypeAccessor.Create(player.GetType());
+
+            this.Modify(player, true, perk.Effects);
+        }
+
+        public void Descard(Player player)
+        {
+            var perk = Database.Entity<ValuePerk>(x => x.Identity == player.Race.ToString())
+                .First();
+
+            this.Modify(player, false, perk.Effects);
+        }
+
+        private void Modify(Player player, bool positive, IEnumerable<Effect> effects)
+        {
+            foreach (var effect in effects)
+            {
+                Action<int> modify = null;
+
+                var positiveEffect = effect.Positive;
+
+                if (!positive)
+                    positiveEffect = !positiveEffect;
+
+                if (positiveEffect)
+                {
+                    if (effect.Property == "Resource")
+                    {
+                        modify = (v) => player.AddToResource(v);
+                    }
+                    else
+                    {
+                        modify = (v) => PlayerAccessor[player, effect.Property] = (long)PlayerAccessor[player, effect.Property] + v;
+                    }
+                }
+                else
+                {
+                    if (effect.Property == "Resource")
+                    {
+                        modify = (v) => player.RemoveToResource(v);
+                    }
+                    else
+                    {
+                        modify = (v) => PlayerAccessor[player, effect.Property] = (long)PlayerAccessor[player, effect.Property] - v;
+                    }
+                }
+
+                modify(effect.Value);
+            }
+        }
 
         protected override void CallApply(dynamic obj)
         {
-            throw new NotImplementedException();
+            this.Apply(obj);
         }
 
         protected override void CallDiscard(dynamic obj)
         {
-            throw new NotImplementedException();
+            this.Discard(obj);
         }
     }
 }
