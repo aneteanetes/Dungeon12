@@ -13,10 +13,10 @@ namespace Rogue.Drawing.Labirinth
         {
             this.DrawRegion = new Types.Rectangle
             {
-                X = 1,
-                Y = 1,
-                Width = DrawingSize.MapChars,
-                Height = DrawingSize.MapLines,
+                X = 0,
+                Y = 0,
+                Width = 72,//DrawingSize.MapChars,
+                Height = 23//DrawingSize.MapLines,
             };
         }
 
@@ -33,44 +33,45 @@ namespace Rogue.Drawing.Labirinth
             var batch = new List<IDrawText>();
 
             //72 * 23 потому что интерфейс рядом есть            
-            for (int y = 0; y < DrawingSize.MapLines; y++)
+            for (int y = 0; y < 23; y++)
             {
-                var line = DrawText.Empty(DrawingSize.MapChars);
+                var line = DrawText.Empty(71);
 
-                for (int x = 0; x < DrawingSize.MapChars; x++)
+                for (int x = 0; x < 71; x++)
                 {
-                    if (map[x][y].Enemy != null)
-                    {
-                        line.ReplaceAt(x, new DrawText(/*Enemy.Icon*/"E", /*Enemy.Chest*/ConsoleColor.DarkRed));
-                    }
-                    else if (map[x][y].Player != null)
-                    {
-                        line.ReplaceAt(x, new DrawText(/*Enemy.Icon*/"@", /*Enemy.Chest*/ConsoleColor.Red));
-                    }
-                    else if (map[x][y].Item != null)
-                    {
-                        line.ReplaceAt(x, new DrawText(/*Enemy.Icon*/"*", /*Enemy.Chest*/ConsoleColor.Green));
-                    }
-                    else if (map[x][y].Object != null)
-                    {
-                        line.ReplaceAt(x, new DrawText(/*Enemy.Icon*/"!", /*Enemy.Chest*/ConsoleColor.Cyan));
-                        //if (map[x][y].Object.Name == "Exit")
-                        //else if (map[x][y].Object.Icon == '↨')                        
-                    }
-                    else if (map[x][y].Wall != null)
-                    {
-                        line.ReplaceAt(x, new DrawText("#", BiomView.GetView().ForegroundColor));
-                    }
-                    else if (map[x][y].Trap != null)
-                    {
-                        line.ReplaceAt(x, new DrawText("`", ConsoleColor.DarkGray));
-                    }
+                    line.ReplaceAt(x, new DrawText(map[y][x].Icon));
+                    //if (map[x][y].Enemy != null)
+                    //{
+                    //    line.ReplaceAt(x, new DrawText(/*Enemy.Icon*/"E", /*Enemy.Chest*/ConsoleColor.DarkRed));
+                    //}
+                    //else if (map[x][y].Player != null)
+                    //{
+                    //    line.ReplaceAt(x, new DrawText(/*Enemy.Icon*/"@", /*Enemy.Chest*/ConsoleColor.Red));
+                    //}
+                    //else if (map[x][y].Item != null)
+                    //{
+                    //    line.ReplaceAt(x, new DrawText(/*Enemy.Icon*/"*", /*Enemy.Chest*/ConsoleColor.Green));
+                    //}
+                    //else if (map[x][y].Object != null)
+                    //{
+                    //    line.ReplaceAt(x, new DrawText(/*Enemy.Icon*/"!", /*Enemy.Chest*/ConsoleColor.Cyan));
+                    //    //if (map[x][y].Object.Name == "Exit")
+                    //    //else if (map[x][y].Object.Icon == '↨')                        
+                    //}
+                    //else if (map[x][y].Wall != null)
+                    //{
+                    //    line.ReplaceAt(x, new DrawText("#", BiomView.GetView().ForegroundColor));
+                    //}
+                    //else if (map[x][y].Trap != null)
+                    //{
+                    //    line.ReplaceAt(x, new DrawText("`", ConsoleColor.DarkGray));
+                    //}
                 }
 
-                batch.Add(line);
+                this.Write(y, 0, line);
             }
 
-            this.Batch(1, 1, batch);
+            //this.Batch(0, 0, batch);
 
             return this;
         }

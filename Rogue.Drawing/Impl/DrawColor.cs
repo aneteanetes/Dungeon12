@@ -6,10 +6,6 @@ namespace Rogue.Drawing.Impl
 {
     public class DrawColor : IDrawColor
     {
-        public DrawColor()
-        {
-        }
-
         public DrawColor(ConsoleColor consoleColor)
         {
             var rgba = ConsoleMap[consoleColor];
@@ -27,13 +23,13 @@ namespace Rogue.Drawing.Impl
             this.A = a;
         }
 
-        public byte R { get; set; }
+        public byte R { get; }
 
-        public byte G { get; set; }
+        public byte G { get; }
 
-        public byte B { get; set; }
+        public byte B { get; }
 
-        public byte A { get; set; }
+        public byte A { get; }
 
         public static implicit operator DrawColor(ConsoleColor consoleColor) => new DrawColor(consoleColor);
 

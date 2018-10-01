@@ -28,6 +28,8 @@ namespace Rogue.Entites.Alive.Character
 
         public virtual ConsoleColor ClassColor { get; }
 
+        public virtual void AddClassPerk() { }
+
         /// <summary>
         /// это пиздец, выпили это нахуй
         /// </summary>

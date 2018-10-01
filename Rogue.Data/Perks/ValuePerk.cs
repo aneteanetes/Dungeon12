@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using Rogue.Drawing.Impl;
-
-namespace Rogue.Data.Perks
+﻿namespace Rogue.Data.Perks
 {
+    using System.Collections.Generic;
+
     public class ValuePerk : Persist
     {
         public string Icon { get; set; }
@@ -11,11 +10,22 @@ namespace Rogue.Data.Perks
 
         public string Description { get; set; }
 
-        public DrawColor Color { get; set; }
+        public PersistColor Color { get; set; }
 
         public string Identity { get; set; }
 
         public List<Effect> Effects { get; set; }
+    }
+
+    public class PersistColor
+    {
+        public byte R { get; set; }
+
+        public byte G { get; set; }
+
+        public byte B { get; set; }
+
+        public byte A { get; set; }
     }
 
     public class Effect

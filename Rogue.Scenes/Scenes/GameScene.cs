@@ -12,7 +12,7 @@
 
         public Player Player;
 
-        public Location Map;
+        public Location Location;
 
         public Logger Log;
 

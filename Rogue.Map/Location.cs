@@ -14,25 +14,6 @@ namespace Rogue.Map
 
         public int Level = 1;
 
-        public Cell[][] Map;
-
-        public class Cell
-        {
-            public char Vision;
-
-            public object Item;
-
-            public object Enemy;
-
-            public object Wall;
-
-            public object Object;
-
-            public object Player;
-
-            public object Trap;
-
-            public bool Empty;
-        }
+        public List<List<MapObject>> Map = new List<List<MapObject>>();
     }
 }

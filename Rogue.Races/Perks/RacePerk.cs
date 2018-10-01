@@ -6,6 +6,7 @@
     using FastMember;
     using Rogue.Data.Perks;
     using Rogue.DataAccess;
+    using Rogue.Drawing.Impl;
     using Rogue.Entites.Alive.Character;
     using Rogue.Perks;
     using Rogue.View.Interfaces;
@@ -35,7 +36,7 @@
             this._icon = perk.Icon;
             this._name = perk.Name;
             this._description = perk.Description;
-            this.ForegroundColor = perk.Color;
+            this.ForegroundColor = new DrawColor(perk.Color.R, perk.Color.G, perk.Color.B, perk.Color.A);
 
             PlayerAccessor = TypeAccessor.Create(player.GetType());
 

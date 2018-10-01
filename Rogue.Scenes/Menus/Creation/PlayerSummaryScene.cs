@@ -3,11 +3,12 @@ using Rogue.Control.Keys;
 using Rogue.Drawing.Console;
 using Rogue.Drawing.Impl;
 using Rogue.Entites.Alive.Character;
+using Rogue.Scenes.Game;
 using Rogue.Scenes.Scenes;
 
 namespace Rogue.Scenes.Menus.Creation
 {
-    public class PlayerSummaryScene : GameScene<PlayerRaceScene,MainMenuScene>
+    public class PlayerSummaryScene : GameScene<MainScene,MainMenuScene>
     {
         public PlayerSummaryScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -98,7 +99,10 @@ namespace Rogue.Scenes.Menus.Creation
                 ActiveColor = ConsoleColor.Red,
                 InactiveColor = ConsoleColor.DarkRed,                
                 Label = "Начать",
-                CloseAfterUse = true
+                OnClick = () =>
+                {
+                    this.Switch<MainScene>();
+                }
             };
             w.AddControl(bex);
 

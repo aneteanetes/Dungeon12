@@ -50,7 +50,7 @@
 
             next.Player = previous.Player;
             next.Log = previous.Log;
-            next.Map = previous.Map;
+            next.Location = previous.Location;
         }
     }
 }
