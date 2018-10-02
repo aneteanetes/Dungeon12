@@ -33,7 +33,7 @@ namespace Rogue.DataAccess
             LoadRogueDataAssembly();
             CompileDatabase();
 
-            Test();
+            //Test();
         }
 
         private static void Test()

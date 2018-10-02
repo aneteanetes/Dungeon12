@@ -3,6 +3,7 @@ using Rogue.Drawing.Impl;
 using Rogue.Entites.Alive.Character;
 using Rogue.Entites.Items;
 using Rogue.Items;
+using Rogue.Items.Types;
 using Rogue.View.Interfaces;
 
 namespace Rogue.Drawing.Data
@@ -16,7 +17,7 @@ namespace Rogue.Drawing.Data
                 X = 75,
                 Y = 1,
                 Width = 23,
-                Height = 17
+                Height = 24
             };
         }
 
@@ -31,8 +32,8 @@ namespace Rogue.Drawing.Data
             this.Write(1, positionInLine, new DrawText(Player.Name, ConsoleColor.Cyan));
 
             //race class
-            positionInLine = (this.DrawRegion.Width / 2) - ((Player.Race.ToDisplay().Length + Player.Race.ToDisplay().Length + 3) / 2);
-            string WriteThis = Player.Race.ToDisplay() + " - " + Player.Race.ToDisplay();
+            string WriteThis = $"{Player.Race.ToDisplay()} - {Player.ClassName}";
+            positionInLine = (this.DrawRegion.Width / 2) - (WriteThis.Length / 2);
             this.Write(3, positionInLine, new DrawText(WriteThis, ConsoleColor.Gray));
 
 
@@ -47,8 +48,8 @@ namespace Rogue.Drawing.Data
             this.Write(7, positionInLine, new DrawText(WriteThis, ConsoleColor.Red));
 
             //mp
-            positionInLine = (this.DrawRegion.Width / 2) - ((Player.Resource.Length) / 2);
-            WriteThis = Player.Resource;
+            WriteThis = $"{Player.ResourceName}: {Player.Resource}";
+            positionInLine = (this.DrawRegion.Width / 2) - ((WriteThis.Length) / 2);
             this.Write(8, positionInLine, new DrawText(WriteThis, Player.ResourceColor));
 
             //dmg
@@ -86,7 +87,14 @@ namespace Rogue.Drawing.Data
             this.Write(18, positionInLine, new DrawText("Инвентарь:", ConsoleColor.DarkRed));
 
             Item Empt = Item.Empty;
-            Item[] CI = HotPanel.ToArray();  //Current items
+            Item[] CI = new Item[]{
+                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Red)  },
+                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Blue)  },
+                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Green)  },
+                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Magenta)  },
+                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Cyan)  },
+                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.White)  }
+            }; //Current items
             for (int i = 0; i < 6; i++)
             {
                 try
@@ -101,7 +109,15 @@ namespace Rogue.Drawing.Data
             }
 
             //вещи
-            Item[] M = HotPanel.ToArray();
+            Item[] M = new Item[]{
+                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Red)  },
+                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Blue)  },
+                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Green)  },
+                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Magenta)  },
+                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Cyan)  },
+                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.White)  }
+            };
+            //HotPanel.ToArray();
             Item N = Item.Empty;
 
             for (int i = 0; i < 6; i++)
@@ -121,9 +137,9 @@ namespace Rogue.Drawing.Data
             positionInLine = (this.DrawRegion.Width / 2) - (("┌───┬───┬───┐".Length) / 2);
 
             this.Write(19, positionInLine, new DrawText("┌───┬───┬───┐", ConsoleColor.DarkRed));
-            this.Write(20, positionInLine, new DrawText("│ " + "`" + M[0].ForegroundColor.ToString() + "`" + M[0].Icon.ToString() + " │ " + "`" + M[1].ForegroundColor.ToString() + "`" + M[1].Icon.ToString() + " │ " + "`" + M[2].ForegroundColor.ToString() + "`" + M[2].Icon.ToString() + " │", ConsoleColor.DarkRed));
+            this.Write(20, positionInLine, new DrawText("│ " + M[0].Icon.ToString() + " │ " + M[1].Icon.ToString() + " │ " +  M[2].Icon.ToString() + " │", ConsoleColor.DarkRed));
             this.Write(21, positionInLine, new DrawText("├───┼───┼───┤", ConsoleColor.DarkRed));
-            this.Write(22, positionInLine, new DrawText("│ " + "`" + M[3].ForegroundColor.ToString() + "`" + M[3].Icon.ToString() + " │ " + "`" + M[4].ForegroundColor.ToString() + "`" + M[4].Icon.ToString() + " │ " + "`" + M[5].ForegroundColor.ToString() + "`" + M[5].Icon.ToString() + " │", ConsoleColor.DarkRed));
+            this.Write(22, positionInLine, new DrawText("│ " + M[3].Icon.ToString() + " │ " + M[4].Icon.ToString() + " │ " +  M[5].Icon.ToString() + " │", ConsoleColor.DarkRed));
             this.Write(23, positionInLine, new DrawText("└───┴───┴───┘", ConsoleColor.DarkRed));
 
             return this;

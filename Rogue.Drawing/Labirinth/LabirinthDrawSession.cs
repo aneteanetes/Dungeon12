@@ -9,22 +9,20 @@ namespace Rogue.Drawing.Labirinth
 {
     public class LabirinthDrawSession : DrawSession
     {
+        private DrawingSize DrawingSize = new DrawingSize();
+
         public LabirinthDrawSession()
         {
             this.DrawRegion = new Types.Rectangle
             {
-                X = 0,
-                Y = 0,
-                Width = 72,//DrawingSize.MapChars,
-                Height = 23//DrawingSize.MapLines,
+                X = 2,
+                Y = 2,
+                Width = DrawingSize.MapChars,
+                Height = DrawingSize.MapLines,
             };
         }
 
         public Location Location { get; set; }
-
-        public IView<Biom> BiomView { get; set; }
-
-        public DrawingSize DrawingSize { get; set; }
 
         public override IDrawSession Run()
         {
@@ -32,14 +30,17 @@ namespace Rogue.Drawing.Labirinth
 
             var batch = new List<IDrawText>();
 
-            //72 * 23 потому что интерфейс рядом есть            
-            for (int y = 0; y < 23; y++)
+            for (int y = 0; y < DrawingSize.MapLines; y++)
             {
-                var line = DrawText.Empty(71);
+                var line = DrawText.Empty(DrawingSize.MapChars);
 
-                for (int x = 0; x < 71; x++)
+                for (int x = 0; x < DrawingSize.MapChars; x++)
                 {
-                    line.ReplaceAt(x, new DrawText(map[y][x].Icon));
+                    var drawColor = map[y][x].ForegroundColor;
+                    if (drawColor == null)
+                        drawColor = new DrawColor(Location.Biom);
+
+                    line.ReplaceAt(x, new DrawText(map[y][x].Icon, drawColor));
                     //if (map[x][y].Enemy != null)
                     //{
                     //    line.ReplaceAt(x, new DrawText(/*Enemy.Icon*/"E", /*Enemy.Chest*/ConsoleColor.DarkRed));

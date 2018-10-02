@@ -6,14 +6,14 @@ using Rogue.View.Interfaces;
 
 namespace Rogue.Drawing.GUI
 {
-    public class InfoBoxDrawSession : DrawSession
+    public class MessageDrawSession : DrawSession
     {
-        public InfoBoxDrawSession()
+        public MessageDrawSession()
         {
             this.DrawRegion = new Types.Rectangle
             {
                 X = 2,
-                Y = 26,
+                Y = 27,
                 Width = 88,
                 Height = 1
             };

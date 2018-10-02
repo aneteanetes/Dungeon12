@@ -7,14 +7,14 @@
 
     public class GUIBorderDrawSession : DrawSession
     {
-        public DrawingSize DrawingSize { get; set; }
+        private DrawingSize DrawingSize = new DrawingSize();
 
         public GUIBorderDrawSession()
         {
             this.DrawRegion = new Types.Rectangle
             {
-                X = 0,
-                Y = 0,
+                X = 1,
+                Y = 1,
                 Height = DrawingSize.WindowLines,
                 Width = DrawingSize.WindowChars
             };
@@ -36,46 +36,48 @@
             string stringBuffer = string.Empty;
             stringBuffer = DrawHelp.FullLine(100, DrawHelp.Border(true, 4), 27);
             stringBuffer = DrawHelp.Border(true, 1) + stringBuffer.Remove(stringBuffer.Length - 2) + DrawHelp.Border(true, 2);
-            this.Write(height, 1, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
+            this.Write(height, 0, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
       
              
             for (int i = 1; i < 24; i++)
             {
                 stringBuffer = DrawHelp.FullLine(100, " ", 2);
                 stringBuffer = DrawHelp.Border(true, 3) + stringBuffer.Remove(stringBuffer.Length - 27) + DrawHelp.Border(true, 3);                
-                this.Write(1, 1, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
+                this.Write(i, 0, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
             }
 
             stringBuffer = string.Empty;
             stringBuffer = DrawHelp.FullLine(100, DrawHelp.Border(true, 4), 27);
             stringBuffer = DrawHelp.Border(true, 5) + stringBuffer.Remove(stringBuffer.Length - 2) + DrawHelp.Border(true, 6);
-            this.Write(24, 1, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
+            this.Write(24, 0, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
         }
 
         private void CharacterBorder()
         {
             int height = 24;
+            int startCharacterBorder = 73;
+            int charaterWidth = 26;
 
             //up ========
             var stringBuffer = string.Empty;
-            stringBuffer = DrawHelp.FullLine(25, DrawHelp.Border(true, 4));
+            stringBuffer = DrawHelp.FullLine(charaterWidth, DrawHelp.Border(true, 4));
             stringBuffer = DrawHelp.Border(true, 1) + stringBuffer.Remove(stringBuffer.Length - 2) + DrawHelp.Border(true, 2);
-            this.Write(0, 75, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
+            this.Write(0, startCharacterBorder, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
 
             //body |    |
             for (int i = 1; i < height; i++)
             {
-                stringBuffer = DrawHelp.FullLine(25, " ");
+                stringBuffer = DrawHelp.FullLine(charaterWidth, " ");
                 stringBuffer = DrawHelp.Border(true, 3) + stringBuffer.Remove(stringBuffer.Length - 2) + DrawHelp.Border(true, 3);
 
-                this.Write(i, 75, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
+                this.Write(i, startCharacterBorder, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
             }
 
             //down ======
             stringBuffer = string.Empty;
-            stringBuffer = DrawHelp.FullLine(25, DrawHelp.Border(true, 4));
+            stringBuffer = DrawHelp.FullLine(charaterWidth, DrawHelp.Border(true, 4));
             stringBuffer = DrawHelp.Border(true, 5) + stringBuffer.Remove(stringBuffer.Length - 2) + DrawHelp.Border(true, 6);
-            this.Write(height, 75, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
+            this.Write(height, startCharacterBorder, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
         }
 
         private void InfoBorder()
@@ -88,18 +90,18 @@
             stringBuffer = string.Empty;
             stringBuffer = DrawHelp.FullLine(100, DrawHelp.Border(true, 4), 2);
             stringBuffer = DrawHelp.Border(true, 1) + stringBuffer.Remove(stringBuffer.Length - 2) + DrawHelp.Border(true, 2);
-            this.Write(height, 1, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
+            this.Write(height, 0, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
 
             //тело                
             stringBuffer = DrawHelp.FullLine(100, " ", 2);
             stringBuffer = DrawHelp.Border(true, 3) + stringBuffer.Remove(stringBuffer.Length - 2) + DrawHelp.Border(true, 3);
-            this.Write(height + 1, 1, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
+            this.Write(height + 1, 0, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
 
             //носки 
             stringBuffer = string.Empty;
             stringBuffer = DrawHelp.FullLine(100, DrawHelp.Border(true, 4), 2);
             stringBuffer = DrawHelp.Border(true, 5) + stringBuffer.Remove(stringBuffer.Length - 2) + DrawHelp.Border(true, 6);
-            this.Write(height + 2, 1, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
+            this.Write(height + 2, 0, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
         }
     }
 }

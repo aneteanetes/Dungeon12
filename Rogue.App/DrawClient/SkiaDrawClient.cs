@@ -65,18 +65,18 @@
                 var rect = new SKRect();
                 rect.Location = new SKPoint
                 {
-                    Y = (session.Region.Y) * YUnit,
+                    Y = ((session.Region.Y) * YUnit)+10,
                     X = session.Region.X * XUnit
                 };
                 rect.Size = new SKSize
                 {
-                    Height = (session.Region.Height * YUnit),
+                    Height = (session.Region.Height * YUnit)-10,
                     Width = session.Region.Width * XUnit
                 };
 
                 canvas.DrawRect(rect, blackPaint);
 
-                float y = (session.Region.Y+1) * YUnit;
+                float y = ((session.Region.Y) * YUnit)+10;
                 foreach (var line in session.Content)
                 {
 

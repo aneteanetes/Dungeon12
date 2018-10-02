@@ -6,7 +6,7 @@
     using Rogue.Logging;
     using Rogue.Map;
 
-    public abstract class GameScene : Scene
+    public abstract class GameScene : CommandScene
     {
         protected readonly List<Type> AvailableScenes = new List<Type>();
 
