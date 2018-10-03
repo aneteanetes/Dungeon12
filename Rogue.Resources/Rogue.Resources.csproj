@@ -9,6 +9,8 @@
     <None Remove="Images\Splash\sceneHD.png" />
     <None Remove="Images\Splash\splash.jpg" />
     <None Remove="Images\Splash\start.png" />
+    <None Remove="Images\Tiles\Tileset.png" />
+    <None Remove="Images\Tiles\TilesetTransparent.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,6 +18,8 @@
     <EmbeddedResource Include="Images\Splash\sceneHD.png" />
     <EmbeddedResource Include="Images\Splash\splash.jpg" />
     <EmbeddedResource Include="Images\Splash\start.png" />
+    <EmbeddedResource Include="Images\Tiles\Tileset.png" />
+    <EmbeddedResource Include="Images\Tiles\TilesetTransparent.png" />
   </ItemGroup>
 
 </Project>

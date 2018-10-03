@@ -5,11 +5,14 @@
     using System.Linq;
     using Avalonia.Controls;
     using Avalonia.Media.Imaging;
+    using Rogue.Resources;
     using Rogue.View.Interfaces;
     using SkiaSharp;
 
     public class SkiaDrawClient : IDrawClient
     {
+        private static Random Random = new Random();
+
         private WriteableBitmap ViewportBitmap;
         private Image control;
 
@@ -38,7 +41,22 @@
             this.control = image;
         }
 
-        private void ExperimentalDraw(IEnumerable<IDrawSession> drawSessions)
+        private SKBitmap _tileset;
+        private SKBitmap Tileset
+        {
+            get
+            {
+                if (_tileset == null)
+                {
+                    var stream = ResourceLoader.Load("Rogue.Resources.Images.Tiles.TilesetTransparent.png");
+                    _tileset = SKBitmap.Decode(stream);
+                }
+
+                return _tileset;
+            }
+        }
+
+        public void Draw(IEnumerable<IDrawSession> drawSessions)
         {
             var bitmap = DrawingBitmap;
             var canvas = new SKCanvas(DrawingBitmap);
@@ -54,7 +72,7 @@
                 new SKColor(0, 255, 255, 255),
             };
 
-            float YUnit= 20f;
+            float YUnit = 20f;
             float XUnit = 11.5625f;
 
             var blackPaint = new SKPaint { Color = new SKColor(0, 0, 0, 255) };
@@ -94,16 +112,155 @@
                                 Style = SKPaintStyle.Fill
                             };
 
-
-                            //canvas.DrawText(range.StringData, x, y, textpaint);
-                            //canvas.DrawText(range.StringData, x, y, textpaint);
-
                             foreach (var @char in range.StringData)
                             {
+                                bool texture = false;
 
-                                canvas.DrawText(@char.ToString(), x, y, textpaint);
-                                canvas.DrawText(@char.ToString(), x, y, textpaint);
+                                XUnit = 20;
+
+                                if (@char == '°')
+                                {
+                                    texture = true;
+                                    var randomX = Random.Next(29, 31);
+                                    var randomY = Random.Next(26, 28);
+
+                                    canvas.DrawBitmap(Tileset, new SKRect
+                                    {
+                                        Left = 24 * randomX,
+                                        Top = 24 * (16+8),
+                                        Size = new SKSize
+                                        {
+                                            Height = 24,
+                                            Width = 24
+                                        }
+                                    }, new SKRect
+                                    {
+                                        Top=y-YUnit,
+                                        Left=x,
+                                        Size = new SKSize
+                                        {
+                                            Height = 20,
+                                            Width = 20
+                                        }
+                                    });
+
+                                    
+                                }
+
+                                if(@char=='#')
+                                {
+                                XUnit = 20;
+                                    texture = true;
+                                    var randomX = Random.Next(29, 31);
+                                    var randomY = Random.Next(26, 28);
+
+                                    canvas.DrawBitmap(Tileset, new SKRect
+                                    {
+                                        Left = 24 * randomX,
+                                        Top = 24 * (16 + 8),
+                                        Size = new SKSize
+                                        {
+                                            Height = 24,
+                                            Width = 24
+                                        }
+                                    }, new SKRect
+                                    {
+                                        Top = y - YUnit,
+                                        Left = x,
+                                        Size = new SKSize
+                                        {
+                                            Height = YUnit,
+                                            Width = XUnit
+                                        }
+                                    });
+
+                                    randomX = Random.Next(44, 55);
+                                    randomY = Random.Next(1, 5);
+
+                                    canvas.DrawBitmap(Tileset, new SKRect
+                                    {
+                                        Left = 24 * randomX,
+                                        Top = 24 * randomY,
+                                        Size = new SKSize
+                                        {
+                                            Height = 24,
+                                            Width = 24
+                                        }
+                                    }, new SKRect
+                                    {
+                                        Top = y - YUnit,
+                                        Left = x,
+                                        Size = new SKSize
+                                        {
+                                            Height = YUnit,
+                                            Width = XUnit
+                                        }
+                                    });
+                                }
+
+                                if (@char == '@')
+                                {
+                                    XUnit = 20;
+                                    texture = true;
+                                    var randomX = Random.Next(29, 31);
+                                    var randomY = Random.Next(26, 28);
+
+                                    canvas.DrawBitmap(Tileset, new SKRect
+                                    {
+                                        Left = 24 * randomX,
+                                        Top = 24 * (16 + 8),
+                                        Size = new SKSize
+                                        {
+                                            Height = 24,
+                                            Width = 24
+                                        }
+                                    }, new SKRect
+                                    {
+                                        Top = y - YUnit,
+                                        Left = x,
+                                        Size = new SKSize
+                                        {
+                                            Height = YUnit,
+                                            Width = XUnit
+                                        }
+                                    });
+
+                                    randomX = Random.Next(44, 55);
+                                    randomY = Random.Next(1, 5);
+
+                                    canvas.DrawBitmap(Tileset, new SKRect
+                                    {
+                                        Left = 24 * 33,
+                                        Top = 24 * 6,
+                                        Size = new SKSize
+                                        {
+                                            Height = 24,
+                                            Width = 24
+                                        }
+                                    }, new SKRect
+                                    {
+                                        Top = y - YUnit,
+                                        Left = x,
+                                        Size = new SKSize
+                                        {
+                                            Height = YUnit,
+                                            Width = XUnit
+                                        }
+                                    });
+                                }
+
+                                //6
+                                //34
+
+                                if (!texture)
+                                {
+                                    XUnit = 11.5625f;
+                                    canvas.DrawText(@char.ToString(), x, y, textpaint);
+                                    canvas.DrawText(@char.ToString(), x, y, textpaint);
+                                }
+
                                 x += XUnit;
+                                XUnit = 11.5625f;
                             }
 
                             //x += XUnit * lne.Length;
@@ -120,165 +277,6 @@
             font.Dispose();
 
             this.Draw();
-        }
-
-        public void Draw(IEnumerable<IDrawSession> drawSessions)
-        {
-            this.ExperimentalDraw(drawSessions);
-            return;
-
-            var bitmap = DrawingBitmap;
-
-            var canvas = new SKCanvas(DrawingBitmap);
-
-            //canvas.Scale(1.5f);
-
-            var debug = false;
-
-            float fontSize = 20f;
-            var font = SKTypeface.FromFamilyName("Lucida Console");
-            
-            //brush.IsAntialias = true;
-            
-            float YStep = 17f;
-            float XStep = 17f;
-
-            var wtf = new SKColor[]
-            {
-                new SKColor(255, 255, 0, 255),
-                new SKColor(0, 255, 0, 255),
-                new SKColor(0, 0, 255, 255),
-                new SKColor(0, 255, 255, 255),
-            };
-
-            var brush = new SKPaint
-            {
-                Typeface = font,
-                TextSize = fontSize,
-                IsAntialias = true,
-                Color = //new SKColor(0, 0, 0, 255),//!debug 
-                        //? new SKColor(0, 0, 0, 255)
-                        /*:*/
-                          new SKColor(255, 0, 0, 255),
-                Style = SKPaintStyle.Stroke,
-                //TextScaleX=1.5f,
-                //TextSkewX=1.5f
-                //FilterQuality= SKFilterQuality.High
-            };
-
-            SKRect rectB = new SKRect();
-            brush.MeasureText("@", ref rectB);
-
-
-            //font
-            foreach (var drawSession in drawSessions)
-            {
-                brush = new SKPaint
-                {
-                    Typeface = font,
-                    TextSize = fontSize,
-                    IsAntialias = true,
-                    Color = wtf[drawSessions.ToList().IndexOf(drawSession)],
-                    Style = SKPaintStyle.Stroke,
-                    //TextScaleX=1.5f,
-                    //TextSkewX=1.5f
-                    //FilterQuality= SKFilterQuality.High
-                };
-
-                float y = drawSession.Region.Y * YStep;
-
-                Console.WriteLine($"Y START:{(drawSession.Region.Y) * YStep}");
-
-                var rect = new SKRect(drawSession.Region.X * XStep,
-                    (drawSession.Region.Y-1) * YStep, // -1 обоссаный костыль на шрифты
-                    (drawSession.Region.X * XStep) + ((drawSession.Region.Width) * XStep),
-                    (drawSession.Region.Height) * YStep);
-
-                rect = new SKRect();
-                rect.Location = new SKPoint
-                {
-                    Y = (drawSession.Region.Y) * YStep,
-                    X = drawSession.Region.X * XStep
-                };
-                rect.Size = new SKSize
-                {
-                    Height = (drawSession.Region.Height * YStep),
-                    Width = drawSession.Region.Width * XStep
-                };
-
-                canvas.DrawRect(rect, brush);
-                canvas.DrawRect(rect, brush);
-                canvas.DrawRect(rect, brush);
-                canvas.DrawRect(rect, brush);
-
-
-                //canvas.DrawRect(new SKRect
-                //{
-                //    Location=new SKPoint
-                //    {
-                //        Y = (drawSession.Region.Y - 1) * YStep,
-                //        X= drawSession.Region.X * XStep
-                //    },
-                //    Size = new SKSize
-                //    {
-                //        Height =( drawSession.Region.Height-1) * YStep,
-                //        Width = (drawSession.Region.Width*2) * XStep
-                //    }
-                //}, brush);
-
-                foreach (var line in drawSession.Content)
-                {
-                    float x = drawSession.Region.X * XStep;
-                                        
-                    foreach (var lne in line.Data)
-                    {
-                        var txt = line.Data.Sum(z => z.StringData.Length);
-
-                        var textSegmentBrush = new SKPaint
-                        {
-                            Typeface = font,
-                            TextSize = fontSize,
-                            IsAntialias = true,
-                            Color = new SKColor(lne.ForegroundColor.R, lne.ForegroundColor.G, lne.ForegroundColor.B, lne.ForegroundColor.A),
-                            Style= SKPaintStyle.Fill                            
-                            //FilterQuality= SKFilterQuality.High
-                        };
-                        textSegmentBrush.IsAntialias = true;
-
-                        //foreach (var @char in lne.StringData)
-                        //{
-                        //    canvas.DrawText(@char.ToString(), x, y, textSegmentBrush);
-                        //    canvas.DrawText(@char.ToString(), x, y, textSegmentBrush);
-                        //    canvas.DrawText(@char.ToString(), x, y, textSegmentBrush);
-                        //    x += XStep;
-                        //}
-
-                        //canvas.DrawPath(path, textSegmentBrush);
-                        canvas.DrawText(lne.StringData, x, y, textSegmentBrush);
-                        canvas.DrawText(lne.StringData, x, y, textSegmentBrush);
-
-                        var measureX = textSegmentBrush.MeasureText(lne.StringData);
-
-                        x += lne.StringData.Length * XStep;
-                        //x += XStep;// - (float)(bounds.Width * 0.12);
-                    }
-
-                    y += YStep;// *1.2f;
-
-                }
-
-                if (debug)
-                    break;
-
-            }
-
-            canvas.Flush();            
-
-            this.Draw();
-
-            canvas.Dispose();
-            brush.Dispose();
-            font.Dispose();
         }
 
         private unsafe void Draw()

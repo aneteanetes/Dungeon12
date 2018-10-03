@@ -21,7 +21,7 @@ namespace Rogue.App
         public MainView()
         {
             this.CanResize = false;
-            //this.HasSystemDecorations = false;
+            this.HasSystemDecorations = false;
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
