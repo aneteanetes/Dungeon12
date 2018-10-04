@@ -1,12 +1,14 @@
 ﻿namespace Rogue.Scenes.Menus
 {
     using System;
+    using System.Linq;
     using Rogue.Control.Keys;
     using Rogue.Drawing.Console;
+    using Rogue.Races.Perks;
     using Rogue.Scenes.Menus.Creation;
     using Rogue.Scenes.Scenes;
 
-    public class MainMenuScene : GameScene<PlayerNameScene>
+    public class MainMenuScene : GameScene<PlayerNameScene, Game.MainScene>
     {
         public MainMenuScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -96,7 +98,15 @@
             bfg.InactiveColor = ConsoleColor.DarkRed;
             bfg.Label = "Быстрая игра";
             bfg.CloseAfterUse = true;
-            bfg.OnClick = () => { /*PlayEngine.GamePlay.NewGame.CharacterCreation(true);*/ };
+            bfg.OnClick = () =>
+            {
+                this.Player = Classes.All().First();
+                this.Player.Name = "Adventurer";
+                this.Player.Race = Race.DarkElf;
+                this.Player.Add<RacePerk>();
+
+                this.Switch<Game.MainScene>();
+            };
             w.AddControl(bfg);
 
             Button ba = new Button(w);

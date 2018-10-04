@@ -14,10 +14,10 @@ namespace Rogue.Drawing.Data
         {
             this.DrawRegion = new Types.Rectangle
             {
-                X = 75,
+                X = 76,
                 Y = 1,
-                Width = 23,
-                Height = 24
+                Width = 22,
+                Height = 23
             };
         }
 
@@ -86,61 +86,61 @@ namespace Rogue.Drawing.Data
             positionInLine = (this.DrawRegion.Width / 2) - (("Инвентарь:".Length) / 2);
             this.Write(18, positionInLine, new DrawText("Инвентарь:", ConsoleColor.DarkRed));
 
-            Item Empt = Item.Empty;
-            Item[] CI = new Item[]{
-                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Red)  },
-                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Blue)  },
-                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Green)  },
-                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Magenta)  },
-                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Cyan)  },
-                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.White)  }
-            }; //Current items
-            for (int i = 0; i < 6; i++)
-            {
-                try
-                {
-                    string wolvowhat = CI[i].Name;
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    Array.Resize(ref CI, CI.Length + 1);
-                    CI[i] = Empt;
-                }
-            }
+            //Item Empt = Item.Empty;
+            //Item[] CI = new Item[]{
+            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Red)  },
+            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Blue)  },
+            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Green)  },
+            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Magenta)  },
+            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Cyan)  },
+            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.White)  }
+            //}; //Current items
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    try
+            //    {
+            //        string wolvowhat = CI[i].Name;
+            //    }
+            //    catch (IndexOutOfRangeException)
+            //    {
+            //        Array.Resize(ref CI, CI.Length + 1);
+            //        CI[i] = Empt;
+            //    }
+            //}
 
-            //вещи
-            Item[] M = new Item[]{
-                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Red)  },
-                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Blue)  },
-                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Green)  },
-                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Magenta)  },
-                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Cyan)  },
-                new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.White)  }
-            };
-            //HotPanel.ToArray();
-            Item N = Item.Empty;
+            ////вещи
+            //Item[] M = new Item[]{
+            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Red)  },
+            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Blue)  },
+            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Green)  },
+            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Magenta)  },
+            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Cyan)  },
+            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.White)  }
+            //};
+            ////HotPanel.ToArray();
+            //Item N = Item.Empty;
 
-            for (int i = 0; i < 6; i++)
-            {
-                try
-                {
-                    M[i].ToString();
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    Array.Resize(ref M, M.Length + 1);
-                    M[i] = N;
-                }
-            }
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    try
+            //    {
+            //        M[i].ToString();
+            //    }
+            //    catch (IndexOutOfRangeException)
+            //    {
+            //        Array.Resize(ref M, M.Length + 1);
+            //        M[i] = N;
+            //    }
+            //}
 
 
-            positionInLine = (this.DrawRegion.Width / 2) - (("┌───┬───┬───┐".Length) / 2);
+            //positionInLine = (this.DrawRegion.Width / 2) - (("┌───┬───┬───┐".Length) / 2);
 
-            this.Write(19, positionInLine, new DrawText("┌───┬───┬───┐", ConsoleColor.DarkRed));
-            this.Write(20, positionInLine, new DrawText("│ " + M[0].Icon.ToString() + " │ " + M[1].Icon.ToString() + " │ " +  M[2].Icon.ToString() + " │", ConsoleColor.DarkRed));
-            this.Write(21, positionInLine, new DrawText("├───┼───┼───┤", ConsoleColor.DarkRed));
-            this.Write(22, positionInLine, new DrawText("│ " + M[3].Icon.ToString() + " │ " + M[4].Icon.ToString() + " │ " +  M[5].Icon.ToString() + " │", ConsoleColor.DarkRed));
-            this.Write(23, positionInLine, new DrawText("└───┴───┴───┘", ConsoleColor.DarkRed));
+            //this.Write(19, positionInLine, new DrawText("┌───┬───┬───┐", ConsoleColor.DarkRed));
+            //this.Write(20, positionInLine, new DrawText("│ " + M[0].Icon.ToString() + " │ " + M[1].Icon.ToString() + " │ " +  M[2].Icon.ToString() + " │", ConsoleColor.DarkRed));
+            //this.Write(21, positionInLine, new DrawText("├───┼───┼───┤", ConsoleColor.DarkRed));
+            //this.Write(22, positionInLine, new DrawText("│ " + M[3].Icon.ToString() + " │ " + M[4].Icon.ToString() + " │ " +  M[5].Icon.ToString() + " │", ConsoleColor.DarkRed));
+            //this.Write(23, positionInLine, new DrawText("└───┴───┴───┘", ConsoleColor.DarkRed));
 
             return this;
         }

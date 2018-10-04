@@ -14,12 +14,12 @@ namespace Rogue.Drawing
         /// </summary>
         /// <param name="Width">i think result line width</param>
         /// <param name="Line">text</param>
-        /// <param name="Spase">int for minus full line width</param>
+        /// <param name="cut">int for minus full line width</param>
         /// <returns></returns>
-        public static string FullLine(int Width, string Line, int Spase = 1)
+        public static string FullLine(int Width, string Line, int cut = 1)
         {
             string r = string.Empty;
-            for (int i = 0; i < Width - Spase; i++)
+            for (int i = 0; i < Width - cut; i++)
             {
                 r += Line;
             }

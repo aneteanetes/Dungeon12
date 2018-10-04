@@ -34,7 +34,7 @@ namespace Rogue.Drawing.Labirinth
             {
                 var line = DrawText.Empty(DrawingSize.MapChars);
 
-                for (int x = 0; x < 41; x++)
+                for (int x = 0; x < DrawingSize.MapChars; x++)
                 {
                     var drawColor = map[y][x].ForegroundColor;
                     if (drawColor == null)

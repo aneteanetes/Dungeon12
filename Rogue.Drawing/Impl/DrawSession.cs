@@ -37,6 +37,9 @@ namespace Rogue.Drawing.Impl
 
         public Rectangle Region => this._drawRegion;
 
+        private readonly List<IDrawable> drawables = new List<IDrawable>();
+        public ICollection<IDrawable> Drawables => drawables;
+
         public void Write(int linePos, int charPos, IDrawText text)
         {
             this.buffer[linePos].ReplaceAt(charPos, text);

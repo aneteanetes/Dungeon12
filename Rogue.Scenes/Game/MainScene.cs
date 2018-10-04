@@ -41,14 +41,17 @@
 
         private void FillCommands()
         {
-            this.Commands.Add(new Control.Commands.Command { Key = Key.E, Name = "Действие" });
-            this.Commands.Add(new Control.Commands.Command { Key = Key.F, Name = "Подобрать" });
-            this.Commands.Add(new Control.Commands.Command { Key = Key.C, Name = "Персонаж" });
-            this.Commands.Add(new Control.Commands.Command { Key = Key.I, Name = "Инвентарь" });
-            this.Commands.Add(new Control.Commands.Command { Key = Key.Q, Name = "Атаковать" });
-            this.Commands.Add(new Control.Commands.Command { Key = Key.Z, Name = "Осмотреться" });
-            this.Commands.Add(new Control.Commands.Command { Key = Key.R, Name = "Способности" });
-            this.Commands.Add(new Control.Commands.Command { Key = Key.Escape, Name = "Меню" });
+            if (this.Commands.Count == 0)
+            {
+                this.Commands.Add(new Control.Commands.Command { Key = Key.E, Name = "Действие" });
+                this.Commands.Add(new Control.Commands.Command { Key = Key.F, Name = "Подобрать" });
+                this.Commands.Add(new Control.Commands.Command { Key = Key.C, Name = "Персонаж" });
+                this.Commands.Add(new Control.Commands.Command { Key = Key.I, Name = "Инвентарь" });
+                this.Commands.Add(new Control.Commands.Command { Key = Key.Q, Name = "Атаковать" });
+                this.Commands.Add(new Control.Commands.Command { Key = Key.Z, Name = "Осмотреться" });
+                this.Commands.Add(new Control.Commands.Command { Key = Key.R, Name = "Способности" });
+                this.Commands.Add(new Control.Commands.Command { Key = Key.Escape, Name = "Меню" });
+            }
         }
 
         private void InitMap()

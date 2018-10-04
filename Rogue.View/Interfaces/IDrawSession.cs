@@ -20,6 +20,11 @@
 
         IEnumerable<IDrawText> Content { get; }
 
+        /// <summary>
+        /// Отдельные элементы с текстурами которые надо отрисовать пачкой
+        /// </summary>
+        ICollection<IDrawable> Drawables { get; }
+
         void Publish();
     }
 }

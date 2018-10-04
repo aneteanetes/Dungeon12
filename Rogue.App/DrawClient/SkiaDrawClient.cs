@@ -48,11 +48,26 @@
             {
                 if (_tileset == null)
                 {
-                    var stream = ResourceLoader.Load("Rogue.Resources.Images.Tiles.TilesetTransparent.png");
+                    var stream = ResourceLoader.Load("Rogue.Resources.Images.Tiles.dblue.png");
                     _tileset = SKBitmap.Decode(stream);
                 }
 
                 return _tileset;
+            }
+        }
+
+        private SKBitmap _itemTileset;
+        private SKBitmap ItemTileset
+        {
+            get
+            {
+                if (_itemTileset == null)
+                {
+                    var stream = ResourceLoader.Load("Rogue.Resources.Images.Tiles.items.png");
+                    _itemTileset = SKBitmap.Decode(stream);
+                }
+
+                return _itemTileset;
             }
         }
 
@@ -80,25 +95,21 @@
 
             foreach (var session in drawSessions)
             {
-                var rect = new SKRect();
-                rect.Location = new SKPoint
+                if (session.GetType().Name == "LabirinthDrawSession")
                 {
-                    Y = ((session.Region.Y) * YUnit)+10,
-                    X = session.Region.X * XUnit
-                };
-                rect.Size = new SKSize
-                {
-                    Height = (session.Region.Height * YUnit)-10,
-                    Width = session.Region.Width * XUnit
-                };
+                    new SkiaProcedureLabirinthDraw(session, canvas, Random)
+                        .Draw();
+                    continue;
+                }
 
-                canvas.DrawRect(rect, blackPaint);
+                ClearRegion(canvas, YUnit, XUnit, blackPaint, session);
 
-                float y = ((session.Region.Y) * YUnit)+10;
+                float y = ((session.Region.Y) * YUnit) + 10;
                 foreach (var line in session.Content)
                 {
 
                     float x = session.Region.X * XUnit;
+
                     foreach (var lne in line.Data)
                     {
                         foreach (var range in lne.Data)
@@ -114,156 +125,13 @@
 
                             foreach (var @char in range.StringData)
                             {
-                                bool texture = false;
-
-                                XUnit = 20;
-
-                                if (@char == '°')
-                                {
-                                    texture = true;
-                                    var randomX = Random.Next(29, 31);
-                                    var randomY = Random.Next(26, 28);
-
-                                    canvas.DrawBitmap(Tileset, new SKRect
-                                    {
-                                        Left = 24 * randomX,
-                                        Top = 24 * (16+8),
-                                        Size = new SKSize
-                                        {
-                                            Height = 24,
-                                            Width = 24
-                                        }
-                                    }, new SKRect
-                                    {
-                                        Top=y-YUnit,
-                                        Left=x,
-                                        Size = new SKSize
-                                        {
-                                            Height = 20,
-                                            Width = 20
-                                        }
-                                    });
-
-                                    
-                                }
-
-                                if(@char=='#')
-                                {
-                                XUnit = 20;
-                                    texture = true;
-                                    var randomX = Random.Next(29, 31);
-                                    var randomY = Random.Next(26, 28);
-
-                                    canvas.DrawBitmap(Tileset, new SKRect
-                                    {
-                                        Left = 24 * randomX,
-                                        Top = 24 * (16 + 8),
-                                        Size = new SKSize
-                                        {
-                                            Height = 24,
-                                            Width = 24
-                                        }
-                                    }, new SKRect
-                                    {
-                                        Top = y - YUnit,
-                                        Left = x,
-                                        Size = new SKSize
-                                        {
-                                            Height = YUnit,
-                                            Width = XUnit
-                                        }
-                                    });
-
-                                    randomX = Random.Next(44, 55);
-                                    randomY = Random.Next(1, 5);
-
-                                    canvas.DrawBitmap(Tileset, new SKRect
-                                    {
-                                        Left = 24 * randomX,
-                                        Top = 24 * randomY,
-                                        Size = new SKSize
-                                        {
-                                            Height = 24,
-                                            Width = 24
-                                        }
-                                    }, new SKRect
-                                    {
-                                        Top = y - YUnit,
-                                        Left = x,
-                                        Size = new SKSize
-                                        {
-                                            Height = YUnit,
-                                            Width = XUnit
-                                        }
-                                    });
-                                }
-
-                                if (@char == '@')
-                                {
-                                    XUnit = 20;
-                                    texture = true;
-                                    var randomX = Random.Next(29, 31);
-                                    var randomY = Random.Next(26, 28);
-
-                                    canvas.DrawBitmap(Tileset, new SKRect
-                                    {
-                                        Left = 24 * randomX,
-                                        Top = 24 * (16 + 8),
-                                        Size = new SKSize
-                                        {
-                                            Height = 24,
-                                            Width = 24
-                                        }
-                                    }, new SKRect
-                                    {
-                                        Top = y - YUnit,
-                                        Left = x,
-                                        Size = new SKSize
-                                        {
-                                            Height = YUnit,
-                                            Width = XUnit
-                                        }
-                                    });
-
-                                    randomX = Random.Next(44, 55);
-                                    randomY = Random.Next(1, 5);
-
-                                    canvas.DrawBitmap(Tileset, new SKRect
-                                    {
-                                        Left = 24 * 33,
-                                        Top = 24 * 6,
-                                        Size = new SKSize
-                                        {
-                                            Height = 24,
-                                            Width = 24
-                                        }
-                                    }, new SKRect
-                                    {
-                                        Top = y - YUnit,
-                                        Left = x,
-                                        Size = new SKSize
-                                        {
-                                            Height = YUnit,
-                                            Width = XUnit
-                                        }
-                                    });
-                                }
-
-                                //6
-                                //34
-
-                                if (!texture)
-                                {
-                                    XUnit = 11.5625f;
-                                    canvas.DrawText(@char.ToString(), x, y, textpaint);
-                                    canvas.DrawText(@char.ToString(), x, y, textpaint);
-                                }
+                                XUnit = 11.5625f;
+                                YUnit = 20;
+                                canvas.DrawText(@char.ToString(), x, y, textpaint);
+                                canvas.DrawText(@char.ToString(), x, y, textpaint);
 
                                 x += XUnit;
-                                XUnit = 11.5625f;
                             }
-
-                            //x += XUnit * lne.Length;
                         }
                     }
 
@@ -277,6 +145,25 @@
             font.Dispose();
 
             this.Draw();
+        }
+
+        private static void ClearRegion(SKCanvas canvas, float YUnit, float XUnit, SKPaint blackPaint, IDrawSession session)
+        {
+            var rect = new SKRect
+            {
+                Location = new SKPoint
+                {
+                    Y = ((session.Region.Y) * YUnit) + 10,
+                    X = session.Region.X * XUnit
+                },
+                Size = new SKSize
+                {
+                    Height = (session.Region.Height * YUnit) - 10,
+                    Width = session.Region.Width * XUnit
+                }
+            };
+
+            canvas.DrawRect(rect, blackPaint);
         }
 
         private unsafe void Draw()

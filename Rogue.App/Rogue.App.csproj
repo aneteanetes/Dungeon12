@@ -13,8 +13,8 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.6.2-build6301-beta" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.6.2-build6301-beta" />
+    <PackageReference Include="Avalonia" Version="0.6.2-build6326-beta" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.6.2-build6326-beta" />
     <PackageReference Include="SkiaSharp" Version="1.60.3" />
     <PackageReference Include="SkiaSharp.Views" Version="1.60.3" />
   </ItemGroup>

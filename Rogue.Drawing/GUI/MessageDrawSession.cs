@@ -13,7 +13,7 @@ namespace Rogue.Drawing.GUI
             this.DrawRegion = new Types.Rectangle
             {
                 X = 2,
-                Y = 27,
+                Y = 26,
                 Width = 88,
                 Height = 1
             };

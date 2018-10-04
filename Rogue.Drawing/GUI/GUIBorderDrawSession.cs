@@ -34,29 +34,29 @@
             int height = 0;
 
             string stringBuffer = string.Empty;
-            stringBuffer = DrawHelp.FullLine(100, DrawHelp.Border(true, 4), 27);
+            stringBuffer = DrawHelp.FullLine(100, DrawHelp.Border(true, 4), 26);
             stringBuffer = DrawHelp.Border(true, 1) + stringBuffer.Remove(stringBuffer.Length - 2) + DrawHelp.Border(true, 2);
             this.Write(height, 0, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
       
              
-            for (int i = 1; i < 24; i++)
+            for (int i = 1; i < 23; i++)
             {
                 stringBuffer = DrawHelp.FullLine(100, " ", 2);
-                stringBuffer = DrawHelp.Border(true, 3) + stringBuffer.Remove(stringBuffer.Length - 27) + DrawHelp.Border(true, 3);                
+                stringBuffer = DrawHelp.Border(true, 3) + stringBuffer.Remove(stringBuffer.Length - 26) + DrawHelp.Border(true, 3);                
                 this.Write(i, 0, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
             }
 
             stringBuffer = string.Empty;
-            stringBuffer = DrawHelp.FullLine(100, DrawHelp.Border(true, 4), 27);
+            stringBuffer = DrawHelp.FullLine(100, DrawHelp.Border(true, 4), 26);
             stringBuffer = DrawHelp.Border(true, 5) + stringBuffer.Remove(stringBuffer.Length - 2) + DrawHelp.Border(true, 6);
-            this.Write(24, 0, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
+            this.Write(23, 0, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
         }
 
         private void CharacterBorder()
         {
-            int height = 24;
-            int startCharacterBorder = 73;
-            int charaterWidth = 26;
+            int height = 23;
+            int startCharacterBorder = 74;
+            int charaterWidth = 25;
 
             //up ========
             var stringBuffer = string.Empty;
@@ -83,7 +83,7 @@
         private void InfoBorder()
         {
             //info window
-            var height = 25;
+            var height = 24;
 
             string stringBuffer = string.Empty;
 

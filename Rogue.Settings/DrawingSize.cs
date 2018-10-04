@@ -8,8 +8,8 @@ namespace Rogue.Settings
 
         public int WindowChars { get; set; } = 100;
         
-        public int MapChars { get; set; } = 71;
+        public int MapChars { get; set; } = 35;
 
-        public int MapLines { get; set; } = 23;
+        public int MapLines { get; set; } = 19;
     }
 }
