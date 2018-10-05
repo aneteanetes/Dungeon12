@@ -6,6 +6,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using Rogue.App.DrawClient;
 using Rogue.Resources;
 using Rogue.Scenes;
@@ -61,10 +62,20 @@ namespace Rogue.App
             //this.ResetBitmap();
             this.LoadImage();
         }
+
         private void Viewport_PointerPressed(object sender, Avalonia.Input.PointerPressedEventArgs e)
         {
-            //RunGame();
+            var pos = e.GetPosition(control);
+
+            SceneManager.Current.MousePress(new Control.Pointer.PointerArgs
+            {
+                ClickCount = e.ClickCount,
+                MouseButton = (Control.Pointer.MouseButton)e.MouseButton,
+                X=pos.X,
+                Y = pos.Y
+            });
         }
+
         private unsafe void ResetBitmap()
         {
             using (var buf = ViewportBitmap.Lock())
@@ -120,7 +131,7 @@ namespace Rogue.App
 
             base.OnKeyDown(e);
         }
-
+        
         private void LoadImage()
         {
             var stream = ResourceLoader.Load("Rogue.Resources.Images.Splash.sceneHD.png");

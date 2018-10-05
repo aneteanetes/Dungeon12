@@ -2,8 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using Rogue.Control.Keys;
+    using Rogue.Control.Pointer;
     using Rogue.DataAccess;
     using Rogue.Drawing.Data;
     using Rogue.Drawing.GUI;
@@ -69,7 +71,7 @@
             {
                 var listLine = new List<Map.MapObject>();
 
-                foreach (var @char in line)
+                foreach (var @char in line.Substring(0, 35))
                 {
                     listLine.Add(MapObject.Create(@char.ToString()));
                 }
@@ -82,6 +84,62 @@
         {
             if (keyPressed == Key.Escape)
                 this.Switch<MainMenuScene>();
+
+#if DEBUG
+            if (keyPressed == Key.U)
+                drawMode = true;
+
+            if(drawMode)
+            {
+                if(keyPressed== Key.W)
+                {
+                    this.drawChar = "#";
+                }
+
+                if (keyPressed == Key.F)
+                {
+                    this.drawChar = ".";
+                }
+
+                if (keyPressed == Key.E)
+                {
+                    var export = string.Empty;
+                    foreach (var line in this.Location.Map)
+                    {
+                        foreach (var @char in line)
+                        {
+                            export += @char.Icon;
+                        }
+                        export += Environment.NewLine;
+                    }
+                    Debugger.Break();
+                }
+            }
+#endif
+        }
+
+#if DEBUG
+        private bool drawMode = false;
+        private string drawChar = ".";
+#endif
+
+        public override void MousePress(PointerArgs pointerPressedEventArgs)
+        {
+#if DEBUG
+            if (drawMode)
+            {
+                var trulyX = pointerPressedEventArgs.X - 20.125;
+                var trulyY = pointerPressedEventArgs.Y - 27;
+
+                int x = (int)Math.Round(trulyX / 25, MidpointRounding.ToEven);
+                int y = (int)Math.Round(trulyY / 25, MidpointRounding.ToEven);
+
+                this.Location.Map[y][x] = MapObject.Create(drawChar);
+
+                this.Draw();
+                this.Redraw();
+            }
+#endif
         }
     }
 }
