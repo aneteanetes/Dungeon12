@@ -8,8 +8,8 @@ namespace Rogue.View.Interfaces
 
         string Name { get; }
 
-        //string Tileset { get; }
+        string Tileset { get; }
 
-        //Rectangle Region { get; }
+        Rectangle Region { get; }
     }
 }

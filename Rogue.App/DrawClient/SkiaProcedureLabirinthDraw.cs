@@ -5,6 +5,7 @@
     using System.Diagnostics;
     using System.Linq;
     using Rogue.Resources;
+    using Rogue.Scenes;
     using Rogue.Settings;
     using Rogue.View.Interfaces;
     using SkiaSharp;
@@ -24,8 +25,7 @@
             this.DrawMethodMapping = new Dictionary<char, Action<float, float, List<List<char>>>>()
             {
                 {'.',this.DrawFloor },
-                {'#',this.DrawWall },
-                {'@',this.DrawWall }
+                {'#',this.DrawWall }
             };
         }
 
@@ -44,19 +44,32 @@
             }
         }
 
-        private SKBitmap _itemTileset;
-        private SKBitmap ItemTileset
-        {
-            get
-            {
-                if (_itemTileset == null)
-                {
-                    var stream = ResourceLoader.Load("Rogue.Resources.Images.Tiles.items.png");
-                    _itemTileset = SKBitmap.Decode(stream);
-                }
+        //private SKBitmap _itemTileset;
+        //private SKBitmap ItemTileset
+        //{
+        //    get
+        //    {
+        //        if (_itemTileset == null)
+        //        {
+        //        }
 
-                return _itemTileset;
+        //        return _itemTileset;
+        //    }
+        //}
+
+        private readonly Dictionary<string, SKBitmap> tilesetsCache = new Dictionary<string, SKBitmap>();
+
+        private SKBitmap TileSetByName(string tilesetName)
+        {
+            if(!tilesetsCache.TryGetValue(tilesetName, out var bitmap))
+            {
+                var stream = ResourceLoader.Load(tilesetName,tilesetName);
+                bitmap = SKBitmap.Decode(stream);
+
+                tilesetsCache.Add(tilesetName, bitmap);
             }
+
+            return bitmap;
         }
 
         public void Draw()
@@ -72,18 +85,7 @@
                 for (int xLine = 0; xLine < fullLine.Count; xLine++)
                 {
                     List<List<char>> square = new List<List<char>>();
-
-
-                    //if (yLine < 2)
-                    //{
-                    //    square.Add(new List<char>() { ' ', ' ', ' ' });
-                    //}
-                    //else
-                    //{
-                    //    var topLine = contentList[yLine - 2].StringData;
-                    //    square.Add(GetLine(xLine, topLine));
-                    //}
-
+                    
                     if (yLine == 0)
                     {
                         square.Add(new List<char>() { ' ', ' ', ' ' });
@@ -117,12 +119,16 @@
                         square.Add(new List<char>() { ' ', ' ', ' ' });
                     }
 
-                    //if(xLine==12 && yLine == 3)
-                    //{
-                    //    Debugger.Break();
-                    //}
+                    var @char= fullLine[xLine];
+                    if (DrawMethodMapping.TryGetValue(@char, out var drawMethod))
+                    {
+                        drawMethod(x, y, square);
+                    }
+                    else
+                    {
+                        DrawObject(x, y, @char);
+                    }
 
-                    DrawMethodMapping[fullLine[xLine]](x, y, square);
                     x += 24;
                 }
 
@@ -177,6 +183,40 @@
                 {
                     Height = 24,
                     Width = 24
+                }
+            }, new SKRect
+            {
+                Top = y - 24,
+                Left = x,
+                Size = new SKSize
+                {
+                    Height = 24,
+                    Width = 24
+                }
+            });
+        }
+
+        private void DrawObject(float x, float y, char symbol)
+        {
+            if(symbol=='@')
+            {
+                this.DrawCharacter(x, y, SceneManager.CurrentManager.Current.Player);
+            }
+        }
+
+        private void DrawCharacter(float x, float y, IDrawable drawable)
+        {
+            DrawFloor(x, y, null);
+            var tileset = this.TileSetByName(drawable.Tileset);
+
+            canvas.DrawBitmap(tileset, new SKRect
+            {
+                Left =drawable.Region.X,
+                Top = drawable.Region.Y,
+                Size = new SKSize
+                {
+                    Height = drawable.Region.Height,
+                    Width = drawable.Region.Width
                 }
             }, new SKRect
             {

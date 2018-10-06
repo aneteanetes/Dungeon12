@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Abilities.Talants
 {
+    using Rogue.Types;
     using Rogue.View.Interfaces;
 
     public class Talant : IDrawable
@@ -16,5 +17,9 @@
         public int Level { get; set; }
 
         public bool Available => Level > 0;
+
+        public string Tileset => "";
+
+        public Rectangle Region => default;
     }
 }

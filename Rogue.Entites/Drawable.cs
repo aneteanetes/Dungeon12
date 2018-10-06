@@ -1,4 +1,5 @@
-﻿using Rogue.View.Interfaces;
+﻿using Rogue.Types;
+using Rogue.View.Interfaces;
 
 namespace Rogue.Entites
 {
@@ -11,5 +12,9 @@ namespace Rogue.Entites
         public string Name { get; set; }
         public IDrawColor BackgroundColor { get; set; }
         public IDrawColor ForegroundColor { get; set; }
+
+        public virtual string Tileset => "";
+
+        public virtual Rectangle Region => default;
     }
 }

@@ -6,6 +6,7 @@
     using Avalonia.Controls;
     using Avalonia.Media.Imaging;
     using Rogue.Resources;
+    using Rogue.Scenes;
     using Rogue.View.Interfaces;
     using SkiaSharp;
 
@@ -34,6 +35,8 @@
                 this.drawingBitmap = value;
             }
         }
+
+        private readonly SceneManager sceneManager;
 
         public SkiaDrawClient(WriteableBitmap viewportBitmap, Image image)
         {

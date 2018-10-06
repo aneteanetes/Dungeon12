@@ -100,9 +100,9 @@
             bfg.CloseAfterUse = true;
             bfg.OnClick = () =>
             {
-                this.Player = Classes.All().First();
+                this.Player = Classes.All().Skip(1).First();
                 this.Player.Name = "Adventurer";
-                this.Player.Race = Race.DarkElf;
+                this.Player.Race = Race.Elf;
                 this.Player.Add<RacePerk>();
 
                 this.Switch<Game.MainScene>();

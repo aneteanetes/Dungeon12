@@ -10,7 +10,7 @@ namespace Rogue
         [Display(Name="Человек")]
         Human = 1,
 
-        [Display(Name = "Лесной эльф")]
+        [Display(Name = "Эльф")]
         Elf = 2,
 
         [Display(Name = "Дворф")]

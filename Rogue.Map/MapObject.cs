@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Rogue.Map.Infrastructure;
+    using Rogue.Types;
     using Rogue.Utils.ReflectionExtensions;
     using Rogue.View.Interfaces;
 
@@ -15,6 +16,10 @@
         public string Name { get; set; }
         public IDrawColor BackgroundColor { get; set; }
         public IDrawColor ForegroundColor { get; set; }
+
+        public virtual string Tileset => "";
+
+        public virtual Rectangle Region => default;
 
         public abstract void Interact();
 

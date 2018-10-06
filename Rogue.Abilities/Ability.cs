@@ -8,7 +8,7 @@
     /// <summary>
     /// тут кто-то явно сэкономил на времени и въебал виртуальные свойства вместо абстрактных
     /// </summary>
-    public abstract class Ability : IDrawable
+    public abstract class Ability
     {
         /// <summary>
         /// Позиция способности от 1 до 4

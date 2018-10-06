@@ -5,10 +5,12 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Rogue.DataAccess\Rogue.DataAccess.csproj" />
+    <ProjectReference Include="..\Rogue.Entites\Rogue.Entites.csproj" />
     <ProjectReference Include="..\Rogue.Utils\Rogue.Utils.csproj" />
     <ProjectReference Include="..\Rogue.View\Rogue.View.csproj" />
   </ItemGroup>

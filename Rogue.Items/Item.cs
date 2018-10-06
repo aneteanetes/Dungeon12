@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using Rogue.Items.Enums;
     using Rogue.Transactions;
+    using Rogue.Types;
     using Rogue.View.Interfaces;
 
     /// <summary>
@@ -40,6 +41,10 @@
         /// очередное дохуя спорное решение во имя запускаемости
         /// </summary>
         public static Item Empty => new EmptyItem();
+
+        public string Tileset => "";
+
+        public Rectangle Region => default;
 
         private class EmptyItem : Item
         {

@@ -2,6 +2,7 @@
 {
     using System;
     using Rogue.Entites.Alive.Character;
+    using Rogue.Types;
 
     public class BloodMage : Player
     {
@@ -16,5 +17,15 @@
         public override ConsoleColor ClassColor => ConsoleColor.Red;
 
         public long Blood { get; set; }
+
+        public override string Tileset => "Rogue.Classes.BloodMage.Images.Dolls.Character.png";
+
+        public override Rectangle Region => new Rectangle
+        {
+            X = 64,
+            Y = 0,
+            Height = 32,
+            Width = 32
+        };
     }
 }

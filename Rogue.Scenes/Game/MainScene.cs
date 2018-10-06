@@ -15,9 +15,12 @@
     using Rogue.Scenes.Menus;
     using Rogue.Scenes.Scenes;
     using Rogue.Settings;
+    using Rogue.Types;
 
     public class MainScene : GameScene<MainMenuScene>
     {
+        private Point PlayerPosition = new Point { X = 27, Y = 8 };
+
         private readonly DrawingSize DrawingSize = new DrawingSize();
 
         public MainScene(SceneManager sceneManager) : base(sceneManager)
@@ -78,6 +81,12 @@
 
                 this.Location.Map.Add(listLine);
             }
+
+            //перенести туда где location
+            this.Location.Map[8][27] = new Map.Objects.Player
+            {
+                Character = this.Player
+            };
         }
 
         public override void KeyPress(Key keyPressed, KeyModifiers keyModifiers)
@@ -116,6 +125,39 @@
                 }
             }
 #endif
+
+            if (keyPressed == Key.A || keyPressed == Key.D || keyPressed == Key.W || keyPressed == Key.S)
+            {
+                var newPos = new Point()
+                {
+                    X = PlayerPosition.X,
+                    Y = PlayerPosition.Y
+                };
+
+
+                if (keyPressed == Key.A)
+                {
+                    newPos.X -= 1;
+                }
+                if (keyPressed == Key.D)
+                {
+                    newPos.X += 1;
+                }
+                if (keyPressed == Key.W)
+                {
+                    newPos.Y -= 1;
+                }
+                if (keyPressed == Key.S)
+                {
+                    newPos.Y += 1;
+                }
+
+                this.Location.MoveObject(PlayerPosition, newPos);
+
+                PlayerPosition = newPos;
+                Drawing.Draw.RunSession<LabirinthDrawSession>(x => x.Location = this.Location);
+                this.Redraw();
+            }
         }
 
 #if DEBUG
