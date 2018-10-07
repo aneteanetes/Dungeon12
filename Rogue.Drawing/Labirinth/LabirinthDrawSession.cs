@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Rogue.Drawing.Impl;
 using Rogue.Map;
@@ -47,10 +48,10 @@ namespace Rogue.Drawing.Labirinth
             {
                 item.Region = new Rectangle
                 {
-                    X = pos.X + 2,
+                    X = pos.X + 1,
                     Y = pos.Y + 2,
-                    Height = 1,
-                    Width = 1
+                    Height = 24,
+                    Width = 24
                 };
 
                 drawables.Add(item);
@@ -66,7 +67,7 @@ namespace Rogue.Drawing.Labirinth
             BotSquare(pos, square);
             PosSquare(pos, square);
 
-            MapWallTile(square,pos);
+            MapWallTile(drawables,square, pos);
         }
 
         private void PosSquare(Point pos, List<bool[]> square)
@@ -76,9 +77,13 @@ namespace Rogue.Drawing.Labirinth
                 var positionalLine = this.Location.Map[pos.Y + 2];
                 square.Add(GetLine(pos.X, positionalLine));
             }
+            else if (pos.Y == DrawingSize.MapLines - 1)
+            {
+                square.Add(EmptyFalseLine);
+            }
             else
             {
-                square.Add(EmptyLine);
+                square.Add(EmptyTrueLine);
             }
         }
 
@@ -86,7 +91,7 @@ namespace Rogue.Drawing.Labirinth
         {
             if (pos.Y == DrawingSize.MapLines - 1)
             {
-                square.Add(EmptyLine);
+                square.Add(EmptyTrueLine);
             }
             else
             {
@@ -99,7 +104,7 @@ namespace Rogue.Drawing.Labirinth
         {
             if (pos.Y == 0)
             {
-                square.Add(EmptyLine);
+                square.Add(EmptyFalseLine);
             }
             else
             {
@@ -108,7 +113,8 @@ namespace Rogue.Drawing.Labirinth
             }
         }
 
-        private bool[] EmptyLine => Enumerable.Range(0, 3).Select(x => false).ToArray();
+        private bool[] EmptyFalseLine => Enumerable.Range(0, 3).Select(x => false).ToArray();
+        private bool[] EmptyTrueLine => Enumerable.Range(0, 3).Select(x => true).ToArray();
 
         private bool[] GetLine(int xPos, List<List<MapObject>> data)
         {
@@ -142,7 +148,7 @@ namespace Rogue.Drawing.Labirinth
             return result.ToArray();
         }
 
-        private void MapWallTile(List<bool[]> wallMap, Point pos)
+        private void MapWallTile(List<IDrawable> drawables,List<bool[]> wallMap, Point pos)
         {
             var isometricMap = IsometricMap(wallMap);
             var tile = DetermineTitle(isometricMap);
@@ -150,26 +156,28 @@ namespace Rogue.Drawing.Labirinth
 
             mapObj.TileSetRegion = new Rectangle
             {
-                X = tile.X,
-                Y = tile.Y,
+                X = 24*tile.X,
+                Y = 24*tile.Y,
                 Height = 24,
                 Width = 24
             };
 
             mapObj.Region = new Rectangle
             {
-                X = pos.X + 2,
+                X = pos.X + 1,
                 Y = pos.Y + 2,
                 Height = 24,
                 Width = 24
             };
+
+            drawables.Add(mapObj);
         }
 
         private List<bool[]> IsometricMap(List<bool[]> wallMap)
         {
             bool IsTop(int x, int y)
             {
-                return wallMap[y][x] && (wallMap[y + 1][x] || !wallMap[y + 1][x]);
+                return wallMap[y][x] && (wallMap[y + 1][x]);
             }
 
             var topMap = new List<bool[]>();
@@ -204,7 +212,7 @@ namespace Rogue.Drawing.Labirinth
             var bot = isometricMap[2][1];
             var botRight = isometricMap[2][2];
 
-            var yTexture = 0;
+            var yTexture = 1;
             var xTexture = 0;
 
             if (mid)

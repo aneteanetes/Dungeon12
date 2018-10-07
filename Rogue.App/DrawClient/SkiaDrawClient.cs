@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using Avalonia.Controls;
     using Avalonia.Media.Imaging;
@@ -101,27 +102,31 @@
             foreach (var drawable in session.Drawables)
             {
                 var y = drawable.Region.Y * 24 + 3;
-                var x = drawable.Region.X * 11.5625f - 3;
+                var x = drawable.Region.X * 24 - 3;
 
                 var tileset = TileSetByName(drawable.Tileset);
 
-                canvas.DrawBitmap(tileset, new SKRect
+                var tileSize = new SKSize
+                {
+                    Height = (float)drawable.TileSetRegion.Height,
+                    Width = (float)drawable.TileSetRegion.Width
+                };
+
+                var tilePos = new SKRect
                 {
                     Left = drawable.TileSetRegion.X,
                     Top = drawable.TileSetRegion.Y,
-                    Size = new SKSize
-                    {
-                        Height = drawable.TileSetRegion.Height,
-                        Width = drawable.TileSetRegion.Width
-                    }
-                }, new SKRect
+                    Size = tileSize
+                };
+
+                canvas.DrawBitmap(tileset, tilePos, new SKRect
                 {
                     Top = y - 24,
                     Left = x,
                     Size = new SKSize
                     {
-                        Height = 24,
-                        Width = 24
+                        Height = drawable.Region.Height,
+                        Width = drawable.Region.Width
                     }
                 });
             }

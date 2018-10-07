@@ -7,6 +7,8 @@
     [Template("#")]
     public class Wall : MapObject
     {
+        public override string Tileset => "Rogue.Resources.Images.Tiles.dblue.png";
+
         public override bool Obstruction { get => true; set { } }
 
         public override void Interact()

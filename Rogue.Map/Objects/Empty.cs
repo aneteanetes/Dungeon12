@@ -13,7 +13,7 @@
             this.region = new Rectangle
             {
                 X = 24 * randomX,
-                Y = 24 * 0,
+                Y = 0,
                 Height = 24,
                 Width = 24
             };
