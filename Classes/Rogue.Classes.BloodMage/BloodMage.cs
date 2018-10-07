@@ -20,7 +20,7 @@
 
         public override string Tileset => "Rogue.Classes.BloodMage.Images.Dolls.Character.png";
 
-        public override Rectangle Region => new Rectangle
+        public override Rectangle TileSetRegion => new Rectangle
         {
             X = 64,
             Y = 0,

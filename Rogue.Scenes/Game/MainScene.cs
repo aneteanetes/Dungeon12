@@ -19,6 +19,7 @@
 
     public class MainScene : GameScene<MainMenuScene>
     {
+        private Map.Objects.Player PlayerMapObject;
         private Point PlayerPosition = new Point { X = 27, Y = 8 };
 
         private readonly DrawingSize DrawingSize = new DrawingSize();
@@ -70,23 +71,25 @@
 
             this.Location.Name = persistMap.Name;
 
-            foreach (var line in persistMap.Template.Split(Environment.NewLine))
+            foreach (var line in persistMap.Template.Split(Environment.NewLine).Take(19))
             {
-                var listLine = new List<Map.MapObject>();
+                var listLine = new List<List<Map.MapObject>>();
 
                 foreach (var @char in line.Substring(0, 35))
                 {
-                    listLine.Add(MapObject.Create(@char.ToString()));
+                    listLine.Add(new List<MapObject>() { MapObject.Create(@char.ToString()) });
                 }
 
                 this.Location.Map.Add(listLine);
             }
 
             //перенести туда где location
-            this.Location.Map[8][27] = new Map.Objects.Player
+            PlayerMapObject = new Map.Objects.Player
             {
                 Character = this.Player
             };
+
+            this.Location.Map[8][27].Add(PlayerMapObject);
         }
 
         public override void KeyPress(Key keyPressed, KeyModifiers keyModifiers)
@@ -117,7 +120,7 @@
                     {
                         foreach (var @char in line)
                         {
-                            export += @char.Icon;
+                            export += @char.First().Icon;
                         }
                         export += Environment.NewLine;
                     }
@@ -133,7 +136,6 @@
                     X = PlayerPosition.X,
                     Y = PlayerPosition.Y
                 };
-
 
                 if (keyPressed == Key.A)
                 {
@@ -152,10 +154,17 @@
                     newPos.Y += 1;
                 }
 
-                this.Location.MoveObject(PlayerPosition, newPos);
+                this.Location.MoveObject(PlayerPosition,1, newPos);
 
                 PlayerPosition = newPos;
-                Drawing.Draw.RunSession<LabirinthDrawSession>(x => x.Location = this.Location);
+
+                Drawing.Draw.RunSession<LabirinthUnitDrawSession>(x =>
+                {
+                    x.Location = Location;
+                    x.Object = PlayerMapObject;
+                    x.Position = PlayerPosition;
+                });
+
                 this.Redraw();
             }
         }
@@ -176,7 +185,8 @@
                 int x = (int)Math.Round(trulyX / 25, MidpointRounding.ToEven);
                 int y = (int)Math.Round(trulyY / 25, MidpointRounding.ToEven);
 
-                this.Location.Map[y][x] = MapObject.Create(drawChar);
+                this.Location.Map[y][x].RemoveAt(0);
+                this.Location.Map[y][x].Insert(0, MapObject.Create(drawChar));
 
                 this.Draw();
                 this.Redraw();

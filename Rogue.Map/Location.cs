@@ -16,14 +16,13 @@ namespace Rogue.Map
 
         public int Level = 1;
 
-        public List<List<MapObject>> Map = new List<List<MapObject>>();
+        public List<List<List<MapObject>>> Map = new List<List<List<MapObject>>>();
 
-        public void MoveObject(Point now, Point next)
+        public void MoveObject(Point now, int Level, Point next)
         {
-            MapObject moved = this.Map[now.Y][now.X];
-            MapObject buffer = this.Map[next.Y][next.X];
-            this.Map[next.Y][next.X] = moved;
-            this.Map[now.Y][now.X] = new Empty();
+            MapObject moved = this.Map[now.Y][now.X][Level];
+            this.Map[now.Y][now.X].RemoveAt(Level);
+            this.Map[next.Y][next.X].Add(moved);
         }        
     }
 }

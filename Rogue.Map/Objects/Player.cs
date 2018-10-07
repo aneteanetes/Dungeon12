@@ -11,7 +11,7 @@
 
         public override string Tileset => Character.Tileset;
 
-        public override Rectangle Region => Character.Region;
+        public override Rectangle TileSetRegion => Character.TileSetRegion;
 
         public override string Icon { get => "@"; set { } }
 

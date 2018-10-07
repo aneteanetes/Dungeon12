@@ -18,6 +18,8 @@
 
         public string Tileset => "";
 
+        public Rectangle TileSetRegion => default;
+
         public Rectangle Region => default;
     }
 }

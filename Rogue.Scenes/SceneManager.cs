@@ -10,13 +10,6 @@
 
     public class SceneManager
     {
-        public static SceneManager CurrentManager;
-
-        public SceneManager()
-        {
-            CurrentManager = this;
-        }
-
         public IDrawClient DrawClient { get; set; }
 
         private static readonly Dictionary<Type, GameScene> SceneCache = new Dictionary<Type, GameScene>();

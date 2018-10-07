@@ -15,6 +15,8 @@ namespace Rogue.Entites
 
         public virtual string Tileset => "";
 
+        public virtual Rectangle TileSetRegion => default;
+
         public virtual Rectangle Region => default;
     }
 }

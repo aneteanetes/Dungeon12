@@ -12,8 +12,6 @@
 
     public class SkiaDrawClient : IDrawClient
     {
-        private static Random Random = new Random();
-
         private WriteableBitmap ViewportBitmap;
         private Image control;
 
@@ -36,42 +34,25 @@
             }
         }
 
-        private readonly SceneManager sceneManager;
-
         public SkiaDrawClient(WriteableBitmap viewportBitmap, Image image)
         {
             this.ViewportBitmap = viewportBitmap;
             this.control = image;
         }
 
-        private SKBitmap _tileset;
-        private SKBitmap Tileset
+        private static readonly Dictionary<string, SKBitmap> tilesetsCache = new Dictionary<string, SKBitmap>();
+
+        private static SKBitmap TileSetByName(string tilesetName)
         {
-            get
+            if (!tilesetsCache.TryGetValue(tilesetName, out var bitmap))
             {
-                if (_tileset == null)
-                {
-                    var stream = ResourceLoader.Load("Rogue.Resources.Images.Tiles.dblue.png");
-                    _tileset = SKBitmap.Decode(stream);
-                }
+                var stream = ResourceLoader.Load(tilesetName, tilesetName);
+                bitmap = SKBitmap.Decode(stream);
 
-                return _tileset;
+                tilesetsCache.Add(tilesetName, bitmap);
             }
-        }
 
-        private SKBitmap _itemTileset;
-        private SKBitmap ItemTileset
-        {
-            get
-            {
-                if (_itemTileset == null)
-                {
-                    var stream = ResourceLoader.Load("Rogue.Resources.Images.Tiles.items.png");
-                    _itemTileset = SKBitmap.Decode(stream);
-                }
-
-                return _itemTileset;
-            }
+            return bitmap;
         }
 
         public void Draw(IEnumerable<IDrawSession> drawSessions)
@@ -98,48 +79,13 @@
 
             foreach (var session in drawSessions)
             {
-                if (session.GetType().Name == "LabirinthDrawSession")
+                if (session.Drawables != null)
                 {
-                    new SkiaProcedureLabirinthDraw(session, canvas, Random)
-                        .Draw();
-                    continue;
+                    DrawTiles(canvas,session);
                 }
-
-                ClearRegion(canvas, YUnit, XUnit, blackPaint, session);
-
-                float y = ((session.Region.Y) * YUnit) + 10;
-                foreach (var line in session.Content)
+                else
                 {
-
-                    float x = session.Region.X * XUnit;
-
-                    foreach (var lne in line.Data)
-                    {
-                        foreach (var range in lne.Data)
-                        {
-                            var textpaint = new SKPaint
-                            {
-                                Typeface = font,
-                                TextSize = fontSize,
-                                IsAntialias = true,
-                                Color = new SKColor(range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B, range.ForegroundColor.A),
-                                Style = SKPaintStyle.Fill
-                            };
-
-                            foreach (var @char in range.StringData)
-                            {
-                                XUnit = 11.5625f;
-                                YUnit = 20;
-                                canvas.DrawText(@char.ToString(), x, y, textpaint);
-                                canvas.DrawText(@char.ToString(), x, y, textpaint);
-
-                                x += XUnit;
-                            }
-                        }
-                    }
-
-                    y += YUnit;
-
+                    DrawText(canvas, fontSize, font, ref YUnit, ref XUnit, blackPaint, session);
                 }
             }
 
@@ -147,7 +93,78 @@
             canvas.Dispose();
             font.Dispose();
 
-            this.Draw();
+            this.InternalDraw();
+        }
+
+        private static void DrawTiles(SKCanvas canvas, IDrawSession session)
+        {
+            foreach (var drawable in session.Drawables)
+            {
+                var y = drawable.Region.Y * 24 + 3;
+                var x = drawable.Region.X * 11.5625f - 3;
+
+                var tileset = TileSetByName(drawable.Tileset);
+
+                canvas.DrawBitmap(tileset, new SKRect
+                {
+                    Left = drawable.TileSetRegion.X,
+                    Top = drawable.TileSetRegion.Y,
+                    Size = new SKSize
+                    {
+                        Height = drawable.TileSetRegion.Height,
+                        Width = drawable.TileSetRegion.Width
+                    }
+                }, new SKRect
+                {
+                    Top = y - 24,
+                    Left = x,
+                    Size = new SKSize
+                    {
+                        Height = 24,
+                        Width = 24
+                    }
+                });
+            }
+        }
+
+        private static void DrawText(SKCanvas canvas, float fontSize, SKTypeface font, ref float YUnit, ref float XUnit, SKPaint blackPaint, IDrawSession session)
+        {
+            ClearRegion(canvas, YUnit, XUnit, blackPaint, session);
+
+            float y = ((session.Region.Y) * YUnit) + 10;
+            foreach (var line in session.Content)
+            {
+
+                float x = session.Region.X * XUnit;
+
+                foreach (var lne in line.Data)
+                {
+                    foreach (var range in lne.Data)
+                    {
+                        var textpaint = new SKPaint
+                        {
+                            Typeface = font,
+                            TextSize = fontSize,
+                            IsAntialias = true,
+                            Color = new SKColor(range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B, range.ForegroundColor.A),
+                            Style = SKPaintStyle.Fill
+                        };
+
+                        foreach (var @char in range.StringData)
+                        {
+                            XUnit = 11.5625f;
+                            YUnit = 20;
+                            canvas.DrawText(@char.ToString(), x, y, textpaint);
+                            canvas.DrawText(@char.ToString(), x, y, textpaint);
+
+                            x += XUnit;
+                        }
+                    }
+                }
+
+                y += YUnit;
+
+            }
         }
 
         private static void ClearRegion(SKCanvas canvas, float YUnit, float XUnit, SKPaint blackPaint, IDrawSession session)
@@ -169,7 +186,7 @@
             canvas.DrawRect(rect, blackPaint);
         }
 
-        private unsafe void Draw()
+        private unsafe void InternalDraw()
         {
             var width = ViewportBitmap.PixelWidth;
             var height = ViewportBitmap.PixelHeight;
@@ -201,55 +218,6 @@
             }
             control.InvalidateVisual();
             //this.invalidate();
-        }
-
-        private void DrawText(string text)
-        {
-            //DrawingBitmap.LockPixels();
-            var bitmap = DrawingBitmap;
-            //var toBitmap =bitmap new SKBitmap(new SKImageInfo(DrawingBitmap.Width, DrawingBitmap.Height, DrawingBitmap.ColorType, DrawingBitmap.AlphaType));// (int)Math.Round(bitmap.Width * resizeFactor), (int)Math.Round(bitmap.Height * resizeFactor), bitmap.ColorType, bitmap.AlphaType);
-
-            var canvas = new SKCanvas(DrawingBitmap);
-            // Draw a bitmap rescaled
-            //canvas.SetMatrix(SKMatrix.MakeScale(resizeFactor, resizeFactor));
-            canvas.DrawBitmap(bitmap, 0, 0);
-            //canvas.ResetMatrix();
-
-            var font = SKTypeface.FromFamilyName("Arial");
-            var brush = new SKPaint
-            {
-                Typeface = font,
-                TextSize = 64.0f,
-                IsAntialias = true,
-                Color = new SKColor(255, 255, 255, 255)
-            };
-
-            brush.GetFontMetrics(out var fontMetrics);
-
-            //font
-
-            canvas.DrawText(text, 0, fontMetrics.XHeight + fontMetrics.Bottom, brush);
-
-            canvas.Flush();
-
-            var image = SKImage.FromBitmap(DrawingBitmap);
-            var data = image.Encode(SKEncodedImageFormat.Jpeg, 100);
-
-            //data.Dispose();
-            //image.Dispose();
-            //canvas.Dispose();
-            //brush.Dispose();
-            //font.Dispose();
-            //toBitmap.Dispose();
-            //bitmap.Dispose();
-
-            //this.DrawingBitmap = toBitmap;
-
-            this.Draw();
-
-            canvas.Dispose();
-            brush.Dispose();
-            font.Dispose();
         }
     }
 }

@@ -2,6 +2,7 @@
 {
     using System;
     using Rogue.Map.Infrastructure;
+    using Rogue.Types;
 
     [Template("#")]
     public class Wall : MapObject
