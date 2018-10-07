@@ -12,19 +12,11 @@ namespace Rogue.Drawing.Labirinth
     {
         public Location Location { get; set; }
 
-        public IDrawable Object { get; set; }
-
         public Point Position { get; set; }
 
         public override IDrawSession Run()
         {
-            this.DrawRegion = new Types.Rectangle
-            {
-                X = 2+Position.X,
-                Y = 2+Position.Y,
-                Width = 1,
-                Height = 1,
-            };
+            this.Drawables = Location.Map[Position.Y][Position.X];
 
             return base.Run();
         }

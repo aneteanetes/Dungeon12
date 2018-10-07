@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Rogue.Map.Objects;
 using Rogue.Types;
 
 namespace Rogue.Map
@@ -21,6 +19,11 @@ namespace Rogue.Map
         public void MoveObject(Point now, int Level, Point next)
         {
             MapObject moved = this.Map[now.Y][now.X][Level];
+
+            //+1 и +2 это offset рисования карты, т.к. регион это АБСОЛЮТНЫЕ цифры относительно экрана
+            moved.Region.X = next.X+1;
+            moved.Region.Y = next.Y+2;
+
             this.Map[now.Y][now.X].RemoveAt(Level);
             this.Map[next.Y][next.X].Add(moved);
         }        

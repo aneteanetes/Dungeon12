@@ -19,7 +19,6 @@
 
     public class MainScene : GameScene<MainMenuScene>
     {
-        private Map.Objects.Player PlayerMapObject;
         private Point PlayerPosition = new Point { X = 27, Y = 8 };
 
         private readonly DrawingSize DrawingSize = new DrawingSize();
@@ -84,12 +83,10 @@
             }
 
             //перенести туда где location
-            PlayerMapObject = new Map.Objects.Player
+            this.Location.Map[8][27].Add(new Map.Objects.Player
             {
                 Character = this.Player
-            };
-
-            this.Location.Map[8][27].Add(PlayerMapObject);
+            });
         }
 
         public override void KeyPress(Key keyPressed, KeyModifiers keyModifiers)
@@ -154,19 +151,25 @@
                     newPos.Y += 1;
                 }
 
-                this.Location.MoveObject(PlayerPosition,1, newPos);
+                this.Location.MoveObject(PlayerPosition, 1, newPos);
+
+                RedrawPlayerPos();
 
                 PlayerPosition = newPos;
 
-                Drawing.Draw.RunSession<LabirinthUnitDrawSession>(x =>
-                {
-                    x.Location = Location;
-                    x.Object = PlayerMapObject;
-                    x.Position = PlayerPosition;
-                });
+                RedrawPlayerPos();
 
                 this.Redraw();
             }
+        }
+
+        private void RedrawPlayerPos()
+        {
+            Drawing.Draw.RunSession<LabirinthUnitDrawSession>(x =>
+            {
+                x.Location = this.Location;
+                x.Position = this.PlayerPosition;
+            });
         }
 
 #if DEBUG
