@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Rogue.Types;
 
 namespace Rogue.Map
@@ -16,16 +17,18 @@ namespace Rogue.Map
 
         public List<List<List<MapObject>>> Map = new List<List<List<MapObject>>>();
 
-        public void MoveObject(Point now, int Level, Point next)
+        public Point MoveObject(Point now, int Level, Point next)
         {
             MapObject moved = this.Map[now.Y][now.X][Level];
-
-            //+1 и +2 это offset рисования карты, т.к. регион это АБСОЛЮТНЫЕ цифры относительно экрана
-            //moved.Region.X = next.X;
-            //moved.Region.Y = next.Y;
+                        
+            if (this.Map[next.Y][next.X].Any(x => x.Obstruction))
+            {
+                return now;
+            }
 
             this.Map[now.Y][now.X].Remove(moved);
             this.Map[next.Y][next.X].Add(moved);
-        }        
+            return next;
+        }
     }
 }

@@ -44,7 +44,7 @@ namespace Rogue.Scenes.Game
             AnimationMap animationMap = default;
             Direction direction = Direction.Down;
 
-            if (keyPressed == Key.A || keyPressed== Key.Left)
+            if (keyPressed == Key.A || keyPressed == Key.Left)
             {
                 newPos.X -= 1;
                 animationMap = Player.MoveLeft;
@@ -69,19 +69,22 @@ namespace Rogue.Scenes.Game
                 direction = Direction.Down;
             }
 
-            this.Location.MoveObject(PlayerPosition, 1, newPos);
+            newPos = this.Location.MoveObject(PlayerPosition, 1, newPos);
 
-            Drawing.Draw.Animation<LabirinthAnimationSession>(x =>
+            if (newPos != PlayerPosition)
             {
-                x.BlockingAnimation = true;
-                x.BasePosition = PlayerPosition;
-                x.NextPosition = newPos;
-                x.Location = this.Location;
-                x.ObjectAnimationMap = animationMap;
-                x.Direction = direction;
-            });
+                Drawing.Draw.Animation<LabirinthAnimationSession>(x =>
+                {
+                    x.BlockingAnimation = true;
+                    x.BasePosition = PlayerPosition;
+                    x.NextPosition = newPos;
+                    x.Location = this.Location;
+                    x.ObjectAnimationMap = animationMap;
+                    x.Direction = direction;
+                });
 
-            PlayerPosition = newPos;
+                PlayerPosition = newPos;
+            }
         }
     }
 }
