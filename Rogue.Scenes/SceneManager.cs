@@ -12,6 +12,8 @@
     {
         public IDrawClient DrawClient { get; set; }
 
+        public static bool AnimationBlockingInput = false;
+
         private static readonly Dictionary<Type, GameScene> SceneCache = new Dictionary<Type, GameScene>();
 
         public GameScene Current = null;

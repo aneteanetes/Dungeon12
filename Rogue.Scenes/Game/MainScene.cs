@@ -31,14 +31,15 @@
 
         public override void Draw()
         {
-            this.FillCommands();
-
             if (this.Location == null)
                 this.InitMap();
 
+            if (this.Commands.Count == 0)
+                this.FillCommands();
+
             Drawing.Draw.Session<GUIBorderDrawSession>()
                 .Then<LabirinthDrawSession>(x => x.Location = this.Location)
-                .Then<CharMapDrawSession>(x => x.Commands = this.Commands.Select(c => $"[{c.Key}] - {c.Name}").ToArray())
+                .Then<CharMapDrawSession>(x => x.Commands = this.Commands.Where(c => c.UI).Select(c => $"[{c.Keys.First()}] - {c.Name}").ToArray())
                 .Then<CharacterDataDrawSession>(x => x.Player = this.Player)
                 .Then<MessageDrawSession>(x => x.Message = new DrawText($"{DateTime.Now.ToShortTimeString()}: Вы прибываете в столицу", ConsoleColor.DarkGray))
                 .Publish();
@@ -46,17 +47,21 @@
 
         private void FillCommands()
         {
-            if (this.Commands.Count == 0)
+            this.Commands.Add(new MoveCommand()
             {
-                this.Commands.Add(new Control.Commands.Command { Key = Key.E, Name = "Действие" });
-                this.Commands.Add(new Control.Commands.Command { Key = Key.F, Name = "Подобрать" });
-                this.Commands.Add(new Control.Commands.Command { Key = Key.C, Name = "Персонаж" });
-                this.Commands.Add(new Control.Commands.Command { Key = Key.I, Name = "Инвентарь" });
-                this.Commands.Add(new Control.Commands.Command { Key = Key.Q, Name = "Атаковать" });
-                this.Commands.Add(new Control.Commands.Command { Key = Key.Z, Name = "Осмотреться" });
-                this.Commands.Add(new Control.Commands.Command { Key = Key.R, Name = "Способности" });
-                this.Commands.Add(new Control.Commands.Command { Key = Key.Escape, Name = "Меню" });
-            }
+                Location = this.Location,
+                PlayerPosition = this.PlayerPosition,
+                Player = this.Player
+            });
+
+            //this.Commands.Add(new Control.Commands.Command { Key = Key.E, Name = "Действие" });
+            //this.Commands.Add(new Control.Commands.Command { Key = Key.F, Name = "Подобрать" });
+            //this.Commands.Add(new Control.Commands.Command { Key = Key.C, Name = "Персонаж" });
+            //this.Commands.Add(new Control.Commands.Command { Key = Key.I, Name = "Инвентарь" });
+            //this.Commands.Add(new Control.Commands.Command { Key = Key.Q, Name = "Атаковать" });
+            //this.Commands.Add(new Control.Commands.Command { Key = Key.Z, Name = "Осмотреться" });
+            //this.Commands.Add(new Control.Commands.Command { Key = Key.R, Name = "Способности" });
+            //this.Commands.Add(new Control.Commands.Command { Key = Key.Escape, Name = "Меню" });
         }
 
         private void InitMap()
@@ -89,7 +94,7 @@
             });
         }
 
-        public override void KeyPress(Key keyPressed, KeyModifiers keyModifiers)
+        protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers)
         {
             if (keyPressed == Key.Escape)
                 this.Switch<MainMenuScene>();
@@ -125,59 +130,15 @@
                 }
             }
 #endif
-
-            if (keyPressed == Key.A || keyPressed == Key.D || keyPressed == Key.W || keyPressed == Key.S)
-            {
-                var newPos = new Point()
-                {
-                    X = PlayerPosition.X,
-                    Y = PlayerPosition.Y
-                };
-
-                if (keyPressed == Key.A)
-                {
-                    newPos.X -= 1;
-                }
-                if (keyPressed == Key.D)
-                {
-                    newPos.X += 1;
-                }
-                if (keyPressed == Key.W)
-                {
-                    newPos.Y -= 1;
-                }
-                if (keyPressed == Key.S)
-                {
-                    newPos.Y += 1;
-                }
-
-                this.Location.MoveObject(PlayerPosition, 1, newPos);
-
-                RedrawPlayerPos();
-
-                PlayerPosition = newPos;
-
-                RedrawPlayerPos();
-
-                this.Redraw();
-            }
         }
 
-        private void RedrawPlayerPos()
-        {
-            Drawing.Draw.RunSession<LabirinthUnitDrawSession>(x =>
-            {
-                x.Location = this.Location;
-                x.Position = this.PlayerPosition;
-            });
-        }
 
 #if DEBUG
         private bool drawMode = false;
         private string drawChar = ".";
 #endif
 
-        public override void MousePress(PointerArgs pointerPressedEventArgs)
+        protected override void MousePress(PointerArgs pointerPressedEventArgs)
         {
 #if DEBUG
             if (drawMode)

@@ -4,6 +4,7 @@
     using System.Linq;
     using Rogue.Control.Keys;
     using Rogue.Drawing.Console;
+    using Rogue.Drawing.Impl;
     using Rogue.Races.Perks;
     using Rogue.Scenes.Menus.Creation;
     using Rogue.Scenes.Scenes;
@@ -40,10 +41,13 @@
             w.Left = 36;
             w.Top = 5;
 
+            var txt = new DrawText("        Dungeon 12", ConsoleColor.DarkCyan);
+            txt.ReplaceAt(8+8, new DrawText("12", ConsoleColor.Red));
 
-            w.AddControl(new Label(w, "  Hellgates")
+            w.AddControl(new Label(w, "  Dungeon 12")
             {
-                ForegroundColor = ConsoleColor.DarkCyan,
+                SourceText= txt,
+                //ForegroundColor = ConsoleColor.DarkCyan,
                 Top = 1,
                 Left = 1,
                 Width = w.Width - 2,
@@ -64,7 +68,7 @@
                 Width = 10
             });
 
-            w.AddControl(new Label(w, " [London]")
+            w.AddControl(new Label(w, " ")
             {
                 ForegroundColor = ConsoleColor.Cyan,
                 Top = 4,
@@ -140,7 +144,7 @@
             w.Publish();
         }
 
-        public override void KeyPress(KeyArgs keyEventArgs)
+        protected override void KeyPress(KeyArgs keyEventArgs)
         {
             switch (keyEventArgs.Key)
             {

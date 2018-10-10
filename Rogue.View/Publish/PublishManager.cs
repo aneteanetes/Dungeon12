@@ -23,5 +23,15 @@
         {
             Current.Publish(drawSessions);
         }
+
+        public static void Animation(IAnimationSession animationSession)
+        {
+            Current.Animation(animationSession);
+        }
+
+        public static void Block(bool block)
+        {
+            Current.BlockControls(block);
+        }
     }
 }

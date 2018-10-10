@@ -29,12 +29,22 @@
             return draw;
         }
 
+        public static void Animation<T>(Action<T> init = null) where T : class, IAnimationSession, new()
+        {
+            var animation = new T();
+
+            init?.Invoke(animation);
+
+            animation
+                .Run()
+                .Publish();
+        }
+
         private static IDrawSession RunnedSession<T>(Action<T> init = null) where T : class, IDrawSession, new()
         {
             var session = new T();
 
-            if (init != null)
-                init(session);
+            init?.Invoke(session);
 
             return session.Run();
         }

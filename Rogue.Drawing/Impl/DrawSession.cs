@@ -28,7 +28,7 @@ namespace Rogue.Drawing.Impl
 
                 for (int i = 0; i < this._drawRegion.Height; i++)
                 {
-                    buffer.Add(DrawText.Empty(this._drawRegion.Width));
+                    buffer.Add(DrawText.Empty((int)this._drawRegion.Width));
                 }
             }
         }

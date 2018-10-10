@@ -1,14 +1,17 @@
 ﻿namespace Rogue.Control.Commands
 {
     using System;
+    using System.Collections.Generic;
     using Rogue.Control.Keys;
 
-    public class Command
+    public abstract class Command
     {
-        public Key Key { get; set; }
+        public abstract IEnumerable<Key> Keys { get; }
 
-        public string Name { get; set; }
+        public abstract string Name { get; }
 
-        public Action Run { get; set; }
+        public abstract void Run(Key keyPressed);
+
+        public abstract bool UI { get; }
     }
 }

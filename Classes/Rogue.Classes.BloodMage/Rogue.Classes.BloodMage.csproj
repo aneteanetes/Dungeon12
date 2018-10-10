@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Rogue.Abilities\Rogue.Abilities.csproj" />
+    <ProjectReference Include="..\..\Rogue.Drawing\Rogue.Drawing.csproj" />
     <ProjectReference Include="..\..\Rogue.Entites\Rogue.Entites.csproj" />
   </ItemGroup>
 

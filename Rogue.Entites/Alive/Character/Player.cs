@@ -6,7 +6,7 @@ namespace Rogue.Entites.Alive.Character
     /// <summary>
     /// Абстрактный класс персонажа
     /// </summary>
-    public abstract class Player : Modified
+    public abstract class Player : Moveable
     {
         public Race Race { get; set; }
 

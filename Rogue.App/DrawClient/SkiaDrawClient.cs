@@ -4,8 +4,11 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Avalonia.Controls;
     using Avalonia.Media.Imaging;
+    using Avalonia.Threading;
     using Rogue.Resources;
     using Rogue.Scenes;
     using Rogue.View.Interfaces;
@@ -82,7 +85,7 @@
             {
                 if (session.Drawables != null)
                 {
-                    DrawTiles(canvas,session);
+                    DrawTiles(canvas,session.Drawables);
                 }
                 else
                 {
@@ -97,9 +100,9 @@
             this.InternalDraw();
         }
 
-        private static void DrawTiles(SKCanvas canvas, IDrawSession session)
+        private static void DrawTiles(SKCanvas canvas, IEnumerable<IDrawable> drawables)
         {
-            foreach (var drawable in session.Drawables)
+            foreach (var drawable in drawables)
             {
                 var y = drawable.Region.Y * 24 + 3;
                 var x = drawable.Region.X * 24 - 3;
@@ -223,6 +226,29 @@
             }
             control.InvalidateVisual();
             //this.invalidate();
+        }
+
+        public void Animate(IAnimationSession animationSession)
+        {
+            void invalidate() { Dispatcher.UIThread.InvokeAsync(() => control.InvalidateVisual()).Wait(); }
+
+            Task.Run(() =>
+            {
+                foreach (var frame in animationSession.Frames)
+                {
+                    var bitmap = DrawingBitmap;
+                    var canvas = new SKCanvas(DrawingBitmap);
+                    DrawTiles(canvas, frame);
+                    canvas.Dispose();
+
+                    InternalDraw();
+
+                    //Thread.Sleep(1);
+                    invalidate();
+                }
+
+                animationSession.End();
+            });
         }
     }
 }

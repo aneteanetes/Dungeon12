@@ -21,10 +21,10 @@ namespace Rogue.Map
             MapObject moved = this.Map[now.Y][now.X][Level];
 
             //+1 и +2 это offset рисования карты, т.к. регион это АБСОЛЮТНЫЕ цифры относительно экрана
-            moved.Region.X = next.X+1;
-            moved.Region.Y = next.Y+2;
+            //moved.Region.X = next.X;
+            //moved.Region.Y = next.Y;
 
-            this.Map[now.Y][now.X].RemoveAt(Level);
+            this.Map[now.Y][now.X].Remove(moved);
             this.Map[next.Y][next.X].Add(moved);
         }        
     }

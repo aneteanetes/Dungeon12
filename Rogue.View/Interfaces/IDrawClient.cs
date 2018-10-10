@@ -5,5 +5,7 @@
     public interface IDrawClient
     {
         void Draw(IEnumerable<IDrawSession> drawSessions);
+
+        void Animate(IAnimationSession animationSession);
     }
 }

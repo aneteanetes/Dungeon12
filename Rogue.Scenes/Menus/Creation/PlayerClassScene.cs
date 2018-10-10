@@ -105,7 +105,7 @@ namespace Rogue.Scenes.Menus.Creation
             return new DrawColor(r, g, b, 100);
         }
 
-        public override void KeyPress(KeyArgs keyEventArgs)
+        protected override void KeyPress(KeyArgs keyEventArgs)
         {
             switch (keyEventArgs.Key)
             {

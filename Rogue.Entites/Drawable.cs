@@ -13,10 +13,10 @@ namespace Rogue.Entites
         public IDrawColor BackgroundColor { get; set; }
         public IDrawColor ForegroundColor { get; set; }
 
-        public virtual string Tileset => "";
+        public virtual string Tileset { get; set; }
 
-        public virtual Rectangle TileSetRegion => default;
+        public virtual Rectangle TileSetRegion { get; set; }
 
-        public virtual Rectangle Region => default;
+        public virtual Rectangle Region { get; set; }
     }
 }

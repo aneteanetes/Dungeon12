@@ -51,7 +51,7 @@ namespace Rogue.App
         {
             Image viewport = this.Content as Image;
             control = viewport;
-            viewport.PointerPressed += Viewport_PointerPressed;            
+            viewport.PointerPressed += Viewport_PointerPressed;
             var bitmap = new WriteableBitmap(1157, 700, PixelFormat.Bgra8888);
             ViewportBitmap = bitmap;
             viewport.Source = bitmap;
@@ -67,11 +67,11 @@ namespace Rogue.App
         {
             var pos = e.GetPosition(control);
 
-            SceneManager.Current.MousePress(new Control.Pointer.PointerArgs
+            SceneManager.Current.OnMousePress(new Control.Pointer.PointerArgs
             {
                 ClickCount = e.ClickCount,
                 MouseButton = (Control.Pointer.MouseButton)e.MouseButton,
-                X=pos.X,
+                X = pos.X,
                 Y = pos.Y
             });
         }
@@ -107,7 +107,7 @@ namespace Rogue.App
         {
             get
             {
-                if(drawingBitmap==default)
+                if (drawingBitmap == default)
                 {
                     drawingBitmap = new SKBitmap(1157, 700, SKColorType.Bgra8888, SKAlphaType.Premul);
                 }
@@ -123,7 +123,7 @@ namespace Rogue.App
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            SceneManager.Current.KeyPress(new Control.Keys.KeyArgs
+            SceneManager.Current.OnKeyPress(new Control.Keys.KeyArgs
             {
                 Key = (Control.Keys.Key)e.Key,
                 Modifiers = (Control.Keys.KeyModifiers)e.Modifiers
@@ -131,7 +131,7 @@ namespace Rogue.App
 
             base.OnKeyDown(e);
         }
-        
+
         private void LoadImage()
         {
             var stream = ResourceLoader.Load("Rogue.Resources.Images.Splash.sceneHD.png");
@@ -142,7 +142,7 @@ namespace Rogue.App
             //mybitmap.Resize(dstInfo, SKBitmapResizeMethod.Hamming);
 
             Draw();
-           
+
         }
         private unsafe void Draw()
         {

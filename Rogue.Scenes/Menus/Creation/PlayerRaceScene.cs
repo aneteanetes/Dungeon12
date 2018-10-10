@@ -92,7 +92,7 @@ namespace Rogue.Scenes.Menus.Creation
             w.Publish();
         }
 
-        public override void KeyPress(KeyArgs keyEventArgs)
+        protected override void KeyPress(KeyArgs keyEventArgs)
         {
             switch (keyEventArgs.Key)
             {

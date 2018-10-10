@@ -2,7 +2,7 @@
 {
     using Rogue.Entites.Alive;
 
-    public class Enemy : Modified
+    public class Enemy : Moveable
     {
         public bool Aggressive { get; set; }
     }
