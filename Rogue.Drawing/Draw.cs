@@ -15,6 +15,18 @@
             return this;
         }
 
+        public Draw Then<T>(T session) where T : class, IDrawSession
+        {
+            this.DrawSessionBatch.Add(session);
+            session.Run();
+            return this;
+        }
+
+        public static void RunSession<T>(T session) where T : class, IDrawSession
+        {
+            session.Run().Publish();
+        }
+
         public static void RunSession<T>(Action<T> init = null) where T : class, IDrawSession, new()
         {
             RunnedSession(init).Publish();

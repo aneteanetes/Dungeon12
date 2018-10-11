@@ -15,8 +15,8 @@
             {
                 X = 1,
                 Y = 1,
-                Height = DrawingSize.WindowLines,
-                Width = DrawingSize.WindowChars
+                Height = DrawingSize.WindowLines-1,
+                Width = DrawingSize.WindowChars-1
             };
         }
 

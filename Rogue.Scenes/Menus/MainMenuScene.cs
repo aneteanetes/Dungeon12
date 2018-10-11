@@ -5,6 +5,7 @@
     using Rogue.Control.Keys;
     using Rogue.Drawing.Console;
     using Rogue.Drawing.Impl;
+    using Rogue.Drawing.Utils;
     using Rogue.Races.Perks;
     using Rogue.Scenes.Menus.Creation;
     using Rogue.Scenes.Scenes;
@@ -140,8 +141,9 @@
             };
             w.AddControl(bex);
 
-            w.Run();
-            w.Publish();
+            Drawing.Draw.Session<ClearSession>()
+                .Then(w)
+                .Publish();
         }
 
         protected override void KeyPress(KeyArgs keyEventArgs)

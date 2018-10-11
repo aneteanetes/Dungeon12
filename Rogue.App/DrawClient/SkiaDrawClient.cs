@@ -9,6 +9,7 @@
     using Avalonia.Controls;
     using Avalonia.Media.Imaging;
     using Avalonia.Threading;
+    using MoreLinq;
     using Rogue.Resources;
     using Rogue.Scenes;
     using Rogue.View.Interfaces;
@@ -16,6 +17,8 @@
 
     public class SkiaDrawClient : IDrawClient
     {
+        private static float YUnit = 20f;
+        private static float XUnit = 11.5625f;
         private WriteableBitmap ViewportBitmap;
         private Image control;
 
@@ -61,6 +64,9 @@
 
         public void Draw(IEnumerable<IDrawSession> drawSessions)
         {
+            if (drawSessions.Count() == 0)
+                return;
+
             var bitmap = DrawingBitmap;
             var canvas = new SKCanvas(DrawingBitmap);
           
@@ -75,17 +81,15 @@
                 new SKColor(0, 255, 255, 255),
             };
 
-            float YUnit = 20f;
-            float XUnit = 11.5625f;
-
             var blackPaint = new SKPaint { Color = new SKColor(0, 0, 0, 255) };
             //new SKPaint { Color = new SKColor(124, 57, 89, 255), IsStroke=true };
+
 
             foreach (var session in drawSessions)
             {
                 if (session.Drawables != null)
                 {
-                    DrawTiles(canvas,session.Drawables);
+                    DrawTiles(canvas, session.Drawables);
                 }
                 else
                 {
@@ -97,7 +101,8 @@
             canvas.Dispose();
             font.Dispose();
 
-            this.InternalDraw();
+            this.InternalDraw(GetBounds(drawSessions));
+
         }
 
         private static void DrawTiles(SKCanvas canvas, IEnumerable<IDrawable> drawables)
@@ -193,8 +198,8 @@
 
             canvas.DrawRect(rect, blackPaint);
         }
-
-        private unsafe void InternalDraw()
+        
+        private unsafe void InternalDraw(SKRect bitmapReplaceRegion)
         {
             var width = ViewportBitmap.PixelWidth;
             var height = ViewportBitmap.PixelHeight;
@@ -210,12 +215,13 @@
                 var ptr = (uint*)buf.Address;
 
 
-                for (var i = 0; i < w; i++)
+                for (var i = (int)bitmapReplaceRegion.Left; i < (int)bitmapReplaceRegion.Left + bitmapReplaceRegion.Size.Width; i++)
                 {
-                    for (var j = 0; j < h; j++)
+                    for (var j = (int)bitmapReplaceRegion.Top; j < (int)bitmapReplaceRegion.Top+ bitmapReplaceRegion.Size.Height; j++)
                     {
-                        var pix = DrawingBitmap.GetPixel(i, j);
 
+                        var pix = DrawingBitmap.GetPixel(i, j);
+                        
                         if (pix.Alpha > 200)
                         {
                             var pixPtr = ptr + (j + py) * width + i + px;
@@ -224,13 +230,13 @@
                     }
                 }
             }
+
             control.InvalidateVisual();
-            //this.invalidate();
         }
 
         public void Animate(IAnimationSession animationSession)
         {
-            void invalidate() { Dispatcher.UIThread.InvokeAsync(() => control.InvalidateVisual()).Wait(); }
+            //void invalidate() { Dispatcher.UIThread.InvokeAsync(() => control.InvalidateVisual()).Wait(); }
 
             Task.Run(() =>
             {
@@ -241,14 +247,140 @@
                     DrawTiles(canvas, frame);
                     canvas.Dispose();
 
-                    InternalDraw();
+                    InternalDraw(GetBounds(frame));
 
-                    //Thread.Sleep(1);
-                    invalidate();
+                    Thread.Sleep(50);
+                    //invalidate();
                 }
 
                 animationSession.End();
             });
+        }
+
+        private static SKRect GetBounds(IEnumerable<IDrawable> drawables)
+        {
+            var leftUpdate = drawables.Min(session =>
+            {
+                return session.Region.X;
+            });
+
+            var topUpdate = drawables.Min(session =>
+            {
+                return session.Region.Y;
+            });
+
+
+            var maxX = drawables.MaxBy(session =>
+            {
+                return session.Region.X;
+            }).First();
+
+            var widthUpdate = maxX.Region.X * 24 + maxX.Region.Width;
+
+            var maxY = drawables.MaxBy(session =>
+            {
+                    return session.Region.Y;
+            }).First();
+
+            var heightUpdate = (maxY.Region.Y * 24 + maxY.Region.Height) - (topUpdate * 24 - 24);
+
+            //height - абсолютная величина СКОЛЬКО надо нарисовать
+            //какой-то уебанский косяк, чес слово
+            return new SKRect
+            {
+                Top = topUpdate * 24 -24+3,
+                Left = leftUpdate * 24,
+                Size = new SKSize
+                {
+                    Height = heightUpdate-24+3,
+                    Width = widthUpdate
+                }
+            };
+        }
+
+        private static SKRect GetBounds(IEnumerable<IDrawSession> drawSessions)
+        {
+            var leftUpdate = drawSessions.Min(session =>
+            {
+                if (session.Drawables != null)
+                {
+                    return session.Drawables.Min(x => x.Region.X);
+                }
+                else
+                {
+                    return session.Region.X;
+                }
+            });
+
+            var topUpdate = drawSessions.Min(session =>
+            {
+                if (session.Drawables != null)
+                {
+                    return session.Drawables.Min(x => x.Region.Y);
+                }
+                else
+                {
+                    return session.Region.Y;
+                }
+            });
+
+
+            var maxX = drawSessions.MaxBy(session =>
+            {
+                if (session.Drawables != null)
+                {
+                    return session.Drawables.Max(x => x.Region.X);
+                }
+                else
+                {
+                    return session.Region.X + session.Region.Width;
+                }
+            }).First();
+
+            var widthUpdate = 0f;
+            if (maxX.Drawables != null)
+            {
+                var maxYDrawable = maxX.Drawables.MaxBy(x => x.Region.Y).FirstOrDefault();
+                widthUpdate = maxYDrawable.Region.Y;
+            }
+            else
+            {
+                widthUpdate = maxX.Region.X + maxX.Region.Width;
+            }
+
+            var maxY = drawSessions.MaxBy(session =>
+            {
+                if (session.Drawables != null)
+                {
+                    return session.Drawables.Max(x => x.Region.Y);
+                }
+                else
+                {
+                    return session.Region.Y + session.Region.Height;
+                }
+            }).First();
+
+            var heightUpdate = 0f;
+            if (maxY.Drawables != null)
+            {
+                var maxYDrawable = maxY.Drawables.MaxBy(x => x.Region.Y).FirstOrDefault();
+                heightUpdate = maxYDrawable.Region.Y;
+            }
+            else
+            {
+                heightUpdate = maxY.Region.Y + maxY.Region.Height;
+            }
+
+            return new SKRect
+            {
+                Top = topUpdate * YUnit,
+                Left = leftUpdate * XUnit + XUnit,
+                Size = new SKSize
+                {
+                    Height = (heightUpdate * YUnit) - (topUpdate * YUnit),
+                    Width = widthUpdate * XUnit
+                }
+            };
         }
     }
 }
