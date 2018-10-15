@@ -27,19 +27,11 @@
             w.Speed = 10;
             w.Border = Additional.BoldBorder;
             w.BorderColor = ConsoleColor.DarkGray;
-            //w.Border.HorizontalLine = '░';
-            //w.Border.VerticalLine = '⌠';
-            w.Border.LowerLeftCorner = '@';
-            w.Border.LowerRightCorner = '@';
-            w.Border.UpperLeftCorner = '@';
-            w.Border.UpperRightCorner = '@';
-            w.Border.PerpendicularRightward = '@';
-            w.Border.PerpendicularLeftward = '@';
 
             //w.Header = true;
             w.Height = 20;
             w.Width = 26;
-            w.Left = 36;
+            w.Left = 5;
             w.Top = 5;
 
             var txt = new DrawText("        Dungeon 12", ConsoleColor.DarkCyan);

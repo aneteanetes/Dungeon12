@@ -8,6 +8,11 @@
         IEnumerable<IDrawText> Data { get; }
 
         string StringData { get; }
+
+        /// <summary>
+        /// Содержит ли внутри ноды
+        /// </summary>
+        bool IsEmptyInside { get; }
         
         int Length { get; }
 

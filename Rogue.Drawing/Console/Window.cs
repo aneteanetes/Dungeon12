@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Rogue.Control.Keys;
 using Rogue.Drawing.Impl;
+using Rogue.Entites;
 using Rogue.View.Interfaces;
 
 namespace Rogue.Drawing.Console
@@ -229,7 +230,6 @@ namespace Rogue.Drawing.Console
         /// </summary>
         protected void ToConstruct()
         {
-
             this.DrawRegion = new Types.Rectangle
             {
                 X = this.Left,
@@ -241,47 +241,8 @@ namespace Rogue.Drawing.Console
             Exception();
             if (this.Controls.Count > 0) { ConstructInterfaceMap(); }
             Constructed = true;
-
-            //border color
-            short bcolor = Convert.ToInt16(this.BorderColor);
-
-            #region topBorder
-
-            var topBorder = DrawText.Empty(this.Width);
-            topBorder.ForegroundColor = new DrawColor(this.BorderColor);
-
-            var emptyLine = GetLine(this.Width - 2, this.Border.HorizontalLine);
-
-            topBorder.ReplaceAt(0, new DrawText(this.Border.UpperLeftCorner.ToString(), this.BorderColor));
-            topBorder.ReplaceAt(1, new DrawText(emptyLine, this.BorderColor));
-            topBorder.ReplaceAt(emptyLine.Length + 1, new DrawText(this.Border.UpperRightCorner.ToString(), this.BorderColor));
-
-            this.Write(0, 0, topBorder);
-
-            #endregion
-
-            #region size
-            DrawText lineWithBorders() => new DrawText(Border.VerticalLine + GetLine(this.Width - 2, ' ') + Border.VerticalLine, this.BorderColor);
-
-            for (int i = 1; i < this.Height-1; i++)
-            {
-                this.Write(i, 0, lineWithBorders());
-            }
-
-            #endregion
-
-            #region bottomBorder
-
-            var bottomBorder = DrawText.Empty(this.Width);
-            bottomBorder.ForegroundColor = new DrawColor(this.BorderColor);
-
-            bottomBorder.ReplaceAt(0, new DrawText(this.Border.LowerLeftCorner.ToString(), this.BorderColor));
-            bottomBorder.ReplaceAt(1, new DrawText(emptyLine, this.BorderColor));
-            bottomBorder.ReplaceAt(emptyLine.Length + 1, new DrawText(this.Border.LowerRightCorner.ToString(), this.BorderColor));
-
-            this.Write(this.Height-1, 0, bottomBorder);
-
-            #endregion
+            
+            this.DrawableList.AddRange(Border.CompleteBorder(this.DrawRegion));
 
             //Interface
             for (int i = 0; i < this.Controls.Count; i++)

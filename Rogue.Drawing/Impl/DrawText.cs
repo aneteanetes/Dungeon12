@@ -73,6 +73,7 @@ namespace Rogue.Drawing.Impl
 
         public IEnumerable<IDrawText> Nodes => this.InnerText;
 
+        public bool IsEmptyInside => this.InnerText.Count == 0;
 
         public void Append(IDrawText drawText)
         {

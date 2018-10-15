@@ -1,41 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\Splash\scene.png" />
-    <None Remove="Images\Splash\sceneHD.png" />
-    <None Remove="Images\Splash\splash.jpg" />
-    <None Remove="Images\Splash\start.png" />
-    <None Remove="Images\Tiles\dblue.png" />
-    <None Remove="Images\Tiles\ddark.png" />
-    <None Remove="Images\Tiles\dfrost.png" />
-    <None Remove="Images\Tiles\dlight.png" />
-    <None Remove="Images\Tiles\dpoison.png" />
-    <None Remove="Images\Tiles\dsand.png" />
-    <None Remove="Images\Tiles\items.png" />
-    <None Remove="Images\Tiles\items1.png" />
-    <None Remove="Images\Tiles\Tileset.png" />
-    <None Remove="Images\Tiles\TilesetTransparent.png" />
+    <None Remove="Images\**\*" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Images\Splash\scene.png" />
-    <EmbeddedResource Include="Images\Splash\sceneHD.png" />
-    <EmbeddedResource Include="Images\Splash\splash.jpg" />
-    <EmbeddedResource Include="Images\Splash\start.png" />
-    <EmbeddedResource Include="Images\Tiles\dblue.png" />
-    <EmbeddedResource Include="Images\Tiles\ddark.png" />
-    <EmbeddedResource Include="Images\Tiles\dfrost.png" />
-    <EmbeddedResource Include="Images\Tiles\dlight.png" />
-    <EmbeddedResource Include="Images\Tiles\dpoison.png" />
-    <EmbeddedResource Include="Images\Tiles\dsand.png" />
-    <EmbeddedResource Include="Images\Tiles\items.png" />
-    <EmbeddedResource Include="Images\Tiles\items1.png" />
-    <EmbeddedResource Include="Images\Tiles\Tileset.png" />
-    <EmbeddedResource Include="Images\Tiles\TilesetTransparent.png" />
+    <EmbeddedResource Include="Images\**\*" />
   </ItemGroup>
 
 </Project>

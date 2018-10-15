@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Rogue.Entites;
 using Rogue.Types;
 using Rogue.View.Interfaces;
 using Rogue.View.Publish;
@@ -16,26 +18,25 @@ namespace Rogue.Drawing.Impl
 
         private List<IDrawText> buffer = new List<IDrawText>();
 
-        private Rectangle _drawRegion;
         public Rectangle DrawRegion
         {
-            get => _drawRegion;
+            get => Region;
             set
             {
-                this._drawRegion = value;
+                this.Region = value;
 
                 this.buffer = new List<IDrawText>();
 
-                for (int i = 0; i < this._drawRegion.Height; i++)
+                for (int i = 0; i < this.Region.Height; i++)
                 {
-                    buffer.Add(DrawText.Empty((int)this._drawRegion.Width));
+                    buffer.Add(DrawText.Empty((int)this.Region.Width));
                 }
             }
         }
 
         public IEnumerable<IDrawText> Content => this.buffer.ToArray();
 
-        public Rectangle Region => this._drawRegion;
+        public Rectangle Region { get; private set; }
 
         public virtual IEnumerable<IDrawable> Drawables { get; set; }
 
@@ -59,7 +60,7 @@ namespace Rogue.Drawing.Impl
                 linePos++;
             }
         }
-        
+
         public virtual IDrawSession Run()
         {
             return this;

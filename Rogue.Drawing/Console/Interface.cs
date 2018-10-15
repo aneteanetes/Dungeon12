@@ -11,6 +11,10 @@ namespace Rogue.Drawing.Console
     /// </summary>
     public class Interface : DrawSession
     {
+        protected List<IDrawable> DrawableList { get; } = new List<IDrawable>();
+
+        public override IEnumerable<IDrawable> Drawables { get => this.DrawableList; set { } }
+
         /// <summary>
         /// Event when control creating
         /// </summary>
