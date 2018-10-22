@@ -9,7 +9,7 @@
     {
         public TextPosition Align = TextPosition.Center;
 
-        public Label(Window window, string text="")
+        public Label(Window window, string text = "")
         {
             this.Window = window;
             this.Text = text;
@@ -28,14 +28,15 @@
         {
             if (this.SourceText != null)
             {
+                BindRegion(this.SourceText);
                 return new IDrawText[] { this.SourceText };
             }
 
-            if (this.Width==0 && this.Align== TextPosition.Center)
+            if (this.Width == 0 && this.Align == TextPosition.Center)
             {
                 throw new Exception("Label with align=center can't have Width=0!");
             }
-            else if (this.Align!= TextPosition.Center)
+            else if (this.Align != TextPosition.Center)
             {
                 this.Width = this.Text.Length;
             }
@@ -48,10 +49,30 @@
                 Height = 1
             };
 
-            var line = DrawText.Empty(this.Width, this.ForegroundColor);
+            var line = DrawText.Empty((int)this.Width, this.ForegroundColor);
             line.ReplaceAt(0, new DrawText(Middle(this.Text), this.ForegroundColor));
 
+            BindRegion(line);
+
             return new IDrawText[] { line };
+        }
+
+        private void BindRegion(IDrawText drawText)
+        {
+            float x = 0;
+
+            if (this.Align == TextPosition.Center)
+            {
+                x = this.Window.Left + (this.Window.Width / 2 - drawText.Length / 2);
+            }
+
+            drawText.Region = new Types.Rectangle
+            {
+                X = x,
+                Y = this.Window.Top+this.Top,
+                Height = 1,
+                Width = drawText.Length
+            };
         }
 
         public IDrawText SourceText { get; set; }

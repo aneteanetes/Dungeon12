@@ -256,8 +256,12 @@ namespace Rogue.Drawing.Console
         protected void ConstructInterfaceMap()
         {
             this.ActivatableControls = new List<Interface>((from c in ((from b in this.Controls where b.Activatable orderby b.Top select b).ToList<Interface>()) orderby c.Left select c).ToList<Interface>());
-            this.Sender = this.ActivatableControls[0];
-            this.Focus = 0;
+
+            if (this.ActivatableControls.Count > 0)
+            {
+                this.Sender = this.ActivatableControls[0];
+                this.Focus = 0;
+            }
         }
         /// <summary>
         /// Add Interface on window
@@ -265,15 +269,20 @@ namespace Rogue.Drawing.Console
         /// <param name="Interface">Button, TextBox, CheckBox</param>
         protected void AddInterface(Interface Interface, bool Active)
         {
+            this.DrawableList.AddRange(Interface.ConstructTiles());
+
+
             //Get line of chars
             var lines = Interface.Construct(Active);
+
             var mergeLine = Interface.Top; //какого хуя тут был магический +1 ?
-            foreach (var line in lines)
+
+            if (lines != null)
             {
-                this.Write(mergeLine, Interface.Left, line);
-                mergeLine++;
+                this.WanderingText.AddRange(lines);
             }
         }
+
         /// <summary>
         /// For change focus and sender [LOL! here was Critical error! ]
         /// </summary>

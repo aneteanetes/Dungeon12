@@ -23,6 +23,7 @@
         public override void Draw()
         {
             var w = window = new Window();
+            w.AutoClear = false;
             w.Animation.Frames = 2;
             w.Speed = 10;
             w.Border = Additional.BoldBorder;
@@ -31,17 +32,16 @@
             //w.Header = true;
             w.Height = 20;
             w.Width = 26;
-            w.Left = 5;
+            w.Left = 11;
             w.Top = 5;
 
-            var txt = new DrawText("        Dungeon 12", ConsoleColor.DarkCyan);
-            txt.ReplaceAt(8+8, new DrawText("12", ConsoleColor.Red));
+            var txt = new DrawText("Dungeon 12", ConsoleColor.DarkCyan);
+            txt.ReplaceAt(8, new DrawText("12", ConsoleColor.Red));
 
-            w.AddControl(new Label(w, "  Dungeon 12")
+            w.AddControl(new Label(w)
             {
-                SourceText= txt,
-                //ForegroundColor = ConsoleColor.DarkCyan,
-                Top = 1,
+                SourceText = txt,
+                Top = .7f,
                 Left = 1,
                 Width = w.Width - 2,
                 Height = 1
@@ -53,85 +53,85 @@
                 Top = 2
             });
 
-            w.AddControl(new Label(w, "Remastered")
-            {
-                ForegroundColor = ConsoleColor.Red,
-                Top = 3,
-                Left = 14,
-                Width = 10
-            });
+            //w.AddControl(new Label(w, "Remastered")
+            //{
+            //    ForegroundColor = ConsoleColor.Red,
+            //    Top = 3,
+            //    Left = 14,
+            //    Width = 10
+            //});
 
-            w.AddControl(new Label(w, " ")
-            {
-                ForegroundColor = ConsoleColor.Cyan,
-                Top = 4,
-                Left = 1,
-                Width = w.Width - 2,
-                Height = 1
-            });
+            //w.AddControl(new Label(w, " ")
+            //{
+            //    ForegroundColor = ConsoleColor.Cyan,
+            //    Top = 4,
+            //    Left = 1,
+            //    Width = w.Width - 2,
+            //    Height = 1
+            //});
 
-            //Controls 
-            Button bng = new Button(w);
-            bng.Top = 6;
-            bng.Left = 3;
-            bng.Width = 20;
-            bng.Height = 3;
-            bng.ActiveColor = ConsoleColor.Red;
-            bng.InactiveColor = ConsoleColor.DarkRed;
-            bng.CloseAfterUse = true;
-            bng.Label = "Новая игра";
-            bng.OnClick = () =>
-            {
-                this.Switch<PlayerNameScene>();
-            };
-            w.AddControl(bng);
+            ////Controls 
+            //Button bng = new Button(w);
+            //bng.Top = 6;
+            //bng.Left = 3;
+            //bng.Width = 20;
+            //bng.Height = 3;
+            //bng.ActiveColor = ConsoleColor.Red;
+            //bng.InactiveColor = ConsoleColor.DarkRed;
+            //bng.CloseAfterUse = true;
+            //bng.Label = "Новая игра";
+            //bng.OnClick = () =>
+            //{
+            //    this.Switch<PlayerNameScene>();
+            //};
+            //w.AddControl(bng);
 
-            Button bfg = new Button(w);
-            bfg.Top = 9;
-            bfg.Left = 3;
-            bfg.Width = 20;
-            bfg.Height = 3;
-            bfg.ActiveColor = ConsoleColor.Red;
-            bfg.InactiveColor = ConsoleColor.DarkRed;
-            bfg.Label = "Быстрая игра";
-            bfg.CloseAfterUse = true;
-            bfg.OnClick = () =>
-            {
-                this.Player = Classes.All().Skip(1).First();
-                this.Player.Name = "Adventurer";
-                this.Player.Race = Race.Elf;
-                this.Player.Add<RacePerk>();
+            //Button bfg = new Button(w);
+            //bfg.Top = 9;
+            //bfg.Left = 3;
+            //bfg.Width = 20;
+            //bfg.Height = 3;
+            //bfg.ActiveColor = ConsoleColor.Red;
+            //bfg.InactiveColor = ConsoleColor.DarkRed;
+            //bfg.Label = "Быстрая игра";
+            //bfg.CloseAfterUse = true;
+            //bfg.OnClick = () =>
+            //{
+            //    this.Player = Classes.All().Skip(1).First();
+            //    this.Player.Name = "Adventurer";
+            //    this.Player.Race = Race.Elf;
+            //    this.Player.Add<RacePerk>();
 
-                this.Switch<Game.MainScene>();
-            };
-            w.AddControl(bfg);
+            //    this.Switch<Game.MainScene>();
+            //};
+            //w.AddControl(bfg);
 
-            Button ba = new Button(w);
-            ba.Top = 12;
-            ba.Left = 3;
-            ba.Width = 20;
-            ba.Height = 3;
-            ba.ActiveColor = ConsoleColor.Red;
-            ba.InactiveColor = ConsoleColor.DarkRed;
-            ba.Label = "Создатели";
-            ba.CloseAfterUse = true;
-            ba.OnClick = () => { /*MenuEngine.CreditsWindow.Draw(); MenuEngine.MainMenu.Draw();*/ };
-            w.AddControl(ba);
+            //Button ba = new Button(w);
+            //ba.Top = 12;
+            //ba.Left = 3;
+            //ba.Width = 20;
+            //ba.Height = 3;
+            //ba.ActiveColor = ConsoleColor.Red;
+            //ba.InactiveColor = ConsoleColor.DarkRed;
+            //ba.Label = "Создатели";
+            //ba.CloseAfterUse = true;
+            //ba.OnClick = () => { /*MenuEngine.CreditsWindow.Draw(); MenuEngine.MainMenu.Draw();*/ };
+            //w.AddControl(ba);
 
-            Button bex = new Button(w);
-            bex.Top = 15;
-            bex.Left = 3;
-            bex.Width = 20;
-            bex.Height = 3;
-            bex.ActiveColor = ConsoleColor.Red;
-            bex.InactiveColor = ConsoleColor.DarkRed;
-            bex.Label = "Выход";
-            bex.CloseAfterUse = true;
-            bex.OnClick = () =>
-            {
-                Environment.Exit(0);
-            };
-            w.AddControl(bex);
+            //Button bex = new Button(w);
+            //bex.Top = 15;
+            //bex.Left = 3;
+            //bex.Width = 20;
+            //bex.Height = 3;
+            //bex.ActiveColor = ConsoleColor.Red;
+            //bex.InactiveColor = ConsoleColor.DarkRed;
+            //bex.Label = "Выход";
+            //bex.CloseAfterUse = true;
+            //bex.OnClick = () =>
+            //{
+            //    Environment.Exit(0);
+            //};
+            //w.AddControl(bex);
 
             Drawing.Draw.Session<ClearSession>()
                 .Then(w)

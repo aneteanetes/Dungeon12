@@ -20,6 +20,6 @@
 
         public Rectangle TileSetRegion => default;
 
-        public Rectangle Region => default;
+        public Rectangle Region { get; set; }
     }
 }

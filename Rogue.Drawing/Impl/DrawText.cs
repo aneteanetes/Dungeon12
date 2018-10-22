@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreLinq;
 using Rogue.Settings;
+using Rogue.Types;
 using Rogue.View.Interfaces;
 
 namespace Rogue.Drawing.Impl
@@ -74,6 +75,8 @@ namespace Rogue.Drawing.Impl
         public IEnumerable<IDrawText> Nodes => this.InnerText;
 
         public bool IsEmptyInside => this.InnerText.Count == 0;
+
+        public Rectangle Region { get; set; }
 
         public void Append(IDrawText drawText)
         {

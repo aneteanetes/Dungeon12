@@ -34,7 +34,9 @@ namespace Rogue.Drawing.Impl
             }
         }
 
-        public IEnumerable<IDrawText> Content => this.buffer.ToArray();
+        public IEnumerable<IDrawText> Content => this.buffer.ToArray().Concat(WanderingText);
+
+        protected List<IDrawText> WanderingText = new List<IDrawText>();
 
         public Rectangle Region { get; private set; }
 

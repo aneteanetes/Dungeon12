@@ -62,6 +62,10 @@
             return bitmap;
         }
 
+        /// <summary>
+        /// API клиента отображения
+        /// </summary>
+        /// <param name="drawSessions"></param>
         public void Draw(IEnumerable<IDrawSession> drawSessions)
         {
             if (drawSessions.Count() == 0)
@@ -73,28 +77,15 @@
             float fontSize = 20f;
             var font = SKTypeface.FromFamilyName("Lucida Console");
 
-            var wtf = new SKColor[]
-            {
-                new SKColor(255, 255, 0, 255),
-                new SKColor(0, 255, 0, 255),
-                new SKColor(0, 0, 255, 255),
-                new SKColor(0, 255, 255, 255),
-            };
-
-            var blackPaint = new SKPaint { Color = new SKColor(0, 0, 0, 255) };
-            //new SKPaint { Color = new SKColor(124, 57, 89, 255), IsStroke=true };
-
-
             foreach (var session in drawSessions)
             {
                 if (session.Drawables != null)
                 {
                     DrawTiles(canvas, session.Drawables);
                 }
-                else
-                {
-                    DrawText(canvas, fontSize, font, ref YUnit, ref XUnit, blackPaint, session);
-                }
+
+                DrawText(canvas, fontSize, font, ref YUnit, ref XUnit, session);
+
             }
 
 
@@ -105,10 +96,16 @@
 
         }
 
+        /// <summary>
+        /// Рисование тайлов
+        /// </summary>
+        /// <param name="canvas"></param>
+        /// <param name="drawables"></param>
         private static void DrawTiles(SKCanvas canvas, IEnumerable<IDrawable> drawables)
         {
             foreach (var drawable in drawables)
             {
+
                 var y = drawable.Region.Y * 24 + 3;
                 var x = drawable.Region.X * 24 - 3;
 
@@ -140,48 +137,120 @@
             }
         }
 
-        private static void DrawText(SKCanvas canvas, float fontSize, SKTypeface font, ref float YUnit, ref float XUnit, SKPaint blackPaint, IDrawSession session)
+        /// <summary>
+        /// Рисование текста
+        /// </summary>
+        /// <param name="canvas"></param>
+        /// <param name="fontSize"></param>
+        /// <param name="font"></param>
+        /// <param name="YUnit"></param>
+        /// <param name="XUnit"></param>
+        /// <param name="session"></param>
+        private static void DrawText(SKCanvas canvas, float fontSize, SKTypeface font, ref float YUnit, ref float XUnit, IDrawSession session)
         {
-            ClearRegion(canvas, YUnit, XUnit, blackPaint, session);
+            if (session.AutoClear)
+            {
+                ClearRegion(canvas, YUnit, XUnit, session);
+            }
 
             float y = ((session.Region.Y) * YUnit) + 10;
+            float x = session.Region.X * XUnit;
+
             foreach (var line in session.Content)
             {
-
-                float x = session.Region.X * XUnit;
-
-                foreach (var lne in line.Data)
+                if (line.Region != null)
                 {
-                    foreach (var range in lne.Data)
-                    {
-                        var textpaint = new SKPaint
-                        {
-                            Typeface = font,
-                            TextSize = fontSize,
-                            IsAntialias = true,
-                            Color = new SKColor(range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B, range.ForegroundColor.A),
-                            Style = SKPaintStyle.Fill
-                        };
-
-                        foreach (var @char in range.StringData)
-                        {
-                            XUnit = 11.5625f;
-                            YUnit = 20;
-                            canvas.DrawText(@char.ToString(), x, y, textpaint);
-                            canvas.DrawText(@char.ToString(), x, y, textpaint);
-
-                            x += XUnit;
-                        }
-                    }
+                    DrawPositionalText(canvas, fontSize, font, line);
                 }
-
-                y += YUnit;
-
+                else
+                {
+                    DrawNonPositionalText(canvas, fontSize, font, y, x, line);
+                    y += YUnit;
+                }
             }
         }
 
-        private static void ClearRegion(SKCanvas canvas, float YUnit, float XUnit, SKPaint blackPaint, IDrawSession session)
+        /// <summary>
+        /// Рисование надписи без собственного позиционирования (как консоль)
+        /// </summary>
+        /// <param name="canvas"></param>
+        /// <param name="fontSize"></param>
+        /// <param name="font"></param>
+        /// <param name="y"></param>
+        /// <param name="x"></param>
+        /// <param name="line"></param>
+        private static void DrawNonPositionalText(SKCanvas canvas, float fontSize, SKTypeface font, float y, float x, IDrawText line)
         {
+            foreach (var lne in line.Data)
+            {
+                foreach (var range in lne.Data)
+                {
+                    DrawTextRanges(canvas, fontSize, font, y, x, range);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Рисование надписи с собственным позиционированием
+        /// </summary>
+        /// <param name="canvas"></param>
+        /// <param name="fontSize"></param>
+        /// <param name="font"></param>
+        /// <param name="drawText"></param>
+        private static void DrawPositionalText(SKCanvas canvas, float fontSize, SKTypeface font, IDrawText drawText)
+        {
+            float y = drawText.Region.Y * 24 + 3;
+            float x = drawText.Region.X * 24 - 3;
+
+            foreach (var range in drawText.Data)
+            {
+                DrawTextRanges(canvas, fontSize, font, y, x, range);
+                x += range.Length * XUnit;
+            }
+        }
+
+        /// <summary>
+        /// Рисование внутренних отрезков в тексте (отрезки с собственным форматированием)
+        /// </summary>
+        /// <param name="canvas"></param>
+        /// <param name="fontSize"></param>
+        /// <param name="font"></param>
+        /// <param name="y"></param>
+        /// <param name="x"></param>
+        /// <param name="range"></param>
+        private static void DrawTextRanges(SKCanvas canvas, float fontSize, SKTypeface font, float y, float x, IDrawText range)
+        {
+            var textpaint = new SKPaint
+            {
+                Typeface = font,
+                TextSize = fontSize,
+                IsAntialias = true,
+                Color = new SKColor(range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B, range.ForegroundColor.A),
+                Style = SKPaintStyle.Fill
+            };
+
+            foreach (var @char in range.StringData)
+            {
+                XUnit = 11.5625f;
+                YUnit = 20;
+                canvas.DrawText(@char.ToString(), x, y, textpaint);
+                canvas.DrawText(@char.ToString(), x, y, textpaint);
+
+                x += XUnit;
+            }
+        }
+
+        /// <summary>
+        /// Очищение региона (закрашивание чёрным)
+        /// </summary>
+        /// <param name="canvas"></param>
+        /// <param name="YUnit"></param>
+        /// <param name="XUnit"></param>
+        /// <param name="session"></param>
+        private static void ClearRegion(SKCanvas canvas, float YUnit, float XUnit, IDrawSession session)
+        {
+            var blackPaint = new SKPaint { Color = new SKColor(0, 0, 0, 255) };
+
             var rect = new SKRect
             {
                 Location = new SKPoint
@@ -302,7 +371,7 @@
         {
             var leftUpdate = drawSessions.Min(session =>
             {
-                if (session.Drawables != null)
+                if (session.Drawables.IsNotEmpty())
                 {
                     return session.Drawables.Min(x => x.Region.X);
                 }
@@ -314,7 +383,7 @@
 
             var topUpdate = drawSessions.Min(session =>
             {
-                if (session.Drawables != null)
+                if (session.Drawables.IsNotEmpty())
                 {
                     return session.Drawables.Min(x => x.Region.Y);
                 }
@@ -327,7 +396,7 @@
 
             var maxX = drawSessions.MaxBy(session =>
             {
-                if (session.Drawables != null)
+                if (session.Drawables.IsNotEmpty())
                 {
                     return session.Drawables.Max(x => x.Region.X);
                 }
@@ -338,7 +407,7 @@
             }).First();
 
             var widthUpdate = 0f;
-            if (maxX.Drawables != null)
+            if (maxX.Drawables.IsNotEmpty())
             {
                 var maxYDrawable = maxX.Drawables.MaxBy(x => x.Region.Y).FirstOrDefault();
                 widthUpdate = maxYDrawable.Region.Y;
@@ -350,7 +419,7 @@
 
             var maxY = drawSessions.MaxBy(session =>
             {
-                if (session.Drawables != null)
+                if (session.Drawables.IsNotEmpty())
                 {
                     return session.Drawables.Max(x => x.Region.Y);
                 }
@@ -361,7 +430,7 @@
             }).First();
 
             var heightUpdate = 0f;
-            if (maxY.Drawables != null)
+            if (maxY.Drawables.IsNotEmpty())
             {
                 var maxYDrawable = maxY.Drawables.MaxBy(x => x.Region.Y).FirstOrDefault();
                 heightUpdate = maxYDrawable.Region.Y;

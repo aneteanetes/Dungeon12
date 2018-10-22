@@ -109,7 +109,7 @@ namespace Rogue.Drawing.Console
             {
                 if (String.Length >= this.Width - 2)
                 {
-                    printf = String.Substring(0, this.Width - 2);
+                    printf = String.Substring(0, (int)this.Width - 2);
                 }
                 else
                 {
@@ -121,14 +121,14 @@ namespace Rogue.Drawing.Console
                 printf = this.Label;
             }
 
-            var top = new DrawText(Additional.LightBorder.UpperLeftCorner + GetLine(this.Width - 2, Additional.LightBorder.HorizontalLine) + Additional.LightBorder.UpperRightCorner, Window.BorderColor);
+            var top = new DrawText(Additional.LightBorder.UpperLeftCorner + GetLine((int)this.Width - 2, Additional.LightBorder.HorizontalLine) + Additional.LightBorder.UpperRightCorner, Window.BorderColor);
 
-            var mid = DrawText.Empty(this.Width, Window.BorderColor);
+            var mid = DrawText.Empty((int)this.Width, Window.BorderColor);
             mid.ReplaceAt(0, new DrawText(Additional.LightBorder.VerticalLine.ToString(), Window.BorderColor));
-            mid.ReplaceAt(1, new DrawText(printf + GetLine(this.Width - 2 - printf.Length, ' '), color));
-            mid.ReplaceAt(this.Width - 1, new DrawText(Additional.LightBorder.VerticalLine.ToString(), Window.BorderColor));
+            mid.ReplaceAt(1, new DrawText(printf + GetLine((int)this.Width - 2 - printf.Length, ' '), color));
+            mid.ReplaceAt((int)this.Width - 1, new DrawText(Additional.LightBorder.VerticalLine.ToString(), Window.BorderColor));
 
-            var bot = new DrawText(Additional.LightBorder.LowerLeftCorner + GetLine(this.Width - 2, Additional.LightBorder.HorizontalLine) + Additional.LightBorder.LowerRightCorner, Window.BorderColor);
+            var bot = new DrawText(Additional.LightBorder.LowerLeftCorner + GetLine((int)this.Width - 2, Additional.LightBorder.HorizontalLine) + Additional.LightBorder.LowerRightCorner, Window.BorderColor);
 
             return new IDrawText[] { top, mid, bot };
         }

@@ -17,7 +17,7 @@ namespace Rogue.Drawing.Character
             this.WriteTab();
 
             int ctab = (Tab * 5) - 5;
-            int i = 0;
+            //int i = 0;
             //for (int q = ctab; q < Tab * 5; q++)
             //{
             //    try

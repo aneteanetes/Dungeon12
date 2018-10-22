@@ -107,7 +107,7 @@ namespace Rogue.Drawing.Console
                     {
                         if (String.Length < Window.Width - 4)
                         {
-                            int l = (Window.Width - 4) - String.Length;
+                            int l = ((int)Window.Width - 4) - String.Length;
                             for (int i = 0; i < l; i++)
                             {
                                 String += ' ';
@@ -120,7 +120,7 @@ namespace Rogue.Drawing.Console
                     {
                         if (String.Length < Window.Width - 4)
                         {
-                            int side = ((Window.Width - 4) - String.Length) / 2;
+                            int side = ((int)(Window.Width - 4) - String.Length) / 2;
                             for (int i = 0; i < side; i++)
                             {
                                 String = ' ' + String;
@@ -141,7 +141,7 @@ namespace Rogue.Drawing.Console
                     {
                         if (String.Length < Window.Width - 4)
                         {
-                            int l = (Window.Width - 4) - String.Length;
+                            int l = ((int)Window.Width - 4) - String.Length;
                             for (int i = 0; i < l; i++)
                             {
                                 String = ' ' + String;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Rogue.Drawing.Impl;
 using Rogue.View.Interfaces;
@@ -72,7 +73,6 @@ namespace Rogue.Drawing.Console
             catch { }
 
 
-
             //foreach char in out string
             foreach (char c in Line.ToCharArray())
             {
@@ -130,7 +130,7 @@ namespace Rogue.Drawing.Console
         {
             if (String.Length < this.Width - 2)
             {
-                int side = ((this.Width - 2) - String.Length) / 2;
+                int side = (((int)this.Width - 2) - String.Length) / 2;
                 for (int i = 0; i < side; i++)
                 {
                     String = ' ' + String;
@@ -145,25 +145,30 @@ namespace Rogue.Drawing.Console
         public virtual IEnumerable<IDrawText> Construct(bool Active)
         { return null; }
 
+        public virtual IEnumerable<IDrawable> ConstructTiles()
+        {
+            return Enumerable.Empty<IDrawable>();
+        }
+
         /// <summary>
         /// Width of window in char count
         /// </summary>
-        public int Width;
+        public float Width;
 
         /// <summary>
         /// Height of window in char count
         /// </summary>
-        public int Height;
+        public float Height;
 
         /// <summary>
         /// Left indent from console border in char count
         /// </summary>
-        public int Left;
+        public float Left;
 
         /// <summary>
         /// Top indent from console border in char count
         /// </summary>
-        public int Top;
+        public float Top;
 
         /// <summary>
         /// If you need close window after use interface, for example: Button 'Exit' which need exit window

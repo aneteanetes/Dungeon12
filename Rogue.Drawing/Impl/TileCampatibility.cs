@@ -51,8 +51,8 @@ namespace Rogue.Drawing.Impl
                 case '║': return new Drawable() { Tileset = LightBarsTileset, TileSetRegion = new Rectangle { X = 0, Y = 10, Width = 10, Height = 17 } };
                 case '╔': return new Drawable() { Tileset = LightBarsTileset, TileSetRegion = new Rectangle { X = 0, Y = 0, Width = 10, Height = 10 } };
                 case '╗': return new Drawable() { Tileset = LightBarsTileset, TileSetRegion = new Rectangle { X = 54, Y = 0, Width = 10, Height = 10 } };
-                case '╠': return new Drawable() { Tileset = LightBarsTileset, TileSetRegion = new Rectangle { X = 0, Y = 37, Width = 10, Height = 10 } };
-                case '╣': return new Drawable() { Tileset = LightBarsTileset, TileSetRegion = new Rectangle { X = 13, Y = 37, Width = 10, Height = 10 } };
+                case '╠': return new Drawable() { Tileset = LightBarsTileset, TileSetRegion = new Rectangle { X = 0, Y = 27, Width = 10, Height = 10 } };
+                case '╣': return new Drawable() { Tileset = LightBarsTileset, TileSetRegion = new Rectangle { X = 54, Y = 27, Width = 10, Height = 10 } };
                 case '╚': return new Drawable() { Tileset = LightBarsTileset, TileSetRegion = new Rectangle { X = 0, Y = 54, Width = 10, Height = 10 } };
                 case '╝': return new Drawable() { Tileset = LightBarsTileset, TileSetRegion = new Rectangle { X = 54, Y = 54, Width = 10, Height = 10 } };
                 default: return null;

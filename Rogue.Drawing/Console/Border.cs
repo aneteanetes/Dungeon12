@@ -56,7 +56,7 @@ namespace Rogue.Drawing.Console
             };
             borderList.Add(topCorner2);
 
-            for (int i = (int)drawRegion.Y + 1; i < drawRegion.Y+1 + drawRegion.Height - 1; i++)
+            for (int i = (int)drawRegion.Y + 1; i < drawRegion.Y+1 + drawRegion.Height - 2; i++)
             {
                 var leftVert = TileCampatibility.TileAssigment('║');
                 leftVert.Region = new Types.Rectangle
