@@ -50,8 +50,8 @@ namespace Rogue.Drawing.Labirinth
                 {
                     X = pos.X + 1,
                     Y = pos.Y + 2,
-                    Height = 24,
-                    Width = 24
+                    Height = 1,
+                    Width = 1
                 };
 
                 drawables.Add(item);
@@ -166,8 +166,8 @@ namespace Rogue.Drawing.Labirinth
             {
                 X = pos.X + 1,
                 Y = pos.Y + 2,
-                Height = 24,
-                Width = 24
+                Height = 1,
+                Width = 1
             };
 
             drawables.Add(mapObj);

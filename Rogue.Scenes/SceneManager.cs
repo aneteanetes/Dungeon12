@@ -12,7 +12,7 @@
     {
         public IDrawClient DrawClient { get; set; }
 
-        public static bool AnimationBlockingInput = false;
+        public static bool BlockingInput = false;
 
         private static readonly Dictionary<Type, GameScene> SceneCache = new Dictionary<Type, GameScene>();
 
@@ -20,6 +20,8 @@
 
         public void Change<TScene>() where TScene : GameScene
         {
+            BlockingInput = true;
+
             var sceneType = typeof(TScene);
 
             if (!SceneCache.TryGetValue(sceneType, out var nextScene))

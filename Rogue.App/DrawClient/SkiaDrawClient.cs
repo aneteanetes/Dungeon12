@@ -86,7 +86,10 @@
                     DrawTiles(canvas, session.Drawables);
                 }
 
-                DrawText(canvas, fontSize, font, ref YUnit, ref XUnit, session);
+                if (session.TextContent != null && session.TextContent.Any())
+                {
+                    DrawText(canvas, fontSize, font, ref YUnit, ref XUnit, session);
+                }
 
             }
 
@@ -200,7 +203,7 @@
             float y = session.SessionRegion.Y * 24 + 3;
             float x = session.SessionRegion.X * 24 - 3;
 
-            foreach (var line in session.Content)
+            foreach (var line in session.TextContent)
             {
                 if (line.Region != null)
                 {
@@ -275,12 +278,10 @@
 
             foreach (var @char in range.StringData)
             {
-                XUnit = 11.5625f;
-                YUnit = 20;
                 canvas.DrawText(@char.ToString(), x, y, textpaint);
                 canvas.DrawText(@char.ToString(), x, y, textpaint);
 
-                x += XUnit;
+                x += range.LetterSpacing;
             }
         }
 
@@ -295,21 +296,25 @@
         {
             var blackPaint = new SKPaint { Color = new SKColor(0, 0, 0, 255) };
 
-            var rect = new SKRect
+            if (session.SessionRegion != null)
             {
-                Location = new SKPoint
-                {
-                    Y = ((session.SessionRegion.Y) * YUnit) + 10,
-                    X = session.SessionRegion.X * XUnit
-                },
-                Size = new SKSize
-                {
-                    Height = (session.SessionRegion.Height * YUnit) - 10,
-                    Width = session.SessionRegion.Width * XUnit
-                }
-            };
 
-            canvas.DrawRect(rect, blackPaint);
+                var rect = new SKRect
+                {
+                    Location = new SKPoint
+                    {
+                        Y = ((session.SessionRegion.Y) * YUnit) + 10,
+                        X = session.SessionRegion.X * XUnit
+                    },
+                    Size = new SKSize
+                    {
+                        Height = (session.SessionRegion.Height * YUnit) - 10,
+                        Width = session.SessionRegion.Width * XUnit
+                    }
+                };
+
+                canvas.DrawRect(rect, blackPaint);
+            }
         }
                 
         private unsafe void InternalDraw(SKRect bitmapReplaceRegion)

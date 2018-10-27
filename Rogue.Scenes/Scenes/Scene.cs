@@ -86,7 +86,14 @@
 
         protected virtual void KeyPress(KeyArgs keyEventArgs) { }
 
-        protected virtual void MousePress(PointerArgs pointerPressedEventArgs) { }
+        protected virtual void MousePress(PointerArgs pointerPressedEventArgs)
+        {
+            var clickedElements = CanHandle.Where(handler => RegionContains(handler, pointerPressedEventArgs));
+            foreach (var clickedElement in clickedElements)
+            {
+                clickedElement.Handle(ControlEventType.Click);
+            }
+        }
 
         public abstract void Draw();
 

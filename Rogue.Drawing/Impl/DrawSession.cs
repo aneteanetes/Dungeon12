@@ -40,7 +40,7 @@ namespace Rogue.Drawing.Impl
             }
         }
 
-        public IEnumerable<IDrawText> Content => this.buffer.ToArray().Concat(WanderingText);
+        public IEnumerable<IDrawText> TextContent => this.buffer.ToArray().Concat(WanderingText);
 
         protected List<IDrawText> WanderingText = new List<IDrawText>();
 

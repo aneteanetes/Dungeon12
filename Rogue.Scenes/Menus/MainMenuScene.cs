@@ -1,9 +1,11 @@
 ﻿namespace Rogue.Scenes.Menus
 {
     using System;
+    using System.Linq;
     using Rogue.Control.Keys;
     using Rogue.Drawing.Controls;
     using Rogue.Drawing.Impl;
+    using Rogue.Races.Perks;
     using Rogue.Scenes.Menus.Creation;
     using Rogue.Scenes.Scenes;
 
@@ -54,7 +56,49 @@
                 Height=2,
                 Label = new DrawText("Новая игра", ConsoleColor.DarkRed) { Size = 30 }
             });
-            
+
+            win.Append(new Button
+            {
+                ActiveColor = new DrawColor(ConsoleColor.Red),
+                InactiveColor = new DrawColor(ConsoleColor.DarkRed),
+                Left = 4.1f,
+                Top = 8,
+                Width = 7,
+                Height = 2,
+                Label = new DrawText("Быстрая игра", ConsoleColor.DarkRed) { Size = 30 },
+                OnClick = () =>
+                {
+                    this.Player = Classes.All().Skip(1).First();
+                    this.Player.Name = "Adventurer";
+                    this.Player.Race = Race.Elf;
+                    this.Player.Add<RacePerk>();
+
+                    this.Switch<Game.MainScene>();
+                }
+            });
+
+            win.Append(new Button
+            {
+                ActiveColor = new DrawColor(ConsoleColor.Red),
+                InactiveColor = new DrawColor(ConsoleColor.DarkRed),
+                Left = 4.1f,
+                Top = 11,
+                Width = 7,
+                Height = 2,
+                Label = new DrawText("Создатели", ConsoleColor.DarkRed) { Size = 30 }
+            });
+
+            win.Append(new Button
+            {
+                ActiveColor = new DrawColor(ConsoleColor.Red),
+                InactiveColor = new DrawColor(ConsoleColor.DarkRed),
+                Left = 4.1f,
+                Top = 14,
+                Width = 7,
+                Height = 2,
+                Label = new DrawText("Выход", ConsoleColor.DarkRed) { Size = 30 }
+            });
+
             Drawing.Draw.RunSession(win);
 
             return;

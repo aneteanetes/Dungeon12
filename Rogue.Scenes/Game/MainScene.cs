@@ -37,11 +37,11 @@
             if (this.Commands.Count == 0)
                 this.FillCommands();
 
-            Drawing.Draw.Session<GUIBorderDrawSession>()
-                .Then<LabirinthDrawSession>(x => x.Location = this.Location)
-                .Then<CharMapDrawSession>(x => x.Commands = this.Commands.Where(c => c.UI).Select(c => $"[{c.Keys.First()}] - {c.Name}").ToArray())
-                .Then<CharacterDataDrawSession>(x => x.Player = this.Player)
-                .Then<MessageDrawSession>(x => x.Message = new DrawText($"{DateTime.Now.ToShortTimeString()}: Вы прибываете в столицу", ConsoleColor.DarkGray))
+            Drawing.Draw/*.Session<GUIBorderDrawSession>()*/
+                .Session<LabirinthDrawSession>(x => x.Location = this.Location)
+                //.Then<CharMapDrawSession>(x => x.Commands = this.Commands.Where(c => c.UI).Select(c => $"[{c.Keys.First()}] - {c.Name}").ToArray())
+                //.Then<CharacterDataDrawSession>(x => x.Player = this.Player)
+                //.Then<MessageDrawSession>(x => x.Message = new DrawText($"{DateTime.Now.ToShortTimeString()}: Вы прибываете в столицу", ConsoleColor.DarkGray))
                 .Publish();
         }
 

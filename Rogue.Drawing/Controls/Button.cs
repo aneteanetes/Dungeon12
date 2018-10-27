@@ -5,6 +5,12 @@
 
     public class Button : Title
     {
+        public Button()
+        {
+            this.OnFocus = OnFocusEvent;
+            this.OnUnfocus = OnUnfocusEvent;
+        }
+
         public bool Large = false;
 
         public override bool IsControlable => true;
@@ -22,12 +28,12 @@
         public IDrawColor ActiveColor;
         public IDrawColor InactiveColor;
 
-        public override void OnFocus()
+        private void OnFocusEvent()
         {
             this.Label.Paint(ActiveColor);
         }
 
-        public override void OnUnfocus()
+        private void OnUnfocusEvent()
         {
             this.Label.Paint(InactiveColor);
         }

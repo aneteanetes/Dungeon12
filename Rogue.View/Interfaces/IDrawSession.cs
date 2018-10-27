@@ -21,7 +21,7 @@
 
         Rectangle SessionRegion { get; }
 
-        IEnumerable<IDrawText> Content { get; }
+        IEnumerable<IDrawText> TextContent { get; }
 
         IEnumerable<IDrawable> Drawables { get; }
 

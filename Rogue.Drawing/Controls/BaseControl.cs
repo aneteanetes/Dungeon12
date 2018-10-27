@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Drawing.Controls
 {
+    using System;
     using System.Collections.Generic;
     using Rogue.Control.Events;
     using Rogue.Drawing.Impl;
@@ -77,9 +78,11 @@
             return base.Run();
         }
 
-        public virtual void OnFocus() { }
+        public Action OnFocus;
 
-        public virtual void OnUnfocus() { }
+        public Action OnUnfocus;
+
+        public Action OnClick;
 
         public override void Handle(ControlEventType @event)
         {
@@ -89,12 +92,13 @@
             switch (@event)
             {
                 case ControlEventType.Click:
+                    this.OnClick?.Invoke();
                     break;
                 case ControlEventType.Focus:
-                    this.OnFocus();
+                    this.OnFocus?.Invoke();
                     break;
                 case ControlEventType.Unfocus:
-                    this.OnUnfocus();
+                    this.OnUnfocus?.Invoke();
                     break;
                 default:
                     break;

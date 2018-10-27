@@ -62,8 +62,8 @@ namespace Rogue.Drawing.Labirinth
                     {
                         X = x+1,
                         Y = y+2,
-                        Height = 24,
-                        Width = 24
+                        Height = 1,
+                        Width = 1
                     },
                     TileSetRegion = new Rectangle
                     {
