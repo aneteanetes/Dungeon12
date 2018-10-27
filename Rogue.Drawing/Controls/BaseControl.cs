@@ -103,8 +103,6 @@
                 default:
                     break;
             }
-
-            this.Run().Publish();
         }
 
         public override void Publish()

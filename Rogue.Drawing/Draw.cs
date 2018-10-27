@@ -63,7 +63,10 @@
 
         public void Publish()
         {
-            PublishManager.Publish(DrawSessionBatch);
+            foreach (var drawSession in DrawSessionBatch)
+            {
+                drawSession.Publish();
+            }
         }
     }
 }

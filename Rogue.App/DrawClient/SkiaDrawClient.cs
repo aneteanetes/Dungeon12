@@ -180,7 +180,7 @@
                         Height = drawable.Region.Height*24,
                         Width = drawable.Region.Width*24
                     }
-                });
+                },new SKPaint { IsAntialias=true });
             }
         }
 
@@ -252,7 +252,7 @@
             foreach (var range in drawText.Data)
             {
                 DrawTextRanges(canvas, fontSize, font, y, x, range);
-                x += range.Length * XUnit;
+                x += range.Length * range.LetterSpacing;
             }
         }
 
@@ -298,18 +298,17 @@
 
             if (session.SessionRegion != null)
             {
-
                 var rect = new SKRect
                 {
                     Location = new SKPoint
                     {
-                        Y = ((session.SessionRegion.Y) * YUnit) + 10,
-                        X = session.SessionRegion.X * XUnit
+                        Y = session.SessionRegion.Y * 24 + 3,
+                        X = session.SessionRegion.X * 24+3
                     },
                     Size = new SKSize
                     {
-                        Height = (session.SessionRegion.Height * YUnit) - 10,
-                        Width = session.SessionRegion.Width * XUnit
+                        Height = (session.SessionRegion.Height * 24),
+                        Width = session.SessionRegion.Width * 24
                     }
                 };
 
@@ -331,7 +330,6 @@
                 var h = Math.Min(height - py, DrawingBitmap.Height);
 
                 var ptr = (uint*)buf.Address;
-
 
                 for (var i = (int)bitmapReplaceRegion.Left; i < (int)bitmapReplaceRegion.Left + bitmapReplaceRegion.Size.Width; i++)
                 {
@@ -393,14 +391,28 @@
                 return session.Region.X;
             }).First();
 
-            var widthUpdate = maxX.Region.X * 24 + maxX.Region.Width;
+            var widthUpdate = maxX.Region.X + maxX.Region.Width;
 
             var maxY = drawables.MaxBy(session =>
             {
                     return session.Region.Y;
             }).First();
 
-            var heightUpdate = (maxY.Region.Y * 24 + maxY.Region.Height) - (topUpdate * 24 - 24);
+            var heightUpdate = maxY.Region.Y + maxY.Region.Height;
+
+
+            topUpdate -= 1;
+
+            return new SKRect
+            {
+                Top = topUpdate * 24,
+                Left = leftUpdate * 24,
+                Size = new SKSize
+                {
+                    Height = (heightUpdate - topUpdate) * 24,
+                    Width = (widthUpdate - leftUpdate) * 24
+                }
+            };
 
             //height - абсолютная величина СКОЛЬКО надо нарисовать
             //какой-то уебанский косяк, чес слово
@@ -447,24 +459,24 @@
             {
                 if (session.Drawables.IsNotEmpty())
                 {
-                    return session.Drawables.MaxBy(x => x.Region.X).First().Region.X;
+                    return session.Drawables.MaxBy(x => x.Region.X+x.Region.Width).First().Region.X;
                 }
                 else
                 {
-                    return session.SessionRegion.X;
+                    return session.SessionRegion.X+session.SessionRegion.Width;
                 }
             }).First();
 
-            var widthUpdate = 0f;
+            var endOfX = 0f;
 
             if (maxX.Drawables.IsNotEmpty())
             {
                 var maxXDrawable = maxX.Drawables.MaxBy(x => x.Region.X).FirstOrDefault();
-                widthUpdate = maxXDrawable.Region.X + maxXDrawable.Region.Width;
+                endOfX = maxXDrawable.Region.X + maxXDrawable.Region.Width;
             }
             else
             {
-                widthUpdate = maxX.SessionRegion.X + maxX.SessionRegion.Width;
+                endOfX = maxX.SessionRegion.X + maxX.SessionRegion.Width;
             }
 
             var maxY = drawSessions.MaxBy(session =>
@@ -483,11 +495,11 @@
             if (maxY.Drawables.IsNotEmpty())
             {
                 var maxYDrawable = maxY.Drawables.MaxBy(x => x.Region.Y).First();
-                heightUpdate = maxYDrawable.Region.Y + maxYDrawable.Region.Height;
+                heightUpdate = maxYDrawable.Region.Y+ maxYDrawable.Region.Height;
             }
             else
             {
-                heightUpdate = maxY.SessionRegion.Y + maxY.SessionRegion.Height;
+                heightUpdate = maxY.SessionRegion.Y+ maxY.SessionRegion.Height;
             }
 
             if (topUpdate != 0)
@@ -501,8 +513,8 @@
                 Left = leftUpdate * 24,
                 Size = new SKSize
                 {
-                    Height = heightUpdate * 24,
-                    Width = widthUpdate * 24
+                    Height =( heightUpdate - topUpdate )* 24,
+                    Width = (endOfX - leftUpdate) * 24
                 }
             };
         }

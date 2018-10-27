@@ -5,9 +5,11 @@
     using Rogue.Control.Keys;
     using Rogue.Drawing.Controls;
     using Rogue.Drawing.Impl;
+    using Rogue.Drawing.Utils;
     using Rogue.Races.Perks;
     using Rogue.Scenes.Menus.Creation;
     using Rogue.Scenes.Scenes;
+    using Rogue.Types;
 
     public class MainMenuScene : GameScene<PlayerNameScene, Game.MainScene>
     {
@@ -17,13 +19,26 @@
 
         public override bool Destroyable => true;
 
-        private Window window;
-
         public override void Draw()
         {
+            new Image("Rogue.Resources.Images.d12back.png")
+            {
+                Left = 0.4f,
+                Top = 1f,
+                Width = 48.2f,
+                Height = 29f,
+                ImageTileRegion = new Rectangle
+                {
+                    X = 0,
+                    Y = 0,
+                    Height = 700,
+                    Width = 1057
+                }
+            }.Run().Publish();
+
             var win = new Window
             {
-                Direction= Direction.Vertical,
+                Direction= Drawing.Controls.Direction.Vertical,
                 Left = 16f,
                 Top = 4,
                 Width = 15,
@@ -46,15 +61,19 @@
                 DrawText = new DrawText("remastered", ConsoleColor.Red) { Size = 15 }
             });
 
-            win.Append(new Button
+            win.Append(new Image("Rogue.Resources.Images.d12logo.png")
             {
-                ActiveColor = new DrawColor(ConsoleColor.Red),
-                InactiveColor = new DrawColor(ConsoleColor.DarkRed),
-                Left = 4.1f,
-                Top = 5,
-                Width = 7,
-                Height=2,
-                Label = new DrawText("Новая игра", ConsoleColor.DarkRed) { Size = 30 }
+                Left = 6.1f,
+                Top = 1.9f,
+                Width = 3f,
+                Height = 3f,
+                ImageTileRegion = new Rectangle
+                {
+                    X = 0,
+                    Y = 0,
+                    Height = 300,
+                    Width = 300
+                }
             });
 
             win.Append(new Button
@@ -62,10 +81,25 @@
                 ActiveColor = new DrawColor(ConsoleColor.Red),
                 InactiveColor = new DrawColor(ConsoleColor.DarkRed),
                 Left = 4.1f,
-                Top = 8,
+                Top = 6,
+                Width = 7,
+                Height=2,
+                Label = new DrawText("Новая игра", ConsoleColor.DarkRed) { Size = 30 },
+                OnClick = () => { this.Switch<PlayerNameScene>(); }
+                });
+
+            var fastgamelabel = new DrawText("Быстрая игра ", ConsoleColor.DarkRed) { Size = 30 };
+            fastgamelabel.ReplaceAt(0, new DrawText("Б", ConsoleColor.DarkRed) { Size = 30, LetterSpacing = 20 });
+
+            win.Append(new Button
+            {
+                ActiveColor = new DrawColor(ConsoleColor.Red),
+                InactiveColor = new DrawColor(ConsoleColor.DarkRed),
+                Left = 4.1f,
+                Top = 9,
                 Width = 7,
                 Height = 2,
-                Label = new DrawText("Быстрая игра", ConsoleColor.DarkRed) { Size = 30 },
+                Label = fastgamelabel,
                 OnClick = () =>
                 {
                     this.Player = Classes.All().Skip(1).First();
@@ -77,138 +111,40 @@
                 }
             });
 
-            win.Append(new Button
-            {
-                ActiveColor = new DrawColor(ConsoleColor.Red),
-                InactiveColor = new DrawColor(ConsoleColor.DarkRed),
-                Left = 4.1f,
-                Top = 11,
-                Width = 7,
-                Height = 2,
-                Label = new DrawText("Создатели", ConsoleColor.DarkRed) { Size = 30 }
-            });
+            var creators = new DrawText("Создатели ", ConsoleColor.DarkRed) { Size = 30 };
+            creators.ReplaceAt(0, new DrawText("С", ConsoleColor.DarkRed) { Size = 30, LetterSpacing = 20 });
 
             win.Append(new Button
             {
                 ActiveColor = new DrawColor(ConsoleColor.Red),
                 InactiveColor = new DrawColor(ConsoleColor.DarkRed),
                 Left = 4.1f,
-                Top = 14,
+                Top = 12,
                 Width = 7,
                 Height = 2,
-                Label = new DrawText("Выход", ConsoleColor.DarkRed) { Size = 30 }
+                Label = creators,
+                OnClick = () => { /*MenuEngine.CreditsWindow.Draw(); MenuEngine.MainMenu.Draw();*/ }
+            });
+
+            var exit = new DrawText("Выход  ", ConsoleColor.DarkRed) { Size = 30 };
+            exit.ReplaceAt(0, new DrawText("В", ConsoleColor.DarkRed) { Size = 30, LetterSpacing = 20 });
+
+            win.Append(new Button
+            {
+                ActiveColor = new DrawColor(ConsoleColor.Red),
+                InactiveColor = new DrawColor(ConsoleColor.DarkRed),
+                Left = 4.1f,
+                Top = 15,
+                Width = 7,
+                Height = 2,
+                Label = exit,
+                OnClick =()=> { Environment.Exit(0); }
             });
 
             Drawing.Draw.RunSession(win);
 
-            return;
-
-            //var w = window = new Window();
-            //w.AutoClear = false;
-            //w.Animation.Frames = 2;
-            //w.Speed = 10;
-            //w.Border = Additional.BoldBorder;
-            //w.BorderColor = ConsoleColor.DarkGray;
-
-            ////w.Header = true;
-            //w.Height = 20;
-            //w.Width = 15;
-            //w.Left = 17;
-            //w.Top = 4;
-
-            //var txt = new DrawText("Dungeon 12", ConsoleColor.DarkCyan);
-            //txt.ReplaceAt(8, new DrawText("12", ConsoleColor.Red));
-
-            //w.AddControl(new Label(w)
-            //{
-            //    SourceText = txt,
-            //    Top = 1.1f,
-            //    Left = 3,
-            //    Width = txt.Length,
-            //    Height = 1
-            //});
-
-            //w.AddControl(new HorizontalLine(w)
-            //{
-            //    Width = window.Width,
-            //    Top = 2
-            //});
-
-            //w.AddControl(new Label(w, "Remastered")
-            //{
-            //    ForegroundColor = ConsoleColor.Red,
-            //    Top = 3,
-            //    Left = 7.5f,
-            //    Width = 10
-            //});
-
-            //////Controls 
-            //w.AddControl(new Button(w)
-            //{
-            //    Top = 5,
-            //    Left = 3,
-            //    Width = 9,
-            //    Height = 1.7f,
-            //    ActiveColor = ConsoleColor.Red,
-            //    InactiveColor = ConsoleColor.DarkRed,
-            //    CloseAfterUse = true,
-            //    Label = "Новая игра",
-            //    OnClick = () =>
-            //    {
-            //        this.Switch<PlayerNameScene>();
-            //    }
-            //});
-
-            //w.AddControl(new Button(w)
-            //{
-            //    Top = 8,
-            //    Left = 3,
-            //    Width = 9,
-            //    Height = 1.7f,
-            //    ActiveColor = ConsoleColor.Red,
-            //    InactiveColor = ConsoleColor.DarkRed,
-            //    Label = "Быстрая игра",
-            //    CloseAfterUse = true,
-            //    OnClick = () =>
-            //    {
-            //        this.Player = Classes.All().Skip(1).First();
-            //        this.Player.Name = "Adventurer";
-            //        this.Player.Race = Race.Elf;
-            //        this.Player.Add<RacePerk>();
-
-            //        this.Switch<Game.MainScene>();
-            //    }
-            //});
-
-            //Button ba = new Button(w);
-            //ba.Top = 12;
-            //ba.Left = 3;
-            //ba.Width = 20;
-            //ba.Height = 3;
-            //ba.ActiveColor = ConsoleColor.Red;
-            //ba.InactiveColor = ConsoleColor.DarkRed;
-            //ba.Label = "Создатели";
-            //ba.CloseAfterUse = true;
-            //ba.OnClick = () => { /*MenuEngine.CreditsWindow.Draw(); MenuEngine.MainMenu.Draw();*/ };
-            //w.AddControl(ba);
-
-            //Button bex = new Button(w);
-            //bex.Top = 15;
-            //bex.Left = 3;
-            //bex.Width = 20;
-            //bex.Height = 3;
-            //bex.ActiveColor = ConsoleColor.Red;
-            //bex.InactiveColor = ConsoleColor.DarkRed;
-            //bex.Label = "Выход";
-            //bex.CloseAfterUse = true;
-            //bex.OnClick = () =>
-            //{
-            //    Environment.Exit(0);
-            //};
-            //w.AddControl(bex);
-
             //Drawing.Draw.Session<ClearSession>()
-            //    .Then(w)
+            //    .Then(win)
             //    .Publish();
         }
 

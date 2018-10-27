@@ -30,12 +30,14 @@
 
         private void OnFocusEvent()
         {
-            this.Label.Paint(ActiveColor);
+            this.Label.Paint(ActiveColor,true);
+            this.Run().Publish();
         }
 
         private void OnUnfocusEvent()
         {
-            this.Label.Paint(InactiveColor);
+            this.Label.Paint(InactiveColor, true);
+            this.Run().Publish();
         }
     }
 }

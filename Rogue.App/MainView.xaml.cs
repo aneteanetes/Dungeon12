@@ -66,9 +66,9 @@ namespace Rogue.App
         {
             var pos = e.GetPosition(control);
 
-            if (delay == 15)
-            {
-                delay = 0;
+            //if (delay == 15)
+            //{
+            //    delay = 0;
                 SceneManager.Current.OnMouseMove(new Control.Pointer.PointerArgs
                 {
                     ClickCount = 0,
@@ -76,11 +76,11 @@ namespace Rogue.App
                     X = pos.X,
                     Y = pos.Y
                 });
-            }
-            else
-            {
-                delay++;
-            }
+            //}
+            //else
+            //{
+            //    delay++;
+            //}
         }
 
         private void Viewport_PointerPressed(object sender, Avalonia.Input.PointerPressedEventArgs e)

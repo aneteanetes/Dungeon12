@@ -16,6 +16,8 @@
         public Scene(SceneManager sceneManager)
         {
             this.sceneManager = sceneManager;
+
+            this.BlockControls(false);
         }
 
         public abstract bool Destroyable { get; }
@@ -38,6 +40,9 @@
         private List<IControlEventHandler> InFocus = new List<IControlEventHandler>();
         public void OnMouseMove(PointerArgs pointerPressedEventArgs)
         {
+            if (sceneManager.Current != this)
+                return;
+
             if (blockedControls)
                 return;
 
@@ -99,7 +104,8 @@
 
         public virtual void Destroy()
         {
-
+            this.BlockControls(true);
+            this.CanHandle = null;
         }
 
         protected virtual void Switch<T>() where T : GameScene
@@ -117,11 +123,12 @@
 
         public void BuildHandlerMap()
         {
-            CanHandle = new List<IControlEventHandler>();
-
             foreach (var eventHandler in drawSessions.Where(x=>x.IsControlable))
             {
-                CanHandle.Add(eventHandler);
+                if (!CanHandle.Contains(eventHandler))
+                {
+                    CanHandle.Add(eventHandler);
+                }
             }
         }
 

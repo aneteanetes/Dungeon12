@@ -11,17 +11,13 @@
     public class SceneManager
     {
         public IDrawClient DrawClient { get; set; }
-
-        public static bool BlockingInput = false;
-
+        
         private static readonly Dictionary<Type, GameScene> SceneCache = new Dictionary<Type, GameScene>();
 
-        public static GameScene Current = null;
+        public GameScene Current = null;
 
         public void Change<TScene>() where TScene : GameScene
         {
-            BlockingInput = true;
-
             var sceneType = typeof(TScene);
 
             if (!SceneCache.TryGetValue(sceneType, out var nextScene))
@@ -30,13 +26,14 @@
                 SceneCache.Add(typeof(TScene), nextScene);
             }
 
+            this.Populate(Current, nextScene);
+            
             if (Current?.Destroyable ?? false)
             {
                 Current.Destroy();
                 SceneCache.Remove(Current.GetType());
             }
 
-            this.Populate(Current, nextScene);
             nextScene.BeforeActivate();
             Current = nextScene;
 

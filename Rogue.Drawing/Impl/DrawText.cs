@@ -105,7 +105,7 @@ namespace Rogue.Drawing.Impl
             // часть себя что бы превратить в составное
             if (!string.IsNullOrEmpty(this.stringData))
             {
-                this.InnerText.Add(new DrawText(this.stringData, this.ForegroundColor, this.BackgroundColor));
+                this.InnerText.Add(new DrawText(this.stringData, this.ForegroundColor, this.BackgroundColor) { Size=Size,LetterSpacing=LetterSpacing});
                 this.stringData = null;
             }
 
@@ -128,7 +128,7 @@ namespace Rogue.Drawing.Impl
             DrawText newRight = null;
             if (first.StartIndex != index)
             {
-                newLeft = new DrawText(first.Text.StringData.Substring(0, index-first.StartIndex), first.Text.ForegroundColor, first.Text.BackgroundColor);
+                newLeft = new DrawText(first.Text.StringData.Substring(0, index-first.StartIndex), first.Text.ForegroundColor, first.Text.BackgroundColor) { Size = Size, LetterSpacing = LetterSpacing };
             }
 
             //проверяем надо ли отрезать справа
@@ -139,7 +139,7 @@ namespace Rogue.Drawing.Impl
 
                 //элемент заканчивается дальше чем отрезок, надо отрезать правую часть
                 //отрезаем от конца (нового) вставляемого элемента до конца строки
-                newRight = new DrawText(first.Text.StringData.Substring(first.Text.Length - cuttingFrom, cuttingFrom), first.Text.ForegroundColor, first.Text.BackgroundColor);
+                newRight = new DrawText(first.Text.StringData.Substring(first.Text.Length - cuttingFrom, cuttingFrom), first.Text.ForegroundColor, first.Text.BackgroundColor) { Size = Size, LetterSpacing = LetterSpacing };
 
                 var indexInListOriginalElement = this.InnerText.IndexOf(first.Text);
                 this.InnerText.Remove(first.Text);
@@ -176,7 +176,7 @@ namespace Rogue.Drawing.Impl
 
                     var cuttingIndex = item.EndIndex - drawingRange.EndIndex;
 
-                    newRight = new DrawText(first.Text.StringData.Substring(item.Text.Length - 1, cuttingIndex), first.Text.ForegroundColor, first.Text.BackgroundColor);
+                    newRight = new DrawText(first.Text.StringData.Substring(item.Text.Length - 1, cuttingIndex), first.Text.ForegroundColor, first.Text.BackgroundColor) { Size = Size, LetterSpacing = LetterSpacing };
 
                     var offset = 0;
 
