@@ -84,6 +84,8 @@
 
         public Action OnClick;
 
+        public Action OnKey;
+
         public override void Handle(ControlEventType @event)
         {
             if (!this.IsControlable)
@@ -99,6 +101,9 @@
                     break;
                 case ControlEventType.Unfocus:
                     this.OnUnfocus?.Invoke();
+                    break;
+                case ControlEventType.Key:
+                    this.OnKey?.Invoke();
                     break;
                 default:
                     break;

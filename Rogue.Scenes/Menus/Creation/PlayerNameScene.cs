@@ -1,8 +1,10 @@
 ﻿using System;
 using Rogue.Control.Keys;
-using Rogue.Drawing.Console;
+using Rogue.Drawing.Controls;
+using Rogue.Drawing.Impl;
 using Rogue.Entites.Alive.Character;
 using Rogue.Scenes.Scenes;
+using Rogue.Types;
 
 namespace Rogue.Scenes.Menus.Creation
 {
@@ -14,126 +16,120 @@ namespace Rogue.Scenes.Menus.Creation
 
         public override bool Destroyable => true;
 
-        private Window window;
+        private TextInput Input;
 
         public override void Draw()
         {
-
-            var w = window = new Window();
-            w.Border = Additional.BoldBorder;
-            w.BorderColor = ConsoleColor.DarkGray;
-            w.Border.LowerLeftCorner = '@';
-            w.Border.LowerRightCorner = '@';
-            w.Border.UpperLeftCorner = '@';
-            w.Border.UpperRightCorner = '@';
-            w.Border.PerpendicularRightward = '@';
-            w.Border.PerpendicularLeftward = '@';
-
-            w.Height = 20;
-            w.Width = 26;
-            w.Left = 36;
-            w.Top = 5;
-
-            w.AddControl(new Label(w, "Введите имя")
+            new Image("Rogue.Resources.Images.d12back.png")
             {
-                Align = TextPosition.Center,
-                ForegroundColor = ConsoleColor.DarkCyan,
-                Top = 1,
-                Width= w.Width - 4,
-                Left=1
-            });
-
-            w.AddControl(new HorizontalLine(w)
-            {
-                Width = window.Width,
-                Top = 2
-            });
-
-            TextBox bfg = new TextBox(w)
-            {
-                Top = 9,
-                Left = 3,
-                Width = 20,
-                Height = 3,
-                ActiveColor = ConsoleColor.Red,
-                InactiveColor = ConsoleColor.DarkRed
-            };
-            bfg.OnEndTyping = () => { bfg.Return = bfg.Text; };
-            bfg.Label = " ";
-            w.AddControl(bfg);
-
-            //Controls 
-            Button bng = new Button(w);
-            bng.Top = 15;
-            bng.Left = 3;
-            bng.Width = 20;
-            bng.Height = 3;
-            bng.ActiveColor = ConsoleColor.Red;
-            bng.InactiveColor = ConsoleColor.DarkRed;
-            bng.CloseAfterUse = true;
-            bng.Label = "Подтвердить";
-            bng.OnClick = () =>
-            {
-                if (this.Player == null)
-                    this.Player = new NameOfPlayer();
-                
-                this.Player.Name = bfg.Text;
-
-                if (!string.IsNullOrEmpty(this.Player.Name))
+                Left = 0.4f,
+                Top = 1f,
+                Width = 48.2f,
+                Height = 29f,
+                ImageTileRegion = new Rectangle
                 {
-                    this.Switch<PlayerRaceScene>();
+                    X = 0,
+                    Y = 0,
+                    Height = 700,
+                    Width = 1057
                 }
-            };
-            w.AddControl(bng);
+            }.Run().Publish();
 
-            Button bgcl = new Button(w);
-            bgcl.Top = 4;
-            bgcl.Left = 3;
-            bgcl.Width = 20;
-            bgcl.Height = 3;
-            bgcl.ActiveColor = ConsoleColor.Red;
-            bgcl.InactiveColor = ConsoleColor.DarkRed;
-            bgcl.CloseAfterUse = true;
-            bgcl.Label = "Очистить";
-            bgcl.OnClick = () =>
+            var win = new Window
             {
-                bfg.String = string.Empty;
-                bfg.Run();
-                bfg.Publish();
-
+                Direction = Drawing.Controls.Direction.Vertical,
+                Left = 16f,
+                Top = 4,
+                Width = 15,
+                Height = 20
             };
-            w.AddControl(bgcl);
 
-            w.Run();
-            w.Publish();
+            win.Append(new Text
+            {
+                Left = 3f,
+                Top = 2f,
+                DrawText = new DrawText("Введите имя", ConsoleColor.DarkCyan) { Size = 40, LetterSpacing=20 }
+            });
+
+            Input = new TextInput
+            {
+                Left = 4f,
+                Top = 10,
+                Height=2f,
+                Width=9f,
+                Placeholder = "",
+                ActiveColor = new DrawColor(ConsoleColor.Red),
+                InactiveColor = new DrawColor(ConsoleColor.Gray)
+            };
+            win.Append(Input);
+
+            win.Append(new Button
+            {
+                ActiveColor = new DrawColor(ConsoleColor.Red),
+                InactiveColor = new DrawColor(ConsoleColor.DarkRed),
+                Left = 4.1f,
+                Top = 15,
+                Width = 7,
+                Height = 2,
+                Label = new DrawText("Подтвердить", ConsoleColor.DarkRed) { Size = 28, LetterSpacing = 13 },
+                OnClick = () =>
+                {
+                    if (this.Player == null)
+                        this.Player = new NameOfPlayer();
+
+                    this.Player.Name = Input.GetValue();
+
+                    if (!string.IsNullOrEmpty(this.Player.Name))
+                    {
+                        this.Switch<PlayerRaceScene>();
+                    }
+                }
+            });
+            
+            win.Append(new Button
+            {
+                ActiveColor = new DrawColor(ConsoleColor.Red),
+                InactiveColor = new DrawColor(ConsoleColor.DarkRed),
+                Left = 4.1f,
+                Top = 5,
+                Width = 7,
+                Height = 2,
+                Label = new DrawText("Очистить", ConsoleColor.DarkRed) { Size = 28, LetterSpacing = 13 },
+                OnClick = () =>
+                {
+                    Input.BackslashValue(Input.GetValue().Length);
+                }
+            });
+
+            Drawing.Draw.RunSession(win);
         }
 
         protected override void KeyPress(KeyArgs keyEventArgs)
         {
-            switch (keyEventArgs.Key)
+            if (Input.Editable)
             {
-                case Key.Left:
-                case Key.Up:
-                    window.Up(keyEventArgs); break;
-                case Key.Down:
-                case Key.Right:
-                case Key.Tab:
-                    window.Tab(keyEventArgs); break;
-                case Key.Enter:
-                    window.ActivateInterface(keyEventArgs); break;
-                case Key.Escape:
-                    this.Switch<MainMenuScene>(); break;
-                default:
-                    window.PropagateInput(keyEventArgs);
-                    break;
+                if (keyEventArgs.Key == Key.Back)
+                {
+                    Input.BackslashValue(1);
+                }
+                else
+                {
+                    var val = keyEventArgs.Key.ToString();
+
+                    if(keyEventArgs.Modifiers!= KeyModifiers.Shift)
+                    {
+                        val = val.ToLower();
+                    }
+
+                    Input.AppendValue(val);
+                }
+
+                Input.Run().Publish();
             }
 
             this.Redraw();
         }
 
-        private class NameOfPlayer : Player
-        {
-
-        }
+        private class NameOfPlayer : Player { }
     }
 }

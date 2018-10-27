@@ -83,10 +83,10 @@
                 Left = 4.1f,
                 Top = 6,
                 Width = 7,
-                Height=2,
+                Height = 2,
                 Label = new DrawText("Новая игра", ConsoleColor.DarkRed) { Size = 30 },
                 OnClick = () => { this.Switch<PlayerNameScene>(); }
-                });
+            });
 
             var fastgamelabel = new DrawText("Быстрая игра ", ConsoleColor.DarkRed) { Size = 30 };
             fastgamelabel.ReplaceAt(0, new DrawText("Б", ConsoleColor.DarkRed) { Size = 30, LetterSpacing = 20 });
@@ -142,30 +142,6 @@
             });
 
             Drawing.Draw.RunSession(win);
-
-            //Drawing.Draw.Session<ClearSession>()
-            //    .Then(win)
-            //    .Publish();
-        }
-
-        protected override void KeyPress(KeyArgs keyEventArgs)
-        {
-            switch (keyEventArgs.Key)
-            {
-                //case Key.Left:
-                //case Key.Up:
-                //    window.Up(keyEventArgs); break;
-                //case Key.Down:
-                //case Key.Right:
-                //case Key.Tab:
-                //    window.Tab(keyEventArgs); break;
-                //case Key.Enter:
-                //    window.ActivateInterface(keyEventArgs); break;
-                default:
-                    break;
-            }
-
-            this.Redraw();
         }
     }
 }

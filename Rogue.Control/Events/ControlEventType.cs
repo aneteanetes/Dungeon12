@@ -4,6 +4,7 @@
     {
         Click,
         Focus,
-        Unfocus
+        Unfocus,
+        Key
     }
 }
