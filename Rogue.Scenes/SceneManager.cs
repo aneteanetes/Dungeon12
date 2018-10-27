@@ -16,7 +16,7 @@
 
         private static readonly Dictionary<Type, GameScene> SceneCache = new Dictionary<Type, GameScene>();
 
-        public GameScene Current = null;
+        public static GameScene Current = null;
 
         public void Change<TScene>() where TScene : GameScene
         {
@@ -34,15 +34,15 @@
                 SceneCache.Remove(Current.GetType());
             }
 
-            this.Populate(this.Current, nextScene);
+            this.Populate(Current, nextScene);
             nextScene.BeforeActivate();
-            this.Current = nextScene;
+            Current = nextScene;
 
             PublishManager.Set(Current);
             Draw.RunSession<ClearSession>();
 
-            this.Current.Draw();
-            this.Current.Activate();
+            Current.Draw();
+            Current.Activate();
         }
 
         private void Populate(GameScene previous, GameScene next)

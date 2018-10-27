@@ -23,5 +23,7 @@
         public Rectangle TileSetRegion => default;
 
         public Rectangle Region { get; set; }
+
+        public bool Container => false;
     }
 }

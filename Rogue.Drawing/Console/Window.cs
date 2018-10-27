@@ -59,10 +59,6 @@ namespace Rogue.Drawing.Console
         /// </summary>
         public int Speed = 15;
         /// <summary>
-        /// Window-border color, if you have no-border, just set your background color or nothing(Black)
-        /// </summary>
-        public ConsoleColor BorderColor;
-        /// <summary>
         /// Event when window after loading
         /// </summary>
         public Action OnLoad;
@@ -241,8 +237,22 @@ namespace Rogue.Drawing.Console
             Exception();
             if (this.Controls.Count > 0) { ConstructInterfaceMap(); }
             Constructed = true;
-            
-            this.DrawableList.AddRange(Border.CompleteBorder(this.DrawRegion));
+
+            this.Paths.Add(new DrawablePath
+            {
+                ForegroundColor = ColorSchemaColor,
+                Fill= false,
+                Angle=10,
+                Depth=5f,
+                PathPredefined= View.Enums.PathPredefined.Rectangle,
+                Region= new Types.Rectangle
+                {
+                    X = this.DrawRegion.X*24,
+                    Y = this.DrawRegion.Y*24,
+                    Width = this.DrawRegion.Width * 24,
+                    Height = this.DrawRegion.Height * 24
+                }
+            });
 
             //Interface
             for (int i = 0; i < this.Controls.Count; i++)
@@ -270,7 +280,7 @@ namespace Rogue.Drawing.Console
         protected void AddInterface(Interface Interface, bool Active)
         {
             this.DrawableList.AddRange(Interface.ConstructTiles());
-
+            
 
             //Get line of chars
             var lines = Interface.Construct(Active);
@@ -281,6 +291,8 @@ namespace Rogue.Drawing.Console
             {
                 this.WanderingText.AddRange(lines);
             }
+
+            this.Paths.AddRange(Interface.DrawablePaths);
         }
 
         /// <summary>

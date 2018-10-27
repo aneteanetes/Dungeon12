@@ -6,10 +6,12 @@
 
   <ItemGroup>
     <None Remove="Images\**\*" />
+    <None Remove="Fonts\**\*" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Images\**\*" />
+    <EmbeddedResource Include="Fonts\**\*" />
   </ItemGroup>
 
 </Project>

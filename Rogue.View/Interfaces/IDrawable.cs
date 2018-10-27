@@ -11,5 +11,10 @@ namespace Rogue.View.Interfaces
         string Tileset { get; }
 
         Rectangle TileSetRegion { get; }
+
+        /// <summary>
+        /// Контейнер для рисования
+        /// </summary>
+        bool Container { get; }
     }
 }

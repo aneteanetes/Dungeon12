@@ -18,5 +18,7 @@ namespace Rogue.Entites
         public virtual Rectangle TileSetRegion { get; set; }
 
         public virtual Rectangle Region { get; set; }
+
+        public virtual bool Container => false;
     }
 }

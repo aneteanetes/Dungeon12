@@ -39,11 +39,8 @@ namespace Rogue.App
 
         public void RunGame()
         {
-            SceneManager = new SceneManager()
-            {
-                DrawClient = new SkiaDrawClient(this.ViewportBitmap, this.control)
-            };
-
+            var drawClient = new SkiaDrawClient(this.ViewportBitmap, this.control);
+            SceneManager = new SceneManager() { DrawClient = drawClient };            
             SceneManager.Change<MainMenuScene>();
         }
 
@@ -52,6 +49,7 @@ namespace Rogue.App
             Image viewport = this.Content as Image;
             control = viewport;
             viewport.PointerPressed += Viewport_PointerPressed;
+            viewport.PointerMoved += Viewport_PointerMoved;
             var bitmap = new WriteableBitmap(1157, 700, PixelFormat.Bgra8888);
             ViewportBitmap = bitmap;
             viewport.Source = bitmap;
@@ -61,6 +59,28 @@ namespace Rogue.App
 
             //this.ResetBitmap();
             this.LoadImage();
+        }
+
+        private int delay;
+        private void Viewport_PointerMoved(object sender, PointerEventArgs e)
+        {
+            var pos = e.GetPosition(control);
+
+            if (delay == 15)
+            {
+                delay = 0;
+                SceneManager.Current.OnMouseMove(new Control.Pointer.PointerArgs
+                {
+                    ClickCount = 0,
+                    MouseButton = Control.Pointer.MouseButton.None,
+                    X = pos.X,
+                    Y = pos.Y
+                });
+            }
+            else
+            {
+                delay++;
+            }
         }
 
         private void Viewport_PointerPressed(object sender, Avalonia.Input.PointerPressedEventArgs e)

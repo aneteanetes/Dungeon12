@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Drawing.Drawing2D;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -10,6 +11,7 @@
     using Avalonia.Media.Imaging;
     using Avalonia.Threading;
     using MoreLinq;
+    using Rogue.Control.Events;
     using Rogue.Resources;
     using Rogue.Scenes;
     using Rogue.View.Interfaces;
@@ -75,7 +77,7 @@
             var canvas = new SKCanvas(DrawingBitmap);
           
             float fontSize = 20f;
-            var font = SKTypeface.FromFamilyName("Lucida Console");
+            var font = CommonFont;// SKTypeface.FromFamilyName("Lucida Console");
 
             foreach (var session in drawSessions)
             {
@@ -96,6 +98,46 @@
 
         }
 
+        private static void DrawPath(SKCanvas canvas, IDrawablePath path)
+        {
+            var paint = new SKPaint
+            {
+                IsAntialias = true,
+                Color = new SKColor(path.ForegroundColor.R, path.ForegroundColor.G, path.ForegroundColor.B, path.ForegroundColor.A),
+                Style = path.Fill ? SKPaintStyle.Fill : SKPaintStyle.Stroke,
+                StrokeWidth = path.Depth
+            };
+
+            if (path.PathPredefined == View.Enums.PathPredefined.RoundedRectangle)
+            {
+                canvas.DrawRoundRect(path.Region.X, path.Region.Y, path.Region.Width, path.Region.Height, path.Angle, path.Angle, paint);
+            }
+            else if (path.PathPredefined == View.Enums.PathPredefined.Rectangle)
+            {
+                canvas.DrawRect(path.Region.X, path.Region.Y, path.Region.Width, path.Region.Height, paint);
+            }
+            else if (path.Path.Count() == 2)
+            {
+                var from = path.Path.First();
+                var to = path.Path.Last();
+
+                canvas.DrawLine(new SKPoint(from.X, from.Y), new SKPoint(to.X, to.Y),paint);
+            }
+            else
+            {
+                var skPath = new SKPath();
+                foreach (var point in path.Path)
+                {
+                    skPath.LineTo(new SKPoint
+                    {
+                        X = point.X,
+                        Y = point.Y
+                    });
+                }
+                canvas.DrawPath(skPath, paint);
+            }
+        }
+
         /// <summary>
         /// Рисование тайлов
         /// </summary>
@@ -105,6 +147,8 @@
         {
             foreach (var drawable in drawables)
             {
+                if (drawable.Container)
+                    continue;
 
                 var y = drawable.Region.Y * 24 + 3;
                 var x = drawable.Region.X * 24 - 3;
@@ -130,8 +174,8 @@
                     Left = x,
                     Size = new SKSize
                     {
-                        Height = drawable.Region.Height,
-                        Width = drawable.Region.Width
+                        Height = drawable.Region.Height*24,
+                        Width = drawable.Region.Width*24
                     }
                 });
             }
@@ -153,8 +197,8 @@
                 ClearRegion(canvas, YUnit, XUnit, session);
             }
 
-            float y = ((session.Region.Y) * YUnit) + 10;
-            float x = session.Region.X * XUnit;
+            float y = session.SessionRegion.Y * 24 + 3;
+            float x = session.SessionRegion.X * 24 - 3;
 
             foreach (var line in session.Content)
             {
@@ -223,7 +267,7 @@
             var textpaint = new SKPaint
             {
                 Typeface = font,
-                TextSize = fontSize,
+                TextSize = range.Size,
                 IsAntialias = true,
                 Color = new SKColor(range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B, range.ForegroundColor.A),
                 Style = SKPaintStyle.Fill
@@ -255,19 +299,19 @@
             {
                 Location = new SKPoint
                 {
-                    Y = ((session.Region.Y) * YUnit) + 10,
-                    X = session.Region.X * XUnit
+                    Y = ((session.SessionRegion.Y) * YUnit) + 10,
+                    X = session.SessionRegion.X * XUnit
                 },
                 Size = new SKSize
                 {
-                    Height = (session.Region.Height * YUnit) - 10,
-                    Width = session.Region.Width * XUnit
+                    Height = (session.SessionRegion.Height * YUnit) - 10,
+                    Width = session.SessionRegion.Width * XUnit
                 }
             };
 
             canvas.DrawRect(rect, blackPaint);
         }
-        
+                
         private unsafe void InternalDraw(SKRect bitmapReplaceRegion)
         {
             var width = ViewportBitmap.PixelWidth;
@@ -377,7 +421,7 @@
                 }
                 else
                 {
-                    return session.Region.X;
+                    return session.SessionRegion.X;
                 }
             });
 
@@ -389,7 +433,7 @@
                 }
                 else
                 {
-                    return session.Region.Y;
+                    return session.SessionRegion.Y;
                 }
             });
 
@@ -398,58 +442,77 @@
             {
                 if (session.Drawables.IsNotEmpty())
                 {
-                    return session.Drawables.Max(x => x.Region.X);
+                    return session.Drawables.MaxBy(x => x.Region.X).First().Region.X;
                 }
                 else
                 {
-                    return session.Region.X + session.Region.Width;
+                    return session.SessionRegion.X;
                 }
             }).First();
 
             var widthUpdate = 0f;
+
             if (maxX.Drawables.IsNotEmpty())
             {
-                var maxYDrawable = maxX.Drawables.MaxBy(x => x.Region.Y).FirstOrDefault();
-                widthUpdate = maxYDrawable.Region.Y;
+                var maxXDrawable = maxX.Drawables.MaxBy(x => x.Region.X).FirstOrDefault();
+                widthUpdate = maxXDrawable.Region.X + maxXDrawable.Region.Width;
             }
             else
             {
-                widthUpdate = maxX.Region.X + maxX.Region.Width;
+                widthUpdate = maxX.SessionRegion.X + maxX.SessionRegion.Width;
             }
 
             var maxY = drawSessions.MaxBy(session =>
             {
                 if (session.Drawables.IsNotEmpty())
                 {
-                    return session.Drawables.Max(x => x.Region.Y);
+                    return session.Drawables.MaxBy(x => x.Region.Y).First().Region.Y;
                 }
                 else
                 {
-                    return session.Region.Y + session.Region.Height;
+                    return session.SessionRegion.Y + session.SessionRegion.Height;
                 }
             }).First();
 
             var heightUpdate = 0f;
             if (maxY.Drawables.IsNotEmpty())
             {
-                var maxYDrawable = maxY.Drawables.MaxBy(x => x.Region.Y).FirstOrDefault();
-                heightUpdate = maxYDrawable.Region.Y;
+                var maxYDrawable = maxY.Drawables.MaxBy(x => x.Region.Y).First();
+                heightUpdate = maxYDrawable.Region.Y + maxYDrawable.Region.Height;
             }
             else
             {
-                heightUpdate = maxY.Region.Y + maxY.Region.Height;
+                heightUpdate = maxY.SessionRegion.Y + maxY.SessionRegion.Height;
+            }
+
+            if (topUpdate != 0)
+            {
+                topUpdate -= 1;
             }
 
             return new SKRect
             {
-                Top = topUpdate * YUnit,
-                Left = leftUpdate * XUnit + XUnit,
+                Top = topUpdate * 24,
+                Left = leftUpdate * 24,
                 Size = new SKSize
                 {
-                    Height = (heightUpdate * YUnit) - (topUpdate * YUnit),
-                    Width = widthUpdate * XUnit
+                    Height = heightUpdate * 24,
+                    Width = widthUpdate * 24
                 }
             };
+        }
+
+        public static SKTypeface CommonFont
+        {
+            get
+            {
+                SKTypeface result;
+
+                var fontStream = ResourceLoader.Load("Rogue.Resources.Fonts.Common.otf");
+
+                result = SKTypeface.FromStream(fontStream);                
+                return result;
+            }
         }
     }
 }

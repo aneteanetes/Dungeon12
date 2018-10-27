@@ -16,10 +16,16 @@
         
         int Length { get; }
 
+        float Size { get; }
+
+        float LetterSpacing { get; }
+
         void Append(IDrawText drawText);
 
         void Prepend(IDrawText drawText);
 
         void ReplaceAt(int index, IDrawText drawText);
+
+        void Paint(IDrawColor drawColor, bool recursive=false);
     }
 }

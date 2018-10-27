@@ -48,6 +48,8 @@
 
         public Rectangle Region { get; set; }
 
+        public bool Container => false;
+
         private class EmptyItem : Item
         {
             public override Stats AvailableStats => Stats.None;

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Rogue.Control.Events;
 using Rogue.Entites;
+using Rogue.Settings;
 using Rogue.Types;
 using Rogue.View.Interfaces;
 using Rogue.View.Publish;
@@ -10,6 +12,10 @@ namespace Rogue.Drawing.Impl
 {
     public class DrawSession : IDrawSession
     {
+        protected ColorSchema ColorSchema = new ColorSchema();
+
+        protected IDrawColor ColorSchemaColor => new DrawColor(ColorSchema.R, ColorSchema.G, ColorSchema.B, ColorSchema.A);
+
         /// <summary>
         /// automatic clear this <see cref="DrawRegion"/>
         /// if disabled - clearing only current symbol
@@ -20,16 +26,16 @@ namespace Rogue.Drawing.Impl
 
         public Rectangle DrawRegion
         {
-            get => Region;
+            get => SessionRegion;
             set
             {
-                this.Region = value;
+                this.SessionRegion = value;
 
                 this.buffer = new List<IDrawText>();
 
-                for (int i = 0; i < this.Region.Height; i++)
+                for (int i = 0; i < this.SessionRegion.Height; i++)
                 {
-                    buffer.Add(DrawText.Empty((int)this.Region.Width));
+                    buffer.Add(DrawText.Empty((int)this.SessionRegion.Width));
                 }
             }
         }
@@ -38,9 +44,14 @@ namespace Rogue.Drawing.Impl
 
         protected List<IDrawText> WanderingText = new List<IDrawText>();
 
-        public Rectangle Region { get; private set; }
+        public virtual Rectangle SessionRegion { get; private set; }
+
+        public Rectangle Location => SessionRegion;
 
         public virtual IEnumerable<IDrawable> Drawables { get; set; }
+
+        protected List<IDrawablePath> Paths = new List<IDrawablePath>();
+        public IEnumerable<IDrawablePath> DrawablePaths => Paths;
 
         public void Write(int linePos, int charPos, IDrawText text)
         {
@@ -93,5 +104,9 @@ namespace Rogue.Drawing.Impl
             stringBuffer = DrawHelp.FullLine(stringBuffer.Length, stringBuffer, stringBuffer.Length - 1);
             this.Write(1, Count + 1, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
         }
+
+        public virtual bool IsControlable => false;
+
+        public virtual void Handle(ControlEventType @event) { }
     }
 }

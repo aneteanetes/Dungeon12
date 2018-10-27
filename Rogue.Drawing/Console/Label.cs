@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Rogue.Drawing.Impl;
     using Rogue.View.Interfaces;
 
@@ -9,9 +10,9 @@
     {
         public TextPosition Align = TextPosition.Center;
 
-        public Label(Window window, string text = "")
+        public Label(Interface @interface, string text = "")
         {
-            this.Window = window;
+            this.Parent = @interface;
             this.Text = text;
         }
 
@@ -43,8 +44,8 @@
 
             this.DrawRegion = new Types.Rectangle
             {
-                X = this.Window.Left + this.Left,
-                Y = this.Window.Top + this.Top,
+                X = this.Parent.Left + this.Left,
+                Y = this.Parent.Top + this.Top,
                 Width = this.Width,
                 Height = 1
             };
@@ -59,17 +60,17 @@
 
         private void BindRegion(IDrawText drawText)
         {
-            float x = 0;
+            float x = this.Parent.FlatSum(i => i.Left) + this.Left;
 
             if (this.Align == TextPosition.Center)
             {
-                x = this.Window.Left + (this.Window.Width / 2 - drawText.Length / 2);
+                x = this.Parent.FlatSum(i => i.Left) + this.Left + (this.Parent.Width / 2 - drawText.Length / 2);
             }
 
             drawText.Region = new Types.Rectangle
             {
                 X = x,
-                Y = this.Window.Top+this.Top,
+                Y = this.Parent.FlatSum(i => i.Top) + this.Top,
                 Height = 1,
                 Width = drawText.Length
             };

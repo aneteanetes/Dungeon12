@@ -78,6 +78,10 @@ namespace Rogue.Drawing.Impl
 
         public Rectangle Region { get; set; }
 
+        public virtual float Size { get; set; } = 20f;
+
+        public virtual float LetterSpacing { get; set; } = 11.5625f;
+
         public void Append(IDrawText drawText)
         {
             throw new NotImplementedException();
@@ -355,6 +359,27 @@ namespace Rogue.Drawing.Impl
 
             return new DrawText(new string(Enumerable.Range(0, length).Select(x => ' ').ToArray()), foregroundColor,backgroundColor);
 
+        }
+
+        public void Paint(IDrawColor drawColor, bool recursive=false)
+        {
+            this.ForegroundColor = drawColor;
+            if (recursive)
+            {
+                ColorText(this, drawColor);
+            }
+        }
+
+        private void ColorText(IDrawText text, IDrawColor color)
+        {
+            text.ForegroundColor = color;
+            if (!text.IsEmptyInside)
+            {
+                foreach (var innerText in text.Data)
+                {
+                    ColorText(innerText, color);
+                }
+            }
         }
     }
 }

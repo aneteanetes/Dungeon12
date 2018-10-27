@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Rogue.Drawing.Impl;
+using Rogue.Types;
 using Rogue.View.Interfaces;
 
 namespace Rogue.Drawing.Console
@@ -10,7 +11,7 @@ namespace Rogue.Drawing.Console
     /// <summary>
     /// Interface: Interface; Object;
     /// </summary>
-    public class Interface : DrawSession
+    public class Interface : DrawSession, IGraph<Interface>
     {
         protected List<IDrawable> DrawableList { get; } = new List<IDrawable>();
 
@@ -20,11 +21,19 @@ namespace Rogue.Drawing.Console
         /// Event when control creating
         /// </summary>
         public Action OnCreate;
+        
+        /// <summary>
+        /// Window-border color, if you have no-border, just set your background color or nothing(Black)
+        /// </summary>
+        public ConsoleColor BorderColor;
+
+        protected float SummaryTop => this.FlatSum(x => x.Top);
+        protected float Summaryleft => this.FlatSum(x => x.Left);
 
         /// <summary>
         /// Window which have this interface
         /// </summary>
-        protected Window Window;
+        protected Interface Parent;
 
         /// <summary>
         /// Event when control on focus. this.OnFocus !=null ? this.OnFocus() : nothing;
@@ -49,6 +58,10 @@ namespace Rogue.Drawing.Console
         public virtual bool Activatable { get; } = false;
 
         public bool Active { get; set; }
+
+        public Interface This => this;
+
+        public IEnumerable<Interface> Nodes => this.Parent ==null ? Enumerable.Empty<Interface>() : new Interface[] {this.Parent};
 
         /// <summary>
         /// Result with params of string (abcdef):  (red)a,(red)b,(blue)c,(green)d,(green)e,Exception;
@@ -143,7 +156,9 @@ namespace Rogue.Drawing.Console
         }
         
         public virtual IEnumerable<IDrawText> Construct(bool Active)
-        { return null; }
+        {
+            return null;
+        }
 
         public virtual IEnumerable<IDrawable> ConstructTiles()
         {

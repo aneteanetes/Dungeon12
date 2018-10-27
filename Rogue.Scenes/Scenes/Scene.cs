@@ -1,6 +1,9 @@
 ﻿namespace Rogue.Scenes.Scenes
 {
     using System.Collections.Generic;
+    using System.Drawing;
+    using System.Linq;
+    using Rogue.Control.Events;
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
     using Rogue.Drawing.Utils;
@@ -30,6 +33,56 @@
             if (!blockedControls)
                 MousePress(pointerPressedEventArgs);
         }
+        
+        private List<IControlEventHandler> CanHandle = new List<IControlEventHandler>();
+        private List<IControlEventHandler> InFocus = new List<IControlEventHandler>();
+        public void OnMouseMove(PointerArgs pointerPressedEventArgs)
+        {
+            if (blockedControls)
+                return;
+
+            var newFocused = CanHandle.Where(handler => RegionContains(handler, pointerPressedEventArgs))
+                .Where(x => !InFocus.Contains(x));
+
+            var newNotFocused = CanHandle.Where(handler => !RegionContains(handler, pointerPressedEventArgs))
+                .Where(x => InFocus.Contains(x));
+
+            if (newNotFocused.Count() > 0)
+            {
+                foreach (var item in newNotFocused)
+                {
+                    item.Handle(ControlEventType.Unfocus);
+                    InFocus.Remove(item);
+                }
+
+                this.Activate();
+            }
+
+            if (newFocused.Count() > 0)
+            {
+                foreach (var control in newFocused)
+                {
+                    control.Handle(ControlEventType.Focus);
+                }
+
+                InFocus = newFocused.ToList();
+
+                this.Activate();
+            }
+        }
+
+        private bool RegionContains(IControlEventHandler drawable, PointerArgs pos)
+        {
+            var newRegion = new RectangleF
+            {
+                X = drawable.Location.X * 24 - 3,
+                Y = drawable.Location.Y * 24 + 3 -24,
+                Height = drawable.Location.Height * 24,
+                Width = drawable.Location.Width * 24
+            };
+
+            return newRegion.Contains((float)pos.X, (float)pos.Y);
+        }
 
         protected virtual void KeyPress(KeyArgs keyEventArgs) { }
 
@@ -50,8 +103,19 @@
         private List<IDrawSession> drawSessions = new List<IDrawSession>();
         public void Activate()
         {
+            this.BuildHandlerMap();
             this.sceneManager.DrawClient.Draw(drawSessions);
             drawSessions = new List<IDrawSession>();
+        }
+
+        public void BuildHandlerMap()
+        {
+            CanHandle = new List<IControlEventHandler>();
+
+            foreach (var eventHandler in drawSessions.Where(x=>x.IsControlable))
+            {
+                CanHandle.Add(eventHandler);
+            }
         }
 
         protected void Redraw()

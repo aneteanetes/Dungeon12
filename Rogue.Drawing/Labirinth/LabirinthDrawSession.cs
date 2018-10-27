@@ -63,7 +63,7 @@ namespace Rogue.Drawing.Labirinth
             List<bool[]> square = new List<bool[]>();
 
             TopSquare(pos, square);
-            square.Add(GetLine(pos.X, this.Location.Map[pos.Y]));
+            square.Add(GetLine((int)pos.X, this.Location.Map[(int)pos.Y]));
             BotSquare(pos, square);
             PosSquare(pos, square);
 
@@ -74,8 +74,8 @@ namespace Rogue.Drawing.Labirinth
         {
             if (pos.Y < DrawingSize.MapLines - 2)
             {
-                var positionalLine = this.Location.Map[pos.Y + 2];
-                square.Add(GetLine(pos.X, positionalLine));
+                var positionalLine = this.Location.Map[(int)pos.Y + 2];
+                square.Add(GetLine((int)pos.X, positionalLine));
             }
             else if (pos.Y == DrawingSize.MapLines - 1)
             {
@@ -95,8 +95,8 @@ namespace Rogue.Drawing.Labirinth
             }
             else
             {
-                var botLine = this.Location.Map[pos.Y +1];
-                square.Add(GetLine(pos.X, botLine));
+                var botLine = this.Location.Map[(int)pos.Y +1];
+                square.Add(GetLine((int)pos.X, botLine));
             }
         }
 
@@ -108,8 +108,8 @@ namespace Rogue.Drawing.Labirinth
             }
             else
             {
-                var topLine = this.Location.Map[pos.Y - 1];
-                square.Add(GetLine(pos.X, topLine));
+                var topLine = this.Location.Map[(int)pos.Y - 1];
+                square.Add(GetLine((int)pos.X, topLine));
             }
         }
 
@@ -152,7 +152,7 @@ namespace Rogue.Drawing.Labirinth
         {
             var isometricMap = IsometricMap(wallMap);
             var tile = DetermineTitle(isometricMap);
-            var mapObj = this.Location.Map[pos.Y][pos.X][0];
+            var mapObj = this.Location.Map[(int)pos.Y][(int)pos.X][0];
 
             mapObj.TileSetRegion = new Rectangle
             {

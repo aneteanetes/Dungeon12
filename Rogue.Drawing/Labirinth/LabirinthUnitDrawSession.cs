@@ -16,7 +16,7 @@ namespace Rogue.Drawing.Labirinth
 
         public override IDrawSession Run()
         {
-            this.Drawables = Location.Map[Position.Y][Position.X];
+            this.Drawables = Location.Map[(int)Position.Y][(int)Position.X];
 
             return base.Run();
         }

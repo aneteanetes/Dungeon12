@@ -23,8 +23,8 @@ namespace Rogue.Drawing.Labirinth
 
         public override IAnimationSession Run()
         {
-            var oldPos = this.Location.Map[BasePosition.Y][BasePosition.X].First();
-            var newPos = this.Location.Map[NextPosition.Y][NextPosition.X].First();
+            var oldPos = this.Location.Map[(int)BasePosition.Y][(int)BasePosition.X].First();
+            var newPos = this.Location.Map[(int)NextPosition.Y][(int)NextPosition.X].First();
 
             var frameStep = 1f / ObjectAnimationMap.Frames.Count;
 

@@ -23,6 +23,8 @@
 
         public virtual Rectangle Region { get; set; }
 
+        public bool Container => false;
+
         public abstract void Interact();
 
         private static readonly Dictionary<string, Type> TypeCache = new Dictionary<string, Type>();

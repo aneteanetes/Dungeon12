@@ -19,15 +19,15 @@ namespace Rogue.Map
 
         public Point MoveObject(Point now, int Level, Point next)
         {
-            MapObject moved = this.Map[now.Y][now.X][Level];
+            MapObject moved = this.Map[(int)now.Y][(int)now.X][Level];
                         
-            if (this.Map[next.Y][next.X].Any(x => x.Obstruction))
+            if (this.Map[(int)next.Y][(int)next.X].Any(x => x.Obstruction))
             {
                 return now;
             }
 
-            this.Map[now.Y][now.X].Remove(moved);
-            this.Map[next.Y][next.X].Add(moved);
+            this.Map[(int)now.Y][(int)now.X].Remove(moved);
+            this.Map[(int)next.Y][(int)next.X].Add(moved);
             return next;
         }
     }

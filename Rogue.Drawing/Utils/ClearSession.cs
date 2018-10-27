@@ -10,7 +10,7 @@ namespace Rogue.Drawing.Utils
             {
                 X = 0,
                 Y = 0,
-                Height = 35,
+                Height = 29,
                 Width = 100
             };
         }
