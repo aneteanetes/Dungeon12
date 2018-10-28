@@ -102,7 +102,8 @@ namespace Rogue.Scenes.Menus.Creation
                     if (this.Player == null)
                         this.Player = new NameOfPlayer();
 
-                    this.Player.Name = Input.GetValue();
+                    var value = Input.GetValue();
+                    this.Player.Name = value[0].ToString().ToUpper() + value.Substring(1);
 
                     if (!string.IsNullOrEmpty(this.Player.Name))
                     {

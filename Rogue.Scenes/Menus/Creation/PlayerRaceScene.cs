@@ -8,7 +8,7 @@ using Rogue.Types;
 
 namespace Rogue.Scenes.Menus.Creation
 {
-    public class PlayerRaceScene : GameScene<MainMenuScene, PlayerClassScene>
+    public class PlayerRaceScene : GameScene<PlayerNameScene, PlayerClassScene>
     {
         public PlayerRaceScene(SceneManager sceneManager) : base(sceneManager)
         {

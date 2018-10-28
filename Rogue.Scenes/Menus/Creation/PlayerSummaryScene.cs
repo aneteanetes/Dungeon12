@@ -1,110 +1,118 @@
-﻿using Rogue.Control.Keys;
+﻿using System;
+using Rogue.Control.Keys;
+using Rogue.Drawing.Controls;
+using Rogue.Drawing.Impl;
 using Rogue.Entites.Alive.Character;
 using Rogue.Scenes.Game;
 using Rogue.Scenes.Scenes;
+using Rogue.Types;
 
 namespace Rogue.Scenes.Menus.Creation
 {
-    public class PlayerSummaryScene : GameScene<MainScene,MainMenuScene>
+    public class PlayerSummaryScene : GameScene<MainScene,PlayerClassScene>
     {
         public PlayerSummaryScene(SceneManager sceneManager) : base(sceneManager)
         {
         }
 
         public override bool Destroyable => true;
-
-        //private Window window;
-
+        
         public override void Draw()
         {
-            //Window w= window = new Window();         
-            //w.Border = Additional.BoldBorder;
-            //w.BorderColor = ConsoleColor.DarkGray;
-            //w.Border.LowerLeftCorner = '@';
-            //w.Border.LowerRightCorner = '@';
-            //w.Border.UpperLeftCorner = '@';
-            //w.Border.UpperRightCorner = '@';
-            //w.Border.PerpendicularRightward = '@';
-            //w.Border.PerpendicularLeftward = '@';
+            new Image("Rogue.Resources.Images.d12back.png")
+            {
+                Left = 0.4f,
+                Top = 1f,
+                Width = 48.2f,
+                Height = 29f,
+                ImageTileRegion = new Rectangle
+                {
+                    X = 0,
+                    Y = 0,
+                    Height = 700,
+                    Width = 1057
+                }
+            }.Run().Publish();
 
-            //w.Header = true;
-            //w.Height = 21;
-            //w.Width = 24;
-            //w.Left = 37;
-            //w.Top = 4;
+            var win = new Window
+            {
+                Direction = Drawing.Controls.Direction.Vertical,
+                Left = 16f,
+                Top = 4,
+                Width = 15,
+                Height = 22
+            };
 
-            //w.AddControl(new Label(w, "  Ваш персонаж")
-            //{
-            //    Align = TextPosition.Center,
-            //    ForegroundColor = ConsoleColor.DarkCyan,
-            //    Top = 1,
-            //    Width = w.Width - 4,
-            //    Left = 1
-            //});
+            win.Append(new Title
+            {
+                Left = 3.6f,
+                Top = -1f,
+                Width = 8,
+                Height = 2.4f,
+                Label = new DrawText(Player.Name, ConsoleColor.Black) { Size = 30 }
+            });
 
-            //w.AddControl(new HorizontalLine(w)
-            //{
-            //    Width = window.Width,
-            //    Top = 2
-            //});
+            var strings = new (string,string, ConsoleColor)[] 
+            {
+                ("Раса: ", Player.Race.ToDisplay(), ConsoleColor.Gray),
+                ("Класс: ", Player.ClassName, Player.ResourceColor),
+                ("Здоровье: ", string.Format("{0}/{0}", Player.MaxHitPoints), ConsoleColor.Red),
+                ($"{Player.ResourceName}: ", Player.Resource, Player.ResourceColor),
+                ("Урон: ", string.Format("{0}-{1}", Player.MinDMG, Player.MaxDMG),ConsoleColor.DarkRed),
+                (" ", " ",ConsoleColor.DarkRed),
+                ("Сила атаки: ", Player.AttackPower.ToString(), ConsoleColor.DarkCyan),
+                ("Сила магии: ", Player.AbilityPower.ToString(), ConsoleColor.DarkCyan),
+                ("Физ. Защита: ", Player.Defence.ToString(), ConsoleColor.DarkGreen),
+                ("Маг. Защита: ", Player.Barrier.ToString(), ConsoleColor.DarkMagenta)
+            };
 
-            //var totalTop = 3;
-            //void label(string text, (string text, ConsoleColor color) value,bool delimiter=false)
-            //{
-            //    var drawtext = DrawText.Empty(text.Length + 1 + value.text.Length);
-            //    drawtext.ReplaceAt(0, new DrawText(text, ConsoleColor.DarkRed));
-            //    drawtext.ReplaceAt(text.Length + 1, new DrawText(value.text, value.color));
-            //    w.AddControl(new Label(w)
-            //    {
-            //        Top = totalTop,
-            //        Left = 2,
-            //        SourceText = drawtext,
-            //        Align= TextPosition.Left,
-            //        Width=drawtext.Length
-            //    });
-            //    totalTop++;
+            var top = 2;
+            var even = 0;
 
-            //    if (delimiter)
-            //    {
-            //        w.AddControl(new HorizontalLine(w)
-            //        {
-            //            Width = window.Width,
-            //            Top = totalTop
-            //        });
-            //        totalTop++;
-            //    }
-            //}
+            foreach (var stringItem in strings)
+            {
+                if (even==2)
+                {
+                    top++;
+                    even = 0;
+                }
 
-            //label("Имя: ",(Player.Name, ConsoleColor.DarkGray));
-            //label("Раса: ", (Player.Race.ToDisplay(), ConsoleColor.Gray));
-            //label("Класс: ", (Player.ClassName, Player.ResourceColor),true);
-            //label("Здоровье: ", (string.Format("{0}/{0}", Player.MaxHitPoints), ConsoleColor.Red));
-            //label($"{Player.ResourceName}: ", (Player.Resource, Player.ResourceColor),true);
-            //label("Урон: ", (string.Format("{0}-{1}", Player.MinDMG, Player.MaxDMG), ConsoleColor.DarkYellow));
-            //label("Сила атаки: ", (Player.AttackPower.ToString(), ConsoleColor.DarkCyan));
-            //label("Сила магии: ", (Player.AbilityPower.ToString(), ConsoleColor.DarkCyan),true);
-            //label("Физ. Защита: ", (Player.Defence.ToString(), ConsoleColor.DarkGreen));
-            //label("Маг. Защита: ", (Player.Barrier.ToString(), ConsoleColor.DarkMagenta),true);
+                win.Append(new Text
+                {
+                    Top = top,
+                    Left = 3,
+                    DrawText = this.Label(stringItem.Item1, stringItem.Item2, stringItem.Item3, 30)
+                });
+
+                top += 1;
+                even++;
+            }
             
-            //Button bex = new Button(w)
-            //{
-            //    Border=false,
-            //    Top = totalTop,
-            //    Left = 2,
-            //    Width = 20,
-            //    Height = 3,
-            //    ActiveColor = ConsoleColor.Red,
-            //    InactiveColor = ConsoleColor.DarkRed,                
-            //    Label = "Начать",
-            //    OnClick = () =>
-            //    {
-            //        this.Switch<MainScene>();
-            //    }
-            //};
-            //w.AddControl(bex);
+            win.Append(new Button
+            {
+                ActiveColor = new DrawColor(ConsoleColor.Red),
+                InactiveColor = new DrawColor(ConsoleColor.DarkRed),
+                Left = 4.1f,
+                Top = 17,
+                Width = 7,
+                Height = 2,
+                Label = new DrawText("Начать", ConsoleColor.DarkRed) { Size = 28, LetterSpacing = 13 }
+                    .Capitalize(20),
+                OnClick = () =>
+                {
+                    this.Switch<MainScene>();
+                }
+            });
 
-            //w.Run();
-            //w.Publish();
+            Drawing.Draw.RunSession(win);
+        }
+
+        private DrawText Label(string text, string value, ConsoleColor valueColor, float size)
+        {
+            var drawtext = new DrawText(text + " " + value, ConsoleColor.Black) { Size = size };
+            drawtext.ReplaceAt(text.Length + 1, new DrawText(value, valueColor) { Size = size });
+
+            return drawtext;
         }
 
         protected override void KeyPress(KeyArgs keyEventArgs)

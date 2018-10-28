@@ -90,9 +90,7 @@
                 {
                     DrawText(canvas, fontSize, font, session);
                 }
-
             }
-
 
             canvas.Dispose();
             font.Dispose();
