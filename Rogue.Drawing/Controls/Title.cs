@@ -23,10 +23,10 @@
             {
                 Label.Region = new Rectangle
                 {
-                    X = this.Width / 2 - Label.Length/2 / 2f,
+                    X = this.Width / 2 - Label.Length / 2 / 2f,
                     Y = this.Height / 2 - 1f / 1.4f
                 };
-                                
+
                 this.Append(new Text
                 {
                     DrawText = Label

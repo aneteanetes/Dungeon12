@@ -51,15 +51,36 @@ namespace Rogue.Scenes.Menus.Creation
                 DrawText = new DrawText("Введите имя", ConsoleColor.DarkCyan) { Size = 40, LetterSpacing=20 }
             });
 
+            win.Append(new Button
+            {
+                ActiveColor = new DrawColor(ConsoleColor.Red),
+                InactiveColor = new DrawColor(ConsoleColor.DarkRed),
+                Left = 4.1f,
+                Top = 5,
+                Width = 7,
+                Height = 2,
+                Label = new DrawText("Очистить", ConsoleColor.DarkRed) { Size = 28, LetterSpacing = 13 }
+                    .Capitalize(20),
+                OnClick = () =>
+                {
+                    Input.BackslashValue(Input.GetValue().Length);
+                    Input.Run().Publish();
+                    this.Redraw();
+                }
+            });
+
             Input = new TextInput
             {
                 Left = 4f,
                 Top = 10,
                 Height=2f,
-                Width=9f,
+                Width=7f,
                 Placeholder = "",
-                ActiveColor = new DrawColor(ConsoleColor.Red),
-                InactiveColor = new DrawColor(ConsoleColor.Gray)
+                ActiveColor = new DrawColor(ConsoleColor.Black),
+                InactiveColor = new DrawColor(ConsoleColor.DarkGray),
+                Size=30,
+                //LetterSpacing=15,
+                Max=13
             };
             win.Append(Input);
 
@@ -71,7 +92,8 @@ namespace Rogue.Scenes.Menus.Creation
                 Top = 15,
                 Width = 7,
                 Height = 2,
-                Label = new DrawText("Подтвердить", ConsoleColor.DarkRed) { Size = 28, LetterSpacing = 13 },
+                Label = new DrawText("Продолжить", ConsoleColor.DarkRed) { Size = 28, LetterSpacing = 13 }
+                    .Capitalize(20),
                 OnClick = () =>
                 {
                     if (this.Player == null)
@@ -83,49 +105,57 @@ namespace Rogue.Scenes.Menus.Creation
                     {
                         this.Switch<PlayerRaceScene>();
                     }
-                }
-            });
-            
-            win.Append(new Button
-            {
-                ActiveColor = new DrawColor(ConsoleColor.Red),
-                InactiveColor = new DrawColor(ConsoleColor.DarkRed),
-                Left = 4.1f,
-                Top = 5,
-                Width = 7,
-                Height = 2,
-                Label = new DrawText("Очистить", ConsoleColor.DarkRed) { Size = 28, LetterSpacing = 13 },
-                OnClick = () =>
-                {
-                    Input.BackslashValue(Input.GetValue().Length);
+                    else
+                    {
+                        Validation(false);
+                    }
                 }
             });
 
             Drawing.Draw.RunSession(win);
         }
 
+        private void Validation(bool valid)
+        {
+            if (!valid)
+            {
+                Input.Placeholder = "_____________";
+                Input.InactiveColor = new DrawColor(ConsoleColor.Red);
+            }
+            else
+            {
+                Input.Placeholder = "";
+                Input.InactiveColor = new DrawColor(ConsoleColor.DarkGray);                
+            }
+            Input.Run().Publish();
+            this.Redraw();
+        }
+
         protected override void KeyPress(KeyArgs keyEventArgs)
         {
             if (Input.Editable)
             {
+                if (!string.IsNullOrWhiteSpace(Input.Placeholder))
+                {
+                    Validation(true);
+                }
+
                 if (keyEventArgs.Key == Key.Back)
                 {
                     Input.BackslashValue(1);
                 }
-                else
+                else if (char.TryParse(keyEventArgs.Key.ToString(),out var c))
                 {
-                    var val = keyEventArgs.Key.ToString();
-
-                    if(keyEventArgs.Modifiers!= KeyModifiers.Shift)
-                    {
-                        val = val.ToLower();
-                    }
+                    var val = keyEventArgs.Key.ToString().ToLower();
 
                     Input.AppendValue(val);
                 }
 
                 Input.Run().Publish();
             }
+
+            if (keyEventArgs.Key == Key.Escape)
+                this.Switch<MainMenuScene>();
 
             this.Redraw();
         }
