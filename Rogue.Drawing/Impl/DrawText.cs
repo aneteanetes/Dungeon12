@@ -20,10 +20,19 @@ namespace Rogue.Drawing.Impl
             stringData = value;
         }
 
-        public DrawText(string value, DrawColor foregroundColor, DrawColor backgroundColor = null) : this(value)
+        public DrawText(string value, DrawColor foregroundColor) : this(value)
         {
-            this.BackgroundColor = backgroundColor;
             this.ForegroundColor = foregroundColor;
+        }
+
+        public DrawText(string value, DrawColor foregroundColor, float x = 0, float y = 0) : this(value)
+        {
+            this.ForegroundColor = foregroundColor;
+            this.Region = new Rectangle
+            {
+                X = x,
+                Y = y
+            };
         }
 
         public DrawText(string value, IDrawColor foregroundColor, IDrawColor backgroundColor = null) : this(value)
@@ -357,7 +366,7 @@ namespace Rogue.Drawing.Impl
             if (length == 0)
                 length = DrawingSize.WindowChars;
 
-            return new DrawText(new string(Enumerable.Range(0, length).Select(x => ' ').ToArray()), foregroundColor,backgroundColor);
+            return new DrawText(new string(Enumerable.Range(0, length).Select(x => ' ').ToArray()), foregroundColor);
 
         }
 

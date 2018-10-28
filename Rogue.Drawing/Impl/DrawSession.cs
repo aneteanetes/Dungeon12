@@ -59,7 +59,7 @@ namespace Rogue.Drawing.Impl
         }
 
         public void Write(int linePos, int charPos, string text, ConsoleColor foreColor = 0, ConsoleColor backColor = 0)
-            => this.Write(linePos, charPos, new DrawText(text, foreColor, backColor));
+            => this.Write(linePos, charPos, new DrawText(text, foreColor));
 
         public void Write(int linePos, int charPos, string text, IDrawColor foreColor = null, IDrawColor backColor = null)
             => this.Write(linePos, charPos, new DrawText(text, foreColor, backColor));

@@ -7,6 +7,7 @@
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
     using Rogue.DataAccess;
+    using Rogue.Drawing.Controls;
     using Rogue.Drawing.Data;
     using Rogue.Drawing.GUI;
     using Rogue.Drawing.Impl;
@@ -36,12 +37,27 @@
 
             if (this.Commands.Count == 0)
                 this.FillCommands();
+            
+            new Image("Rogue.Resources.Images.d12back.png")
+            {
+                Left = 0.4f,
+                Top = 1f,
+                Width = 48.2f,
+                Height = 29f,
+                ImageTileRegion = new Rectangle
+                {
+                    X = 0,
+                    Y = 0,
+                    Height = 700,
+                    Width = 1057
+                }
+            }.Run().Publish();
 
-            Drawing.Draw/*.Session<GUIBorderDrawSession>()*/
-                .Session<LabirinthDrawSession>(x => x.Location = this.Location)
+            Drawing.Draw.Session<GUIBorderDrawSession>()
+                .Then<LabirinthDrawSession>(x => x.Location = this.Location)
                 //.Then<CharMapDrawSession>(x => x.Commands = this.Commands.Where(c => c.UI).Select(c => $"[{c.Keys.First()}] - {c.Name}").ToArray())
-                //.Then<CharacterDataDrawSession>(x => x.Player = this.Player)
-                //.Then<MessageDrawSession>(x => x.Message = new DrawText($"{DateTime.Now.ToShortTimeString()}: Вы прибываете в столицу", ConsoleColor.DarkGray))
+                .Then<CharacterDataDrawSession>(x => x.Player = this.Player)
+                .Then<MessageDrawSession>(x => x.Message = new DrawText($"{DateTime.Now.ToShortTimeString()}: Вы прибываете в столицу", ConsoleColor.Black))
                 .Publish();
         }
 

@@ -1,23 +1,26 @@
 ﻿using System;
+using Rogue.Drawing.GUI;
 using Rogue.Drawing.Impl;
 using Rogue.Entites.Alive.Character;
 using Rogue.Entites.Items;
-using Rogue.Items;
-using Rogue.Items.Types;
+using Rogue.Settings;
 using Rogue.View.Interfaces;
 
 namespace Rogue.Drawing.Data
 {
     public class CharacterDataDrawSession : DrawSession
     {
+        public DrawingSize DrawingSize { get; set; } = new DrawingSize();
+
         public CharacterDataDrawSession()
         {
+            this.AutoClear = false;
             this.DrawRegion = new Types.Rectangle
             {
-                X = 76,
-                Y = 1,
-                Width = 22,
-                Height = 23
+                X = DrawingSize.MapChars + 2f,
+                Y = 1.3f,
+                Width = DrawingSize.WindowChars - DrawingSize.MapChars - 1.7f,
+                Height = DrawingSize.MapLines + 1.4f
             };
         }
 
@@ -27,122 +30,62 @@ namespace Rogue.Drawing.Data
 
         public override IDrawSession Run()
         {
-            //name
-            int positionInLine = (int) (this.DrawRegion.Width / 2) - (Player.Name.Length / 2);
-            this.Write(1, positionInLine, new DrawText(Player.Name, ConsoleColor.Cyan));
+            new CharacterWindow()
+            {
+                Left = DrawingSize.MapChars + 1.9f,
+                Top = 1.3f,
+                Width = DrawingSize.WindowChars - DrawingSize.MapChars - 1.7f,
+                Height = DrawingSize.MapLines + 1.4f
 
-            //race class
-            string WriteThis = $"{Player.Race.ToDisplay()} - {Player.ClassName}";
-            positionInLine = (int)(this.DrawRegion.Width / 2) - (WriteThis.Length / 2);
-            this.Write(3, positionInLine, new DrawText(WriteThis, ConsoleColor.Gray));
+            }.Run().Publish();
 
+            var top = 1.7f;
 
-            //level exp
-            positionInLine = (int)(this.DrawRegion.Width / 2) - ((4 + Player.Level.ToString().Length + 6 + Player.EXP.ToString().Length + 1 + Player.MaxExp.ToString().Length) / 2);
-            WriteThis = "LVL: " + Player.Level.ToString() + " EXP: " + Player.EXP.ToString() + "/" + Player.MaxExp.ToString();
-            this.Write(5, positionInLine, new DrawText(WriteThis, ConsoleColor.DarkGray));
+            Text(Player.Name, 40, 14, ConsoleColor.Black, top += 1);
 
-            //hp
-            positionInLine = (int)(this.DrawRegion.Width / 2) - ((7 + Player.MaxHitPoints.ToString().Length + 1 + Player.MaxHitPoints.ToString().Length) / 2);
-            WriteThis = "Жизнь: " + Player.MaxHitPoints.ToString() + "/" + Player.MaxHitPoints.ToString();
-            this.Write(7, positionInLine, new DrawText(WriteThis, ConsoleColor.Red));
+            Text("LVL:" + Player.Level.ToString() + " EXP:" + Player.EXP.ToString() + "/" + Player.MaxExp.ToString(),
+                24, 10.5f, ConsoleColor.Black, top += 2);
 
-            //mp
-            WriteThis = $"{Player.ResourceName}: {Player.Resource}";
-            positionInLine = (int)(this.DrawRegion.Width / 2) - ((WriteThis.Length) / 2);
-            this.Write(8, positionInLine, new DrawText(WriteThis, Player.ResourceColor));
+            Text("HP: " + Player.MaxHitPoints.ToString() + "/" + Player.MaxHitPoints.ToString(),
+                24, 10.5f, ConsoleColor.Red, top += 2);
 
-            //dmg
-            positionInLine = (int)(this.DrawRegion.Width / 2) - ((6 + Player.MinDMG.ToString().Length + 1 + Player.MaxDMG.ToString().Length) / 2);
-            WriteThis = "Урон: " + Player.MinDMG.ToString() + "-" + Player.MaxDMG.ToString();
-            this.Write(10, positionInLine, new DrawText(WriteThis, ConsoleColor.DarkYellow));
+            Text($"{Player.ResourceName}: {Player.Resource}",
+                24, 10.5f, Player.ResourceColor, top += 1);
 
-            //ad
-            positionInLine = (int)(this.DrawRegion.Width / 2) - ((12 + Player.AttackPower.ToString().Length) / 2);
-            WriteThis = "Сила атаки: " + Player.AttackPower.ToString();
-            this.Write(11, positionInLine, new DrawText(WriteThis, ConsoleColor.DarkRed));
+            Text(" Урон: " + Player.MinDMG.ToString() + "-" + Player.MaxDMG.ToString(),
+                24, 10.5f, ConsoleColor.Black, top += 2);
 
-            //ap
-            positionInLine = (int)(this.DrawRegion.Width / 2) - ((12 + Player.AbilityPower.ToString().Length) / 2);
-            WriteThis = "Сила магии: " + Player.AbilityPower.ToString();
-            this.Write(12, positionInLine, new DrawText(WriteThis, ConsoleColor.DarkCyan));
+            Text("Сила атаки: " + Player.AttackPower.ToString(),
+                24, 10.5f, ConsoleColor.DarkRed, top += 2);
 
-            //arm
-            positionInLine = (int)(this.DrawRegion.Width / 2) - ((11 + Player.Defence.ToString().Length) / 2);
-            WriteThis = "Защита Ф : " + Player.Defence.ToString();
-            this.Write(13, positionInLine, new DrawText(WriteThis, ConsoleColor.DarkGreen));
+            Text("Сила магии: " + Player.AbilityPower.ToString(),
+                24, 10.5f, ConsoleColor.DarkCyan, top += 1);
 
-            //mrs
-            positionInLine = (int)(this.DrawRegion.Width / 2) - ((11 + Player.Barrier.ToString().Length) / 2);
-            WriteThis = "Защита М : " + Player.Barrier.ToString();
-            this.Write(14, positionInLine, new DrawText(WriteThis, ConsoleColor.DarkMagenta));
+            Text("Защита Физ: " + Player.Defence.ToString(),
+                24, 10.5f, ConsoleColor.DarkGreen, top += 2);
 
-            //money
-            positionInLine = (int)(this.DrawRegion.Width / 2) - ((3 + Player.Gold.ToString().Length) / 2);
-            WriteThis = "$: " + Player.Gold.ToString();
-            this.Write(16, positionInLine, new DrawText(WriteThis, ConsoleColor.Yellow));
+            Text("Защита Маг: " + Player.Barrier.ToString(),
+                24, 10.5f, ConsoleColor.DarkMagenta, top += 1);
 
-            //inv label
-            positionInLine = (int)(this.DrawRegion.Width / 2) - (("Инвентарь:".Length) / 2);
-            this.Write(18, positionInLine, new DrawText("Инвентарь:", ConsoleColor.DarkRed));
-
-            //Item Empt = Item.Empty;
-            //Item[] CI = new Item[]{
-            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Red)  },
-            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Blue)  },
-            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Green)  },
-            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Magenta)  },
-            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Cyan)  },
-            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.White)  }
-            //}; //Current items
-            //for (int i = 0; i < 6; i++)
-            //{
-            //    try
-            //    {
-            //        string wolvowhat = CI[i].Name;
-            //    }
-            //    catch (IndexOutOfRangeException)
-            //    {
-            //        Array.Resize(ref CI, CI.Length + 1);
-            //        CI[i] = Empt;
-            //    }
-            //}
-
-            ////вещи
-            //Item[] M = new Item[]{
-            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Red)  },
-            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Blue)  },
-            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Green)  },
-            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Magenta)  },
-            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.Cyan)  },
-            //    new Rune { Icon="*", ForegroundColor=new DrawColor(ConsoleColor.White)  }
-            //};
-            ////HotPanel.ToArray();
-            //Item N = Item.Empty;
-
-            //for (int i = 0; i < 6; i++)
-            //{
-            //    try
-            //    {
-            //        M[i].ToString();
-            //    }
-            //    catch (IndexOutOfRangeException)
-            //    {
-            //        Array.Resize(ref M, M.Length + 1);
-            //        M[i] = N;
-            //    }
-            //}
-
-
-            //positionInLine = (this.DrawRegion.Width / 2) - (("┌───┬───┬───┐".Length) / 2);
-
-            //this.Write(19, positionInLine, new DrawText("┌───┬───┬───┐", ConsoleColor.DarkRed));
-            //this.Write(20, positionInLine, new DrawText("│ " + M[0].Icon.ToString() + " │ " + M[1].Icon.ToString() + " │ " +  M[2].Icon.ToString() + " │", ConsoleColor.DarkRed));
-            //this.Write(21, positionInLine, new DrawText("├───┼───┼───┤", ConsoleColor.DarkRed));
-            //this.Write(22, positionInLine, new DrawText("│ " + M[3].Icon.ToString() + " │ " + M[4].Icon.ToString() + " │ " +  M[5].Icon.ToString() + " │", ConsoleColor.DarkRed));
-            //this.Write(23, positionInLine, new DrawText("└───┴───┴───┘", ConsoleColor.DarkRed));
-
+            Text("       $  ",
+                50, 12f, ConsoleColor.Blue, top += 3);
+            Text("          " + Player.Gold.ToString(),
+                35, 12f, ConsoleColor.Blue, top-=0.2f);
+            
             return this;
+        }
+
+        private void Text(string data, float size, float letter, ConsoleColor color,float top)
+        {
+            float positionInLine = PositionInLine(data, 14);
+            this.WanderingText.Add(new DrawText(data, color, positionInLine, top) { Size = size, LetterSpacing = letter });
+        }
+
+        private float PositionInLine(string data, float size)
+        {
+            var pos = (this.DrawRegion.Width * 24 / 2) - (Player.Name.Length * size / 2);
+            return pos / 24 
+                + this.DrawRegion.X;
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿namespace Rogue.Drawing.GUI
 {
-    using System;
+    using Rogue.Drawing.Controls;
     using Rogue.Drawing.Impl;
     using Rogue.Settings;
+    using Rogue.Types;
     using Rogue.View.Interfaces;
 
     public class GUIBorderDrawSession : DrawSession
@@ -11,6 +12,7 @@
 
         public GUIBorderDrawSession()
         {
+            AutoClear = false;
             this.DrawRegion = new Types.Rectangle
             {
                 X = 1,
@@ -22,86 +24,100 @@
 
         public override IDrawSession Run()
         {
-            this.MapBorder();
-            this.CharacterBorder();
-            this.InfoBorder();
+            new Window()
+            {
+                Large = true,
+                Left = 0.25f,
+                Top = 1.3f,
+                Width = DrawingSize.MapChars + 1.5f,
+                Height = DrawingSize.MapLines + 1.4f
+            }.Run().Publish();
+
+            new ButtonsWindow()
+            {
+                Left = DrawingSize.MapChars + 1.9f,
+                Top = DrawingSize.MapLines + 1.4f + 1.5f,
+                Width = DrawingSize.WindowChars - DrawingSize.MapChars - 1.7f,
+                Height = 2
+
+            }.Run().Publish();
+
+            new Image("Rogue.Resources.Images.Icons.helmet.png")
+            {
+                Left = DrawingSize.MapChars + 2.1f,
+                Top = DrawingSize.MapLines + 1.4f + 1.5f,
+                Width = 2,
+                Height = 2,
+                ImageTileRegion = new Rectangle
+                {
+                    X = 0,
+                    Y = 0,
+                    Height = 64,
+                    Width = 64
+                }
+            }.Run().Publish();
+
+            new Image("Rogue.Resources.Images.Icons.backpack.png")
+            {
+                Left = DrawingSize.MapChars + 2.1f+2,
+                Top = DrawingSize.MapLines + 1.4f + 1.5f,
+                Width = 2,
+                Height = 2,
+                ImageTileRegion = new Rectangle
+                {
+                    X = 0,
+                    Y = 0,
+                    Height = 64,
+                    Width = 64
+                }
+            }.Run().Publish();
+
+            new Image("Rogue.Resources.Images.Icons.map.png")
+            {
+                Left = DrawingSize.MapChars + 2.1f + 4,
+                Top = DrawingSize.MapLines + 1.4f + 1.5f,
+                Width = 2,
+                Height = 2,
+                ImageTileRegion = new Rectangle
+                {
+                    X = 0,
+                    Y = 0,
+                    Height = 64,
+                    Width = 64
+                }
+            }.Run().Publish();
+
+            new Image("Rogue.Resources.Images.Icons.tome.png")
+            {
+                Left = DrawingSize.MapChars + 2.1f + 6,
+                Top = DrawingSize.MapLines + 1.4f + 1.5f,
+                Width = 2,
+                Height = 2,
+                ImageTileRegion = new Rectangle
+                {
+                    X = 0,
+                    Y = 0,
+                    Height = 64,
+                    Width = 64
+                }
+            }.Run().Publish();
+            
+            new Image("Rogue.Resources.Images.Icons.x.png")
+            {
+                Left = DrawingSize.MapChars + 2.1f + 8,
+                Top = DrawingSize.MapLines + 1.4f + 1.5f,
+                Width = 2,
+                Height = 2,
+                ImageTileRegion = new Rectangle
+                {
+                    X = 0,
+                    Y = 0,
+                    Height = 64,
+                    Width = 64
+                }
+            }.Run().Publish();
 
             return this;
-        }
-        
-        private void MapBorder()
-        {
-            int height = 0;
-
-            string stringBuffer = string.Empty;
-            stringBuffer = DrawHelp.FullLine(100, DrawHelp.Border(true, 4), 26);
-            stringBuffer = DrawHelp.Border(true, 1) + stringBuffer.Remove(stringBuffer.Length - 2) + DrawHelp.Border(true, 2);
-            this.Write(height, 0, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
-      
-             
-            for (int i = 1; i < 23; i++)
-            {
-                stringBuffer = DrawHelp.FullLine(100, " ", 2);
-                stringBuffer = DrawHelp.Border(true, 3) + stringBuffer.Remove(stringBuffer.Length - 26) + DrawHelp.Border(true, 3);                
-                this.Write(i, 0, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
-            }
-
-            stringBuffer = string.Empty;
-            stringBuffer = DrawHelp.FullLine(100, DrawHelp.Border(true, 4), 26);
-            stringBuffer = DrawHelp.Border(true, 5) + stringBuffer.Remove(stringBuffer.Length - 2) + DrawHelp.Border(true, 6);
-            this.Write(23, 0, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
-        }
-
-        private void CharacterBorder()
-        {
-            int height = 23;
-            int startCharacterBorder = 74;
-            int charaterWidth = 25;
-
-            //up ========
-            var stringBuffer = string.Empty;
-            stringBuffer = DrawHelp.FullLine(charaterWidth, DrawHelp.Border(true, 4));
-            stringBuffer = DrawHelp.Border(true, 1) + stringBuffer.Remove(stringBuffer.Length - 2) + DrawHelp.Border(true, 2);
-            this.Write(0, startCharacterBorder, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
-
-            //body |    |
-            for (int i = 1; i < height; i++)
-            {
-                stringBuffer = DrawHelp.FullLine(charaterWidth, " ");
-                stringBuffer = DrawHelp.Border(true, 3) + stringBuffer.Remove(stringBuffer.Length - 2) + DrawHelp.Border(true, 3);
-
-                this.Write(i, startCharacterBorder, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
-            }
-
-            //down ======
-            stringBuffer = string.Empty;
-            stringBuffer = DrawHelp.FullLine(charaterWidth, DrawHelp.Border(true, 4));
-            stringBuffer = DrawHelp.Border(true, 5) + stringBuffer.Remove(stringBuffer.Length - 2) + DrawHelp.Border(true, 6);
-            this.Write(height, startCharacterBorder, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
-        }
-
-        private void InfoBorder()
-        {
-            //info window
-            var height = 24;
-
-            string stringBuffer = string.Empty;
-
-            stringBuffer = string.Empty;
-            stringBuffer = DrawHelp.FullLine(100, DrawHelp.Border(true, 4), 2);
-            stringBuffer = DrawHelp.Border(true, 1) + stringBuffer.Remove(stringBuffer.Length - 2) + DrawHelp.Border(true, 2);
-            this.Write(height, 0, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
-
-            //тело                
-            stringBuffer = DrawHelp.FullLine(100, " ", 2);
-            stringBuffer = DrawHelp.Border(true, 3) + stringBuffer.Remove(stringBuffer.Length - 2) + DrawHelp.Border(true, 3);
-            this.Write(height + 1, 0, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
-
-            //носки 
-            stringBuffer = string.Empty;
-            stringBuffer = DrawHelp.FullLine(100, DrawHelp.Border(true, 4), 2);
-            stringBuffer = DrawHelp.Border(true, 5) + stringBuffer.Remove(stringBuffer.Length - 2) + DrawHelp.Border(true, 6);
-            this.Write(height + 2, 0, new DrawText(stringBuffer, ConsoleColor.DarkGreen));
         }
     }
 }
