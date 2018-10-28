@@ -44,11 +44,14 @@ namespace Rogue.Scenes.Menus.Creation
                 Height = 20
             };
 
-            win.Append(new Text
+
+            win.Append(new Title
             {
-                Left = 3f,
-                Top = 2f,
-                DrawText = new DrawText("Введите имя", ConsoleColor.DarkCyan) { Size = 40, LetterSpacing=20 }
+                Left = 3.6f,
+                Top = -1f,
+                Width = 8,
+                Height = 2.4f,
+                Label = new DrawText("Введите имя", ConsoleColor.Black) { Size = 30 }
             });
 
             win.Append(new Button
@@ -56,7 +59,7 @@ namespace Rogue.Scenes.Menus.Creation
                 ActiveColor = new DrawColor(ConsoleColor.Red),
                 InactiveColor = new DrawColor(ConsoleColor.DarkRed),
                 Left = 4.1f,
-                Top = 5,
+                Top = 3,
                 Width = 7,
                 Height = 2,
                 Label = new DrawText("Очистить", ConsoleColor.DarkRed) { Size = 28, LetterSpacing = 13 }
@@ -72,7 +75,7 @@ namespace Rogue.Scenes.Menus.Creation
             Input = new TextInput
             {
                 Left = 4f,
-                Top = 10,
+                Top = 8.5f,
                 Height=2f,
                 Width=7f,
                 Placeholder = "",
@@ -89,7 +92,7 @@ namespace Rogue.Scenes.Menus.Creation
                 ActiveColor = new DrawColor(ConsoleColor.Red),
                 InactiveColor = new DrawColor(ConsoleColor.DarkRed),
                 Left = 4.1f,
-                Top = 15,
+                Top = 14,
                 Width = 7,
                 Height = 2,
                 Label = new DrawText("Продолжить", ConsoleColor.DarkRed) { Size = 28, LetterSpacing = 13 }

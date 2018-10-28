@@ -88,7 +88,7 @@
 
                 if (session.TextContent != null && session.TextContent.Any())
                 {
-                    DrawText(canvas, fontSize, font, ref YUnit, ref XUnit, session);
+                    DrawText(canvas, fontSize, font, session);
                 }
 
             }
@@ -193,11 +193,11 @@
         /// <param name="YUnit"></param>
         /// <param name="XUnit"></param>
         /// <param name="session"></param>
-        private static void DrawText(SKCanvas canvas, float fontSize, SKTypeface font, ref float YUnit, ref float XUnit, IDrawSession session)
+        private static void DrawText(SKCanvas canvas, float fontSize, SKTypeface font, IDrawSession session)
         {
             if (session.AutoClear)
             {
-                ClearRegion(canvas, YUnit, XUnit, session);
+                ClearRegion(canvas, session);
             }
 
             float y = session.SessionRegion.Y * 24 + 3;
@@ -212,7 +212,7 @@
                 else
                 {
                     DrawNonPositionalText(canvas, fontSize, font, y, x, line);
-                    y += YUnit;
+                    y += line.Size;
                 }
             }
         }
@@ -292,7 +292,7 @@
         /// <param name="YUnit"></param>
         /// <param name="XUnit"></param>
         /// <param name="session"></param>
-        private static void ClearRegion(SKCanvas canvas, float YUnit, float XUnit, IDrawSession session)
+        private static void ClearRegion(SKCanvas canvas, IDrawSession session)
         {
             var blackPaint = new SKPaint { Color = new SKColor(0, 0, 0, 255) };
 
@@ -459,7 +459,8 @@
             {
                 if (session.Drawables.IsNotEmpty())
                 {
-                    return session.Drawables.MaxBy(x => x.Region.X+x.Region.Width).First().Region.X;
+                    var f = session.Drawables.MaxBy(x => x.Region.X + x.Region.Width).First();
+                    return f.Region.X + f.Region.Width;
                 }
                 else
                 {
