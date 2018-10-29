@@ -32,90 +32,156 @@
                 Width = DrawingSize.MapChars + 1.5f,
                 Height = DrawingSize.MapLines + 1.4f
             }.Run().Publish();
-
-            new ButtonsWindow()
+            
+            new ButtonIcon()
             {
                 Left = DrawingSize.MapChars + 1.9f,
                 Top = DrawingSize.MapLines + 1.4f + 1.5f,
-                Width = DrawingSize.WindowChars - DrawingSize.MapChars - 1.7f,
-                Height = 2
-
-            }.Run().Publish();
-
-            new Image("Rogue.Resources.Images.Icons.helmet.png")
-            {
-                Left = DrawingSize.MapChars + 2.1f,
-                Top = DrawingSize.MapLines + 1.4f + 1.5f,
                 Width = 2,
                 Height = 2,
-                ImageTileRegion = new Rectangle
-                {
-                    X = 0,
-                    Y = 0,
-                    Height = 64,
-                    Width = 64
+                Icon= new Image("Rogue.Resources.Images.Icons.armor.png")
+                {                   
+                    ImageTileRegion = new Rectangle
+                    {
+                        X = 0,
+                        Y = 0,
+                        Height = 64,
+                        Width = 64
+                    }
                 }
             }.Run().Publish();
 
-            new Image("Rogue.Resources.Images.Icons.backpack.png")
+            new ButtonIcon()
             {
-                Left = DrawingSize.MapChars + 2.1f+2,
+                Left = DrawingSize.MapChars + 1.9f+2.4f,
                 Top = DrawingSize.MapLines + 1.4f + 1.5f,
                 Width = 2,
                 Height = 2,
-                ImageTileRegion = new Rectangle
+                Icon = new Image("Rogue.Resources.Images.Icons.backpack.png")
                 {
-                    X = 0,
-                    Y = 0,
-                    Height = 64,
-                    Width = 64
+                    ImageTileRegion = new Rectangle
+                    {
+                        X = 0,
+                        Y = 0,
+                        Height = 72,
+                        Width = 72
+                    }
                 }
             }.Run().Publish();
 
-            new Image("Rogue.Resources.Images.Icons.map.png")
+            new ButtonIcon()
             {
-                Left = DrawingSize.MapChars + 2.1f + 4,
+                Left = DrawingSize.MapChars + 1.9f + 4.7f,
                 Top = DrawingSize.MapLines + 1.4f + 1.5f,
                 Width = 2,
                 Height = 2,
-                ImageTileRegion = new Rectangle
+                Icon = new Image("Rogue.Resources.Images.Icons.map.png")
                 {
-                    X = 0,
-                    Y = 0,
-                    Height = 64,
-                    Width = 64
+                    ImageTileRegion = new Rectangle
+                    {
+                        X = 0,
+                        Y = 0,
+                        Height = 70,
+                        Width = 70
+                    }
                 }
             }.Run().Publish();
 
-            new Image("Rogue.Resources.Images.Icons.tome.png")
+            new ButtonIcon()
             {
-                Left = DrawingSize.MapChars + 2.1f + 6,
+                Left = DrawingSize.MapChars + 1.9f + 7f,
                 Top = DrawingSize.MapLines + 1.4f + 1.5f,
                 Width = 2,
                 Height = 2,
-                ImageTileRegion = new Rectangle
+                Icon = new Image("Rogue.Resources.Images.Icons.tome.png")
                 {
-                    X = 0,
-                    Y = 0,
-                    Height = 64,
-                    Width = 64
+                    ImageTileRegion = new Rectangle
+                    {
+                        X = 0,
+                        Y = 0,
+                        Height = 60,
+                        Width = 60
+                    }
                 }
             }.Run().Publish();
-            
-            new Image("Rogue.Resources.Images.Icons.x.png")
+
+            new ButtonIcon()
             {
-                Left = DrawingSize.MapChars + 2.1f + 8,
+                Left = DrawingSize.MapChars + 1.9f + 9.3f,
                 Top = DrawingSize.MapLines + 1.4f + 1.5f,
                 Width = 2,
                 Height = 2,
-                ImageTileRegion = new Rectangle
+                Icon = new Image("Rogue.Resources.Images.Icons.x.png")
                 {
-                    X = 0,
-                    Y = 0,
-                    Height = 64,
-                    Width = 64
+                    ImageTileRegion = new Rectangle
+                    {
+                        X = 0,
+                        Y = 0,
+                        Height = 72,
+                        Width = 72
+                    }
                 }
             }.Run().Publish();
+
+            //new Image("Rogue.Resources.Images.Icons.backpack.png")
+            //{
+            //    Left = DrawingSize.MapChars + 2.1f+2,
+            //    Top = DrawingSize.MapLines + 1.4f + 1.5f,
+            //    Width = 1.5f,
+            //    Height = 1.5f,
+            //    ImageTileRegion = new Rectangle
+            //    {
+            //        X = 0,
+            //        Y = 0,
+            //        Height = 64,
+            //        Width = 64
+            //    }
+            //}.Run().Publish();
+
+            //new Image("Rogue.Resources.Images.Icons.map.png")
+            //{
+            //    Left = DrawingSize.MapChars + 2.1f + 4,
+            //    Top = DrawingSize.MapLines + 1.4f + 1.5f,
+            //    Width = 2,
+            //    Height = 2,
+            //    ImageTileRegion = new Rectangle
+            //    {
+            //        X = 0,
+            //        Y = 0,
+            //        Height = 64,
+            //        Width = 64
+            //    }
+            //}.Run().Publish();
+
+            //new Image("Rogue.Resources.Images.Icons.tome.png")
+            //{
+            //    Left = DrawingSize.MapChars + 2.1f + 6,
+            //    Top = DrawingSize.MapLines + 1.4f + 1.5f,
+            //    Width = 2,
+            //    Height = 2,
+            //    ImageTileRegion = new Rectangle
+            //    {
+            //        X = 0,
+            //        Y = 0,
+            //        Height = 64,
+            //        Width = 64
+            //    }
+            //}.Run().Publish();
+
+            //new Image("Rogue.Resources.Images.Icons.x.png")
+            //{
+            //    Left = DrawingSize.MapChars + 2.1f + 8,
+            //    Top = DrawingSize.MapLines + 1.4f + 1.5f,
+            //    Width = 2,
+            //    Height = 2,
+            //    ImageTileRegion = new Rectangle
+            //    {
+            //        X = 0,
+            //        Y = 0,
+            //        Height = 64,
+            //        Width = 64
+            //    }
+            //}.Run().Publish();
 
             return this;
         }
