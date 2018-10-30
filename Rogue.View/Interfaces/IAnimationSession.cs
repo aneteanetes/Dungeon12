@@ -14,6 +14,8 @@
         /// </summary>
         IEnumerable<IEnumerable<IDrawable>> Frames { get; }
 
+        int Speed { get; }
+
         void End();
 
         void Publish();

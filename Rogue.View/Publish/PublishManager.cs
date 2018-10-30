@@ -33,5 +33,7 @@
         {
             Current.BlockControls(block);
         }
+
+        public static bool IsBlocked => Current.IsBlocked;
     }
 }

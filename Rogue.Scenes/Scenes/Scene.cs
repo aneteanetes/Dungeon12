@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
+    using System.Timers;
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
@@ -12,27 +13,42 @@
     public abstract class Scene : IPublisher
     {
         private readonly SceneManager sceneManager;
-        
+        private readonly Timer Timer;
+
+        public void GameLoop(object sender, ElapsedEventArgs e)
+        {
+            this.SceneLoop();
+        }
+
         public Scene(SceneManager sceneManager)
         {
             this.sceneManager = sceneManager;
+
+            this.Timer = new Timer(400)
+            {
+                AutoReset = true
+            };
+            this.Timer.Elapsed += GameLoop;
+
 
             this.BlockControls(false);
         }
 
         public abstract bool Destroyable { get; }
 
+        public bool IsBlocked { get; private set; } = false;
+
         public virtual void BeforeActivate() { }
         
         public void OnKeyPress(KeyArgs keyEventArgs)
         {
-            if (!blockedControls)
+            if (!IsBlocked)
                 KeyPress(keyEventArgs);
         }
 
         public void OnMousePress(PointerArgs pointerPressedEventArgs)
         {
-            if (!blockedControls)
+            if (!IsBlocked)
                 MousePress(pointerPressedEventArgs);
         }
         
@@ -43,7 +59,7 @@
             if (sceneManager.Current != this)
                 return;
 
-            if (blockedControls)
+            if (IsBlocked)
                 return;
 
             var newFocused = CanHandle.Where(handler => RegionContains(handler, pointerPressedEventArgs))
@@ -104,8 +120,23 @@
 
         public virtual void Destroy()
         {
+            this.Timer.Stop();
+            this.Timer.Dispose();
+
             this.BlockControls(true);
             this.CanHandle = null;
+        }
+
+        public virtual void FreezeScene()
+        {
+            this.BlockControls(true);
+            this.Timer.Stop();
+        }
+
+        public virtual void ResumeScene()
+        {
+            this.BlockControls(false);
+            this.Timer.Start();
         }
 
         protected virtual void Switch<T>() where T : GameScene
@@ -116,6 +147,11 @@
         private List<IDrawSession> drawSessions = new List<IDrawSession>();
         public void Activate()
         {
+            if (!this.Timer.Enabled)
+            {
+                this.Timer.Start();
+            }
+
             this.BuildHandlerMap();
             this.sceneManager.DrawClient.Draw(drawSessions);
             drawSessions = new List<IDrawSession>();
@@ -147,8 +183,8 @@
             this.sceneManager.DrawClient.Animate(animation);
         }
 
-        private bool blockedControls = false;
-
-        public void BlockControls(bool block) => blockedControls = block;
+        public void BlockControls(bool block) => IsBlocked = block;
+        
+        public virtual void SceneLoop() { }
     }    
 }

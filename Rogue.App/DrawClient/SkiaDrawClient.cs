@@ -1,6 +1,7 @@
 ﻿namespace Rogue.App.DrawClient
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Drawing.Drawing2D;
@@ -15,6 +16,7 @@
     using Rogue.Resources;
     using Rogue.Scenes;
     using Rogue.View.Interfaces;
+    using Rogue.View.Publish;
     using SkiaSharp;
 
     public class SkiaDrawClient : IDrawClient
@@ -49,7 +51,7 @@
             this.control = image;
         }
 
-        private static readonly Dictionary<string, SKBitmap> tilesetsCache = new Dictionary<string, SKBitmap>();
+        private static readonly ConcurrentDictionary<string, SKBitmap> tilesetsCache = new ConcurrentDictionary<string, SKBitmap>();
 
         private static SKBitmap TileSetByName(string tilesetName)
         {
@@ -58,7 +60,7 @@
                 var stream = ResourceLoader.Load(tilesetName, tilesetName);
                 bitmap = SKBitmap.Decode(stream);
 
-                tilesetsCache.Add(tilesetName, bitmap);
+                tilesetsCache.TryAdd(tilesetName, bitmap);
             }
 
             return bitmap;
@@ -350,7 +352,9 @@
 
         public void Animate(IAnimationSession animationSession)
         {
-            //void invalidate() { Dispatcher.UIThread.InvokeAsync(() => control.InvalidateVisual()).Wait(); }
+            void invalidate() { Dispatcher.UIThread.InvokeAsync(() => control.InvalidateVisual()); }
+
+            //var wait = animationSession.Frames.Count() * 25;
 
             Task.Run(() =>
             {
@@ -361,9 +365,11 @@
                     DrawTiles(canvas, frame);
                     canvas.Dispose();
 
-                    InternalDraw(GetBounds(frame));
-
-                    Thread.Sleep(50);
+                    //if (!PublishManager.IsBlocked)
+                    //{
+                        InternalDraw(GetBounds(frame));
+                        Thread.Sleep(animationSession.Speed);
+                    //}
                     //invalidate();
                 }
 

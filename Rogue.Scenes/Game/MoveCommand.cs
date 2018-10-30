@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Rogue.Control.Commands;
 using Rogue.Control.Keys;
 using Rogue.Drawing.Labirinth;

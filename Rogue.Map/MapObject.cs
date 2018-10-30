@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Rogue.Entites.Animations;
     using Rogue.Map.Infrastructure;
     using Rogue.Types;
     using Rogue.Utils.ReflectionExtensions;
@@ -17,11 +18,17 @@
         public IDrawColor BackgroundColor { get; set; }
         public IDrawColor ForegroundColor { get; set; }
 
+        public bool Animated => this.Animation != null;
+
+        public virtual AnimationMap Animation { get; }
+
         public virtual string Tileset { get; set; }
 
         public virtual Rectangle TileSetRegion { get; set; }
 
         public virtual Rectangle Region { get; set; }
+
+        public Point Location { get; set; }
 
         public bool Container => false;
 

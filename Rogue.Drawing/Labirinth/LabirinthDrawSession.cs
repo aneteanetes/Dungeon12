@@ -13,7 +13,7 @@ namespace Rogue.Drawing.Labirinth
     {
         private DrawingSize DrawingSize = new DrawingSize();
         
-        public Location Location { get; set; }
+        public new Location Location { get; set; }
 
         public override IDrawSession Run()
         {
@@ -24,17 +24,16 @@ namespace Rogue.Drawing.Labirinth
                 var line = this.Location.Map[y];
                 for (int x = 0; x < line.Count; x++)
                 {
-                    var cell = line[x];
+                    MapObject[] cell = line[x].ToArray();
                     var pos = new Point { X = x, Y = y };
 
                     if (cell[0].Icon == "#")
                     {
                         AddWall(drawables, pos);
+                        cell = cell.Skip(1).ToArray();
                     }
-                    else
-                    {
-                        AddObject(drawables, cell, pos);
-                    }
+
+                    AddObject(drawables, cell, pos);
                 }
             }
 
@@ -42,7 +41,7 @@ namespace Rogue.Drawing.Labirinth
             return this;
         }
 
-        private void AddObject(List<IDrawable> drawables, List<MapObject> cell, Point pos)
+        private void AddObject(List<IDrawable> drawables, MapObject[] cell, Point pos)
         {
             foreach (var item in cell)
             {
@@ -153,7 +152,7 @@ namespace Rogue.Drawing.Labirinth
             var isometricMap = IsometricMap(wallMap);
             var tile = DetermineTitle(isometricMap);
             var mapObj = this.Location.Map[(int)pos.Y][(int)pos.X][0];
-
+            
             mapObj.TileSetRegion = new Rectangle
             {
                 X = 24*tile.X,

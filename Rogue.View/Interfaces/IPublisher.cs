@@ -9,5 +9,7 @@
         void Animation(IAnimationSession animation);
 
         void BlockControls(bool block);
+
+        bool IsBlocked { get; }
     }
 }

@@ -14,4 +14,8 @@
     <EmbeddedResource Include="Fonts\**\*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Images\Objects\" />
+  </ItemGroup>
+
 </Project>

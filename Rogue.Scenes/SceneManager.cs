@@ -25,6 +25,10 @@
                 nextScene = sceneType.New<TScene>(this);
                 SceneCache.Add(typeof(TScene), nextScene);
             }
+            else
+            {
+                nextScene.ResumeScene();
+            }
 
             this.Populate(Current, nextScene);
             
@@ -32,6 +36,10 @@
             {
                 Current.Destroy();
                 SceneCache.Remove(Current.GetType());
+            }
+            else
+            {
+                Current?.FreezeScene();
             }
 
             nextScene.BeforeActivate();

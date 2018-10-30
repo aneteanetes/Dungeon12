@@ -13,6 +13,7 @@
     using Rogue.Drawing.Impl;
     using Rogue.Drawing.Labirinth;
     using Rogue.Map;
+    using Rogue.Map.Objects;
     using Rogue.Scenes.Menus;
     using Rogue.Scenes.Scenes;
     using Rogue.Settings;
@@ -87,26 +88,41 @@
                 Biom = ConsoleColor.DarkGray
             };
 
-            var persistMap = Database.Entity<Data.Maps.Map>(x => x.Identity == "Capital").First();
+            var persistMap = Database.Entity<Data.Maps.Map>(e => e.Identity == "Capital").First();
 
             this.Location.Name = persistMap.Name;
+
+            int x = 0;
+            int y = 0;
 
             foreach (var line in persistMap.Template.Split(Environment.NewLine).Take(19))
             {
                 var listLine = new List<List<Map.MapObject>>();
 
+                x = 0;
+
                 foreach (var @char in line.Substring(0, 35))
                 {
-                    listLine.Add(new List<MapObject>() { MapObject.Create(@char.ToString()) });
+                    var mapObj = MapObject.Create(@char.ToString());
+                    mapObj.Location = new Point(x, y);
+                    listLine.Add(new List<MapObject>() { mapObj });
+                    x++;
                 }
+
+                y++;
 
                 this.Location.Map.Add(listLine);
             }
 
             //перенести туда где location
-            this.Location.Map[8][27].Add(new Map.Objects.Player
+            this.Location.Map[8][27].Add(new Player
             {
                 Character = this.Player
+            });
+
+            this.Location.Map[4][9].Add(new Portal()
+            {
+                Location = new Point(9, 4)
             });
         }
 
@@ -172,6 +188,24 @@
                 this.Redraw();
             }
 #endif
+        }
+
+        public override void SceneLoop()
+        {
+            var objs = this.Location.Map
+                .SelectMany(y => y.SelectMany(x => x))
+                .Where(mapObj => mapObj.Animated)
+                .ToArray();
+
+            foreach (var animatedObj in objs)
+            {
+                Drawing.Draw.Animation<MapAnimationSession>(x =>
+                {
+                    x.MapObject = animatedObj;
+                });
+            }
+
+            base.SceneLoop();
         }
     }
 }

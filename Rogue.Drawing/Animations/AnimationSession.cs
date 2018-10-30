@@ -8,8 +8,11 @@
     {
         public bool BlockingAnimation { get; set; }
 
+
         private readonly List<IEnumerable<IDrawable>> _Frames = new List<IEnumerable<IDrawable>>();
         public IEnumerable<IEnumerable<IDrawable>> Frames => _Frames;
+
+        public virtual int Speed => 50;
 
         protected void AddFrame(IEnumerable<IDrawable> frame) => _Frames.Add(frame);
 

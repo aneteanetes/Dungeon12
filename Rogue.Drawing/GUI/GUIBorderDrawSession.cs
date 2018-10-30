@@ -32,7 +32,16 @@
                 Width = DrawingSize.MapChars + 1.5f,
                 Height = DrawingSize.MapLines + 1.4f
             }.Run().Publish();
-            
+
+            new ButtonsWindow()
+            {
+                Left = DrawingSize.MapChars + 1.9f,
+                Top = DrawingSize.MapLines + 1.4f + 1.5f,
+                Width = DrawingSize.WindowChars - DrawingSize.MapChars - 1.7f,
+                Height = 2
+
+            }.Run().Publish();
+
             new ButtonIcon()
             {
                 Left = DrawingSize.MapChars + 1.9f,
