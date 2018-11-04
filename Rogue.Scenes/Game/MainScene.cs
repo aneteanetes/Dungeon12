@@ -21,7 +21,7 @@
 
     public class MainScene : GameScene<MainMenuScene>
     {
-        private Point PlayerPosition = new Point { X = 27, Y = 8 };
+        private readonly Point PlayerPosition = new Point { X = 27, Y = 8 };
 
         private readonly DrawingSize DrawingSize = new DrawingSize();
 

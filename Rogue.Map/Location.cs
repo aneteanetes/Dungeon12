@@ -21,7 +21,7 @@ namespace Rogue.Map
         {
             MapObject moved = this.Map[(int)now.Y][(int)now.X][Level];
                         
-            if (this.Map[(int)next.Y][(int)next.X].Any(x => x.Obstruction))
+            if (this.Map[(int)next.Y][(int)next.X].Last().Obstruction)
             {
                 return now;
             }

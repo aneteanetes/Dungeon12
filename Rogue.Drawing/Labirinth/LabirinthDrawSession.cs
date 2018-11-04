@@ -255,9 +255,7 @@ namespace Rogue.Drawing.Labirinth
                     yTexture = 3;
                     xTexture = 2;
                 }
-
-
-
+                
                 if (!bot && !right /*&& !topLeft*//* && left && top*/)
                 {
                     yTexture = 3;
@@ -318,6 +316,33 @@ namespace Rogue.Drawing.Labirinth
                 {
                     yTexture = 1;
                     xTexture = 9;
+                }
+            }
+
+            if (yTexture == 1 && xTexture == 0)
+            {
+                if (left && right)
+                {
+                    yTexture = 1;
+                    xTexture = 0;
+                }
+
+                if (!left && !right)
+                {
+                    yTexture = 1;
+                    xTexture = 5;
+                }
+
+                if(left && !right)
+                {
+                    yTexture = 1;
+                    xTexture = 4;
+                }
+
+                if(!left && right)
+                {
+                    yTexture = 1;
+                    xTexture = 6;
                 }
             }
 
