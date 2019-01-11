@@ -1,0 +1,7 @@
+﻿<controls:Window
+    xmlns="https://github.com/avaloniaui"
+    xmlns:controls="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls"
+    xmlns:components="clr-namespace:Rogue.Components;assembly=Rogue.Components"
+    Title="Dungeon 12" Width="1280" Height="720">
+    <components:Game></components:Game>
+</controls:Window>

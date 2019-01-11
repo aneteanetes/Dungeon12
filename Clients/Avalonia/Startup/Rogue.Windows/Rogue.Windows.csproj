@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <LangVersion>7.2</LangVersion>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.7.1-build749-beta" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.7.1-build749-beta" />
+    <PackageReference Include="morelinq" Version="3.0.0" />
+    <PackageReference Include="SkiaSharp" Version="1.68.0" />
+    <!--<PackageReference Include="SkiaSharp.Views" Version="1.60.3" />-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="**\*.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="**\*.xaml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Application.xaml" />
+    <None Remove="Common.otf" />
+    <None Remove="MainView.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Rogue.DataAccess\Rogue.DataAccess.csproj" />
+    <ProjectReference Include="..\..\..\..\Classes\Rogue.Classes.Assassin\Rogue.Classes.Assassin.csproj" />
+    <ProjectReference Include="..\..\..\..\Classes\Rogue.Classes.BloodMage\Rogue.Classes.BloodMage.csproj" />
+    <ProjectReference Include="..\..\..\..\Classes\Rogue.Classes.FireMage\Rogue.Classes.FireMage.csproj" />
+    <ProjectReference Include="..\..\..\..\Classes\Rogue.Classes.Inquisitor\Rogue.Classes.Inquisitor.csproj" />
+    <ProjectReference Include="..\..\..\..\Classes\Rogue.Classes.Paladin\Rogue.Classes.Paladin.csproj" />
+    <ProjectReference Include="..\..\..\..\Rogue.Resources\Rogue.Resources.csproj" />
+    <ProjectReference Include="..\..\..\..\Rogue.Scenes\Rogue.Scenes.csproj" />
+    <ProjectReference Include="..\..\Rogue.Components\Rogue.Components.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Application.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="MainView.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Application.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="MainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

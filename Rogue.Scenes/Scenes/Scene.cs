@@ -42,7 +42,7 @@
         
         public void OnKeyPress(KeyArgs keyEventArgs)
         {
-            if (!IsBlocked)
+            //if (!IsBlocked)
                 KeyPress(keyEventArgs);
         }
 

@@ -1,0 +1,4 @@
+﻿<components:Game
+    xmlns:components="clr-namespace:Rogue.Components"
+    xmlns:controls="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls">
+</components:Game>

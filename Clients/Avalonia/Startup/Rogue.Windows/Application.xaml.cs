@@ -1,9 +1,7 @@
-﻿using System.IO;
-using System.Reflection;
-using Avalonia.Markup.Xaml;
-
-namespace Rogue.App
+﻿namespace Rogue.Windows
 {
+    using Avalonia.Markup.Xaml;
+
     public class Application : Avalonia.Application
     {
         public override void Initialize()

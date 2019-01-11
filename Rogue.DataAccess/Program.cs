@@ -8,6 +8,7 @@ using System.Text;
 using LiteDB;
 using Newtonsoft.Json;
 using Rogue.Data.Perks;
+using Rogue.Utils.DirectoryExtensions;
 //using Rogue.DataAccess.Perk;
 
 namespace Rogue.DataAccess
@@ -115,7 +116,9 @@ namespace Rogue.DataAccess
 
         private static readonly string MainPath = $@"{AppDomain.CurrentDomain.BaseDirectory}\Data";
 
-        private static readonly string DataDirectory = Path.Combine(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.Parent.ToString(), "Rogue.Data");
+        private static DirectoryInfo Root => Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).GetParent(x => x.Name == "Rogue");
+
+        private static string DataDirectory => Path.Combine(Root.ToString(), "Rogue.Data");
 
         private static IEnumerable<DataInfo> JsonFiles()
         {

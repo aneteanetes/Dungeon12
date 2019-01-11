@@ -318,8 +318,8 @@
                 
         private unsafe void InternalDraw(SKRect bitmapReplaceRegion)
         {
-            var width = ViewportBitmap.PixelWidth;
-            var height = ViewportBitmap.PixelHeight;
+            var width = ViewportBitmap.PixelSize.Width;
+            var height = ViewportBitmap.PixelSize.Height;
 
             var px = (int)(0 * width);
             var py = (int)(0 * height);
