@@ -1,0 +1,4 @@
+﻿<components:Name
+    xmlns:components="clr-namespace:Rogue.Components.Views.Creation"
+    Width="1280" Height="720">
+</components:Name>

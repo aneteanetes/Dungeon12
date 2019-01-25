@@ -24,6 +24,7 @@
 
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<Application>()
-                .UsePlatformDetect();
+                .UsePlatformDetect()
+                .UseDirect2D1();
     }
 }

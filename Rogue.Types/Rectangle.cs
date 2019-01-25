@@ -12,8 +12,8 @@
 
         public bool Contains(double x, double y)
         {
-            return ((x >= X) && (x < X+Width) &&
-                (y >= Y) && (y < Y+Height));
+            return ((x >= X) && (x < X + Width) &&
+                (y >= Y) && (y < Y + Height));
         }
     }
 }

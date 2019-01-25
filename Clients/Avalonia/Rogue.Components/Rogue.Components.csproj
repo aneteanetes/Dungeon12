@@ -19,7 +19,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Views\Base.xaml" />
+    <None Remove="Views\Creation\Name.xaml" />
+    <None Remove="UserInterface\Button.xaml" />
+    <None Remove="Views\Start.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Rogue.Classes\Rogue.Classes.csproj" />
     <ProjectReference Include="..\..\..\Rogue.Resources\Rogue.Resources.csproj" />
+    <ProjectReference Include="..\..\..\Rogue.Scenes\Rogue.Scenes.csproj" />
   </ItemGroup>
 
 
@@ -27,6 +36,40 @@
     <Compile Update="Game.xaml.cs">
       <DependentUpon>Game.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Main.xaml.cs">
+      <DependentUpon>Main.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Transforms\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\Base.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Creation\Name.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Start.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UserInterface\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Update="Views\Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -18,7 +18,7 @@ namespace Rogue.Scenes.Menus.Creation
 
         private TextInput Input;
 
-        public override void Draw()
+        public override void Render()
         {
             new Image("Rogue.Resources.Images.d12back.png")
             {

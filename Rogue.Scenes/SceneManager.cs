@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Rogue.Drawing;
     using Rogue.Drawing.Utils;
     using Rogue.Scenes.Scenes;
@@ -14,7 +15,66 @@
         
         private static readonly Dictionary<Type, GameScene> SceneCache = new Dictionary<Type, GameScene>();
 
-        public GameScene Current = null;
+        public GameScene Current { get; private set; }
+
+        private static object currentVisual;
+
+        public static Action<object> DestroyVisual { get; set; }
+
+        public static Action<object> CreateVisual { get; set; }
+
+        public static Action OnVisualDestroy { get; set; }
+
+        public static Action<object> keyDown;
+        public static void KeyDown<T>(T arg)
+        {
+            keyDown(arg);
+        }
+
+        public void Switch<TVisual>()
+        {
+            var sceneType = typeof(TVisual).BaseType.GetGenericArguments().First();
+
+            if (!SceneCache.TryGetValue(sceneType, out var nextScene))
+            {
+                nextScene = (GameScene)sceneType.New(this);
+                SceneCache.Add(sceneType, nextScene);
+            }
+            else
+            {
+                nextScene.ResumeScene();
+            }
+
+            this.Populate(Current, nextScene);
+
+            if (Current?.Destroyable ?? false)
+            {
+                Current.Destroy();
+                SceneCache.Remove(Current.GetType());
+            }
+            else
+            {
+                Current?.FreezeScene();
+            }
+
+            if (currentVisual != null)
+            {
+                DestroyVisual?.Invoke(currentVisual);
+                OnVisualDestroy?.Invoke();
+                OnVisualDestroy = null;
+            }
+
+            nextScene.BeforeActivate();
+            Current = nextScene;
+
+            PublishManager.Set(Current);
+            Draw.RunSession<ClearSession>();
+
+            Current.Render();
+
+            currentVisual = typeof(TVisual).New<TVisual>(Current);
+            CreateVisual(currentVisual);
+        }
 
         public void Change<TScene>() where TScene : GameScene
         {
@@ -31,7 +91,7 @@
             }
 
             this.Populate(Current, nextScene);
-            
+
             if (Current?.Destroyable ?? false)
             {
                 Current.Destroy();
@@ -48,8 +108,7 @@
             PublishManager.Set(Current);
             Draw.RunSession<ClearSession>();
 
-            Current.Draw();
-            Current.Activate();
+            Current.Render();
         }
 
         private void Populate(GameScene previous, GameScene next)

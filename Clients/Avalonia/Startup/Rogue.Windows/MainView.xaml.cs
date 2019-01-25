@@ -1,6 +1,8 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml;
+using Rogue.Scenes;
 
 namespace Rogue.Windows
 {
@@ -18,6 +20,12 @@ namespace Rogue.Windows
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            SceneManager.KeyDown(e);
+            base.OnKeyDown(e);
         }
     }
 }

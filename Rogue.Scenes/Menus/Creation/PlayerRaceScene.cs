@@ -17,7 +17,7 @@ namespace Rogue.Scenes.Menus.Creation
         public override bool Destroyable => true;
 
 
-        public override void Draw()
+        public override void Render()
         {
             new Image("Rogue.Resources.Images.d12back.png")
             {

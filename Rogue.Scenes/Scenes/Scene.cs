@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Scenes.Scenes
 {
+    using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
@@ -7,7 +8,6 @@
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
-    using Rogue.Drawing.Utils;
     using Rogue.View.Interfaces;
 
     public abstract class Scene : IPublisher
@@ -116,8 +116,8 @@
             }
         }
 
-        public abstract void Draw();
-
+        public abstract void Render();
+        
         public virtual void Destroy()
         {
             this.Timer.Stop();
@@ -139,10 +139,12 @@
             this.Timer.Start();
         }
 
-        protected virtual void Switch<T>() where T : GameScene
+        protected virtual void Switch<T>()
         {
-            this.sceneManager.Change<T>();
+            this.sceneManager.Switch<T>();
         }
+        
+        public List<ISprite> Sprites = new List<ISprite>();
 
         private List<IDrawSession> drawSessions = new List<IDrawSession>();
         public void Activate()

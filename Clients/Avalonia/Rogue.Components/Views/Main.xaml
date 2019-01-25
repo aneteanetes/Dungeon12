@@ -1,0 +1,6 @@
+﻿<components:Main
+    xmlns:animation="clr-namespace:Avalonia.Animation;assembly=Avalonia.Animation"
+    xmlns:styling="clr-namespace:Avalonia.Styling;assembly=Avalonia.Styling"
+    xmlns:components="clr-namespace:Rogue.Components.Views"
+    xmlns:data="clr-namespace:Avalonia.Data;assembly=Avalonia.Markup">
+</components:Main>

@@ -8,6 +8,11 @@
 
     public abstract class GameScene : CommandScene
     {
+        public GameScene(object @null) : base(new SceneManager())
+        {
+
+        }
+
         protected readonly List<Type> AvailableScenes = new List<Type>();
 
         public Player Player;
@@ -15,16 +20,9 @@
         public Location Location;
 
         public Logger Log;
-
-        public GameScene(SceneManager sceneManager) : base(sceneManager)
+        
+        public new void Switch<T>()
         {
-        }
-
-        protected override void Switch<T>()
-        {
-            if (!AvailableScenes.Contains(typeof(T)))
-                throw new Exception($"Scene of type '{typeof(T)}' can't be switched from '{this.GetType()}' scene!");
-
             base.Switch<T>();
         }
     }
@@ -35,7 +33,7 @@
     /// <typeparam name="TScene"></typeparam>
     public abstract class GameScene<TScene> : GameScene
     {
-        public GameScene(SceneManager sceneManager) : base(sceneManager)
+        public GameScene(SceneManager sceneManager):base(sceneManager)
         {
             AvailableScenes.Add(typeof(TScene));
         }

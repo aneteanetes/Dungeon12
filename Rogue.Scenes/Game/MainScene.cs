@@ -31,7 +31,7 @@
 
         public override bool Destroyable => false;
 
-        public override void Draw()
+        public override void Render()
         {
             if (this.Location == null)
                 this.InitMap();
@@ -39,27 +39,27 @@
             if (this.Commands.Count == 0)
                 this.FillCommands();
             
-            new Image("Rogue.Resources.Images.d12back.png")
-            {
-                Left = 0.4f,
-                Top = 1f,
-                Width = 48.2f,
-                Height = 29f,
-                ImageTileRegion = new Rectangle
-                {
-                    X = 0,
-                    Y = 0,
-                    Height = 700,
-                    Width = 1057
-                }
-            }.Run().Publish();
+            //new Image("Rogue.Resources.Images.d12back.png")
+            //{
+            //    Left = 0.4f,
+            //    Top = 1f,
+            //    Width = 48.2f,
+            //    Height = 29f,
+            //    ImageTileRegion = new Rectangle
+            //    {
+            //        X = 0,
+            //        Y = 0,
+            //        Height = 700,
+            //        Width = 1057
+            //    }
+            //}.Run().Publish();
 
-            Drawing.Draw.Session<GUIBorderDrawSession>()
-                .Then<LabirinthDrawSession>(x => x.Location = this.Location)
-                //.Then<CharMapDrawSession>(x => x.Commands = this.Commands.Where(c => c.UI).Select(c => $"[{c.Keys.First()}] - {c.Name}").ToArray())
-                .Then<CharacterDataDrawSession>(x => x.Player = this.Player)
-                .Then<MessageDrawSession>(x => x.Message = new DrawText($"{DateTime.Now.ToShortTimeString()}: Вы прибываете в столицу", ConsoleColor.Black))
-                .Publish();
+            //Drawing.Draw.Session<GUIBorderDrawSession>()
+            //    .Then<LabirinthDrawSession>(x => x.Location = this.Location)
+            //    //.Then<CharMapDrawSession>(x => x.Commands = this.Commands.Where(c => c.UI).Select(c => $"[{c.Keys.First()}] - {c.Name}").ToArray())
+            //    .Then<CharacterDataDrawSession>(x => x.Player = this.Player)
+            //    .Then<MessageDrawSession>(x => x.Message = new DrawText($"{DateTime.Now.ToShortTimeString()}: Вы прибываете в столицу", ConsoleColor.Black))
+            //    .Publish();
         }
 
         private void FillCommands()
@@ -184,7 +184,7 @@
                 this.Location.Map[y][x].RemoveAt(0);
                 this.Location.Map[y][x].Insert(0, MapObject.Create(drawChar));
 
-                this.Draw();
+                this.Render();
                 this.Redraw();
             }
 #endif

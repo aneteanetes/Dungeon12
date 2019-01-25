@@ -1,0 +1,4 @@
+﻿<components:Start
+    xmlns:components="clr-namespace:Rogue.Components.Views"
+    xmlns:styling="clr-namespace:Avalonia.Styling;assembly=Avalonia.Styling">
+</components:Start>

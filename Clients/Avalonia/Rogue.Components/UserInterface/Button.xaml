@@ -1,0 +1,3 @@
+﻿<userinterface:Button
+    xmlns:userinterface="clr-namespace:Rogue.Components.UserInterface">
+</userinterface:Button>

@@ -1,4 +1,6 @@
 ﻿<components:Game
     xmlns:components="clr-namespace:Rogue.Components"
-    xmlns:controls="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls">
+    xmlns:styling="clr-namespace:Avalonia.Styling;assembly=Avalonia.Styling"
+    xmlns:userinterface="clr-namespace:Rogue.Components.UserInterface"
+    Width="1280" Height="720">
 </components:Game>
