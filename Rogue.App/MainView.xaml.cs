@@ -50,7 +50,7 @@ namespace Rogue.App
             control = viewport;
             viewport.PointerPressed += Viewport_PointerPressed;
             viewport.PointerMoved += Viewport_PointerMoved;
-            var bitmap = new WriteableBitmap(1157, 700, PixelFormat.Bgra8888);
+            var bitmap = new WriteableBitmap(new PixelSize(1157, 700), new Vector(72, 72), PixelFormat.Bgra8888);
             ViewportBitmap = bitmap;
             viewport.Source = bitmap;
 
@@ -102,8 +102,8 @@ namespace Rogue.App
             {
                 var ptr = (uint*)buf.Address;
 
-                var w = ViewportBitmap.PixelWidth;
-                var h = ViewportBitmap.PixelHeight;
+                var w = ViewportBitmap.PixelSize.Width;
+                var h = ViewportBitmap.PixelSize.Height;
 
                 // Clear.
                 for (var i = 0; i < w * (h - 1); i++)
@@ -166,8 +166,8 @@ namespace Rogue.App
         }
         private unsafe void Draw()
         {
-            var width = ViewportBitmap.PixelWidth;
-            var height = ViewportBitmap.PixelHeight;
+            var width = ViewportBitmap.PixelSize.Width;
+            var height = ViewportBitmap.PixelSize.Height;
 
             var px = (int)(0 * width);
             var py = (int)(0 * height);
