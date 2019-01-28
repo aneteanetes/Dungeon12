@@ -35,12 +35,12 @@ namespace Rogue.App
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-            //this.InitImage();
+            this.RunGame();
         }
 
         public void RunGame()
         {
-            var drawClient = new SkiaDrawClient(this.ViewportBitmap, this.control);
+            var drawClient = AppVisual.AppVisualDrawClient;// new SkiaDrawClient(this.ViewportBitmap, this.control);
             SceneManager = new SceneManager() { DrawClient = drawClient };            
             SceneManager.Change<MainMenuScene>();
         }

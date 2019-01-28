@@ -98,7 +98,6 @@
             font.Dispose();
 
             this.InternalDraw(GetBounds(drawSessions));
-
         }
 
         private static void DrawPath(SKCanvas canvas, IDrawablePath path)

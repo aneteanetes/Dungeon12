@@ -9,15 +9,25 @@
     using Avalonia.VisualTree;
     using Rogue.Resources;
     using Rogue.View.Interfaces;
+    using SkiaSharp;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Linq;
 
     public class AppVisual : Avalonia.Controls.Control, IRenderTimeCriticalVisual, IDrawClient
     {
+        public static IDrawClient AppVisualDrawClient = null;
+
+        public AppVisual()
+        {
+            AppVisualDrawClient = this;
+        }
+
         public bool HasRenderTimeCriticalContent => true;
+
         public bool ThreadSafeHasNewFrame => true;
-        private bool _newFrame = true;
+        //private bool _newFrame = true;
 
         private readonly Rect DrawingDisplay = new Rect(0, 0, 1280, 720);
 
@@ -48,6 +58,8 @@
                 DrawingDisplay, 
                 DrawingDisplay, 
                 BitmapInterpolationMode.HighQuality);
+
+            DrawLoop?.Invoke(context);
 
             DrawFrameInfo(context);
         }
@@ -88,26 +100,61 @@
             {
                 Splash(drawingContext);
             }
-            else
-            {
-                _newFrame = false;
-            }
         }
 
         private void Splash(DrawingContext context)
         {
             var splash = ResourceLoader.Load("Rogue.Resources.Images.d12.png");
-            Display = new Bitmap(splash);
+            Buffer = Display = new Bitmap(splash);
         }
+
+        Action<DrawingContext> DrawLoop;
 
         public void Draw(IEnumerable<IDrawSession> drawSessions)
         {
-            throw new NotImplementedException();
+            if (drawSessions.Count() == 0)
+                return;
+
+            var bitmap = Buffer;
+
+            float fontSize = 20f;
+            var font = CommonFont;// SKTypeface.FromFamilyName("Lucida Console");
+
+            foreach (var session in drawSessions)
+            {
+                if (session.Drawables != null)
+                {
+                    DrawTiles(canvas, session.Drawables);
+                }
+
+                if (session.TextContent != null && session.TextContent.Any())
+                {
+                    DrawText(canvas, fontSize, font, session);
+                }
+            }
+
+            canvas.Dispose();
+            font.Dispose();
+
+            this.InternalDraw(GetBounds(drawSessions));
         }
 
         public void Animate(IAnimationSession animationSession)
         {
             throw new NotImplementedException();
+        }
+
+        public static SKTypeface CommonFont
+        {
+            get
+            {
+                SKTypeface result;
+
+                var fontStream = ResourceLoader.Load("Rogue.Resources.Fonts.Common.otf");
+
+                result = SKTypeface.FromStream(fontStream);
+                return result;
+            }
         }
     }
 }
