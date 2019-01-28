@@ -8,6 +8,7 @@ using Avalonia.Platform;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Rogue.App.DrawClient;
+using Rogue.App.Visual;
 using Rogue.Resources;
 using Rogue.Scenes;
 using Rogue.Scenes.Menus;
@@ -34,7 +35,7 @@ namespace Rogue.App
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-            this.InitImage();
+            //this.InitImage();
         }
 
         public void RunGame()
@@ -69,13 +70,17 @@ namespace Rogue.App
             //if (delay == 15)
             //{
             //    delay = 0;
-                SceneManager.Current.OnMouseMove(new Control.Pointer.PointerArgs
-                {
-                    ClickCount = 0,
-                    MouseButton = Control.Pointer.MouseButton.None,
-                    X = pos.X,
-                    Y = pos.Y
-                });
+
+
+                //SceneManager.Current.OnMouseMove(new Control.Pointer.PointerArgs
+                //{
+                //    ClickCount = 0,
+                //    MouseButton = Control.Pointer.MouseButton.None,
+                //    X = pos.X,
+                //    Y = pos.Y
+                //});
+
+
             //}
             //else
             //{
@@ -143,11 +148,11 @@ namespace Rogue.App
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            SceneManager.Current.OnKeyPress(new Control.Keys.KeyArgs
-            {
-                Key = (Control.Keys.Key)e.Key,
-                Modifiers = (Control.Keys.KeyModifiers)e.Modifiers
-            });
+            //SceneManager.Current.OnKeyPress(new Control.Keys.KeyArgs
+            //{
+            //    Key = (Control.Keys.Key)e.Key,
+            //    Modifiers = (Control.Keys.KeyModifiers)e.Modifiers
+            //});
 
             base.OnKeyDown(e);
         }
