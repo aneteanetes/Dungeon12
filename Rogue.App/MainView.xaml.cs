@@ -23,7 +23,7 @@ namespace Rogue.App
         public MainView()
         {
             this.CanResize = false;
-            //this.HasSystemDecorations = false;
+            this.HasSystemDecorations = false;
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
@@ -153,6 +153,16 @@ namespace Rogue.App
             //    Key = (Control.Keys.Key)e.Key,
             //    Modifiers = (Control.Keys.KeyModifiers)e.Modifiers
             //});
+
+            if(e.Key== Key.R)
+            {
+                if(e.Modifiers== InputModifiers.Control)
+                {
+                    AppVisual.frameInfo = !AppVisual.frameInfo;
+                }
+            }
+
+            Console.WriteLine(e.Key);
 
             base.OnKeyDown(e);
         }
