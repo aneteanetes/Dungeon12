@@ -13,18 +13,14 @@
         {
         }
 
-        protected virtual void KeyPress(Key keyPressed, KeyModifiers keyModifiers) { }
-
-        protected override void KeyPress(KeyArgs keyEventArgs)
+        protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers)
         {
-            var commandPress = Commands.Where(x => x.Keys.Contains(keyEventArgs.Key));
+            var commandPress = Commands.Where(x => x.Keys.Contains(keyPressed));
 
             foreach (var commandPressed in commandPress)
             {
-                commandPressed.Run(keyEventArgs.Key);
+                commandPressed.Run(keyPressed);
             }
-
-            this.KeyPress(keyEventArgs.Key, keyEventArgs.Modifiers);
         }
     }
 }

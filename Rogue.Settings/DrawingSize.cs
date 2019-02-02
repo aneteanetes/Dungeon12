@@ -11,5 +11,9 @@ namespace Rogue.Settings
         public int MapChars { get; set; } = 35;
 
         public int MapLines { get; set; } = 19;
+
+        public static int Cell { get; set; } = 32;
+
+        public static float CellF { get; set; } = 32;
     }
 }

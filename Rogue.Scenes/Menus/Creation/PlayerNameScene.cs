@@ -68,7 +68,7 @@ namespace Rogue.Scenes.Menus.Creation
                 {
                     Input.BackslashValue(Input.GetValue().Length);
                     Input.Run().Publish();
-                    this.Redraw();
+                    //this.Redraw();
                 }
             });
 
@@ -132,10 +132,10 @@ namespace Rogue.Scenes.Menus.Creation
                 Input.InactiveColor = new DrawColor(ConsoleColor.DarkGray);                
             }
             Input.Run().Publish();
-            this.Redraw();
+            //this.Redraw();
         }
 
-        protected override void KeyPress(KeyArgs keyEventArgs)
+        protected void KeyPress(KeyArgs keyEventArgs)
         {
             if (Input.Editable)
             {
@@ -161,7 +161,7 @@ namespace Rogue.Scenes.Menus.Creation
             if (keyEventArgs.Key == Key.Escape)
                 this.Switch<MainMenuScene>();
 
-            this.Redraw();
+            //this.Redraw();
         }
 
         private class NameOfPlayer : Player { }

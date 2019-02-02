@@ -115,10 +115,10 @@ namespace Rogue.Scenes.Menus.Creation
             return drawtext;
         }
 
-        protected override void KeyPress(KeyArgs keyEventArgs)
+        protected void KeyPress(KeyArgs keyEventArgs)
         {
             
-            this.Redraw();
+            //this.Redraw();
         }
 
         private class NameOfPlayer : Player

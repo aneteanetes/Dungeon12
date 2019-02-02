@@ -105,12 +105,12 @@ namespace Rogue.Scenes.Menus.Creation
             return new DrawColor(r, g, b, 100);
         }
 
-        protected override void KeyPress(KeyArgs keyEventArgs)
-        {
-            if (keyEventArgs.Key == Key.Escape)
-                this.Switch<PlayerRaceScene>();
+        //protected override void KeyPress(KeyArgs keyEventArgs)
+        //{
+        //    if (keyEventArgs.Key == Key.Escape)
+        //        this.Switch<PlayerRaceScene>();
 
-            this.Redraw();
-        }
+        //    //this.Redraw();
+        //}
     }
 }

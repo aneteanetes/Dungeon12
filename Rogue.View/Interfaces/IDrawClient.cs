@@ -6,6 +6,8 @@
     {
         void Draw(IEnumerable<IDrawSession> drawSessions);
 
+        void SetScene(IScene scene);
+
         void Animate(IAnimationSession animationSession);
     }
 }

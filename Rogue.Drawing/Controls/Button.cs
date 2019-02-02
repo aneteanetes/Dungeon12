@@ -15,14 +15,14 @@
 
         public override bool IsControlable => true;
 
-        public override string Tileset => $"Rogue.Resources.Images.GUI.button_{(Large ? "l" : "m")}.png";
+        public override string Tileset => $"Rogue.Resources.Images.ui.button.png";
 
         public override Rectangle TileSetRegion => new Rectangle
         {
             X = 0,
             Y = 0,
-            Width = Large ? 340 : 283,
-            Height = Large ? 100 : 116
+            Width = 483,
+            Height = 139
         };
 
         public IDrawColor ActiveColor;

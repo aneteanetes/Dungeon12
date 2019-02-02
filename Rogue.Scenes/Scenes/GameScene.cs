@@ -5,11 +5,13 @@
     using Rogue.Entites.Alive.Character;
     using Rogue.Logging;
     using Rogue.Map;
+    using Rogue.View.Interfaces;
 
     public abstract class GameScene : CommandScene
     {
         protected readonly List<Type> AvailableScenes = new List<Type>();
 
+        
         public Player Player;
 
         public Location Location;

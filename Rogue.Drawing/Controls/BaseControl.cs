@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Rogue.Control.Events;
     using Rogue.Drawing.Impl;
     using Rogue.Types;
@@ -57,9 +58,35 @@
 
         public virtual bool Container => false;
 
+        public Rectangle Position => this.SessionRegion;
+
+        private bool runned = false;
+
+        public IDrawable Texture
+        {
+            get
+            {
+                if (!runned)
+                {
+                    runned = true;
+                    this.Run();
+                }
+                return this;
+            }
+        }
+
+        public IDrawText Text => this.WanderingText.Count > 0 ? this.WanderingText.First() : null;
+
+        public IDrawablePath Path => null;
+
+        private List<ISceneObject> children = new List<ISceneObject>();
+        public ICollection<ISceneObject> Children => children;
+
         public void Append(BaseControl another)
         {
-            innerComponents.Add(another);
+            this.Children.Clear(); /*  */
+            //this.children.Add(another);
+            //innerComponents.Add(another);
         }
 
         public override IDrawSession Run()

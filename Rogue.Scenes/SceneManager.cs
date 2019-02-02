@@ -1,12 +1,9 @@
 ﻿namespace Rogue.Scenes
 {
-    using System;
-    using System.Collections.Generic;
-    using Rogue.Drawing;
-    using Rogue.Drawing.Utils;
     using Rogue.Scenes.Scenes;
     using Rogue.View.Interfaces;
-    using Rogue.View.Publish;
+    using System;
+    using System.Collections.Generic;
 
     public class SceneManager
     {
@@ -19,36 +16,22 @@
         public void Change<TScene>() where TScene : GameScene
         {
             var sceneType = typeof(TScene);
-
-            if (!SceneCache.TryGetValue(sceneType, out var nextScene))
+            if (!SceneCache.TryGetValue(sceneType, out GameScene next))
             {
-                nextScene = sceneType.New<TScene>(this);
-                SceneCache.Add(typeof(TScene), nextScene);
-            }
-            else
-            {
-                nextScene.ResumeScene();
-            }
+                next = sceneType.New<TScene>(this);
+                SceneCache.Add(typeof(TScene), next);
 
-            this.Populate(Current, nextScene);
+                Populate(Current, next);
+                next.Init();
+            }
             
             if (Current?.Destroyable ?? false)
             {
-                Current.Destroy();
                 SceneCache.Remove(Current.GetType());
             }
-            else
-            {
-                Current?.FreezeScene();
-            }
 
-            nextScene.BeforeActivate();
-            Current = nextScene;
-
-            PublishManager.Set(Current);
-            Draw.RunSession<ClearSession>();
-
-            Current.Draw();
+            Current = next;
+            
             Current.Activate();
         }
 

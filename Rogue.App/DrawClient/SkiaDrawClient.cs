@@ -523,6 +523,11 @@
             };
         }
 
+        public void SetScene(IScene scene)
+        {
+            throw new NotImplementedException();
+        }
+
         public static SKTypeface CommonFont
         {
             get

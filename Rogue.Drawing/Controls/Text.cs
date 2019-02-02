@@ -35,8 +35,8 @@
             }
             else
             {
-                this.DrawText.Region.X += this.Left;
-                this.DrawText.Region.Y += this.Top;
+                this.DrawText.Region.X += this.DrawRegion.X;
+                this.DrawText.Region.Y += this.DrawRegion.Y;
             }
 
             this.WanderingText.Add(DrawText);

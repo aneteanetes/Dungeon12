@@ -8,183 +8,155 @@
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
     using Rogue.Drawing.Utils;
+    using Rogue.Settings;
     using Rogue.View.Interfaces;
 
-    public abstract class Scene : IPublisher
+    public abstract class Scene : IScene
     {
         private readonly SceneManager sceneManager;
-        private readonly Timer Timer;
-
-        public void GameLoop(object sender, ElapsedEventArgs e)
-        {
-            this.SceneLoop();
-        }
+        public abstract bool Destroyable { get; }
 
         public Scene(SceneManager sceneManager)
         {
             this.sceneManager = sceneManager;
-
-            this.Timer = new Timer(400)
-            {
-                AutoReset = true
-            };
-            this.Timer.Elapsed += GameLoop;
-
-
-            this.BlockControls(false);
         }
 
-        public abstract bool Destroyable { get; }
+        #region scene object collection
 
-        public bool IsBlocked { get; private set; } = false;
+        public ISceneObject[] Objects => SceneObjects.ToArray();
 
-        public virtual void BeforeActivate() { }
-        
-        public void OnKeyPress(KeyArgs keyEventArgs)
+        private List<ISceneObject> SceneObjects = new List<ISceneObject>();
+
+        private List<ISceneObjectControl> SceneObjectsControllable = new List<ISceneObjectControl>();
+
+        private List<ISceneObjectControl> SceneObjectsInFocus = new List<ISceneObjectControl>();
+
+        protected void AddObject(ISceneObject sceneObject)
         {
-            if (!IsBlocked)
-                KeyPress(keyEventArgs);
+            if (sceneObject is ISceneObjectControl sceneObjectControl)
+            {
+                SceneObjectsControllable.Add(sceneObjectControl);
+            }
+
+            SceneObjects.Add(sceneObject);
+        }
+
+        protected void RemoveObject(ISceneObject sceneObject)
+        {
+            if (sceneObject is ISceneObjectControl sceneObjectControl)
+            {
+                SceneObjectsControllable.Remove(sceneObjectControl);
+            }
+
+            SceneObjects.Remove(sceneObject);
+        }
+
+        #endregion
+
+        #region scene contollable
+        
+        public void OnKeyDown(KeyArgs keyEventArgs)
+        {
+            var key = keyEventArgs.Key;
+            var modifier = keyEventArgs.Modifiers;
+
+            for (int i = 0; i < SceneObjectsControllable.Count; i++)
+            {
+                SceneObjectsControllable[i].KeyDown(key, modifier);
+            }
+
+            KeyPress(key,modifier);
+        }
+
+        public void OnKeyUp(KeyArgs keyEventArgs)
+        {
+            var key = keyEventArgs.Key;
+            var modifier = keyEventArgs.Modifiers;
+
+            for (int i = 0; i < SceneObjectsControllable.Count; i++)
+            {
+                SceneObjectsControllable[i].KeyUp(keyEventArgs.Key, keyEventArgs.Modifiers);
+            }
+
+            KeyPress(key, modifier);
         }
 
         public void OnMousePress(PointerArgs pointerPressedEventArgs)
         {
-            if (!IsBlocked)
-                MousePress(pointerPressedEventArgs);
+            var clickedElements = SceneObjectsControllable.Where(so => RegionContains(so, pointerPressedEventArgs));
+            foreach (var clickedElement in clickedElements)
+            {
+                clickedElement.Click();
+            }
         }
-        
-        private List<IControlEventHandler> CanHandle = new List<IControlEventHandler>();
-        private List<IControlEventHandler> InFocus = new List<IControlEventHandler>();
+
         public void OnMouseMove(PointerArgs pointerPressedEventArgs)
         {
             if (sceneManager.Current != this)
                 return;
+            
+            var newFocused = SceneObjectsControllable.Where(handler => RegionContains(handler, pointerPressedEventArgs))
+                .Where(x => !SceneObjectsInFocus.Contains(x));
 
-            if (IsBlocked)
-                return;
-
-            var newFocused = CanHandle.Where(handler => RegionContains(handler, pointerPressedEventArgs))
-                .Where(x => !InFocus.Contains(x));
-
-            var newNotFocused = CanHandle.Where(handler => !RegionContains(handler, pointerPressedEventArgs))
-                .Where(x => InFocus.Contains(x));
+            var newNotFocused = SceneObjectsControllable.Where(handler => !RegionContains(handler, pointerPressedEventArgs))
+                .Where(x => SceneObjectsInFocus.Contains(x));
 
             if (newNotFocused.Count() > 0)
             {
                 foreach (var item in newNotFocused)
                 {
-                    item.Handle(ControlEventType.Unfocus);
-                    InFocus.Remove(item);
+                    item.Unfocus();
+                    SceneObjectsInFocus.Remove(item);
                 }
-
-                this.Activate();
             }
 
             if (newFocused.Count() > 0)
             {
                 foreach (var control in newFocused)
                 {
-                    control.Handle(ControlEventType.Focus);
+                    control.Focus();
                 }
 
-                InFocus = newFocused.ToList();
-
-                this.Activate();
+                SceneObjectsInFocus = newFocused.ToList();
             }
         }
 
-        private bool RegionContains(IControlEventHandler drawable, PointerArgs pos)
+        private bool RegionContains(ISceneObjectControl sceneObjControl, PointerArgs pos)
         {
             var newRegion = new RectangleF
             {
-                X = drawable.Location.X * 24 - 3,
-                Y = drawable.Location.Y * 24 + 3 -24,
-                Height = drawable.Location.Height * 24,
-                Width = drawable.Location.Width * 24
+                X = sceneObjControl.Position.X * DrawingSize.CellF,
+                Y = sceneObjControl.Position.Y * DrawingSize.CellF,
+                Height = sceneObjControl.Position.Height * DrawingSize.CellF,
+                Width = sceneObjControl.Position.Width * DrawingSize.CellF
             };
 
             return newRegion.Contains((float)pos.X, (float)pos.Y);
         }
 
-        protected virtual void KeyPress(KeyArgs keyEventArgs) { }
+        protected virtual void KeyPress(Key keyPressed, KeyModifiers keyModifiers) { }
 
-        protected virtual void MousePress(PointerArgs pointerPressedEventArgs)
-        {
-            var clickedElements = CanHandle.Where(handler => RegionContains(handler, pointerPressedEventArgs));
-            foreach (var clickedElement in clickedElements)
-            {
-                clickedElement.Handle(ControlEventType.Click);
-            }
-        }
+        protected virtual void KeyUp(Key keyPressed, KeyModifiers keyModifiers) { }
 
+        #endregion
+                        
         public abstract void Draw();
 
-        public virtual void Destroy()
-        {
-            this.Timer.Stop();
-            this.Timer.Dispose();
+        public virtual void Init() { }
 
-            this.BlockControls(true);
-            this.CanHandle = null;
+        public void Activate()
+        {
+            this.sceneManager.DrawClient.SetScene(this);
         }
 
-        public virtual void FreezeScene()
-        {
-            this.BlockControls(true);
-            this.Timer.Stop();
-        }
-
-        public virtual void ResumeScene()
-        {
-            this.BlockControls(false);
-            this.Timer.Start();
-        }
-
+        #region protected utils
+        
         protected virtual void Switch<T>() where T : GameScene
         {
             this.sceneManager.Change<T>();
         }
 
-        private List<IDrawSession> drawSessions = new List<IDrawSession>();
-        public void Activate()
-        {
-            if (!this.Timer.Enabled)
-            {
-                this.Timer.Start();
-            }
+        #endregion
 
-            this.BuildHandlerMap();
-            this.sceneManager.DrawClient.Draw(drawSessions);
-            drawSessions = new List<IDrawSession>();
-        }
-
-        public void BuildHandlerMap()
-        {
-            foreach (var eventHandler in drawSessions.Where(x=>x.IsControlable))
-            {
-                if (!CanHandle.Contains(eventHandler))
-                {
-                    CanHandle.Add(eventHandler);
-                }
-            }
-        }
-
-        protected void Redraw()
-        {
-            this.Activate();
-        }
-
-        public void Publish(List<IDrawSession> drawSessions)
-        {
-            this.drawSessions.AddRange(drawSessions);
-        }
-
-        public void Animation(IAnimationSession animation)
-        {
-            this.sceneManager.DrawClient.Animate(animation);
-        }
-
-        public void BlockControls(bool block) => IsBlocked = block;
-        
-        public virtual void SceneLoop() { }
-    }    
+    }
 }

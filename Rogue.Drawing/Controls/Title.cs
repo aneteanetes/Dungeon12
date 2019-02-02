@@ -23,8 +23,8 @@
             {
                 Label.Region = new Rectangle
                 {
-                    X = this.Width / 2 - Label.Length / 2 / 2f,
-                    Y = this.Height / 2 - 1f / 1.4f
+                    X = this.Width / 2 - Label.Length / 2 / 1.75f,
+                    Y = this.Height / 2 - 1f / 1.9f
                 };
 
                 this.Append(new Text
@@ -33,7 +33,7 @@
                 });
             }
 
-            return base.Run();
+            return this;
         }
     }
 }

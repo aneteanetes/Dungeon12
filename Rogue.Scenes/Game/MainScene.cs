@@ -170,42 +170,42 @@
         private string drawChar = ".";
 #endif
 
-        protected override void MousePress(PointerArgs pointerPressedEventArgs)
-        {
-#if DEBUG
-            if (drawMode)
-            {
-                var trulyX = pointerPressedEventArgs.X - 20.125;
-                var trulyY = pointerPressedEventArgs.Y - 27;
+//        protected override void MousePress(PointerArgs pointerPressedEventArgs)
+//        {
+//#if DEBUG
+//            if (drawMode)
+//            {
+//                var trulyX = pointerPressedEventArgs.X - 20.125;
+//                var trulyY = pointerPressedEventArgs.Y - 27;
 
-                int x = (int)Math.Round(trulyX / 25, MidpointRounding.ToEven);
-                int y = (int)Math.Round(trulyY / 25, MidpointRounding.ToEven);
+//                int x = (int)Math.Round(trulyX / 25, MidpointRounding.ToEven);
+//                int y = (int)Math.Round(trulyY / 25, MidpointRounding.ToEven);
 
-                this.Location.Map[y][x].RemoveAt(0);
-                this.Location.Map[y][x].Insert(0, MapObject.Create(drawChar));
+//                this.Location.Map[y][x].RemoveAt(0);
+//                this.Location.Map[y][x].Insert(0, MapObject.Create(drawChar));
 
-                this.Draw();
-                this.Redraw();
-            }
-#endif
-        }
+//                this.Draw();
+//                this.Redraw();
+//            }
+//#endif
+//        }
 
-        public override void SceneLoop()
-        {
-            var objs = this.Location.Map
-                .SelectMany(y => y.SelectMany(x => x))
-                .Where(mapObj => mapObj.Animated)
-                .ToArray();
+//        public override void SceneLoop()
+//        {
+//            var objs = this.Location.Map
+//                .SelectMany(y => y.SelectMany(x => x))
+//                .Where(mapObj => mapObj.Animated)
+//                .ToArray();
 
-            foreach (var animatedObj in objs)
-            {
-                Drawing.Draw.Animation<MapAnimationSession>(x =>
-                {
-                    x.MapObject = animatedObj;
-                });
-            }
+//            foreach (var animatedObj in objs)
+//            {
+//                Drawing.Draw.Animation<MapAnimationSession>(x =>
+//                {
+//                    x.MapObject = animatedObj;
+//                });
+//            }
 
-            base.SceneLoop();
-        }
+//            base.SceneLoop();
+//        }
     }
 }

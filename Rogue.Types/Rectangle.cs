@@ -10,6 +10,15 @@
 
         public float Height { get; set; }
 
+        public Point Pos
+        {
+            set
+            {
+                this.X = value.X;
+                this.Y = value.Y;
+            }
+        }
+
         public bool Contains(double x, double y)
         {
             return ((x >= X) && (x < X+Width) &&

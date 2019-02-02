@@ -88,12 +88,12 @@ namespace Rogue.Scenes.Menus.Creation
             Drawing.Draw.RunSession(win);
         }
 
-        protected override void KeyPress(KeyArgs keyEventArgs)
+        protected void KeyPress(KeyArgs keyEventArgs)
         {
             if (keyEventArgs.Key == Key.Escape)
                 this.Switch<PlayerNameScene>();
 
-            this.Redraw();
+            //this.Redraw();
         }
     }
 }
