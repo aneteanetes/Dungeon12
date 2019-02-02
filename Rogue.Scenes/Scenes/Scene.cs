@@ -1,15 +1,13 @@
 ﻿namespace Rogue.Scenes.Scenes
 {
+    using Rogue.Control.Keys;
+    using Rogue.Control.Pointer;
+    using Rogue.Settings;
+    using Rogue.View.Interfaces;
+    using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
-    using System.Timers;
-    using Rogue.Control.Events;
-    using Rogue.Control.Keys;
-    using Rogue.Control.Pointer;
-    using Rogue.Drawing.Utils;
-    using Rogue.Settings;
-    using Rogue.View.Interfaces;
 
     public abstract class Scene : IScene
     {
@@ -139,8 +137,9 @@
         protected virtual void KeyUp(Key keyPressed, KeyModifiers keyModifiers) { }
 
         #endregion
-                        
-        public abstract void Draw();
+
+        [Obsolete("Старый метод, как только подсистема перепишется - выпили его к хуям пожалуйста")]
+        public virtual void Draw() { }
 
         public virtual void Init() { }
 
