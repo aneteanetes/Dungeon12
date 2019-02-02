@@ -1,23 +1,15 @@
 ﻿namespace Rogue.Scenes.Menus
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Rogue.Control.Events;
-    using Rogue.Control.Keys;
-    using Rogue.Drawing.Controls;
-    using Rogue.Drawing.Impl;
-    using Rogue.Drawing.Utils;
+    using Rogue.Drawing.SceneObjects;
     using Rogue.Races.Perks;
-    using Rogue.Scenes.Controls;
     using Rogue.Scenes.Menus.Creation;
     using Rogue.Scenes.Scenes;
-    using Rogue.Types;
-    using Rogue.View.Interfaces;
+    using System;
+    using System.Linq;
 
-    public class MainMenuScene : GameScene<PlayerNameScene, Game.MainScene>
+    public class Start : GameScene<PlayerNameScene, Game.Main>
     {
-        public MainMenuScene(SceneManager sceneManager) : base(sceneManager)
+        public Start(SceneManager sceneManager) : base(sceneManager)
         {
         }
 
@@ -51,7 +43,7 @@
                     this.Player.Race = Race.Elf;
                     this.Player.Add<RacePerk>();
 
-                    this.Switch<Game.MainScene>();
+                    this.Switch<Game.Main>();
                 }
             });
 

@@ -1,6 +1,7 @@
-﻿namespace Rogue.Scenes.Controls
+﻿namespace Rogue.Drawing.SceneObjects
 {
     using Rogue.Drawing.Impl;
+    using Rogue.Settings;
     using Rogue.View.Interfaces;
     using System;
 
@@ -12,7 +13,7 @@
         {
             textControl = new TextControl(new DrawText(text, ConsoleColor.White) { Size = 30 });
 
-            var measure = SceneManager.StaticDrawClient.MeasureText(textControl.Text);
+            var measure = Global.DrawClient.MeasureText(textControl.Text);
 
             var width = this.Width * 32;
             var height = this.Height * 32;

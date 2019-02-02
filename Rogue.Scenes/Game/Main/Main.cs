@@ -1,35 +1,72 @@
 ﻿namespace Rogue.Scenes.Game
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Linq;
     using Rogue.Control.Keys;
-    using Rogue.Control.Pointer;
     using Rogue.DataAccess;
     using Rogue.Drawing.Controls;
     using Rogue.Drawing.Data;
     using Rogue.Drawing.GUI;
     using Rogue.Drawing.Impl;
     using Rogue.Drawing.Labirinth;
+    using Rogue.Drawing.SceneObjects;
+    using Rogue.Drawing.SceneObjects.Main;
     using Rogue.Map;
     using Rogue.Map.Objects;
     using Rogue.Scenes.Menus;
     using Rogue.Scenes.Scenes;
     using Rogue.Settings;
     using Rogue.Types;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
 
-    public class MainScene : GameScene<MainMenuScene>
+    public class Main : GameScene<Start>
     {
         private readonly Point PlayerPosition = new Point { X = 27, Y = 8 };
 
         private readonly DrawingSize DrawingSize = new DrawingSize();
 
-        public MainScene(SceneManager sceneManager) : base(sceneManager)
+        public Main(SceneManager sceneManager) : base(sceneManager)
         {
         }
 
         public override bool Destroyable => false;
+
+        public override void Init()
+        {
+            this.AddObject(new ImageControl("Rogue.Resources.Images.d12back.png"));
+
+            this.AddObject(new SkillBar(this.Player)
+            {
+                Top = 18f,
+                Left = 9f
+            });
+
+            //this.AddObject(new ImageControl("Rogue.Resources.Images.ui.sphere.png")
+            //{
+            //    Top = 18f,
+            //    Left = 9f,
+            //     //Height=5f,
+            //     //Width=6f
+            //});
+
+            //this.AddObject(new ImageControl("Rogue.Resources.Images.ui.sphere.png")
+            //{
+            //    Top = 18f,
+            //    Left = 24.4f,
+            //    //Height = 5f,
+            //    //Width = 6f
+            //});
+
+
+            //this.AddObject(new ImageControl("Rogue.Resources.Images.ui.skillpanel.png")
+            //{
+            //    Top = 20f,
+            //    Left = 13.9f,
+            //    //Height = 2f,
+            //    //Width = 6f
+            //});
+        }
 
         public override void Draw()
         {
@@ -129,7 +166,7 @@
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers)
         {
             if (keyPressed == Key.Escape)
-                this.Switch<MainMenuScene>();
+                this.Switch<Start>();
 
 #if DEBUG
             if (keyPressed == Key.U)

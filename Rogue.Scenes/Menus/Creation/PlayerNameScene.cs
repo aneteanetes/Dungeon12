@@ -8,7 +8,7 @@ using Rogue.Types;
 
 namespace Rogue.Scenes.Menus.Creation
 {
-    public class PlayerNameScene : GameScene<PlayerRaceScene,MainMenuScene>
+    public class PlayerNameScene : GameScene<PlayerRaceScene,Start>
     {
         public PlayerNameScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -159,7 +159,7 @@ namespace Rogue.Scenes.Menus.Creation
             }
 
             if (keyEventArgs.Key == Key.Escape)
-                this.Switch<MainMenuScene>();
+                this.Switch<Start>();
 
             //this.Redraw();
         }

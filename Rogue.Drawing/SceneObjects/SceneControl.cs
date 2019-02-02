@@ -1,4 +1,4 @@
-﻿namespace Rogue.Scenes.Controls
+﻿namespace Rogue.Drawing.SceneObjects
 {
     using Rogue.Types;
     using Rogue.View.Interfaces;
@@ -62,5 +62,38 @@
         public virtual IDrawablePath Path { get; }
         
         public ICollection<ISceneObject> Children { get; } = new List<ISceneObject>();
+
+        protected void AddChild(ISceneObject sceneObject)
+        {
+            if(sceneObject is SceneControl sceneControlObject)
+            {
+                sceneControlObject.Parent = this;
+            }
+
+            this.Children.Add(sceneObject);
+        }
+
+        private Rectangle _computedPosition;
+        public Rectangle ComputedPosition
+        {
+            get
+            {
+                if (_computedPosition == null)
+                {
+                    var parentX = Parent?.ComputedPosition?.X ?? 0f;
+                    var parentY = Parent?.ComputedPosition?.Y ?? 0f;
+
+                    _computedPosition = new Rectangle
+                    {
+                        X = parentX + (float)Left,
+                        Y = parentY + (float)Top
+                    };
+                }
+
+                return _computedPosition;
+            }
+        }
+
+        public ISceneObject Parent { get; set; }
     }
 }

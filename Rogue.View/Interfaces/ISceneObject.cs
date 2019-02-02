@@ -10,6 +10,11 @@
         /// </summary>
         Rectangle Position { get; }
 
+        /// <summary>
+        /// Position with parent
+        /// </summary>
+        Rectangle ComputedPosition { get; }
+
         string Image { get; }
 
         Rectangle ImageRegion { get; }
@@ -17,6 +22,8 @@
         IDrawText Text { get; }
 
         IDrawablePath Path { get; }
+
+        ISceneObject Parent { get; }
 
         ICollection<ISceneObject> Children { get; }
 

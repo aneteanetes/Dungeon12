@@ -1,4 +1,4 @@
-﻿namespace Rogue.Scenes.Controls
+﻿namespace Rogue.Drawing.SceneObjects
 {
     using Rogue.View.Interfaces;
 

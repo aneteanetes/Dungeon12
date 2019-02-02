@@ -1,4 +1,4 @@
-﻿namespace Rogue.Scenes.Controls
+﻿namespace Rogue.Drawing.SceneObjects
 {
     public class ImageControl : SceneControl
     {

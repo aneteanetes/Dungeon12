@@ -31,10 +31,7 @@
 
         protected void AddObject(ISceneObject sceneObject)
         {
-            if (sceneObject is ISceneObjectControl sceneObjectControl)
-            {
-                SceneObjectsControllable.Add(sceneObjectControl);
-            }
+            AddControlRecursive(sceneObject);
 
             SceneObjects.Add(sceneObject);
         }
@@ -49,10 +46,23 @@
             SceneObjects.Remove(sceneObject);
         }
 
+        private void AddControlRecursive(ISceneObject sceneObject)
+        {
+            if (sceneObject is ISceneObjectControl sceneObjectControl)
+            {
+                SceneObjectsControllable.Add(sceneObjectControl);
+            }
+
+            foreach (var childSceneObject in sceneObject.Children)
+            {
+                AddControlRecursive(childSceneObject);
+            }
+        }
+
         #endregion
 
         #region scene contollable
-        
+
         public void OnKeyDown(KeyArgs keyEventArgs)
         {
             var key = keyEventArgs.Key;
@@ -123,8 +133,8 @@
         {
             var newRegion = new RectangleF
             {
-                X = sceneObjControl.Position.X * DrawingSize.CellF,
-                Y = sceneObjControl.Position.Y * DrawingSize.CellF,
+                X = sceneObjControl.ComputedPosition.X * DrawingSize.CellF,
+                Y = sceneObjControl.ComputedPosition.Y * DrawingSize.CellF,
                 Height = sceneObjControl.Position.Height * DrawingSize.CellF,
                 Width = sceneObjControl.Position.Width * DrawingSize.CellF
             };

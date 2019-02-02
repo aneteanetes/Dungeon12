@@ -43,7 +43,7 @@ namespace Rogue.App
             {
                 DrawClient = drawClient
             };
-            SceneManager.Change<MainMenuScene>();
+            SceneManager.Change<Start>();
         }
         
         protected override void OnPointerMoved(PointerEventArgs e)

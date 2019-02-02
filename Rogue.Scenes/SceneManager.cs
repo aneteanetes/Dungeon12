@@ -1,6 +1,7 @@
 ﻿namespace Rogue.Scenes
 {
     using Rogue.Scenes.Scenes;
+    using Rogue.Settings;
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
@@ -12,7 +13,11 @@
         public IDrawClient DrawClient
         {
             get => StaticDrawClient;
-            set => StaticDrawClient = value;
+            set
+            {
+                Global.DrawClient = value;
+                StaticDrawClient = value;
+            }
         }
 
         private static readonly Dictionary<Type, GameScene> SceneCache = new Dictionary<Type, GameScene>();

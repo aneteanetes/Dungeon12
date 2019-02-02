@@ -9,7 +9,7 @@ using Rogue.Types;
 
 namespace Rogue.Scenes.Menus.Creation
 {
-    public class PlayerSummaryScene : GameScene<MainScene,PlayerClassScene>
+    public class PlayerSummaryScene : GameScene<Main,PlayerClassScene>
     {
         public PlayerSummaryScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -100,7 +100,7 @@ namespace Rogue.Scenes.Menus.Creation
                     .Capitalize(20),
                 OnClick = () =>
                 {
-                    this.Switch<MainScene>();
+                    this.Switch<Main>();
                 }
             });
 
