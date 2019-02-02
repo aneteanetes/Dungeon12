@@ -96,12 +96,6 @@
             _frame++;
         }
         
-        private void Splash(DrawingContext context)
-        {
-            var splash = ResourceLoader.Load("Rogue.Resources.Images.d12back.png");
-            Buffer = Display = new Bitmap(splash);
-        }
-
         private static Action<DrawingContext> DrawLoop;
 
         private static readonly ConcurrentDictionary<string, Bitmap> tilesetsCache = new ConcurrentDictionary<string, Bitmap>();
@@ -296,51 +290,67 @@
         {
             if (current != scene)
                 current = scene;
-
-            float fontSize = 20f;
-            var font = Font.Common;
-
-            Action<DrawingContext> drawings = null;
-            drawings = DrawSceneObjects(scene, fontSize, font, drawings);
-
-            DrawLoop += drawings;
         }
-
-        private static Action<DrawingContext> DrawSceneObjects(IScene scene, float fontSize, FontFamily font, Action<DrawingContext> drawings)
-        {
-            foreach (var sceneObject in scene.Objects)
-            {
-                //drawings = DrawSceneObject(fontSize, font, drawings, sceneObject);
-            }
-
-            return drawings;
-        }
-
-        private void DrawSceneObject(DrawingContext ctx, ISceneObject sceneObject, float xParent=0, float yParent=0)
+        
+        private readonly Dictionary<string, Bitmap> BatchCache = new Dictionary<string, Bitmap>();
+        private void DrawSceneObject(DrawingContext ctx, ISceneObject sceneObject, float xParent=0, float yParent=0, bool batching=false)
         {
             var y = sceneObject.Position.Y * cell + yParent;
             var x = sceneObject.Position.X * cell + xParent;
 
-            if (!string.IsNullOrEmpty(sceneObject.Image))
+            if (sceneObject.IsBatch && !batching)
             {
-                DrawSceneImage(ctx, sceneObject, y, x);
-            }
-
-            if (sceneObject.Text != null)
-            {
-                var text = sceneObject.Text;
-                var textX = x;
-
-                foreach (var range in text.Data)
+                if (!BatchCache.TryGetValue(sceneObject.Uid, out var bitmap))
                 {
-                    DrawSceneText(ctx,text.Size, y, textX, range);
-                    textX += range.Length * range.LetterSpacing;
-                }
-            }
+                    int width = (int)Math.Round(sceneObject.Position.Width * cell);
+                    int height = (int)Math.Round(sceneObject.Position.Height * cell);
 
-            foreach (var child in sceneObject.Children)
+                    bitmap = new RenderTargetBitmap(new PixelSize(width, height));
+                    if (bitmap is RenderTargetBitmap renderBitmap)
+                    {
+                        var ctxImpl = new DrawingContext(renderBitmap.CreateDrawingContext(null));
+                        DrawSceneObject(ctxImpl, sceneObject, xParent, yParent, true);
+                    }
+
+                    TileSetCache.Add(sceneObject.Uid, new Rect(0, 0, width, height));
+                    PosCahce.Add(sceneObject.Uid, new Rect(sceneObject.Position.X, sceneObject.Position.Y, width, height));
+
+                    BatchCache.Add(sceneObject.Uid, bitmap);
+                }
+
+                TileSetCache.TryGetValue(sceneObject.Uid, out var tilesetPos);
+                PosCahce.TryGetValue(sceneObject.Uid, out var sceneObjPos);
+
+                ctx.DrawImage(
+                    bitmap,
+                    1,
+                    tilesetPos,
+                    sceneObjPos);
+            }
+            else
             {
-                DrawSceneObject(ctx, child, x, y);
+
+                if (!string.IsNullOrEmpty(sceneObject.Image))
+                {
+                    DrawSceneImage(ctx, sceneObject, y, x);
+                }
+
+                if (sceneObject.Text != null)
+                {
+                    var text = sceneObject.Text;
+                    var textX = x;
+
+                    foreach (var range in text.Data)
+                    {
+                        DrawSceneText(ctx, text.Size, y, textX, range);
+                        textX += range.Length * range.LetterSpacing;
+                    }
+                }
+
+                foreach (var child in sceneObject.Children)
+                {
+                    DrawSceneObject(ctx, child, x, y);
+                }
             }
         }
 
@@ -366,7 +376,6 @@
         {
             var image = TileSetByName(sceneObject.Image);
 
-
             if (!TileSetCache.TryGetValue(sceneObject.Uid, out Rect tileRegion))
             {
                 if (sceneObject.ImageRegion == null)
@@ -379,7 +388,10 @@
                     tileRegion = new Rect(tilePos.X, tilePos.Y, tilePos.Width, tilePos.Height);
                 }
 
-                TileSetCache.Add(sceneObject.Uid, tileRegion);
+                if (sceneObject.CacheAvailable)
+                {
+                    TileSetCache.Add(sceneObject.Uid, tileRegion);
+                }
             }
 
             if (!PosCahce.TryGetValue(sceneObject.Uid, out Rect pos))
@@ -400,7 +412,10 @@
 
                 pos = new Rect(x, y, width, height);
 
-                PosCahce.Add(sceneObject.Uid, pos);
+                if (sceneObject.CacheAvailable)
+                {
+                    PosCahce.Add(sceneObject.Uid, pos);
+                }
             }
 
             ctx.DrawImage(

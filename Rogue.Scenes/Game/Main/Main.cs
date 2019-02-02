@@ -9,6 +9,7 @@
     using Rogue.Drawing.Labirinth;
     using Rogue.Drawing.SceneObjects;
     using Rogue.Drawing.SceneObjects.Main;
+    using Rogue.Drawing.SceneObjects.Map;
     using Rogue.Map;
     using Rogue.Map.Objects;
     using Rogue.Scenes.Menus;
@@ -36,36 +37,24 @@
         {
             this.AddObject(new ImageControl("Rogue.Resources.Images.d12back.png"));
 
+            this.InitMap();
+            this.AddObject(new MapSceneObject(this.Location)
+            {
+                Left = 0,
+                Top = 0
+            });
+
             this.AddObject(new SkillBar(this.Player)
             {
                 Top = 18f,
                 Left = 9f
             });
 
-            //this.AddObject(new ImageControl("Rogue.Resources.Images.ui.sphere.png")
-            //{
-            //    Top = 18f,
-            //    Left = 9f,
-            //     //Height=5f,
-            //     //Width=6f
-            //});
-
-            //this.AddObject(new ImageControl("Rogue.Resources.Images.ui.sphere.png")
-            //{
-            //    Top = 18f,
-            //    Left = 24.4f,
-            //    //Height = 5f,
-            //    //Width = 6f
-            //});
-
-
-            //this.AddObject(new ImageControl("Rogue.Resources.Images.ui.skillpanel.png")
-            //{
-            //    Top = 20f,
-            //    Left = 13.9f,
-            //    //Height = 2f,
-            //    //Width = 6f
-            //});
+            this.AddObject(new PlayerSceneObject(this.Player)
+            {
+                Left = 20,
+                Top = 11.25
+            });
         }
 
         public override void Draw()
@@ -91,12 +80,12 @@
                 }
             }.Run().Publish();
 
-            Drawing.Draw.Session<GUIBorderDrawSession>()
-                .Then<LabirinthDrawSession>(x => x.Location = this.Location)
-                //.Then<CharMapDrawSession>(x => x.Commands = this.Commands.Where(c => c.UI).Select(c => $"[{c.Keys.First()}] - {c.Name}").ToArray())
-                .Then<CharacterDataDrawSession>(x => x.Player = this.Player)
-                .Then<MessageDrawSession>(x => x.Message = new DrawText($"{DateTime.Now.ToShortTimeString()}: Вы прибываете в столицу", ConsoleColor.Black))
-                .Publish();
+            //Drawing.Draw.Session<GUIBorderDrawSession>()
+            //    .Then<MapSceneObject>(x => x.Location = this.Location)
+            //    //.Then<CharMapDrawSession>(x => x.Commands = this.Commands.Where(c => c.UI).Select(c => $"[{c.Keys.First()}] - {c.Name}").ToArray())
+            //    .Then<CharacterDataDrawSession>(x => x.Player = this.Player)
+            //    .Then<MessageDrawSession>(x => x.Message = new DrawText($"{DateTime.Now.ToShortTimeString()}: Вы прибываете в столицу", ConsoleColor.Black))
+            //    .Publish();
         }
 
         private void FillCommands()
@@ -152,10 +141,10 @@
             }
 
             //перенести туда где location
-            this.Location.Map[8][27].Add(new Player
-            {
-                Character = this.Player
-            });
+            //this.Location.Map[8][27].Add(new Player
+            //{
+            //    Character = this.Player
+            //});
 
             this.Location.Map[4][9].Add(new Portal()
             {

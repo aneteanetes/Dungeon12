@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using Rogue.Drawing.Impl;
+using Rogue.Drawing.SceneObjects;
 using Rogue.Map;
 using Rogue.Settings;
 using Rogue.Types;
@@ -9,19 +10,19 @@ using Rogue.View.Interfaces;
 
 namespace Rogue.Drawing.Labirinth
 {
-    public class LabirinthDrawSession : DrawSession
+    public class MapSceneObject : SceneControl
     {
+        public override bool IsBatch => true;
+
+        private Location _location;
         private DrawingSize DrawingSize = new DrawingSize();
-        
-        public new Location Location { get; set; }
-
-        public override IDrawSession Run()
+        public MapSceneObject(Location location)
         {
-            var drawables = new List<IDrawable>();
+            _location = location;
 
-            for (int y = 0; y < this.Location.Map.Count; y++)
+            for (int y = 0; y < _location.Map.Count; y++)
             {
-                var line = this.Location.Map[y];
+                var line = _location.Map[y];
                 for (int x = 0; x < line.Count; x++)
                 {
                     MapObject[] cell = line[x].ToArray();
@@ -29,19 +30,19 @@ namespace Rogue.Drawing.Labirinth
 
                     if (cell[0].Icon == "#")
                     {
-                        AddWall(drawables, pos);
+                        AddWall(pos);
                         cell = cell.Skip(1).ToArray();
                     }
 
-                    AddObject(drawables, cell, pos);
+                    AddObject(cell, pos);
                 }
             }
 
-            Drawables = drawables;
-            return this;
+            Height = _location.Map.Count;
+            Width = _location.Map.First().Count;
         }
 
-        private void AddObject(List<IDrawable> drawables, MapObject[] cell, Point pos)
+        private void AddObject(MapObject[] cell, Point pos)
         {
             foreach (var item in cell)
             {
@@ -53,27 +54,34 @@ namespace Rogue.Drawing.Labirinth
                     Width = 1
                 };
 
-                drawables.Add(item);
+                this.AddChild(new ImageControl(item.Tileset)
+                {
+                    Left = pos.X,
+                    Top = pos.Y,
+                    Height = 1,
+                    Width = 1,
+                    ImageRegion = item.TileSetRegion
+                });
             }
         }
 
-        private void AddWall(List<IDrawable> drawables, Point pos)
+        private void AddWall(Point pos)
         {
             List<bool[]> square = new List<bool[]>();
 
             TopSquare(pos, square);
-            square.Add(GetLine((int)pos.X, this.Location.Map[(int)pos.Y]));
+            square.Add(GetLine((int)pos.X, _location.Map[(int)pos.Y]));
             BotSquare(pos, square);
             PosSquare(pos, square);
 
-            MapWallTile(drawables,square, pos);
+            MapWallTile(square, pos);
         }
 
         private void PosSquare(Point pos, List<bool[]> square)
         {
             if (pos.Y < DrawingSize.MapLines - 2)
             {
-                var positionalLine = this.Location.Map[(int)pos.Y + 2];
+                var positionalLine = _location.Map[(int)pos.Y + 2];
                 square.Add(GetLine((int)pos.X, positionalLine));
             }
             else if (pos.Y == DrawingSize.MapLines - 1)
@@ -94,7 +102,7 @@ namespace Rogue.Drawing.Labirinth
             }
             else
             {
-                var botLine = this.Location.Map[(int)pos.Y +1];
+                var botLine = _location.Map[(int)pos.Y +1];
                 square.Add(GetLine((int)pos.X, botLine));
             }
         }
@@ -107,7 +115,7 @@ namespace Rogue.Drawing.Labirinth
             }
             else
             {
-                var topLine = this.Location.Map[(int)pos.Y - 1];
+                var topLine = _location.Map[(int)pos.Y - 1];
                 square.Add(GetLine((int)pos.X, topLine));
             }
         }
@@ -147,11 +155,11 @@ namespace Rogue.Drawing.Labirinth
             return result.ToArray();
         }
 
-        private void MapWallTile(List<IDrawable> drawables,List<bool[]> wallMap, Point pos)
+        private void MapWallTile(List<bool[]> wallMap, Point pos)
         {
             var isometricMap = IsometricMap(wallMap);
             var tile = DetermineTitle(isometricMap);
-            var mapObj = this.Location.Map[(int)pos.Y][(int)pos.X][0];
+            var mapObj = _location.Map[(int)pos.Y][(int)pos.X][0];
             
             mapObj.TileSetRegion = new Rectangle
             {
@@ -169,7 +177,14 @@ namespace Rogue.Drawing.Labirinth
                 Width = 1
             };
 
-            drawables.Add(mapObj);
+            this.AddChild(new ImageControl(mapObj.Tileset)
+            {
+                Left = pos.X,
+                Top = pos.Y,
+                Height = 1,
+                Width = 1,
+                ImageRegion = mapObj.TileSetRegion
+            });
         }
 
         private List<bool[]> IsometricMap(List<bool[]> wallMap)
