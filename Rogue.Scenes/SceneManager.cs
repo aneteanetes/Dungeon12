@@ -7,8 +7,14 @@
 
     public class SceneManager
     {
-        public IDrawClient DrawClient { get; set; }
-        
+        public static IDrawClient StaticDrawClient { get; set; }
+
+        public IDrawClient DrawClient
+        {
+            get => StaticDrawClient;
+            set => StaticDrawClient = value;
+        }
+
         private static readonly Dictionary<Type, GameScene> SceneCache = new Dictionary<Type, GameScene>();
 
         public GameScene Current = null;

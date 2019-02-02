@@ -8,6 +8,7 @@
     using Avalonia.VisualTree;
     using Rogue.App.Utils;
     using Rogue.Resources;
+    using Rogue.Types;
     using Rogue.View.Interfaces;
     using SkiaSharp;
     using System;
@@ -89,7 +90,7 @@
                 };
                 var back = new ImmutableSolidColorBrush(Colors.LightGray);
                 var textBrush = new ImmutableSolidColorBrush(Colors.Black);
-                drawingContext.DrawText(textBrush, new Point(5, 5), fmt);
+                drawingContext.DrawText(textBrush, new Avalonia.Point(5, 5), fmt);
             }
 
             _frame++;
@@ -241,7 +242,7 @@
 
             drawings = ctx =>
             {
-                ctx.DrawText(brush, new Point(x, y), fmt);                
+                ctx.DrawText(brush, new Avalonia.Point(x, y), fmt);                
             };
 
             return drawings;
@@ -355,7 +356,7 @@
 
             x += (float)fmt.Measure().Height;
 
-            ctx.DrawText(brush, new Point(x, y), fmt);
+            ctx.DrawText(brush, new Avalonia.Point(x, y), fmt);
         }
 
         private Dictionary<string, Rect> TileSetCache = new Dictionary<string, Rect>();
@@ -408,6 +409,23 @@
                 tileRegion,
                 pos,
                 BitmapInterpolationMode.HighQuality);
+        }
+
+        public Types.Point MeasureText(IDrawText drawText)
+        {
+            var fmt = new FormattedText()
+            {
+                Text = drawText.StringData,
+                Typeface = new Typeface(Font.Common, fontSize: drawText.Size)
+            };
+
+            var measure = fmt.Measure();
+
+            return new Types.Point
+            {
+                X = (float)measure.Width,
+                Y = (float)measure.Height
+            };
         }
     }
 }

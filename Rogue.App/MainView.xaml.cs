@@ -39,7 +39,10 @@ namespace Rogue.App
         public void RunGame()
         {
             var drawClient = AppVisual.AppVisualDrawClient;// new SkiaDrawClient(this.ViewportBitmap, this.control);
-            SceneManager = new SceneManager() { DrawClient = drawClient };            
+            SceneManager = new SceneManager
+            {
+                DrawClient = drawClient
+            };
             SceneManager.Change<MainMenuScene>();
         }
         

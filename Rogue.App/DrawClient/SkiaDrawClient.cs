@@ -15,6 +15,7 @@
     using Rogue.Control.Events;
     using Rogue.Resources;
     using Rogue.Scenes;
+    using Rogue.Types;
     using Rogue.View.Interfaces;
     using Rogue.View.Publish;
     using SkiaSharp;
@@ -524,6 +525,11 @@
         }
 
         public void SetScene(IScene scene)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Point MeasureText(IDrawText drawText)
         {
             throw new NotImplementedException();
         }

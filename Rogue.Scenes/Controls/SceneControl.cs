@@ -10,22 +10,22 @@
         /// <summary>
         /// Relative
         /// </summary>
-        public double Left { get; set; }
+        public virtual double Left { get; set; }
 
         /// <summary>
         /// Relative
         /// </summary>
-        public double Top { get; set; }
+        public virtual double Top { get; set; }
 
         /// <summary>
         /// Relative
         /// </summary>
-        public double Width { get; set; }
+        public virtual double Width { get; set; }
 
         /// <summary>
         /// Relative
         /// </summary>
-        public double Height { get; set; }
+        public virtual double Height { get; set; }
 
         private Rectangle pos = null;
 
