@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Rogue.Control.Events;
 using Rogue.Drawing.Impl;
 using Rogue.Drawing.SceneObjects;
 using Rogue.Map;
@@ -10,12 +11,12 @@ using Rogue.View.Interfaces;
 
 namespace Rogue.Drawing.Labirinth
 {
-    public class MapSceneObject : SceneControl
+    public class MapSceneObject : HandleSceneControl
     {
         public override bool IsBatch => true;
 
         private Location _location;
-        private DrawingSize DrawingSize = new DrawingSize();
+
         public MapSceneObject(Location location)
         {
             _location = location;
@@ -79,12 +80,12 @@ namespace Rogue.Drawing.Labirinth
 
         private void PosSquare(Point pos, List<bool[]> square)
         {
-            if (pos.Y < DrawingSize.MapLines - 2)
+            if (pos.Y < _location.Map.Count-2)
             {
                 var positionalLine = _location.Map[(int)pos.Y + 2];
                 square.Add(GetLine((int)pos.X, positionalLine));
             }
-            else if (pos.Y == DrawingSize.MapLines - 1)
+            else if (pos.Y == _location.Map.Count - 1)
             {
                 square.Add(EmptyFalseLine);
             }
@@ -96,7 +97,7 @@ namespace Rogue.Drawing.Labirinth
 
         private void BotSquare(Point pos, List<bool[]> square)
         {
-            if (pos.Y == DrawingSize.MapLines - 1)
+            if (pos.Y == _location.Map.Count - 1)
             {
                 square.Add(EmptyTrueLine);
             }
@@ -143,7 +144,7 @@ namespace Rogue.Drawing.Labirinth
 
             result.Add(IsWall(data[xPos]));
 
-            if (xPos == DrawingSize.MapChars - 1)
+            if (xPos == _location.Map.First().Count - 1)
             {
                 result.Add(false);
             }
@@ -367,5 +368,17 @@ namespace Rogue.Drawing.Labirinth
                 Y = yTexture
             };
         }
+
+        protected override ControlEventType[] Handles => new ControlEventType[] { ControlEventType.Click };
+
+        //public override void Focus()
+        //{
+        //    //System.Console.WriteLine("focused map");
+        //}
+
+        //public override void Unfocus()
+        //{
+        //    //System.Console.WriteLine("unfocused map");
+        //}
     }
 }

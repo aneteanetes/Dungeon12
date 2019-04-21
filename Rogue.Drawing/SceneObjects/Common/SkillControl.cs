@@ -1,9 +1,11 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Common
 {
     using System;
+    using Rogue.Control.Keys;
 
     public class SkillControl : HandleSceneControl
     {
+        public SkillControl(Key key) => this.key = key;
 
         public override double Width { get => 2; set { } }
         public override double Height { get => 2; set { } }
@@ -26,5 +28,9 @@
         {
             this.Image = "Rogue.Resources.Images.ui.square.png";
         }
+
+        private Key key = Key.None;
+
+        protected override Key[] KeyHandles => new Key[] { key };
     }
 }

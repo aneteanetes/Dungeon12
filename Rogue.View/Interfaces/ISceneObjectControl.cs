@@ -1,5 +1,6 @@
 ﻿namespace Rogue.View.Interfaces
 {
+    using Rogue.Control.Events;
     using Rogue.Control.Keys;
 
     public interface ISceneObjectControl : ISceneObject
@@ -13,5 +14,9 @@
         void Unfocus();
 
         void Click();
+
+        ControlEventType[] CanHandle { get; }
+
+        Key[] KeysHandle { get; }
     }
 }

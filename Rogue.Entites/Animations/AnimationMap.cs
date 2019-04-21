@@ -10,5 +10,7 @@
         public Point Size { get; set; }
 
         public List<Point> Frames { get; set; }
+
+        public Direction Direction { get; set; }
     }
 }

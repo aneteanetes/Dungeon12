@@ -46,7 +46,7 @@
 
             this.AddObject(new SkillBar(this.Player)
             {
-                Top = 18f,
+                Top = 18.45f,
                 Left = 9f
             });
 
@@ -121,13 +121,13 @@
             int x = 0;
             int y = 0;
 
-            foreach (var line in persistMap.Template.Split(Environment.NewLine).Take(19))
+            foreach (var line in persistMap.Template.Split(Environment.NewLine))
             {
                 var listLine = new List<List<Map.MapObject>>();
 
                 x = 0;
 
-                foreach (var @char in line.Substring(0, 35))
+                foreach (var @char in line)
                 {
                     var mapObj = MapObject.Create(@char.ToString());
                     mapObj.Location = new Point(x, y);

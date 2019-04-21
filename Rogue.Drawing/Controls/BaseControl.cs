@@ -118,23 +118,23 @@
             if (!this.IsControlable)
                 return;
 
-            switch (@event)
-            {
-                case ControlEventType.Click:
-                    this.OnClick?.Invoke();
-                    break;
-                case ControlEventType.Focus:
-                    this.OnFocus?.Invoke();
-                    break;
-                case ControlEventType.Unfocus:
-                    this.OnUnfocus?.Invoke();
-                    break;
-                case ControlEventType.Key:
-                    this.OnKey?.Invoke();
-                    break;
-                default:
-                    break;
-            }
+            //switch (@event)
+            //{
+            //    case ControlEventType.Click:
+            //        this.OnClick?.Invoke();
+            //        break;
+            //    case ControlEventType.Focus:
+            //        this.OnFocus?.Invoke();
+            //        break;
+            //    case ControlEventType.Unfocus:
+            //        this.OnUnfocus?.Invoke();
+            //        break;
+            //    case ControlEventType.Key:
+            //        this.OnKey?.Invoke();
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
 
         public override void Publish()

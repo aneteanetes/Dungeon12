@@ -94,6 +94,8 @@ namespace Rogue.App
 
         protected override void OnKeyUp(KeyEventArgs e)
         {
+            //Console.WriteLine(DateTime.Now.ToString("MM:ss") + ":" + DateTime.Now.Millisecond + ": keyup");
+
             SceneManager.Current.OnKeyUp(new Control.Keys.KeyArgs
             {
                 Key = (Control.Keys.Key)e.Key,

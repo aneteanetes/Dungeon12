@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Scenes.Scenes
 {
+    using Rogue.Control.Events;
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
     using Rogue.Settings;
@@ -67,10 +68,11 @@
         {
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
-
-            for (int i = 0; i < SceneObjectsControllable.Count; i++)
+            
+            var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key);
+            foreach (var sceneObjectHandler in keyControls)
             {
-                SceneObjectsControllable[i].KeyDown(key, modifier);
+                sceneObjectHandler.KeyDown(key, modifier);
             }
 
             KeyPress(key,modifier);
@@ -81,9 +83,10 @@
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
 
-            for (int i = 0; i < SceneObjectsControllable.Count; i++)
+            var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key);
+            foreach (var sceneObjectHandler in keyControls)
             {
-                SceneObjectsControllable[i].KeyUp(keyEventArgs.Key, keyEventArgs.Modifiers);
+                sceneObjectHandler.KeyUp(key, modifier);
             }
 
             KeyPress(key, modifier);
@@ -91,7 +94,9 @@
 
         public void OnMousePress(PointerArgs pointerPressedEventArgs)
         {
-            var clickedElements = SceneObjectsControllable.Where(so => RegionContains(so, pointerPressedEventArgs));
+            var keyControls = ControlsByHandle(ControlEventType.Click);
+
+            var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs));
             foreach (var clickedElement in clickedElements)
             {
                 clickedElement.Click();
@@ -103,10 +108,12 @@
             if (sceneManager.Current != this)
                 return;
             
-            var newFocused = SceneObjectsControllable.Where(handler => RegionContains(handler, pointerPressedEventArgs))
+            var keyControls = ControlsByHandle(ControlEventType.Focus);
+
+            var newFocused = keyControls.Where(handler => RegionContains(handler, pointerPressedEventArgs))
                 .Where(x => !SceneObjectsInFocus.Contains(x));
 
-            var newNotFocused = SceneObjectsControllable.Where(handler => !RegionContains(handler, pointerPressedEventArgs))
+            var newNotFocused = keyControls.Where(handler => !RegionContains(handler, pointerPressedEventArgs))
                 .Where(x => SceneObjectsInFocus.Contains(x));
 
             if (newNotFocused.Count() > 0)
@@ -145,6 +152,19 @@
         protected virtual void KeyPress(Key keyPressed, KeyModifiers keyModifiers) { }
 
         protected virtual void KeyUp(Key keyPressed, KeyModifiers keyModifiers) { }
+
+        private IEnumerable<ISceneObjectControl> ControlsByHandle(ControlEventType handleEvent, Key key = Key.None)
+            => SceneObjectsControllable.Where(x =>
+            {
+                bool handle = x.CanHandle.Contains(handleEvent);
+
+                if (handleEvent == ControlEventType.Key)
+                {
+                    handle = x.KeysHandle.Contains(key);
+                }
+
+                return handle;
+            });
 
         #endregion
 

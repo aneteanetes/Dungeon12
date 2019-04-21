@@ -42,6 +42,7 @@
 
         public override AnimationMap MoveUp => new BaseMove
         {
+            Direction = Direction.Up,
             Frames = new List<Point>
             {
                 //new Point(32,96),
@@ -53,6 +54,7 @@
 
         public override AnimationMap MoveDown => new BaseMove
         {
+            Direction = Direction.Down,
             Frames = new List<Point>
             {
                 //new Point(32,0),
@@ -64,6 +66,7 @@
 
         public override AnimationMap MoveLeft => new BaseMove
         {
+            Direction= Direction.Left,
             Frames = new List<Point>
             {
                 //new Point(32,32),
@@ -75,6 +78,7 @@
 
         public override AnimationMap MoveRight => new BaseMove
         {
+            Direction = Direction.Right,
             Frames = new List<Point>
             {
                 //new Point(32,64),
