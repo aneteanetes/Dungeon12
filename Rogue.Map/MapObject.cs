@@ -5,11 +5,12 @@
     using System.Linq;
     using Rogue.Entites.Animations;
     using Rogue.Map.Infrastructure;
+    using Rogue.Physics;
     using Rogue.Types;
     using Rogue.Utils.ReflectionExtensions;
     using Rogue.View.Interfaces;
 
-    public abstract class MapObject : IDrawable
+    public abstract class MapObject : PhysicalObject, IDrawable
     {
         public virtual bool Obstruction { get; set; }
 
@@ -34,7 +35,48 @@
 
         public abstract void Interact();
 
+        public virtual PhysicalSize View => new PhysicalSize
+        {
+            Height = this.Region.Height / 2,
+            Width = this.Region.Width / 2
+        };
+
+        public override PhysicalObject Vision
+        {
+            get => new PhysicalObject
+            {
+                Size = View,
+                Position=new PhysicalPosition
+                {
+                    X = Position.X + Position.X / 2,
+                    Y = Position.Y + Position.Y / 2
+                }
+            };
+            set { }
+        }
+
+        public override PhysicalSize Size
+        {
+            get => new PhysicalSize
+            {
+                Height = 32,
+                Width = 32
+            };
+            set { }
+        }
+
+        public override PhysicalPosition Position
+        {
+            get => new PhysicalPosition
+            {
+                X = this.Location.X*32,
+                Y = this.Location.Y*32
+            };
+            set { }
+        }
+
         private static readonly Dictionary<string, Type> TypeCache = new Dictionary<string, Type>();
+
         public static MapObject Create(string icon)
         {
             if (!TypeCache.TryGetValue(icon, out var type))

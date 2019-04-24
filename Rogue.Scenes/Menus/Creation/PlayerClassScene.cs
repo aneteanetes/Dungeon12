@@ -73,11 +73,11 @@ namespace Rogue.Scenes.Menus.Creation
                     Label = new DrawText(@class.ClassName, usualColor) { Size = 28, LetterSpacing = 13 }.Capitalize(20),
                     OnClick = () =>
                     {
-                        @class.Name = this.Player.Name;
-                        @class.Race = this.Player.Race;
+                        @class.Name = this.Player.Character.Name;
+                        @class.Race = this.Player.Character.Race;
 
-                        this.Player = @class;
-                        this.Player.Add<RacePerk>();
+                        this.Player.Character = @class;
+                        this.Player.Character.Add<RacePerk>();
 
                         this.Switch<PlayerSummaryScene>();
                     }

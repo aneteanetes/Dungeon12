@@ -100,12 +100,12 @@ namespace Rogue.Scenes.Menus.Creation
                 OnClick = () =>
                 {
                     if (this.Player == null)
-                        this.Player = new NameOfPlayer();
+                        this.Player.Character = new NameOfPlayer();
 
                     var value = Input.GetValue();
-                    this.Player.Name = value[0].ToString().ToUpper() + value.Substring(1);
+                    this.Player.Character.Name = value[0].ToString().ToUpper() + value.Substring(1);
 
-                    if (!string.IsNullOrEmpty(this.Player.Name))
+                    if (!string.IsNullOrEmpty(this.Player.Character.Name))
                     {
                         this.Switch<PlayerRaceScene>();
                     }

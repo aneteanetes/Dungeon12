@@ -4,10 +4,10 @@
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
     using Rogue.Settings;
+    using Rogue.Types;
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
-    using System.Drawing;
     using System.Linq;
 
     public abstract class Scene : IScene
@@ -138,7 +138,7 @@
 
         private bool RegionContains(ISceneObjectControl sceneObjControl, PointerArgs pos)
         {
-            var newRegion = new RectangleF
+            var newRegion = new Rectangle
             {
                 X = sceneObjControl.ComputedPosition.X * DrawingSize.CellF,
                 Y = sceneObjControl.ComputedPosition.Y * DrawingSize.CellF,
@@ -146,7 +146,7 @@
                 Width = sceneObjControl.Position.Width * DrawingSize.CellF
             };
 
-            return newRegion.Contains((float)pos.X, (float)pos.Y);
+            return newRegion.Contains(pos.X, pos.Y);
         }
 
         protected virtual void KeyPress(Key keyPressed, KeyModifiers keyModifiers) { }

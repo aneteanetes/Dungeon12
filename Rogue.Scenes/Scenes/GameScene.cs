@@ -10,9 +10,8 @@
     public abstract class GameScene : CommandScene
     {
         protected readonly List<Type> AvailableScenes = new List<Type>();
-
-        
-        public Player Player;
+                
+        public Rogue.Map.Objects.Avatar Player;
 
         public Location Location;
 

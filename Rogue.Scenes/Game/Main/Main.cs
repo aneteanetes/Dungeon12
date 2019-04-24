@@ -49,11 +49,11 @@
                 Top = 18.45f,
                 Left = 9f
             });
-
-            this.AddObject(new PlayerSceneObject(this.Player)
+                        
+            this.AddObject(new PlayerSceneObject(this.Player,this.Location)
             {
                 Left = 20,
-                Top = 11.25
+                Top = 11
             });
         }
 
@@ -131,6 +131,17 @@
                 {
                     var mapObj = MapObject.Create(@char.ToString());
                     mapObj.Location = new Point(x, y);
+                    mapObj.Region = new Rectangle
+                    {
+                        Height = 32,
+                        Width = 32,
+                        Pos = mapObj.Location
+                    };
+
+                    if (mapObj.Obstruction)
+                    {
+                        this.Location.Objects.Add(mapObj);
+                    }
                     listLine.Add(new List<MapObject>() { mapObj });
                     x++;
                 }
@@ -141,7 +152,14 @@
             }
 
             //перенести туда где location
-            //this.Location.Map[8][27].Add(new Player
+            this.Player.Location = new Point(20, 11);
+            this.Player.Region = new Rectangle
+            {
+                Height = 32,
+                Width = 32,
+                Pos = this.Player.Location
+            };
+            //this.Location.Map[11][20].Add(new Player
             //{
             //    Character = this.Player
             //});

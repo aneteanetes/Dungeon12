@@ -70,7 +70,7 @@ namespace Rogue.Scenes.Menus.Creation
                     Label = new DrawText(race.ToDisplay(), ConsoleColor.DarkRed) { Size = 28, LetterSpacing = 13 }.Capitalize(20),
                     OnClick = () =>
                     {
-                        this.Player.Race = race;
+                        this.Player.Character.Race = race;
                         this.Switch<PlayerClassScene>();
                     }
                 });

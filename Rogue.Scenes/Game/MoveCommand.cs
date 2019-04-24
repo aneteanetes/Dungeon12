@@ -14,7 +14,7 @@ namespace Rogue.Scenes.Game
     {
         public Location Location { get; set; }
 
-        public Player Player { get; set; }
+        public Rogue.Map.Objects.Avatar Player { get; set; }
 
         public Point PlayerPosition { get; set; }
 
@@ -36,56 +36,56 @@ namespace Rogue.Scenes.Game
 
         public override void Run(Key keyPressed)
         {
-            var newPos = new Point()
-            {
-                X = PlayerPosition.X,
-                Y = PlayerPosition.Y
-            };
+            //var newPos = new Point()
+            //{
+            //    X = PlayerPosition.X,
+            //    Y = PlayerPosition.Y
+            //};
 
-            AnimationMap animationMap = default;
-            Direction direction = Direction.Down;
+            //AnimationMap animationMap = default;
+            //Direction direction = Direction.Down;
 
-            if (keyPressed == Key.A || keyPressed == Key.Left)
-            {
-                newPos.X -= 1;
-                animationMap = Player.MoveLeft;
-                direction = Direction.Left;
-            }
-            if (keyPressed == Key.D || keyPressed == Key.Right)
-            {
-                newPos.X += 1;
-                animationMap = Player.MoveRight;
-                direction = Direction.Right;
-            }
-            if (keyPressed == Key.W || keyPressed == Key.Up)
-            {
-                newPos.Y -= 1;
-                animationMap = Player.MoveUp;
-                direction = Direction.Up;
-            }
-            if (keyPressed == Key.S || keyPressed == Key.Down)
-            {
-                newPos.Y += 1;
-                animationMap = Player.MoveDown;
-                direction = Direction.Down;
-            }
+            //if (keyPressed == Key.A || keyPressed == Key.Left)
+            //{
+            //    newPos.X -= 1;
+            //    animationMap = Player.MoveLeft;
+            //    direction = Direction.Left;
+            //}
+            //if (keyPressed == Key.D || keyPressed == Key.Right)
+            //{
+            //    newPos.X += 1;
+            //    animationMap = Player.MoveRight;
+            //    direction = Direction.Right;
+            //}
+            //if (keyPressed == Key.W || keyPressed == Key.Up)
+            //{
+            //    newPos.Y -= 1;
+            //    animationMap = Player.MoveUp;
+            //    direction = Direction.Up;
+            //}
+            //if (keyPressed == Key.S || keyPressed == Key.Down)
+            //{
+            //    newPos.Y += 1;
+            //    animationMap = Player.MoveDown;
+            //    direction = Direction.Down;
+            //}
 
-            newPos = this.Location.MoveObject(PlayerPosition, 1, newPos);
+            //newPos = this.Location.MoveObject(PlayerPosition, 1, newPos);
 
-            if (newPos != PlayerPosition)
-            {
-                Drawing.Draw.Animation<LabirinthAnimationSession>(x =>
-                {
-                    x.BlockingAnimation = true;
-                    x.BasePosition = PlayerPosition;
-                    x.NextPosition = newPos;
-                    x.Location = this.Location;
-                    x.ObjectAnimationMap = animationMap;
-                    x.Direction = direction;
-                });
+            //if (newPos != PlayerPosition)
+            //{
+            //    Drawing.Draw.Animation<LabirinthAnimationSession>(x =>
+            //    {
+            //        x.BlockingAnimation = true;
+            //        x.BasePosition = PlayerPosition;
+            //        x.NextPosition = newPos;
+            //        x.Location = this.Location;
+            //        x.ObjectAnimationMap = animationMap;
+            //        x.Direction = direction;
+            //    });
 
-                PlayerPosition = newPos;
-            }
+            //    PlayerPosition = newPos;
+            //}
         }
     }
 }

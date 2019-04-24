@@ -38,10 +38,13 @@
                 Top = 11,
                 OnClick = () =>
                 {
-                    this.Player = Classes.All().Skip(1).First();
-                    this.Player.Name = "Adventurer";
-                    this.Player.Race = Race.Elf;
-                    this.Player.Add<RacePerk>();
+                    this.Player = new Map.Objects.Avatar
+                    {
+                        Character = Classes.All().Skip(1).First()
+                    };
+                    this.Player.Character.Name = "Adventurer";
+                    this.Player.Character.Race = Race.Elf;
+                    this.Player.Character.Add<RacePerk>();
 
                     this.Switch<Game.Main>();
                 }

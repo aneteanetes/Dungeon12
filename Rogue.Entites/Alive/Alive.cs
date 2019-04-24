@@ -1,6 +1,4 @@
-﻿using Rogue.Entites.Animations;
-
-namespace Rogue.Entites.Alive
+﻿namespace Rogue.Entites.Alive
 {
     /// <summary>
     /// Живой, с уровнем

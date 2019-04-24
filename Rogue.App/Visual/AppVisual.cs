@@ -145,8 +145,8 @@
         {
             Action<DrawingContext> drawings = null;
 
-            float y = session.SessionRegion.Y * cell;
-            float x = session.SessionRegion.X * cell;
+            double y = session.SessionRegion.Y * cell;
+            double x = session.SessionRegion.X * cell;
 
             foreach (var line in session.TextContent)
             {
@@ -173,7 +173,7 @@
         /// <param name="y"></param>
         /// <param name="x"></param>
         /// <param name="line"></param>
-        private static Action<DrawingContext> DrawNonPositionalText(float fontSize, FontFamily font, float y, float x, IDrawText line)
+        private static Action<DrawingContext> DrawNonPositionalText(float fontSize, FontFamily font, double y, double x, IDrawText line)
         {
             Action<DrawingContext> drawings = null;
 
@@ -199,8 +199,8 @@
         {
             Action<DrawingContext> drawings = null;
 
-            float y = drawText.Region.Y * cell;
-            float x = drawText.Region.X * cell;
+            double y = drawText.Region.Y * cell;
+            double x = drawText.Region.X * cell;
 
             foreach (var range in drawText.Data)
             {
@@ -220,7 +220,7 @@
         /// <param name="y"></param>
         /// <param name="x"></param>
         /// <param name="range"></param>
-        private static Action<DrawingContext> DrawTextRanges(float fontSize, FontFamily font, float y, float x, IDrawText range)
+        private static Action<DrawingContext> DrawTextRanges(float fontSize, FontFamily font, double y, double x, IDrawText range)
         {
             Action<DrawingContext> drawings = null;
 
@@ -293,7 +293,7 @@
         }
         
         private readonly Dictionary<string, Bitmap> BatchCache = new Dictionary<string, Bitmap>();
-        private void DrawSceneObject(DrawingContext ctx, ISceneObject sceneObject, float xParent=0, float yParent=0, bool batching=false)
+        private void DrawSceneObject(DrawingContext ctx, ISceneObject sceneObject, double xParent=0, double yParent=0, bool batching=false)
         {
             var y = sceneObject.Position.Y * cell + yParent;
             var x = sceneObject.Position.X * cell + xParent;
@@ -354,7 +354,7 @@
             }
         }
 
-        private void DrawSceneText(DrawingContext ctx, float fontSize, float y, float x, IDrawText range)
+        private void DrawSceneText(DrawingContext ctx, float fontSize, double y, double x, IDrawText range)
         {
             var fmt = new FormattedText()
             {
@@ -372,7 +372,7 @@
         private Dictionary<string, Rect> TileSetCache = new Dictionary<string, Rect>();
         private Dictionary<string, Rect> PosCahce = new Dictionary<string, Rect>();
 
-        private void DrawSceneImage(DrawingContext ctx, ISceneObject sceneObject, float y, float x)
+        private void DrawSceneImage(DrawingContext ctx, ISceneObject sceneObject, double y, double x)
         {
             var image = TileSetByName(sceneObject.Image);
 
@@ -396,8 +396,8 @@
 
             if (!PosCahce.TryGetValue(sceneObject.Uid, out Rect pos))
             {
-                float width = sceneObject.Position.Width;
-                float height = sceneObject.Position.Height;
+                double width = sceneObject.Position.Width;
+                double height = sceneObject.Position.Height;
 
                 if (width == 0 && height == 0)
                 {

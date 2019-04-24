@@ -77,11 +77,11 @@ namespace Rogue.Drawing.Data
 
         private void Text(string data, float size, float letter, ConsoleColor color,float top)
         {
-            float positionInLine = PositionInLine(data, 14);
+            double positionInLine = PositionInLine(data, 14);
             this.WanderingText.Add(new DrawText(data, color, positionInLine, top) { Size = size, LetterSpacing = letter });
         }
 
-        private float PositionInLine(string data, float size)
+        private double PositionInLine(string data, float size)
         {
             var pos = (this.DrawRegion.Width * 24 / 2) - (Player.Name.Length * size / 2);
             return pos / 24 

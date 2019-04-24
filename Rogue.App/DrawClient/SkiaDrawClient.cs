@@ -113,18 +113,18 @@
 
             if (path.PathPredefined == View.Enums.PathPredefined.RoundedRectangle)
             {
-                canvas.DrawRoundRect(path.Region.X, path.Region.Y, path.Region.Width, path.Region.Height, path.Angle, path.Angle, paint);
+                canvas.DrawRoundRect(path.Region.Xf, path.Region.Yf, path.Region.Widthf, path.Region.Heightf, path.Angle, path.Angle, paint);
             }
             else if (path.PathPredefined == View.Enums.PathPredefined.Rectangle)
             {
-                canvas.DrawRect(path.Region.X, path.Region.Y, path.Region.Width, path.Region.Height, paint);
+                canvas.DrawRect(path.Region.Xf, path.Region.Yf, path.Region.Widthf, path.Region.Heightf, paint);
             }
             else if (path.Path.Count() == 2)
             {
                 var from = path.Path.First();
                 var to = path.Path.Last();
 
-                canvas.DrawLine(new SKPoint(from.X, from.Y), new SKPoint(to.X, to.Y),paint);
+                canvas.DrawLine(new SKPoint(from.Xf, from.Yf), new SKPoint(to.Xf, to.Yf),paint);
             }
             else
             {
@@ -133,8 +133,8 @@
                 {
                     skPath.LineTo(new SKPoint
                     {
-                        X = point.X,
-                        Y = point.Y
+                        X = point.Xf,
+                        Y = point.Yf
                     });
                 }
                 canvas.DrawPath(skPath, paint);
@@ -166,21 +166,21 @@
 
                 var tilePos = new SKRect
                 {
-                    Left = drawable.TileSetRegion.X,
-                    Top = drawable.TileSetRegion.Y,
+                    Left = drawable.TileSetRegion.Xf,
+                    Top = drawable.TileSetRegion.Yf,
                     Size = tileSize
                 };
 
                 canvas.DrawBitmap(tileset, tilePos, new SKRect
                 {
-                    Top = y - 24,
-                    Left = x,
+                    Top = ((float)y) - 24,
+                    Left = (float)x,
                     Size = new SKSize
                     {
-                        Height = drawable.Region.Height*24,
-                        Width = drawable.Region.Width*24
+                        Height = (float)(drawable.Region.Height * 24),
+                        Width = (float)(drawable.Region.Width * 24)
                     }
-                },new SKPaint { IsAntialias=true });
+                }, new SKPaint { IsAntialias = true });
             }
         }
 
@@ -200,8 +200,8 @@
                 ClearRegion(canvas, session);
             }
 
-            float y = session.SessionRegion.Y * 24 + 3;
-            float x = session.SessionRegion.X * 24 - 3;
+            double y = session.SessionRegion.Y * 24 + 3;
+            double x = session.SessionRegion.X * 24 - 3;
 
             foreach (var line in session.TextContent)
             {
@@ -226,7 +226,7 @@
         /// <param name="y"></param>
         /// <param name="x"></param>
         /// <param name="line"></param>
-        private static void DrawNonPositionalText(SKCanvas canvas, float fontSize, SKTypeface font, float y, float x, IDrawText line)
+        private static void DrawNonPositionalText(SKCanvas canvas, float fontSize, SKTypeface font, double y, double x, IDrawText line)
         {
             foreach (var lne in line.Data)
             {
@@ -246,8 +246,8 @@
         /// <param name="drawText"></param>
         private static void DrawPositionalText(SKCanvas canvas, float fontSize, SKTypeface font, IDrawText drawText)
         {
-            float y = drawText.Region.Y * 24 + 3;
-            float x = drawText.Region.X * 24 - 3;
+            double y = drawText.Region.Y * 24 + 3;
+            double x = drawText.Region.X * 24 - 3;
 
             foreach (var range in drawText.Data)
             {
@@ -265,7 +265,7 @@
         /// <param name="y"></param>
         /// <param name="x"></param>
         /// <param name="range"></param>
-        private static void DrawTextRanges(SKCanvas canvas, float fontSize, SKTypeface font, float y, float x, IDrawText range)
+        private static void DrawTextRanges(SKCanvas canvas, float fontSize, SKTypeface font, double y, double x, IDrawText range)
         {
             var textpaint = new SKPaint
             {
@@ -278,8 +278,8 @@
 
             foreach (var @char in range.StringData)
             {
-                canvas.DrawText(@char.ToString(), x, y, textpaint);
-                canvas.DrawText(@char.ToString(), x, y, textpaint);
+                canvas.DrawText(@char.ToString(), (float)x, (float)y, textpaint);
+                canvas.DrawText(@char.ToString(), (float)x, (float)y, textpaint);
 
                 x += range.LetterSpacing;
             }
@@ -302,13 +302,13 @@
                 {
                     Location = new SKPoint
                     {
-                        Y = session.SessionRegion.Y * 24 + 3,
-                        X = session.SessionRegion.X * 24+3
+                        Y = ((float)session.SessionRegion.Y * 24 + 3),
+                        X = ((float)session.SessionRegion.X * 24+3)
                     },
                     Size = new SKSize
                     {
-                        Height = (session.SessionRegion.Height * 24),
-                        Width = session.SessionRegion.Width * 24
+                        Height = (float)(session.SessionRegion.Height * 24),
+                        Width = (float)(session.SessionRegion.Width * 24)
                     }
                 };
 
@@ -409,27 +409,27 @@
 
             return new SKRect
             {
-                Top = topUpdate * 24,
-                Left = leftUpdate * 24,
+                Top = (float)(topUpdate * 24),
+                Left = (float)(leftUpdate * 24),
                 Size = new SKSize
                 {
-                    Height = (heightUpdate - topUpdate) * 24,
-                    Width = (widthUpdate - leftUpdate) * 24
+                    Height = (float)((heightUpdate - topUpdate) * 24),
+                    Width = (float)((widthUpdate - leftUpdate) * 24)
                 }
             };
 
             //height - абсолютная величина СКОЛЬКО надо нарисовать
             //какой-то уебанский косяк, чес слово
-            return new SKRect
-            {
-                Top = topUpdate * 24 -24+3,
-                Left = leftUpdate * 24,
-                Size = new SKSize
-                {
-                    Height = heightUpdate-24+3,
-                    Width = widthUpdate
-                }
-            };
+            //return new SKRect
+            //{
+            //    Top = topUpdate * 24 -24+3,
+            //    Left = leftUpdate * 24,
+            //    Size = new SKSize
+            //    {
+            //        Height = heightUpdate-24+3,
+            //        Width = widthUpdate
+            //    }
+            //};
         }
 
         private static SKRect GetBounds(IEnumerable<IDrawSession> drawSessions)
@@ -472,7 +472,7 @@
                 }
             }).First();
 
-            var endOfX = 0f;
+            double endOfX = 0f;
 
             if (maxX.Drawables.IsNotEmpty())
             {
@@ -496,7 +496,7 @@
                 }
             }).First();
 
-            var heightUpdate = 0f;
+            double heightUpdate = 0f;
             if (maxY.Drawables.IsNotEmpty())
             {
                 var maxYDrawable = maxY.Drawables.MaxBy(x => x.Region.Y).First();
@@ -514,12 +514,12 @@
 
             return new SKRect
             {
-                Top = topUpdate * 24,
-                Left = leftUpdate * 24,
+                Top = ((float)topUpdate * 24),
+                Left = ((float)leftUpdate * 24),
                 Size = new SKSize
                 {
-                    Height =( heightUpdate - topUpdate )* 24,
-                    Width = (endOfX - leftUpdate) * 24
+                    Height = (float)((heightUpdate - topUpdate) * 24),
+                    Width = (float)((endOfX - leftUpdate) * 24)
                 }
             };
         }

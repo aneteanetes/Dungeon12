@@ -7,7 +7,7 @@
 
     public class SkillBar : SceneControl
     {
-        public SkillBar(Player player)
+        public SkillBar(Rogue.Map.Objects.Avatar player)
         {
             this.Children.Add(new ImageControl("Rogue.Resources.Images.ui.sphere.png"));
             this.Children.Add(new ImageControl("Rogue.Resources.Images.ui.sphere.png")

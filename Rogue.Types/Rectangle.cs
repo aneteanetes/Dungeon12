@@ -2,13 +2,21 @@
 {
     public class Rectangle
     {
-        public float X { get; set; }
+        public double X { get; set; }
 
-        public float Y { get; set; }
+        public float Xf => (float)X;
 
-        public float Width { get; set; }
+        public double Y { get; set; }
 
-        public float Height { get; set; }
+        public float Yf => (float)X;
+
+        public double Width { get; set; }
+
+        public double Height { get; set; }
+
+        public float Heightf => (float)Height;
+
+        public float Widthf => (float)Width;
 
         public Point Pos
         {

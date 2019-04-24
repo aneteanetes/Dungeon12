@@ -3,9 +3,11 @@
     using Rogue.Control.Keys;
     using Rogue.Entites.Alive.Character;
     using Rogue.Entites.Animations;
+    using Rogue.Map;
     using Rogue.Types;
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Text;
 
@@ -13,11 +15,14 @@
     {
         public override bool CacheAvailable => false;
 
-        private Player player;
+        private Rogue.Map.Objects.Avatar playerMapObject;
+        private Player Player => playerMapObject.Character;
+        private readonly Location location;
 
-        public PlayerSceneObject(Player player)
+        public PlayerSceneObject(Rogue.Map.Objects.Avatar player, Location location)
         {
-            this.player = player;
+            this.playerMapObject = player;            
+            this.location = location;
             this.Image = player.Tileset;
             this.Width = 1;
             this.Height = 1;
@@ -64,51 +69,101 @@
 
         private double FrameCounter = 0;
 
+        public float distanceOneFrame = 0.04f;
 
-        bool @double = false;
         public Rectangle Apply()
         {
             FrameCounter++;
 
-            if (NowMoving.IsNotEmpty())
+            var now = new Point(this.Left, this.Top);
+            bool? needRound = null;
+
+            if (NowMoving.Contains(Direction.Up))
             {
-                foreach (var direction in NowMoving)
+                this.playerMapObject.Location.Y -= distanceOneFrame;
+
+                if (this.location.MayMove(playerMapObject))
                 {
-                    switch (direction)
-                    {
-                        case Direction.Idle:
-                            break;
-                        case Direction.Up:
-                            this.Top -= distanceOneFrame;
-                            break;
-                        case Direction.Down:
-                            this.Top += distanceOneFrame;
-                            break;
-                        case Direction.Left:
-                            this.Left -= distanceOneFrame;
-                            break;
-                        case Direction.Right:
-                            this.Left += distanceOneFrame;
-                            break;
-                        default:
-                            break;
-                    }
+                    this.Left = playerMapObject.Location.X;
+                    this.Top = playerMapObject.Location.Y;
                 }
+                else
+                {
+                    playerMapObject.Location.X = this.Left;
+                    playerMapObject.Location.Y = this.Top;
+                }
+            }
+            if (NowMoving.Contains(Direction.Down))
+            {
+                this.playerMapObject.Location.Y += distanceOneFrame;
+
+                if (this.location.MayMove(playerMapObject))
+                {
+                    this.Left = playerMapObject.Location.X;
+                    this.Top = playerMapObject.Location.Y;
+                }
+                else
+                {
+                    playerMapObject.Location.X = this.Left;
+                    playerMapObject.Location.Y = this.Top;
+                }
+            }
+            if (NowMoving.Contains(Direction.Left))
+            {
+                this.playerMapObject.Location.X -= distanceOneFrame;
+
+                if (this.location.MayMove(playerMapObject))
+                {
+                    this.Left = playerMapObject.Location.X;
+                    this.Top = playerMapObject.Location.Y;
+                }
+                else
+                {
+                    playerMapObject.Location.X = this.Left;
+                    playerMapObject.Location.Y = this.Top;
+                }
+            }
+            if (NowMoving.Contains(Direction.Right))
+            {
+                this.playerMapObject.Location.X += distanceOneFrame;
+
+                if (this.location.MayMove(playerMapObject))
+                {
+                    this.Left = playerMapObject.Location.X;
+                    this.Top = playerMapObject.Location.Y;
+                }
+                else
+                {
+                    playerMapObject.Location.X = this.Left;
+                    playerMapObject.Location.Y = this.Top;
+                }
+            }
+
+            if (needRound.HasValue)
+            {
+                //var then = new Point(Round(needRound,this.Left), Round(needRound, this.Top));
+                //var nowCell = new Point(Round(needRound, now.X), Round(needRound, now.Y));
 
 
-                //Console.WriteLine("add direction");
-
-                //if (@double)
+                //if (!this.location.MoveObject(nowCell, 1, then))
                 //{
-                //    Play = false;
-                //    @double = false;
-                //}
-                //else
-                //{
-                //    @double = true;
+                //    this.Left = now.X;
+                //    this.Top = now.Y;
                 //}
             }
-            
+
+            //Console.WriteLine("add direction");
+
+            //if (@double)
+            //{
+            //    Play = false;
+            //    @double = false;
+            //}
+            //else
+            //{
+            //    @double = true;
+            //}        
+
             //if (Play && FrameCounter == Math.Round(FrameTimeIn_60))
             //{
             //    switch (AnimationMap.Direction)
@@ -135,7 +190,7 @@
 
             //    //FrameCounter = 0;
             //    //pos.Pos = AnimationMap.Frames[frame];
-                
+
 
             //    //frame++;
             //    //framesDrawed++;
@@ -158,11 +213,18 @@
             return pos;
         }
 
+        private int Round(bool? r,double v) => r == true
+                    ? (int)Math.Ceiling(v)
+                    : (int)v;
+
+        private int Round(bool? r, float v) => r == true
+                    ? (int)Math.Ceiling(v)
+                    : (int)v;
+
         //реальные константы
 
         public int framesDrawed = 0;
 
-        public float distanceOneFrame = 0.1f;
         public double FrameCount => AnimationMap.Frames.Count * speed;
 
         public double FrameTimeIn_60 => 24 / FrameCount;
@@ -186,10 +248,10 @@
 
             switch (key)
             {
-                case Key.D: NowMoving.Add(Direction.Right); this.AnimationMap = this.player.MoveRight; break;
-                case Key.A: NowMoving.Add(Direction.Left); this.AnimationMap = this.player.MoveLeft; break;
-                case Key.W: NowMoving.Add(Direction.Up); this.AnimationMap = this.player.MoveUp; break;
-                case Key.S: NowMoving.Add(Direction.Down); this.AnimationMap = this.player.MoveDown; break;
+                case Key.D: NowMoving.Add(Direction.Right); this.AnimationMap = this.Player.MoveRight; break;
+                case Key.A: NowMoving.Add(Direction.Left); this.AnimationMap = this.Player.MoveLeft; break;
+                case Key.W: NowMoving.Add(Direction.Up); this.AnimationMap = this.Player.MoveUp; break;
+                case Key.S: NowMoving.Add(Direction.Down); this.AnimationMap = this.Player.MoveDown; break;
                 default: break;
             }
 
@@ -205,10 +267,10 @@
 
             switch (key)
             {
-                case Key.D: NowMoving.Remove(Direction.Right); this.AnimationMap = this.player.MoveRight; break;
-                case Key.A: NowMoving.Remove(Direction.Left); this.AnimationMap = this.player.MoveLeft; break;
-                case Key.W: NowMoving.Remove(Direction.Up); this.AnimationMap = this.player.MoveUp; break;
-                case Key.S: NowMoving.Remove(Direction.Down); this.AnimationMap = this.player.MoveDown; break;
+                case Key.D: NowMoving.Remove(Direction.Right); this.AnimationMap = this.Player.MoveRight; break;
+                case Key.A: NowMoving.Remove(Direction.Left); this.AnimationMap = this.Player.MoveLeft; break;
+                case Key.W: NowMoving.Remove(Direction.Up); this.AnimationMap = this.Player.MoveUp; break;
+                case Key.S: NowMoving.Remove(Direction.Down); this.AnimationMap = this.Player.MoveDown; break;
                 default: break;
             }
 

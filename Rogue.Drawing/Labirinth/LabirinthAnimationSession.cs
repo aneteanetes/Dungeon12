@@ -28,8 +28,8 @@ namespace Rogue.Drawing.Labirinth
 
             var frameStep = 1f / ObjectAnimationMap.Frames.Count;
 
-            float x = BasePosition.X;
-            float y = BasePosition.Y;
+            double x = BasePosition.X;
+            double y = BasePosition.Y;
 
             void UpdateCoordinates()
             {

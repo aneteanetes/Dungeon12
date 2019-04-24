@@ -54,16 +54,16 @@ namespace Rogue.Scenes.Menus.Creation
 
             var strings = new (string,string, ConsoleColor)[] 
             {
-                ("Раса: ", Player.Race.ToDisplay(), ConsoleColor.Gray),
-                ("Класс: ", Player.ClassName, Player.ResourceColor),
-                ("Здоровье: ", string.Format("{0}/{0}", Player.MaxHitPoints), ConsoleColor.Red),
-                ($"{Player.ResourceName}: ", Player.Resource, Player.ResourceColor),
-                ("Урон: ", string.Format("{0}-{1}", Player.MinDMG, Player.MaxDMG),ConsoleColor.DarkRed),
+                ("Раса: ", Player.Character.Race.ToDisplay(), ConsoleColor.Gray),
+                ("Класс: ", Player.Character.ClassName, Player.Character.ResourceColor),
+                ("Здоровье: ", string.Format("{0}/{0}", Player.Character.MaxHitPoints), ConsoleColor.Red),
+                ($"{Player.Character.ResourceName}: ", Player.Character.Resource, Player.Character.ResourceColor),
+                ("Урон: ", string.Format("{0}-{1}", Player.Character.MinDMG, Player.Character.MaxDMG),ConsoleColor.DarkRed),
                 (" ", " ",ConsoleColor.DarkRed),
-                ("Сила атаки: ", Player.AttackPower.ToString(), ConsoleColor.DarkCyan),
-                ("Сила магии: ", Player.AbilityPower.ToString(), ConsoleColor.DarkCyan),
-                ("Физ. Защита: ", Player.Defence.ToString(), ConsoleColor.DarkGreen),
-                ("Маг. Защита: ", Player.Barrier.ToString(), ConsoleColor.DarkMagenta)
+                ("Сила атаки: ", Player.Character.AttackPower.ToString(), ConsoleColor.DarkCyan),
+                ("Сила магии: ", Player.Character.AbilityPower.ToString(), ConsoleColor.DarkCyan),
+                ("Физ. Защита: ", Player.Character.Defence.ToString(), ConsoleColor.DarkGreen),
+                ("Маг. Защита: ", Player.Character.Barrier.ToString(), ConsoleColor.DarkMagenta)
             };
 
             var top = 2;

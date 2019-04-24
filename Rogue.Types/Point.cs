@@ -13,8 +13,18 @@
             this.Y = y;
         }
 
-        public float X { get; set; }
+        public Point(double x, double y)
+        {
+            this.X = x;
+            this.Y = y;
+        }
 
-        public float Y { get; set; }
+        public double X { get; set; }
+
+        public double Y { get; set; }
+
+        public float Xf => (float)X;
+
+        public float Yf => (float)Y;
     }
 }

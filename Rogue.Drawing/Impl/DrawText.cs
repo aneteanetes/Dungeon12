@@ -35,6 +35,16 @@ namespace Rogue.Drawing.Impl
             };
         }
 
+        public DrawText(string value, DrawColor foregroundColor, double x = 0, double y = 0) : this(value)
+        {
+            this.ForegroundColor = foregroundColor;
+            this.Region = new Rectangle
+            {
+                X = x,
+                Y = y
+            };
+        }
+
         public DrawText(string value, IDrawColor foregroundColor, IDrawColor backgroundColor = null) : this(value)
         {
             this.BackgroundColor = backgroundColor;
