@@ -11,7 +11,7 @@ namespace Rogue.Drawing.WorldMap
     {
         public IView<Biom> BiomView { get; set; }
 
-        public Location Map { get; set; }
+        public GameMap Map { get; set; }
 
         public WorldMapHitDrawSession()
         {

@@ -46,6 +46,8 @@
             set { }
         }
 
+        protected override MapObject Self => this;
+
 
         //public override PhysicalObject Vision
         //{

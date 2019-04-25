@@ -15,15 +15,15 @@ namespace Rogue.Drawing.Labirinth
     {
         public override bool IsBatch => true;
 
-        private Location _location;
+        private GameMap _location;
 
-        public MapSceneObject(Location location)
+        public MapSceneObject(GameMap location)
         {
             _location = location;
 
-            for (int y = 0; y < _location.Map.Count; y++)
+            for (int y = 0; y < _location.MapOld.Count; y++)
             {
-                var line = _location.Map[y];
+                var line = _location.MapOld[y];
                 for (int x = 0; x < line.Count; x++)
                 {
                     MapObject[] cell = line[x].ToArray();
@@ -39,8 +39,8 @@ namespace Rogue.Drawing.Labirinth
                 }
             }
 
-            Height = _location.Map.Count;
-            Width = _location.Map.First().Count;
+            Height = _location.MapOld.Count;
+            Width = _location.MapOld.First().Count;
         }
 
         private void AddObject(MapObject[] cell, Point pos)
@@ -71,7 +71,7 @@ namespace Rogue.Drawing.Labirinth
             List<bool[]> square = new List<bool[]>();
 
             TopSquare(pos, square);
-            square.Add(GetLine((int)pos.X, _location.Map[(int)pos.Y]));
+            square.Add(GetLine((int)pos.X, _location.MapOld[(int)pos.Y]));
             BotSquare(pos, square);
             PosSquare(pos, square);
 
@@ -80,12 +80,12 @@ namespace Rogue.Drawing.Labirinth
 
         private void PosSquare(Point pos, List<bool[]> square)
         {
-            if (pos.Y < _location.Map.Count-2)
+            if (pos.Y < _location.MapOld.Count-2)
             {
-                var positionalLine = _location.Map[(int)pos.Y + 2];
+                var positionalLine = _location.MapOld[(int)pos.Y + 2];
                 square.Add(GetLine((int)pos.X, positionalLine));
             }
-            else if (pos.Y == _location.Map.Count - 1)
+            else if (pos.Y == _location.MapOld.Count - 1)
             {
                 square.Add(EmptyFalseLine);
             }
@@ -97,13 +97,13 @@ namespace Rogue.Drawing.Labirinth
 
         private void BotSquare(Point pos, List<bool[]> square)
         {
-            if (pos.Y == _location.Map.Count - 1)
+            if (pos.Y == _location.MapOld.Count - 1)
             {
                 square.Add(EmptyTrueLine);
             }
             else
             {
-                var botLine = _location.Map[(int)pos.Y +1];
+                var botLine = _location.MapOld[(int)pos.Y +1];
                 square.Add(GetLine((int)pos.X, botLine));
             }
         }
@@ -116,7 +116,7 @@ namespace Rogue.Drawing.Labirinth
             }
             else
             {
-                var topLine = _location.Map[(int)pos.Y - 1];
+                var topLine = _location.MapOld[(int)pos.Y - 1];
                 square.Add(GetLine((int)pos.X, topLine));
             }
         }
@@ -144,7 +144,7 @@ namespace Rogue.Drawing.Labirinth
 
             result.Add(IsWall(data[xPos]));
 
-            if (xPos == _location.Map.First().Count - 1)
+            if (xPos == _location.MapOld.First().Count - 1)
             {
                 result.Add(false);
             }
@@ -160,7 +160,7 @@ namespace Rogue.Drawing.Labirinth
         {
             var isometricMap = IsometricMap(wallMap);
             var tile = DetermineTitle(isometricMap);
-            var mapObj = _location.Map[(int)pos.Y][(int)pos.X][0];
+            var mapObj = _location.MapOld[(int)pos.Y][(int)pos.X][0];
             
             mapObj.TileSetRegion = new Rectangle
             {

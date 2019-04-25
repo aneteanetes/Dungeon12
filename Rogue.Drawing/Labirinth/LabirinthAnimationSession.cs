@@ -15,7 +15,7 @@ namespace Rogue.Drawing.Labirinth
 
         public Point NextPosition { get; set; }
 
-        public Location Location { get; set; }
+        public GameMap Location { get; set; }
 
         public Direction Direction { get; set; }
 
@@ -23,8 +23,8 @@ namespace Rogue.Drawing.Labirinth
 
         public override IAnimationSession Run()
         {
-            var oldPos = this.Location.Map[(int)BasePosition.Y][(int)BasePosition.X].First();
-            var newPos = this.Location.Map[(int)NextPosition.Y][(int)NextPosition.X].First();
+            var oldPos = this.Location.MapOld[(int)BasePosition.Y][(int)BasePosition.X].First();
+            var newPos = this.Location.MapOld[(int)NextPosition.Y][(int)NextPosition.X].First();
 
             var frameStep = 1f / ObjectAnimationMap.Frames.Count;
 

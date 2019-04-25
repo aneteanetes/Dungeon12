@@ -12,7 +12,7 @@ namespace Rogue.Scenes.Game
 {
     public class MoveCommand : Command
     {
-        public Location Location { get; set; }
+        public GameMap Location { get; set; }
 
         public Rogue.Map.Objects.Avatar Player { get; set; }
 

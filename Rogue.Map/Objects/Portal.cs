@@ -48,6 +48,8 @@
             }
         };
 
+        protected override MapObject Self => throw new NotImplementedException();
+
         public override void Interact()
         {
             throw new NotImplementedException();

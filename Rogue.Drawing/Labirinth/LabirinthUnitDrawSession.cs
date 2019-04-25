@@ -10,13 +10,13 @@ namespace Rogue.Drawing.Labirinth
     /// </summary>
     public class LabirinthUnitDrawSession : DrawSession
     {
-        public Location Location { get; set; }
+        public GameMap Location { get; set; }
 
         public Point Position { get; set; }
 
         public override IDrawSession Run()
         {
-            this.Drawables = Location.Map[(int)Position.Y][(int)Position.X];
+            this.Drawables = Location.MapOld[(int)Position.Y][(int)Position.X];
 
             return base.Run();
         }

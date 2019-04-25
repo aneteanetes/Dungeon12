@@ -39,8 +39,56 @@ namespace Rogue.Physics
 
             return false;
         }
-
-        public IEnumerable<T> InVision<T>(IEnumerable<T> available) where T : PhysicalObject
-            => available.Where(physObj => this.IntersectsWith(physObj));
     }
+
+    public abstract class PhysicalObject<T> : PhysicalObject
+        where T: PhysicalObject<T>
+    {
+        protected abstract T Self { get; }
+
+        public List<T> Nodes { get; set; } = new List<T>();
+
+        protected virtual bool Containable => false;
+
+        public T Query(T physicalObject)
+        {
+            if (this.IntersectsWith(physicalObject))
+            {
+                if (this.Nodes.Count == 0)
+                {
+                    return Self;
+                }
+                else
+                {
+                    T queryNode = Self;
+
+                    foreach (var node in Nodes)
+                    {
+                        if (!node.Containable)
+                        {
+                            continue;
+                        }
+
+                        var queryDeepNode = node.Query(physicalObject);
+                        if (queryDeepNode != null)
+                        {
+                            return queryDeepNode;
+                        }
+                    }
+
+                    return queryNode;
+                }
+            }
+
+            return null;
+        }
+
+        public IEnumerable<T> InVision(IEnumerable<T> available)
+            => available.Where(physObj => this.IntersectsWith(physObj));
+
+
+
+        public bool InVision(T available) => this.IntersectsWith(available);
+    }
+
 }

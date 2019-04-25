@@ -10,7 +10,7 @@
     using Rogue.Utils.ReflectionExtensions;
     using Rogue.View.Interfaces;
 
-    public abstract class MapObject : PhysicalObject, IDrawable
+    public class MapObject : PhysicalObject<MapObject>, IDrawable
     {
         public virtual bool Obstruction { get; set; }
 
@@ -33,7 +33,7 @@
 
         public bool Container => false;
 
-        public abstract void Interact();
+        public virtual void Interact() { }
 
         public virtual PhysicalSize View => new PhysicalSize
         {
@@ -46,7 +46,7 @@
             get => new PhysicalObject
             {
                 Size = View,
-                Position=new PhysicalPosition
+                Position = new PhysicalPosition
                 {
                     X = Position.X + Position.X / 2,
                     Y = Position.Y + Position.Y / 2
@@ -55,25 +55,36 @@
             set { }
         }
 
+        protected virtual PhysicalSize _Size { get; set; }
+
         public override PhysicalSize Size
         {
-            get => new PhysicalSize
+            get => _Size ?? new PhysicalSize
             {
                 Height = 32,
                 Width = 32
-            };
-            set { }
+            }
+;
+
+            set => _Size = value;
         }
+
+        protected virtual PhysicalPosition _Position { get; set; }
 
         public override PhysicalPosition Position
         {
-            get => new PhysicalPosition
+            get => _Position ?? new PhysicalPosition
             {
-                X = this.Location.X*32,
-                Y = this.Location.Y*32
-            };
-            set { }
+                X = this.Location.X * 32,
+                Y = this.Location.Y * 32
+            }
+;
+
+            set => _Position = value;
         }
+
+
+        protected override MapObject Self => this;
 
         private static readonly Dictionary<string, Type> TypeCache = new Dictionary<string, Type>();
 
@@ -97,7 +108,7 @@
                 TypeCache.Add(icon, type);
             }
 
-            var mapObject =(MapObject)type.New();
+            var mapObject = (MapObject)type.New();
             mapObject.Icon = icon;
 
             return mapObject;

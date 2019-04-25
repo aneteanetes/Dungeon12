@@ -26,6 +26,8 @@
         private readonly Rectangle region;
         public override Rectangle TileSetRegion => region;
 
+        protected override MapObject Self => throw new NotImplementedException();
+
         public override void Interact()
         {
             throw new NotImplementedException();

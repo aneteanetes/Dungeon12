@@ -109,7 +109,7 @@
 
         private void InitMap()
         {
-            this.Location = new Location
+            this.Location = new GameMap
             {
                 Biom = ConsoleColor.DarkGray
             };
@@ -140,15 +140,27 @@
 
                     if (mapObj.Obstruction)
                     {
+                        var node = Location.Map.Query(mapObj);
+
+                        if (typeof(Wall).IsAssignableFrom(node.GetType()))
+                        {
+                            Debugger.Break();
+                        }
+
+                        node
+                        .Nodes
+                        .Add(mapObj);
+
                         this.Location.Objects.Add(mapObj);
                     }
+
                     listLine.Add(new List<MapObject>() { mapObj });
                     x++;
                 }
 
                 y++;
 
-                this.Location.Map.Add(listLine);
+                this.Location.MapOld.Add(listLine);
             }
 
             //перенести туда где location
@@ -164,7 +176,7 @@
             //    Character = this.Player
             //});
 
-            this.Location.Map[4][9].Add(new Portal()
+            this.Location.MapOld[4][9].Add(new Portal()
             {
                 Location = new Point(9, 4)
             });
@@ -194,7 +206,7 @@
                 if (keyPressed == Key.E)
                 {
                     var export = string.Empty;
-                    foreach (var line in this.Location.Map)
+                    foreach (var line in this.Location.MapOld)
                     {
                         foreach (var @char in line)
                         {

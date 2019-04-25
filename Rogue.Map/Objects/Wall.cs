@@ -11,6 +11,8 @@
 
         public override bool Obstruction { get => true; set { } }
 
+        protected override MapObject Self => this;
+
         public override void Interact()
         {
             throw new NotImplementedException();
