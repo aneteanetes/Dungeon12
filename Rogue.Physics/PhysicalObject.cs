@@ -42,7 +42,7 @@ namespace Rogue.Physics
     }
 
     public abstract class PhysicalObject<T> : PhysicalObject
-        where T: PhysicalObject<T>
+        where T: PhysicalObject<T>, new()
     {
         protected abstract T Self { get; }
 
@@ -89,6 +89,13 @@ namespace Rogue.Physics
 
 
         public bool InVision(T available) => this.IntersectsWith(available);
+
+
+        public T ClonePhysicalObject() => new T
+        {
+            Size = new PhysicalSize { Height = this.Size.Height, Width = this.Size.Width },
+            Position = new PhysicalPosition { X = this.Position.X, Y = this.Position.Y }
+        };
     }
 
 }

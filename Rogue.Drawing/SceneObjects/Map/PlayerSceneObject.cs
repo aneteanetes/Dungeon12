@@ -39,14 +39,16 @@
 
         protected override void DrawLoop()
         {
-            var _ =NowMoving.Count == 0
+            var _ = NowMoving.Count == 0
                 ? RequestStop()
                 : RequestResume();
+
+            var old = this.playerMapObject.ClonePhysicalObject();
 
             if (NowMoving.Contains(Direction.Up))
             {
                 this.playerMapObject.Location.Y -= Speed;
-                if (CheckMoveAvailable())
+                if (CheckMoveAvailable(old))
                 {
                     SetAnimation(this.Player.MoveUp);
                 }
@@ -54,7 +56,7 @@
             if (NowMoving.Contains(Direction.Down))
             {
                 this.playerMapObject.Location.Y += Speed;
-                if (CheckMoveAvailable())
+                if (CheckMoveAvailable(old))
                 {
                     SetAnimation(this.Player.MoveDown);
                 }
@@ -62,7 +64,7 @@
             if (NowMoving.Contains(Direction.Left))
             {
                 this.playerMapObject.Location.X -= Speed;
-                if (CheckMoveAvailable())
+                if (CheckMoveAvailable(old))
                 {
                     SetAnimation(this.Player.MoveLeft);
                 }
@@ -70,16 +72,16 @@
             if (NowMoving.Contains(Direction.Right))
             {
                 this.playerMapObject.Location.X += Speed;
-                if (CheckMoveAvailable())
+                if (CheckMoveAvailable(old))
                 {
                     SetAnimation(this.Player.MoveRight);
                 }
             }
         }
         
-        private bool CheckMoveAvailable()
+        private bool CheckMoveAvailable(MapObject old)
         {
-            if (this.location.MayMove(playerMapObject))
+            if (this.location.Move(playerMapObject,old))
             {
                 this.Left = playerMapObject.Location.X;
                 this.Top = playerMapObject.Location.Y;

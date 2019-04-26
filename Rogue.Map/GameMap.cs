@@ -22,10 +22,12 @@ namespace Rogue.Map
 
         public List<List<List<MapObject>>> MapOld = new List<List<List<MapObject>>>();
 
-        public bool MayMove(MapObject @object)
+        public bool Move(MapObject @object, MapObject old = null)
         {
             var moveArea = Map.Query(@object);
-            return !moveArea.Nodes.Any(node => @object.IntersectsWith(node) ? node.Obstruction : false);
+            var canMove = !moveArea.Nodes.Any(node => @object.IntersectsWith(node) ? node.Obstruction : false);
+
+            return canMove;
         }
 
         public bool MayMoveOld(MapObject @object)

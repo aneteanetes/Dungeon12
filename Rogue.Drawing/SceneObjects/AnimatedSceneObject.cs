@@ -17,7 +17,6 @@
             get
             {
                 FrameCounter++;
-                System.Console.WriteLine(FrameCounter);
 
                 DrawLoop();
                 ChangeAnimationFrame();

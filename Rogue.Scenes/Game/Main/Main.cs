@@ -49,12 +49,14 @@
                 Top = 18.45f,
                 Left = 9f
             });
-                        
-            this.AddObject(new PlayerSceneObject(this.Player,this.Location)
+
+            var player = new PlayerSceneObject(this.Player, this.Location)
             {
                 Left = 20,
                 Top = 11
-            });
+            };
+            this.AddObject(player);
+            this.Location.Map.Nodes.Insert(0, this.Player);
         }
 
         public override void Draw()
@@ -140,16 +142,9 @@
 
                     if (mapObj.Obstruction)
                     {
-                        var node = Location.Map.Query(mapObj);
-
-                        if (typeof(Wall).IsAssignableFrom(node.GetType()))
-                        {
-                            Debugger.Break();
-                        }
-
-                        node
-                        .Nodes
-                        .Add(mapObj);
+                        Location.Map.Query(mapObj)
+                            .Nodes
+                            .Add(mapObj);
 
                         this.Location.Objects.Add(mapObj);
                     }
