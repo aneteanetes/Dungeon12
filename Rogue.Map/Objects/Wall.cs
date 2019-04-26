@@ -13,9 +13,6 @@
 
         protected override MapObject Self => this;
 
-        public override void Interact()
-        {
-            throw new NotImplementedException();
-        }
+        public override void Interact() { }
     }
 }

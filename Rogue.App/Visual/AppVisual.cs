@@ -378,6 +378,7 @@
 
             if (!TileSetCache.TryGetValue(sceneObject.Uid, out Rect tileRegion))
             {
+
                 if (sceneObject.ImageRegion == null)
                 {
                     tileRegion = new Rect(0, 0, image.PixelSize.Width, image.PixelSize.Height);

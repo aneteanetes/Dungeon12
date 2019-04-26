@@ -44,6 +44,31 @@
                 Top = 0
             });
 
+            var portal = new Portal
+            {
+                Location = new Point(9, 4)
+            };
+            portal.Region = new Rectangle
+            {
+                Height = 32,
+                Width = 32,
+                Pos = portal.Location
+            };
+            var portalSceneObject = new StandaloneSceneObject(portal,(frameCounter,animMap)=>
+            {
+
+                return frameCounter % (180 / animMap.Frames.Count) == 0;
+            })
+            {
+                Left = 9,
+                Top = 4,
+                Width=1,
+                Height=1
+            };
+            this.Location.Map.Query(portal).Nodes.Add(portal);
+            this.AddObject(portalSceneObject);
+
+
             this.AddObject(new SkillBar(this.Player)
             {
                 Top = 18.45f,
@@ -165,16 +190,7 @@
                 Height = 32,
                 Width = 32,
                 Pos = this.Player.Location
-            };
-            //this.Location.Map[11][20].Add(new Player
-            //{
-            //    Character = this.Player
-            //});
-
-            this.Location.MapOld[4][9].Add(new Portal()
-            {
-                Location = new Point(9, 4)
-            });
+            };           
         }
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers)

@@ -13,8 +13,6 @@
 
     public class PlayerSceneObject : AnimatedSceneObject
     {
-        public override bool CacheAvailable => false;
-
         private Rogue.Map.Objects.Avatar playerMapObject;
         private Player Player => playerMapObject.Character;
         private readonly GameMap location;
@@ -48,34 +46,26 @@
             if (NowMoving.Contains(Direction.Up))
             {
                 this.playerMapObject.Location.Y -= Speed;
-                if (CheckMoveAvailable(old))
-                {
-                    SetAnimation(this.Player.MoveUp);
-                }
+                SetAnimation(this.Player.MoveUp);
+                CheckMoveAvailable(old);
             }
             if (NowMoving.Contains(Direction.Down))
             {
                 this.playerMapObject.Location.Y += Speed;
-                if (CheckMoveAvailable(old))
-                {
-                    SetAnimation(this.Player.MoveDown);
-                }
+                SetAnimation(this.Player.MoveDown);
+                CheckMoveAvailable(old);
             }
             if (NowMoving.Contains(Direction.Left))
             {
                 this.playerMapObject.Location.X -= Speed;
-                if (CheckMoveAvailable(old))
-                {
-                    SetAnimation(this.Player.MoveLeft);
-                }
+                SetAnimation(this.Player.MoveLeft);
+                CheckMoveAvailable(old);
             }
             if (NowMoving.Contains(Direction.Right))
             {
                 this.playerMapObject.Location.X += Speed;
-                if (CheckMoveAvailable(old))
-                {
-                    SetAnimation(this.Player.MoveRight);
-                }
+                SetAnimation(this.Player.MoveRight);
+                CheckMoveAvailable(old);
             }
         }
         

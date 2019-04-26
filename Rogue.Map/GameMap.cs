@@ -25,7 +25,16 @@ namespace Rogue.Map
         public bool Move(MapObject @object, MapObject old = null)
         {
             var moveArea = Map.Query(@object);
-            var canMove = !moveArea.Nodes.Any(node => @object.IntersectsWith(node) ? node.Obstruction : false);
+            var mapObjs = moveArea.Nodes.Where(node => @object.IntersectsWith(node));
+
+            foreach (var mObj in mapObjs)
+            {
+                mObj.Interact();
+            }
+
+            return !mapObjs.Any(x => x.Obstruction);
+
+            //? node.Obstruction : false);
                        
             //if (old != null)
             //{
@@ -37,7 +46,7 @@ namespace Rogue.Map
             //    }
             //}
 
-            return canMove;
+            //return canMove;
         }
 
         public bool MayMoveOld(MapObject @object)

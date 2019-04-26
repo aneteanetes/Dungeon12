@@ -2,12 +2,16 @@
 {
     using Rogue.Entites.Animations;
     using Rogue.Types;
+    using System;
 
     public abstract class AnimatedSceneObject : HandleSceneControl
     {
-        public AnimatedSceneObject(Rectangle defaultFramePosition)
+        public override bool CacheAvailable => false;
+
+        public AnimatedSceneObject(Rectangle defaultFramePosition, Func<int, AnimationMap, bool> requestNextFrame = null)
         {
             this.FramePosition = defaultFramePosition;
+            this.RequestNextFrame = requestNextFrame ?? this.DefaultRequestNextFrame;
         }
 
         private int FrameCounter = 0;
@@ -25,8 +29,8 @@
             }
         }
 
-        private  int frame = 0;
-        
+        private int frame = 0;
+
         private bool animationStop = false;
 
         protected bool RequestStop()
@@ -43,13 +47,20 @@
 
         protected Rectangle FramePosition;
 
+        protected Func<int, AnimationMap, bool> RequestNextFrame;
+
+        private bool DefaultRequestNextFrame(int frameCounter, AnimationMap animMap)
+        {
+            return frameCounter % (60 / animMap.Frames.Count) == 0;
+        }
+
         protected virtual void ChangeAnimationFrame()
         {
             if (animationMap != null && !animationStop)
             {
                 FramePosition.Pos = animationMap.Frames[frame];
 
-                if (FrameCounter % (60 / animationMap.Frames.Count) == 0)
+                if (RequestNextFrame(FrameCounter, animationMap))
                 {
                     frame++;
                 }
@@ -57,7 +68,7 @@
                 if (frame == animationMap.Frames.Count)
                 {
                     frame = 0;
-                        FrameCounter = 0;
+                    FrameCounter = 0;
                 }
             }
         }
