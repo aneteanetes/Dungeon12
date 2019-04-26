@@ -26,6 +26,16 @@ namespace Rogue.Map
         {
             var moveArea = Map.Query(@object);
             var canMove = !moveArea.Nodes.Any(node => @object.IntersectsWith(node) ? node.Obstruction : false);
+                       
+            //if (old != null)
+            //{
+            //    var oldArea = Map.Query(old);
+            //    if (oldArea != moveArea)
+            //    {
+            //        moveArea.Nodes.Add(@object);
+            //        oldArea.Nodes.Remove(@object);
+            //    }
+            //}
 
             return canMove;
         }

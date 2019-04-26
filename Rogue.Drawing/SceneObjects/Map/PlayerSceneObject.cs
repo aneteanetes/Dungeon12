@@ -43,7 +43,7 @@
                 ? RequestStop()
                 : RequestResume();
 
-            var old = this.playerMapObject.ClonePhysicalObject();
+            MapObject old = null;// this.playerMapObject.ClonePhysicalObject();
 
             if (NowMoving.Contains(Direction.Up))
             {
