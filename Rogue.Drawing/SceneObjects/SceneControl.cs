@@ -72,7 +72,7 @@
 
             this.Children.Add(sceneObject);
         }
-
+        
         private Rectangle _computedPosition;
         public Rectangle ComputedPosition
         {
@@ -99,5 +99,7 @@
         public virtual bool CacheAvailable => true;
 
         public virtual bool IsBatch => false;
+
+        public virtual bool Expired => false;
     }
 }

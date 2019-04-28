@@ -33,7 +33,7 @@
             this.Height = 1;
         }
 
-        public float Speed = 0.03f;
+        public float Speed = 0.08f;
 
         protected override void DrawLoop()
         {
@@ -47,25 +47,37 @@
             {
                 this.playerMapObject.Location.Y -= Speed;
                 SetAnimation(this.Player.MoveUp);
-                CheckMoveAvailable(old);
+                if (!CheckMoveAvailable(old))
+                {
+                    //NowMoving.Remove(Direction.Up);
+                }
             }
             if (NowMoving.Contains(Direction.Down))
             {
                 this.playerMapObject.Location.Y += Speed;
                 SetAnimation(this.Player.MoveDown);
-                CheckMoveAvailable(old);
+                if (!CheckMoveAvailable(old))
+                {
+                    //NowMoving.Remove(Direction.Down);
+                }
             }
             if (NowMoving.Contains(Direction.Left))
             {
                 this.playerMapObject.Location.X -= Speed;
                 SetAnimation(this.Player.MoveLeft);
-                CheckMoveAvailable(old);
+                if (!CheckMoveAvailable(old))
+                {
+                    //NowMoving.Remove(Direction.Left);
+                }
             }
             if (NowMoving.Contains(Direction.Right))
             {
                 this.playerMapObject.Location.X += Speed;
                 SetAnimation(this.Player.MoveRight);
-                CheckMoveAvailable(old);
+                if (!CheckMoveAvailable(old))
+                {
+                    //NowMoving.Remove(Direction.Right);
+                }
             }
         }
         

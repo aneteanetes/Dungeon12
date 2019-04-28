@@ -300,7 +300,7 @@
 
             if (sceneObject.IsBatch && !batching)
             {
-                if (!BatchCache.TryGetValue(sceneObject.Uid, out var bitmap))
+                if (sceneObject.Expired || !BatchCache.TryGetValue(sceneObject.Uid, out var bitmap))
                 {
                     int width = (int)Math.Round(sceneObject.Position.Width * cell);
                     int height = (int)Math.Round(sceneObject.Position.Height * cell);
@@ -312,10 +312,10 @@
                         DrawSceneObject(ctxImpl, sceneObject, xParent, yParent, true);
                     }
 
-                    TileSetCache.Add(sceneObject.Uid, new Rect(0, 0, width, height));
-                    PosCahce.Add(sceneObject.Uid, new Rect(sceneObject.Position.X, sceneObject.Position.Y, width, height));
+                    TileSetCache[sceneObject.Uid] = new Rect(0, 0, width, height);
+                    PosCahce[sceneObject.Uid] = new Rect(sceneObject.Position.X, sceneObject.Position.Y, width, height);
 
-                    BatchCache.Add(sceneObject.Uid, bitmap);
+                    BatchCache[sceneObject.Uid] = bitmap;
                 }
 
                 TileSetCache.TryGetValue(sceneObject.Uid, out var tilesetPos);

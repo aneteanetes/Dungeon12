@@ -16,6 +16,11 @@
         bool IsBatch { get; }
 
         /// <summary>
+        /// is this object need to re cached
+        /// </summary>
+        bool Expired { get; }
+
+        /// <summary>
         /// Must exists
         /// </summary>
         Rectangle Position { get; }

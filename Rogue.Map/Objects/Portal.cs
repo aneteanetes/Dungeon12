@@ -50,9 +50,9 @@
 
         protected override MapObject Self => throw new NotImplementedException();
 
-        public override void Interact()
+        public override void Interact(GameMap gameMap)
         {
-            Console.WriteLine("teleport");
+            gameMap.Generate();
         }
     }
 }

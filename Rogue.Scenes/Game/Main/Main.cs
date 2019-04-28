@@ -21,7 +21,7 @@
     using System.Diagnostics;
     using System.Linq;
 
-    public class Main : GameScene<Start>
+    public class Main : GameScene<Start,Main>
     {
         private readonly Point PlayerPosition = new Point { X = 27, Y = 8 };
 
@@ -31,18 +31,21 @@
         {
         }
 
-        public override bool Destroyable => false;
+        public override bool Destroyable => destroyable;
+
+        private bool destroyable = false;
 
         public override void Init()
         {
             this.AddObject(new ImageControl("Rogue.Resources.Images.d12back.png"));
 
             this.InitMap();
-            this.AddObject(new MapSceneObject(this.Location)
+            var sceneObj = new MapSceneObject(this.Location)
             {
                 Left = 0,
                 Top = 0
-            });
+            };
+            this.AddObject(sceneObj);
 
             var portal = new Portal
             {
@@ -54,16 +57,16 @@
                 Width = 32,
                 Pos = portal.Location
             };
-            var portalSceneObject = new StandaloneSceneObject(portal,(frameCounter,animMap)=>
-            {
+            var portalSceneObject = new StandaloneSceneObject(portal, (frameCounter, animMap) =>
+             {
 
-                return frameCounter % (180 / animMap.Frames.Count) == 0;
-            })
+                 return frameCounter % (180 / animMap.Frames.Count) == 0;
+             })
             {
                 Left = 9,
                 Top = 4,
-                Width=1,
-                Height=1
+                Width = 1,
+                Height = 1
             };
             this.Location.Map.Query(portal).Nodes.Add(portal);
             this.AddObject(portalSceneObject);
@@ -74,6 +77,7 @@
                 Top = 18.45f,
                 Left = 9f
             });
+
 
             var player = new PlayerSceneObject(this.Player, this.Location)
             {
@@ -140,48 +144,7 @@
             {
                 Biom = ConsoleColor.DarkGray
             };
-
-            var persistMap = Database.Entity<Data.Maps.Map>(e => e.Identity == "Capital").First();
-
-            this.Location.Name = persistMap.Name;
-
-            int x = 0;
-            int y = 0;
-
-            foreach (var line in persistMap.Template.Split(Environment.NewLine))
-            {
-                var listLine = new List<List<Map.MapObject>>();
-
-                x = 0;
-
-                foreach (var @char in line)
-                {
-                    var mapObj = MapObject.Create(@char.ToString());
-                    mapObj.Location = new Point(x, y);
-                    mapObj.Region = new Rectangle
-                    {
-                        Height = 32,
-                        Width = 32,
-                        Pos = mapObj.Location
-                    };
-
-                    if (mapObj.Obstruction)
-                    {
-                        Location.Map.Query(mapObj)
-                            .Nodes
-                            .Add(mapObj);
-
-                        this.Location.Objects.Add(mapObj);
-                    }
-
-                    listLine.Add(new List<MapObject>() { mapObj });
-                    x++;
-                }
-
-                y++;
-
-                this.Location.MapOld.Add(listLine);
-            }
+            this.Location.Load("Capital");
 
             //перенести туда где location
             this.Player.Location = new Point(20, 11);

@@ -6,18 +6,12 @@
     using Rogue.Settings;
     using Rogue.Types;
 
-    [Template("@")]
-    public class Avatar : MapObject
+    [Template("*")]
+    public class Enemy : MapObject
     {
-        public Entites.Alive.Character.Player Character { get; set; }
+        public override string Icon { get => "*"; set { } }
 
-        public override string Tileset => Character.Tileset;
-
-        public override Rectangle TileSetRegion => Character.TileSetRegion;
-
-        public override string Icon { get => "@"; set { } }
-
-        public Avatar()
+        public Enemy()
         {
             this.ForegroundColor = new MapObjectColor
             {
@@ -47,22 +41,17 @@
         }
 
         protected override MapObject Self => this;
+        
 
+        public override string Tileset => "Rogue.Classes.BloodMage.Images.Dolls.Character.png";
 
-        //public override PhysicalObject Vision
-        //{
-        //    get => new PhysicalObject
-        //    {
-        //        Size = new PhysicalSize
-        //        {
-        //            Height = DrawingSize.Cell + DrawingSize.Cell / 2,
-        //            Width = DrawingSize.Cell + DrawingSize.Cell / 2
-        //        },
-        //        Position = base.Vision.Position
-        //    };
-
-        //    set { }
-        //}
+        public override Rectangle TileSetRegion => new Rectangle
+        {
+            X = 32,
+            Y = 0,
+            Height = 32,
+            Width = 32
+        };
 
         public override void Interact(GameMap gameMap)
         {

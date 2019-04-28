@@ -9,11 +9,11 @@
     {
         public SkillBar(Rogue.Map.Objects.Avatar player)
         {
-            this.Children.Add(new ImageControl("Rogue.Resources.Images.ui.sphere.png"));
-            this.Children.Add(new ImageControl("Rogue.Resources.Images.ui.sphere.png")
-            {
-                Left = 15.5f
-            });
+            //this.Children.Add(new ImageControl("Rogue.Resources.Images.ui.sphere.png"));
+            //this.Children.Add(new ImageControl("Rogue.Resources.Images.ui.sphere.png")
+            //{
+            //    Left = 15.5f
+            //});
 
             var x = 4.9;
 

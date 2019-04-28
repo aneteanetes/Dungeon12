@@ -6,8 +6,10 @@ using System.Linq;
 
 namespace Rogue.Map
 {
-    public class GameMap
+    public partial class GameMap
     {
+        public bool First = true;
+
         public string Name;
 
         public string _Name, _Affics;
@@ -29,7 +31,7 @@ namespace Rogue.Map
 
             foreach (var mObj in mapObjs)
             {
-                mObj.Interact();
+                mObj.Interact(this);
             }
 
             return !mapObjs.Any(x => x.Obstruction);
@@ -82,6 +84,22 @@ namespace Rogue.Map
                 return false;
             }
         }
+
+        private bool needReloadCache = false;
+
+        public bool ReloadCache
+        {
+            get
+            {
+                if (needReloadCache)
+                {
+                    needReloadCache = false;
+                    return true;
+                }
+                return false;
+            }
+        }
+
     }
 
     public class GameMapObject : MapObject
@@ -100,7 +118,7 @@ namespace Rogue.Map
                 Width = 1280
             };
 
-            Nodes = Enumerable.Range(0, 8).Select(num => new MapObject()
+            Nodes = Enumerable.Range(0, 8).Select(num => new GameMapContainerObject()
             {
                 Size = new PhysicalSize
                 {
@@ -113,8 +131,8 @@ namespace Rogue.Map
                     X = num < 4
                         ? num * 320
                         : (num - 4) * 320
-                }
-            }).ToList();
+                },
+            } as MapObject).ToList();
         }
 
         protected override bool Containable => true;
@@ -125,6 +143,12 @@ namespace Rogue.Map
 
         protected override MapObject Self => this;
 
-        public override void Interact() { }
+        public override void Interact(GameMap gameMap) { }
     }
+
+    public class GameMapContainerObject : MapObject
+    {
+        protected override bool Containable => true;
+    }
+
 }

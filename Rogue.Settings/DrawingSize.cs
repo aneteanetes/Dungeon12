@@ -4,6 +4,10 @@ namespace Rogue.Settings
 {
     public class DrawingSize
     {
+        public const int Lines = 29;
+
+        public const int Chars = 48;
+
         public int WindowLines { get; set; } = 29;
 
         public int WindowChars { get; set; } = 48;

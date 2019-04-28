@@ -17,9 +17,21 @@ namespace Rogue.Drawing.Labirinth
 
         private GameMap _location;
 
+        public override bool Expired => _location.ReloadCache;
+
         public MapSceneObject(GameMap location)
         {
             _location = location;
+            _location.OnGeneration = () =>
+            {
+                Init();
+            };
+            Init();
+        }
+
+        public void Init()
+        {
+            this.Children.Clear();
 
             for (int y = 0; y < _location.MapOld.Count; y++)
             {

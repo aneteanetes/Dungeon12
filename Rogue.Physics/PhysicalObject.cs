@@ -83,10 +83,47 @@ namespace Rogue.Physics
             return null;
         }
 
+        public List<T> Query(T physicalObject, bool multiple)
+        {
+            List<T> nodes = new List<T>();
+
+            if (this.IntersectsWith(physicalObject))
+            {
+                if (this.Nodes.Count == 0)
+                {
+                    nodes.Add(Self);
+                }
+                else
+                {
+                    foreach (var node in Nodes)
+                    {
+                        if (!node.Containable)
+                        {
+                            continue;
+                        }
+
+                        var queryDeepNode = node.Query(physicalObject,true);
+                        if (queryDeepNode.Count > 0)
+                        {
+                            nodes.AddRange(queryDeepNode);
+                        }
+                    }
+                }
+
+                //this is backward direction
+                if (nodes.Count == 0)
+                {
+                    nodes.Add(Self);
+                }
+            }
+
+            return nodes;
+        }
+
         public IEnumerable<T> InVision(IEnumerable<T> available)
             => available.Where(physObj => this.IntersectsWith(physObj));
 
-
+        public T this[int index] => Nodes[index];
 
         public bool InVision(T available) => this.IntersectsWith(available);
 

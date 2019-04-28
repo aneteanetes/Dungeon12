@@ -10,6 +10,8 @@
 
         public string Template { get; set; }
 
+        public bool Procedural { get; set; }
+
         public List<Object> Objects { get; set; }
     }
 

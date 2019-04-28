@@ -5,7 +5,7 @@
 
     public class Trap : MapObject
     {
-        public override void Interact()
+        public override void Interact(GameMap gameMap)
         {
             throw new NotImplementedException();
         }

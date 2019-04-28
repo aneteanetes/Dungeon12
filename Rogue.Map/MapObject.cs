@@ -33,7 +33,7 @@
 
         public bool Container => false;
 
-        public virtual void Interact() { }
+        public virtual void Interact(GameMap gameMap) { }
 
         public virtual PhysicalSize View => new PhysicalSize
         {
@@ -82,7 +82,6 @@
 
             set => _Position = value;
         }
-
 
         protected override MapObject Self => this;
 
