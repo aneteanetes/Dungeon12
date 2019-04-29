@@ -40,37 +40,24 @@
             this.AddObject(new ImageControl("Rogue.Resources.Images.d12back.png"));
 
             this.InitMap();
-            var sceneObj = new MapSceneObject(this.Location)
+            var mapSceneObect = new MapSceneObject(this.Gamemap)
             {
                 Left = 0,
-                Top = 0
+                Top = 0,
+                OnReload = (olditems, newitems) =>
+                {
+                    foreach (var old in olditems)
+                    {
+                        this.RemoveObject(old);
+                    }
+                    foreach (var @new in newitems)
+                    {
+                        this.AddObject(@new);
+                    }
+                }
             };
-            this.AddObject(sceneObj);
-
-            var portal = new Portal
-            {
-                Location = new Point(9, 4)
-            };
-            portal.Region = new Rectangle
-            {
-                Height = 32,
-                Width = 32,
-                Pos = portal.Location
-            };
-            var portalSceneObject = new StandaloneSceneObject(portal, (frameCounter, animMap) =>
-             {
-
-                 return frameCounter % (180 / animMap.Frames.Count) == 0;
-             })
-            {
-                Left = 9,
-                Top = 4,
-                Width = 1,
-                Height = 1
-            };
-            this.Location.Map.Query(portal).Nodes.Add(portal);
-            this.AddObject(portalSceneObject);
-
+            this.AddObject(mapSceneObect);
+            mapSceneObect.Init();
 
             this.AddObject(new SkillBar(this.Player)
             {
@@ -79,18 +66,18 @@
             });
 
 
-            var player = new PlayerSceneObject(this.Player, this.Location)
+            var player = new PlayerSceneObject(this.Player, this.Gamemap)
             {
                 Left = 20,
                 Top = 11
             };
             this.AddObject(player);
-            this.Location.Map.Nodes.Insert(0, this.Player);
+            this.Gamemap.Map.Nodes.Insert(0, this.Player);
         }
 
         public override void Draw()
         {
-            if (this.Location == null)
+            if (this.Gamemap == null)
                 this.InitMap();
 
             if (this.Commands.Count == 0)
@@ -123,7 +110,7 @@
         {
             this.Commands.Add(new MoveCommand()
             {
-                Location = this.Location,
+                Location = this.Gamemap,
                 PlayerPosition = this.PlayerPosition,
                 Player = this.Player
             });
@@ -140,11 +127,11 @@
 
         private void InitMap()
         {
-            this.Location = new GameMap
+            this.Gamemap = new GameMap
             {
                 Biom = ConsoleColor.DarkGray
             };
-            this.Location.Load("Capital");
+            this.Gamemap.Load("Capital");
 
             //перенести туда где location
             this.Player.Location = new Point(20, 11);
@@ -158,6 +145,11 @@
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers)
         {
+            if(keyPressed== Key.I)
+            {
+                this.Gamemap.Level += 1;
+            }
+
             if (keyPressed == Key.Escape)
                 this.Switch<Start>();
 
@@ -180,7 +172,7 @@
                 if (keyPressed == Key.E)
                 {
                     var export = string.Empty;
-                    foreach (var line in this.Location.MapOld)
+                    foreach (var line in this.Gamemap.MapOld)
                     {
                         foreach (var @char in line)
                         {

@@ -4,8 +4,10 @@
     using System.Collections.Generic;
     using System.Text;
     using Rogue.Entites.Animations;
+    using Rogue.Map.Infrastructure;
     using Rogue.Types;
 
+    [Template(">")]
     public class Portal : MapObject
     {
         public override string Tileset

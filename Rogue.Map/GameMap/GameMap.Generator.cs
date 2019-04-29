@@ -17,6 +17,7 @@ namespace Rogue.Map
         private const char Floor = '.';
         private const char Corridor = '.';
         private const char Door = '/';
+        private const char Exit = '>';
         private const char Player = '@';
         private const char Enemy = '*';
 
@@ -30,11 +31,12 @@ namespace Rogue.Map
             generation = true;
 
             var removeDeadEnds = true;
-            var extraCon =  80;
-            var numberroom =  50;
-            var windingperc =  60;
+            var extraCon = 4 * Level;
+            var numberroom =  Level;
+            var windingperc =  50;
+            int enemies = (int)Math.Round(Level * .2);
 
-            var gen = new MazeGenerator(39, 29, removeDeadEnds: removeDeadEnds, extraConnectorChance: extraCon, numberRoomTries: numberroom, windingPercent: windingperc);
+            var gen = new MazeGenerator(41, 21, removeDeadEnds: removeDeadEnds, extraConnectorChance: extraCon, numberRoomTries: numberroom, windingPercent: windingperc, numberOfEnemies:enemies);
             try
             {
                 gen.Generate();
@@ -56,7 +58,7 @@ namespace Rogue.Map
 
             this.MapOld = new List<List<List<MapObject>>>();
             this.Map = new GameMapObject();
-
+            
             foreach (var line in genned.Split('\n', StringSplitOptions.RemoveEmptyEntries))
             {
                 var listLine = new List<List<Map.MapObject>>();
@@ -186,6 +188,7 @@ namespace Rogue.Map
         /// </summary>
         public class MazeGenerator
         {
+            private bool ExitExists = false;
             public char[,] Maze { get; private set; }
 
             public int StageWidth { get; set; }
@@ -235,12 +238,12 @@ namespace Rogue.Map
 
                 _fill(Wall);
 
-                this.PrintDebug("fill wall");
+                //this.PrintDebug("fill wall");
 
                 // Add the rooms
                 _addRooms();
 
-                this.PrintDebug("add rooms");
+                //this.PrintDebug("add rooms");
 
                 // Fill in all of the empty space with mazes.
                 for (int y = 1; y < StageHeight; y += 2)
@@ -251,23 +254,24 @@ namespace Rogue.Map
                     }
                 }
 
-                this.PrintDebug("growed");
+                //this.PrintDebug("growed");
 
                 _connectRegions();
-                this.PrintDebug("connecting");
+                //this.PrintDebug("connecting");
 
                 if (RemoveDeadEnds)
                 {
                     _removeDeadEnds();
-                    this.PrintDebug("remove deadends");
+                    //this.PrintDebug("remove deadends");
                 }
 
                 _addPlayer();
-                this.PrintDebug("added player");
+                _addExit();
+                //this.PrintDebug("added player");
 
 
                 _addEnemies();
-                this.PrintDebug("added enemies");
+                //this.PrintDebug("added enemies");
 
                 return Maze;
             }
@@ -503,6 +507,25 @@ namespace Rogue.Map
                 catch
                 {
                     _addPlayer();
+                }
+            }
+
+            private void _addExit()
+            {
+                try
+                {
+                    // Pick a random room
+                    Rectangle randomRoom = _rooms[Random.Range(0, _rooms.Count - 1)];
+                    // Pick a random floor tile in the room, 2 tiles from the wall
+                    Vector2 pos = new Vector2(Random.Range((int)randomRoom.X + 1, (int)randomRoom.xMax - 1), Random.Range((int)randomRoom.Y + 1, (int)randomRoom.yMax - 1));
+
+                    // set player position
+                    if (_getTile(pos) == Floor)
+                        _setTile(pos, Exit);
+                }
+                catch
+                {
+                    _addExit();
                 }
             }
 

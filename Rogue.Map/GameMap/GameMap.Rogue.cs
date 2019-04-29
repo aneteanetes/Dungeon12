@@ -45,7 +45,7 @@ namespace Rogue.Map
                 return;
             }
 
-            foreach (var line in template.Split(Environment.NewLine))
+            foreach (var line in template.Split('\n'))
             {
                 var listLine = new List<List<Map.MapObject>>();
 

@@ -13,7 +13,7 @@
                 
         public Rogue.Map.Objects.Avatar Player;
 
-        public GameMap Location;
+        public GameMap Gamemap;
 
         public Logger Log;
 
