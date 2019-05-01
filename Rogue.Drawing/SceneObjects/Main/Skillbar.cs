@@ -5,7 +5,7 @@
     using Rogue.Entites.Alive.Character;
     using System.Collections.Generic;
 
-    public class SkillBar : SceneControl
+    public class SkillBar : SceneObject
     {
         public SkillBar(Rogue.Map.Objects.Avatar player)
         {

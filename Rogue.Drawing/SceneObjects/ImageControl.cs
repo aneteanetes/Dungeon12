@@ -1,6 +1,6 @@
 ﻿namespace Rogue.Drawing.SceneObjects
 {
-    public class ImageControl : SceneControl
+    public class ImageControl : SceneObject
     {
         public ImageControl(string imagePath)
         {

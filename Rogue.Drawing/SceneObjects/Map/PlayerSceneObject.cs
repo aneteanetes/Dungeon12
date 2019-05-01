@@ -1,6 +1,7 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Map
 {
     using Rogue.Control.Keys;
+    using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Entites.Alive.Character;
     using Rogue.Entites.Animations;
     using Rogue.Map;
@@ -34,6 +35,8 @@
             this.Image = player.Tileset;
             this.Width = 1;
             this.Height = 1;
+            this.AddChild(new ObjectHpBarBack());
+            this.AddChild(new ObjectHpBar(Player));
         }
 
         public double Speed => playerMapObject.MovementSpeed;

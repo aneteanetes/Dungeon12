@@ -21,7 +21,7 @@
     using System.Diagnostics;
     using System.Linq;
 
-    public class Main : GameScene<Start,Main>
+    public class Main : GameScene<Start, Main>
     {
         private readonly Point PlayerPosition = new Point { X = 27, Y = 8 };
 
@@ -86,7 +86,7 @@
 
             if (this.Commands.Count == 0)
                 this.FillCommands();
-            
+
             new Image("Rogue.Resources.Images.d12back.png")
             {
                 Left = 0.4f,
@@ -137,7 +137,7 @@
             };
             this.Gamemap.OnMoving += (MapObject obj, Types.Direction dir, bool availabe) =>
             {
-                MapObjectCanAffectCamera(obj,dir, availabe);
+                MapObjectCanAffectCamera(obj, dir, availabe);
             };
 
             this.Gamemap.Load("Capital");
@@ -149,7 +149,7 @@
                 Height = 32,
                 Width = 32,
                 Pos = this.Player.Location
-            };           
+            };
         }
 
         private static void MapObjectCanAffectCamera(MapObject obj, Types.Direction dir, bool availabe)
@@ -172,13 +172,13 @@
                 {
                     drawClient.MoveCamera(Types.Direction.Right);
                 }
-                if (dir == Types.Direction.Left&& pos.X < 1280 * 0.33)
+                if (dir == Types.Direction.Left && pos.X < 1280 * 0.33)
                 {
                     drawClient.MoveCamera(Types.Direction.Left);
                 }
                 if (dir == Types.Direction.Down && pos.Y > 720 * 0.33 * 2)
-                    {
-                        drawClient.MoveCamera(Types.Direction.Down);
+                {
+                    drawClient.MoveCamera(Types.Direction.Down);
                 }
                 if (dir == Types.Direction.Up && pos.Y < 720 * 0.33)
                 {
@@ -189,13 +189,18 @@
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers)
         {
-            if(keyPressed== Key.Home)
+            if (keyPressed==Key.B)
+            {
+                this.Player.Character.HitPoints -= 1;
+            }
+
+            if (keyPressed == Key.Home)
             {
                 var drawClient = SceneManager.StaticDrawClient;
                 drawClient.ResetCamera();
             }
 
-            if(keyPressed== Key.I)
+            if (keyPressed == Key.I)
             {
                 this.Gamemap.Level += 1;
             }
@@ -207,9 +212,9 @@
             if (keyPressed == Key.U)
                 drawMode = true;
 
-            if(drawMode)
+            if (drawMode)
             {
-                if(keyPressed== Key.W)
+                if (keyPressed == Key.W)
                 {
                     this.drawChar = "#";
                 }
@@ -242,42 +247,42 @@
         private string drawChar = ".";
 #endif
 
-//        protected override void MousePress(PointerArgs pointerPressedEventArgs)
-//        {
-//#if DEBUG
-//            if (drawMode)
-//            {
-//                var trulyX = pointerPressedEventArgs.X - 20.125;
-//                var trulyY = pointerPressedEventArgs.Y - 27;
+        //        protected override void MousePress(PointerArgs pointerPressedEventArgs)
+        //        {
+        //#if DEBUG
+        //            if (drawMode)
+        //            {
+        //                var trulyX = pointerPressedEventArgs.X - 20.125;
+        //                var trulyY = pointerPressedEventArgs.Y - 27;
 
-//                int x = (int)Math.Round(trulyX / 25, MidpointRounding.ToEven);
-//                int y = (int)Math.Round(trulyY / 25, MidpointRounding.ToEven);
+        //                int x = (int)Math.Round(trulyX / 25, MidpointRounding.ToEven);
+        //                int y = (int)Math.Round(trulyY / 25, MidpointRounding.ToEven);
 
-//                this.Location.Map[y][x].RemoveAt(0);
-//                this.Location.Map[y][x].Insert(0, MapObject.Create(drawChar));
+        //                this.Location.Map[y][x].RemoveAt(0);
+        //                this.Location.Map[y][x].Insert(0, MapObject.Create(drawChar));
 
-//                this.Draw();
-//                this.Redraw();
-//            }
-//#endif
-//        }
+        //                this.Draw();
+        //                this.Redraw();
+        //            }
+        //#endif
+        //        }
 
-//        public override void SceneLoop()
-//        {
-//            var objs = this.Location.Map
-//                .SelectMany(y => y.SelectMany(x => x))
-//                .Where(mapObj => mapObj.Animated)
-//                .ToArray();
+        //        public override void SceneLoop()
+        //        {
+        //            var objs = this.Location.Map
+        //                .SelectMany(y => y.SelectMany(x => x))
+        //                .Where(mapObj => mapObj.Animated)
+        //                .ToArray();
 
-//            foreach (var animatedObj in objs)
-//            {
-//                Drawing.Draw.Animation<MapAnimationSession>(x =>
-//                {
-//                    x.MapObject = animatedObj;
-//                });
-//            }
+        //            foreach (var animatedObj in objs)
+        //            {
+        //                Drawing.Draw.Animation<MapAnimationSession>(x =>
+        //                {
+        //                    x.MapObject = animatedObj;
+        //                });
+        //            }
 
-//            base.SceneLoop();
-//        }
+        //            base.SceneLoop();
+        //        }
     }
 }

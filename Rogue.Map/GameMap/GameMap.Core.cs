@@ -28,15 +28,20 @@ namespace Rogue.Map
 
         public bool Move(MapObject @object, Direction direction)
         {
+            var moveAvailable = true;
+
             var moveArea = Map.Query(@object);
-            var mapObjs = moveArea.Nodes.Where(node => @object.IntersectsWith(node));
-
-            foreach (var mObj in mapObjs)
+            if (moveArea != null)
             {
-                mObj.Interact(this);
-            }
+                var mapObjs = moveArea.Nodes.Where(node => @object.IntersectsWith(node));
 
-            var moveAvailable = !mapObjs.Any(x => x.Obstruction);
+                foreach (var mObj in mapObjs)
+                {
+                    mObj.Interact(this);
+                }
+
+                moveAvailable = !mapObjs.Any(x => x.Obstruction);
+            }
 
             OnMoving(@object,direction, moveAvailable);
 

@@ -2,7 +2,7 @@
 {
     using Rogue.View.Interfaces;
 
-    public class TextControl : SceneControl
+    public class TextControl : SceneObject
     {
         public TextControl(IDrawText text)
         {

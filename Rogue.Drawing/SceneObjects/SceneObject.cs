@@ -5,7 +5,7 @@
     using System;
     using System.Collections.Generic;
 
-    public abstract class SceneControl : ISceneObject
+    public abstract class SceneObject : ISceneObject
     {
         /// <summary>
         /// Relative
@@ -65,7 +65,7 @@
 
         protected void AddChild(ISceneObject sceneObject)
         {
-            if(sceneObject is SceneControl sceneControlObject)
+            if(sceneObject is SceneObject sceneControlObject)
             {
                 sceneControlObject.Parent = this;
             }

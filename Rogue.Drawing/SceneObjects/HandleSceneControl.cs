@@ -5,7 +5,7 @@
     using Rogue.View.Interfaces;
     using System;
 
-    public abstract class HandleSceneControl : SceneControl, ISceneObjectControl
+    public abstract class HandleSceneControl : SceneObject, ISceneObjectControl
     {
         private readonly ControlEventType[] allHandling = new ControlEventType[]
         {
