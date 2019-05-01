@@ -3,7 +3,7 @@
     using Rogue.Types;
     using System.Collections.Generic;
 
-    public interface IDrawClient
+    public interface IDrawClient : ICamera
     {
         void Draw(IEnumerable<IDrawSession> drawSessions);
 

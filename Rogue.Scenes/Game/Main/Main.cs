@@ -27,13 +27,13 @@
 
         private readonly DrawingSize DrawingSize = new DrawingSize();
 
+        public override bool CameraAffect => true;
+
         public Main(SceneManager sceneManager) : base(sceneManager)
         {
         }
 
-        public override bool Destroyable => destroyable;
-
-        private bool destroyable = false;
+        public override bool Destroyable => false;
 
         public override void Init()
         {
@@ -70,6 +70,10 @@
             {
                 Left = 20,
                 Top = 11
+            };
+            player.OnStop = () =>
+            {
+                MapObjectCanAffectCamera(this.Player, Types.Direction.Idle, false);
             };
             this.AddObject(player);
             this.Gamemap.Map.Nodes.Insert(0, this.Player);
@@ -131,6 +135,11 @@
             {
                 Biom = ConsoleColor.DarkGray
             };
+            this.Gamemap.OnMoving += (MapObject obj, Types.Direction dir, bool availabe) =>
+            {
+                MapObjectCanAffectCamera(obj,dir, availabe);
+            };
+
             this.Gamemap.Load("Capital");
 
             //перенести туда где location
@@ -143,8 +152,49 @@
             };           
         }
 
+        private static void MapObjectCanAffectCamera(MapObject obj, Types.Direction dir, bool availabe)
+        {
+            if (obj.CameraAffect)
+            {
+                var drawClient = SceneManager.StaticDrawClient;
+                //drawClient.SetCameraSpeed(obj.MovementSpeed*2);
+                var pos = obj.Position;
+
+                if (dir == Types.Direction.Idle)
+                {
+                    drawClient.MoveCamera(Types.Direction.Right, true);
+                    drawClient.MoveCamera(Types.Direction.Left, true);
+                    drawClient.MoveCamera(Types.Direction.Down, true);
+                    drawClient.MoveCamera(Types.Direction.Up, true);
+                }
+
+                if (dir == Types.Direction.Right && pos.X > 1280 * 0.33 * 2)
+                {
+                    drawClient.MoveCamera(Types.Direction.Right);
+                }
+                if (dir == Types.Direction.Left&& pos.X < 1280 * 0.33)
+                {
+                    drawClient.MoveCamera(Types.Direction.Left);
+                }
+                if (dir == Types.Direction.Down && pos.Y > 720 * 0.33 * 2)
+                    {
+                        drawClient.MoveCamera(Types.Direction.Down);
+                }
+                if (dir == Types.Direction.Up && pos.Y < 720 * 0.33)
+                {
+                    drawClient.MoveCamera(Types.Direction.Up);
+                }
+            }
+        }
+
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers)
         {
+            if(keyPressed== Key.Home)
+            {
+                var drawClient = SceneManager.StaticDrawClient;
+                drawClient.ResetCamera();
+            }
+
             if(keyPressed== Key.I)
             {
                 this.Gamemap.Level += 1;

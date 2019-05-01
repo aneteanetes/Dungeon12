@@ -9,6 +9,10 @@
     [Template("@")]
     public class Avatar : MapObject
     {
+        public override double MovementSpeed => 0.08;
+
+        public override bool CameraAffect => true;
+
         public Entites.Alive.Character.Player Character { get; set; }
 
         public override string Tileset => Character.Tileset;

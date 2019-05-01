@@ -10,8 +10,10 @@
     public abstract class GameScene : CommandScene
     {
         protected readonly List<Type> AvailableScenes = new List<Type>();
-                
+
         public Rogue.Map.Objects.Avatar Player;
+
+        public virtual bool CameraAffect => false;
 
         public GameMap Gamemap;
 

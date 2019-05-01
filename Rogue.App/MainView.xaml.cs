@@ -3,6 +3,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Threading;
@@ -12,6 +13,7 @@ using Rogue.App.Visual;
 using Rogue.Resources;
 using Rogue.Scenes;
 using Rogue.Scenes.Menus;
+using Rogue.View.Interfaces;
 using SkiaSharp;
 
 namespace Rogue.App
@@ -20,8 +22,11 @@ namespace Rogue.App
     {
         public SceneManager SceneManager { get; set; }
 
+        private IDrawClient drawClient = null;
+
         public MainView()
         {
+            this.Background = Brush.Parse("black");
             this.CanResize = false;
             this.HasSystemDecorations = false;
             InitializeComponent();
@@ -38,24 +43,34 @@ namespace Rogue.App
 
         public void RunGame()
         {
-            var drawClient = AppVisual.AppVisualDrawClient;// new SkiaDrawClient(this.ViewportBitmap, this.control);
+            drawClient = AppVisual.AppVisualDrawClient;// new SkiaDrawClient(this.ViewportBitmap, this.control);
             SceneManager = new SceneManager
             {
                 DrawClient = drawClient
             };
             SceneManager.Change<Start>();
         }
-        
+
         protected override void OnPointerMoved(PointerEventArgs e)
         {
             var pos = e.GetPosition(this);
 
-            SceneManager.Current.OnMouseMove(new Control.Pointer.PointerArgs
+            var currentScene = SceneManager.Current;
+
+            if (currentScene.CameraAffect)
+            {
+                drawClient.MoveCamera(Types.Direction.Right, !(pos.X >= 1180));
+                drawClient.MoveCamera(Types.Direction.Left, !(pos.X <= 100));
+                drawClient.MoveCamera(Types.Direction.Down, !(pos.Y >= 620));
+                drawClient.MoveCamera(Types.Direction.Up, !(pos.Y <= 100));
+            }
+
+            currentScene.OnMouseMove(new Control.Pointer.PointerArgs
             {
                 ClickCount = 0,
                 MouseButton = Control.Pointer.MouseButton.None,
-                X = pos.X,
-                Y = pos.Y
+                X = pos.X-drawClient.CameraOffsetX,
+                Y = pos.Y-drawClient.CameraOffsetY
             });
         }
 
@@ -67,8 +82,8 @@ namespace Rogue.App
             {
                 ClickCount = e.ClickCount,
                 MouseButton = (Control.Pointer.MouseButton)e.MouseButton,
-                X = pos.X,
-                Y = pos.Y
+                X = pos.X - drawClient.CameraOffsetX,
+                Y = pos.Y - drawClient.CameraOffsetY
             });
         }
 

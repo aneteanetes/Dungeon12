@@ -21,7 +21,39 @@
 
     public class AppVisual : Avalonia.Controls.Control, IRenderTimeCriticalVisual, IDrawClient
     {
+        private readonly HashSet<Direction> CameraMovings = new HashSet<Direction>();
+        public void MoveCamera(Direction direction,bool stop=false)
+        {
+            if (!stop)
+            {
+                CameraMovings.Add(direction);
+            }
+            else
+            {
+                CameraMovings.Remove(direction);
+            }
+        }
+
+        public void ResetCamera()
+        {
+            this.CameraMovings.Clear();
+            this.CameraOffsetX = 0;
+            this.CameraOffsetY = 0;
+        }
+
+        public void SetCameraSpeed(double speed) => cameraSpeed = speed;
+
+        private double cameraSpeed = 1.6;
+
         private static float cell = 32;
+
+        public double CameraOffsetX { get; set; }
+
+        public double CameraOffsetY { get; set; }
+
+        public double CameraOffsetLimitX { get; set; } = 32;
+
+        public double CameraOffsetLimitY { get; set; } = 32;
 
         public static IDrawClient AppVisualDrawClient = null;
         
@@ -53,13 +85,51 @@
 
         private Bitmap Buffer = null;
 
+        private bool IsStop(double number, double limit) => Math.Abs(number) >= limit;
+
         public void ThreadSafeRender(DrawingContext context, Size logicalSize, double scaling)
         {
+            if (IsStop(CameraOffsetX,CameraOffsetLimitX))
+            {
+                var direction = CameraOffsetX < 0
+                    ? Direction.Right
+                    : Direction.Left;
+                CameraMovings.Remove(direction);
+            }
+
+            if (IsStop(CameraOffsetY,CameraOffsetLimitY))
+            {
+                var direction = CameraOffsetY < 0
+                    ? Direction.Down
+                    : Direction.Up;
+                CameraMovings.Remove(direction);
+            }
+
+            if (CameraMovings.Contains(Direction.Right))
+            {
+                CameraOffsetX -= cameraSpeed;
+            }
+            if (CameraMovings.Contains(Direction.Down))
+            {
+                CameraOffsetY -= cameraSpeed;
+            }
+            if (CameraMovings.Contains(Direction.Left))
+            {
+                CameraOffsetX += cameraSpeed;
+            }
+            if (CameraMovings.Contains(Direction.Up))
+            {
+                CameraOffsetY += cameraSpeed;
+            }
+
             if (current != null)
             {
-                for (int i = 0; i < current.Objects.Count(); i++)
+                using (context.PushPostTransform(Matrix.CreateTranslation(CameraOffsetX, CameraOffsetY)))
                 {
-                    DrawSceneObject(context, current.Objects[i]);
+                    for (int i = 0; i < current.Objects.Count(); i++)
+                    {
+                        DrawSceneObject(context, current.Objects[i]);
+                    }
                 }
             }
 

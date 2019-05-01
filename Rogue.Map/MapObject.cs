@@ -31,7 +31,7 @@
 
         public Point Location { get; set; }
 
-        public bool Container => false;
+        public bool Container => false;        
 
         public virtual void Interact(GameMap gameMap) { }
 
@@ -112,5 +112,9 @@
 
             return mapObject;
         }
+
+        public virtual bool CameraAffect => false;
+
+        public virtual double MovementSpeed => 0;
     }
 }

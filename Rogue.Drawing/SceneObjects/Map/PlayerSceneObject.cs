@@ -17,6 +17,9 @@
         private Player Player => playerMapObject.Character;
         private readonly GameMap location;
 
+        public Action OnStop;
+        public Action OnStart;
+
         public PlayerSceneObject(Rogue.Map.Objects.Avatar player, GameMap location)
             :base(new Rectangle
             {
@@ -33,7 +36,7 @@
             this.Height = 1;
         }
 
-        public float Speed = 0.08f;
+        public double Speed => playerMapObject.MovementSpeed;
 
         protected override void DrawLoop()
         {
@@ -47,43 +50,43 @@
             {
                 this.playerMapObject.Location.Y -= Speed;
                 SetAnimation(this.Player.MoveUp);
-                if (!CheckMoveAvailable(old))
+                if (!CheckMoveAvailable(Direction.Up))
                 {
-                    //NowMoving.Remove(Direction.Up);
+                    OnStop();
                 }
             }
             if (NowMoving.Contains(Direction.Down))
             {
                 this.playerMapObject.Location.Y += Speed;
                 SetAnimation(this.Player.MoveDown);
-                if (!CheckMoveAvailable(old))
+                if (!CheckMoveAvailable(Direction.Down))
                 {
-                    //NowMoving.Remove(Direction.Down);
+                    OnStop();
                 }
             }
             if (NowMoving.Contains(Direction.Left))
             {
                 this.playerMapObject.Location.X -= Speed;
                 SetAnimation(this.Player.MoveLeft);
-                if (!CheckMoveAvailable(old))
+                if (!CheckMoveAvailable(Direction.Left))
                 {
-                    //NowMoving.Remove(Direction.Left);
+                    OnStop();
                 }
             }
             if (NowMoving.Contains(Direction.Right))
             {
                 this.playerMapObject.Location.X += Speed;
                 SetAnimation(this.Player.MoveRight);
-                if (!CheckMoveAvailable(old))
+                if (!CheckMoveAvailable(Direction.Right))
                 {
-                    //NowMoving.Remove(Direction.Right);
+                    OnStop();
                 }
             }
         }
         
-        private bool CheckMoveAvailable(MapObject old)
+        private bool CheckMoveAvailable(Direction direction)
         {
-            if (this.location.Move(playerMapObject,old))
+            if (this.location.Move(playerMapObject, direction))
             {
                 this.Left = playerMapObject.Location.X;
                 this.Top = playerMapObject.Location.Y;
@@ -112,13 +115,17 @@
         }
 
         public override void KeyUp(Key key, KeyModifiers modifier)
-        {
+        {            
             switch (key)
             {
-                case Key.D: NowMoving.Remove(Direction.Right); break;
-                case Key.A: NowMoving.Remove(Direction.Left); break;
-                case Key.W: NowMoving.Remove(Direction.Up); break;
-                case Key.S: NowMoving.Remove(Direction.Down); break;
+                case Key.D: NowMoving.Remove(Direction.Right);
+                    OnStop(); break;
+                case Key.A: NowMoving.Remove(Direction.Left);
+                    OnStop(); break;
+                case Key.W: NowMoving.Remove(Direction.Up);
+                    OnStop(); break;
+                case Key.S: NowMoving.Remove(Direction.Down);
+                    OnStop(); break;
                 default: break;
             }
         }

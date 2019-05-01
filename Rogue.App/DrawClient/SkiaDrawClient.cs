@@ -534,6 +534,26 @@
             throw new NotImplementedException();
         }
 
+        public void MoveCamera(Direction direction)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MoveCamera(Direction direction, bool stop)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetCameraSpeed(double speed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ResetCamera()
+        {
+            throw new NotImplementedException();
+        }
+
         public static SKTypeface CommonFont
         {
             get
@@ -546,5 +566,12 @@
                 return result;
             }
         }
+
+        public double CameraOffsetX { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public double CameraOffsetY { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public double CameraOffsetLimitX => throw new NotImplementedException();
+
+        public double CameraOffsetLimitY => throw new NotImplementedException();
     }
 }

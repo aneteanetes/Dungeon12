@@ -23,8 +23,10 @@ namespace Rogue.Map
         public HashSet<MapObject> Objects = new HashSet<MapObject>();
 
         public List<List<List<MapObject>>> MapOld = new List<List<List<MapObject>>>();
+        
+        public Action<MapObject, Direction,bool> OnMoving;
 
-        public bool Move(MapObject @object, MapObject old = null)
+        public bool Move(MapObject @object, Direction direction)
         {
             var moveArea = Map.Query(@object);
             var mapObjs = moveArea.Nodes.Where(node => @object.IntersectsWith(node));
@@ -34,7 +36,12 @@ namespace Rogue.Map
                 mObj.Interact(this);
             }
 
-            return !mapObjs.Any(x => x.Obstruction);
+            var moveAvailable = !mapObjs.Any(x => x.Obstruction);
+
+            OnMoving(@object,direction, moveAvailable);
+
+            return moveAvailable;
+
 
             //? node.Obstruction : false);
                        
