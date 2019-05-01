@@ -45,7 +45,7 @@ namespace Rogue.Map
                 return;
             }
 
-            foreach (var line in template.Split('\n'))
+            foreach (var line in template.Replace("\r","").Split('\n'))
             {
                 var listLine = new List<List<Map.MapObject>>();
 
