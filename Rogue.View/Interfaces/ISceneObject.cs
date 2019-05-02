@@ -42,6 +42,8 @@
 
         ICollection<ISceneObject> Children { get; }
 
+        bool AbsolutePosition { get; }
+
         string Uid { get; }
     }
 }

@@ -124,11 +124,19 @@
 
             if (current != null)
             {
-                using (context.PushPostTransform(Matrix.CreateTranslation(CameraOffsetX, CameraOffsetY)))
+                for (int i = 0; i < current.Objects.Count(); i++)
                 {
-                    for (int i = 0; i < current.Objects.Count(); i++)
+                    var obj = current.Objects[i];
+                    if (!obj.AbsolutePosition)
                     {
-                        DrawSceneObject(context, current.Objects[i]);
+                        using (context.PushPostTransform(Matrix.CreateTranslation(CameraOffsetX, CameraOffsetY)))
+                        {
+                            DrawSceneObject(context, obj);
+                        }
+                    }
+                    else
+                    {
+                        DrawSceneObject(context, obj);
                     }
                 }
             }

@@ -69,9 +69,9 @@ namespace Rogue.App
             {
                 ClickCount = 0,
                 MouseButton = Control.Pointer.MouseButton.None,
-                X = pos.X-drawClient.CameraOffsetX,
-                Y = pos.Y-drawClient.CameraOffsetY
-            });
+                X = pos.X,
+                Y = pos.Y
+            }, new Types.Point(drawClient.CameraOffsetX, drawClient.CameraOffsetY));
         }
 
         protected override void OnPointerPressed(PointerPressedEventArgs e)
@@ -82,9 +82,9 @@ namespace Rogue.App
             {
                 ClickCount = e.ClickCount,
                 MouseButton = (Control.Pointer.MouseButton)e.MouseButton,
-                X = pos.X - drawClient.CameraOffsetX,
-                Y = pos.Y - drawClient.CameraOffsetY
-            });
+                X = pos.X,
+                Y = pos.Y
+            }, new Types.Point(drawClient.CameraOffsetX, drawClient.CameraOffsetY));
         }
 
 

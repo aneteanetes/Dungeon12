@@ -11,12 +11,14 @@
 
         public override string Name => "Вампиризм";
 
-        public override ScaleRate Scale => ScaleRate.Build(Entites.Enums.Scale.AbilityPower, 0.1);
+        public override ScaleRate Scale => ScaleRate.Build(Entites.Enums.Scale.AbilityPower, 0.1);        
 
         public override bool CastAvailable(BloodMage @class, BloodStream talants)
         {
             throw new NotImplementedException();
         }
+
+        public override string Image => "";
 
         protected override void InternalCast(BloodMage @class, BloodStream talants)
         {

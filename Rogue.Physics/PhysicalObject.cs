@@ -10,8 +10,6 @@ namespace Rogue.Physics
 
         public virtual PhysicalPosition Position { get; set; }
 
-        public virtual PhysicalObject Vision { get; set; }
-
         public bool Contains(PhysicalObject one)
         {
             var xContains = one.Position.X >= this.Position.X
@@ -49,6 +47,8 @@ namespace Rogue.Physics
         public List<T> Nodes { get; set; } = new List<T>();
 
         protected virtual bool Containable => false;
+
+        public virtual T Vision { get; set; }
 
         public T Query(T physicalObject)
         {

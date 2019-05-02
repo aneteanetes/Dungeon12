@@ -5,10 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Abilities\attack.png" />
     <None Remove="Images\Dolls\Character.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Images\Abilities\attack.png" />
     <EmbeddedResource Include="Images\Dolls\Character.png" />
   </ItemGroup>
 

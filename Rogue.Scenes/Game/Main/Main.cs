@@ -27,7 +27,7 @@
 
         private readonly DrawingSize DrawingSize = new DrawingSize();
 
-        public override bool CameraAffect => true;
+        //public override bool CameraAffect => true;
 
         public Main(SceneManager sceneManager) : base(sceneManager)
         {
@@ -59,7 +59,7 @@
             this.AddObject(mapSceneObect);
             mapSceneObect.Init();
 
-            this.AddObject(new SkillBar(this.Player)
+            this.AddObject(new SkillBar(this.Player,this.Gamemap)
             {
                 Top = 18.45f,
                 Left = 9f

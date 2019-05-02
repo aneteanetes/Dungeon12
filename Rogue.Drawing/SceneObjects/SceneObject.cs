@@ -101,5 +101,7 @@
         public virtual bool IsBatch => false;
 
         public virtual bool Expired => false;
+
+        public virtual bool AbsolutePosition => false;
     }
 }

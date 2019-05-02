@@ -92,28 +92,28 @@
             KeyPress(key, modifier);
         }
 
-        public void OnMousePress(PointerArgs pointerPressedEventArgs)
+        public void OnMousePress(PointerArgs pointerPressedEventArgs, Point offset)
         {
             var keyControls = ControlsByHandle(ControlEventType.Click);
 
-            var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs));
+            var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs,offset));
             foreach (var clickedElement in clickedElements)
             {
                 clickedElement.Click();
             }
         }
 
-        public void OnMouseMove(PointerArgs pointerPressedEventArgs)
+        public void OnMouseMove(PointerArgs pointerPressedEventArgs, Point offset)
         {
             if (sceneManager.Current != this)
                 return;
             
             var keyControls = ControlsByHandle(ControlEventType.Focus);
 
-            var newFocused = keyControls.Where(handler => RegionContains(handler, pointerPressedEventArgs))
+            var newFocused = keyControls.Where(handler => RegionContains(handler, pointerPressedEventArgs, offset))
                 .Where(x => !SceneObjectsInFocus.Contains(x));
 
-            var newNotFocused = keyControls.Where(handler => !RegionContains(handler, pointerPressedEventArgs))
+            var newNotFocused = keyControls.Where(handler => !RegionContains(handler, pointerPressedEventArgs,offset))
                 .Where(x => SceneObjectsInFocus.Contains(x));
 
             if (newNotFocused.Count() > 0)
@@ -136,7 +136,7 @@
             }
         }
 
-        private bool RegionContains(ISceneObjectControl sceneObjControl, PointerArgs pos)
+        private bool RegionContains(ISceneObjectControl sceneObjControl, PointerArgs pos, Point offset)
         {
             var newRegion = new Rectangle
             {
@@ -145,6 +145,12 @@
                 Height = sceneObjControl.Position.Height * DrawingSize.CellF,
                 Width = sceneObjControl.Position.Width * DrawingSize.CellF
             };
+
+            if(!sceneObjControl.AbsolutePosition)
+            {
+                newRegion.X += offset.X;
+                newRegion.Y += offset.Y;
+            }
 
             return newRegion.Contains(pos.X, pos.Y);
         }

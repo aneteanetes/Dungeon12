@@ -3,6 +3,9 @@
     using Rogue.Abilities.Scaling;
     using Rogue.Abilities.Talants;
     using Rogue.Entites.Alive.Character;
+    using Rogue.Map;
+    using Rogue.Map.Objects;
+    using Rogue.Physics;
     using Rogue.View.Interfaces;
 
     /// <summary>
@@ -10,6 +13,11 @@
     /// </summary>
     public abstract class Ability
     {
+        /// <summary>
+        /// Размер области где действует способность
+        /// </summary>
+        public virtual PhysicalObject Range { get; }
+
         /// <summary>
         /// Позиция способности от 1 до 4
         /// </summary>
@@ -32,6 +40,8 @@
 
         public virtual string Icon { get; set; }
 
+        public virtual string Image { get; set; }
+
         public virtual IDrawColor BackgroundColor { get; set; }
 
         public virtual IDrawColor ForegroundColor { get; set; }
@@ -40,6 +50,13 @@
         /// Коэффицент полезности навыка
         /// </summary>
         public int COE => 0;
+
+        public virtual double Value => 0;
+
+        public virtual void Use(GameMap map, Avatar avatar)
+        {
+
+        }
     }
 
 

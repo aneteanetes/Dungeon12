@@ -41,20 +41,6 @@
             Width = this.Region.Width / 2
         };
 
-        public override PhysicalObject Vision
-        {
-            get => new PhysicalObject
-            {
-                Size = View,
-                Position = new PhysicalPosition
-                {
-                    X = Position.X + Position.X / 2,
-                    Y = Position.Y + Position.Y / 2
-                }
-            };
-            set { }
-        }
-
         protected virtual PhysicalSize _Size { get; set; }
 
         public override PhysicalSize Size
@@ -116,5 +102,20 @@
         public virtual bool CameraAffect => false;
 
         public virtual double MovementSpeed => 0;
+
+        public override MapObject Vision
+        {
+            get => new MapObject()
+            {
+                Size = View,
+                Position = new PhysicalPosition
+                {
+                    X = Position.X + Position.X / 2,
+                    Y = Position.Y + Position.Y / 2
+                }
+            };
+
+            set { }
+        }
     }
 }

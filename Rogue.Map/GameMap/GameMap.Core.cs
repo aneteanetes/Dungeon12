@@ -1,4 +1,5 @@
-﻿using Rogue.Physics;
+﻿using Rogue.Map.Objects;
+using Rogue.Physics;
 using Rogue.Types;
 using System;
 using System.Collections.Generic;
@@ -63,38 +64,18 @@ namespace Rogue.Map
             //return canMove;
         }
 
-        public bool MayMoveOld(MapObject @object)
+        public IEnumerable<Mob> Enemies(MapObject @object)
         {
-            var inVision = @object.InVision(Objects);
-            return !inVision.Any(x => x.Obstruction);
-        }
+            IEnumerable<Mob> mobs = Enumerable.Empty<Mob>();
 
-        public bool MoveObject(Point now, int Level, Point next)
-        {
-            try
+            var moveArea = Map.Query(@object);
+            if (moveArea != null)
             {
-                //MapObject moved = this.Map[(int)now.Y][(int)now.X][Level];
-
-                //var nextObj = this.Map[(int)next.Y][(int)next.X];
-
-                //if (nextObj.First().Obstruction)
-                //{
-                //    return false;
-                //}
-
-
-                //this.Map[(int)now.Y][(int)now.X].Remove(moved);
-                //this.Map[(int)next.Y][(int)next.X].Add(moved);
-
-                //Console.WriteLine($"was: x={now.X}, y={now.Y}");
-                //Console.WriteLine($"now: x={next.X}, y={next.Y}");
-                return true;
+                mobs = moveArea.Nodes.Where(node => node is Mob).Select(node => node as Mob)
+                    .Where(node => @object.IntersectsWith(node));
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("EXCEPTION ARGUMENT");
-                return false;
-            }
+
+            return mobs;
         }
 
         private bool needReloadCache = false;
