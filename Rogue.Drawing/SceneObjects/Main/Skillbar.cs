@@ -6,6 +6,8 @@
     using Rogue.Drawing.SceneObjects.Common;
     using Rogue.Map;
     using Rogue.Utils.ReflectionExtensions;
+    using Rogue.View.Interfaces;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -14,7 +16,7 @@
     {
         public override bool AbsolutePosition => true;
 
-        public SkillBar(Rogue.Map.Objects.Avatar player, GameMap gameMap)
+        public SkillBar(Rogue.Map.Objects.Avatar player, GameMap gameMap, Action<IEnumerable<ISceneObject>> abilityEffects)
         {
             //this.Children.Add(new ImageControl("Rogue.Resources.Images.ui.sphere.png"));
             //this.Children.Add(new ImageControl("Rogue.Resources.Images.ui.sphere.png")
@@ -28,7 +30,13 @@
             var abilities = "Ability".GetInstancesFromAssembly<Ability>($"Rogue.Classes.{typeName}", (string abil, Assembly asm) =>
             {
                 return asm.GetTypes().Where(t => typeof(Ability).IsAssignableFrom(t));
-            }).OrderBy(a => a.Position).ToList();
+            })
+            .Select(a =>
+            {
+                a.UseEffects = abilityEffects;
+                return a;
+            })
+            .OrderBy(a => a.Position).ToList();
 
             abilities.Add(new abil());
 

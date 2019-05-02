@@ -1,12 +1,14 @@
 ﻿namespace Rogue.Classes.BloodMage.Abilities
 {
-    using System;
     using Rogue.Abilities;
     using Rogue.Abilities.Scaling;
     using Rogue.Classes.BloodMage.Talants;
+    using Rogue.Drawing.GUI;
     using Rogue.Map;
     using Rogue.Map.Objects;
-    using Rogue.Physics;
+    using Rogue.View.Interfaces;
+    using System;
+    using System.Collections.Generic;
 
     public class Attack : Ability<BloodMage, BloodStream>
     {
@@ -43,10 +45,19 @@
 
             foreach (var enemy in enemies)
             {
-                enemy.Enemy.HitPoints -= (long)this.Value;
+                var value = (long)this.Value;
+
+                enemy.Enemy.HitPoints -= value;
+
+                var critical = value > 10;
+
+                this.UseEffects(new List<ISceneObject>()
+                {
+                    new PopupString(value.ToString()+(critical ? "!" : ""), critical ? ConsoleColor.Red : ConsoleColor.White,enemy.Location,25,0.06)
+                });
             }
         }
 
-        public override double Value => 3;
+        public override double Value => Rogue.Random.Next(3,17);
     }
 }

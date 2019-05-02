@@ -32,7 +32,7 @@
         /// <summary>
         /// Relative position
         /// </summary>
-        public Rectangle Position
+        public virtual Rectangle Position
         {
             get
             {
@@ -103,5 +103,7 @@
         public virtual bool Expired => false;
 
         public virtual bool AbsolutePosition => false;
+
+        public Action Destroy { get; set; }
     }
 }

@@ -101,6 +101,19 @@ namespace Rogue.Drawing.Impl
 
         public virtual float LetterSpacing { get; set; } = 11.5625f;
 
+        private double _opacity = 0;
+        private bool opacitySetted = false;
+        public double Opacity
+        {
+            get => opacitySetted ? _opacity : 1;
+            set
+            {
+                opacitySetted = true;
+                _opacity = value;
+            }
+        }
+
+
         public void Append(IDrawText drawText)
         {
             throw new NotImplementedException();

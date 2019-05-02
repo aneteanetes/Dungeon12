@@ -440,7 +440,7 @@
                 Typeface = new Typeface(Font.Common, fontSize: fontSize)
             };
 
-            var brush = new ImmutableSolidColorBrush(new Color(range.ForegroundColor.A, range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B), 1);
+            var brush = new ImmutableSolidColorBrush(new Color(range.ForegroundColor.A, range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B), range.Opacity);
 
             x += (float)fmt.Measure().Height;
 

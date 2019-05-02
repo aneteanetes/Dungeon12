@@ -1,6 +1,7 @@
 ﻿namespace Rogue.View.Interfaces
 {
     using Rogue.Types;
+    using System;
     using System.Collections.Generic;
 
     public interface ISceneObject
@@ -45,5 +46,10 @@
         bool AbsolutePosition { get; }
 
         string Uid { get; }
+
+        /// <summary>
+        /// Вызвать уничтожение объекта. КОМУ НАДО ТОТ УНИЧТОЖИТ ЁПТА
+        /// </summary>
+        Action Destroy { get; set; }
     }
 }

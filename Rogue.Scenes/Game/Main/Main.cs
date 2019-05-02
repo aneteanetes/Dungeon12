@@ -59,12 +59,17 @@
             this.AddObject(mapSceneObect);
             mapSceneObect.Init();
 
-            this.AddObject(new SkillBar(this.Player,this.Gamemap)
+            this.AddObject(new SkillBar(this.Player, this.Gamemap, e => e.ForEach(effect=> {
+                effect.Destroy += () =>
+                {
+                    this.RemoveObject(effect);
+                };
+                this.AddObject(effect);
+            }))
             {
                 Top = 18.45f,
                 Left = 9f
             });
-
 
             var player = new PlayerSceneObject(this.Player, this.Gamemap)
             {

@@ -7,12 +7,19 @@
     using Rogue.Map.Objects;
     using Rogue.Physics;
     using Rogue.View.Interfaces;
+    using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// тут кто-то явно сэкономил на времени и въебал виртуальные свойства вместо абстрактных
     /// </summary>
     public abstract class Ability
     {
+        /// <summary>
+        /// Добавить эффекты при использовании
+        /// </summary>
+        public Action<IEnumerable<ISceneObject>> UseEffects;
+
         /// <summary>
         /// Размер области где действует способность
         /// </summary>

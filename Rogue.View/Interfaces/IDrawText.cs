@@ -27,5 +27,7 @@
         void ReplaceAt(int index, IDrawText drawText);
 
         void Paint(IDrawColor drawColor, bool recursive=false);
+
+        double Opacity { get; set; }
     }
 }
