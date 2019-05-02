@@ -1,4 +1,6 @@
 ﻿using Rogue.DataAccess;
+using Rogue.Entites.Enemy;
+using Rogue.Map.Objects;
 using Rogue.Physics;
 using Rogue.Settings;
 using Rogue.Types;
@@ -84,6 +86,25 @@ namespace Rogue.Map
                 y++;
 
                 this.MapOld.Add(listLine);
+            }
+
+            foreach (var obj in persistMap.Mobs)
+            {
+                var mob = new Mob()
+                {
+                    Enemy = obj.Enemy,
+                    Size = new PhysicalSize()
+                    {
+                        Height = obj.Size.X * 32,
+                        Width = obj.Size.Y * 32
+                    },
+                    Location = obj.Position,
+                    Tileset = obj.Tileset,
+                    TileSetRegion = obj.TileSetRegion,
+                };
+
+                this.Map.Query(mob).Nodes.Add(mob);
+                this.Objects.Add(mob);
             }
         }
 

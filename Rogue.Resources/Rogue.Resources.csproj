@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Images\Enemies\" />
     <Folder Include="Images\Objects\" />
   </ItemGroup>
 

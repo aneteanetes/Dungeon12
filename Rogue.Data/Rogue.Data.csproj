@@ -4,4 +4,14 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Rogue.Entites\Rogue.Entites.csproj" />
+    <ProjectReference Include="..\Rogue.Physics\Rogue.Physics.csproj" />
+    <ProjectReference Include="..\Rogue.Types\Rogue.Types.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Mobs\Data\" />
+  </ItemGroup>
+
 </Project>

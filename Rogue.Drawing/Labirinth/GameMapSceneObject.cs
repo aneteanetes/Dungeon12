@@ -14,7 +14,7 @@ using Rogue.View.Interfaces;
 
 namespace Rogue.Drawing.Labirinth
 {
-    public class MapSceneObject : HandleSceneControl
+    public class GameMapSceneObject : HandleSceneControl
     {
         public override bool IsBatch => true;
 
@@ -22,7 +22,7 @@ namespace Rogue.Drawing.Labirinth
 
         public override bool Expired => gamemap.ReloadCache;
 
-        public MapSceneObject(GameMap location)
+        public GameMapSceneObject(GameMap location)
         {
             gamemap = location;
             gamemap.OnGeneration = () =>
@@ -101,8 +101,16 @@ namespace Rogue.Drawing.Labirinth
             Height = 21;// gamemap.MapOld.Count;
             Width = 46; //gamemap.MapOld.First().Count;
 
+            newSceneObjects.AddRange(AddMobs(gamemap.Objects));
+
             OnReload(this.currentAdditionalObjects, newSceneObjects);
             currentAdditionalObjects = newSceneObjects;
+        }
+
+        private IEnumerable<ISceneObject> AddMobs(HashSet<MapObject> mapObjects)
+        {
+            var mobs = mapObjects.Where(x => typeof(Mob).IsAssignableFrom(x.GetType())).Select(x => x as Mob); //ПЕРЕПИСАТЬ НАХУЙ
+            return mobs.Select(mob => new EnemySceneObject(mob, mob.TileSetRegion));
         }
 
         private void AddObject(MapObject[] cell, Point pos)

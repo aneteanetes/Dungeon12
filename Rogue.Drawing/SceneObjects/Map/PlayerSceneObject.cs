@@ -35,7 +35,7 @@
             this.Image = player.Tileset;
             this.Width = 1;
             this.Height = 1;
-            this.AddChild(new ObjectHpBarBack(Player));
+            this.AddChild(new ObjectHpBar(Player));
             //this.AddChild(new ObjectHpBar(Player));
         }
 
