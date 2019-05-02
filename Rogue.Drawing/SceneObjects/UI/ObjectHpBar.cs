@@ -9,9 +9,9 @@
         public ObjectHpBar(Alive alive)
             :base("Rogue.Resources.Images.GUI.hpbar.png")
         {
-            this.Top -= 0.2;
-            this.Left += 0.1;
-            this.Height = 0.18;
+            this.Top += 0.025;
+            this.Left += 0.05;
+            this.Height = 0.19;
             this.alive = alive;
         }
 
@@ -26,13 +26,15 @@
 
     public class ObjectHpBarBack : ImageControl
     {
-        public ObjectHpBarBack()
+        public ObjectHpBarBack(Alive alive)
             : base("Rogue.Resources.Images.GUI.hpbar_e.png")
         {
             this.Top -= 0.23;
             this.Left += 0.06;
             this.Height = 0.25;
             this.Width = 0.88;
+
+            this.AddChild(new ObjectHpBar(alive));
         }
 
         public override bool CacheAvailable => false;
