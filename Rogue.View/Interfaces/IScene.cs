@@ -7,5 +7,7 @@ namespace Rogue.View.Interfaces
     public interface IScene
     {
         ISceneObject[] Objects { get; }
+
+        bool AbsolutePositionScene { get; }
     }
 }

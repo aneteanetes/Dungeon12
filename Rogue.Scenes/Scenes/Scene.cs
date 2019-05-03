@@ -24,6 +24,8 @@
 
         public ISceneObject[] Objects => SceneObjects.ToArray();
 
+        public virtual bool AbsolutePositionScene => true;
+
         private List<ISceneObject> SceneObjects = new List<ISceneObject>();
 
         private List<ISceneObjectControl> SceneObjectsControllable = new List<ISceneObjectControl>();

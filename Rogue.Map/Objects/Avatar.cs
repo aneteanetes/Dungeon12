@@ -21,6 +21,8 @@
 
         public override string Icon { get => "@"; set { } }
 
+        public override bool Obstruction => true;
+
         public Avatar()
         {
             this.ForegroundColor = new MapObjectColor

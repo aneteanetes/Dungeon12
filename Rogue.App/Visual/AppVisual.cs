@@ -127,16 +127,16 @@
                 for (int i = 0; i < current.Objects.Count(); i++)
                 {
                     var obj = current.Objects[i];
-                    if (!obj.AbsolutePosition)
+                    if (current.AbsolutePositionScene || obj.AbsolutePosition)
+                    {
+                        DrawSceneObject(context, obj);
+                    }
+                    else
                     {
                         using (context.PushPostTransform(Matrix.CreateTranslation(CameraOffsetX, CameraOffsetY)))
                         {
                             DrawSceneObject(context, obj);
                         }
-                    }
-                    else
-                    {
-                        DrawSceneObject(context, obj);
                     }
                 }
             }
@@ -167,7 +167,7 @@
                     Typeface = _typeface
                 };
                 var back = new ImmutableSolidColorBrush(Colors.LightGray);
-                var textBrush = new ImmutableSolidColorBrush(Colors.Black);
+                var textBrush = new ImmutableSolidColorBrush(Colors.White);
                 drawingContext.DrawText(textBrush, new Avalonia.Point(5, 5), fmt);
             }
 

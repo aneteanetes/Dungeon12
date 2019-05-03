@@ -18,5 +18,7 @@
         public Rectangle TileSetRegion { get; set; }
 
         public Enemy Enemy { get; set; }
+
+        public double MovementSpeed { get; set; }
     }
 }

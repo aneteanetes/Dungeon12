@@ -159,14 +159,28 @@ namespace Rogue.Physics
 
         public void Add(T physicalObject)
         {
-            this.Query(physicalObject,true)
-                .ForEach(node => node.Nodes.Add(physicalObject));
+            //this.Query(physicalObject, true).ForEach(node => node.Nodes.Add(physicalObject));
+
+            foreach (var node in this.Query(physicalObject, true))
+            {
+                node.Nodes.Add(physicalObject);
+            }
         }
 
+        /// <summary>
+        /// Удаляет по ссылке в верхних нодах
+        /// </summary>
+        /// <param name="physicalObject"></param>
+        /// <returns></returns>
         public bool Remove(T physicalObject)
         {
-            this.QueryReference(physicalObject)
-                .ForEach(node => node.Nodes.Remove(physicalObject));
+            foreach (var nodeInRoot in this.Nodes)
+            {
+                if (nodeInRoot.Nodes.Contains(physicalObject))
+                {
+                    nodeInRoot.Nodes.Remove(physicalObject);
+                }
+            }
 
             return true;
         }

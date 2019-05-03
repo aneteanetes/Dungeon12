@@ -28,6 +28,7 @@
         private readonly DrawingSize DrawingSize = new DrawingSize();
 
         //public override bool CameraAffect => true;
+        public override bool AbsolutePositionScene => false;
 
         public Main(SceneManager sceneManager) : base(sceneManager)
         {

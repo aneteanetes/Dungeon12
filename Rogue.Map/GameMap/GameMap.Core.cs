@@ -38,12 +38,28 @@ namespace Rogue.Map
                     .Where(node => node != @object)
                     .Where(node => @object.IntersectsWith(node));
 
-                foreach (var mObj in mapObjs)
+                if (typeof(Avatar).IsAssignableFrom(@object.GetType()))
                 {
-                    mObj.Interact(this);
+                    foreach (var mObj in mapObjs)
+                    {
+                        mObj.Interact(this);
+                    }
                 }
 
                 moveAvailable = !mapObjs.Any(x => x.Obstruction);
+            }
+
+            if (moveAvailable)
+            {
+                var wasAreas = Map.QueryReference(@object);
+
+                bool eq = wasAreas.SequenceEqual(moveAreas);
+                
+                if (!eq)
+                {
+                    Map.Remove(@object);
+                    Map.Add(@object);
+                }
             }
 
             //if (moveAvailable)

@@ -26,6 +26,8 @@
 
         public bool IsChasing { get; set; }
 
+        public override double MovementSpeed => base.MovementSpeed;
+
         public bool Moving { get; set; }
 
         public override PhysicalSize Size

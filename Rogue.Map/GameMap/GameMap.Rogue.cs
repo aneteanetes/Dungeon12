@@ -113,7 +113,8 @@ namespace Rogue.Map
                     Size = new PhysicalSize() {
                         Width = data.Size.X * 32,
                         Height = data.Size.Y * 32
-                    }
+                    },
+                    MovementSpeed=data.MovementSpeed
                 };
 
 

@@ -12,6 +12,7 @@
     "Width": 32,
     "Height": 32
   },
+  "MovementSpeed": 0.01,
   "Enemy": {
     "Aggressive": true,
     "Idle": {
