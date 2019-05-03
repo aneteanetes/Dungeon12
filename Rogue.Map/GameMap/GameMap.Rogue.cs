@@ -115,7 +115,8 @@ namespace Rogue.Map
                         Height = data.Size.Y * 32
                     },
                     MovementSpeed=data.MovementSpeed,
-                    VisionMultiple=data.VisionMultiples
+                    VisionMultiple=data.VisionMultiples,
+                    AttackRangeMultiples=data.AttackRangeMultiples
                 };
 
                 bool setted = false;

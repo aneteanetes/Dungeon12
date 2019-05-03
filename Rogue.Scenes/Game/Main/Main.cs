@@ -21,7 +21,7 @@
     using System.Diagnostics;
     using System.Linq;
 
-    public class Main : GameScene<Start, Main>
+    public class Main : GameScene<Start, Main,End>
     {
         private readonly Point PlayerPosition = new Point { X = 27, Y = 8 };
 
@@ -54,6 +54,14 @@
                     foreach (var @new in newitems)
                     {
                         @new.Destroy += () => this.RemoveObject(@new);
+                        @new.ShowEffects += e => e.ForEach(effect =>
+                        {
+                            effect.Destroy += () =>
+                            {
+                                this.RemoveObject(effect);
+                            };
+                            this.AddObject(effect);
+                        });
                         this.AddObject(@new);
                     }
                 }
@@ -73,6 +81,11 @@
                 Left = 9f
             });
 
+            this.Player.Die += () =>
+            {
+                this.Switch<End>();
+            };
+
             var player = new PlayerSceneObject(this.Player, this.Gamemap)
             {
                 Left = 20,
@@ -84,37 +97,6 @@
             };
             this.AddObject(player);
             this.Gamemap.Map.Add(this.Player);
-        }
-
-        public override void Draw()
-        {
-            if (this.Gamemap == null)
-                this.InitMap();
-
-            if (this.Commands.Count == 0)
-                this.FillCommands();
-
-            new Image("Rogue.Resources.Images.d12back.png")
-            {
-                Left = 0.4f,
-                Top = 1f,
-                Width = 48.2f,
-                Height = 29f,
-                ImageTileRegion = new Rectangle
-                {
-                    X = 0,
-                    Y = 0,
-                    Height = 700,
-                    Width = 1057
-                }
-            }.Run().Publish();
-
-            //Drawing.Draw.Session<GUIBorderDrawSession>()
-            //    .Then<MapSceneObject>(x => x.Location = this.Location)
-            //    //.Then<CharMapDrawSession>(x => x.Commands = this.Commands.Where(c => c.UI).Select(c => $"[{c.Keys.First()}] - {c.Name}").ToArray())
-            //    .Then<CharacterDataDrawSession>(x => x.Player = this.Player)
-            //    .Then<MessageDrawSession>(x => x.Message = new DrawText($"{DateTime.Now.ToShortTimeString()}: Вы прибываете в столицу", ConsoleColor.Black))
-            //    .Publish();
         }
 
         private void FillCommands()

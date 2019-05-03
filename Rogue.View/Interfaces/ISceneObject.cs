@@ -51,5 +51,10 @@
         /// Вызвать уничтожение объекта. КОМУ НАДО ТОТ УНИЧТОЖИТ ЁПТА
         /// </summary>
         Action Destroy { get; set; }
+
+        /// <summary>
+        /// Посылание эффектов в сцену
+        /// </summary>
+        Action<List<ISceneObject>> ShowEffects { get; set; }
     }
 }

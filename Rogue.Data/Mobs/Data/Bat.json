@@ -5,6 +5,10 @@
     "X": 6,
     "Y": 6
   },
+  "AttackRangeMultiples": {
+    "X": 1.5,
+    "Y": 1.5
+  },
   "Size": {
     "X": 1,
     "Y": 1

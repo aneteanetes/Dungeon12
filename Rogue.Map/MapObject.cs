@@ -12,6 +12,8 @@
 
     public class MapObject : PhysicalObject<MapObject>, IDrawable
     {
+        public Action Die;
+
         public virtual bool Obstruction { get; set; }
 
         public virtual string Icon { get; set; }

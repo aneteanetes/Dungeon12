@@ -22,5 +22,7 @@
         public double MovementSpeed { get; set; }
 
         public Point VisionMultiples { get; set; }
+
+        public Point AttackRangeMultiples { get; set; }
     }
 }

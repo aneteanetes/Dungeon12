@@ -16,7 +16,7 @@
         
         int Length { get; }
 
-        float Size { get; }
+        float Size { get; set; }
 
         float LetterSpacing { get; }
 

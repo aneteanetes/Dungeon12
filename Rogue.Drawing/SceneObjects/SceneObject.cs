@@ -105,5 +105,7 @@
         public virtual bool AbsolutePosition => false;
 
         public Action Destroy { get; set; }
+
+        public Action<List<ISceneObject>> ShowEffects { get; set; }
     }
 }

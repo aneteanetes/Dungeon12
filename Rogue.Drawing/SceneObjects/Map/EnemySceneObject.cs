@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Map
 {
+    using Rogue.Drawing.GUI;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Entites.Alive;
     using Rogue.Entites.Animations;
@@ -7,6 +8,7 @@
     using Rogue.Map;
     using Rogue.Map.Objects;
     using Rogue.Types;
+    using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -59,14 +61,30 @@
                 return;
             }
 
-            var player = location.Map.Query(this.mob.Vision, true)
+            if (moveDistance == 0)
+            {
+                this.mob.IsChasing = false;
+            }
+
+            var players = location.Map.Query(this.mob.Vision, true)
                 .SelectMany(nodes => nodes.Nodes)
                 .Where(node => this.mob.Vision.IntersectsWith(node))
                 .Where(x => typeof(Avatar).IsAssignableFrom(x.GetType()));
 
-            if (player.Count() > 0)
+            if (players.Count() > 0)
             {
-                Console.WriteLine($"my X:{this.mob.Location.X} my Y:{this.mob.Location.X} : I SEE PLAYER");
+                var player = players.First();
+                if (player.IntersectsWith(this.mob.AttackRange))
+                {
+                    Attack(player as Avatar);
+                }
+
+                if (!this.mob.IsChasing)
+                {
+                    moves.Clear();
+                    moveDistance = 0;
+                    Chasing(player as Avatar);
+                }
             }
 
             if (moveDistance == 0)
@@ -87,6 +105,49 @@
                     moveDistance = Random.Next(100, 300);
                 }
             }
+        }
+
+        private void Attack(Avatar avatar)
+        {
+            var player = avatar.Character;
+
+            var value = (long)Random.Next(2, 7);
+
+            player.HitPoints -= value;
+
+            if (player.HitPoints <= 0)
+            {
+                avatar.Die?.Invoke();
+            }
+
+            var critical = value > 6;
+
+            this.ShowEffects(new List<ISceneObject>()
+                {
+                    new PopupString(value.ToString()+(critical ? "!" : ""), critical ? ConsoleColor.Red : ConsoleColor.White,avatar.Location,25,critical ? 19 : 17,0.06)
+                });
+        }
+
+        private void Chasing(Avatar avatar)
+        {
+            this.mob.IsChasing = true;
+            if (avatar.Position.X <= this.mob.Position.X)
+            {
+                this.moves.Add(2);
+            }
+            if (avatar.Position.X >= this.mob.Position.X)
+            {
+                this.moves.Add(3);
+            }
+            if (avatar.Position.Y >= this.mob.Position.Y)
+            {
+                this.moves.Add(1);
+            }
+            if (avatar.Position.Y <= this.mob.Position.Y)
+            {
+                this.moves.Add(0);
+            }
+            moveDistance = 60;
         }
 
         private bool NotPair(int common, int additional)

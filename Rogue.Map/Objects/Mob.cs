@@ -22,8 +22,6 @@
 
         public override bool Obstruction => true;
 
-        public Action Die;
-
         public bool IsChasing { get; set; }
 
         public override double MovementSpeed => base.MovementSpeed;
@@ -39,5 +37,21 @@
             };
             set { }
         }
+
+        public Point AttackRangeMultiples { get; set; }
+
+        public MapObject AttackRange => new MapObject
+        {
+            Position = new PhysicalPosition
+            {
+                X = this.Position.X - (this.Size.Width * this.AttackRangeMultiples.X) / 2,
+                Y = this.Position.Y - (this.Size.Height * this.AttackRangeMultiples.Y) / 2
+            },
+            Size = new PhysicalSize
+            {
+                Width = this.Size.Width * AttackRangeMultiples.X,
+                Height = this.Size.Height * AttackRangeMultiples.Y
+            }
+        };
     }
 }
