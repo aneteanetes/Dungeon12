@@ -12,5 +12,7 @@
         public List<Point> Frames { get; set; }
 
         public Direction Direction { get; set; }
+
+        public double FramesPerSecond { get; set; }
     }
 }

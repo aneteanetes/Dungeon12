@@ -120,9 +120,52 @@ namespace Rogue.Physics
             return nodes;
         }
 
+        public List<T> QueryReference(T physicalObject)
+        {
+            List<T> nodes = new List<T>();
+
+            if (physicalObject.Nodes.Contains(physicalObject))
+            {
+                if (this.Nodes.Count == 0)
+                {
+                    nodes.Add(Self);
+                }
+                else
+                {
+                    foreach (var node in Nodes)
+                    {
+                        if (!node.Containable)
+                        {
+                            continue;
+                        }
+
+                        var queryDeepNode = node.Query(physicalObject, true);
+                        if (queryDeepNode.Count > 0)
+                        {
+                            nodes.AddRange(queryDeepNode);
+                        }
+                    }
+                }
+
+                //this is backward direction
+                if (nodes.Count == 0)
+                {
+                    nodes.Add(Self);
+                }
+            }
+
+            return nodes;
+        }
+
+        public void Add(T physicalObject)
+        {
+            this.Query(physicalObject,true)
+                .ForEach(node => node.Nodes.Add(physicalObject));
+        }
+
         public bool Remove(T physicalObject)
         {
-            this.Query(physicalObject, true)
+            this.QueryReference(physicalObject)
                 .ForEach(node => node.Nodes.Remove(physicalObject));
 
             return true;

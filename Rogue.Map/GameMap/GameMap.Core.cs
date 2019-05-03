@@ -31,10 +31,12 @@ namespace Rogue.Map
         {
             var moveAvailable = true;
 
-            var moveArea = Map.Query(@object);
-            if (moveArea != null)
+            var moveAreas = Map.Query(@object,true);
+            if (moveAreas.Count > 0)
             {
-                var mapObjs = moveArea.Nodes.Where(node => @object.IntersectsWith(node));
+                var mapObjs = moveAreas.SelectMany(x=>x.Nodes)
+                    .Where(node => node != @object)
+                    .Where(node => @object.IntersectsWith(node));
 
                 foreach (var mObj in mapObjs)
                 {
@@ -43,6 +45,17 @@ namespace Rogue.Map
 
                 moveAvailable = !mapObjs.Any(x => x.Obstruction);
             }
+
+            //if (moveAvailable)
+            //{
+            //    var wasAreas = Map.QueryReference(@object);
+
+            //    if (!wasAreas.SequenceEqual(moveAreas))
+            //    {
+            //        Map.Remove(@object);
+            //        Map.Add(@object);
+            //    }
+            //}
 
             OnMoving(@object,direction, moveAvailable);
 

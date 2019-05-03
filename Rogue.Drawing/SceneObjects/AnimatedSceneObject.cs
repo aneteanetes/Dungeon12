@@ -51,7 +51,11 @@
 
         private bool DefaultRequestNextFrame(int frameCounter, AnimationMap animMap)
         {
-            return frameCounter % (60 / animMap.Frames.Count) == 0;
+            var framesPerSec = animMap.FramesPerSecond == default
+                ? animMap.Frames.Count
+                : animMap.FramesPerSecond;
+
+            return frameCounter % (60 / framesPerSec) == 0;
         }
 
         protected virtual void ChangeAnimationFrame()
@@ -63,6 +67,7 @@
                 if (RequestNextFrame(FrameCounter, animationMap))
                 {
                     frame++;
+                    AnimationLoop();
                 }
 
                 if (frame == animationMap.Frames.Count)
@@ -72,6 +77,8 @@
                 }
             }
         }
+
+        protected virtual void AnimationLoop() { }
 
         protected abstract void DrawLoop();
     }

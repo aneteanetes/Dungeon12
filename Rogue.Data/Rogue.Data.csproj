@@ -10,8 +10,4 @@
     <ProjectReference Include="..\Rogue.Types\Rogue.Types.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mobs\Data\" />
-  </ItemGroup>
-
 </Project>

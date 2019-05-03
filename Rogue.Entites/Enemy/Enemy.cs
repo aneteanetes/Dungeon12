@@ -4,6 +4,6 @@
 
     public class Enemy : Moveable
     {
-        public bool Aggressive { get; set; }
+        public bool Aggressive { get; set; }        
     }
 }

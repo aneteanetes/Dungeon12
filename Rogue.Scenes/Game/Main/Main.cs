@@ -82,7 +82,7 @@
                 MapObjectCanAffectCamera(this.Player, Types.Direction.Idle, false);
             };
             this.AddObject(player);
-            this.Gamemap.Map.Nodes.Insert(0, this.Player);
+            this.Gamemap.Map.Add(this.Player);
         }
 
         public override void Draw()

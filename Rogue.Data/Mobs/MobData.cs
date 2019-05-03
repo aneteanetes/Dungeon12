@@ -1,11 +1,14 @@
 ﻿namespace Rogue.Data.Mobs
 {
     using Rogue.Entites.Enemy;
-    using Rogue.Physics;
     using Rogue.Types;
 
-    public class MobData
+    public class MobData : Persist
     {
+        public int Level { get; set; }
+
+        public string Name { get; set; }
+
         public string Tileset { get; set; }
 
         public Point Size { get; set; }

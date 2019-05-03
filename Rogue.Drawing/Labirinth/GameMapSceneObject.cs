@@ -110,7 +110,7 @@ namespace Rogue.Drawing.Labirinth
         private IEnumerable<ISceneObject> AddMobs(HashSet<MapObject> mapObjects)
         {
             var mobs = mapObjects.Where(x => typeof(Mob).IsAssignableFrom(x.GetType())).Select(x => x as Mob); //ПЕРЕПИСАТЬ НАХУЙ
-            return mobs.Select(mob => new EnemySceneObject(mob, mob.TileSetRegion));
+            return mobs.Select(mob => new EnemySceneObject(this.gamemap,mob, mob.TileSetRegion));
         }
 
         private void AddObject(MapObject[] cell, Point pos)

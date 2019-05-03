@@ -4,12 +4,14 @@
 
     public class Moveable : Modified
     {
-        public virtual AnimationMap MoveUp { get => default; }
+        public virtual AnimationMap Idle { get; set; }
 
-        public virtual AnimationMap MoveDown { get => default; }
+        public virtual AnimationMap MoveUp { get; set; }
 
-        public virtual AnimationMap MoveLeft { get => default; }
+        public virtual AnimationMap MoveDown { get; set; }
 
-        public virtual AnimationMap MoveRight { get => default; }
+        public virtual AnimationMap MoveLeft { get; set; }
+
+        public virtual AnimationMap MoveRight { get; set; }
     }
 }

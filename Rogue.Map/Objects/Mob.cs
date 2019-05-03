@@ -23,5 +23,19 @@
         public override bool Obstruction => true;
 
         public Action Die;
+
+        public bool IsChasing { get; set; }
+
+        public bool Moving { get; set; }
+
+        public override PhysicalSize Size
+        {
+            get => new PhysicalSize
+            {
+                Height = 28,
+                Width = 28
+            };
+            set { }
+        }
     }
 }

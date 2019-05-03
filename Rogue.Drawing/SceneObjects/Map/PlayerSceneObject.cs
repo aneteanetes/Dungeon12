@@ -46,9 +46,7 @@
             var _ = NowMoving.Count == 0
                 ? RequestStop()
                 : RequestResume();
-
-            MapObject old = null;// this.playerMapObject.ClonePhysicalObject();
-
+            
             if (NowMoving.Contains(Direction.Up))
             {
                 this.playerMapObject.Location.Y -= Speed;

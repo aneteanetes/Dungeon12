@@ -101,7 +101,7 @@
 
         public virtual bool CameraAffect => false;
 
-        public virtual double MovementSpeed => 0;
+        public virtual double MovementSpeed => 0.04;
 
         public override MapObject Vision
         {

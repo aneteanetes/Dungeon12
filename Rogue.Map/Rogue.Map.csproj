@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DeepCloner" Version="0.10.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Rogue.DataAccess\Rogue.DataAccess.csproj" />
     <ProjectReference Include="..\Rogue.Entites\Rogue.Entites.csproj" />
     <ProjectReference Include="..\Rogue.Physics\Rogue.Physics.csproj" />
