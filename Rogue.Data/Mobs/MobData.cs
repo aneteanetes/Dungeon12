@@ -20,5 +20,7 @@
         public Enemy Enemy { get; set; }
 
         public double MovementSpeed { get; set; }
+
+        public Point VisionMultiples { get; set; }
     }
 }

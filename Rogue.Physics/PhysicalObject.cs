@@ -62,8 +62,9 @@ namespace Rogue.Physics
                 {
                     T queryNode = Self;
 
-                    foreach (var node in Nodes)
+                    for (int i = 0; i < Nodes.Count; i++)
                     {
+                        var node = Nodes.ElementAtOrDefault(i);
                         if (!node.Containable)
                         {
                             continue;

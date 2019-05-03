@@ -1,6 +1,10 @@
 ﻿{
   "Level": 1,
   "Name": "Летучая мышь",
+  "VisionMultiples": {
+    "X": 6,
+    "Y": 6
+  },
   "Size": {
     "X": 1,
     "Y": 1

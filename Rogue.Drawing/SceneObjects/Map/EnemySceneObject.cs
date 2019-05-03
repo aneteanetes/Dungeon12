@@ -9,6 +9,7 @@
     using Rogue.Types;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Random = Rogue.Random;
 
     public class EnemySceneObject : AnimatedSceneObject
@@ -58,6 +59,16 @@
                 return;
             }
 
+            var player = location.Map.Query(this.mob.Vision, true)
+                .SelectMany(nodes => nodes.Nodes)
+                .Where(node => this.mob.Vision.IntersectsWith(node))
+                .Where(x => typeof(Avatar).IsAssignableFrom(x.GetType()));
+
+            if (player.Count() > 0)
+            {
+                Console.WriteLine($"my X:{this.mob.Location.X} my Y:{this.mob.Location.X} : I SEE PLAYER");
+            }
+
             if (moveDistance == 0)
             {
                 moves.Clear();
@@ -66,9 +77,27 @@
                 {
                     var direction = Random.Next(0, 4);
                     moves.Add(direction);
+
+                    var diagonally = Random.Next(0, 4);
+                    if (diagonally != direction && NotPair(direction, diagonally))
+                    {
+                        moves.Add(diagonally);
+                    }
+
                     moveDistance = Random.Next(100, 300);
                 }
             }
+        }
+
+        private bool NotPair(int common, int additional)
+        {
+            if (common + additional == 1)
+                return false;
+
+            if (common + additional == 5)
+                return false;
+
+            return true;
         }
 
         private int moveDistance = 0;

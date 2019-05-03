@@ -31,15 +31,9 @@
 
         public Point Location { get; set; }
 
-        public bool Container => false;        
+        public bool Container => false;
 
         public virtual void Interact(GameMap gameMap) { }
-
-        public virtual PhysicalSize View => new PhysicalSize
-        {
-            Height = this.Region.Height / 2,
-            Width = this.Region.Width / 2
-        };
 
         protected virtual PhysicalSize _Size { get; set; }
 
@@ -103,19 +97,20 @@
 
         public virtual double MovementSpeed { get; set; } = 0.04;
 
-        public override MapObject Vision
-        {
-            get => new MapObject()
-            {
-                Size = View,
-                Position = new PhysicalPosition
-                {
-                    X = Position.X + Position.X / 2,
-                    Y = Position.Y + Position.Y / 2
-                }
-            };
+        public virtual Point VisionMultiple { get; set; }
 
-            set { }
-        }
+        public override MapObject Vision => new MapObject
+        {
+            Position = new PhysicalPosition
+            {
+                X = this.Position.X - (this.Size.Width * this.VisionMultiple.X)/2,
+                Y = this.Position.Y - (this.Size.Height * this.VisionMultiple.Y)/2
+            },
+            Size = new PhysicalSize
+            {
+                Width = this.Size.Width * VisionMultiple.X,
+                Height = this.Size.Height * VisionMultiple.Y
+            }
+        };
     }
 }

@@ -34,12 +34,16 @@
         {
             var rangeObject = new MapObject
             {
-                Location = avatar.Location,
+                Position = new Physics.PhysicalPosition
+                {
+                    X= avatar.Position.X-((avatar.Size.Width*2.5)/2),
+                    Y = avatar.Position.Y - ((avatar.Size.Height * 2.5) / 2)
+                },
                 Size = avatar.Size
             };
 
-            rangeObject.Size.Height *= 2;
-            rangeObject.Size.Width *= 2;
+            rangeObject.Size.Height *= 2.5;
+            rangeObject.Size.Width *= 2.5;
 
             var enemies = map.Enemies(rangeObject);
 
@@ -58,7 +62,7 @@
 
                 this.UseEffects(new List<ISceneObject>()
                 {
-                    new PopupString(value.ToString()+(critical ? "!" : ""), critical ? ConsoleColor.Red : ConsoleColor.White,enemy.Location,25,0.06)
+                    new PopupString(value.ToString()+(critical ? "!" : ""), critical ? ConsoleColor.Red : ConsoleColor.White,enemy.Location,25,critical ? 19 : 17,0.06)
                 });
             }
         }

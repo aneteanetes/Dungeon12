@@ -114,14 +114,14 @@ namespace Rogue.Map
                         Width = data.Size.X * 32,
                         Height = data.Size.Y * 32
                     },
-                    MovementSpeed=data.MovementSpeed
+                    MovementSpeed=data.MovementSpeed,
+                    VisionMultiple=data.VisionMultiples
                 };
-
 
                 bool setted = false;
                 for (int j = 0; j < 100; j++)
                 {
-                    if (setted = TrySet(mob))
+                    if (setted = TrySetLocation(mob))
                     {
                         break;
                     }
@@ -146,7 +146,7 @@ namespace Rogue.Map
             }
         }
 
-        private bool TrySet(Mob mob)
+        private bool TrySetLocation(Mob mob)
         {
             var x = Random.Next(3, 32);
             var y = Random.Next(3, 18);

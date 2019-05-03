@@ -14,10 +14,10 @@
 
         private double speed;
 
-        public PopupString(string text,ConsoleColor color, Point position, int frames, double speed=0.2)
+        public PopupString(string text,ConsoleColor color, Point position, int frames, float size=10, double speed=0.2)
         {
             this.maxFrames = frames;
-            this.Text = new DrawText(text, color) { Size = 17 };
+            this.Text = new DrawText(text, color) { Size = size };
             this.Text.FontName = "Montserrat";
             this.Text.FontAssembly = "Rogue.Resources";
             this.Text.FontPath = "Rogue.Resources.Fonts.Mont.otf";

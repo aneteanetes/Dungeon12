@@ -148,7 +148,7 @@
                 Width = sceneObjControl.Position.Width * DrawingSize.CellF
             };
 
-            if(!sceneObjControl.AbsolutePosition)
+            if(!this.AbsolutePositionScene && !sceneObjControl.AbsolutePosition)
             {
                 newRegion.X += offset.X;
                 newRegion.Y += offset.Y;
