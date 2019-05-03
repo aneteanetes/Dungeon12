@@ -19,6 +19,11 @@
             Width = 1;
             Height = 1;
 
+            mob.Die += () =>
+            {
+                this.Destroy?.Invoke();
+            };
+
             this.AddChild(new ObjectHpBar(mob.Enemy));
         }
 

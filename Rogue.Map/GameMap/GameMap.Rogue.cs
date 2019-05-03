@@ -103,6 +103,11 @@ namespace Rogue.Map
                     TileSetRegion = obj.TileSetRegion,
                 };
 
+                mob.Die += () =>
+                {
+                    this.Map.Remove(mob);
+                };
+
                 this.Map.Query(mob).Nodes.Add(mob);
                 this.Objects.Add(mob);
             }

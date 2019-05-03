@@ -120,13 +120,20 @@ namespace Rogue.Physics
             return nodes;
         }
 
+        public bool Remove(T physicalObject)
+        {
+            this.Query(physicalObject, true)
+                .ForEach(node => node.Nodes.Remove(physicalObject));
+
+            return true;
+        }
+
         public IEnumerable<T> InVision(IEnumerable<T> available)
             => available.Where(physObj => this.IntersectsWith(physObj));
 
         public T this[int index] => Nodes[index];
 
         public bool InVision(T available) => this.IntersectsWith(available);
-
 
         public T ClonePhysicalObject() => new T
         {

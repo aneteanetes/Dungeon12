@@ -434,10 +434,32 @@
 
         private void DrawSceneText(DrawingContext ctx, float fontSize, double y, double x, IDrawText range)
         {
+            Typeface typeface = null;
+
+            FontWeight fontWeight = range.Bold
+                ? FontWeight.Bold
+                : FontWeight.Normal;
+
+            if (string.IsNullOrEmpty(range.FontName))
+            {
+                typeface = new Typeface(Font.Common, fontSize: fontSize, weight: fontWeight);
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(range.FontPath))
+                {
+                    typeface = new Typeface(range.FontName, weight: fontWeight);
+                }
+                else
+                {
+                    typeface = new Typeface(Font.GetFontFamily(range.FontName, range.FontPath, range.FontAssembly), fontSize: fontSize);
+                }
+            }
+
             var fmt = new FormattedText()
             {
                 Text = range.StringData,
-                Typeface = new Typeface(Font.Common, fontSize: fontSize)
+                Typeface = typeface
             };
 
             var brush = new ImmutableSolidColorBrush(new Color(range.ForegroundColor.A, range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B), range.Opacity);

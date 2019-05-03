@@ -18,6 +18,9 @@
         {
             this.maxFrames = frames;
             this.Text = new DrawText(text, color) { Size = 17 };
+            this.Text.FontName = "Montserrat";
+            this.Text.FontAssembly = "Rogue.Resources";
+            this.Text.FontPath = "Rogue.Resources.Fonts.Mont.otf";
 
             this.speed = speed;
 
@@ -53,9 +56,12 @@
                 return;
             }
 
-            if (this.Text.Opacity > 0)
+            if (((double)frames / (double)maxFrames) * 100 > 20)
             {
-                this.Text.Opacity -= 0.005;
+                if (this.Text.Opacity > 0)
+                {
+                    this.Text.Opacity -= 0.005;
+                }
             }
 
             if (FrameCounter % (60 / 14) == 0)

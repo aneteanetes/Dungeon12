@@ -113,6 +113,10 @@ namespace Rogue.Drawing.Impl
             }
         }
 
+        public string FontName { get; set; }
+        public bool Bold { get; set; }
+        public string FontPath { get; set; }
+        public string FontAssembly { get; set; }
 
         public void Append(IDrawText drawText)
         {

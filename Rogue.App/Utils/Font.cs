@@ -1,24 +1,25 @@
 ﻿namespace Rogue.App.Utils
 {
     using Avalonia.Media;
+    using System.Collections.Generic;
+    using System.Drawing.Text;
 
     public class Font
     {
-        private static FontFamily triforceFamilty;
-        public static FontFamily Common
+        private static Dictionary<string, FontFamily> fontsCache = new Dictionary<string, FontFamily>();
+
+        public static FontFamily Common => GetFontFamily("Triforce(RUS BY LYAJKA) Triforce", "Rogue.Resources.Fonts.Common.otf", "Rogue.Resources");
+
+        public static FontFamily GetFontFamily(string name, string path, string asm)
         {
-            get
+            if (!fontsCache.TryGetValue(name, out var fontFamily))
             {
-                if (triforceFamilty == null)
-                {
-                    triforceFamilty = new FontFamily(
-                        "Triforce(RUS BY LYAJKA) Triforce",
-                        new System.Uri("resm:Rogue.Resources.Fonts.Common.otf?assembly=Rogue.Resources#Triforce(RUS BY LYAJKA) Triforce"));
-                }
-
-                return triforceFamilty;
+                fontFamily = FontFamily.Parse(name, new System.Uri($"resm:{path}?assembly={asm}#{name}"));
+                //new FontFamily(name, new System.Uri($"resm:{path}?assembly={asm}#{name}"));
+                fontsCache[name] = fontFamily;
             }
-        }
 
+            return fontFamily;
+        }
     }
 }

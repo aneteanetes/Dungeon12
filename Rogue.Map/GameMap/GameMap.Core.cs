@@ -75,7 +75,7 @@ namespace Rogue.Map
                     .Where(node => @object.IntersectsWith(node));
             }
 
-            return mobs;
+            return mobs.ToArray();
         }
 
         private bool needReloadCache = false;

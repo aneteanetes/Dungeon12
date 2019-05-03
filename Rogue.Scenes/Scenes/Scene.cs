@@ -68,8 +68,8 @@
         {
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
-            
-            var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key);
+
+            var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key).ToArray();
             foreach (var sceneObjectHandler in keyControls)
             {
                 sceneObjectHandler.KeyDown(key, modifier);

@@ -21,5 +21,7 @@
         }
 
         public override bool Obstruction => true;
+
+        public Action Die;
     }
 }

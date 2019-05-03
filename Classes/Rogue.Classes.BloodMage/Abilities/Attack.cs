@@ -49,6 +49,11 @@
 
                 enemy.Enemy.HitPoints -= value;
 
+                if (enemy.Enemy.HitPoints <= 0)
+                {
+                    enemy.Die?.Invoke();
+                }
+
                 var critical = value > 10;
 
                 this.UseEffects(new List<ISceneObject>()

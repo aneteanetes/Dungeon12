@@ -52,6 +52,7 @@
                     }
                     foreach (var @new in newitems)
                     {
+                        @new.Destroy += () => this.RemoveObject(@new);
                         this.AddObject(@new);
                     }
                 }

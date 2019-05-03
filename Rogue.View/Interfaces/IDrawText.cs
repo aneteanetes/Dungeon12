@@ -29,5 +29,13 @@
         void Paint(IDrawColor drawColor, bool recursive=false);
 
         double Opacity { get; set; }
+
+        string FontName { get; set; }
+
+        string FontPath { get; set; }
+
+        string FontAssembly { get; set; }
+
+        bool Bold { get; set; }
     }
 }
