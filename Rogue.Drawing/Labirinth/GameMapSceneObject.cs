@@ -23,11 +23,11 @@ namespace Rogue.Drawing.Labirinth
 
         public override bool Expired => gamemap.ReloadCache;
 
-        private Avatar avatar;
+        private PlayerSceneObject player;
 
-        public GameMapSceneObject(GameMap location, Avatar avatar)
+        public GameMapSceneObject(GameMap location, PlayerSceneObject avatar)
         {
-            this.avatar = avatar;
+            this.player = avatar;
             gamemap = location;
             gamemap.OnGeneration = () =>
             {
@@ -445,9 +445,11 @@ namespace Rogue.Drawing.Labirinth
 
         protected override ControlEventType[] Handles => new ControlEventType[] { ControlEventType.Click };
 
+        private List<Point> path = new List<Point>();
+
         public override void Click(PointerArgs args)
         {
-            var path =this.gamemap.Map.FindPath(this.avatar, new MapObject
+            var path =this.gamemap.Map.FindPath(this.player.avatar, new MapObject
             {
                 Size = new Physics.PhysicalSize
                 {
@@ -460,7 +462,11 @@ namespace Rogue.Drawing.Labirinth
                     Y = args.Y
                 },
                 Root = this.gamemap.Map
-            });
+            },15,0.8);
+
+            //path.RemoveRange(path.Count - 40, 40);
+
+            this.player.SetPath(path);
 
             //Debugger.Break();
         }

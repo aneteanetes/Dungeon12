@@ -41,7 +41,19 @@
             this.AddObject(new ImageControl("Rogue.Resources.Images.d12back.png"));
 
             this.InitMap();
-            var mapSceneObect = new GameMapSceneObject(this.Gamemap, this.Player)
+
+
+            var player = new PlayerSceneObject(this.Player, this.Gamemap)
+            {
+                Left = 20,
+                Top = 11
+            };
+            player.OnStop = () =>
+            {
+                MapObjectCanAffectCamera(this.Player, Types.Direction.Idle, false);
+            };
+
+            var mapSceneObect = new GameMapSceneObject(this.Gamemap, player)
             {
                 Left = 0,
                 Top = 0,
@@ -86,15 +98,6 @@
                 this.Switch<End>();
             };
 
-            var player = new PlayerSceneObject(this.Player, this.Gamemap)
-            {
-                Left = 20,
-                Top = 11
-            };
-            player.OnStop = () =>
-            {
-                MapObjectCanAffectCamera(this.Player, Types.Direction.Idle, false);
-            };
             this.AddObject(player);
             this.Gamemap.Map.Add(this.Player);
         }

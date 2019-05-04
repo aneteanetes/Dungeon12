@@ -64,7 +64,7 @@
                 closed.Add(path.LastStep);
                 expandedNodes++;
 
-                foreach (TNode n in dataStructure.Neighbours(path.LastStep, speed))
+                foreach (TNode n in dataStructure.Neighbours(path.LastStep, speed,destination))
                 {
                     double d = distance(path.LastStep, n);
                     if (richDestination(n, destination))
@@ -153,7 +153,7 @@
         /// Gets the neighbours of the instance.
         /// </summary>
         /// <value>The neighbours.</value>
-        IEnumerable<T> Neighbours(T node, double speed);
+        IEnumerable<T> Neighbours(T node, double speed, T dest);
     }
 
     /// <summary>

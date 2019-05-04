@@ -226,14 +226,14 @@
         private double CalculateDistance(T one, T another)
             => distance(one.Position.X, one.Position.Y, another.Position.X, another.Position.Y);
 
-        double distance(double x1, double y1, double x2, double y2)
+         private double distance(double x1, double y1, double x2, double y2)
         {
             double dx = x2 - x1;
             double dy = y2 - y1;
             return Math.Sqrt(dx * dx + dy * dy);
         }
 
-        public IEnumerable<T> Neighbours(T node, double speed)
+        public IEnumerable<T> Neighbours(T node, double speed, T dest)
         {           
             List<T> miniMap = new List<T>();
             
@@ -243,8 +243,8 @@
                 {
                     Size = new PhysicalSize
                     {
-                        Height = 5,
-                        Width = 5
+                        Height = 2,
+                        Width = 2
                     },
                     Position = new PhysicalPosition
                     {
@@ -257,12 +257,12 @@
                     ? node
                     : node.StartObject;
 
-                var wtf = node.Root.Query(point);
+                var existedNode = node.Root.Query(point);
 
-                var intersected = wtf==null
+                var intersected = existedNode==null
                     ? false
-                    : wtf.Nodes
-                    .Where(x => x != point.StartObject)
+                    : existedNode.Nodes.ToArray()
+                    .Where(x => x != point.StartObject && x!=dest)
                     .Any(x => x.IntersectsWith(point));
 
                 if (!intersected)
@@ -317,7 +317,7 @@
                 if (closedList.FirstOrDefault(l=>l.IntersectsWith(target))!=null)
                     break;
 
-                var adjacentSquares = current.Neighbours(current,speed);
+                var adjacentSquares = current.Neighbours(current,speed,target);
                 
                 g = current.G + 1;
 
@@ -361,17 +361,46 @@
             {
                 path.Add(new Point(current.Position.X,current.Position.Y));
 
-                //if (current.Parent != null)
-                //{
-                //    var points = GetPointsOnLine(current.Position.X, current.Position.Y, current.Parent.Position.X, current.Parent.Position.Y, range);
 
-                //    path.AddRange(points);
-                //}
+                if (current.Parent != null)
+                {
+                    var xp = new Point(current.Position.X, current.Position.Y);
+                    var yp = new Point(current.Parent.Position.X, current.Parent.Position.Y);
+
+                    //var points = GetPointsOnLine(current.Position.X, current.Position.Y, current.Parent.Position.X, current.Parent.Position.Y, range);
+                    var points = SplitLine(xp, yp, speed / range);
+
+                    path.AddRange(points);
+                }
 
                 current = current.Parent;
             }
 
             return path.DistinctBy(x => x.X + x.Y).Reverse().ToList(); //return list of dots
+        }
+
+        static double getCount(Point p, Point q)
+        {
+            // If line joining p and q is parallel to 
+            // x axis, then count is difference of y 
+            // values 
+            if (p.X == q.X)
+                return Math.Abs(p.Y - q.Y) - 1;
+
+            // If line joining p and q is parallel to 
+            // y axis, then count is difference of x 
+            // values 
+            if (p.Y == q.Y)
+                return Math.Abs(p.X - q.X) - 1;
+
+            return gcd(Math.Abs(p.X - q.X), Math.Abs(p.Y - q.Y)) - 1;
+        }
+
+        static double gcd(double a, double b)
+        {
+            if (b == 0)
+                return a;
+            return gcd(b, a % b);
         }
 
         public static IEnumerable<Point> GetPointsOnLine(double x0, double y0, double x1, double y1,double range)
@@ -413,6 +442,38 @@
                 }
             }
             yield break;
+        }
+
+        // I've used Tupple<Double, Double> to represent a point;
+        // You, probably have your own type for it
+        public static IList<Point> SplitLine(Point a, Point b, double count)
+        {
+            count = count + 1;
+
+            Double d = Math.Sqrt((a.X - b.X) * (a.X - b.X) + (a.Y - b.Y) * (a.Y - b.Y)) / count;
+            Double fi = Math.Atan2(b.Y - a.Y, b.X - a.X);
+
+            List<Point> points = new List<Point>();
+
+            for (int i = 0; i <= count; ++i)
+                points.Add(new Point(a.X + i * d * Math.Cos(fi), a.Y + i * d * Math.Sin(fi)));
+
+            return points;
+        }
+
+        private static List<Point> ExtendPoints(Point pt1, Point pt4, double numberOfPoints)
+        {
+            var extendedPoints = new List<Point>();
+
+            for (double d = 1; d < numberOfPoints - 1; d++)
+            {
+                double a = (Math.Max(pt1.X, pt4.X) - Math.Min(pt1.X, pt4.X)) * d / (double)(numberOfPoints - 1) + Math.Min(pt1.X, pt4.X);
+                double b = (Math.Max(pt1.Y, pt4.Y) - Math.Min(pt1.Y, pt4.Y)) * d / (double)(numberOfPoints - 1) + Math.Min(pt1.Y, pt4.Y);
+                var pt2 = new Point(a, b);
+                extendedPoints.Add(pt2);
+            }
+
+            return extendedPoints;
         }
 
         static double ComputeHScore(double x, double y, double targetX, double targetY)
