@@ -47,12 +47,7 @@ namespace Rogue.Map
 
                     if (mapObj.Obstruction)
                     {
-                        var nodes = this.Map.Query(mapObj, true);
-
-                        foreach (var node in nodes)
-                        {
-                            node.Nodes.Add(mapObj);
-                        }
+                        this.Map.Add(mapObj);
                     }
 
                     listLine.Add(new List<MapObject>() { mapObj });
@@ -84,13 +79,7 @@ namespace Rogue.Map
                     this.Map.Remove(mob);
                 };
 
-                var nodes = this.Map.Query(mob, true);
-
-                foreach (var node in nodes)
-                {
-                    node.Nodes.Add(mob);
-                }
-
+                this.Map.Add(mob);
                 this.Objects.Add(mob);
             }
 
@@ -135,13 +124,7 @@ namespace Rogue.Map
                         this.Map.Remove(mob);
                     };
 
-                    var nodes = this.Map.Query(mob, true);
-
-                    foreach (var node in nodes)
-                    {
-                        node.Nodes.Add(mob);
-                    }
-
+                    this.Map.Add(mob);
                     this.Objects.Add(mob);
                 }
             }

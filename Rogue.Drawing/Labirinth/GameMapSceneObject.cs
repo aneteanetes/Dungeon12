@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Rogue.Control.Events;
+using Rogue.Control.Pointer;
 using Rogue.Drawing.Impl;
 using Rogue.Drawing.SceneObjects;
 using Rogue.Drawing.SceneObjects.Map;
@@ -22,8 +23,11 @@ namespace Rogue.Drawing.Labirinth
 
         public override bool Expired => gamemap.ReloadCache;
 
-        public GameMapSceneObject(GameMap location)
+        private Avatar avatar;
+
+        public GameMapSceneObject(GameMap location, Avatar avatar)
         {
+            this.avatar = avatar;
             gamemap = location;
             gamemap.OnGeneration = () =>
             {
@@ -80,7 +84,7 @@ namespace Rogue.Drawing.Labirinth
                         };
 
                         newSceneObjects.Add(portalSceneObject);
-                        gamemap.Map.Query(portal).Nodes.Add(portal);
+                        gamemap.Map.Add(portal);
 
                         var first = cell[0];
 
@@ -440,6 +444,26 @@ namespace Rogue.Drawing.Labirinth
         }
 
         protected override ControlEventType[] Handles => new ControlEventType[] { ControlEventType.Click };
+
+        public override void Click(PointerArgs args)
+        {
+            var path =this.gamemap.Map.FindPath(this.avatar, new MapObject
+            {
+                Size = new Physics.PhysicalSize
+                {
+                    Height = 15,
+                    Width = 15
+                },
+                Position = new Physics.PhysicalPosition
+                {
+                    X = args.X,
+                    Y = args.Y
+                },
+                Root = this.gamemap.Map
+            });
+
+            //Debugger.Break();
+        }
 
         //public override void Focus()
         //{

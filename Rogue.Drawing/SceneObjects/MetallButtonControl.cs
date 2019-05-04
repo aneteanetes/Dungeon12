@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Drawing.SceneObjects
 {
+    using Rogue.Control.Pointer;
     using Rogue.Drawing.Impl;
     using Rogue.Settings;
     using Rogue.View.Interfaces;
@@ -36,7 +37,7 @@
 
         public override string Image { get; set; } = "Rogue.Resources.Images.ui.button.png";
 
-        public override void Click()
+        public override void Click(PointerArgs args)
         {
             OnClick?.Invoke();
         }

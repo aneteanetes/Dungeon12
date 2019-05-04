@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Map
 {
+    using Rogue.Control.Pointer;
     using Rogue.Entites.Animations;
     using Rogue.Map;
     using Rogue.Map.Objects;
@@ -24,7 +25,7 @@
         {
         }
 
-        public override void Click()
+        public override void Click(PointerArgs args)
         {
             System.Console.WriteLine("clicked standalone");
         }

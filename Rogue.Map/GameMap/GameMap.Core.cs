@@ -92,7 +92,7 @@ namespace Rogue.Map
 
             //return canMove;
         }
-
+        
         public IEnumerable<Mob> Enemies(MapObject @object)
         {
             IEnumerable<Mob> mobs = Enumerable.Empty<Mob>();
@@ -121,6 +121,7 @@ namespace Rogue.Map
                 return false;
             }
         }
+
 
     }
 

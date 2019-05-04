@@ -2,6 +2,7 @@
 {
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
+    using Rogue.Control.Pointer;
     using Rogue.View.Interfaces;
     using System;
 
@@ -26,7 +27,7 @@
 
         public Key[] KeysHandle => KeyHandlers.Value ?? new Key[0];
 
-        public virtual void Click() { }
+        public virtual void Click(PointerArgs args) { }
 
         public virtual void Focus() { }
 

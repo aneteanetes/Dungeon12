@@ -94,7 +94,7 @@ namespace Rogue.Map
                 this.MapOld.Add(listLine);
             }
 
-            this.Map.Nodes.Insert(0, player);
+            this.Map.Add(player);
 
             needReloadCache = true;
             generation = false;
@@ -152,17 +152,7 @@ namespace Rogue.Map
 
             if (mapObj.Obstruction)
             {
-                var nodes = this.Map.Query(mapObj, true);
-
-                //if (nodes.Count == 0)
-                //{
-                //    Debugger.Break();
-                //}
-
-                foreach (var node in nodes)
-                {
-                    node.Nodes.Add(mapObj);
-                }
+                this.Map.Add(mapObj);
             }
         }
 

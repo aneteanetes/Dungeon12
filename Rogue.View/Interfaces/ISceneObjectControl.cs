@@ -2,6 +2,7 @@
 {
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
+    using Rogue.Control.Pointer;
 
     public interface ISceneObjectControl : ISceneObject
     {
@@ -13,7 +14,7 @@
 
         void Unfocus();
 
-        void Click();
+        void Click(PointerArgs args);
 
         ControlEventType[] CanHandle { get; }
 

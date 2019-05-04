@@ -101,7 +101,7 @@
             var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs,offset));
             foreach (var clickedElement in clickedElements)
             {
-                clickedElement.Click();
+                clickedElement.Click(pointerPressedEventArgs);
             }
         }
 

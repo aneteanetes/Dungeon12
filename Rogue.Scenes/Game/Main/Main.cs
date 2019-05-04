@@ -41,7 +41,7 @@
             this.AddObject(new ImageControl("Rogue.Resources.Images.d12back.png"));
 
             this.InitMap();
-            var mapSceneObect = new GameMapSceneObject(this.Gamemap)
+            var mapSceneObect = new GameMapSceneObject(this.Gamemap, this.Player)
             {
                 Left = 0,
                 Top = 0,

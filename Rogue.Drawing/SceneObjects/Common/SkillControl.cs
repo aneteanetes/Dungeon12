@@ -3,6 +3,7 @@
     using System;
     using Rogue.Abilities;
     using Rogue.Control.Keys;
+    using Rogue.Control.Pointer;
     using Rogue.Map;
     using Rogue.Map.Objects;
 
@@ -40,7 +41,7 @@
 
         public override string Image { get; set; } = "Rogue.Resources.Images.ui.square.png";
 
-        public override void Click()
+        public override void Click(PointerArgs args)
         {
             OnClick?.Invoke();
         }
