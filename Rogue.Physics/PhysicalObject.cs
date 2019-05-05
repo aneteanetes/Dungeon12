@@ -237,14 +237,14 @@
         {           
             List<T> miniMap = new List<T>();
             
-            foreach (var coord in Coords(speed))
+            foreach (var coord in Coords(10))
             {
                 var point = new T
                 {
                     Size = new PhysicalSize
                     {
-                        Height = 2,
-                        Width = 2
+                        Height = 10,
+                        Width =10
                     },
                     Position = new PhysicalPosition
                     {
@@ -263,6 +263,7 @@
                     ? false
                     : existedNode.Nodes.ToArray()
                     .Where(x => x != point.StartObject && x!=dest)
+                    .Where(x=>x!=null)
                     .Any(x => x.IntersectsWith(point));
 
                 if (!intersected)
@@ -301,8 +302,15 @@
             // start by adding the original position to the open list  
             openList.Add(start);
 
+            var distance = ComputeHScore(start, target);
+            
             while (openList.Count > 0)
             {
+                if(closedList.Count/5> distance)
+                {
+                    break;
+                }
+
                 // get the square with the lowest F score  
                 var lowest = openList.Min(l => l.F);
                 current = openList.First(l => l.F == lowest);
@@ -334,7 +342,7 @@
                     {
                         // compute its score, set the parent  
                         adjacentSquare.G = g;
-                        adjacentSquare.H = ComputeHScore(adjacentSquare.Position.X, adjacentSquare.Position.Y, target.Position.X, target.Position.Y);
+                        adjacentSquare.H = ComputeHScore(adjacentSquare, target);
                         adjacentSquare.F = adjacentSquare.G + adjacentSquare.H;
                         adjacentSquare.Parent = current;
 
@@ -360,19 +368,7 @@
             while (current != null)
             {
                 path.Add(new Point(current.Position.X,current.Position.Y));
-
-
-                if (current.Parent != null)
-                {
-                    var xp = new Point(current.Position.X, current.Position.Y);
-                    var yp = new Point(current.Parent.Position.X, current.Parent.Position.Y);
-
-                    //var points = GetPointsOnLine(current.Position.X, current.Position.Y, current.Parent.Position.X, current.Parent.Position.Y, range);
-                    var points = SplitLine(xp, yp, speed / range);
-
-                    path.AddRange(points);
-                }
-
+                
                 current = current.Parent;
             }
 
@@ -476,8 +472,14 @@
             return extendedPoints;
         }
 
-        static double ComputeHScore(double x, double y, double targetX, double targetY)
+        static double ComputeHScore(PhysicalObject po1, PhysicalObject po2)
         {
+            double x = po1.Position.X - (po1.Size.Width / 2);
+            double targetX = po2.Position.X - (po2.Size.Width / 2);
+
+            double y = po1.Position.Y - (po1.Size.Height / 2);
+            double targetY = po2.Position.Y - (po2.Size.Height / 2);
+
             return Math.Abs(targetX - x) + Math.Abs(targetY - y);
         }
     }

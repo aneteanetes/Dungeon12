@@ -101,7 +101,21 @@
             var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs,offset));
             foreach (var clickedElement in clickedElements)
             {
-                clickedElement.Click(pointerPressedEventArgs);
+                var args = new PointerArgs
+                {
+                    ClickCount = pointerPressedEventArgs.ClickCount,
+                    MouseButton = pointerPressedEventArgs.MouseButton,
+                    X = pointerPressedEventArgs.X,
+                    Y = pointerPressedEventArgs.Y
+                };
+
+                if (!this.AbsolutePositionScene && !clickedElement.AbsolutePosition)
+                {
+                    args.X += offset.X;
+                    args.Y += offset.Y;
+                }
+
+                clickedElement.Click(args);
             }
         }
 

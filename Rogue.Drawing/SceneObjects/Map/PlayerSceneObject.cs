@@ -5,6 +5,7 @@
     using Rogue.Entites.Alive.Character;
     using Rogue.Entites.Animations;
     using Rogue.Map;
+    using Rogue.Physics;
     using Rogue.Types;
     using System;
     using System.Collections.Generic;
@@ -44,25 +45,83 @@
         private List<Point> path = new List<Point>();
         public void SetPath(List<Point> path)
         {
+            NowMoving.Clear();
+            nextPos = null;
             this.path = path;
         }
+
+        private PhysicalObject nextPos = null;
 
         protected override void DrawLoop()
         {
             if (path.Count > 0)
             {
-                var step = path.First();
-                path.Remove(step);
+                if (nextPos == null || nextPos.IntersectsWith(avatar))
+                {
+                    NowMoving.Clear();
 
-                this.Left = step.X / 32;
-                this.Top = step.Y / 32;
-                this.avatar.Location.X = this.Left;
-                this.avatar.Location.Y = this.Top;
+                    var step = path.First();
+                    path.Remove(step);
+                    nextPos = new PhysicalObject
+                    {
+                        Position = new PhysicalPosition { X = step.X, Y = step.Y },
+                        Size = this.avatar.Size
+                    };
 
-                this.location.Move(this.avatar, Direction.Idle);
+                    //if (step.X > this.Left * 32)
+                    //{
+                    //    NowMoving.Add(Direction.Right);
+                    //}
+
+                    //if (step.X < this.Left * 32)
+                    //{
+                    //    NowMoving.Add(Direction.Left);
+                    //}
+
+                    //if (step.Y < this.Top * 32)
+                    //{
+                    //    NowMoving.Add(Direction.Up);
+                    //}
+
+                    //if (step.Y > this.Top * 32)
+                    //{
+                    //    NowMoving.Add(Direction.Down);
+                    //}
+                }
             }
 
-            return;
+            if (nextPos != null)
+            {
+                if (!nextPos.IntersectsWith(avatar))
+                {
+                    NowMoving.Clear();
+
+                    if (nextPos.Position.X > this.Left * 32)
+                    {
+                        NowMoving.Add(Direction.Right);
+                    }
+
+                    if (nextPos.Position.X < this.Left * 32)
+                    {
+                        NowMoving.Add(Direction.Left);
+                    }
+
+                    if (nextPos.Position.Y < this.Top * 32)
+                    {
+                        NowMoving.Add(Direction.Up);
+                    }
+
+                    if (nextPos.Position.Y > this.Top * 32)
+                    {
+                        NowMoving.Add(Direction.Down);
+                    }
+                }
+                else
+                {
+                    NowMoving.Clear();
+                    nextPos = null;
+                }
+            }
 
             var _ = NowMoving.Count == 0
                 ? RequestStop()
@@ -74,6 +133,7 @@
                 SetAnimation(this.Player.MoveUp);
                 if (!CheckMoveAvailable(Direction.Up))
                 {
+                    this.NowMoving.Remove(Direction.Up);
                     OnStop();
                 }
             }
@@ -83,6 +143,7 @@
                 SetAnimation(this.Player.MoveDown);
                 if (!CheckMoveAvailable(Direction.Down))
                 {
+                    this.NowMoving.Remove(Direction.Down);
                     OnStop();
                 }
             }
@@ -92,6 +153,7 @@
                 SetAnimation(this.Player.MoveLeft);
                 if (!CheckMoveAvailable(Direction.Left))
                 {
+                    this.NowMoving.Remove(Direction.Left);
                     OnStop();
                 }
             }
@@ -101,6 +163,7 @@
                 SetAnimation(this.Player.MoveRight);
                 if (!CheckMoveAvailable(Direction.Right))
                 {
+                    this.NowMoving.Remove(Direction.Right);
                     OnStop();
                 }
             }

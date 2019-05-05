@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using Rogue.Control.Events;
 using Rogue.Control.Pointer;
+using Rogue.Drawing.GUI;
 using Rogue.Drawing.Impl;
 using Rogue.Drawing.SceneObjects;
 using Rogue.Drawing.SceneObjects.Map;
@@ -20,6 +21,8 @@ namespace Rogue.Drawing.Labirinth
         public override bool IsBatch => true;
 
         private GameMap gamemap;
+
+        public Action<List<ISceneObject>> drawpath;
 
         public override bool Expired => gamemap.ReloadCache;
 
@@ -449,12 +452,12 @@ namespace Rogue.Drawing.Labirinth
 
         public override void Click(PointerArgs args)
         {
-            var path =this.gamemap.Map.FindPath(this.player.avatar, new MapObject
+            var target = new MapObject
             {
                 Size = new Physics.PhysicalSize
                 {
-                    Height = 15,
-                    Width = 15
+                    Height = 5,
+                    Width = 5
                 },
                 Position = new Physics.PhysicalPosition
                 {
@@ -462,13 +465,27 @@ namespace Rogue.Drawing.Labirinth
                     Y = args.Y
                 },
                 Root = this.gamemap.Map
-            },15,0.8);
+            };
 
-            //path.RemoveRange(path.Count - 40, 40);
+            if (this.gamemap.Move(target, Direction.Idle))
+            {
+                var path = this.gamemap.Map.FindPath(this.player.avatar, target, 15, 0.8);
 
-            this.player.SetPath(path);
+                drawpath?.Invoke(path.Select(x => new ImageControl("Rogue.Resources.Images.path.png")
+                {
+                    Left = x.X / 32,
+                    Top = x.Y / 32
+                }).Cast<ISceneObject>().ToList());
 
-            //Debugger.Break();
+                this.player.SetPath(path);
+            }
+            else
+            {
+                drawpath.Invoke(new List<ISceneObject>()
+                {
+                    new PopupString("Нельзя пройти", ConsoleColor.White,this.player.avatar.Location,20,15,0.06)
+                });                
+            }
         }
 
         //public override void Focus()

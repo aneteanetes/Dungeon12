@@ -16,6 +16,7 @@
     using Rogue.Scenes.Scenes;
     using Rogue.Settings;
     using Rogue.Types;
+    using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -53,6 +54,9 @@
                 MapObjectCanAffectCamera(this.Player, Types.Direction.Idle, false);
             };
 
+
+            List<ISceneObject> temp = new List<ISceneObject>();
+
             var mapSceneObect = new GameMapSceneObject(this.Gamemap, player)
             {
                 Left = 0,
@@ -76,6 +80,12 @@
                         });
                         this.AddObject(@new);
                     }
+                },
+                drawpath = (listObj) =>
+                {
+                    temp.ForEach(o => this.RemoveObject(o));
+                    temp = listObj;
+                    listObj.ForEach(o => this.AddObject(o));
                 }
             };
             this.AddObject(mapSceneObect);

@@ -83,7 +83,7 @@ namespace Rogue.Map
                 this.Objects.Add(mob);
             }
 
-            SpawnEnemies(2);
+            //SpawnEnemies(2);
         }
 
         private void SpawnEnemies(int count)

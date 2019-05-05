@@ -34,9 +34,11 @@ namespace Rogue.Map
             var moveAreas = Map.Query(@object,true);
             if (moveAreas.Count > 0)
             {
-                var mapObjs = moveAreas.SelectMany(x=>x.Nodes)
+                var mapObjs = moveAreas.ToArray()
+                    .SelectMany(x => x.Nodes.ToArray())
                     .Where(node => node != @object)
-                    .Where(node => @object.IntersectsWith(node));
+                    .Where(node => @object.IntersectsWith(node))
+                    .ToArray();
 
                 if (typeof(Avatar).IsAssignableFrom(@object.GetType()))
                 {
