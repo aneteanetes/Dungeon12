@@ -71,9 +71,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.DataAccess", "Rogue.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Data", "Rogue.Data\Rogue.Data.csproj", "{8B445CF1-DA11-40D4-A6F1-1C00ED775631}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Physics", "Rogue.Physics\Rogue.Physics.csproj", "{691E1050-A2BD-449B-9C0A-249C0203DBE8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "astarexampl", "astarexampl\astarexampl.csproj", "{6093E036-A0E7-4DAE-8900-5569AF191E41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Physics", "Rogue.Physics\Rogue.Physics.csproj", "{691E1050-A2BD-449B-9C0A-249C0203DBE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -345,14 +343,6 @@ Global
 		{691E1050-A2BD-449B-9C0A-249C0203DBE8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{691E1050-A2BD-449B-9C0A-249C0203DBE8}.Release|x86.ActiveCfg = Release|Any CPU
 		{691E1050-A2BD-449B-9C0A-249C0203DBE8}.Release|x86.Build.0 = Release|Any CPU
-		{6093E036-A0E7-4DAE-8900-5569AF191E41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6093E036-A0E7-4DAE-8900-5569AF191E41}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6093E036-A0E7-4DAE-8900-5569AF191E41}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{6093E036-A0E7-4DAE-8900-5569AF191E41}.Debug|x86.Build.0 = Debug|Any CPU
-		{6093E036-A0E7-4DAE-8900-5569AF191E41}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6093E036-A0E7-4DAE-8900-5569AF191E41}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6093E036-A0E7-4DAE-8900-5569AF191E41}.Release|x86.ActiveCfg = Release|Any CPU
-		{6093E036-A0E7-4DAE-8900-5569AF191E41}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

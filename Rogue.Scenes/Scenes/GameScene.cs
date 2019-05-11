@@ -11,7 +11,7 @@
     {
         protected readonly List<Type> AvailableScenes = new List<Type>();
 
-        public Rogue.Map.Objects.Avatar Player;
+        public Rogue.Map.Objects.Avatar PlayerAvatar;
 
         public virtual bool CameraAffect => false;
 

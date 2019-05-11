@@ -51,6 +51,11 @@ namespace Rogue.Drawing.Impl
             this.ForegroundColor = foregroundColor;
         }
 
+        public void SetText(string value)
+        {
+            this.stringData = value;
+        }
+
         private string stringData;
         public string StringData
         {

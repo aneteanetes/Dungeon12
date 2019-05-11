@@ -32,8 +32,17 @@
         {
             get => new PhysicalSize
             {
-                Height = 28,
-                Width = 28
+                Height = 24,
+                Width = 24
+            };
+            set { }
+        }
+        public override PhysicalPosition Position
+        {
+            get => new PhysicalPosition
+            {
+                X = base.Position.X + 4,
+                Y = base.Position.Y + 4
             };
             set { }
         }
@@ -44,8 +53,8 @@
         {
             Position = new PhysicalPosition
             {
-                X = this.Position.X - (this.Size.Width * this.AttackRangeMultiples.X) / 2,
-                Y = this.Position.Y - (this.Size.Height * this.AttackRangeMultiples.Y) / 2
+                X = this.Position.X - ((this.Size.Width * this.AttackRangeMultiples.X) - this.Size.Width) / 2,
+                Y = this.Position.Y - ((this.Size.Height * this.AttackRangeMultiples.Y) - this.Size.Height) / 2
             },
             Size = new PhysicalSize
             {

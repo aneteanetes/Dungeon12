@@ -49,21 +49,21 @@ namespace Rogue.Scenes.Menus.Creation
                 Top = -1f,
                 Width = 8,
                 Height = 2.4f,
-                Label = new DrawText(Player.Name, ConsoleColor.Black) { Size = 30 }
+                Label = new DrawText(PlayerAvatar.Name, ConsoleColor.Black) { Size = 30 }
             });
 
             var strings = new (string,string, ConsoleColor)[] 
             {
-                ("Раса: ", Player.Character.Race.ToDisplay(), ConsoleColor.Gray),
-                ("Класс: ", Player.Character.ClassName, Player.Character.ResourceColor),
-                ("Здоровье: ", string.Format("{0}/{0}", Player.Character.MaxHitPoints), ConsoleColor.Red),
-                ($"{Player.Character.ResourceName}: ", Player.Character.Resource, Player.Character.ResourceColor),
-                ("Урон: ", string.Format("{0}-{1}", Player.Character.MinDMG, Player.Character.MaxDMG),ConsoleColor.DarkRed),
+                ("Раса: ", PlayerAvatar.Character.Race.ToDisplay(), ConsoleColor.Gray),
+                ("Класс: ", PlayerAvatar.Character.ClassName, PlayerAvatar.Character.ResourceColor),
+                ("Здоровье: ", string.Format("{0}/{0}", PlayerAvatar.Character.MaxHitPoints), ConsoleColor.Red),
+                ($"{PlayerAvatar.Character.ResourceName}: ", PlayerAvatar.Character.Resource, PlayerAvatar.Character.ResourceColor),
+                ("Урон: ", string.Format("{0}-{1}", PlayerAvatar.Character.MinDMG, PlayerAvatar.Character.MaxDMG),ConsoleColor.DarkRed),
                 (" ", " ",ConsoleColor.DarkRed),
-                ("Сила атаки: ", Player.Character.AttackPower.ToString(), ConsoleColor.DarkCyan),
-                ("Сила магии: ", Player.Character.AbilityPower.ToString(), ConsoleColor.DarkCyan),
-                ("Физ. Защита: ", Player.Character.Defence.ToString(), ConsoleColor.DarkGreen),
-                ("Маг. Защита: ", Player.Character.Barrier.ToString(), ConsoleColor.DarkMagenta)
+                ("Сила атаки: ", PlayerAvatar.Character.AttackPower.ToString(), ConsoleColor.DarkCyan),
+                ("Сила магии: ", PlayerAvatar.Character.AbilityPower.ToString(), ConsoleColor.DarkCyan),
+                ("Физ. Защита: ", PlayerAvatar.Character.Defence.ToString(), ConsoleColor.DarkGreen),
+                ("Маг. Защита: ", PlayerAvatar.Character.Barrier.ToString(), ConsoleColor.DarkMagenta)
             };
 
             var top = 2;

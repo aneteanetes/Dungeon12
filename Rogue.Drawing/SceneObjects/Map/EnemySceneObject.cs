@@ -44,19 +44,7 @@
 
         protected override void DrawLoop()
         {
-            if (IsChasing)
-            {
-                var path = ChasingPath.First();
-                ChasingPath.Remove(path);
-
-                this.Left = path.X/32;
-                this.Top = path.Y/32;
-                this.mob.Location.X = this.Left;
-                this.mob.Location.Y = this.Top;
-
-                this.location.Move(this.mob, Direction.Idle);
-            }
-            else if (moveDistance != 0)
+            if (moveDistance != 0)
             {
                 moveDistance--;
                 foreach (var move in moves)
@@ -73,6 +61,11 @@
                 return;
             }
 
+            if (moveDistance == 0)
+            {
+                this.mob.IsChasing = false;
+            }
+
             var players = location.Map.Query(this.mob.Vision, true)
                 .SelectMany(nodes => nodes.Nodes)
                 .Where(node => this.mob.Vision.IntersectsWith(node))
@@ -85,7 +78,8 @@
                 {
                     Attack(player as Avatar);
                 }
-                else if (!this.IsChasing)
+
+                if (!this.mob.IsChasing)
                 {
                     moves.Clear();
                     moveDistance = 0;
@@ -93,7 +87,7 @@
                 }
             }
 
-            if (moveDistance == 0 && !this.IsChasing)
+            if (moveDistance == 0)
             {
                 moves.Clear();
                 var next = Random.Next(0, 10);
@@ -134,43 +128,26 @@
                 });
         }
 
-        private List<Point> ChasingPath = new List<Point>();
-
-        private bool IsChasing => ChasingPath != null && ChasingPath.Count > 0;
-
         private void Chasing(Avatar avatar)
         {
-            ChasingPath.Clear();
-            ChasingPath = this.location.Map.FindPath(this.mob, avatar, 1);
-            
-            //if (avatar.Position.X < this.mob.Position.X)
-            //{
-            //    if (this.location.Move(this.mob, Direction.Left))
-            //    {
-            //        this.moves.Add(2);
-            //    }
-            //}
-            //if (avatar.Position.X > this.mob.Position.X)
-            //{
-            //    if (this.location.Move(this.mob, Direction.Right))
-            //    {
-            //        this.moves.Add(3);
-            //    }
-            //}
-            //if (avatar.Position.Y > this.mob.Position.Y)
-            //{
-            //    if (this.location.Move(this.mob, Direction.Down))
-            //    {
-            //        this.moves.Add(1);
-            //    }
-            //}
-            //if (avatar.Position.Y < this.mob.Position.Y)
-            //{
-            //    if (this.location.Move(this.mob, Direction.Up))
-            //    {
-            //        this.moves.Add(0);
-            //    }
-            //}
+            this.mob.IsChasing = true;
+            if (avatar.Position.X <= this.mob.Position.X)
+            {
+                this.moves.Add(2);
+            }
+            if (avatar.Position.X >= this.mob.Position.X)
+            {
+                this.moves.Add(3);
+            }
+            if (avatar.Position.Y >= this.mob.Position.Y)
+            {
+                this.moves.Add(1);
+            }
+            if (avatar.Position.Y <= this.mob.Position.Y)
+            {
+                this.moves.Add(0);
+            }
+            moveDistance = 60;
         }
 
         private bool NotPair(int common, int additional)

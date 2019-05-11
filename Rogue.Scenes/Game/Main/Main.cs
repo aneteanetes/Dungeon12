@@ -10,6 +10,7 @@
     using Rogue.Drawing.SceneObjects;
     using Rogue.Drawing.SceneObjects.Main;
     using Rogue.Drawing.SceneObjects.Map;
+    using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Map;
     using Rogue.Map.Objects;
     using Rogue.Scenes.Menus;
@@ -41,17 +42,18 @@
         {
             this.AddObject(new ImageControl("Rogue.Resources.Images.d12back.png"));
 
+
             this.InitMap();
 
 
-            var player = new PlayerSceneObject(this.Player, this.Gamemap)
+            var player = new PlayerSceneObject(this.PlayerAvatar, this.Gamemap)
             {
                 Left = 20,
                 Top = 11
             };
             player.OnStop = () =>
             {
-                MapObjectCanAffectCamera(this.Player, Types.Direction.Idle, false);
+                MapObjectCanAffectCamera(this.PlayerAvatar, Types.Direction.Idle, false);
             };
 
 
@@ -91,7 +93,7 @@
             this.AddObject(mapSceneObect);
             mapSceneObect.Init();
 
-            this.AddObject(new SkillBar(this.Player, this.Gamemap, e => e.ForEach(effect=> {
+            this.AddObject(new SkillBar(this.PlayerAvatar, this.Gamemap, e => e.ForEach(effect=> {
                 effect.Destroy += () =>
                 {
                     this.RemoveObject(effect);
@@ -103,13 +105,16 @@
                 Left = 9f
             });
 
-            this.Player.Die += () =>
+            this.PlayerAvatar.Die += () =>
             {
                 this.Switch<End>();
             };
 
             this.AddObject(player);
-            this.Gamemap.Map.Add(this.Player);
+            this.Gamemap.Map.Add(this.PlayerAvatar);
+
+
+            this.AddObject(new PlayerUI(this.PlayerAvatar.Character));
         }
 
         private void FillCommands()
@@ -118,7 +123,7 @@
             {
                 Location = this.Gamemap,
                 PlayerPosition = this.PlayerPosition,
-                Player = this.Player
+                Player = this.PlayerAvatar
             });
 
             //this.Commands.Add(new Control.Commands.Command { Key = Key.E, Name = "Действие" });
@@ -145,12 +150,12 @@
             this.Gamemap.Load("Capital");
 
             //перенести туда где location
-            this.Player.Location = new Point(20, 11);
-            this.Player.Region = new Rectangle
+            this.PlayerAvatar.Location = new Point(20, 11);
+            this.PlayerAvatar.Region = new Rectangle
             {
                 Height = 32,
                 Width = 32,
-                Pos = this.Player.Location
+                Pos = this.PlayerAvatar.Location
             };
         }
 
@@ -191,9 +196,15 @@
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers)
         {
+
+            if(keyPressed== Key.L)
+            {
+                this.PlayerAvatar.Character.Level++;
+            }
+
             if (keyPressed==Key.B)
             {
-                this.Player.Character.HitPoints -= 1;
+                this.PlayerAvatar.Character.HitPoints -= 1;
             }
 
             if (keyPressed == Key.Home)

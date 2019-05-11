@@ -451,41 +451,7 @@ namespace Rogue.Drawing.Labirinth
         private List<Point> path = new List<Point>();
 
         public override void Click(PointerArgs args)
-        {
-            var target = new MapObject
-            {
-                Size = new Physics.PhysicalSize
-                {
-                    Height = 5,
-                    Width = 5
-                },
-                Position = new Physics.PhysicalPosition
-                {
-                    X = args.X,
-                    Y = args.Y
-                },
-                Root = this.gamemap.Map
-            };
-
-            if (this.gamemap.Move(target, Direction.Idle))
-            {
-                var path = this.gamemap.Map.FindPath(this.player.avatar, target, 15, 0.8);
-
-                drawpath?.Invoke(path.Select(x => new ImageControl("Rogue.Resources.Images.path.png")
-                {
-                    Left = x.X / 32,
-                    Top = x.Y / 32
-                }).Cast<ISceneObject>().ToList());
-
-                this.player.SetPath(path);
-            }
-            else
-            {
-                drawpath.Invoke(new List<ISceneObject>()
-                {
-                    new PopupString("Нельзя пройти", ConsoleColor.White,this.player.avatar.Location,20,15,0.06)
-                });                
-            }
+        {           
         }
 
         //public override void Focus()

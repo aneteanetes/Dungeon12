@@ -168,7 +168,7 @@
                 };
                 var back = new ImmutableSolidColorBrush(Colors.LightGray);
                 var textBrush = new ImmutableSolidColorBrush(Colors.White);
-                drawingContext.DrawText(textBrush, new Avalonia.Point(5, 5), fmt);
+                drawingContext.DrawText(textBrush, new Avalonia.Point(1100, 5), fmt);
             }
 
             _frame++;

@@ -11,7 +11,7 @@
     {
         public override double MovementSpeed => 0.08;
 
-        public override bool CameraAffect => false;
+        public override bool CameraAffect => true;
 
         public Entites.Alive.Character.Player Character { get; set; }
 
@@ -36,8 +36,8 @@
         {
             get => new PhysicalSize
             {
-                Height = 10,
-                Width = 10
+                Height = 16,
+                Width = 16
             };
             set { }
         }
@@ -46,8 +46,8 @@
         {
             get => new PhysicalPosition
             {
-                X = base.Position.X + 22,
-                Y = base.Position.Y + 22
+                X = base.Position.X + 8,
+                Y = base.Position.Y + 14
             };
             set { }
         }

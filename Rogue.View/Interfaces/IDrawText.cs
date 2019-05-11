@@ -36,6 +36,8 @@
 
         string FontAssembly { get; set; }
 
+        void SetText(string value);
+
         bool Bold { get; set; }
     }
 }

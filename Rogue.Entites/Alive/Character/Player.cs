@@ -30,6 +30,8 @@ namespace Rogue.Entites.Alive.Character
 
         public virtual void AddClassPerk() { }
 
+        public virtual string Avatar => "Rogue.Resources.Images.ui.player.noone.png";
+
         /// <summary>
         /// это пиздец, выпили это нахуй
         /// </summary>
