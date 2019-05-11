@@ -1,5 +1,7 @@
 ﻿namespace Rogue.Drawing.SceneObjects
 {
+    using Rogue.Drawing.Impl;
+    using Rogue.Settings;
     using Rogue.Types;
     using Rogue.View.Interfaces;
     using System;
@@ -7,6 +9,28 @@
 
     public abstract class SceneObject : ISceneObject
     {
+        protected TextControl AddTextCenter(IDrawText drawText)
+        {
+            var textControl = new TextControl(drawText);
+
+            var measure = Global.DrawClient.MeasureText(textControl.Text);
+
+            var width = this.Width * 32;
+            var height = this.Height * 32;
+
+            var left = width / 2 - measure.X / 2;
+            var top = height / 2 - measure.Y / 2;
+
+            left /= 1.8f;
+
+            textControl.Left = left / 32;
+            textControl.Top = top / 32;
+
+            this.Children.Add(textControl);
+
+            return textControl;
+        }
+
         /// <summary>
         /// Relative
         /// </summary>

@@ -14,11 +14,17 @@
         {
             this.AddChild(new AvatarSceneObject(player)
             {
-                Width = 3,
-                Height = 3,
+                Width = 2,
+                Height = 2,
                 Left = 0.25,
                 Top = 0.25
             }.WithFrame());
+
+            this.AddChild(new ResourceBarHP(player)
+            {
+                Left=2.35,
+                Top=0.4
+            });
         }
 
         private class AvatarSceneObject : ImageControl
@@ -41,8 +47,8 @@
 
                 this.AddChild(new LevelSceneObject(this.player)
                 {
-                    Top=2.08,
-                    Left=1.92
+                    Top=1.35,
+                    Left=1.25
                 });
 
                 return this;
@@ -58,10 +64,10 @@
             public LevelSceneObject(Player player)
             {
                 this.player = player;
-                this.Text = new DrawText(player.Level.ToString(), ConsoleColor.White) { Size = 15 };
-                this.Text.FontName = "Montserrat";
-                this.Text.FontAssembly = "Rogue.Resources";
-                this.Text.FontPath = "Rogue.Resources.Fonts.Mont.otf";
+                this.Text = new DrawText(player.Level.ToString(), ConsoleColor.White)
+                {
+                    Size = 11
+                }.Monserrat();
             }
             
             public override Rectangle Position
@@ -73,7 +79,7 @@
 
                     if (player.Level >= 10)
                     {
-                        basePos.X -= 0.15;
+                        basePos.X -= 0.12;
                     }
 
                     return basePos;

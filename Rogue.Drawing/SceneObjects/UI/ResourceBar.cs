@@ -14,5 +14,7 @@
         }
 
         protected abstract string BarTile { get; }
+
+        public override string Image => BarTile;
     }
 }
