@@ -5,7 +5,7 @@
     using Rogue.View.Interfaces;
     using System;
 
-    public class ResourceBarHP : ResourceBar<Player>
+    public class ResourceBarHP : ResourceBar
     {
         private readonly ImageControl HpBar;
 

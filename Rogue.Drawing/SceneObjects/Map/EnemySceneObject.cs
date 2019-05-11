@@ -12,6 +12,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Timers;
     using Random = Rogue.Random;
 
     public class EnemySceneObject : AnimatedSceneObject
@@ -40,6 +41,10 @@
             }
 
             this.AddChild(new ObjectHpBar(mob.Enemy));
+
+            attackTimer = new Timer(1000);
+            attackTimer.AutoReset = false;
+            attackTimer.Elapsed += (x, y) => attackAvailable = true;
         }
 
         protected override void DrawLoop()
@@ -76,7 +81,17 @@
                 var player = players.First();
                 if (player.IntersectsWith(this.mob.AttackRange))
                 {
-                    Attack(player as Avatar);
+                    if (attackAvailable)
+                    {
+                        Attack(player as Avatar);
+                        attackAvailable = false;
+                        attackTimer.Start();
+                    }
+                }
+                else
+                {
+                    attackTimer.Stop();
+                    attackAvailable = true;
                 }
 
                 if (!this.mob.IsChasing)
@@ -106,6 +121,10 @@
                 }
             }
         }
+
+        private Timer attackTimer;
+
+        private bool attackAvailable = true;
 
         private void Attack(Avatar avatar)
         {

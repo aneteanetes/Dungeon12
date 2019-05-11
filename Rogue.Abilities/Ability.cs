@@ -60,6 +60,8 @@
 
         public virtual double Value => 0;
 
+        public virtual bool CastAvailable(Avatar avatar) => true;
+
         public virtual void Use(GameMap map, Avatar avatar)
         {
 

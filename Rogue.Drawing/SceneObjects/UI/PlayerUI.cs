@@ -22,8 +22,14 @@
 
             this.AddChild(new ResourceBarHP(player)
             {
-                Left=2.35,
-                Top=0.4
+                Left = 2.35,
+                Top = 0.4
+            });
+
+            this.AddChild(new ResourceBarActions(player)
+            {
+                Left = 2.35,
+                Top = 1.1
             });
         }
 

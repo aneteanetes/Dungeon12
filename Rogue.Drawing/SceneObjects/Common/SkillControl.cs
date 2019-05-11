@@ -58,8 +58,11 @@
 
         public override void KeyDown(Key key, KeyModifiers modifier)
         {
-            this.ability.Use(gameMap, avatar);
-            this.Focus();
+            if (this.ability.CastAvailable(avatar))
+            {
+                this.ability.Use(gameMap, avatar);
+                this.Focus();
+            }
         }
 
         public override void KeyUp(Key key, KeyModifiers modifier)

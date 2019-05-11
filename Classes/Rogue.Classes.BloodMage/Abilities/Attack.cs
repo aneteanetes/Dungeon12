@@ -9,6 +9,7 @@
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class Attack : Ability<BloodMage, BloodStream>
     {
@@ -20,7 +21,7 @@
         
         public override bool CastAvailable(BloodMage @class, BloodStream talants)
         {
-            throw new NotImplementedException();
+            return @class.Actions > 0;
         }
 
         public override string Image => "Rogue.Classes.BloodMage.Images.Abilities.attack.png";
@@ -30,8 +31,15 @@
             throw new NotImplementedException();
         }
 
+        public override bool CastAvailable(Avatar avatar)
+        {
+            return avatar.Character.Actions > 0;
+        }
+
         public override void Use(GameMap map, Avatar avatar)
         {
+            avatar.Character.Actions -= 1;
+
             var rangeObject = new MapObject
             {
                 Position = new Physics.PhysicalPosition
@@ -46,7 +54,7 @@
             rangeObject.Size.Width *= 2.5;
 
             var enemies = map.Enemies(rangeObject);
-
+            
             foreach (var enemy in enemies)
             {
                 var value = (long)this.Value;
