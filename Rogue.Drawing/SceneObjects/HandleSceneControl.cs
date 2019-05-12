@@ -38,5 +38,9 @@
         public virtual void KeyDown(Key key, KeyModifiers modifier) { }
 
         public virtual void KeyUp(Key key, KeyModifiers modifier) { }
+
+        public virtual void ClickRelease(PointerArgs args) { }
+
+        public virtual void GlobalClickRelease(PointerArgs args) { }
     }
 }

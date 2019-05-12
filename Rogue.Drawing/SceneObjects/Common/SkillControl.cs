@@ -68,17 +68,43 @@
             Cast();
         }
 
+        private bool holds = false;
+
         public override void GlobalClick(PointerArgs args)
         {
-            if (args.MouseButton.ToString() == this.ability.AbilityPosition.ToString())
+            if (args.MouseButton.ToString() != this.ability.AbilityPosition.ToString())
             {
-                Cast();
+                return;
             }
 
-            var t = new System.Timers.Timer(200);
-            t.AutoReset = false;
-            t.Elapsed += (x, y) => this.Unfocus();
-            t.Start();
+            Cast();
+
+            if (!ability.Hold)
+            {
+                var t = new System.Timers.Timer(200);
+                t.AutoReset = false;
+                t.Elapsed += (x, y) => this.Unfocus();
+                t.Start();
+            }
+            else
+            {
+                holds = true;
+            }
+        }
+
+        public override void GlobalClickRelease(PointerArgs args)
+        {
+            if (args.MouseButton.ToString() != this.ability.AbilityPosition.ToString())
+            {
+                return;
+            }
+
+            if (ability.Hold && holds)
+            {
+                ability.Release(gameMap, avatar);
+                this.Unfocus();
+                holds = false;
+            }
         }
 
         public override void Focus()
@@ -136,7 +162,8 @@
         {
             ControlEventType.Click,
             ControlEventType.GlobalClick,
-            ControlEventType.Focus
+            ControlEventType.Focus,
+            ControlEventType.GlobalClickRelease
         };
     }
 }

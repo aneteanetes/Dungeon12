@@ -108,6 +108,20 @@
             DoClicks(pointerPressedEventArgs, offset, clickedElements, (c, a) => c.Click(a));
         }
 
+        public void OnMouseRelease(PointerArgs pointerPressedEventArgs, Point offset)
+        {
+            var keyControls = ControlsByHandle(ControlEventType.ClickRelease);
+            var globalKeyHandlers = ControlsByHandle(ControlEventType.GlobalClickRelease);
+
+            if (globalKeyHandlers.Count() != 0)
+            {
+                DoClicks(pointerPressedEventArgs, offset, globalKeyHandlers, (c, a) => c.GlobalClickRelease(a));
+            }
+
+            var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs, offset));
+            DoClicks(pointerPressedEventArgs, offset, clickedElements, (c, a) => c.ClickRelease(a));
+        }
+
         private void DoClicks(PointerArgs pointerPressedEventArgs, Point offset, IEnumerable<ISceneObjectControl> clickedElements,
             Action<ISceneObjectControl,PointerArgs> whichClick)
         {

@@ -61,6 +61,8 @@
             }
         }
 
+        protected override void Dispose(GameMap gameMap, Avatar avatar, Noone @class) { }
+
         public override double Value => Rogue.Random.Next(3,17);
     }
 }

@@ -11,6 +11,8 @@
     {
         private static readonly Dictionary<Type, Applicable> Cache = new Dictionary<Type, Applicable>();
 
+        public List<Applicable> Modifiers = new List<Applicable>();
+
         public void Add<T>() where T: Applicable
         {
             if (!Cache.TryGetValue(typeof(T), out var perk))
@@ -20,6 +22,7 @@
             }
 
             perk.Apply(this);
+            Modifiers.Add(perk);
         }
 
         public void Remove<T>() where T : Applicable
@@ -30,6 +33,7 @@
             }
 
             perk.Discard(this);
+            Modifiers.Remove(perk);
         }
     }
 }

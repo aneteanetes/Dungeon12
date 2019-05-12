@@ -7,9 +7,17 @@ namespace Rogue.Transactions
     /// <summary>
     /// Realize generic Apply(T object) methods and CallApply
     /// For typed runtime  and runtime method bindings
+    /// <para>
+    /// ПИЗДЕЦ ТЫ АНГЛИЧАНИН НАХУЙ, надо реализовать Apply(T) и Discard(T) методы, а в оверрайдах вызывать this.Apply/Disacard
+    /// </para>
+    /// <para>
+    /// Карочи, applicable слишком жирная абстракция, поэтому пока что сюда переедет `Image`
+    /// </para>
     /// </summary>
     public abstract class Applicable : IApplicable
     {
+        public virtual string Image { get; }
+
         private bool InApply { get; set; }
 
         public virtual void Apply(object @object)
@@ -27,7 +35,6 @@ namespace Rogue.Transactions
         /// </summary>
         /// <param name="obj"></param>
         protected abstract void CallApply(dynamic obj);
-
 
         private bool InDiscard { get; set; }
 

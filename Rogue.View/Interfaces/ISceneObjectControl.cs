@@ -16,7 +16,11 @@
 
         void Click(PointerArgs args);
 
+        void ClickRelease(PointerArgs args);
+
         void GlobalClick(PointerArgs args);
+
+        void GlobalClickRelease(PointerArgs args);
 
         ControlEventType[] CanHandle { get; }
 

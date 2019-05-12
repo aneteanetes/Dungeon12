@@ -96,6 +96,11 @@
 
             this.Children.Add(sceneObject);
         }
+
+        protected void RemoveChild(ISceneObject sceneObject)
+        {
+            this.Children.Remove(sceneObject);
+        }
         
         private Rectangle _computedPosition;
         public Rectangle ComputedPosition

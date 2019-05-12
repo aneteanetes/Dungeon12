@@ -3,6 +3,7 @@
     using Rogue.Entites.Animations;
     using Rogue.Map.Infrastructure;
     using Rogue.Physics;
+    using Rogue.Transactions;
     using Rogue.Types;
     using Rogue.View.Interfaces;
     using System;
@@ -113,5 +114,25 @@
                 Height = this.Size.Height * VisionMultiple.Y
             }
         };
+
+        public Action<Applicable> StateAdded;
+
+        public Action<Applicable> StateRemoved;
+
+        public List<Applicable> States = new List<Applicable>();
+
+        public void AddState(Applicable buff)
+        {            
+            buff.Apply(this);
+            States.Add(buff);
+            StateAdded?.Invoke(buff);
+        }
+
+        public void RemoveState(Applicable buff)
+        {
+            buff.Discard(this);
+            States.Remove(buff);
+            StateRemoved?.Invoke(buff);
+        }
     }
 }

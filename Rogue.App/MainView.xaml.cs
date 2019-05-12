@@ -87,6 +87,17 @@ namespace Rogue.App
             }, new Types.Point(drawClient.CameraOffsetX, drawClient.CameraOffsetY));
         }
 
+        protected override void OnPointerReleased(PointerReleasedEventArgs e)
+        {
+            var pos = e.GetPosition(this);
+
+            SceneManager.Current.OnMouseRelease(new Control.Pointer.PointerArgs
+            {
+                MouseButton = (Control.Pointer.MouseButton)e.MouseButton,
+                X = pos.X,
+                Y = pos.Y
+            }, new Types.Point(drawClient.CameraOffsetX, drawClient.CameraOffsetY));
+        }
 
         protected override void OnKeyDown(KeyEventArgs e)
         {

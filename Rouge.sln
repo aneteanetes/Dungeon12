@@ -73,7 +73,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Data", "Rogue.Data\Ro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Physics", "Rogue.Physics\Rogue.Physics.csproj", "{691E1050-A2BD-449B-9C0A-249C0203DBE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Classes.Noone", "Rogue.Classes.Noone\Rogue.Classes.Noone.csproj", "{73F0D337-7CD2-4344-8320-5852C861D25E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Classes.Noone", "Rogue.Classes.Noone\Rogue.Classes.Noone.csproj", "{73F0D337-7CD2-4344-8320-5852C861D25E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

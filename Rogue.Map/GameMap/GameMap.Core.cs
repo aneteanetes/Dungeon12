@@ -103,7 +103,8 @@ namespace Rogue.Map
             if (moveArea != null)
             {
                 mobs = moveArea.Nodes.Where(node => node is Mob).Select(node => node as Mob)
-                    .Where(node => @object.IntersectsWith(node));
+                    .Where(node => @object.IntersectsWith(node))
+                    .ToArray();
             }
 
             return mobs.ToArray();

@@ -127,18 +127,25 @@
 
             var value = (long)Random.Next(2, 7);
 
-            player.HitPoints -= value;
+            var dmg = value - player.Defence;
+
+            if (dmg < 0)
+            {
+                dmg = 0;
+            }
+
+            player.HitPoints -= dmg;
 
             if (player.HitPoints <= 0)
             {
                 avatar.Die?.Invoke();
             }
 
-            var critical = value > 6;
+            var critical = dmg > 6;
 
             this.ShowEffects(new List<ISceneObject>()
                 {
-                    new PopupString(value.ToString()+(critical ? "!" : ""), critical ? ConsoleColor.Red : ConsoleColor.White,avatar.Location,25,critical ? 19 : 17,0.06)
+                    new PopupString(dmg.ToString()+(critical ? "!" : ""), critical ? ConsoleColor.Red : ConsoleColor.White,avatar.Location,25,critical ? 19 : 17,0.06)
                 });
         }
 

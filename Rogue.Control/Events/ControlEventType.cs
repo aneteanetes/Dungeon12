@@ -3,8 +3,10 @@
     public enum ControlEventType
     {
         Click,
+        ClickRelease,
         Focus,
         Key,
-        GlobalClick
+        GlobalClick,
+        GlobalClickRelease
     }
 }

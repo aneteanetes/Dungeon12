@@ -46,7 +46,7 @@
             this.InitMap();
 
 
-            var player = new PlayerSceneObject(this.PlayerAvatar, this.Gamemap)
+            var player = new PlayerSceneObject(this.PlayerAvatar, this.Gamemap, (obj) => this.RemoveObject(obj), (obj) => this.AddObject(obj))
             {
                 Left = 20,
                 Top = 11

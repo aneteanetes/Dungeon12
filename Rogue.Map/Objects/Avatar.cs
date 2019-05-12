@@ -9,7 +9,7 @@
     [Template("@")]
     public class Avatar : MapObject
     {
-        public override double MovementSpeed => 0.08;
+        public override double MovementSpeed { get; set; } = 0.04;
 
         public override bool CameraAffect => true;
 

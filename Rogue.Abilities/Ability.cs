@@ -95,7 +95,11 @@
         public int COE => 0;
 
         public virtual double Value => 0;
-        
+
+        public virtual bool Hold => false;
+
+        public virtual void Release(GameMap map, Avatar avatar) { }
+
         public virtual bool CastAvailable(Avatar avatar) => true;
 
         public virtual void Cast(GameMap map, Avatar avatar)
@@ -152,7 +156,12 @@
 
         protected abstract void Use(GameMap gameMap, Avatar avatar, TClass @class);
 
+        protected abstract void Dispose(GameMap gameMap, Avatar avatar, TClass @class);
+
         public override void Cast(GameMap map, Avatar avatar)
             => Use(map, avatar, avatar.Character as TClass);
+
+        public override void Release(GameMap map, Avatar avatar)
+            => Dispose(map, avatar, avatar.Character as TClass);
     }
 }
