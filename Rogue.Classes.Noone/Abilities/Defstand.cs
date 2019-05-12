@@ -19,13 +19,13 @@
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Right;
 
-        protected override bool CanUse(Noone @class)=> @class.Actions > 0;
+        protected override bool CanUse(Noone @class)=> @class.Actions >= 2;
 
         private ArmorBuf holdedBuf = null;
 
         protected override void Use(GameMap gameMap, Avatar avatar, Noone @class)
         {
-            @class.Actions -= 1;
+            @class.Actions -= 2;
             holdedBuf = new ArmorBuf();
             avatar.AddState(holdedBuf);
         }
@@ -49,13 +49,13 @@
             public void Apply(Avatar avatar)
             {
                 avatar.Character.Defence += 5;
-                avatar.MovementSpeed -= 0.07;
+                avatar.MovementSpeed -= 0.03;
             }
 
             public void Discard(Avatar avatar)
             {
                 avatar.Character.Defence -= 5;
-                avatar.MovementSpeed += 0.07;
+                avatar.MovementSpeed += 0.03;
             }
 
             protected override void CallApply(dynamic obj)
