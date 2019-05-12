@@ -1,18 +1,19 @@
-﻿namespace Rogue.Drawing.SceneObjects.UI
+﻿namespace Rogue.Classes
 {
-    using Rogue.Entites.Alive.Character;
+    using Rogue.Drawing.SceneObjects;
+    using Rogue.Drawing.SceneObjects.UI;
     using System.Linq;
 
-    public class ResourceBarActions : ResourceBar
+    public class ResourceBarActions : ResourceBar<Noone.Noone>
     {
         private ActionBarSB[] actions;
 
-        public ResourceBarActions(Player avatar) : base(avatar)
+        public ResourceBarActions(Noone.Noone avatar) : base(avatar)
         {
             actions = Enumerable.Range(0, 5)
                 .Select((x, i) =>
                 {
-                    var img = new ActionBarSB("Rogue.Resources.Images.ui.player.action.png")
+                    var img = new ActionBarSB("Rogue.Classes.Noone.Images.action.png")
                     {
                         Height = 0.5,
                         Width = 0.8,

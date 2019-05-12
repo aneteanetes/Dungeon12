@@ -51,5 +51,15 @@
 
             return func(argsObj);
         }
+
+        /// <summary>
+        /// Инстанциирует объект как object, а затем приводит к T
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="type"></param>
+        /// <param name="argsObj"></param>
+        /// <returns></returns>
+        public static T NewAs<T>(this Type type, params object[] argsObj)
+            => (T)New<object>(type, type.GetConstructors().FirstOrDefault(), argsObj);
     }
 }

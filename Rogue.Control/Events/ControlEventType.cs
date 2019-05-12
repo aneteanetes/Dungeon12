@@ -4,6 +4,7 @@
     {
         Click,
         Focus,
-        Key
+        Key,
+        GlobalClick
     }
 }

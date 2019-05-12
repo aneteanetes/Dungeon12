@@ -2,14 +2,21 @@
 {
     using Rogue.Entites.Alive.Character;
 
-    public abstract class ResourceBar : ImageControl
+    public abstract class ResourceBar<T> : ResourceBar
+        where T: Player
     {
-        protected Player Player { get; }
+        protected T Player { get; }
 
-        public ResourceBar(Player avatar)
-            : base(null)
+        public ResourceBar(T avatar)
         {
             this.Player = avatar;
+        }
+    }
+
+    public abstract class ResourceBar : ImageControl
+    {
+        public ResourceBar() : base(null)
+        {
         }
 
         protected abstract string BarTile { get; }

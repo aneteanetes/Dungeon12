@@ -1,14 +1,13 @@
 ﻿namespace Rogue.Map
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Rogue.Entites.Animations;
     using Rogue.Map.Infrastructure;
     using Rogue.Physics;
     using Rogue.Types;
-    using Rogue.Utils.ReflectionExtensions;
     using Rogue.View.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class MapObject : PhysicalObject<MapObject>, IDrawable
     {

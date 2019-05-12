@@ -7,7 +7,7 @@ using System.Runtime.Loader;
 
 namespace Rogue
 {
-    public static class Classes
+    public static class RogueClasses
     {
         private static bool ClassesLoaded = false;
         private static IEnumerable<Player> classes;

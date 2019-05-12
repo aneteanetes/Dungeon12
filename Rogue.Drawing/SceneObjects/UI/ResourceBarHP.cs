@@ -9,8 +9,8 @@
     {
         private readonly ImageControl HpBar;
 
-        public ResourceBarHP(Player avatar) : base(avatar)
-        {
+        public ResourceBarHP(Player avatar)
+        { 
             HpBar = new InteractiveHPBar(avatar)
             {
                 Left = 0.031,

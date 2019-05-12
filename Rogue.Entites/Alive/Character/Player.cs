@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using Rogue.Entites.Animations;
 using Rogue.Entites.Enums;
+using Rogue.Types;
 
 namespace Rogue.Entites.Alive.Character
 {
@@ -37,29 +40,5 @@ namespace Rogue.Entites.Alive.Character
         /// </summary>
         /// <returns></returns>
         public virtual ConsoleColor ResourceColor => ConsoleColor.Blue;
-
-        #region Здесь часть которая имеет отношение к "безклассовому" персонажу
-
-        public Player()
-        {
-            var timer = new System.Timers.Timer(3000);
-            timer.Elapsed += RestoreActions;
-            timer.Start();
-        }
-
-        private void RestoreActions(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            if (Actions >= 5)
-            {
-                return;
-            }
-
-            Actions++;
-        }
-
-        public int Actions { get; set; } = 5;
-
-
-        #endregion
     }
 }

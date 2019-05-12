@@ -73,6 +73,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Data", "Rogue.Data\Ro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Physics", "Rogue.Physics\Rogue.Physics.csproj", "{691E1050-A2BD-449B-9C0A-249C0203DBE8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Classes.Noone", "Rogue.Classes.Noone\Rogue.Classes.Noone.csproj", "{73F0D337-7CD2-4344-8320-5852C861D25E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -343,6 +345,14 @@ Global
 		{691E1050-A2BD-449B-9C0A-249C0203DBE8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{691E1050-A2BD-449B-9C0A-249C0203DBE8}.Release|x86.ActiveCfg = Release|Any CPU
 		{691E1050-A2BD-449B-9C0A-249C0203DBE8}.Release|x86.Build.0 = Release|Any CPU
+		{73F0D337-7CD2-4344-8320-5852C861D25E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73F0D337-7CD2-4344-8320-5852C861D25E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73F0D337-7CD2-4344-8320-5852C861D25E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{73F0D337-7CD2-4344-8320-5852C861D25E}.Debug|x86.Build.0 = Debug|Any CPU
+		{73F0D337-7CD2-4344-8320-5852C861D25E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73F0D337-7CD2-4344-8320-5852C861D25E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73F0D337-7CD2-4344-8320-5852C861D25E}.Release|x86.ActiveCfg = Release|Any CPU
+		{73F0D337-7CD2-4344-8320-5852C861D25E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

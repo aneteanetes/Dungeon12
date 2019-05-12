@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Abilities\Attack\img.png" />
+    <None Remove="Images\Abilities\Attack\imgb.png" />
+    <None Remove="Images\action.png" />
+    <None Remove="Images\noone.png" />
+    <None Remove="Images\sprite.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Abilities\Attack\img.png" />
+    <EmbeddedResource Include="Images\Abilities\Attack\imgb.png" />
+    <EmbeddedResource Include="Images\action.png" />
+    <EmbeddedResource Include="Images\noone.png" />
+    <EmbeddedResource Include="Images\sprite.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rogue.Drawing\Rogue.Drawing.csproj" />
+    <ProjectReference Include="..\Rogue.Entites\Rogue.Entites.csproj" />
+  </ItemGroup>
+
+</Project>

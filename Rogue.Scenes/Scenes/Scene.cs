@@ -97,25 +97,41 @@
         public void OnMousePress(PointerArgs pointerPressedEventArgs, Point offset)
         {
             var keyControls = ControlsByHandle(ControlEventType.Click);
+            var globalKeyHandlers = ControlsByHandle(ControlEventType.GlobalClick);
 
-            var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs,offset));
-            foreach (var clickedElement in clickedElements)
+            if (globalKeyHandlers.Count() != 0)
             {
-                var args = new PointerArgs
-                {
-                    ClickCount = pointerPressedEventArgs.ClickCount,
-                    MouseButton = pointerPressedEventArgs.MouseButton,
-                    X = pointerPressedEventArgs.X,
-                    Y = pointerPressedEventArgs.Y
-                };
+                DoClicks(pointerPressedEventArgs, offset, globalKeyHandlers, (c, a) => c.GlobalClick(a));
+            }
+            
+            var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs, offset));
+            DoClicks(pointerPressedEventArgs, offset, clickedElements, (c, a) => c.Click(a));
+        }
 
-                if (!this.AbsolutePositionScene && !clickedElement.AbsolutePosition)
+        private void DoClicks(PointerArgs pointerPressedEventArgs, Point offset, IEnumerable<ISceneObjectControl> clickedElements,
+            Action<ISceneObjectControl,PointerArgs> whichClick)
+        {
+            for (int i = 0; i < clickedElements.Count(); i++)
+            {
+                var clickedElement = clickedElements.ElementAtOrDefault(i);
+                if (clickedElement != null)
                 {
-                    args.X += offset.X;
-                    args.Y += offset.Y;
+                    var args = new PointerArgs
+                    {
+                        ClickCount = pointerPressedEventArgs.ClickCount,
+                        MouseButton = pointerPressedEventArgs.MouseButton,
+                        X = pointerPressedEventArgs.X,
+                        Y = pointerPressedEventArgs.Y
+                    };
+
+                    if (!this.AbsolutePositionScene && !clickedElement.AbsolutePosition)
+                    {
+                        args.X += offset.X;
+                        args.Y += offset.Y;
+                    }
+
+                    whichClick(clickedElement, args);
                 }
-
-                clickedElement.Click(args);
             }
         }
 

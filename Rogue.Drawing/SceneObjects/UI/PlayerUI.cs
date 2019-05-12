@@ -26,11 +26,13 @@
                 Top = 0.4
             });
 
-            this.AddChild(new ResourceBarActions(player)
-            {
-                Left = 2.35,
-                Top = 1.1
-            });
+
+            var resbarType= player.GetTypeFromAssembly<ResourceBar>();
+            var resbar = resbarType.NewAs<ResourceBar>(player);
+            resbar.Left = 2.35;
+            resbar.Top = 1.1;
+
+            this.AddChild(resbar);
         }
 
         private class AvatarSceneObject : ImageControl

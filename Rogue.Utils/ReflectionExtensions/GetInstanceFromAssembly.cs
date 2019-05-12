@@ -1,4 +1,4 @@
-﻿namespace Rogue.Utils.ReflectionExtensions
+﻿namespace Rogue
 {
     using System;
     using System.Collections.Generic;
@@ -7,9 +7,31 @@
     using System.Reflection;
     using System.Runtime.Loader;
 
-    public static class GetInstanceFromAssembly
+    public static class GetInstanceFromAssemblyExtensions
     {
-        private static readonly Dictionary<string, Assembly> LoadedAssemblies = new Dictionary<string, Assembly>();        
+        private static readonly Dictionary<string, Assembly> LoadedAssemblies = new Dictionary<string, Assembly>();
+
+        public static T GetInstanceFromAssembly<T>(this object assemblyType)
+            => GetTypeFromAssembly<T>(assemblyType)
+                .NewAs<T>();
+
+        public static T[] GetInstancesFromAssembly<T>(this object assemblyType)
+            => GetTypesFromAssembly<T>(assemblyType)
+                .Select(x => x.NewAs<T>())
+                .ToArray();
+
+        public static Type[] GetTypesFromAssembly<T>(this object assemblyType)
+            => assemblyType.GetType()
+                .Assembly
+                .GetTypes()
+                .Where(x => typeof(T).IsAssignableFrom(x))
+                .ToArray();
+
+        public static Type GetTypeFromAssembly<T>(this object assemblyType)
+            => assemblyType.GetType()
+                .Assembly
+                .GetTypes()
+                .FirstOrDefault(x => typeof(T).IsAssignableFrom(x));
 
         public static Type GetTypeFromAssembly(this string value, string assemblyName, Func<string, Assembly, Type> searchPattern)
         {

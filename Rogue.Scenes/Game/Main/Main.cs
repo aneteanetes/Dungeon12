@@ -93,7 +93,8 @@
             this.AddObject(mapSceneObect);
             mapSceneObect.Init();
 
-            this.AddObject(new SkillBar(this.PlayerAvatar, this.Gamemap, e => e.ForEach(effect=> {
+            this.AddObject(new SkillBar(this.PlayerAvatar, this.Gamemap, e => e.ForEach(effect =>
+            {
                 effect.Destroy += () =>
                 {
                     this.RemoveObject(effect);

@@ -16,6 +16,8 @@
 
         void Click(PointerArgs args);
 
+        void GlobalClick(PointerArgs args);
+
         ControlEventType[] CanHandle { get; }
 
         Key[] KeysHandle { get; }

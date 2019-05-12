@@ -1,11 +1,11 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Main
 {
     using Rogue.Abilities;
+    using Rogue.Abilities.Enums;
     using Rogue.Abilities.Scaling;
     using Rogue.Control.Keys;
     using Rogue.Drawing.SceneObjects.Common;
     using Rogue.Map;
-    using Rogue.Utils.ReflectionExtensions;
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
@@ -16,40 +16,50 @@
     {
         public override bool AbsolutePosition => true;
 
-        public SkillBar(Rogue.Map.Objects.Avatar player, GameMap gameMap, Action<IEnumerable<ISceneObject>> abilityEffects)
-        {
-            //this.Children.Add(new ImageControl("Rogue.Resources.Images.ui.sphere.png"));
-            //this.Children.Add(new ImageControl("Rogue.Resources.Images.ui.sphere.png")
-            //{
-            //    Left = 15.5f
-            //});
-
+        public SkillBar(Rogue.Map.Objects.Avatar avatar, GameMap gameMap, Action<IEnumerable<ISceneObject>> abilityEffects)
+        {            
             var x = 4.9;
 
-            var typeName = player.Character.GetType().Name;
-            var abilities = "Ability".GetInstancesFromAssembly<Ability>($"Rogue.Classes.{typeName}", (string abil, Assembly asm) =>
-            {
-                return asm.GetTypes().Where(t => typeof(Ability).IsAssignableFrom(t));
-            })
-            .Select(a =>
-            {
-                a.UseEffects = abilityEffects;
-                return a;
-            })
-            .OrderBy(a => a.Position).ToList();
-
-            abilities.Add(new abil());
-
-            for (int i = 0; i < 6; i++)
-            {
-                this.AddChild(new SkillControl(KeyMapping[i], gameMap, player, abilities[i])
+            var abilities = avatar.Character.GetInstancesFromAssembly<Ability>()
+                .Select(a =>
                 {
-                    Left = x,
-                    Top = 2
+                    a.UseEffects = abilityEffects;
+                    return a;
                 });
 
-                x += 2;
-            }
+
+            var left = abilities.FirstOrDefault(a => a.AbilityPosition == AbilityPosition.Left);
+            var leftSkill = new SkillControl(gameMap, avatar, left, AbilityPosition.Left)
+            {
+                Left = x,
+                Top = 1
+            };
+            this.AddChild(leftSkill);
+
+            var q = abilities.FirstOrDefault(a => a.AbilityPosition == AbilityPosition.Q);
+            var QSkill = new SkillControl(gameMap, avatar, q, AbilityPosition.Q)
+            {
+                Left = leftSkill.Left+3,
+                Top = 2
+            };
+            this.AddChild(QSkill);
+
+            var e = abilities.FirstOrDefault(a => a.AbilityPosition == AbilityPosition.E);
+            var ESkill = new SkillControl(gameMap, avatar, e, AbilityPosition.E)
+            {
+                Left = QSkill.Left + 2,
+                Top = 2
+            };
+
+            this.AddChild(ESkill);
+
+            var right = abilities.FirstOrDefault(a => a.AbilityPosition == AbilityPosition.Right);
+            var rightSkill = new SkillControl(gameMap, avatar, right, AbilityPosition.Right)
+            {
+                Left = ESkill.Left + 2,
+                Top = 1
+            };
+            this.AddChild(rightSkill);
         }
 
         private static Dictionary<int, Key> KeyMapping => new Dictionary<int, Key>()
@@ -61,14 +71,5 @@
             {4, Key.D5},
             {5, Key.D6}
         };
-
-        private class abil : Ability
-        {
-            public override int Position => throw new System.NotImplementedException();
-
-            public override string Name => throw new System.NotImplementedException();
-
-            public override ScaleRate Scale => throw new System.NotImplementedException();
-        }
     }
 }

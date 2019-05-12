@@ -5,7 +5,6 @@
     using Rogue.Scenes.Menus.Creation;
     using Rogue.Scenes.Scenes;
     using System;
-    using System.Linq;
 
     public class Start : GameScene<PlayerNameScene, Game.Main>
     {
@@ -40,7 +39,7 @@
                 {
                     this.PlayerAvatar = new Map.Objects.Avatar
                     {
-                        Character = Classes.All().Skip(1).First()
+                        Character = new Rogue.Classes.Noone.Noone()
                     };
                     this.PlayerAvatar.Character.Name = "Adventurer";
                     this.PlayerAvatar.Character.Race = Race.Elf;

@@ -88,11 +88,6 @@
                         attackTimer.Start();
                     }
                 }
-                else
-                {
-                    attackTimer.Stop();
-                    attackAvailable = true;
-                }
 
                 if (!this.mob.IsChasing)
                 {

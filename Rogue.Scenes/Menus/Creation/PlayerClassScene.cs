@@ -57,7 +57,7 @@ namespace Rogue.Scenes.Menus.Creation
             var top = 2.5f;
             var column = 0;
 
-            foreach (var @class in Classes.All())
+            foreach (var @class in RogueClasses.All())
             {
                 DrawColor usualColor = @class.ClassColor;
                 var activeCOlor = Light(usualColor);
