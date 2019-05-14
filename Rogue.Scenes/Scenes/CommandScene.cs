@@ -13,7 +13,7 @@
         {
         }
 
-        protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers)
+        protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
             var commandPress = Commands.Where(x => x.Keys.Contains(keyPressed));
 

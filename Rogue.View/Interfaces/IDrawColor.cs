@@ -6,5 +6,6 @@
         byte G { get; }
         byte B { get; }
         byte A { get; }
+        double Opacity { get; }
     }
 }

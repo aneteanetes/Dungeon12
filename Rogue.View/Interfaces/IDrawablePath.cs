@@ -12,6 +12,8 @@
 
         float Angle { get; }
 
+        float Radius { get; }
+
         PathPredefined PathPredefined { get; }
 
         IEnumerable<Point> Path { get; }

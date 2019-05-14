@@ -37,7 +37,7 @@
                 hpText = new DrawText($"{player.HitPoints}/{player.MaxHitPoints}", ConsoleColor.White)
                 {
                     Size = 14
-                }.Monserrat();
+                }.Montserrat();
 
                 var text = this.AddTextCenter(hpText);
                     text.Top += 0.2;

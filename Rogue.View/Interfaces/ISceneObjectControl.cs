@@ -6,7 +6,7 @@
 
     public interface ISceneObjectControl : ISceneObject
     {
-        void KeyDown(Key key, KeyModifiers modifier);
+        void KeyDown(Key key, KeyModifiers modifier, bool hold);
 
         void KeyUp(Key key, KeyModifiers modifier);
 
@@ -25,5 +25,7 @@
         ControlEventType[] CanHandle { get; }
 
         Key[] KeysHandle { get; }
+
+        bool AllKeysHandle { get; }
     }
 }

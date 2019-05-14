@@ -4,7 +4,7 @@
 
     public static class DrawTextFonts
     {
-        public static IDrawText Monserrat(this IDrawText drawText)
+        public static IDrawText Montserrat(this IDrawText drawText)
         {
             drawText.FontName = "Montserrat";
             drawText.FontAssembly = "Rogue.Resources";

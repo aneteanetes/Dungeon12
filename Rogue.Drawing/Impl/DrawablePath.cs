@@ -7,7 +7,7 @@
 
     public class DrawablePath : IDrawablePath
     {
-        public float Depth { get; set; }
+        public float Depth { get; set; } = 1;
         public bool Fill { get; set; }
         public IDrawColor BackgroundColor { get; set; }
         public IDrawColor ForegroundColor { get; set; }
@@ -19,5 +19,7 @@
         public float Angle { get; set; }
 
         public PathPredefined PathPredefined { get; set; }
+
+        public float Radius { get; set; }
     }
 }

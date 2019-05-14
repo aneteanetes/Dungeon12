@@ -3,6 +3,7 @@ using System.Linq;
 using Rogue.Control.Keys;
 using Rogue.Drawing.Controls;
 using Rogue.Drawing.Impl;
+using Rogue.Drawing.SceneObjects;
 using Rogue.Scenes.Scenes;
 using Rogue.Types;
 
@@ -16,6 +17,10 @@ namespace Rogue.Scenes.Menus.Creation
 
         public override bool Destroyable => true;
 
+        public override void Init()
+        {
+            this.AddObject(new ImageControl("Rogue.Resources.Images.d12back.png"));
+        }
 
         public override void Draw()
         {
@@ -86,6 +91,14 @@ namespace Rogue.Scenes.Menus.Creation
             }
 
             Drawing.Draw.RunSession(win);
+        }
+
+        protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
+        {
+            if (keyPressed == Key.Escape)
+            {
+                this.Switch<PlayerNameScene>();
+            }
         }
 
         protected void KeyPress(KeyArgs keyEventArgs)

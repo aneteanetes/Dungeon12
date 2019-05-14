@@ -23,13 +23,13 @@ namespace Rogue.Drawing.Impl
             this.A = a;
         }
 
-        public byte R { get; }
+        public byte R { get; set; }
 
-        public byte G { get; }
+        public byte G { get; set; }
 
-        public byte B { get; }
+        public byte B { get; set; }
 
-        public byte A { get; }
+        public byte A { get; set; }
 
         public static implicit operator DrawColor(ConsoleColor consoleColor) => new DrawColor(consoleColor);
 
@@ -52,5 +52,7 @@ namespace Rogue.Drawing.Impl
             { ConsoleColor.White, (255,255,255,255) },
             { ConsoleColor.Yellow, (255,255,0,255) },
         };
+
+        public double Opacity { get; set; }
     }
 }

@@ -74,10 +74,10 @@
             var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key).ToArray();
             foreach (var sceneObjectHandler in keyControls)
             {
-                sceneObjectHandler.KeyDown(key, modifier);
+                sceneObjectHandler.KeyDown(key, modifier,keyEventArgs.Hold);
             }
 
-            KeyPress(key,modifier);
+            KeyPress(key,modifier,keyEventArgs.Hold);
         }
 
         public void OnKeyUp(KeyArgs keyEventArgs)
@@ -91,7 +91,7 @@
                 sceneObjectHandler.KeyUp(key, modifier);
             }
 
-            KeyPress(key, modifier);
+            KeyUp(key, modifier);
         }
 
         public void OnMousePress(PointerArgs pointerPressedEventArgs, Point offset)
@@ -201,7 +201,7 @@
             return newRegion.Contains(pos.X, pos.Y);
         }
 
-        protected virtual void KeyPress(Key keyPressed, KeyModifiers keyModifiers) { }
+        protected virtual void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold) { }
 
         protected virtual void KeyUp(Key keyPressed, KeyModifiers keyModifiers) { }
 
@@ -212,7 +212,7 @@
 
                 if (handleEvent == ControlEventType.Key)
                 {
-                    handle = x.KeysHandle.Contains(key);
+                    handle = x.AllKeysHandle || x.KeysHandle.Contains(key);
                 }
 
                 return handle;

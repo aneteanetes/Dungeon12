@@ -75,7 +75,7 @@
                 this.Text = new DrawText(player.Level.ToString(), ConsoleColor.White)
                 {
                     Size = 11
-                }.Monserrat();
+                }.Montserrat();
             }
             
             public override Rectangle Position

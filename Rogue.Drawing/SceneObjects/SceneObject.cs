@@ -9,7 +9,7 @@
 
     public abstract class SceneObject : ISceneObject
     {
-        protected TextControl AddTextCenter(IDrawText drawText)
+        protected TextControl AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical=true)
         {
             var textControl = new TextControl(drawText);
 
@@ -18,18 +18,24 @@
             var width = this.Width * 32;
             var height = this.Height * 32;
 
-            var left = width / 2 - measure.X / 2;
-            var top = height / 2 - measure.Y / 2;
+            if (horizontal)
+            {
+                var left = width / 2 - measure.X / 2;
+                textControl.Left = left / 32;
+            }
 
-            left /= 1.8f;
-
-            textControl.Left = left / 32;
-            textControl.Top = top / 32;
+            if (vertical)
+            {
+                var top = height / 2 - measure.Y / 2;
+                textControl.Top = top / 32;
+            }
 
             this.Children.Add(textControl);
 
             return textControl;
         }
+
+        protected Point MeasureText(IDrawText text) => Global.DrawClient.MeasureText(text);
 
         /// <summary>
         /// Relative

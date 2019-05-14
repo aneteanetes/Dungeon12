@@ -12,7 +12,7 @@
         {
              ControlEventType.Click,
              ControlEventType.Focus,
-             ControlEventType.Key             
+             ControlEventType.Key
         };
 
         protected virtual ControlEventType[] Handles { get; } = null;
@@ -27,6 +27,8 @@
 
         public Key[] KeysHandle => KeyHandlers.Value ?? new Key[0];
 
+        public virtual bool AllKeysHandle => false;
+
         public virtual void Click(PointerArgs args) { }
 
         public virtual void GlobalClick(PointerArgs args) { }
@@ -35,7 +37,7 @@
 
         public virtual void Unfocus() { }
 
-        public virtual void KeyDown(Key key, KeyModifiers modifier) { }
+        public virtual void KeyDown(Key key, KeyModifiers modifier, bool hold) { }
 
         public virtual void KeyUp(Key key, KeyModifiers modifier) { }
 

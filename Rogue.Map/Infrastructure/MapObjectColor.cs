@@ -11,5 +11,7 @@
         public byte B { get; set; }
 
         public byte A { get; set; }
+
+        public double Opacity { get; set; }
     }
 }

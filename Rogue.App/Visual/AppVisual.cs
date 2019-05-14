@@ -407,10 +407,14 @@
             }
             else
             {
-
                 if (!string.IsNullOrEmpty(sceneObject.Image))
                 {
                     DrawSceneImage(ctx, sceneObject, y, x);
+                }
+
+                if (sceneObject.Path != null)
+                {
+                    DrawScenePath(ctx, sceneObject.Path, x, y);
                 }
 
                 if (sceneObject.Text != null)
@@ -428,6 +432,30 @@
                 foreach (var child in sceneObject.Children)
                 {
                     DrawSceneObject(ctx, child, x, y);
+                }
+            }
+        }
+
+        private void DrawScenePath(DrawingContext ctx, IDrawablePath drawablePath, double x, double y)
+        {
+            if (drawablePath.PathPredefined == View.Enums.PathPredefined.Rectangle)
+            {
+                var color = drawablePath.BackgroundColor;
+
+                var brush = new ImmutableSolidColorBrush(new Color(color.A, color.R, color.G, color.B), color.Opacity);
+                var pathReg = drawablePath.Region;
+
+                var rect = new Rect(x, y, pathReg.Width * cell, pathReg.Height * cell);
+                var cornerRadius = drawablePath.Radius;
+
+                if (drawablePath.Fill)
+                {
+                    ctx.FillRectangle(brush, rect, cornerRadius);
+                }
+                else
+                {
+                    var pen = new Pen(brush, drawablePath.Depth);
+                    ctx.DrawRectangle(pen, rect, cornerRadius);
                 }
             }
         }
@@ -464,7 +492,7 @@
 
             var brush = new ImmutableSolidColorBrush(new Color(range.ForegroundColor.A, range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B), range.Opacity);
 
-            x += (float)fmt.Measure().Height;
+            //x += (float)fmt.Measure().Height;
 
             ctx.DrawText(brush, new Avalonia.Point(x, y), fmt);
         }
@@ -529,18 +557,25 @@
 
         public Types.Point MeasureText(IDrawText drawText)
         {
+            var fontFamily = Font.Common;
+
+            if (drawText.FontName != null)
+            {
+                fontFamily = Font.GetFontFamily(drawText.FontName, drawText.FontPath, drawText.FontAssembly);
+            }
+
             var fmt = new FormattedText()
             {
                 Text = drawText.StringData,
-                Typeface = new Typeface(Font.Common, fontSize: drawText.Size)
+                Typeface = new Typeface(fontFamily, fontSize: drawText.Size)
             };
 
             var measure = fmt.Measure();
 
             return new Types.Point
             {
-                X = (float)measure.Width,
-                Y = (float)measure.Height
+                X = measure.Width,
+                Y = measure.Height
             };
         }
     }

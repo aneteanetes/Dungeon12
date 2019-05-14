@@ -117,7 +117,7 @@
             this.Image = SquareTexture(false);
         }
 
-        public override void KeyDown(Key key, KeyModifiers modifier)
+        public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
             Cast();
         }

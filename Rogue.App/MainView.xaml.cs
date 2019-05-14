@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -99,12 +100,18 @@ namespace Rogue.App
             }, new Types.Point(drawClient.CameraOffsetX, drawClient.CameraOffsetY));
         }
 
+        private HashSet<Key> keysHold = new HashSet<Key>();
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
+            var hold = keysHold.Contains(e.Key);
+
+            keysHold.Add(e.Key);
             SceneManager.Current.OnKeyDown(new Control.Keys.KeyArgs
             {
                 Key = (Control.Keys.Key)e.Key,
-                Modifiers = (Control.Keys.KeyModifiers)e.Modifiers
+                Modifiers = (Control.Keys.KeyModifiers)e.Modifiers,
+                Hold= hold
             });
 
             if (e.Key== Key.R)
@@ -120,8 +127,7 @@ namespace Rogue.App
 
         protected override void OnKeyUp(KeyEventArgs e)
         {
-            //Console.WriteLine(DateTime.Now.ToString("MM:ss") + ":" + DateTime.Now.Millisecond + ": keyup");
-
+            keysHold.Remove(e.Key);
             SceneManager.Current.OnKeyUp(new Control.Keys.KeyArgs
             {
                 Key = (Control.Keys.Key)e.Key,

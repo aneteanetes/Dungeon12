@@ -151,7 +151,7 @@
 
         private HashSet<Direction> NowMoving = new HashSet<Direction>();
 
-        public override void KeyDown(Key key, KeyModifiers modifier)
+        public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
             switch (key)
             {

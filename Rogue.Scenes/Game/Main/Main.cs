@@ -195,7 +195,7 @@
             }
         }
 
-        protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers)
+        protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
 
             if(keyPressed== Key.L)
