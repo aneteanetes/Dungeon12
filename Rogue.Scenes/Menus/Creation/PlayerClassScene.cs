@@ -3,6 +3,8 @@ using System.Linq;
 using Rogue.Control.Keys;
 using Rogue.Drawing.Controls;
 using Rogue.Drawing.Impl;
+using Rogue.Drawing.SceneObjects;
+using Rogue.Drawing.SceneObjects.UI;
 using Rogue.Races.Perks;
 using Rogue.Scenes.Scenes;
 using Rogue.Types;
@@ -16,6 +18,23 @@ namespace Rogue.Scenes.Menus.Creation
         }
 
         public override bool Destroyable => true;
+
+        public override void Init()
+        {
+            this.AddObject(new ImageControl("Rogue.Resources.Images.d12back.png"));
+
+            this.AddObject(new HorizontalWindow("Rogue.Resources.Images.ui.horizontal(26x17).png")
+            {
+                Top = 3f,
+                Left = 7f,
+            });
+
+            this.AddObject(new TextControl(new DrawText("Происхождение", new DrawColor(ConsoleColor.White)) { Size = 50 })
+            {
+                Left = 15,
+                Top = 3.5
+            });
+        }
 
         public override void Draw()
         {
@@ -103,6 +122,14 @@ namespace Rogue.Scenes.Menus.Creation
             var b = color.B;
 
             return new DrawColor(r, g, b, 100);
+        }
+
+        protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
+        {
+            if (keyPressed == Key.Escape && !hold)
+            {
+                this.Switch<PlayerRaceScene>();
+            }
         }
 
         //protected override void KeyPress(KeyArgs keyEventArgs)

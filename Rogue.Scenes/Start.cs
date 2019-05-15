@@ -16,7 +16,7 @@
         
         public override void Init()
         {
-            this.AddObject(new ImageControl("Rogue.Resources.Images.d12back.png"));
+            this.AddObject(new Background());
             this.AddObject(new ImageControl("Rogue.Resources.Images.d12textM.png")
             {
                 Top = 2f,

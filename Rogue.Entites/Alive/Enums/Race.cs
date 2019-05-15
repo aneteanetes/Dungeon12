@@ -13,8 +13,8 @@ namespace Rogue
         [Display(Name = "Эльф")]
         Elf = 2,
 
-        [Display(Name = "Дворф")]
-        Dwarf = 4,
+        //[Display(Name = "Дворф")]
+        //Dwarf = 4,
 
         [Display(Name = "Гном")]
         Gnome = 3,
@@ -25,16 +25,16 @@ namespace Rogue
         [Display(Name = "Тёмный эльф")]
         DarkElf = 6,
 
-        [Display(Name = "Мёртвый")]
-        Undead = 9,
+        //[Display(Name = "Мёртвый")]
+        //Undead = 9,
 
-        [Display(Name = "Тролль")]
-        Troll = 8,
+        //[Display(Name = "Тролль")]
+        //Troll = 8,
 
         [Display(Name = "Падший")]
         Fallen = 7,
 
-        [Display(Name = "Лунный эльф")]
-        MoonElf = 5
+        //[Display(Name = "Лунный эльф")]
+        //MoonElf = 5
     }
 }

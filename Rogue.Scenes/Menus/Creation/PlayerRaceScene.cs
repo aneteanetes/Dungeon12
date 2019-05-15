@@ -1,14 +1,13 @@
-﻿using System;
-using System.Linq;
-using Rogue.Control.Keys;
-using Rogue.Drawing.Controls;
-using Rogue.Drawing.Impl;
-using Rogue.Drawing.SceneObjects;
-using Rogue.Scenes.Scenes;
-using Rogue.Types;
-
-namespace Rogue.Scenes.Menus.Creation
+﻿namespace Rogue.Scenes.Menus.Creation
 {
+    using Rogue.Control.Keys;
+    using Rogue.Drawing.Impl;
+    using Rogue.Drawing.SceneObjects;
+    using Rogue.Drawing.SceneObjects.UI;
+    using Rogue.Scenes.Scenes;
+    using System;
+    using System.Linq;
+
     public class PlayerRaceScene : GameScene<PlayerNameScene, PlayerClassScene>
     {
         public PlayerRaceScene(SceneManager sceneManager) : base(sceneManager)
@@ -20,93 +19,53 @@ namespace Rogue.Scenes.Menus.Creation
         public override void Init()
         {
             this.AddObject(new ImageControl("Rogue.Resources.Images.d12back.png"));
-        }
 
-        public override void Draw()
-        {
-            new Image("Rogue.Resources.Images.d12back.png")
+            this.AddObject(new HorizontalWindow()
             {
-                Left = 0.4f,
-                Top = 1f,
-                Width = 48.2f,
-                Height = 29f,
-                ImageTileRegion = new Rectangle
-                {
-                    X = 0,
-                    Y = 0,
-                    Height = 700,
-                    Width = 1057
-                }
-            }.Run().Publish();
-
-            var win = new Window
-            {
-                Direction = Drawing.Controls.Direction.Horizontal,
-                Left = 11f,
-                Top = 4,
-                Width = 25,
-                Height = 20
-            };
-
-
-            win.Append(new Title
-            {
-                Left = 8.3f,
-                Top = -1f,
-                Width = 8,
-                Height = 2.4f,
-                Label = new DrawText("Выберите расу", ConsoleColor.Black) { Size = 27 }
+                Top = 3f,
+                Left = 10f,
             });
 
-            var left = 3;
-            var top = 2.5f;
+            this.AddObject(new TextControl(new DrawText("Выберите расу", new DrawColor(ConsoleColor.White)) { Size = 50 })
+            {
+                Left=15.5,
+                Top=3.5
+            });
+
+            double left = 11.25;
+            var top = 6f;
             var column = 0;
 
-            foreach (var race in Enum.GetValues(typeof(Race)).Cast<Race>())
+            foreach (var race in Enum.GetValues(typeof(Race)).Cast<Race>().OrderBy(x=>(int)x))
             {
-                win.Append(new Button
+                this.AddObject(new MetallButtonControl(race.ToDisplay())
                 {
-                    ActiveColor = new DrawColor(ConsoleColor.Red),
-                    InactiveColor = new DrawColor(ConsoleColor.DarkRed),
                     Left = left,
                     Top = top,
-                    Width = 8,
-                    Height = 2,
-                    Label = new DrawText(race.ToDisplay(), ConsoleColor.DarkRed) { Size = 28, LetterSpacing = 13 }.Capitalize(20),
                     OnClick = () =>
-                    {
-                        this.PlayerAvatar.Character.Race = race;
-                        this.Switch<PlayerClassScene>();
-                    }
+                     {
+                         this.PlayerAvatar.Character.Race = race;
+                         this.Switch<PlayerClassScene>();
+                     }
                 });
 
                 top += 3;
                 column++;
 
-                if (column == 5)
+                if (column == 3)
                 {
-                    top = 2.5f;
-                    left = 13;
+                    top = 6f;
+                    left = 20.5;
                 };
             }
-
-            Drawing.Draw.RunSession(win);
         }
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
-            if (keyPressed == Key.Escape)
+            if (keyPressed == Key.Escape && !hold)
             {
                 this.Switch<PlayerNameScene>();
             }
-        }
-
-        protected void KeyPress(KeyArgs keyEventArgs)
-        {
-            if (keyEventArgs.Key == Key.Escape)
-                this.Switch<PlayerNameScene>();
-
-            //this.Redraw();
         }
     }
 }
