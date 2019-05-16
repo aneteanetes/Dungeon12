@@ -18,6 +18,8 @@
 
         void ClickRelease(PointerArgs args);
 
+        void MouseWheel(MouseWheelEnum mouseWheel);
+
         void GlobalClick(PointerArgs args);
 
         void GlobalClickRelease(PointerArgs args);

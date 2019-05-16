@@ -88,6 +88,13 @@ namespace Rogue.App
             }, new Types.Point(drawClient.CameraOffsetX, drawClient.CameraOffsetY));
         }
 
+        protected override void OnPointerWheelChanged(PointerWheelEventArgs e)
+        {
+            var isTop = e.Delta.Y == 1;
+
+            SceneManager.Current.OnMouseWheel(isTop ? Control.Pointer.MouseWheelEnum.Up : Control.Pointer.MouseWheelEnum.Down);
+        }
+
         protected override void OnPointerReleased(PointerReleasedEventArgs e)
         {
             var pos = e.GetPosition(this);

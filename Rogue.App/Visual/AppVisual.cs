@@ -429,9 +429,13 @@
                     }
                 }
 
-                foreach (var child in sceneObject.Children)
+                for (int i = 0; i < sceneObject.Children.Count; i++)
                 {
-                    DrawSceneObject(ctx, child, x, y);
+                    var child = sceneObject.Children.ElementAtOrDefault(i);
+                    if (child != null)
+                    {
+                        DrawSceneObject(ctx, child, x, y);
+                    }
                 }
             }
         }

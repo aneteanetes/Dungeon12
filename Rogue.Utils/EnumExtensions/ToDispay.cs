@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace Rogue
+﻿namespace Rogue
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Text;
+
     public static class ToDispay
     {
         private static Dictionary<ValueType, string> Cache = new Dictionary<ValueType, string>();
@@ -15,6 +16,11 @@ namespace Rogue
                 return display;
 
             return AddToCache(value);
+        }
+
+        public static IEnumerable<T> All<T>(this Type enumType)
+        {
+            return Enum.GetValues(enumType).Cast<T>();
         }
 
         private static string AddToCache<T>(this T value) where T : struct

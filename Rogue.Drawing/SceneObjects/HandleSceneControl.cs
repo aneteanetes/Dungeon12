@@ -44,5 +44,7 @@
         public virtual void ClickRelease(PointerArgs args) { }
 
         public virtual void GlobalClickRelease(PointerArgs args) { }
+
+        public virtual void MouseWheel(MouseWheelEnum mouseWheelEnum) { }
     }
 }

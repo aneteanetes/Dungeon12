@@ -2,6 +2,8 @@
 using Rogue.Control.Keys;
 using Rogue.Drawing.Controls;
 using Rogue.Drawing.Impl;
+using Rogue.Drawing.SceneObjects;
+using Rogue.Drawing.SceneObjects.Base;
 using Rogue.Entites.Alive.Character;
 using Rogue.Scenes.Game;
 using Rogue.Scenes.Scenes;
@@ -9,14 +11,32 @@ using Rogue.Types;
 
 namespace Rogue.Scenes.Menus.Creation
 {
-    public class PlayerSummaryScene : GameScene<Main,PlayerClassScene>
+    public class PlayerSummaryScene : GameScene<Main,PlayerOriginScene>
     {
         public PlayerSummaryScene(SceneManager sceneManager) : base(sceneManager)
         {
         }
 
         public override bool Destroyable => true;
-        
+
+        public override void Init()
+        {
+            this.AddObject(new Prologue());
+        }
+
+        private class Prologue : ColoredRectangle
+        {
+            public Prologue()
+            {
+                this.Width = 40;
+                this.Height = 22.5;
+               var txt = new DrawText("Пролог", ConsoleColor.White);
+                txt.Size = 72;
+
+                this.AddTextCenter(txt);
+            }
+        }
+
         public override void Draw()
         {
             new Image("Rogue.Resources.Images.d12back.png")

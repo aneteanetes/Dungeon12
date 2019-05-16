@@ -8,7 +8,7 @@
     using System;
     using System.Linq;
 
-    public class PlayerRaceScene : GameScene<PlayerNameScene, PlayerClassScene>
+    public class PlayerRaceScene : GameScene<PlayerNameScene, PlayerOriginScene>
     {
         public PlayerRaceScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -45,7 +45,7 @@
                     OnClick = () =>
                      {
                          this.PlayerAvatar.Character.Race = race;
-                         this.Switch<PlayerClassScene>();
+                         this.Switch<PlayerOriginScene>();
                      }
                 });
 

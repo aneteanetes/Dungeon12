@@ -4,6 +4,7 @@
     {
         Click,
         ClickRelease,
+        MouseWheel,
         Focus,
         Key,
         GlobalClick,

@@ -39,6 +39,16 @@
             SceneObjects.Add(sceneObject);
         }
 
+        protected void AddControl(ISceneObjectControl sceneObjectControl)
+        {
+            SceneObjectsControllable.Add(sceneObjectControl);
+        }
+
+        protected void RemoveControl(ISceneObjectControl sceneObjectControl)
+        {
+            SceneObjectsControllable.Remove(sceneObjectControl);
+        }
+
         protected void RemoveObject(ISceneObject sceneObject)
         {
             if (sceneObject is ISceneObjectControl sceneObjectControl)
@@ -120,6 +130,20 @@
 
             var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs, offset));
             DoClicks(pointerPressedEventArgs, offset, clickedElements, (c, a) => c.ClickRelease(a));
+        }
+
+        public void OnMouseWheel(MouseWheelEnum wheelEnum)
+        {
+            var wheelControls = ControlsByHandle(ControlEventType.MouseWheel);
+
+            for (int i = 0; i < wheelControls.Count(); i++)
+            {
+                var wheelControl = wheelControls.ElementAtOrDefault(i);
+                if (wheelControl != null)
+                {
+                    wheelControl.MouseWheel(wheelEnum);
+                }
+            }
         }
 
         private void DoClicks(PointerArgs pointerPressedEventArgs, Point offset, IEnumerable<ISceneObjectControl> clickedElements,
