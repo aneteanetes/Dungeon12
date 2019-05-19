@@ -151,5 +151,7 @@
             Height=this.Children.Max(c=>c.Position.Y+c.Position.Height),
             Width = this.Children.Max(c => c.Position.X + c.Position.Width)
         };
+
+        public int Layer { get; set; }
     }
 }

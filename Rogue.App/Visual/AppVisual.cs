@@ -442,9 +442,11 @@
                     }
                 }
 
-                for (int i = 0; i < sceneObject.Children.Count; i++)
+                var childrens = sceneObject.Children.OrderBy(c => c.Layer).ToArray();
+
+                for (int i = 0; i < childrens.Length; i++)
                 {
-                    var child = sceneObject.Children.ElementAtOrDefault(i);
+                    var child = childrens.ElementAtOrDefault(i);
                     if (child != null)
                     {
                         DrawSceneObject(ctx, child, x, y, batching, force);

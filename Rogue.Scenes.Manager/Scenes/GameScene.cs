@@ -54,6 +54,7 @@
     {
         public GameScene(SceneManager sceneManager) : base(sceneManager)
         {
+            this.AvailableScenes.Add(typeof(TScene));
             this.AvailableScenes.Add(typeof(TScene1));
         }
     }
@@ -68,6 +69,8 @@
     {
         public GameScene(SceneManager sceneManager) : base(sceneManager)
         {
+            this.AvailableScenes.Add(typeof(TScene));
+            this.AvailableScenes.Add(typeof(TScene1));
             this.AvailableScenes.Add(typeof(TScene2));
         }
     }
@@ -83,6 +86,9 @@
     {
         public GameScene(SceneManager sceneManager) : base(sceneManager)
         {
+            this.AvailableScenes.Add(typeof(TScene));
+            this.AvailableScenes.Add(typeof(TScene1));
+            this.AvailableScenes.Add(typeof(TScene2));
             this.AvailableScenes.Add(typeof(TScene3));
         }
     }
@@ -99,6 +105,10 @@
     {
         public GameScene(SceneManager sceneManager) : base(sceneManager)
         {
+            this.AvailableScenes.Add(typeof(TScene));
+            this.AvailableScenes.Add(typeof(TScene1));
+            this.AvailableScenes.Add(typeof(TScene2));
+            this.AvailableScenes.Add(typeof(TScene3));
             this.AvailableScenes.Add(typeof(TScene4));
         }
     }
@@ -116,6 +126,11 @@
     {
         public GameScene(SceneManager sceneManager) : base(sceneManager)
         {
+            this.AvailableScenes.Add(typeof(TScene));
+            this.AvailableScenes.Add(typeof(TScene1));
+            this.AvailableScenes.Add(typeof(TScene2));
+            this.AvailableScenes.Add(typeof(TScene3));
+            this.AvailableScenes.Add(typeof(TScene4));
             this.AvailableScenes.Add(typeof(TScene5));
         }
     }

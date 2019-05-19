@@ -11,7 +11,16 @@
 
         public bool Fill { get; set; }
 
-        public double Opacity { get; set; }
+        private double opacity;
+        public double Opacity
+        {
+            get => opacity;
+            set
+            {
+                opacity = value;
+                drawablePath = null;
+            }
+        }
 
         public int Depth { get; set; } = 1;
 
@@ -75,6 +84,7 @@
 
             return this;
         }
+
     }
 
     public class DarkRectangle : ColoredRectangle

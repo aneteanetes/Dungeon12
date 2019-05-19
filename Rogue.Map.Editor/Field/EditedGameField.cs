@@ -4,24 +4,20 @@
     using Rogue.Control.Pointer;
     using Rogue.Drawing.SceneObjects;
     using Rogue.Drawing.SceneObjects.Base;
+    using Rogue.Map.Editor.Objects;
     using Rogue.Types;
     using Rogue.View.Interfaces;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
 
     public class EditedGameField : HandleSceneControl
     {
         public override bool CacheAvailable => false;
+        private int lvl = 1;
+        private bool obstruct = false;
 
         public EditedGameField()
         {
-            for (int x = 0; x < 100; x++)
-            {
-                inner[x] = new ISceneObject[100];
-            }
-
             this.Width = 100;
             this.Height = 100;
 
@@ -43,7 +39,11 @@
 
         public void Selecting(ImageControl imageControl) => current = imageControl;
 
-        private readonly ISceneObject[][] inner = new ISceneObject[100][];
+        public void SetLevel(int lvl) => this.lvl = lvl;
+
+        public void SetObstruct(bool obstruct) => this.obstruct = obstruct;
+
+        public readonly DesignField Field = new DesignField();
 
         public override void Click(PointerArgs args)
         {
@@ -52,24 +52,46 @@
             int x = (int)Math.Truncate((args.X / 32) - (args.Offset.X / 32) - this.Left - (args.Offset.X / 32));
             int y = (int)Math.Truncate((args.Y / 32) - (args.Offset.Y / 32) - this.Top - (args.Offset.Y / 32));
 
-            var canPut = inner[x][y] == null;
+            Console.WriteLine(args.MouseButton);
+
+            if (args.MouseButton == MouseButton.Right)
+            {
+                var exists = Field[lvl][x][y];
+                if (exists != null)
+                {
+                    this.RemoveChild(exists.SceneObject);
+                    Field[lvl][x][y] = null;
+                }
+                return;
+            }
+
+            var canPut = Field[lvl][x][y] == null;
 
             if (!canPut)
             {
-                canPut = inner[x][y].Image != current.Image;
+                canPut = Field[lvl][x][y].SceneObject.ImageRegion != current.ImageRegion;
+                if (canPut)
+                {
+                    this.RemoveChild(Field[lvl][x][y].SceneObject);
+                    Field[lvl][x][y] = null;
+                }
             }            
 
             if (current != null && canPut)
             {
-                inner[x][y] = new ImageControl(current.Image)
+                Field[lvl][x][y] = new DesignCell(new ImageControl(current.Image)
                 {
                     ImageRegion = current.ImageRegion,
                     Left = x,
                     Top = y,
                     Height = 1,
-                    Width = 1
+                    Width = 1,
+                    Layer = lvl
+                })
+                {
+                    Obstruction = this.obstruct
                 };
-                this.AddChild(inner[x][y]);
+                this.AddChild(Field[lvl][x][y].SceneObject);
             }
         }
 

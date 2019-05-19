@@ -40,6 +40,8 @@
 
         Rectangle ImageRegion { get; set; }
 
+        int Layer { get; set; }
+
         IDrawText Text { get; }
 
         IDrawablePath Path { get; }

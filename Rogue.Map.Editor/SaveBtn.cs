@@ -25,6 +25,7 @@
         public override void Click(PointerArgs args)
         {
             Global.DrawClient.SaveObject(editedGameField, "map.png",new Types.Point(-20*32,0));
+            editedGameField.Field.Save();
         }
     }
 }

@@ -67,10 +67,27 @@ namespace Rogue.App
                 drawClient.MoveCamera(Types.Direction.Up, !(pos.Y <= 100));
             }
 
+             MouseButton mb = MouseButton.None;
+
+            switch (e.InputModifiers)
+            {
+                case InputModifiers.LeftMouseButton:
+                    mb = MouseButton.Left;
+                    break;
+                case InputModifiers.RightMouseButton:
+                    mb = MouseButton.Right;
+                    break;
+                case InputModifiers.MiddleMouseButton:
+                    mb = MouseButton.Middle;
+                    break;
+                default:
+                    break;
+            }
+
             currentScene.OnMouseMove(new Control.Pointer.PointerArgs
             {
                 ClickCount = 0,
-                MouseButton = Control.Pointer.MouseButton.None,
+                MouseButton = (Control.Pointer.MouseButton)mb,
                 X = pos.X,
                 Y = pos.Y
             }, new Types.Point(drawClient.CameraOffsetX, drawClient.CameraOffsetY));
