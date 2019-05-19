@@ -17,6 +17,7 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Timers;
+    using Point = Types.Point;
     using Size = Avalonia.Size;
 
     public class AppVisual : Avalonia.Controls.Control, IRenderTimeCriticalVisual, IDrawClient
@@ -51,9 +52,9 @@
 
         public double CameraOffsetY { get; set; }
 
-        public double CameraOffsetLimitX { get; set; } = 32;
+        public double CameraOffsetLimitX { get; set; } = 3200000;
 
-        public double CameraOffsetLimitY { get; set; } = 32;
+        public double CameraOffsetLimitY { get; set; } = 3200000;
 
         public static IDrawClient AppVisualDrawClient = null;
         
@@ -143,7 +144,19 @@
 
             DrawFrameInfo(context);
         }
-        
+
+        public void SaveObject(ISceneObject sceneObject, string path, Point offset)
+        {
+            var bitmap = new RenderTargetBitmap(new PixelSize((int)sceneObject.CropPosition.Width*32, (int)sceneObject.CropPosition.Height*32));
+            if (bitmap is RenderTargetBitmap renderBitmap)
+            {
+                var ctxImpl = new DrawingContext(renderBitmap.CreateDrawingContext(null));
+                DrawSceneObject(ctxImpl, sceneObject, offset.X, offset.Y, false,true);
+            }
+
+            bitmap.Save(path);
+        }
+
         private void DrawFrameInfo(DrawingContext drawingContext)
         {
             if (frameInfo)
@@ -371,7 +384,7 @@
         }
         
         private readonly Dictionary<string, Bitmap> BatchCache = new Dictionary<string, Bitmap>();
-        private void DrawSceneObject(DrawingContext ctx, ISceneObject sceneObject, double xParent=0, double yParent=0, bool batching=false)
+        private void DrawSceneObject(DrawingContext ctx, ISceneObject sceneObject, double xParent=0, double yParent=0, bool batching=false, bool force=false)
         {
             var y = sceneObject.Position.Y * cell + yParent;
             var x = sceneObject.Position.X * cell + xParent;
@@ -409,7 +422,7 @@
             {
                 if (!string.IsNullOrEmpty(sceneObject.Image))
                 {
-                    DrawSceneImage(ctx, sceneObject, y, x);
+                    DrawSceneImage(ctx, sceneObject, y, x,force);
                 }
 
                 if (sceneObject.Path != null)
@@ -434,7 +447,7 @@
                     var child = sceneObject.Children.ElementAtOrDefault(i);
                     if (child != null)
                     {
-                        DrawSceneObject(ctx, child, x, y);
+                        DrawSceneObject(ctx, child, x, y, batching, force);
                     }
                 }
             }
@@ -504,16 +517,20 @@
         private Dictionary<string, Rect> TileSetCache = new Dictionary<string, Rect>();
         private Dictionary<string, Rect> PosCahce = new Dictionary<string, Rect>();
 
-        private void DrawSceneImage(DrawingContext ctx, ISceneObject sceneObject, double y, double x)
+        private void DrawSceneImage(DrawingContext ctx, ISceneObject sceneObject, double y, double x, bool force)
         {
             var image = TileSetByName(sceneObject.Image);
 
-            if (!TileSetCache.TryGetValue(sceneObject.Uid, out Rect tileRegion))
+            if (force || !TileSetCache.TryGetValue(sceneObject.Uid, out Rect tileRegion))
             {
-
                 if (sceneObject.ImageRegion == null)
                 {
                     tileRegion = new Rect(0, 0, image.PixelSize.Width, image.PixelSize.Height);
+                    //sceneObject.ImageRegion = new Rectangle
+                    //{
+                    //    Height = image.PixelSize.Height / 32,
+                    //    Width = image.PixelSize.Width / 32
+                    //};
                 }
                 else
                 {
@@ -521,13 +538,13 @@
                     tileRegion = new Rect(tilePos.X, tilePos.Y, tilePos.Width, tilePos.Height);
                 }
 
-                if (sceneObject.CacheAvailable)
+                if (!force && sceneObject.CacheAvailable)
                 {
                     TileSetCache.Add(sceneObject.Uid, tileRegion);
                 }
             }
 
-            if (!PosCahce.TryGetValue(sceneObject.Uid, out Rect pos))
+            if (force || !PosCahce.TryGetValue(sceneObject.Uid, out Rect pos))
             {
                 double width = sceneObject.Position.Width;
                 double height = sceneObject.Position.Height;
@@ -545,7 +562,7 @@
 
                 pos = new Rect(x, y, width, height);
 
-                if (sceneObject.CacheAvailable)
+                if (!force && sceneObject.CacheAvailable)
                 {
                     PosCahce.Add(sceneObject.Uid, pos);
                 }
@@ -580,6 +597,16 @@
             {
                 X = measure.Width,
                 Y = measure.Height
+            };
+        }
+
+        public Types.Point MeasureImage(string image)
+        {
+            var img = TileSetByName(image);
+            return new Types.Point()
+            {
+                X = img.PixelSize.Width,
+                Y = img.PixelSize.Height
             };
         }
     }

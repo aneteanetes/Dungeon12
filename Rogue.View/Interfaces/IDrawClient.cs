@@ -11,6 +11,10 @@
 
         Point MeasureText(IDrawText drawText);
 
+        Point MeasureImage(string image);
+
+        void SaveObject(ISceneObject sceneObject, string path, Point offset);
+
         void Animate(IAnimationSession animationSession);
     }
 }

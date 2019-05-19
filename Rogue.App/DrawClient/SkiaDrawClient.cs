@@ -1,24 +1,19 @@
 ﻿namespace Rogue.App.DrawClient
 {
-    using System;
-    using System.Collections.Concurrent;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Drawing.Drawing2D;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Avalonia.Controls;
     using Avalonia.Media.Imaging;
     using Avalonia.Threading;
     using MoreLinq;
-    using Rogue.Control.Events;
     using Rogue.Resources;
-    using Rogue.Scenes;
     using Rogue.Types;
     using Rogue.View.Interfaces;
-    using Rogue.View.Publish;
     using SkiaSharp;
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     public class SkiaDrawClient : IDrawClient
     {
@@ -550,6 +545,21 @@
         }
 
         public void ResetCamera()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Point MeasureImage(string image)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveObject(ISceneObject sceneObject, string path)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveObject(ISceneObject sceneObject, string path, Point offset)
         {
             throw new NotImplementedException();
         }

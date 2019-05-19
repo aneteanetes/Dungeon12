@@ -47,6 +47,8 @@
 
         public virtual void MouseWheel(MouseWheelEnum mouseWheelEnum) { }
 
+        public virtual void MouseMove(PointerArgs args) { }
+
         public virtual void TextInput(string text) { }
     }
 }

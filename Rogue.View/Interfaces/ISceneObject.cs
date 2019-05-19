@@ -27,13 +27,18 @@
         Rectangle Position { get; }
 
         /// <summary>
+        /// Must exists
+        /// </summary>
+        Rectangle CropPosition { get; }
+
+        /// <summary>
         /// Position with parent
         /// </summary>
         Rectangle ComputedPosition { get; }
 
         string Image { get; }
 
-        Rectangle ImageRegion { get; }
+        Rectangle ImageRegion { get; set; }
 
         IDrawText Text { get; }
 

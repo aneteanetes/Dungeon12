@@ -2,7 +2,7 @@
 {
     public class Background : ImageControl
     {
-        public override bool AbsolutePosition => true;
+        //public override bool AbsolutePosition => true;
 
         public Background() : base("Rogue.Resources.Images.d12back.png")
         {

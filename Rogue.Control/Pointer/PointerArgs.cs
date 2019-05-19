@@ -1,4 +1,6 @@
-﻿namespace Rogue.Control.Pointer
+﻿using Rogue.Types;
+
+namespace Rogue.Control.Pointer
 {
     public class PointerArgs
     {
@@ -6,5 +8,6 @@
         public MouseButton MouseButton { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
+        public Point Offset { get; set; }
     }
 }

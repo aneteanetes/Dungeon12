@@ -31,8 +31,8 @@
                 {
                     var color = new DrawColor(this.Color)
                     {
-                        Opacity=Opacity,
-                        A=255
+                        Opacity = Opacity,
+                        A = 255
                     };
 
                     drawablePath = new DrawablePath
@@ -50,7 +50,7 @@
             }
         }
 
-        public ColoredRectangle WithText(IDrawText drawText, bool center=false)
+        public ColoredRectangle WithText(IDrawText drawText, bool center = false)
         {
             if (center)
             {
@@ -63,6 +63,29 @@
             }
 
             return this;
+        }
+
+        public ColoredRectangle DarkPanel()
+        {
+            Color = ConsoleColor.Black;
+            Depth = 1;
+            Fill = true;
+            Opacity = 0.5;
+            Round = 5;
+
+            return this;
+        }
+    }
+
+    public class DarkRectangle : ColoredRectangle
+    {
+        public DarkRectangle()
+        {
+            Color = ConsoleColor.Black;
+            Depth = 1;
+            Fill = true;
+            Opacity = 0.5;
+            Round = 5;
         }
     }
 }

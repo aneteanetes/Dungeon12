@@ -9,10 +9,11 @@
     public class TextInputControl : ColoredRectangle
     {        
         private readonly int limit;
+        private readonly bool capitalize;
 
         private TypingText typingText;
         
-        public TextInputControl(IDrawText drawText, int chars)
+        public TextInputControl(IDrawText drawText, int chars, bool capitalize=false)
         {
             limit = chars;
 
@@ -21,6 +22,8 @@
             Fill = true;
             Opacity = 0.5;
             Round = 5;
+
+            this.capitalize = capitalize;
 
             drawText.SetText(new string(Enumerable.Range(0, chars).Select(c => 'G').ToArray()));
 
@@ -58,6 +61,11 @@
         {
             var text = typingText.Text;
 
+            if(key== Key.Enter)
+            {
+                OnEnter?.Invoke(Value);
+            }
+
             if (key == Key.Back)
             {
                 if (text.Length > 0)
@@ -76,7 +84,7 @@
             if (innerText.Length >= limit)
                 return;
 
-            if (innerText.StringData.Length == 0)
+            if (innerText.StringData.Length == 0 && capitalize)
             {
                 text = text.ToUpper();
             }
@@ -105,6 +113,8 @@
         }
 
         public string Value => this.typingText.Text.StringData;
+
+        public Action<string> OnEnter { get; set; }
 
         protected override ControlEventType[] Handles => new ControlEventType[] { ControlEventType.Text, ControlEventType.Key };
 

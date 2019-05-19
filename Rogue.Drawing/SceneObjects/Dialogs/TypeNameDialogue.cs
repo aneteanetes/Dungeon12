@@ -21,7 +21,7 @@
             var text = this.AddTextCenter(enterName, true,false);
             text.Top += 0.5;
 
-            textInput = new TextInputControl(new DrawText("", new DrawColor(ConsoleColor.White)) { Size = 30 }.Montserrat(), 14);
+            textInput = new TextInputControl(new DrawText("", new DrawColor(ConsoleColor.White)) { Size = 30 }.Montserrat(), 14,true);
             textInput.Top = this.Height / 2 - textInput.Height / 2;
             textInput.Left += 0.75;
            

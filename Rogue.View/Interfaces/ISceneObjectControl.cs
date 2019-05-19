@@ -18,6 +18,8 @@
 
         void ClickRelease(PointerArgs args);
 
+        void MouseMove(PointerArgs args);
+
         void MouseWheel(MouseWheelEnum mouseWheel);
 
         void TextInput(string text);

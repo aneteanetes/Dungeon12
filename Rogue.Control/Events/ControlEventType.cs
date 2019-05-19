@@ -9,6 +9,10 @@
         Focus,
         Key,
         GlobalClick,
-        GlobalClickRelease
+        GlobalClickRelease,
+        /// <summary>
+        /// А вот это ЕБАТЬ какое дорогое событие
+        /// </summary>
+        MouseMove
     }
 }

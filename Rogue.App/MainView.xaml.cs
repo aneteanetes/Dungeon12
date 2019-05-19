@@ -79,14 +79,16 @@ namespace Rogue.App
         protected override void OnPointerPressed(PointerPressedEventArgs e)
         {
             var pos = e.GetPosition(this);
+            var offset = new Types.Point(drawClient.CameraOffsetX, drawClient.CameraOffsetY);
 
             SceneManager.Current.OnMousePress(new Control.Pointer.PointerArgs
             {
                 ClickCount = e.ClickCount,
                 MouseButton = (Control.Pointer.MouseButton)e.MouseButton,
                 X = pos.X,
-                Y = pos.Y
-            }, new Types.Point(drawClient.CameraOffsetX, drawClient.CameraOffsetY));
+                Y = pos.Y,
+                Offset= offset
+            }, offset);
         }
 
         protected override void OnPointerWheelChanged(PointerWheelEventArgs e)

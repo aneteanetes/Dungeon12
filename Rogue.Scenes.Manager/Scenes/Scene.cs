@@ -175,7 +175,8 @@
                         ClickCount = pointerPressedEventArgs.ClickCount,
                         MouseButton = pointerPressedEventArgs.MouseButton,
                         X = pointerPressedEventArgs.X,
-                        Y = pointerPressedEventArgs.Y
+                        Y = pointerPressedEventArgs.Y,
+                        Offset=offset
                     };
 
                     if (!this.AbsolutePositionScene && !clickedElement.AbsolutePosition)
@@ -193,13 +194,23 @@
         {
             if (sceneManager.Current != this)
                 return;
-            
+
+            OnMouseMoveOnFocus(pointerPressedEventArgs, offset);
+
+            var moveControls = ControlsByHandle(ControlEventType.MouseMove)
+                .Where(so => RegionContains(so, pointerPressedEventArgs, offset));
+
+            DoClicks(pointerPressedEventArgs, offset, moveControls, (c, a) => c.MouseMove(a));
+        }
+
+        private void OnMouseMoveOnFocus(PointerArgs pointerPressedEventArgs, Point offset)
+        {
             var keyControls = ControlsByHandle(ControlEventType.Focus);
 
             var newFocused = keyControls.Where(handler => RegionContains(handler, pointerPressedEventArgs, offset))
                 .Where(x => !SceneObjectsInFocus.Contains(x));
 
-            var newNotFocused = keyControls.Where(handler => !RegionContains(handler, pointerPressedEventArgs,offset))
+            var newNotFocused = keyControls.Where(handler => !RegionContains(handler, pointerPressedEventArgs, offset))
                 .Where(x => SceneObjectsInFocus.Contains(x));
 
             if (newNotFocused.Count() > 0)

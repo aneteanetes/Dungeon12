@@ -6,6 +6,7 @@
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public abstract class SceneObject : ISceneObject
     {
@@ -142,5 +143,13 @@
         public Action Destroy { get; set; }
 
         public Action<List<ISceneObject>> ShowEffects { get; set; }
+
+        public virtual Rectangle CropPosition => new Rectangle
+        {
+            X = this.Position.X,
+            Y = this.Position.Y,
+            Height=this.Children.Max(c=>c.Position.Y+c.Position.Height),
+            Width = this.Children.Max(c => c.Position.X + c.Position.Width)
+        };
     }
 }
