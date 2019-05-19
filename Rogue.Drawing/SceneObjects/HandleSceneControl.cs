@@ -46,5 +46,7 @@
         public virtual void GlobalClickRelease(PointerArgs args) { }
 
         public virtual void MouseWheel(MouseWheelEnum mouseWheelEnum) { }
+
+        public virtual void TextInput(string text) { }
     }
 }

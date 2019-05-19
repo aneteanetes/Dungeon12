@@ -1,9 +1,10 @@
-﻿namespace Rogue.Scenes.Scenes
+﻿namespace Rogue.Scenes
 {
     using System.Collections.Generic;
     using System.Linq;
     using Rogue.Control.Commands;
     using Rogue.Control.Keys;
+    using Rogue.Scenes.Manager;
 
     public abstract class CommandScene : Scene
     {

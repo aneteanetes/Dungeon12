@@ -1,20 +1,14 @@
 ﻿namespace Rogue.Scenes.Game
 {
     using Rogue.Control.Keys;
-    using Rogue.DataAccess;
-    using Rogue.Drawing.Controls;
-    using Rogue.Drawing.Data;
-    using Rogue.Drawing.GUI;
-    using Rogue.Drawing.Impl;
     using Rogue.Drawing.Labirinth;
     using Rogue.Drawing.SceneObjects;
     using Rogue.Drawing.SceneObjects.Main;
     using Rogue.Drawing.SceneObjects.Map;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Map;
-    using Rogue.Map.Objects;
+    using Rogue.Scenes.Manager;
     using Rogue.Scenes.Menus;
-    using Rogue.Scenes.Scenes;
     using Rogue.Settings;
     using Rogue.Types;
     using Rogue.View.Interfaces;

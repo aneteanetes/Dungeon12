@@ -61,5 +61,16 @@
         /// <returns></returns>
         public static T NewAs<T>(this Type type, params object[] argsObj)
             => (T)New<object>(type, type.GetConstructors().FirstOrDefault(), argsObj);
+
+
+        public static void Call(this object obj, params object[] argsObj)
+        {
+
+        }
+
+        public static void Call(this object obj, Type generics, params object[] argsObj)
+        {
+
+        }
     }
 }

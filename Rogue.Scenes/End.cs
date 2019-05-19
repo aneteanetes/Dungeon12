@@ -2,8 +2,8 @@
 {
     using Rogue.Drawing.Impl;
     using Rogue.Drawing.SceneObjects;
+    using Rogue.Scenes.Manager;
     using Rogue.Scenes.Menus.Creation;
-    using Rogue.Scenes.Scenes;
     using System;
 
     public class End : GameScene<PlayerNameScene, Game.Main>

@@ -1,12 +1,15 @@
 ﻿namespace Rogue.Scenes.Menus
 {
+    using Rogue.Drawing;
+    using Rogue.Drawing.Impl;
     using Rogue.Drawing.SceneObjects;
+    using Rogue.Map.Editor;
     using Rogue.Races.Perks;
+    using Rogue.Scenes.Manager;
     using Rogue.Scenes.Menus.Creation;
-    using Rogue.Scenes.Scenes;
     using System;
 
-    public class Start : GameScene<PlayerNameScene, Game.Main>
+    public class Start : GameScene<PlayerNameScene, Game.Main, EditorScene>
     {
         public Start(SceneManager sceneManager) : base(sceneManager)
         {
@@ -46,6 +49,16 @@
                     this.PlayerAvatar.Character.Add<RacePerk>();
 
                     this.Switch<Game.Main>();
+                }
+            });
+
+            this.AddObject(new SmallMetallButtonControl(new DrawText("#") { Size = 40 }.Montserrat())
+            {
+                Left = 24,
+                Top = 11,
+                OnClick = () =>
+                {
+                    this.Switch<EditorScene>();
                 }
             });
 

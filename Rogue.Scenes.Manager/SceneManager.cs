@@ -1,6 +1,5 @@
-﻿namespace Rogue.Scenes
+﻿namespace Rogue.Scenes.Manager
 {
-    using Rogue.Scenes.Scenes;
     using Rogue.Settings;
     using Rogue.View.Interfaces;
     using System;

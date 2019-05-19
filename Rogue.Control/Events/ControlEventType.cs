@@ -5,6 +5,7 @@
         Click,
         ClickRelease,
         MouseWheel,
+        Text,
         Focus,
         Key,
         GlobalClick,

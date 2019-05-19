@@ -4,7 +4,7 @@
     using Rogue.Drawing.Impl;
     using Rogue.Drawing.SceneObjects;
     using Rogue.Drawing.SceneObjects.UI;
-    using Rogue.Scenes.Scenes;
+    using Rogue.Scenes.Manager;
     using System;
     using System.Linq;
 

@@ -6,13 +6,13 @@
     using System;
     using System.Linq;
 
-    public class TextInput : ColoredRectangle
+    public class TextInputControl : ColoredRectangle
     {        
         private readonly int limit;
 
         private TypingText typingText;
         
-        public TextInput(IDrawText drawText, int chars)
+        public TextInputControl(IDrawText drawText, int chars)
         {
             limit = chars;
 
@@ -67,25 +67,21 @@
                 }
                 return;
             }
+        }
 
-            if (text.Length >= limit)
+        public override void TextInput(string text)
+        {
+            var innerText = typingText.Text;
+
+            if (innerText.Length >= limit)
                 return;
 
-            var @char = GetChar(key);
-
-            if (@char.Length > 1)
-                return;
-
-            if(modifier== KeyModifiers.Shift)
+            if (innerText.StringData.Length == 0)
             {
-                @char = @char.ToUpper();
-            }
-            else
-            {
-                @char = @char.ToLower();
+                text = text.ToUpper();
             }
 
-            text.SetText(text.StringData + @char);
+            innerText.SetText(innerText.StringData + text);
             SetInputTextPosition();
         }
 
@@ -103,6 +99,15 @@
             this.UpdatePath();
         }
 
+        private string GetChar(Key key)
+        {
+            return key.ToString();
+        }
+
+        public string Value => this.typingText.Text.StringData;
+
+        protected override ControlEventType[] Handles => new ControlEventType[] { ControlEventType.Text, ControlEventType.Key };
+
         private class TypingText : TextControl
         {
             public override bool CacheAvailable => false;
@@ -111,12 +116,5 @@
             {
             }
         }
-
-        private string GetChar(Key key)
-        {
-            return key.ToString();
-        }
-
-        public string Value => this.typingText.Text.StringData;
     }
 }

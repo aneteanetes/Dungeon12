@@ -28,6 +28,24 @@
             this.Children.Add(textControl);
         }
 
+        public SmallMetallButtonControl(IDrawText text)
+        {
+            textControl = new TextControl(text);
+
+            var measure = Global.DrawClient.MeasureText(textControl.Text);
+
+            var width = this.Width * 32;
+            var height = this.Height * 32;
+
+            var left = width / 2 - measure.X / 2;
+            var top = height / 2 - measure.Y / 2;
+
+            textControl.Left = left / 32;
+            textControl.Top = top / 32;
+
+            this.Children.Add(textControl);
+        }
+
         public override double Width { get => 4.8125; set { } }
         public override double Height { get => 2.40625; set { } }
 

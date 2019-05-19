@@ -1,18 +1,10 @@
-﻿using System;
-using Rogue.Classes.Noone;
-using Rogue.Control.Keys;
-using Rogue.Drawing;
-using Rogue.Drawing.Controls;
-using Rogue.Drawing.Impl;
-using Rogue.Drawing.SceneObjects;
-using Rogue.Drawing.SceneObjects.Base;
-using Rogue.Drawing.SceneObjects.Dialogs;
-using Rogue.Entites.Alive.Character;
-using Rogue.Scenes.Scenes;
-using Rogue.Types;
-
-namespace Rogue.Scenes.Menus.Creation
+﻿namespace Rogue.Scenes.Menus.Creation
 {
+    using Rogue.Control.Keys;
+    using Rogue.Drawing.SceneObjects;
+    using Rogue.Drawing.SceneObjects.Dialogs;
+    using Rogue.Scenes.Manager;
+
     public class PlayerNameScene : GameScene<PlayerRaceScene,Start>
     {
         public PlayerNameScene(SceneManager sceneManager) : base(sceneManager)

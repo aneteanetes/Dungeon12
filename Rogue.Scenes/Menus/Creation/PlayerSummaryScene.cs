@@ -1,16 +1,15 @@
-﻿using System;
-using Rogue.Control.Keys;
-using Rogue.Drawing.Controls;
-using Rogue.Drawing.Impl;
-using Rogue.Drawing.SceneObjects;
-using Rogue.Drawing.SceneObjects.Base;
-using Rogue.Entites.Alive.Character;
-using Rogue.Scenes.Game;
-using Rogue.Scenes.Scenes;
-using Rogue.Types;
-
-namespace Rogue.Scenes.Menus.Creation
+﻿namespace Rogue.Scenes.Menus.Creation
 {
+    using Rogue.Control.Keys;
+    using Rogue.Drawing.Controls;
+    using Rogue.Drawing.Impl;
+    using Rogue.Drawing.SceneObjects.Base;
+    using Rogue.Entites.Alive.Character;
+    using Rogue.Scenes.Game;
+    using Rogue.Scenes.Manager;
+    using Rogue.Types;
+    using System;
+
     public class PlayerSummaryScene : GameScene<Main,PlayerOriginScene>
     {
         public PlayerSummaryScene(SceneManager sceneManager) : base(sceneManager)

@@ -1,14 +1,16 @@
-﻿namespace Rogue.Scenes.Scenes
+﻿namespace Rogue.Scenes
 {
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
+    using Rogue.Scenes.Manager;
     using Rogue.Settings;
     using Rogue.Types;
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
 
     public abstract class Scene : IScene
     {
@@ -75,6 +77,20 @@
         #endregion
 
         #region scene contollable
+
+        public void OnText(string text)
+        {
+            var textControls = ControlsByHandle(ControlEventType.Text);
+
+            for (int i = 0; i < textControls.Count(); i++)
+            {
+                var textControl = textControls.ElementAtOrDefault(i);
+                if (textControl != null)
+                {
+                    textControl.TextInput(text);
+                }
+            }
+        }
 
         public void OnKeyDown(KeyArgs keyEventArgs)
         {
@@ -259,6 +275,12 @@
         protected virtual void Switch<T>() where T : GameScene
         {
             this.sceneManager.Change<T>();
+        }
+
+        protected void Switch(string sceneClassName)
+        {
+
+            
         }
 
         #endregion

@@ -13,6 +13,7 @@ using Rogue.App.DrawClient;
 using Rogue.App.Visual;
 using Rogue.Resources;
 using Rogue.Scenes;
+using Rogue.Scenes.Manager;
 using Rogue.Scenes.Menus;
 using Rogue.View.Interfaces;
 using SkiaSharp;
@@ -130,6 +131,11 @@ namespace Rogue.App
             }
             
             base.OnKeyDown(e);
+        }
+
+        protected override void OnTextInput(TextInputEventArgs e)
+        {
+            SceneManager.Current.OnText(e.Text);
         }
 
         protected override void OnKeyUp(KeyEventArgs e)

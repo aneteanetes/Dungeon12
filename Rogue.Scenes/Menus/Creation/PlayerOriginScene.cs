@@ -1,17 +1,10 @@
-﻿using System;
-using System.Linq;
-using Rogue.Control.Keys;
-using Rogue.Drawing.Controls;
-using Rogue.Drawing.Impl;
-using Rogue.Drawing.SceneObjects;
-using Rogue.Drawing.SceneObjects.Dialogs;
-using Rogue.Drawing.SceneObjects.UI;
-using Rogue.Races.Perks;
-using Rogue.Scenes.Scenes;
-using Rogue.Types;
-
-namespace Rogue.Scenes.Menus.Creation
+﻿namespace Rogue.Scenes.Menus.Creation
 {
+    using Rogue.Control.Keys;
+    using Rogue.Drawing.SceneObjects;
+    using Rogue.Drawing.SceneObjects.Dialogs;
+    using Rogue.Scenes.Manager;
+
     public class PlayerOriginScene : GameScene<PlayerSummaryScene, PlayerRaceScene>
     {
         public PlayerOriginScene(SceneManager sceneManager) : base(sceneManager)

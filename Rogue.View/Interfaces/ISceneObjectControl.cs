@@ -20,6 +20,8 @@
 
         void MouseWheel(MouseWheelEnum mouseWheel);
 
+        void TextInput(string text);
+
         void GlobalClick(PointerArgs args);
 
         void GlobalClickRelease(PointerArgs args);

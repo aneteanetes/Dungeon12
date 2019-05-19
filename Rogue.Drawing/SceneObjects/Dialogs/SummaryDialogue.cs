@@ -5,12 +5,12 @@
     using Rogue.Drawing.SceneObjects.UI;
     using System;
 
-    public class TypeNameDialogue : VerticalWindow
+    public class SummaryDialogue : VerticalWindow
     {
         private Action<string> yes;
         private TextInputControl textInput;
 
-        public TypeNameDialogue(Action<string> yes, Action no)
+        public SummaryDialogue(Action<string> yes, Action no)
         {
             this.yes= yes;
             var enterName = new DrawText(" Введите имя", new DrawColor(ConsoleColor.White))
@@ -24,13 +24,13 @@
             textInput = new TextInputControl(new DrawText("", new DrawColor(ConsoleColor.White)) { Size = 30 }.Montserrat(), 14);
             textInput.Top = this.Height / 2 - textInput.Height / 2;
             textInput.Left += 0.75;
-           
-            var yesBtn = new SmallMetallButtonControl(new DrawText("◀") { Size = 40 }.Montserrat());
+
+            var yesBtn = new SmallMetallButtonControl("Y");
             yesBtn.Top = this.Top+this.Height - 3;
             yesBtn.Left = 1;
             yesBtn.OnClick = OnYes;
 
-            var noBtn = new SmallMetallButtonControl(new DrawText("▶") { Size = 40 }.Montserrat());
+            var noBtn = new SmallMetallButtonControl("N");
             noBtn.Top = this.Top + this.Height - 3;
             noBtn.Left = this.Left+this.Width-1-noBtn.Width;
             noBtn.OnClick = no;

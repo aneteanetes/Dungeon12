@@ -37,6 +37,7 @@
     <ProjectReference Include="..\Classes\Rogue.Classes.Paladin\Rogue.Classes.Paladin.csproj" />
     <ProjectReference Include="..\Rogue.DataAccess\Rogue.DataAccess.csproj" />
     <ProjectReference Include="..\Rogue.Resources\Rogue.Resources.csproj" />
+    <ProjectReference Include="..\Rogue.Scenes.Manager\Rogue.Scenes.Manager.csproj" />
     <ProjectReference Include="..\Rogue.Scenes\Rogue.Scenes.csproj" />
     <ProjectReference Include="..\Rogue.View\Rogue.View.csproj" />
   </ItemGroup>
