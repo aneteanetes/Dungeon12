@@ -13,6 +13,8 @@
 
         private Action<ImageControl> select;
 
+        public bool FullTile { get; set; }
+
         public TileSelector(Action<ImageControl> select)
         {
             this.select = select;
@@ -29,6 +31,12 @@
 
         public override void Click(PointerArgs args)
         {
+            if (FullTile)
+            {
+                select(new ImageControl(this.Image));
+                return;
+            }
+
             var x = args.X/32 - this.Left;
             var y = args.Y/32 - this.Top;
             

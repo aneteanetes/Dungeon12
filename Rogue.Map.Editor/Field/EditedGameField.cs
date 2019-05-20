@@ -15,6 +15,7 @@
         public override bool CacheAvailable => false;
         private int lvl = 1;
         private bool obstruct = false;
+        private bool fulltile = false;
 
         public EditedGameField()
         {
@@ -43,6 +44,8 @@
 
         public void SetObstruct(bool obstruct) => this.obstruct = obstruct;
 
+        public void SetFullTile(bool fulltile) => this.fulltile = fulltile;
+
         public readonly DesignField Field = new DesignField();
 
         public override void Click(PointerArgs args)
@@ -59,7 +62,7 @@
                 var exists = Field[lvl][x][y];
                 if (exists != null)
                 {
-                    this.RemoveChild(exists.SceneObject);
+                    this.RemoveChild(exists);
                     Field[lvl][x][y] = null;
                 }
                 return;
@@ -69,29 +72,37 @@
 
             if (!canPut)
             {
-                canPut = Field[lvl][x][y].SceneObject.ImageRegion != current.ImageRegion;
+                canPut = Field[lvl][x][y].ImageRegion != current.ImageRegion;
                 if (canPut)
                 {
-                    this.RemoveChild(Field[lvl][x][y].SceneObject);
+                    this.RemoveChild(Field[lvl][x][y]);
                     Field[lvl][x][y] = null;
                 }
             }            
 
             if (current != null && canPut)
             {
-                Field[lvl][x][y] = new DesignCell(new ImageControl(current.Image)
+
+                double height = 1;
+                double width = 1;
+
+                if (fulltile)
+                {
+                    var measure = MeasureImage(current.Image);
+                    width = measure.X;
+                    height = measure.Y;
+                }
+
+                Field[lvl][x][y] = new DesignCell(current.Image,this.obstruct)
                 {
                     ImageRegion = current.ImageRegion,
                     Left = x,
                     Top = y,
-                    Height = 1,
-                    Width = 1,
+                    Height = height,
+                    Width = width,
                     Layer = lvl
-                })
-                {
-                    Obstruction = this.obstruct
                 };
-                this.AddChild(Field[lvl][x][y].SceneObject);
+                this.AddChild(Field[lvl][x][y]);
             }
         }
 

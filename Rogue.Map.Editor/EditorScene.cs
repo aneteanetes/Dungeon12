@@ -28,7 +28,7 @@
                 Left = 20
             };
             this.AddObject(field);
-            this.AddObject(new ToolboxControl(field.Selecting,field.SetLevel,field.SetObstruct));
+            this.AddObject(new ToolboxControl(field.Selecting,field.SetLevel,field.SetObstruct,field.SetFullTile));
 
             this.AddObject(new SaveBtn(field)
             {

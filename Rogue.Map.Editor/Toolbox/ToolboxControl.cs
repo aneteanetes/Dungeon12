@@ -13,7 +13,7 @@
         private TextInputControl textInputControl;
         private TileSelector tileSelector;
 
-        public ToolboxControl(Action<ImageControl> select, Action<int> level, Action<bool> obstruct)
+        public ToolboxControl(Action<ImageControl> select, Action<int> level, Action<bool> obstruct, Action<bool> fullImage)
         {
             this.Height = 23;
             this.Width = 19;
@@ -62,16 +62,23 @@
                 OnChange= obstruct
             });
 
+            this.AddChild(new CheckBox(new DrawText("Не тайл") { Size = 20 }.Montserrat())
+            {
+                Left = 11,
+                Top = 2,
+                OnChange = v =>
+                {
+                    tileSelector.FullTile = v;
+                    fullImage?.Invoke(v);
+                }
+            });
+
             tileSelector = new TileSelector(select)
             {
                 Top = this.textInputControl.Height + 2
             };
             this.AddChild(tileSelector);
-
-            //this.AddChild(new CheckBox(new DrawText(""))
         }
-
-
 
         private void LoadTileset()
         {

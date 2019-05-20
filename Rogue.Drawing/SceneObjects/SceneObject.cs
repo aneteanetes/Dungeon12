@@ -39,6 +39,18 @@
         protected Point MeasureText(IDrawText text) => Global.DrawClient.MeasureText(text);
 
         /// <summary>
+        /// измеряет изображение и возвращает уже в формате координат
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns>relative X/Y</returns>
+        protected Point MeasureImage(string img)
+        {
+            var m = Global.DrawClient.MeasureImage(img);
+
+            return new Point(m.X / 32, m.Y / 32);
+        }
+
+        /// <summary>
         /// Relative
         /// </summary>
         public virtual double Left { get; set; }
@@ -153,5 +165,7 @@
         };
 
         public int Layer { get; set; }
+
+        public bool ForceInvisible { get; set; }
     }
 }

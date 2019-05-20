@@ -386,6 +386,9 @@
         private readonly Dictionary<string, Bitmap> BatchCache = new Dictionary<string, Bitmap>();
         private void DrawSceneObject(DrawingContext ctx, ISceneObject sceneObject, double xParent=0, double yParent=0, bool batching=false, bool force=false)
         {
+            if (force && sceneObject.ForceInvisible)
+                return;
+
             var y = sceneObject.Position.Y * cell + yParent;
             var x = sceneObject.Position.X * cell + xParent;
 

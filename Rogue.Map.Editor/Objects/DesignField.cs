@@ -48,8 +48,8 @@
                         {
                             rp.Add(new RegionPart
                             {
-                                Image = obj.SceneObject.Image,
-                                Region = obj.SceneObject.ImageRegion,
+                                Image = obj.Image,
+                                Region = obj.ImageRegion,
                                 Position = new Types.Point(x, y),
                                 Obstruct = obj.Obstruction,
                                 Layer = lvl + 1
