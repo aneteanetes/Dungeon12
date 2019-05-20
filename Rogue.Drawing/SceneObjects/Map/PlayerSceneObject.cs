@@ -97,6 +97,7 @@
 
             if (NowMoving.Contains(Direction.Up))
             {
+                this.avatar.SceenPosition.Y -= Speed;
                 this.avatar.Location.Y -= Speed;
                 SetAnimation(this.Player.MoveUp);
                 if (!CheckMoveAvailable(Direction.Up))
@@ -105,11 +106,11 @@
                 }
                 else
                 {
-                    this.avatar.SceenPosition.Y -= Speed;
                 }
             }
             if (NowMoving.Contains(Direction.Down))
             {
+                this.avatar.SceenPosition.Y += Speed;
                 this.avatar.Location.Y += Speed;
                 SetAnimation(this.Player.MoveDown);
                 if (!CheckMoveAvailable(Direction.Down))
@@ -118,11 +119,11 @@
                 }
                 else
                 {
-                    this.avatar.SceenPosition.Y += Speed;
                 }
             }
             if (NowMoving.Contains(Direction.Left))
             {
+                this.avatar.SceenPosition.X -= Speed;
                 this.avatar.Location.X -= Speed;
                 SetAnimation(this.Player.MoveLeft);
                 if (!CheckMoveAvailable(Direction.Left))
@@ -131,11 +132,11 @@
                 }
                 else
                 {
-                    this.avatar.SceenPosition.X -= Speed;
                 }
             }
             if (NowMoving.Contains(Direction.Right))
             {
+                this.avatar.SceenPosition.X += Speed;
                 this.avatar.Location.X += Speed;
                 SetAnimation(this.Player.MoveRight);
                 if (!CheckMoveAvailable(Direction.Right))
@@ -144,7 +145,6 @@
                 }
                 else
                 {
-                    this.avatar.SceenPosition.X += Speed;
                 }
             }
         }

@@ -64,35 +64,9 @@ namespace Rogue.Map
                 }
             }
 
-            //if (moveAvailable)
-            //{
-            //    var wasAreas = Map.QueryReference(@object);
-
-            //    if (!wasAreas.SequenceEqual(moveAreas))
-            //    {
-            //        Map.Remove(@object);
-            //        Map.Add(@object);
-            //    }
-            //}
-
             OnMoving(@object,direction, moveAvailable);
 
             return moveAvailable;
-
-
-            //? node.Obstruction : false);
-                       
-            //if (old != null)
-            //{
-            //    var oldArea = Map.Query(old);
-            //    if (oldArea != moveArea)
-            //    {
-            //        moveArea.Nodes.Add(@object);
-            //        oldArea.Nodes.Remove(@object);
-            //    }
-            //}
-
-            //return canMove;
         }
         
         public IEnumerable<Mob> Enemies(MapObject @object)
@@ -140,13 +114,14 @@ namespace Rogue.Map
 
             Size = new PhysicalSize
             {
-                Height = 720,
-                Width = 1280
+                Height = 3200,
+                Width = 3200
             };
             
             Nodes = new List<MapObject>();
 
-            for (int i = 0; i < 10; i++)
+
+            for (int i = 0; i < 2; i++)
             {
                 for (int j = 0; j < 2; j++)
                 {
@@ -154,17 +129,63 @@ namespace Rogue.Map
                     {
                         Size = new PhysicalSize
                         {
-                            Width = 320,
-                            Height = 320
+                            Width = 1600,
+                            Height = 1600
                         },
                         Position = new PhysicalPosition
                         {
-                            Y = j * 320,
-                            X = i * 320
+                            X = i * 1600,
+                            Y = j * 1600
                         }
                     });
                 }
             }
+
+            foreach (var item in this.Nodes)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < 2; j++)
+                    {
+                        item.Nodes.Add(new GameMapContainerObject()
+                        {
+                            Size = new PhysicalSize
+                            {
+                                Width = 800,
+                                Height = 800
+                            },
+                            Position = new PhysicalPosition
+                            {
+                                X = item.Position.X + i * 800,
+                                Y = item.Position.Y + j * 800
+                            }
+                        });
+                    }
+                }
+            }
+
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    for (int j = 0; j < 10; j++)
+            //    {
+            //        var area = new GameMapContainerObject()
+            //        {
+            //            Size = new PhysicalSize
+            //            {
+            //                Width = 320,
+            //                Height = 320
+            //            },
+            //            Position = new PhysicalPosition
+            //            {
+            //                Y = j * 320,
+            //                X = i * 320
+            //            }
+            //        };
+
+
+            //        this.Add(area);
+            //    }
+            //}
 
             //Nodes = Enumerable.Range(0, 8).Select(num => new GameMapContainerObject()
             //{

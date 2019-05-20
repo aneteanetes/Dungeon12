@@ -6,6 +6,7 @@
     using Rogue.DataAccess;
     using Rogue.Map.Objects;
     using Rogue.Physics;
+    using Rogue.Settings;
     using Rogue.Types;
     using System;
     using System.Collections.Generic;
@@ -23,6 +24,16 @@
                 {
                     var wall = MapObject.Create("~");
                     wall.Location = new Point(item.Position.X, item.Position.Y);
+
+                    if (item.Region == null)
+                    {
+                        var measure = Global.DrawClient.MeasureImage(item.Image);
+                        wall.Size = new PhysicalSize
+                        {
+                            Width=measure.X,
+                            Height=measure.Y
+                        };
+                    }
                     this.Map.Add(wall);
                 }
             }

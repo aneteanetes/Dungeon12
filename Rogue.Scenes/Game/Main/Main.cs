@@ -179,22 +179,22 @@
 
                 if (dir == Types.Direction.Right && pos.X > 10)
                 {
-                    obj.SceenPosition.X -= obj.MovementSpeed*2;
+                    obj.SceenPosition.X -= 2;
                     drawClient.MoveCamera(Types.Direction.Right);
                 }
                 if (dir == Types.Direction.Left && pos.X < -7.5)
                 {
-                    obj.SceenPosition.X += obj.MovementSpeed*2;
+                    obj.SceenPosition.X += 2;
                     drawClient.MoveCamera(Types.Direction.Left);
                 }
-                if (dir == Types.Direction.Down && pos.Y > 4)
+                if (dir == Types.Direction.Down && pos.Y > 3)
                 {
-                    obj.SceenPosition.Y -= obj.MovementSpeed*2;
+                    obj.SceenPosition.Y -= 2;
                     drawClient.MoveCamera(Types.Direction.Down);
                 }
                 if (dir == Types.Direction.Up && pos.Y < -6)
                 {
-                    obj.SceenPosition.Y += obj.MovementSpeed*2;
+                    obj.SceenPosition.Y += 2;
                     drawClient.MoveCamera(Types.Direction.Up);
                 }
             }

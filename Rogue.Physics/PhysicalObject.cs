@@ -175,9 +175,21 @@
         {
             physicalObject.Root = this;
 
+            bool end = false;
+
             foreach (var node in this.Query(physicalObject, true))
             {
-                node.Nodes.Add(physicalObject);
+                if (node == this)
+                {
+                    end = true;
+                    break;
+                }
+                node.Add(physicalObject);
+            }
+
+            if (end)
+            {
+                this.Nodes.Add(physicalObject);
             }
         }
 
