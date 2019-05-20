@@ -97,6 +97,8 @@
 
         public virtual bool CameraAffect => false;
 
+        public Point SceenPosition { get; set; }
+
         public virtual double MovementSpeed { get; set; } = 0.04;
 
         public virtual Point VisionMultiple { get; set; }

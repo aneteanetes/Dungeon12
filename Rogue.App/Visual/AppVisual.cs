@@ -45,7 +45,7 @@
 
         public void SetCameraSpeed(double speed) => cameraSpeed = speed;
 
-        private double cameraSpeed = 1.6;
+        private double cameraSpeed = 2.5;
 
         private static float cell = 32;
 

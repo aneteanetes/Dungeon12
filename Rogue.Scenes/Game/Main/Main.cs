@@ -161,8 +161,13 @@
             if (obj.CameraAffect)
             {
                 var drawClient = SceneManager.StaticDrawClient;
-                //drawClient.SetCameraSpeed(obj.MovementSpeed*2);
-                var pos = obj.Position;
+
+                if (obj.SceenPosition == null)
+                {
+                    obj.SceenPosition = new Point(0, 0);
+                }
+
+                var pos = obj.SceenPosition;
 
                 if (dir == Types.Direction.Idle)
                 {
@@ -172,20 +177,24 @@
                     drawClient.MoveCamera(Types.Direction.Up, true);
                 }
 
-                if (dir == Types.Direction.Right && pos.X > 1280 * 0.33 * 2)
+                if (dir == Types.Direction.Right && pos.X > 10)
                 {
+                    obj.SceenPosition.X -= obj.MovementSpeed*2;
                     drawClient.MoveCamera(Types.Direction.Right);
                 }
-                if (dir == Types.Direction.Left && pos.X < 1280 * 0.33)
+                if (dir == Types.Direction.Left && pos.X < -7.5)
                 {
+                    obj.SceenPosition.X += obj.MovementSpeed*2;
                     drawClient.MoveCamera(Types.Direction.Left);
                 }
-                if (dir == Types.Direction.Down && pos.Y > 720 * 0.33 * 2)
+                if (dir == Types.Direction.Down && pos.Y > 4)
                 {
+                    obj.SceenPosition.Y -= obj.MovementSpeed*2;
                     drawClient.MoveCamera(Types.Direction.Down);
                 }
-                if (dir == Types.Direction.Up && pos.Y < 720 * 0.33)
+                if (dir == Types.Direction.Up && pos.Y < -6)
                 {
+                    obj.SceenPosition.Y += obj.MovementSpeed*2;
                     drawClient.MoveCamera(Types.Direction.Up);
                 }
             }

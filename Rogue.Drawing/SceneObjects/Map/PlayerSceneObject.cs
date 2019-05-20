@@ -103,6 +103,10 @@
                 {
                     OnStop();
                 }
+                else
+                {
+                    this.avatar.SceenPosition.Y -= Speed;
+                }
             }
             if (NowMoving.Contains(Direction.Down))
             {
@@ -111,6 +115,10 @@
                 if (!CheckMoveAvailable(Direction.Down))
                 {
                     OnStop();
+                }
+                else
+                {
+                    this.avatar.SceenPosition.Y += Speed;
                 }
             }
             if (NowMoving.Contains(Direction.Left))
@@ -121,6 +129,10 @@
                 {
                     OnStop();
                 }
+                else
+                {
+                    this.avatar.SceenPosition.X -= Speed;
+                }
             }
             if (NowMoving.Contains(Direction.Right))
             {
@@ -129,6 +141,10 @@
                 if (!CheckMoveAvailable(Direction.Right))
                 {
                     OnStop();
+                }
+                else
+                {
+                    this.avatar.SceenPosition.X += Speed;
                 }
             }
         }

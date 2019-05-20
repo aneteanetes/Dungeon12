@@ -54,21 +54,6 @@
 
         protected override MapObject Self => this;
 
-        //public override PhysicalObject Vision
-        //{
-        //    get => new PhysicalObject
-        //    {
-        //        Size = new PhysicalSize
-        //        {
-        //            Height = DrawingSize.Cell + DrawingSize.Cell / 2,
-        //            Width = DrawingSize.Cell + DrawingSize.Cell / 2
-        //        },
-        //        Position = base.Vision.Position
-        //    };
-
-        //    set { }
-        //}
-
         public override void Interact(GameMap gameMap)
         {
         }
