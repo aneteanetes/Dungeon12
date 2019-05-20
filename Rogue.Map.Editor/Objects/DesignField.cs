@@ -3,6 +3,7 @@
     using Newtonsoft.Json;
     using Rogue.Data.Region;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
 
     public class DesignField
@@ -59,7 +60,7 @@
                 }
             }
 
-            var str = JsonConvert.SerializeObject(rp);
+            File.WriteAllText("map.json", JsonConvert.SerializeObject(rp));
 
             return rp;
         }

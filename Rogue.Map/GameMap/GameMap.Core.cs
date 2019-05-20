@@ -143,22 +143,44 @@ namespace Rogue.Map
                 Height = 720,
                 Width = 1280
             };
+            
+            Nodes = new List<MapObject>();
 
-            Nodes = Enumerable.Range(0, 8).Select(num => new GameMapContainerObject()
+            for (int i = 0; i < 10; i++)
             {
-                Size = new PhysicalSize
+                for (int j = 0; j < 2; j++)
                 {
-                    Width = 320,
-                    Height = 352
-                },
-                Position = new PhysicalPosition
-                {
-                    Y = num < 4 ? 0 : 352,
-                    X = num < 4
-                        ? num * 320
-                        : (num - 4) * 320
-                },
-            } as MapObject).ToList();
+                    Nodes.Add(new GameMapContainerObject()
+                    {
+                        Size = new PhysicalSize
+                        {
+                            Width = 320,
+                            Height = 320
+                        },
+                        Position = new PhysicalPosition
+                        {
+                            Y = j * 320,
+                            X = i * 320
+                        }
+                    });
+                }
+            }
+
+            //Nodes = Enumerable.Range(0, 8).Select(num => new GameMapContainerObject()
+            //{
+            //    Size = new PhysicalSize
+            //    {
+            //        Width = 320,
+            //        Height = 352
+            //    },
+            //    Position = new PhysicalPosition
+            //    {
+            //        Y = num < 4 ? 0 : 352,
+            //        X = num < 4
+            //            ? num * 320
+            //            : (num - 4) * 320
+            //    },
+            //} as MapObject).ToList();
         }
 
         protected override bool Containable => true;

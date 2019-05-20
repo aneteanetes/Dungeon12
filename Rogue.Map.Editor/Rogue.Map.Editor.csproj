@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Rogue.Drawing\Rogue.Drawing.csproj" />
+    <ProjectReference Include="..\Rogue.Resources\Rogue.Resources.csproj" />
     <ProjectReference Include="..\Rogue.Scenes.Manager\Rogue.Scenes.Manager.csproj" />
   </ItemGroup>
 

@@ -1,22 +1,35 @@
-﻿using Force.DeepCloner;
-using Rogue.Data.Mobs;
-using Rogue.DataAccess;
-using Rogue.Entites.Enemy;
-using Rogue.Map.Objects;
-using Rogue.Physics;
-using Rogue.Settings;
-using Rogue.Types;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-
-namespace Rogue.Map
+﻿namespace Rogue.Map
 {
+    using Force.DeepCloner;
+    using Rogue.Data.Mobs;
+    using Rogue.Data.Region;
+    using Rogue.DataAccess;
+    using Rogue.Map.Objects;
+    using Rogue.Physics;
+    using Rogue.Types;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public partial class GameMap
     {
+        public string LoadRegion(string name)
+        {
+            var persistRegion = Database.Entity<Region>(e => e.Name == name).First();
+
+            foreach (var item in persistRegion.Objects)
+            {
+                if (item.Obstruct)
+                {
+                    var wall = MapObject.Create("~");
+                    wall.Location = new Point(item.Position.X, item.Position.Y);
+                    this.Map.Add(wall);
+                }
+            }
+
+            return persistRegion.Name;
+        }
+
         public void Load(string identity)
         {
             var persistMap = Database.Entity<Data.Maps.Map>(e => e.Identity == identity).First();
@@ -132,8 +145,8 @@ namespace Rogue.Map
 
         private bool TrySetLocation(Mob mob)
         {
-            var x = Random.Next(3, 32);
-            var y = Random.Next(3, 18);
+            var x = Rogue.Random.Next(3, 32);
+            var y = Rogue.Random.Next(3, 18);
 
             mob.Location = new Point(x, y);
 

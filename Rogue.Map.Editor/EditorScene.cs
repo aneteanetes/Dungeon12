@@ -1,11 +1,13 @@
 ﻿namespace Rogue.Map.Editor
 {
+    using Rogue.Control.Keys;
     using Rogue.Drawing.SceneObjects;
     using Rogue.Map.Editor.Camera;
     using Rogue.Map.Editor.Field;
     using Rogue.Map.Editor.Toolbox;
     using Rogue.Scenes;
     using Rogue.Scenes.Manager;
+    using Rogue.Settings;
 
     public class EditorScene : GameScene
     {
@@ -19,8 +21,12 @@
 
         public override bool Destroyable => false;
 
+        private SaveBtn saveBtn;
+
         public override void Init()
         {
+            Global.DrawClient.SetCameraSpeed(5);
+
             this.AddObject(new Background());
 
             var field = new EditedGameField
@@ -30,10 +36,11 @@
             this.AddObject(field);
             this.AddObject(new ToolboxControl(field.Selecting,field.SetLevel,field.SetObstruct,field.SetFullTile));
 
-            this.AddObject(new SaveBtn(field)
+            saveBtn = new SaveBtn(field)
             {
-                Top=1
-            });
+                Top = 1
+            };
+            this.AddObject(saveBtn);
 
             this.AddObject(new CameraScroller(Types.Direction.Left, "<", Control.Keys.Key.A)
             {
@@ -55,6 +62,17 @@
                 Left = 2,
                 Top = 20.5,
             });
+        }
+
+        protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
+        {
+            if(!hold)
+            {
+                if(keyPressed== Key.S && keyModifiers== KeyModifiers.Control)
+                {
+                    saveBtn.Click(null);
+                }
+            }
         }
     }
 }

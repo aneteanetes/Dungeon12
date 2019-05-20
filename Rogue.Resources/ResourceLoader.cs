@@ -22,8 +22,24 @@ namespace Rogue.Resources
             return stream;
         }
 
+        private static Dictionary<string, Stream> RuntimeCache = new Dictionary<string, Stream>();
+        public static void SaveStream(Stream stream, string image)
+        {
+            RuntimeCache[image] = stream;
+        }
+
         public static Stream Load(string resource, string assemblyName)
         {
+            if (RuntimeCache.ContainsKey(resource))
+            {
+                var ms = RuntimeCache[resource];
+                if (ms.CanSeek)
+                {
+                    ms.Seek(0, SeekOrigin.Begin);
+                }
+                return ms;
+            }
+
             var assembly = GetAssembly(assemblyName);
             var resourceName = resource;
 

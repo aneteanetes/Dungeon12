@@ -142,7 +142,9 @@
                 MapObjectCanAffectCamera(obj, dir, availabe);
             };
 
-            this.Gamemap.Load("Capital");
+            //this.Gamemap.Load("Capital");
+            this.Gamemap.LoadRegion("FaithIsland");
+            this.AddObject(new ImageControl("Rogue.Resources.Images.Regions.FaithIsland.png"));
 
             //перенести туда где location
             this.PlayerAvatar.Location = new Point(20, 11);

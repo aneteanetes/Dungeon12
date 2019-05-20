@@ -1,13 +1,19 @@
 ﻿namespace Rogue.Map.Editor.Field
 {
+    using Newtonsoft.Json;
     using Rogue.Control.Events;
     using Rogue.Control.Pointer;
+    using Rogue.Data.Region;
     using Rogue.Drawing.SceneObjects;
     using Rogue.Drawing.SceneObjects.Base;
     using Rogue.Map.Editor.Objects;
+    using Rogue.Resources;
+    using Rogue.Settings;
     using Rogue.Types;
     using Rogue.View.Interfaces;
     using System;
+    using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
 
     public class EditedGameField : HandleSceneControl
@@ -17,12 +23,14 @@
         private bool obstruct = false;
         private bool fulltile = false;
 
+        private DarkRectangle border;
+
         public EditedGameField()
         {
             this.Width = 100;
             this.Height = 100;
 
-            var border = new DarkRectangle
+            border = new DarkRectangle
             {
                 Fill = false,
                 Color = ConsoleColor.White,
@@ -32,8 +40,10 @@
             border.Top = -0.5;
             border.Width = 100;
             border.Height = 100;
-
+            
             this.AddChild(border);
+
+            LoadFile();
         }
 
         private ImageControl current;
@@ -51,6 +61,9 @@
         public override void Click(PointerArgs args)
         {
             hold = true;
+
+            if (current == null)
+                return;
 
             int x = (int)Math.Truncate((args.X / 32) - (args.Offset.X / 32) - this.Left - (args.Offset.X / 32));
             int y = (int)Math.Truncate((args.Y / 32) - (args.Offset.Y / 32) - this.Top - (args.Offset.Y / 32));
@@ -104,6 +117,64 @@
                 };
                 this.AddChild(Field[lvl][x][y]);
             }
+        }
+
+        public void Save(string save, bool measure = true)
+        {
+            this.Field.Save();
+            this.Children.Clear();
+
+
+            this.AddChild(border);
+            //if (measure)
+            //{
+                var size = MeasureImage(save);
+                this.AddChild(new ImageControl(save)
+                {
+                    Width = size.X,
+                    Height = size.Y,
+                });
+            //}
+            //else
+            //{
+            //    this.AddChild(new ImageControl(save));
+            //}
+        }
+
+        private void LoadFile()
+        {
+            if (!File.Exists("map.json"))
+                return;
+
+            var file = JsonConvert.DeserializeObject<List<RegionPart>>(File.ReadAllText("map.json"));
+            foreach (var item in file)
+            {
+                var lvl = item.Layer;
+                int x = (int)item.Position.X;
+                int y = (int)item.Position.Y;
+
+                try
+                {
+                    Field[lvl][x][y] = new DesignCell(item.Image, item.Obstruct)
+                    {
+                        ImageRegion = item?.Region,
+                        Left = x,
+                        Top = y,
+                        Height = item?.Region.Height ??0,
+                        Width = item?.Region.Width??0,
+                        Layer = lvl
+                    };
+                }
+                catch
+                {
+                    Console.WriteLine();
+                }
+            }
+             
+
+            var ms = new MemoryStream(File.ReadAllBytes("map.png"));
+            ResourceLoader.SaveStream(ms, "map");
+            this.Save($"map",false);
         }
 
         public override Rectangle CropPosition => new Rectangle

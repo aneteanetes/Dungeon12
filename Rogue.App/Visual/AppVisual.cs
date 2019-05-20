@@ -15,6 +15,7 @@
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.IO;
     using System.Linq;
     using System.Timers;
     using Point = Types.Point;
@@ -145,13 +146,20 @@
             DrawFrameInfo(context);
         }
 
-        public void SaveObject(ISceneObject sceneObject, string path, Point offset)
+        public void SaveObject(ISceneObject sceneObject, string path, Point offset, string runtimeName = null)
         {
             var bitmap = new RenderTargetBitmap(new PixelSize((int)sceneObject.CropPosition.Width*32, (int)sceneObject.CropPosition.Height*32));
             if (bitmap is RenderTargetBitmap renderBitmap)
             {
                 var ctxImpl = new DrawingContext(renderBitmap.CreateDrawingContext(null));
                 DrawSceneObject(ctxImpl, sceneObject, offset.X, offset.Y, false,true);
+            }
+
+            if (runtimeName != null)
+            {
+                var ms = new MemoryStream();
+                bitmap.Save(ms);
+                ResourceLoader.SaveStream(ms, runtimeName);
             }
 
             bitmap.Save(path);
@@ -197,7 +205,7 @@
             {
                 var stream = ResourceLoader.Load(tilesetName, tilesetName);
                 bitmap = new Bitmap(stream);
-
+                
                 tilesetsCache.TryAdd(tilesetName, bitmap);
             }
 

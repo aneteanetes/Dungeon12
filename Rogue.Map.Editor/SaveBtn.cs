@@ -12,6 +12,8 @@
         public override bool AbsolutePosition => true;
         private EditedGameField editedGameField;
 
+        private int saves = 0;
+
         public SaveBtn(EditedGameField editedGameField)
         {
             this.editedGameField = editedGameField;
@@ -24,8 +26,9 @@
 
         public override void Click(PointerArgs args)
         {
-            Global.DrawClient.SaveObject(editedGameField, "map.png",new Types.Point(-20*32,0));
-            editedGameField.Field.Save();
+            saves++;
+            Global.DrawClient.SaveObject(editedGameField, "map.png", new Types.Point(-20 * 32, 0), $"designcache{saves}");
+            editedGameField.Save($"designcache{saves}");
         }
     }
 }

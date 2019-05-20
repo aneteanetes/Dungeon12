@@ -564,6 +564,11 @@
             throw new NotImplementedException();
         }
 
+        public void SaveObject(ISceneObject sceneObject, string path, Point offset, string runtimeCacheName = "")
+        {
+            throw new NotImplementedException();
+        }
+
         public static SKTypeface CommonFont
         {
             get

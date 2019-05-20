@@ -22,11 +22,15 @@
 
         public void Load(string tileset)
         {
-            this.Image = tileset;
+            try
+            {
+                var measure = Global.DrawClient.MeasureImage(tileset);
+                this.Width = measure.X / 32;
+                this.Height = measure.Y / 32;
 
-            var measure = Global.DrawClient.MeasureImage(tileset);
-            this.Width = measure.X / 32;
-            this.Height = measure.Y / 32;
+                this.Image = tileset;
+            }
+            catch { }
         }
 
         public override void Click(PointerArgs args)
