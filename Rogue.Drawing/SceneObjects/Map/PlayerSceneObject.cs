@@ -97,7 +97,6 @@
 
             if (NowMoving.Contains(Direction.Up))
             {
-                this.avatar.SceenPosition.Y -= Speed;
                 this.avatar.Location.Y -= Speed;
                 SetAnimation(this.Player.MoveUp);
                 if (!CheckMoveAvailable(Direction.Up))
@@ -110,7 +109,6 @@
             }
             if (NowMoving.Contains(Direction.Down))
             {
-                this.avatar.SceenPosition.Y += Speed;
                 this.avatar.Location.Y += Speed;
                 SetAnimation(this.Player.MoveDown);
                 if (!CheckMoveAvailable(Direction.Down))
@@ -123,7 +121,6 @@
             }
             if (NowMoving.Contains(Direction.Left))
             {
-                this.avatar.SceenPosition.X -= Speed;
                 this.avatar.Location.X -= Speed;
                 SetAnimation(this.Player.MoveLeft);
                 if (!CheckMoveAvailable(Direction.Left))
@@ -136,7 +133,6 @@
             }
             if (NowMoving.Contains(Direction.Right))
             {
-                this.avatar.SceenPosition.X += Speed;
                 this.avatar.Location.X += Speed;
                 SetAnimation(this.Player.MoveRight);
                 if (!CheckMoveAvailable(Direction.Right))
@@ -145,9 +141,12 @@
                 }
                 else
                 {
+                    Console.WriteLine($"moved right {movedRight++}");
                 }
             }
         }
+
+        private static int movedRight = 0;
 
         private bool CheckMoveAvailable(Direction direction)
         {

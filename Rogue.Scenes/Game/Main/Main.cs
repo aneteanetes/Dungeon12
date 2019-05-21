@@ -161,44 +161,68 @@
             if (obj.CameraAffect)
             {
                 var drawClient = SceneManager.StaticDrawClient;
+                if (dir == Direction.Idle)
+                {
+                    drawClient.MoveCamera(Direction.Right, true);
+                    drawClient.MoveCamera(Direction.Left, true);
+                    drawClient.MoveCamera(Direction.Down, true);
+                    drawClient.MoveCamera(Direction.Up, true);
+                }
+
+                if (!availabe)
+                {
+                    drawClient.MoveCamera(dir, true);
+                    return;
+                }
+
+                var spd = obj.MovementSpeed * 64;
+                drawClient.SetCameraSpeed(spd);
 
                 if (obj.SceenPosition == null)
                 {
                     obj.SceenPosition = new Point(0, 0);
                 }
-
                 var pos = obj.SceenPosition;
 
-                if (dir == Types.Direction.Idle)
+                switch (dir)
                 {
-                    drawClient.MoveCamera(Types.Direction.Right, true);
-                    drawClient.MoveCamera(Types.Direction.Left, true);
-                    drawClient.MoveCamera(Types.Direction.Down, true);
-                    drawClient.MoveCamera(Types.Direction.Up, true);
+                    case Direction.Up when (pos.Y > -5):
+                        obj.SceenPosition.Y -= obj.MovementSpeed;
+                        break;
+                    case Direction.Down when pos.Y < 5:
+                        obj.SceenPosition.Y += obj.MovementSpeed;
+                        break;
+                    case Direction.Left when pos.X > -9:
+                        obj.SceenPosition.X -= obj.MovementSpeed;
+                        break;
+                    case Direction.Right when pos.X < 9:
+                        obj.SceenPosition.X += obj.MovementSpeed;
+                        break;
+                    default:
+                        break;
                 }
 
-                if (dir == Types.Direction.Right && pos.X > 10)
+                if (dir == Direction.Right && pos.X > 9)
                 {
-                    obj.SceenPosition.X -= 2;
-                    drawClient.MoveCamera(Types.Direction.Right);
+                    Console.WriteLine($"moved camera {movedRight++}");
+                    drawClient.MoveCamera(Direction.Right);
                 }
-                if (dir == Types.Direction.Left && pos.X < -7.5)
+                if (dir == Direction.Left && pos.X < -9)
                 {
-                    obj.SceenPosition.X += 2;
-                    drawClient.MoveCamera(Types.Direction.Left);
+                    drawClient.MoveCamera(Direction.Left);
                 }
-                if (dir == Types.Direction.Down && pos.Y > 3)
+                if (dir == Direction.Down && pos.Y > 5)
                 {
-                    obj.SceenPosition.Y -= 2;
-                    drawClient.MoveCamera(Types.Direction.Down);
+                    drawClient.MoveCamera(Direction.Down);
                 }
-                if (dir == Types.Direction.Up && pos.Y < -6)
+                if (dir == Direction.Up && pos.Y < -5)
                 {
-                    obj.SceenPosition.Y += 2;
-                    drawClient.MoveCamera(Types.Direction.Up);
+                    drawClient.MoveCamera(Direction.Up);
                 }
             }
         }
+
+        private static int movedRight = 0;
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
