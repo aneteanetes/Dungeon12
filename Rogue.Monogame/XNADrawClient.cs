@@ -61,7 +61,8 @@
             {
                 IsFullScreen = false,
                 PreferredBackBufferWidth = 1280,
-                PreferredBackBufferHeight = 720
+                PreferredBackBufferHeight = 720,
+                SynchronizeWithVerticalRetrace=true
             };
 
             Content.RootDirectory = "Content";
@@ -75,6 +76,7 @@
         protected override void Initialize()
         {
             this.Window.Title = "Dungeon 12";
+            //Window.AllowUserResizing = true;
             Window.TextInput += OnTextInput;
             // TODO: Add your initialization logic here
 
@@ -98,7 +100,7 @@
         {
             UpdateLoop();
 
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed/* || Keyboard.GetState().IsKeyDown(Keys.Escape)*/)
                 Exit();
 
             // TODO: Add your update logic here
@@ -117,44 +119,98 @@
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
-
-            spriteBatch.Begin();
-
+            GraphicsDevice.Clear(Color.White);
+            CalculateCamera();
+            
             Draw(this.scene.Objects);
-            DrawFrameInfo();
 
-            spriteBatch.End();
+            DrawFrameInfo();
 
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }
+        private bool IsStop(double number, double limit) => Math.Abs(number) >= limit;
+
+        private void CalculateCamera()
+        {
+            if (IsStop(CameraOffsetX, CameraOffsetLimitX))
+            {
+                var direction = CameraOffsetX < 0
+                    ? Direction.Right
+                    : Direction.Left;
+                CameraMovings.Remove(direction);
+            }
+
+            if (IsStop(CameraOffsetY, CameraOffsetLimitY))
+            {
+                var direction = CameraOffsetY < 0
+                    ? Direction.Down
+                    : Direction.Up;
+                CameraMovings.Remove(direction);
+            }
+
+            if (CameraMovings.Contains(Direction.Right))
+            {
+                CameraOffsetX -= cameraSpeed;
+            }
+            if (CameraMovings.Contains(Direction.Down))
+            {
+                CameraOffsetY -= cameraSpeed;
+            }
+            if (CameraMovings.Contains(Direction.Left))
+            {
+                CameraOffsetX += cameraSpeed;
+            }
+            if (CameraMovings.Contains(Direction.Up))
+            {
+                CameraOffsetY += cameraSpeed;
+            }
+        }
+
+        private bool needReopen = true;
+        private bool opened = false;
 
         private void Draw(ISceneObject[] sceneObjects)
         {
             foreach (var sceneObject in sceneObjects)
             {
+                if (scene.AbsolutePositionScene || sceneObject.AbsolutePosition)
+                {
+                    if (needReopen)
+                    {
+                        if (opened)
+                        {
+                            spriteBatch.End();
+                        }
+                        spriteBatch.Begin();
+                        opened = true;
+                        needReopen = false;
+                    }
+                }
+                else
+                {
+                    if(!needReopen || !opened)
+                    {
+                        needReopen = true;
+                        if (opened)
+                        {
+                            spriteBatch.End();
+                        }
+                        opened = true;
+                        spriteBatch.Begin(transformMatrix: Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0));
+                    }
+                }
+
                 DrawSceneObject(sceneObject);
             }
 
-            //if (current != null)
-            //{
-            //    for (int i = 0; i < current.Objects.Count(); i++)
-            //    {
-            //        var obj = current.Objects[i];
-            //        if (current.AbsolutePositionScene || obj.AbsolutePosition)
-            //        {
-            //        }
-            //        else
-            //        {
-            //            using (context.PushPostTransform(Matrix.CreateTranslation(CameraOffsetX, CameraOffsetY)))
-            //            {
-            //                DrawSceneObject(context, obj);
-            //            }
-            //        }
-            //    }
-            //}
+            if (opened)
+            {
+                opened = false;
+                needReopen = true;
+                spriteBatch.End();
+            }
         }
 
         #region frameSettings
@@ -173,6 +229,7 @@
         {
             if (frameInfo)
             {
+                spriteBatch.Begin();
                 var nowTs = _st.Elapsed;
                 var now = DateTime.Now;
                 var fpsTimeDiff = (nowTs - _lastFps).TotalSeconds;
@@ -185,9 +242,11 @@
 
                 var text = $"Frame: {_frame}\nFPS: {_fps}\nNow: {now}";
 
-                var font = Content.Load<SpriteFont>("Arial");
+                var font = Content.Load<SpriteFont>("Montserrat");
 
-                spriteBatch.DrawString(font, text, new Vector2(0, 0), Color.White);
+                spriteBatch.DrawString(font, text, new Vector2(1100, 5), Color.White);
+
+                spriteBatch.End();
             }
 
             _frame++;

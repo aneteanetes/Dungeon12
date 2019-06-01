@@ -83,7 +83,7 @@
         {
             keysHolds.Remove(key);
 
-            SceneManager.Current.OnKeyDown(new Control.Keys.KeyArgs
+            SceneManager.Current.OnKeyUp(new Control.Keys.KeyArgs
             {
                 Key = (Key)key,
                 Modifiers = GetModifier()

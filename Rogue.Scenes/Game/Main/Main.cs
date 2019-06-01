@@ -34,7 +34,7 @@
 
         public override void Init()
         {
-            this.AddObject(new ImageControl("Rogue.Resources.Images.d12back.png"));
+            //this.AddObject(new ImageControl("Rogue.Resources.Images.d12back.png"));
 
 
             this.InitMap();

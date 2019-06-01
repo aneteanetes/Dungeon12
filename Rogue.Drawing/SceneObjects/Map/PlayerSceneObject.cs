@@ -141,7 +141,6 @@
                 }
                 else
                 {
-                    Console.WriteLine($"moved right {movedRight++}");
                 }
             }
         }
