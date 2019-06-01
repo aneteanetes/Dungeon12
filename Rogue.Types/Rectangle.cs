@@ -17,13 +17,25 @@ namespace Rogue.Types
             Height = height;
         }
 
+        public Rectangle(double x, double y, double width, double height)
+        {
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
+        }
+
         public double X { get; set; }
 
         public float Xf => (float)X;
 
+        public int Xi => (int)X;
+
         public double Y { get; set; }
 
         public float Yf => (float)Y;
+
+        public int Yi => (int)Y;
 
         public double Width { get; set; }
 
@@ -32,6 +44,10 @@ namespace Rogue.Types
         public float Heightf => (float)Height;
 
         public float Widthf => (float)Width;
+
+        public int Heighti => (int)Height;
+
+        public int Widthi => (int)Width;
 
         public float xMax => Xf+ Widthf;
 

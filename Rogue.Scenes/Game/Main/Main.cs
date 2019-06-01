@@ -204,7 +204,6 @@
 
                 if (dir == Direction.Right && pos.X > 9)
                 {
-                    Console.WriteLine($"moved camera {movedRight++}");
                     drawClient.MoveCamera(Direction.Right);
                 }
                 if (dir == Direction.Left && pos.X < -9)

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Resources", "Rogue.Resources\Rogue.Resources.csproj", "{BE736DC9-C2B3-4C28-90BB-AF25F2188411}"
 EndProject
@@ -75,9 +75,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Physics", "Rogue.Phys
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Classes.Noone", "Rogue.Classes.Noone\Rogue.Classes.Noone.csproj", "{73F0D337-7CD2-4344-8320-5852C861D25E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Map.Editor", "Rogue.Map.Editor\Rogue.Map.Editor.csproj", "{7309B4A1-7FDA-4E10-93E2-F1E04AA5853E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Map.Editor", "Rogue.Map.Editor\Rogue.Map.Editor.csproj", "{7309B4A1-7FDA-4E10-93E2-F1E04AA5853E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Scenes.Manager", "Rogue.Scenes.Manager\Rogue.Scenes.Manager.csproj", "{5432E44A-A685-4BF4-BCDE-A40834503BDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Scenes.Manager", "Rogue.Scenes.Manager\Rogue.Scenes.Manager.csproj", "{5432E44A-A685-4BF4-BCDE-A40834503BDC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Monogame", "Rogue.Monogame\Rogue.Monogame.csproj", "{D0C69787-09F0-4AF7-B90F-69D8898C5B10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -373,6 +375,14 @@ Global
 		{5432E44A-A685-4BF4-BCDE-A40834503BDC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5432E44A-A685-4BF4-BCDE-A40834503BDC}.Release|x86.ActiveCfg = Release|Any CPU
 		{5432E44A-A685-4BF4-BCDE-A40834503BDC}.Release|x86.Build.0 = Release|Any CPU
+		{D0C69787-09F0-4AF7-B90F-69D8898C5B10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0C69787-09F0-4AF7-B90F-69D8898C5B10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0C69787-09F0-4AF7-B90F-69D8898C5B10}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D0C69787-09F0-4AF7-B90F-69D8898C5B10}.Debug|x86.Build.0 = Debug|Any CPU
+		{D0C69787-09F0-4AF7-B90F-69D8898C5B10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0C69787-09F0-4AF7-B90F-69D8898C5B10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0C69787-09F0-4AF7-B90F-69D8898C5B10}.Release|x86.ActiveCfg = Release|Any CPU
+		{D0C69787-09F0-4AF7-B90F-69D8898C5B10}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

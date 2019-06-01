@@ -3,7 +3,7 @@
     //
     // Summary:
     //     Defines the keys available on a keyboard.
-    public enum Key
+    public enum KeyAvalonia
     {
         //
         // Summary:
