@@ -119,7 +119,7 @@
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.White);
+            GraphicsDevice.Clear(Color.Black);
             CalculateCamera();
             
             Draw(this.scene.Objects);
@@ -420,7 +420,11 @@
                 }
             }
 
-            spriteBatch.Draw(image, new Vector2(pos.Xf, pos.Yf),
+            #warning Вот здесь теперь всё хорошо,но это место можно использовать для того что бы заоптимизировать преобразование размеров, т.к. масштабирование текстур происходит тут
+
+            var dest = new Microsoft.Xna.Framework.Rectangle(pos.Xi, pos.Yi, pos.Widthi, pos.Heighti);
+
+            spriteBatch.Draw(image, dest,
                 new Microsoft.Xna.Framework.Rectangle(tileRegion.Xi, tileRegion.Yi,
                     tileRegion.Widthi, tileRegion.Heighti),
                 Color.White);

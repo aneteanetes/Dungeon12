@@ -38,6 +38,8 @@
                 }
             }
 
+            SpawnEnemies(20);
+
             return persistRegion.Name;
         }
 

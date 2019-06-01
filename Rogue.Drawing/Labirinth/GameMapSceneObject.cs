@@ -45,73 +45,73 @@ namespace Rogue.Drawing.Labirinth
 
         public void Init()
         {
-            //this.Children.Clear();
+            this.Children.Clear();
 
-            //List<ISceneObject> newSceneObjects = new List<ISceneObject>();
+            List<ISceneObject> newSceneObjects = new List<ISceneObject>();
 
-            //for (int y = 0; y < gamemap.MapOld.Count; y++)
-            //{
-            //    var line = gamemap.MapOld[y];
-            //    for (int x = 0; x < line.Count; x++)
-            //    {
-            //        MapObject[] cell = line[x].ToArray();
-            //        var pos = new Point { X = x, Y = y };
+            for (int y = 0; y < gamemap.MapOld.Count; y++)
+            {
+                var line = gamemap.MapOld[y];
+                for (int x = 0; x < line.Count; x++)
+                {
+                    MapObject[] cell = line[x].ToArray();
+                    var pos = new Point { X = x, Y = y };
 
-            //        if (cell[0].Icon == "#")
-            //        {
-            //            AddWall(pos);
-            //            cell = cell.Skip(1).ToArray();
-            //        }
-            //        else if (cell[0].Icon==">")
-            //        {
-            //            var portal = new Portal
-            //            {
-            //                Location = new Point(x, y)
-            //            };
-            //            portal.Region = new Rectangle
-            //            {
-            //                Height = 32,
-            //                Width = 32,
-            //                Pos = portal.Location
-            //            };
-            //            var portalSceneObject = new StandaloneSceneObject(portal, (frameCounter, animMap) =>
-            //            {
+                    if (cell[0].Icon == "#")
+                    {
+                        AddWall(pos);
+                        cell = cell.Skip(1).ToArray();
+                    }
+                    else if (cell[0].Icon == ">")
+                    {
+                        var portal = new Portal
+                        {
+                            Location = new Point(x, y)
+                        };
+                        portal.Region = new Rectangle
+                        {
+                            Height = 32,
+                            Width = 32,
+                            Pos = portal.Location
+                        };
+                        var portalSceneObject = new StandaloneSceneObject(portal, (frameCounter, animMap) =>
+                        {
 
-            //                return frameCounter % (180 / animMap.Frames.Count) == 0;
-            //            })
-            //            {
-            //                Left = portal.Location.X,
-            //                Top = portal.Location.Y,
-            //                Width = 1,
-            //                Height = 1
-            //            };
+                            return frameCounter % (180 / animMap.Frames.Count) == 0;
+                        })
+                        {
+                            Left = portal.Location.X,
+                            Top = portal.Location.Y,
+                            Width = 1,
+                            Height = 1
+                        };
 
-            //            newSceneObjects.Add(portalSceneObject);
-            //            gamemap.Map.Add(portal);
+                        newSceneObjects.Add(portalSceneObject);
+                        gamemap.Map.Add(portal);
 
-            //            var first = cell[0];
+                        var first = cell[0];
 
-            //            cell = new MapObject[]
-            //            {
-            //                new Empty()
-            //                {
-            //                    Location = first.Location,
-            //                    Region = first.Region
-            //                }
-            //            };
-            //        }
+                        cell = new MapObject[]
+                        {
+                            new Empty()
+                            {
+                                Location = first.Location,
+                                Region = first.Region
+                            }
+                        };
+                    }
 
-            //        AddObject(cell, pos);
-            //    }
-            //}
+                    AddObject(cell, pos);
+                }
+            }
 
             Height = 0.1;// gamemap.MapOld.Count;
             Width = 0.1; //gamemap.MapOld.First().Count;
 
-            //newSceneObjects.AddRange(AddMobs(gamemap.Objects));
+            newSceneObjects.AddRange(AddMobs(gamemap.Objects));
 
-            //OnReload(this.currentAdditionalObjects, newSceneObjects);
-            //currentAdditionalObjects = newSceneObjects;
+            OnReload(this.currentAdditionalObjects, newSceneObjects);
+            currentAdditionalObjects = newSceneObjects;
         }
 
         private IEnumerable<ISceneObject> AddMobs(HashSet<MapObject> mapObjects)

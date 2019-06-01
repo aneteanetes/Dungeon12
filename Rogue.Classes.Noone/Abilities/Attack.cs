@@ -9,6 +9,7 @@
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class Attack : Ability<Noone>
     {
@@ -24,6 +25,8 @@
 
         protected override void Use(GameMap gameMap, Avatar avatar, Noone @class)
         {
+            Console.WriteLine("use attack");
+
             @class.Actions -= 1;
 
             var rangeObject = new MapObject

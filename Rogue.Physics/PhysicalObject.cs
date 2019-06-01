@@ -138,34 +138,30 @@
         {
             List<T> nodes = new List<T>();
 
-            if (physicalObject.Nodes.Contains(physicalObject))
+            if (this.Nodes.Count == 0)
             {
-                if (this.Nodes.Count == 0)
-                {
-                    nodes.Add(Self);
-                }
-                else
-                {
-                    foreach (var node in Nodes)
-                    {
-                        if (!node.Containable)
-                        {
-                            continue;
-                        }
+                return nodes;
+            }
 
-                        var queryDeepNode = node.Query(physicalObject, true);
-                        if (queryDeepNode.Count > 0)
-                        {
-                            nodes.AddRange(queryDeepNode);
-                        }
+            if (!this.Nodes.Contains(physicalObject))
+            {
+                foreach (var node in Nodes)
+                {
+                    if (!node.Containable)
+                    {
+                        continue;
+                    }
+
+                    var queryDeepNode = node.QueryReference(physicalObject);
+                    if (queryDeepNode.Count > 0)
+                    {
+                        nodes.AddRange(queryDeepNode);
                     }
                 }
-
-                //this is backward direction
-                if (nodes.Count == 0)
-                {
-                    nodes.Add(Self);
-                }
+            }
+            else
+            {
+                nodes.Add(Self);
             }
 
             return nodes;
@@ -192,7 +188,7 @@
                 this.Nodes.Add(physicalObject);
             }
         }
-
+        
         /// <summary>
         /// Удаляет по ссылке в верхних нодах
         /// </summary>
@@ -200,13 +196,19 @@
         /// <returns></returns>
         public bool Remove(T physicalObject)
         {
-            foreach (var nodeInRoot in this.Nodes)
+            var areas = QueryReference(physicalObject);
+            foreach (var area in areas)
             {
-                if (nodeInRoot.Nodes.Contains(physicalObject))
-                {
-                    nodeInRoot.Nodes.Remove(physicalObject);
-                }
+                area.Nodes.Remove(physicalObject);
             }
+
+            //foreach (var nodeInRoot in this.Nodes)
+            //{
+            //    if (nodeInRoot.Nodes.Contains(physicalObject))
+            //    {
+            //        nodeInRoot.Nodes.Remove(physicalObject);
+            //    }
+            //}
 
             return true;
         }
