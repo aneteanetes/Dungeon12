@@ -574,6 +574,11 @@
             throw new NotImplementedException();
         }
 
+        public void StopMoveCamera()
+        {
+            throw new NotImplementedException();
+        }
+
         public static SKTypeface CommonFont
         {
             get

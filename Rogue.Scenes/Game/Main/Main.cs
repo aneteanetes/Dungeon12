@@ -45,11 +45,10 @@
                 Left = PlayerPosition.X,
                 Top = PlayerPosition.Y
             };
-            player.OnStop = () =>
+            player.OnStop = (dir) =>
             {
-                MapObjectCanAffectCamera(this.PlayerAvatar, Types.Direction.Idle, false);
+                MapObjectCanAffectCamera(this.PlayerAvatar, dir, false);
             };
-
 
             List<ISceneObject> temp = new List<ISceneObject>();
 
@@ -193,13 +192,6 @@
             if (obj.CameraAffect)
             {
                 var drawClient = SceneManager.StaticDrawClient;
-                if (dir == Direction.Idle)
-                {
-                    drawClient.MoveCamera(Direction.Right, true);
-                    drawClient.MoveCamera(Direction.Left, true);
-                    drawClient.MoveCamera(Direction.Down, true);
-                    drawClient.MoveCamera(Direction.Up, true);
-                }
 
                 if (!availabe)
                 {

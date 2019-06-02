@@ -19,7 +19,7 @@
         private readonly Action<ISceneObject> destroyBinding;
         private readonly Action<ISceneObject> publishBinding;
 
-        public Action OnStop;
+        public Action<Direction> OnStop;
         public Action OnStart;
 
         public PlayerSceneObject(Rogue.Map.Objects.Avatar player, GameMap location, Action<ISceneObject> destroyBinding, Action<ISceneObject> publishBinding)
@@ -101,7 +101,7 @@
                 SetAnimation(this.Player.MoveUp);
                 if (!CheckMoveAvailable(Direction.Up))
                 {
-                    OnStop();
+                    OnStop(Direction.Up);
                 }
                 else
                 {
@@ -113,7 +113,7 @@
                 SetAnimation(this.Player.MoveDown);
                 if (!CheckMoveAvailable(Direction.Down))
                 {
-                    OnStop();
+                    OnStop(Direction.Down);
                 }
                 else
                 {
@@ -125,7 +125,7 @@
                 SetAnimation(this.Player.MoveLeft);
                 if (!CheckMoveAvailable(Direction.Left))
                 {
-                    OnStop();
+                    OnStop(Direction.Left);
                 }
                 else
                 {
@@ -137,7 +137,7 @@
                 SetAnimation(this.Player.MoveRight);
                 if (!CheckMoveAvailable(Direction.Right))
                 {
-                    OnStop();
+                    OnStop(Direction.Right);
                 }
                 else
                 {
@@ -165,14 +165,55 @@
 
         private HashSet<Direction> NowMoving = new HashSet<Direction>();
 
+
+        private HashSet<Direction> OppositeDirections = new HashSet<Direction>();
+
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
             switch (key)
             {
-                case Key.D: NowMoving.Add(Direction.Right); break;
-                case Key.A: NowMoving.Add(Direction.Left); break;
-                case Key.W: NowMoving.Add(Direction.Up); break;
-                case Key.S: NowMoving.Add(Direction.Down); break;
+                case Key.D:
+                    {
+                        if (!NowMoving.Contains(Direction.Left))
+                        {
+                            NowMoving.Add(Direction.Right);
+                        }
+                        else
+                        {
+                            OppositeDirections.Add(Direction.Right);
+                        }
+                        break;
+                    }
+                case Key.A:
+                    if (!NowMoving.Contains(Direction.Right))
+                    {
+                        NowMoving.Add(Direction.Left);
+                    }
+                    else
+                    {
+                        OppositeDirections.Add(Direction.Left);
+                    }
+                    break;
+                case Key.W:
+                    if (!NowMoving.Contains(Direction.Down))
+                    {
+                        NowMoving.Add(Direction.Up);
+                    }
+                    else
+                    {
+                        OppositeDirections.Add(Direction.Up);
+                    }
+                    break;
+                case Key.S:
+                    if (!NowMoving.Contains(Direction.Up))
+                    {
+                        NowMoving.Add(Direction.Down);
+                    }
+                    else
+                    {
+                        OppositeDirections.Add(Direction.Down);
+                    }
+                    break;
                 default: break;
             }
         }
@@ -182,17 +223,69 @@
             switch (key)
             {
                 case Key.D:
-                    NowMoving.Remove(Direction.Right);
-                    OnStop(); break;
+                    {
+                        if (OppositeDirections.Contains(Direction.Right))
+                        {
+                            OppositeDirections.Remove(Direction.Right);
+                        }
+
+                        NowMoving.Remove(Direction.Right);
+                        OnStop(Direction.Right);
+                        if (OppositeDirections.Contains(Direction.Left))
+                        {
+                            OppositeDirections.Remove(Direction.Left);
+                            NowMoving.Add(Direction.Left);
+                        }
+                    }
+                    break;
                 case Key.A:
-                    NowMoving.Remove(Direction.Left);
-                    OnStop(); break;
+                    {
+                        if (OppositeDirections.Contains(Direction.Left))
+                        {
+                            OppositeDirections.Remove(Direction.Left);
+                        }
+
+                        NowMoving.Remove(Direction.Left);
+                        OnStop(Direction.Left);
+                        if (OppositeDirections.Contains(Direction.Right))
+                        {
+                            OppositeDirections.Remove(Direction.Right);
+                            NowMoving.Add(Direction.Right);
+                        }
+                    }
+                    break;
                 case Key.W:
-                    NowMoving.Remove(Direction.Up);
-                    OnStop(); break;
+                    {
+                        if (OppositeDirections.Contains(Direction.Up))
+                        {
+                            OppositeDirections.Remove(Direction.Up);
+                        }
+
+                        NowMoving.Remove(Direction.Up);
+                        OnStop(Direction.Up);
+                        if (OppositeDirections.Contains(Direction.Down))
+                        {
+                            OppositeDirections.Remove(Direction.Down);
+                            NowMoving.Add(Direction.Down);
+                        }
+                    }
+                    break;
                 case Key.S:
-                    NowMoving.Remove(Direction.Down);
-                    OnStop(); break;
+                    {
+                        if (OppositeDirections.Contains(Direction.Down))
+                        {
+                            OppositeDirections.Remove(Direction.Down);
+                        }
+
+                        NowMoving.Remove(Direction.Down);
+                        OnStop(Direction.Down);
+                        if (OppositeDirections.Contains(Direction.Up))
+                        {
+                            OppositeDirections.Remove(Direction.Up);
+                            NowMoving.Add(Direction.Up);
+                        }
+                    }
+                    break;
                 default: break;
             }
         }

@@ -83,5 +83,10 @@
                 CameraOffsetY += cameraSpeed;
             }
         }
+               
+        public void StopMoveCamera()
+        {
+            this.CameraMovings.Clear();
+        }
     }
 }

@@ -6,6 +6,8 @@
     {
         void MoveCamera(Direction direction, bool stop = false);
 
+        void StopMoveCamera();
+
         void SetCamera(double x, double y);
 
         void ResetCamera();

@@ -627,5 +627,10 @@
         {
             throw new NotImplementedException();
         }
+
+        public void StopMoveCamera()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
