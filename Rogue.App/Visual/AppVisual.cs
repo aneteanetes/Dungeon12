@@ -622,5 +622,10 @@
                 Y = img.PixelSize.Height
             };
         }
+
+        public void SetCamera(double x, double y)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

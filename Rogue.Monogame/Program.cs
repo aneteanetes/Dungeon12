@@ -4,7 +4,7 @@ namespace Rogue.Monogame
 {
     public static class Program
     {
-        private static bool CompileDatabase => true;
+        private static bool CompileDatabase => false;
 
         [STAThread]
         static void Main()

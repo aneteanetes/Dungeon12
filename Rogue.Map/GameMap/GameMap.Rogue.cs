@@ -38,7 +38,7 @@
                 }
             }
 
-            SpawnEnemies(20);
+            //SpawnEnemies(20);
 
             return persistRegion.Name;
         }

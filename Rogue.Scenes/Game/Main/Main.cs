@@ -19,7 +19,7 @@
 
     public class Main : GameScene<Start, Main,End>
     {
-        private readonly Point PlayerPosition = new Point { X = 27, Y = 8 };
+        private readonly Point PlayerPosition = new Point { X = 42, Y = 45 };
 
         private readonly DrawingSize DrawingSize = new DrawingSize();
 
@@ -42,8 +42,8 @@
 
             var player = new PlayerSceneObject(this.PlayerAvatar, this.Gamemap, (obj) => this.RemoveObject(obj), (obj) => this.AddObject(obj))
             {
-                Left = 20,
-                Top = 11
+                Left = PlayerPosition.X,
+                Top = PlayerPosition.Y
             };
             player.OnStop = () =>
             {
@@ -142,12 +142,44 @@
                 MapObjectCanAffectCamera(obj, dir, availabe);
             };
 
-            //this.Gamemap.Load("Capital");
             this.Gamemap.LoadRegion("FaithIsland");
             this.AddObject(new ImageControl("Rogue.Resources.Images.Regions.FaithIsland.png"));
 
+
+            //width = 40
+            //height = 22.5
+
+            var playerPos = PlayerPosition;
+
             //перенести туда где location
-            this.PlayerAvatar.Location = new Point(20, 11);
+            this.PlayerAvatar.Location = playerPos;
+
+            double xOffset = 0;
+            double yOffset = 0;
+
+            if (playerPos.X > 29)
+            {
+                xOffset -= playerPos.X - 20;
+            }
+            if (playerPos.X < 11)
+            {
+                xOffset += playerPos.X - 20;
+            }
+            if (playerPos.Y > 16.25)
+            {
+                yOffset -= playerPos.Y - 11.25;
+            }
+            if (playerPos.Y < 6.25)
+            {
+                yOffset += playerPos.Y - 11.25;
+            }
+
+            SceneManager.StaticDrawClient.SetCamera(xOffset*32, yOffset*32);
+
+
+            var drawClient = SceneManager.StaticDrawClient;
+            //drawClient.off
+
             this.PlayerAvatar.Region = new Rectangle
             {
                 Height = 32,
@@ -220,111 +252,11 @@
                 }
             }
         }
-
-        private static int movedRight = 0;
-
+        
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
-
-            if(keyPressed== Key.L)
-            {
-                this.PlayerAvatar.Character.Level++;
-            }
-
-            if (keyPressed==Key.B)
-            {
-                this.PlayerAvatar.Character.HitPoints -= 1;
-            }
-
-            if (keyPressed == Key.Home)
-            {
-                var drawClient = SceneManager.StaticDrawClient;
-                drawClient.ResetCamera();
-            }
-
-            if (keyPressed == Key.I)
-            {
-                this.Gamemap.Level += 1;
-            }
-
             if (keyPressed == Key.Escape)
                 this.Switch<Start>();
-
-#if DEBUG
-            if (keyPressed == Key.U)
-                drawMode = true;
-
-            if (drawMode)
-            {
-                if (keyPressed == Key.W)
-                {
-                    this.drawChar = "#";
-                }
-
-                if (keyPressed == Key.F)
-                {
-                    this.drawChar = ".";
-                }
-
-                if (keyPressed == Key.E)
-                {
-                    var export = string.Empty;
-                    foreach (var line in this.Gamemap.MapOld)
-                    {
-                        foreach (var @char in line)
-                        {
-                            export += @char.First().Icon;
-                        }
-                        export += Environment.NewLine;
-                    }
-                    Debugger.Break();
-                }
-            }
-#endif
         }
-
-
-#if DEBUG
-        private bool drawMode = false;
-        private string drawChar = ".";
-#endif
-
-        //        protected override void MousePress(PointerArgs pointerPressedEventArgs)
-        //        {
-        //#if DEBUG
-        //            if (drawMode)
-        //            {
-        //                var trulyX = pointerPressedEventArgs.X - 20.125;
-        //                var trulyY = pointerPressedEventArgs.Y - 27;
-
-        //                int x = (int)Math.Round(trulyX / 25, MidpointRounding.ToEven);
-        //                int y = (int)Math.Round(trulyY / 25, MidpointRounding.ToEven);
-
-        //                this.Location.Map[y][x].RemoveAt(0);
-        //                this.Location.Map[y][x].Insert(0, MapObject.Create(drawChar));
-
-        //                this.Draw();
-        //                this.Redraw();
-        //            }
-        //#endif
-        //        }
-
-        //        public override void SceneLoop()
-        //        {
-        //            var objs = this.Location.Map
-        //                .SelectMany(y => y.SelectMany(x => x))
-        //                .Where(mapObj => mapObj.Animated)
-        //                .ToArray();
-
-        //            foreach (var animatedObj in objs)
-        //            {
-        //                Drawing.Draw.Animation<MapAnimationSession>(x =>
-        //                {
-        //                    x.MapObject = animatedObj;
-        //                });
-        //            }
-
-        //            base.SceneLoop();
-        //        }
     }
 }

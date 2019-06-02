@@ -569,6 +569,11 @@
             throw new NotImplementedException();
         }
 
+        public void SetCamera(double x, double y)
+        {
+            throw new NotImplementedException();
+        }
+
         public static SKTypeface CommonFont
         {
             get
