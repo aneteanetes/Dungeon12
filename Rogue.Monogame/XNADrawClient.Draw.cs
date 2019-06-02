@@ -313,7 +313,7 @@
             {
                 if (string.IsNullOrEmpty(range.FontPath))
                 {
-                    spriteFont = Content.Load<SpriteFont>(range.FontName + range.Size);
+                    spriteFont = Content.Load<SpriteFont>($"{range.FontName}/{range.FontName}{range.Size}");
                     //typeface = new Typeface(range.FontName, weight: fontWeight);
                 }
                 else

@@ -1,5 +1,28 @@
 ﻿{
   "Name": "FaithIsland",
+  "NPCs":[
+	{
+		"IdentifyName":"ServantOfFaith",
+		"Position":{
+			"X":45,
+			"Y":45
+		}
+	},
+	{
+		"IdentifyName":"ServantOfFaith",
+		"Position":{
+			"X":38,
+			"Y":45
+		}
+	},
+	{
+		"IdentifyName":"ServantOfFaith",
+		"Position":{
+			"X":41,
+			"Y":51
+		}
+	}
+  ],
   "Objects": [
     {
       "Image": "Rogue.Resources.Images.Tiles.water.png",

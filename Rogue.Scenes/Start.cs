@@ -44,7 +44,7 @@
                     {
                         Character = new Rogue.Classes.Noone.Noone()
                     };
-                    this.PlayerAvatar.Character.Name = "Adventurer";
+                    this.PlayerAvatar.Character.Name = "Ваш персонаж";
                     this.PlayerAvatar.Character.Race = Race.Elf;
                     this.PlayerAvatar.Character.Add<RacePerk>();
 

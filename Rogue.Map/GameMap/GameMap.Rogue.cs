@@ -2,6 +2,7 @@
 {
     using Force.DeepCloner;
     using Rogue.Data.Mobs;
+    using Rogue.Data.Npcs;
     using Rogue.Data.Region;
     using Rogue.DataAccess;
     using Rogue.Map.Objects;
@@ -38,7 +39,33 @@
                 }
             }
 
-            //SpawnEnemies(20);
+            foreach (var npc in persistRegion.NPCs)
+            {
+                var data = Database.Entity<NPCData>(x => x.IdentifyName == npc.IdentifyName).FirstOrDefault();
+
+                var mapNpc = new NPC()
+                {
+                    NPCEntity = data.NPC.DeepClone(),
+                    Tileset = data.Tileset,
+                    TileSetRegion = data.TileSetRegion,
+                    Name = data.Name,
+                    Size = new PhysicalSize()
+                    {
+                        Width = data.Size.X * 32,
+                        Height = data.Size.Y * 32
+                    },
+                    MovementSpeed = data.MovementSpeed,
+                    Location=npc.Position
+                };
+
+                mapNpc.Die += () =>
+                {
+                    this.Map.Remove(mapNpc);
+                };
+
+                this.Map.Add(mapNpc);
+                this.Objects.Add(mapNpc);
+            }
 
             return persistRegion.Name;
         }

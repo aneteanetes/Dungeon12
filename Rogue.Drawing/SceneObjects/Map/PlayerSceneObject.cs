@@ -1,6 +1,7 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Map
 {
     using Rogue.Control.Keys;
+    using Rogue.Drawing.GUI;
     using Rogue.Drawing.SceneObjects.Gameplay;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Entites.Alive.Character;
@@ -103,8 +104,10 @@
                 {
                     OnStop(Direction.Up);
                 }
-                else
+                else if (this.aliveTooltip != null)
                 {
+                    this.aliveTooltip.Left = this.Position.X;
+                    this.aliveTooltip.Top = this.Position.Y - 0.8;
                 }
             }
             if (NowMoving.Contains(Direction.Down))
@@ -115,8 +118,10 @@
                 {
                     OnStop(Direction.Down);
                 }
-                else
+                else if (this.aliveTooltip != null)
                 {
+                    this.aliveTooltip.Left = this.Position.X;
+                    this.aliveTooltip.Top = this.Position.Y - 0.8;
                 }
             }
             if (NowMoving.Contains(Direction.Left))
@@ -127,8 +132,10 @@
                 {
                     OnStop(Direction.Left);
                 }
-                else
+                else if (this.aliveTooltip != null)
                 {
+                    this.aliveTooltip.Left = this.Position.X;
+                    this.aliveTooltip.Top = this.Position.Y - 0.8;
                 }
             }
             if (NowMoving.Contains(Direction.Right))
@@ -139,8 +146,10 @@
                 {
                     OnStop(Direction.Right);
                 }
-                else
+                else if (this.aliveTooltip != null)
                 {
+                    this.aliveTooltip.Left = this.Position.X;
+                    this.aliveTooltip.Top = this.Position.Y - 0.8;
                 }
             }
         }
@@ -297,5 +306,20 @@
             Key.W,
             Key.S,
         };
+
+        private Tooltip aliveTooltip = null;
+
+        public override void Focus()
+        {
+            aliveTooltip = new Tooltip(this.Player.Name, new Point(this.Position.X, this.Position.Y - 0.8));            
+            this.publishBinding(aliveTooltip);
+        }
+
+        public override void Unfocus()
+        {
+            this.destroyBinding(aliveTooltip);
+            aliveTooltip.Destroy?.Invoke();
+            aliveTooltip = null;
+        }
     }
 }

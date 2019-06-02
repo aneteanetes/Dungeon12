@@ -108,16 +108,39 @@ namespace Rogue.Drawing.Labirinth
             Height = 0.1;// gamemap.MapOld.Count;
             Width = 0.1; //gamemap.MapOld.First().Count;
 
-            newSceneObjects.AddRange(AddMobs(gamemap.Objects));
+            newSceneObjects.AddRange(AddAsSceneObjects(gamemap.Objects));
 
             OnReload(this.currentAdditionalObjects, newSceneObjects);
             currentAdditionalObjects = newSceneObjects;
         }
 
-        private IEnumerable<ISceneObject> AddMobs(HashSet<MapObject> mapObjects)
+        private IEnumerable<ISceneObject> AddAsSceneObjects(HashSet<MapObject> mapObjects)
         {
-            var mobs = mapObjects.Where(x => typeof(Mob).IsAssignableFrom(x.GetType())).Select(x => x as Mob); //ПЕРЕПИСАТЬ НАХУЙ
-            return mobs.Select(mob => new EnemySceneObject(this.gamemap,mob, mob.TileSetRegion));
+            List<ISceneObject> sceneObjects = new List<ISceneObject>();
+
+            foreach (var obj in mapObjects)
+            {
+                switch (obj)
+                {
+                    case Mob mob:
+                        {
+                            sceneObjects.Add(new EnemySceneObject(this.gamemap, mob, mob.TileSetRegion));
+                            break;
+                        }
+                    case NPC npc:
+                        {
+                            sceneObjects.Add(new NPCSceneObject(this.gamemap, npc, npc.TileSetRegion));
+                            break;
+                        }
+                    default:
+                        break;
+                }
+            }
+
+            return sceneObjects;
+
+            //var mobs = mapObjects.Where(x => typeof(Mob).IsAssignableFrom(x.GetType())).Select(x => x as Mob); //ПЕРЕПИСАТЬ НАХУЙ
+            //return mobs.Select(mob => new EnemySceneObject(this.gamemap,mob, mob.TileSetRegion));
         }
 
         private void AddObject(MapObject[] cell, Point pos)

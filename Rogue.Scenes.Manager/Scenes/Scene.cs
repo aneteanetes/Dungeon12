@@ -208,10 +208,12 @@
             var keyControls = ControlsByHandle(ControlEventType.Focus);
 
             var newFocused = keyControls.Where(handler => RegionContains(handler, pointerPressedEventArgs, offset))
-                .Where(x => !SceneObjectsInFocus.Contains(x));
+                .Where(x => !SceneObjectsInFocus.Contains(x))
+                .ToArray();
 
             var newNotFocused = keyControls.Where(handler => !RegionContains(handler, pointerPressedEventArgs, offset))
-                .Where(x => SceneObjectsInFocus.Contains(x));
+                .Where(x => SceneObjectsInFocus.Contains(x))
+                .ToArray();
 
             if (newNotFocused.Count() > 0)
             {

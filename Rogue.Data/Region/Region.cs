@@ -6,6 +6,8 @@
     {
         public List<RegionPart> Objects { get; set; }
 
+        public List<RegionNPC> NPCs { get; set; }
+
         public string Name { get; set; }
     }
 }
