@@ -205,23 +205,19 @@
 
         private void OnMouseMoveOnFocus(PointerArgs pointerPressedEventArgs, Point offset)
         {
-            var keyControls = ControlsByHandle(ControlEventType.Focus);
+            var controls = ControlsByHandle(ControlEventType.Focus);
 
-            var newFocused = keyControls.Where(handler => RegionContains(handler, pointerPressedEventArgs, offset))
+            var newFocused = controls.Where(handler => RegionContains(handler, pointerPressedEventArgs, offset))
                 .Where(x => !SceneObjectsInFocus.Contains(x))
                 .ToArray();
 
-            var newNotFocused = keyControls.Where(handler => !RegionContains(handler, pointerPressedEventArgs, offset))
-                .Where(x => SceneObjectsInFocus.Contains(x))
+            var newLostFocused = SceneObjectsInFocus.Where(x => !RegionContains(x, pointerPressedEventArgs, offset))
                 .ToArray();
 
-            if (newNotFocused.Count() > 0)
+            foreach (var item in newLostFocused)
             {
-                foreach (var item in newNotFocused)
-                {
-                    item.Unfocus();
-                    SceneObjectsInFocus.Remove(item);
-                }
+                item.Unfocus();
+                SceneObjectsInFocus.Remove(item);
             }
 
             if (newFocused.Count() > 0)
@@ -231,7 +227,7 @@
                     control.Focus();
                 }
 
-                SceneObjectsInFocus = newFocused.ToList();
+                SceneObjectsInFocus.AddRange(newFocused);
             }
         }
 
