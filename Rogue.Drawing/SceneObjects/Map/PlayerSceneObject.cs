@@ -2,6 +2,7 @@
 {
     using Rogue.Control.Keys;
     using Rogue.Drawing.GUI;
+    using Rogue.Drawing.Impl;
     using Rogue.Drawing.SceneObjects.Gameplay;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Entites.Alive.Character;
@@ -22,7 +23,7 @@
 
         public Action<Direction> OnStop;
         public Action OnStart;
-
+        
         public PlayerSceneObject(Rogue.Map.Objects.Avatar player, GameMap location, Action<ISceneObject> destroyBinding, Action<ISceneObject> publishBinding)
             : base(new Rectangle
             {

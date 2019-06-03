@@ -58,6 +58,8 @@
                     Location=npc.Position
                 };
 
+                mapNpc.NPCEntity.MoveRegion = mapNpc.NPCEntity.MoveRegion * 32;
+
                 mapNpc.Die += () =>
                 {
                     this.Map.Remove(mapNpc);
@@ -185,8 +187,8 @@
 
         private bool TrySetLocation(Mob mob)
         {
-            var x = Rogue.Random.Next(3, 32);
-            var y = Rogue.Random.Next(3, 18);
+            var x = Rogue.RandomRogue.Next(3, 32);
+            var y = Rogue.RandomRogue.Next(3, 18);
 
             mob.Location = new Point(x, y);
 

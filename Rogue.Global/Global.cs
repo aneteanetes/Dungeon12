@@ -1,4 +1,4 @@
-﻿namespace Rogue.Settings
+﻿namespace Rogue
 {
     using Rogue.View.Interfaces;
 

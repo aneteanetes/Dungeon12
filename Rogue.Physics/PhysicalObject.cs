@@ -39,6 +39,22 @@
 
             return false;
         }
+
+        public static PhysicalObject operator *(PhysicalObject source, int b)
+        {
+            var a = new PhysicalObject()
+            {
+                Size = new PhysicalSize(),
+                Position = new PhysicalPosition()
+            };
+
+            a.Size.Height = source.Size.Height * b;
+            a.Size.Width = source.Size.Width * b;
+            a.Position.X = source.Position.X * b;
+            a.Position.Y = source.Position.Y * b;
+
+            return a;
+        }
     }
 
     public abstract class PhysicalObject<T> : PhysicalObject, IHasNeighbours<T>

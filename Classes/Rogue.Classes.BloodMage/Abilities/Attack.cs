@@ -78,6 +78,6 @@
             }
         }
 
-        public override double Value => Rogue.Random.Next(3,17);
+        public override double Value => Rogue.RandomRogue.Next(3,17);
     }
 }

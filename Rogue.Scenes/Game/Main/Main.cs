@@ -1,12 +1,15 @@
 ﻿namespace Rogue.Scenes.Game
 {
     using Rogue.Control.Keys;
+    using Rogue.Drawing;
+    using Rogue.Drawing.Impl;
     using Rogue.Drawing.Labirinth;
     using Rogue.Drawing.SceneObjects;
     using Rogue.Drawing.SceneObjects.Main;
     using Rogue.Drawing.SceneObjects.Map;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Map;
+    using Rogue.Map.Objects;
     using Rogue.Scenes.Manager;
     using Rogue.Scenes.Menus;
     using Rogue.Settings;
@@ -108,7 +111,11 @@
             this.Gamemap.Map.Add(this.PlayerAvatar);
 
 
-            this.AddObject(new PlayerUI(this.PlayerAvatar.Character));
+            this.AddObject(new PlayerUI(this.PlayerAvatar.Character));            
+
+#if DEBUG
+            this.AddObject(new Position(this.PlayerAvatar));
+#endif
         }
 
         private void FillCommands()
@@ -249,6 +256,25 @@
         {
             if (keyPressed == Key.Escape)
                 this.Switch<Start>();
+        }
+
+        private class Position : TextControl
+        {
+            public override bool AbsolutePosition => true;
+
+            private Avatar playerAvatar;
+
+            public Position(Avatar playerAvatar) : base(null) => this.playerAvatar = playerAvatar;
+
+            public override bool CacheAvailable => false;
+
+            public override IDrawText Text => new DrawText($"X:{playerAvatar.Location.X} Y:{playerAvatar.Location.Y}").Montserrat();
+
+            public override double Left => 40 / 2 - this.MeasureText(Text).X/32 / 2;
+            
+            public override double Height => 1;
+
+            public override double Width => this.MeasureText(Text).X/32;
         }
     }
 }

@@ -13,7 +13,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Timers;
-    using Random = Rogue.Random;
+    using RandomRogue = Rogue.RandomRogue;
 
     public class EnemySceneObject : AnimatedSceneObject
     {
@@ -100,19 +100,19 @@
             if (moveDistance == 0)
             {
                 moves.Clear();
-                var next = Random.Next(0, 10);
+                var next = RandomRogue.Next(0, 10);
                 if (next > 5)
                 {
-                    var direction = Random.Next(0, 4);
+                    var direction = RandomRogue.Next(0, 4);
                     moves.Add(direction);
 
-                    var diagonally = Random.Next(0, 4);
+                    var diagonally = RandomRogue.Next(0, 4);
                     if (diagonally != direction && NotPair(direction, diagonally))
                     {
                         moves.Add(diagonally);
                     }
 
-                    moveDistance = Random.Next(100, 300);
+                    moveDistance = RandomRogue.Next(100, 300);
                 }
             }
         }
@@ -125,7 +125,7 @@
         {
             var player = avatar.Character;
 
-            var value = (long)Random.Next(2, 7);
+            var value = (long)RandomRogue.Next(2, 7);
 
             var dmg = value - player.Defence;
 

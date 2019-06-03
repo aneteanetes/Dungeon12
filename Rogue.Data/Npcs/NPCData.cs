@@ -1,6 +1,6 @@
 ﻿namespace Rogue.Data.Npcs
 {
-    using Rogue.Entites.Alive;
+    using Rogue.Entites.NPC;
     using Rogue.Types;
 
     public class NPCData : Persist
@@ -17,7 +17,7 @@
 
         public Rectangle TileSetRegion { get; set; }
 
-        public Moveable NPC { get; set; }
+        public NPCMoveable NPC { get; set; }
 
         public double MovementSpeed { get; set; }
     }

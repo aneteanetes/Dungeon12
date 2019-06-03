@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Rogue.Settings\Rogue.Settings.csproj" />
+  </ItemGroup>
+
 </Project>

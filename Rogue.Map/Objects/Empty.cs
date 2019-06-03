@@ -9,7 +9,7 @@
     {
         public Empty()
         {
-            var randomX = Rogue.Random.Next(0, 8);
+            var randomX = Rogue.RandomRogue.Next(0, 8);
             this.region = new Rectangle
             {
                 X = 24 * randomX,

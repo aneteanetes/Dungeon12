@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Rogue.DataAccess\Rogue.DataAccess.csproj" />
     <ProjectReference Include="..\Rogue.Entites\Rogue.Entites.csproj" />
+    <ProjectReference Include="..\Rogue.Global\Rogue.Global.csproj" />
     <ProjectReference Include="..\Rogue.Physics\Rogue.Physics.csproj" />
     <ProjectReference Include="..\Rogue.Resources\Rogue.Resources.csproj" />
     <ProjectReference Include="..\Rogue.Settings\Rogue.Settings.csproj" />

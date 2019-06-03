@@ -3,6 +3,7 @@
     using System;
     using Rogue.Entites.Alive;
     using Rogue.Entites.Enemy;
+    using Rogue.Entites.NPC;
     using Rogue.Map.Infrastructure;
     using Rogue.Physics;
     using Rogue.Settings;
@@ -11,7 +12,7 @@
     [Template("N")]
     public class NPC : MapObject
     {
-        public Moveable NPCEntity { get; set; }
+        public NPCMoveable NPCEntity { get; set; }
 
         public override string Icon { get => "N"; set { } }
 
@@ -36,6 +37,7 @@
             };
             set { }
         }
+
         public override PhysicalPosition Position
         {
             get => new PhysicalPosition

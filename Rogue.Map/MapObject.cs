@@ -101,7 +101,7 @@
 
         public virtual double MovementSpeed { get; set; } = 0.04;
 
-        public virtual Point VisionMultiple { get; set; }
+        public virtual Point VisionMultiple { get; set; } = new Point(1.2, 1.2);
 
         public override MapObject Vision => new MapObject
         {
