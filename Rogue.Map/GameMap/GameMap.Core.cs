@@ -84,6 +84,34 @@ namespace Rogue.Map
             return mobs.ToArray();
         }
 
+        public IEnumerable<NPC> NPCs(MapObject @object)
+        {
+            var rangeObject = new MapObject
+            {
+                Position = new Physics.PhysicalPosition
+                {
+                    X = @object.Position.X - ((@object.Size.Width * 2.5) / 2),
+                    Y = @object.Position.Y - ((@object.Size.Height * 2.5) / 2)
+                },
+                Size = @object.Size
+            };
+
+            rangeObject.Size.Height *= 2.5;
+            rangeObject.Size.Width *= 2.5;
+
+            var enemies = Map.Query(rangeObject);
+
+            IEnumerable<NPC> npcs = Enumerable.Empty<NPC>();
+
+            var moveArea = Map.Query(rangeObject);
+            if (moveArea != null)
+            {
+                npcs = moveArea.Nodes.Where(node => node is NPC).Select(node => node as NPC).ToArray();
+            }
+
+            return npcs;
+        }
+
         private bool needReloadCache = false;
 
         public bool ReloadCache

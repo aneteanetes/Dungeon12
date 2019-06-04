@@ -150,7 +150,7 @@
 
         public virtual bool Expired => false;
 
-        public virtual bool AbsolutePosition => false;
+        public virtual bool AbsolutePosition { get; set; } =false;
 
         public Action Destroy { get; set; }
 

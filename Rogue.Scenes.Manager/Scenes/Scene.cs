@@ -97,27 +97,30 @@
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
 
+
+            if (Global.FreezeWorld == null || Global.FreezeWorld == this)
+                KeyPress(key, modifier, keyEventArgs.Hold);
+
             var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key).ToArray();
             foreach (var sceneObjectHandler in keyControls)
             {
-                sceneObjectHandler.KeyDown(key, modifier,keyEventArgs.Hold);
+                sceneObjectHandler.KeyDown(key, modifier, keyEventArgs.Hold);
             }
-
-            KeyPress(key,modifier,keyEventArgs.Hold);
         }
 
         public void OnKeyUp(KeyArgs keyEventArgs)
         {
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
+            
+            if (Global.FreezeWorld == null || Global.FreezeWorld == this)
+                KeyUp(key, modifier);
 
             var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key);
             foreach (var sceneObjectHandler in keyControls)
             {
                 sceneObjectHandler.KeyUp(key, modifier);
             }
-
-            KeyUp(key, modifier);
         }
 
         public void OnMousePress(PointerArgs pointerPressedEventArgs, Point offset)
@@ -255,17 +258,26 @@
         protected virtual void KeyUp(Key keyPressed, KeyModifiers keyModifiers) { }
 
         private IEnumerable<ISceneObjectControl> ControlsByHandle(ControlEventType handleEvent, Key key = Key.None)
-            => SceneObjectsControllable.Where(x =>
+        {
+            if (Global.FreezeWorld != null)
             {
-                bool handle = x.CanHandle.Contains(handleEvent);
-
-                if (handleEvent == ControlEventType.Key)
+                return SceneObjectsControllable.Where(x => x == Global.FreezeWorld);
+            }
+            else
+            {
+                return SceneObjectsControllable.Where(x =>
                 {
-                    handle = x.AllKeysHandle || x.KeysHandle.Contains(key);
-                }
+                    bool handle = x.CanHandle.Contains(handleEvent);
 
-                return handle;
-            });
+                    if (handleEvent == ControlEventType.Key)
+                    {
+                        handle = x.AllKeysHandle || x.KeysHandle.Contains(key);
+                    }
+
+                    return handle;
+                });
+            }
+        }
 
         #endregion
 

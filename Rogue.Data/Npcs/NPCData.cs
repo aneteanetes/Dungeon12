@@ -9,6 +9,8 @@
 
         public string Name { get; set; }
 
+        public string Face { get; set; }
+
         public string Tileset { get; set; }
 
         public Point Size { get; set; }

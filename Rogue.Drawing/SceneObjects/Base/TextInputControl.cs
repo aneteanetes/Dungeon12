@@ -14,9 +14,7 @@
         private readonly bool autofocus;
         private bool focus = false;
         private readonly ColoredRectangle focusRect;
-
-        public override bool AbsolutePosition { get; }
-
+        
         private static Action<TextInputControl> Change;
 
         private TypingText typingText;

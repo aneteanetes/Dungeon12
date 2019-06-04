@@ -27,6 +27,7 @@
 
         protected override void DrawLoop()
         {
+
             if (moveDistance > 0)
             {
                 moveDistance--;

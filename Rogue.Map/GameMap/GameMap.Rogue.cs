@@ -55,6 +55,7 @@
                     Tileset = data.Tileset,
                     TileSetRegion = data.TileSetRegion,
                     Name = data.Name,
+                    Face=data.Face,
                     Size = new PhysicalSize()
                     {
                         Width = data.Size.X * 32,

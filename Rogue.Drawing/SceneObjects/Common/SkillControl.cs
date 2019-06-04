@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Rogue.Abilities;
     using Rogue.Abilities.Enums;
     using Rogue.Abilities.Scaling;
@@ -9,6 +10,7 @@
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
     using Rogue.Drawing.SceneObjects.Base;
+    using Rogue.Drawing.SceneObjects.Dialogs.NPC;
     using Rogue.Drawing.SceneObjects.Map;
     using Rogue.Map;
     using Rogue.Map.Objects;
@@ -16,6 +18,8 @@
 
     public class SkillControl : TooltipedSceneObject
     {
+        private bool safeMode = false;
+
         public override bool AbsolutePosition => true;
 
         private readonly Ability ability;
@@ -84,6 +88,7 @@
             {
                 if (SafeZoneInvisible)
                 {
+                    safeMode = true;
                     var img = this.ability.Image;
 
                     switch (abilityPosition)
@@ -106,9 +111,10 @@
                 }
                 else
                 {
+                    safeMode = false;
                     this.TooltipText = ability.Name;
                     abilControl.Visible = true;
-                abilControl.Image = this.ability.Image;
+                    abilControl.Image = this.ability.Image;
                 }
 
                 return image;
@@ -118,6 +124,19 @@
         
         private bool holds = false;
 
+        private void GlobalSafeClick(PointerArgs args)
+        {
+            var npc = gameMap.NPCs(this.avatar).FirstOrDefault();
+
+            if (npc != null)
+            {
+                ShowEffects?.Invoke(new List<ISceneObject>
+                {
+                    new NPCDialogue(npc)
+                });
+            }
+        }
+
         public override void GlobalClick(PointerArgs args)
         {
             if (args.MouseButton.ToString() != this.ability.AbilityPosition.ToString())
@@ -125,7 +144,7 @@
                 return;
             }
 
-            Cast();
+            Cast(args);
 
             if (!ability.Hold || (SafeZoneInvisible && (abilityPosition== AbilityPosition.Left || abilityPosition== AbilityPosition.Right)))
             {
@@ -173,13 +192,14 @@
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
-            Cast();
+            Cast(null);
         }
 
-        private void Cast()
+        private void Cast(PointerArgs args)
         {
             if (SafeZoneInvisible)
             {
+                GlobalSafeClick(args);
                 this.Image = SquareTexture(true);
                 return;
             }

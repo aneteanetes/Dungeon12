@@ -1,11 +1,12 @@
 ﻿{
   "Level": 1,
-  "IdentifyName":"ServantOfFaith",
+  "IdentifyName": "ServantOfFaith",
   "Name": "Служитель веры",
   "Size": {
     "X": 1,
     "Y": 1
   },
+  "Face": "Rogue.Resources.Images.NPCs.FaithIsland.ServantF.png",
   "Tileset": "Rogue.Resources.Images.NPCs.FaithIsland.Servant.png",
   "TileSetRegion": {
     "X": 64,
@@ -14,27 +15,26 @@
     "Height": 32
   },
   "MovementSpeed": 0.01,
-  "NPC": 
-  {
-  "MoveRegion":{
-	"Size":{
-		"Width":29,
-		"Height":19
-	},
-	"Position":{
-		"X":30,
-		"Y":38
-	}
-  },
-  "WaitTime":500,
-  "WalkChance":{
-  	  "From":5,
-	  "To":10
-  },
-  "WalkDistance":{
-  	  "From":1000,
-	  "To":3000
-	  },
+  "NPC": {
+    "MoveRegion": {
+      "Size": {
+        "Width": 29,
+        "Height": 19
+      },
+      "Position": {
+        "X": 30,
+        "Y": 38
+      }
+    },
+    "WaitTime": 500,
+    "WalkChance": {
+      "From": 5,
+      "To": 10
+    },
+    "WalkDistance": {
+      "From": 1000,
+      "To": 3000
+    },
     "Aggressive": true,
     "Idle": {
       "Tileset": "Rogue.Resources.Images.NPCs.FaithIsland.Servant.png",

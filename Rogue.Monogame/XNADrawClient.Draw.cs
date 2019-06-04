@@ -117,11 +117,11 @@
                     _lastFps = nowTs;
                 }
 
-                var text = $"Frame: {_frame}\nFPS: {_fps}\nNow: {now}";
+                var text = $"FPS: {_fps}";
 
                 var font = Content.Load<SpriteFont>("Montserrat");
 
-                spriteBatch.DrawString(font, text, new Vector2(1100, 5), Color.White);
+                spriteBatch.DrawString(font, text, new Vector2(555, 15), Color.White);
 
                 spriteBatch.End();
             }

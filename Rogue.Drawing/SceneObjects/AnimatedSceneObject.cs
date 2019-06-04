@@ -23,6 +23,9 @@
         {
             get
             {
+                if (Global.FreezeWorld!=null)
+                    return FramePosition;
+
                 FrameCounter++;
 
                 DrawLoop();
