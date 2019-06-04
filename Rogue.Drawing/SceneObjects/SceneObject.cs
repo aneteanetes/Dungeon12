@@ -108,6 +108,8 @@
 
         protected void AddChild(ISceneObject sceneObject)
         {
+            sceneObject.Destroy += () => DestroyBinding(sceneObject);
+
             if(sceneObject is SceneObject sceneControlObject)
             {
                 sceneControlObject.Parent = this;
@@ -155,6 +157,8 @@
         public Action Destroy { get; set; }
 
         public Action<List<ISceneObject>> ShowEffects { get; set; }
+
+        public Action<ISceneObject> DestroyBinding { get; set; }
 
         public virtual Rectangle CropPosition => new Rectangle
         {

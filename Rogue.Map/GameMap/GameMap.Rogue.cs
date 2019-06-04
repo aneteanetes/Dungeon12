@@ -1,6 +1,7 @@
 ﻿namespace Rogue.Map
 {
     using Force.DeepCloner;
+    using Rogue.Data.Conversations;
     using Rogue.Data.Mobs;
     using Rogue.Data.Npcs;
     using Rogue.Data.Region;
@@ -12,6 +13,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
 
     public partial class GameMap
     {
@@ -55,15 +57,17 @@
                     Tileset = data.Tileset,
                     TileSetRegion = data.TileSetRegion,
                     Name = data.Name,
-                    Face=data.Face,
+                    Face = data.Face,
                     Size = new PhysicalSize()
                     {
                         Width = data.Size.X * 32,
                         Height = data.Size.Y * 32
                     },
                     MovementSpeed = data.MovementSpeed,
-                    Location=npc.Position
+                    Location = npc.Position
                 };
+
+                BindConversations(data, mapNpc);
 
                 mapNpc.NPCEntity.MoveRegion = mapNpc.NPCEntity.MoveRegion * 32;
 

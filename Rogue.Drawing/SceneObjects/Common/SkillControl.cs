@@ -32,9 +32,15 @@
 
         private readonly AbilityPosition abilityPosition;
 
-        public SkillControl(GameMap gameMap, Avatar avatar, Ability ability, AbilityPosition abilityPosition, Action<List<ISceneObject>> abilityEffects)
+        private Action<ISceneObject> destroyBinding;
+
+        private Action<ISceneObjectControl> controlBinding;
+
+        public SkillControl(GameMap gameMap, Avatar avatar, Ability ability, AbilityPosition abilityPosition, Action<List<ISceneObject>> abilityEffects, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding)
             :base(ability?.Name,abilityEffects)
         {
+            this.controlBinding = controlBinding;
+            this.destroyBinding = destroyBinding;
             this.abilityPosition = abilityPosition;
             this.avatar = avatar;
             this.gameMap = gameMap;
@@ -132,7 +138,7 @@
             {
                 ShowEffects?.Invoke(new List<ISceneObject>
                 {
-                    new NPCDialogue(npc)
+                    new NPCDialogue(npc,destroyBinding,controlBinding)
                 });
             }
         }

@@ -261,7 +261,19 @@
         {
             if (Global.FreezeWorld != null)
             {
-                return SceneObjectsControllable.Where(x => x == Global.FreezeWorld);
+                var chain = FreezedChain(SceneObjectsControllable.FirstOrDefault(x => x == Global.FreezeWorld));
+                return chain
+                    .Where(x =>
+                    {
+                        bool handle = x.CanHandle.Contains(handleEvent);
+
+                        if (handleEvent == ControlEventType.Key)
+                        {
+                            handle = x.AllKeysHandle || x.KeysHandle.Contains(key);
+                        }
+
+                        return handle;
+                    });
             }
             else
             {
@@ -277,6 +289,24 @@
                     return handle;
                 });
             }
+        }
+
+        private IEnumerable<ISceneObjectControl> FreezedChain(ISceneObject freezing)
+        {
+            List<ISceneObjectControl> freezingChain = new List<ISceneObjectControl>();
+            freezingChain.Add(freezing as ISceneObjectControl);
+
+            var childControls = freezing.Children.Where(x => SceneObjectsControllable.Contains(x))
+                .Cast<ISceneObjectControl>();
+
+            freezingChain.AddRange(childControls);
+
+            foreach (var child in childControls)
+            {
+                freezingChain.AddRange(FreezedChain(child));
+            }
+
+            return freezingChain;
         }
 
         #endregion

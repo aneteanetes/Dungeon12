@@ -15,6 +15,9 @@
     "Height": 32
   },
   "MovementSpeed": 0.01,
+  "Conversations": [
+    "ServantOfFaithMain"
+  ],
   "NPC": {
     "MoveRegion": {
       "Size": {

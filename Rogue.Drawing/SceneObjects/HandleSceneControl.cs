@@ -17,7 +17,7 @@
 
         protected virtual ControlEventType[] Handles { get; } = null;
 
-        protected virtual Key[] KeyHandles { get; } = null;
+        protected virtual Key[] KeyHandles { get; set; } = null;
 
         private Lazy<ControlEventType[]> ControlHandlers => new Lazy<ControlEventType[]>(() => Handles);
 
@@ -50,5 +50,13 @@
         public virtual void MouseMove(PointerArgs args) { }
 
         public virtual void TextInput(string text) { }
+
+        protected void AddChild(ISceneObjectControl sceneObject)
+        {
+            ControlBinding?.Invoke(sceneObject);
+            base.AddChild(sceneObject);
+        }
+
+        public Action<ISceneObjectControl> ControlBinding { get; set; }
     }
 }

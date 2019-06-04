@@ -82,16 +82,11 @@
             this.AddObject(mapSceneObect);
             mapSceneObect.Init();
 
-            this.AddObject(new SkillBar(this.PlayerAvatar, this.Gamemap, ShowEffectsBinding
-            //    e => e.ForEach(effect =>
-            //{
-            //    effect.Destroy += () =>
-            //    {
-            //        this.RemoveObject(effect);
-            //    };
-            //    this.AddObject(effect);
-            //})
-            )
+            this.AddObject(new SkillBar(this.PlayerAvatar, this.Gamemap, ShowEffectsBinding,x=>this.RemoveObject(x),x=>
+            {
+                this.AddControl(x);
+                x.Destroy += () => this.RemoveControl(x);
+            })
             {
                 Top = 18.45f,
                 Left = 9f

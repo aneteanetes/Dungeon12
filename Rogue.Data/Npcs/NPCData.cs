@@ -2,6 +2,7 @@
 {
     using Rogue.Entites.NPC;
     using Rogue.Types;
+    using System.Collections.Generic;
 
     public class NPCData : Persist
     {
@@ -22,5 +23,7 @@
         public NPCMoveable NPC { get; set; }
 
         public double MovementSpeed { get; set; }
+
+        public List<string> Conversations { get; set; }
     }
 }
