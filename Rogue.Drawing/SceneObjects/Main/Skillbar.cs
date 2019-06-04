@@ -16,7 +16,7 @@
     {
         public override bool AbsolutePosition => true;
 
-        public SkillBar(Rogue.Map.Objects.Avatar avatar, GameMap gameMap, Action<IEnumerable<ISceneObject>> abilityEffects)
+        public SkillBar(Rogue.Map.Objects.Avatar avatar, GameMap gameMap, Action<List<ISceneObject>> abilityEffects)
         {            
             var x = 4.9;
 
@@ -29,23 +29,23 @@
 
 
             var left = abilities.FirstOrDefault(a => a.AbilityPosition == AbilityPosition.Left);
-            var leftSkill = new SkillControl(gameMap, avatar, left, AbilityPosition.Left)
+            var leftSkill = new SkillControl(gameMap, avatar, left, AbilityPosition.Left, abilityEffects)
             {
                 Left = x,
-                Top = 1
+                Top = 2
             };
             this.AddChild(leftSkill);
 
             var q = abilities.FirstOrDefault(a => a.AbilityPosition == AbilityPosition.Q);
-            var QSkill = new SkillControl(gameMap, avatar, q, AbilityPosition.Q)
+            var QSkill = new SkillControl(gameMap, avatar, q, AbilityPosition.Q, abilityEffects)
             {
-                Left = leftSkill.Left+3,
+                Left = leftSkill.Left+2.5,
                 Top = 2
             };
             this.AddChild(QSkill);
 
             var e = abilities.FirstOrDefault(a => a.AbilityPosition == AbilityPosition.E);
-            var ESkill = new SkillControl(gameMap, avatar, e, AbilityPosition.E)
+            var ESkill = new SkillControl(gameMap, avatar, e, AbilityPosition.E, abilityEffects)
             {
                 Left = QSkill.Left + 2,
                 Top = 2
@@ -54,10 +54,10 @@
             this.AddChild(ESkill);
 
             var right = abilities.FirstOrDefault(a => a.AbilityPosition == AbilityPosition.Right);
-            var rightSkill = new SkillControl(gameMap, avatar, right, AbilityPosition.Right)
+            var rightSkill = new SkillControl(gameMap, avatar, right, AbilityPosition.Right, abilityEffects)
             {
-                Left = ESkill.Left + 2,
-                Top = 1
+                Left = ESkill.Left + 2.5,
+                Top = 2
             };
             this.AddChild(rightSkill);
         }

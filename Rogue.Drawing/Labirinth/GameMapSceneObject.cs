@@ -74,20 +74,21 @@ namespace Rogue.Drawing.Labirinth
                             Width = 32,
                             Pos = portal.Location
                         };
-                        var portalSceneObject = new StandaloneSceneObject(portal, (frameCounter, animMap) =>
-                        {
 
-                            return frameCounter % (180 / animMap.Frames.Count) == 0;
-                        })
-                        {
-                            Left = portal.Location.X,
-                            Top = portal.Location.Y,
-                            Width = 1,
-                            Height = 1
-                        };
+                        //var portalSceneObject = new StandaloneSceneObject(portal, (frameCounter, animMap) =>
+                        //{
 
-                        newSceneObjects.Add(portalSceneObject);
-                        gamemap.Map.Add(portal);
+                        //    return frameCounter % (180 / animMap.Frames.Count) == 0;
+                        //})
+                        //{
+                        //    Left = portal.Location.X,
+                        //    Top = portal.Location.Y,
+                        //    Width = 1,
+                        //    Height = 1
+                        //};
+
+                        //newSceneObjects.Add(portalSceneObject);
+                        //gamemap.Map.Add(portal);
 
                         var first = cell[0];
 

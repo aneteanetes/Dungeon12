@@ -1,14 +1,17 @@
 ﻿namespace Rogue.Drawing.SceneObjects
 {
+    using Rogue.Drawing.SceneObjects.Map;
     using Rogue.Entites.Animations;
     using Rogue.Types;
+    using Rogue.View.Interfaces;
     using System;
+    using System.Collections.Generic;
 
-    public abstract class AnimatedSceneObject : HandleSceneControl
+    public abstract class AnimatedSceneObject : TooltipedSceneObject
     {
         public override bool CacheAvailable => false;
 
-        public AnimatedSceneObject(Rectangle defaultFramePosition, Func<int, AnimationMap, bool> requestNextFrame = null)
+        public AnimatedSceneObject(string tooltip, Rectangle defaultFramePosition, Action<List<ISceneObject>> showEffects, Func<int, AnimationMap, bool> requestNextFrame = null) : base(tooltip, showEffects)
         {
             this.FramePosition = defaultFramePosition;
             this.RequestNextFrame = requestNextFrame ?? this.DefaultRequestNextFrame;

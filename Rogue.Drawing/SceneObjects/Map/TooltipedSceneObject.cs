@@ -15,26 +15,34 @@
     using System.Linq;
     using System.Timers;
 
-    public abstract class TooltipedSceneObject : AnimatedSceneObject
+    public abstract class TooltipedSceneObject : HandleSceneControl
     {
-        protected MapObject mapObj;
         protected Tooltip aliveTooltip = null;
 
-        public TooltipedSceneObject(MapObject mapObj, Rectangle defaultFramePosition, Func<int, AnimationMap, bool> requestNextFrame = null) : base(defaultFramePosition, requestNextFrame)
+        public TooltipedSceneObject(string tooltip, Action<List<ISceneObject>> showEffects)
         {
-            this.mapObj = mapObj;
+            this.ShowEffects = showEffects;
+            TooltipText = tooltip;
         }
+
+        protected string TooltipText;
 
         public override void Focus()
         {
-            aliveTooltip = new Tooltip(mapObj.Name, new Point(this.Position.X, this.Position.Y - 0.8));
+            if (!string.IsNullOrEmpty(TooltipText))
+            {
+                aliveTooltip = new Tooltip(TooltipText, new Point(this.ComputedPosition.X, this.ComputedPosition.Y - 0.8))
+                {
+                    CacheAvailable = false
+                };
 
-            this.ShowEffects(new List<ISceneObject>() { aliveTooltip });
+                this.ShowEffects(new List<ISceneObject>() { aliveTooltip });
+            }
         }
 
         public override void Unfocus()
         {
-            aliveTooltip.Destroy?.Invoke();
+            aliveTooltip?.Destroy?.Invoke();
             aliveTooltip = null;
         }
     }

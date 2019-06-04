@@ -25,9 +25,14 @@
         }
 
         /// <summary>
+        /// Навык доступен в защищённой зоне
+        /// </summary>
+        public virtual bool AvailableInSafeZone => false;
+
+        /// <summary>
         /// Добавить эффекты при использовании
         /// </summary>
-        public Action<IEnumerable<ISceneObject>> UseEffects;
+        public Action<List<ISceneObject>> UseEffects;
 
         /// <summary>
         /// Размер области где действует способность

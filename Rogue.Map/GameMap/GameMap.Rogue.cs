@@ -15,9 +15,15 @@
 
     public partial class GameMap
     {
+        private IEnumerable<PhysicalObject> SafeZones = new List<PhysicalObject>();
+
+        public bool InSafe(MapObject @object) => SafeZones.Any(safeZone => safeZone.IntersectsWith(@object));
+
         public string LoadRegion(string name)
         {
             var persistRegion = Database.Entity<Region>(e => e.Name == name).First();
+
+            this.SafeZones = persistRegion.SafeZones.Select(safeZone => safeZone * 32);
 
             foreach (var item in persistRegion.Objects)
             {

@@ -1,16 +1,20 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Common
 {
     using System;
+    using System.Collections.Generic;
     using Rogue.Abilities;
     using Rogue.Abilities.Enums;
     using Rogue.Abilities.Scaling;
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
+    using Rogue.Drawing.SceneObjects.Base;
+    using Rogue.Drawing.SceneObjects.Map;
     using Rogue.Map;
     using Rogue.Map.Objects;
+    using Rogue.View.Interfaces;
 
-    public class SkillControl : HandleSceneControl
+    public class SkillControl : TooltipedSceneObject
     {
         public override bool AbsolutePosition => true;
 
@@ -20,9 +24,14 @@
 
         private readonly Avatar avatar;
 
-        public SkillControl(GameMap gameMap, Avatar avatar, Ability ability, AbilityPosition abilityPosition)
+        private readonly ImageControl abilControl;
+
+        private readonly AbilityPosition abilityPosition;
+
+        public SkillControl(GameMap gameMap, Avatar avatar, Ability ability, AbilityPosition abilityPosition, Action<List<ISceneObject>> abilityEffects)
+            :base(ability?.Name,abilityEffects)
         {
-            //this.key = key;
+            this.abilityPosition = abilityPosition;
             this.avatar = avatar;
             this.gameMap = gameMap;
             this.ability = ability;
@@ -34,7 +43,10 @@
 
             var a = this.ability;
 
-            var abilControl = new ImageControl(IsBig ? a.Image_B : a.Image);
+            abilControl = new ImageControl(IsBig ? a.Image_B : a.Image)
+            {
+                CacheAvailable=false
+            };
             this.AddChild(abilControl);
 
             this.Image = SquareTexture(false);
@@ -58,16 +70,52 @@
             return $"Rogue.Resources.Images.ui.square{big}{f}.png";
         }
 
-        public bool IsBig => this.ability.AbilityPosition == Rogue.Abilities.Enums.AbilityPosition.Left
-            || this.ability.AbilityPosition == Rogue.Abilities.Enums.AbilityPosition.Right;
+        public bool IsBig => false;
+        //this.ability.AbilityPosition == Rogue.Abilities.Enums.AbilityPosition.Left
+        //    || this.ability.AbilityPosition == Rogue.Abilities.Enums.AbilityPosition.Right;
 
-        public override string Image { get; set; }
+        private string image { get; set; }
 
-        public override void Click(PointerArgs args)
+        private bool SafeZoneInvisible => !ability.AvailableInSafeZone && gameMap.InSafe(avatar);
+
+        public override string Image
         {
-            Cast();
-        }
+            get
+            {
+                if (SafeZoneInvisible)
+                {
+                    var img = this.ability.Image;
 
+                    switch (abilityPosition)
+                    {
+                        case AbilityPosition.Left:
+                            this.TooltipText = "Поговорить";
+                            img = $"Rogue.Resources.Images.ui.talk.png";
+                            break;
+                        case AbilityPosition.Right:
+                            this.TooltipText = "Информация";
+                            img = $"Rogue.Resources.Images.ui.info.png";
+                            break;
+                        default:
+                            this.TooltipText = ability.Name;
+                            abilControl.Visible = false;
+                            break;
+                    }
+
+                    abilControl.Image = img;
+                }
+                else
+                {
+                    this.TooltipText = ability.Name;
+                    abilControl.Visible = true;
+                abilControl.Image = this.ability.Image;
+                }
+
+                return image;
+            }
+            set => image = value;
+        }
+        
         private bool holds = false;
 
         public override void GlobalClick(PointerArgs args)
@@ -79,11 +127,11 @@
 
             Cast();
 
-            if (!ability.Hold)
+            if (!ability.Hold || (SafeZoneInvisible && (abilityPosition== AbilityPosition.Left || abilityPosition== AbilityPosition.Right)))
             {
                 var t = new System.Timers.Timer(200);
                 t.AutoReset = false;
-                t.Elapsed += (x, y) => this.Unfocus();
+                t.Elapsed += (x, y) => this.Image = SquareTexture(false);
                 t.Start();
             }
             else
@@ -102,19 +150,25 @@
             if (ability.Hold && holds)
             {
                 ability.Release(gameMap, avatar);
-                this.Unfocus();
+                this.Image = SquareTexture(false);
                 holds = false;
             }
         }
 
         public override void Focus()
         {
-            this.Image = SquareTexture(true);
+            if (!SafeZoneInvisible)
+                this.Image = SquareTexture(true);
+
+            base.Focus();
         }
 
         public override void Unfocus()
         {
-            this.Image = SquareTexture(false);
+            if (!SafeZoneInvisible)
+                this.Image = SquareTexture(false);
+
+            base.Unfocus();
         }
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
@@ -124,9 +178,15 @@
 
         private void Cast()
         {
+            if (SafeZoneInvisible)
+            {
+                this.Image = SquareTexture(true);
+                return;
+            }
+
             if (this.ability.CastAvailable(avatar))
             {
-                this.ability.Cast(gameMap, avatar);                
+                this.ability.Cast(gameMap, avatar);
                 this.Focus();
             }
         }

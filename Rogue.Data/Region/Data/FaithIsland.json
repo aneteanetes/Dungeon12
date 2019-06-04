@@ -1,5 +1,17 @@
 ﻿{
   "Name": "FaithIsland",
+  "SafeZones":[
+	{
+		"Size":{
+			"Width":29,
+			"Height":19
+		},
+		"Position":{
+			"X":30,
+			"Y":38
+		}
+	}
+  ],
   "NPCs":[
 	{
 		"IdentifyName":"ServantOfFaith",

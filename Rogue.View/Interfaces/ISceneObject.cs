@@ -50,6 +50,8 @@
 
         bool ForceInvisible { get; }
 
+        bool Visible { get; }
+
         ICollection<ISceneObject> Children { get; }
 
         bool AbsolutePosition { get; }

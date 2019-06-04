@@ -37,7 +37,7 @@
 
             DrawFrameInfo();
 
-            // TODO: Add your drawing code here
+            OnPointerMoved();
 
             base.Draw(gameTime);
         }
@@ -49,6 +49,9 @@
         {
             foreach (var sceneObject in sceneObjects)
             {
+                if (!sceneObject.Visible)
+                    continue;
+
                 if (scene.AbsolutePositionScene || sceneObject.AbsolutePosition)
                 {
                     if (needReopen)
@@ -175,6 +178,9 @@
 
         private void DrawSceneObject(ISceneObject sceneObject, double xParent = 0, double yParent = 0, bool batching = false, bool force = false)
         {
+            if (!sceneObject.Visible)
+                return;
+
             if (force && sceneObject.ForceInvisible)
                 return;
 

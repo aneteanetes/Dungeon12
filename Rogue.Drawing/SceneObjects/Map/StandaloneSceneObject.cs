@@ -9,13 +9,13 @@
     public class StandaloneSceneObject : AnimatedSceneObject
     {
         public StandaloneSceneObject(MapObject mapObject, Func<int, AnimationMap, bool> requestNextFrame = null)
-            : base(new Types.Rectangle
+            : base(mapObject.Name, new Types.Rectangle
             {
                 X = 0,
                 Y = 0,
                 Height = 32,
                 Width = 32,
-            },requestNextFrame)
+            },null)
         {
             this.Image = mapObject.Tileset;
             this.SetAnimation(mapObject.Animation);

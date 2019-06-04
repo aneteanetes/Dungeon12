@@ -20,7 +20,7 @@
         private readonly Mob mob;
         private readonly GameMap location;
 
-        public EnemySceneObject(GameMap location, Mob mob, Rectangle defaultFramePosition) : base(defaultFramePosition, null)
+        public EnemySceneObject(GameMap location, Mob mob, Rectangle defaultFramePosition) : base(mob.Name,defaultFramePosition, null)
         {
             this.location = location;
             this.mob = mob;

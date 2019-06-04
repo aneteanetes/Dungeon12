@@ -18,22 +18,21 @@
         private Rogue.Map.Objects.Avatar avatar;
         private Player Player => avatar.Character;
         private readonly GameMap location;
-        private readonly Action<ISceneObject> destroyBinding;
-        private readonly Action<ISceneObject> publishBinding;
 
         public Action<Direction> OnStop;
         public Action OnStart;
-        
-        public PlayerSceneObject(Rogue.Map.Objects.Avatar player, GameMap location, Action<ISceneObject> destroyBinding, Action<ISceneObject> publishBinding)
-            : base(new Rectangle
+        private Action<ISceneObject> destroyBinding;
+
+
+        public PlayerSceneObject(Rogue.Map.Objects.Avatar player, GameMap location, Action<List<ISceneObject>> showEffects, Action<ISceneObject> destroyBinding)
+            : base(player.Character.Name,new Rectangle
             {
                 X = 32,
                 Y = 0,
                 Height = 32,
                 Width = 32
-            })
+            },showEffects)
         {
-            this.publishBinding = publishBinding;
             this.destroyBinding = destroyBinding;
             this.avatar = player;
             this.location = location;
@@ -308,19 +307,15 @@
             Key.S,
         };
 
-        private Tooltip aliveTooltip = null;
-
         public override void Focus()
         {
-            aliveTooltip = new Tooltip(this.Player.Name, new Point(this.Position.X, this.Position.Y - 0.8));            
-            this.publishBinding(aliveTooltip);
+
+            base.Focus();
         }
 
         public override void Unfocus()
         {
-            this.destroyBinding(aliveTooltip);
-            aliveTooltip.Destroy?.Invoke();
-            aliveTooltip = null;
+            base.Unfocus();
         }
     }
 }

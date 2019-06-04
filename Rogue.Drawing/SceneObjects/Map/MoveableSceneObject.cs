@@ -4,16 +4,20 @@
     using Rogue.Entites.Animations;
     using Rogue.Map;
     using Rogue.Types;
+    using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
 
-    public class MoveableSceneObject : TooltipedSceneObject
+    public class MoveableSceneObject : AnimatedSceneObject
     {
         protected Moveable moveable;
         protected GameMap location;
 
-        public MoveableSceneObject(GameMap location,MapObject mapObj,Moveable moveable,Rectangle defaultFramePosition, Func<int, AnimationMap, bool> requestNextFrame = null) : base(mapObj,defaultFramePosition, requestNextFrame)
+        protected MapObject mapObj;
+
+        public MoveableSceneObject(GameMap location,MapObject mapObj,Moveable moveable,Rectangle defaultFramePosition, Action<List<ISceneObject>> showEffects) : base(mapObj.Name,defaultFramePosition, showEffects)
         {
+            this.mapObj = mapObj;
             this.moveable = moveable;
             this.location = location;
         }

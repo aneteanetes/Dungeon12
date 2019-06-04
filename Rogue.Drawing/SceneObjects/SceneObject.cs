@@ -144,7 +144,7 @@
 
         public ISceneObject Parent { get; set; }
 
-        public virtual bool CacheAvailable => true;
+        public virtual bool CacheAvailable { get; set; } = true;
 
         public virtual bool IsBatch => false;
 
@@ -167,5 +167,7 @@
         public int Layer { get; set; }
 
         public bool ForceInvisible { get; set; }
+
+        public virtual bool Visible { get; set; } = true;
     }
 }

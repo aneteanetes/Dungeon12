@@ -43,7 +43,7 @@
             this.InitMap();
 
 
-            var player = new PlayerSceneObject(this.PlayerAvatar, this.Gamemap, (obj) => this.RemoveObject(obj), (obj) => this.AddObject(obj))
+            var player = new PlayerSceneObject(this.PlayerAvatar, this.Gamemap, ShowEffectsBinding,x=>this.RemoveObject(x))
             {
                 Left = PlayerPosition.X,
                 Top = PlayerPosition.Y
@@ -68,14 +68,7 @@
                     foreach (var @new in newitems)
                     {
                         @new.Destroy += () => this.RemoveObject(@new);
-                        @new.ShowEffects += e => e.ForEach(effect =>
-                        {
-                            effect.Destroy += () =>
-                            {
-                                this.RemoveObject(effect);
-                            };
-                            this.AddObject(effect);
-                        });
+                        @new.ShowEffects = ShowEffectsBinding;
                         this.AddObject(@new);
                     }
                 },
@@ -116,6 +109,18 @@
 #if DEBUG
             this.AddObject(new Position(this.PlayerAvatar));
 #endif
+        }
+
+        private void ShowEffectsBinding(List<ISceneObject> e)
+        {
+            e.ForEach(effect =>
+            {
+                effect.Destroy += () =>
+                {
+                    this.RemoveObject(effect);
+                };
+                this.AddObject(effect);
+            });
         }
 
         private void FillCommands()
