@@ -28,6 +28,8 @@
 
         private readonly Avatar avatar;
 
+        private readonly PlayerSceneObject player;
+
         private readonly ImageControl abilControl;
 
         private readonly AbilityPosition abilityPosition;
@@ -36,13 +38,14 @@
 
         private Action<ISceneObjectControl> controlBinding;
 
-        public SkillControl(GameMap gameMap, Avatar avatar, Ability ability, AbilityPosition abilityPosition, Action<List<ISceneObject>> abilityEffects, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding)
+        public SkillControl(GameMap gameMap, PlayerSceneObject player, Ability ability, AbilityPosition abilityPosition, Action<List<ISceneObject>> abilityEffects, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding)
             :base(ability?.Name,abilityEffects)
         {
             this.controlBinding = controlBinding;
             this.destroyBinding = destroyBinding;
             this.abilityPosition = abilityPosition;
-            this.avatar = avatar;
+            this.avatar = player.Avatar;
+            this.player = player;
             this.gameMap = gameMap;
             this.ability = ability;
 
@@ -136,6 +139,7 @@
 
             if (npc != null)
             {
+                player.StopMovings();
                 ShowEffects?.Invoke(new List<ISceneObject>
                 {
                     new NPCDialogue(npc,destroyBinding,controlBinding)

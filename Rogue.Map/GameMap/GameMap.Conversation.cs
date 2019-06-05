@@ -27,39 +27,13 @@
                 Subjects = conversations.SelectMany(x => x.Subjects).ToList()
             };
 
-            mapNpc.NPCEntity.Conversation.Variables = new ReplicaVariableVisitor(mapNpc.NPCEntity.Conversation)
-                .Visit();
-
-            new ReplicaBinderVisitor()
-                .Visit(mapNpc.NPCEntity.Conversation);
-        }
-
-        private class ReplicaVariableVisitor : ConversationVisitor
-        {
-            private List<Variable> variables = new List<Variable>();
-
-            private Conversation conversation;
-
-            public ReplicaVariableVisitor(Conversation conversation) => this.conversation = conversation;
-
-            public List<Variable> Visit()
-            {
-                base.Visit(conversation);
-                return variables;
-            }
-
-            protected override void VisitReplica(Replica replica)
-            {
-                if (replica.Variables != null)
-                {
-                    variables.AddRange(replica.Variables);
-                }
-                base.VisitReplica(replica);
-            }
+            new ReplicaBinderVisitor().Visit(mapNpc.NPCEntity.Conversation);
         }
 
         private class ReplicaBinderVisitor : ConversationVisitor
         {
+            private List<Variable> variables = new List<Variable>();
+
             bool bindedWalk = false;
             private readonly List<Replica> replics = new List<Replica>();
 
@@ -69,6 +43,8 @@
                 bindedWalk = true;
                 this.Reset();
                 base.Visit(conversation);
+
+                conversation.Variables = this.variables;
             }
 
             protected override void VisitReplica(Replica replica)
@@ -76,6 +52,9 @@
                 if(!bindedWalk)
                 { 
                     replics.Add(replica);
+
+                    if (replica.Variables != null)
+                        variables.AddRange(replica.Variables);
                 }
                 else
                 {
@@ -83,6 +62,11 @@
                     replica.Replics = replics
                         .Where(x => replica.ReplicsTags.Contains(x.Tag))
                         .ToList();
+
+                    foreach (var variable in replica.Variables)
+                    {
+                        variable.Replica = this.replics.FirstOrDefault(r => r.Tag == variable.Value);
+                    }
                 }
             }
         }

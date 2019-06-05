@@ -99,14 +99,15 @@ namespace Rogue.Map
             rangeObject.Size.Height *= 2.5;
             rangeObject.Size.Width *= 2.5;
 
-            var enemies = Map.Query(rangeObject);
-
             IEnumerable<NPC> npcs = Enumerable.Empty<NPC>();
 
             var moveArea = Map.Query(rangeObject);
             if (moveArea != null)
             {
-                npcs = moveArea.Nodes.Where(node => node is NPC).Select(node => node as NPC).ToArray();
+                npcs = moveArea.Nodes.Where(node => node is NPC)
+                    .Select(node => node as NPC)
+                    .Where(node => rangeObject.IntersectsWith(node))
+                    .ToArray();
             }
 
             return npcs;

@@ -15,15 +15,15 @@
 
     public class PlayerSceneObject : AnimatedSceneObject
     {
-        private Rogue.Map.Objects.Avatar avatar;
-        private Player Player => avatar.Character;
+        public Rogue.Map.Objects.Avatar Avatar;
+
+        private Player Player => Avatar.Character;
         private readonly GameMap location;
 
         public Action<Direction> OnStop;
         public Action OnStart;
         private Action<ISceneObject> destroyBinding;
-
-
+        
         public PlayerSceneObject(Rogue.Map.Objects.Avatar player, GameMap location, Action<List<ISceneObject>> showEffects, Action<ISceneObject> destroyBinding)
             : base(player.Character.Name,new Rectangle
             {
@@ -34,7 +34,7 @@
             },showEffects)
         {
             this.destroyBinding = destroyBinding;
-            this.avatar = player;
+            this.Avatar = player;
             this.location = location;
             this.Image = player.Tileset;
             this.Width = 1;
@@ -46,7 +46,7 @@
             AddBuffs();
         }
 
-        public double Speed => avatar.MovementSpeed;
+        public double Speed => Avatar.MovementSpeed;
 
         private List<ImageControl> buffs = new List<ImageControl>();
 
@@ -66,7 +66,7 @@
 
         private void AddBuffs()
         {
-            foreach (var buff in avatar.States)
+            foreach (var buff in Avatar.States)
             {
                 AddBuff(buff);
             }
@@ -98,7 +98,7 @@
 
             if (NowMoving.Contains(Direction.Up))
             {
-                this.avatar.Location.Y -= Speed;
+                this.Avatar.Location.Y -= Speed;
                 SetAnimation(this.Player.MoveUp);
                 if (!CheckMoveAvailable(Direction.Up))
                 {
@@ -112,7 +112,7 @@
             }
             if (NowMoving.Contains(Direction.Down))
             {
-                this.avatar.Location.Y += Speed;
+                this.Avatar.Location.Y += Speed;
                 SetAnimation(this.Player.MoveDown);
                 if (!CheckMoveAvailable(Direction.Down))
                 {
@@ -126,7 +126,7 @@
             }
             if (NowMoving.Contains(Direction.Left))
             {
-                this.avatar.Location.X -= Speed;
+                this.Avatar.Location.X -= Speed;
                 SetAnimation(this.Player.MoveLeft);
                 if (!CheckMoveAvailable(Direction.Left))
                 {
@@ -140,7 +140,7 @@
             }
             if (NowMoving.Contains(Direction.Right))
             {
-                this.avatar.Location.X += Speed;
+                this.Avatar.Location.X += Speed;
                 SetAnimation(this.Player.MoveRight);
                 if (!CheckMoveAvailable(Direction.Right))
                 {
@@ -158,23 +158,28 @@
 
         private bool CheckMoveAvailable(Direction direction)
         {
-            if (this.location.Move(avatar, direction))
+            if (this.location.Move(Avatar, direction))
             {
-                this.Left = avatar.Location.X;
-                this.Top = avatar.Location.Y;
+                this.Left = Avatar.Location.X;
+                this.Top = Avatar.Location.Y;
                 return true;
             }
             else
             {
-                avatar.Location.X = this.Left;
-                avatar.Location.Y = this.Top;
+                Avatar.Location.X = this.Left;
+                Avatar.Location.Y = this.Top;
                 return false;
             }
         }
 
         private HashSet<Direction> NowMoving = new HashSet<Direction>();
 
-
+        public void StopMovings()
+        {
+            this.RequestStop();
+            this.NowMoving.Clear();
+        }
+        
         private HashSet<Direction> OppositeDirections = new HashSet<Direction>();
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)

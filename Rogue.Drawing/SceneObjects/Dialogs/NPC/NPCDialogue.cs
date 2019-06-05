@@ -20,7 +20,7 @@
             Global.FreezeWorld = this;
 
             answerPanel = new AnswerPanel() { DestroyBinding = destroyBinding, ControlBinding= controlBinding };
-            subjectPanel = new SubjectPanel(npc, answerPanel.Select);
+            subjectPanel = new SubjectPanel(npc, answerPanel.Select,this.ExitDialogue);
 
             this.AddChild(subjectPanel);
             this.AddChild(answerPanel);
@@ -33,9 +33,14 @@
         {
             if (key == Key.Escape)
             {
-                this.Destroy?.Invoke();
-                Global.FreezeWorld = null;
+                ExitDialogue();
             }
+        }
+
+        private void ExitDialogue()
+        {
+            this.Destroy?.Invoke();
+            Global.FreezeWorld = null;
         }
 
         protected override Key[] KeyHandles => new Key[] { Key.Escape };

@@ -260,9 +260,10 @@
         private IEnumerable<ISceneObjectControl> ControlsByHandle(ControlEventType handleEvent, Key key = Key.None)
         {
             if (Global.FreezeWorld != null)
-            {
+            { 
                 var chain = FreezedChain(SceneObjectsControllable.FirstOrDefault(x => x == Global.FreezeWorld));
                 return chain
+                    .Distinct()
                     .Where(x =>
                     {
                         bool handle = x.CanHandle.Contains(handleEvent);

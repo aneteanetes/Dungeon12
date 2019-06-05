@@ -40,7 +40,7 @@ namespace Rogue.Conversations
         /// <summary>
         /// Переменные реплики
         /// </summary>
-        public List<Variable> Variables { get; set; }
+        public List<Variable> Variables { get; set; } = new List<Variable>();
 
         /// <summary>
         /// Экземпляр разговора которому принадлежит эта реплика

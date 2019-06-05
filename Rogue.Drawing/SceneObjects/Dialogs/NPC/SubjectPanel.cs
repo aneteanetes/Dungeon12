@@ -10,7 +10,7 @@
     {
         public override bool AbsolutePosition => true;
 
-        public SubjectPanel(Rogue.Map.Objects.NPC npc, Action<Subject> select)
+        public SubjectPanel(Rogue.Map.Objects.NPC npc, Action<Subject> select, Action exit)
         {
             this.Opacity = 0.8;
 
@@ -44,6 +44,16 @@
 
                 x+=2.5;
             }
+
+            var exitBtn = new MetallButtonControl("Выход")
+            {
+                AbsolutePosition=true,
+                Top = 19,
+                OnClick = exit
+            };
+            exitBtn.Left = this.Width / 2 - exitBtn.Width/2;
+
+            this.AddChild(exitBtn);
         }
 
         private class SubjectClickable : HandleSceneControl

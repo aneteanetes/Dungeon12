@@ -69,6 +69,22 @@
 
         public void Select(Replica replica)
         {
+            var triggeredVariable = replica.Conversation.Variables.FirstOrDefault(@var => var.Triggered && var.TriggeredFrom == replica.Tag);
+
+            if(triggeredVariable !=null)
+            {
+                replica = triggeredVariable.Replica;
+            }
+
+            if (replica.Variables != null)
+            {
+                foreach (var variable in replica.Variables)
+                {
+                    variable.Triggered = true;
+                    variable.TriggeredFrom = replica.Tag;
+                }
+            }
+
             if (replica.Replics.Count == 0)
             {
                 SelectSubject(lastSubject,replica.Text);
@@ -173,8 +189,7 @@
             {
                 if (!hold)
                 {
-                    //почему блядь дважды?
-                    Console.WriteLine("selected");
+                    select?.Invoke(this.repl);
                 }
             }
         }

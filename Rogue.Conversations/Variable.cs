@@ -20,6 +20,21 @@
         public int Value { get; set; }
 
         /// <summary>
+        /// Реплика которая должна сработать если переменная установлена
+        /// </summary>
+        public Replica Replica { get; set; }
+
+        /// <summary>
+        /// Флаг говорящий о том что переменная сработала
+        /// </summary>
+        public bool Triggered { get; set; }
+
+        /// <summary>
+        /// Тэг реплики которая установила флаг
+        /// </summary>
+        public int TriggeredFrom { get; set; }
+
+        /// <summary>
         /// Определяет нужно ли сохранять флаг о том что переменная установлена
         /// </summary>
         public bool Global { get; set; }
