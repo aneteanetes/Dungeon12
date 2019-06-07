@@ -98,7 +98,7 @@
             var modifier = keyEventArgs.Modifiers;
 
 
-            if (Global.FreezeWorld == null || Global.FreezeWorld == this)
+            if (Global.Freezed == null || Global.Freezed == this)
                 KeyPress(key, modifier, keyEventArgs.Hold);
 
             var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key).ToArray();
@@ -113,7 +113,7 @@
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
             
-            if (Global.FreezeWorld == null || Global.FreezeWorld == this)
+            if (Global.Freezed == null || Global.Freezed == this)
                 KeyUp(key, modifier);
 
             var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key);
@@ -259,9 +259,9 @@
 
         private IEnumerable<ISceneObjectControl> ControlsByHandle(ControlEventType handleEvent, Key key = Key.None)
         {
-            if (Global.FreezeWorld != null)
+            if (Global.Freezed != null)
             { 
-                var chain = FreezedChain(SceneObjectsControllable.FirstOrDefault(x => x == Global.FreezeWorld));
+                var chain = FreezedChain(SceneObjectsControllable.FirstOrDefault(x => x == Global.Freezed));
                 return chain
                     .Distinct()
                     .Where(x =>

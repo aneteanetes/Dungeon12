@@ -152,6 +152,9 @@
 
         public virtual bool Expired => false;
 
+        /// <summary>
+        /// Абсолютная позиция НЕ НАСЛЕДУЕТСЯ в целях ПРОИЗВОДИТЕЛЬНОСТИ
+        /// </summary>
         public virtual bool AbsolutePosition { get; set; } =false;
 
         public Action Destroy { get; set; }

@@ -177,6 +177,10 @@
         public void StopMovings()
         {
             this.RequestStop();
+            foreach (var moving in NowMoving)
+            {
+                OnStop(moving);
+            }
             this.NowMoving.Clear();
         }
         

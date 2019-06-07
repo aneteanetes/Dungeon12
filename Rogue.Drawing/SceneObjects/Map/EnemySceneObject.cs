@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Map
 {
+    using Rogue.Control.Events;
     using Rogue.Drawing.GUI;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Entites.Alive;
@@ -17,6 +18,8 @@
 
     public class EnemySceneObject : AnimatedSceneObject
     {
+        protected override ControlEventType[] Handles => new ControlEventType[0];
+
         private readonly Mob mob;
         private readonly GameMap location;
 

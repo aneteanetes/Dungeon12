@@ -1,6 +1,6 @@
 ﻿namespace Rogue.Items.Enums
 {
-    public enum Kind
+    public enum ItemKind
     {
         Key = 0,
         Potion = 1,

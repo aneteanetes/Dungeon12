@@ -92,6 +92,12 @@
                 Left = 9f
             });
 
+            this.AddObject(new PlayerBar(player, ShowEffectsBinding)
+            {
+                Top = 18.45 + 0.5 + 2,
+                Left = 9 + 2.9 
+            });
+
             this.PlayerAvatar.Die += () =>
             {
                 this.Switch<End>();
