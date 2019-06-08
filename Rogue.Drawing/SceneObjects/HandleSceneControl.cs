@@ -56,7 +56,5 @@
             ControlBinding?.Invoke(sceneObject);
             base.AddChild(sceneObject);
         }
-
-        public Action<ISceneObjectControl> ControlBinding { get; set; }
     }
 }

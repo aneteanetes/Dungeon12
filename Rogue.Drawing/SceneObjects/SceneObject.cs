@@ -1,6 +1,7 @@
 ﻿namespace Rogue.Drawing.SceneObjects
 {
     using Rogue.Drawing.Impl;
+    using Rogue.Scenes.Manager;
     using Rogue.Settings;
     using Rogue.Types;
     using Rogue.View.Interfaces;
@@ -10,6 +11,25 @@
 
     public abstract class SceneObject : ISceneObject
     {
+        /// <summary>
+        /// В КОНСТРУКТОРЕ ЕСТЬ КОСТЫЛЬ
+        /// </summary>
+        public SceneObject()
+        {
+            // ЭТО ПИЗДЕЦ КОСТЫЛЬ
+            var scene = SceneManager.Current;
+
+            if (scene != null)
+            {                
+                // ВСЕ ЭТИ МЕТОДЫ ПУБЛИЧНЫЕ ТОЛЬКО ПОТОМУ ЧТО НУЖНЫ ЗДЕСЬ
+                ControlBinding += scene.AddControl;
+                DestroyBinding += scene.RemoveObject;
+                ShowEffects += scene.ShowEffectsBinding;
+            }
+
+            //ХВАТИТ ОРАТЬ В КОММЕНТАРИЯХ
+        }
+
         protected TextControl AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical=true)
         {
             var textControl = new TextControl(drawText);
@@ -110,6 +130,8 @@
         {
             sceneObject.Destroy += () => DestroyBinding(sceneObject);
 
+            this.Destroy += () => sceneObject.Destroy?.Invoke();
+
             if(sceneObject is SceneObject sceneControlObject)
             {
                 sceneControlObject.Parent = this;
@@ -162,6 +184,8 @@
         public Action<List<ISceneObject>> ShowEffects { get; set; }
 
         public Action<ISceneObject> DestroyBinding { get; set; }
+
+        public Action<ISceneObjectControl> ControlBinding { get; set; }
 
         public virtual Rectangle CropPosition => new Rectangle
         {

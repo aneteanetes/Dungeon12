@@ -1,6 +1,8 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Main.CharacterBar
 {
     using Rogue.Control.Keys;
+    using Rogue.Control.Pointer;
+    using Rogue.Drawing.SceneObjects.Main.Character;
     using Rogue.Drawing.SceneObjects.Map;
     using Rogue.View.Interfaces;
     using System;
@@ -10,8 +12,14 @@
     {
         public override bool AbsolutePosition => true;
 
-        public SkillsButton(Action<List<ISceneObject>> showEffects) : base("Навыки", showEffects)
+        private PlayerSceneObject playerSceneObject;
+        private Action<List<ISceneObject>> showEffects;
+
+        public SkillsButton(PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects) : base("Навыки", showEffects)
         {
+            this.playerSceneObject = playerSceneObject;
+            this.showEffects = showEffects;
+
             this.Height = 1.5;
             this.Width = 1.5;
 
@@ -51,10 +59,18 @@
             Key.X
         };
 
-        public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
+        public override void KeyDown(Key key, KeyModifiers modifier, bool hold) => ShowSkillsWindow();
+
+        public override void Click(PointerArgs args) => ShowSkillsWindow();
+
+        private void ShowSkillsWindow()
         {
-            Console.WriteLine("skills opened");
-            base.KeyDown(key, modifier, hold);
+            playerSceneObject.StopMovings();
+
+            this.ShowEffects(new List<ISceneObject>()
+            {
+                new SkillsWindow()
+            });
         }
     }
 }

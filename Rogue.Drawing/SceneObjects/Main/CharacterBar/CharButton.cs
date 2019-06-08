@@ -13,10 +13,12 @@
         public override bool AbsolutePosition => true;
 
         private PlayerSceneObject playerSceneObject;
+        private Action<List<ISceneObject>> showEffects;
 
         public CharButton(PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects) : base("Персонаж", showEffects)
         {
             this.playerSceneObject = playerSceneObject;
+            this.showEffects = showEffects;
 
             this.Height = 1.5;
             this.Width = 1.5;
@@ -67,7 +69,7 @@
 
             this.ShowEffects(new List<ISceneObject>()
             {
-                new CharacterInfoWindow()
+                new CharacterInfoWindow(playerSceneObject, showEffects)
             });
         }
     }

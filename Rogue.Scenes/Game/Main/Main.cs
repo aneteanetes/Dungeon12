@@ -43,7 +43,7 @@
             this.InitMap();
 
 
-            var player = new PlayerSceneObject(this.PlayerAvatar, this.Gamemap, ShowEffectsBinding,x=>this.RemoveObject(x))
+            var player = new PlayerSceneObject(this.PlayerAvatar, this.Gamemap, this.ShowEffectsBinding,x=>this.RemoveObject(x))
             {
                 Left = PlayerPosition.X,
                 Top = PlayerPosition.Y
@@ -114,17 +114,26 @@
 #endif
         }
 
-        private void ShowEffectsBinding(List<ISceneObject> e)
-        {
-            e.ForEach(effect =>
-            {
-                effect.Destroy += () =>
-                {
-                    this.RemoveObject(effect);
-                };
-                this.AddObject(effect);
-            });
-        }
+        //private void ShowEffectsBinding(List<ISceneObject> e)
+        //{
+        //    e.ForEach(effect =>
+        //    {
+        //        if (effect.ShowEffects == null)
+        //        {
+        //            effect.ShowEffects = ShowEffectsBinding;
+        //        }
+        //        if(effect is HandleSceneControl effectControl)
+        //        {
+        //            effectControl.ControlBinding = this.AddControl;
+        //        }
+
+        //        effect.Destroy += () =>
+        //        {
+        //            this.RemoveObject(effect);
+        //        };
+        //        this.AddObject(effect);
+        //    });
+        //}
 
         private void FillCommands()
         {

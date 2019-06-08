@@ -48,6 +48,10 @@
 
         ISceneObject Parent { get; }
 
+        Action<ISceneObject> DestroyBinding { get; set; }
+
+        Action<ISceneObjectControl> ControlBinding { get; set; }
+
         bool ForceInvisible { get; }
 
         bool Visible { get; }

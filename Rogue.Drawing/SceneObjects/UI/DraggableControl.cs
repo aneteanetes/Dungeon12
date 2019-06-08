@@ -28,7 +28,7 @@ namespace Rogue.Drawing.SceneObjects.UI
 
         public DraggableControl()
         {
-            Global.FreezeControls = this;
+            Global.AddFreezeControl(this);
         }
 
         private bool drag = false;
@@ -90,7 +90,7 @@ namespace Rogue.Drawing.SceneObjects.UI
             if(key== Key.Escape)
             {
                 this.Destroy?.Invoke();
-                Global.FreezeControls = null;
+                Global.RemoveFreezeControl(this);
             }
         }
     }

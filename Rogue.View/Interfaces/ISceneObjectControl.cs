@@ -3,6 +3,7 @@
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
+    using System;
 
     public interface ISceneObjectControl : ISceneObject
     {

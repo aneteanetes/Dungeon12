@@ -15,7 +15,7 @@
         public PlayerBar(PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects)
         {
             this.AddChild(new CharButton(playerSceneObject,showEffects));
-            this.AddChild(new SkillsButton(showEffects)
+            this.AddChild(new SkillsButton(playerSceneObject,showEffects)
             {
                 Left=11.5
             });

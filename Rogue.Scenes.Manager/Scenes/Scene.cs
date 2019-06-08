@@ -36,22 +36,51 @@
 
         protected void AddObject(ISceneObject sceneObject)
         {
+            if (sceneObject.ControlBinding == null)
+            {
+                sceneObject.ControlBinding += this.RemoveControl;
+                sceneObject.DestroyBinding += this.RemoveObject;
+                sceneObject.ShowEffects += ShowEffectsBinding;
+            }
+
             AddControlRecursive(sceneObject);
 
             SceneObjects.Add(sceneObject);
         }
 
-        protected void AddControl(ISceneObjectControl sceneObjectControl)
+        public void ShowEffectsBinding(List<ISceneObject> e)
         {
+            e.ForEach(effect =>
+            {
+                if (effect.ShowEffects == null)
+                {
+                    effect.ShowEffects = ShowEffectsBinding;
+                }
+                if (effect.ControlBinding==null)
+                {
+                    effect.ControlBinding = this.AddControl;
+                }
+
+                effect.Destroy += () =>
+                {
+                    this.RemoveObject(effect);
+                };
+                this.AddObject(effect);
+            });
+        }
+
+        public void AddControl(ISceneObjectControl sceneObjectControl)
+        {
+            sceneObjectControl.Destroy +=()=> { RemoveControl(sceneObjectControl); };
             SceneObjectsControllable.Add(sceneObjectControl);
         }
 
-        protected void RemoveControl(ISceneObjectControl sceneObjectControl)
+        public void RemoveControl(ISceneObjectControl sceneObjectControl)
         {
             SceneObjectsControllable.Remove(sceneObjectControl);
         }
 
-        protected void RemoveObject(ISceneObject sceneObject)
+        public void RemoveObject(ISceneObject sceneObject)
         {
             if (sceneObject is ISceneObjectControl sceneObjectControl)
             {
@@ -98,7 +127,7 @@
             var modifier = keyEventArgs.Modifiers;
 
 
-            if (Global.Freezed == null || Global.Freezed == this)
+            if (Global.Freezed.Length==0)
                 KeyPress(key, modifier, keyEventArgs.Hold);
 
             var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key).ToArray();
@@ -113,7 +142,7 @@
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
             
-            if (Global.Freezed == null || Global.Freezed == this)
+            if (Global.Freezed.Length==0)
                 KeyUp(key, modifier);
 
             var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key);
@@ -195,7 +224,7 @@
 
         public void OnMouseMove(PointerArgs pointerPressedEventArgs, Point offset)
         {
-            if (sceneManager.Current != this)
+            if (SceneManager.Current != this)
                 return;
 
             OnMouseMoveOnFocus(pointerPressedEventArgs, offset);
@@ -259,9 +288,9 @@
 
         private IEnumerable<ISceneObjectControl> ControlsByHandle(ControlEventType handleEvent, Key key = Key.None)
         {
-            if (Global.Freezed != null)
-            { 
-                var chain = FreezedChain(SceneObjectsControllable.FirstOrDefault(x => x == Global.Freezed));
+            if (Global.Freezed.Length!=0)
+            {
+                var chain = Global.Freezed.SelectMany(freeze => FreezedChain(SceneObjectsControllable.FirstOrDefault(x => x == freeze)));
                 return chain
                     .Distinct()
                     .Where(x =>
