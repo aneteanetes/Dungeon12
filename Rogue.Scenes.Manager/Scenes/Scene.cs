@@ -9,6 +9,7 @@
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Linq.Expressions;
 
@@ -127,7 +128,7 @@
             var modifier = keyEventArgs.Modifiers;
 
 
-            if (Global.Freezed.Length==0)
+            if (Global.FreezeWorld==null && !Global.BlockSceneControls)
                 KeyPress(key, modifier, keyEventArgs.Hold);
 
             var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key).ToArray();
@@ -142,7 +143,7 @@
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
             
-            if (Global.Freezed.Length==0)
+            if (Global.FreezeWorld== null && !Global.BlockSceneControls)
                 KeyUp(key, modifier);
 
             var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key);
@@ -239,7 +240,11 @@
         {
             var controls = ControlsByHandle(ControlEventType.Focus);
 
-            var newFocused = controls.Where(handler => RegionContains(handler, pointerPressedEventArgs, offset))
+            var newFocused = controls.Where(handler => RegionContains(handler, pointerPressedEventArgs, offset));
+
+            newFocused = WhereLayeredHandlers(newFocused,pointerPressedEventArgs,offset);
+
+            newFocused= newFocused
                 .Where(x => !SceneObjectsInFocus.Contains(x))
                 .ToArray();
 
@@ -265,6 +270,12 @@
 
         private bool RegionContains(ISceneObjectControl sceneObjControl, PointerArgs pos, Point offset)
         {
+            Rectangle newRegion = ActualRegion(sceneObjControl, offset);
+            return newRegion.Contains(pos.X, pos.Y);
+        }
+
+        private Rectangle ActualRegion(ISceneObjectControl sceneObjControl, Point offset)
+        {
             var newRegion = new Rectangle
             {
                 X = sceneObjControl.ComputedPosition.X * DrawingSize.CellF,
@@ -273,13 +284,13 @@
                 Width = sceneObjControl.Position.Width * DrawingSize.CellF
             };
 
-            if(!this.AbsolutePositionScene && !sceneObjControl.AbsolutePosition)
+            if (!this.AbsolutePositionScene && !sceneObjControl.AbsolutePosition)
             {
                 newRegion.X += offset.X;
                 newRegion.Y += offset.Y;
             }
 
-            return newRegion.Contains(pos.X, pos.Y);
+            return newRegion;
         }
 
         protected virtual void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold) { }
@@ -288,26 +299,22 @@
 
         private IEnumerable<ISceneObjectControl> ControlsByHandle(ControlEventType handleEvent, Key key = Key.None)
         {
-            if (Global.Freezed.Length!=0)
+            if (Global.FreezeWorld!=null)
             {
-                var chain = Global.Freezed.SelectMany(freeze => FreezedChain(SceneObjectsControllable.FirstOrDefault(x => x == freeze)));
-                return chain
-                    .Distinct()
-                    .Where(x =>
-                    {
-                        bool handle = x.CanHandle.Contains(handleEvent);
-
-                        if (handleEvent == ControlEventType.Key)
-                        {
-                            handle = x.AllKeysHandle || x.KeysHandle.Contains(key);
-                        }
-
-                        return handle;
-                    });
+                var chain = FreezedChain(SceneObjectsControllable.FirstOrDefault(x => x == Global.FreezeWorld));
+                return WhereHandles(handleEvent, key, chain);
             }
             else
             {
-                return SceneObjectsControllable.Where(x =>
+                return WhereHandles(handleEvent, key, SceneObjectsControllable);
+            }
+        }
+
+        private static IEnumerable<ISceneObjectControl> WhereHandles(ControlEventType handleEvent, Key key, IEnumerable<ISceneObjectControl> elements)
+        {
+            var handlers = elements
+                .Distinct()
+                .Where(x =>
                 {
                     bool handle = x.CanHandle.Contains(handleEvent);
 
@@ -318,7 +325,45 @@
 
                     return handle;
                 });
+
+            return handlers;
+        }
+
+        private IEnumerable<ISceneObjectControl> WhereLayeredHandlers(IEnumerable<ISceneObjectControl> elements, PointerArgs pointerPressedEventArgs, Point offset)
+        {
+            List<ISceneObjectControl> selected = new List<ISceneObjectControl>();
+
+            var layered = elements.GroupBy(x => x.ZIndex)
+                .OrderByDescending(x => x.Key);
+
+            //if(elements.Any(x=>x.ZIndex>0))
+            //{
+            //    Debugger.Break();
+            //}
+
+            IGrouping<int, ISceneObjectControl> upper = null;
+
+            foreach (var layer in layered)
+            {
+                if (upper == null)
+                {
+                    upper = layer;
+                    selected.AddRange(layer);
+                    continue;
+                }
+
+                foreach (var item in layer)
+                {
+                    if (!upper.Any(up => ActualRegion(up,offset).IntersectsWith(ActualRegion(item,offset))))
+                    {
+                        selected.Add(item);
+                    }
+                }
+
+                upper = layer;
             }
+
+            return selected;
         }
 
         private IEnumerable<ISceneObjectControl> FreezedChain(ISceneObject freezing)

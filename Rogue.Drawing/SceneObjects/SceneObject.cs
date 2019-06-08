@@ -28,6 +28,26 @@
             }
 
             //ХВАТИТ ОРАТЬ В КОММЕНТАРИЯХ
+
+            ProcessSingleton();
+        }
+
+        private static Dictionary<string, ISceneObject> singletonInstances = new Dictionary<string, ISceneObject>();
+
+        private void ProcessSingleton()
+        {
+            if (this.Singleton)
+            {
+                var key = this.GetType().FullName;
+                if (singletonInstances.TryGetValue(key, out var instance))
+                {
+                    instance.Destroy?.Invoke();
+                    singletonInstances.Remove(key);
+                }
+
+                singletonInstances.Add(key, this);
+                this.Destroy += () => singletonInstances.Remove(key);
+            }
         }
 
         protected TextControl AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical=true)
@@ -200,5 +220,9 @@
         public bool ForceInvisible { get; set; }
 
         public virtual bool Visible { get; set; } = true;
+
+        public virtual int ZIndex { get; set; } = 0;
+
+        public virtual bool Singleton { get; set; } = false;
     }
 }

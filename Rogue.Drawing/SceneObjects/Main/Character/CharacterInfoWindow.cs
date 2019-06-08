@@ -11,6 +11,8 @@
 
     public class CharacterInfoWindow : DraggableControl
     {
+        public override bool Singleton => true;
+
         protected override Key[] OverrideKeyHandles => new Key[] { Key.C, Key.X };
 
         public CharacterInfoWindow(PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects)

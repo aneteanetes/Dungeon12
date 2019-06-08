@@ -51,7 +51,7 @@
 
         public virtual void TextInput(string text) { }
 
-        protected void AddChild(ISceneObjectControl sceneObject)
+        protected virtual void AddChild(ISceneObjectControl sceneObject)
         {
             ControlBinding?.Invoke(sceneObject);
             base.AddChild(sceneObject);

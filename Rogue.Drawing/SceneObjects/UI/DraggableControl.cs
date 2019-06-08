@@ -1,6 +1,7 @@
 ﻿using Rogue.Control.Events;
 using Rogue.Control.Keys;
 using Rogue.Control.Pointer;
+using Rogue.View.Interfaces;
 using System;
 using System.Linq;
 
@@ -8,9 +9,18 @@ namespace Rogue.Drawing.SceneObjects.UI
 {
     public class DraggableControl : HandleSceneControl
     {
+        private static int draggableLayers = 1;
+
         public override bool CacheAvailable => false;
 
         public override bool AbsolutePosition => true;
+
+        public DraggableControl()
+        {
+            this.ZIndex = ++draggableLayers;
+            this.Destroy += () => Global.BlockSceneControls = false;
+            Global.BlockSceneControls = true;
+        }
 
         protected override Key[] KeyHandles => new Key[] { Key.Escape }.Concat(OverrideKeyHandles).ToArray();
 
@@ -21,16 +31,12 @@ namespace Rogue.Drawing.SceneObjects.UI
             ControlEventType.Click,
             ControlEventType.GlobalClickRelease,
             ControlEventType.MouseMove,
-            ControlEventType.Key
+            ControlEventType.Key,
+             ControlEventType.Focus
         }.Concat(OverrideHandles).ToArray();
 
         protected virtual ControlEventType[] OverrideHandles => new ControlEventType[0];
-
-        public DraggableControl()
-        {
-            Global.AddFreezeControl(this);
-        }
-
+        
         private bool drag = false;
 
         private PointerArgs delta = null;
@@ -90,8 +96,13 @@ namespace Rogue.Drawing.SceneObjects.UI
             if(key== Key.Escape)
             {
                 this.Destroy?.Invoke();
-                Global.RemoveFreezeControl(this);
             }
+        }
+
+        protected override void AddChild(ISceneObjectControl sceneObject)
+        {
+            sceneObject.ZIndex = this.ZIndex;
+            base.AddChild(sceneObject);
         }
     }
 }

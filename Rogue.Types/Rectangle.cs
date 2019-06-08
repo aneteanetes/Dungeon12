@@ -82,5 +82,20 @@ namespace Rogue.Types
             return ((x >= X) && (x < X+Width) &&
                 (y >= Y) && (y < Y+Height));
         }
+
+        public bool IntersectsWith(Rectangle b)
+        {
+            var x1 = Math.Max(X, b.X);
+            var x2 = Math.Min(X + Width, b.X + b.Width);
+            var y1 = Math.Max(Y, b.Y);
+            var y2 = Math.Min(Y + Height, b.Y + b.Height);
+
+            if (x2 >= x1 && y2 >= y1)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

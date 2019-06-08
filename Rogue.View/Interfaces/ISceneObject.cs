@@ -71,5 +71,7 @@
         /// Посылание эффектов в сцену
         /// </summary>
         Action<List<ISceneObject>> ShowEffects { get; set; }
+
+        int ZIndex { get; set; }
     }
 }
