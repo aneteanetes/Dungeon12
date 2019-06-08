@@ -63,13 +63,21 @@
 
         public override void Click(PointerArgs args) => ShowSkillsWindow();
 
+        private SkillsWindow skillsWindow = null;
+
         private void ShowSkillsWindow()
         {
+            if (skillsWindow != null)
+                return;
+
             playerSceneObject.StopMovings();
+
+            skillsWindow = new SkillsWindow(playerSceneObject);
+            skillsWindow.Destroy += () => skillsWindow = null;
 
             this.ShowEffects(new List<ISceneObject>()
             {
-                new SkillsWindow()
+                skillsWindow
             });
         }
     }

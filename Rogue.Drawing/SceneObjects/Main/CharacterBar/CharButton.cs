@@ -63,13 +63,21 @@
 
         public override void Click(PointerArgs args) => ShowInfo();
 
+        private CharacterInfoWindow characterInfoWindow;
+
         private void ShowInfo()
         {
+            if (characterInfoWindow != null)
+                return;
+
             playerSceneObject.StopMovings();
+
+            characterInfoWindow = new CharacterInfoWindow(playerSceneObject, showEffects);
+            characterInfoWindow.Destroy += () => characterInfoWindow = null;
 
             this.ShowEffects(new List<ISceneObject>()
             {
-                new CharacterInfoWindow(playerSceneObject, showEffects)
+                characterInfoWindow
             });
         }
     }

@@ -38,6 +38,8 @@
 
         private Action<ISceneObjectControl> controlBinding;
 
+        private bool empty = false;
+
         public SkillControl(GameMap gameMap, PlayerSceneObject player, Ability ability, AbilityPosition abilityPosition, Action<List<ISceneObject>> abilityEffects, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding)
             :base(ability?.Name,abilityEffects)
         {
@@ -51,6 +53,7 @@
 
             if (ability == null)
             {
+                empty = true;
                 this.ability = new EmptyAbility(abilityPosition);
             }
 
@@ -72,6 +75,9 @@
 
         private string SquareTexture(bool focus)
         {
+            if(empty)
+                return $"Rogue.Resources.Images.ui.square_d.png";
+
             var big = IsBig
                 ? "B"
                 : "";
@@ -149,6 +155,9 @@
 
         public override void GlobalClick(PointerArgs args)
         {
+            if (player.BlockMouse)
+                return;
+
             if (args.MouseButton.ToString() != this.ability.AbilityPosition.ToString())
             {
                 return;

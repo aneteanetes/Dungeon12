@@ -470,7 +470,7 @@ namespace Rogue.Drawing.Labirinth
             };
         }
 
-        protected override ControlEventType[] Handles => new ControlEventType[] { ControlEventType.Click };
+        protected override ControlEventType[] Handles => new ControlEventType[0];
 
         private List<Point> path = new List<Point>();
 

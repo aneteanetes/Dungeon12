@@ -1,5 +1,7 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Map
 {
+    using Rogue.Abilities;
+    using Rogue.Control.Events;
     using Rogue.Control.Keys;
     using Rogue.Drawing.GUI;
     using Rogue.Drawing.Impl;
@@ -16,6 +18,11 @@
     public class PlayerSceneObject : AnimatedSceneObject
     {
         public Rogue.Map.Objects.Avatar Avatar;
+
+        protected override ControlEventType[] Handles => new ControlEventType[]
+        {
+             ControlEventType.Focus
+        };
 
         private Player Player => Avatar.Character;
         private readonly GameMap location;
@@ -183,7 +190,9 @@
             }
             this.NowMoving.Clear();
         }
-        
+
+        public bool BlockMouse { get; set; }
+
         private HashSet<Direction> OppositeDirections = new HashSet<Direction>();
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
@@ -326,5 +335,7 @@
         {
             base.Unfocus();
         }
+
+        public Ability[] GetAbilities() => Avatar.Character.GetInstancesFromAssembly<Ability>();
     }
 }

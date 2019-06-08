@@ -18,7 +18,10 @@
 
     public class EnemySceneObject : AnimatedSceneObject
     {
-        protected override ControlEventType[] Handles => new ControlEventType[0];
+        protected override ControlEventType[] Handles => new ControlEventType[]
+        {
+             ControlEventType.Focus
+        };
 
         private readonly Mob mob;
         private readonly GameMap location;

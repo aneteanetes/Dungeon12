@@ -11,9 +11,8 @@
         public override bool CacheAvailable => false;
 
         public override bool AbsolutePosition => true;
-
-
-        public Inventory()
+        
+        public Inventory(int zIndex)
         {
             var xPoint = 1;
             var yPoint = 1;
@@ -25,7 +24,8 @@
                     this.AddChild(new InventoryCell()
                     {
                         Left = x * xPoint,
-                        Top = y * yPoint
+                        Top = y * yPoint,
+                        ZIndex= zIndex
                     });
                 }
             }

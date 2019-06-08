@@ -39,6 +39,6 @@ namespace Rogue.Entites.Alive.Character
         /// это пиздец, выпили это нахуй
         /// </summary>
         /// <returns></returns>
-        public virtual ConsoleColor ResourceColor => ConsoleColor.Blue;
+        public virtual ConsoleColor ResourceColor => ConsoleColor.Blue;        
     }
 }

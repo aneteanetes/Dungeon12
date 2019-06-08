@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Map
 {
+    using Rogue.Control.Events;
     using Rogue.Drawing.GUI;
     using Rogue.Drawing.SceneObjects.Base;
     using Rogue.Drawing.SceneObjects.UI;
@@ -17,6 +18,11 @@
 
     public class NPCSceneObject : MoveableSceneObject
     {
+        protected override ControlEventType[] Handles =>  new ControlEventType[]
+        {
+             ControlEventType.Focus
+        };
+
         public NPCSceneObject(GameMap location, NPC mob, Rectangle defaultFramePosition) : base(location, mob, mob.NPCEntity, defaultFramePosition, null)
         {
             this.Image = mob.Tileset;

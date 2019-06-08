@@ -157,13 +157,15 @@
         {
             var keyControls = ControlsByHandle(ControlEventType.Click);
             var globalKeyHandlers = ControlsByHandle(ControlEventType.GlobalClick);
-
+            
             if (globalKeyHandlers.Count() != 0)
             {
                 DoClicks(pointerPressedEventArgs, offset, globalKeyHandlers, (c, a) => c.GlobalClick(a));
             }
             
             var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs, offset));
+            clickedElements = WhereLayeredHandlers(clickedElements, pointerPressedEventArgs, offset);
+
             DoClicks(pointerPressedEventArgs, offset, clickedElements, (c, a) => c.Click(a));
         }
 
@@ -178,6 +180,7 @@
             }
 
             var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs, offset));
+            clickedElements = WhereLayeredHandlers(clickedElements, pointerPressedEventArgs, offset);
             DoClicks(pointerPressedEventArgs, offset, clickedElements, (c, a) => c.ClickRelease(a));
         }
 
@@ -232,6 +235,8 @@
 
             var moveControls = ControlsByHandle(ControlEventType.MouseMove)
                 .Where(so => RegionContains(so, pointerPressedEventArgs, offset));
+
+            var layered = WhereLayeredHandlers(moveControls, pointerPressedEventArgs, offset);
 
             DoClicks(pointerPressedEventArgs, offset, moveControls, (c, a) => c.MouseMove(a));
         }

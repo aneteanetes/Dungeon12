@@ -11,12 +11,13 @@
 
     public class CharacterInfoWindow : DraggableControl
     {
-        public override bool Singleton => true;
-
-        protected override Key[] OverrideKeyHandles => new Key[] { Key.C, Key.X };
+        protected override Key[] OverrideKeyHandles => new Key[] { Key.C };
 
         public CharacterInfoWindow(PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects)
         {
+            playerSceneObject.BlockMouse = true;
+            this.Destroy+=()=> playerSceneObject.BlockMouse = false;
+
             this.Image = "Rogue.Resources.Images.ui.infocharacter.png";
 
             this.Height = 17;
@@ -61,7 +62,7 @@
                 Left = 8
             });
 
-            this.AddChild(new Inventory()
+            this.AddChild(new Inventory(this.ZIndex)
             {
                 Top=9.45,
                 Left=0.55
@@ -74,14 +75,7 @@
         {
             if (key == Key.C)
             {
-                base.KeyDown( Key.Escape, modifier, hold);
-            }
-            else if (key== Key.X)
-            {
-                ShowEffects(new List<ISceneObject>()
-                {
-                    new SkillsWindow()
-                });
+                base.KeyDown(Key.Escape, modifier, hold);
             }
 
             base.KeyDown(key, modifier, hold);
