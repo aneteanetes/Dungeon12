@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Rogue.Entites.Alive.Enums;
 using Rogue.Entites.Animations;
 using Rogue.Entites.Enums;
 using Rogue.Types;
@@ -13,11 +14,13 @@ namespace Rogue.Entites.Alive.Character
     {
         public Race Race { get; set; }
 
+        public Origins Origin { get; set; }
+
         public long EXP { get; set; }
 
         public long MaxExp => EXP * 2;
 
-        public long Gold { get; set; }
+        public long Gold { get; set; } = 100;
 
         public virtual string ClassName { get; }
 

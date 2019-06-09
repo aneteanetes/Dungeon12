@@ -18,6 +18,7 @@
     <Folder Include="Images\Enemies\" />
     <Folder Include="Images\Regions\" />
     <Folder Include="Images\Objects\" />
+    <Folder Include="Images\ui\stats\" />
   </ItemGroup>
 
 </Project>

@@ -37,7 +37,7 @@
             var q = abils.FirstOrDefault(x => x.AbilityPosition == Rogue.Abilities.Enums.AbilityPosition.Q);
             var e = abils.FirstOrDefault(x => x.AbilityPosition == Rogue.Abilities.Enums.AbilityPosition.E);
 
-            this.AddChild(new SkillButton(left, null,this.ShowEffects));
+            this.AddChild(new SkillButton(left, null,this.ShowEffects,true));
             this.AddChild(new SkillButton(right, null, this.ShowEffects)
             {
                 Left=3
@@ -52,11 +52,11 @@
             });
         }
         
-        protected override Key[] OverrideKeyHandles => new Key[] { Key.X };
+        protected override Key[] OverrideKeyHandles => new Key[] { Key.V, Key.X };
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
-            if (key == Key.X)
+            if (key == Key.V || key== Key.X)
             {
                 base.KeyDown(Key.Escape, modifier, hold);
             }
@@ -66,6 +66,8 @@
 
         private class SkillButton : TooltipedSceneObject
         {
+            private bool active = false;
+
             public override bool CacheAvailable => false;
             public override bool AbsolutePosition => true;
 
@@ -73,8 +75,9 @@
             private readonly Action open;
             private bool disabled;
 
-            public SkillButton(Ability ability, Action open,Action<List<ISceneObject>> showEffects) : base("Характеристики", showEffects)
+            public SkillButton(Ability ability, Action open,Action<List<ISceneObject>> showEffects, bool active=false) : base("Характеристики", showEffects)
             {
+                this.active = active;
                 this.disabled = ability==null;
                 this.open = open;
 
@@ -94,7 +97,7 @@
                 if(disabled)
                     return $"Rogue.Resources.Images.ui.squareWeapon_h_d.png";
 
-                var f = focus
+                var f = focus || active
                     ? "_f"
                     : "";
 

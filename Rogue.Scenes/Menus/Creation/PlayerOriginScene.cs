@@ -21,7 +21,8 @@
                 Top = 3f,
                 Left = 7f,
                 OnSelect = o =>
-                {                    
+                {
+                    PlayerAvatar.Character.Origin = o;
                     this.Switch<PlayerSummaryScene>();
                 }
             });

@@ -43,6 +43,9 @@
                     this.PlayerAvatar = new Map.Objects.Avatar
                     {
                         Character = new Rogue.Classes.Noone.Noone()
+                        {
+                            Origin= Entites.Alive.Enums.Origins.Farmer
+                        }
                     };
                     this.PlayerAvatar.Character.Name = "Ваш персонаж";
                     this.PlayerAvatar.Character.Race = Race.Elf;
