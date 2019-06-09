@@ -1,4 +1,4 @@
-﻿namespace Rogue.Drawing.SceneObjects.Main.Character
+﻿namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo
 {
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
@@ -14,10 +14,13 @@
     {
         protected override Key[] OverrideKeyHandles => new Key[] { Key.C };
 
+        private PlayerSceneObject playerSceneObject;
+
         public CharacterInfoWindow(PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects)
         {
             playerSceneObject.BlockMouse = true;
             this.Destroy += () => playerSceneObject.BlockMouse = false;
+            this.playerSceneObject = playerSceneObject;
 
             this.Image = "Rogue.Resources.Images.ui.infocharacter.png";
 
@@ -99,7 +102,7 @@
             {
                 Height = 0.85,
                 Width = 0.85,
-                Top = 15.65,
+                Top = 15.75,
                 Left = goldLeft-0.85,
                 AbsolutePosition = true,
                 CacheAvailable = false
@@ -107,7 +110,7 @@
 
             var gold = this.AddTextCenter(new DrawText($"{character.Gold}", new DrawColor(255, 243, 119, 255)).Montserrat());
             gold.Left = goldLeft + 0.3;
-            gold.Top = 15.65;
+            gold.Top = 15.75;
         }
 
         private void AddItemWear()
@@ -165,7 +168,7 @@
             }
             else
             {
-                statsInfo = new StatsInfo()
+                statsInfo = new StatsInfo(playerSceneObject.Avatar.Character)
                 {
                     Left = this.Width + 0.5
                 };

@@ -1,12 +1,12 @@
 ﻿namespace Rogue.Drawing.Combat
 {
-    using System;
-    using System.Collections.Generic;
     using Rogue.Drawing.Impl;
     using Rogue.Entites;
-    using Rogue.Entites.Alive.Character;
+    using Rogue.Entites.Alive;
     using Rogue.Entites.Enemy;
     using Rogue.View.Interfaces;
+    using System;
+    using System.Collections.Generic;
 
     public class CombatLogDrawSession : DrawSession
     {
@@ -23,7 +23,7 @@
 
         public Enemy Enemy { get; set; }
 
-        public Player Player { get; set; }
+        public Character Player { get; set; }
 
         public List<IDrawable> Log { get; set; }
 

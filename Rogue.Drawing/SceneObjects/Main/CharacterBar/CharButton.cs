@@ -2,7 +2,7 @@
 {
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
-    using Rogue.Drawing.SceneObjects.Main.Character;
+    using Rogue.Drawing.SceneObjects.Main.CharacterInfo;
     using Rogue.Drawing.SceneObjects.Map;
     using Rogue.View.Interfaces;
     using System;

@@ -3,7 +3,7 @@
     using Rogue.Abilities.Enums;
     using Rogue.Abilities.Scaling;
     using Rogue.Abilities.Talants;
-    using Rogue.Entites.Alive.Character;
+    using Rogue.Entites.Alive;
     using Rogue.Map;
     using Rogue.Map.Objects;
     using Rogue.Physics;
@@ -111,6 +111,16 @@
         {
 
         }
+
+        public virtual Location CastLocation { get; set; }
+
+        public virtual AbilityActionAttribute ActionType { get; set; }
+
+        public virtual AbilityCastType CastType { get; set; }
+
+        public virtual double Spend { get; set; }
+
+        public List<(string,string)> Scales { get; set; }
     }
 
 
@@ -120,7 +130,7 @@
     /// <typeparam name="TClass">Класс которому принадлежит способность</typeparam>
     /// <typeparam name="TTalants">Тип талантов этой способности</typeparam>
     public abstract class Ability<TClass, TTalants> : Ability
-        where TClass: Player
+        where TClass: Character
         where TTalants : TalantTree
     {
         /// <summary>
@@ -150,7 +160,7 @@
     /// </summary>
     /// <typeparam name="TClass">Класс которому принадлежит способность</typeparam>
     public abstract class Ability<TClass> : Ability
-        where TClass : Player
+        where TClass : Character
     {
         protected abstract bool CanUse(TClass @class);
 

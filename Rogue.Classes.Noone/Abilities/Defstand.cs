@@ -6,10 +6,13 @@
     using Rogue.Map;
     using Rogue.Map.Objects;
     using Rogue.Transactions;
+    using System;
 
     public class Defstand : Ability<Noone>
     {
         public override bool Hold => true;
+
+        public override double Spend => 2;
 
         public override int Position => 0;
 
@@ -68,5 +71,15 @@
                 this.Discard(obj);
             }
         }
+
+        public override AbilityActionAttribute ActionType => AbilityActionAttribute.Hold;
+
+        public override AbilityCastType CastType => AbilityCastType.Active;
+
+        public override Location CastLocation => Location.Combat;
+
+        public override string Description => $"Позволяет укрыть за щитом.{Environment.NewLine}Пока вы укрыты за щитом уменьшает {Environment.NewLine}урона на кол-во блока.";
+                                            //$"Атакует врага нанося двойной урон {Environment.NewLine} оружием в правой руке. {Environment.NewLine} Может наносить критический урон.";
+
     }
 }

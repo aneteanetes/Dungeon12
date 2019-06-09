@@ -2,7 +2,6 @@
 {
     using Rogue.Drawing.SceneObjects.Main.CharacterBar;
     using Rogue.Drawing.SceneObjects.Map;
-    using Rogue.Entites.Alive.Character;
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;

@@ -1,11 +1,13 @@
 ﻿namespace Rogue.Classes.Noone
 {
-    using Rogue.Entites.Alive.Character;
+    using Rogue.Drawing.Impl;
+    using Rogue.Entites.Alive;
     using Rogue.Entites.Animations;
     using Rogue.Types;
+    using System;
     using System.Collections.Generic;
 
-    public class Noone : Player
+    public class Noone : Character
     {
         public Noone()
         {
@@ -25,7 +27,11 @@
 
         public override string ClassName { get => "Приключенец"; }
         
-        public override string ResourceName => "Дейсвия";
+        public override string ResourceName => "Действия";
+
+        public override string Resource => this.Actions.ToString();
+
+        public override ConsoleColor ResourceColor => ConsoleColor.White;
 
         private void RestoreActions(object sender, System.Timers.ElapsedEventArgs e)
         {
@@ -110,5 +116,13 @@
                 this.TileSet = "Rogue.Classes.Noone.Images.sprite.png";
             }
         }
+
+        public override IEnumerable<ClassStat> ClassStats => new ClassStat[]
+        {
+            new ClassStat("Блок","0", new DrawColor(ConsoleColor.White)),
+            new ClassStat("Парирование","0%", new DrawColor(ConsoleColor.DarkCyan)),
+            new ClassStat("Выносливость", "0",new DrawColor(ConsoleColor.Yellow)){  Group=1},
+            new ClassStat("Шанс крит.", "0%",new DrawColor(ConsoleColor.DarkRed)){  Group=1},
+        };
     }
 }

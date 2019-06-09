@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Rogue.Entites.Alive.Character;
-using System.Runtime.Loader;
-
-namespace Rogue
+﻿namespace Rogue
 {
+    using Rogue.Entites.Alive;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Runtime.Loader;
+
     public static class RogueClasses
     {
         private static bool ClassesLoaded = false;
-        private static IEnumerable<Player> classes;
-        public static IEnumerable<Player> All()
+        private static IEnumerable<Character> classes;
+        public static IEnumerable<Character> All()
         {
             if (classes == null)
             {
@@ -21,10 +21,10 @@ namespace Rogue
                     .Where(x=>!x.IsDynamic)
                     .SelectMany(x => x.GetTypes()
                         .Where(t=>!t.IsAbstract)
-                        .Where(t => typeof(Player).IsAssignableFrom(t)));
+                        .Where(t => typeof(Character).IsAssignableFrom(t)));
 
                 classes = classTypes
-                    .Select(x => (Player)x.New())
+                    .Select(x => (Character)x.New())
                     .Where(x => !string.IsNullOrEmpty(x.ClassName));
             }
 

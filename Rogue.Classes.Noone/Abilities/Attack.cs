@@ -15,6 +15,8 @@
     {
         public override int Position => 0;
 
+        public override double Spend => 1;
+
         public override string Name => "Атака";
 
         public override ScaleRate Scale => ScaleRate.Build(Entites.Enums.Scale.AbilityPower, 0.1);
@@ -67,5 +69,13 @@
         protected override void Dispose(GameMap gameMap, Avatar avatar, Noone @class) { }
 
         public override double Value => Rogue.RandomRogue.Next(3,17);
+
+        public override AbilityActionAttribute ActionType => AbilityActionAttribute.EffectInstant;
+
+        public override AbilityCastType CastType => AbilityCastType.Active;
+
+        public override Location CastLocation => Location.Combat;
+
+        public override string Description => $"Атакует врага нанося двойной урон {Environment.NewLine}оружием в правой руке. {Environment.NewLine}Может наносить критический урон.";
     }
 }

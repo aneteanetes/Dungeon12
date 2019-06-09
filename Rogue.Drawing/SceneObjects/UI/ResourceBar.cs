@@ -1,9 +1,9 @@
 ﻿namespace Rogue.Drawing.SceneObjects.UI
 {
-    using Rogue.Entites.Alive.Character;
+    using Rogue.Entites.Alive;
 
     public abstract class ResourceBar<T> : ResourceBar
-        where T: Player
+        where T: Character
     {
         protected T Player { get; }
 

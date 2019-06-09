@@ -1,12 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Rogue.Control.Commands;
+﻿using Rogue.Control.Commands;
 using Rogue.Control.Keys;
-using Rogue.Drawing.Labirinth;
-using Rogue.Entites.Alive.Character;
-using Rogue.Entites.Animations;
 using Rogue.Map;
 using Rogue.Types;
+using System.Collections.Generic;
 
 namespace Rogue.Scenes.Game
 {

@@ -3,11 +3,9 @@
     using Rogue.Abilities;
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
-    using Rogue.Drawing.GUI;
-    using Rogue.Drawing.Impl;
     using Rogue.Drawing.SceneObjects.Gameplay;
     using Rogue.Drawing.SceneObjects.UI;
-    using Rogue.Entites.Alive.Character;
+    using Rogue.Entites.Alive;
     using Rogue.Map;
     using Rogue.Transactions;
     using Rogue.Types;
@@ -24,7 +22,7 @@
              ControlEventType.Focus
         };
 
-        private Player Player => Avatar.Character;
+        private Character Player => Avatar.Character;
         private readonly GameMap location;
 
         public Action<Direction> OnStop;

@@ -1,4 +1,4 @@
-﻿namespace Rogue.Drawing.SceneObjects.Main.Character
+﻿namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo
 {
     using Rogue.Drawing.SceneObjects.Base;
     using Rogue.Drawing.SceneObjects.UI;

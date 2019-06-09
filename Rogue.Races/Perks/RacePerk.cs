@@ -7,7 +7,7 @@
     using Rogue.Data.Perks;
     using Rogue.DataAccess;
     using Rogue.Drawing.Impl;
-    using Rogue.Entites.Alive.Character;
+    using Rogue.Entites.Alive;
     using Rogue.Perks;
     using Rogue.View.Interfaces;
 
@@ -28,7 +28,7 @@
 
         public override string Description => _description;
 
-        public void Apply(Player player)
+        public void Apply(Character player)
         {
             var perk = Database.Entity<ValuePerk>(x => x.Identity == player.Race.ToString())
                 .First();
@@ -43,7 +43,7 @@
             this.Modify(player, true, perk.Effects);
         }
 
-        public void Descard(Player player)
+        public void Descard(Character player)
         {
             var perk = Database.Entity<ValuePerk>(x => x.Identity == player.Race.ToString())
                 .First();
@@ -51,7 +51,7 @@
             this.Modify(player, false, perk.Effects);
         }
 
-        private void Modify(Player player, bool positive, IEnumerable<Effect> effects)
+        private void Modify(Character player, bool positive, IEnumerable<Effect> effects)
         {
             foreach (var effect in effects)
             {

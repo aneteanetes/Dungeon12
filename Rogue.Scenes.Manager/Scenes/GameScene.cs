@@ -1,12 +1,10 @@
 ﻿namespace Rogue.Scenes
 {
-    using System;
-    using System.Collections.Generic;
-    using Rogue.Entites.Alive.Character;
     using Rogue.Logging;
     using Rogue.Map;
     using Rogue.Scenes.Manager;
-    using Rogue.View.Interfaces;
+    using System;
+    using System.Collections.Generic;
 
     public abstract class GameScene : CommandScene
     {

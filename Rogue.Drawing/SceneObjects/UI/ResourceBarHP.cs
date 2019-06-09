@@ -1,7 +1,7 @@
 ﻿namespace Rogue.Drawing.SceneObjects.UI
 {
     using Rogue.Drawing.Impl;
-    using Rogue.Entites.Alive.Character;
+    using Rogue.Entites.Alive;
     using Rogue.View.Interfaces;
     using System;
 
@@ -9,7 +9,7 @@
     {
         private readonly ImageControl HpBar;
 
-        public ResourceBarHP(Player avatar)
+        public ResourceBarHP(Character avatar)
         { 
             HpBar = new InteractiveHPBar(avatar)
             {
@@ -26,11 +26,11 @@
 
         private class InteractiveHPBar : ImageControl
         {
-            private Player player;
+            private Character player;
 
             private IDrawText hpText;
 
-            public InteractiveHPBar(Player player) : base("Rogue.Resources.Images.ui.player.hp.png")
+            public InteractiveHPBar(Character player) : base("Rogue.Resources.Images.ui.player.hp.png")
             {
                 this.player = player;
 

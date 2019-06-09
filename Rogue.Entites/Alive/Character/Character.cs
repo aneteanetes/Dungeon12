@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using Rogue.Entites.Alive.Enums;
-using Rogue.Entites.Animations;
-using Rogue.Entites.Enums;
-using Rogue.Types;
-
-namespace Rogue.Entites.Alive.Character
+﻿namespace Rogue.Entites.Alive
 {
+    using Rogue.Entites.Alive.Enums;
+    using System;
+    using System.Collections.Generic;
+
     /// <summary>
     /// Абстрактный класс персонажа
     /// </summary>
-    public abstract class Player : Moveable
+    public abstract class Character : Moveable
     {
         public Race Race { get; set; }
 
@@ -42,6 +39,8 @@ namespace Rogue.Entites.Alive.Character
         /// это пиздец, выпили это нахуй
         /// </summary>
         /// <returns></returns>
-        public virtual ConsoleColor ResourceColor => ConsoleColor.Blue;        
+        public virtual ConsoleColor ResourceColor => ConsoleColor.Blue;
+
+        public virtual IEnumerable<ClassStat> ClassStats => new ClassStat[0];
     }
 }

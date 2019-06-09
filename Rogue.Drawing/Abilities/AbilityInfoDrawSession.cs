@@ -1,10 +1,10 @@
 ﻿namespace Rogue.Drawing.Abilities
 {
-    using System;
     using Rogue.Abilities;
     using Rogue.Drawing.Impl;
-    using Rogue.Entites.Alive.Character;
+    using Rogue.Entites.Alive;
     using Rogue.View.Interfaces;
+    using System;
 
     public class AbilityInfoDrawSession : DrawSession
     {
@@ -15,7 +15,7 @@
 
         public Ability Ability { get; set; }
 
-        public Player Player { get; set; }
+        public Character Player { get; set; }
 
         public override IDrawSession Run()
         {

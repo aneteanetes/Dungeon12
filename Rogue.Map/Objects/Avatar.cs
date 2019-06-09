@@ -13,7 +13,7 @@
 
         public override bool CameraAffect => true;
 
-        public Entites.Alive.Character.Player Character { get; set; }
+        public Entites.Alive.Character Character { get; set; }
 
         public override string Tileset => Character.Tileset;
 

@@ -1,16 +1,15 @@
 ﻿namespace Rogue.Drawing.SceneObjects.UI
 {
     using Rogue.Drawing.Impl;
-    using Rogue.Entites.Alive.Character;
+    using Rogue.Entites.Alive;
     using Rogue.Types;
-    using Rogue.View.Interfaces;
     using System;
 
     public class PlayerUI : SceneObject
     {
         public override bool AbsolutePosition => true;
 
-        public PlayerUI(Player player)
+        public PlayerUI(Character player)
         {
             this.AddChild(new AvatarSceneObject(player)
             {
@@ -37,9 +36,9 @@
 
         private class AvatarSceneObject : ImageControl
         {
-            private Player player;
+            private Character player;
 
-            public AvatarSceneObject(Player player) : base(player.Avatar)
+            public AvatarSceneObject(Character player) : base(player.Avatar)
             {
                 this.player = player;
             }
@@ -67,9 +66,9 @@
         {
             public override bool CacheAvailable => false;
 
-            private readonly Player player;
+            private readonly Character player;
 
-            public LevelSceneObject(Player player)
+            public LevelSceneObject(Character player)
             {
                 this.player = player;
                 this.Text = new DrawText(player.Level.ToString(), ConsoleColor.White)
