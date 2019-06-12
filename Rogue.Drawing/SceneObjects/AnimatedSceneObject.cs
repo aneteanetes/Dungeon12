@@ -19,11 +19,13 @@
 
         private int FrameCounter = 0;
 
+        public bool FreezeForceAnimation { get; set; }
+
         public override Rectangle ImageRegion
         {
             get
             {
-                if (Global.FreezeWorld!=null)
+                if (Global.FreezeWorld!=null && !FreezeForceAnimation)
                     return FramePosition;
 
                 FrameCounter++;
@@ -32,6 +34,26 @@
                 ChangeAnimationFrame();
 
                 return FramePosition;
+            }
+        }
+
+        public override string Image
+        {
+            get
+            {
+                if (animationMap?.TilesetAnimation ?? true)
+                {
+                    return base.Image;
+                }
+
+                return this.animationMap.FullFrames[frame];
+            }
+            set
+            {
+                if (animationMap?.TilesetAnimation ?? false)
+                    return;
+
+                base.Image = value;
             }
         }
 
@@ -68,7 +90,10 @@
         {
             if (animationMap != null && !animationStop)
             {
-                FramePosition.Pos = animationMap.Frames[frame];
+                if (animationMap.TilesetAnimation)
+                {
+                    FramePosition.Pos = animationMap.Frames[frame];
+                }
 
                 if (RequestNextFrame(FrameCounter, animationMap))
                 {
@@ -76,7 +101,11 @@
                     AnimationLoop();
                 }
 
-                if (frame == animationMap.Frames.Count)
+                var countOfFrames = animationMap.TilesetAnimation
+                    ? animationMap.Frames.Count
+                    : animationMap.FullFrames.Length;
+
+                if (frame == countOfFrames)
                 {
                     frame = 0;
                     FrameCounter = 0;

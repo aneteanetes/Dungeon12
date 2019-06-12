@@ -4,7 +4,7 @@
     using Rogue.Types;
     using System.Collections.Generic;
 
-    public class NPCData : Persist
+    public class NPCData : ConversationalDataStore
     {
         public string IdentifyName { get; set; }
 
@@ -23,7 +23,5 @@
         public NPCMoveable NPC { get; set; }
 
         public double MovementSpeed { get; set; }
-
-        public List<string> Conversations { get; set; }
     }
 }

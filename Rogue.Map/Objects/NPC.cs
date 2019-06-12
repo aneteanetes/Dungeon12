@@ -10,11 +10,9 @@
     using Rogue.Types;
 
     [Template("N")]
-    public class NPC : MapObject
+    public class NPC : Сonversational
     {
         public NPCMoveable NPCEntity { get; set; }
-
-        public string Face { get; set; }
 
         public override string Icon { get => "N"; set { } }
 

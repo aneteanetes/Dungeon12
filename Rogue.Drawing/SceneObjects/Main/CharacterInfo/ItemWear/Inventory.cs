@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo
 {
+    using Rogue.Control.Events;
     using Rogue.Drawing.SceneObjects.Base;
     using Rogue.Drawing.SceneObjects.UI;
     using System;
@@ -33,6 +34,8 @@
 
         private class InventoryCell : DarkRectangle
         {
+            protected override ControlEventType[] Handles => new ControlEventType[0];
+
             public override bool CacheAvailable => false;
 
             public override bool AbsolutePosition => true;

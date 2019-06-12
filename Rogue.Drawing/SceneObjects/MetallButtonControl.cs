@@ -30,6 +30,11 @@
             this.Children.Add(textControl);
         }
 
+        public void SetText(string txt)
+        {
+            this.textControl.Text.SetText(txt);
+        }
+
         public override double Width { get => 8.375; set { } }
         public override double Height { get => 2.40625; set { } }
 

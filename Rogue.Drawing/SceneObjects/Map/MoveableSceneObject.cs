@@ -27,6 +27,8 @@
 
         protected override void DrawLoop()
         {
+            if (moveable.Static)
+                return;
 
             if (moveDistance > 0)
             {
@@ -44,6 +46,9 @@
         }
         protected override void AnimationLoop()
         {
+            if (moveable.Static)
+                return;
+
             if (moveDistance != 0)
                 return;
 

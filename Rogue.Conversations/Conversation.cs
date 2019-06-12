@@ -7,6 +7,10 @@
     /// </summary>
     public class Conversation
     {
+        public string Face { get; set; }
+
+        public string Name { get; set; }
+
         /// <summary>
         /// Темы этого разговора
         /// </summary>

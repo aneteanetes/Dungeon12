@@ -1,5 +1,6 @@
 ﻿{
   "Identify": "ServantOfFaithMain",
+  "Face": "Rogue.Resources.Images.NPCs.FaithIsland.ServantF.png",
   "Subjects": [
     {
       "Name": "Остров веры",
@@ -14,7 +15,7 @@
         },
         {
           "Shown": true,
-          "Tag":10,
+          "Tag": 10,
           "Answer": "Как я могу попасть на материк?",
           "Text": "Вы можете попасть на материк по морю используя рыбацкий корабль, или, как говорят слухи, через заброшенный храм служителей веры",
           "ReplicsTags": []

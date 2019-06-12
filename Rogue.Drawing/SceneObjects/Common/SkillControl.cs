@@ -141,14 +141,14 @@
 
         private void GlobalSafeClick(PointerArgs args)
         {
-            var npc = gameMap.NPCs(this.avatar).FirstOrDefault();
+            var conversational = gameMap.Conversations(this.avatar).FirstOrDefault();
 
-            if (npc != null)
+            if (conversational != null)
             {
                 player.StopMovings();
                 ShowEffects?.Invoke(new List<ISceneObject>
                 {
-                    new NPCDialogue(npc,destroyBinding,controlBinding)
+                    new NPCDialogue(conversational,destroyBinding,controlBinding)
                 });
             }
         }

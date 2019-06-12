@@ -21,7 +21,10 @@
 
         public TooltipedSceneObject(string tooltip, Action<List<ISceneObject>> showEffects)
         {
-            this.ShowEffects = showEffects;
+            if (showEffects != null)
+            {
+                this.ShowEffects = showEffects;
+            }
             TooltipText = tooltip;
         }
 

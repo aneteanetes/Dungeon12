@@ -2,6 +2,7 @@
 {
     using Force.DeepCloner;
     using Rogue.Conversations;
+    using Rogue.Data;
     using Rogue.Data.Conversations;
     using Rogue.Data.Mobs;
     using Rogue.Data.Npcs;
@@ -19,15 +20,21 @@
 
     public partial class GameMap
     {
-        private static void BindConversations(NPCData data, NPC mapNpc)
+        private static void BindConversations(ConversationalDataStore data, Сonversational conversational)
         {
             var conversations = Database.Entity<ConversationData>(x => data.Conversations.Contains(x.Identify));
-            mapNpc.NPCEntity.Conversation = new Conversations.Conversation()
-            {
-                Subjects = conversations.SelectMany(x => x.Subjects).ToList()
-            };
 
-            new ReplicaBinderVisitor().Visit(mapNpc.NPCEntity.Conversation);
+            conversational.Conversations = conversations.Select(c => new Conversation()
+            {
+                Subjects = c.Subjects,
+                Face=c.Face,
+                Name=c.Name
+            }).ToList();
+
+            foreach (var conv in conversational.Conversations)
+            {
+                new ReplicaBinderVisitor().Visit(conv);
+            }
         }
 
         private class ReplicaBinderVisitor : ConversationVisitor

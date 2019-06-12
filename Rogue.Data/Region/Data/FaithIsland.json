@@ -35,6 +35,15 @@
 		}
 	}
   ],
+  "Homes":[
+	{
+		"IdentifyName":"FaithIslandMayor",
+		"Position":{
+			"X":35,
+			"Y":40.5
+		}
+	}
+  ],
   "Objects": [
     {
       "Image": "Rogue.Resources.Images.Tiles.water.png",

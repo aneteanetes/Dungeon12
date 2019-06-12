@@ -7,6 +7,11 @@
 
     public class Moveable : Modified
     {
+        /// <summary>
+        /// Тащемта, это костыль, но для прототипа нормально
+        /// </summary>
+        public bool Static { get; set; }
+
         public virtual AnimationMap Idle { get; set; }
 
         public virtual AnimationMap MoveUp { get; set; }

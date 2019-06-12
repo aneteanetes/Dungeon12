@@ -1,4 +1,5 @@
-﻿using Rogue.Map.Objects;
+﻿using Rogue.Conversations;
+using Rogue.Map.Objects;
 using Rogue.Physics;
 using Rogue.Types;
 using System;
@@ -84,7 +85,7 @@ namespace Rogue.Map
             return mobs.ToArray();
         }
 
-        public IEnumerable<NPC> NPCs(MapObject @object)
+        public IEnumerable<Сonversational> Conversations(MapObject @object)
         {
             var rangeObject = new MapObject
             {
@@ -99,13 +100,13 @@ namespace Rogue.Map
             rangeObject.Size.Height *= 2.5;
             rangeObject.Size.Width *= 2.5;
 
-            IEnumerable<NPC> npcs = Enumerable.Empty<NPC>();
+            IEnumerable<Сonversational> npcs = Enumerable.Empty<Сonversational>();
 
             var moveArea = Map.Query(rangeObject);
             if (moveArea != null)
             {
-                npcs = moveArea.Nodes.Where(node => node is NPC)
-                    .Select(node => node as NPC)
+                npcs = moveArea.Nodes.Where(node => node is Сonversational)
+                    .Select(node => node as Сonversational)
                     .Where(node => rangeObject.IntersectsWith(node))
                     .ToArray();
             }

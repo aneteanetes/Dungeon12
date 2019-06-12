@@ -3,22 +3,22 @@
     using Rogue.Control.Pointer;
     using Rogue.Entites.Animations;
     using Rogue.Map;
-    using Rogue.Map.Objects;
+    using Rogue.Types;
     using System;
 
     public class StandaloneSceneObject : AnimatedSceneObject
     {
-        public StandaloneSceneObject(MapObject mapObject, Func<int, AnimationMap, bool> requestNextFrame = null)
-            : base(mapObject.Name, new Types.Rectangle
+        public StandaloneSceneObject(string img, AnimationMap animationMap,string tooltip, Func<int, AnimationMap, bool> requestNextFrame = null, Rectangle defaultFramePosition = null)
+            : base(tooltip, defaultFramePosition ?? new Types.Rectangle
             {
                 X = 0,
                 Y = 0,
                 Height = 32,
                 Width = 32,
-            },null)
+            }, null, requestNextFrame)
         {
-            this.Image = mapObject.Tileset;
-            this.SetAnimation(mapObject.Animation);
+            this.Image = img;
+            this.SetAnimation(animationMap);
         }
 
         protected override void DrawLoop()
@@ -27,7 +27,6 @@
 
         public override void Click(PointerArgs args)
         {
-            System.Console.WriteLine("clicked standalone");
         }
     }
 }

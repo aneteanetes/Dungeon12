@@ -9,6 +9,8 @@
 
         public List<RegionNPC> NPCs { get; set; }
 
+        public List<RegionNPC> Homes { get; set; }
+
         public List<PhysicalObject> SafeZones { get; set; }
 
         public string Name { get; set; }

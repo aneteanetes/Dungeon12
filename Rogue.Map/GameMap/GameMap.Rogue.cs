@@ -2,6 +2,7 @@
 {
     using Force.DeepCloner;
     using Rogue.Data.Conversations;
+    using Rogue.Data.Homes;
     using Rogue.Data.Mobs;
     using Rogue.Data.Npcs;
     using Rogue.Data.Region;
@@ -57,7 +58,6 @@
                     Tileset = data.Tileset,
                     TileSetRegion = data.TileSetRegion,
                     Name = data.Name,
-                    Face = data.Face,
                     Size = new PhysicalSize()
                     {
                         Width = data.Size.X * 32,
@@ -78,6 +78,29 @@
 
                 this.Map.Add(mapNpc);
                 this.Objects.Add(mapNpc);
+            }
+
+            foreach (var home in persistRegion.Homes)
+            {
+                var data = Database.Entity<HomeData>(x => x.IdentifyName == home.IdentifyName).FirstOrDefault();
+
+                var mapHome = new Home()
+                {
+                     ScreenImage = data.ScreenImage,
+                     Frames=data.Frames,
+                    Name = data.Name,
+                    Size = new PhysicalSize()
+                    {
+                        Width = 32,
+                        Height = 32
+                    },
+                    Location = home.Position
+                };
+
+                BindConversations(data, mapHome);
+
+                this.Map.Add(mapHome);
+                this.Objects.Add(mapHome);
             }
 
             return persistRegion.Name;

@@ -1,20 +1,9 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Map
 {
     using Rogue.Control.Events;
-    using Rogue.Drawing.GUI;
-    using Rogue.Drawing.SceneObjects.Base;
-    using Rogue.Drawing.SceneObjects.UI;
-    using Rogue.Entites.Alive;
-    using Rogue.Entites.Animations;
-    using Rogue.Entites.Enemy;
     using Rogue.Map;
     using Rogue.Map.Objects;
     using Rogue.Types;
-    using Rogue.View.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Timers;
 
     public class NPCSceneObject : MoveableSceneObject
     {

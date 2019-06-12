@@ -133,6 +133,11 @@ namespace Rogue.Drawing.Labirinth
                             sceneObjects.Add(new NPCSceneObject(this.gamemap, npc, npc.TileSetRegion));
                             break;
                         }
+                    case Home home:
+                        {
+                            sceneObjects.Add(new HomeSceneObject(home, home.Name,null));
+                            break;
+                        }
                     default:
                         break;
                 }
