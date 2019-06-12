@@ -49,6 +49,9 @@
         {
             foreach (var sceneObject in sceneObjects)
             {
+                if (!sceneObject.DrawOutOfSight && !InCamera(sceneObject))
+                    continue;
+
                 if (!sceneObject.Visible)
                     continue;
 

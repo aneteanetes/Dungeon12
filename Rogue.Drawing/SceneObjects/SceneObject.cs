@@ -224,5 +224,7 @@
         public virtual int ZIndex { get; set; } = 0;
 
         public virtual bool Singleton { get; set; } = false;
+
+        public virtual bool DrawOutOfSight { get; set; } = true;
     }
 }

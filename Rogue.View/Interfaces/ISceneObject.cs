@@ -10,7 +10,7 @@
         /// Can be cached or have animation
         /// </summary>
         bool CacheAvailable { get; }
-
+        
         /// <summary>
         /// Is this object can be batched
         /// </summary>
@@ -73,5 +73,7 @@
         Action<List<ISceneObject>> ShowEffects { get; set; }
 
         int ZIndex { get; set; }
+
+        bool DrawOutOfSight { get; set; }
     }
 }

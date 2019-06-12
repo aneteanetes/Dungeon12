@@ -88,5 +88,38 @@
         {
             this.CameraMovings.Clear();
         }
+
+        private double Width = 40 * 32;
+        private double Height = 22.5 * 32;
+
+        private bool InCamera(ISceneObject sceneObject)
+        {
+            var cameraIn = IntersectsWith_WithoutAllocation(
+                CameraOffsetX*-1, CameraOffsetY*-1, Width, Height,
+                sceneObject.Position.X * 32, sceneObject.Position.Y * 32, sceneObject.Position.Width * 32, sceneObject.Position.Height * 32);
+
+            var objIn = IntersectsWith_WithoutAllocation(
+                sceneObject.Position.X * 32, sceneObject.Position.Y * 32, sceneObject.Position.Width * 32, sceneObject.Position.Height * 32,
+                CameraOffsetX, CameraOffsetY, Width, Height);
+
+            return cameraIn || objIn;
+        }
+
+        private static bool IntersectsWith_WithoutAllocation(
+            double x1, double y1, double w1, double h1,
+            double x2, double y2, double w2, double h2)
+        {
+            var xsum1 = Math.Max(x1, x2);
+            var xsum2 = Math.Min(x1 + w1, x2 + w2);
+            var ysum1 = Math.Max(y1, y2);
+            var ysum2 = Math.Min(y1 + h1, y2 + h2);
+
+            if (xsum2 >= xsum1 && ysum2 >= ysum1)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

@@ -9,6 +9,8 @@
 
     public abstract class AnimatedSceneObject : TooltipedSceneObject
     {
+        public override bool DrawOutOfSight => false;
+
         public override bool CacheAvailable => false;
 
         public AnimatedSceneObject(string tooltip, Rectangle defaultFramePosition, Action<List<ISceneObject>> showEffects, Func<int, AnimationMap, bool> requestNextFrame = null) : base(tooltip, showEffects)
