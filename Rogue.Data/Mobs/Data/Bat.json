@@ -134,9 +134,21 @@
       ],
       "Direction": 4
     },
+    "DieImage": "Rogue.Resources.Images.Enemies.enemies.png",
+    "DieImagePosition": {
+      "X": 32,
+      "Y": 0,
+      "Width": 32,
+      "Height": 16
+    },
     "MinDMG": 1,
     "MaxDMG": 3,
     "HitPoints": 100,
     "MaxHitPoints": 100
   }
 }
+
+
+        //public string DieImage { get; set; }
+
+        //public Rectangle DieImagePosition { get; set; }

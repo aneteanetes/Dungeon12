@@ -30,6 +30,7 @@ namespace Rogue.Drawing.Labirinth
 
         public GameMapSceneObject(GameMap location, PlayerSceneObject avatar)
         {
+            location.PublishObject = PublishMapObject;
             this.player = avatar;
             gamemap = location;
             gamemap.OnGeneration = () =>
@@ -147,6 +148,42 @@ namespace Rogue.Drawing.Labirinth
 
             //var mobs = mapObjects.Where(x => typeof(Mob).IsAssignableFrom(x.GetType())).Select(x => x as Mob); //ПЕРЕПИСАТЬ НАХУЙ
             //return mobs.Select(mob => new EnemySceneObject(this.gamemap,mob, mob.TileSetRegion));
+        }
+
+        private void PublishMapObject(MapObject mapObject)
+        {
+            SceneObject sceneObject = null;
+
+            switch (mapObject)
+            {
+                case Mob mob:
+                    {
+                        sceneObject = new EnemySceneObject(this.gamemap, mob, mob.TileSetRegion);
+                        break;
+                    }
+                case NPC npc:
+                    {
+                        sceneObject = new NPCSceneObject(this.gamemap, npc, npc.TileSetRegion);
+                        break;
+                    }
+                case Home home:
+                    {
+                        sceneObject = new HomeSceneObject(home, home.Name, null);
+                        break;
+                    }
+                case Corpse corpse:
+                    {
+                        sceneObject = new CorpseSceneObject(corpse);
+                        break;
+                    }
+                default:
+                    break;
+            }
+
+            this.ShowEffects?.Invoke(new List<ISceneObject>()
+            {
+                sceneObject
+            });
         }
 
         private void AddObject(MapObject[] cell, Point pos)

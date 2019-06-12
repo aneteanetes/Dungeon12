@@ -26,7 +26,7 @@
         private readonly Mob mob;
         private readonly GameMap location;
 
-        public EnemySceneObject(GameMap location, Mob mob, Rectangle defaultFramePosition) : base(mob.Name,defaultFramePosition, null)
+        public EnemySceneObject(GameMap location, Mob mob, Rectangle defaultFramePosition) : base(mob.Name, defaultFramePosition, null)
         {
             this.location = location;
             this.mob = mob;
@@ -231,11 +231,18 @@
             {
                 moveDistance = 0;
             }
+            else if (this.aliveTooltip != null)
+            {
+                this.aliveTooltip.Left = this.Position.X;
+                this.aliveTooltip.Top = this.Position.Y - 0.8;
+            }
         }
 
         private bool CheckMoveAvailable(Direction direction)
         {
-            if (this.location.Move(this.mob, direction))
+            var movingToSafe = !this.location.InSafe(this.mob);
+
+            if (movingToSafe && this.location.Move(this.mob, direction))
             {
                 this.Left = this.mob.Location.X;
                 this.Top = this.mob.Location.Y;

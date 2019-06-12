@@ -103,6 +103,8 @@
                 this.Objects.Add(mapHome);
             }
 
+            SpawnEnemies(20);
+
             return persistRegion.Name;
         }
 
@@ -187,8 +189,9 @@
                     Enemy = data.Enemy.DeepClone(),
                     Tileset = data.Tileset,
                     TileSetRegion = data.TileSetRegion,
-                    //Name = data.Name,
-                    Size = new PhysicalSize() {
+                    Name = data.Name,
+                    Size = new PhysicalSize()
+                    {
                         Width = data.Size.X * 32,
                         Height = data.Size.Y * 32
                     },
@@ -197,20 +200,31 @@
                     AttackRangeMultiples=data.AttackRangeMultiples
                 };
 
+                mob.Enemy.Name = mob.Name;
+
                 bool setted = false;
-                for (int j = 0; j < 100; j++)
-                {
-                    if (setted = TrySetLocation(mob))
-                    {
-                        break;
-                    }
-                }
+
+                while (!(setted = TrySetLocation(mob))) ;
 
                 if (setted)
                 {
                     mob.Die += () =>
                     {
+                        var corpse = new Corpse()
+                        {
+                            Enemy = mob.Enemy,
+                            Location=mob.Location.DeepClone(),
+                            Size=mob.Size.DeepClone()
+                        };
+                        corpse.Destroy += () =>
+                        {
+                            this.Map.Remove(corpse);
+                        };
+
                         this.Map.Remove(mob);
+                        this.Map.Add(corpse);
+
+                        this.PublishObject?.Invoke(corpse);
                     };
 
                     this.Map.Add(mob);
@@ -221,12 +235,21 @@
 
         private bool TrySetLocation(Mob mob)
         {
-            var x = Rogue.RandomRogue.Next(3, 32);
-            var y = Rogue.RandomRogue.Next(3, 18);
+            var x = Rogue.RandomRogue.Next(20, 80);
+            var y = Rogue.RandomRogue.Next(20, 80);
 
             mob.Location = new Point(x, y);
 
-            return !this.Map.Query(mob).Nodes.Any(node => node.Location.X == x && node.Location.Y == y);
+            var otherObject = this.Map.Query(mob).Nodes.Any(node => node.IntersectsWith(mob));
+            if (otherObject)
+                return false;
+
+            if (InSafe(mob))
+            {
+                return false;
+            }
+            
+            return true;
         }
     }
 }

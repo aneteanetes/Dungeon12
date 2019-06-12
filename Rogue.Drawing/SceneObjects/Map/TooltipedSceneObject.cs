@@ -18,7 +18,7 @@
     public abstract class TooltipedSceneObject : HandleSceneControl
     {
         protected Tooltip aliveTooltip = null;
-
+        
         public TooltipedSceneObject(string tooltip, Action<List<ISceneObject>> showEffects)
         {
             if (showEffects != null)

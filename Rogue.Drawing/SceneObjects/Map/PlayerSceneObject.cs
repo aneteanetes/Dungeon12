@@ -17,6 +17,8 @@
     {
         public Rogue.Map.Objects.Avatar Avatar;
 
+        public override int Layer => 1;
+
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
              ControlEventType.Focus

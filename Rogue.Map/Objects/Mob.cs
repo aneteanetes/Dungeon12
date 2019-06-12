@@ -15,11 +15,7 @@
         public override string Icon { get => "*"; set { } }
 
         protected override MapObject Self => this;
-
-        public override void Interact(GameMap gameMap)
-        {
-        }
-
+        
         public override bool Obstruction => true;
 
         public bool IsChasing { get; set; }
@@ -37,6 +33,7 @@
             };
             set { }
         }
+
         public override PhysicalPosition Position
         {
             get => new PhysicalPosition

@@ -55,6 +55,11 @@
 
             return a;
         }
+
+        public override string ToString()
+        {
+            return $"{this.GetType().Name} x:{Position.X} y:{Position.Y} ({Size.Width}x{Size.Height})";
+        }
     }
 
     public abstract class PhysicalObject<T> : PhysicalObject, IHasNeighbours<T>

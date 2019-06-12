@@ -153,6 +153,19 @@
             }
         }
 
+        private bool InteractInterrupt()
+        {
+            var interactable = gameMap.Interactions(this.avatar).FirstOrDefault();
+
+            if (interactable != null)
+            {
+                interactable.Interact(interactable);
+                return true;
+            }
+
+            return false;
+        }
+
         public override void GlobalClick(PointerArgs args)
         {
             if (player.BlockMouse)
@@ -161,6 +174,12 @@
             if (args.MouseButton.ToString() != this.ability.AbilityPosition.ToString())
             {
                 return;
+            }
+
+            if (args.MouseButton == MouseButton.Left)
+            {
+                if (InteractInterrupt())
+                    return;
             }
 
             Cast(args);

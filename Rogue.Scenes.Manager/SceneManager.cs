@@ -21,7 +21,7 @@
 
         private static readonly Dictionary<Type, GameScene> SceneCache = new Dictionary<Type, GameScene>();
 
-        public static GameScene Current = null;        
+        public static GameScene Current = null;
 
         public void Change<TScene>() where TScene : GameScene
         {

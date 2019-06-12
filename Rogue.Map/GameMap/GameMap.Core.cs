@@ -1,15 +1,16 @@
-﻿using Rogue.Conversations;
-using Rogue.Map.Objects;
-using Rogue.Physics;
-using Rogue.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Rogue.Map
+﻿namespace Rogue.Map
 {
+    using Rogue.Map.Objects;
+    using Rogue.Physics;
+    using Rogue.Types;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public partial class GameMap
     {
+        public Action<MapObject> PublishObject;
+
         public bool First = true;
 
         public string Name;
@@ -40,14 +41,6 @@ namespace Rogue.Map
                     .Where(node => node != @object)
                     .Where(node => @object.IntersectsWith(node))
                     .ToArray();
-
-                if (typeof(Avatar).IsAssignableFrom(@object.GetType()))
-                {
-                    foreach (var mObj in mapObjs)
-                    {
-                        mObj.Interact(this);
-                    }
-                }
 
                 moveAvailable = !mapObjs.Any(x => x.Obstruction);
             }
@@ -87,18 +80,7 @@ namespace Rogue.Map
 
         public IEnumerable<Сonversational> Conversations(MapObject @object)
         {
-            var rangeObject = new MapObject
-            {
-                Position = new Physics.PhysicalPosition
-                {
-                    X = @object.Position.X - ((@object.Size.Width * 2.5) / 2),
-                    Y = @object.Position.Y - ((@object.Size.Height * 2.5) / 2)
-                },
-                Size = @object.Size
-            };
-
-            rangeObject.Size.Height *= 2.5;
-            rangeObject.Size.Width *= 2.5;
+            MapObject rangeObject = PlayerRangeObject(@object);
 
             IEnumerable<Сonversational> npcs = Enumerable.Empty<Сonversational>();
 
@@ -112,6 +94,40 @@ namespace Rogue.Map
             }
 
             return npcs;
+        }
+
+        private static MapObject PlayerRangeObject(MapObject @object)
+        {
+            var rangeObject = new MapObject
+            {
+                Position = new Physics.PhysicalPosition
+                {
+                    X = @object.Position.X - ((@object.Size.Width * 2.5) / 2),
+                    Y = @object.Position.Y - ((@object.Size.Height * 2.5) / 2)
+                },
+                Size = @object.Size
+            };
+
+            rangeObject.Size.Height *= 2.5;
+            rangeObject.Size.Width *= 2.5;
+            return rangeObject;
+        }
+
+        public IEnumerable<MapObject> Interactions(MapObject @object)
+        {
+            var rangeObject = PlayerRangeObject(@object);
+
+            IEnumerable<MapObject> interactable = Enumerable.Empty<MapObject>();
+
+            var moveArea = Map.Query(rangeObject);
+            if (moveArea != null)
+            {
+                interactable = moveArea.Nodes.Where(node => rangeObject.IntersectsWith(node))
+                    .Where(node => node.Interactable)
+                    .ToArray();
+            }
+
+            return interactable;
         }
 
         private bool needReloadCache = false;
@@ -193,45 +209,6 @@ namespace Rogue.Map
                     }
                 }
             }
-
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    for (int j = 0; j < 10; j++)
-            //    {
-            //        var area = new GameMapContainerObject()
-            //        {
-            //            Size = new PhysicalSize
-            //            {
-            //                Width = 320,
-            //                Height = 320
-            //            },
-            //            Position = new PhysicalPosition
-            //            {
-            //                Y = j * 320,
-            //                X = i * 320
-            //            }
-            //        };
-
-
-            //        this.Add(area);
-            //    }
-            //}
-
-            //Nodes = Enumerable.Range(0, 8).Select(num => new GameMapContainerObject()
-            //{
-            //    Size = new PhysicalSize
-            //    {
-            //        Width = 320,
-            //        Height = 352
-            //    },
-            //    Position = new PhysicalPosition
-            //    {
-            //        Y = num < 4 ? 0 : 352,
-            //        X = num < 4
-            //            ? num * 320
-            //            : (num - 4) * 320
-            //    },
-            //} as MapObject).ToList();
         }
 
         protected override bool Containable => true;
@@ -241,8 +218,6 @@ namespace Rogue.Map
         public override PhysicalSize Size { get; set; }
 
         protected override MapObject Self => this;
-
-        public override void Interact(GameMap gameMap) { }
     }
 
     public class GameMapContainerObject : MapObject

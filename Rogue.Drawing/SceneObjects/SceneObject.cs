@@ -23,7 +23,8 @@
             {                
                 // ВСЕ ЭТИ МЕТОДЫ ПУБЛИЧНЫЕ ТОЛЬКО ПОТОМУ ЧТО НУЖНЫ ЗДЕСЬ
                 ControlBinding += scene.AddControl;
-                DestroyBinding += scene.RemoveObject;
+                DestroyBinding += scene.RemoveObject;                
+                Destroy = () => scene.RemoveObject(this);
                 ShowEffects += scene.ShowEffectsBinding;
             }
 
@@ -215,7 +216,7 @@
             Width = this.Children.Max(c => c.Position.X + c.Position.Width)
         };
 
-        public int Layer { get; set; }
+        public virtual int Layer { get; set; }
 
         public bool ForceInvisible { get; set; }
 

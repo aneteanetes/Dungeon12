@@ -47,7 +47,7 @@
 
         private void Draw(ISceneObject[] sceneObjects)
         {
-            foreach (var sceneObject in sceneObjects)
+            foreach (var sceneObject in sceneObjects.OrderBy(c => c.Layer).ToArray())
             {
                 if (!sceneObject.DrawOutOfSight && !InCamera(sceneObject))
                     continue;

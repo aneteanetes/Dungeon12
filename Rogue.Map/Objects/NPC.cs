@@ -17,11 +17,7 @@
         public override string Icon { get => "N"; set { } }
 
         protected override MapObject Self => this;
-
-        public override void Interact(GameMap gameMap)
-        {
-        }
-
+        
         public override bool Obstruction => true;
         
         public override double MovementSpeed => base.MovementSpeed;

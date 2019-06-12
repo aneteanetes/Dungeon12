@@ -27,8 +27,6 @@
 
         protected override void Use(GameMap gameMap, Avatar avatar, Noone @class)
         {
-            Console.WriteLine("use attack");
-
             @class.Actions -= 1;
 
             var rangeObject = new MapObject
@@ -68,7 +66,7 @@
 
         protected override void Dispose(GameMap gameMap, Avatar avatar, Noone @class) { }
 
-        public override double Value => Rogue.RandomRogue.Next(3,17);
+        public override double Value => Rogue.RandomRogue.Next(30,170);
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.EffectInstant;
 

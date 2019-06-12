@@ -53,9 +53,5 @@
         }
 
         protected override MapObject Self => this;
-
-        public override void Interact(GameMap gameMap)
-        {
-        }
     }
 }

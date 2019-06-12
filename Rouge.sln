@@ -83,7 +83,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Monogame", "Rogue.Mon
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Global", "Rogue.Global\Rogue.Global.csproj", "{10B9E577-05DD-4725-B587-024087BB53FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Conversations", "Rogue.Conversations\Rogue.Conversations.csproj", "{F0D92DA9-4803-4137-A5B1-73279EDC0051}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Conversations", "Rogue.Conversations\Rogue.Conversations.csproj", "{F0D92DA9-4803-4137-A5B1-73279EDC0051}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Loot", "Rogue.Loot\Rogue.Loot.csproj", "{444BFC6D-856B-4960-A230-C5C03C7DD291}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -403,6 +405,14 @@ Global
 		{F0D92DA9-4803-4137-A5B1-73279EDC0051}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F0D92DA9-4803-4137-A5B1-73279EDC0051}.Release|x86.ActiveCfg = Release|Any CPU
 		{F0D92DA9-4803-4137-A5B1-73279EDC0051}.Release|x86.Build.0 = Release|Any CPU
+		{444BFC6D-856B-4960-A230-C5C03C7DD291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{444BFC6D-856B-4960-A230-C5C03C7DD291}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{444BFC6D-856B-4960-A230-C5C03C7DD291}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{444BFC6D-856B-4960-A230-C5C03C7DD291}.Debug|x86.Build.0 = Debug|Any CPU
+		{444BFC6D-856B-4960-A230-C5C03C7DD291}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{444BFC6D-856B-4960-A230-C5C03C7DD291}.Release|Any CPU.Build.0 = Release|Any CPU
+		{444BFC6D-856B-4960-A230-C5C03C7DD291}.Release|x86.ActiveCfg = Release|Any CPU
+		{444BFC6D-856B-4960-A230-C5C03C7DD291}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

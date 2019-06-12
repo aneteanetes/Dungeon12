@@ -79,6 +79,7 @@
                     listObj.ForEach(o => this.AddObject(o));
                 }
             };
+            mapSceneObect.ShowEffects = this.ShowEffectsBinding;
             this.AddObject(mapSceneObect);
             mapSceneObect.Init();
 
@@ -156,7 +157,7 @@
 
         private void InitMap()
         {
-            this.Gamemap = new GameMap
+            this.Gamemap = new GameMap()
             {
                 Biom = ConsoleColor.DarkGray
             };
