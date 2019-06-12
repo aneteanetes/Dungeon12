@@ -155,15 +155,7 @@
 
         private bool InteractInterrupt()
         {
-            var interactable = gameMap.Interactions(this.avatar).FirstOrDefault();
-
-            if (interactable != null)
-            {
-                interactable.Interact(interactable);
-                return true;
-            }
-
-            return false;
+            return avatar.SafeMode;
         }
 
         public override void GlobalClick(PointerArgs args)

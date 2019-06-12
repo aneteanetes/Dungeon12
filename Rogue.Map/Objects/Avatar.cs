@@ -53,5 +53,7 @@
         }
 
         protected override MapObject Self => this;
+
+        public bool SafeMode { get; set; }
     }
 }

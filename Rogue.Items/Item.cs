@@ -42,9 +42,9 @@
         /// </summary>
         public static Item Empty => new EmptyItem();
 
-        public string Tileset => "";
+        public virtual string Tileset { get; set; }
 
-        public Rectangle TileSetRegion => default;
+        public virtual Rectangle TileSetRegion { get; set; }
 
         public Rectangle Region { get; set; }
 
@@ -54,5 +54,10 @@
         {
             public override Stats AvailableStats => Stats.None;
         }
+
+        public PositionInInventory InventoryPosition { get; set; }
+
+        public Point InventorySize { get; set; }
+
     }
 }

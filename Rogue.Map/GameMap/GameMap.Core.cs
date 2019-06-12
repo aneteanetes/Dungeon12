@@ -105,7 +105,11 @@
                     X = @object.Position.X - ((@object.Size.Width * 2.5) / 2),
                     Y = @object.Position.Y - ((@object.Size.Height * 2.5) / 2)
                 },
-                Size = @object.Size
+                Size = new PhysicalSize()
+                {
+                    Height = @object.Size.Height,
+                    Width = @object.Size.Width
+                }
             };
 
             rangeObject.Size.Height *= 2.5;

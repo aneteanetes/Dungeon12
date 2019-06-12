@@ -11,6 +11,8 @@ namespace Rogue.Drawing.SceneObjects.UI
     {
         private static int draggableLayers = 1;
 
+        public override int Layer => 50;
+
         public override bool CacheAvailable => false;
 
         public override bool AbsolutePosition => true;

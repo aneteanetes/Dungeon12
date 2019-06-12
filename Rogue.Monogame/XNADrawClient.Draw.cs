@@ -190,6 +190,11 @@
             var y = sceneObject.Position.Y * cell + yParent;
             var x = sceneObject.Position.X * cell + xParent;
 
+            //if(sceneObject.Position.Width==0 || sceneObject.Position.Height==0)
+            //{
+            //    Console.WriteLine($"У объекта {sceneObject}:{sceneObject.Uid} не указана ширина и/или высота!");
+            //}
+
             if (sceneObject.IsBatch && !batching)
             {
                 if (sceneObject.Expired || !BatchCache.TryGetValue(sceneObject.Uid, out var bitmap))

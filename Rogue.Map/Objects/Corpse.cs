@@ -14,7 +14,6 @@
 
         public override void Interact(object target)
         {
-            this.Destroy?.Invoke();
             base.Interact(target);
         }
     }

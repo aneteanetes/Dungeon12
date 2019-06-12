@@ -53,6 +53,13 @@
                 if (enemy.Enemy.HitPoints <= 0)
                 {
                     enemy.Die?.Invoke();
+
+                    var expr = RandomRogue.Next(4, 16);
+                    avatar.Character.EXP += expr;
+                    this.UseEffects(new List<ISceneObject>()
+                    {
+                        new PopupString($"Вы получаете {expr} опыта!", ConsoleColor.DarkMagenta,avatar.Location,25, 19,0.06)
+                    });
                 }
 
                 var critical = value > 10;

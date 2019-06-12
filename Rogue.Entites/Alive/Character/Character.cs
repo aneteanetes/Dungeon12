@@ -1,6 +1,7 @@
 ﻿namespace Rogue.Entites.Alive
 {
     using Rogue.Entites.Alive.Enums;
+    using Rogue.Items;
     using System;
     using System.Collections.Generic;
 
@@ -15,7 +16,7 @@
 
         public long EXP { get; set; }
 
-        public long MaxExp => EXP * 2;
+        public long MaxExp => 100;
 
         public long Gold { get; set; } = 100;
 
@@ -42,5 +43,7 @@
         public virtual ConsoleColor ResourceColor => ConsoleColor.Blue;
 
         public virtual IEnumerable<ClassStat> ClassStats => new ClassStat[0];
+
+        public List<Item> Backpack { get; set; } = new List<Item>();
     }
 }

@@ -56,6 +56,28 @@
             return a;
         }
 
+        public PhysicalObject Grow(double by)
+        {
+            var rangeObject = new PhysicalObject
+            {
+                Position = new Physics.PhysicalPosition
+                {
+                    X = this.Position.X - ((this.Size.Width * by) / 2),
+                    Y = this.Position.Y - ((this.Size.Height * by) / 2)
+                },
+                Size = new PhysicalSize()
+                {
+                    Height = this.Size.Height,
+                    Width = this.Size.Width
+                }
+            };
+
+            rangeObject.Size.Height *= by;
+            rangeObject.Size.Width *= by;
+
+            return rangeObject;
+        }
+
         public override string ToString()
         {
             return $"{this.GetType().Name} x:{Position.X} y:{Position.Y} ({Size.Width}x{Size.Height})";

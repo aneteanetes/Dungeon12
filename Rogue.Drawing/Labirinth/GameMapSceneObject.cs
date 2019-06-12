@@ -173,7 +173,7 @@ namespace Rogue.Drawing.Labirinth
                     }
                 case Corpse corpse:
                     {
-                        sceneObject = new CorpseSceneObject(corpse);
+                        sceneObject = new CorpseSceneObject(corpse, this.player.Avatar);
                         break;
                     }
                 default:

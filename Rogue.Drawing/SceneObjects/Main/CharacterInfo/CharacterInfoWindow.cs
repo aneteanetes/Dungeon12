@@ -38,7 +38,7 @@
 
             AddItemWear();
 
-            this.AddChild(new Inventory(this.ZIndex)
+            this.AddChild(new Inventory(this.ZIndex, new Types.Point(11,6),playerSceneObject.Avatar.Character.Backpack)
             {
                 Top = 9.45,
                 Left = 0.55
@@ -60,9 +60,14 @@
             origin.Left = 7.3;
             origin.Top = 2;
 
+
             var @class = this.AddTextCenter(new DrawText(character.ClassName, new DrawColor(ConsoleColor.Cyan)).Montserrat());
             @class.Left = 0.5;
             @class.Top = 2;
+
+            var exp = this.AddTextCenter(new DrawText($"Опыт: {character.EXP}/{character.MaxExp}", new DrawColor(ConsoleColor.White)).Montserrat());
+            exp.Left = .5;
+            exp.Top = 2.5;
 
             this.AddChild(new ImageControl("Rogue.Resources.Images.ui.stats.attack.png")
             {

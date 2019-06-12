@@ -158,15 +158,16 @@
             var keyControls = ControlsByHandle(ControlEventType.Click);
             var globalKeyHandlers = ControlsByHandle(ControlEventType.GlobalClick);
             
-            if (globalKeyHandlers.Count() != 0)
-            {
-                DoClicks(pointerPressedEventArgs, offset, globalKeyHandlers, (c, a) => c.GlobalClick(a));
-            }
-            
             var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs, offset));
             clickedElements = WhereLayeredHandlers(clickedElements, pointerPressedEventArgs, offset);
 
             DoClicks(pointerPressedEventArgs, offset, clickedElements, (c, a) => c.Click(a));
+
+            /// глобальный клик позже потому что он в никуда, да и отмекнять его придётся чаще
+            if (globalKeyHandlers.Count() != 0)
+            {
+                DoClicks(pointerPressedEventArgs, offset, globalKeyHandlers, (c, a) => c.GlobalClick(a));
+            }
         }
 
         public void OnMouseRelease(PointerArgs pointerPressedEventArgs, Point offset)
@@ -174,14 +175,15 @@
             var keyControls = ControlsByHandle(ControlEventType.ClickRelease);
             var globalKeyHandlers = ControlsByHandle(ControlEventType.GlobalClickRelease);
 
+            var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs, offset));
+            clickedElements = WhereLayeredHandlers(clickedElements, pointerPressedEventArgs, offset);
+            DoClicks(pointerPressedEventArgs, offset, clickedElements, (c, a) => c.ClickRelease(a));
+
+            /// глобальный клик позже потому что он в никуда, да и отмекнять его придётся чаще
             if (globalKeyHandlers.Count() != 0)
             {
                 DoClicks(pointerPressedEventArgs, offset, globalKeyHandlers, (c, a) => c.GlobalClickRelease(a));
             }
-
-            var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs, offset));
-            clickedElements = WhereLayeredHandlers(clickedElements, pointerPressedEventArgs, offset);
-            DoClicks(pointerPressedEventArgs, offset, clickedElements, (c, a) => c.ClickRelease(a));
         }
 
         public void OnMouseWheel(MouseWheelEnum wheelEnum)

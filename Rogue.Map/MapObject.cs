@@ -43,7 +43,7 @@
         public bool Container => false;
 
         public virtual bool Interactable { get; set; }
-
+        
         public virtual void Interact(object target)
         {
             this.OnInteract?.Invoke();

@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <Folder Include="Images\Enemies\" />
+    <Folder Include="Images\Items\Weapons\OneHand\" />
+    <Folder Include="Images\Items\Weapons\OneHand\Swords\" />
     <Folder Include="Images\Regions\" />
     <Folder Include="Images\Objects\" />
     <Folder Include="Images\ui\stats\" />
