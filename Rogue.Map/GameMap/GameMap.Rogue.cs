@@ -250,15 +250,30 @@
             }
         }
 
-        private Point RandomizeLocation(Point point)
+        private Point RandomizeLocation(Point point, RandomizePositionTry @try =null)
         {
-            point.X += RandomizePosition();
-            point.Y += RandomizePosition();
+            if (@try == null)
+            {
+                @try = new RandomizePositionTry();
+            }
+
+            point.X += RandomizePosition(@try);
+            point.Y += RandomizePosition(@try);
+
+            if (Map.Exists(new MapObject()
+            {
+                Location = point,
+                Size = new PhysicalSize() { Height = 16, Width = 16 }
+            }))
+            {
+                @try.Existed.Add(point.DeepClone());
+                point = RandomizeLocation(point, @try);
+            }
 
             return point;
         }
 
-        private double RandomizePosition()
+        private double RandomizePosition(RandomizePositionTry @try = null)
         {
             var dir = RandomRogue.Next(0, 2) == 0 ? 1 : -1;
             var offset = RandomRogue.Next(0, 3);
@@ -266,9 +281,20 @@
             if (offset == 1)
                 return 0;
 
-            var val = offset * 0.2 * dir;
+            var awayRange = 0.1 * @try.TryCount;
+
+            var val = offset * awayRange * dir;
 
             return val;
+        }
+
+        private class RandomizePositionTry
+        {
+            public List<Point> Existed { get; set; } = new List<Point>();
+
+            public int TryCount => Existed.Count == 0
+                ? 1
+                : ((Existed.Count - 1) % 8) + 1;
         }
 
         private bool TrySetLocation(Mob mob)

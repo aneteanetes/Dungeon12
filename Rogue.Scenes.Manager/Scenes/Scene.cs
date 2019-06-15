@@ -147,9 +147,13 @@
                 KeyUp(key, modifier);
 
             var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key);
-            foreach (var sceneObjectHandler in keyControls)
+            for (int i = 0; i < keyControls.Count(); i++)
             {
-                sceneObjectHandler.KeyUp(key, modifier);
+                var keyControl = keyControls.ElementAtOrDefault(i);
+                if (keyControl != null)
+                {
+                    keyControl.KeyUp(key, modifier);
+                }
             }
         }
 

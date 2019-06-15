@@ -6,7 +6,7 @@
     using Rogue.View.Interfaces;
     using System;
 
-    public class MoneySceneObject : ClickActionSceneObject<Money>
+    public class MoneySceneObject : TooltipClickableSceneObject<Money>
     {
         public MoneySceneObject(PlayerSceneObject playerSceneObject, Money @object, string tooltip) : base(playerSceneObject, @object, tooltip)
         {
@@ -32,14 +32,16 @@
             this.Image = $"Rogue.Resources.Images.Items.gold_{amountImage}.png";
             this.ImageRegion = new Types.Rectangle(0, 0, 24, 24);
 
-            this.Height = 0.75;
-            this.Width = 0.75;
+            this.Height = 0.5;
+            this.Width = 0.5;
 
             this.Left = @object.Location.X;
             this.Top = @object.Location.Y;
         }
 
-        protected override void Action(MouseButton mouseButton)
+        protected override void Action(MouseButton mouseButton) => TakeMoney();
+
+        private void TakeMoney()
         {
             playerSceneObject.Avatar.Character.Gold += @object.Amount;
 
@@ -49,6 +51,8 @@
             this.Destroy?.Invoke();
             this.@object.Destroy?.Invoke();
         }
+
+        protected override void OnTooltipClick() => TakeMoney();
 
         protected override void StopAction() { }
     }

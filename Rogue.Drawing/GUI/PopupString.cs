@@ -3,6 +3,7 @@
     using Rogue.Drawing.Impl;
     using Rogue.Drawing.SceneObjects;
     using Rogue.Types;
+    using Rogue.View.Interfaces;
     using System;
 
     public class PopupString : SceneObject
@@ -15,7 +16,10 @@
 
         private double speed;
 
-        public PopupString(string text,ConsoleColor color, Point position, int frames, float size=10, double speed=0.2)
+        public PopupString(string text, ConsoleColor color, Point position, int frames, float size = 10, double speed = 0.2)
+            : this(text, new DrawColor(color), position, frames, size, speed) { }
+
+        public PopupString(string text, IDrawColor color, Point position, int frames, float size = 10, double speed = 0.2)
         {
             this.maxFrames = frames;
             this.Text = new DrawText(text, color) { Size = size };

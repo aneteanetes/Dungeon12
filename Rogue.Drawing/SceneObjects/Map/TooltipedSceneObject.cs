@@ -18,7 +18,9 @@
     public abstract class TooltipedSceneObject : HandleSceneControl
     {
         protected Tooltip aliveTooltip = null;
-        
+
+        public IDrawColor TooltipTextColor { get; set; }
+
         public TooltipedSceneObject(string tooltip, Action<List<ISceneObject>> showEffects)
         {
             if (showEffects != null)
@@ -34,7 +36,7 @@
         {
             if (!string.IsNullOrEmpty(TooltipText))
             {
-                aliveTooltip = new Tooltip(TooltipText, new Point(this.ComputedPosition.X, this.ComputedPosition.Y - 0.8))
+                aliveTooltip = new Tooltip(TooltipText, new Point(this.ComputedPosition.X, this.ComputedPosition.Y - 0.8), TooltipTextColor)
                 {
                     CacheAvailable = false,
                     AbsolutePosition = this.AbsolutePosition,

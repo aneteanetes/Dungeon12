@@ -140,6 +140,8 @@
             return null;
         }
 
+        public bool Exists(T physicalObject) => Query(physicalObject).Nodes.Any(node => node.IntersectsWith(physicalObject));
+
         public List<T> Query(T physicalObject, bool multiple)
         {
             List<T> nodes = new List<T>();
