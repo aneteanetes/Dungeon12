@@ -36,7 +36,9 @@
             {
                 aliveTooltip = new Tooltip(TooltipText, new Point(this.ComputedPosition.X, this.ComputedPosition.Y - 0.8))
                 {
-                    CacheAvailable = false
+                    CacheAvailable = false,
+                    AbsolutePosition = this.AbsolutePosition,
+                    Layer=1000
                 };
 
                 this.ShowEffects(new List<ISceneObject>() { aliveTooltip });

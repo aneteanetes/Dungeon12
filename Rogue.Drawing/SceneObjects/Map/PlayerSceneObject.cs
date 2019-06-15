@@ -327,7 +327,6 @@
 
         public override void Focus()
         {
-
             base.Focus();
         }
 

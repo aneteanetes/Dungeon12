@@ -237,7 +237,7 @@
             if (this.ability.CastAvailable(avatar))
             {
                 this.ability.Cast(gameMap, avatar);
-                this.Focus();
+                this.Image = SquareTexture(true);
             }
         }
 

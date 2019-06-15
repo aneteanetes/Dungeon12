@@ -225,7 +225,7 @@
             public override void Unfocus()
             {
                 this.Image = SquareTexture(false);
-                base.Focus();
+                base.Unfocus();
             }
 
             protected override Key[] KeyHandles => new Key[]

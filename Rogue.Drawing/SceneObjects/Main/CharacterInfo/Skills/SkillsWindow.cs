@@ -201,7 +201,7 @@
             public override void Unfocus()
             {
                 this.Image = SquareTexture(false);
-                base.Focus();
+                base.Unfocus();
             }
 
             public override void KeyDown(Key key, KeyModifiers modifier, bool hold) => DoOpen();
