@@ -7,6 +7,7 @@
     using Rogue.Data.Npcs;
     using Rogue.Data.Region;
     using Rogue.DataAccess;
+    using Rogue.Loot;
     using Rogue.Map.Objects;
     using Rogue.Physics;
     using Rogue.Settings;
@@ -210,27 +211,64 @@
                 {
                     mob.Die += () =>
                     {
-                        var corpse = new Corpse()
+                        List<MapObject> publishObjects = new List<MapObject>();
+
+                        var loot = LootGenerator.Generate();
+
+                        if (loot.Gold > 0)
                         {
-                            Enemy = mob.Enemy,
-                            Location=mob.Location.DeepClone(),
-                            Size=mob.Size.DeepClone()
-                        };
-                        corpse.Destroy += () =>
+                            var money = new Money() { Amount = loot.Gold };
+                            money.Location = RandomizeLocation(mob.Location.DeepClone());
+                            money.Destroy += () => Map.Remove(money);
+                            Map.Add(money);
+
+                            publishObjects.Add(money);
+                        }
+
+                        foreach (var item in loot.Items)
                         {
-                            this.Map.Remove(corpse);
-                        };
+                            var lootItem = new Loot()
+                            {
+                                Item=item
+                            };
+
+                            lootItem.Location = RandomizeLocation(mob.Location.DeepClone());
+                            lootItem.Destroy += () => Map.Remove(lootItem);
+
+                            Map.Add(lootItem);
+                            publishObjects.Add(lootItem);
+                        }
 
                         this.Map.Remove(mob);
-                        this.Map.Add(corpse);
 
-                        this.PublishObject?.Invoke(corpse);
+                        publishObjects.ForEach(this.PublishObject);
                     };
 
                     this.Map.Add(mob);
                     this.Objects.Add(mob);
                 }
             }
+        }
+
+        private Point RandomizeLocation(Point point)
+        {
+            point.X += RandomizePosition();
+            point.Y += RandomizePosition();
+
+            return point;
+        }
+
+        private double RandomizePosition()
+        {
+            var dir = RandomRogue.Next(0, 2) == 0 ? 1 : -1;
+            var offset = RandomRogue.Next(0, 3);
+
+            if (offset == 1)
+                return 0;
+
+            var val = offset * 0.2 * dir;
+
+            return val;
         }
 
         private bool TrySetLocation(Mob mob)

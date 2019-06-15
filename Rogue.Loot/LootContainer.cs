@@ -3,7 +3,7 @@
     using Rogue.Items;
     using System.Collections.Generic;
 
-    public class Loot
+    public class LootContainer
     {
         public int Gold { get; set; }
 

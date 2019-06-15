@@ -4,9 +4,9 @@ namespace Rogue.Loot
 {
     public static class LootGenerator
     {
-        public static Loot Generate()
+        public static LootContainer Generate()
         {
-            return new Loot()
+            return new LootContainer()
             {
                 Gold = RandomRogue.Next(0, 20),
                 Items = new System.Collections.Generic.List<Items.Item>()
@@ -21,6 +21,7 @@ namespace Rogue.Loot
                             Width=32,
                             Height=96
                         },
+                        Name="Тренировочный меч",
                         InventorySize=new Types.Point(1,3),
                         InventoryPosition= Items.Enums.PositionInInventory.Vertical
                     }

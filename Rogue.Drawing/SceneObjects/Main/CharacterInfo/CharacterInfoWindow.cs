@@ -12,7 +12,7 @@
 
     public class CharacterInfoWindow : DraggableControl
     {
-        protected override Key[] OverrideKeyHandles => new Key[] { Key.C };
+        protected override Key[] OverrideKeyHandles => new Key[] { Key.C, Key.I };
 
         private PlayerSceneObject playerSceneObject;
 
@@ -153,7 +153,7 @@
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
-            if (key == Key.C)
+            if (key == Key.C || key== Key.I)
             {
                 base.KeyDown(Key.Escape, modifier, hold);
             }

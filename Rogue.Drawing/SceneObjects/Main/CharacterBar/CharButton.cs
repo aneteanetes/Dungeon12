@@ -56,7 +56,7 @@
 
         protected override Key[] KeyHandles => new Key[]
         {
-            Key.C
+            Key.C,Key.I
         };
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold) => ShowInfo();

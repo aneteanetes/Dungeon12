@@ -38,7 +38,6 @@
             Key.E
         };
 
-
         public EnemySceneObject(PlayerSceneObject playerSceneObject, GameMap location, Mob mob, Rectangle defaultFramePosition) 
             : base(playerSceneObject,mob, mob.Name, defaultFramePosition)
         {
@@ -314,7 +313,14 @@
         private Ability ability;
 
         protected override void Action(MouseButton mouseButton) => UseAbility();
+
         protected override void StopAction() { }
+
+        public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
+        {
+            SetAbility(key);
+            UseAbility();
+        }
 
         private void UseAbility()
         {

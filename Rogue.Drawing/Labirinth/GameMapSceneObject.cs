@@ -168,9 +168,14 @@ namespace Rogue.Drawing.Labirinth
                         sceneObject = new HomeSceneObject(this.player, home, home.Name);
                         break;
                     }
-                case Corpse corpse:
+                case Money money:
                     {
-                        sceneObject = new CorpseSceneObject(this.player, corpse);
+                        sceneObject = new MoneySceneObject(this.player, money, $"Золото ({money.Amount})");
+                        break;
+                    }
+                case Rogue.Map.Objects.Loot loot:
+                    {
+                        sceneObject = new LootSceneObject(this.player, loot, loot.Item.Name);
                         break;
                     }
                 default:

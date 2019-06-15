@@ -41,6 +41,7 @@
                     Layer=1000
                 };
 
+                this.Destroy += () => aliveTooltip?.Destroy?.Invoke();
                 this.ShowEffects(new List<ISceneObject>() { aliveTooltip });
             }
         }
