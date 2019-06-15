@@ -1,21 +1,25 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Map
 {
     using Rogue.Abilities;
+    using Rogue.Abilities.Enums;
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
+    using Rogue.Control.Pointer;
     using Rogue.Drawing.SceneObjects.Gameplay;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Entites.Alive;
     using Rogue.Map;
+    using Rogue.Map.Objects;
     using Rogue.Transactions;
     using Rogue.Types;
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
-    public class PlayerSceneObject : AnimatedSceneObject
+    public class PlayerSceneObject : AnimatedSceneObject<Avatar>
     {
-        public Rogue.Map.Objects.Avatar Avatar;
+        public Avatar Avatar;
 
         public override int Layer => 1;
 
@@ -31,14 +35,14 @@
         public Action OnStart;
         private Action<ISceneObject> destroyBinding;
         
-        public PlayerSceneObject(Rogue.Map.Objects.Avatar player, GameMap location, Action<List<ISceneObject>> showEffects, Action<ISceneObject> destroyBinding)
-            : base(player.Character.Name,new Rectangle
+        public PlayerSceneObject(Avatar player, GameMap location, Action<ISceneObject> destroyBinding)
+            : base(null,player, player.Character.Name,new Rectangle
             {
                 X = 32,
                 Y = 0,
                 Height = 32,
                 Width = 32
-            },showEffects)
+            })
         {
             this.destroyBinding = destroyBinding;
             this.Avatar = player;
@@ -47,6 +51,12 @@
             this.Width = 1;
             this.Height = 1;
             this.AddChild(new ObjectHpBar(Player));
+
+            this.abilities =new Lazy<Ability[]>(() => Avatar.Character.GetInstancesFromAssembly<Ability>().Select(x=>
+            {
+                x.Owner = player;
+                return x;
+            }).ToArray());
 
             player.StateAdded += s => RedrawStates(s);
             player.StateRemoved += s => RedrawStates(s, true);
@@ -169,15 +179,21 @@
             {
                 this.Left = Avatar.Location.X;
                 this.Top = Avatar.Location.Y;
+
+                this.OnMove?.Invoke();
+
                 return true;
             }
             else
             {
                 Avatar.Location.X = this.Left;
                 Avatar.Location.Y = this.Top;
+
                 return false;
             }
         }
+
+        public Action OnMove;
 
         private HashSet<Direction> NowMoving = new HashSet<Direction>();
 
@@ -335,6 +351,16 @@
             base.Unfocus();
         }
 
-        public Ability[] GetAbilities() => Avatar.Character.GetInstancesFromAssembly<Ability>();
+        private Lazy<Ability[]> abilities;
+
+        public Ability[] GetAbilities() => abilities.Value;
+
+        public Ability GetAbility(AbilityPosition abilityPosition) => this.GetAbilities().FirstOrDefault(x => x.AbilityPosition == abilityPosition);
+
+        protected override void Action(MouseButton mouseButton) { }
+
+        protected override void StopAction() { }
+
+        public HashSet<MapObject> TargetsInFocus = new HashSet<MapObject>();
     }
 }

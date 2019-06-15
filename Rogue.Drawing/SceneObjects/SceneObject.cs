@@ -11,21 +11,23 @@
 
     public abstract class SceneObject : ISceneObject
     {
+        private Rogue.Scenes.GameScene owner;
+
         /// <summary>
         /// В КОНСТРУКТОРЕ ЕСТЬ КОСТЫЛЬ
         /// </summary>
         public SceneObject()
         {
             // ЭТО ПИЗДЕЦ КОСТЫЛЬ
-            var scene = SceneManager.Current;
+            owner = SceneManager.Preapering;
 
-            if (scene != null)
-            {                
+            if (owner != null)
+            {
                 // ВСЕ ЭТИ МЕТОДЫ ПУБЛИЧНЫЕ ТОЛЬКО ПОТОМУ ЧТО НУЖНЫ ЗДЕСЬ
-                ControlBinding += scene.AddControl;
-                DestroyBinding += scene.RemoveObject;                
-                Destroy = () => scene.RemoveObject(this);
-                ShowEffects += scene.ShowEffectsBinding;
+                ControlBinding += owner.AddControl;
+                DestroyBinding += owner.RemoveObject;
+                Destroy = () => owner.RemoveObject(this);
+                ShowEffects += owner.ShowEffectsBinding;
             }
 
             //ХВАТИТ ОРАТЬ В КОММЕНТАРИЯХ
@@ -51,7 +53,7 @@
             }
         }
 
-        protected TextControl AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical=true)
+        protected TextControl AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical = true)
         {
             var textControl = new TextControl(drawText);
 
@@ -122,7 +124,7 @@
             {
                 if (pos == null || !CacheAvailable)
                 {
-                    pos =new Rectangle()
+                    pos = new Rectangle()
                     {
                         X = (float)Left,
                         Y = (float)Top,
@@ -144,7 +146,7 @@
         public virtual IDrawText Text { get; protected set; }
 
         public virtual IDrawablePath Path { get; }
-        
+
         public ICollection<ISceneObject> Children { get; } = new List<ISceneObject>();
 
         protected void AddChild(ISceneObject sceneObject)
@@ -153,7 +155,7 @@
 
             this.Destroy += () => sceneObject.Destroy?.Invoke();
 
-            if(sceneObject is SceneObject sceneControlObject)
+            if (sceneObject is SceneObject sceneControlObject)
             {
                 sceneControlObject.Parent = this;
             }
@@ -165,7 +167,7 @@
         {
             this.Children.Remove(sceneObject);
         }
-        
+
         private Rectangle _computedPosition;
         public Rectangle ComputedPosition
         {
@@ -198,7 +200,7 @@
         /// <summary>
         /// Абсолютная позиция НЕ НАСЛЕДУЕТСЯ в целях ПРОИЗВОДИТЕЛЬНОСТИ
         /// </summary>
-        public virtual bool AbsolutePosition { get; set; } =false;
+        public virtual bool AbsolutePosition { get; set; } = false;
 
         public Action Destroy { get; set; }
 
@@ -212,7 +214,7 @@
         {
             X = this.Position.X,
             Y = this.Position.Y,
-            Height=this.Children.Max(c=>c.Position.Y+c.Position.Height),
+            Height = this.Children.Max(c => c.Position.Y + c.Position.Height),
             Width = this.Children.Max(c => c.Position.X + c.Position.Width)
         };
 
@@ -227,5 +229,10 @@
         public virtual bool Singleton { get; set; } = false;
 
         public virtual bool DrawOutOfSight { get; set; } = true;
+
+        public override string ToString()
+        {
+            return $"{owner.GetType().Name}#{Uid} : {base.ToString()}";
+        }
     }
 }

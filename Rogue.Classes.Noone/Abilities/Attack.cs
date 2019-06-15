@@ -6,6 +6,7 @@
     using Rogue.Drawing.GUI;
     using Rogue.Map;
     using Rogue.Map.Objects;
+    using Rogue.Physics;
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
@@ -19,11 +20,15 @@
 
         public override string Name => "Атака";
 
+        public override AbilityTargetType TargetType => AbilityTargetType.TargetAndNonTarget;
+
         public override ScaleRate Scale => ScaleRate.Build(Entites.Enums.Scale.AbilityPower, 0.1);
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Left;
 
         protected override bool CanUse(Noone @class)=> @class.Actions > 0;
+
+        protected override double RangeMultipler => 2.5;
 
         protected override void Use(GameMap gameMap, Avatar avatar, Noone @class)
         {

@@ -1,18 +1,31 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Map
 {
+    using Rogue.Control.Pointer;
+    using Rogue.Drawing.SceneObjects.Dialogs.NPC;
     using Rogue.Map.Objects;
     using Rogue.View.Interfaces;
-    using System;
-    using System.Collections.Generic;
 
-    public class HomeSceneObject : TooltipedSceneObject
+    public class HomeSceneObject : ClickActionSceneObject<Home>
     {
-        public HomeSceneObject(Home home, string tooltip, Action<List<ISceneObject>> showEffects) : base(tooltip, showEffects)
+        public HomeSceneObject(PlayerSceneObject playerSceneObject, Home home, string tooltip) 
+            : base(playerSceneObject,home, tooltip)
         {
             Left = home.Location.X;
             Top = home.Location.Y;
             Width = 1;
             Height = 1;
         }
+
+        private NPCDialogue NPCDialogue;
+
+        protected override void Action(MouseButton mouseButton)
+        {
+            playerSceneObject.StopMovings();
+            NPCDialogue = new NPCDialogue(playerSceneObject,@object, this.DestroyBinding, this.ControlBinding);
+
+            ShowEffects?.Invoke(NPCDialogue.InList<ISceneObject>());
+        }
+
+        protected override void StopAction() { }
     }
 }

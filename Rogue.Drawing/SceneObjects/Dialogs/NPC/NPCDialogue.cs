@@ -10,12 +10,14 @@
 
     public class NPCDialogue : HandleSceneControl
     {
+        public override int Layer => 50;
+
         public override bool AbsolutePosition => true;
 
         private SubjectPanel subjectPanel;
         private AnswerPanel answerPanel;
 
-        public NPCDialogue(Rogue.Map.Objects.Сonversational conversational, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding)
+        public NPCDialogue(PlayerSceneObject playerSceneObject, Rogue.Map.Objects.Сonversational conversational, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding)
         {
             Global.FreezeWorld = this;
 
@@ -44,7 +46,7 @@
                     }
                 };
 
-                var screen = new StandaloneSceneObject(conversational.ScreenImage, animMap, conversational.Name, null, new Types.Rectangle(0, 0, 31 * 32, 15 * 32))
+                var screen = new StandaloneSceneObject(playerSceneObject, conversational.ScreenImage, animMap, conversational.Name, null, new Types.Rectangle(0, 0, 31 * 32, 15 * 32))
                 {
                     Height = 15,
                     Width = 31,

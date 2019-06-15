@@ -34,10 +34,14 @@
         /// </summary>
         public Action<List<ISceneObject>> UseEffects;
 
+        public MapObject Owner { get; set; }
+
         /// <summary>
         /// Размер области где действует способность
         /// </summary>
-        public virtual PhysicalObject Range { get; }
+        public virtual PhysicalObject Range => Owner.Grow(RangeMultipler);
+
+        protected virtual double RangeMultipler => 1;            
 
         /// <summary>
         /// Позиция способности от 1 до 4
@@ -66,13 +70,13 @@
         public virtual string Image { get; set; }
 
         public virtual string Image_B { get; set; }
-        
+
         private string DefaultPath(bool big = false)
         {
             var thisType = this.GetType();
             var baseType = thisType.BaseType;
 
-            if(!baseType.IsGenericType)
+            if (!baseType.IsGenericType)
             {
                 return null;
             }
@@ -112,17 +116,24 @@
 
         }
 
+        public Action OnCast { get; set; }
+
+        public Action OnCastEnd { get; set; }
+
+        public Action OnCastRelease { get; set; }
+
         public virtual Location CastLocation { get; set; }
 
         public virtual AbilityActionAttribute ActionType { get; set; }
 
         public virtual AbilityCastType CastType { get; set; }
 
+        public virtual AbilityTargetType TargetType { get; set; }
+
         public virtual double Spend { get; set; }
 
-        public List<(string,string)> Scales { get; set; }
+        public List<(string, string)> Scales { get; set; }
     }
-
 
     /// <summary>
     /// Навык принадлежащий классу
@@ -174,9 +185,16 @@
         protected abstract void Dispose(GameMap gameMap, Avatar avatar, TClass @class);
 
         public override void Cast(GameMap map, Avatar avatar)
-            => Use(map, avatar, avatar.Character as TClass);
+        {
+            OnCast?.Invoke();
+            Use(map, avatar, avatar.Character as TClass);
+            OnCastEnd?.Invoke();
+        }
 
         public override void Release(GameMap map, Avatar avatar)
-            => Dispose(map, avatar, avatar.Character as TClass);
+        {
+            Dispose(map, avatar, avatar.Character as TClass);
+            OnCastRelease?.Invoke();
+        }
     }
 }

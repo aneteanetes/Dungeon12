@@ -43,6 +43,7 @@
         public SkillControl(GameMap gameMap, PlayerSceneObject player, Ability ability, AbilityPosition abilityPosition, Action<List<ISceneObject>> abilityEffects, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding)
             :base(ability?.Name,abilityEffects)
         {
+
             this.controlBinding = controlBinding;
             this.destroyBinding = destroyBinding;
             this.abilityPosition = abilityPosition;
@@ -56,6 +57,12 @@
                 empty = true;
                 this.ability = new EmptyAbility(abilityPosition);
             }
+
+            this.ability.OnCast += () =>
+            {
+                this.Image = SquareTexture(true);
+                RemoveFocusImage();
+            };
 
             var a = this.ability;
 
@@ -141,16 +148,16 @@
 
         private void GlobalSafeClick(PointerArgs args)
         {
-            var conversational = gameMap.Conversations(this.avatar).FirstOrDefault();
+            //var conversational = gameMap.Conversations(this.avatar).FirstOrDefault();
 
-            if (conversational != null)
-            {
-                player.StopMovings();
-                ShowEffects?.Invoke(new List<ISceneObject>
-                {
-                    new NPCDialogue(conversational,destroyBinding,controlBinding)
-                });
-            }
+            //if (conversational != null)
+            //{
+            //    player.StopMovings();
+            //    ShowEffects?.Invoke(new List<ISceneObject>
+            //    {
+            //        new NPCDialogue(conversational,destroyBinding,controlBinding)
+            //    });
+            //}
         }
 
         private bool InteractInterrupt()
@@ -160,6 +167,9 @@
 
         public override void GlobalClick(PointerArgs args)
         {
+            if (ability.TargetType == AbilityTargetType.Target)
+                return;
+
             if (player.BlockMouse)
                 return;
 
@@ -178,15 +188,20 @@
 
             if (!ability.Hold || (SafeZoneInvisible && (abilityPosition== AbilityPosition.Left || abilityPosition== AbilityPosition.Right)))
             {
-                var t = new System.Timers.Timer(200);
-                t.AutoReset = false;
-                t.Elapsed += (x, y) => this.Image = SquareTexture(false);
-                t.Start();
+                RemoveFocusImage();
             }
             else
             {
                 holds = true;
             }
+        }
+
+        private void RemoveFocusImage()
+        {
+            var t = new System.Timers.Timer(200);
+            t.AutoReset = false;
+            t.Elapsed += (x, y) => this.Image = SquareTexture(false);
+            t.Start();
         }
 
         public override void GlobalClickRelease(PointerArgs args)
@@ -234,10 +249,13 @@
                 return;
             }
 
-            if (this.ability.CastAvailable(avatar))
+            if (player.TargetsInFocus.Count == 0)
             {
-                this.ability.Cast(gameMap, avatar);
-                this.Image = SquareTexture(true);
+                if (this.ability.CastAvailable(avatar))
+                {
+                    this.ability.Cast(gameMap, avatar);
+                    this.Image = SquareTexture(true);
+                }
             }
         }
 

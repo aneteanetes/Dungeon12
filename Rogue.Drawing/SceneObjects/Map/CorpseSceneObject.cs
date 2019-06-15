@@ -11,22 +11,16 @@
     using System;
     using System.Collections.Generic;
 
-    public class CorpseSceneObject : TooltipedSceneObject
+    public class CorpseSceneObject : ClickActionSceneObject<Corpse>
     {
-        protected override ControlEventType[] Handles => new ControlEventType[]
-        {
-             ControlEventType.Focus,
-             ControlEventType.Click
-        };
-
         private Avatar avatar;
         private Loot loot;
         private Corpse corpse;
 
-        public CorpseSceneObject(Corpse corpse, Avatar avatar) : base(corpse.Enemy.Name, null)
+        public CorpseSceneObject(PlayerSceneObject playerSceneObject,Corpse corpse) : base(playerSceneObject,corpse,corpse.Enemy.Name)
         {
             this.corpse = corpse;
-            this.avatar = avatar;
+            this.avatar = playerSceneObject.Avatar;
             corpse.OnInteract += this.OnInteraction;
 
             this.Image = corpse.Enemy.DieImage;
@@ -37,6 +31,8 @@
             this.Left = corpse.Location.X;
             this.Top = corpse.Location.Y;
         }
+
+        private Inventory lootBox = null;
 
         private void OnInteraction()
         {
@@ -60,19 +56,19 @@
             {
                 var drawClient = Global.DrawClient;
 
-                var inventory = new Inventory(this.ZIndex, new Types.Point(6, 6), loot.Items, true, avatar.Character)
+                lootBox = new Inventory(this.ZIndex, new Types.Point(6, 6), loot.Items, true, avatar.Character)
                 {
                     Left = this.Left - (drawClient.CameraOffsetX / 32 * -1),
                     Top = this.Top - (drawClient.CameraOffsetY / 32 * -1)
                 };
 
-                inventory.Destroy += () =>
+                lootBox.Destroy += () =>
                 {
                     CheckDestroy();
                     avatar.SafeMode = false;
                 };
 
-                effects.Add(inventory);
+                effects.Add(lootBox);
             }
 
             this.ShowEffects(effects);
@@ -89,15 +85,15 @@
             }
         }
 
-        public override void Click(PointerArgs args)
+        protected override void Action(MouseButton mouseButton)
         {
-            var range = corpse.Grow(3);
+            avatar.SafeMode = true;
+            OnInteraction();
+        }
 
-            if (avatar.IntersectsWith(range))
-            {
-                avatar.SafeMode = true;
-                OnInteraction();
-            }
+        protected override void StopAction()
+        {
+            lootBox.Destroy?.Invoke();
         }
     }
 }

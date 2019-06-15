@@ -126,17 +126,17 @@ namespace Rogue.Drawing.Labirinth
                 {
                     case Mob mob:
                         {
-                            sceneObjects.Add(new EnemySceneObject(this.gamemap, mob, mob.TileSetRegion));
+                            sceneObjects.Add(new EnemySceneObject(this.player, this.gamemap, mob, mob.TileSetRegion));
                             break;
                         }
                     case NPC npc:
                         {
-                            sceneObjects.Add(new NPCSceneObject(this.gamemap, npc, npc.TileSetRegion));
+                            sceneObjects.Add(new NPCSceneObject(this.player, this.gamemap, npc, npc.TileSetRegion));
                             break;
                         }
                     case Home home:
                         {
-                            sceneObjects.Add(new HomeSceneObject(home, home.Name,null));
+                            sceneObjects.Add(new HomeSceneObject(this.player, home, home.Name));
                             break;
                         }
                     default:
@@ -145,9 +145,6 @@ namespace Rogue.Drawing.Labirinth
             }
 
             return sceneObjects;
-
-            //var mobs = mapObjects.Where(x => typeof(Mob).IsAssignableFrom(x.GetType())).Select(x => x as Mob); //ПЕРЕПИСАТЬ НАХУЙ
-            //return mobs.Select(mob => new EnemySceneObject(this.gamemap,mob, mob.TileSetRegion));
         }
 
         private void PublishMapObject(MapObject mapObject)
@@ -158,22 +155,22 @@ namespace Rogue.Drawing.Labirinth
             {
                 case Mob mob:
                     {
-                        sceneObject = new EnemySceneObject(this.gamemap, mob, mob.TileSetRegion);
+                        sceneObject = new EnemySceneObject(this.player, this.gamemap, mob, mob.TileSetRegion);
                         break;
                     }
                 case NPC npc:
                     {
-                        sceneObject = new NPCSceneObject(this.gamemap, npc, npc.TileSetRegion);
+                        sceneObject = new NPCSceneObject(this.player, this.gamemap, npc, npc.TileSetRegion);
                         break;
                     }
                 case Home home:
                     {
-                        sceneObject = new HomeSceneObject(home, home.Name, null);
+                        sceneObject = new HomeSceneObject(this.player, home, home.Name);
                         break;
                     }
                 case Corpse corpse:
                     {
-                        sceneObject = new CorpseSceneObject(corpse, this.player.Avatar);
+                        sceneObject = new CorpseSceneObject(this.player, corpse);
                         break;
                     }
                 default:

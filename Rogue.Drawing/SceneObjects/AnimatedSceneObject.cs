@@ -7,13 +7,14 @@
     using System;
     using System.Collections.Generic;
 
-    public abstract class AnimatedSceneObject : TooltipedSceneObject
+    public abstract class AnimatedSceneObject<T> : ClickActionSceneObject<T>
+        where T : Physics.PhysicalObject
     {
         public override bool DrawOutOfSight => false;
 
         public override bool CacheAvailable => false;
 
-        public AnimatedSceneObject(string tooltip, Rectangle defaultFramePosition, Action<List<ISceneObject>> showEffects, Func<int, AnimationMap, bool> requestNextFrame = null) : base(tooltip, showEffects)
+        public AnimatedSceneObject(PlayerSceneObject playerSceneObject, T @object, string tooltip, Rectangle defaultFramePosition, Func<int, AnimationMap, bool> requestNextFrame = null) : base(playerSceneObject,@object,tooltip)
         {
             this.FramePosition = defaultFramePosition;
             this.RequestNextFrame = requestNextFrame ?? this.DefaultRequestNextFrame;

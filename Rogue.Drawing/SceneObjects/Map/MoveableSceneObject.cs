@@ -8,14 +8,16 @@
     using System;
     using System.Collections.Generic;
 
-    public class MoveableSceneObject : AnimatedSceneObject
+    public abstract class MoveableSceneObject<T> : AnimatedSceneObject<T>
+        where T : Physics.PhysicalObject
     {
         protected Moveable moveable;
         protected GameMap location;
 
         protected MapObject mapObj;
 
-        public MoveableSceneObject(GameMap location,MapObject mapObj,Moveable moveable,Rectangle defaultFramePosition, Action<List<ISceneObject>> showEffects) : base(mapObj.Name,defaultFramePosition, showEffects)
+        public MoveableSceneObject(PlayerSceneObject playerSceneObject, T @object, GameMap location,MapObject mapObj,Moveable moveable,Rectangle defaultFramePosition) 
+            : base(playerSceneObject,@object,mapObj.Name,defaultFramePosition)
         {
             this.mapObj = mapObj;
             this.moveable = moveable;

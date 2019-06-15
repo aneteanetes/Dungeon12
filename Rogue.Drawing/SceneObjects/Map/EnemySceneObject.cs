@@ -1,6 +1,10 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Map
 {
+    using Rogue.Abilities;
+    using Rogue.Abilities.Enums;
     using Rogue.Control.Events;
+    using Rogue.Control.Keys;
+    using Rogue.Control.Pointer;
     using Rogue.Drawing.GUI;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Entites.Alive;
@@ -16,17 +20,27 @@
     using System.Timers;
     using RandomRogue = Rogue.RandomRogue;
 
-    public class EnemySceneObject : AnimatedSceneObject
+    public class EnemySceneObject : AnimatedSceneObject<Mob>
     {
-        protected override ControlEventType[] Handles => new ControlEventType[]
-        {
-             ControlEventType.Focus
-        };
-
         private readonly Mob mob;
         private readonly GameMap location;
 
-        public EnemySceneObject(GameMap location, Mob mob, Rectangle defaultFramePosition) : base(mob.Name, defaultFramePosition, null)
+        protected override ControlEventType[] Handles => new ControlEventType[]
+        {
+            ControlEventType.Click,
+            ControlEventType.Focus,
+            ControlEventType.Key
+        };
+
+        protected override Key[] KeyHandles => new Key[]
+        {
+            Key.Q,
+            Key.E
+        };
+
+
+        public EnemySceneObject(PlayerSceneObject playerSceneObject, GameMap location, Mob mob, Rectangle defaultFramePosition) 
+            : base(playerSceneObject,mob, mob.Name, defaultFramePosition)
         {
             this.location = location;
             this.mob = mob;
@@ -269,5 +283,56 @@
             Plus,
             Minus
         }
+
+        public override void Focus()
+        {
+            playerSceneObject.TargetsInFocus.Add(mob);
+            base.Focus();
+        }
+
+        public override void Unfocus()
+        {
+            playerSceneObject.TargetsInFocus.Remove(mob);
+            base.Unfocus();
+        }
+
+        protected override bool CheckActionAvailable(MouseButton mouseButton)
+        {
+            if (mouseButton != MouseButton.None)
+            {
+                SetAbility(mouseButton);
+
+                var range = ability.Range;
+                return this.mob.IntersectsWith(range);
+            }
+
+            //вот тут ещё отмена Changell навыка будет
+
+            return false;
+        }
+
+        private Ability ability;
+
+        protected override void Action(MouseButton mouseButton) => UseAbility();
+        protected override void StopAction() { }
+
+        private void UseAbility()
+        {
+            if (ability.TargetType == AbilityTargetType.Target || ability.TargetType == AbilityTargetType.TargetAndNonTarget)
+            {
+                var avatar = playerSceneObject.Avatar;
+                if (ability.CastAvailable(avatar))
+                {
+                    ability.Cast(location, avatar);
+                }
+            }
+        }
+
+        private void SetAbility(MouseButton mouseButton) => ability = playerSceneObject.GetAbility(mouseAbiityMap[mouseButton]);
+
+        private void SetAbility(Key key) => ability = playerSceneObject.GetAbility(keyAbiityMap[key]);
+
+        private readonly Dictionary<MouseButton, AbilityPosition> mouseAbiityMap = new Dictionary<MouseButton, AbilityPosition>() { { MouseButton.Left, AbilityPosition.Left }, { MouseButton.Right, AbilityPosition.Right } };
+        private readonly Dictionary<Key, AbilityPosition> keyAbiityMap = new Dictionary<Key, AbilityPosition>() { { Key.Q, AbilityPosition.Q }, { Key.E, AbilityPosition.E } };
     }
 }

@@ -37,13 +37,9 @@
 
         public override void Init()
         {
-            //this.AddObject(new ImageControl("Rogue.Resources.Images.d12back.png"));
-
-
             this.InitMap();
 
-
-            var player = new PlayerSceneObject(this.PlayerAvatar, this.Gamemap, this.ShowEffectsBinding,x=>this.RemoveObject(x))
+            var player = new PlayerSceneObject(this.PlayerAvatar, this.Gamemap, x=>this.RemoveObject(x))
             {
                 Left = PlayerPosition.X,
                 Top = PlayerPosition.Y

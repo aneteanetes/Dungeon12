@@ -22,13 +22,11 @@
         {
             var x = 4.9;
 
-            var abilities = player.Avatar.Character.GetInstancesFromAssembly<Ability>()
-                .Select(a =>
-                {
-                    a.UseEffects = abilityEffects;
-                    return a;
-                });
-
+            var abilities = player.GetAbilities();
+            foreach (var ability in abilities)
+            {
+                ability.UseEffects = this.ShowEffects;
+            }
 
             var left = abilities.FirstOrDefault(a => a.AbilityPosition == AbilityPosition.Left);
             var leftSkill = new SkillControl(gameMap, player, left, AbilityPosition.Left, abilityEffects, destroyBinding, controlBinding)

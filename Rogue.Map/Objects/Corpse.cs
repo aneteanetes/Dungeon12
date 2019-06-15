@@ -11,10 +11,5 @@
         protected override MapObject Self => this;
 
         public override bool Interactable => true;
-
-        public override void Interact(object target)
-        {
-            base.Interact(target);
-        }
     }
 }

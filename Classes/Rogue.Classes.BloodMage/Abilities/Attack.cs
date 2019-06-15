@@ -6,6 +6,7 @@
     using Rogue.Drawing.GUI;
     using Rogue.Map;
     using Rogue.Map.Objects;
+    using Rogue.Physics;
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
