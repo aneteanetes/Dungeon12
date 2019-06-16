@@ -50,6 +50,8 @@
 
         public bool Container => false;
 
+        public virtual ItemKind Kind { get; set; }
+
         private class EmptyItem : Item
         {
             public override Stats AvailableStats => Stats.None;
@@ -58,6 +60,5 @@
         public Point InventoryPosition { get; set; }
 
         public Point InventorySize { get; set; }
-
     }
 }

@@ -1,17 +1,36 @@
 ﻿namespace Rogue.Entites.Items
 {
-    using Rogue.Items.Types;
+    using Rogue.Entites.Alive;
+    using Rogue.Items;
+    using Rogue.Transactions;
 
-    public class Equipment
+    public class Equipment : Applicable
     {
-        public Helm Helm;
+        public Item Item { get; set; }
 
-        public Armor Armor;
+        public Equipment(Item item)
+        {
+            this.Item = item;
+        }
 
-        public Boots Boots;
+        public void Apply(Character @char)
+        {
+            @char.MaxHitPoints += 1000;
+        }
 
-        public Weapon Weapon;
+        public void Discard(Character @char)
+        {
+            @char.MaxHitPoints -= 1000;
+        }
 
-        public OffHand OffHand;
+        protected override void CallApply(dynamic obj)
+        {
+            this.Apply(obj);
+        }
+
+        protected override void CallDiscard(dynamic obj)
+        {
+            this.Discard(obj);
+        }
     }
 }

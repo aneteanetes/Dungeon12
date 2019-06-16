@@ -14,13 +14,27 @@
 
         public override bool AbsolutePosition => true;
 
+        private Character character;
+
         public StatsInfo(Entites.Alive.Character character)
         {
             this.Image = "Rogue.Resources.Images.ui.stats.png";
             this.Width = 6;
             this.Height = 16;
 
+            this.character = character;
+
             this.DrawStats(character);
+        }
+
+        public override double Height
+        {
+            get
+            {
+                //this.DrawStats(this.character);
+                return base.Height;
+            }
+            set => base.Height = value;
         }
 
         private void DrawStats(Character c)

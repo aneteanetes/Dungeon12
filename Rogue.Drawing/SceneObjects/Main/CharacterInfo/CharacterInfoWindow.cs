@@ -36,13 +36,15 @@
                 Left = 10.5
             });
 
-            AddItemWear();
-
-            this.AddChild(new Inventory(this.ZIndex, playerSceneObject.Avatar.Character.Backpack)
+            var inventory = new Inventory(this.ZIndex, playerSceneObject.Avatar.Character.Backpack)
             {
                 Top = 9.45,
                 Left = 0.55
-            });
+            };
+
+            AddItemWear(inventory,playerSceneObject);
+
+            this.AddChild(inventory);
 
             FillData(playerSceneObject);
 
@@ -118,33 +120,33 @@
             gold.Top = 15.75;
         }
 
-        private void AddItemWear()
+        private void AddItemWear(Inventory inventory, PlayerSceneObject playerSceneObject)
         {
-            this.AddChild(new ItemWear(Items.Enums.ItemKind.Helm)
+            this.AddChild(new ItemWear(inventory,playerSceneObject.Avatar.Character, Items.Enums.ItemKind.Helm)
             {
                 Top = 2,
                 Left = 5
             });
 
-            this.AddChild(new ItemWear(Items.Enums.ItemKind.Helm)
+            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Items.Enums.ItemKind.Armor)
             {
                 Top = 4.5,
                 Left = 5
             });
 
-            this.AddChild(new ItemWear(Items.Enums.ItemKind.Helm)
+            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Items.Enums.ItemKind.Boots)
             {
                 Top = 7,
                 Left = 5
             });
 
-            this.AddChild(new ItemWear(Items.Enums.ItemKind.Weapon)
+            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Items.Enums.ItemKind.Weapon)
             {
                 Top = 3.5,
                 Left = 2
             });
 
-            this.AddChild(new ItemWear(Items.Enums.ItemKind.OffHand)
+            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Items.Enums.ItemKind.OffHand)
             {
                 Top = 3.5,
                 Left = 8

@@ -75,5 +75,7 @@
         int ZIndex { get; set; }
 
         bool DrawOutOfSight { get; set; }
+
+        bool IntersectsWith(ISceneObject another);
     }
 }

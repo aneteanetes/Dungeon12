@@ -11,7 +11,7 @@ namespace Rogue.Drawing.SceneObjects.UI
     {
         private static int draggableLayers = 1;
 
-        public override int Layer => 50;
+        public override int Layer { get; set; } = 50;
 
         public override bool CacheAvailable => false;
 
@@ -22,6 +22,7 @@ namespace Rogue.Drawing.SceneObjects.UI
             this.ZIndex = ++draggableLayers;
             this.Destroy += () => Global.BlockSceneControls = false;
             Global.BlockSceneControls = true;
+            DragAndDropSceneControls.BindDragable(this);
         }
 
         protected override Key[] KeyHandles => new Key[] { Key.Escape }.Concat(OverrideKeyHandles).ToArray();
@@ -34,11 +35,11 @@ namespace Rogue.Drawing.SceneObjects.UI
             ControlEventType.GlobalClickRelease,
             ControlEventType.MouseMove,
             ControlEventType.Key,
-             ControlEventType.Focus
+            ControlEventType.Focus
         }.Concat(OverrideHandles).ToArray();
 
         protected virtual ControlEventType[] OverrideHandles => new ControlEventType[0];
-        
+
         private bool drag = false;
 
         private PointerArgs delta = null;
@@ -57,7 +58,7 @@ namespace Rogue.Drawing.SceneObjects.UI
                 {
                     this.Left -= deltaX - argsX;
                 }
-                else if (argsX!=deltaX)
+                else if (argsX != deltaX)
                 {
                     this.Left += argsX - deltaX;
                 }
@@ -81,6 +82,8 @@ namespace Rogue.Drawing.SceneObjects.UI
         {
             delta = args;
             drag = true;
+            DragAndDropSceneControls.SetDragged(this);
+            UpLayer();
             base.Click(args);
         }
 
@@ -89,13 +92,39 @@ namespace Rogue.Drawing.SceneObjects.UI
             if (drag)
             {
                 drag = false;
+                DownLayer();
             }
             base.GlobalClickRelease(args);
         }
 
+        private void UpLayer()
+        {
+            this.Layer = 1000;
+            SetChainLayer(this, 1000);
+        }
+
+        private Action OnDownLayer;
+        private void DownLayer()
+        {
+            this.Layer = 50;
+            OnDownLayer?.Invoke();
+            OnDownLayer = null;
+        }
+
+        private void SetChainLayer(ISceneObject @object, int value)
+        {
+            if (@object.Parent != null)
+            {
+                var currentLayer = @object.Parent.Layer;
+                OnDownLayer += () => @object.Parent.Layer = currentLayer;
+                @object.Parent.Layer = value;
+                SetChainLayer(@object.Parent,value);
+            }
+        }
+
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
-            if(key== Key.Escape)
+            if (key == Key.Escape)
             {
                 this.Destroy?.Invoke();
             }

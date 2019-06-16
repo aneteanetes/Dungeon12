@@ -151,7 +151,11 @@
 
         protected void AddChild(ISceneObject sceneObject)
         {
-            sceneObject.Destroy += () => DestroyBinding(sceneObject);
+            sceneObject.Destroy += () =>
+            {
+                this.RemoveChild(sceneObject);
+                DestroyBinding(sceneObject);
+            };
 
             this.Destroy += () => sceneObject.Destroy?.Invoke();
 
@@ -233,6 +237,21 @@
         public override string ToString()
         {
             return $"{owner.GetType().Name}#{Uid} : {base.ToString()}";
+        }
+
+        public bool IntersectsWith(ISceneObject another)
+        {
+            var xsum1 = Math.Max(this.ComputedPosition.X, another.ComputedPosition.X);
+            var xsum2 = Math.Min(this.ComputedPosition.X + this.Width, another.ComputedPosition.X + another.Position.Width);
+            var ysum1 = Math.Max(this.ComputedPosition.Y, another.ComputedPosition.Y);
+            var ysum2 = Math.Min(this.ComputedPosition.Y + this.Height, another.ComputedPosition.Y + another.Position.Height);
+
+            if (xsum2 >= xsum1 && ysum2 >= ysum1)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
