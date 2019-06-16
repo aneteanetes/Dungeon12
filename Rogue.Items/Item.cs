@@ -55,7 +55,7 @@
             public override Stats AvailableStats => Stats.None;
         }
 
-        public PositionInInventory InventoryPosition { get; set; }
+        public Point InventoryPosition { get; set; }
 
         public Point InventorySize { get; set; }
 

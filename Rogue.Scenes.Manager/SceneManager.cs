@@ -42,6 +42,7 @@
                 SceneCache.Remove(Current.GetType());
             }
 
+            Preapering = next;
             Current = next;
             
             Current.Activate();

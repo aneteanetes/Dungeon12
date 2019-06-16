@@ -38,12 +38,15 @@
 
         /// <summary>
         /// это пиздец, выпили это нахуй
+        /// <para>
+        /// А вот и нет, полезная фича оказалась
+        /// </para>
         /// </summary>
         /// <returns></returns>
         public virtual ConsoleColor ResourceColor => ConsoleColor.Blue;
 
         public virtual IEnumerable<ClassStat> ClassStats => new ClassStat[0];
 
-        public List<Item> Backpack { get; set; } = new List<Item>();
+        public Backpack Backpack { get; set; } = new Backpack(6, 11);
     }
 }

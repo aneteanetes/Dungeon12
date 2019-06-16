@@ -12,6 +12,12 @@
 
         public virtual PhysicalPosition Position { get; set; }
 
+        public virtual PhysicalPosition MaxPosition => new PhysicalPosition
+        {
+            X = Position.X + Size.Width,
+            Y = Position.Y + Size.Height
+        };
+
         public bool Contains(PhysicalObject one)
         {
             var xContains = one.Position.X >= this.Position.X

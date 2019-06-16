@@ -38,7 +38,7 @@
 
             AddItemWear();
 
-            this.AddChild(new Inventory(this.ZIndex, new Types.Point(11,6),playerSceneObject.Avatar.Character.Backpack)
+            this.AddChild(new Inventory(this.ZIndex, playerSceneObject.Avatar.Character.Backpack)
             {
                 Top = 9.45,
                 Left = 0.55
