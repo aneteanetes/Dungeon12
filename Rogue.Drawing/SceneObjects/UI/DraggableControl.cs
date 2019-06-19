@@ -1,15 +1,21 @@
 ﻿using Rogue.Control.Events;
 using Rogue.Control.Keys;
 using Rogue.Control.Pointer;
+using Rogue.Types;
 using Rogue.View.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Rogue.Drawing.SceneObjects.UI
 {
     public class DraggableControl : HandleSceneControl
     {
+        public int DropProcessed { get; set; }
+
         private static int draggableLayers = 1;
+
+        public virtual bool TextureDragging { get; set; } = false;
 
         public override int Layer { get; set; } = 50;
 
@@ -29,14 +35,27 @@ namespace Rogue.Drawing.SceneObjects.UI
 
         protected virtual Key[] OverrideKeyHandles => new Key[0];
 
-        protected override ControlEventType[] Handles => new ControlEventType[]
+        private ControlEventType[] handles()
         {
-            ControlEventType.Click,
-            ControlEventType.GlobalClickRelease,
-            ControlEventType.MouseMove,
-            ControlEventType.Key,
-            ControlEventType.Focus
-        }.Concat(OverrideHandles).ToArray();
+            IEnumerable<ControlEventType> origin = new ControlEventType[]
+            {
+                ControlEventType.Click,
+                ControlEventType.GlobalClickRelease,
+                ControlEventType.Key,
+                ControlEventType.Focus
+            };
+
+            if (!TextureDragging)
+            {
+                origin = origin.Concat(ControlEventType.MouseMove.InEnumerable());
+            }
+
+            origin = origin.Concat(OverrideHandles);
+
+            return origin.ToArray();
+        }
+
+        protected override ControlEventType[] Handles => handles();
 
         protected virtual ControlEventType[] OverrideHandles => new ControlEventType[0];
 
@@ -78,20 +97,57 @@ namespace Rogue.Drawing.SceneObjects.UI
             base.MouseMove(args);
         }
 
+        private Point dragOffset = new Point(0, 0);
+
         public override void Click(PointerArgs args)
         {
-            delta = args;
-            drag = true;
-            DragAndDropSceneControls.SetDragged(this);
-            UpLayer();
-            base.Click(args);
+            if (args.MouseButton == MouseButton.Left)
+            {
+                if (TextureDragging)
+                {
+                    Global.DrawClient.Drag(this);
+                    this.Visible = false;
+                }
+
+                dragOffset = new Point()
+                {
+                    X = this.Left - args.X / 32,
+                    Y = this.Top - args.Y / 32,
+                };
+
+                DropProcessed = 0;
+
+                delta = args;
+                dropped = false;
+                drag = true;
+                DragAndDropSceneControls.SetDragged(this);
+                UpLayer();
+                base.Click(args);
+            }
         }
+
+        private bool dropped = true;
 
         public override void GlobalClickRelease(PointerArgs args)
         {
+            if (dropped)
+                return;
+
             if (drag)
             {
+                dropped = true;
+                if (TextureDragging)
+                {
+                    Global.DrawClient.Drop();
+                    this.Visible = true;
+                }
+
+                this.Left = args.X / 32 + this.dragOffset.X;
+                this.Top = args.Y / 32 + this.dragOffset.Y;
+
                 drag = false;
+
+                DragAndDropSceneControls.SetDragged(null);
                 DownLayer();
             }
             base.GlobalClickRelease(args);

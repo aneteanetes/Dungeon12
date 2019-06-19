@@ -4,6 +4,7 @@
     using Rogue.Control.Pointer;
     using Rogue.Drawing.SceneObjects.Main.CharacterInfo;
     using Rogue.Drawing.SceneObjects.Map;
+    using Rogue.Map;
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
@@ -14,9 +15,11 @@
 
         private PlayerSceneObject playerSceneObject;
         private Action<List<ISceneObject>> showEffects;
+        private GameMap gamemap;
 
-        public CharButton(PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects) : base("Персонаж", showEffects)
+        public CharButton(GameMap gamemap, PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects) : base("Персонаж", showEffects)
         {
+            this.gamemap = gamemap;
             this.playerSceneObject = playerSceneObject;
             this.showEffects = showEffects;
 
@@ -72,7 +75,7 @@
 
             playerSceneObject.StopMovings();
 
-            characterInfoWindow = new CharacterInfoWindow(playerSceneObject, showEffects);
+            characterInfoWindow = new CharacterInfoWindow(gamemap,playerSceneObject, showEffects);
             characterInfoWindow.Destroy += () => characterInfoWindow = null;
 
             this.ShowEffects(new List<ISceneObject>()

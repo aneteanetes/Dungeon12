@@ -2,6 +2,7 @@
 {
     using Rogue.Drawing.SceneObjects.Main.CharacterBar;
     using Rogue.Drawing.SceneObjects.Map;
+    using Rogue.Map;
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
@@ -11,9 +12,9 @@
         public override bool AbsolutePosition => true;
         public override bool CacheAvailable => false;
         
-        public PlayerBar(PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects)
+        public PlayerBar(GameMap gamemap, PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects)
         {
-            this.AddChild(new CharButton(playerSceneObject,showEffects));
+            this.AddChild(new CharButton(gamemap,playerSceneObject, showEffects));
             this.AddChild(new SkillsButton(playerSceneObject,showEffects)
             {
                 Left=11.5

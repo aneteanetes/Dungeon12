@@ -250,7 +250,7 @@
             }
         }
 
-        private Point RandomizeLocation(Point point, RandomizePositionTry @try =null)
+        public Point RandomizeLocation(Point point, RandomizePositionTry @try =null)
         {
             if (@try == null)
             {
@@ -288,7 +288,7 @@
             return val;
         }
 
-        private class RandomizePositionTry
+        public class RandomizePositionTry
         {
             public List<Point> Existed { get; set; } = new List<Point>();
 

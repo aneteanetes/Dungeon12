@@ -17,7 +17,8 @@
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
              ControlEventType.ClickRelease,
-             ControlEventType.Click
+             ControlEventType.Click,
+              ControlEventType.Focus
         };
 
         private string borderImage = string.Empty;
@@ -27,14 +28,14 @@
         public override bool AbsolutePosition => true;
 
         private Character character;
-        private ItemKind itemKind;
+        public ItemKind ItemKind;
         private Item item;
         private Inventory inventory;
 
         public ItemWear(Inventory inventory, Character character, ItemKind itemKind)
         {
             this.inventory = inventory;
-            this.itemKind = itemKind;
+            this.ItemKind = itemKind;
             this.character = character;
             var tall = itemKind == ItemKind.Weapon || itemKind == ItemKind.OffHand;
 
@@ -119,8 +120,23 @@
 
         public override void Focus()
         {
-            this.Image = SquareTexture(true);
-            base.Focus();
+            if (DragAndDropSceneControls.IsDragging)
+            {
+                base.Focus();
+                if (this.DropAvailable)
+                {
+                    this.Image = SquareTexture(true);
+                }
+            }
+            else
+            {
+                this.Image = SquareTexture(true);                
+            }
+        }
+
+        protected override bool CheckDropAvailable(InventoryItem source)
+        {
+            return source.Item.Kind == this.ItemKind;
         }
 
         public override void Unfocus()
@@ -131,24 +147,43 @@
 
         protected override void OnDrop(InventoryItem source)
         {
-            if (source.Item.Kind == this.itemKind)
+            if (source.Item.Kind == this.ItemKind)
             {
-                if (character.Clothes.PutOn(source.Item).success)
+                WearItem(source,true);
+            }
+        }
+
+        public void WearItem(InventoryItem source, bool dropping=false)
+        {
+            var putOn = character.Clothes.PutOn(source.Item);
+
+            if (putOn.success)
+            {
+                if (putOn.oldItem != null)
                 {
-                    this.dressItemControl = new DressedItem(source.Item)
-                    {
-                        CacheAvailable=this.CacheAvailable,
-                        AbsolutePosition=this.AbsolutePosition
-                    };
-                    character.Backpack.Remove(source.Item);
-                    inventory.Refresh();
-                    DressUpItem();
-                    source.Destroy?.Invoke();
+                    DressOffItemToInventory(putOn.oldItem);
                 }
+
+                if (dropping)
+                {
+                    Global.DrawClient.Drop();
+                }
+
+                this.dressItemControl = new DressedItem(source.Item)
+                {
+                    CacheAvailable = this.CacheAvailable,
+                    AbsolutePosition = this.AbsolutePosition
+                };
+                character.Backpack.Remove(source.Item);
+                inventory.Refresh();
+                DressUpItem();
+
+                source.Destroy?.Invoke();
             }
         }
 
         private DressedItem dressItemControl;
+
         private void DressUpItem()
         {
             if (dressItemControl != null)
@@ -162,23 +197,29 @@
         {
             if (dressItemControl != null)
             {
-                if (character.Clothes.PutOff(this.itemKind).success)
+                if (character.Clothes.PutOff(this.ItemKind).success)
                 {
-                    character.Backpack.Add(dressItemControl.item);
-                    inventory.Refresh();
-                    dressItemControl?.Destroy?.Invoke();
-                    this.RemoveChild(dressItemControl);
+                    DressOffItemToInventory(dressItemControl.item);
                 }
             }
         }
 
+        private void DressOffItemToInventory(Item item)
+        {
+            character.Backpack.Add(item);
+            inventory.Refresh();
+            dressItemControl?.Destroy?.Invoke();
+            this.RemoveChild(dressItemControl);
+            dressItemControl = null;
+        }
+
         public override void Click(PointerArgs args)
         {
-            if(args.MouseButton== MouseButton.Right)
+            if (args.MouseButton == MouseButton.Right)
             {
                 DressOffItem();
             }
-        }
+        }        
 
         private class DressedItem : TooltipedSceneObject
         {

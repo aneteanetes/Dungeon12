@@ -15,7 +15,8 @@
     {
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
-             ControlEventType.ClickRelease
+             ControlEventType.ClickRelease,
+             ControlEventType.Focus
         };
 
         public DropableControl()
@@ -28,13 +29,29 @@
             var draggable = DragAndDropSceneControls.GetDropped(this);
             if (draggable != null)
             {
-                if (draggable.IntersectsWith(this))
+                draggable.GlobalClickRelease(args);
+                draggable.DropProcessed++;
+                //if (draggable.IntersectsWith(this)) // вот нахуя тут был Intersects ?
                 {
                     OnDrop(draggable as TSource);
                 }
             }
         }
 
+        protected bool DropAvailable;
+
+        public override void Focus()
+        {
+            var draggable = DragAndDropSceneControls.GetDropped(this);
+            if (draggable != null && CheckDropAvailable(draggable as TSource))
+            {
+                DropAvailable = true;
+            }
+
+            base.Focus();
+        }
+
+        protected virtual bool CheckDropAvailable(TSource source) => true;
 
         protected virtual void OnDrop(TSource source) { }
     }
@@ -96,6 +113,8 @@
         }
 
         private static DraggableControl LastDragged;
+
+        public static bool IsDragging => LastDragged != null;
 
         public static void SetDragged(DraggableControl draggable)
         {

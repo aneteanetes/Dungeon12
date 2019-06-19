@@ -632,5 +632,15 @@
         {
             throw new NotImplementedException();
         }
+
+        public void Drag(ISceneObject @object, ISceneObject area = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Drop()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

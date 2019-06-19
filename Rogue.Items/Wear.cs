@@ -25,8 +25,8 @@
                 case Enums.ItemKind.Weapon:
                     if (OnPutOn(item, this.Weapon))
                     {
-                        this.Weapon = item;
                         wasItem = this.Weapon;
+                        this.Weapon = item;
                         success = true;
                     }
                     else
@@ -37,8 +37,8 @@
                 case Enums.ItemKind.Helm:
                     if (OnPutOn(item, this.Helm))
                     {
-                        this.Helm = item;
                         wasItem = this.Helm;
+                        this.Helm = item;
                         success = true;
                     }
                     else
@@ -49,8 +49,8 @@
                 case Enums.ItemKind.Armor:
                     if (OnPutOn(item, this.Armor))
                     {
-                        this.Armor = item;
                         wasItem = this.Armor;
+                        this.Armor = item;
                         success = true;
                     }
                     else
@@ -61,8 +61,8 @@
                 case Enums.ItemKind.Boots:
                     if (OnPutOn(item, this.Boots))
                     {
-                        this.Boots = item;
                         wasItem = this.Boots;
+                        this.Boots = item;
                         success = true;
                     }
                     else
@@ -73,8 +73,8 @@
                 case Enums.ItemKind.OffHand:
                     if (OnPutOn(item, this.OffHand))
                     {
-                        this.OffHand = item;
                         wasItem = this.OffHand;
+                        this.OffHand = item;
                         success = true;
                     }
                     else

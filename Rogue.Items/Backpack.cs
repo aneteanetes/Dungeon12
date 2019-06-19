@@ -42,6 +42,9 @@
 
             if (location != null)
             {
+                location.X += 0.1;
+                location.Y += 0.1;
+
                 backpackItem.Position = new PhysicalPosition()
                 {
                     X = location.X,
@@ -54,13 +57,18 @@
                 }
             }
 
-            var locationSetted = TrySetLocation(backpackItem, new Point(0.1, 0.1));
+            backpackItem.Size.Width -= .2;
+            backpackItem.Size.Height -= .2;
+
+            var locationSetted = TrySetLocation(backpackItem, location ?? new Point(0.1, 0.1));
             if (!locationSetted)
             {
                 return false;
             }
 
             Container.Add(backpackItem);
+            backpackItem.Size.Width += .2;
+            backpackItem.Size.Height += .2;
             backpackItem.Position.X -= .1;
             backpackItem.Position.Y -= .1;
 

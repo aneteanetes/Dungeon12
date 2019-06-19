@@ -1,22 +1,26 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo
 {
+    using Force.DeepCloner;
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
     using Rogue.Drawing.Impl;
     using Rogue.Drawing.SceneObjects.Map;
     using Rogue.Drawing.SceneObjects.UI;
+    using Rogue.Map;
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class CharacterInfoWindow : DraggableControl
     {
         protected override Key[] OverrideKeyHandles => new Key[] { Key.C, Key.I };
 
         private PlayerSceneObject playerSceneObject;
+        private Inventory inventory;
 
-        public CharacterInfoWindow(PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects)
+        public CharacterInfoWindow(GameMap gameMap, PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects)
         {
             playerSceneObject.BlockMouse = true;
             this.Destroy += () => playerSceneObject.BlockMouse = false;
@@ -36,19 +40,35 @@
                 Left = 10.5
             });
 
-            var inventory = new Inventory(this.ZIndex, playerSceneObject.Avatar.Character.Backpack)
+
+            inventory = new Inventory(this.ZIndex, playerSceneObject.Avatar.Character.Backpack)
             {
                 Top = 9.45,
                 Left = 0.55
             };
+            AddItemWear(inventory, playerSceneObject);
 
-            AddItemWear(inventory,playerSceneObject);
+            inventory.ItemWears = this.Children.Where(x => x.GetType() == typeof(ItemWear)).Cast<ItemWear>().ToArray();
 
             this.AddChild(inventory);
+
+            this.AddChild(new CharacterInfoDropItemMask(OnDropInventoryItem));
+
+            this.AddChild(new InventoryDropItemMask(playerSceneObject, inventory, gameMap)
+            {
+                Left = -this.Left,
+                Top = -this.Top
+            });
 
             FillData(playerSceneObject);
 
             OpenStats();
+        }
+
+        private void OnDropInventoryItem(InventoryItem item)
+        {
+            Global.DrawClient.Drop();
+            this.inventory.Refresh();
         }
 
         private void FillData(PlayerSceneObject playerSceneObject)
@@ -73,15 +93,15 @@
 
             this.AddChild(new ImageControl("Rogue.Resources.Images.ui.stats.attack.png")
             {
-                Height=0.5,
-                Width=0.5,
-                Top= 8,
-                Left=2,
-                 AbsolutePosition=true,
-                 CacheAvailable=false
+                Height = 0.5,
+                Width = 0.5,
+                Top = 8,
+                Left = 2,
+                AbsolutePosition = true,
+                CacheAvailable = false
             });
 
-            var dmgTxt= this.AddTextCenter(new DrawText($"{character.MinDMG} - {character.MaxDMG}", new DrawColor(230, 118, 37, 255)).Montserrat());
+            var dmgTxt = this.AddTextCenter(new DrawText($"{character.MinDMG} - {character.MaxDMG}", new DrawColor(230, 118, 37, 255)).Montserrat());
             dmgTxt.Left = 2.75;
             dmgTxt.Top = 7.95;
 
@@ -97,20 +117,20 @@
             });
 
             var arm = this.AddTextCenter(new DrawText($"{character.Defence}", new DrawColor(37, 223, 230, 255)).Montserrat());
-            arm.Left = 8.5+.75;
+            arm.Left = 8.5 + .75;
             arm.Top = 7.95;
 
 
             var goldImg = "Rogue.Resources.Images.ui.stats.gold.png";
             var goldMeasure = this.MeasureImage(goldImg);
 
-            var goldLeft = this.Width / 2 - ((goldMeasure.X*0.8) / 32 / 2);
+            var goldLeft = this.Width / 2 - ((goldMeasure.X * 0.8) / 32 / 2);
             this.AddChild(new ImageControl("Rogue.Resources.Images.ui.stats.gold.png")
             {
                 Height = 0.85,
                 Width = 0.85,
                 Top = 15.75,
-                Left = goldLeft-0.85,
+                Left = goldLeft - 0.85,
                 AbsolutePosition = true,
                 CacheAvailable = false
             });
@@ -122,7 +142,7 @@
 
         private void AddItemWear(Inventory inventory, PlayerSceneObject playerSceneObject)
         {
-            this.AddChild(new ItemWear(inventory,playerSceneObject.Avatar.Character, Items.Enums.ItemKind.Helm)
+            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Items.Enums.ItemKind.Helm)
             {
                 Top = 2,
                 Left = 5
@@ -155,7 +175,7 @@
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
-            if (key == Key.C || key== Key.I)
+            if (key == Key.C || key == Key.I)
             {
                 base.KeyDown(Key.Escape, modifier, hold);
             }
@@ -200,7 +220,7 @@
 
                 this.AddChild(new ImageControl("Rogue.Resources.Images.ui.additional.png")
                 {
-                    AbsolutePosition=true,
+                    AbsolutePosition = true,
                     CacheAvailable = false,
                     Height = 1,
                     Width = 1,
@@ -235,9 +255,72 @@
                 Key.F
             };
 
-            public override void KeyDown(Key key, KeyModifiers modifier, bool hold) =>open?.Invoke();
+            public override void KeyDown(Key key, KeyModifiers modifier, bool hold) => open?.Invoke();
 
             public override void Click(PointerArgs args) => open?.Invoke();
+        }
+
+        private class CharacterInfoDropItemMask : DropableControl<InventoryItem>
+        {
+            public override bool AbsolutePosition => true;
+
+            public override bool CacheAvailable => true;
+
+            Action<InventoryItem> OnDropDelegate;
+
+            public CharacterInfoDropItemMask(Action<InventoryItem> onDropDelegate)
+            {
+                this.OnDropDelegate = onDropDelegate;
+                this.Height = 17;
+                this.Width = 12;
+            }
+
+            protected override void OnDrop(InventoryItem source) => OnDropDelegate?.Invoke(source);
+        }
+
+        public class InventoryDropItemMask : DropableControl<InventoryItem>
+        {
+            public override bool AbsolutePosition => true;
+            public override bool CacheAvailable => true;
+
+            private PlayerSceneObject playerSceneObject;
+            private Inventory inventory;
+            private GameMap gameMap;
+
+            public InventoryDropItemMask(PlayerSceneObject playerSceneObject, Inventory inventory, GameMap gameMap)
+            {
+                this.gameMap = gameMap;
+                this.inventory = inventory;
+                this.playerSceneObject = playerSceneObject;
+                this.Width = 40;
+                this.Height = 22.5;
+            }
+
+            protected override void OnDrop(InventoryItem source)
+            {
+                if (source.DropProcessed==1)
+                {
+                    playerSceneObject.Avatar.Character.Backpack.Remove(source.Item);
+                    inventory.Refresh();
+                    AddLootToMap(source);
+                }
+
+                base.OnDrop(source);
+            }
+
+            private void AddLootToMap(InventoryItem source)
+            {
+                var lootItem = new Rogue.Map.Objects.Loot()
+                {
+                    Item = source.Item
+                };
+
+                lootItem.Location = gameMap.RandomizeLocation(playerSceneObject.Avatar.Location.DeepClone());
+                lootItem.Destroy += () => gameMap.Map.Remove(lootItem);
+
+                gameMap.Map.Add(lootItem);
+                gameMap.PublishObject(lootItem);
+            }
         }
     }
 }

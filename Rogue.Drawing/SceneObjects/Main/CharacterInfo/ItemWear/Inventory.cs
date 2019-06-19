@@ -19,10 +19,12 @@
         public override bool CacheAvailable => false;
 
         public override bool AbsolutePosition => true;
-        
+
         Backpack backpack;
 
         private List<InventoryItem> inventoryItems = new List<InventoryItem>();
+
+        public ItemWear[] ItemWears { get; set; }
 
         public Inventory(int zIndex, Backpack backpack)
         {
@@ -64,7 +66,7 @@
 
             foreach (var item in backpack.GetItems())
             {
-                var invItem = new InventoryItem(item);
+                var invItem = new InventoryItem(this.ItemWears, item);
                 this.AddChild(invItem);
                 this.inventoryItems.Add(invItem);
             }
@@ -72,6 +74,18 @@
 
         protected override void OnDrop(InventoryItem source)
         {
+            var x = Math.Ceiling(source.Left);
+            var y = Math.Ceiling(source.Top);
+
+            if (this.backpack.Add(source.Item, new Types.Point(x, y)))
+            {
+                backpack.Remove(source.Item);
+            }
+
+            Global.DrawClient.Drop();
+
+            this.Refresh();
+
             base.OnDrop(source);
         }
 
@@ -109,10 +123,15 @@
 
     public class InventoryItem : DraggableControl
     {
+        public override bool TextureDragging => true;
+
         public Item Item { get; set; }
 
-        public InventoryItem(Item item)
+        private ItemWear[] itemWears;
+
+        public InventoryItem(ItemWear[] itemWears, Item item)
         {
+            this.itemWears = itemWears;
             this.Item = item;
             this.Image = item.Tileset;
             this.Width = item.InventorySize.X;
@@ -122,6 +141,19 @@
             AbsolutePosition = true;
             Left = item.InventoryPosition.X;
             Top = item.InventoryPosition.Y;
+        }
+
+        public override void Click(PointerArgs args)
+        {
+            if (args.MouseButton == MouseButton.Right)
+            {
+                var itemWear = itemWears.FirstOrDefault(x => x.ItemKind == this.Item.Kind);
+                itemWear.WearItem(this);
+            }
+            else
+            {
+                base.Click(args);
+            }
         }
     }
 }

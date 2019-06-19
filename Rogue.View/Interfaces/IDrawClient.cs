@@ -16,5 +16,9 @@
         void SaveObject(ISceneObject sceneObject, string path, Point offset, string runtimeCacheName=null);
 
         void Animate(IAnimationSession animationSession);
+
+        void Drag(ISceneObject @object, ISceneObject area = null);
+
+        void Drop();
     }
 }

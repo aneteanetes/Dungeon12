@@ -89,7 +89,7 @@
                 Left = 9f
             });
 
-            this.AddObject(new PlayerBar(player, ShowEffectsBinding)
+            this.AddObject(new PlayerBar(Gamemap, player, ShowEffectsBinding)
             {
                 Top = 18.45 + 0.5 + 2,
                 Left = 9 + 2.9 

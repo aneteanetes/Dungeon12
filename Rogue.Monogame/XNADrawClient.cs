@@ -28,7 +28,7 @@
                 IsFullScreen = false,
                 PreferredBackBufferWidth = 1280,
                 PreferredBackBufferHeight = 720,
-                SynchronizeWithVerticalRetrace=true
+                SynchronizeWithVerticalRetrace=true,
             };
 
             Content.RootDirectory = "Content";
