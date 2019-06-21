@@ -32,8 +32,6 @@
 
         protected override void Use(GameMap gameMap, Avatar avatar, Noone @class)
         {
-            @class.Actions -= 1;
-
             var rangeObject = new MapObject
             {
                 Position = new Physics.PhysicalPosition
@@ -47,10 +45,11 @@
             rangeObject.Size.Height *= 2.5;
             rangeObject.Size.Width *= 2.5;
 
-            var enemies = gameMap.Enemies(rangeObject);
+            var enemy = gameMap.Enemies(rangeObject).FirstOrDefault();
 
-            foreach (var enemy in enemies)
+            if (enemy != null)
             {
+                @class.Actions -= 1;
                 var value = (long)this.Value;
 
                 enemy.Enemy.HitPoints -= value;

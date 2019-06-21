@@ -52,50 +52,65 @@
                     Layer = 1000
                 };
 
-                var bounds = new Physics.PhysicalObject()
+                var boundInfo = new TooltipBoundInfo
                 {
-                    Position = new Physics.PhysicalPosition() {
-                        X = clickableTooltip.Position.X * 32,
-                        Y = clickableTooltip.Position.Y * 32
-                    },
-                    Size = new Physics.PhysicalSize()
-                    {
-                        Width = clickableTooltip.Width * 32,
-                        Height = clickableTooltip.Height * 32
-                    }
+                    ClickableTooltip = clickableTooltip,
+                    Parent = this
                 };
-                AlignLocation(bounds, clickableTooltip);
+                boundInfo.Refresh();
+
+                AlignLocation(boundInfo);
 
                 clickableTooltip.Destroy += () =>
                 {
-                    ClickableTooltipBoundsContainer.clickableTooltipsBounds.Remove(bounds);
+                    ClickableTooltipBoundsContainer.ClickableTooltipsBounds.Remove(boundInfo);
+                    RefreshTooltips();
                 };
 
                 this.Destroy += () =>
                 {
-                    ClickableTooltipBoundsContainer.clickableTooltipsBounds.Remove(bounds);
+                    ClickableTooltipBoundsContainer.ClickableTooltipsBounds.Remove(boundInfo);
                     clickableTooltip?.Destroy?.Invoke();
                 };
                 this.ShowEffects(clickableTooltip.InList<ISceneObject>());
             }
         }
 
-        private void AlignLocation(Physics.PhysicalObject bound, ClickableTooltip clickableTooltip, int top = 0)
+        private static void RefreshTooltips()
         {
-            var exists = ClickableTooltipBoundsContainer.clickableTooltipsBounds.LastOrDefault(tooltip => tooltip.IntersectsWith(bound));
+            var boudTooltipInfoes = new List<TooltipBoundInfo>(ClickableTooltipBoundsContainer.ClickableTooltipsBounds);
+
+            foreach (var boundTooltipInfo in ClickableTooltipBoundsContainer.ClickableTooltipsBounds)
+            {
+                boundTooltipInfo.Refresh();
+            }
+
+            ClickableTooltipBoundsContainer.ClickableTooltipsBounds.Clear();
+
+            foreach (var boundTooltipInfo in boudTooltipInfoes)
+            {
+                AlignLocation(boundTooltipInfo);
+            }
+        }
+
+        private static void AlignLocation(TooltipBoundInfo boundINfo, int top = 0)
+        {
+            var clickableTooltip = boundINfo.ClickableTooltip;
+
+            var exists = ClickableTooltipBoundsContainer.ClickableTooltipsBounds.LastOrDefault(tooltip => tooltip.Bounds.IntersectsWith(boundINfo.Bounds));
             if (exists != null)
             {
-                clickableTooltip.Top = exists.Position.Y / 32;
+                clickableTooltip.Top = exists.Bounds.Position.Y / 32;
                 clickableTooltip.Top -= clickableTooltip.Height + 0.01;
 
-                bound.Position.Y = clickableTooltip.Top * 32;
+                boundINfo.Bounds.Position.Y = clickableTooltip.Top * 32;
 
-                AlignLocation(bound, clickableTooltip, top+1);
+                AlignLocation(boundINfo, top + 1);
             }
 
             if (top == 0)
             {
-                ClickableTooltipBoundsContainer.clickableTooltipsBounds.Add(bound);
+                ClickableTooltipBoundsContainer.ClickableTooltipsBounds.Add(boundINfo);
             }
         }
 
@@ -148,6 +163,35 @@
 
     public class ClickableTooltipBoundsContainer
     {
-        public static List<Physics.PhysicalObject> clickableTooltipsBounds = new List<Physics.PhysicalObject>();
+        public static List<TooltipBoundInfo> ClickableTooltipsBounds = new List<TooltipBoundInfo>();
+    }
+
+    public class TooltipBoundInfo
+    {
+        public Tooltip ClickableTooltip { get; set; }
+
+        public ISceneObject Parent { get; set; }
+
+        public Physics.PhysicalObject Bounds { get; set; }
+
+        public void Refresh()
+        {
+            ClickableTooltip.Left = Parent.ComputedPosition.X;
+            ClickableTooltip.Top = Parent.ComputedPosition.Y - 0.8;
+
+            Bounds = new Physics.PhysicalObject()
+            {
+                Position = new Physics.PhysicalPosition()
+                {
+                    X = ClickableTooltip.Position.X * 32,
+                    Y = ClickableTooltip.Position.Y * 32
+                },
+                Size = new Physics.PhysicalSize()
+                {
+                    Width = ClickableTooltip.Width * 32,
+                    Height = ClickableTooltip.Height * 32
+                }
+            };
+        }
     }
 }

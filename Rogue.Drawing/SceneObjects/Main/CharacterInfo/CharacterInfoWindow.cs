@@ -49,6 +49,7 @@
             AddItemWear(inventory, playerSceneObject);
 
             inventory.ItemWears = this.Children.Where(x => x.GetType() == typeof(ItemWear)).Cast<ItemWear>().ToArray();
+            inventory.Refresh();
 
             this.AddChild(inventory);
 

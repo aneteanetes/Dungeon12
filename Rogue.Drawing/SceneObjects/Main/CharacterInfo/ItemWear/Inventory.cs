@@ -51,8 +51,6 @@
                     });
                 }
             }
-
-            Refresh();
         }
 
         public void Refresh()

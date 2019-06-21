@@ -27,7 +27,7 @@
         public override void ClickRelease(PointerArgs args)
         {
             var draggable = DragAndDropSceneControls.GetDropped(this);
-            if (draggable != null)
+            if (draggable != null && CheckDropAvailable(draggable as TSource))
             {
                 draggable.GlobalClickRelease(args);
                 draggable.DropProcessed++;

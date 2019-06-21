@@ -281,7 +281,7 @@
             if (offset == 1)
                 return 0;
 
-            var awayRange = 0.1 * @try.TryCount;
+            var awayRange = 0.01 * @try.TryCount;
 
             var val = offset * awayRange * dir;
 

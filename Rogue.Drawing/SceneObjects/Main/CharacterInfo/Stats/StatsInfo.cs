@@ -37,11 +37,29 @@
             set => base.Height = value;
         }
 
-        private void DrawStats(Character c)
+        public override string Image
         {
-            //var hp = this.AddTextCenter(new DrawText($"Здоровье: {@char.HitPoints}/{@char.MaxHitPoints}", new DrawColor(System.ConsoleColor.Red)));
-            //hp.Left = 0.5;
+            get
+            {
+                Refresh();
 
+                return base.Image;
+            }
+            set => base.Image = value;
+        }
+
+        private Dictionary<TextControl, Func<Character, string>> statsText = new Dictionary<TextControl, Func<Character, string>>();
+
+        private void Refresh()
+        {
+            foreach (var stat in statsText)
+            {
+                stat.Key.Text.SetText(stat.Value?.Invoke(character));
+            }
+        }
+
+        private void DrawStats(Character @char)
+        {
             double top = 0.2;
 
             var common = this.AddTextCenter(new DrawText("Основные"), true, false);
@@ -52,15 +70,17 @@
 
             foreach (var stat in BaseStats)
             {
-                var txt = this.AddTextCenter(new DrawText($"{stat.Title(c)}:  {stat.Value(c)}", new DrawColor(stat.Color(c))).Montserrat());
+                var txt = this.AddTextCenter(new DrawText($"{stat.Title(@char)}:  {stat.Value(@char)}", new DrawColor(stat.Color(@char))).Montserrat());
                 txt.Left = 0.5;
                 txt.Top = top;
 
+                statsText.Add(txt, c => $"{stat.Title(c)}:  {stat.Value(c)}");
+
                 top += MeasureText(txt.Text).Y / 32 + (stat.EndGroup ? 0.5 : 0);
 
-                if(stat.EndGroup)
+                if (stat.EndGroup)
                 {
-                    this.AddChild(new DarkRectangle() { Color = ConsoleColor.Black, Opacity = 1, Left=0.5, Width = this.Width-1, Height = 0.1, Top=top-0.25 });
+                    this.AddChild(new DarkRectangle() { Color = ConsoleColor.Black, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.1, Top = top - 0.25 });
                 }
             }
 
@@ -71,13 +91,15 @@
             top += MeasureText(classed.Text).Y / 32 + 0.5;
             this.AddChild(new DarkRectangle() { Color = ConsoleColor.Black, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.1, Top = top - 0.25 });
 
-            foreach (var group in c.ClassStats.GroupBy(cs => cs.Group))
+            foreach (var group in @char.ClassStats.GroupBy(cs => cs.Group))
             {
                 foreach (var cs in group)
                 {
                     var txt = this.AddTextCenter(new DrawText($"{cs.Title}:  {cs.Value}", cs.Color).Montserrat());
                     txt.Left = 0.5;
                     txt.Top = top;
+
+                    statsText.Add(txt, c => $"{cs.Title}:  {cs.Value}");
 
                     top += MeasureText(txt.Text).Y / 32;
                 }
