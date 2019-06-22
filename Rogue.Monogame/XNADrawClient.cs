@@ -8,6 +8,7 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
+    using Penumbra;
     using Rogue.Resources;
     using Rogue.Scenes.Manager;
     using Rogue.Scenes.Menus;
@@ -17,10 +18,22 @@
 
     public partial class XNADrawClient : Game, IDrawClient
     {
+        float ambient = 1f;
+        Color ambientColor = Color.White;
+
+        private PenumbraComponent penumbra;
+
+
         public SceneManager SceneManager { get; set; }
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
+
+        Light light = new PointLight
+        {
+            Scale = new Vector2(1000f), // Range of the light source (how far the light will travel)
+            ShadowType = ShadowType.Solid // Will not lit hulls themselves
+        };
+
         public XNADrawClient()
         {
             graphics = new GraphicsDeviceManager(this)
@@ -37,6 +50,11 @@
             // fixing framerate
             this.IsFixedTimeStep = true;//false;
             this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d); //60);
+
+            penumbra = new PenumbraComponent(this);
+            Components.Add(penumbra);
+
+            penumbra.Lights.Add(light);
         }
 
         protected override void Initialize()
@@ -64,6 +82,14 @@
 
         protected override void Update(GameTime gameTime)
         {
+            KeyboardState c = Keyboard.GetState();
+            if (c.IsKeyDown(Keys.Space))
+            {
+                ambient -= 0.01f;
+                if (ambient <= 0)
+                    ambient = 1f;
+            }
+
             UpdateLoop();
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed/* || Keyboard.GetState().IsKeyDown(Keys.Escape)*/)

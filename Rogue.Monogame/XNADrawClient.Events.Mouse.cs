@@ -107,6 +107,8 @@
             if (mouseState.MiddleButton == ButtonState.Pressed)
                 mb = MouseButton.Middle;
 
+            this.light.Position = new Microsoft.Xna.Framework.Vector2(mousePosition.X, mousePosition.Y);
+
             currentScene.OnMouseMove(new Control.Pointer.PointerArgs
             {
                 ClickCount = 0,

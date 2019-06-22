@@ -8,6 +8,7 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
+    using Penumbra;
     using Rogue.Resources;
     using Rogue.Scenes.Manager;
     using Rogue.Scenes.Menus;
@@ -47,6 +48,8 @@
 
         private void Draw(ISceneObject[] sceneObjects)
         {
+            penumbra.BeginDraw();
+
             foreach (var sceneObject in sceneObjects.OrderBy(c => c.Layer).ToArray())
             {
                 if (!sceneObject.DrawOutOfSight && !InCamera(sceneObject))
@@ -104,6 +107,8 @@
         public static bool frameInfo = true;
 
         #endregion
+
+        public Color Ambient => new Color(ambientColor.R / 255f * ambient, ambientColor.G / 255f * ambient, ambientColor.B / 255f * ambient/* + (0.8f*ambient)*/);
 
         private void DrawFrameInfo()
         {
@@ -219,7 +224,7 @@
                 TileSetCache.TryGetValue(sceneObject.Uid, out var tilesetPos);
                 PosCahce.TryGetValue(sceneObject.Uid, out var sceneObjPos);
 
-                spriteBatch.Draw(bitmap, new Vector2(sceneObjPos.Xf, sceneObjPos.Yf), new Microsoft.Xna.Framework.Rectangle(tilesetPos.Xi, tilesetPos.Yi, tilesetPos.Widthi, tilesetPos.Heighti), Color.White);
+                spriteBatch.Draw(bitmap, new Vector2(sceneObjPos.Xf, sceneObjPos.Yf), new Microsoft.Xna.Framework.Rectangle(tilesetPos.Xi, tilesetPos.Yi, tilesetPos.Widthi, tilesetPos.Heighti), Ambient);
             }
             else
             {
@@ -311,7 +316,7 @@
             spriteBatch.Draw(image, dest,
                 new Microsoft.Xna.Framework.Rectangle(tileRegion.Xi, tileRegion.Yi,
                     tileRegion.Widthi, tileRegion.Heighti),
-                Color.White);
+                Ambient);
         }
 
         private void DrawSceneText(float fontSize, double y, double x, IDrawText range)
