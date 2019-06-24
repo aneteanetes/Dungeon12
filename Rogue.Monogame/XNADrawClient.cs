@@ -90,6 +90,25 @@
                     ambient = 1f;
             }
 
+            if (c.IsKeyDown(Keys.K))
+            {
+                penumbra.Visible = false;
+            }
+
+            if (c.IsKeyDown(Keys.L))
+            {
+                penumbra.Visible = true;
+            }
+
+            if (c.IsKeyDown(Keys.Down))
+            {
+                light.Scale -= new Vector2(50);
+            }
+            if (c.IsKeyDown(Keys.Up))
+            {
+                light.Scale += new Vector2(50);
+            }
+
             UpdateLoop();
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed/* || Keyboard.GetState().IsKeyDown(Keys.Escape)*/)

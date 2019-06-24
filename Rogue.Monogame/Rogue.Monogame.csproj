@@ -17,7 +17,7 @@
     <PackageReference Include="MonoGame.Extended" Version="1.1.0" />
     <PackageReference Include="MonoGame.Extended.Graphics" Version="1.1.0" />
     <!--<PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.7.1.189" />-->
-    <PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="3.7.0.7" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="3.7.0.8" />
     <!--<PackageReference Include="MonoGame.Penumbra.DesktopGL" Version="1.4.1" />-->
     <!--<PackageReference Include="MonoGame.Penumbra.WindowsDX" Version="1.4.1" />-->
   </ItemGroup>
