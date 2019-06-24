@@ -34,66 +34,48 @@
             GraphicsDevice.Clear(Color.Black);
             CalculateCamera();
 
-            Draw(this.scene.Objects);
+            Draw(this.scene.Objects, gameTime);
 
             DrawFrameInfo();
 
             OnPointerMoved();
 
-            base.Draw(gameTime);
         }
 
         private bool needReopen = true;
         private bool opened = false;
 
-        private void Draw(ISceneObject[] sceneObjects)
+        private void Draw(ISceneObject[] sceneObjects, GameTime gameTime)
         {
+            var all = sceneObjects
+                .Where(x => x.Visible && (x.DrawOutOfSight || (!x.DrawOutOfSight && InCamera(x))))
+                .ToArray();
+
+            var absolute = all
+                .Where(x => x.AbsolutePosition || scene.AbsolutePositionScene)
+                .OrderBy(x => x.Layer).ToArray();
+
+            var offsetted = all
+                .Where(x => !scene.AbsolutePositionScene && !x.AbsolutePosition)
+                .OrderBy(x => x.Layer).ToArray();
+
             penumbra.BeginDraw();
 
-            foreach (var sceneObject in sceneObjects.OrderBy(c => c.Layer).ToArray())
+            spriteBatch.Begin(transformMatrix: Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0));
+            foreach (var offsetSceneObject in offsetted)
             {
-                if (!sceneObject.DrawOutOfSight && !InCamera(sceneObject))
-                    continue;
-
-                if (!sceneObject.Visible)
-                    continue;
-
-                if (scene.AbsolutePositionScene || sceneObject.AbsolutePosition)
-                {
-                    if (needReopen)
-                    {
-                        if (opened)
-                        {
-                            spriteBatch.End();
-                        }
-                        spriteBatch.Begin();
-                        opened = true;
-                        needReopen = false;
-                    }
-                }
-                else
-                {
-                    if (!needReopen || !opened)
-                    {
-                        needReopen = true;
-                        if (opened)
-                        {
-                            spriteBatch.End();
-                        }
-                        opened = true;
-                        spriteBatch.Begin(transformMatrix: Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0));
-                    }
-                }
-
-                DrawSceneObject(sceneObject);
+                DrawSceneObject(offsetSceneObject);
             }
+            spriteBatch.End();
 
-            if (opened)
+            penumbra.Draw(gameTime);
+
+            spriteBatch.Begin();
+            foreach (var absoluteSceneObject in absolute)
             {
-                opened = false;
-                needReopen = true;
-                spriteBatch.End();
+                DrawSceneObject(absoluteSceneObject);
             }
+            spriteBatch.End();
         }
 
         #region frameSettings
