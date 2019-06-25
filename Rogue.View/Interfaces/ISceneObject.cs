@@ -6,6 +6,8 @@
 
     public interface ISceneObject
     {
+        bool Shadow { get; set; }
+
         /// <summary>
         /// Can be cached or have animation
         /// </summary>

@@ -1,19 +1,15 @@
 ﻿namespace Rogue
 {
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    using MonoGame.Extended.Particles;
+    using Penumbra;
+    using Rogue.Resources;
+    using Rogue.View.Interfaces;
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
-    using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Graphics;
-    using Microsoft.Xna.Framework.Input;
-    using Penumbra;
-    using Rogue.Resources;
-    using Rogue.Scenes.Manager;
-    using Rogue.Scenes.Menus;
-    using Rogue.Types;
-    using Rogue.View.Interfaces;
     using Rect = Rogue.Types.Rectangle;
 
     public partial class XNADrawClient : Game, IDrawClient
@@ -34,16 +30,23 @@
             GraphicsDevice.Clear(Color.Black);
             CalculateCamera();
 
+
             Draw(this.scene.Objects, gameTime);
 
-            DrawFrameInfo();
+            DrawDebugInfo();
+
+            //if (visibleEmitters)
+            //{
+            //    spriteBatch.Begin(blendState: BlendState.AlphaBlend);
+            //    spriteBatch.Draw(_particleEffect);
+            //    spriteBatch.End();
+            //}
 
             OnPointerMoved();
 
-        }
 
-        private bool needReopen = true;
-        private bool opened = false;
+
+        }
 
         private void Draw(ISceneObject[] sceneObjects, GameTime gameTime)
         {
@@ -86,39 +89,34 @@
         private double _fps;
         Stopwatch _st = Stopwatch.StartNew();
 
-        public static bool frameInfo = true;
-
         #endregion
 
-        public Color Ambient => new Color(ambientColor.R / 255f * ambient, ambientColor.G / 255f * ambient, ambientColor.B / 255f * ambient/* + (0.8f*ambient)*/);
-
-        private void DrawFrameInfo()
+        private void DrawDebugInfo()
         {
-            if (frameInfo)
+            spriteBatch.Begin();
+            var nowTs = _st.Elapsed;
+            var now = DateTime.Now;
+            var fpsTimeDiff = (nowTs - _lastFps).TotalSeconds;
+            if (fpsTimeDiff > 1)
             {
-                spriteBatch.Begin();
-                var nowTs = _st.Elapsed;
-                var now = DateTime.Now;
-                var fpsTimeDiff = (nowTs - _lastFps).TotalSeconds;
-                if (fpsTimeDiff > 1)
-                {
-                    _fps = (_frame - _lastFpsFrame) / fpsTimeDiff;
-                    _lastFpsFrame = _frame;
-                    _lastFps = nowTs;
-                }
-
-                var text = $"FPS: {_fps}";
-
-                var font = Content.Load<SpriteFont>("Montserrat");
-
-                spriteBatch.DrawString(font, text, new Vector2(555, 16), Color.White);
-
-                spriteBatch.End();
+                _fps = (_frame - _lastFpsFrame) / fpsTimeDiff;
+                _lastFpsFrame = _frame;
+                _lastFps = nowTs;
             }
+
+            var text = $"FPS: {_fps}";
+
+            var font = Content.Load<SpriteFont>("Montserrat");
+
+            spriteBatch.DrawString(font, text, new Vector2(555, 16), Color.White);
+
+            spriteBatch.DrawString(font, Global.Time, new Vector2(600, 26), Color.LightYellow);
+
+            spriteBatch.End();
 
             _frame++;
         }
-        
+
         public Types.Point MeasureText(IDrawText drawText)
         {
             var font = Content.Load<SpriteFont>(drawText.FontName ?? "Triforce/Triforce30");
@@ -177,10 +175,7 @@
             var y = sceneObject.Position.Y * cell + yParent;
             var x = sceneObject.Position.X * cell + xParent;
 
-            //if(sceneObject.Position.Width==0 || sceneObject.Position.Height==0)
-            //{
-            //    Console.WriteLine($"У объекта {sceneObject}:{sceneObject.Uid} не указана ширина и/или высота!");
-            //}
+            DrawShadow(sceneObject, x, y);
 
             if (sceneObject.IsBatch && !batching)
             {
@@ -206,7 +201,7 @@
                 TileSetCache.TryGetValue(sceneObject.Uid, out var tilesetPos);
                 PosCahce.TryGetValue(sceneObject.Uid, out var sceneObjPos);
 
-                spriteBatch.Draw(bitmap, new Vector2(sceneObjPos.Xf, sceneObjPos.Yf), new Microsoft.Xna.Framework.Rectangle(tilesetPos.Xi, tilesetPos.Yi, tilesetPos.Widthi, tilesetPos.Heighti), Ambient);
+                spriteBatch.Draw(bitmap, new Vector2(sceneObjPos.Xf, sceneObjPos.Yf), new Microsoft.Xna.Framework.Rectangle(tilesetPos.Xi, tilesetPos.Yi, tilesetPos.Widthi, tilesetPos.Heighti), Color.White);
             }
             else
             {
@@ -298,7 +293,7 @@
             spriteBatch.Draw(image, dest,
                 new Microsoft.Xna.Framework.Rectangle(tileRegion.Xi, tileRegion.Yi,
                     tileRegion.Widthi, tileRegion.Heighti),
-                Ambient);
+                Color.White);
         }
 
         private void DrawSceneText(float fontSize, double y, double x, IDrawText range)
@@ -392,6 +387,40 @@
                                             rectangleToDraw.Y + rectangleToDraw.Height - thicknessOfBorder,
                                             rectangleToDraw.Width,
                                             thicknessOfBorder), borderColor);
+        }
+
+        private static Dictionary<string, Hull> Shadows = new Dictionary<string, Hull>();
+
+        private void DrawShadow(ISceneObject sceneObject, double x, double y)
+        {
+            if (!sceneObject.Shadow)
+                return;
+
+            var xf = x + CameraOffsetX;
+            var yf = y + CameraOffsetY;
+
+            xf += sceneObject.Position.Width / 2 * cell;
+            yf += sceneObject.Position.Height * cell;
+
+            var pos = new Vector2((float)xf, (float)yf);
+
+            if (!Shadows.TryGetValue(sceneObject.Uid, out var hullShadow))
+            {
+                hullShadow = new Hull(new Vector2(1.0f), new Vector2(-1.0f, 1.0f), new Vector2(-1.0f), new Vector2(1.0f, -1.0f));
+                hullShadow.Position = pos;
+                hullShadow.Scale = new Vector2(1,1);
+
+                penumbra.Hulls.Add(hullShadow);
+                Shadows.Add(sceneObject.Uid, hullShadow);
+
+                sceneObject.Destroy += () =>
+                {
+                    Shadows.Remove(sceneObject.Uid);
+                    penumbra.Hulls.Remove(hullShadow);
+                };
+            }
+
+            hullShadow.Position = pos;
         }
     }
 }

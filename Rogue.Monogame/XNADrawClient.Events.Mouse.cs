@@ -87,14 +87,6 @@
         private void OnPointerMoved()
         {
             var currentScene = SceneManager.Current;
-
-            //if (currentScene.CameraAffect)
-            //{
-            //    drawClient.MoveCamera(Types.Direction.Right, !(pos.X >= 1180));
-            //    drawClient.MoveCamera(Types.Direction.Left, !(pos.X <= 100));
-            //    drawClient.MoveCamera(Types.Direction.Down, !(pos.Y >= 620));
-            //    drawClient.MoveCamera(Types.Direction.Up, !(pos.Y <= 100));
-            //}
             
             MouseButton mb = MouseButton.None;
 

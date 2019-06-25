@@ -19,6 +19,8 @@
 
     public class PlayerSceneObject : AnimatedSceneObject<Avatar>
     {
+        public override bool Shadow => true;
+
         public Avatar Avatar;
 
         public override int Layer => 1;

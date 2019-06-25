@@ -234,6 +234,8 @@
 
         public virtual bool DrawOutOfSight { get; set; } = true;
 
+        public virtual bool Shadow { get; set; }
+
         public override string ToString()
         {
             return $"{owner.GetType().Name}#{Uid} : {base.ToString()}";
