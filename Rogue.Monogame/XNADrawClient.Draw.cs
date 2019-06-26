@@ -110,7 +110,7 @@
 
             spriteBatch.DrawString(font, text, new Vector2(555, 16), Color.White);
 
-            spriteBatch.DrawString(font, Global.Time, new Vector2(600, 26), Color.LightYellow);
+            spriteBatch.DrawString(font, Global.Time, new Vector2(625, 30), Color.Yellow);
 
             spriteBatch.End();
 
@@ -389,7 +389,7 @@
                                             thicknessOfBorder), borderColor);
         }
 
-        private static Dictionary<string, Hull> Shadows = new Dictionary<string, Hull>();
+        private static Dictionary<string, PointLight> Shadows = new Dictionary<string, PointLight>();
 
         private void DrawShadow(ISceneObject sceneObject, double x, double y)
         {
@@ -406,17 +406,22 @@
 
             if (!Shadows.TryGetValue(sceneObject.Uid, out var hullShadow))
             {
-                hullShadow = new Hull(new Vector2(1.0f), new Vector2(-1.0f, 1.0f), new Vector2(-1.0f), new Vector2(1.0f, -1.0f));
-                hullShadow.Position = pos;
-                hullShadow.Scale = new Vector2(1,1);
+                hullShadow = new PointLight()
+                {
+                    Scale = new Vector2(32),
+                    ShadowType = ShadowType.Occluded,
+                    Radius = 32,
+                    Position = pos,
+                    Color= Color.DarkGray
+                };
 
-                penumbra.Hulls.Add(hullShadow);
+                penumbra.Lights.Add(hullShadow);
                 Shadows.Add(sceneObject.Uid, hullShadow);
 
                 sceneObject.Destroy += () =>
                 {
                     Shadows.Remove(sceneObject.Uid);
-                    penumbra.Hulls.Remove(hullShadow);
+                    penumbra.Lights.Remove(hullShadow);
                 };
             }
 

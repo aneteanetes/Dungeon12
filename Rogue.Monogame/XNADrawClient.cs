@@ -33,13 +33,13 @@
         public SceneManager SceneManager { get; set; }
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        readonly Light SunLight = new Spotlight
+        readonly Light SunLight = new PointLight
         {
             Scale = new Vector2(3700f),
             ShadowType = ShadowType.Illuminated, // Will not lit hulls themselves,
             Rotation = 0.8707998f,
-            Position = new Vector2(-2660, -3100),
-            ConeDecay = 5f,
+            Position = new Vector2(-2660, -500),
+            //ConeDecay = 5f,
             Radius = 10000,            
         };
 
@@ -71,7 +71,7 @@
             Components.Add(penumbra);
 
             penumbra.Lights.Add(SunLight);
-            penumbra.Lights.Add(light);
+            //penumbra.Lights.Add(light);
 
             Global.Time.OnMinute += CalculateSunlight;
         }
@@ -277,7 +277,7 @@
             {
                 SunLight.Rotation = 0.8707998f;
                 SunLight.Scale = new Vector2(3700f);
-                SunLight.Position = new Vector2(-2660, -3100);
+                SunLight.Position = new Vector2(-2660, -500);
             }
         }
     }
