@@ -17,5 +17,12 @@ But the main feature of this game is the ability to change its class throughout 
 
 In spite of all this, the completed gameplay will contains parts from: Might and Magic VI-VIII, Action-rpg, some good rpg games like Dragon Age, and some of old Rogue-like games.
 
+# Build 
+## Monogame graphical engine
+ * install Rogue.Monogame\Build\MonoGameSetup.exe
+ * install Rogue.Monogame\Build\vcredist_x64.exe (or download x32 version of Visual `C++ Redistributable for Visual Studio 2012 Update 4`)
+ * install all fonts from Rogue.Resources\Fonts\
+ * be sure repository path doesn't contain any special characters like `.`,`#`, e.t.c.
+
 # Early prototype
 ![Early prototype screenshot](/Misc/d12earlyproto.PNG?raw=true "Early prototype screenshot")
