@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Modifiers="ProjectMercury.Modifiers">
+  <Asset Type="ProjectMercury.ParticleEffect">
+    <Item>
+      <Name>Big Stars</Name>
+      <Budget>15</Budget>
+      <Term>0.75</Term>
+      <ReleaseQuantity>1</ReleaseQuantity>
+      <Enabled>true</Enabled>
+      <ReleaseSpeed>
+        <Value>96</Value>
+        <Variation>64</Variation>
+      </ReleaseSpeed>
+      <ReleaseColour>
+        <Value>1 0.8784314 0.7529412</Value>
+        <Variation>0 0 0</Variation>
+      </ReleaseColour>
+      <ReleaseOpacity>
+        <Value>1</Value>
+        <Variation>0</Variation>
+      </ReleaseOpacity>
+      <ReleaseScale>
+        <Value>48</Value>
+        <Variation>24</Variation>
+      </ReleaseScale>
+      <ReleaseRotation>
+        <Value>0</Value>
+        <Variation>0</Variation>
+      </ReleaseRotation>
+      <ReleaseImpulse>0 0</ReleaseImpulse>
+      <ParticleTextureAssetName>Star</ParticleTextureAssetName>
+      <Modifiers>
+        <Item Type="Modifiers:OpacityModifier">
+          <Initial>1</Initial>
+          <Ultimate>0</Ultimate>
+        </Item>
+        <Item Type="Modifiers:ColourModifier">
+          <InitialColour>1 0.5019608 1</InitialColour>
+          <UltimateColour>1 0.5019608 0</UltimateColour>
+        </Item>
+        <Item Type="Modifiers:ScaleInterpolatorModifier">
+          <InitialScale>48</InitialScale>
+          <MiddleScale>64</MiddleScale>
+          <MiddlePosition>0.4</MiddlePosition>
+          <FinalScale>16</FinalScale>
+        </Item>
+        <Item Type="Modifiers:DampingModifier">
+          <DampingCoefficient>5</DampingCoefficient>
+        </Item>
+      </Modifiers>
+      <BlendMode>Alpha</BlendMode>
+      <TriggerOffset>0 0</TriggerOffset>
+      <MinimumTriggerPeriod>0.05</MinimumTriggerPeriod>
+    </Item>
+    <Item>
+      <Name>Small Stars</Name>
+      <Budget>400</Budget>
+      <Term>1</Term>
+      <ReleaseQuantity>1</ReleaseQuantity>
+      <Enabled>true</Enabled>
+      <ReleaseSpeed>
+        <Value>96</Value>
+        <Variation>64</Variation>
+      </ReleaseSpeed>
+      <ReleaseColour>
+        <Value>1 1 1</Value>
+        <Variation>0 0 0</Variation>
+      </ReleaseColour>
+      <ReleaseOpacity>
+        <Value>1</Value>
+        <Variation>0</Variation>
+      </ReleaseOpacity>
+      <ReleaseScale>
+        <Value>16</Value>
+        <Variation>0</Variation>
+      </ReleaseScale>
+      <ReleaseRotation>
+        <Value>0</Value>
+        <Variation>3.14</Variation>
+      </ReleaseRotation>
+      <ReleaseImpulse>0 0</ReleaseImpulse>
+      <ParticleTextureAssetName>Star</ParticleTextureAssetName>
+      <Modifiers>
+        <Item Type="Modifiers:OpacityInterpolatorModifier">
+          <InitialOpacity>0</InitialOpacity>
+          <MiddleOpacity>1</MiddleOpacity>
+          <MiddlePosition>0.75</MiddlePosition>
+          <FinalOpacity>0</FinalOpacity>
+        </Item>
+        <Item Type="Modifiers:DampingModifier">
+          <DampingCoefficient>3</DampingCoefficient>
+        </Item>
+        <Item Type="Modifiers:ColourModifier">
+          <InitialColour>1 1 1</InitialColour>
+          <UltimateColour>0.7529412 0.7529412 1</UltimateColour>
+        </Item>
+        <Item Type="Modifiers:LinearGravityModifier">
+          <Gravity>0 150</Gravity>
+        </Item>
+      </Modifiers>
+      <BlendMode>Add</BlendMode>
+      <TriggerOffset>0 0</TriggerOffset>
+      <MinimumTriggerPeriod>0</MinimumTriggerPeriod>
+    </Item>
+    <Item>
+      <Name>Sparkles</Name>
+      <Budget>700</Budget>
+      <Term>1</Term>
+      <ReleaseQuantity>5</ReleaseQuantity>
+      <Enabled>true</Enabled>
+      <ReleaseSpeed>
+        <Value>0</Value>
+        <Variation>48</Variation>
+      </ReleaseSpeed>
+      <ReleaseColour>
+        <Value>1 1 1</Value>
+        <Variation>0 0 0</Variation>
+      </ReleaseColour>
+      <ReleaseOpacity>
+        <Value>1</Value>
+        <Variation>0</Variation>
+      </ReleaseOpacity>
+      <ReleaseScale>
+        <Value>16</Value>
+        <Variation>0</Variation>
+      </ReleaseScale>
+      <ReleaseRotation>
+        <Value>0</Value>
+        <Variation>0</Variation>
+      </ReleaseRotation>
+      <ReleaseImpulse>0 0</ReleaseImpulse>
+      <ParticleTextureAssetName>Star</ParticleTextureAssetName>
+      <Modifiers>
+        <Item Type="Modifiers:ColourModifier">
+          <InitialColour>1 0.5019608 1</InitialColour>
+          <UltimateColour>0.7529412 0.2509804 0</UltimateColour>
+        </Item>
+        <Item Type="Modifiers:OpacityModifier">
+          <Initial>1</Initial>
+          <Ultimate>0</Ultimate>
+        </Item>
+      </Modifiers>
+      <BlendMode>Add</BlendMode>
+      <TriggerOffset>0 0</TriggerOffset>
+      <MinimumTriggerPeriod>0</MinimumTriggerPeriod>
+    </Item>
+    <Name>Magic Trail</Name>
+    <Author />
+    <Description />
+  </Asset>
+</XnaContent>

@@ -1,27 +1,16 @@
 ﻿namespace Rogue
 {
-    using System;
-    using System.Collections.Concurrent;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Linq;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
-    using MonoGame.Extended;
-    using MonoGame.Extended.Particles;
-    using MonoGame.Extended.Particles.Modifiers;
-    using MonoGame.Extended.Particles.Modifiers.Containers;
-    using MonoGame.Extended.Particles.Modifiers.Interpolators;
-    using MonoGame.Extended.Particles.Profiles;
-    using MonoGame.Extended.TextureAtlases;
     using Penumbra;
+    using ProjectMercury;
     using Rogue.Resources;
     using Rogue.Scenes.Manager;
     using Rogue.Scenes.Menus;
-    using Rogue.Types;
     using Rogue.View.Interfaces;
-    using Rect = Rogue.Types.Rectangle;
+    using System;
+    using System.Collections.Generic;
 
     public partial class XNADrawClient : Game, IDrawClient
     {
@@ -86,51 +75,18 @@
             var _particleTexture = new Texture2D(GraphicsDevice, 1, 1);
             _particleTexture.SetData(new[] { Color.White });
 
-            ParticleInit(new TextureRegion2D(_particleTexture));
+            ParticleInit();
 
             base.Initialize();
         }
 
         private ParticleEffect _particleEffect;
 
-        private void ParticleInit(TextureRegion2D textureRegion)
+        private void ParticleInit()
         {
-            _particleEffect = new ParticleEffect(autoTrigger: false)
-            {
-                Position = new Vector2(610, 160),
-                Emitters = new List<ParticleEmitter>
-                {
-                    new ParticleEmitter(textureRegion, 500, TimeSpan.FromSeconds(2.5),
-                    Profile.BoxFill(603,148)
-                        /*Profile.Ring(150f, Profile.CircleRadiation.In)*/)
-                    {
-                        Parameters = new ParticleReleaseParameters
-                        {
-                            Speed = new Range<float>(0f, 50f),
-                            Quantity = 3,
-                            Rotation = new Range<float>(-1f, 1f),
-                            Scale = new Range<float>(3.0f, 4.0f)
-                        },
-                        Modifiers =
-                        {
-                            new AgeModifier
-                            {
-                                Interpolators =
-                                {
-                                    new ColorInterpolator
-                                    {
-                                        StartValue = HslColor.FromRgb(new Color(90,249,252)),
-                                        EndValue = HslColor.FromRgb(new Color(20,124,250))
-                                    }
-                                }
-                            },
-                            new RotationModifier {RotationRate = -2.1f},
-                            new RectangleContainerModifier {Width = 800, Height = 480},
-                            new LinearGravityModifier {Direction = -Vector2.UnitY, Strength = 30f}
-                        }
-                    }
-                }
-            };
+            var particleStream = ResourceLoader.Load("Rogue.Resources.Particles.BasicFireball.xml");
+            var loader = new ParticleEffectLoader(particleStream);
+            _particleEffect = loader.Load();
         }
 
         protected override void LoadContent()
@@ -161,19 +117,19 @@
             if (c.IsKeyDown(Keys.L))
             {
                 penumbra.Visible = true;
-                _particleEffect.Trigger();
+                //_particleEffect.Trigger();
                 visibleEmitters = true;
             }
 
             if (c.IsKeyDown(Keys.Down))
             {
                 SunLight.Position += new Vector2(0, 50);
-                _particleEffect.Position += new Vector2(0, 10);
+                //_particleEffect.Position += new Vector2(0, 10);
             }
             if (c.IsKeyDown(Keys.Up))
             {
                 SunLight.Position -= new Vector2(0, 50);
-                _particleEffect.Position -= new Vector2(0, 10);
+                //_particleEffect.Position -= new Vector2(0, 10);
             }
 
 

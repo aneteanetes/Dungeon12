@@ -2,7 +2,6 @@
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
-    using MonoGame.Extended.Particles;
     using Penumbra;
     using Rogue.Resources;
     using Rogue.View.Interfaces;

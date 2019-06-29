@@ -7,11 +7,23 @@
   <ItemGroup>
     <None Remove="Images\**\*" />
     <None Remove="Fonts\**\*" />
+    <None Remove="Particles\**\*" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Images\**\*" />
     <EmbeddedResource Include="Fonts\**\*" />
+    <EmbeddedResource Include="Particles\**\*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="MagicTrail.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="MagicTrail.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +34,7 @@
     <Folder Include="Images\Regions\" />
     <Folder Include="Images\Objects\" />
     <Folder Include="Images\ui\stats\" />
+    <Folder Include="Particles\" />
   </ItemGroup>
 
 </Project>
