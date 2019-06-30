@@ -122,6 +122,12 @@
 
         private void VisitNode(XElement element)
         {
+            if (element.Name == "Modifiers")
+            {
+                emitter.Modifiers = new Modifiers.ModifierCollection();
+                return;
+            }
+
             if (target == null)
                 return;
 
