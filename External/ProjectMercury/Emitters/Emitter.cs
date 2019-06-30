@@ -9,11 +9,14 @@
 namespace ProjectMercury.Emitters
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
     using ProjectMercury.Modifiers;
+    using Rogue;
+    using Rogue.Resources;
 
 #if MPE_RAISEEVENTS
     /// <summary>
@@ -385,7 +388,7 @@ namespace ProjectMercury.Emitters
                 try
                 {
                     if (this.ParticleTexture == null)
-                        this.ParticleTexture = content.Load<Texture2D>(this.ParticleTextureAssetName);
+                        this.ParticleTexture = TileSetByName($"Rogue.Resources.Images.Particles.{this.ParticleTextureAssetName}.png");
                 }
                 catch (ContentLoadException e)
                 {
@@ -396,6 +399,21 @@ namespace ProjectMercury.Emitters
                     throw new ContentLoadException(message, e);
                 }
             }
+        }
+
+        private static readonly Dictionary<string, Texture2D> tilesetsCache = new Dictionary<string, Texture2D>();
+
+        private Texture2D TileSetByName(string tilesetName)
+        {
+            if (!tilesetsCache.TryGetValue(tilesetName, out var bitmap))
+            {
+                var stream = ResourceLoader.Load(tilesetName, tilesetName);
+                bitmap = Texture2D.FromStream(Global.TransportVariable as GraphicsDevice, stream);
+
+                tilesetsCache.TryAdd(tilesetName, bitmap);
+            }
+
+            return bitmap;
         }
 
         /// <summary>

@@ -13,5 +13,8 @@
         public static bool BlockSceneControls { get; set; }
 
         public static GlobalTime Time { get; } = new GlobalTime();
+
+
+        public static object TransportVariable { get; set; }
     }
 }

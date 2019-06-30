@@ -5,6 +5,7 @@
     using Microsoft.Xna.Framework.Input;
     using Penumbra;
     using ProjectMercury;
+    using ProjectMercury.Renderers;
     using Rogue.Resources;
     using Rogue.Scenes.Manager;
     using Rogue.Scenes.Menus;
@@ -18,6 +19,7 @@
 
 
         Texture2D _blankTexture;
+        Renderer myRenderer;
 
         public SceneManager SceneManager { get; set; }
         GraphicsDeviceManager graphics;
@@ -63,6 +65,13 @@
             //penumbra.Lights.Add(light);
 
             Global.Time.OnMinute += CalculateSunlight;
+
+            myRenderer= new SpriteBatchRenderer
+            {
+                GraphicsDeviceService = graphics
+            };
+
+            Global.TransportVariable = GraphicsDevice;
         }
 
         protected override void Initialize()
@@ -84,7 +93,7 @@
 
         private void ParticleInit()
         {
-            var particleStream = ResourceLoader.Load("Rogue.Resources.Particles.BasicFireball.xml");
+            var particleStream = ResourceLoader.Load("Rogue.Resources.Particles.BeamMeUp.xml");
             var loader = new ParticleEffectLoader(particleStream);
             _particleEffect = loader.Load();
         }
@@ -99,13 +108,27 @@
             };
             SceneManager.Change<Start>();
 
+
             // TODO: use this.Content to load your game content here
         }
 
         private bool visibleEmitters = true;
 
+
+        private bool loaded = false;
+
         protected override void Update(GameTime gameTime)
         {
+
+            if(!loaded)
+            {
+                Global.TransportVariable = GraphicsDevice;
+                _particleEffect.LoadContent(this.Content);
+                _particleEffect.Initialise();
+                myRenderer.LoadContent(Content);
+                loaded = true;
+            }
+
             KeyboardState c = Keyboard.GetState();
 
             if (c.IsKeyDown(Keys.K))
@@ -166,10 +189,57 @@
                 //_particleEffect.Position += new Vector2(50, 0);
             }
 
+
+
+
+
+
+
+
+            // get the latest mouse state
+            MouseState ms = Mouse.GetState();
+            // Check if mouse left button was presed
+            if (ms.LeftButton == ButtonState.Pressed)
+            {
+                // Add new particle effect to mouse coordinates
+                _particleEffect.Trigger(new Vector2(ms.X, ms.Y));
+            }
+
+
+
+
+
+
+
             var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             _particleEffect.Update(deltaTime);
 
             UpdateLoop();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed/* || Keyboard.GetState().IsKeyDown(Keys.Escape)*/)
                 Exit();

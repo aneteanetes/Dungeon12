@@ -7,6 +7,7 @@
     using System.Reflection;
     using System.Xml;
     using System.Xml.Linq;
+    using FastMember;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using ProjectMercury.Controllers;
@@ -35,13 +36,13 @@
         {
             foreach (var attribute in element.Attributes())
             {
-                VisitNodeAttribute(attribute);
+                VisitNodeAttribute(attribute,element);
             }
 
             string visitMethodName = "Visit";
             visitMethodName += !string.IsNullOrEmpty(CurrentNamespace)
                 ? CurrentNamespace
-                : element.Name.ToString();
+                : "Node";
 
             var visitMethod = this.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
                 .FirstOrDefault(x => x.Name == visitMethodName);
@@ -58,12 +59,17 @@
             {
                 Visit(child);
             }
+
+            if (element.Name == "Modifiers")
+            {
+                target = emitter;
+            }
         }
 
         private string CurrentType = string.Empty;
         private string CurrentNamespace = string.Empty;
 
-        private void VisitNodeAttribute(XAttribute xAttribute)
+        private void VisitNodeAttribute(XAttribute xAttribute, XElement element)
         {
             if (xAttribute.Name == "Type" && xAttribute.Value.Contains(":"))
             {
@@ -71,132 +77,33 @@
                 CurrentNamespace = xAttribute.Value.Substring(0, delimiterPos);
                 CurrentType = xAttribute.Value.Substring(delimiterPos + 1);
             }
+            else if (xAttribute.Name == "Type" && element.Name == "Item")
+            {
+                var value = xAttribute.Value;
+
+                CurrentType = value.Replace("ProjectMercury.Emitters.", "")
+                    .Replace("ProjectMercury.Modifiers.", "");
+
+                CurrentNamespace = value.Replace("ProjectMercury.", "")
+                    .Replace("." + CurrentType, "");
+            }
         }
+
+        private object target;
 
         private Emitter emitter;
 
         private void VisitEmitters(XElement element)
         {
-            emitter = (Emitter)Activator.CreateInstance(Type.GetType(CurrentType));
+            var typeName = $"ProjectMercury.Emitters.{CurrentType}, ProjectMercury";
+            emitter = (Emitter)Activator.CreateInstance(Type.GetType(typeName));
             _particleEffect.Add(emitter);
-        }
 
-        private void VisitName(XElement element)
-        {
-            emitter.Name = element.Value;
-        }
-
-        private void VisitBudget(XElement element)
-        {
-            emitter.Budget = int.Parse(element.Value);
-        }
-
-        private void VisitTerm(XElement element)
-        {
-            emitter.Term = float.Parse(element.Value);
-        }
-
-        private void VisitReleaseQuantity(XElement element)
-        {
-            emitter.ReleaseQuantity = int.Parse(element.Value);
-        }
-
-        private void VisitReleaseSpeed(XElement element)
-        {
-            emitter.ReleaseSpeed = new VariableFloat()
-            {
-                Value = float.Parse(element.Element("Value").Value),
-                Variation = float.Parse(element.Element("Variation").Value)
-            };
-        }
-
-        private void VisitReleaseColour(XElement element)
-        {
-            emitter.ReleaseColour = new VariableFloat3()
-            {
-                Value = ParseVector3(element.Element("Value")),
-                Variation = ParseVector3(element.Element("Variation"))
-            };
-        }
-
-        private void VisitReleaseOpacity(XElement element)
-        {
-            emitter.ReleaseOpacity = new VariableFloat()
-            {
-                Value = float.Parse(element.Element("Value").Value),
-                Variation = float.Parse(element.Element("Variation").Value)
-            };
-        }
-
-        private void VisitReleaseScale(XElement element)
-        {
-            emitter.ReleaseScale = new VariableFloat()
-            {
-                Value = float.Parse(element.Element("Value").Value),
-                Variation = float.Parse(element.Element("Variation").Value)
-            };
-        }
-
-        private void VisitReleaseRotation(XElement element)
-        {
-            emitter.ReleaseRotation = new VariableFloat()
-            {
-                Value = float.Parse(element.Element("Value").Value),
-                Variation = float.Parse(element.Element("Variation").Value)
-            };
-        }
-
-        private void VisitReleaseImpulse(XElement element)
-        {
-            emitter.ReleaseImpulse = ParseVector2(element);
-        }
-
-        private void VisitParticleTextureAssetName(XElement element)
-        {
-            emitter.ParticleTextureAssetName = element.Value;
-        }
-
-        private void VisitBlendMode(XElement element)
-        {
-            emitter.BlendMode = Enum.Parse<EmitterBlendMode>(element.Value);
-        }
-
-        private void VisitTriggerOffset(XElement element)
-        {
-            emitter.TriggerOffset = ParseVector2(element);
-        }
-
-        private void VisitMinimumTriggerPeriod(XElement element)
-        {
-            emitter.MinimumTriggerPeriod = float.Parse(element.Value);
-        }
-
-        private void VisitRadius(XElement element)
-        {
-            if (emitter is CircleEmitter circleEmitter)
-            {
-                circleEmitter.Radius = float.Parse(element.Value);
-            }
-        }
-
-        private void VisitRing(XElement element)
-        {
-            if (emitter is CircleEmitter circleEmitter)
-            {
-                circleEmitter.Ring = bool.Parse(element.Value);
-            }
-        }
-
-        private void VisitRadiate(XElement element)
-        {
-            if (emitter is CircleEmitter circleEmitter)
-            {
-                circleEmitter.Radiate = bool.Parse(element.Value);
-            }
+            target = emitter;
         }
 
         Modifier modifier;
-
+        
         private void VisitModifiers(XElement element)
         {
             if (emitter.Modifiers == null)
@@ -205,77 +112,88 @@
             }
             else
             {
-                modifier = (Modifier)Activator.CreateInstance(Type.GetType(CurrentType));
+                var typeName = $"ProjectMercury.Modifiers.{CurrentType}, ProjectMercury";
+                modifier = (Modifier)Activator.CreateInstance(Type.GetType(typeName));
+                emitter.Modifiers.Add(modifier);
+
+                target = modifier;
             }
         }
 
-        private void VisitInitial(XElement element)
+        private void VisitNode(XElement element)
         {
-            if (modifier is OpacityModifier opacityModifier)
-            {
-                opacityModifier.Initial = float.Parse(element.Value);
-            }
-        }
+            if (target == null)
+                return;
 
-        private void VisitUltimate(XElement element)
-        {
-            if (modifier is OpacityModifier opacityModifier)
-            {
-                opacityModifier.Ultimate = float.Parse(element.Value);
-            }
-        }
+            var accessor = TypeAccessor.Create(target.GetType());
+            var name = element.Name.ToString();
 
-        private void VisitInitialScale(XElement element)
-        {
-            if (modifier is ScaleModifier scaleModifier)
-            {
-                scaleModifier.InitialScale = float.Parse(element.Value);
-            }
-        }
+            object value = null;
 
-        private void VisitUltimateScale(XElement element)
-        {
-            if (modifier is ScaleModifier scaleModifier)
-            {
-                scaleModifier.UltimateScale = float.Parse(element.Value);
-            }
-        }
+            var prop = accessor.GetMembers().FirstOrDefault(p => p.Name == name);
+            if (prop == null)
+                return;
 
-        private void VisitDampingCoefficient(XElement element)
-        {
-            if (modifier is DampingModifier dampingModifier)
-            {
-                dampingModifier.DampingCoefficient = float.Parse(element.Value);
-            }
-        }
 
-        private void VisitInitialRate(XElement element)
-        {
-            if (modifier is RotationRateModifier rotationRateModifier)
+            var propType = prop.Type;
+            switch (propType)
             {
-                rotationRateModifier.InitialRate = float.Parse(element.Value);
+                case Type _ when propType == typeof(bool):
+                    {
+                        value = bool.Parse(element.Value);
+                        break;
+                    }
+                case Type _ when propType == typeof(float):
+                    {
+                        value = float.Parse(element.Value.Replace(".",","));
+                        break;
+                    }
+                case Type _ when propType == typeof(int):
+                    {
+                        value = int.Parse(element.Value);
+                        break;
+                    }
+                case Type _ when propType == typeof(Vector2):
+                    {
+                        value = ParseVector2(element);
+                        break;
+                    }
+                case Type _ when propType == typeof(Vector3):
+                    {
+                        value = ParseVector3(element);
+                        break;
+                    }
+                case Type _ when propType == typeof(string):
+                    {
+                        value = element.Value;
+                        break;
+                    }
+                case Type _ when propType == typeof(VariableFloat):
+                    {
+                        value = ParseVariableFloat(element);
+                        break;
+                    }
+                case Type _ when propType == typeof(VariableFloat3):
+                    {
+                        value = ParseVariableFloat3(element);
+                        break;
+                    }
+                case Type _ when propType == typeof(EmitterBlendMode):
+                    {
+                        value = Enum.Parse<EmitterBlendMode>(element.Value);
+                        break;
+                    }
+                default:
+                    break;
             }
-        }
 
-        private void VisitFinalRate(XElement element)
-        {
-            if (modifier is RotationRateModifier rotationRateModifier)
-            {
-                rotationRateModifier.FinalRate = float.Parse(element.Value);
-            }
-        }
-
-        private void VisitRotationRate(XElement element)
-        {
-            if (modifier is RotationModifier rotationModifier)
-            {
-                rotationModifier.RotationRate = float.Parse(element.Value);
-            }
+            accessor[target, name] = value;
         }
 
         private Vector3 ParseVector3(XElement element)
         {
             var values = element.Value
+                .Replace(".",",")
                 .Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
             Vector3 v = new Vector3();
@@ -289,6 +207,7 @@
         private Vector2 ParseVector2(XElement element)
         {
             var values = element.Value
+                .Replace(".",",")
                 .Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
             Vector2 v = new Vector2();
@@ -297,5 +216,46 @@
 
             return v;
         }
+               
+        private VariableFloat ParseVariableFloat(XElement element)
+        {
+            return  new VariableFloat()
+            {
+                Value = float.Parse(element.Element("Value").Value.Replace(".",",")),
+                Variation = float.Parse(element.Element("Variation").Value.Replace(".", ","))
+            };
+        }
+
+        private VariableFloat3 ParseVariableFloat3(XElement element)
+        {
+            return new VariableFloat3()
+            {
+                Value = ParseVector3(element.Element("Value")),
+                Variation = ParseVector3(element.Element("Variation"))
+            };
+        }
+
+        private static string Intersect(string a, string b)
+        {
+            string same = string.Empty;
+
+            var aEnumerator = a.GetEnumerator();
+            var bEnumerator = b.GetEnumerator();
+
+            while (aEnumerator.MoveNext() && bEnumerator.MoveNext())
+            {
+                if (aEnumerator.Current == bEnumerator.Current)
+                {
+                    same += aEnumerator.Current;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return same;
+        }
+
     }
 }

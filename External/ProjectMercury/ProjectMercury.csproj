@@ -10,7 +10,12 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="FastMember.NetCore" Version="1.1.0" />
     <PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="3.7.0.8" />
     <PackageReference Include="YAXLib" Version="2.15.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Rogue.Global\Rogue.Global.csproj" />
+    <ProjectReference Include="..\..\Rogue.Resources\Rogue.Resources.csproj" />
   </ItemGroup>
 </Project>

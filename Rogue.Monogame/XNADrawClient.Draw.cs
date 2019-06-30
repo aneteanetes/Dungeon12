@@ -34,12 +34,8 @@
 
             DrawDebugInfo();
 
-            //if (visibleEmitters)
-            //{
-            //    spriteBatch.Begin(blendState: BlendState.AlphaBlend);
-            //    spriteBatch.Draw(_particleEffect);
-            //    spriteBatch.End();
-            //}
+
+            myRenderer.RenderEffect(_particleEffect);
 
             OnPointerMoved();
 
