@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <Folder Include="Images\Enemies\" />
+    <Folder Include="Images\Items\Doll\" />
     <Folder Include="Images\Items\Offhands\Shields\Tall\" />
     <Folder Include="Images\Items\Weapons\OneHand\" />
     <Folder Include="Images\Items\Weapons\OneHand\Swords\" />

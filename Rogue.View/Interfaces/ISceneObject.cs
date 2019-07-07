@@ -79,5 +79,9 @@
         bool DrawOutOfSight { get; set; }
 
         bool IntersectsWith(ISceneObject another);
+
+        ILight Light { get; set; }
+
+        List<IEffect> Effects { get; set; }
     }
 }

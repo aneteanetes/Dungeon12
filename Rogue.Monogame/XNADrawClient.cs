@@ -117,14 +117,31 @@
 
         private bool loaded = false;
 
+
+        private GameTime gameTime;
+
         protected override void Update(GameTime gameTime)
         {
+            this.gameTime = gameTime;
 
-            if(!loaded)
+            DebugUpdate();
+
+            UpdateLoop();
+
+
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed/* || Keyboard.GetState().IsKeyDown(Keys.Escape)*/)
+                Exit();
+
+            // TODO: Add your update logic here
+
+            base.Update(gameTime);
+        }
+
+        private void DebugUpdate()
+        {
+            if (!loaded)
             {
                 Global.TransportVariable = GraphicsDevice;
-                _particleEffect.LoadContent(this.Content);
-                _particleEffect.Initialise();
                 myRenderer.LoadContent(Content);
                 loaded = true;
             }
@@ -190,63 +207,24 @@
             }
 
 
-
-
-
+            if (c.IsKeyDown(Keys.U))
+            {
+                _particleEffect.LoadContent(this.Content);
+                _particleEffect.Initialise();
+            }
 
 
 
             // get the latest mouse state
             MouseState ms = Mouse.GetState();
-            // Check if mouse left button was presed
-            if (ms.LeftButton == ButtonState.Pressed)
-            {
-                // Add new particle effect to mouse coordinates
-                _particleEffect.Trigger(new Vector2(ms.X, ms.Y));
-            }
-
-
-
-
-
-
-
-            var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            _particleEffect.Update(deltaTime);
-
-            UpdateLoop();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed/* || Keyboard.GetState().IsKeyDown(Keys.Escape)*/)
-                Exit();
-
-            // TODO: Add your update logic here
-
-            base.Update(gameTime);
+            //// Check if mouse left button was presed
+            //if (ms.MiddleButton == ButtonState.Pressed)
+            //{
+            //    ParticleInit()
+            //    _particleEffect.Trigger(new Vector2(626, 121));
+            //    var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //    _particleEffect.Update(deltaTime);
+            //}
         }
 
         private IScene scene;

@@ -3,6 +3,7 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Penumbra;
+    using ProjectMercury;
     using Rogue.Resources;
     using Rogue.View.Interfaces;
     using System;
@@ -34,13 +35,12 @@
 
             DrawDebugInfo();
 
-
-            myRenderer.RenderEffect(_particleEffect);
-
+            //foreach (var particleEffect in ParticleEffects.Values)
+            //{
+            //    myRenderer.RenderEffect(particleEffect);
+            //}
+            
             OnPointerMoved();
-
-
-
         }
 
         private void Draw(ISceneObject[] sceneObjects, GameTime gameTime)
@@ -59,7 +59,9 @@
 
             penumbra.BeginDraw();
 
-            spriteBatch.Begin(transformMatrix: Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0));
+            SpriteBatchRestore = () => spriteBatch.Begin(transformMatrix: Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0));
+            SpriteBatchRestore.Invoke();
+
             foreach (var offsetSceneObject in offsetted)
             {
                 DrawSceneObject(offsetSceneObject);
@@ -68,13 +70,17 @@
 
             penumbra.Draw(gameTime);
 
-            spriteBatch.Begin();
+            SpriteBatchRestore = () => spriteBatch.Begin();
+            SpriteBatchRestore.Invoke();
+
             foreach (var absoluteSceneObject in absolute)
             {
                 DrawSceneObject(absoluteSceneObject);
             }
             spriteBatch.End();
         }
+
+        private Action SpriteBatchRestore = null;
 
         #region frameSettings
 
@@ -170,7 +176,8 @@
             var y = sceneObject.Position.Y * cell + yParent;
             var x = sceneObject.Position.X * cell + xParent;
 
-            DrawShadow(sceneObject, x, y);
+            DrawLight(sceneObject, x, y);
+            DrawEffects(sceneObject, x, y);
 
             if (sceneObject.IsBatch && !batching)
             {
@@ -285,6 +292,10 @@
 
             var dest = new Microsoft.Xna.Framework.Rectangle(pos.Xi, pos.Yi, pos.Widthi, pos.Heighti);
 
+            if (sceneObject.Effects.Count > 0) {
+                //Console.WriteLine($"texture: {dest.X+CameraOffsetX} {dest.Y+CameraOffsetY}");
+            }
+
             spriteBatch.Draw(image, dest,
                 new Microsoft.Xna.Framework.Rectangle(tileRegion.Xi, tileRegion.Yi,
                     tileRegion.Widthi, tileRegion.Heighti),
@@ -384,12 +395,14 @@
                                             thicknessOfBorder), borderColor);
         }
 
-        private static Dictionary<string, PointLight> Shadows = new Dictionary<string, PointLight>();
+        private static readonly Dictionary<string, PointLight> Lights = new Dictionary<string, PointLight>();
 
-        private void DrawShadow(ISceneObject sceneObject, double x, double y)
+        private void DrawLight(ISceneObject sceneObject, double x, double y)
         {
-            if (!sceneObject.Shadow)
+            if (sceneObject.Light == null)
                 return;
+
+            var objLight = sceneObject.Light;
 
             var xf = x + CameraOffsetX;
             var yf = y + CameraOffsetY;
@@ -399,28 +412,84 @@
 
             var pos = new Vector2((float)xf, (float)yf);
 
-            if (!Shadows.TryGetValue(sceneObject.Uid, out var hullShadow))
+            var objLightColor = objLight.Color;
+            var color = new Color(objLightColor.R, objLightColor.G, objLightColor.B, objLightColor.A);
+
+            if (objLight.Updated && Lights.ContainsKey(sceneObject.Uid))
             {
-                hullShadow = new PointLight()
+                var oldLight = Lights[sceneObject.Uid];
+                penumbra.Lights.Remove(oldLight);
+                Lights.Remove(sceneObject.Uid);
+            }
+
+            if (!Lights.TryGetValue(sceneObject.Uid, out var light))
+            {
+                light = new PointLight()
                 {
-                    Scale = new Vector2(32),
+                    Scale = new Vector2(objLight.Range*32),
                     ShadowType = ShadowType.Occluded,
-                    Radius = 32,
+                    Radius = sceneObject.Light.Range * 32,
                     Position = pos,
-                    Color= Color.DarkGray
+                    Color = color
                 };
 
-                penumbra.Lights.Add(hullShadow);
-                Shadows.Add(sceneObject.Uid, hullShadow);
+                penumbra.Lights.Add(light);
+                Lights[sceneObject.Uid] = light;
 
                 sceneObject.Destroy += () =>
                 {
-                    Shadows.Remove(sceneObject.Uid);
-                    penumbra.Lights.Remove(hullShadow);
+                    Lights.Remove(sceneObject.Uid);
+                    penumbra.Lights.Remove(light);
                 };
             }
 
-            hullShadow.Position = pos;
+            light.Position = pos;
+        }
+
+        private static readonly Dictionary<string, ParticleEffect> ParticleEffects = new Dictionary<string, ParticleEffect>();
+
+        private void DrawEffects(ISceneObject sceneObject, double x, double y)
+        {
+            if (sceneObject.Effects.Count == 0)
+                return;
+
+            x = (int)x;
+            y = (int)y;
+
+            foreach (var effect in sceneObject.Effects)
+            {
+                if (!ParticleEffects.TryGetValue(sceneObject.Uid, out var particleEffect))
+                {
+                    var particleStream = ResourceLoader.Load($"Rogue.Resources.Particles.{effect.Name}.xml");
+                    var loader = new ParticleEffectLoader(particleStream);
+                    particleEffect = loader.Load();
+                    particleEffect.Scale = (float)effect.Scale;
+                    particleEffect.LoadContent(this.Content);
+                    particleEffect.Initialise();
+
+                    ParticleEffects.Add(sceneObject.Uid, particleEffect);
+
+                    sceneObject.Destroy += () => ParticleEffects.Remove(sceneObject.Uid);
+
+                    myRenderer.LoadContent(Content);
+                }
+
+                var pos = new Vector2((float)x, (float)y);
+                particleEffect.Trigger(pos);
+                var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                particleEffect.Update(deltaTime);
+
+                spriteBatch.End();
+                
+                var v = Matrix.CreateTranslation(-(float)x, -(float)y, 0) 
+                    * Matrix.CreateScale((float)effect.Scale) 
+                    * Matrix.CreateTranslation((float)x, (float)y, 0)
+                    * Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0);
+
+                myRenderer.RenderEffect(particleEffect, ref v);
+
+                SpriteBatchRestore.Invoke();
+            }
         }
     }
 }

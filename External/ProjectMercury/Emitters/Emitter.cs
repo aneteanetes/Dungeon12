@@ -35,6 +35,8 @@ namespace ProjectMercury.Emitters
 #endif
     public class Emitter
     {
+        public float Scale { get; set; } = 1;
+
         static private int CreationIndex;
 
         /// <summary>

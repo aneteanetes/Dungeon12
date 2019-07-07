@@ -14,6 +14,11 @@
         
         public PlayerBar(GameMap gamemap, PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects)
         {
+            this.AddChild(new TorchButton(playerSceneObject, showEffects)
+            {
+                Left = -1,
+                Top=0.5
+            });
             this.AddChild(new CharButton(gamemap,playerSceneObject, showEffects));
             this.AddChild(new SkillsButton(playerSceneObject,showEffects)
             {

@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<XnaContent xmlns:Emitters="ProjectMercury.Emitters" xmlns:Modifiers="ProjectMercury.Modifiers">
-  <Asset Type="ProjectMercury.ParticleEffect">
-    <Item Type="Emitters:RectEmitter">
+<XnaContent xmlns:ProjectMercury="ProjectMercury">
+  <Asset Type="ProjectMercury:ParticleEffect">
+    <Item Type="ProjectMercury.Emitters.RectEmitter">
       <Name>Particles</Name>
       <Budget>500</Budget>
       <Term>1</Term>
       <ReleaseQuantity>1</ReleaseQuantity>
-      <Enabled>true</Enabled>
+      <Enabled>True</Enabled>
       <ReleaseSpeed>
         <Value>0</Value>
         <Variation>25</Variation>
@@ -30,16 +30,16 @@
       <ReleaseImpulse>0 0</ReleaseImpulse>
       <ParticleTextureAssetName>LensFlare</ParticleTextureAssetName>
       <Modifiers>
-        <Item Type="Modifiers:LinearGravityModifier">
+        <Item Type="ProjectMercury.Modifiers.LinearGravityModifier">
           <Gravity>0 -150</Gravity>
         </Item>
-        <Item Type="Modifiers:OpacityInterpolatorModifier">
+        <Item Type="ProjectMercury.Modifiers.OpacityInterpolatorModifier">
           <InitialOpacity>0</InitialOpacity>
           <MiddleOpacity>1</MiddleOpacity>
           <MiddlePosition>0.5</MiddlePosition>
           <FinalOpacity>0</FinalOpacity>
         </Item>
-        <Item Type="Modifiers:ScaleInterpolatorModifier">
+        <Item Type="ProjectMercury.Modifiers.ScaleInterpolatorModifier">
           <InitialScale>16</InitialScale>
           <MiddleScale>32</MiddleScale>
           <MiddlePosition>0.5</MiddlePosition>
@@ -49,17 +49,17 @@
       <BlendMode>Add</BlendMode>
       <TriggerOffset>0 0</TriggerOffset>
       <MinimumTriggerPeriod>0</MinimumTriggerPeriod>
-      <Width>100</Width>
+      <Width>600</Width>
       <Height>250</Height>
       <Rotation>0</Rotation>
       <Frame>false</Frame>
     </Item>
-    <Item Type="Emitters:RectEmitter">
+    <Item Type="ProjectMercury.Emitters.RectEmitter">
       <Name>Fast Beams</Name>
       <Budget>500</Budget>
       <Term>0.5</Term>
       <ReleaseQuantity>3</ReleaseQuantity>
-      <Enabled>true</Enabled>
+      <Enabled>True</Enabled>
       <ReleaseSpeed>
         <Value>0</Value>
         <Variation>0</Variation>
@@ -83,7 +83,7 @@
       <ReleaseImpulse>0 -50</ReleaseImpulse>
       <ParticleTextureAssetName>Beam</ParticleTextureAssetName>
       <Modifiers>
-        <Item Type="Modifiers:OpacityInterpolatorModifier">
+        <Item Type="ProjectMercury.Modifiers.OpacityInterpolatorModifier">
           <InitialOpacity>0</InitialOpacity>
           <MiddleOpacity>0.1</MiddleOpacity>
           <MiddlePosition>0.5</MiddlePosition>
@@ -93,17 +93,17 @@
       <BlendMode>Add</BlendMode>
       <TriggerOffset>0 0</TriggerOffset>
       <MinimumTriggerPeriod>0.05</MinimumTriggerPeriod>
-      <Width>100</Width>
+      <Width>600</Width>
       <Height>100</Height>
       <Rotation>0</Rotation>
       <Frame>false</Frame>
     </Item>
-    <Item Type="Emitters:RectEmitter">
+    <Item Type="ProjectMercury.Emitters.RectEmitter">
       <Name>Slow Beams</Name>
       <Budget>100</Budget>
       <Term>1.5</Term>
       <ReleaseQuantity>3</ReleaseQuantity>
-      <Enabled>true</Enabled>
+      <Enabled>True</Enabled>
       <ReleaseSpeed>
         <Value>0</Value>
         <Variation>0</Variation>
@@ -127,7 +127,7 @@
       <ReleaseImpulse>0 -50</ReleaseImpulse>
       <ParticleTextureAssetName>BeamBlurred</ParticleTextureAssetName>
       <Modifiers>
-        <Item Type="Modifiers:OpacityInterpolatorModifier">
+        <Item Type="ProjectMercury.Modifiers.OpacityInterpolatorModifier">
           <InitialOpacity>0</InitialOpacity>
           <MiddleOpacity>0.3</MiddleOpacity>
           <MiddlePosition>0.5</MiddlePosition>
@@ -137,7 +137,7 @@
       <BlendMode>Alpha</BlendMode>
       <TriggerOffset>0 0</TriggerOffset>
       <MinimumTriggerPeriod>0.25</MinimumTriggerPeriod>
-      <Width>120</Width>
+      <Width>620</Width>
       <Height>100</Height>
       <Rotation>0</Rotation>
       <Frame>false</Frame>

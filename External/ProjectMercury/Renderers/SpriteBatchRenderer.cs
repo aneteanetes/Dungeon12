@@ -81,7 +81,7 @@ namespace ProjectMercury.Renderers
                 Vector2 origin = new Vector2(source.Width / 2f, source.Height / 2f);
 
                 BlendState blendState = this.GetBlendState(emitter.BlendMode);
-
+                
                 this.Batch.Begin(SpriteSortMode.Deferred, blendState, null, null, null, null, transform);
 
                 for (int i = 0; i < emitter.ActiveParticlesCount; i++)

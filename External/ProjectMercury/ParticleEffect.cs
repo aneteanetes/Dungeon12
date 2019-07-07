@@ -27,6 +27,20 @@ namespace ProjectMercury
 #endif
     public class ParticleEffect : EmitterCollection
     {
+        //haha, open source
+        public float Scale
+        {
+            set
+            {
+                this.ForEach(x => x.Scale = value);
+            }
+        }
+
+        public float X { get; set; }
+
+        public float Y { get; set; }
+
+
         private string _name;
 
         /// <summary>

@@ -236,6 +236,10 @@
 
         public virtual bool Shadow { get; set; }
 
+        public virtual ILight Light { get; set; }
+
+        public List<IEffect> Effects { get; set; } = new List<IEffect>();
+
         public override string ToString()
         {
             return $"{owner.GetType().Name}#{Uid} : {base.ToString()}";

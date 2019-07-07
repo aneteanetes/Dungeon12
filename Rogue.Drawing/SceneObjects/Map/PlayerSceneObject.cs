@@ -5,6 +5,7 @@
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
+    using Rogue.Drawing.SceneObjects.Effects;
     using Rogue.Drawing.SceneObjects.Gameplay;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Entites.Alive;
@@ -364,5 +365,33 @@
         protected override void StopAction() { }
 
         public HashSet<MapObject> TargetsInFocus = new HashSet<MapObject>();
+
+        private TorchlightInHandsSceneObject torchlight;
+        private bool torch = false;
+        public void Torchlight()
+        {
+            if (!torch)
+            {
+                AddTorchlight();
+            }
+            else
+            {
+                RemoveTorchlight();
+            }
+
+            torch = !torch;
+        }
+
+        private void AddTorchlight()
+        {
+            torchlight = new TorchlightInHandsSceneObject();
+            this.AddChild(torchlight);
+        }
+
+        private void RemoveTorchlight()
+        {
+            this.RemoveChild(torchlight);
+            torchlight?.Destroy?.Invoke();
+        }
     }
 }

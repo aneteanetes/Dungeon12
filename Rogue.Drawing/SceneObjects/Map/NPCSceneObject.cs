@@ -3,6 +3,7 @@
     using Rogue.Control.Events;
     using Rogue.Control.Pointer;
     using Rogue.Drawing.SceneObjects.Dialogs.NPC;
+    using Rogue.Drawing.SceneObjects.Effects;
     using Rogue.Map;
     using Rogue.Map.Objects;
     using Rogue.Types;
@@ -11,8 +12,8 @@
 
     public class NPCSceneObject : MoveableSceneObject<NPC>
     {
-        public NPCSceneObject(PlayerSceneObject playerSceneObject, GameMap location, NPC mob, Rectangle defaultFramePosition) 
-            : base(playerSceneObject,mob, location, mob, mob.NPCEntity, defaultFramePosition)
+        public NPCSceneObject(PlayerSceneObject playerSceneObject, GameMap location, NPC mob, Rectangle defaultFramePosition)
+            : base(playerSceneObject, mob, location, mob, mob.NPCEntity, defaultFramePosition)
         {
             this.Image = mob.Tileset;
             Left = mob.Location.X;
@@ -29,6 +30,32 @@
             {
                 this.SetAnimation(mob.NPCEntity.Idle);
             }
+
+            LightTrigger = Global.Time
+                .After(18).Do(AddTorchlight)
+                .After(8).Do(RemoveTorchlight);
+        }
+
+        private TorchlightInHandsSceneObject torchlight;
+
+        private void AddTorchlight()
+        {
+            torchlight = new TorchlightInHandsSceneObject();
+            this.AddChild(torchlight);
+        }
+
+        private void RemoveTorchlight()
+        {
+            this.RemoveChild(torchlight);
+            torchlight?.Destroy?.Invoke();
+        }
+
+        private readonly TimeTrigger LightTrigger;
+
+        protected override void DrawLoop()
+        {
+            LightTrigger.Trigger();
+            base.DrawLoop();
         }
 
         private NPCDialogue NPCDialogue;

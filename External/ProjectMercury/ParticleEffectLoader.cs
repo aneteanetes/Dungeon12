@@ -22,7 +22,7 @@
 
         public ParticleEffectLoader(Stream stream) => xDocument = XDocument.Load(stream);
 
-        public ParticleEffect Load()
+        public ParticleEffect Load(double scale=1)
         {
             foreach (var element in xDocument.Root.Elements())
             {

@@ -15,6 +15,15 @@ namespace Rogue.Drawing.Impl
             this.A = rgba.A;
         }
 
+
+        public DrawColor(byte r, byte g, byte b)
+        {
+            this.R = r;
+            this.G = g;
+            this.B = b;
+            this.A = 255;
+        }
+
         public DrawColor(byte r, byte g, byte b, byte a)
         {
             this.R = r;
