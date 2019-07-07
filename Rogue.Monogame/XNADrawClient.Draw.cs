@@ -45,6 +45,8 @@
 
         private void Draw(ISceneObject[] sceneObjects, GameTime gameTime)
         {
+            InterfaceObjects.Clear();
+
             var all = sceneObjects
                 .Where(x => x.Visible && (x.DrawOutOfSight || (!x.DrawOutOfSight && InCamera(x))))
                 .ToArray();
@@ -69,6 +71,17 @@
             spriteBatch.End();
 
             penumbra.Draw(gameTime);
+
+            SpriteBatchRestore = () => spriteBatch.Begin(transformMatrix: Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0));
+            SpriteBatchRestore.Invoke();
+
+            for (int i = 0; i < InterfaceObjects.Count; i++)
+            {
+                var (sceneObject, x, y) = InterfaceObjects[i];
+                DrawSceneObject(sceneObject, x, y, lightIgnoring: true);
+            }
+
+            spriteBatch.End();
 
             SpriteBatchRestore = () => spriteBatch.Begin();
             SpriteBatchRestore.Invoke();
@@ -165,8 +178,16 @@
             return bitmap;
         }
 
-        private void DrawSceneObject(ISceneObject sceneObject, double xParent = 0, double yParent = 0, bool batching = false, bool force = false)
+        private List<(ISceneObject sceneObject, double x, double y)> InterfaceObjects = new List<(ISceneObject sceneObject, double x, double y)>();
+
+        private void DrawSceneObject(ISceneObject sceneObject, double xParent = 0, double yParent = 0, bool batching = false, bool force = false, bool lightIgnoring=false)
         {
+            if (sceneObject.Interface && !lightIgnoring)
+            {
+                InterfaceObjects.Add((sceneObject, xParent, yParent));
+                return;
+            }
+
             if (!sceneObject.Visible)
                 return;
 

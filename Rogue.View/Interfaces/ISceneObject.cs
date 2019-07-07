@@ -83,5 +83,7 @@
         ILight Light { get; set; }
 
         List<IEffect> Effects { get; set; }
+
+        bool Interface { get; set; }
     }
 }

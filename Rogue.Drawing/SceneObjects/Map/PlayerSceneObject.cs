@@ -28,8 +28,9 @@
 
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
-             ControlEventType.Focus
-        };
+             ControlEventType.Focus,
+              ControlEventType.Key
+        };        
 
         private Character Player => Avatar.Character;
         private readonly GameMap location;
@@ -118,6 +119,11 @@
 
             if (NowMoving.Contains(Direction.Up))
             {
+                if (torchlight != null)
+                {
+                    torchlight.Left = 0;
+                }
+
                 this.Avatar.Location.Y -= Speed;
                 SetAnimation(this.Player.MoveUp);
                 if (!CheckMoveAvailable(Direction.Up))
@@ -132,6 +138,11 @@
             }
             if (NowMoving.Contains(Direction.Down))
             {
+                if (torchlight != null)
+                {
+                    torchlight.Left = 0;
+                }
+
                 this.Avatar.Location.Y += Speed;
                 SetAnimation(this.Player.MoveDown);
                 if (!CheckMoveAvailable(Direction.Down))
@@ -146,6 +157,11 @@
             }
             if (NowMoving.Contains(Direction.Left))
             {
+                if (torchlight != null)
+                {
+                    torchlight.Left = 0.4;
+                }
+
                 this.Avatar.Location.X -= Speed;
                 SetAnimation(this.Player.MoveLeft);
                 if (!CheckMoveAvailable(Direction.Left))
@@ -160,6 +176,11 @@
             }
             if (NowMoving.Contains(Direction.Right))
             {
+                if (torchlight != null)
+                {
+                    torchlight.Left = 0.2;
+                }
+
                 this.Avatar.Location.X += Speed;
                 SetAnimation(this.Player.MoveRight);
                 if (!CheckMoveAvailable(Direction.Right))
@@ -262,6 +283,8 @@
                     break;
                 default: break;
             }
+
+            base.KeyDown(key, modifier, hold);
         }
 
         public override void KeyUp(Key key, KeyModifiers modifier)
@@ -334,6 +357,7 @@
                     break;
                 default: break;
             }
+            base.KeyUp(key, modifier);
         }
 
         protected override Key[] KeyHandles => new Key[]
@@ -342,6 +366,7 @@
             Key.A,
             Key.W,
             Key.S,
+            Key.LeftAlt
         };
 
         public override void Focus()

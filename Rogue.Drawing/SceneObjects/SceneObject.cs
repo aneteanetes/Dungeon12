@@ -240,6 +240,8 @@
 
         public List<IEffect> Effects { get; set; } = new List<IEffect>();
 
+        public virtual bool Interface { get; set; }
+
         public override string ToString()
         {
             return $"{owner.GetType().Name}#{Uid} : {base.ToString()}";

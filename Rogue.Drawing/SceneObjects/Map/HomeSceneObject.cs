@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Map
 {
+    using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
     using Rogue.Drawing.SceneObjects.Dialogs.NPC;
     using Rogue.Map.Objects;
@@ -27,5 +28,7 @@
         }
 
         protected override void StopAction() { }
+
+        protected override Key[] KeyHandles => new Key[] { Key.LeftAlt };
     }
 }

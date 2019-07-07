@@ -1,15 +1,16 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Map
 {
     using Rogue.Control.Events;
+    using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
 
     public abstract class ClickActionSceneObject<T> : TooltipedSceneObject
-        where T: Physics.PhysicalObject
+        where T : Physics.PhysicalObject
     {
         protected readonly PlayerSceneObject playerSceneObject;
         protected readonly T @object;
 
-        public ClickActionSceneObject(PlayerSceneObject playerSceneObject, T @object , string tooltip) : base(tooltip, null)
+        public ClickActionSceneObject(PlayerSceneObject playerSceneObject, T @object, string tooltip) : base(tooltip, null)
         {
             this.@object = @object;
 
@@ -26,7 +27,8 @@
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
              ControlEventType.Focus,
-             ControlEventType.Click
+             ControlEventType.Click,
+            ControlEventType.Key
         };
 
         private bool acting = false;
@@ -61,5 +63,21 @@
         protected abstract void Action(MouseButton mouseButton);
 
         protected abstract void StopAction();
+
+        public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
+        {
+            if (key == Key.LeftAlt && !hold)
+            {
+                this.ShowTooltip();
+            }
+        }
+
+        public override void KeyUp(Key key, KeyModifiers modifier)
+        {
+            if (key == Key.LeftAlt)
+            {
+                this.HideTooltip();
+            }
+        }
     }
 }

@@ -35,7 +35,8 @@
         protected override Key[] KeyHandles => new Key[]
         {
             Key.Q,
-            Key.E
+            Key.E,
+            Key.LeftAlt
         };
 
         public EnemySceneObject(PlayerSceneObject playerSceneObject, GameMap location, Mob mob, Rectangle defaultFramePosition) 
@@ -318,8 +319,12 @@
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
-            SetAbility(key);
-            UseAbility();
+            if (key == Key.Q || key == Key.E)
+            {
+                SetAbility(key);
+                UseAbility();
+            }
+            base.KeyDown(key, modifier, hold);
         }
 
         private void UseAbility()

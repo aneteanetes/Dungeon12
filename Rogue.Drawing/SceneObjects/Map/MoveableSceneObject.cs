@@ -147,7 +147,7 @@
             }
         }
 
-        private readonly Dictionary<int, (Direction dir, Vector vect, Func<Moveable, AnimationMap> anim)> DirectionMap = new Dictionary<int, (Direction, Vector, Func<Moveable, AnimationMap>)>
+        protected virtual Dictionary<int, (Direction dir, Vector vect, Func<Moveable, AnimationMap> anim)> DirectionMap => new Dictionary<int, (Direction, Vector, Func<Moveable, AnimationMap>)>
         {
             { 0,(Direction.Up, Vector.Minus, m=>m.MoveUp) },
             { 1,(Direction.Down, Vector.Plus, m=>m.MoveDown) },
@@ -167,7 +167,7 @@
             return true;
         }
 
-        private enum Vector
+        public enum Vector
         {
             Plus,
             Minus

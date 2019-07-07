@@ -32,15 +32,22 @@
 
         protected string TooltipText;
 
-        public override void Focus()
+        public override void Focus() => ShowTooltip();
+
+        protected void ShowTooltip()
         {
             if (!string.IsNullOrEmpty(TooltipText))
             {
+                if (aliveTooltip != null)
+                {
+                    HideTooltip();
+                }
+
                 aliveTooltip = new Tooltip(TooltipText, new Point(this.ComputedPosition.X, this.ComputedPosition.Y - 0.8), TooltipTextColor)
                 {
                     CacheAvailable = false,
                     AbsolutePosition = this.AbsolutePosition,
-                    Layer=1000
+                    Layer = 1000
                 };
 
                 this.Destroy += () => aliveTooltip?.Destroy?.Invoke();
@@ -48,7 +55,9 @@
             }
         }
 
-        public override void Unfocus()
+        public override void Unfocus() => HideTooltip();
+
+        protected void HideTooltip()
         {
             aliveTooltip?.Destroy?.Invoke();
             aliveTooltip = null;

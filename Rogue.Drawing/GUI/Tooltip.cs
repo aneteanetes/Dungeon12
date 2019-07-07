@@ -11,6 +11,8 @@
     {
         public override bool CacheAvailable => false;
 
+        public override bool Interface => true;
+
         public Tooltip(string text, Point position, IDrawColor drawColor)
         {
             var drawText = new DrawText(text, drawColor ?? new DrawColor(ConsoleColor.White)) { Size = 12 };

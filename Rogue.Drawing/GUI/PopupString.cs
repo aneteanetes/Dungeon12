@@ -9,6 +9,9 @@
     public class PopupString : SceneObject
     {
         public override bool CacheAvailable => false;
+
+        public override bool Interface => true;
+
         public override int Layer => 20;
 
         private int maxFrames = 0;
