@@ -9,6 +9,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.IO;
     using System.Linq;
     using Rect = Rogue.Types.Rectangle;
 
@@ -27,18 +28,13 @@
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
             CalculateCamera();
 
+            GraphicsDevice.Clear(Color.Black);
 
             Draw(this.scene.Objects, gameTime);
 
             DrawDebugInfo();
-
-            //foreach (var particleEffect in ParticleEffects.Values)
-            //{
-            //    myRenderer.RenderEffect(particleEffect);
-            //}
             
             OnPointerMoved();
         }
@@ -61,7 +57,7 @@
 
             penumbra.BeginDraw();
 
-            SpriteBatchRestore = () => spriteBatch.Begin(transformMatrix: Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0));
+            SpriteBatchRestore = () => spriteBatch.Begin(transformMatrix: Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0), samplerState: SamplerState.PointWrap);
             SpriteBatchRestore.Invoke();
 
             foreach (var offsetSceneObject in offsetted)
@@ -72,7 +68,7 @@
 
             penumbra.Draw(gameTime);
 
-            SpriteBatchRestore = () => spriteBatch.Begin(transformMatrix: Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0));
+            SpriteBatchRestore = () => spriteBatch.Begin(transformMatrix: Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0), samplerState: SamplerState.PointWrap);
             SpriteBatchRestore.Invoke();
 
             for (int i = 0; i < InterfaceObjects.Count; i++)
@@ -83,7 +79,7 @@
 
             spriteBatch.End();
 
-            SpriteBatchRestore = () => spriteBatch.Begin();
+            SpriteBatchRestore = () => spriteBatch.Begin(samplerState: SamplerState.PointWrap);
             SpriteBatchRestore.Invoke();
 
             foreach (var absoluteSceneObject in absolute)
@@ -92,7 +88,7 @@
             }
             spriteBatch.End();
         }
-
+        
         private Action SpriteBatchRestore = null;
 
         #region frameSettings
@@ -202,27 +198,40 @@
 
             if (sceneObject.IsBatch && !batching)
             {
+                int width = (int)Math.Round(sceneObject.Position.Width * cell);
+                int height = (int)Math.Round(sceneObject.Position.Height * cell);
+
                 if (sceneObject.Expired || !BatchCache.TryGetValue(sceneObject.Uid, out var bitmap))
                 {
-                    int width = (int)Math.Round(sceneObject.Position.Width * cell);
-                    int height = (int)Math.Round(sceneObject.Position.Height * cell);
-
                     bitmap = new RenderTarget2D(GraphicsDevice, width, height, false, GraphicsDevice.PresentationParameters.BackBufferFormat, DepthFormat.Depth24);
 
-                    GraphicsDevice.SetRenderTarget(bitmap);
+                    spriteBatch.End();
 
-                    DrawSceneObject(sceneObject, xParent, yParent, true);
+                    GraphicsDevice.SetRenderTargets(bitmap);
+                    GraphicsDevice.Clear(Color.Transparent);
+                    SpriteBatchRestore.Invoke();
+
+                    DrawSceneObject(sceneObject, 0, 0, true);
 
                     TileSetCache[sceneObject.Uid] = new Rect(0, 0, width, height);
-                    PosCahce[sceneObject.Uid] = new Rect(sceneObject.Position.X, sceneObject.Position.Y, width, height);
+                    PosCahce[sceneObject.Uid] = new Rect(x, y, width, height);
 
                     BatchCache[sceneObject.Uid] = bitmap;
 
+
+                    spriteBatch.End();
                     GraphicsDevice.SetRenderTarget(null);
+
+                    SpriteBatchRestore.Invoke();
                 }
 
                 TileSetCache.TryGetValue(sceneObject.Uid, out var tilesetPos);
                 PosCahce.TryGetValue(sceneObject.Uid, out var sceneObjPos);
+
+                if (!sceneObject.CacheAvailable)
+                {
+                    sceneObjPos = new Rect(x, y, width, height);
+                }
 
                 spriteBatch.Draw(bitmap, new Vector2(sceneObjPos.Xf, sceneObjPos.Yf), new Microsoft.Xna.Framework.Rectangle(tilesetPos.Xi, tilesetPos.Yi, tilesetPos.Widthi, tilesetPos.Heighti), Color.White);
             }

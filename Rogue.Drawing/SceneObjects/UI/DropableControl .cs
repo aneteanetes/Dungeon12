@@ -2,6 +2,7 @@
 {
     using Rogue.Control.Events;
     using Rogue.Control.Pointer;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -11,7 +12,7 @@
     }
 
     public class DropableControl<TSource> : DropableControl
-        where TSource : DraggableControl
+        where TSource : DraggableControl<TSource>
     {
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
@@ -26,7 +27,7 @@
 
         public override void ClickRelease(PointerArgs args)
         {
-            var draggable = DragAndDropSceneControls.GetDropped(this);
+            var draggable = DragAndDropSceneControls.GetDropped<TSource>(this);
             if (draggable != null && CheckDropAvailable(draggable as TSource))
             {
                 draggable.GlobalClickRelease(args);
@@ -42,7 +43,7 @@
 
         public override void Focus()
         {
-            var draggable = DragAndDropSceneControls.GetDropped(this);
+            var draggable = DragAndDropSceneControls.GetDropped<TSource>(this);
             if (draggable != null && CheckDropAvailable(draggable as TSource))
             {
                 DropAvailable = true;
@@ -54,10 +55,14 @@
         protected virtual bool CheckDropAvailable(TSource source) => true;
 
         protected virtual void OnDrop(TSource source) { }
+
+        public Action<TSource> OnDropAction { get; set; }
     }
 
     public class DragAndDropSceneControls
     {
+        public static int DraggableLayers = 1;
+
         private static Dictionary<DropableControl, List<DraggableControl>> subscribers = new Dictionary<DropableControl, List<DraggableControl>>();
         private static List<DraggableControl> free = new List<DraggableControl>();
 
@@ -65,14 +70,17 @@
         {
             dropable.Destroy += () =>
             {
-                foreach (var draggable in subscribers[dropable])
+                if (subscribers.TryGetValue(dropable, out var subs))
                 {
-                    if(!free.Contains(draggable))
+                    foreach (var draggable in subscribers[dropable])
                     {
-                        free.Add(draggable);
+                        if (!free.Contains(draggable))
+                        {
+                            free.Add(draggable);
+                        }
                     }
+                    subscribers.Remove(dropable);
                 }
-                subscribers.Remove(dropable);
             };
 
             var publishers = new List<DraggableControl>();
@@ -107,9 +115,11 @@
             }
         }
 
-        public static DraggableControl GetDropped(DropableControl dropable)
+        public static DraggableControl<T> GetDropped<T>(DropableControl dropable)
         {
-            return subscribers[dropable].FirstOrDefault(x => x == LastDragged);
+            return subscribers[dropable]
+                .Cast<DraggableControl<T>>()
+                .FirstOrDefault(x => x == LastDragged);
         }
 
         private static DraggableControl LastDragged;

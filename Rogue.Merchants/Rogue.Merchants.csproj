@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Rogue.Map\Rogue.Map.csproj" />
+    <ProjectReference Include="..\Rogue.Items\Rogue.Items.csproj" />
   </ItemGroup>
 
 </Project>

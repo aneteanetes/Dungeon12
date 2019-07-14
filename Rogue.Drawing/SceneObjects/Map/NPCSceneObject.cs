@@ -4,6 +4,7 @@
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
     using Rogue.Drawing.SceneObjects.Dialogs.NPC;
+    using Rogue.Drawing.SceneObjects.Dialogs.Shop;
     using Rogue.Drawing.SceneObjects.Effects;
     using Rogue.Entites.Alive;
     using Rogue.Entites.Animations;
@@ -61,16 +62,17 @@
             LightTrigger.Trigger();
             base.DrawLoop();
         }
-
-        private NPCDialogue NPCDialogue;
-
+        
         protected override void Action(MouseButton mouseButton)
         {
             playerSceneObject.StopMovings();
-            NPCDialogue = new NPCDialogue(playerSceneObject, @object, this.DestroyBinding, this.ControlBinding);
-
-            ShowEffects?.Invoke(NPCDialogue.InList<ISceneObject>());
+            var sceneObj = Act();
+            ShowEffects?.Invoke(sceneObj.InList());
         }
+
+        private ISceneObject Act() => @object.Merchant == null
+            ? (ISceneObject)new NPCDialogue(playerSceneObject, @object, this.DestroyBinding, this.ControlBinding)
+            : (ISceneObject)new ShopContainer(@object.Name, playerSceneObject, @object.Merchant, this.DestroyBinding, this.ControlBinding, location);
 
         protected override void StopAction()
         {

@@ -23,5 +23,7 @@
         public NPCMoveable NPC { get; set; }
 
         public double MovementSpeed { get; set; }
+
+        public bool Merchant { get; set; }
     }
 }

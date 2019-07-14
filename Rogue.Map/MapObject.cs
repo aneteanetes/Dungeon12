@@ -10,7 +10,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class MapObject : PhysicalObject<MapObject>, IDrawable
+    public partial class MapObject : PhysicalObject<MapObject>, IDrawable
     {
         public Action Die;
 

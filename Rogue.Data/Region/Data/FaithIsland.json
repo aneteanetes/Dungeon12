@@ -33,6 +33,13 @@
 			"X":41,
 			"Y":51
 		}
+	},
+	{
+		"IdentifyName":"WalkMerchantFaith",
+		"Position":{
+			"X":54,
+			"Y":53
+		}
 	}
   ],
   "Homes":[

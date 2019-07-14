@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Rogue.Entites\Rogue.Entites.csproj" />
+    <ProjectReference Include="..\Rogue.Merchants\Rogue.Merchants.csproj" />
     <ProjectReference Include="..\Rogue.Physics\Rogue.Physics.csproj" />
     <ProjectReference Include="..\Rogue.Types\Rogue.Types.csproj" />
   </ItemGroup>

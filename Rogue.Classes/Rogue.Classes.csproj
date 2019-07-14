@@ -10,6 +10,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\Rogue.Entites\Rogue.Entites.csproj" />
+    <ProjectReference Include="..\Rogue.Global\Rogue.Global.csproj" />
   </ItemGroup>
 
 </Project>

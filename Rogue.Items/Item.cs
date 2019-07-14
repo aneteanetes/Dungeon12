@@ -52,13 +52,15 @@
 
         public virtual ItemKind Kind { get; set; }
 
-        private class EmptyItem : Item
-        {
-            public override Stats AvailableStats => Stats.None;
-        }
+        public int Cost { get; set; }
 
         public Point InventoryPosition { get; set; }
 
         public Point InventorySize { get; set; }
+               
+        private class EmptyItem : Item
+        {
+            public override Stats AvailableStats => Stats.None;
+        }
     }
 }

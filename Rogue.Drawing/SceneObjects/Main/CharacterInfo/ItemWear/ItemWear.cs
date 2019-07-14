@@ -5,6 +5,7 @@
     using Force.DeepCloner;
     using Rogue.Control.Events;
     using Rogue.Control.Pointer;
+    using Rogue.Drawing.SceneObjects.Inventories;
     using Rogue.Drawing.SceneObjects.Map;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Entites.Alive;

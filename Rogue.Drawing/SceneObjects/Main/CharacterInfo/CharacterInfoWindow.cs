@@ -1,10 +1,9 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo
 {
-    using Force.DeepCloner;
-    using Rogue.Control.Events;
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
     using Rogue.Drawing.Impl;
+    using Rogue.Drawing.SceneObjects.Inventories;
     using Rogue.Drawing.SceneObjects.Map;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Map;
@@ -13,14 +12,23 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class CharacterInfoWindow : DraggableControl
+    public class CharacterInfoWindow : DraggableControl<CharacterInfoWindow>
     {
         protected override Key[] OverrideKeyHandles => new Key[] { Key.C, Key.I };
 
         private PlayerSceneObject playerSceneObject;
         private Inventory inventory;
+        private bool selfclose = true;
 
-        public CharacterInfoWindow(GameMap gameMap, PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gameMap"></param>
+        /// <param name="playerSceneObject"></param>
+        /// <param name="showEffects"></param>
+        /// <param name="statBtn"></param>
+        /// <param name="selfClose">Вообще я уверен что оставлял там возможность отрубать биндинги, но похуй пока что, экспресс разработка</param>
+        public CharacterInfoWindow(GameMap gameMap, PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects, bool statBtn = true,bool selfClose=true)
         {
             playerSceneObject.BlockMouse = true;
             this.Destroy += () => playerSceneObject.BlockMouse = false;
@@ -34,14 +42,17 @@
             this.Left = 3.5;
             this.Top = 2;
 
-            this.AddChild(new StatsButton(OpenStats, showEffects)
-            {
-                Top = 2,
-                Left = 10.5
-            });
+            this.selfclose = selfClose;
+
+            if (statBtn)
+                this.AddChild(new StatsButton(OpenStats, showEffects)
+                {
+                    Top = 2,
+                    Left = 10.5
+                });
 
 
-            inventory = new Inventory(this.ZIndex, playerSceneObject.Avatar.Character.Backpack)
+            inventory = new Inventory(playerSceneObject, playerSceneObject.Avatar.Character.Backpack)
             {
                 Top = 9.45,
                 Left = 0.55
@@ -63,7 +74,8 @@
 
             FillData(playerSceneObject);
 
-            OpenStats();
+            if (statBtn)
+                OpenStats();
         }
 
         private void OnDropInventoryItem(InventoryItem item)
@@ -176,12 +188,15 @@
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
-            if (key == Key.C || key == Key.I)
+            if (this.selfclose)
             {
-                base.KeyDown(Key.Escape, modifier, hold);
-            }
+                if (key == Key.C || key == Key.I)
+                {
+                    base.KeyDown(Key.Escape, modifier, hold);
+                }
 
-            base.KeyDown(key, modifier, hold);
+                base.KeyDown(key, modifier, hold);
+            }
         }
 
         private StatsInfo statsInfo = null;
@@ -279,49 +294,5 @@
             protected override void OnDrop(InventoryItem source) => OnDropDelegate?.Invoke(source);
         }
 
-        public class InventoryDropItemMask : DropableControl<InventoryItem>
-        {
-            public override bool AbsolutePosition => true;
-            public override bool CacheAvailable => true;
-
-            private PlayerSceneObject playerSceneObject;
-            private Inventory inventory;
-            private GameMap gameMap;
-
-            public InventoryDropItemMask(PlayerSceneObject playerSceneObject, Inventory inventory, GameMap gameMap)
-            {
-                this.gameMap = gameMap;
-                this.inventory = inventory;
-                this.playerSceneObject = playerSceneObject;
-                this.Width = 40;
-                this.Height = 22.5;
-            }
-
-            protected override void OnDrop(InventoryItem source)
-            {
-                if (source.DropProcessed==1)
-                {
-                    playerSceneObject.Avatar.Character.Backpack.Remove(source.Item);
-                    inventory.Refresh();
-                    AddLootToMap(source);
-                }
-
-                base.OnDrop(source);
-            }
-
-            private void AddLootToMap(InventoryItem source)
-            {
-                var lootItem = new Rogue.Map.Objects.Loot()
-                {
-                    Item = source.Item
-                };
-
-                lootItem.Location = gameMap.RandomizeLocation(playerSceneObject.Avatar.Location.DeepClone());
-                lootItem.Destroy += () => gameMap.Map.Remove(lootItem);
-
-                gameMap.Map.Add(lootItem);
-                gameMap.PublishObject(lootItem);
-            }
-        }
     }
 }

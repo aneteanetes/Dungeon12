@@ -22,7 +22,7 @@
             Global.FreezeWorld = this;
 
             answerPanel = new AnswerPanel() { DestroyBinding = destroyBinding, ControlBinding= controlBinding };
-            subjectPanel = new SubjectPanel(conversational, answerPanel.Select,this.ExitDialogue);
+            subjectPanel = new SubjectPanel(conversational, answerPanel.Select, this.ExitDialogue);
                        
             if (conversational.ScreenImage != null)
             {

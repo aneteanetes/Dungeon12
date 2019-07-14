@@ -11,5 +11,7 @@
         public string ScreenImage { get; set; }
 
         public int Frames { get; set; }
+
+        public bool Merchant { get; set; }
     }
 }

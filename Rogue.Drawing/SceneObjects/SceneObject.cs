@@ -1,6 +1,7 @@
 ﻿namespace Rogue.Drawing.SceneObjects
 {
     using Rogue.Drawing.Impl;
+    using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Scenes.Manager;
     using Rogue.Settings;
     using Rogue.Types;
@@ -28,6 +29,14 @@
                 DestroyBinding += owner.RemoveObject;
                 Destroy = () => owner.RemoveObject(this);
                 ShowEffects += owner.ShowEffectsBinding;
+                
+                //ПИЗДЕЦ. Это надо лечить
+                if(this is DraggableControl draggableControl)
+                { }
+                else
+                {
+                    this.ZIndex = DragAndDropSceneControls.DraggableLayers;
+                }
             }
 
             //ХВАТИТ ОРАТЬ В КОММЕНТАРИЯХ
@@ -77,6 +86,33 @@
             this.Children.Add(textControl);
 
             return textControl;
+        }
+
+        protected T AddControlCenter<T>(T control, bool horizontal=true, bool vertical=true)
+            where T: SceneObject
+        {
+            var measure = MeasureImage(control.Image);
+            measure.X = measure.X * 32;
+            measure.Y = measure.Y * 32;
+
+            var width = this.Width * 32;
+            var height = this.Height * 32;
+
+            if (horizontal)
+            {
+                var left = width / 2 - measure.X / 2;
+                control.Left = left / 32;
+            }
+
+            if (vertical)
+            {
+                var top = height / 2 - measure.Y / 2;
+                control.Top = top / 32;
+            }
+
+            this.AddChild(control);
+
+            return control;
         }
 
         protected Point MeasureText(IDrawText text) => Global.DrawClient.MeasureText(text);
@@ -149,7 +185,7 @@
 
         public ICollection<ISceneObject> Children { get; } = new List<ISceneObject>();
 
-        protected void AddChild(ISceneObject sceneObject)
+        public void AddChild(ISceneObject sceneObject)
         {
             sceneObject.Destroy += () =>
             {
@@ -167,7 +203,7 @@
             this.Children.Add(sceneObject);
         }
 
-        protected void RemoveChild(ISceneObject sceneObject)
+        public void RemoveChild(ISceneObject sceneObject)
         {
             this.Children.Remove(sceneObject);
         }

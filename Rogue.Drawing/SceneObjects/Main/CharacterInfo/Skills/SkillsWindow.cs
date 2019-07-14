@@ -13,7 +13,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class SkillsWindow : DraggableControl
+    public class SkillsWindow : DraggableControl<SkillsWindow>
     {
         public override bool CacheAvailable => false;
 

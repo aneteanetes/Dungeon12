@@ -9,11 +9,19 @@ using System.Linq;
 
 namespace Rogue.Drawing.SceneObjects.UI
 {
-    public class DraggableControl : HandleSceneControl
+    public abstract class DraggableControl : HandleSceneControl
+    {
+    }
+
+    public abstract class DraggableControl<T> : DraggableControl
     {
         public int DropProcessed { get; set; }
 
-        private static int draggableLayers = 1;
+        public bool DisableDrag { get; set; }
+
+        protected override Key[] KeyHandles => new Key[] { Key.Escape }.Concat(OverrideKeyHandles).ToArray();
+
+        protected virtual Key[] OverrideKeyHandles => new Key[0];
 
         public virtual bool TextureDragging { get; set; } = false;
 
@@ -25,15 +33,16 @@ namespace Rogue.Drawing.SceneObjects.UI
 
         public DraggableControl()
         {
-            this.ZIndex = ++draggableLayers;
-            this.Destroy += () => Global.BlockSceneControls = false;
+            this.ZIndex = ++DragAndDropSceneControls.DraggableLayers;
+            this.Destroy += () =>
+            {
+                Global.BlockSceneControls = false;
+                DragAndDropSceneControls.DraggableLayers--;
+            };
+
             Global.BlockSceneControls = true;
             DragAndDropSceneControls.BindDragable(this);
         }
-
-        protected override Key[] KeyHandles => new Key[] { Key.Escape }.Concat(OverrideKeyHandles).ToArray();
-
-        protected virtual Key[] OverrideKeyHandles => new Key[0];
 
         private ControlEventType[] handles()
         {
@@ -101,6 +110,9 @@ namespace Rogue.Drawing.SceneObjects.UI
 
         public override void Click(PointerArgs args)
         {
+            if (DisableDrag)
+                return;
+
             if (args.MouseButton == MouseButton.Left)
             {
                 if (TextureDragging)
@@ -126,10 +138,15 @@ namespace Rogue.Drawing.SceneObjects.UI
             }
         }
 
+        public Action<T> OnDrag { get; set; }
+
         private bool dropped = true;
 
         public override void GlobalClickRelease(PointerArgs args)
         {
+            if (DisableDrag)
+                return;
+
             if (dropped)
                 return;
 
@@ -174,7 +191,7 @@ namespace Rogue.Drawing.SceneObjects.UI
                 var currentLayer = @object.Parent.Layer;
                 OnDownLayer += () => @object.Parent.Layer = currentLayer;
                 @object.Parent.Layer = value;
-                SetChainLayer(@object.Parent,value);
+                SetChainLayer(@object.Parent, value);
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿namespace Rogue
 {
     using Rogue.View.Interfaces;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -8,7 +9,24 @@
     {
         public static IDrawClient DrawClient;
 
-        public static object FreezeWorld = null;
+        private static object freezeWorldObject;
+        public static object FreezeWorld
+        {
+            get => freezeWorldObject;
+            set
+            {
+                if (value == null)
+                {
+                    Time.Resume();
+                }
+                else
+                {
+                    Time.Pause();
+                }
+
+                freezeWorldObject = value;
+            }
+        }
 
         public static bool BlockSceneControls { get; set; }
 

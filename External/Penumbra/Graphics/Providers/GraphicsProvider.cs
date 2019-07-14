@@ -16,7 +16,7 @@ namespace Penumbra.Graphics.Providers
             Engine = engine;
 
             // Not working due to https://github.com/mono/MonoGame/issues/3572
-            //Engine.DeviceManager.PreparingDeviceSettings += PreparingDeviceSettings;
+            Engine.DeviceManager.PreparingDeviceSettings += PreparingDeviceSettings;
             Engine.Window.ClientSizeChanged += ClientSizeChanged;
 
             ViewportWidth = engine.Device.Viewport.Width;
@@ -33,7 +33,7 @@ namespace Penumbra.Graphics.Providers
         {
             if (disposing)
             {
-                //Engine.DeviceManager.PreparingDeviceSettings -= PreparingDeviceSettings;
+                Engine.DeviceManager.PreparingDeviceSettings -= PreparingDeviceSettings;
                 Engine.Window.ClientSizeChanged -= ClientSizeChanged;
             }
         }

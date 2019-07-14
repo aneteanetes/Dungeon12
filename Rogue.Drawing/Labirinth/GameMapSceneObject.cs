@@ -136,7 +136,7 @@ namespace Rogue.Drawing.Labirinth
                         }
                     case Home home:
                         {
-                            sceneObjects.Add(new HomeSceneObject(this.player, home, home.Name));
+                            sceneObjects.Add(new HomeSceneObject(this.player, home, home.Name,this.gamemap));
                             break;
                         }
                     default:
@@ -165,7 +165,7 @@ namespace Rogue.Drawing.Labirinth
                     }
                 case Home home:
                     {
-                        sceneObject = new HomeSceneObject(this.player, home, home.Name);
+                        sceneObject = new HomeSceneObject(this.player, home, home.Name,this.gamemap);
                         break;
                     }
                 case Money money:

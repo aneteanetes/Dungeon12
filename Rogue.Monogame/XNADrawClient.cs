@@ -62,7 +62,6 @@
             Components.Add(penumbra);
 
             penumbra.Lights.Add(SunLight);
-            //penumbra.Lights.Add(light);
 
             Global.Time.OnMinute += CalculateSunlight;
 
@@ -80,10 +79,7 @@
             Window.AllowUserResizing = true;
             Window.TextInput += OnTextInput;
             // TODO: Add your initialization logic here
-
-            var _particleTexture = new Texture2D(GraphicsDevice, 1, 1);
-            _particleTexture.SetData(new[] { Color.White });
-
+            
             ParticleInit();
 
             base.Initialize();
@@ -100,6 +96,7 @@
 
         protected override void LoadContent()
         {
+            GraphicsDevice.PresentationParameters.RenderTargetUsage = RenderTargetUsage.PreserveContents;
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             SceneManager = new SceneManager
@@ -125,9 +122,8 @@
             this.gameTime = gameTime;
 
             DebugUpdate();
-
+            
             UpdateLoop();
-
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed/* || Keyboard.GetState().IsKeyDown(Keys.Escape)*/)
                 Exit();

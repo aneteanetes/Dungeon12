@@ -68,6 +68,10 @@
                     Location = npc.Position
                 };
 
+                if (data.Merchant)
+                {
+                    LoadMerchant(mapNpc);
+                }
                 BindConversations(data, mapNpc);
 
                 mapNpc.NPCEntity.MoveRegion = mapNpc.NPCEntity.MoveRegion * 32;
@@ -87,8 +91,8 @@
 
                 var mapHome = new Home()
                 {
-                     ScreenImage = data.ScreenImage,
-                     Frames=data.Frames,
+                    ScreenImage = data.ScreenImage,
+                    Frames = data.Frames,
                     Name = data.Name,
                     Size = new PhysicalSize()
                     {
@@ -98,6 +102,10 @@
                     Location = home.Position
                 };
 
+                if (data.Merchant)
+                {
+                    LoadMerchant(mapHome);
+                }
                 BindConversations(data, mapHome);
 
                 this.Map.Add(mapHome);
@@ -107,6 +115,12 @@
             SpawnEnemies(20);
 
             return persistRegion.Name;
+        }
+
+        public void LoadMerchant(MapObject mapObject)
+        {
+            mapObject.Merchant = new Merchants.Merchant();
+            mapObject.Merchant.FillBackpacks();
         }
 
         public void Load(string identity)

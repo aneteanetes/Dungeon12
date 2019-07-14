@@ -22,6 +22,9 @@
     {
         private static void BindConversations(ConversationalDataStore data, Сonversational conversational)
         {
+            if (data.Conversations == null)
+                return;
+
             var conversations = Database.Entity<ConversationData>(x => data.Conversations.Contains(x.Identify));
 
             conversational.Conversations = conversations.Select(c => new Conversation()
