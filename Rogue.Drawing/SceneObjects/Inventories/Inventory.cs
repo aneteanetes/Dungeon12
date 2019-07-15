@@ -3,13 +3,16 @@
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
+    using Rogue.Drawing.GUI;
     using Rogue.Drawing.Impl;
     using Rogue.Drawing.SceneObjects.Base;
+    using Rogue.Drawing.SceneObjects.Dialogs.Shop;
     using Rogue.Drawing.SceneObjects.Main.CharacterInfo;
     using Rogue.Drawing.SceneObjects.Map;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Entites.Alive;
     using Rogue.Items;
+    using Rogue.Types;
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
@@ -29,9 +32,15 @@
 
         private PlayerSceneObject playerSceneObject;
 
-        public Inventory(PlayerSceneObject playerSceneObject, Backpack backpack)
+        private Character @char => playerSceneObject.Avatar.Character;
+
+        private Merchants.Merchant merchant;
+
+        public Inventory(PlayerSceneObject playerSceneObject, Backpack backpack, Merchants.Merchant merchant = null)
         {
+            this.merchant = merchant;
             this.playerSceneObject = playerSceneObject;
+
             this.backpack = backpack;
 
             this.Height = backpack.Height;
@@ -40,13 +49,20 @@
             var back = new InventoryBackBatch(backpack.Width, backpack.Height);
             this.AddChild(back);
         }
-        
+
         private List<InventoryItem> inventoryItems = new List<InventoryItem>();
 
         public ItemWear[] ItemWears { get; set; }
 
-        public void Refresh()
+        private Inventory Pair = null;
+
+        public void Refresh(Inventory another = null)
         {
+            if (another != null)
+            {
+                Pair = another;
+            }
+
             foreach (var invItem in inventoryItems)
             {
                 invItem.Destroy?.Invoke();
@@ -59,28 +75,84 @@
                 var invItem = new InventoryItem(this.ItemWears, item);
                 this.AddChild(invItem);
                 this.inventoryItems.Add(invItem);
+
+                if (merchant == null)
+                {
+                    invItem.OnBeforeClick = Sell(Pair);
+                }
+                else
+                {
+                    invItem.OnBeforeClick = Buy(Pair);
+                }
             }
         }
 
-        protected override void OnDrop(InventoryItem source)
+        private Func<InventoryItem, bool> Buy(Inventory anotherInventory)
         {
-            double x = 0;
-            double y = 0;
-
-            bool buy = false;
-
-            if (source.Parent == this)
+            return inventoryItem =>
             {
-                x = Math.Ceiling(source.Left);
-                y = Math.Ceiling(source.Top);
+                var res = @char.Buy(inventoryItem.Item, merchant);
+                Trade(res, inventoryItem, anotherInventory);
+                return false;
+            };
+        }
+
+        private Func<InventoryItem, bool> Sell(Inventory anotherInventory)
+        {
+            return inventoryItem =>
+            {
+                if (sellMode)
+                {
+                    if (inventoryItem.Parent.Parent is ShopCategoryTab shopCategoryTab)
+                    {
+                        var res = @char.Sell(inventoryItem.Item, shopCategoryTab.Merchant);
+                        Trade(res, inventoryItem, anotherInventory);
+                    }
+                    return false;
+                }
+
+                return true;
+            };
+        }
+
+        private void Trade(Result<string> res, InventoryItem inventoryItem, Inventory another)
+        {
+            if (!res)
+            {
+                var pos = new Point(inventoryItem.ComputedPosition.X, inventoryItem.ComputedPosition.Y);
+                var msg = new PopupString(res.Value, ConsoleColor.Yellow, pos)
+                {
+                    Layer = 2000,
+                    AbsolutePosition = true
+                };
+                this.ShowEffects(msg.InList<ISceneObject>());
+
             }
             else
             {
-                buy = true;
-                x = Math.Ceiling(this.ComputedPosition.X - source.ComputedPosition.X);
-                y = Math.Ceiling(this.ComputedPosition.Y - source.ComputedPosition.Y);
+                another.Refresh();
+                this.Refresh();
             }
+        }
 
+        protected override ControlEventType[] Handles => new ControlEventType[] { ControlEventType.Key };
+
+        protected override Key[] KeyHandles => new Key[]
+        {
+            Key.LeftShift,
+            Key.RightShift
+        };
+
+        private bool sellMode = false;
+
+        public override void KeyUp(Key key, KeyModifiers modifier) => sellMode = false;
+
+        public override void KeyDown(Key key, KeyModifiers modifier, bool hold) => sellMode = true;
+
+        protected override void OnDrop(InventoryItem source)
+        {
+            var x = Math.Ceiling(source.Left);
+            var y = Math.Ceiling(source.Top);
 
             if (this.backpack.Add(source.Item, new Types.Point(x, y)))
             {
@@ -88,11 +160,6 @@
                 {
                     inventoryParent.backpack.Remove(source.Item);
                     inventoryParent.Refresh();
-                }
-
-                if (buy)
-                {
-                    playerSceneObject.Avatar.Character.Gold -= source.Item.Cost;
                 }
             }
 
@@ -130,8 +197,8 @@
                         {
                             Left = x * xPoint + offsetX,
                             Top = y * yPoint + offsetY,
-                            AbsolutePosition=true,
-                            CacheAvailable=false
+                            AbsolutePosition = true,
+                            CacheAvailable = false
                         });
                     }
                 }
@@ -147,8 +214,8 @@
                 this.Width = 1;
                 this.AddChild(new InventoryCellBorder()
                 {
-                    AbsolutePosition=true,
-                    CacheAvailable=false
+                    AbsolutePosition = true,
+                    CacheAvailable = false
                 });
             }
 

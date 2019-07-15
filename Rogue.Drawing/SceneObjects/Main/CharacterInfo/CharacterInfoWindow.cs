@@ -17,7 +17,7 @@
         protected override Key[] OverrideKeyHandles => new Key[] { Key.C, Key.I };
 
         private PlayerSceneObject playerSceneObject;
-        private Inventory inventory;
+        public Inventory Inventory { get; }
         private bool selfclose = true;
 
         /// <summary>
@@ -34,7 +34,6 @@
             this.Destroy += () => playerSceneObject.BlockMouse = false;
             this.playerSceneObject = playerSceneObject;
 
-            this.Image = "Rogue.Resources.Images.ui.infocharacter.png";
 
             this.Height = 17;
             this.Width = 12;
@@ -52,21 +51,21 @@
                 });
 
 
-            inventory = new Inventory(playerSceneObject, playerSceneObject.Avatar.Character.Backpack)
+            Inventory = new Inventory(playerSceneObject, playerSceneObject.Avatar.Character.Backpack)
             {
                 Top = 9.45,
                 Left = 0.55
             };
-            AddItemWear(inventory, playerSceneObject);
+            AddItemWear(Inventory, playerSceneObject);
 
-            inventory.ItemWears = this.Children.Where(x => x.GetType() == typeof(ItemWear)).Cast<ItemWear>().ToArray();
-            inventory.Refresh();
+            Inventory.ItemWears = this.Children.Where(x => x.GetType() == typeof(ItemWear)).Cast<ItemWear>().ToArray();
+            Inventory.Refresh();
 
-            this.AddChild(inventory);
+            this.AddChild(Inventory);
 
             this.AddChild(new CharacterInfoDropItemMask(OnDropInventoryItem));
 
-            this.AddChild(new InventoryDropItemMask(playerSceneObject, inventory, gameMap)
+            this.AddChild(new InventoryDropItemMask(playerSceneObject, Inventory, gameMap)
             {
                 Left = -this.Left,
                 Top = -this.Top
@@ -76,13 +75,17 @@
 
             if (statBtn)
                 OpenStats();
+
+            this.Image = "Rogue.Resources.Images.ui.infocharacter.png";
         }
 
         private void OnDropInventoryItem(InventoryItem item)
         {
             Global.DrawClient.Drop();
-            this.inventory.Refresh();
+            this.Inventory.Refresh();
         }
+
+        private Dictionary<string, TextControl> updateableStats = new Dictionary<string, TextControl>();
 
         private void FillData(PlayerSceneObject playerSceneObject)
         {
@@ -100,9 +103,13 @@
             @class.Left = 0.5;
             @class.Top = 2;
 
+            updateableStats.Add("Class", @class);
+
             var exp = this.AddTextCenter(new DrawText($"Опыт: {character.EXP}/{character.MaxExp}", new DrawColor(ConsoleColor.White)).Montserrat());
             exp.Left = .5;
             exp.Top = 2.5;
+
+            updateableStats.Add("Exp", exp);
 
             this.AddChild(new ImageControl("Rogue.Resources.Images.ui.stats.attack.png")
             {
@@ -118,6 +125,7 @@
             dmgTxt.Left = 2.75;
             dmgTxt.Top = 7.95;
 
+            updateableStats.Add("Dmg", dmgTxt);
 
             this.AddChild(new ImageControl("Rogue.Resources.Images.ui.stats.defence.png")
             {
@@ -133,6 +141,7 @@
             arm.Left = 8.5 + .75;
             arm.Top = 7.95;
 
+            updateableStats.Add("Arm", arm);
 
             var goldImg = "Rogue.Resources.Images.ui.stats.gold.png";
             var goldMeasure = this.MeasureImage(goldImg);
@@ -151,6 +160,18 @@
             var gold = this.AddTextCenter(new DrawText($"{character.Gold}", new DrawColor(255, 243, 119, 255)).Montserrat());
             gold.Left = goldLeft + 0.3;
             gold.Top = 15.75;
+
+            updateableStats.Add("Gold", gold);
+        }
+                
+        public override void Update()
+        {
+            var character = playerSceneObject.Avatar.Character;
+            updateableStats["Class"].Text.SetText(character.ClassName);
+            updateableStats["Exp"].Text.SetText($"Опыт: {character.EXP}/{character.MaxExp}");
+            updateableStats["Dmg"].Text.SetText($"{character.MinDMG} - {character.MaxDMG}");
+            updateableStats["Arm"].Text.SetText($"{character.Defence}");
+            updateableStats["Gold"].Text.SetText($"{character.Gold}");
         }
 
         private void AddItemWear(Inventory inventory, PlayerSceneObject playerSceneObject)

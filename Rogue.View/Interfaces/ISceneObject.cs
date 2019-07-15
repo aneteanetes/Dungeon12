@@ -85,5 +85,10 @@
         List<IEffect> Effects { get; set; }
 
         bool Interface { get; set; }
+
+        /// <summary>
+        /// Метод вызывается перед отрисовкой, а то заебало уже хаки юзать
+        /// </summary>
+        void Update();        
     }
 }

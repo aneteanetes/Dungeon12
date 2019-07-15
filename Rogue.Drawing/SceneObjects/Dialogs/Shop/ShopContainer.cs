@@ -27,10 +27,12 @@
             };
             charInfo.Top = 0;
 
-            var shopWindow = new ShopWindow(title, shop, playerSceneObject)
+            var shopWindow = new ShopWindow(title, shop, playerSceneObject, charInfo.Inventory)
             {
                 Left = 5,
             };
+
+            shopWindow.BindCharacterInventory(charInfo.Inventory);
 
             this.Width = 28;
             this.Height = 17;

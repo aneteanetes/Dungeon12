@@ -11,15 +11,20 @@
 
         public override bool CacheAvailable => false;
 
-        public ShopCategoryTab(MerchantCategory merchantCategory, double left, PlayerSceneObject playerSceneObject)
+        public Merchant Merchant { get; }
+
+        public Inventory Inventory {get; private set;}
+
+        public ShopCategoryTab(Merchant merchant, MerchantCategory merchantCategory, double left, PlayerSceneObject playerSceneObject, Inventory another)
         {
-            var inventory = new Inventory(playerSceneObject, merchantCategory.Goods.First())
+            Inventory = new Inventory(playerSceneObject, merchantCategory.Goods.First(), merchant)
             {
                 Top = 2,
                 Left=-left
-            };            
-            inventory.Refresh();
-            this.AddChild(inventory);
+            };
+            this.Merchant = merchant;
+            Inventory.Refresh(another);
+            this.AddChild(Inventory);
         }
     }
 }

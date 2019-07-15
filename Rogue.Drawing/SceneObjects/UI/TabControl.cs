@@ -7,14 +7,22 @@
     using Rogue.View.Interfaces;
     using System;
 
-    public abstract class TabControl<TContent, TArgument> : HandleSceneControl where TContent : ISceneObject
+    public abstract class TabControl<TContent, TArgument, TTab> : HandleSceneControl
+        where TContent : ISceneObject
+        where TTab : TabControl<TContent, TArgument, TTab>
     {
         /// <summary>
         /// здесь юзается хак static generics
         /// </summary>
         private static TContent currentTabContent = default;
 
-        private static Action<TabControl<TContent, TArgument>> InactiveOther;
+        private static Action<TabControl<TContent, TArgument,TTab>> InactiveOther;
+
+        public static TTab Current { get; private set; }
+
+        public static Action<TTab> OnChange { get; set; }
+
+        protected abstract TTab Self { get; }
 
         private bool active = false;
 
@@ -59,10 +67,16 @@
             this.disabled = argument == default;
             this.active = active;
 
+            if(active==true)
+            {
+                Current = Self;
+                OnChange?.Invoke(Self);
+            }
+
             this.Image = SquareTexture(false);
         }
 
-        private void SetInactive(TabControl<TContent, TArgument> tab)
+        private void SetInactive(TabControl<TContent, TArgument, TTab> tab)
         {
             if (tab != this)
             {
@@ -113,6 +127,9 @@
                 }
 
                 currentTabContent = CreateContent(argument, this.Left);
+
+                Current = Self;
+                OnChange?.Invoke(Self);
                 this.AddChild(currentTabContent);
             }
         }

@@ -12,7 +12,7 @@
 
         public override bool Interface => true;
 
-        public override int Layer => 20;
+        public override int Layer { get; set; } = 20;
 
         private int maxFrames = 0;
         private int frames = 0;
@@ -21,6 +21,14 @@
 
         public PopupString(string text, ConsoleColor color, Point position, int frames, float size = 10, double speed = 0.2)
             : this(text, new DrawColor(color), position, frames, size, speed) { }
+
+        public PopupString(string text, ConsoleColor color, Point position, bool big=false)
+            : this(text, color, position, 25, big ? 19 : 17, 0.06)
+        { }
+
+        public PopupString(string text, IDrawColor color, Point position, bool big=false)
+            : this(text, color, position, 25, big ? 19 : 17, 0.06)
+        { }
 
         public PopupString(string text, IDrawColor color, Point position, int frames, float size = 10, double speed = 0.2)
         {

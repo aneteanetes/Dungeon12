@@ -23,7 +23,6 @@
 
                 foreach (var item in Enumerable.Range(0, 10))
                 {
-
                     category.Goods[0].Add(new Weapon()
                     {
                         Tileset = "Rogue.Resources.Images.Items.Weapons.OneHand.Swords.TrainerSword.png",

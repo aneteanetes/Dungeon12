@@ -178,7 +178,7 @@
 
         private void DrawSceneObject(ISceneObject sceneObject, double xParent = 0, double yParent = 0, bool batching = false, bool force = false, bool lightIgnoring=false)
         {
-            if (sceneObject.Interface && !lightIgnoring)
+            if (sceneObject.Interface && !lightIgnoring && !sceneObject.AbsolutePosition)
             {
                 InterfaceObjects.Add((sceneObject, xParent, yParent));
                 return;
@@ -189,6 +189,8 @@
 
             if (force && sceneObject.ForceInvisible)
                 return;
+
+            sceneObject.Update();
 
             var y = sceneObject.Position.Y * cell + yParent;
             var x = sceneObject.Position.X * cell + xParent;

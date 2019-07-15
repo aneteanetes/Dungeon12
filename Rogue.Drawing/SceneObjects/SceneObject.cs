@@ -297,5 +297,7 @@
 
             return false;
         }
+
+        public virtual void Update() { }
     }
 }

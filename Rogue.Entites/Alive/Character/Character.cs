@@ -10,7 +10,7 @@
     /// <summary>
     /// Абстрактный класс персонажа
     /// </summary>
-    public abstract class Character : Moveable
+    public abstract partial class Character : Moveable
     {
         private List<Equipment> Equipment = new List<Equipment>();
 
