@@ -130,7 +130,15 @@
 
                 Current = Self;
                 OnChange?.Invoke(Self);
-                this.AddChild(currentTabContent);
+
+                if (currentTabContent is ISceneObjectControl currentTabContentControl)
+                {
+                    this.AddChild(currentTabContentControl);
+                }
+                else
+                {
+                    this.AddChild(currentTabContent);
+                }
             }
         }
 

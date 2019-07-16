@@ -13,7 +13,7 @@
 
         public void BindCharacterInventory(Inventory inventory)
         {
-            ShopTab.OnChange += tab =>
+            ShopTab.OnChange = tab =>
             {                
                 inventory.Refresh(tab.ShopInventory);
             };

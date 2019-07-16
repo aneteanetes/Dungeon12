@@ -103,11 +103,18 @@
             {
                 if (sellMode)
                 {
-                    if (inventoryItem.Parent.Parent is ShopCategoryTab shopCategoryTab)
+                    //первый раз не биндится, ебала
+                    if (anotherInventory.Parent is ShopCategoryTab shopCategoryTab)
                     {
                         var res = @char.Sell(inventoryItem.Item, shopCategoryTab.Merchant);
+                        if(res)
+                        {
+                            anotherInventory.backpack.Add(inventoryItem.Item);
+                        }
+
                         Trade(res, inventoryItem, anotherInventory);
                     }
+
                     return false;
                 }
 
