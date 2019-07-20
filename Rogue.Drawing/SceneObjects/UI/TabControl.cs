@@ -62,9 +62,11 @@
                 });
             }
 
+            this.disabled = argument == default
+                || title == null && titleImg == null;
+
             this.parent = parent;
             this.argument = argument;
-            this.disabled = argument == default;
             this.active = active;
 
             if(active==true)

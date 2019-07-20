@@ -57,8 +57,7 @@
 
             penumbra.BeginDraw();
 
-            SpriteBatchRestore = () => spriteBatch.Begin(transformMatrix: Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0), samplerState: SamplerState.PointWrap);
-            SpriteBatchRestore.Invoke();
+            SetSpriteBatch();
 
             foreach (var offsetSceneObject in offsetted)
             {
@@ -68,8 +67,7 @@
 
             penumbra.Draw(gameTime);
 
-            SpriteBatchRestore = () => spriteBatch.Begin(transformMatrix: Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0), samplerState: SamplerState.PointWrap);
-            SpriteBatchRestore.Invoke();
+            SetSpriteBatch();
 
             for (int i = 0; i < InterfaceObjects.Count; i++)
             {
@@ -79,8 +77,7 @@
 
             spriteBatch.End();
 
-            SpriteBatchRestore = () => spriteBatch.Begin(samplerState: SamplerState.PointWrap);
-            SpriteBatchRestore.Invoke();
+            SetSpriteBatch(true);
 
             foreach (var absoluteSceneObject in absolute)
             {
@@ -88,8 +85,26 @@
             }
             spriteBatch.End();
         }
-        
-        private Action SpriteBatchRestore = null;
+
+        private void SetSpriteBatch(bool absolute=false)
+        {
+            if (!absolute)
+            {
+                SpriteBatchRestore = smooth => spriteBatch.Begin(
+                    transformMatrix: Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0), 
+                    samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
+                    blendState: BlendState.NonPremultiplied);
+            }
+            else
+            {
+                SpriteBatchRestore = smooth => spriteBatch.Begin(
+                    samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
+                    blendState: BlendState.NonPremultiplied);
+            }
+            SpriteBatchRestore.Invoke(false);
+        }
+
+        private Action<bool> SpriteBatchRestore = null;
 
         #region frameSettings
 
@@ -211,7 +226,7 @@
 
                     GraphicsDevice.SetRenderTargets(bitmap);
                     GraphicsDevice.Clear(Color.Transparent);
-                    SpriteBatchRestore.Invoke();
+                    SpriteBatchRestore.Invoke(false);
 
                     DrawSceneObject(sceneObject, 0, 0, true);
 
@@ -224,7 +239,7 @@
                     spriteBatch.End();
                     GraphicsDevice.SetRenderTarget(null);
 
-                    SpriteBatchRestore.Invoke();
+                    SpriteBatchRestore.Invoke(false);
                 }
 
                 TileSetCache.TryGetValue(sceneObject.Uid, out var tilesetPos);
@@ -357,11 +372,16 @@
                 }
             }
 
-            var txt = range.StringData;
-
+            var txt = range.StringData;            
             var color = new Color(range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B, range.ForegroundColor.A);
 
+            spriteBatch.End();
+            SpriteBatchRestore?.Invoke(true);
+
             spriteBatch.DrawString(spriteFont, txt, new Vector2((int)x, (int)y), color);
+
+            spriteBatch.End();
+            SpriteBatchRestore?.Invoke(false);
         }
 
         private void DrawScenePath(IDrawablePath drawablePath, double x, double y)
@@ -520,7 +540,7 @@
 
                 myRenderer.RenderEffect(particleEffect, ref v);
 
-                SpriteBatchRestore.Invoke();
+                SpriteBatchRestore.Invoke(false);
             }
         }
     }
