@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Items
 {
+    using Force.DeepCloner;
     using Rogue.Physics;
     using Rogue.Types;
     using System.Linq;
@@ -28,8 +29,9 @@
 
         public Item[] GetItems() => Container.Nodes.Select(x => x.Item).ToArray();
 
-        public bool Add(Item item, Point location = null)
+        public bool Add(Item itemSource, Point location = null)
         {
+            var item = itemSource.DeepClone();
             var backpackItem = new BackpackItem()
             {
                 Item = item,

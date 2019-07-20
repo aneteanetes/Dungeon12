@@ -30,8 +30,9 @@
 
         private Character character;
         public ItemKind ItemKind;
-        private Item item;
         private Inventory inventory;
+        
+        private DressedItem dressItemControl;
 
         public ItemWear(Inventory inventory, Character character, ItemKind itemKind)
         {
@@ -51,63 +52,32 @@
 
             this.Image = SquareTexture();
 
+            this.dressItemControl = new DressedItem(null);
+            this.AddChild(this.dressItemControl);
+
+            DressUpCurrent(character, itemKind);
+        }
+
+        private void DressUpCurrent(Character character, ItemKind itemKind)
+        {
             switch (itemKind)
             {
                 case ItemKind.Weapon:
-                    if (character.Clothes.Weapon != null)
-                    {
-                        this.dressItemControl = new DressedItem(character.Clothes.Weapon)
-                        {
-                            CacheAvailable = this.CacheAvailable,
-                            AbsolutePosition = this.AbsolutePosition
-                        };
-                    }
-                    break;
                 case ItemKind.Helm:
-                    if (character.Clothes.Helm != null)
-                    {
-                        this.dressItemControl = new DressedItem(character.Clothes.Helm)
-                        {
-                            CacheAvailable = this.CacheAvailable,
-                            AbsolutePosition = this.AbsolutePosition
-                        };
-                    }
-                    break;
                 case ItemKind.Armor:
-                    if (character.Clothes.Armor != null)
-                    {
-                        this.dressItemControl = new DressedItem(character.Clothes.Armor)
-                        {
-                            CacheAvailable = this.CacheAvailable,
-                            AbsolutePosition = this.AbsolutePosition
-                        };
-                    }
-                    break;
                 case ItemKind.Boots:
-                    if (character.Clothes.Boots != null)
-                    {
-                        this.dressItemControl = new DressedItem(character.Clothes.Boots)
-                        {
-                            CacheAvailable = this.CacheAvailable,
-                            AbsolutePosition = this.AbsolutePosition
-                        };
-                    }
-                    break;
                 case ItemKind.OffHand:
-                    if (character.Clothes.OffHand != null)
                     {
-                        this.dressItemControl = new DressedItem(character.Clothes.OffHand)
+                        var cloth = character.Clothes.GetProperty<Item>(itemKind.ToString());
+                        if (cloth != null)
                         {
-                            CacheAvailable = this.CacheAvailable,
-                            AbsolutePosition = this.AbsolutePosition
-                        };
+                            this.dressItemControl.Dress(cloth);
+                        }
+                        break;
                     }
-                    break;
                 default:
                     break;
             }
-
-            DressUpItem();
         }
 
         private string SquareTexture(bool focus = false)
@@ -131,7 +101,7 @@
             }
             else
             {
-                this.Image = SquareTexture(true);                
+                this.Image = SquareTexture(true);
             }
         }
 
@@ -150,19 +120,20 @@
         {
             if (source.Item.Kind == this.ItemKind)
             {
-                WearItem(source,true);
+                WearItem(source, true);
             }
         }
 
-        public void WearItem(InventoryItem source, bool dropping=false)
+        public void WearItem(InventoryItem source, bool dropping = false)
         {
-            var putOn = character.Clothes.PutOn(source.Item);
+            var (success, oldItem) = character.Clothes.PutOn(source.Item);
 
-            if (putOn.success)
+            if (success)
             {
-                if (putOn.oldItem != null)
+                if (oldItem != null)
                 {
-                    DressOffItemToInventory(putOn.oldItem);
+                    character.Backpack.Add(this.dressItemControl.item);
+                    inventory.Refresh();
                 }
 
                 if (dropping)
@@ -170,73 +141,70 @@
                     Global.DrawClient.Drop();
                 }
 
-                this.dressItemControl = new DressedItem(source.Item)
-                {
-                    CacheAvailable = this.CacheAvailable,
-                    AbsolutePosition = this.AbsolutePosition
-                };
                 character.Backpack.Remove(source.Item);
                 inventory.Refresh();
-                DressUpItem();
+
+                this.dressItemControl.Dress(source.Item);
 
                 source.Destroy?.Invoke();
             }
         }
-
-        private DressedItem dressItemControl;
-
-        private void DressUpItem()
-        {
-            if (dressItemControl != null)
-            {
-                dressItemControl?.Destroy?.Invoke();
-                this.AddChild(dressItemControl);
-            }
-        }
-
-        private void DressOffItem()
-        {
-            if (dressItemControl != null)
-            {
-                if (character.Clothes.PutOff(this.ItemKind).success)
-                {
-                    DressOffItemToInventory(dressItemControl.item);
-                }
-            }
-        }
-
-        private void DressOffItemToInventory(Item item)
-        {
-            character.Backpack.Add(item);
-            inventory.Refresh();
-            dressItemControl?.Destroy?.Invoke();
-            this.RemoveChild(dressItemControl);
-            dressItemControl = null;
-        }
-
+        
         public override void Click(PointerArgs args)
         {
             if (args.MouseButton == MouseButton.Right)
             {
                 DressOffItem();
             }
-        }        
+        }
+
+        private void DressOffItem()
+        {
+            if (character.Clothes.PutOff(this.ItemKind).success)
+            {
+                this.character.Backpack.Add(this.dressItemControl.item);
+                inventory.Refresh();
+                this.dressItemControl.Undress();
+            }
+        }
 
         private class DressedItem : TooltipedSceneObject
         {
+            public override bool CacheAvailable => false;
+
+            public override bool AbsolutePosition => true;
+
             public Item item;
 
-            public DressedItem(Item item) : base(item.Description, null)
+            public DressedItem(Item item) : base(item?.Description, null) => Dress(item);
+
+            public void Dress(Item itemSource)
             {
-                this.item = item;
-                this.Image = item.Tileset;
-                this.ImageRegion = item.TileSetRegion;
+                if (itemSource != null)
+                {
+                    var item = itemSource.DeepClone();
 
-                var tall = item.Kind == ItemKind.Weapon || item.Kind == ItemKind.OffHand;
+                    this.TooltipText = item.Description;
+                    this.item = item;
+                    this.Image = item.Tileset;
+                    this.ImageRegion = item.TileSetRegion;
 
-                this.Height = tall ? 4 : 2;
-                this.Width = 2;
+                    var tall = item.Kind == ItemKind.Weapon || item.Kind == ItemKind.OffHand;
+
+                    this.Height = tall ? 4 : 2;
+                    this.Width = 2;
+                }
             }
+
+            public void Undress()
+            {
+                this.TooltipText = string.Empty;
+                this.item = null;
+                this.Image = string.Empty;
+                this.ImageRegion = new Types.Rectangle(1, 1, 1, 1);
+            }
+
+            public bool IsEmpty => item == null;
         }
     }
 }

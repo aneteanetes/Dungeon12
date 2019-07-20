@@ -92,6 +92,11 @@
             return inventoryItem =>
             {
                 var res = @char.Buy(inventoryItem.Item, merchant);
+                if(res)
+                {
+                    //Вот конкретно тут "точка расширения" на то что предмет не пропадает у продавца
+                    this.backpack.Remove(inventoryItem.Item);
+                }
                 Trade(res, inventoryItem, anotherInventory);
                 return false;
             };
