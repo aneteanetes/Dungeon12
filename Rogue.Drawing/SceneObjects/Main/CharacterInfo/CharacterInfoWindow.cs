@@ -63,13 +63,16 @@
 
             this.AddChild(Inventory);
 
-            this.AddChild(new CharacterInfoDropItemMask(OnDropInventoryItem));
-
-            this.AddChild(new InventoryDropItemMask(playerSceneObject, Inventory, gameMap)
+            if (selfClose)
             {
-                Left = -this.Left,
-                Top = -this.Top
-            });
+                this.AddChild(new CharacterInfoDropItemMask(OnDropInventoryItem));
+
+                this.AddChild(new InventoryDropItemMask(playerSceneObject, Inventory, gameMap)
+                {
+                    Left = -this.ComputedPosition.X,
+                    Top = -this.ComputedPosition.Y
+                });
+            }
 
             FillData(playerSceneObject);
 

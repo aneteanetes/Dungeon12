@@ -118,9 +118,17 @@
 
         protected override void OnDrop(InventoryItem source)
         {
-            if (source.Item.Kind == this.ItemKind)
+            if (source.Parent is Inventory sourceInventory) // получить таргет (бллядь, это уже второй такой хак, надо переработать к хуям)
             {
-                WearItem(source, true);
+                if (source.Item.Kind == this.ItemKind && sourceInventory.Parent is CharacterInfoWindow)
+                {
+                    WearItem(source, true);
+                }
+                else
+                {
+                    source.Destroy?.Invoke();
+                    sourceInventory.Refresh();
+                }
             }
         }
 

@@ -6,7 +6,7 @@
     using Rogue.Merchants;
     using System;
 
-    public class ShopTab : TabControl<ShopCategoryTab, MerchantCategory, ShopTab>
+    public class ShopTab : TabControl<ShopTabContent, MerchantCategory, ShopTab>
     {
         private PlayerSceneObject playerSceneObject;
         private Merchant merchant;
@@ -30,13 +30,13 @@
             return $"Rogue.Resources.Images.Icons.Shop.{categoryName}.png";
         }
 
-        protected override Func<MerchantCategory, double, ShopCategoryTab> CreateContent => OpenCategoryTab;
+        protected override Func<MerchantCategory, double, ShopTabContent> CreateContent => OpenCategoryTab;
 
         protected override ShopTab Self => this;
 
-        private ShopCategoryTab OpenCategoryTab(MerchantCategory category, double left)
+        private ShopTabContent OpenCategoryTab(MerchantCategory category, double left)
         {
-            var catTab= new ShopCategoryTab(merchant, category, left, playerSceneObject, another);
+            var catTab= new ShopTabContent(merchant, category, left, playerSceneObject, another);
             ShopInventory = catTab.Inventory;
             return catTab;
         }

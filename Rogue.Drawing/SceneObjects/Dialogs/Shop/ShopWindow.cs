@@ -1,53 +1,60 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Dialogs.Shop
 {
-    using Rogue.Drawing.Impl;
+    using Rogue.Control.Keys;
     using Rogue.Drawing.SceneObjects.Inventories;
+    using Rogue.Drawing.SceneObjects.Main.CharacterInfo;
     using Rogue.Drawing.SceneObjects.Map;
+    using Rogue.Drawing.SceneObjects.UI;
+    using Rogue.Map;
+    using Rogue.View.Interfaces;
     using System;
 
-    public class ShopWindow : HandleSceneControl
+    public class ShopWindow : DraggableControl<ShopWindow>
     {
+        public override int Layer => 50;
+
         public override bool AbsolutePosition => true;
 
-        public override bool CacheAvailable => false;
+        protected override Key[] OverrideKeyHandles => new Key[] { Key.Escape };
 
-        public void BindCharacterInventory(Inventory inventory)
+        public ShopWindow(string title, PlayerSceneObject playerSceneObject, Merchants.Merchant shop, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding, GameMap gameMap)
         {
-            inventory.Refresh(ShopTab.Current.ShopInventory);
-            ShopTab.OnChange = tab =>
-            {                
-                inventory.Refresh(tab.ShopInventory);
+            Global.FreezeWorld = this;
+
+            this.Top = 2;
+            this.Left = 0;
+
+            var charInfo = new CharacterInfoWindow(gameMap, playerSceneObject, this.ShowEffects, false,false)
+            {
+                Left = 16 + 5,
+                DisableDrag = true
             };
-        }
+            charInfo.Top = 0;
 
-        public ShopWindow(string title, Merchants.Merchant merchant, PlayerSceneObject playerSceneObject, Inventory another)
-        {
-            this.Image = "Rogue.Resources.Images.ui.vertical_title(17x15).png";
+            var shopWindow = new ShopWindowContent(title, shop, playerSceneObject, charInfo.Inventory)
+            {
+                Left = 5,
+            };
 
-            this.Width = 15;
+            shopWindow.BindCharacterInventory(charInfo.Inventory);
+
+            this.Width = 28;
             this.Height = 17;
 
-            var txt = this.AddTextCenter(new DrawText(title), true, false);
-            txt.Top += 0.2;
-
-            foreach (var category in merchant.Categories)
+            this.AddChild(shopWindow);
+            this.AddChild(charInfo);
+            this.AddChild(new InventoryDropItemMask(playerSceneObject, charInfo.Inventory, gameMap)
             {
-                var index = merchant.Categories.IndexOf(category);
-                var tab = new ShopTab(this, another,merchant, category, playerSceneObject, index == 0)
-                {
-                    AbsolutePosition = true,
-                    CacheAvailable = false,
-                    Left = index * 3,
-                    Top = 1.5,
-                    ZIndex = this.ZIndex
-                };
-                this.AddChild(tab);
+                Top = -2
+            });
+        }
 
-                if (index == 0)
-                {
-                    tab.Open();
-                }
-            }
+        public override void KeyDown(Key key, KeyModifiers modifier, bool hold) => Close();
+
+        private void Close()
+        {
+            this.Destroy?.Invoke();
+            Global.FreezeWorld = null;
         }
     }
 }

@@ -24,6 +24,11 @@
     /// </summary>
     public class Inventory : DropableControl<InventoryItem>
     {
+        /// <summary>
+        /// С целью дебага
+        /// </summary>
+        public ISceneObject AP => this.Parent;
+
         public override bool CacheAvailable => false;
 
         public override bool AbsolutePosition => true;
@@ -34,7 +39,7 @@
 
         private Character @char => playerSceneObject.Avatar.Character;
 
-        private Merchants.Merchant merchant;
+        private readonly Merchants.Merchant merchant;
 
         public Inventory(PlayerSceneObject playerSceneObject, Backpack backpack, Merchants.Merchant merchant = null)
         {
@@ -87,29 +92,37 @@
             }
         }
 
-        private Func<InventoryItem, bool> Buy(Inventory anotherInventory)
+        public Func<InventoryItem, bool> Buy(Inventory anotherInventory, bool force = false)
         {
             return inventoryItem =>
             {
-                var res = @char.Buy(inventoryItem.Item, merchant);
-                if(res)
+                if (sellMode || force && anotherInventory != null)
                 {
-                    //Вот конкретно тут "точка расширения" на то что предмет не пропадает у продавца
-                    this.backpack.Remove(inventoryItem.Item);
+                    var res = @char.Buy(inventoryItem.Item, merchant);
+                    if (res)
+                    {
+                        var backpack = force
+                            ? (inventoryItem.Parent as Inventory).backpack
+                            : this.backpack;
+
+                        //Вот конкретно тут "точка расширения" на то что предмет не пропадает у продавца
+                        backpack.Remove(inventoryItem.Item);
+                    }
+                    Trade(res, inventoryItem, anotherInventory);
+                    return false;
                 }
-                Trade(res, inventoryItem, anotherInventory);
-                return false;
+
+                return true;
             };
         }
 
-        private Func<InventoryItem, bool> Sell(Inventory anotherInventory)
+        public Func<InventoryItem, bool> Sell(Inventory anotherInventory, bool force=false)
         {
             return inventoryItem =>
             {
-                if (sellMode)
+                if (sellMode || force && anotherInventory !=null)
                 {
-                    //первый раз не биндится, ебала
-                    if (anotherInventory.Parent is ShopCategoryTab shopCategoryTab)
+                    if (anotherInventory.Parent is ShopTabContent shopCategoryTab)
                     {
                         var res = @char.Sell(inventoryItem.Item, shopCategoryTab.Merchant);
                         if(res)
@@ -140,14 +153,12 @@
                 this.ShowEffects(msg.InList<ISceneObject>());
 
             }
-            else
-            {
-                another.Refresh();
-                this.Refresh();
-            }
+
+            another.Refresh();
+            this.Refresh();
         }
 
-        protected override ControlEventType[] Handles => new ControlEventType[] { ControlEventType.Key };
+        protected override ControlEventType[] Handles => new ControlEventType[] { ControlEventType.Key, ControlEventType.ClickRelease };
 
         protected override Key[] KeyHandles => new Key[]
         {
@@ -163,19 +174,27 @@
 
         protected override void OnDrop(InventoryItem source)
         {
-            var x = Math.Ceiling(source.Left);
-            var y = Math.Ceiling(source.Top);
-
-            if (this.backpack.Add(source.Item, new Types.Point(x, y)))
+            if (source.Parent != this && source.Parent is Inventory shopInventory)
             {
-                if (source.Parent is Inventory inventoryParent)
-                {
-                    inventoryParent.backpack.Remove(source.Item);
-                    inventoryParent.Refresh();
-                }
+                this.Buy(shopInventory, true)(source);
+                source.Destroy?.Invoke();
             }
+            else
+            {
+                var x = Math.Ceiling(source.Left);
+                var y = Math.Ceiling(source.Top);
 
-            Global.DrawClient.Drop();
+                if (this.backpack.Add(source.Item, new Types.Point(x, y)))
+                {
+                    if (source.Parent is Inventory inventoryParent)
+                    {
+                        inventoryParent.backpack.Remove(source.Item);
+                        inventoryParent.Refresh();
+                    }
+                }
+
+                Global.DrawClient.Drop();
+            }
 
             this.Refresh();
 

@@ -1,6 +1,7 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Inventories
 {
     using Force.DeepCloner;
+    using Rogue.Drawing.SceneObjects.Main.CharacterInfo;
     using Rogue.Drawing.SceneObjects.Map;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Map;
@@ -27,9 +28,21 @@
         {
             if (source.DropProcessed == 1)
             {
-                playerSceneObject.Avatar.Character.Backpack.Remove(source.Item);
-                inventory.Refresh();
-                AddLootToMap(source);
+                if (source.Parent is Inventory invContainer) //получить таргет
+                {
+                    if (invContainer.Parent is CharacterInfoWindow)
+                    {
+                        playerSceneObject.Avatar.Character.Backpack.Remove(source.Item);
+                        AddLootToMap(source);
+
+                        inventory.Refresh();
+                    }
+                    else
+                    {
+                        source.Destroy?.Invoke();
+                        invContainer.Refresh();
+                    }
+                }
             }
 
             base.OnDrop(source);

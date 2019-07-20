@@ -208,6 +208,13 @@
             this.Children.Remove(sceneObject);
         }
 
+        public void RemoveChild<T>()
+            => this.Children.Where(x => x.GetType().IsAssignableFrom(typeof(T)))
+                .ForEach(x =>
+                {
+                    x.Destroy?.Invoke();
+                });
+
         private Rectangle _computedPosition;
         public Rectangle ComputedPosition
         {

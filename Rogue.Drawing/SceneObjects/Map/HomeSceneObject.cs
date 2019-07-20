@@ -31,7 +31,7 @@
 
         private ISceneObject Act() => @object.Merchant == null
             ? (ISceneObject)new NPCDialogue(playerSceneObject, @object, this.DestroyBinding, this.ControlBinding)
-            : (ISceneObject)new ShopContainer(@object.Name, playerSceneObject, @object.Merchant, this.DestroyBinding, this.ControlBinding, gameMap);
+            : (ISceneObject)new ShopWindow(@object.Name, playerSceneObject, @object.Merchant, this.DestroyBinding, this.ControlBinding, gameMap);
 
         protected override void StopAction() { }
 

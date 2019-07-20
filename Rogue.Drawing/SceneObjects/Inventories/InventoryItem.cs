@@ -43,8 +43,11 @@
 
             if (args.MouseButton == MouseButton.Right)
             {
-                var itemWear = itemWears.FirstOrDefault(x => x.ItemKind == this.Item.Kind);
-                itemWear.WearItem(this);
+                if (itemWears != null)
+                {
+                    var itemWear = itemWears.FirstOrDefault(x => x.ItemKind == this.Item.Kind);
+                    itemWear.WearItem(this);
+                }
             }
             else
             {
