@@ -4,6 +4,12 @@
 
     public static class PropertyAccessor
     {
+        public static object GetProperty(this object @object, string property)
+        {
+            var accessor = TypeAccessor.Create(@object.GetType(), true);
+            return accessor[@object, property];
+        }
+
         public static TValue GetProperty<TValue>(this object @object, string property)
         {
             var accessor = TypeAccessor.Create(@object.GetType(), true);

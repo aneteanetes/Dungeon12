@@ -34,6 +34,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Montserrat/Montserrat12.spritefont
 
+#begin Montserrat/Montserrat14.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Montserrat/Montserrat14.spritefont
+
 #begin Montserrat/Montserrat20.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -41,12 +48,33 @@
 /processorParam:TextureFormat=Compressed
 /build:Montserrat/Montserrat20.spritefont
 
+#begin Montserrat/Montserrat40.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Montserrat/Montserrat40.spritefont
+
 #begin Triforce.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Triforce.spritefont
+
+#begin Triforce/Triforce16.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Triforce/Triforce16.spritefont
+
+#begin Triforce/Triforce24.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Triforce/Triforce24.spritefont
 
 #begin Triforce/Triforce30.spritefont
 /importer:FontDescriptionImporter

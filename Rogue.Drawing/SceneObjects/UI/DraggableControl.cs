@@ -135,13 +135,16 @@
                 delta = args;
                 dropped = false;
                 drag = true;
+                OnDrag?.Invoke();
                 DragAndDropSceneControls.SetDragged(this);
                 UpLayer();
                 base.Click(args);
             }
         }
 
-        public Action<T> OnDrag { get; set; }
+        public Action OnDrag { get; set; }
+
+        public Action OnDrop { get; set; }
 
         private bool dropped = true;
 

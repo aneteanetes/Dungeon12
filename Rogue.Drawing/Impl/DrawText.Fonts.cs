@@ -12,5 +12,14 @@
 
             return drawText;
         }
+
+        public static T Triforce<T>(this T drawText) where T : IDrawText
+        {
+            drawText.FontName = "Triforce";
+            drawText.FontAssembly = "Rogue.Resources";
+            drawText.FontPath = null;
+
+            return drawText;
+        }
     }
 }

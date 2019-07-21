@@ -1,10 +1,12 @@
-﻿using Rogue.Items;
-using Rogue.Items.Enums;
-using Rogue.Items.Types;
-using System.Linq;
-
-namespace Rogue.Loot
+﻿namespace Rogue.Loot
 {
+    using Rogue.Items;
+    using Rogue.Items.Enums;
+    using Rogue.Items.Types;
+    using Rogue.Loot.Utils;
+    using Rogue.View.Interfaces;
+    using System.Linq;
+
     public static class LootGenerator
     {
         public static LootContainer Generate()
@@ -87,5 +89,31 @@ namespace Rogue.Loot
                 }
             };
         }
+
+        public static Weapon GenerateWeapon() => new Weapon()
+        {
+            Tileset = "Rogue.Resources.Images.Items.Weapons.OneHand.Swords.TrainerSword.png",
+            TileSetRegion = new Types.Rectangle()
+            {
+                X = 0,
+                Y = 0,
+                Width = 32,
+                Height = 96
+            },
+            Name = "Тренировочный меч",
+            InventorySize = new Types.Point(1, 3),
+            Rare = Rarity.Rare,
+            Cost = 50,
+            BaseStats = new System.Collections.Generic.List<Equipment>()
+            {
+                new BaseStatEquip()
+                {
+                    StatName="Урон",
+                    StatProperties=new System.Collections.Generic.List<string>() { "MinDMG","MaxDMG" },
+                    StatValues=new System.Collections.Generic.List<long>(){ 1,3 },
+                    Color= new DrawColor(System.ConsoleColor.DarkYellow)
+                }
+            }
+        };
     }
 }

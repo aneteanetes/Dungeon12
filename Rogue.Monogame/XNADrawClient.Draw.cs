@@ -145,7 +145,13 @@
 
         public Types.Point MeasureText(IDrawText drawText)
         {
-            var font = Content.Load<SpriteFont>(drawText.FontName ?? "Triforce/Triforce30");
+            string customFont = null;
+            if (drawText.FontName != null)
+            {
+                customFont = $"{drawText.FontName}/{drawText.FontName}{drawText.Size}";
+            }
+
+            var font = Content.Load<SpriteFont>(customFont ?? "Triforce/Triforce30");
 
             var m = font.MeasureString(drawText.StringData);
 

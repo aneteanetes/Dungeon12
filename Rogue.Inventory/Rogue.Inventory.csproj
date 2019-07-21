@@ -13,6 +13,7 @@
     <ProjectReference Include="..\Rogue.Items\Rogue.Items.csproj" />
     <ProjectReference Include="..\Rogue.Physics\Rogue.Physics.csproj" />
     <ProjectReference Include="..\Rogue.Types\Rogue.Types.csproj" />
+    <ProjectReference Include="..\Rogue.Utils\Rogue.Utils.csproj" />
   </ItemGroup>
   
 </Project>

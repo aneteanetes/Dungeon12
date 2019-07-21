@@ -1,11 +1,13 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Inventories
 {
     using Rogue.Control.Pointer;
+    using Rogue.Drawing.GUI;
     using Rogue.Drawing.Impl;
     using Rogue.Drawing.SceneObjects.Main.CharacterInfo;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Items;
     using Rogue.Items.Enums;
+    using Rogue.Types;
     using System;
     using System.Linq;
 
@@ -30,27 +32,36 @@
             Left = item.InventoryPosition.X;
             Top = item.InventoryPosition.Y;
 
-            MakeTooltip(item);
+            base.OnDrag += PreDrag;
         }
 
-        private void MakeTooltip(Item item)
+        protected override bool ProvidesTooltip => true;
+
+        protected override Tooltip ProvideTooltip(Point position)
         {
-            this.TooltipDrawText = new DrawText(item.Name, item.Rare.Color()).Montserrat();
-            this.TooltipDrawText.Size = 14;
-            this.TooltipDrawText.AppendNewLine();
-
-            this.TooltipDrawText.Append(new DrawText(item.Kind.ToDisplay(), new DrawColor(130, 99, 7))
-            {
-                CenterAlign = true
-            });
+            return new ItemTooltip(Item, position);
         }
 
-        public Func<InventoryItem, bool> OnBeforeClick { get; set; }
+        private bool showTooltip = true;
+
+        private void PreDrag()
+        {
+            showTooltip = false;
+        }
+
+        public override void GlobalClickRelease(PointerArgs args)
+        {
+            showTooltip = true;
+            base.GlobalClickRelease(args);
+        }
 
         public override void Focus()
         {
-            base.Focus();
+            if (showTooltip)
+                base.Focus();
         }
+
+        public Func<InventoryItem, bool> OnBeforeClick { get; set; }
 
         public override void Click(PointerArgs args)
         {

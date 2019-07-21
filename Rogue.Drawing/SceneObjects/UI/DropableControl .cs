@@ -2,13 +2,17 @@
 {
     using Rogue.Control.Events;
     using Rogue.Control.Pointer;
+    using Rogue.Drawing.SceneObjects.Map;
+    using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    public class DropableControl : HandleSceneControl
+    public class DropableControl : TooltipedSceneObject
     {
-
+        public DropableControl() : base(null, null)
+        {
+        }
     }
 
     public class DropableControl<TSource> : DropableControl

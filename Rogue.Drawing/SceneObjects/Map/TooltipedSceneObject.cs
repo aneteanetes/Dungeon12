@@ -43,7 +43,7 @@
 
         protected void ShowTooltip()
         {
-            if (!string.IsNullOrEmpty(TooltipText) || TooltipDrawText!=null)
+            if (!string.IsNullOrEmpty(TooltipText) || TooltipDrawText!=null || ProvidesTooltip)
             {
                 if (aliveTooltip != null)
                 {
@@ -61,7 +61,7 @@
 
                 var tooltipPosition = new Point(this.ComputedPosition.X, this.ComputedPosition.Y - 0.8);
 
-                aliveTooltip = CreateTooltip(tooltipPosition) ?? new Tooltip(TooltipDrawText, tooltipPosition);
+                aliveTooltip = ProvideTooltip(tooltipPosition) ?? new Tooltip(TooltipDrawText, tooltipPosition);
                 aliveTooltip.CacheAvailable = false;
                 aliveTooltip.AbsolutePosition = this.AbsolutePosition;
                 aliveTooltip.Layer = 100;
@@ -71,7 +71,9 @@
             }
         }
 
-        protected virtual Tooltip CreateTooltip(Point position) => null;
+        protected virtual bool ProvidesTooltip => false;
+
+        protected virtual Tooltip ProvideTooltip(Point position) => null;
 
         public override void Unfocus()
         {

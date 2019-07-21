@@ -1,11 +1,10 @@
 ﻿namespace Rogue.Classes
 {
     using Rogue.Items;
-    using Rogue.Merchants;
 
     public abstract partial class Character
     {
-        public Result<string> Buy(Item item, Merchant merchant)
+        public Result<string> Buy(Item item, object merchant)
         {
             if (this.Gold - item.Cost >= 0)
             {
@@ -21,7 +20,7 @@
                 .Set("Недостаточно золота для покупки");
         }
 
-        public Result<string> Sell(Item item, Merchant merchant)
+        public Result<string> Sell(Item item, object merchant)
         {
             this.Gold += item.Cost;
             this.Backpack.Remove(item);

@@ -17,32 +17,10 @@
 
         public Character()
         {
-            this.Clothes.OnPutOn += (@new, old) =>
-            {
-                //if (old != null)
-                //{
-                //    var oldEquip = Equipment.FirstOrDefault(e => e.Item == old);
-                //    oldEquip.Discard(this);
-                //    Equipment.Remove(oldEquip);
-                //}
-
-                //var newEquip = new Equipment(@new);
-                //newEquip.Apply(this);
-                //Equipment.Add(newEquip);
-
-                return true;
-            };
-
-            this.Clothes.OnPutOff += item =>
-            {
-                //var oldEquip = Equipment.FirstOrDefault(e => e.Item == item);
-                //oldEquip.Discard(this);
-                //Equipment.Remove(oldEquip);
-
-                return true;
-            };
+            this.Clothes.OnPutOn += PutOnItem;
+            this.Clothes.OnPutOff += PutOffItem;
         }
-
+        
         public Race Race { get; set; }
 
         public Origins Origin { get; set; }

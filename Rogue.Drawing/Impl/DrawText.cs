@@ -454,5 +454,10 @@ namespace Rogue.Drawing.Impl
             }
         }
 
+        public override string ToString()
+        {
+            return this.StringData;
+        }
+
     }
 }

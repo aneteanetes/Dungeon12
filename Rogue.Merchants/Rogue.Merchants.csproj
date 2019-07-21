@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Rogue.Inventory\Rogue.Inventory.csproj" />
     <ProjectReference Include="..\Rogue.Items\Rogue.Items.csproj" />
+    <ProjectReference Include="..\Rogue.Loot\Rogue.Loot.csproj" />
   </ItemGroup>
 
 </Project>

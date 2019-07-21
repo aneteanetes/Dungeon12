@@ -6,12 +6,14 @@
     using Rogue.Classes;
     using Rogue.Control.Events;
     using Rogue.Control.Pointer;
+    using Rogue.Drawing.GUI;
     using Rogue.Drawing.SceneObjects.Inventories;
     using Rogue.Drawing.SceneObjects.Map;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Entites.Alive;
     using Rogue.Items;
     using Rogue.Items.Enums;
+    using Rogue.Types;
     using Rogue.View.Interfaces;
 
     public class ItemWear : DropableControl<InventoryItem>
@@ -104,6 +106,8 @@
             {
                 this.Image = SquareTexture(true);
             }
+
+            ShowTooltip();
         }
 
         protected override bool CheckDropAvailable(InventoryItem source)
@@ -175,6 +179,13 @@
                 inventory.Refresh();
                 this.dressItemControl.Undress();
             }
+        }
+
+        protected override bool ProvidesTooltip => dressItemControl.item != null;
+
+        protected override Tooltip ProvideTooltip(Point position)
+        {
+            return new ItemTooltip(dressItemControl.item, position);
         }
 
         private class DressedItem : TooltipedSceneObject

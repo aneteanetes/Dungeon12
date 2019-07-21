@@ -89,6 +89,7 @@
                 }
                 else
                 {
+                    invItem.Cursor = "shop";
                     invItem.OnBeforeClick = Buy(Pair);
                 }
             }
