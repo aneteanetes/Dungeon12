@@ -20,5 +20,7 @@
         void Drag(ISceneObject @object, ISceneObject area = null);
 
         void Drop();
+
+        void SetCursor(string texture);
     }
 }

@@ -19,6 +19,9 @@
         
         public override void Init()
         {
+            Global.DrawClient.SetCursor("Cursors.common.png".PathImage());
+
+
             this.AddObject(new Background());
             this.AddObject(new ImageControl("Rogue.Resources.Images.d12textM.png")
             {

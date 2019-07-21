@@ -66,7 +66,7 @@
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
-            if (key == Key.LeftAlt && !hold)
+            if (key == Key.LeftShift && !hold)
             {
                 this.ShowTooltip();
             }
@@ -74,7 +74,7 @@
 
         public override void KeyUp(Key key, KeyModifiers modifier)
         {
-            if (key == Key.LeftAlt)
+            if (key == Key.LeftShift || key == Key.RightShift)
             {
                 this.HideTooltip();
             }

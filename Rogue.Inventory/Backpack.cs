@@ -1,6 +1,7 @@
-﻿namespace Rogue.Items
+﻿namespace Rogue.Inventory
 {
     using Force.DeepCloner;
+    using Rogue.Items;
     using Rogue.Physics;
     using Rogue.Types;
     using System.Linq;

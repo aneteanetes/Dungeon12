@@ -1,6 +1,6 @@
 ﻿namespace Rogue
 {
-    using Rogue.Entites.Alive;
+    using Rogue.Classes;
     using System;
     using System.Collections.Generic;
     using System.IO;

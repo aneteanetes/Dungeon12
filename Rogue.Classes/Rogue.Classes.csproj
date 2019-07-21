@@ -11,6 +11,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Rogue.Entites\Rogue.Entites.csproj" />
     <ProjectReference Include="..\Rogue.Global\Rogue.Global.csproj" />
+    <ProjectReference Include="..\Rogue.Inventory\Rogue.Inventory.csproj" />
+    <ProjectReference Include="..\Rogue.Merchants\Rogue.Merchants.csproj" />
   </ItemGroup>
 
 </Project>

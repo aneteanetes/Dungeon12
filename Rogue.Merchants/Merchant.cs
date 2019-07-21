@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Merchants
 {
+    using Rogue.Inventory;
     using Rogue.Items.Enums;
     using Rogue.Items.Types;
     using System.Collections.Generic;
@@ -16,9 +17,9 @@
         {
             foreach (var category in Categories)
             {
-                category.Goods = new List<Items.Backpack>()
+                category.Goods = new List<Backpack>()
                 {
-                    new Items.Backpack(12,15)
+                    new Backpack(12,15)
                 };
 
                 foreach (var item in Enumerable.Range(0, 10))

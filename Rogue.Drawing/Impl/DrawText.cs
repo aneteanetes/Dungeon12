@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Force.DeepCloner;
 using MoreLinq;
 using Rogue.Settings;
 using Rogue.Types;
@@ -64,7 +65,7 @@ namespace Rogue.Drawing.Impl
                 if (this.InnerText.Count == 0)
                     return this.stringData;
                 else
-                    return string.Join("", this.InnerText.Select(x => x.StringData));
+                    return this.stringData + string.Join("", this.InnerText.Select(x => x.StringData));
             }
         }
 
@@ -73,9 +74,14 @@ namespace Rogue.Drawing.Impl
             get
             {
                 if (this.InnerText.Count == 0)
+                {
                     return new IDrawText[] { this };
+                }
 
-                return this.InnerText;
+                var current = this.DeepClone();
+                current.InnerText.Clear();
+
+                return new IDrawText[] { current }.Concat(this.InnerText);
             }
         }
 
@@ -122,10 +128,35 @@ namespace Rogue.Drawing.Impl
         public bool Bold { get; set; }
         public string FontPath { get; set; }
         public string FontAssembly { get; set; }
+        public bool CenterAlign { get; set; }
 
-        public void Append(IDrawText drawText)
+        public void Append(IDrawText drawText) => Append(drawText, true);
+
+        public void Append(IDrawText drawText, bool inherit = true)
         {
-            throw new NotImplementedException();
+            if (inherit)
+            {
+                drawText.FontAssembly = this.FontAssembly;
+                drawText.FontName = this.FontName;
+                drawText.FontPath = this.FontPath;
+                drawText.Size = this.Size;
+            }
+
+            this.InnerText.Add(drawText);
+        }
+
+        public void AppendNewLine(bool inherit=true)
+        {
+            var txt = new DrawText(Environment.NewLine);
+            if(inherit)
+            {
+                txt.FontAssembly = this.FontAssembly;
+                txt.FontName = this.FontName;
+                txt.FontPath = this.FontPath;
+                txt.Size = this.Size;
+            }
+
+            this.InnerText.Add(txt);
         }
 
         /// <summary>
@@ -422,5 +453,6 @@ namespace Rogue.Drawing.Impl
                 }
             }
         }
+
     }
 }

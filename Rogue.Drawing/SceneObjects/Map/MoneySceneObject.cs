@@ -8,6 +8,10 @@
 
     public class MoneySceneObject : TooltipClickableSceneObject<Money>
     {
+        public override string Cursor => "takeloot";
+
+        protected override string ClickableTooltipCursor => "takeloot";
+
         public MoneySceneObject(PlayerSceneObject playerSceneObject, Money @object, string tooltip) : base(playerSceneObject, @object, tooltip)
         {
             var amountImage = "";

@@ -1,4 +1,4 @@
-﻿namespace Rogue.Entites.Alive
+﻿namespace Rogue.Classes
 {
     using Rogue.View.Interfaces;
 

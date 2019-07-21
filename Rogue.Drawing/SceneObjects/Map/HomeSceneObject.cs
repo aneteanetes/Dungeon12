@@ -10,6 +10,10 @@
 
     public class HomeSceneObject : ClickActionSceneObject<Home>
     {
+        public override string Cursor => @object.Merchant == null
+            ? "home"
+            : "shop";
+
         private readonly GameMap gameMap;
 
         public HomeSceneObject(PlayerSceneObject playerSceneObject, Home home, string tooltip,GameMap gameMap) 
@@ -35,6 +39,6 @@
 
         protected override void StopAction() { }
 
-        protected override Key[] KeyHandles => new Key[] { Key.LeftAlt };
+        protected override Key[] KeyHandles => new Key[] { Key.LeftShift };
     }
 }

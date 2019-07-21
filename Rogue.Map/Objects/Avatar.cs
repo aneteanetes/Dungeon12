@@ -1,9 +1,8 @@
 ﻿namespace Rogue.Map.Objects
 {
-    using System;
+    using Rogue.Classes;
     using Rogue.Map.Infrastructure;
     using Rogue.Physics;
-    using Rogue.Settings;
     using Rogue.Types;
 
     [Template("@")]
@@ -13,7 +12,7 @@
 
         public override bool CameraAffect => true;
 
-        public Entites.Alive.Character Character { get; set; }
+        public Character Character { get; set; }
 
         public override string Tileset => Character.Tileset;
 

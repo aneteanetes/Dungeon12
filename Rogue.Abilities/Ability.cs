@@ -3,6 +3,7 @@
     using Rogue.Abilities.Enums;
     using Rogue.Abilities.Scaling;
     using Rogue.Abilities.Talants;
+    using Rogue.Classes;
     using Rogue.Entites.Alive;
     using Rogue.Map;
     using Rogue.Map.Objects;

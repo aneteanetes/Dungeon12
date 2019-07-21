@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Drawing.Combat
 {
+    using Rogue.Classes;
     using Rogue.Drawing.Impl;
     using Rogue.Entites;
     using Rogue.Entites.Alive;

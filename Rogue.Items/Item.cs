@@ -11,7 +11,7 @@
     /// //Вес = (УровеньПредмета — КачествоПредмета) * МультипликаторКачества * МультипликаторВидаПредмета;
     /// формирование цен бладжад
     /// </summary>
-    public abstract class Item : IDrawable
+    public abstract partial class Item : IDrawable
     {
         public string Icon { get; set; }
 

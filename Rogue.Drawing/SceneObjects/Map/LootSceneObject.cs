@@ -14,6 +14,10 @@
 
     public class LootSceneObject : TooltipClickableSceneObject<Loot>
     {
+        public override string Cursor => "takeloot";
+
+        protected override string ClickableTooltipCursor => "takeloot";
+
         public LootSceneObject(PlayerSceneObject playerSceneObject, Loot @object, string tooltip) : base(playerSceneObject, @object, tooltip)
         {
             this.Image = "Rogue.Resources.Images.Items.loot.png";

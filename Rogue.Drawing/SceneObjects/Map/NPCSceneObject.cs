@@ -17,6 +17,10 @@
 
     public class NPCSceneObject : MoveableSceneObject<NPC>
     {
+        public override string Cursor => @object.Merchant == null
+            ? "speak"
+            : "shop";
+
         public NPCSceneObject(PlayerSceneObject playerSceneObject, GameMap location, NPC mob, Rectangle defaultFramePosition)
             : base(playerSceneObject, mob, location, mob, mob.NPCEntity, defaultFramePosition)
         {
@@ -78,7 +82,7 @@
         {
         }
 
-        protected override Key[] KeyHandles => new Key[] { Key.LeftAlt };
+        protected override Key[] KeyHandles => new Key[] { Key.LeftShift };
 
         protected override Dictionary<int, (Direction dir, Vector vect, Func<Moveable, AnimationMap> anim)> DirectionMap => new Dictionary<int, (Direction, Vector, Func<Moveable, AnimationMap>)>
         {

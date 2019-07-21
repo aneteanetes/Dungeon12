@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using FastMember;
+    using Rogue.Classes;
     using Rogue.Data.Perks;
     using Rogue.DataAccess;
     using Rogue.Drawing.Impl;

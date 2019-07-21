@@ -2,6 +2,7 @@
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
     using Penumbra;
     using ProjectMercury;
     using Rogue.Resources;
@@ -268,11 +269,25 @@
                 {
                     var text = sceneObject.Text;
                     var textX = x;
+                    var textY = y;
+
+                    IDrawText prev = null;
 
                     foreach (var range in text.Data)
                     {
-                        DrawSceneText(text.Size, y, textX, range);
-                        textX += range.Length * range.LetterSpacing;
+                        DrawSceneText(text.Size, textY, textX, range);
+
+                        if (range.StringData == Environment.NewLine)
+                        {
+                            textX = x;
+                            textY += MeasureText(prev).Y;
+                        }
+                        else
+                        {
+                            textX += range.Length * range.LetterSpacing;
+                        }
+
+                        prev = range;
                     }
                 }
 

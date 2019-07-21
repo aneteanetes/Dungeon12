@@ -1,7 +1,8 @@
-﻿namespace Rogue.Entites.Alive
+﻿namespace Rogue.Classes
 {
+    using Rogue.Entites.Alive;
     using Rogue.Entites.Alive.Enums;
-    using Rogue.Entites.Items;
+    using Rogue.Inventory;
     using Rogue.Items;
     using System;
     using System.Collections.Generic;
@@ -12,31 +13,31 @@
     /// </summary>
     public abstract partial class Character : Moveable
     {
-        private List<Equipment> Equipment = new List<Equipment>();
+        //private List<Equipment> Equipment = new List<Equipment>();
 
         public Character()
         {
             this.Clothes.OnPutOn += (@new, old) =>
             {
-                if (old != null)
-                {
-                    var oldEquip = Equipment.FirstOrDefault(e => e.Item == old);
-                    oldEquip.Discard(this);
-                    Equipment.Remove(oldEquip);
-                }
+                //if (old != null)
+                //{
+                //    var oldEquip = Equipment.FirstOrDefault(e => e.Item == old);
+                //    oldEquip.Discard(this);
+                //    Equipment.Remove(oldEquip);
+                //}
 
-                var newEquip = new Equipment(@new);
-                newEquip.Apply(this);
-                Equipment.Add(newEquip);
+                //var newEquip = new Equipment(@new);
+                //newEquip.Apply(this);
+                //Equipment.Add(newEquip);
 
                 return true;
             };
 
             this.Clothes.OnPutOff += item =>
             {
-                var oldEquip = Equipment.FirstOrDefault(e => e.Item == item);
-                oldEquip.Discard(this);
-                Equipment.Remove(oldEquip);
+                //var oldEquip = Equipment.FirstOrDefault(e => e.Item == item);
+                //oldEquip.Discard(this);
+                //Equipment.Remove(oldEquip);
 
                 return true;
             };

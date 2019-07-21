@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Inventories
 {
+    using Rogue.Classes;
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
@@ -11,6 +12,7 @@
     using Rogue.Drawing.SceneObjects.Map;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Entites.Alive;
+    using Rogue.Inventory;
     using Rogue.Items;
     using Rogue.Types;
     using Rogue.View.Interfaces;

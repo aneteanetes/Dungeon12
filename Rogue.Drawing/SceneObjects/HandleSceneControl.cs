@@ -15,6 +15,8 @@
              ControlEventType.Key
         };
 
+        public virtual string Cursor { get; set; } = null;
+
         protected virtual ControlEventType[] Handles { get; } = null;
 
         protected virtual Key[] KeyHandles { get; set; } = null;
@@ -33,9 +35,21 @@
 
         public virtual void GlobalClick(PointerArgs args) { }
 
-        public virtual void Focus() { }
+        public virtual void Focus()
+        {
+            if (this.Cursor != null)
+            {
+                Global.DrawClient.SetCursor(("Cursors." + this.Cursor + ".png").PathImage());
+            }
+        }
 
-        public virtual void Unfocus() { }
+        public virtual void Unfocus()
+        {
+            if (this.Cursor != null)
+            {
+                Global.DrawClient.SetCursor("Cursors.common.png".PathImage());
+            }
+        }
 
         public virtual void KeyDown(Key key, KeyModifiers modifier, bool hold) { }
 

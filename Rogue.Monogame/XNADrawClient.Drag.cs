@@ -15,7 +15,16 @@
 
         public void Drop()
         {
-            Mouse.SetCursor(MouseCursor.Arrow);
+            Mouse.SetCursor(CurrentCursor);
+        }
+
+        private MouseCursor CurrentCursor = null;
+
+        public void SetCursor(string textureSrc)
+        {
+            var texture = TileSetByName(textureSrc);
+            CurrentCursor = MouseCursor.FromTexture2D(texture, 0, 0);
+            Mouse.SetCursor(CurrentCursor);
         }
     }
 }

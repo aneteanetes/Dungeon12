@@ -642,5 +642,10 @@
         {
             throw new NotImplementedException();
         }
+
+        public void SetCursor(string texture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

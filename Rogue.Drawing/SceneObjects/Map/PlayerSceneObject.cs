@@ -2,6 +2,7 @@
 {
     using Rogue.Abilities;
     using Rogue.Abilities.Enums;
+    using Rogue.Classes;
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
@@ -366,17 +367,17 @@
             Key.A,
             Key.W,
             Key.S,
-            Key.LeftAlt
+            Key.LeftShift
         };
 
         public override void Focus()
         {
-            base.Focus();
+            //base.Focus();
         }
 
         public override void Unfocus()
         {
-            base.Unfocus();
+            //base.Unfocus();
         }
 
         private Lazy<Ability[]> abilities;

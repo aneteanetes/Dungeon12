@@ -20,6 +20,8 @@
              ControlEventType.Key
         };
 
+        protected virtual string ClickableTooltipCursor { get; } = null;
+
         protected override Key[] KeyHandles => new Key[] { Key.LeftAlt, Key.RightAlt };
 
         public TooltipClickableSceneObject(PlayerSceneObject playerSceneObject, T @object, string tooltip) : base(playerSceneObject, @object, tooltip)
@@ -49,7 +51,8 @@
                 {
                     CacheAvailable = false,
                     AbsolutePosition = this.AbsolutePosition,
-                    Layer = 1000
+                    Layer = 1000,
+                    Cursor = ClickableTooltipCursor
                 };
 
                 var boundInfo = new TooltipBoundInfo
@@ -150,13 +153,22 @@
             }
             protected override ControlEventType[] Handles => new ControlEventType[] { ControlEventType.Click, ControlEventType.Focus };
 
-            public override void Focus() => Opacity = 0.5;
+            public override void Focus()
+            {
+                Opacity = 0.5;
+                base.Focus();
+            }
 
-            public override void Unfocus() => Opacity = 0.8;
+            public override void Unfocus()
+            {
+                Opacity = 0.8;
+                base.Unfocus();
+            }
 
             public override void Click(PointerArgs args)
             {
                 click?.Invoke();
+                base.Unfocus();
             }
         }
     }

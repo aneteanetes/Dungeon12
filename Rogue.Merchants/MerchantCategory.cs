@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Merchants
 {
+    using Rogue.Inventory;
     using Rogue.Items;
     using System.Collections.Generic;
 

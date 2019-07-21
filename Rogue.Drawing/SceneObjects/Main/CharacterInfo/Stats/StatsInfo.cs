@@ -1,9 +1,8 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo
 {
+    using Rogue.Classes;
     using Rogue.Drawing.Impl;
     using Rogue.Drawing.SceneObjects.Base;
-    using Rogue.Entites.Alive;
-    using Rogue.Map.Objects;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -16,7 +15,7 @@
 
         private Character character;
 
-        public StatsInfo(Entites.Alive.Character character)
+        public StatsInfo(Character character)
         {
             this.Image = "Rogue.Resources.Images.ui.stats.png";
             this.Width = 6;

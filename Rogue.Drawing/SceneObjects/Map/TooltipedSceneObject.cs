@@ -1,6 +1,7 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Map
 {
     using Rogue.Drawing.GUI;
+    using Rogue.Drawing.Impl;
     using Rogue.Drawing.SceneObjects.Base;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Entites.Alive;
@@ -32,30 +33,51 @@
 
         protected string TooltipText;
 
-        public override void Focus() => ShowTooltip();
+        protected DrawText TooltipDrawText;
+
+        public override void Focus()
+        {
+            base.Focus();
+            ShowTooltip();
+        }
 
         protected void ShowTooltip()
         {
-            if (!string.IsNullOrEmpty(TooltipText))
+            if (!string.IsNullOrEmpty(TooltipText) || TooltipDrawText!=null)
             {
                 if (aliveTooltip != null)
                 {
                     HideTooltip();
                 }
 
-                aliveTooltip = new Tooltip(TooltipText, new Point(this.ComputedPosition.X, this.ComputedPosition.Y - 0.8), TooltipTextColor)
+                if (TooltipText != null)
                 {
-                    CacheAvailable = false,
-                    AbsolutePosition = this.AbsolutePosition,
-                    Layer = 1000
-                };
+                    TooltipDrawText = new DrawText(TooltipText, TooltipTextColor)
+                    {
+                        Size = 12,
+                        FontName = "Montserrat"
+                    };
+                }
+
+                var tooltipPosition = new Point(this.ComputedPosition.X, this.ComputedPosition.Y - 0.8);
+
+                aliveTooltip = CreateTooltip(tooltipPosition) ?? new Tooltip(TooltipDrawText, tooltipPosition);
+                aliveTooltip.CacheAvailable = false;
+                aliveTooltip.AbsolutePosition = this.AbsolutePosition;
+                aliveTooltip.Layer = 100;
 
                 this.Destroy += () => aliveTooltip?.Destroy?.Invoke();
                 this.ShowEffects(new List<ISceneObject>() { aliveTooltip });
             }
         }
 
-        public override void Unfocus() => HideTooltip();
+        protected virtual Tooltip CreateTooltip(Point position) => null;
+
+        public override void Unfocus()
+        {
+            base.Unfocus();
+            HideTooltip();
+        }
 
         protected void HideTooltip()
         {

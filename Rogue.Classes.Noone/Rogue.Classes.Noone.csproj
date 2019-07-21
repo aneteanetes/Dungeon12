@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Rogue.Classes\Rogue.Classes.csproj" />
     <ProjectReference Include="..\Rogue.Drawing\Rogue.Drawing.csproj" />
     <ProjectReference Include="..\Rogue.Entites\Rogue.Entites.csproj" />
   </ItemGroup>

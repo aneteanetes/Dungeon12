@@ -1,4 +1,4 @@
-﻿namespace Rogue.Entites.Alive
+﻿namespace Rogue.Classes
 {
     using Rogue.Items;
     using Rogue.Merchants;

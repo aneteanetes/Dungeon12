@@ -14,12 +14,16 @@
         public override bool Interface => true;
 
         public Tooltip(string text, Point position, IDrawColor drawColor)
+            : this(new DrawText(text, drawColor ?? new DrawColor(ConsoleColor.White))
+            {
+                Size = 12,
+                FontName = "Montserrat"
+            }, position)
+        { }
+
+        public Tooltip(IDrawText drawText, Point position)
         {
-            var drawText = new DrawText(text, drawColor ?? new DrawColor(ConsoleColor.White)) { Size = 12 };
-            drawText.FontName = "Montserrat";
-
             Opacity = 0.8;
-
 
             var textSize = this.MeasureText(drawText);
 

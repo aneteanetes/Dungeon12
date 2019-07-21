@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Drawing.SceneObjects.UI
 {
+    using Rogue.Classes;
     using Rogue.Entites.Alive;
 
     public abstract class ResourceBar<T> : ResourceBar

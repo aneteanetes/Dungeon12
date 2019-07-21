@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Force.DeepCloner;
+    using Rogue.Classes;
     using Rogue.Control.Events;
     using Rogue.Control.Pointer;
     using Rogue.Drawing.SceneObjects.Inventories;

@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Drawing.SceneObjects.UI
 {
+    using Rogue.Classes;
     using Rogue.Drawing.Impl;
     using Rogue.Entites.Alive;
     using Rogue.View.Interfaces;

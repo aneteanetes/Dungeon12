@@ -1,5 +1,6 @@
-﻿namespace Rogue.Items
+﻿namespace Rogue.Inventory
 {
+    using Rogue.Items;
     using Rogue.Items.Enums;
     using System;
 
@@ -22,7 +23,7 @@
 
             switch (item.Kind)
             {
-                case Enums.ItemKind.Weapon:
+                case ItemKind.Weapon:
                     if (OnPutOn(item, this.Weapon))
                     {
                         wasItem = this.Weapon;
@@ -34,7 +35,7 @@
                         success = false;
                     }
                     break;
-                case Enums.ItemKind.Helm:
+                case ItemKind.Helm:
                     if (OnPutOn(item, this.Helm))
                     {
                         wasItem = this.Helm;
@@ -46,7 +47,7 @@
                         success = false;
                     }
                     break;
-                case Enums.ItemKind.Armor:
+                case ItemKind.Armor:
                     if (OnPutOn(item, this.Armor))
                     {
                         wasItem = this.Armor;
@@ -58,7 +59,7 @@
                         success = false;
                     }
                     break;
-                case Enums.ItemKind.Boots:
+                case ItemKind.Boots:
                     if (OnPutOn(item, this.Boots))
                     {
                         wasItem = this.Boots;
@@ -70,7 +71,7 @@
                         success = false;
                     }
                     break;
-                case Enums.ItemKind.OffHand:
+                case ItemKind.OffHand:
                     if (OnPutOn(item, this.OffHand))
                     {
                         wasItem = this.OffHand;

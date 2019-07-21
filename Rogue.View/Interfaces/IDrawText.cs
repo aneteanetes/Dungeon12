@@ -39,5 +39,7 @@
         void SetText(string value);
 
         bool Bold { get; set; }
+
+        bool CenterAlign { get; }
     }
 }

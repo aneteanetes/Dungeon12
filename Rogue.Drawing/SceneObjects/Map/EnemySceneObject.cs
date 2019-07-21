@@ -25,6 +25,8 @@
         private readonly Mob mob;
         private readonly GameMap location;
 
+        public override string Cursor => "attackmeele";
+
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
             ControlEventType.Click,
@@ -36,7 +38,7 @@
         {
             Key.Q,
             Key.E,
-            Key.LeftAlt
+            Key.LeftShift
         };
 
         public EnemySceneObject(PlayerSceneObject playerSceneObject, GameMap location, Mob mob, Rectangle defaultFramePosition) 

@@ -1,16 +1,19 @@
-﻿using Rogue.Control.Events;
-using Rogue.Control.Keys;
-using Rogue.Control.Pointer;
-using Rogue.Types;
-using Rogue.View.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Rogue.Drawing.SceneObjects.UI
+﻿namespace Rogue.Drawing.SceneObjects.UI
 {
-    public abstract class DraggableControl : HandleSceneControl
+    using Rogue.Control.Events;
+    using Rogue.Control.Keys;
+    using Rogue.Control.Pointer;
+    using Rogue.Drawing.SceneObjects.Map;
+    using Rogue.Types;
+    using Rogue.View.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    public abstract class DraggableControl : TooltipedSceneObject
     {
+        public DraggableControl() : base(null, null)
+        {
+        }
     }
 
     public abstract class DraggableControl<T> : DraggableControl

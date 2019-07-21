@@ -589,6 +589,11 @@
             throw new NotImplementedException();
         }
 
+        public void SetCursor(string texture)
+        {
+            throw new NotImplementedException();
+        }
+
         public static SKTypeface CommonFont
         {
             get

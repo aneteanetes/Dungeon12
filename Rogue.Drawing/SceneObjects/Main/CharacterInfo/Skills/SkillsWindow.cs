@@ -1,6 +1,7 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo
 {
     using Rogue.Abilities;
+    using Rogue.Classes;
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
     using Rogue.Drawing.Impl;
