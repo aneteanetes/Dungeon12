@@ -49,6 +49,7 @@
 
         public override void Focus()
         {
+            Global.AudioPlayer.Effect("focus");
             this.Image = "Rogue.Resources.Images.ui.button_f.png";
             //this.textControl.Text.Paint(ActiveColor, true);
         }

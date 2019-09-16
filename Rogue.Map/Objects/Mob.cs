@@ -46,6 +46,8 @@
 
         public Point AttackRangeMultiples { get; set; }
 
+        public string DamageSound { get; set; }
+
         public MapObject AttackRange => new MapObject
         {
             Position = new PhysicalPosition

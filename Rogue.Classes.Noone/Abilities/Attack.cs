@@ -32,6 +32,9 @@
 
         protected override void Use(GameMap gameMap, Avatar avatar, Noone @class)
         {
+
+            Global.AudioPlayer.Effect("attack");
+
             var rangeObject = new MapObject
             {
                 Position = new Physics.PhysicalPosition
@@ -53,6 +56,8 @@
                 var value = (long)this.Value;
 
                 enemy.Enemy.HitPoints -= value;
+
+                Global.AudioPlayer.Effect(enemy.DamageSound ?? "bat");
 
                 if (enemy.Enemy.HitPoints <= 0)
                 {

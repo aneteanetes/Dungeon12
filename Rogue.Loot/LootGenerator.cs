@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Loot
 {
+    using Rogue.Classes;
     using Rogue.Items;
     using Rogue.Items.Enums;
     using Rogue.Items.Types;
@@ -26,51 +27,36 @@
                             Width = 32,
                             Height = 96
                         },
-                        Name = "Тренировочный меч",
+                        Name = "Меч новичка",
                         InventorySize = new Types.Point(1, 3),
-                        Rare =  Rarity.Rare
-                    },
-                    new Boots()
-                    {
-                        Tileset = "Rogue.Resources.Images.Items.Boots.Leather.VampireBoots.png",
-                        TileSetRegion = new Types.Rectangle()
+                        Rare =  Rarity.Set,
+                        BaseStats=new System.Collections.Generic.List<Equipment>()
                         {
-                            X = 0,
-                            Y = 0,
-                            Width = 64,
-                            Height = 64
+                            new BaseStatEquip()
+                            {
+                                StatName="Урон",
+                                StatProperties=new System.Collections.Generic.List<string>() { "MinDMG","MaxDMG" },
+                                StatValues=new System.Collections.Generic.List<long>(){ 1,3 },
+                                Color= new DrawColor(System.ConsoleColor.DarkYellow)
+                            },
+                            new BaseStatEquip()
+                            {
+                                StatName="Сила атаки",
+                                StatProperties= "AttackPower".InList(),
+                                StatValues=5L.InList(),
+                                Color= new DrawColor(System.ConsoleColor.Cyan)
+                            }
                         },
-                        Name = "Вампирские сапоги",
-                        InventorySize = new Types.Point(2, 2),
-                        Rare = Rarity.Epic
-                    },
-                    new Helm()
-                    {
-                        Tileset = "Rogue.Resources.Images.Items.Helms.Plate.DragonHelm.png",
-                        TileSetRegion = new Types.Rectangle()
+                        Additional=new MagicFindEquip().InList<Equipment>(),
+                        ClassStats=new System.Collections.Generic.List<Equipment>()
                         {
-                            X = 0,
-                            Y = 0,
-                            Width = 64,
-                            Height = 64
+                            new ParryEquip(),
                         },
-                        Name = "Драконий шлем",
-                        InventorySize = new Types.Point(2, 2),
-                        Rare = Rarity.Uncommon
-                    },
-                    new Armor()
-                    {
-                        Tileset = "Rogue.Resources.Images.Items.Chest.Mail.Nordic.png",
-                        TileSetRegion = new Types.Rectangle()
+                        ItemSetName="Набор новичка",
+                        ItemSet=new System.Collections.Generic.List<Equipment>()
                         {
-                            X = 0,
-                            Y = 0,
-                            Width = 64,
-                            Height = 64
-                        },
-                        Name = "Нордический доспех",
-                        InventorySize = new Types.Point(2, 2),
-                        Rare = Rarity.Watered
+                            new NoviceEquip()
+                        }
                     },
                     new OffHand()
                     {
@@ -82,12 +68,92 @@
                             Width = 64,
                             Height = 64
                         },
-                        Name = "Щит дракона",
+                        Name = "Щит Новичка",
                         InventorySize = new Types.Point(2, 4),
-                        Rare = Rarity.Artefact
+                        Rare = Rarity.Set,
+                        BaseStats=new System.Collections.Generic.List<Equipment>()
+                        {
+                            new BaseStatEquip()
+                            {
+                                StatName="Защита",
+                                StatProperties= "Defence".InList(),
+                                StatValues=3L.InList(),
+                                Color= new DrawColor(System.ConsoleColor.DarkCyan)
+                            },
+                            new BaseStatEquip()
+                            {
+                                StatName="Барьер",
+                                StatProperties= "Barrier".InList(),
+                                StatValues=2L.InList(),
+                                Color= new DrawColor(System.ConsoleColor.DarkMagenta)
+                            }
+                        },
+                        ClassStats=new System.Collections.Generic.List<Equipment>()
+                        {
+                            new BlockEquip(),
+                        },
+                        ItemSetName="Набор новичка",
+                        ItemSet=new System.Collections.Generic.List<Equipment>()
+                        {
+                            new NoviceEquip()
+                        }
                     }
                 }
             };
+        }
+
+        private class ParryEquip : Equipment
+        {
+            public override string Title => $"+12 Паррирование";
+
+            public void Apply(Character character)
+            {
+
+            }
+
+            public void Discard(Character character)
+            {
+
+            }
+
+            protected override void CallApply(dynamic obj) => this.Apply(obj);
+            protected override void CallDiscard(dynamic obj) => this.Discard(obj);
+        }
+
+        private class NoviceEquip : Equipment
+        {
+            public override string Title => $"+5 Паррирование";
+
+            public void Apply(Character character)
+            {
+
+            }
+
+            public void Discard(Character character)
+            {
+
+            }
+
+            protected override void CallApply(dynamic obj) => this.Apply(obj);
+            protected override void CallDiscard(dynamic obj) => this.Discard(obj);
+        }
+
+        public class BlockEquip : Equipment
+        {
+            public override string Title => $"Блок: 8";
+
+            public void Apply(Character character)
+            {
+
+            }
+
+            public void Discard(Character character)
+            {
+
+            }
+
+            protected override void CallApply(dynamic obj) => this.Apply(obj);
+            protected override void CallDiscard(dynamic obj) => this.Discard(obj);
         }
 
         public static Weapon GenerateWeapon() => new Weapon()

@@ -1,5 +1,6 @@
 ﻿namespace Rogue
 {
+    using Rogue.Audio;
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
@@ -27,6 +28,8 @@
                 freezeWorldObject = value;
             }
         }
+
+        public static IAudioPlayer AudioPlayer { get; set; }
 
         public static bool BlockSceneControls { get; set; }
 

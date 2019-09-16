@@ -3,6 +3,7 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
+    using Microsoft.Xna.Framework.Media;
     using Penumbra;
     using ProjectMercury;
     using ProjectMercury.Renderers;
@@ -63,6 +64,7 @@
 
             penumbra.Lights.Add(SunLight);
 
+            Global.AudioPlayer = this;
             Global.Time.OnMinute += CalculateSunlight;
 
             myRenderer= new SpriteBatchRenderer
@@ -190,6 +192,14 @@
                 SunLight.Rotation += 0.1f;
             }
 
+            if(c.IsKeyDown(Keys.OemPlus))
+            {
+                MediaPlayer.Volume += .01f;
+            }
+            if (c.IsKeyDown(Keys.OemMinus))
+            {
+                MediaPlayer.Volume -= .01f;
+            }
 
             if (c.IsKeyDown(Keys.Left))
             {

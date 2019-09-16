@@ -22,6 +22,13 @@
             Global.DrawClient.SetCursor("Cursors.common.png".PathImage());
 
 
+            Global.AudioPlayer.Music("maintheme", new Audio.AudioOptions()
+            {
+                Repeat = true,
+                Volume = 0.3
+            });
+
+
             this.AddObject(new Background());
             this.AddObject(new ImageControl("Rogue.Resources.Images.d12textM.png")
             {
@@ -53,6 +60,12 @@
                     this.PlayerAvatar.Character.Name = "Ваш персонаж";
                     this.PlayerAvatar.Character.Race = Race.Elf;
                     this.PlayerAvatar.Character.Add<RacePerk>();
+
+                    Global.AudioPlayer.Music("town", new Audio.AudioOptions()
+                    {
+                        Repeat = true,
+                        Volume = 0.3
+                    });
 
                     this.Switch<Game.Main>();
                 }

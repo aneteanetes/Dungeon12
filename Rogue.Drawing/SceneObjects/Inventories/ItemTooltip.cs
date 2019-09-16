@@ -77,7 +77,7 @@
 
                 if (item.ItemSetName != null)
                 {
-                    itemSet.Add(new DrawText(item.ItemSetName, new DrawColor(System.ConsoleColor.Green)));
+                    itemSet.Add(new DrawText(item.ItemSetName, new DrawColor(System.ConsoleColor.Green)).Montserrat());
                     itemSet.AddRange(item.ItemSet.Select(MapEquipment));
                 }
 

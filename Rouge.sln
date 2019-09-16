@@ -97,9 +97,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectMercury", "ProjectMe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectMercury", "External\ProjectMercury\ProjectMercury.csproj", "{356DC605-4A8A-4B5B-9471-CC299D6324FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Inventory", "Rogue.Inventory\Rogue.Inventory.csproj", "{8D02159E-7E61-4074-9FAA-5796522BF957}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Inventory", "Rogue.Inventory\Rogue.Inventory.csproj", "{8D02159E-7E61-4074-9FAA-5796522BF957}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Equipment", "Rogue.Equipment\Rogue.Equipment.csproj", "{951FB515-3DC0-4F25-9120-80B197F43543}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Audio", "Rogue.Audio\Rogue.Audio.csproj", "{15F888DE-9F7F-427E-B662-93817A862BE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -459,6 +461,14 @@ Global
 		{951FB515-3DC0-4F25-9120-80B197F43543}.Release|Any CPU.Build.0 = Release|Any CPU
 		{951FB515-3DC0-4F25-9120-80B197F43543}.Release|x86.ActiveCfg = Release|Any CPU
 		{951FB515-3DC0-4F25-9120-80B197F43543}.Release|x86.Build.0 = Release|Any CPU
+		{15F888DE-9F7F-427E-B662-93817A862BE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15F888DE-9F7F-427E-B662-93817A862BE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15F888DE-9F7F-427E-B662-93817A862BE3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{15F888DE-9F7F-427E-B662-93817A862BE3}.Debug|x86.Build.0 = Debug|Any CPU
+		{15F888DE-9F7F-427E-B662-93817A862BE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15F888DE-9F7F-427E-B662-93817A862BE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15F888DE-9F7F-427E-B662-93817A862BE3}.Release|x86.ActiveCfg = Release|Any CPU
+		{15F888DE-9F7F-427E-B662-93817A862BE3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
