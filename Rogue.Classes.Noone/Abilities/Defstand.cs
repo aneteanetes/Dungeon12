@@ -78,6 +78,8 @@
 
         public override Location CastLocation => Location.Combat;
 
+        public override AbilityTargetType TargetType => AbilityTargetType.SelfTarget;
+
         public override string Description => $"Позволяет укрыть за щитом.{Environment.NewLine}Пока вы укрыты за щитом уменьшает {Environment.NewLine}урона на кол-во блока.";
                                             //$"Атакует врага нанося двойной урон {Environment.NewLine} оружием в правой руке. {Environment.NewLine} Может наносить критический урон.";
 

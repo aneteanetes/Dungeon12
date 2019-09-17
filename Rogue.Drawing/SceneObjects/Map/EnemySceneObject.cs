@@ -331,6 +331,9 @@
 
         private void UseAbility()
         {
+            if (ability == default)
+                return;
+
             if (ability.TargetType == AbilityTargetType.Target || ability.TargetType == AbilityTargetType.TargetAndNonTarget)
             {
                 var avatar = playerSceneObject.Avatar;

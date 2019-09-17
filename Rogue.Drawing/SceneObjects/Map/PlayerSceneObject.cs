@@ -66,6 +66,11 @@
             player.StateAdded += s => RedrawStates(s);
             player.StateRemoved += s => RedrawStates(s, true);
             AddBuffs();
+
+            Global.Time
+                .After(8)
+                .Do(() => RemoveTorchlight())
+                .Auto();
         }
 
         public double Speed => Avatar.MovementSpeed;
@@ -394,9 +399,10 @@
 
         private TorchlightInHandsSceneObject torchlight;
         private bool torch = false;
+
         public void Torchlight()
         {
-            if (!torch)
+            if (!torch && (Global.Time.Hours > 17 || Global.Time.Hours<8))
             {
                 AddTorchlight();
             }

@@ -108,6 +108,10 @@
     {
         Func<int> hoursSource;
 
+        /// <summary>
+        /// Запускать автоматически
+        /// </summary>
+        /// <returns></returns>
         public TimeTrigger Auto()
         {
             Global.Time.OnMinute += Trigger;
@@ -156,6 +160,9 @@
             return this;
         }
 
+        /// <summary>
+        /// Запустить
+        /// </summary>
         public void Trigger()
         {
             foreach (var binding in Bindings)

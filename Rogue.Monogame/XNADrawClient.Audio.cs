@@ -20,10 +20,10 @@
     {
         public void Music(string name, AudioOptions audioOptions = null)
         {
-            var song = LoadSong(name);
-            MediaPlayer.Play(song);
-            MediaPlayer.IsRepeating = audioOptions?.Repeat ?? false;
-            MediaPlayer.Volume = .5f;
+            //var song = LoadSong(name);
+            //MediaPlayer.Play(song);
+            //MediaPlayer.IsRepeating = audioOptions?.Repeat ?? false;
+            //MediaPlayer.Volume = (float)(audioOptions?.Volume ?? .5);
         }
 
         public void Effect(string effect, AudioOptions audioOptions = null)
