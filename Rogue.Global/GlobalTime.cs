@@ -6,27 +6,27 @@
 
     public class GlobalTime
     {
-        private System.Timers.Timer Timer;
+        private System.Timers.Timer internalTimer;
 
         public GlobalTime()
         {
-            Timer = new System.Timers.Timer
+            internalTimer = new System.Timers.Timer
             {
                 Interval = 1
             };
-            Timer.Elapsed += Time;
-            Timer.Start();
+            internalTimer.Elapsed += Time;
+            internalTimer.Start();
         }
 
         /// <summary>
         /// Остановить время
         /// </summary>
-        internal void Pause() => this.Timer.Stop();
+        internal void Pause() => this.internalTimer.Stop();
 
         /// <summary>
         /// Продолжить время
         /// </summary>
-        internal void Resume() => this.Timer.Start();
+        internal void Resume() => this.internalTimer.Start();
 
         public int Hours { get; private set; } = 0;
 
@@ -61,7 +61,19 @@
         public Action OnMinute { get; set; }
 
         public static implicit operator string(GlobalTime globalTime) => globalTime.ToString();
-        
+
+        /// <summary>
+        /// Таймер
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public TimerTrigger Timer(string name) => new TimerTrigger(name);
+
+        /// <summary>
+        /// Действие после времени
+        /// </summary>
+        /// <param name="hours"></param>
+        /// <returns></returns>
         public TimeTrigger After(int hours) => new TimeTrigger(hours);
 
         public Time Create(int hours = 0, int minutes = 0, int days = 0, int years = 0)
@@ -104,6 +116,98 @@
         }
     }
 
+    public class TimerTrigger : IDisposable
+    {
+        System.Timers.Timer timer;
+
+        private readonly string name;
+
+        private static readonly HashSet<string> aliveTimers = new HashSet<string>();
+
+        internal TimerTrigger(string name)
+        {
+            this.name = name;
+        }
+
+        /// <summary>
+        /// Существует ли таймер
+        /// </summary>
+        public bool IsAlive => aliveTimers.Contains(this.name);
+
+        /// <summary>
+        /// Каждые N времени
+        /// </summary>
+        /// <param name="intervalMs"></param>
+        /// <returns></returns>
+        public TimerTrigger Each(double intervalMs)
+        {
+            timer = new System.Timers.Timer(intervalMs)
+            {
+                AutoReset = false
+            };
+
+            return this;
+        }
+
+        /// <summary>
+        /// Действие
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public TimerTrigger Do(Action action)
+        {
+            timer.Elapsed += (s, e) =>
+            {
+                action?.Invoke();
+                if (!timer.AutoReset)
+                {
+                    this.Dispose();
+                }
+            };
+
+            return this;
+        }
+
+        /// <summary>
+        /// Постоянно повторять
+        /// </summary>
+        /// <returns></returns>
+        public TimerTrigger Repeat()
+        {
+            timer.AutoReset = true;
+            return this;
+        }
+
+        /// <summary>
+        /// Запускать автоматически
+        /// </summary>
+        /// <returns></returns>
+        public TimerTrigger Auto()
+        {
+            aliveTimers.Add(name);
+            timer.Start(); //обдумать ещё
+            return this;
+        }
+
+        public void StopDestroy()
+        {
+            timer.Stop();
+            this.Dispose();
+        }
+
+        /// <summary>
+        /// Запустить сейчас
+        /// </summary>
+        public void Trigger() => Auto();
+
+        public void Dispose()
+        {
+            timer?.Dispose();
+            aliveTimers.Remove(this.name);
+        }
+    }
+
+
     public class TimeTrigger
     {
         Func<int> hoursSource;
@@ -118,7 +222,7 @@
             return this;
         }
 
-        public TimeTrigger(int hours) => BindHours(hours);
+        internal TimeTrigger(int hours) => BindHours(hours);
 
         public TimeTrigger After(int hours)
         {

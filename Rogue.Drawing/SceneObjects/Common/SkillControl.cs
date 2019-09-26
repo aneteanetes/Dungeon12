@@ -9,11 +9,13 @@
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
+    using Rogue.Drawing.GUI;
     using Rogue.Drawing.SceneObjects.Base;
     using Rogue.Drawing.SceneObjects.Dialogs.NPC;
     using Rogue.Drawing.SceneObjects.Map;
     using Rogue.Map;
     using Rogue.Map.Objects;
+    using Rogue.Types;
     using Rogue.View.Interfaces;
 
     public class SkillControl : TooltipedSceneObject
@@ -52,6 +54,15 @@
             this.gameMap = gameMap;
             this.ability = ability;
 
+            if (abilityPosition == AbilityPosition.E)
+            {
+                key = Key.E;
+            }
+            if (abilityPosition == AbilityPosition.Q)
+            {
+                key = Key.Q;
+            }
+
             if (ability == null)
             {
                 empty = true;
@@ -82,7 +93,7 @@
 
         private string SquareTexture(bool focus)
         {
-            if(empty)
+            if(empty || !abilControl.Visible)
                 return $"Rogue.Resources.Images.ui.square_d.png";
 
             var big = IsBig
@@ -124,7 +135,8 @@
                             img = $"Rogue.Resources.Images.ui.info.png";
                             break;
                         default:
-                            this.TooltipText = ability.Name;
+                            this.TooltipText = string.Empty;
+                            this.Image = SquareTexture(false);
                             abilControl.Visible = false;
                             break;
                     }
@@ -137,6 +149,12 @@
                     this.TooltipText = ability.Name;
                     abilControl.Visible = true;
                     abilControl.Image = this.ability.Image;
+                    this.Image = SquareTexture(false);
+                }
+
+                if (holds || highlight || infocus)
+                {
+                    this.Image = SquareTexture(true);
                 }
 
                 return image;
@@ -145,6 +163,8 @@
         }
         
         private bool holds = false;
+
+        private bool highlight = false;
 
         private void GlobalSafeClick(PointerArgs args)
         {
@@ -193,6 +213,7 @@
             else
             {
                 holds = true;
+                highlight = true;
             }
         }
 
@@ -200,7 +221,7 @@
         {
             var t = new System.Timers.Timer(200);
             t.AutoReset = false;
-            t.Elapsed += (x, y) => this.Image = SquareTexture(false);
+            t.Elapsed += (x, y) => highlight = false;
             t.Start();
         }
 
@@ -216,21 +237,26 @@
                 ability.Release(gameMap, avatar);
                 this.Image = SquareTexture(false);
                 holds = false;
+                highlight = false;
             }
         }
 
+        private bool infocus = false;
+
         public override void Focus()
         {
-            if (!SafeZoneInvisible)
-                this.Image = SquareTexture(true);
+            this.infocus = true;
+            //if (!SafeZoneInvisible)
+            //    this.Image = SquareTexture(true);
 
             base.Focus();
         }
 
         public override void Unfocus()
         {
-            if (!SafeZoneInvisible)
-                this.Image = SquareTexture(false);
+            this.infocus = false;
+            //if (!SafeZoneInvisible)
+            //    this.Image = SquareTexture(false);
 
             base.Unfocus();
         }
@@ -254,7 +280,14 @@
                 if (this.ability.CastAvailable(avatar))
                 {
                     this.ability.Cast(gameMap, avatar);
+                    this.highlight = true;
                     this.Image = SquareTexture(true);
+                }
+                else
+                {
+                    var pos = new Point(player.ComputedPosition.X, player.ComputedPosition.Y);
+                    var effect = new PopupString("Невозможно использовать способность!", ConsoleColor.White, pos).InList<ISceneObject>();
+                    this.ShowEffects(effect);
                 }
             }
         }

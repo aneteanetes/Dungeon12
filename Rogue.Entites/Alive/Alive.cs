@@ -7,8 +7,22 @@
     {
         public int Level { get; set; }
 
-        public long HitPoints { get; set; }
-
+        private long hitPoints;
+        public long HitPoints
+        {
+            get => hitPoints <= 0 ? 0 : hitPoints;
+            set
+            {
+                hitPoints = value;
+                if (hitPoints <= 0)
+                {
+                    Dead = true;
+                }
+            }
+        }
+        
         public long MaxHitPoints { get; set; }
+
+        public bool Dead { get; private set; } = false;
     }
 }

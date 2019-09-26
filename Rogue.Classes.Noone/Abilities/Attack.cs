@@ -32,7 +32,6 @@
 
         protected override void Use(GameMap gameMap, Avatar avatar, Noone @class)
         {
-
             Global.AudioPlayer.Effect("attack");
 
             var rangeObject = new MapObject

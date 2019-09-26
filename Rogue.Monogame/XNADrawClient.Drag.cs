@@ -11,7 +11,10 @@
         public void Drag(ISceneObject @object, ISceneObject area = null)
         {
             dragging = true;
-            var texture = TileSetByName(@object.Image);            
+            var texture = TileSetByName(@object.Image);
+            if (texture == default)
+                return;
+
             var cur = MouseCursor.FromTexture2D(texture, 0, 0);
             Mouse.SetCursor(cur);
         }
@@ -27,6 +30,9 @@
         public void SetCursor(string textureSrc)
         {
             var texture = TileSetByName(textureSrc);
+            if (texture == default)
+                return;
+
             CurrentCursor = MouseCursor.FromTexture2D(texture, 0, 0);
             if (!dragging)
             {

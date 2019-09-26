@@ -8,6 +8,8 @@
 
     public class PhysicalObject
     {
+        public Guid Uid { get; set; } = Guid.NewGuid();
+
         public virtual PhysicalSize Size { get; set; }
 
         public virtual PhysicalPosition Position { get; set; }
@@ -146,7 +148,17 @@
             return null;
         }
 
-        public bool Exists(T physicalObject) => Query(physicalObject).Nodes.Any(node => node.IntersectsWith(physicalObject));
+        public bool Exists(T physicalObject)
+        {
+            try
+            {
+                return Query(physicalObject).Nodes.Any(node => node.IntersectsWith(physicalObject));
+            }
+            catch (InvalidOperationException)
+            {
+                return true;
+            }
+        }
 
         public List<T> Query(T physicalObject, bool multiple)
         {

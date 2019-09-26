@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="Images\Abilities\Defstand\" />
+    <Folder Include="Images\Abilities\ElementalShield\" />
   </ItemGroup>
 
 </Project>

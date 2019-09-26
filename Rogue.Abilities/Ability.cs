@@ -106,6 +106,8 @@
 
         public virtual double Value => 0;
 
+        public int Level { get; set; } = 1;
+
         public virtual bool Hold => false;
 
         public virtual void Release(GameMap map, Avatar avatar) { }
@@ -141,30 +143,43 @@
     /// </summary>
     /// <typeparam name="TClass">Класс которому принадлежит способность</typeparam>
     /// <typeparam name="TTalants">Тип талантов этой способности</typeparam>
-    public abstract class Ability<TClass, TTalants> : Ability
+    public abstract class Ability<TClass, TTalants> : Ability<TClass>
         where TClass: Character
-        where TTalants : TalantTree
+        where TTalants : TalantTree<TClass>, new()
     {
-        /// <summary>
-        /// Скастовать способность
-        /// </summary>
-        /// <param name="class"></param>
-        /// <param name="talants"></param>
-        public void Cast(TClass @class, TTalants talants)
+        public TTalants TalantTree { get; set; } = new TTalants();
+        
+        public override bool CastAvailable(Avatar avatar)
         {
-            if (CastAvailable(@class, talants))
-                InternalCast(@class, talants);
+            if (avatar.Character is TClass @class)
+            {
+                var @base = CanUse(@class);
+                var talants = TalantTree.CanUse(@class,this);
+
+                return @base && talants;
+            }
+
+            return false;
         }
 
-        protected abstract void InternalCast(TClass @class, TTalants talants);
+        public override void Cast(GameMap map, Avatar avatar)
+        {
+            if (avatar.Character is TClass @class)
+            {
+                OnCast?.Invoke();
+                TalantTree.Use(map, avatar, @class, this.Use,this);
+                OnCastEnd?.Invoke();
+            }
+        }
 
-        /// <summary>
-        /// Проверить может ли способность выполнена
-        /// </summary>
-        /// <param name="class"></param>
-        /// <param name="talants"></param>
-        /// <returns></returns>
-        public abstract bool CastAvailable(TClass @class, TTalants talants);
+        public override void Release(GameMap map, Avatar avatar)
+        {
+            if (avatar.Character is TClass @class)
+            {
+                TalantTree.Dispose(map, avatar, @class, this.Dispose,this);
+                OnCastRelease?.Invoke();
+            }
+        }
     }
 
     /// <summary>

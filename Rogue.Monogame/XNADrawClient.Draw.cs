@@ -161,6 +161,9 @@
         public Types.Point MeasureImage(string image)
         {
             var img = TileSetByName(image);
+            if (img == default)
+                return new Types.Point();
+
             return new Types.Point()
             {
                 X = img.Width,
@@ -183,11 +186,19 @@
         private Dictionary<string, Rect> PosCahce = new Dictionary<string, Rect>();
         private static readonly Dictionary<string, Texture2D> tilesetsCache = new Dictionary<string, Texture2D>();
 
+        /// <summary>
+        /// TODO: нужно логирование что бы игра не падала но можно было понять причину сбоя
+        /// </summary>
+        /// <param name="tilesetName"></param>
+        /// <returns></returns>
         private Texture2D TileSetByName(string tilesetName)
         {
             if (!tilesetsCache.TryGetValue(tilesetName, out var bitmap))
             {
                 var stream = ResourceLoader.Load(tilesetName, tilesetName);
+                if (stream == default)
+                    return default;
+
                 bitmap = Texture2D.FromStream(GraphicsDevice, stream);
 
                 tilesetsCache.TryAdd(tilesetName, bitmap);
@@ -313,6 +324,8 @@
         private void DrawSceneImage(ISceneObject sceneObject, double y, double x, bool force)
         {
             var image = TileSetByName(sceneObject.Image);
+            if (image == default)
+                return;
 
             if (force || !TileSetCache.TryGetValue(sceneObject.Uid, out Rect tileRegion))
             {
