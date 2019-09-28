@@ -86,7 +86,7 @@
             base.KeyDown(key, modifier, hold);
         }
 
-        private class SkillInfo : SceneObject //пока что т.к. дерево покажу пожжжжжжже
+        private class SkillInfo : SceneObject
         {
             public SkillInfo(Character c, Ability ability)
             {
@@ -112,7 +112,16 @@
 
                 this.AddChild(new DarkRectangle() { Color = ConsoleColor.White, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.05, Top = top - 0.25 });
 
-                var resource = this.AddTextCenter(new DrawText($"{c.ResourceName}: {ability.Spend}", new DrawColor(c.ResourceColor)).Montserrat(), true);
+                string cost;
+                if (ability.CastType== Rogue.Abilities.Enums.AbilityCastType.Passive)
+                {
+                    cost= "-";
+                }
+                else
+                {
+                    cost = $"{c.ResourceName}: {ability.Spend}";
+                }
+                var resource = this.AddTextCenter(new DrawText(cost, new DrawColor(c.ResourceColor)).Montserrat(), true);
                 resource.Top = top;
 
                 top += MeasureText(resource.Text).Y / 32 + 0.5;
@@ -134,6 +143,13 @@
                 top += MeasureText(location.Text).Y / 32 + 0.5;
 
                 this.AddChild(new DarkRectangle() { Color = ConsoleColor.White, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.05, Top = top - 0.25 });
+
+                var border = this.AddControlCenter(new ImageControl("Rogue.Resources.Images.ui.squareB.png") { CacheAvailable=false });
+                border.Top = 10;
+
+                var img = this.AddControlCenter(new ImageControl(ability.Image_B) { CacheAvailable = false, }, true, false);
+
+                img.Top = 10;
             }
         }
 

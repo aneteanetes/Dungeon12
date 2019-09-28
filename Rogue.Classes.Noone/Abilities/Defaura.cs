@@ -84,7 +84,7 @@ namespace Rogue.Classes.Noone.Abilities
         /// </summary>
         private class DefauraBuf : Applicable
         {
-            public override string Image => "Rogue.Classes.Noone.Images.Abilities.Defstand.buf.png";
+            public override string Image => "Rogue.Classes.Noone.Images.Abilities.Defaura.buf.png";
 
             public void Apply(Avatar avatar)
             {
@@ -124,11 +124,11 @@ namespace Rogue.Classes.Noone.Abilities
 
         public override AbilityCastType CastType => AbilityCastType.Passive;
 
-        public override Location CastLocation => Location.Alltime;
+        public override Location CastLocation => Location.OnlyCombat;
 
         public override AbilityTargetType TargetType => AbilityTargetType.SelfTarget;
 
-        public override string Description => $"Аура защищающая во время боя.{Environment.NewLine}Активируется только если рядом есть враги {Environment.NewLine}Даёт бонусы вам и союзникам.";
+        public override string Description => $"Аура защищающая во время боя.{Environment.NewLine}Активируется если рядом есть враги{Environment.NewLine}увеличивает защиту вам и союзникам.";
 
     }
 }

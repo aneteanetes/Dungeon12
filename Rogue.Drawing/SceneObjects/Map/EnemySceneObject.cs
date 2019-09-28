@@ -167,7 +167,7 @@
 
             this.ShowEffects(new List<ISceneObject>()
                 {
-                    new PopupString(dmg.ToString()+(critical ? "!" : ""), critical ? ConsoleColor.Red : ConsoleColor.White,avatar.Location,25,critical ? 19 : 17,0.06)
+                    new PopupString(dmg.ToString()+(critical ? "!" : ""), critical ? ConsoleColor.Red : ConsoleColor.White,avatar.Location,25,critical ? 14 : 12,0.06)
                 });
         }
 

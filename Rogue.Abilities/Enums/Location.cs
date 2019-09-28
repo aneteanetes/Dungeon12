@@ -20,6 +20,12 @@
         /// Ability can be used whenever
         /// </summary>
         [Display(Name = "Везде")]
-        Alltime = 2
+        Alltime = 2,
+
+        /// <summary>
+        /// Ability can be used whenever
+        /// </summary>
+        [Display(Name = "В бою")]
+        OnlyCombat = 3
     }
 }

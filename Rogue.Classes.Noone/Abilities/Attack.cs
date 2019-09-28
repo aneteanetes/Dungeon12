@@ -69,17 +69,17 @@
                     avatar.Character.EXP += expr;
                     this.UseEffects(new List<ISceneObject>()
                     {
-                        new PopupString($"Вы получаете {expr} опыта!", ConsoleColor.DarkMagenta,avatar.Location,25, 19,0.06)
+                        new PopupString($"Вы получаете {expr} опыта!", ConsoleColor.DarkMagenta,avatar.Location,25, 12,0.06)
                     });
                 }
 
-                var critical = value > 10;
+                var critical = value > 25;
 
                 AttackedEnemy = enemy;
 
                 this.UseEffects(new List<ISceneObject>()
                 {
-                    new PopupString(value.ToString()+(critical ? "!" : ""), critical ? ConsoleColor.Red : ConsoleColor.White,enemy.Location,25,critical ? 19 : 17,0.06)
+                    new PopupString(value.ToString()+(critical ? "!" : ""), critical ? ConsoleColor.Red : ConsoleColor.White,enemy.Location,25,critical ? 14 : 12,0.06)
                 });
             }
         }

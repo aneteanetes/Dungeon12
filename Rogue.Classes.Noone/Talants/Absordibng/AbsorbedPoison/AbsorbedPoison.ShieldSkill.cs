@@ -15,11 +15,11 @@ namespace Rogue.Classes.Noone.Talants.Absordibng
 {
     public partial class AbsorbedPoison : Talant<Noone>
     {
-        public void Discard(ElementalShield elementalShield) { }
+        public void Discard(ShieldSkill elementalShield) { }
 
-        public bool CanUse(ElementalShield elementalShield) => Class.Actions >= 4;
+        public bool CanUse(ShieldSkill elementalShield) => Class.Actions >= 4;
         
-        public void Apply(ElementalShield elementalShield)
+        public void Apply(ShieldSkill elementalShield)
         {
             Class.Actions -= 1;
 
@@ -55,7 +55,7 @@ namespace Rogue.Classes.Noone.Talants.Absordibng
             }
         }
 
-        public TalantInfo TalantInfo(ElementalShield elementalShield)
+        public TalantInfo TalantInfo(ShieldSkill elementalShield)
         {
             return new TalantInfo()
             {
@@ -112,10 +112,10 @@ namespace Rogue.Classes.Noone.Talants.Absordibng
                         var expr = RandomRogue.Next(4, 16);
                         avatar.Character.EXP += expr;
 
-                        ability.UseEffects?.Invoke(new PopupString($"Вы получаете {expr} опыта!", ConsoleColor.DarkMagenta, avatar.Location, 25, 19, 0.06).InList<ISceneObject>());
+                        ability.UseEffects?.Invoke(new PopupString($"Вы получаете {expr} опыта!", ConsoleColor.DarkMagenta, avatar.Location, 25, 12, 0.06).InList<ISceneObject>());
                     }
 
-                    ability.UseEffects?.Invoke(new PopupString(value.ToString(), ConsoleColor.Green, enemy.Location, 25, 19, 0.06).InList<ISceneObject>());
+                    ability.UseEffects?.Invoke(new PopupString(value.ToString(), ConsoleColor.Green, enemy.Location, 25, 12, 0.06).InList<ISceneObject>());
                 }
             }
 

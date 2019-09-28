@@ -24,7 +24,7 @@ namespace Rogue.Classes.Noone.Talants.Absordibng
                     Avatar.Character.EXP += expr;
                     attack.UseEffects(new List<ISceneObject>()
                     {
-                        new PopupString($"Вы получаете {expr} опыта!", ConsoleColor.DarkMagenta,Avatar.Location,25, 19,0.06)
+                        new PopupString($"Вы получаете {expr} опыта!", ConsoleColor.DarkMagenta,Avatar.Location,25, 14,0.06)
                     });
                 }
 
@@ -34,7 +34,7 @@ namespace Rogue.Classes.Noone.Talants.Absordibng
 
                 attack.UseEffects(new List<ISceneObject>()
                 {
-                    new PopupString(dmg.ToString(), ConsoleColor.Green,pos,25,17,0.06)
+                    new PopupString(dmg.ToString(), ConsoleColor.Green,pos,25,12,0.06)
                 });
             }
 

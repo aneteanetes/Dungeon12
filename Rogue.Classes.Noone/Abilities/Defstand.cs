@@ -80,7 +80,7 @@
 
         public override AbilityTargetType TargetType => AbilityTargetType.SelfTarget;
 
-        public override string Description => $"Позволяет укрыть за щитом.{Environment.NewLine}Пока вы укрыты за щитом уменьшает {Environment.NewLine}урона на кол-во блока.";
+        public override string Description => $"Позволяет укрыться за щитом.{Environment.NewLine}Уменьшает урон на кол-во блока{Environment.NewLine}но уменьшает скорость.";
                                             //$"Атакует врага нанося двойной урон {Environment.NewLine} оружием в правой руке. {Environment.NewLine} Может наносить критический урон.";
 
     }

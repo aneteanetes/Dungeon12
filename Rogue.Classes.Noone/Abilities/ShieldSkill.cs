@@ -9,7 +9,7 @@ using System;
 
 namespace Rogue.Classes.Noone.Abilities
 {
-    public class ElementalShield : Ability<Noone, AbsorbingTalants>
+    public class ShieldSkill : Ability<Noone, AbsorbingTalants>
     {
         public override bool Hold => false;
 
@@ -17,14 +17,14 @@ namespace Rogue.Classes.Noone.Abilities
 
         public override int Position => 1;
 
-        public ElementalShield()
+        public ShieldSkill()
         {
             Level = 1;
         }
 
         public override double Value => 10;
 
-        public override string Name => "Элементальная защита";
+        public override string Name => "Навык щита";
 
         public override ScaleRate Scale => ScaleRate.Build(Entites.Enums.Scale.None, 0.1);
 
@@ -33,7 +33,7 @@ namespace Rogue.Classes.Noone.Abilities
         protected override bool CanUse(Noone @class)
         {
             var resources = @class.Actions >= 2;
-            var timer = Global.Time.Timer(nameof(ElementalShield)).IsAlive;
+            var timer = Global.Time.Timer(nameof(ShieldSkill)).IsAlive;
 
             return resources && !timer;
         }
@@ -45,7 +45,7 @@ namespace Rogue.Classes.Noone.Abilities
             avatar.AddState(barrierBuff);
 
             Global.Time
-                .Timer(nameof(ElementalShield))
+                .Timer(nameof(ShieldSkill))
                 .Each(this.Level * 1500)
                 .Do(() => avatar.RemoveState(barrierBuff))
                 .Auto();
@@ -60,7 +60,7 @@ namespace Rogue.Classes.Noone.Abilities
 
             public BarrierBuff(int value) => this.value = value;
 
-            public override string Image => "Rogue.Classes.Noone.Images.Abilities.Defstand.buf.png";
+            public override string Image => "Rogue.Classes.Noone.Images.Abilities.ShieldSkill.buf.png";
 
             public void Apply(Avatar avatar)
             {
@@ -96,7 +96,7 @@ namespace Rogue.Classes.Noone.Abilities
 
         public override AbilityTargetType TargetType => AbilityTargetType.SelfTarget;
 
-        public override string Description => $"Позволяет использовать щит от элементов.{Environment.NewLine}Пока вы укрыты щитом элементов {Environment.NewLine} действует баф элемента.";
+        public override string Description => $"Позволяет активировать навык щита.{Environment.NewLine}Пока действует способность вы {Environment.NewLine}получаете текущий активный эффект.";
         //$"Атакует врага нанося двойной урон {Environment.NewLine} оружием в правой руке. {Environment.NewLine} Может наносить критический урон.";
 
     }

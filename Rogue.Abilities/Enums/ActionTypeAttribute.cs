@@ -26,6 +26,6 @@
         Hold = 11,
 
         [Display(Name = "Постоянно")]
-        Passive = 11,
+        Passive = 12,
     }
 }

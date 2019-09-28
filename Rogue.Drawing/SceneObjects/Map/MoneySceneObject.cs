@@ -49,7 +49,7 @@
         {
             playerSceneObject.Avatar.Character.Gold += @object.Amount;
 
-            this.ShowEffects(new PopupString($"Вы нашли {@object.Amount} золота!", ConsoleColor.Yellow, new Types.Point(this.Left, this.Top), 25, 19, 0.06)
+            this.ShowEffects(new PopupString($"Вы нашли {@object.Amount} золота!", ConsoleColor.Yellow, new Types.Point(this.Left, this.Top), 25, 12, 0.06)
                 .InList<ISceneObject>());
 
             this.Destroy?.Invoke();
