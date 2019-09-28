@@ -9,7 +9,7 @@ using System;
 
 namespace Rogue.Classes.Noone.Abilities
 {
-    public class ElementalShield : Ability<Noone, ElementalShieldTalantTree>
+    public class ElementalShield : Ability<Noone, AbsorbingTalants>
     {
         public override bool Hold => false;
 

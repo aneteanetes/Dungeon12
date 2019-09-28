@@ -1,5 +1,7 @@
 ﻿namespace Rogue.Classes.Noone
 {
+    using Rogue.Classes.Noone.Talants;
+    using Rogue.Classes.Noone.Talants.Defaura;
     using Rogue.Drawing.Impl;
     using Rogue.Entites.Alive;
     using Rogue.Entites.Animations;
@@ -103,6 +105,28 @@
             }
         };
 
+        public int Block { get; set; }
+
+        public int Parry { get; set; }
+
+        public int Stamina { get; set; }
+
+        public int CritChance { get; set; }
+
+        public AbsorbingTalants Absorbing { get; set; } = new AbsorbingTalants();
+
+        public DefensibleTalants Defensible { get; set; } = new DefensibleTalants();
+
+        public override T PropertyOfType<T>()
+        {
+            switch (typeof(T))
+            {
+                case Type abs when abs == typeof(AbsorbingTalants): return Absorbing as T;
+                case Type abs when abs == typeof(DefensibleTalants): return Defensible as T;
+                default: return default;
+            }
+        }
+
         private class BaseMove : AnimationMap
         {
             public BaseMove()
@@ -119,10 +143,10 @@
 
         public override IEnumerable<ClassStat> ClassStats => new ClassStat[]
         {
-            new ClassStat("Блок","0", new DrawColor(ConsoleColor.White)),
-            new ClassStat("Парирование","0%", new DrawColor(ConsoleColor.DarkCyan)),
-            new ClassStat("Выносливость", "0",new DrawColor(ConsoleColor.Yellow)){  Group=1},
-            new ClassStat("Шанс крит.", "0%",new DrawColor(ConsoleColor.DarkRed)){  Group=1},
+            new ClassStat("Блок",this.Block.ToString(), new DrawColor(ConsoleColor.White)),
+            new ClassStat("Парирование",$"{this.Parry}%", new DrawColor(ConsoleColor.DarkCyan)),
+            new ClassStat("Выносливость", $"{this.Stamina}",new DrawColor(ConsoleColor.Yellow)){  Group=1},
+            new ClassStat("Шанс крит.", $"{this.CritChance}%",new DrawColor(ConsoleColor.DarkRed)){  Group=1},
         };
     }
 }

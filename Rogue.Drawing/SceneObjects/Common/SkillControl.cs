@@ -83,6 +83,11 @@
             };
             this.AddChild(abilControl);
 
+            if (this.ability.CastType == AbilityCastType.Passive)
+            {
+                this.ability.Cast(gameMap, avatar);
+            }
+
             this.Image = SquareTexture(false);
         }
 
@@ -93,8 +98,19 @@
 
         private string SquareTexture(bool focus)
         {
-            if(empty || !abilControl.Visible)
+            if (empty || !abilControl.Visible)
                 return $"Rogue.Resources.Images.ui.square_d.png";
+
+            if (ability != null)
+            {
+                if (ability.CastType == AbilityCastType.Passive)
+                {
+                    if (ability.PassiveWorking)
+                        return $"Rogue.Resources.Images.ui.square_f.png";
+                    else
+                        return $"Rogue.Resources.Images.ui.square_d.png";
+                }
+            }
 
             var big = IsBig
                 ? "B"
@@ -268,6 +284,9 @@
 
         private void Cast(PointerArgs args)
         {
+            if (ability.CastType == AbilityCastType.Passive)
+                return;
+
             if (SafeZoneInvisible)
             {
                 GlobalSafeClick(args);

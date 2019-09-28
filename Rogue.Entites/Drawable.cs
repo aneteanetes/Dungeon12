@@ -20,5 +20,12 @@ namespace Rogue.Entites
         public virtual Rectangle Region { get; set; }
 
         public virtual bool Container => false;
+
+        /// <summary>
+        /// Возвращает свойство типа T - реализация: case of types
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public virtual T PropertyOfType<T>() where T : class => default;
     }
 }

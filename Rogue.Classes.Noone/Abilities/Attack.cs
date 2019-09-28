@@ -3,6 +3,7 @@
     using Rogue.Abilities;
     using Rogue.Abilities.Enums;
     using Rogue.Abilities.Scaling;
+    using Rogue.Classes.Noone.Talants;
     using Rogue.Drawing.GUI;
     using Rogue.Map;
     using Rogue.Map.Objects;
@@ -12,7 +13,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class Attack : Ability<Noone>
+    public class Attack : Ability<Noone,AbsorbingTalants>
     {
         public override int Position => 0;
 
@@ -29,6 +30,8 @@
         protected override bool CanUse(Noone @class)=> @class.Actions > 0;
 
         protected override double RangeMultipler => 2.5;
+
+        public Mob AttackedEnemy { get; set; }
 
         protected override void Use(GameMap gameMap, Avatar avatar, Noone @class)
         {
@@ -72,6 +75,8 @@
 
                 var critical = value > 10;
 
+                AttackedEnemy = enemy;
+
                 this.UseEffects(new List<ISceneObject>()
                 {
                     new PopupString(value.ToString()+(critical ? "!" : ""), critical ? ConsoleColor.Red : ConsoleColor.White,enemy.Location,25,critical ? 19 : 17,0.06)
@@ -81,7 +86,7 @@
 
         protected override void Dispose(GameMap gameMap, Avatar avatar, Noone @class) { }
 
-        public override double Value => Rogue.RandomRogue.Next(30,170);
+        public override double Value => Rogue.RandomRogue.Next(10,30);
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.EffectInstant;
 

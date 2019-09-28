@@ -77,6 +77,26 @@
 
             return mobs.ToArray();
         }
+        
+        /// <summary>
+        /// Получить информацию о том что объекты такого типа есть
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="object"></param>
+        /// <returns></returns>
+        public bool Any<T>(MapObject @object)
+            where T : PhysicalObject
+        {
+            var moveArea = Map.Query(@object);
+            if (moveArea != null)
+            {
+                return moveArea.Nodes.Where(node => node is T)
+                   .Select(node => node as T)
+                   .Any(node => @object.IntersectsWith(node));
+            }
+
+            return false;
+        }
 
         public IEnumerable<Сonversational> Conversations(MapObject @object)
         {

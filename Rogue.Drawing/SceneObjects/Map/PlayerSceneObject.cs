@@ -67,6 +67,8 @@
             player.StateRemoved += s => RedrawStates(s, true);
             AddBuffs();
 
+            this.OnMove += () => this.Avatar.OnMove?.Invoke();
+
             Global.Time
                 .After(8)
                 .Do(() => RemoveTorchlight())
@@ -82,9 +84,12 @@
             if (applicable != null && remove)
             {
                 var control = buffs.Find(x => x.Image == applicable.Image);
-                control.Destroy?.Invoke();
-                buffs.Remove(control);
-                this.RemoveChild(control);
+                if (control != default)
+                {
+                    control.Destroy?.Invoke();
+                    buffs.Remove(control);
+                    this.RemoveChild(control);
+                }
                 return;
             }
 

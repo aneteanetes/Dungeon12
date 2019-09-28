@@ -1,5 +1,6 @@
 ﻿using Rogue.Abilities;
 using Rogue.Abilities.Talants;
+using Rogue.Classes.Noone.Abilities;
 using Rogue.Drawing.GUI;
 using Rogue.Entites.Enemy;
 using Rogue.Map;
@@ -10,21 +11,17 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rogue.Classes.Noone.Talants.ElementalShield
+namespace Rogue.Classes.Noone.Talants.Absordibng
 {
-    public class PoisonShieldTalant : Talant<Noone>
+    public partial class AbsorbedPoison : Talant<Noone>
     {
-        public override string Name => "Щит яда";
+        public void Discard(ElementalShield elementalShield) { }
 
-        public override string Description => "Увеличивает магическую защиту и отравляет всех в радиусе 1 клетки";
-
-        public override bool CanUse(Noone @class, Ability ability) => @class.Actions >= 4;
-
-        public override bool Dispose(GameMap gameMap, Avatar avatar, Noone @class, Action<GameMap, Avatar, Noone> @base, Ability ability) => false;
-
-        public override bool Use(GameMap gameMap, Avatar avatar, Noone @class, Action<GameMap, Avatar, Noone> @base, Ability ability)
+        public bool CanUse(ElementalShield elementalShield) => Class.Actions >= 4;
+        
+        public void Apply(ElementalShield elementalShield)
         {
-            @class.Actions -= 1;
+            Class.Actions -= 1;
 
             //возможно нужны сборные аппликативные эффекты
 
@@ -32,22 +29,22 @@ namespace Rogue.Classes.Noone.Talants.ElementalShield
             {
                 Position = new Physics.PhysicalPosition
                 {
-                    X = avatar.Position.X - ((avatar.Size.Width * 2.5) / 2),
-                    Y = avatar.Position.Y - ((avatar.Size.Height * 2.5) / 2)
+                    X = Avatar.Position.X - ((Avatar.Size.Width * 2.5) / 2),
+                    Y = Avatar.Position.Y - ((Avatar.Size.Height * 2.5) / 2)
                 },
-                Size = avatar.Size
+                Size = Avatar.Size
             };
 
             rangeObject.Size.Height *= 2.5;
             rangeObject.Size.Width *= 2.5;
 
-            var enemies = gameMap.Enemies(rangeObject);
+            var enemies = GameMap.Enemies(rangeObject);
 
             foreach (var enemy in enemies)
             {
-                var value = (long)ability.Value;
+                var value = (long)elementalShield.Value;
 
-                var debuff = new PoisonDebuffPoisonShield(value * 2, ability, avatar);
+                var debuff = new PoisonDebuffPoisonShield(value * 2, elementalShield, Avatar);
                 enemy.AddState(debuff);
 
                 Global.Time
@@ -56,8 +53,14 @@ namespace Rogue.Classes.Noone.Talants.ElementalShield
                     .Do(() => enemy.RemoveState(debuff))
                     .Auto();
             }
+        }
 
-            return false;
+        public TalantInfo TalantInfo(ElementalShield elementalShield)
+        {
+            return new TalantInfo()
+            {
+                Description = ""
+            };
         }
 
         /// <summary>
@@ -86,7 +89,7 @@ namespace Rogue.Classes.Noone.Talants.ElementalShield
                 timer = Global.Time
                     .Timer(nameof(PoisonDebuffPoisonShield) + enemy.Uid)
                     .Each(1000)
-                    .Do(()=> DOT(enemy))
+                    .Do(() => DOT(enemy))
                     .Repeat()
                     .Auto();
             }

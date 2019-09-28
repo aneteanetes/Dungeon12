@@ -21,6 +21,7 @@
   <ItemGroup>
     <Folder Include="Images\Abilities\Defstand\" />
     <Folder Include="Images\Abilities\ElementalShield\" />
+    <Folder Include="Images\Abilities\Defaura\" />
   </ItemGroup>
 
 </Project>

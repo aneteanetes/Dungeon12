@@ -4,6 +4,7 @@
     using Rogue.Map.Infrastructure;
     using Rogue.Physics;
     using Rogue.Types;
+    using System;
 
     [Template("@")]
     public class Avatar : MapObject
@@ -54,5 +55,7 @@
         protected override MapObject Self => this;
 
         public bool SafeMode { get; set; }
+
+        public Action OnMove { get; set; }
     }
 }

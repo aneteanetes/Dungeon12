@@ -3,16 +3,39 @@
     using Rogue.Classes;
     using Rogue.Map;
     using Rogue.Map.Objects;
+    using Rogue.Transactions;
     using Rogue.Types;
     using Rogue.View.Interfaces;
     using System;
 
-    public abstract class Talant<TClass> : IDrawable
+    public abstract class Talant<TClass> : Applicable, IDrawable
          where TClass : Character
     {
+        /// <summary>
+        /// Метод вызывается для того что бы забиндить параметры для <see cref="Applicable.Apply(object)"/> и <see cref="Applicable.Discard(object)"/>
+        /// </summary>
+        /// <param name="gameMap"></param>
+        /// <param name="avatar"></param>
+        /// <param name="class"></param>
+        public void Bind(GameMap gameMap, Avatar avatar, TClass @class)
+        {
+            this.Class = @class;
+            this.GameMap = gameMap;
+            this.Avatar = avatar;
+        }
+
+        public TClass Class { get; set; }
+
+        public Avatar Avatar { get; set; }
+
+        public GameMap GameMap { get; set; }
+
         public string Icon { get; set; }
+
         public virtual string Name { get; set; }
+
         public IDrawColor BackgroundColor { get; set; }
+
         public IDrawColor ForegroundColor { get; set; }
 
         public virtual string Description { get; set; }
@@ -38,28 +61,20 @@
         
         public bool Opened => Level > 0;
 
-        public abstract bool CanUse(TClass @class, Ability ability);
+        public bool Active { get; set; }
+        
+        public virtual bool CanUse(object @object)
+        {
+            return this.CallCanUse(@object as dynamic);
+        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="gameMap"></param>
-        /// <param name="avatar"></param>
-        /// <param name="class"></param>
-        /// <param name="base"></param>
-        /// <param name="ability"></param>
-        /// <returns>Возвращает true если базовый навык использовать не нужно</returns>
-        public abstract bool Use(GameMap gameMap, Avatar avatar, TClass @class, Action<GameMap, Avatar, TClass> @base, Ability ability);
+        protected abstract bool CallCanUse(dynamic obj);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="gameMap"></param>
-        /// <param name="avatar"></param>
-        /// <param name="class"></param>
-        /// <param name="base"></param>
-        /// <param name="talantTree"></param>
-        /// <returns></returns>
-        public abstract bool Dispose(GameMap gameMap, Avatar avatar, TClass @class, Action<GameMap, Avatar, TClass> @base, Ability ability);
+        public virtual TalantInfo TalantInfo(object @object)
+        {
+            return this.CallTalantInfo(@object as dynamic);
+        }
+
+        protected abstract TalantInfo CallTalantInfo(dynamic obj);
     }
 }

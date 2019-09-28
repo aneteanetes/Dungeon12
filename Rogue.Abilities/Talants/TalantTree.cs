@@ -40,6 +40,11 @@
         {
             var talants = Talants;
 
+            talants.ForEach(t =>
+            {
+                t.Bind(default, default, @class);
+            });
+
             if (talants.Count() == 0)
             {
                 return true;
@@ -47,7 +52,7 @@
             else
             {
                 return talants
-                .Select(t => t.CanUse(@class, ability))
+                .Select(t => t.CanUse(ability))
                 .Aggregate((x, y) => x && y);
             }
         }
@@ -56,9 +61,15 @@
         {
             var baseDontNeeded = false;
 
-            foreach (var talant in Talants)
+            var talants = Talants;
+            talants.ForEach(t =>
             {
-                baseDontNeeded = talant.Use(gameMap, avatar, @class, @base, ability);
+                t.Bind(gameMap, avatar, @class);
+            });
+
+            foreach (var talant in talants)
+            {
+                talant.Apply(ability);
             }
 
             if (!baseDontNeeded)
@@ -69,9 +80,15 @@
 
         public void Dispose(GameMap gameMap, Avatar avatar, TClass @class, Action<GameMap, Avatar, TClass> @base, Ability ability)
         {
-            foreach (var talant in Talants)
+            var talants = Talants;
+            talants.ForEach(t =>
             {
-                talant.Dispose(gameMap, avatar, @class, @base, ability);
+                t.Bind(gameMap, avatar, @class);
+            });
+
+            foreach (var talant in talants)
+            {
+                talant.Discard(ability);
             }
         }
     }

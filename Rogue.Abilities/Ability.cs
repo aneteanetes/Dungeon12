@@ -110,10 +110,17 @@
 
         public virtual bool Hold => false;
 
+        public bool PassiveWorking { get; set; }
+
         public virtual void Release(GameMap map, Avatar avatar) { }
 
         public virtual bool CastAvailable(Avatar avatar) => true;
 
+        /// <summary>
+        /// Использвоание способности, для <see cref="AbilityCastType.Passive"/> вызывается когда биндится
+        /// </summary>
+        /// <param name="map"></param>
+        /// <param name="avatar"></param>
         public virtual void Cast(GameMap map, Avatar avatar)
         {
 
@@ -146,15 +153,13 @@
     public abstract class Ability<TClass, TTalants> : Ability<TClass>
         where TClass: Character
         where TTalants : TalantTree<TClass>, new()
-    {
-        public TTalants TalantTree { get; set; } = new TTalants();
-        
+    {        
         public override bool CastAvailable(Avatar avatar)
         {
             if (avatar.Character is TClass @class)
             {
                 var @base = CanUse(@class);
-                var talants = TalantTree.CanUse(@class,this);
+                var talants = avatar.Character.PropertyOfType<TTalants>().CanUse(@class, this);
 
                 return @base && talants;
             }
@@ -167,7 +172,7 @@
             if (avatar.Character is TClass @class)
             {
                 OnCast?.Invoke();
-                TalantTree.Use(map, avatar, @class, this.Use,this);
+                avatar.Character.PropertyOfType<TTalants>().Use(map, avatar, @class, this.Use,this);
                 OnCastEnd?.Invoke();
             }
         }
@@ -176,7 +181,7 @@
         {
             if (avatar.Character is TClass @class)
             {
-                TalantTree.Dispose(map, avatar, @class, this.Dispose,this);
+                avatar.Character.PropertyOfType<TTalants>().Dispose(map, avatar, @class, this.Dispose,this);
                 OnCastRelease?.Invoke();
             }
         }
