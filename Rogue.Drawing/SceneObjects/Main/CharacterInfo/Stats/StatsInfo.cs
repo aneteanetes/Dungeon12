@@ -75,7 +75,7 @@
 
                 statsText.Add(txt, c => $"{stat.Title(c)}:  {stat.Value(c)}");
 
-                top += MeasureText(txt.Text).Y / 32 + (stat.EndGroup ? 0.5 : 0);
+                top += MeasureText(txt.Text).Y / 32 + (stat.EndGroup ? 0.3 : 0);
 
                 if (stat.EndGroup)
                 {

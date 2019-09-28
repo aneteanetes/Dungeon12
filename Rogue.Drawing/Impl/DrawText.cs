@@ -108,7 +108,7 @@ namespace Rogue.Drawing.Impl
 
         public Rectangle Region { get; set; }
 
-        public virtual float Size { get; set; } = 20f;
+        public virtual float Size { get; set; } = 12f;
 
         public virtual float LetterSpacing { get; set; } = 11.5625f;
 

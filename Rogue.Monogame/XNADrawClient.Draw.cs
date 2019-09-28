@@ -401,7 +401,7 @@
                 }
                 else
                 {
-                    spriteFont = Content.Load<SpriteFont>(range.FontName);
+                    spriteFont = Content.Load<SpriteFont>($"{range.FontName}/{range.FontName}{range.Size}");
                     //typeface = new Typeface(Font.GetFontFamily(range.FontName, range.FontPath, range.FontAssembly), fontSize: fontSize);
                 }
             }
