@@ -1,9 +1,12 @@
 ﻿using Rogue.Abilities.Talants.NotAPI;
+using Rogue.Classes;
 using Rogue.Control.Events;
 using Rogue.Control.Pointer;
+using Rogue.Drawing.GUI;
 using Rogue.Drawing.Impl;
 using Rogue.Drawing.SceneObjects.Base;
 using Rogue.Drawing.SceneObjects.Map;
+using Rogue.Types;
 using Rogue.View.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -25,8 +28,11 @@ namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo.Talants
 
         private bool Active => talant.Active;
 
-        public TalantInfoSceneControl(TalantBase talant, Action<List<ISceneObject>> showEffects) : base(talant.Name, showEffects)
+        private readonly Character character;
+
+        public TalantInfoSceneControl(TalantBase talant, Character character, Action<List<ISceneObject>> showEffects) : base(talant.Name, showEffects)
         {
+            this.character = character;
             this.talant = talant;
             var measure = this.MeasureImage("Rogue.Resources.Images.ui.square.png");
 
@@ -58,6 +64,13 @@ namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo.Talants
             {
                 talant.ActiveChanged += value => this.Image = SquareTexture(value);
             }
+        }
+
+        protected override bool ProvidesTooltip => true;
+
+        protected override Tooltip ProvideTooltip(Point position)
+        {
+            return new TalantTooltip(talant,character, position);
         }
 
         public override void Click(PointerArgs args)

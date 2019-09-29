@@ -1,5 +1,6 @@
 ﻿using Rogue.Abilities.Talants.NotAPI;
 using Rogue.Abilities.Talants.TalantTrees;
+using Rogue.Classes;
 using Rogue.Drawing.SceneObjects.Base;
 using Rogue.Drawing.SceneObjects.Map;
 using Rogue.Types;
@@ -16,7 +17,7 @@ namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo.Talants
 
         public override bool AbsolutePosition => true;
 
-        public TalantTreeTabContent(TalantTree talantTree, double left)
+        public TalantTreeTabContent(TalantTree talantTree,Character character, double left)
         {
             this.Width = 12;
             this.Height = 15;
@@ -31,7 +32,7 @@ namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo.Talants
 
                 tier.OrderBy(t=>t.Order).ForEach((talant, i) =>
                 {
-                    var img = this.AddControlCenter(new TalantInfoSceneControl(talant, this.ShowEffects), inTier == 1, false);
+                    var img = this.AddControlCenter(new TalantInfoSceneControl(talant, character, this.ShowEffects), inTier == 1, false);
                     img.Left -= left;
 
                     if (inTier == 2)

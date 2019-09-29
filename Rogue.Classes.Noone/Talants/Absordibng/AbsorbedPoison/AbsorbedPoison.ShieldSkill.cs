@@ -59,7 +59,8 @@ namespace Rogue.Classes.Noone.Talants.Absordibng
         {
             return new TalantInfo()
             {
-                Description = ""
+                Name = "Облако яда",
+                Description = $"При активации заражает всех врагов{Environment.NewLine} по близости, нанося Ур*2 ед. урона{Environment.NewLine} на Ур*1 секунд"
             };
         }
 

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Rogue.Classes;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Rogue.Abilities.Talants.NotAPI
@@ -48,5 +50,34 @@ namespace Rogue.Abilities.Talants.NotAPI
         public virtual string[] DependsOn { get; set; }
 
         public List<TalantBase> DependentTalants { get; } = new List<TalantBase>();
+
+        public virtual TalantInfo TalantInfo(object @object)
+        {
+            return this.CallTalantInfo(@object as dynamic);
+        }
+
+        protected abstract TalantInfo CallTalantInfo(dynamic obj);
+
+        public TalantInfo[] TalantEffects(Character character)
+        {
+            var abils = character.PropertiesOfType<Ability>();
+
+            var talantType = this.GetType();
+
+            var infoes = new List<TalantInfo>();
+
+            foreach (var abil in abils)
+            {
+                var dispatchExists = talantType.GetMethods().Any(m => m.Name == nameof(TalantInfo) && m.GetParameters()[0].ParameterType == abil.GetType());
+                if (dispatchExists)
+                {
+                    var talantInfo = this.TalantInfo(abil);
+                    talantInfo.AbilityName = abil.Name;
+                    infoes.Add(talantInfo);
+                }
+            }
+
+            return infoes.ToArray();
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace Rogue.Classes.Noone.Talants.Absordibng
 
         }
 
-        public override string Group => nameof(Absorbing);
+        public override string Group => Absorbing.GroupName;
         public override bool Activatable => true;
 
         public override string Name => "Поглощение яда";

@@ -172,7 +172,8 @@
                 }
                 else
                 {
-                    foreach (var node in Nodes)
+                    var copyNodes = new List<T>(Nodes);
+                    foreach (var node in copyNodes)
                     {
                         if (!node.Containable)
                         {

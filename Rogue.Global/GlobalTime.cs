@@ -21,12 +21,12 @@
         /// <summary>
         /// Остановить время
         /// </summary>
-        internal void Pause() => this.internalTimer.Stop();
+        public void Pause() => this.internalTimer.Stop();
 
         /// <summary>
         /// Продолжить время
         /// </summary>
-        internal void Resume() => this.internalTimer.Start();
+        public void Resume() => this.internalTimer.Start();
 
         public int Hours { get; private set; } = 0;
 

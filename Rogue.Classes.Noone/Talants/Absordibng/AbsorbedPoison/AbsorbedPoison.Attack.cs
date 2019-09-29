@@ -45,7 +45,8 @@ namespace Rogue.Classes.Noone.Talants.Absordibng
         {
             return new TalantInfo()
             {
-                Description = "Добавляет яд к урону"
+                Name="Ядовитая атака",
+                Description = "Добавляет к атаке Ур*1 ед. урона ядом"
             };
         }
 

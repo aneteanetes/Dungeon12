@@ -45,12 +45,5 @@
         }
 
         protected abstract bool CallCanUse(dynamic obj);
-
-        public virtual TalantInfo TalantInfo(object @object)
-        {
-            return this.CallTalantInfo(@object as dynamic);
-        }
-
-        protected abstract TalantInfo CallTalantInfo(dynamic obj);
     }
 }

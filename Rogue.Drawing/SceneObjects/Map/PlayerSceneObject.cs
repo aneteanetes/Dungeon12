@@ -62,6 +62,11 @@
             this.abilities = new Lazy<Ability[]>(() => Avatar.Character.PropertiesOfType<Ability>());
             this.talantTrees = new Lazy<TalantTree[]>(() => Avatar.Character.PropertiesOfType<TalantTree>());
 
+            this.GetAbilities().ForEach(a =>
+            {
+                a.Owner = player;
+            });
+
             player.StateAdded += s => RedrawStates(s);
             player.StateRemoved += s => RedrawStates(s, true);
             AddBuffs();

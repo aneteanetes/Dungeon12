@@ -1,5 +1,7 @@
 ﻿using Rogue.Abilities.Talants;
+using Rogue.Classes.Noone.Abilities;
 using Rogue.Classes.Noone.Talants.Absordibng;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Rogue.Classes.Noone.Talants
@@ -12,26 +14,28 @@ namespace Rogue.Classes.Noone.Talants
 
         public Absorbing Absorbing { get; set; } = new Absorbing(0) { Level=1 };
 
-        public AbsorbedPoison Poison { get; set; } = new AbsorbedPoison(1);
+        public AbsorbedPoison Poison { get; set; } = new AbsorbedPoison(1) { Level = 2 };
 
         public AbsorbingMetall Metall { get; set; } = new AbsorbingMetall(1) { Level = 1, Active=true };
 
         public AbsorbingElements Elements { get; set; } = new AbsorbingElements(3);
 
-        public AbsorbingStone Stone { get; set; } = new AbsorbingStone(2) { Level = 2 };
+        public AbsorbingStone Stone { get; set; } = new AbsorbingStone(2);
 
         public AbsorbingMagic Magic { get; set; } = new AbsorbingMagic(4);
     }
 
     public class AbsorbingStone : Talant<Noone>
     {
-        public override string Group => nameof(Absorbing);
+        public override string Group => Absorbing.GroupName;
 
         public override bool Activatable => true;
 
         public AbsorbingStone(int order) : base(order)
         {
         }
+
+        public override string Description => $"Поглощение металла позволяет увеличивать физическую при активации.";
 
         public override string Name => "Поглощение земли";
 
@@ -44,17 +48,17 @@ namespace Rogue.Classes.Noone.Talants
 
         protected override void CallApply(dynamic obj)
         {
-            throw new System.NotImplementedException();
+            return;
         }
 
         protected override bool CallCanUse(dynamic obj)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         protected override void CallDiscard(dynamic obj)
         {
-            throw new System.NotImplementedException();
+            return;
         }
 
         protected override TalantInfo CallTalantInfo(dynamic obj)
@@ -65,12 +69,13 @@ namespace Rogue.Classes.Noone.Talants
 
     public class AbsorbingMagic : Talant<Noone>
     {
-        public override string Group => nameof(Absorbing);
+        public override string Group => Absorbing.GroupName;
         public override bool Activatable => true;
 
         public AbsorbingMagic(int order) : base(order)
         {
         }
+        public override string Description => $"Поглощение металла позволяет увеличивать защиту от магии при активации.";
 
         public override string Name => "Поглощение магии";
 
@@ -83,17 +88,17 @@ namespace Rogue.Classes.Noone.Talants
 
         protected override void CallApply(dynamic obj)
         {
-            throw new System.NotImplementedException();
+            return;
         }
 
         protected override bool CallCanUse(dynamic obj)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         protected override void CallDiscard(dynamic obj)
         {
-            throw new System.NotImplementedException();
+            return;
         }
 
         protected override TalantInfo CallTalantInfo(dynamic obj)
@@ -104,13 +109,15 @@ namespace Rogue.Classes.Noone.Talants
 
     public class AbsorbingElements : Talant<Noone>
     {
-        public override string Group => nameof(Absorbing);
+        public override string Group => Absorbing.GroupName;
         public override bool Activatable => true;
         public AbsorbingElements(int order) : base(order)
         {
         }
 
         public override string Name => "Поглощение элементов";
+
+        public override string Description => $"Поглощение металла позволяет увеличивать защиту от элементов при активации.";
 
         public override string[] DependsOn => new string[]
         {
@@ -121,17 +128,17 @@ namespace Rogue.Classes.Noone.Talants
 
         protected override void CallApply(dynamic obj)
         {
-            throw new System.NotImplementedException();
+            return;
         }
 
         protected override bool CallCanUse(dynamic obj)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         protected override void CallDiscard(dynamic obj)
         {
-            throw new System.NotImplementedException();
+            return;
         }
 
         protected override TalantInfo CallTalantInfo(dynamic obj)
@@ -142,7 +149,7 @@ namespace Rogue.Classes.Noone.Talants
 
     public class AbsorbingMetall : Talant<Noone>
     {
-        public override string Group => nameof(Absorbing);
+        public override string Group => Absorbing.GroupName;
         public override bool Activatable => true;
         public AbsorbingMetall(int order) : base(order)
         {
@@ -150,26 +157,27 @@ namespace Rogue.Classes.Noone.Talants
 
         public override string Name => "Поглощение металла";
 
+        public override string Description => $"Поглощение металла позволяет увеличивать{Environment.NewLine} физическую защиту при активации.";
+
         public override string[] DependsOn => new string[]
         {
             nameof(Absorbing)
         };
 
         public override int Tier => 1;
-
         protected override void CallApply(dynamic obj)
         {
-            throw new System.NotImplementedException();
+            return;
         }
 
         protected override bool CallCanUse(dynamic obj)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         protected override void CallDiscard(dynamic obj)
         {
-            throw new System.NotImplementedException();
+            return;
         }
 
         protected override TalantInfo CallTalantInfo(dynamic obj)
@@ -180,30 +188,43 @@ namespace Rogue.Classes.Noone.Talants
 
     public class Absorbing : Talant<Noone>
     {
+        public const string GroupName = "Активные поглощения";
+
         public Absorbing(int order) : base(order)
         {
         }
 
+        public TalantInfo TalantInfo(ShieldSkill shieldSkill)
+        {
+            return new TalantInfo()
+            {
+                Name = "Базовое поглощение",
+                Description = $"При активации увеличивает маг. защиту{Environment.NewLine} на Ур*1 ед защиты на Ур*1.5 секунд."
+            };
+        }
+
         public override string Name => "Поглощение";
+
+        public override string Description => $"Позволяет поглощать предметы лута из врагов{Environment.NewLine} для того что бы открывать и улучшать другие{Environment.NewLine} таланты поглощения.";
 
         protected override void CallApply(dynamic obj)
         {
-            throw new System.NotImplementedException();
+            return;
         }
 
         protected override bool CallCanUse(dynamic obj)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         protected override void CallDiscard(dynamic obj)
         {
-            throw new System.NotImplementedException();
+            return;
         }
 
         protected override TalantInfo CallTalantInfo(dynamic obj)
         {
-            throw new System.NotImplementedException();
+            return this.TalantInfo(obj);
         }
     }
 }

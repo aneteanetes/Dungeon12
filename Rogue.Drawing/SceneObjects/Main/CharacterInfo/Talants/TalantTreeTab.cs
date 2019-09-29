@@ -1,4 +1,5 @@
 ﻿using Rogue.Abilities.Talants.TalantTrees;
+using Rogue.Classes;
 using Rogue.Drawing.SceneObjects.UI;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,13 @@ namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo.Talants
 {
     public class TalantTreeTab : TabControlFlex<TalantTreeTabContent, TalantTree, TalantTreeTab>
     {
-        public TalantTreeTab(SceneObject parent, TalantTree talantTree, bool active = false)
-            : base(parent, active, talantTree, talantTree.Name) { }
+        private readonly Character character;
+
+        public TalantTreeTab(SceneObject parent, TalantTree talantTree, Character character, bool active = false)
+            : base(parent, active, talantTree, talantTree.Name)
+        {
+            this.character = character;
+        }
         
         protected override TalantTreeTab Self => this;
 
@@ -17,7 +23,7 @@ namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo.Talants
 
         private TalantTreeTabContent OpenTalantTreeTab(TalantTree talantTree, double left)
         {
-            return new TalantTreeTabContent(talantTree, left);
+            return new TalantTreeTabContent(talantTree,this.character, left);
         }
     }
 }

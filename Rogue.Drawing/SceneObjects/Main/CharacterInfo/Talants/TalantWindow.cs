@@ -42,7 +42,7 @@ namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo
             {
                 var index = talantTrees.IndexOf(talantTree);
 
-                var tab = new TalantTreeTab(this, talantTree, index == 0)
+                var tab = new TalantTreeTab(this, talantTree,playerSceneObject.Avatar.Character, index == 0)
                 {
                     AbsolutePosition = true,
                     CacheAvailable = false,

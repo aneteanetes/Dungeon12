@@ -201,6 +201,15 @@
                 MediaPlayer.Volume -= .01f;
             }
 
+            if(c.IsKeyDown(Keys.U))
+            {
+                Global.Time.Pause();
+            }
+            if (c.IsKeyDown(Keys.Y))
+            {
+                Global.Time.Resume();
+            }
+
             if (c.IsKeyDown(Keys.Left))
             {
                 SunLight.Position -= new Vector2(50, 0);
