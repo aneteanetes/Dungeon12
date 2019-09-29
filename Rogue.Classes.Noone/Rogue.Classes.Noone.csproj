@@ -22,6 +22,7 @@
     <Folder Include="Images\Abilities\Defstand\" />
     <Folder Include="Images\Abilities\ShieldSkill\" />
     <Folder Include="Images\Abilities\Defaura\" />
+    <Folder Include="Images\Talants\" />
   </ItemGroup>
 
 </Project>

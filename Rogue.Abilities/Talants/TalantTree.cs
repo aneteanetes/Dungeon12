@@ -18,6 +18,24 @@
     public abstract class TalantTree<TClass> : TalantTrees.TalantTree
         where TClass : Character
     {
+        public TalantTree()
+        {
+            Talants
+                .SelectMany(t => t)
+                .GroupBy(t => t.Group)
+                .ForEach(t =>
+                {
+                    Action<TalantBase> groupInactive = talant =>
+                    {
+                        t.Except(talant.InList()).ForEach(x =>
+                        {
+                            x.Active = false;
+                        });
+                    };
+                    t.ForEach(x => x.GroupActive = groupInactive);
+                });
+        }
+
         public override List<IGrouping<int, TalantBase>> Talants
         {
             get
@@ -44,7 +62,7 @@
             }
         }
 
-        private IEnumerable<Talant<TClass>> OpenedTalants => ThisTalants().Where(t => t.Opened);
+        private IEnumerable<Talant<TClass>> OpenedTalants => ThisTalants().Where(t => t.Available);
 
         private IEnumerable<Talant<TClass>> ThisTalants()
         {

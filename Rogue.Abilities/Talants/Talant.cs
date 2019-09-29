@@ -18,6 +18,8 @@
 
         }
 
+        public override string Image => $"Rogue.Classes.Noone.Images.Talants.{GetType().Name}.png";
+
         /// <summary>
         /// Метод вызывается для того что бы забиндить параметры для <see cref="Applicable.Apply(object)"/> и <see cref="Applicable.Discard(object)"/>
         /// </summary>

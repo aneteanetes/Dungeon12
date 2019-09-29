@@ -17,8 +17,11 @@ namespace Rogue.Classes.Noone.Talants.Absordibng
     {
         public AbsorbedPoison(int order):base(order)
         {
-                
+
         }
+
+        public override string Group => nameof(Absorbing);
+        public override bool Activatable => true;
 
         public override string Name => "Поглощение яда";
 

@@ -14,11 +14,33 @@ namespace Rogue.Abilities.Talants.NotAPI
 
         public int Level { get; set; }
 
-        public bool Available => Level > 0;
+        public virtual int MaxLevel { get; set; } = 5;
+
+        public bool Available => Opened && (Activatable ? Active : true);
 
         public bool Opened => Level > 0;
 
-        public bool Active { get; set; }
+        private bool active = false;
+        public bool Active
+        {
+            get => active; set
+            {
+                active = value;
+                if (value)
+                {
+                    GroupActive?.Invoke(this);
+                }
+                ActiveChanged?.Invoke(value);
+            }
+        }
+
+        public virtual string Group { get; set; }
+
+        public Action<bool> ActiveChanged { get; set; }
+
+        public Action<TalantBase> GroupActive { get; set; }
+
+        public virtual bool Activatable { get; set; }
 
         /// <summary>
         /// Массив наименований других талантов в дереве от которого зависит этот

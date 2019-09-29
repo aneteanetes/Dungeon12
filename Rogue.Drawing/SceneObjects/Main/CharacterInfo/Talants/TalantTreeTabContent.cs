@@ -58,9 +58,13 @@ namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo.Talants
                     {
                         foreach (var (point, tal) in dependsFrom)
                         {
+                            ConsoleColor color = tal.Opened && talant.Opened
+                                ? ConsoleColor.White
+                                : ConsoleColor.Black;
+
                             var from = new Point(point.X + 1, point.Y + 2);
                             var to = new Point(img.Left + 1, img.Top);
-                            this.AddChild(new LineSceneControl(from, to,color: ConsoleColor.Black)
+                            this.AddChild(new LineSceneControl(from, to,color: color)
                             {
                                 Depth=2
                             });

@@ -10,21 +10,25 @@ namespace Rogue.Classes.Noone.Talants
 
         public override string Tileset => "";
 
-        public Absorbing Absorbing { get; set; } = new Absorbing(0);
+        public Absorbing Absorbing { get; set; } = new Absorbing(0) { Level=1 };
 
         public AbsorbedPoison Poison { get; set; } = new AbsorbedPoison(1);
 
-        public AbsorbingMetall Metall { get; set; } = new AbsorbingMetall(1);
+        public AbsorbingMetall Metall { get; set; } = new AbsorbingMetall(1) { Level = 1, Active=true };
 
         public AbsorbingElements Elements { get; set; } = new AbsorbingElements(3);
 
-        public AbsorbingStone Stone { get; set; } = new AbsorbingStone(2);
+        public AbsorbingStone Stone { get; set; } = new AbsorbingStone(2) { Level = 2 };
 
         public AbsorbingMagic Magic { get; set; } = new AbsorbingMagic(4);
     }
 
     public class AbsorbingStone : Talant<Noone>
     {
+        public override string Group => nameof(Absorbing);
+
+        public override bool Activatable => true;
+
         public AbsorbingStone(int order) : base(order)
         {
         }
@@ -61,6 +65,9 @@ namespace Rogue.Classes.Noone.Talants
 
     public class AbsorbingMagic : Talant<Noone>
     {
+        public override string Group => nameof(Absorbing);
+        public override bool Activatable => true;
+
         public AbsorbingMagic(int order) : base(order)
         {
         }
@@ -97,6 +104,8 @@ namespace Rogue.Classes.Noone.Talants
 
     public class AbsorbingElements : Talant<Noone>
     {
+        public override string Group => nameof(Absorbing);
+        public override bool Activatable => true;
         public AbsorbingElements(int order) : base(order)
         {
         }
@@ -133,6 +142,8 @@ namespace Rogue.Classes.Noone.Talants
 
     public class AbsorbingMetall : Talant<Noone>
     {
+        public override string Group => nameof(Absorbing);
+        public override bool Activatable => true;
         public AbsorbingMetall(int order) : base(order)
         {
         }
