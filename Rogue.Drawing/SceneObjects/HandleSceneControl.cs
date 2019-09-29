@@ -35,6 +35,32 @@
 
         public virtual void GlobalClick(PointerArgs args) { }
 
+        protected T AddControlCenter<T>(T control, bool horizontal = true, bool vertical = true)
+            where T : SceneObject, ISceneObjectControl
+        {
+            var measure = MeasureImage(control.Image);
+            measure.X = measure.X * 32;
+            measure.Y = measure.Y * 32;
+
+            var width = this.Width * 32;
+            var height = this.Height * 32;
+
+            if (horizontal)
+            {
+                var left = width / 2 - measure.X / 2;
+                control.Left = left / 32;
+            }
+
+            if (vertical)
+            {
+                var top = height / 2 - measure.Y / 2;
+                control.Top = top / 32;
+            }
+            this.AddChild(control);
+
+            return control;
+        }
+
         public virtual void Focus()
         {
             if (this.Cursor != null)

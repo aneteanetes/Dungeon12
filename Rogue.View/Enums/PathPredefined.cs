@@ -4,6 +4,7 @@
     {
         None = 0,
         Rectangle = 1,
-        RoundedRectangle = 2
+        RoundedRectangle = 2,
+        Line=3,
     }
 }

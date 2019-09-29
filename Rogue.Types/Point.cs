@@ -7,6 +7,12 @@
 
         }
 
+        public Point(Point fromCopy)
+        {
+            this.X = fromCopy.X;
+            this.Y = fromCopy.Y;
+        }
+
         public Point(float x, float y)
         {
             this.X = x;

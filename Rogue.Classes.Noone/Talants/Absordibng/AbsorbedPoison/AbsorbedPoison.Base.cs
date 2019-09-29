@@ -15,9 +15,16 @@ namespace Rogue.Classes.Noone.Talants.Absordibng
 {
     public partial class AbsorbedPoison : Talant<Noone>
     {
+        public AbsorbedPoison(int order):base(order)
+        {
+                
+        }
+
         public override string Name => "Поглощение яда";
 
         public override string Description => "Открывает возможность использовать поглощённые свойства яда";
+
+        public override int Tier => 1;
 
         protected override void CallApply(dynamic obj)
         {
@@ -38,5 +45,10 @@ namespace Rogue.Classes.Noone.Talants.Absordibng
         {
             return this.TalantInfo(obj);
         }
+
+        public override string[] DependsOn => new string[]
+        {
+            nameof(Absorbing)
+        };
     }
 }

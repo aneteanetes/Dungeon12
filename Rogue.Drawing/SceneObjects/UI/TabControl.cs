@@ -55,7 +55,7 @@
 
             if (titleImg != null)
             {
-                this.AddControlCenter(new ImageControl(titleImg)
+                this.AddChildCenter(new ImageControl(titleImg)
                 {
                     AbsolutePosition = true,
                     CacheAvailable = false,

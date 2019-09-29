@@ -1,6 +1,7 @@
 ﻿namespace Rogue.Abilities.Talants
 {
     using FastMember;
+    using Rogue.Abilities.Talants.NotAPI;
     using Rogue.Classes;
     using Rogue.Map;
     using Rogue.Map.Objects;
@@ -17,34 +18,58 @@
     public abstract class TalantTree<TClass> : TalantTrees.TalantTree
         where TClass : Character
     {
-        private IEnumerable<Talant<TClass>> Talants
+        public override List<IGrouping<int, TalantBase>> Talants
         {
             get
             {
-                var accessor = TypeAccessor.Create(this.GetType());
+                var talants = ThisTalants();
 
-                var members = accessor.GetMembers().Where(m =>
+                foreach (var talant in talants)
                 {
-                    if (m.Type.BaseType == null)
-                        return false;
-
-                    if (m.Type.BaseType.IsGenericType)
+                    foreach (var dependant in talant?.DependsOn ?? new string[0])
                     {
-                        return m.Type.BaseType.GetGenericTypeDefinition() == typeof(Talant<>);
+                        var depTalant = talants.FirstOrDefault(x => x.GetType().Name == dependant);
+                        if (depTalant != default && !talant.DependentTalants.Contains(depTalant))
+                        {
+                            talant.DependentTalants.Add(depTalant);
+                        }
                     }
+                }
 
-                    return false;
-                });
-
-                var talants = members.Select(m => accessor[this, m.Name]).Cast<Talant<TClass>>();
-
-                return talants.Where(t => t.Opened);
+                return talants
+                    .Cast<TalantBase>()
+                    .GroupBy(t => t.Tier)
+                    .OrderBy(x=>x.Key)
+                    .ToList();
             }
+        }
+
+        private IEnumerable<Talant<TClass>> OpenedTalants => ThisTalants().Where(t => t.Opened);
+
+        private IEnumerable<Talant<TClass>> ThisTalants()
+        {
+            var accessor = TypeAccessor.Create(this.GetType());
+
+            var members = accessor.GetMembers().Where(m =>
+            {
+                if (m.Type.BaseType == null)
+                    return false;
+
+                if (m.Type.BaseType.IsGenericType)
+                {
+                    return m.Type.BaseType.GetGenericTypeDefinition() == typeof(Talant<>);
+                }
+
+                return false;
+            });
+
+            var talants = members.Select(m => accessor[this, m.Name]).Cast<Talant<TClass>>();
+            return talants;
         }
 
         public bool CanUse(TClass @class, Ability ability)
         {
-            var talants = Talants;
+            var talants = OpenedTalants;
 
             talants.ForEach(t =>
             {
@@ -67,7 +92,7 @@
         {
             var baseDontNeeded = false;
 
-            var talants = Talants;
+            var talants = OpenedTalants;
             talants.ForEach(t =>
             {
                 t.Bind(gameMap, avatar, @class);
@@ -86,7 +111,7 @@
 
         public void Dispose(GameMap gameMap, Avatar avatar, TClass @class, Action<GameMap, Avatar, TClass> @base, Ability ability)
         {
-            var talants = Talants;
+            var talants = OpenedTalants;
             talants.ForEach(t =>
             {
                 t.Bind(gameMap, avatar, @class);

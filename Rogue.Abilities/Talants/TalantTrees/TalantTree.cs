@@ -1,5 +1,8 @@
-﻿using Rogue.Types;
+﻿using Rogue.Abilities.Talants.NotAPI;
+using Rogue.Types;
 using Rogue.View.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Rogue.Abilities.Talants.TalantTrees
 {
@@ -17,8 +20,11 @@ namespace Rogue.Abilities.Talants.TalantTrees
         public bool Container => false;
 
         public IDrawColor BackgroundColor { get; set; }
+
         public IDrawColor ForegroundColor { get; set; }
 
         public Rectangle Region { get; set; }
+
+        public abstract List<IGrouping<int,TalantBase>> Talants { get; }
     }
 }

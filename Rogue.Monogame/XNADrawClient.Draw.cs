@@ -442,6 +442,84 @@
                     DrawBorder(rect, 1, drawColor);
                 }
             }
+
+            if (drawablePath.PathPredefined == View.Enums.PathPredefined.Line)
+            {
+                Texture2D texture = default;
+
+                if (drawablePath.Texture != string.Empty)
+                {
+                    texture = TileSetByName(drawablePath.Texture);
+                }
+
+                var from = new Types.Point(drawablePath.Path.First());
+                from.X *= 32;
+                from.Y *= 32;
+                from.X += x;
+                from.Y += y;
+
+                var to = new Types.Point(drawablePath.Path.Last());
+                to.X *= 32;
+                to.Y *= 32;
+                to.X += x;
+                to.Y += y;
+
+                var fromVector = new Vector2(from.Xf, from.Yf);
+                var toVector = new Vector2(to.Xf, to.Yf);
+
+                var color = drawablePath.BackgroundColor;
+
+                var alpha = color.Opacity == 0
+                    ? color.A
+                    : color.Opacity;
+
+                var drawColor = new Color(color.R, color.G, color.B, (float)alpha);
+
+                DrawLineTo(spriteBatch, texture, fromVector, toVector, drawColor,(int)drawablePath.Depth);
+            }
+        }
+
+        public void DrawLineColor(SpriteBatch spriteBatch, Vector2 begin, Vector2 end, Color color, int width = 1)
+        {
+            width = 1;
+            Rectangle r = new Rectangle((int)begin.X, (int)begin.Y, (int)(end - begin).Length() + width, width);
+            Vector2 v = Vector2.Normalize(begin - end);
+            float angle = (float)Math.Acos(Vector2.Dot(v, -Vector2.UnitX));
+            if (begin.Y > end.Y) angle = MathHelper.TwoPi - angle;
+            spriteBatch.Draw(PixelColorTexture(), r,default, color, angle, Vector2.Zero, SpriteEffects.None, 0);
+        }
+
+        public void DrawLineTo(SpriteBatch sb, Texture2D texture, Vector2 src, Vector2 dst, Color color,int depth)
+        {
+            if (texture == default)
+            {
+                texture = PixelColorTexture();
+            }
+            else
+            {
+                color = Color.White;
+            }
+
+            //direction is destination - source vectors
+            Vector2 direction = dst - src;
+            //get the angle from 2 specified numbers (our point)
+            var angle = (float)Math.Atan2(direction.Y, direction.X);
+            //calculate the distance between our two vectors
+            float distance;
+            Vector2.Distance(ref src, ref dst, out distance);
+
+            //draw the sprite with rotation
+            sb.Draw(texture, src, new Rectangle((int)src.X, (int)src.Y, (int)distance, depth), color, angle, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+        }
+
+
+        private void DrawLine(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 end, float height)
+        {
+            spriteBatch.Draw(texture, start, null, Color.White,
+                             (float)Math.Atan2(end.Y - start.Y, end.X - start.X),
+                             new Vector2(0f, height),
+                             new Vector2(Vector2.Distance(start, end), 1f),
+                             SpriteEffects.None, 0f);
         }
 
         /// <summary>
@@ -457,11 +535,7 @@
         /// <param name="thicknessOfBorder"></param>
         private void DrawBorder(Microsoft.Xna.Framework.Rectangle rectangleToDraw, int thicknessOfBorder, Color borderColor)
         {
-            Texture2D pixel;
-
-            // Somewhere in your LoadContent() method:
-            pixel = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
-            pixel.SetData(new[] { Color.White }); // so that we can draw whatever color we want on top of it
+            Texture2D pixel = PixelColorTexture();
 
             // Draw top line
             spriteBatch.Draw(pixel, new Microsoft.Xna.Framework.Rectangle(rectangleToDraw.X, rectangleToDraw.Y, rectangleToDraw.Width, thicknessOfBorder), borderColor);
@@ -479,6 +553,16 @@
                                             rectangleToDraw.Y + rectangleToDraw.Height - thicknessOfBorder,
                                             rectangleToDraw.Width,
                                             thicknessOfBorder), borderColor);
+        }
+
+        private Texture2D PixelColorTexture()
+        {
+            Texture2D pixel;
+
+            // Somewhere in your LoadContent() method:
+            pixel = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            pixel.SetData(new[] { Color.White }); // so that we can draw whatever color we want on top of it
+            return pixel;
         }
 
         private static readonly Dictionary<string, PointLight> Lights = new Dictionary<string, PointLight>();

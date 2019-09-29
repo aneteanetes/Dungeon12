@@ -1,6 +1,7 @@
 ﻿using MoreLinq;
 using Rogue.Abilities.Talants.TalantTrees;
 using Rogue.Control.Keys;
+using Rogue.Drawing.Impl;
 using Rogue.Drawing.SceneObjects.Main.CharacterInfo.Talants;
 using Rogue.Drawing.SceneObjects.Map;
 using Rogue.Drawing.SceneObjects.UI;
@@ -14,7 +15,7 @@ namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo
 
         public override bool AbsolutePosition => true;
 
-        private PlayerSceneObject playerSceneObject;
+        private readonly PlayerSceneObject playerSceneObject;
 
         public TalantWindow(PlayerSceneObject playerSceneObject)
         {
@@ -30,14 +31,10 @@ namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo
             this.Left = 22.5;
             this.Top = 2;
 
-            var talantTrees = new List<TalantTree>()
-            {
-                new ttree(){ Name="a"},
-                new ttree(){ Name="bc"},
-                new ttree(){ Name="a"},
-                new ttree(){ Name="decf"}
-            };
-                //playerSceneObject.GetTalantTrees();
+            var txt = this.AddTextCenter(new DrawText("Таланты"), true, false);
+            txt.Top += 0.2;
+
+            var talantTrees = playerSceneObject.GetTalantTrees();
 
             var tabs = new List<TalantTreeTab>();
 
@@ -54,22 +51,18 @@ namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo
                     ZIndex = this.ZIndex
                 };
                 tabs.Add(tab);
-
-                if (index == 0)
-                {
-                    tab.Open();
-                }
             }
 
             TalantTreeTab.Flex(tabs.ToArray());
-            tabs.ForEach(this.AddChild);
+            tabs.ForEach((tab,i) =>
+            {
+                this.AddChild(tab);
+                if (i == 0)
+                {
+                    tab.Open();
+                }
+            });
         }
-
-        private class ttree : TalantTree
-        {
-            public override string Tileset => "";
-        }
-
 
         protected override Key[] OverrideKeyHandles => new Key[] { Key.V, Key.X };
 

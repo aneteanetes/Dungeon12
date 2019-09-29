@@ -18,6 +18,8 @@
 
         public float Angle { get; set; }
 
+        public string Texture { get; set; }
+
         public PathPredefined PathPredefined { get; set; }
 
         public float Radius { get; set; }

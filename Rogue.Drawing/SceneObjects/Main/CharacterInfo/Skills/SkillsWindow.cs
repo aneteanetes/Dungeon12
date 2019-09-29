@@ -144,10 +144,10 @@
 
                 this.AddChild(new DarkRectangle() { Color = ConsoleColor.White, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.05, Top = top - 0.25 });
 
-                var border = this.AddControlCenter(new ImageControl("Rogue.Resources.Images.ui.squareB.png") { CacheAvailable=false });
+                var border = this.AddChildCenter(new ImageControl("Rogue.Resources.Images.ui.squareB.png") { CacheAvailable=false });
                 border.Top = 10;
 
-                var img = this.AddControlCenter(new ImageControl(ability.Image_B) { CacheAvailable = false, }, true, false);
+                var img = this.AddChildCenter(new ImageControl(ability.Image_B) { CacheAvailable = false, }, true, false);
 
                 img.Top = 10;
             }

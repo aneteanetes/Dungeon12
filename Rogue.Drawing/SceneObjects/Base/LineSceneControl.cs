@@ -3,15 +3,18 @@
     using System;
     using Rogue.Drawing.Impl;
     using Rogue.Settings;
+    using Rogue.Types;
+    using Rogue.View.Enums;
     using Rogue.View.Interfaces;
 
-    public class ColoredRectangle : HandleSceneControl
+    public class LineSceneControl : HandleSceneControl
     {
         public ConsoleColor Color { get; set; }
 
-        public bool Fill { get; set; }
-
+        public string Texture { get; set; }
+        
         private double opacity;
+
         public double Opacity
         {
             get => opacity;
@@ -22,10 +25,17 @@
             }
         }
 
+        private (Point from, Point to) linePath;
+
+        public LineSceneControl(Point from, Point to, ConsoleColor color= ConsoleColor.Black, string texture="")
+        {
+            linePath = (from, to);
+            Color = color;
+            this.Texture = texture;
+        }
+
         public int Depth { get; set; } = 1;
-
-        public double Round { get; set; } = 0;
-
+        
         protected void UpdatePath()
         {
             this.drawablePath = null;
@@ -46,41 +56,21 @@
 
                     drawablePath = new DrawablePath
                     {
-                        Fill = this.Fill,
+                        Fill = true,
                         BackgroundColor = color,
                         Depth = this.Depth,
-                        PathPredefined = View.Enums.PathPredefined.Rectangle,
-                        Region = this.Position,
-                        Radius = (float)this.Round
+                        PathPredefined = PathPredefined.Line,
+                        Texture = this.Texture,
+                        Paths = new System.Collections.Generic.List<Point>()
+                        {
+                            this.linePath.from,
+                            this.linePath.to
+                        }
                     };
                 }
 
                 return drawablePath;
             }
-        }
-
-        public ColoredRectangle DarkPanel()
-        {
-            Color = ConsoleColor.Black;
-            Depth = 1;
-            Fill = true;
-            Opacity = 0.5;
-            Round = 5;
-
-            return this;
-        }
-
-    }
-
-    public class DarkRectangle : ColoredRectangle
-    {
-        public DarkRectangle()
-        {
-            Color = ConsoleColor.Black;
-            Depth = 1;
-            Fill = true;
-            Opacity = 0.5;
-            Round = 5;
         }
     }
 }

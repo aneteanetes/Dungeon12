@@ -88,7 +88,7 @@
             return textControl;
         }
 
-        protected T AddControlCenter<T>(T control, bool horizontal=true, bool vertical=true)
+        protected T AddChildCenter<T>(T control, bool horizontal=true, bool vertical=true)
             where T: SceneObject
         {
             var measure = MeasureImage(control.Image);
@@ -109,10 +109,24 @@
                 var top = height / 2 - measure.Y / 2;
                 control.Top = top / 32;
             }
-
             this.AddChild(control);
 
             return control;
+        }
+               
+        public SceneObject WithText(IDrawText drawText, bool center = false)
+        {
+            if (center)
+            {
+                this.AddTextCenter(drawText);
+            }
+            else
+            {
+                var textControl = new TextControl(drawText);
+                this.Children.Add(textControl);
+            }
+
+            return this;
         }
 
         protected Point MeasureText(IDrawText text) => Global.DrawClient.MeasureText(text);
