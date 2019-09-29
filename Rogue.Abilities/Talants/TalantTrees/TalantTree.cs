@@ -1,0 +1,24 @@
+﻿using Rogue.Types;
+using Rogue.View.Interfaces;
+
+namespace Rogue.Abilities.Talants.TalantTrees
+{
+
+    public abstract class TalantTree : IDrawable
+    {
+        public virtual string Name { get; set; }
+
+        public string Icon { get; }
+
+        public abstract string Tileset { get; }
+
+        public Rectangle TileSetRegion { get; }
+
+        public bool Container => false;
+
+        public IDrawColor BackgroundColor { get; set; }
+        public IDrawColor ForegroundColor { get; set; }
+
+        public Rectangle Region { get; set; }
+    }
+}

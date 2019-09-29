@@ -2,6 +2,8 @@
 {
     using Rogue.Abilities;
     using Rogue.Abilities.Enums;
+    using Rogue.Abilities.Talants;
+    using Rogue.Abilities.Talants.TalantTrees;
     using Rogue.Classes;
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
@@ -57,11 +59,8 @@
             this.Height = 1;
             this.AddChild(new ObjectHpBar(Player));
 
-            this.abilities =new Lazy<Ability[]>(() => Avatar.Character.GetInstancesFromAssembly<Ability>().Select(x=>
-            {
-                x.Owner = player;
-                return x;
-            }).ToArray());
+            this.abilities = new Lazy<Ability[]>(() => Avatar.Character.PropertiesOfType<Ability>());
+            this.talantTrees = new Lazy<TalantTree[]>(() => Avatar.Character.PropertiesOfType<TalantTree>());
 
             player.StateAdded += s => RedrawStates(s);
             player.StateRemoved += s => RedrawStates(s, true);
@@ -393,6 +392,10 @@
         private Lazy<Ability[]> abilities;
 
         public Ability[] GetAbilities() => abilities.Value;
+
+
+        private Lazy<TalantTree[]> talantTrees;
+        public List<TalantTree> GetTalantTrees() => talantTrees.Value.ToList();
 
         public Ability GetAbility(AbilityPosition abilityPosition) => this.GetAbilities().FirstOrDefault(x => x.AbilityPosition == abilityPosition);
 

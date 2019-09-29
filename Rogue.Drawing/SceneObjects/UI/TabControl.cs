@@ -6,6 +6,8 @@
     using Rogue.Drawing.Impl;
     using Rogue.View.Interfaces;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public abstract class TabControl<TContent, TArgument, TTab> : HandleSceneControl
         where TContent : ISceneObject
@@ -24,13 +26,13 @@
 
         protected abstract TTab Self { get; }
 
-        private bool active = false;
+        internal bool active = false;
 
         private readonly bool disabled;
 
         private readonly TArgument argument;
 
-        private readonly SceneObject parent;
+        internal readonly SceneObject parent;
 
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
@@ -69,7 +71,7 @@
             this.argument = argument;
             this.active = active;
 
-            if(active==true)
+            if (active == true)
             {
                 Current = Self;
                 OnChange?.Invoke(Self);
@@ -78,7 +80,7 @@
             this.Image = SquareTexture(false);
         }
 
-        private void SetInactive(TabControl<TContent, TArgument, TTab> tab)
+        protected virtual void SetInactive(TabControl<TContent, TArgument, TTab> tab)
         {
             if (tab != this)
             {
@@ -144,6 +146,9 @@
             }
         }
 
+        /// <summary>
+        /// double : left по которому надо расположить элемент контента
+        /// </summary>
         protected abstract Func<TArgument, double, TContent> CreateContent { get; }
     }
 }

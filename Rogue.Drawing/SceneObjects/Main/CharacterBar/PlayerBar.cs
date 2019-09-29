@@ -24,6 +24,11 @@
             {
                 Left=11.5
             });
+            this.AddChild(new TalantsButton(playerSceneObject, showEffects)
+            {
+                Left=13,
+                Top=0.5
+            });
         }
     }
 }

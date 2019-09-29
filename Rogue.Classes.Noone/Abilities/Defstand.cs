@@ -3,12 +3,13 @@
     using Rogue.Abilities;
     using Rogue.Abilities.Enums;
     using Rogue.Abilities.Scaling;
+    using Rogue.Classes.Noone.Talants.Defensible;
     using Rogue.Map;
     using Rogue.Map.Objects;
     using Rogue.Transactions;
     using System;
 
-    public class Defstand : Ability<Noone>
+    public class Defstand : Ability<Noone, DefensibleTalants>
     {
         public override bool Hold => true;
 

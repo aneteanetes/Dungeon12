@@ -4,6 +4,8 @@
     using Rogue.Classes;
     using Rogue.Map;
     using Rogue.Map.Objects;
+    using Rogue.Types;
+    using Rogue.View.Interfaces;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -12,7 +14,8 @@
     /// <summary>
     /// Содержит поля которые должны быть типа <see cref="Talant<typeparamref name="TClass"/>"/>
     /// </summary>
-    public class TalantTree<TClass> where TClass : Character
+    public abstract class TalantTree<TClass> : TalantTrees.TalantTree
+        where TClass : Character
     {
         private IEnumerable<Talant<TClass>> Talants
         {
@@ -22,6 +25,9 @@
 
                 var members = accessor.GetMembers().Where(m =>
                 {
+                    if (m.Type.BaseType == null)
+                        return false;
+
                     if (m.Type.BaseType.IsGenericType)
                     {
                         return m.Type.BaseType.GetGenericTypeDefinition() == typeof(Talant<>);

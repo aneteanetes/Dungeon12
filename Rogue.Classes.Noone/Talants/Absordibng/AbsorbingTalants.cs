@@ -4,9 +4,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Rogue.Classes.Noone.Talants
 {
-    [Display(Name ="Поглощение")]
     public class AbsorbingTalants : TalantTree<Noone>
     {
+        public override string Name => "Поглощение";
+
+        public override string Tileset => "";
+
         public AbsorbedPoison Poison { get; set; } = new AbsorbedPoison() { Level = 1 };
     }
 }

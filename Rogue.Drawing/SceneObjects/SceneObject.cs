@@ -209,11 +209,21 @@
         }
 
         public void RemoveChild<T>()
-            => this.Children.Where(x => x.GetType().IsAssignableFrom(typeof(T)))
+        {
+            var forRemove = new List<ISceneObject>();
+
+            this.Children.Where(x => x.GetType().IsAssignableFrom(typeof(T)) || x.GetType() == typeof(T))
                 .ForEach(x =>
                 {
                     x.Destroy?.Invoke();
+                    forRemove.Add(x);
                 });
+
+            foreach (var removing in forRemove)
+            {
+                this.RemoveChild(removing);
+            }
+        }
 
         private Rectangle _computedPosition;
         public Rectangle ComputedPosition

@@ -74,11 +74,11 @@
             this.AddChild(skillInfo);
         }
         
-        protected override Key[] OverrideKeyHandles => new Key[] { Key.V, Key.X };
+        protected override Key[] OverrideKeyHandles => new Key[] { Key.V };
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
-            if (key == Key.V || key== Key.X)
+            if (key == Key.V)
             {
                 base.KeyDown(Key.Escape, modifier, hold);
             }

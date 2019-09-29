@@ -1,7 +1,7 @@
 ﻿using Rogue.Abilities;
 using Rogue.Abilities.Enums;
 using Rogue.Abilities.Scaling;
-using Rogue.Classes.Noone.Talants.Defaura;
+using Rogue.Classes.Noone.Talants.Defensible;
 using Rogue.Map;
 using Rogue.Map.Objects;
 using Rogue.Transactions;

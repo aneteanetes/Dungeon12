@@ -1,9 +1,11 @@
 ﻿namespace Rogue.Classes.Noone
 {
+    using Rogue.Abilities;
+    using Rogue.Abilities.Talants.TalantTrees;
+    using Rogue.Classes.Noone.Abilities;
     using Rogue.Classes.Noone.Talants;
-    using Rogue.Classes.Noone.Talants.Defaura;
+    using Rogue.Classes.Noone.Talants.Defensible;
     using Rogue.Drawing.Impl;
-    using Rogue.Entites.Alive;
     using Rogue.Entites.Animations;
     using Rogue.Types;
     using System;
@@ -117,12 +119,40 @@
 
         public DefensibleTalants Defensible { get; set; } = new DefensibleTalants();
 
+        public Attack Attack { get; set; } = new Attack();
+
+        public Defstand Defstand { get; set; } = new Defstand();
+
+        public ShieldSkill ShieldSkill { get; set; } = new ShieldSkill();
+
+        public Defaura Defaura { get; set; } = new Defaura();
+
         public override T PropertyOfType<T>()
         {
             switch (typeof(T))
             {
                 case Type abs when abs == typeof(AbsorbingTalants): return Absorbing as T;
                 case Type abs when abs == typeof(DefensibleTalants): return Defensible as T;
+                default: return default;
+            }
+        }
+
+        public override T[] PropertiesOfType<T>()
+        {
+            switch (typeof(T))
+            {
+                case Type t when t.IsAssignableFrom(typeof(Ability)): return new T[]
+                    {
+                        Attack as T,
+                        Defstand as T,
+                        ShieldSkill as T,
+                        Defaura as T
+                    };
+                case Type t when t.IsAssignableFrom(typeof(TalantTree)): return new T[]
+                    {
+                        Absorbing as T,
+                        Defensible as T
+                    };
                 default: return default;
             }
         }

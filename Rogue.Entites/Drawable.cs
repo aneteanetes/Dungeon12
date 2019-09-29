@@ -27,5 +27,13 @@ namespace Rogue.Entites
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public virtual T PropertyOfType<T>() where T : class => default;
+
+
+        /// <summary>
+        /// Возвращает свойства типов T - реализация: case of types
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public virtual T[] PropertiesOfType<T>() where T : class => default;
     }
 }

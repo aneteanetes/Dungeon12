@@ -15,7 +15,7 @@
         private PlayerSceneObject playerSceneObject;
         private Action<List<ISceneObject>> showEffects;
 
-        public SkillsButton(PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects) : base("Навыки", showEffects)
+        public SkillsButton(PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects) : base("Навыки (V)", showEffects)
         {
             this.playerSceneObject = playerSceneObject;
             this.showEffects = showEffects;
@@ -56,7 +56,7 @@
 
         protected override Key[] KeyHandles => new Key[]
         {
-            Key.V, Key.X
+            Key.V
         };
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold) => ShowSkillsWindow();

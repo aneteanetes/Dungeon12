@@ -9,28 +9,25 @@
     using System;
     using System.Collections.Generic;
 
-    public class CharButton : TooltipedSceneObject
+    public class TalantsButton : TooltipedSceneObject
     {
         public override bool AbsolutePosition => true;
 
         private PlayerSceneObject playerSceneObject;
-        private Action<List<ISceneObject>> showEffects;
         private GameMap gamemap;
 
-        public CharButton(GameMap gamemap, PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects) : base("Персонаж (C)", showEffects)
+        public TalantsButton(PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects) : base("Таланты (X)", showEffects)
         {
-            this.gamemap = gamemap;
             this.playerSceneObject = playerSceneObject;
-            this.showEffects = showEffects;
 
-            this.Height = 1.5;
-            this.Width = 1.5;
+            this.Height = 1;
+            this.Width = 1;
 
-            this.AddChild(new ImageControl("Rogue.Resources.Images.ui.player.character.png")
+            this.AddChild(new ImageControl("Rogue.Resources.Images.ui.player.tal.png")
             {
                 CacheAvailable = true,
-                Height = 1.5,
-                Width = 1.5,
+                Height = 1,
+                Width = 1,
             });
 
             this.Image = SquareTexture(false);
@@ -59,29 +56,30 @@
 
         protected override Key[] KeyHandles => new Key[]
         {
-            Key.C,Key.I
+            Key.X
         };
 
-        public override void KeyDown(Key key, KeyModifiers modifier, bool hold) => ShowInfo();
+        public override void KeyDown(Key key, KeyModifiers modifier, bool hold) => ShowTalWindow();
 
-        public override void Click(PointerArgs args) => ShowInfo();
+        public override void Click(PointerArgs args) => ShowTalWindow();
 
-        private CharacterInfoWindow characterInfoWindow;
+        private TalantWindow talWindow = null;
 
-        private void ShowInfo()
+        private void ShowTalWindow()
         {
-            if (characterInfoWindow != null)
+            if (talWindow != null)
                 return;
 
             playerSceneObject.StopMovings();
 
-            characterInfoWindow = new CharacterInfoWindow(gamemap,playerSceneObject, showEffects);
-            characterInfoWindow.Destroy += () => characterInfoWindow = null;
+            talWindow = new TalantWindow(playerSceneObject);
+            talWindow.Destroy += () => talWindow = null;
 
             this.ShowEffects(new List<ISceneObject>()
             {
-                characterInfoWindow
+                talWindow
             });
         }
+
     }
 }
