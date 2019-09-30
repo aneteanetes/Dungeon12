@@ -1,16 +1,15 @@
 ﻿namespace Rogue.Races.Perks
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using FastMember;
     using Rogue.Classes;
     using Rogue.Data.Perks;
     using Rogue.DataAccess;
     using Rogue.Drawing.Impl;
     using Rogue.Entites.Alive;
-    using Rogue.Perks;
     using Rogue.View.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class RacePerk : Perk
     {

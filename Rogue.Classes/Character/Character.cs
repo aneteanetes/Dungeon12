@@ -61,5 +61,13 @@
         public Backpack Backpack { get; set; } = new Backpack(6, 11);
 
         public Wear Clothes { get; set; } = new Wear();
+
+        /// <summary>
+        /// Пересчитывает все характеристики
+        /// </summary>
+        public void Recalculate()
+        {
+
+        }
     }
 }

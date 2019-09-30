@@ -2,6 +2,7 @@
 using Rogue.Abilities.Enums;
 using Rogue.Abilities.Scaling;
 using Rogue.Classes.Noone.Talants.Defensible;
+using Rogue.Entites.Alive;
 using Rogue.Map;
 using Rogue.Map.Objects;
 using Rogue.Transactions;
@@ -82,7 +83,7 @@ namespace Rogue.Classes.Noone.Abilities
         /// <summary>
         /// так то бафы должны действовать и на аватар тоже
         /// </summary>
-        private class DefauraBuf : Applicable
+        private class DefauraBuf : BasePerk
         {
             public override string Image => "Rogue.Classes.Noone.Images.Abilities.Defaura.buf.png";
 

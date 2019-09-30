@@ -44,5 +44,38 @@
                 }
             }
         }
+
+        public static Tto Transfer<Tfom,Tto>(Tfom from)
+            where Tfom : Character
+            where Tto : Character
+        {
+            // создаём новый экземпляр класса
+            var to = typeof(Tto).New<Tto>();
+
+            // убираем все перки которые имеют отношение к классу
+            from.RemoveAll(p=>p.ClassDependent);
+
+            to.Backpack = from.Backpack;
+            to.Clothes= from.Clothes;
+            to.EXP = from.EXP;
+            to.Gold = from.Gold;
+            to.HitPoints = from.HitPoints;
+            to.MaxHitPoints = from.MaxHitPoints;
+            to.AbilityPower = from.AbilityPower;
+            to.AttackPower = from.AttackPower;
+            to.Barrier = from.Barrier;
+            to.Defence = from.Defence;
+            to.Idle = from.Idle;
+            to.MinDMG = from.MinDMG;
+            to.MaxDMG = from.MaxDMG;
+
+            to.Race = from.Race;
+            to.Name = from.Name;
+            to.Level = from.Level;
+
+            to.Recalculate();
+
+            return to;
+        }
     }
 }

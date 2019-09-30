@@ -65,8 +65,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Classes", "Rogue.Clas
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Races", "Rogue.Races\Rogue.Races.csproj", "{81C8C9D0-CCAE-45EE-A048-16424264FA74}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Perks", "Rogue.Perks\Rogue.Perks.csproj", "{F1A9D3F6-EB95-4F91-9E29-CFC7E8FF1EB9}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.DataAccess", "Rogue.DataAccess\Rogue.DataAccess.csproj", "{D50A52AB-B65D-41F9-AA24-5EBA34E3659D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Data", "Rogue.Data\Rogue.Data.csproj", "{8B445CF1-DA11-40D4-A6F1-1C00ED775631}"
@@ -101,7 +99,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Inventory", "Rogue.In
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Equipment", "Rogue.Equipment\Rogue.Equipment.csproj", "{951FB515-3DC0-4F25-9120-80B197F43543}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Audio", "Rogue.Audio\Rogue.Audio.csproj", "{15F888DE-9F7F-427E-B662-93817A862BE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Audio", "Rogue.Audio\Rogue.Audio.csproj", "{15F888DE-9F7F-427E-B662-93817A862BE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -341,14 +339,6 @@ Global
 		{81C8C9D0-CCAE-45EE-A048-16424264FA74}.Release|Any CPU.Build.0 = Release|Any CPU
 		{81C8C9D0-CCAE-45EE-A048-16424264FA74}.Release|x86.ActiveCfg = Release|Any CPU
 		{81C8C9D0-CCAE-45EE-A048-16424264FA74}.Release|x86.Build.0 = Release|Any CPU
-		{F1A9D3F6-EB95-4F91-9E29-CFC7E8FF1EB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1A9D3F6-EB95-4F91-9E29-CFC7E8FF1EB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1A9D3F6-EB95-4F91-9E29-CFC7E8FF1EB9}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F1A9D3F6-EB95-4F91-9E29-CFC7E8FF1EB9}.Debug|x86.Build.0 = Debug|Any CPU
-		{F1A9D3F6-EB95-4F91-9E29-CFC7E8FF1EB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1A9D3F6-EB95-4F91-9E29-CFC7E8FF1EB9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1A9D3F6-EB95-4F91-9E29-CFC7E8FF1EB9}.Release|x86.ActiveCfg = Release|Any CPU
-		{F1A9D3F6-EB95-4F91-9E29-CFC7E8FF1EB9}.Release|x86.Build.0 = Release|Any CPU
 		{D50A52AB-B65D-41F9-AA24-5EBA34E3659D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D50A52AB-B65D-41F9-AA24-5EBA34E3659D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D50A52AB-B65D-41F9-AA24-5EBA34E3659D}.Debug|x86.ActiveCfg = Debug|Any CPU

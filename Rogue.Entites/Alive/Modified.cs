@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Rogue.Transactions;
 
     /// <summary>
@@ -9,11 +10,11 @@
     /// </summary>
     public class Modified : Capable
     {
-        private static readonly Dictionary<Type, Applicable> Cache = new Dictionary<Type, Applicable>();
+        private static readonly Dictionary<Type, Perk> Cache = new Dictionary<Type, Perk>();
 
-        public List<Applicable> Modifiers = new List<Applicable>();
+        public List<Perk> Modifiers = new List<Perk>();
 
-        public void Add<T>() where T: Applicable
+        public void Add<T>() where T: Perk
         {
             if (!Cache.TryGetValue(typeof(T), out var perk))
             {
@@ -25,7 +26,7 @@
             Modifiers.Add(perk);
         }
 
-        public void Remove<T>() where T : Applicable
+        public void Remove<T>() where T : Perk
         {
             if (!Cache.TryGetValue(typeof(T), out var perk))
             {
@@ -34,6 +35,21 @@
 
             perk.Discard(this);
             Modifiers.Remove(perk);
+        }
+
+        public void RemoveAll(Func<Perk,bool> filter=default)
+        {
+            if (filter == default)
+            {
+                filter = p => true;
+            }
+
+            var classPerks = Modifiers.Where(filter);
+            foreach (var classPerk in classPerks)
+            {
+                classPerk.Discard(this);
+                Modifiers.Remove(classPerk);
+            }
         }
     }
 }

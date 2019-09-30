@@ -1,9 +1,12 @@
-﻿namespace Rogue.Perks
-{
-    using Rogue.Transactions;
-    using Rogue.Types;
-    using Rogue.View.Interfaces;
+﻿using Rogue.Transactions;
+using Rogue.Types;
+using Rogue.View.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
+namespace Rogue.Entites.Alive
+{
     public abstract class Perk : Applicable, IDrawable
     {
         public abstract string Icon { get; }
@@ -23,5 +26,8 @@
         public Rectangle Region { get; set; }
 
         public bool Container => false;
+
+        public bool ClassDependent { get; set; }
     }
+
 }
