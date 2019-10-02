@@ -217,6 +217,17 @@
             this.Children.Add(sceneObject);
         }
 
+        public void ClearChildrens()
+        {
+            var forRemove = new List<ISceneObject>(this.Children);
+
+            foreach (var removing in forRemove)
+            {
+                removing.Destroy?.Invoke();
+                this.RemoveChild(removing);
+            }
+        }
+
         public void RemoveChild(ISceneObject sceneObject)
         {
             this.Children.Remove(sceneObject);

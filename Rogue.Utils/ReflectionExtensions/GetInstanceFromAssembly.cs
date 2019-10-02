@@ -44,6 +44,13 @@
             return searchPattern(value, assembly);
         }
 
+        public static Type GetTypeFromAssembly(this string value, string assemblyName)
+            => GetTypeFromAssembly(value, assemblyName, (x, a) => a.GetType(x));
+
+        public static T GetInstanceFromAssembly<T>(this string value, string assemblyName,params object[] arguments)
+            => GetTypeFromAssembly(value, assemblyName, (x, a) => a.GetType(x))
+                .NewAs<T>(arguments);
+
         public static Type[] GetTypesFromAssembly(this string value, string assemblyName, Func<string, Assembly, IEnumerable<Type>> searchPattern)
         {
             if (!LoadedAssemblies.TryGetValue(assemblyName, out var assembly))

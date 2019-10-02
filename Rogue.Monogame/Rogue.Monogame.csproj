@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Classes\Rogue.Classes.Bowman\Rogue.Classes.Bowman.csproj" />
     <ProjectReference Include="..\External\Penumbra\MonoGame.Penumbra.DesktopGL.csproj" />
     <ProjectReference Include="..\External\ProjectMercury\ProjectMercury.csproj" />
     <ProjectReference Include="..\Rogue.Drawing\Rogue.Drawing.csproj" />

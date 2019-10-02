@@ -5,6 +5,8 @@
     using Rogue.Conversations;
     using Rogue.Drawing.Impl;
     using Rogue.Drawing.SceneObjects.Base;
+    using Rogue.Drawing.SceneObjects.Map;
+    using Rogue.Map;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -14,9 +16,15 @@
         public override bool CacheAvailable => false;
 
         public override bool AbsolutePosition => true;
-        
-        public AnswerPanel()
+
+        private GameMap gameMap;
+        private PlayerSceneObject playerSceneObject;
+
+        public AnswerPanel(GameMap gameMap, PlayerSceneObject playerSceneObject)
         {
+            this.gameMap = gameMap;
+            this.playerSceneObject = playerSceneObject;
+
             this.Opacity = 0.8;
 
             this.Top = 15;
@@ -87,7 +95,8 @@
 
             if (replica.Replics.Count == 0)
             {
-                SelectSubject(lastSubject,replica.Text);
+                FireTrigger(replica);
+                SelectSubject(lastSubject, replica.Text);
                 return;
             }
 
@@ -118,6 +127,22 @@
 
                 currentAnswers.Add(answer);
                 y++;
+            }
+
+            FireTrigger(replica);
+        }
+
+        private void FireTrigger(Replica replica)
+        {
+            if (replica.TriggerClass != null)
+            {
+                var convTrigger = replica.TriggerClass
+                    .GetInstanceFromAssembly<IConversationTrigger>(replica.TriggerClassAsm);
+
+                convTrigger.PlayerSceneObject = playerSceneObject;
+                convTrigger.Gamemap = gameMap;
+
+                this.Text = convTrigger.Execute(replica.TriggerClassArguments);
             }
         }
 

@@ -60,6 +60,12 @@
             }
         }
 
+        /// <summary>
+        /// Устанавливает базовое изображение игнорируя специальный сеттер, что бы сменить источник анимации
+        /// </summary>
+        /// <param name="img"></param>
+        public void ImageForceSet(string img) => base.Image = img;
+
         private int frame = 0;
 
         private bool animationStop = false;

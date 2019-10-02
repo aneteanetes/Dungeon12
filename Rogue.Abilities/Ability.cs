@@ -42,14 +42,14 @@
         /// </summary>
         public virtual PhysicalObject Range => Owner.Grow(RangeMultipler);
 
-        protected virtual double RangeMultipler => 1;            
+        protected virtual double RangeMultipler => 1;
 
         /// <summary>
         /// Позиция способности от 1 до 4
         /// </summary>
-        public abstract int Position { get; }
+        public virtual int Position { get; } = -1;
 
-        public virtual AbilityPosition AbilityPosition { get; }
+        public abstract AbilityPosition AbilityPosition { get; }
 
         /// <summary>
         /// вот блядь виртуал почти всегда лень ебаная

@@ -35,6 +35,7 @@
 
         public static GlobalTime Time { get; } = new GlobalTime();
 
+        public static GlobalEvent Events { get; } = new GlobalEvent();
 
         public static object TransportVariable { get; set; }
     }

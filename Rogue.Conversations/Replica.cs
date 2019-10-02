@@ -23,7 +23,7 @@ namespace Rogue.Conversations
         public List<Replica> Replics { get; set; }
 
         /// <summary>
-        /// Теги которые будут означать ссылки (ДЕРЬМО А НЕ КОММЕНТ)
+        /// Теги которые будут означать ссылки
         /// </summary>
         public List<int> ReplicsTags { get; set; }
 
@@ -46,19 +46,20 @@ namespace Rogue.Conversations
         /// Экземпляр разговора которому принадлежит эта реплика
         /// </summary>
         public Conversation Conversation { get; set; }
+
+        /// <summary>
+        /// <see cref="IConversationTrigger"/> который нужно инстанциировать и выполнить в реплике
+        /// </summary>
+        public string TriggerClass { get; set; }
+
+        /// <summary>
+        /// Сборка <see cref="IConversationTrigger"/> из которой нужно инстанциировать
+        /// </summary>
+        public string TriggerClassAsm { get; set; }
+
+        /// <summary>
+        /// Аргументы для <see cref="IConversationTrigger.Execute(string[])"/>
+        /// </summary>
+        public string[] TriggerClassArguments { get; set; }
     }
 }
-
-
- //"Shown": false,
- //         "Tag": 2,
- //         "Variables": [
- //           {
- //             "Key": "Already",
- //             "Value": 4,
- //             "Global": false
- //           }
- //         ],
- //         "Answer": "Продолжайте",
- //         "Text": "После подъёма острова на нём начало собираться много рыбаков, но они все начали сходить с ума, поэтому главный архимаг прибыл на остров и совершил обряд жертвоприношения. Самого себя. После этого рыбакам стало на много легче, и был основан целый Орден Служителей Веры. Теперь мы каждый год совершаем ритуальное жертвоприношение для соблюдения мира на острове.",
- //         "Replics": [] //go to start

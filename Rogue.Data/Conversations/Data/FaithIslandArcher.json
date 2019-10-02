@@ -52,6 +52,12 @@
           "Tag": 5,
           "Answer": "(Сменить класс на: Лучник)",
           "Text": "Смена класса",
+          "TriggerClass": "Rogue.Classes.ClassChangeTrigger",
+          "TriggerClassAsm": "Rogue.Classes.Noone",
+          "TriggerClassArguments": [
+            "Rogue.Classes.Bowman.Bowman",
+            "Rogue.Classes.Bowman"
+          ],
           "ReplicsTags": []
         },
         {

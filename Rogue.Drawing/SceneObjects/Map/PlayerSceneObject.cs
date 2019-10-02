@@ -32,7 +32,7 @@
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
              ControlEventType.Focus,
-              ControlEventType.Key
+             ControlEventType.Key
         };        
 
         private Character Player => Avatar.Character;
@@ -54,18 +54,15 @@
             this.destroyBinding = destroyBinding;
             this.Avatar = player;
             this.location = location;
-            this.Image = player.Tileset;
             this.Width = 1;
             this.Height = 1;
+
             this.AddChild(new ObjectHpBar(Player));
 
-            this.abilities = new Lazy<Ability[]>(() => Avatar.Character.PropertiesOfType<Ability>());
-            this.talantTrees = new Lazy<TalantTree[]>(() => Avatar.Character.PropertiesOfType<TalantTree>());
+            this.abilities = () => Avatar.Character.PropertiesOfType<Ability>();
+            this.talantTrees = () => Avatar.Character.PropertiesOfType<TalantTree>();
 
-            this.GetAbilities().ForEach(a =>
-            {
-                a.Owner = player;
-            });
+            RebindClassProperties();
 
             player.StateAdded += s => RedrawStates(s);
             player.StateRemoved += s => RedrawStates(s, true);
@@ -73,10 +70,21 @@
 
             this.OnMove += () => this.Avatar.OnMove?.Invoke();
 
+            Global.Events.Subscribe(GlobalEvent.ClassChange, RebindClassProperties, false);
+
             Global.Time
                 .After(8)
                 .Do(() => RemoveTorchlight())
                 .Auto();
+        }
+
+        private void RebindClassProperties()
+        {
+            this.ImageForceSet(this.Avatar.Tileset);
+            this.GetAbilities().ForEach(a =>
+            {
+                a.Owner = this.Avatar;
+            });
         }
 
         public double Speed => Avatar.MovementSpeed;
@@ -394,13 +402,13 @@
             //base.Unfocus();
         }
 
-        private Lazy<Ability[]> abilities;
+        private Func<Ability[]> abilities;
 
-        public Ability[] GetAbilities() => abilities.Value;
+        public Ability[] GetAbilities() => abilities?.Invoke();
 
 
-        private Lazy<TalantTree[]> talantTrees;
-        public List<TalantTree> GetTalantTrees() => talantTrees.Value.ToList();
+        private Func<TalantTree[]> talantTrees;
+        public List<TalantTree> GetTalantTrees() => talantTrees?.Invoke().ToList();
 
         public Ability GetAbility(AbilityPosition abilityPosition) => this.GetAbilities().FirstOrDefault(x => x.AbilityPosition == abilityPosition);
 

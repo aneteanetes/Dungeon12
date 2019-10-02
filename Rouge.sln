@@ -101,6 +101,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Equipment", "Rogue.Eq
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Audio", "Rogue.Audio\Rogue.Audio.csproj", "{15F888DE-9F7F-427E-B662-93817A862BE3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Classes.Bowman", "Classes\Rogue.Classes.Bowman\Rogue.Classes.Bowman.csproj", "{11FDA54A-2B18-4DA0-9B24-48C1002890FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -459,6 +461,14 @@ Global
 		{15F888DE-9F7F-427E-B662-93817A862BE3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{15F888DE-9F7F-427E-B662-93817A862BE3}.Release|x86.ActiveCfg = Release|Any CPU
 		{15F888DE-9F7F-427E-B662-93817A862BE3}.Release|x86.Build.0 = Release|Any CPU
+		{11FDA54A-2B18-4DA0-9B24-48C1002890FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11FDA54A-2B18-4DA0-9B24-48C1002890FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11FDA54A-2B18-4DA0-9B24-48C1002890FF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{11FDA54A-2B18-4DA0-9B24-48C1002890FF}.Debug|x86.Build.0 = Debug|Any CPU
+		{11FDA54A-2B18-4DA0-9B24-48C1002890FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11FDA54A-2B18-4DA0-9B24-48C1002890FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11FDA54A-2B18-4DA0-9B24-48C1002890FF}.Release|x86.ActiveCfg = Release|Any CPU
+		{11FDA54A-2B18-4DA0-9B24-48C1002890FF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -475,6 +485,7 @@ Global
 		{3A9C3BEB-A4FE-4A49-9C86-5C32B41F832C} = {78351D8F-FED7-4727-87E5-C39095501481}
 		{239B3182-170B-468F-9900-9C49A7D5A76B} = {91D239FE-6D9C-4F85-B734-386D1ADB9CD9}
 		{356DC605-4A8A-4B5B-9471-CC299D6324FA} = {239B3182-170B-468F-9900-9C49A7D5A76B}
+		{11FDA54A-2B18-4DA0-9B24-48C1002890FF} = {FE650740-6133-4AE8-9C7A-6BC8478E29BC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED22073D-6C04-4F62-80B2-5EE0EA19C68D}

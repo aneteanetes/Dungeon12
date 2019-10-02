@@ -18,7 +18,32 @@
     {
         public override bool AbsolutePosition => true;
 
+        private GameMap gameMap;
+        private Action<List<ISceneObject>> abilityEffects;
+        private Action<ISceneObject> destroyBinding;
+        private Action<ISceneObjectControl> controlBinding;
+        private PlayerSceneObject player;
+
         public SkillBar(PlayerSceneObject player, GameMap gameMap, Action<List<ISceneObject>> abilityEffects, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding)
+        {
+            this.gameMap = gameMap;
+            this.player = player;
+            this.abilityEffects = abilityEffects;
+            this.controlBinding = controlBinding;
+            this.destroyBinding = destroyBinding;
+
+            Global.Events.Subscribe(GlobalEvent.ClassChange, SwitchAbilities);
+
+            BindAbilities(player, gameMap, abilityEffects, destroyBinding, controlBinding);
+        }
+
+        private void SwitchAbilities()
+        {
+            this.ClearChildrens();
+            BindAbilities(player, gameMap, abilityEffects, destroyBinding, controlBinding);
+        }
+
+        private void BindAbilities(PlayerSceneObject player, GameMap gameMap, Action<List<ISceneObject>> abilityEffects, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding)
         {
             var x = 4.9;
 
@@ -39,7 +64,7 @@
             var q = abilities.FirstOrDefault(a => a.AbilityPosition == AbilityPosition.Q);
             var QSkill = new SkillControl(gameMap, player, q, AbilityPosition.Q, abilityEffects, destroyBinding, controlBinding)
             {
-                Left = leftSkill.Left+2.5,
+                Left = leftSkill.Left + 2.5,
                 Top = 2
             };
             this.AddChild(QSkill);

@@ -11,6 +11,11 @@
             this.Scale = scale;
         }
 
+        /// <summary>
+        /// Я это в бреду писал?
+        /// </summary>
+        /// <param name="scale"></param>
+        /// <returns></returns>
         public static ScaleRate Build(Scale scale)
         {
             return new ScaleRate(scale);

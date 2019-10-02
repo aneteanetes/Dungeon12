@@ -4,6 +4,7 @@
     using Rogue.Drawing.SceneObjects.Base;
     using Rogue.Drawing.SceneObjects.Map;
     using Rogue.Entites.Animations;
+    using Rogue.Map;
     using Rogue.View.Interfaces;
     using System;
     using System.Linq;
@@ -17,11 +18,11 @@
         private SubjectPanel subjectPanel;
         private AnswerPanel answerPanel;
 
-        public NPCDialogue(PlayerSceneObject playerSceneObject, Rogue.Map.Objects.Сonversational conversational, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding)
+        public NPCDialogue(PlayerSceneObject playerSceneObject, Rogue.Map.Objects.Сonversational conversational, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding, GameMap gameMap)
         {
             Global.FreezeWorld = this;
 
-            answerPanel = new AnswerPanel() { DestroyBinding = destroyBinding, ControlBinding= controlBinding };
+            answerPanel = new AnswerPanel(gameMap,playerSceneObject) { DestroyBinding = destroyBinding, ControlBinding= controlBinding };
             subjectPanel = new SubjectPanel(conversational, answerPanel.Select, this.ExitDialogue);
                        
             if (conversational.ScreenImage != null)
