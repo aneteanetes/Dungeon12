@@ -23,8 +23,7 @@
         }
 
         protected override string BarTile => "Rogue.Resources.Images.ui.player.hp_back.png";
-
-
+        
         private class InteractiveHPBar : ImageControl
         {
             private Character player;

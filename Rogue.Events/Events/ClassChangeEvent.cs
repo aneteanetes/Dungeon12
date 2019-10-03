@@ -10,5 +10,7 @@ namespace Rogue.Events
         public object PlayerSceneObject { get; set; }
 
         public object GameMap { get; set; }
+
+        public object Character { get; set; }
     }
 }

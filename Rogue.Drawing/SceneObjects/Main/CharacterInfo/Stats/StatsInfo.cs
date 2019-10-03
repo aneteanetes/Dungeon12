@@ -69,11 +69,32 @@
 
             foreach (var stat in BaseStats)
             {
-                var txt = this.AddTextCenter(new DrawText($"{stat.Title(@char)}:  {stat.Value(@char)}", new DrawColor(stat.Color(@char))).Montserrat());
-                txt.Left = 0.5;
-                txt.Top = top;
+                var text = new DrawText($"{stat.Title(@char)}:  {stat.Value(@char)}", new DrawColor(stat.Color(@char))).Montserrat();
+                TextControl txt = null;
+                if (MeasureText(text).X / 32 > this.Width)
+                {
+                    var statTitle = new DrawText($"{stat.Title(@char)}:", new DrawColor(stat.Color(@char))).Montserrat();
+                    var statTxt = this.AddTextCenter(statTitle);
+                    statTxt.Left = 0.5;
+                    statTxt.Top = top;
 
-                statsText.Add(txt, c => $"{stat.Title(c)}:  {stat.Value(c)}");
+                    top += MeasureText(text).Y / 32 + (stat.EndGroup ? 0.3 : 0);
+
+                    text = new DrawText($"{stat.Value(@char)}", new DrawColor(stat.Color(@char))).Montserrat();
+
+                    txt = this.AddTextCenter(text);
+                    txt.Left = 0.5;
+                    txt.Top = top;
+
+                    statsText.Add(txt, c => $"{stat.Value(c)}");
+                }
+                else
+                {
+                    txt = this.AddTextCenter(text);
+                    txt.Left = 0.5;
+                    txt.Top = top;
+                    statsText.Add(txt, c => $"{stat.Title(c)}:  {stat.Value(c)}");
+                }
 
                 top += MeasureText(txt.Text).Y / 32 + (stat.EndGroup ? 0.3 : 0);
 

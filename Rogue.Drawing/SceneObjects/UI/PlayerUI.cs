@@ -2,7 +2,9 @@
 {
     using Rogue.Classes;
     using Rogue.Drawing.Impl;
+    using Rogue.Drawing.SceneObjects.Map;
     using Rogue.Entites.Alive;
+    using Rogue.Events;
     using Rogue.Types;
     using System;
 
@@ -12,6 +14,18 @@
 
         public PlayerUI(Character player)
         {
+            OnEvent(new ClassChangeEvent()
+            {
+                Character = player
+            });
+        }
+
+        public virtual void OnEvent(ClassChangeEvent @event)
+        {
+            var player = @event.Character.As<Character>();
+
+            this.ClearChildrens();
+
             this.AddChild(new AvatarSceneObject(player)
             {
                 Width = 2,
@@ -26,13 +40,17 @@
                 Top = 0.4
             });
 
-
-            var resbarType= player.GetTypeFromAssembly<ResourceBar>();
+            var resbarType = player.GetTypeFromAssembly<ResourceBar>();
             var resbar = resbarType.NewAs<ResourceBar>(player);
             resbar.Left = 2.35;
             resbar.Top = 1.1;
 
             this.AddChild(resbar);
+        }
+
+        protected override void CallOnEvent(dynamic obj)
+        {
+            OnEvent(obj);
         }
 
         private class AvatarSceneObject : ImageControl

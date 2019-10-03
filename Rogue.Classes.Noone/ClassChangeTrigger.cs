@@ -56,7 +56,8 @@ namespace Rogue.Classes
             Global.Events.Raise(new ClassChangeEvent()
             {
                 PlayerSceneObject = SceneObject,
-                GameMap = Gamemap.As<GameMap>()
+                GameMap = Gamemap.As<GameMap>(),
+                Character = SceneObject.Avatar.Character
             });
 
             return "Rogue.Drawing.Impl.DrawText".GetInstanceFromAssembly<IDrawText>("Rogue.Drawing", "Класс поменяли");

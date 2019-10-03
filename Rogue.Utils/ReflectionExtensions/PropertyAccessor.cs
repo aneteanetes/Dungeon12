@@ -14,6 +14,11 @@
                 return tObj;
             }
 
+            if(obj is null)
+            {
+                throw new System.ArgumentNullException("Property is null!");
+            }
+
             throw new System.Exception("Property had wrong type!");
         }
 

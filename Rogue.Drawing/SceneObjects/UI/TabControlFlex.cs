@@ -31,7 +31,7 @@
         {
             var allMeasured = Measure(all);
 
-            var widthParent = all[0].parent.Width;
+            var widthParent = all.FirstOrDefault()?.parent?.Width ?? 0;
             var allWidth = allMeasured.Sum(t => t.textWidth);
             
             var needToDistribute = widthParent - allWidth;

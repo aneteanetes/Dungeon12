@@ -14,11 +14,4 @@
     <ProjectReference Include="..\..\Rogue.Entites\Rogue.Entites.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Images\Abilities\JumpOff\" />
-    <Folder Include="Images\Abilities\MightShot\" />
-    <Folder Include="Images\Abilities\RainOfArrows\" />
-    <Folder Include="Images\Abilities\SpeedShot\" />
-  </ItemGroup>
-
 </Project>
