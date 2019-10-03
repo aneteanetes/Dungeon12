@@ -12,6 +12,7 @@
     using Rogue.Drawing.SceneObjects.Gameplay;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Entites.Alive;
+    using Rogue.Events;
     using Rogue.Map;
     using Rogue.Map.Objects;
     using Rogue.Transactions;
@@ -62,7 +63,7 @@
             this.abilities = () => Avatar.Character.PropertiesOfType<Ability>();
             this.talantTrees = () => Avatar.Character.PropertiesOfType<TalantTree>();
 
-            RebindClassProperties();
+            OnEvent(new ClassChangeEvent());
 
             player.StateAdded += s => RedrawStates(s);
             player.StateRemoved += s => RedrawStates(s, true);
@@ -70,15 +71,18 @@
 
             this.OnMove += () => this.Avatar.OnMove?.Invoke();
 
-            Global.Events.Subscribe(GlobalEvent.ClassChange, RebindClassProperties, false);
-
             Global.Time
                 .After(8)
                 .Do(() => RemoveTorchlight())
                 .Auto();
         }
 
-        private void RebindClassProperties()
+        protected override void CallOnEvent(dynamic obj)
+        {
+            OnEvent(obj);
+        }
+
+        public virtual void OnEvent(ClassChangeEvent @event)
         {
             this.ImageForceSet(this.Avatar.Tileset);
             this.GetAbilities().ForEach(a =>

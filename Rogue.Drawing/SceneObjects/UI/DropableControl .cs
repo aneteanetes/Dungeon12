@@ -8,14 +8,14 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class DropableControl : TooltipedSceneObject
+    public abstract class DropableControl : TooltipedSceneObject
     {
         public DropableControl() : base(null, null)
         {
         }
     }
 
-    public class DropableControl<TSource> : DropableControl
+    public abstract class DropableControl<TSource> : DropableControl
         where TSource : DraggableControl<TSource>
     {
         protected override ControlEventType[] Handles => new ControlEventType[]

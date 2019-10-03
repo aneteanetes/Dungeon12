@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Rogue.Audio\Rogue.Audio.csproj" />
+    <ProjectReference Include="..\Rogue.Events\Rogue.Events.csproj" />
     <ProjectReference Include="..\Rogue.View\Rogue.View.csproj" />
   </ItemGroup>
 

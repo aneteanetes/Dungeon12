@@ -9,5 +9,10 @@ namespace Rogue.Drawing.SceneObjects
         {
             Image = imagePath;
         }
+
+        protected override void CallOnEvent(dynamic obj)
+        {
+            OnEvent(obj);
+        }
     }
 }

@@ -32,6 +32,11 @@
             this.TooltipTextColor = @object.Item.Rare.Color();
         }
 
+        protected override void CallOnEvent(dynamic obj)
+        {
+            OnEvent(obj);
+        }
+
         protected override void Action(MouseButton mouseButton) => AddItemBackpack();
 
         private void AddItemBackpack()

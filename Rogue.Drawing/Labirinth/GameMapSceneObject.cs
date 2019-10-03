@@ -40,6 +40,11 @@ namespace Rogue.Drawing.Labirinth
             };
         }
 
+        protected override void CallOnEvent(dynamic obj)
+        {
+            OnEvent(obj);
+        }
+
         public Action<List<ISceneObject>, List<ISceneObject>> OnReload;
 
         private List<ISceneObject> currentAdditionalObjects = new List<ISceneObject>();

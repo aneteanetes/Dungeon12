@@ -14,6 +14,7 @@
     <ProjectReference Include="..\Rogue.Classes\Rogue.Classes.csproj" />
     <ProjectReference Include="..\Rogue.Control\Rogue.Control.csproj" />
     <ProjectReference Include="..\Rogue.Entites\Rogue.Entites.csproj" />
+    <ProjectReference Include="..\Rogue.Global\Rogue.Global.csproj" />
     <ProjectReference Include="..\Rogue.Loot\Rogue.Loot.csproj" />
     <ProjectReference Include="..\Rogue.Map\Rogue.Map.csproj" />
     <ProjectReference Include="..\Rogue.Scenes.Manager\Rogue.Scenes.Manager.csproj" />

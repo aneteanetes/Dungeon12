@@ -187,6 +187,10 @@
         {
             return new ItemTooltip(dressItemControl.item, position);
         }
+        protected override void CallOnEvent(dynamic obj)
+        {
+            OnEvent(obj);
+        }
 
         private class DressedItem : TooltipedSceneObject
         {
@@ -225,6 +229,10 @@
             }
 
             public bool IsEmpty => item == null;
+            protected override void CallOnEvent(dynamic obj)
+            {
+                OnEvent(obj);
+            }
         }
     }
 }

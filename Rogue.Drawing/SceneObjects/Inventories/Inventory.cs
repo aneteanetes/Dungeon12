@@ -237,6 +237,10 @@
                     }
                 }
             }
+            protected override void CallOnEvent(dynamic obj)
+            {
+                OnEvent(obj);
+            }
         }
 
         private class InventoryCell : SceneObject
@@ -317,6 +321,14 @@
                         return drawablePath;
                     }
                 }
+                protected override void CallOnEvent(dynamic obj)
+                {
+                    OnEvent(obj);
+                }
+            }
+            protected override void CallOnEvent(dynamic obj)
+            {
+                OnEvent(obj);
             }
         }
     }

@@ -68,5 +68,10 @@
             this.Destroy?.Invoke();
             Global.FreezeWorld = null;
         }
+
+        protected override void CallOnEvent(dynamic obj)
+        {
+            OnEvent(obj);
+        }
     }
 }

@@ -217,6 +217,11 @@
                     select?.Invoke(this.repl);
                 }
             }
+
+            protected override void CallOnEvent(dynamic obj)
+            {
+                OnEvent(obj);
+            }
         }
     }
 }

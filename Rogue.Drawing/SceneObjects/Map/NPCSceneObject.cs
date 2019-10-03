@@ -123,5 +123,10 @@
                 })
             },
         };
+
+        protected override void CallOnEvent(dynamic obj)
+        {
+            OnEvent(obj);
+        }
     }
 }

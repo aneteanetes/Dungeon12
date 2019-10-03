@@ -81,5 +81,9 @@
                 base.Click(args);
             }
         }
+        protected override void CallOnEvent(dynamic obj)
+        {
+            OnEvent(obj);
+        }
     }
 }

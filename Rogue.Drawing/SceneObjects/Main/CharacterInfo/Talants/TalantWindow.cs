@@ -5,6 +5,7 @@ using Rogue.Drawing.Impl;
 using Rogue.Drawing.SceneObjects.Main.CharacterInfo.Talants;
 using Rogue.Drawing.SceneObjects.Map;
 using Rogue.Drawing.SceneObjects.UI;
+using Rogue.Events;
 using System.Collections.Generic;
 
 namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo
@@ -74,6 +75,16 @@ namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo
             }
 
             base.KeyDown(key, modifier, hold);
+        }
+
+        public void OnEvent(ClassChangeEvent @event)
+        {
+
+        }
+
+        protected override void CallOnEvent(dynamic obj)
+        {
+            OnEvent(obj);
         }
     }
 }

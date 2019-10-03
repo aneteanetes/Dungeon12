@@ -40,5 +40,10 @@
         protected override void StopAction() { }
 
         protected override Key[] KeyHandles => new Key[] { Key.LeftShift };
+
+        protected override void CallOnEvent(dynamic obj)
+        {
+            OnEvent(obj);
+        }
     }
 }

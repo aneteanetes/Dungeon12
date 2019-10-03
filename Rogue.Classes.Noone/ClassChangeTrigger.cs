@@ -1,5 +1,7 @@
 ﻿using Rogue.Conversations;
 using Rogue.Drawing.SceneObjects.Map;
+using Rogue.Events;
+using Rogue.Map;
 using Rogue.View.Interfaces;
 using System;
 using System.Collections;
@@ -10,16 +12,14 @@ namespace Rogue.Classes
 {
     public class ClassChangeTrigger : IConversationTrigger
     {
-        private PlayerSceneObject SceneObject => PlayerSceneObject as PlayerSceneObject;
-
-        private Map.GameMap Gmap => Gamemap as Map.GameMap;
-
         public object PlayerSceneObject { get; set; }
 
         public object Gamemap { get; set; }
 
         public IDrawText Execute(string[] args)
-        {            
+        {
+            var SceneObject = this.PlayerSceneObject.As<PlayerSceneObject>();
+
             Character from = SceneObject.Avatar.Character;
 
             var newClass = args[0];
@@ -53,7 +53,11 @@ namespace Rogue.Classes
 
             SceneObject.Avatar.Character = to;
 
-            Global.Events.Raise(GlobalEvent.ClassChange);
+            Global.Events.Raise(new ClassChangeEvent()
+            {
+                PlayerSceneObject = SceneObject,
+                GameMap = Gamemap.As<GameMap>()
+            });
 
             return "Rogue.Drawing.Impl.DrawText".GetInstanceFromAssembly<IDrawText>("Rogue.Drawing", "Класс поменяли");
         }

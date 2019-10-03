@@ -8,6 +8,10 @@
 
     public class PopupString : SceneObject
     {
+        protected override void CallOnEvent(dynamic obj)
+        {
+            OnEvent(obj);
+        }
         public override bool CacheAvailable => false;
 
         public override bool Interface => true;

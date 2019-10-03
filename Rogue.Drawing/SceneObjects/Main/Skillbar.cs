@@ -6,6 +6,7 @@
     using Rogue.Control.Keys;
     using Rogue.Drawing.SceneObjects.Common;
     using Rogue.Drawing.SceneObjects.Map;
+    using Rogue.Events;
     using Rogue.Map;
     using Rogue.Map.Objects;
     using Rogue.View.Interfaces;
@@ -32,15 +33,18 @@
             this.controlBinding = controlBinding;
             this.destroyBinding = destroyBinding;
 
-            Global.Events.Subscribe(GlobalEvent.ClassChange, SwitchAbilities);
-
             BindAbilities(player, gameMap, abilityEffects, destroyBinding, controlBinding);
         }
 
-        private void SwitchAbilities()
+        protected override void CallOnEvent(dynamic obj)
         {
+            OnEvent(obj);
+        }
+
+        public void OnEvent(ClassChangeEvent @event)
+        {            
             this.ClearChildrens();
-            BindAbilities(player, gameMap, abilityEffects, destroyBinding, controlBinding);
+            BindAbilities(@event.PlayerSceneObject.As<PlayerSceneObject>(), @event.GameMap.As<GameMap>(), abilityEffects, destroyBinding, controlBinding);
         }
 
         private void BindAbilities(PlayerSceneObject player, GameMap gameMap, Action<List<ISceneObject>> abilityEffects, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding)

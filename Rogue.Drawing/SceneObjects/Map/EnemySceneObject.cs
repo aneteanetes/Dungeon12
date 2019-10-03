@@ -25,6 +25,11 @@
         private readonly Mob mob;
         private readonly GameMap location;
 
+        protected override void CallOnEvent(dynamic obj)
+        {
+            OnEvent(obj);
+        }
+
         public override string Cursor => "attackmeele";
 
         protected override ControlEventType[] Handles => new ControlEventType[]

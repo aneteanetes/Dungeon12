@@ -59,6 +59,11 @@
             }
         }
 
+        protected override void CallOnEvent(dynamic obj)
+        {
+            OnEvent(obj);
+        }
+
         public ColoredRectangle DarkPanel()
         {
             Color = ConsoleColor.Black;

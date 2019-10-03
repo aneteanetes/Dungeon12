@@ -14,6 +14,10 @@
 
         private string Img => $"Rogue.Resources.Images.ui.checkbox{(Value ? "_f" : "")}.png";
 
+        protected override void CallOnEvent(dynamic obj)
+        {
+            OnEvent(obj);
+        }
         public CheckBox(IDrawText drawText)
         {
             var label = new CheckBoxLabel(drawText, Click);
@@ -42,6 +46,10 @@
             }
 
             public override void Click(PointerArgs args) => click(args);
+            protected override void CallOnEvent(dynamic obj)
+            {
+                OnEvent(obj);
+            }
         }
     }
 }

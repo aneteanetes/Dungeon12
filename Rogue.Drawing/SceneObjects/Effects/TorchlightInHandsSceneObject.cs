@@ -18,6 +18,12 @@
             this.AddChild(new Flame());
         }
 
+
+        protected override void CallOnEvent(dynamic obj)
+        {
+            OnEvent(obj);
+        }
+
         private class Flame : SceneObject
         {
             public override bool CacheAvailable => false;
@@ -54,6 +60,12 @@
                     .After(5).Do(() => Light.Range = 1.5f)
                     .After(6).Do(() => Light.Range = 1.25f)
                     .Auto();
+            }
+
+
+            protected override void CallOnEvent(dynamic obj)
+            {
+                OnEvent(obj);
             }
         }
     }

@@ -103,6 +103,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Audio", "Rogue.Audio\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Classes.Bowman", "Classes\Rogue.Classes.Bowman\Rogue.Classes.Bowman.csproj", "{11FDA54A-2B18-4DA0-9B24-48C1002890FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Events", "Rogue.Events\Rogue.Events.csproj", "{D8B2D192-FCA3-4EB4-9FF8-EB5B5C91F94F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -469,6 +471,14 @@ Global
 		{11FDA54A-2B18-4DA0-9B24-48C1002890FF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{11FDA54A-2B18-4DA0-9B24-48C1002890FF}.Release|x86.ActiveCfg = Release|Any CPU
 		{11FDA54A-2B18-4DA0-9B24-48C1002890FF}.Release|x86.Build.0 = Release|Any CPU
+		{D8B2D192-FCA3-4EB4-9FF8-EB5B5C91F94F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8B2D192-FCA3-4EB4-9FF8-EB5B5C91F94F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8B2D192-FCA3-4EB4-9FF8-EB5B5C91F94F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D8B2D192-FCA3-4EB4-9FF8-EB5B5C91F94F}.Debug|x86.Build.0 = Debug|Any CPU
+		{D8B2D192-FCA3-4EB4-9FF8-EB5B5C91F94F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8B2D192-FCA3-4EB4-9FF8-EB5B5C91F94F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8B2D192-FCA3-4EB4-9FF8-EB5B5C91F94F}.Release|x86.ActiveCfg = Release|Any CPU
+		{D8B2D192-FCA3-4EB4-9FF8-EB5B5C91F94F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

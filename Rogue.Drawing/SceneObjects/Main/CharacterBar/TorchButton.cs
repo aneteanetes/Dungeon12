@@ -33,6 +33,11 @@
             this.Image = SquareTexture(false);
         }
 
+        protected override void CallOnEvent(dynamic obj)
+        {
+            OnEvent(obj);
+        }
+
         private string SquareTexture(bool focus)
         {
             var f = focus

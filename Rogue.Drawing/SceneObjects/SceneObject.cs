@@ -39,6 +39,11 @@
                 }
             }
 
+            Global.Events.Subscribe(@event =>
+            {
+                this.Dispatch((so, arg) => so.CallOnEvent(arg), @event);
+            });
+
             //ХВАТИТ ОРАТЬ В КОММЕНТАРИЯХ
 
             ProcessSingleton();
@@ -46,6 +51,9 @@
 
         private static Dictionary<string, ISceneObject> singletonInstances = new Dictionary<string, ISceneObject>();
 
+        /// <summary>
+        /// омфг, это замена компонента T на новый компонент T с удалением предыдущего
+        /// </summary>
         private void ProcessSingleton()
         {
             if (this.Singleton)
@@ -308,6 +316,9 @@
 
         public virtual int ZIndex { get; set; } = 0;
 
+        /// <summary>
+        /// Значит что инстанс такого класса должен быть один, если создаётся новый то автоматом удаляется старый
+        /// </summary>
         public virtual bool Singleton { get; set; } = false;
 
         public virtual bool DrawOutOfSight { get; set; } = true;
@@ -341,5 +352,16 @@
         }
 
         public virtual void Update() { }
+
+        public virtual void OnEvent(object @object)
+        {
+            CallOnEvent(@object as dynamic);
+        }
+
+        /// <summary>
+        /// Method must call this.Discard(obj); for runtime dynamic binding 
+        /// </summary>
+        /// <param name="obj"></param>
+        protected virtual void CallOnEvent(dynamic obj) => OnEvent(obj);
     }
 }

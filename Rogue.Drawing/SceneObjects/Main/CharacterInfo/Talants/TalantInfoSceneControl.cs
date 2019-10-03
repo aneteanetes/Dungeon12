@@ -6,6 +6,7 @@ using Rogue.Drawing.GUI;
 using Rogue.Drawing.Impl;
 using Rogue.Drawing.SceneObjects.Base;
 using Rogue.Drawing.SceneObjects.Map;
+using Rogue.Events;
 using Rogue.Types;
 using Rogue.View.Interfaces;
 using System;
@@ -110,6 +111,16 @@ namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo.Talants
                 this.Image = SquareTexture(activatable ? Active : false);
             }
             base.Unfocus();
+        }
+
+        protected override void CallOnEvent(dynamic obj)
+        {
+            OnEvent(obj);
+        }
+
+        public void OnEvent(ClassChangeEvent @event)
+        {
+
         }
     }
 }
