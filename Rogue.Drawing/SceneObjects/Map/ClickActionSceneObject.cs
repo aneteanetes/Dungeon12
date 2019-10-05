@@ -16,9 +16,11 @@
 
             if (this.GetType() != typeof(PlayerSceneObject))
             {
-                this.playerSceneObject = playerSceneObject;
-
-                this.playerSceneObject.OnMove += CheckStopAction;
+                if (playerSceneObject != null)
+                {
+                    this.playerSceneObject = playerSceneObject;
+                    this.playerSceneObject.OnMove += CheckStopAction;
+                }
             }
         }
 

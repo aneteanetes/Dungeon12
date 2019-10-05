@@ -446,6 +446,8 @@
 
                     SetAnimation(animap);
                     FramePosition.Pos = animap.Frames[0];
+
+                    Avatar.VisionDirection = value;
                 }
             }
         }

@@ -15,7 +15,7 @@ namespace Rogue.Classes.Bowman.Effects
         private double _fly;
         private double _speed;
 
-        public Arrow(PlayerSceneObject playerSceneObject,double range,Direction dir, double speed=0.06) : base(playerSceneObject, new ArrowObject(dir), "", new Rectangle()
+        public Arrow(double range,Direction dir, double speed=0.06) : base(null, new ArrowObject(dir), "", new Rectangle()
         {
             Height = 32,
             Width = 32,
@@ -26,14 +26,19 @@ namespace Rogue.Classes.Bowman.Effects
                         : dir == Direction.Up ? 96 : 0))
         })
         {
+            this.Width = 1;
+            this.Height = 1;
             _speed = speed;
             _range = range;
+            this.Image = @object.Image;
             SetAnimation(@object.Animation);
         }
 
         protected override void Action(MouseButton mouseButton)
         {
         }
+
+        public override Rectangle ImageRegion => base.ImageRegion;
 
         protected override void DrawLoop()
         {

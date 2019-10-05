@@ -26,6 +26,8 @@ namespace Rogue.Classes.Bowman.Effects
             }
         }
 
+        public string Image => @"Effects\Arrow.png".ImgPath();
+
         private Point GetPoint(int frame)
         {
             Point pos = new Point();

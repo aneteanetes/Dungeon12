@@ -23,6 +23,8 @@
 
         public override bool Obstruction => true;
 
+        public Direction VisionDirection { get; set; }
+
         public Avatar()
         {
             this.ForegroundColor = new MapObjectColor

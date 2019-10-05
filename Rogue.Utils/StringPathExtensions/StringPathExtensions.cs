@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
 
 namespace Rogue
 {
@@ -12,6 +13,18 @@ namespace Rogue
 
         public static string PathPng(this string path) => path + ".png";
 
-        public static string ImgPath(this string img) => $"{Assembly.GetCallingAssembly().FullName}.{img.Replace(@"\", ".")}";
+
+        private static Dictionary<string, string> imgPathCache = new Dictionary<string, string>();
+
+        public static string ImgPath(this string img)
+        {
+            if(!imgPathCache.TryGetValue(img,out var imgPath))
+            {
+                imgPath = $"{Assembly.GetCallingAssembly().GetName().Name}.Images.{img.Replace(@"\", ".")}";
+                imgPathCache.Add(img, imgPath);                
+            }
+
+            return imgPath;
+        }
     }
 }

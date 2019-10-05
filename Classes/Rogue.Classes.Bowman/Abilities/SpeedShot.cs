@@ -1,8 +1,10 @@
 ﻿using Rogue.Abilities;
 using Rogue.Abilities.Enums;
 using Rogue.Abilities.Scaling;
+using Rogue.Classes.Bowman.Effects;
 using Rogue.Map;
 using Rogue.Map.Objects;
+using Rogue.View.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -33,6 +35,12 @@ namespace Rogue.Classes.Bowman.Abilities
         protected override void Use(GameMap gameMap, Avatar avatar, Bowman @class)
         {
             @class.Energy.LeftHand -= 15;
+
+            this.UseEffects(new Arrow(5, avatar.VisionDirection)
+            {
+                Left=avatar.Position.X/32,
+                Top=avatar.Position.Y/32
+            }.InList<ISceneObject>());
         }
     }
 }
