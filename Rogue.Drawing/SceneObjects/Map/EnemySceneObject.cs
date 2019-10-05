@@ -342,9 +342,9 @@
             if (ability.TargetType == AbilityTargetType.Target || ability.TargetType == AbilityTargetType.TargetAndNonTarget)
             {
                 var avatar = playerSceneObject.Avatar;
-                if (ability.CastAvailable(avatar))
+                if (ability.CastAvailableCooldown(avatar))
                 {
-                    ability.Cast(location, avatar);
+                    ability.CastCooldown(location, avatar);
                 }
             }
         }

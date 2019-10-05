@@ -222,6 +222,14 @@
             }
         }
 
+        protected override void AnimationLoop()
+        {
+            Global.AudioPlayer.Effect("step_g", new Audio.AudioOptions()
+            {
+                Volume = 0.05
+            });
+        }
+
         private static int movedRight = 0;
 
         private bool CheckMoveAvailable(Direction direction)

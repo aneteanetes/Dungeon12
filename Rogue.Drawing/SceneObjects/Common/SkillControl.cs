@@ -85,7 +85,7 @@
 
             if (this.ability.CastType == AbilityCastType.Passive)
             {
-                this.ability.Cast(gameMap, avatar);
+                this.ability.CastCooldown(gameMap, avatar);
             }
 
             this.Image = SquareTexture(false);
@@ -296,9 +296,9 @@
 
             if (player.TargetsInFocus.Count == 0)
             {
-                if (this.ability.CastAvailable(avatar))
+                if (this.ability.CastAvailableCooldown(avatar))
                 {
-                    this.ability.Cast(gameMap, avatar);
+                    this.ability.CastCooldown(gameMap, avatar);
                     this.highlight = true;
                     this.Image = SquareTexture(true);
                 }
@@ -333,9 +333,13 @@
 
             public override ScaleRate Scale => null;
 
-            public override bool CastAvailable(Avatar avatar) => false;
+            protected override bool CastAvailable(Avatar avatar) => false;
 
             public override AbilityPosition AbilityPosition { get; }
+
+            public override AbilityActionAttribute ActionType => AbilityActionAttribute.Special;
+
+            public override AbilityTargetType TargetType => AbilityTargetType.TargetAndNonTarget;
         }
 
         protected override ControlEventType[] Handles => new ControlEventType[]

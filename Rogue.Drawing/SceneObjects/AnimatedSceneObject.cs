@@ -124,10 +124,6 @@
 
         protected virtual void AnimationLoop()
         {
-            Global.AudioPlayer.Effect("step_g",new Audio.AudioOptions()
-            {
-                Volume=0.05
-            });
         }
 
         protected abstract void DrawLoop();

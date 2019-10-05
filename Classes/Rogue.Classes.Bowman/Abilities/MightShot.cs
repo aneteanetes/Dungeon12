@@ -6,7 +6,7 @@ using Rogue.Map.Objects;
 
 namespace Rogue.Classes.Bowman.Abilities
 {
-    public class MightShot : Ability<Bowman>
+    public class MightShot : BaseCooldownAbility
     {
         public override AbilityPosition AbilityPosition => AbilityPosition.Right;
 
@@ -14,9 +14,13 @@ namespace Rogue.Classes.Bowman.Abilities
 
         public override ScaleRate Scale => ScaleRate.Build(Entites.Enums.Scale.AttackDamage);
 
+        public override AbilityActionAttribute ActionType => AbilityActionAttribute.DmgHealInstant;
+        
+        public override AbilityTargetType TargetType => AbilityTargetType.NonTarget;
+
         protected override bool CanUse(Bowman @class)
         {
-            return false;
+            return @class.Energy.RightHand >= 15;
         }
 
         protected override void Dispose(GameMap gameMap, Avatar avatar, Bowman @class)
@@ -25,6 +29,7 @@ namespace Rogue.Classes.Bowman.Abilities
 
         protected override void Use(GameMap gameMap, Avatar avatar, Bowman @class)
         {
+            @class.Energy.RightHand -= 15;
         }
     }
 }

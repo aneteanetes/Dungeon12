@@ -75,15 +75,15 @@
         private string DefaultPath(bool big = false)
         {
             var thisType = this.GetType();
-            var baseType = thisType.BaseType;
-
-            if (!baseType.IsGenericType)
+            var abilityType = FindAbilityGenericType(thisType);
+            
+            if (abilityType==default)
             {
                 return null;
             }
 
             var type = thisType.FullName;
-            var generic = baseType.GetGenericArguments().First().Name.ToString();
+            var generic = abilityType.GetGenericArguments().First().Name.ToString();
 
             var b = big
                 ? "b"
@@ -93,6 +93,51 @@
                 + $".img{b}.png";
 
             return val;
+        }
+
+        private static Dictionary<Type, Type> AbilTypeCache = new Dictionary<Type, Type>();
+        private Type Cached(Type key, Type value)
+        {
+            if (!AbilTypeCache.ContainsKey(key))
+            {
+                AbilTypeCache.Add(key, value);
+            }
+
+            return AbilTypeCache[key];
+        }
+
+        private Type FindAbilityGenericType(Type type, Type originalType = null)
+        {
+            originalType = originalType ?? type;
+
+            if (AbilTypeCache.TryGetValue(originalType, out var value))
+            {
+                return value;
+            }
+
+            if (type?.BaseType?.IsGenericType ?? false)
+            {
+                var abilityTalant = type?.BaseType.GetGenericTypeDefinition() == typeof(Ability<,>);
+                var abilityClass = type?.BaseType.GetGenericTypeDefinition() == typeof(Ability<>);
+
+                if (abilityTalant)
+                {
+                    return Cached(originalType, type?.BaseType);
+                }
+
+                if (abilityClass)
+                {
+                    return Cached(originalType, type?.BaseType);
+                }
+            }
+
+
+            if (type?.BaseType == default || type?.BaseType == typeof(object))
+            {
+                return Cached(originalType, default);
+            }
+
+            return FindAbilityGenericType(type.BaseType, originalType);
         }
 
         public virtual IDrawColor BackgroundColor { get; set; }
@@ -114,14 +159,46 @@
 
         public virtual void Release(GameMap map, Avatar avatar) { }
 
-        public virtual bool CastAvailable(Avatar avatar) => true;
+        protected virtual bool CastAvailable(Avatar avatar) => true;
+
+        /// <summary>
+        /// Проверить возможность использования способности учитывая <see cref="Cooldown"/>
+        /// </summary>
+        /// <param name="avatar"></param>
+        public bool CastAvailableCooldown(Avatar avatar)
+        {
+            if (this.Cooldown != default)
+            {
+                if (!this.Cooldown.Check())
+                {
+                    return false;
+                }
+            }
+
+            return CastAvailable(avatar);
+        }
+
+        /// <summary>
+        /// Использвоание способности учитывая <see cref="Cooldown"/>, для <see cref="AbilityCastType.Passive"/> вызывается когда биндится
+        /// </summary>
+        /// <param name="map"></param>
+        /// <param name="avatar"></param>
+        public void CastCooldown(GameMap map, Avatar avatar)
+        {
+            if (this.Cooldown != default)
+            {
+                this.Cooldown.Cast();
+            }
+
+            Cast(map, avatar);
+        }
 
         /// <summary>
         /// Использвоание способности, для <see cref="AbilityCastType.Passive"/> вызывается когда биндится
         /// </summary>
         /// <param name="map"></param>
         /// <param name="avatar"></param>
-        public virtual void Cast(GameMap map, Avatar avatar)
+        protected virtual void Cast(GameMap map, Avatar avatar)
         {
 
         }
@@ -134,15 +211,17 @@
 
         public virtual Location CastLocation { get; set; }
 
-        public virtual AbilityActionAttribute ActionType { get; set; }
+        public abstract AbilityActionAttribute ActionType { get; }
 
         public virtual AbilityCastType CastType { get; set; }
 
-        public virtual AbilityTargetType TargetType { get; set; }
+        public abstract AbilityTargetType TargetType { get; }
 
         public virtual double Spend { get; set; }
 
         public List<(string, string)> Scales { get; set; }
+
+        public virtual Cooldown Cooldown { get; }
     }
 
     /// <summary>
@@ -153,8 +232,8 @@
     public abstract class Ability<TClass, TTalants> : Ability<TClass>
         where TClass: Character
         where TTalants : TalantTree<TClass>, new()
-    {        
-        public override bool CastAvailable(Avatar avatar)
+    {
+        protected override bool CastAvailable(Avatar avatar)
         {
             if (avatar.Character is TClass @class)
             {
@@ -167,7 +246,7 @@
             return false;
         }
 
-        public override void Cast(GameMap map, Avatar avatar)
+        protected override void Cast(GameMap map, Avatar avatar)
         {
             if (avatar.Character is TClass @class)
             {
@@ -196,7 +275,7 @@
     {
         protected abstract bool CanUse(TClass @class);
 
-        public override bool CastAvailable(Avatar avatar)
+        protected override bool CastAvailable(Avatar avatar)
         {
             return CanUse(avatar.Character as TClass);
         }
@@ -205,7 +284,7 @@
 
         protected abstract void Dispose(GameMap gameMap, Avatar avatar, TClass @class);
 
-        public override void Cast(GameMap map, Avatar avatar)
+        protected override void Cast(GameMap map, Avatar avatar)
         {
             OnCast?.Invoke();
             Use(map, avatar, avatar.Character as TClass);

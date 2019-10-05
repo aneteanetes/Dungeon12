@@ -15,7 +15,7 @@
     using System.Linq;
     using System.Reflection;
 
-    public class SkillBar : SceneObject
+    public class SkillBar : HandleSceneControl
     {
         public override bool AbsolutePosition => true;
 

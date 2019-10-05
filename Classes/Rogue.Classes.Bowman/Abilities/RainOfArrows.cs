@@ -17,6 +17,9 @@ namespace Rogue.Classes.Bowman.Abilities
 
         public override ScaleRate Scale => ScaleRate.Build(Entites.Enums.Scale.AbilityPower);
 
+        public override AbilityActionAttribute ActionType => AbilityActionAttribute.DmgHealInstant;
+        public override AbilityTargetType TargetType => AbilityTargetType.NonTarget;
+
         protected override bool CanUse(Bowman @class)
         {
             return false;
