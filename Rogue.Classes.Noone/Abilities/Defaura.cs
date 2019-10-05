@@ -27,23 +27,7 @@ namespace Rogue.Classes.Noone.Abilities
         private DefauraBuf auraBuf = new DefauraBuf();
 
         private bool enabled = false;
-        public void Switch(bool value, Avatar avatar, Noone @class)
-        {
-            if (value != enabled)
-            {
-                if (value)
-                {
-                    @class.Add<DefauraBuf>();
-                    avatar.AddState(auraBuf);
-                }
-                else
-                {
-                    @class.Remove<DefauraBuf>();
-                    avatar.RemoveState(auraBuf);
-                }
-                enabled = value;
-            }
-        }
+
 
         protected override void Use(GameMap gameMap, Avatar avatar, Noone @class) => avatar.OnMove += () =>
         {
@@ -86,6 +70,8 @@ namespace Rogue.Classes.Noone.Abilities
         private class DefauraBuf : BasePerk
         {
             public override string Image => "Rogue.Classes.Noone.Images.Abilities.Defaura.buf.png";
+
+            public override bool ClassDependent => true;
 
             public void Apply(Avatar avatar)
             {

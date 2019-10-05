@@ -98,6 +98,31 @@
             return false;
         }
 
+        /// <summary>
+        /// Возвращает первого найденого T
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="object"></param>
+        /// <returns></returns>
+        public T One<T>(MapObject @object)
+            where T : PhysicalObject
+        {
+            var moveArea = Map.Query(@object);
+            if (moveArea != null)
+            {
+                return moveArea.Nodes.FirstOrDefault(node =>
+                {
+                    if (node is T nodeT)
+                    {
+                        return nodeT.IntersectsWith(@object);
+                    }
+                    return false;
+                }) as T;
+            }
+
+            return default;
+        }
+
         public IEnumerable<Сonversational> Conversations(MapObject @object)
         {
             MapObject rangeObject = PlayerRangeObject(@object);
@@ -135,23 +160,6 @@
             rangeObject.Size.Height *= 2.5;
             rangeObject.Size.Width *= 2.5;
             return rangeObject;
-        }
-
-        public IEnumerable<MapObject> Interactions(MapObject @object)
-        {
-            var rangeObject = PlayerRangeObject(@object);
-
-            IEnumerable<MapObject> interactable = Enumerable.Empty<MapObject>();
-
-            var moveArea = Map.Query(rangeObject);
-            if (moveArea != null)
-            {
-                interactable = moveArea.Nodes.Where(node => rangeObject.IntersectsWith(node))
-                    .Where(node => node.Interactable)
-                    .ToArray();
-            }
-
-            return interactable;
         }
 
         private bool needReloadCache = false;

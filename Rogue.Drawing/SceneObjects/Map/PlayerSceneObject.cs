@@ -27,7 +27,7 @@
     {
         public override bool Shadow => true;
 
-        public Avatar Avatar;
+        public Avatar Avatar { get; set; }
 
         public override int Layer => 1;
 

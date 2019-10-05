@@ -73,8 +73,11 @@
         protected bool RequestStop()
         {
             FrameCounter = 0;
+            this.OnAnimationStop();
             return animationStop = true;
         }
+
+        protected virtual void OnAnimationStop() { }
 
         protected bool RequestResume() => animationStop = false;
 

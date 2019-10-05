@@ -15,12 +15,7 @@
         public Action Die;
 
         public Action Destroy { get; set; }
-
-        /// <summary>
-        /// Вот это мостик от объектов карты до объектов сцены, и по сути логика должна быть ТУТ
-        /// </summary>
-        public Action OnInteract { get; set; }
-
+        
         public virtual bool Obstruction { get; set; }
 
         public virtual string Icon { get; set; }
@@ -43,11 +38,10 @@
         public bool Container => false;
 
         public virtual bool Interactable { get; set; }
-        
-        public virtual void Interact(object target)
-        {
-            this.OnInteract?.Invoke();
-        }
+
+        public virtual void Interact(object target) => CallInteract(target as dynamic);
+
+        protected virtual void CallInteract(dynamic obj) => Interact(obj);
 
         protected virtual PhysicalSize _Size { get; set; }
 

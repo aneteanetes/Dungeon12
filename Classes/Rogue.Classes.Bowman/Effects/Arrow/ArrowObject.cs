@@ -12,7 +12,19 @@ namespace Rogue.Classes.Bowman.Effects
     {
         public Direction Direction { get; }
 
-        public ArrowObject(Direction dir) => Direction = dir;
+        public double Range { get;}
+
+        public long Damage { get; }
+
+        public double Speed { get; }
+
+        public ArrowObject(Direction dir, double range, long dmg, double speed)
+        {
+            Direction = dir;
+            Range = range;
+            Damage = dmg;
+            Speed = speed;
+        }
 
         public AnimationMap Animation
         {

@@ -1,16 +1,27 @@
 ﻿namespace Rogue.Map.Objects
 {
     using System;
+    using System.Collections.Generic;
     using Rogue.Entites.Enemy;
     using Rogue.Map.Infrastructure;
     using Rogue.Physics;
     using Rogue.Settings;
     using Rogue.Types;
+    using Rogue.View.Interfaces;
 
     [Template("*")]
-    public class Mob : MapObject
+    public class Mob : FlowMapObject
     {
-        public Enemy Enemy { get; set; }
+        private Enemy _enemy;
+        public Enemy Enemy
+        {
+            get => _enemy;
+            set
+            {
+                value.SetParentFlow(this);
+                _enemy = value;
+            }
+        }
 
         public override string Icon { get => "*"; set { } }
 
@@ -61,5 +72,26 @@
                 Height = this.Size.Height * AttackRangeMultiples.Y
             }
         };
+
+        [FlowMethod]
+        public void Damage(bool forward)
+        {
+            if (forward)
+            {
+                Global.AudioPlayer.Effect(DamageSound ?? "bat");
+            }
+            else
+            {
+                bool enemyDied = GetFlowProperty<bool>("EnemyDied");
+                if (enemyDied)
+                {
+                    Die?.Invoke();
+                    //death sound
+                    //Global.AudioPlayer.Effect(DamageSound ?? "bat");
+                }
+            }
+        }
+
+        public long Exp => 5;
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Rogue.Control.Pointer;
 using Rogue.Drawing.SceneObjects;
 using Rogue.Drawing.SceneObjects.Map;
+using Rogue.Map;
+using Rogue.Map.Objects;
 using Rogue.Physics;
 using Rogue.Types;
 using System;
@@ -11,11 +13,10 @@ namespace Rogue.Classes.Bowman.Effects
 {
     public class Arrow : AnimatedSceneObject<ArrowObject>
     {
-        private double _range;
         private double _fly;
-        private double _speed;
+        private GameMap _gameMap;
 
-        public Arrow(double range,Direction dir, double speed=0.06) : base(null, new ArrowObject(dir), "", new Rectangle()
+        public Arrow(GameMap gameMap, ArrowObject arrow, Direction dir) : base(null,arrow, "", new Rectangle()
         {
             Height = 32,
             Width = 32,
@@ -26,10 +27,11 @@ namespace Rogue.Classes.Bowman.Effects
                         : dir == Direction.Up ? 96 : 0))
         })
         {
+            _gameMap = gameMap;
+
             this.Width = 1;
             this.Height = 1;
-            _speed = speed;
-            _range = range;
+
             this.Image = @object.Image;
             SetAnimation(@object.Animation);
         }
@@ -42,33 +44,58 @@ namespace Rogue.Classes.Bowman.Effects
 
         protected override void DrawLoop()
         {
-            if(_range<=_fly)
+            if (@object.Range <= _fly)
             {
                 RequestStop();
+                return;
             }
 
             switch (@object.Direction)
             {
                 case Direction.Up:
-                    this.Top -= _speed;
+                    this.Top -= @object.Speed;
                     break;
                 case Direction.Down:
-                    this.Top += _speed;
+                    this.Top += @object.Speed;
                     break;
                 case Direction.Left:
-                    this.Left -= _speed;
+                    this.Left -= @object.Speed;
                     break;
                 case Direction.Right:
-                    this.Left += _speed;
+                    this.Left += @object.Speed;
                     break;
                 default:
                     break;
             }
 
-            _fly += _speed;
+            _fly += @object.Speed;
         }
 
-        protected override void StopAction()
+        protected override void AnimationLoop()
+        {
+            var rangeObject = new MapObject
+            {
+                Position = new Physics.PhysicalPosition
+                {
+                    X = (this.Left * 32) + 10,
+                    Y = (this.Top * 32) + 10
+                },
+                Size = new PhysicalSize()
+                {
+                    Height = 16,
+                    Width = 16
+                }
+            };
+
+            var target = _gameMap.One<Mob>(rangeObject);
+            if (target != default)
+            {
+                target.Flow(t => t.Damage(true), new { @object.Damage });
+                RequestStop();
+            }
+        }
+
+        protected override void OnAnimationStop()
         {
             this.Destroy?.Invoke();
         }

@@ -64,7 +64,7 @@
 
         protected abstract void Action(MouseButton mouseButton);
 
-        protected abstract void StopAction();
+        protected virtual void StopAction() { }
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {

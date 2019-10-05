@@ -22,7 +22,8 @@
 
     public class EnemySceneObject : AnimatedSceneObject<Mob>
     {
-        private readonly Mob mob;
+        public Mob MobObj { get; set; }
+
         private readonly GameMap location;
 
         protected override void CallOnEvent(dynamic obj)
@@ -46,11 +47,13 @@
             Key.LeftShift
         };
 
-        public EnemySceneObject(PlayerSceneObject playerSceneObject, GameMap location, Mob mob, Rectangle defaultFramePosition) 
-            : base(playerSceneObject,mob, mob.Name, defaultFramePosition)
+        public EnemySceneObject(PlayerSceneObject playerSceneObject, GameMap location, Mob mob, Rectangle defaultFramePosition)
+            : base(playerSceneObject, mob, mob.Name, defaultFramePosition)
         {
             this.location = location;
-            this.mob = mob;
+            this.MobObj = mob;
+            mob.SetParentFlow(this);
+
             this.Image = mob.Tileset;
             Left = mob.Location.X;
             Top = mob.Location.Y;
@@ -88,25 +91,25 @@
 
         protected override void AnimationLoop()
         {
-            if (!mob.Enemy.Aggressive)
+            if (!MobObj.Enemy.Aggressive)
             {
                 return;
             }
 
             if (moveDistance == 0)
             {
-                this.mob.IsChasing = false;
+                this.MobObj.IsChasing = false;
             }
 
-            var players = location.Map.Query(this.mob.Vision, true)
+            var players = location.Map.Query(this.MobObj.Vision, true)
                 .SelectMany(nodes => nodes.Nodes)
-                .Where(node => this.mob.Vision.IntersectsWith(node))
+                .Where(node => this.MobObj.Vision.IntersectsWith(node))
                 .Where(x => typeof(Avatar).IsAssignableFrom(x.GetType()));
 
             if (players.Count() > 0)
             {
                 var player = players.First();
-                if (player.IntersectsWith(this.mob.AttackRange))
+                if (player.IntersectsWith(this.MobObj.AttackRange))
                 {
                     if (attackAvailable)
                     {
@@ -116,7 +119,7 @@
                     }
                 }
 
-                if (!this.mob.IsChasing)
+                if (!this.MobObj.IsChasing)
                 {
                     moves.Clear();
                     moveDistance = 0;
@@ -178,20 +181,20 @@
 
         private void Chasing(Avatar avatar)
         {
-            this.mob.IsChasing = true;
-            if (avatar.Position.X <= this.mob.Position.X)
+            this.MobObj.IsChasing = true;
+            if (avatar.Position.X <= this.MobObj.Position.X)
             {
                 this.moves.Add(2);
             }
-            if (avatar.Position.X >= this.mob.Position.X)
+            if (avatar.Position.X >= this.MobObj.Position.X)
             {
                 this.moves.Add(3);
             }
-            if (avatar.Position.Y >= this.mob.Position.Y)
+            if (avatar.Position.Y >= this.MobObj.Position.Y)
             {
                 this.moves.Add(1);
             }
-            if (avatar.Position.Y <= this.mob.Position.Y)
+            if (avatar.Position.Y <= this.MobObj.Position.Y)
             {
                 this.moves.Add(0);
             }
@@ -221,10 +224,10 @@
                     switch (data.vect)
                     {
                         case Vector.Plus:
-                            this.mob.Location.Y += this.mob.MovementSpeed;
+                            this.MobObj.Location.Y += this.MobObj.MovementSpeed;
                             break;
                         case Vector.Minus:
-                            this.mob.Location.Y -= this.mob.MovementSpeed;
+                            this.MobObj.Location.Y -= this.MobObj.MovementSpeed;
                             break;
                         default:
                             break;
@@ -235,10 +238,10 @@
                     switch (data.vect)
                     {
                         case Vector.Plus:
-                            this.mob.Location.X += this.mob.MovementSpeed;
+                            this.MobObj.Location.X += this.MobObj.MovementSpeed;
                             break;
                         case Vector.Minus:
-                            this.mob.Location.X -= this.mob.MovementSpeed;
+                            this.MobObj.Location.X -= this.MobObj.MovementSpeed;
                             break;
                         default:
                             break;
@@ -247,7 +250,7 @@
                 default:
                     break;
             }
-            SetAnimation(data.anim(this.mob.Enemy));
+            SetAnimation(data.anim(this.MobObj.Enemy));
             if (!CheckMoveAvailable(data.dir))
             {
                 moveDistance = 0;
@@ -261,18 +264,18 @@
 
         private bool CheckMoveAvailable(Direction direction)
         {
-            var movingToSafe = !this.location.InSafe(this.mob);
+            var movingToSafe = !this.location.InSafe(this.MobObj);
 
-            if (movingToSafe && this.location.Move(this.mob, direction))
+            if (movingToSafe && this.location.Move(this.MobObj, direction))
             {
-                this.Left = this.mob.Location.X;
-                this.Top = this.mob.Location.Y;
+                this.Left = this.MobObj.Location.X;
+                this.Top = this.MobObj.Location.Y;
                 return true;
             }
             else
             {
-                this.mob.Location.X = this.Left;
-                this.mob.Location.Y = this.Top;
+                this.MobObj.Location.X = this.Left;
+                this.MobObj.Location.Y = this.Top;
                 return false;
             }
         }
@@ -293,13 +296,13 @@
 
         public override void Focus()
         {
-            playerSceneObject.TargetsInFocus.Add(mob);
+            playerSceneObject.TargetsInFocus.Add(MobObj);
             base.Focus();
         }
 
         public override void Unfocus()
         {
-            playerSceneObject.TargetsInFocus.Remove(mob);
+            playerSceneObject.TargetsInFocus.Remove(MobObj);
             base.Unfocus();
         }
 
@@ -310,7 +313,7 @@
                 SetAbility(mouseButton);
 
                 var range = ability.Range;
-                return this.mob.IntersectsWith(range);
+                return this.MobObj.IntersectsWith(range);
             }
 
             //вот тут ещё отмена Changell навыка будет
@@ -355,5 +358,45 @@
 
         private readonly Dictionary<MouseButton, AbilityPosition> mouseAbiityMap = new Dictionary<MouseButton, AbilityPosition>() { { MouseButton.Left, AbilityPosition.Left }, { MouseButton.Right, AbilityPosition.Right } };
         private readonly Dictionary<Key, AbilityPosition> keyAbiityMap = new Dictionary<Key, AbilityPosition>() { { Key.Q, AbilityPosition.Q }, { Key.E, AbilityPosition.E } };
+        
+        [FlowMethod(typeof(DamageContext))]
+        public void Damage(bool forward)
+        {
+            if (!forward)
+            {
+                long dmg = GetFlowProperty<long>("Damage");
+                bool crit = GetFlowProperty<bool>("Critical");
+
+                var effects = new List<ISceneObject>();
+                effects.Add(new PopupString(dmg.ToString() + (crit ? "!" : ""), crit ? ConsoleColor.Red : ConsoleColor.White, MobObj.Location, 25, crit ? 14 : 12, 0.06));
+
+
+                bool showExp = GetFlowProperty<bool>("EnemyDied");
+                if (showExp)
+                {
+                    var min = MobObj.Enemy.Level * 4;
+                    var expr = RandomRogue.Next(min, min * 2);
+                    playerSceneObject.Avatar.Character.Exp(MobObj.Exp);
+                    effects.Add(new PopupString($"Вы получаете {expr} опыта!", ConsoleColor.DarkMagenta, playerSceneObject.Avatar.Location, 25, 12, 0.06));
+                }
+
+                this.ShowEffects(effects);
+            }
+        }
+
+        public class DamageContext
+        {
+            public long Damage { get; set; }
+
+            public bool Critical { get; set; }
+
+            public Avatar Avatar { get; set; }
+
+            public Point Location { get; set; }
+
+            public long Exp { get; set; }
+
+            public bool EnemyDied { get; set; }
+        }
     }
 }

@@ -10,7 +10,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public abstract class SceneObject : ISceneObject
+    public abstract class SceneObject : ISceneObject, IFlowable
     {
         private Rogue.Scenes.GameScene owner;
 
@@ -41,7 +41,7 @@
 
             Global.Events.Subscribe(@event =>
             {
-                this.Dispatch((so, arg) => so.CallOnEvent(arg), @event);
+                this.Dispatch((so, arg) => so.OnEvent(arg), @event);
             });
 
             //ХВАТИТ ОРАТЬ В КОММЕНТАРИЯХ
@@ -363,5 +363,33 @@
         /// </summary>
         /// <param name="obj"></param>
         protected virtual void CallOnEvent(dynamic obj) => OnEvent(obj);
+
+        private object flowContext = null;
+
+        public T GetFlowProperty<T>(string property) => flowContext.GetProperty<T>(property);
+
+        public bool SetFlowProperty<T>(string property, T value)
+        {
+            try
+            {
+                flowContext.SetProperty(property, value);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public void SetFlowContext(object context) => flowContext = context;
+
+        public object GetFlowContext() => flowContext;
+
+
+        private IFlowable flowparent = null;
+
+        public void SetParentFlow(IFlowable parent) => flowparent = parent;
+
+        public IFlowable GetParentFlow() => flowparent;
     }
 }

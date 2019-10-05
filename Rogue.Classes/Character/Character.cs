@@ -29,6 +29,11 @@
 
         public long MaxExp => 100;
 
+        public void Exp(long amount)
+        {
+            EXP += amount;
+        }
+
         public long Gold { get; set; } = 100;
 
         public virtual string ClassName { get; }

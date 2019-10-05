@@ -36,10 +36,12 @@ namespace Rogue.Classes.Bowman.Abilities
         {
             @class.Energy.LeftHand -= 15;
 
-            this.UseEffects(new Arrow(5, avatar.VisionDirection)
+            var arrow = new ArrowObject(avatar.VisionDirection, 4 + @class.Range, 15, 0.1);
+
+            this.UseEffects(new Arrow(gameMap, arrow, avatar.VisionDirection)
             {
-                Left=avatar.Position.X/32,
-                Top=avatar.Position.Y/32
+                Left = avatar.Position.X / 32,
+                Top = avatar.Position.Y / 32
             }.InList<ISceneObject>());
         }
     }

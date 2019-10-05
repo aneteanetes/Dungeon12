@@ -1,33 +1,11 @@
-﻿using Rogue.Types;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Rogue.Entites.Alive
+namespace Rogue.Map
 {
-    /// <summary>
-    /// Живой, с уровнем
-    /// </summary>
-    public class Alive : Drawable, IFlowable
+    public class FlowMapObject : MapObject, IFlowable
     {
-        public int Level { get; set; } = 1;
-
-        private long hitPoints;
-        public long HitPoints
-        {
-            get => hitPoints <= 0 ? 0 : hitPoints;
-            set
-            {
-                hitPoints = value;
-                if (hitPoints <= 0)
-                {
-                    Dead = true;
-                }
-            }
-        }
-        
-        public long MaxHitPoints { get; set; }
-
-        public bool Dead { get; private set; } = false;
-        
-
         private object flowContext = null;
 
         public T GetFlowProperty<T>(string property) => flowContext.GetProperty<T>(property);

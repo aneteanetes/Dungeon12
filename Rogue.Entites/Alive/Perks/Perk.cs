@@ -27,7 +27,7 @@ namespace Rogue.Entites.Alive
 
         public bool Container => false;
 
-        public bool ClassDependent { get; set; }
+        public virtual bool ClassDependent { get; set; }
     }
 
 }
