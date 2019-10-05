@@ -89,6 +89,8 @@
 
         public virtual void MouseMove(PointerArgs args) { }
 
+        public virtual void GlobalMouseMove(PointerArgs args) { }
+
         public virtual void TextInput(string text) { }
 
         protected virtual void AddChild(ISceneObjectControl sceneObject)

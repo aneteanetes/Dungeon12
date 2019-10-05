@@ -16,7 +16,7 @@ namespace Rogue.Classes
             Width = 32
         };
 
-        public override AnimationMap MoveUp => new BaseMove(this.Tileset)
+        public override AnimationMap MoveUp => new BaseAnimationMap(this.Tileset)
         {
             Direction = Direction.Up,
             Frames = new List<Point>
@@ -28,7 +28,7 @@ namespace Rogue.Classes
             }
         };
 
-        public override AnimationMap MoveDown => new BaseMove(this.Tileset)
+        public override AnimationMap MoveDown => new BaseAnimationMap(this.Tileset)
         {
             Direction = Direction.Down,
             Frames = new List<Point>
@@ -40,7 +40,7 @@ namespace Rogue.Classes
             }
         };
 
-        public override AnimationMap MoveLeft => new BaseMove(this.Tileset)
+        public override AnimationMap MoveLeft => new BaseAnimationMap(this.Tileset)
         {
             Direction = Direction.Left,
             Frames = new List<Point>
@@ -52,7 +52,7 @@ namespace Rogue.Classes
             }
         };
 
-        public override AnimationMap MoveRight => new BaseMove(this.Tileset)
+        public override AnimationMap MoveRight => new BaseAnimationMap(this.Tileset)
         {
             Direction = Direction.Right,
             Frames = new List<Point>
@@ -66,9 +66,9 @@ namespace Rogue.Classes
     }
     
 
-    public class BaseMove : AnimationMap
+    public class BaseAnimationMap : AnimationMap
     {
-        public BaseMove(string tileSet)
+        public BaseAnimationMap(string tileSet)
         {
             this.Size = new Point
             {

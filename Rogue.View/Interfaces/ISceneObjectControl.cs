@@ -21,6 +21,8 @@
 
         void MouseMove(PointerArgs args);
 
+        void GlobalMouseMove(PointerArgs args);
+
         void MouseWheel(MouseWheelEnum mouseWheel);
 
         void TextInput(string text);

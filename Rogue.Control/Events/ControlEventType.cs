@@ -10,9 +10,15 @@
         Key,
         GlobalClick,
         GlobalClickRelease,
+
         /// <summary>
-        /// А вот это ЕБАТЬ какое дорогое событие
+        /// А вот это ЕБАТЬ какое дорогое событие, потому что просчитывается движение ПО этому компоненту
         /// </summary>
-        MouseMove
+        MouseMove,
+
+        /// <summary>
+        /// Менее дорогое событие чем <see cref="MouseMove"/> однако частое
+        /// </summary>
+        GlobalMouseMove
     }
 }

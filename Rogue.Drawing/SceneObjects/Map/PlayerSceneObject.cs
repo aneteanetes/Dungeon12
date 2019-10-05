@@ -12,6 +12,7 @@
     using Rogue.Drawing.SceneObjects.Gameplay;
     using Rogue.Drawing.SceneObjects.UI;
     using Rogue.Entites.Alive;
+    using Rogue.Entites.Animations;
     using Rogue.Events;
     using Rogue.Map;
     using Rogue.Map.Objects;
@@ -32,9 +33,10 @@
 
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
-             ControlEventType.Focus,
-             ControlEventType.Key
-        };        
+            ControlEventType.Focus,
+            ControlEventType.Key,
+            ControlEventType.GlobalMouseMove
+        };
 
         private Character Player => Avatar.Character;
         private readonly GameMap location;
@@ -412,6 +414,67 @@
         public override void Unfocus()
         {
             //base.Unfocus();
+        }
+
+        private Direction _directionVision = Direction.Idle;
+        private Direction DirectionVision
+        {
+            get => _directionVision;
+            set
+            {
+                if (NowMoving.Count == 0 && _directionVision != value)
+                {
+                    _directionVision = value;
+                    AnimationMap animap = null;
+                    switch (value)
+                    {
+                        case Direction.Up:
+                            animap = this.Player.MoveUp;
+                            break;
+                        case Direction.Down:
+                            animap = this.Player.MoveDown;
+                            break;
+                        case Direction.Left:
+                            animap = this.Player.MoveLeft;
+                            break;
+                        case Direction.Right:
+                            animap = this.Player.MoveRight;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    SetAnimation(animap);
+                    FramePosition.Pos = animap.Frames[0];
+                }
+            }
+        }
+
+        public override void GlobalMouseMove(PointerArgs args)
+        {
+            var pointGameCoord = args.GameCoordinates;
+            var x = pointGameCoord.X;
+            var y = pointGameCoord.Y;
+
+            if (x < this.Left)
+            {
+                DirectionVision = Direction.Left;
+            }
+
+            if (x > this.Left)
+            {
+                DirectionVision = Direction.Right;
+            }
+
+            if (y > this.Top+2)
+            {
+                DirectionVision = Direction.Down;
+            }
+
+            if (y < this.Top-2)
+            {
+                DirectionVision = Direction.Up;
+            }
         }
 
         private Func<Ability[]> abilities;

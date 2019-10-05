@@ -1,4 +1,6 @@
-﻿namespace Rogue
+﻿using System.Reflection;
+
+namespace Rogue
 {
     public static class StringPathExtensions
     {
@@ -9,5 +11,7 @@
         public static string PathParticle(this string path) => "".PathResource() + path;
 
         public static string PathPng(this string path) => path + ".png";
+
+        public static string ImgPath(this string img) => $"{Assembly.GetCallingAssembly().FullName}.{img.Replace(@"\", ".")}";
     }
 }

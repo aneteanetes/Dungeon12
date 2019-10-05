@@ -155,7 +155,6 @@
             { 3,(Direction.Right, Vector.Plus, m=>m.MoveRight) },
         };
 
-
         private bool NotPair(int common, int additional)
         {
             if (common + additional == 1)

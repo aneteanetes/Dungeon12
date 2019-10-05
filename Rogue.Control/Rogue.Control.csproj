@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Rogue.Types\Rogue.Types.csproj" />
+    <ProjectReference Include="..\Rogue.Utils\Rogue.Utils.csproj" />
   </ItemGroup>
 
 </Project>

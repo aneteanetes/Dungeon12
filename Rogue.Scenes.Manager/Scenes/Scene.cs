@@ -225,6 +225,7 @@
                     {
                         args.X += offset.X;
                         args.Y += offset.Y;
+                        args.ProcessedOffset = true;
                     }
 
                     whichClick(clickedElement, args);
@@ -236,6 +237,9 @@
         {
             if (SceneManager.Current != this)
                 return;
+
+            var globalMouseMoves = ControlsByHandle(ControlEventType.GlobalMouseMove);
+            DoClicks(pointerPressedEventArgs, offset, globalMouseMoves, (c, a) => c.GlobalMouseMove(a));
 
             OnMouseMoveOnFocus(pointerPressedEventArgs, offset);
 

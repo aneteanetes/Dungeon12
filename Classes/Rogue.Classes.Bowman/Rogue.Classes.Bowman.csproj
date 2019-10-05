@@ -14,4 +14,8 @@
     <ProjectReference Include="..\..\Rogue.Entites\Rogue.Entites.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Images\Effects\" />
+  </ItemGroup>
+
 </Project>

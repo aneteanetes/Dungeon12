@@ -67,6 +67,12 @@
             return accessor[@object, property];
         }
 
+        public static object GetStaticProperty(this Type type,string property)
+        {
+            var accessor = TypeAccessor.Create(type, true);
+            return accessor[null, property];
+        }
+
         public static TValue GetProperty<TValue>(this object @object, string property)
         {
             var accessor = TypeAccessor.Create(@object.GetType(), true);

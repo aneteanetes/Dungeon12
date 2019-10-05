@@ -33,6 +33,32 @@
                 .GetTypes()
                 .FirstOrDefault(x => typeof(T).IsAssignableFrom(x));
 
+        public static object GetPropertyOfStaticClass(this string staticClass, string property, string assemblyName = default)
+        {
+            if (assemblyName == default)
+            {
+                assemblyName = staticClass.Split(".").Last();
+            }
+            
+            return GetTypeFromAssembly(staticClass, assemblyName).GetStaticProperty(property);
+        }
+
+        public static T GetPropertyOfStaticClass<T>(this string staticClass, string property, string assemblyName = default)
+        {
+            if (assemblyName == default)
+            {
+                assemblyName = staticClass.Split(".").Last();
+            }
+
+            var value = GetTypeFromAssembly(staticClass, assemblyName).GetStaticProperty(property);
+            if(value is T valueT)
+            {
+                return valueT;
+            }
+
+            throw new Exception("Property of wrong type!");
+        }
+
         public static Type GetTypeFromAssembly(this string value, string assemblyName, Func<string, Assembly, Type> searchPattern)
         {
             if (!LoadedAssemblies.TryGetValue(assemblyName, out var assembly))
