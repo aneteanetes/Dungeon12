@@ -8,7 +8,7 @@ namespace Rogue.Classes.Bowman
     {
         public Energy()
         {
-            var timer = new System.Timers.Timer(500);
+            var timer = new System.Timers.Timer(100);
             timer.Elapsed += EnergyRestore;
             timer.Start();
         }
@@ -17,12 +17,12 @@ namespace Rogue.Classes.Bowman
         {
             if (LeftHand < 50)
             {
-                LeftHand += 5;
+                LeftHand += 1;
             }
 
             if (RightHand < 50)
             {
-                RightHand += 5;
+                RightHand += 1;
             }
         }
 

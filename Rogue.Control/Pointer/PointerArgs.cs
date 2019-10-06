@@ -54,5 +54,12 @@ namespace Rogue.Control.Pointer
                 return gamecoordinates;
             }
         }
+
+        public Point AsPoint => new Point(X, Y);
+
+        /// <summary>
+        /// Относительные координаты по игровой сетке
+        /// </summary>
+        public Point Relative => new Point(X / 32, Y / 32);
     }
 }

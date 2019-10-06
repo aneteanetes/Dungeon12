@@ -1,7 +1,9 @@
 ﻿namespace Rogue
 {
     using Rogue.Audio;
+    using Rogue.Control.Pointer;
     using Rogue.Events;
+    using Rogue.Types;
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
@@ -39,5 +41,9 @@
         public static EventBus Events { get; } = new EventBus();
 
         public static object TransportVariable { get; set; }
+
+        public static PointerArgs PointerLocation { get; set; }
+
+        public static double FPS { get; set; }
     }
 }

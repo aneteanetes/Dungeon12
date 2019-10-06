@@ -171,6 +171,11 @@
         /// </summary>
         public virtual double Height { get; set; }
 
+        /// <summary>
+        /// Угол на который надо повернуть объект при отображении
+        /// </summary>
+        public virtual double Angle { get; set; }
+
         private Rectangle pos = null;
 
         /// <summary>

@@ -1,4 +1,7 @@
-﻿namespace Rogue.Types
+﻿using System;
+using System.Collections.Generic;
+
+namespace Rogue.Types
 {
     public class Point
     {
@@ -32,5 +35,17 @@
         public float Xf => (float)X;
 
         public float Yf => (float)Y;
+
+
+        const double Rad2Deg = 180.0 / Math.PI;
+        const double Deg2Rad = Math.PI / 180.0;
+
+        public double Angle(Point end)
+        {
+            return Math.Atan2(this.Y - end.Y, end.X - this.X);
+        }
+
+        public VectorDir VectorX { get; set; }
+        public VectorDir VectorY { get; set; }
     }
 }

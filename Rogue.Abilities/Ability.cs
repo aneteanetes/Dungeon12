@@ -4,10 +4,12 @@
     using Rogue.Abilities.Scaling;
     using Rogue.Abilities.Talants;
     using Rogue.Classes;
+    using Rogue.Control.Pointer;
     using Rogue.Entites.Alive;
     using Rogue.Map;
     using Rogue.Map.Objects;
     using Rogue.Physics;
+    using Rogue.Types;
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
@@ -177,6 +179,8 @@
 
             return CastAvailable(avatar);
         }
+
+        protected PointerArgs PointerLocation => Global.PointerLocation;
 
         /// <summary>
         /// Использвоание способности учитывая <see cref="Cooldown"/>, для <see cref="AbilityCastType.Passive"/> вызывается когда биндится

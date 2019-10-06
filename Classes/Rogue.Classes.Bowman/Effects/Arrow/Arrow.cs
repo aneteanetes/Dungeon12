@@ -16,7 +16,7 @@ namespace Rogue.Classes.Bowman.Effects
         private double _fly;
         private GameMap _gameMap;
 
-        public Arrow(GameMap gameMap, ArrowObject arrow, Direction dir) : base(null,arrow, "", new Rectangle()
+        public Arrow(GameMap gameMap, ArrowObject arrow, Direction dir,Point from) : base(null,arrow, "", new Rectangle()
         {
             Height = 32,
             Width = 32,
@@ -32,9 +32,63 @@ namespace Rogue.Classes.Bowman.Effects
             this.Width = 1;
             this.Height = 1;
 
+            this.Left = from.X;
+            this.Top = from.Y;
+
             this.Image = @object.Image;
             SetAnimation(@object.Animation);
+
+            this.Angle = 90*Math.PI/180;
+            CalculatePath();
         }
+
+        private Queue<Point> Trajectory = new Queue<Point>();
+
+        private void CalculatePath()
+        {
+            var dest = Global.PointerLocation.GameCoordinates;
+            var xDiff =dest.X - this.Left;
+            var yDiff = dest.Y - this.Top;
+            
+            VectorDir xVector = xDiff < 0 ? VectorDir.Minus : VectorDir.Plus;
+            VectorDir yVector = yDiff < 0 ? VectorDir.Minus : VectorDir.Plus;
+
+            xDiff = Math.Abs(xDiff);
+            yDiff = Math.Abs(yDiff);
+
+            var xSteps = xDiff / @object.Speed;
+            var ySteps = yDiff / @object.Speed;
+
+            var countPaths = xSteps > ySteps ? xSteps : ySteps;
+
+            var xStepSpeed = @object.Speed;
+            var yStepSpeed = @object.Speed;
+
+            if (xSteps > ySteps)
+            {
+                var moreDiff= ySteps / xSteps; //больше в N раз
+                yStepSpeed *= moreDiff;
+            }
+
+            if (ySteps > xSteps)
+            {
+                var moreDiff = xSteps / ySteps; //больше в N разz
+                xStepSpeed *= moreDiff;
+            }
+
+            countPaths /= 24;
+
+            for (double i = 0; i < countPaths; i += @object.Speed)
+            {
+                Trajectory.Enqueue(new Point(xStepSpeed, yStepSpeed)
+                {
+                    VectorX = xVector,
+                    VectorY = yVector
+                });
+            }
+        }
+
+        public override bool Clickable => false;
 
         protected override void Action(MouseButton mouseButton)
         {
@@ -44,31 +98,31 @@ namespace Rogue.Classes.Bowman.Effects
 
         protected override void DrawLoop()
         {
-            if (@object.Range <= _fly)
+            if (Trajectory.Count == 0)
             {
                 RequestStop();
                 return;
             }
 
-            switch (@object.Direction)
+            var step = Trajectory.Dequeue();
+
+            if (step.VectorY == VectorDir.Plus)
             {
-                case Direction.Up:
-                    this.Top -= @object.Speed;
-                    break;
-                case Direction.Down:
-                    this.Top += @object.Speed;
-                    break;
-                case Direction.Left:
-                    this.Left -= @object.Speed;
-                    break;
-                case Direction.Right:
-                    this.Left += @object.Speed;
-                    break;
-                default:
-                    break;
+                this.Top += step.Y;
+            }
+            else
+            {
+                this.Top -= step.Y;
             }
 
-            _fly += @object.Speed;
+            if (step.VectorX == VectorDir.Plus)
+            {
+                this.Left += step.X;
+            }
+            else
+            {
+                this.Left -= step.X;
+            }
         }
 
         protected override void AnimationLoop()

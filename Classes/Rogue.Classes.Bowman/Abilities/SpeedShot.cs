@@ -17,16 +17,20 @@ namespace Rogue.Classes.Bowman.Abilities
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.DmgHealInstant;
 
-        public override AbilityTargetType TargetType => AbilityTargetType.NonTarget;
+        public override AbilityTargetType TargetType => AbilityTargetType.TargetAndNonTarget;
 
         public override string Name => "Быстрый выстрел";
 
         public override ScaleRate Scale => ScaleRate.Build(Entites.Enums.Scale.AttackDamage);
 
+        private Bowman rangeclass;
         protected override bool CanUse(Bowman @class)
         {
+            rangeclass = @class;
             return @class.Energy.LeftHand >= 15;
         }
+
+        protected override double RangeMultipler => (4 + rangeclass?.Range ?? 0)*2.5;
 
         protected override void Dispose(GameMap gameMap, Avatar avatar, Bowman @class)
         {
@@ -36,13 +40,9 @@ namespace Rogue.Classes.Bowman.Abilities
         {
             @class.Energy.LeftHand -= 15;
 
-            var arrow = new ArrowObject(avatar.VisionDirection, 4 + @class.Range, 15, 0.1);
+            var arrow = new ArrowObject(avatar.VisionDirection, 4 + @class.Range, 15, 0.05);
 
-            this.UseEffects(new Arrow(gameMap, arrow, avatar.VisionDirection)
-            {
-                Left = avatar.Position.X / 32,
-                Top = avatar.Position.Y / 32
-            }.InList<ISceneObject>());
+            this.UseEffects(new Arrow(gameMap, arrow, avatar.VisionDirection,new Types.Point(avatar.Position.X / 32, avatar.Position.Y / 32)).InList<ISceneObject>());
         }
     }
 }

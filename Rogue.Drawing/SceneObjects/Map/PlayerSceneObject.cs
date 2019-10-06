@@ -163,6 +163,7 @@
                 {
                     this.aliveTooltip.Left = this.Position.X;
                     this.aliveTooltip.Top = this.Position.Y - 0.8;
+                    Avatar.VisionDirection =  Direction.Up;
                 }
             }
             if (NowMoving.Contains(Direction.Down))
@@ -182,6 +183,7 @@
                 {
                     this.aliveTooltip.Left = this.Position.X;
                     this.aliveTooltip.Top = this.Position.Y - 0.8;
+                    Avatar.VisionDirection = Direction.Down;
                 }
             }
             if (NowMoving.Contains(Direction.Left))
@@ -201,6 +203,7 @@
                 {
                     this.aliveTooltip.Left = this.Position.X;
                     this.aliveTooltip.Top = this.Position.Y - 0.8;
+                    Avatar.VisionDirection = Direction.Left;
                 }
             }
             if (NowMoving.Contains(Direction.Right))
@@ -220,6 +223,7 @@
                 {
                     this.aliveTooltip.Left = this.Position.X;
                     this.aliveTooltip.Top = this.Position.Y - 0.8;
+                    Avatar.VisionDirection = Direction.Right;
                 }
             }
         }

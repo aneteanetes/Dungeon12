@@ -57,6 +57,8 @@
         bool ForceInvisible { get; }
 
         bool Visible { get; }
+        
+        double Angle { get;}
 
         ICollection<ISceneObject> Children { get; }
 

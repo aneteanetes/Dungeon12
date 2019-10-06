@@ -35,8 +35,16 @@
 
         private bool acting = false;
 
+        /// <summary>
+        /// Проблема наследования
+        /// </summary>
+        public virtual bool Clickable => true;
+
         public override void Click(PointerArgs args)
         {
+            if (!Clickable)
+                return;
+
             if (CheckActionAvailable(args.MouseButton))
             {
                 acting = true;

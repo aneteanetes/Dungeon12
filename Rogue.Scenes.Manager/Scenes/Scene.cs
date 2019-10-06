@@ -228,6 +228,8 @@
                         args.ProcessedOffset = true;
                     }
 
+                    Global.PointerLocation = args;
+
                     whichClick(clickedElement, args);
                 }
             }

@@ -126,6 +126,7 @@
             if (fpsTimeDiff > 1)
             {
                 _fps = (_frame - _lastFpsFrame) / fpsTimeDiff;
+                Global.FPS = _fps;
                 _lastFpsFrame = _frame;
                 _lastFps = nowTs;
             }
@@ -377,10 +378,22 @@
                 //Console.WriteLine($"texture: {dest.X+CameraOffsetX} {dest.Y+CameraOffsetY}");
             }
 
-            spriteBatch.Draw(image, dest,
-                new Microsoft.Xna.Framework.Rectangle(tileRegion.Xi, tileRegion.Yi,
-                    tileRegion.Widthi, tileRegion.Heighti),
-                Color.White);
+            var origin = new Vector2(tileRegion.Widthi / 2f, tileRegion.Heighti / 2f);
+            var angle = (float)sceneObject.Angle;
+
+            if (angle != 0)
+            {
+                spriteBatch.Draw(image, dest,
+                    new Microsoft.Xna.Framework.Rectangle(tileRegion.Xi, tileRegion.Yi,
+                        tileRegion.Widthi, tileRegion.Heighti), Color.White, angle, origin, SpriteEffects.None, 0f);
+            }
+            else
+            {
+
+                spriteBatch.Draw(image, dest,
+                    new Microsoft.Xna.Framework.Rectangle(tileRegion.Xi, tileRegion.Yi,
+                        tileRegion.Widthi, tileRegion.Heighti), Color.White);
+            }
         }
 
         private void DrawSceneText(float fontSize, double y, double x, IDrawText range)

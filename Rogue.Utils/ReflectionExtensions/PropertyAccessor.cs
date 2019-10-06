@@ -179,6 +179,9 @@
             foreach (var prop in accessorTo.GetMembers())
             {
                 var propertyForSet = accessorFrom.GetMembers().FirstOrDefault(x => x.Name == prop.Name);
+                if (propertyForSet == null)
+                    continue;
+
                 try
                 {
                     accessorTo[to, prop.Name] = accessorFrom[from, prop.Name];

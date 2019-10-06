@@ -89,6 +89,10 @@
 
         protected Func<int, AnimationMap, bool> RequestNextFrame;
 
+        public double FramesPerSecond=> this.animationMap.FramesPerSecond == default
+                ? this.animationMap.Frames.Count
+                : this.animationMap.FramesPerSecond;
+
         private bool DefaultRequestNextFrame(int frameCounter, AnimationMap animMap)
         {
             var framesPerSec = animMap.FramesPerSecond == default
