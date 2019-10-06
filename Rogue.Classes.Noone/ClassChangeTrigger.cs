@@ -1,4 +1,5 @@
-﻿using Rogue.Conversations;
+﻿using Rogue.Abilities;
+using Rogue.Conversations;
 using Rogue.Drawing.SceneObjects.Map;
 using Rogue.Events;
 using Rogue.Map;
@@ -27,6 +28,12 @@ namespace Rogue.Classes
 
             // создаём новый экземпляр класса
             var to = newClass.GetInstanceFromAssembly<Character>(newClassAssembly);
+
+            //отключаем все пассивные способности
+            from.PropertiesOfType<Ability>()
+                .Where(a => a.CastType == Abilities.Enums.AbilityCastType.Passive)
+                .ToList()
+                .ForEach(a => a.Release(Gamemap.As<GameMap>(), SceneObject.Avatar));
 
             // убираем все перки которые имеют отношение к классу
             from.RemoveAll(p => p.ClassDependent);

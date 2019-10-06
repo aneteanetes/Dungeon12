@@ -57,7 +57,7 @@
                 return talants
                     .Cast<TalantBase>()
                     .GroupBy(t => t.Tier)
-                    .OrderBy(x=>x.Key)
+                    .OrderBy(x => x.Key)
                     .ToList();
             }
         }
@@ -139,6 +139,8 @@
             {
                 talant.Discard(ability);
             }
+
+            @base?.Invoke(gameMap, avatar, @class);
         }
     }
 }

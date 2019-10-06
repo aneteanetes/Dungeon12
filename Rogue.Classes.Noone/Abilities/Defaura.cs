@@ -29,7 +29,19 @@ namespace Rogue.Classes.Noone.Abilities
         private bool enabled = false;
 
 
-        protected override void Use(GameMap gameMap, Avatar avatar, Noone @class) => avatar.OnMove += () =>
+        protected override void Use(GameMap gameMap, Avatar avatar, Noone @class)
+        {
+            this.gameMap = gameMap;
+            this.avatar = avatar;
+            this.@class = @class;
+            avatar.OnMove += AuraEffect;
+        }
+
+        GameMap gameMap;
+        Avatar avatar;
+        Noone @class;
+
+        private void AuraEffect()
         {
             var rangeObject = new MapObject
             {
@@ -60,9 +72,15 @@ namespace Rogue.Classes.Noone.Abilities
                 }
                 enabled = enemyNear;
             }
-        };
+        }
 
-        protected override void Dispose(GameMap gameMap, Avatar avatar, Noone @class) { }
+        protected override void Dispose(GameMap gameMap, Avatar avatar, Noone @class)
+        {
+            avatar.OnMove -= AuraEffect;
+            gameMap = null;
+            avatar = null;
+            @class = null;
+        }
 
         /// <summary>
         /// так то бафы должны действовать и на аватар тоже
