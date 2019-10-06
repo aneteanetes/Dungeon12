@@ -643,7 +643,13 @@
             {
                 if (!ParticleEffects.TryGetValue(sceneObject.Uid, out var particleEffect))
                 {
-                    var particleStream = ResourceLoader.Load($"Rogue.Resources.Particles.{effect.Name}.xml");
+                    var path = $"Rogue.Resources.Particles.{effect.Name}.xml";
+                    if(effect.Assembly!=default)
+                    {
+                        path = $"{effect.Assembly}.Particles.{effect.Name}.xml";
+                    }
+
+                    var particleStream = ResourceLoader.Load(path, path);
                     var loader = new ParticleEffectLoader(particleStream);
                     particleEffect = loader.Load();
                     particleEffect.Scale = (float)effect.Scale;

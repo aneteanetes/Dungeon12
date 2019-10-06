@@ -7,5 +7,7 @@
         public string Name { get; set; }
 
         public double Scale { get; set; }
+
+        public string Assembly { get; set; }
     }
 }

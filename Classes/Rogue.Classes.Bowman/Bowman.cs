@@ -51,7 +51,7 @@ namespace Rogue.Classes.Bowman
 
         public double AtackSpeed { get; set; }
 
-        public double Range { get; set; }
+        public double Range { get; set; } = 3;
 
         public double ArmorPenetration { get; set; }
 

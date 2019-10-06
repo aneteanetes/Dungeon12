@@ -70,6 +70,17 @@
             return searchPattern(value, assembly);
         }
 
+        public static Assembly GetAssembly(this string assemblyName)
+        {
+            if (!LoadedAssemblies.TryGetValue(assemblyName, out var assembly))
+            {
+                assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{assemblyName}.dll"));
+                LoadedAssemblies.Add(assemblyName, assembly);
+            }
+
+            return assembly;
+        }
+
         public static Type GetTypeFromAssembly(this string value, string assemblyName)
             => GetTypeFromAssembly(value, assemblyName, (x, a) => a.GetType(x));
 

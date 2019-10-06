@@ -1,4 +1,5 @@
 ﻿using Rogue.Control.Pointer;
+using Rogue.Drawing.Impl;
 using Rogue.Drawing.SceneObjects;
 using Rogue.Drawing.SceneObjects.Map;
 using Rogue.Map;
@@ -16,7 +17,7 @@ namespace Rogue.Classes.Bowman.Effects
         private double _fly;
         private GameMap _gameMap;
 
-        public Arrow(GameMap gameMap, ArrowObject arrow, Direction dir,Point from) : base(null,arrow, "", new Rectangle()
+        public Arrow(GameMap gameMap, ArrowObject arrow, Direction dir,Point from, bool effect=false) : base(null,arrow, "", new Rectangle()
         {
             Height = 32,
             Width = 32,
@@ -37,9 +38,81 @@ namespace Rogue.Classes.Bowman.Effects
 
             this.Image = @object.Image;
             SetAnimation(@object.Animation);
+            SetAngle(dir, from);
 
-            this.Angle = 90*Math.PI/180;
             CalculatePath();
+
+            if (effect)
+            {
+                this.AddChild(new Might(dir == Direction.Left || dir == Direction.Right, dir== Direction.Left, dir== Direction.Right));
+            }
+        }
+
+        private class Might : SceneObject
+        {
+            public Might(bool offsetTop, bool offsetLeft,bool offsetRight)
+            {
+                this.Width = 1;
+                this.Height = 1;
+
+                if (offsetTop)
+                {
+                    this.Top -= 0.25;
+                }
+
+                if (offsetLeft)
+                {
+                    this.Left -= 0.25;
+                }
+
+                if (offsetRight)
+                {
+                    this.Left += 0.25;
+                }
+
+                this.Effects = new List<View.Interfaces.IEffect>()
+                {
+                    new ParticleEffect()
+                    {
+                        Name="PowerArrow",
+                        Scale = 1,
+                        Assembly="Rogue.Classes.Bowman"
+                    }
+                };
+            }
+        }
+
+        /// <summary>
+        /// Сложный метод сделанный на ощупь, хуйзнает почему, но работает как надо
+        /// </summary>
+        /// <param name="dir"></param>
+        /// <param name="from"></param>
+        private void SetAngle(Direction dir, Point from)
+        {
+            this.Angle = from.Angle(Global.PointerLocation.GameCoordinates);
+
+            if (dir == Direction.Left)
+            {
+                this.Angle -= 180 * Math.PI / 180;
+                this.Angle *= -1;
+            }
+
+            if (dir == Direction.Right)
+            {
+                this.Angle *= -1;
+            }
+
+            if (dir == Direction.Up)
+            {
+                this.Angle -= 90 * Math.PI / 180;
+                this.Angle *= -1;
+            }
+
+            if (dir == Direction.Down)
+            {
+                this.Angle += 90 * Math.PI / 180;
+                this.Angle *= -1;
+            }
         }
 
         private Queue<Point> Trajectory = new Queue<Point>();
@@ -55,6 +128,15 @@ namespace Rogue.Classes.Bowman.Effects
 
             xDiff = Math.Abs(xDiff);
             yDiff = Math.Abs(yDiff);
+
+            if(xDiff>@object.Range)
+            {
+                xDiff = @object.Range;
+            }
+            if (yDiff > @object.Range)
+            {
+                yDiff = @object.Range;
+            }
 
             var xSteps = xDiff / @object.Speed;
             var ySteps = yDiff / @object.Speed;

@@ -39,4 +39,8 @@
     <Folder Include="Particles\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Rogue.Utils\Rogue.Utils.csproj" />
+  </ItemGroup>
+
 </Project>

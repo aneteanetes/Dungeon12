@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Images\**\*" />
+    <EmbeddedResource Include="Particles\**\*" />
   </ItemGroup>
 
   <ItemGroup>

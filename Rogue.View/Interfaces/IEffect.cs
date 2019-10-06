@@ -5,5 +5,7 @@
         string Name { get; set; }
 
         double Scale { get; set; }
+
+        string Assembly { get; }
     }
 }
