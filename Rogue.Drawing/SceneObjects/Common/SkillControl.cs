@@ -20,7 +20,25 @@
 
     public class SkillControl : TooltipedSceneObject
     {
-        private bool safeMode = false;
+        private static bool interacting = false;
+        public static bool CancelClick() => interacting = true;
+
+        public static void RestoreClick() => interacting = false;
+
+        public static IDisposable BlockClick() => new ClickBlock();
+
+        private class ClickBlock : IDisposable
+        {
+            public ClickBlock()
+            {
+                interacting = true;
+            }
+
+            public void Dispose()
+            {
+                interacting = false;
+            }
+        }
 
         public override bool AbsolutePosition => true;
 
@@ -137,7 +155,7 @@
             {
                 if (SafeZoneInvisible)
                 {
-                    safeMode = true;
+                    SafeMode = true;
                     var img = this.ability.Image;
 
                     switch (abilityPosition)
@@ -161,7 +179,7 @@
                 }
                 else
                 {
-                    safeMode = false;
+                    SafeMode = false;
                     this.TooltipText = ability.Name;
                     abilControl.Visible = true;
                     abilControl.Image = this.ability.Image;
@@ -284,6 +302,9 @@
 
         private void Cast(PointerArgs args)
         {
+            if (interacting)
+                return;
+
             if (ability.CastType == AbilityCastType.Passive)
                 return;
 
@@ -349,5 +370,7 @@
             ControlEventType.Focus,
             ControlEventType.GlobalClickRelease
         };
+
+        public bool SafeMode { get; set; } = false;
     }
 }

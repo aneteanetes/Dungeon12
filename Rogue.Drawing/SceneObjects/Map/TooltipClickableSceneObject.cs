@@ -4,6 +4,8 @@
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
     using Rogue.Drawing.GUI;
+    using Rogue.Drawing.SceneObjects.Common;
+    using Rogue.Drawing.SceneObjects.Main;
     using Rogue.Types;
     using Rogue.View.Interfaces;
     using System;
@@ -167,8 +169,11 @@
 
             public override void Click(PointerArgs args)
             {
-                click?.Invoke();
-                base.Unfocus();
+                using (SkillControl.BlockClick())
+                {
+                    click?.Invoke();
+                    base.Unfocus(); 
+                }
             }
         }
     }

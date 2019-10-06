@@ -3,6 +3,7 @@
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
+    using Rogue.Drawing.SceneObjects.Common;
 
     public abstract class ClickActionSceneObject<T> : TooltipedSceneObject
         where T : Physics.PhysicalObject
@@ -47,8 +48,11 @@
 
             if (CheckActionAvailable(args.MouseButton))
             {
-                acting = true;
-                Action(args.MouseButton);
+                using (SkillControl.BlockClick())
+                {
+                    acting = true;
+                    Action(args.MouseButton);
+                }
             }
         }
 
