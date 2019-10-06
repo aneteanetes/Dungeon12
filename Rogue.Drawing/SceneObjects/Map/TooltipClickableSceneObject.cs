@@ -169,11 +169,9 @@
 
             public override void Click(PointerArgs args)
             {
-                using (SkillControl.BlockClick())
-                {
-                    click?.Invoke();
-                    base.Unfocus(); 
-                }
+                SkillControl.CancelClick();
+                click?.Invoke();
+                base.Unfocus();
             }
         }
     }

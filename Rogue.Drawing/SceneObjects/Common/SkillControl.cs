@@ -21,24 +21,9 @@
     public class SkillControl : TooltipedSceneObject
     {
         private static bool interacting = false;
+
         public static bool CancelClick() => interacting = true;
-
-        public static void RestoreClick() => interacting = false;
-
-        public static IDisposable BlockClick() => new ClickBlock();
-
-        private class ClickBlock : IDisposable
-        {
-            public ClickBlock()
-            {
-                interacting = true;
-            }
-
-            public void Dispose()
-            {
-                interacting = false;
-            }
-        }
+        public static bool RestoreClick() => interacting = false;
 
         public override bool AbsolutePosition => true;
 
@@ -303,7 +288,10 @@
         private void Cast(PointerArgs args)
         {
             if (interacting)
+            {
+                interacting = false;
                 return;
+            }
 
             if (ability.CastType == AbilityCastType.Passive)
                 return;

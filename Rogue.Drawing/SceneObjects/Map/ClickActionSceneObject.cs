@@ -48,11 +48,10 @@
 
             if (CheckActionAvailable(args.MouseButton))
             {
-                using (SkillControl.BlockClick())
-                {
-                    acting = true;
-                    Action(args.MouseButton);
-                }
+                SkillControl.CancelClick();
+
+                acting = true;
+                Action(args.MouseButton);
             }
         }
 

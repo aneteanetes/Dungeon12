@@ -42,7 +42,7 @@
         private void AddItemBackpack()
         {
             playerSceneObject.Avatar.Character.Backpack.Add(this.@object.Item);
-            this.ShowEffects(new PopupString($"Вы нашли {@object.Item.Name}!", this.TooltipTextColor, new Types.Point(this.Left, this.Top), 25, 19, 0.06)
+            this.ShowEffects(new PopupString($"Вы нашли {@object.Item.Name}!", this.TooltipTextColor, new Types.Point(this.Left, this.Top), 25, 12, 0.06)
                 .InList<ISceneObject>());
 
             this.Destroy?.Invoke();

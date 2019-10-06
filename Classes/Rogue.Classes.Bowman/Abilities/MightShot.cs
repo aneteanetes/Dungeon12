@@ -27,7 +27,7 @@ namespace Rogue.Classes.Bowman.Abilities
             return @class.Energy.RightHand >= 15;
         }
 
-        protected override double RangeMultipler => (4 + rangeclass?.Range ?? 0) * 2.5;
+        protected override double RangeMultipler => (4 + (rangeclass?.Range ?? 0)) * 2.5;
 
         protected override void Dispose(GameMap gameMap, Avatar avatar, Bowman @class)
         {
