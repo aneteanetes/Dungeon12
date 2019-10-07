@@ -10,6 +10,8 @@ namespace Rogue.Classes.Bowman.Abilities
 {
     public class MightShot : BaseCooldownAbility
     {
+        public override Cooldown Cooldown { get; } = new Cooldown(500, "Bowman").Chain(10000, "MightShot").Build();
+
         public override AbilityPosition AbilityPosition => AbilityPosition.Right;
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.DmgHealInstant;
