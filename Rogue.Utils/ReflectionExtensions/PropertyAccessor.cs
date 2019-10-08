@@ -58,10 +58,7 @@
             var caller = up ? UpperFlowable(obj) : obj;
 
             var methodName = ExtractMethodName(method);
-            var ctx = (Attribute.GetCustomAttribute(
-                GetFlowMethodInfo(caller, methodName),
-                typeof(FlowMethodAttribute)) as FlowMethodAttribute)
-                .ContextType.New();
+            object ctx = CreateContextObject(caller, methodName);
 
             if (args != null)
             {
@@ -74,13 +71,28 @@
                 firstFlow
             };
 
-            MakeFlow(caller, ctx, methodName,flow);
+            MakeFlow(caller, ctx, methodName, flow);
 
             flow.Reverse();
 
             foreach (var flowEntry in flow)
             {
                 flowEntry?.Invoke(false);
+            }
+        }
+
+        private static object CreateContextObject(IFlowable caller, string methodName)
+        {
+            try
+            {
+                return (Attribute.GetCustomAttribute(
+                        GetFlowMethodInfo(caller, methodName),
+                        typeof(FlowMethodAttribute)) as FlowMethodAttribute)
+                        .ContextType.New();
+            }
+            catch (Exception inner)
+            {
+                throw new Exception("Ошибка при выполнении flow метода - возможно не указан Parent для вызываемого объекта?", inner);
             }
         }
 

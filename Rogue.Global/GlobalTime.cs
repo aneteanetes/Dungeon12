@@ -207,7 +207,6 @@
         }
     }
 
-
     public class TimeTrigger
     {
         Func<int> hoursSource;

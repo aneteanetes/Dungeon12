@@ -7,7 +7,7 @@
     using System;
 
     [Template("@")]
-    public class Avatar : MapObject
+    public class Avatar : FlowMapObject
     {
         public override double MovementSpeed { get; set; } = 0.04;
 
@@ -59,5 +59,10 @@
         public bool SafeMode { get; set; }
 
         public Action OnMove { get; set; }
+
+        [FlowMethod]
+        public void MoveStep(bool forward)
+        {
+        }
     }
 }

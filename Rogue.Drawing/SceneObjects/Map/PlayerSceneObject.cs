@@ -67,6 +67,7 @@
 
             OnEvent(new ClassChangeEvent());
 
+            player.SetParentFlow(this);
             player.StateAdded += s => RedrawStates(s);
             player.StateRemoved += s => RedrawStates(s, true);
             AddBuffs();
@@ -154,7 +155,8 @@
                 }
 
                 this.Avatar.Location.Y -= Speed;
-                SetAnimation(this.Player.MoveUp);
+                if (!DontChangeVisionDirection)                
+                    SetAnimation(this.Player.MoveUp);
                 if (!CheckMoveAvailable(Direction.Up))
                 {
                     OnStop(Direction.Up);
@@ -163,7 +165,9 @@
                 {
                     this.aliveTooltip.Left = this.Position.X;
                     this.aliveTooltip.Top = this.Position.Y - 0.8;
-                    Avatar.VisionDirection =  Direction.Up;
+
+                    if (!DontChangeVisionDirection)                    
+                        Avatar.VisionDirection = Direction.Up;                    
                 }
             }
             if (NowMoving.Contains(Direction.Down))
@@ -174,7 +178,8 @@
                 }
 
                 this.Avatar.Location.Y += Speed;
-                SetAnimation(this.Player.MoveDown);
+                if (!DontChangeVisionDirection)
+                    SetAnimation(this.Player.MoveDown);
                 if (!CheckMoveAvailable(Direction.Down))
                 {
                     OnStop(Direction.Down);
@@ -183,7 +188,8 @@
                 {
                     this.aliveTooltip.Left = this.Position.X;
                     this.aliveTooltip.Top = this.Position.Y - 0.8;
-                    Avatar.VisionDirection = Direction.Down;
+                    if (!DontChangeVisionDirection)
+                        Avatar.VisionDirection = Direction.Down;
                 }
             }
             if (NowMoving.Contains(Direction.Left))
@@ -194,7 +200,8 @@
                 }
 
                 this.Avatar.Location.X -= Speed;
-                SetAnimation(this.Player.MoveLeft);
+                if (!DontChangeVisionDirection)
+                    SetAnimation(this.Player.MoveLeft);
                 if (!CheckMoveAvailable(Direction.Left))
                 {
                     OnStop(Direction.Left);
@@ -203,7 +210,8 @@
                 {
                     this.aliveTooltip.Left = this.Position.X;
                     this.aliveTooltip.Top = this.Position.Y - 0.8;
-                    Avatar.VisionDirection = Direction.Left;
+                    if (!DontChangeVisionDirection)
+                        Avatar.VisionDirection = Direction.Left;
                 }
             }
             if (NowMoving.Contains(Direction.Right))
@@ -214,7 +222,8 @@
                 }
 
                 this.Avatar.Location.X += Speed;
-                SetAnimation(this.Player.MoveRight);
+                if (!DontChangeVisionDirection)
+                    SetAnimation(this.Player.MoveRight);
                 if (!CheckMoveAvailable(Direction.Right))
                 {
                     OnStop(Direction.Right);
@@ -223,7 +232,8 @@
                 {
                     this.aliveTooltip.Left = this.Position.X;
                     this.aliveTooltip.Top = this.Position.Y - 0.8;
-                    Avatar.VisionDirection = Direction.Right;
+                    if (!DontChangeVisionDirection)
+                        Avatar.VisionDirection = Direction.Right;
                 }
             }
         }
@@ -261,6 +271,37 @@
         public Action OnMove;
 
         private HashSet<Direction> NowMoving = new HashSet<Direction>();
+
+        [FlowMethod(typeof(MoveStepContext))]
+        public void MoveStep(bool forward)
+        {
+            if(!forward)
+            {
+                var remove = GetFlowProperty<bool>(nameof(MoveStepContext.Remove));
+                var dir = GetFlowProperty<Direction>(nameof(Direction));
+                this.DontChangeVisionDirection = GetFlowProperty<bool>(nameof(MoveStepContext.DontChangeVisionDirection));
+                if (!remove)
+                {
+                    this.NowMoving.Add(dir);
+                }
+                else
+                {
+                    this.NowMoving.Remove(dir);
+                    DontChangeVisionDirection = false;
+                }
+            }
+        }
+
+        private bool DontChangeVisionDirection { get; set; } = false;
+
+        public class MoveStepContext
+        {
+            public Direction Direction { get; set; }
+
+            public bool Remove { get; set; }
+
+            public bool DontChangeVisionDirection { get; set; }
+        }
 
         public void StopMovings()
         {

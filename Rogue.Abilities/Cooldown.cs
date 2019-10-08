@@ -26,6 +26,8 @@ namespace Rogue.Abilities
             }
         }
 
+        public static Cooldown Make(double milliseconds, string name = null) => new Cooldown(milliseconds, name);
+
         private Cooldown Next = null;
         private Cooldown Parent = null;
 

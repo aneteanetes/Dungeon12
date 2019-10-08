@@ -29,7 +29,7 @@ namespace Rogue.Classes.Bowman
 
         public RainOfArrows RainOfArrows { get; set; } = new RainOfArrows();
 
-        public JumpOff JumpOff { get; set; } = new JumpOff();
+        public Dodge Dodge { get; set; } = new Dodge();
 
         public override T[] PropertiesOfType<T>()
         {
@@ -41,7 +41,7 @@ namespace Rogue.Classes.Bowman
                         SpeedShot as T,
                         MightShot as T,
                         RainOfArrows as T,
-                        JumpOff as T
+                        Dodge as T
                     };
                 case Type t when t.IsAssignableFrom(typeof(TalantTree)):
                     return new T[] { };
@@ -49,7 +49,7 @@ namespace Rogue.Classes.Bowman
             }
         }
 
-        public double AtackSpeed { get; set; }
+        public double AtackSpeed { get; set; } = 1;
 
         public double Range { get; set; } = 3;
 

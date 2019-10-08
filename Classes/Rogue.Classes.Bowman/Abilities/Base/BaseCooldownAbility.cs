@@ -7,6 +7,6 @@ namespace Rogue.Classes.Bowman.Abilities
 {
     public abstract class BaseCooldownAbility : Ability<Bowman>
     {
-        public override Cooldown Cooldown { get; } = new Cooldown(500, "Bowman");
+        public override Cooldown Cooldown { get; } = new Cooldown(500, nameof(Bowman));
     }
 }
