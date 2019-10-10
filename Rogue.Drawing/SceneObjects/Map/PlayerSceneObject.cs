@@ -300,6 +300,7 @@
                     Avatar.OnMoveStop?.Invoke(dir);
                     this.NowMoving.Remove(dir);
                     DontChangeVisionDirection = false;
+                    SwitchPlayerFace(dir.Opposite());
                     this.BlockMoveInput = false;
                 }
             }
@@ -495,31 +496,35 @@
                 if (NowMoving.Count == 0 && _directionVision != value)
                 {
                     _directionVision = value;
-                    AnimationMap animap = null;
-                    switch (value)
-                    {
-                        case Direction.Up:
-                            animap = this.Player.MoveUp;
-                            break;
-                        case Direction.Down:
-                            animap = this.Player.MoveDown;
-                            break;
-                        case Direction.Left:
-                            animap = this.Player.MoveLeft;
-                            break;
-                        case Direction.Right:
-                            animap = this.Player.MoveRight;
-                            break;
-                        default:
-                            break;
-                    }
-
-                    SetAnimation(animap);
-                    FramePosition.Pos = animap.Frames[0];
-
-                    Avatar.VisionDirection = value;
+                    SwitchPlayerFace(value);
                 }
             }
+        }
+
+        private void SwitchPlayerFace(Direction value)
+        {
+            AnimationMap animap = null;
+            switch (value)
+            {
+                case Direction.Up:
+                    animap = this.Player.MoveUp;
+                    break;
+                case Direction.Down:
+                    animap = this.Player.MoveDown;
+                    break;
+                case Direction.Left:
+                    animap = this.Player.MoveLeft;
+                    break;
+                case Direction.Right:
+                    animap = this.Player.MoveRight;
+                    break;
+                default:
+                    break;
+            }
+
+            SetAnimation(animap);
+            FramePosition.Pos = animap.Frames[0];
+            Avatar.VisionDirection = value;
         }
 
         public override void GlobalMouseMove(PointerArgs args)
