@@ -371,7 +371,7 @@
 
         private object flowContext = null;
 
-        public T GetFlowProperty<T>(string property) => flowContext.GetProperty<T>(property);
+        public T GetFlowProperty<T>(string property,T @default = default) => flowContext.GetProperty<T>(property);
 
         public bool SetFlowProperty<T>(string property, T value)
         {

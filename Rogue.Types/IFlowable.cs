@@ -9,7 +9,7 @@ namespace Rogue
     /// </summary>
     public interface IFlowable
     {
-        T GetFlowProperty<T>(string property);
+        T GetFlowProperty<T>(string property, T @default = default);
 
         bool SetFlowProperty<T>(string property, T value);
 
@@ -33,5 +33,13 @@ namespace Rogue
         public FlowMethodAttribute() { }
 
         public FlowMethodAttribute(Type contextType) => ContextType = contextType;
+    }
+
+    /// <summary>
+    /// Указывает что метод явно вызывает каскадную логику
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
+    public sealed class ExcplicitFlowMethodAttribute : Attribute
+    {
     }
 }

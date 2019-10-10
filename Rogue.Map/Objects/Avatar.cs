@@ -11,7 +11,7 @@
     {
         public override double MovementSpeed { get; set; } = 0.04;
 
-        public override bool CameraAffect => true;
+        public override bool CameraAffect { get; set; } = true;
 
         public Character Character { get; set; }
 
@@ -60,9 +60,9 @@
 
         public Action OnMove { get; set; }
 
+        public Action<Direction> OnMoveStop { get; set; }
+
         [FlowMethod]
-        public void MoveStep(bool forward)
-        {
-        }
+        public void MoveStep(bool forward) { }
     }
 }

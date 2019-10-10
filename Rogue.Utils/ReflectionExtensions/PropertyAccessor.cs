@@ -226,10 +226,17 @@
             return accessor[null, property];
         }
 
-        public static TValue GetProperty<TValue>(this object @object, string property)
+        public static TValue GetProperty<TValue>(this object @object, string property, TValue @default=default)
         {
             var accessor = TypeAccessor.Create(@object.GetType(), true);
-            return (TValue)accessor[@object, property];
+            try
+            {
+                return (TValue)accessor[@object, property];
+            }
+            catch
+            {
+                return @default;
+            }
         }
 
         public static TObject SetProperty<TObject, TValue>(this TObject @object, string property, TValue value)

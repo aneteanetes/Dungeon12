@@ -42,6 +42,14 @@
         private readonly GameMap location;
 
         public Action<Direction> OnStop;
+
+        [ExcplicitFlowMethod]
+        private void OnStopFlow(Direction dir)
+        {
+            Avatar.OnMoveStop?.Invoke(dir);
+            OnStop?.Invoke(dir);
+        }
+
         public Action OnStart;
         private Action<ISceneObject> destroyBinding;
         
@@ -159,7 +167,7 @@
                     SetAnimation(this.Player.MoveUp);
                 if (!CheckMoveAvailable(Direction.Up))
                 {
-                    OnStop(Direction.Up);
+                    OnStopFlow(Direction.Up);
                 }
                 else if (this.aliveTooltip != null)
                 {
@@ -182,7 +190,7 @@
                     SetAnimation(this.Player.MoveDown);
                 if (!CheckMoveAvailable(Direction.Down))
                 {
-                    OnStop(Direction.Down);
+                    OnStopFlow(Direction.Down);
                 }
                 else if (this.aliveTooltip != null)
                 {
@@ -204,7 +212,7 @@
                     SetAnimation(this.Player.MoveLeft);
                 if (!CheckMoveAvailable(Direction.Left))
                 {
-                    OnStop(Direction.Left);
+                    OnStopFlow(Direction.Left);
                 }
                 else if (this.aliveTooltip != null)
                 {
@@ -226,7 +234,7 @@
                     SetAnimation(this.Player.MoveRight);
                 if (!CheckMoveAvailable(Direction.Right))
                 {
-                    OnStop(Direction.Right);
+                    OnStopFlow(Direction.Right);
                 }
                 else if (this.aliveTooltip != null)
                 {
@@ -270,7 +278,7 @@
 
         public Action OnMove;
 
-        private HashSet<Direction> NowMoving = new HashSet<Direction>();
+        private readonly HashSet<Direction> NowMoving = new HashSet<Direction>();
 
         [FlowMethod(typeof(MoveStepContext))]
         public void MoveStep(bool forward)
@@ -282,15 +290,22 @@
                 this.DontChangeVisionDirection = GetFlowProperty<bool>(nameof(MoveStepContext.DontChangeVisionDirection));
                 if (!remove)
                 {
+                    Avatar.CameraAffect = GetFlowProperty<bool>(nameof(MoveStepContext.DisableCameraAffect), true);
+                    this.BlockMoveInput = GetFlowProperty<bool>(nameof(BlockMoveInput));
                     this.NowMoving.Add(dir);
                 }
                 else
                 {
+                    Avatar.CameraAffect = true;
+                    Avatar.OnMoveStop?.Invoke(dir);
                     this.NowMoving.Remove(dir);
                     DontChangeVisionDirection = false;
+                    this.BlockMoveInput = false;
                 }
             }
         }
+
+        public bool BlockMoveInput { get; set; }
 
         private bool DontChangeVisionDirection { get; set; } = false;
 
@@ -301,6 +316,10 @@
             public bool Remove { get; set; }
 
             public bool DontChangeVisionDirection { get; set; }
+
+            public bool DisableCameraAffect { get; set; }
+
+            public bool BlockMoveInput { get; set; }
         }
 
         public void StopMovings()
@@ -308,7 +327,7 @@
             this.RequestStop();
             foreach (var moving in NowMoving)
             {
-                OnStop(moving);
+                OnStopFlow(moving);
             }
             this.NowMoving.Clear();
         }
@@ -319,6 +338,9 @@
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
+            if (BlockMoveInput)
+                return;
+
             switch (key)
             {
                 case Key.D:
@@ -371,6 +393,9 @@
 
         public override void KeyUp(Key key, KeyModifiers modifier)
         {
+            if (BlockMoveInput)
+                return;
+
             switch (key)
             {
                 case Key.D:
@@ -381,7 +406,7 @@
                         }
 
                         NowMoving.Remove(Direction.Right);
-                        OnStop(Direction.Right);
+                        OnStopFlow(Direction.Right);
                         if (OppositeDirections.Contains(Direction.Left))
                         {
                             OppositeDirections.Remove(Direction.Left);
@@ -397,7 +422,7 @@
                         }
 
                         NowMoving.Remove(Direction.Left);
-                        OnStop(Direction.Left);
+                        OnStopFlow(Direction.Left);
                         if (OppositeDirections.Contains(Direction.Right))
                         {
                             OppositeDirections.Remove(Direction.Right);
@@ -413,7 +438,7 @@
                         }
 
                         NowMoving.Remove(Direction.Up);
-                        OnStop(Direction.Up);
+                        OnStopFlow(Direction.Up);
                         if (OppositeDirections.Contains(Direction.Down))
                         {
                             OppositeDirections.Remove(Direction.Down);
@@ -429,7 +454,7 @@
                         }
 
                         NowMoving.Remove(Direction.Down);
-                        OnStop(Direction.Down);
+                        OnStopFlow(Direction.Down);
                         if (OppositeDirections.Contains(Direction.Up))
                         {
                             OppositeDirections.Remove(Direction.Up);

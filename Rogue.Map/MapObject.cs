@@ -101,7 +101,7 @@
             return mapObject;
         }
 
-        public virtual bool CameraAffect => false;
+        public virtual bool CameraAffect { get; set; } = false;
 
         public Point SceenPosition { get; set; }
 
