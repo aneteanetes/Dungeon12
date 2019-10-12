@@ -10,6 +10,7 @@
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
     using Rogue.Drawing.GUI;
+    using Rogue.Drawing.Impl;
     using Rogue.Drawing.SceneObjects.Base;
     using Rogue.Drawing.SceneObjects.Dialogs.NPC;
     using Rogue.Drawing.SceneObjects.Map;
@@ -48,6 +49,9 @@
         public SkillControl(GameMap gameMap, PlayerSceneObject player, Ability ability, AbilityPosition abilityPosition, Action<List<ISceneObject>> abilityEffects, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding)
             :base(ability?.Name,abilityEffects)
         {
+            this.Mask = SceneObjects.ImageMask.Radial();
+            this.Mask.Color = new DrawColor(ConsoleColor.Black);
+            this.Mask.Opacity = 0.5f;
 
             this.controlBinding = controlBinding;
             this.destroyBinding = destroyBinding;

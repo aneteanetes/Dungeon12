@@ -5,7 +5,9 @@
     using Microsoft.Xna.Framework.Input;
     using Penumbra;
     using ProjectMercury;
+    using Rogue.Monogame;
     using Rogue.Resources;
+    using Rogue.View.Enums;
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
@@ -26,17 +28,17 @@
         {
             throw new System.NotImplementedException();
         }
-
+        
         protected override void Draw(GameTime gameTime)
         {
-            CalculateCamera();
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            GraphicsDevice.Clear(Color.Black);
+            CalculateCamera();
 
             Draw(this.scene.Objects, gameTime);
 
             DrawDebugInfo();
-            
+
             OnPointerMoved();
         }
 
@@ -116,7 +118,7 @@
         Stopwatch _st = Stopwatch.StartNew();
 
         #endregion
-
+        
         private void DrawDebugInfo()
         {
             spriteBatch.Begin();
@@ -372,28 +374,105 @@
 
 #warning Вот здесь теперь всё хорошо,но это место можно использовать для того что бы заоптимизировать преобразование размеров, т.к. масштабирование текстур происходит тут
 
-            var dest = new Microsoft.Xna.Framework.Rectangle(pos.Xi, pos.Yi, pos.Widthi, pos.Heighti);
+            var dest = new Rectangle(pos.Xi, pos.Yi, pos.Widthi, pos.Heighti);
 
             if (sceneObject.Effects.Count > 0) {
                 //Console.WriteLine($"texture: {dest.X+CameraOffsetX} {dest.Y+CameraOffsetY}");
             }
 
-            var origin = new Vector2(tileRegion.Widthi / 2f, tileRegion.Heighti / 2f);
             var angle = (float)sceneObject.Angle;
+            var origin = angle != 0
+                ? new Vector2(tileRegion.Widthi / 2f, tileRegion.Heighti / 2f)
+                : Vector2.Zero;
 
-            if (angle != 0)
-            {
-                spriteBatch.Draw(image, dest,
-                    new Microsoft.Xna.Framework.Rectangle(tileRegion.Xi, tileRegion.Yi,
-                        tileRegion.Widthi, tileRegion.Heighti), Color.White, angle, origin, SpriteEffects.None, 0f);
-            }
-            else
-            {
+            SpriteEffects spriteEffects = SpriteEffects.None;
 
-                spriteBatch.Draw(image, dest,
-                    new Microsoft.Xna.Framework.Rectangle(tileRegion.Xi, tileRegion.Yi,
-                        tileRegion.Widthi, tileRegion.Heighti), Color.White);
+            if (sceneObject.ImageMask != default)
+            {
+                var maskResult = ApplyImageMask(image, sceneObject);
+                image = maskResult.image;
+                spriteEffects = maskResult.effects;
             }
+
+            var source = new Rectangle(tileRegion.Xi, tileRegion.Yi, tileRegion.Widthi, tileRegion.Heighti);
+            //if (angle != 0)
+            //{
+            spriteBatch.Draw(image, dest, source, Color.White, angle, origin, spriteEffects, 0f);
+            //}
+            //else
+            //{
+
+            //    spriteBatch.Draw(image, dest,
+            //        new Microsoft.Xna.Framework.Rectangle(tileRegion.Xi, tileRegion.Yi,
+            //            tileRegion.Widthi, tileRegion.Heighti), Color.White);
+            //}
+        }
+
+        Dictionary<string, Dictionary<float, Texture2D>> MaskCache = new Dictionary<string, Dictionary<float, Texture2D>>();
+
+        private (Texture2D image, SpriteEffects effects) ApplyImageMask(Texture2D image, ISceneObject sceneObject)
+        {
+            var mask = sceneObject.ImageMask;
+
+            SpriteEffects effects = mask.Pattern == MaskPattern.RadialClockwise
+                ? SpriteEffects.None
+                : SpriteEffects.FlipVertically;
+
+            if (mask.CacheAvailable)
+            {
+                if (MaskCache.TryGetValue(sceneObject.Uid, out var progressCache))
+                {
+                    var progress = mask.AmountPercentage * 0.01f;
+
+                    if (progressCache.TryGetValue(progress, out var cachedTexture))
+                    {
+                        return (cachedTexture, effects);
+                    }
+                    else
+                    {
+                        cachedTexture = MakeMask(image, progress, mask.Color.Convert(), mask.Opacity);
+                        progressCache.Add(Progress, cachedTexture);
+                        return (cachedTexture, effects);
+                    }
+                }
+                else
+                {
+                    MaskCache.Add(sceneObject.Uid, new Dictionary<float, Texture2D>());
+                }
+            }
+
+            return default;
+        }
+
+        private Texture2D MakeMask(Texture2D texture2D, float progress, Color overlayColor, float opacity)
+        {
+            var thisTex = new Texture2D(GraphicsDevice, texture2D.Width, texture2D.Height);
+            //find the centre pixel
+            var centre = new Vector2(MathF.Ceiling(thisTex.Width / 2), MathF.Ceiling(thisTex.Height / 2));
+            for (int y = 0; y < thisTex.Height; y++)
+            {
+                for (int x = 0; x < thisTex.Width; x++)
+                { 
+                    //find the angle between the centre and this pixel (between -180 and 180)
+                    var angle = MathHelper.ToDegrees(MathF.Atan2(x - centre.X, y - centre.Y));
+                    if (angle < 0)
+                    {
+                        angle += 360; //change angles to go from 0 to 360
+                    }
+                    var pixColor = texture2D.GetPixel(x, y);
+                    if (angle >= progress * 360.0)
+                    {
+                        //if the angle is less than the progress angle blend the overlay colour
+                        pixColor = Color.Lerp(pixColor, overlayColor, 0.5f);
+                        thisTex.SetPixel(x, y, pixColor);
+                    }
+                    else
+                    {
+                        thisTex.SetPixel(x, y, pixColor);
+                    }
+                }
+            }
+            return thisTex;
         }
 
         private void DrawSceneText(float fontSize, double y, double x, IDrawText range)
@@ -433,7 +512,7 @@
 
         private void DrawScenePath(IDrawablePath drawablePath, double x, double y)
         {
-            if (drawablePath.PathPredefined == View.Enums.PathPredefined.Rectangle)
+            if (drawablePath.PathPredefined == PathPredefined.Rectangle)
             {
                 var color = drawablePath.BackgroundColor;
 
@@ -456,7 +535,7 @@
                 }
             }
 
-            if (drawablePath.PathPredefined == View.Enums.PathPredefined.Line)
+            if (drawablePath.PathPredefined == PathPredefined.Line)
             {
                 Texture2D texture = default;
 
@@ -524,8 +603,7 @@
             //draw the sprite with rotation
             sb.Draw(texture, src, new Rectangle((int)src.X, (int)src.Y, (int)distance, depth), color, angle, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
         }
-
-
+        
         private void DrawLine(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 end, float height)
         {
             spriteBatch.Draw(texture, start, null, Color.White,

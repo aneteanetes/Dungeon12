@@ -48,6 +48,8 @@
 
         IDrawablePath Path { get; }
 
+        IImageMask ImageMask { get; }
+
         ISceneObject Parent { get; }
 
         Action<ISceneObject> DestroyBinding { get; set; }

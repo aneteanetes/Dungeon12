@@ -81,7 +81,6 @@
             Window.AllowUserResizing = true;
             Window.TextInput += OnTextInput;
             // TODO: Add your initialization logic here
-            
             ParticleInit();
 
             base.Initialize();
@@ -95,7 +94,6 @@
             var loader = new ParticleEffectLoader(particleStream);
             _particleEffect = loader.Load();
         }
-
         protected override void LoadContent()
         {
             GraphicsDevice.PresentationParameters.RenderTargetUsage = RenderTargetUsage.PreserveContents;
@@ -106,8 +104,6 @@
                 DrawClient = this
             };
             SceneManager.Change<Start>();
-
-
             // TODO: use this.Content to load your game content here
         }
 
@@ -118,19 +114,17 @@
 
 
         private GameTime gameTime;
-
+        
         protected override void Update(GameTime gameTime)
         {
             this.gameTime = gameTime;
-
-            DebugUpdate();
-            
-            UpdateLoop();
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed/* || Keyboard.GetState().IsKeyDown(Keys.Escape)*/)
                 Exit();
 
             // TODO: Add your update logic here
+            DebugUpdate();
+            UpdateLoop();
 
             base.Update(gameTime);
         }
@@ -227,7 +221,6 @@
                 _particleEffect.LoadContent(this.Content);
                 _particleEffect.Initialise();
             }
-
 
 
             // get the latest mouse state

@@ -336,6 +336,10 @@
 
         public virtual bool Interface { get; set; }
 
+        public virtual IImageMask ImageMask => Mask;
+
+        public virtual ImageMask Mask { get; set; }
+
         public override string ToString()
         {
             return $"{owner.GetType().Name}#{Uid} : {base.ToString()}";
