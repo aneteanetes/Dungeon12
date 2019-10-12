@@ -7,7 +7,7 @@ namespace Rogue
     {
         public static string PathResource(this string path)=> "Rogue.Resources." + path;
 
-        public static string PathImage(this string path) => "".PathResource() + "Images." + path;
+        public static string PathImage(this string path) => "".PathResource() + "Images." + path.Replace(@"\",".");
 
         public static string PathParticle(this string path) => "".PathResource() + path;
 

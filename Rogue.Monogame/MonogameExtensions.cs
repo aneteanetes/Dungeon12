@@ -26,6 +26,20 @@ namespace Rogue.Monogame
             return color[0];
         }
 
-        public static Color Convert(this IDrawColor drawColor) => new Color(drawColor.R, drawColor.G, drawColor.B, drawColor.A);
+        private static readonly Dictionary<float, Color> ColorCache = new Dictionary<float, Color>();
+
+        private static float Sum(IDrawColor drawColor) => ((float)drawColor.R) + ((float)drawColor.B) + ((float)drawColor.G) + ((float)drawColor.A);
+
+        public static Color Convert(this IDrawColor drawColor)
+        {
+            var hash = Sum(drawColor);
+            if (!ColorCache.TryGetValue(hash, out var color))
+            {
+                color = new Color(drawColor.R, drawColor.G, drawColor.B, drawColor.A);
+                ColorCache.Add(hash, color);
+            }
+
+            return color;
+        }
     }
 }

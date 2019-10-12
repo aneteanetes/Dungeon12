@@ -12,6 +12,8 @@ namespace Rogue.View.Interfaces
 
         float Opacity { get; }
 
+        bool Visible { get; }
+
         float AmountPercentage { get; }
     }
 }

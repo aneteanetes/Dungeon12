@@ -387,7 +387,7 @@
 
             SpriteEffects spriteEffects = SpriteEffects.None;
 
-            if (sceneObject.ImageMask != default)
+            if (sceneObject.ImageMask != default && sceneObject.ImageMask.Visible)
             {
                 var maskResult = ApplyImageMask(image, sceneObject);
                 image = maskResult.image;
@@ -395,53 +395,54 @@
             }
 
             var source = new Rectangle(tileRegion.Xi, tileRegion.Yi, tileRegion.Widthi, tileRegion.Heighti);
-            //if (angle != 0)
-            //{
             spriteBatch.Draw(image, dest, source, Color.White, angle, origin, spriteEffects, 0f);
-            //}
-            //else
-            //{
-
-            //    spriteBatch.Draw(image, dest,
-            //        new Microsoft.Xna.Framework.Rectangle(tileRegion.Xi, tileRegion.Yi,
-            //            tileRegion.Widthi, tileRegion.Heighti), Color.White);
-            //}
         }
 
-        Dictionary<string, Dictionary<float, Texture2D>> MaskCache = new Dictionary<string, Dictionary<float, Texture2D>>();
+        readonly Dictionary<string, Dictionary<float, Texture2D>> MaskCache = new Dictionary<string, Dictionary<float, Texture2D>>();
 
         private (Texture2D image, SpriteEffects effects) ApplyImageMask(Texture2D image, ISceneObject sceneObject)
         {
             var mask = sceneObject.ImageMask;
-
+            var progress = (float)Math.Round(mask.AmountPercentage * 0.01f,2);
             SpriteEffects effects = mask.Pattern == MaskPattern.RadialClockwise
                 ? SpriteEffects.None
                 : SpriteEffects.FlipVertically;
 
-            if (mask.CacheAvailable)
-            {
-                if (MaskCache.TryGetValue(sceneObject.Uid, out var progressCache))
-                {
-                    var progress = mask.AmountPercentage * 0.01f;
+            var uid = sceneObject.Image;
 
-                    if (progressCache.TryGetValue(progress, out var cachedTexture))
+            Texture2D texture;
+            void MaskTexture()
+            {
+                texture = MakeMask(image, progress, mask.Color.Convert(), mask.Opacity);
+            }
+
+            if (!mask.CacheAvailable)
+            {
+                MaskTexture();
+            }
+            else
+            {
+                if (MaskCache.TryGetValue(uid, out var progressCache))
+                {
+                    if (progressCache.TryGetValue(progress, out texture))
                     {
-                        return (cachedTexture, effects);
+                        return (texture, effects);
                     }
                     else
                     {
-                        cachedTexture = MakeMask(image, progress, mask.Color.Convert(), mask.Opacity);
-                        progressCache.Add(Progress, cachedTexture);
-                        return (cachedTexture, effects);
+                        MaskTexture();
+                        progressCache.Add(progress, texture);
                     }
                 }
                 else
                 {
-                    MaskCache.Add(sceneObject.Uid, new Dictionary<float, Texture2D>());
+                    MaskTexture();
+                    MaskCache.Add(uid, new Dictionary<float, Texture2D>());
+                    MaskCache[uid].Add(progress, texture);
                 }
             }
 
-            return default;
+            return (texture, effects);
         }
 
         private Texture2D MakeMask(Texture2D texture2D, float progress, Color overlayColor, float opacity)
@@ -756,6 +757,42 @@
                 myRenderer.RenderEffect(particleEffect, ref v);
 
                 SpriteBatchRestore.Invoke(false);
+            }
+        }
+
+        public void CacheObject(ISceneObject sceneObject)
+        {
+            var image = TileSetByName(sceneObject.Image);
+
+            if (sceneObject.ImageMask != default && sceneObject.ImageMask.CacheAvailable)
+            {
+                CacheImageMask(image, sceneObject);
+            }
+        }
+
+        private void CacheImageMask(Texture2D image, ISceneObject sceneObject)
+        {
+            var uid = sceneObject.Image;
+            var mask = sceneObject.ImageMask;
+
+            if (!MaskCache.ContainsKey(uid))
+            {
+                MaskCache.Add(uid, new Dictionary<float, Texture2D>());
+            }
+            else
+            {
+                return;
+            }
+
+            var cache = MaskCache[uid];
+            for (float i = 0f; i < 1; i += 0.01f)
+            {
+                var v = (float)Math.Round(i);
+                if (!cache.ContainsKey(v))
+                {
+                    cache.Add(v, MakeMask(image, v, mask.Color.Convert(), mask.Opacity));
+                }
+
             }
         }
     }

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace Rogue.Abilities
 {
     public class Cooldown : ICooldownChain
     {
-        private static Dictionary<string, Cooldown> cooldowns = new Dictionary<string, Cooldown>();
+        private static readonly Dictionary<string, Cooldown> cooldowns = new Dictionary<string, Cooldown>();
 
         public Cooldown(double milliseconds, string name = null)
         {
@@ -19,7 +20,9 @@ namespace Rogue.Abilities
                 this.Timer.AutoReset = false;
                 this.Timer.Elapsed += (x, y) =>
                 {
+                    cooldowns[name].Watch.Reset();
                     cooldowns[name].Available = true;
+                    cooldowns[name].IsActive = false;
                 };
 
                 cooldowns.Add(name, this);
@@ -31,13 +34,40 @@ namespace Rogue.Abilities
         private Cooldown Next = null;
         private Cooldown Parent = null;
 
+        private Stopwatch Watch { get; set; } = new Stopwatch();
+
         public string Name { get; }
 
         public double Milliseconds { get; }
 
+        public float Percent => GetPercent(this);
+
+        private float GetPercent(Cooldown cooldown)
+        {
+            if (cooldown.Next != null)
+            {
+                return GetPercent(cooldown.Next);
+            }
+
+            var name = cooldown.Name;
+            return cooldowns[name].Watch.ElapsedMilliseconds / ((float)cooldowns[name].Milliseconds) * 100f;
+        }
+
+        private bool isActive = false;
+        public bool IsActive
+        {
+            get => isActive || (this.Next?.IsActive ?? false);
+            set => isActive = value;
+        }
+
         internal System.Timers.Timer Timer { get; set; }
 
-        internal bool Available { get; set; } = true;
+        private bool available = true;
+        internal bool Available
+        {
+            get => available && (this.Next?.Available ?? true);
+            set => available = value;
+        }
 
         /// <summary>
         /// Проверка что нету кулдауна у способности
@@ -60,6 +90,8 @@ namespace Rogue.Abilities
         /// </summary>
         public void Cast()
         {
+            cooldowns[Name].IsActive = true;
+            cooldowns[Name].Watch.Start();
             cooldowns[Name].Available = false;
             cooldowns[Name].Timer.Start();
             StartChain();

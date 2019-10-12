@@ -22,5 +22,11 @@
         void Drop();
 
         void SetCursor(string texture);
+
+        /// <summary>
+        /// Полностью кэширует объект, в т.ч. и маску
+        /// </summary>
+        /// <param name="object"></param>
+        void CacheObject(ISceneObject @object);
     }
 }

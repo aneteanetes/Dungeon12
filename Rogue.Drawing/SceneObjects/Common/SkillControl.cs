@@ -47,12 +47,8 @@
         private bool empty = false;
 
         public SkillControl(GameMap gameMap, PlayerSceneObject player, Ability ability, AbilityPosition abilityPosition, Action<List<ISceneObject>> abilityEffects, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding)
-            :base(ability?.Name,abilityEffects)
+            : base(ability?.Name, abilityEffects)
         {
-            this.Mask = SceneObjects.ImageMask.Radial();
-            this.Mask.Color = new DrawColor(ConsoleColor.Black);
-            this.Mask.Opacity = 0.5f;
-
             this.controlBinding = controlBinding;
             this.destroyBinding = destroyBinding;
             this.abilityPosition = abilityPosition;
@@ -86,7 +82,7 @@
 
             abilControl = new ImageControl(IsBig ? a.Image_B : a.Image)
             {
-                CacheAvailable=false
+                CacheAvailable = false
             };
             this.AddChild(abilControl);
 
@@ -95,7 +91,27 @@
                 this.ability.CastCooldown(gameMap, avatar);
             }
 
+            this.AddChild(new CooldownMask(this.ability));
+
             this.Image = SquareTexture(false);
+        }
+
+        private class CooldownMask : ImageControl
+        {
+            public override bool AbsolutePosition => true;
+            public override bool CacheAvailable => false;
+
+            public CooldownMask(Ability ability) : base(@"ui\square_transparent_mask.png".PathImage())
+            {
+                this.Mask = SceneObjects.ImageMask.Radial()
+                    .BindAmount(() => ability.Cooldown?.Percent ?? 0f)
+                    .BindVisible(() => ability.Cooldown?.IsActive ?? false);
+
+                this.Mask.Color = new DrawColor(ConsoleColor.Black);
+                this.Mask.Opacity = 0.5f;
+
+                Global.DrawClient.CacheObject(this);
+            }
         }
 
         public override double Width => IsBig ? 3 : 2;
