@@ -2,6 +2,7 @@
 {
     using Rogue.Control.Keys;
     using Rogue.Drawing.SceneObjects.Base;
+    using Rogue.Drawing.SceneObjects.Common;
     using Rogue.Drawing.SceneObjects.Map;
     using Rogue.Entites.Animations;
     using Rogue.Map;
@@ -17,10 +18,13 @@
 
         private SubjectPanel subjectPanel;
         private AnswerPanel answerPanel;
+        private PlayerSceneObject _playerSceneObject;
 
         public NPCDialogue(PlayerSceneObject playerSceneObject, Rogue.Map.Objects.Сonversational conversational, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding, GameMap gameMap)
         {
             Global.FreezeWorld = this;
+
+            this._playerSceneObject = playerSceneObject;
 
             answerPanel = new AnswerPanel(gameMap,playerSceneObject) { DestroyBinding = destroyBinding, ControlBinding= controlBinding };
             subjectPanel = new SubjectPanel(conversational, answerPanel.Select, this.ExitDialogue);
@@ -67,6 +71,7 @@
         {
             this.Destroy?.Invoke();
             Global.FreezeWorld = null;
+            SkillControl.RestoreClick();
         }
 
         protected override void CallOnEvent(dynamic obj)

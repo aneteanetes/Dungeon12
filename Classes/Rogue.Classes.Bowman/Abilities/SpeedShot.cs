@@ -40,7 +40,7 @@ namespace Rogue.Classes.Bowman.Abilities
         {
             @class.Energy.LeftHand -= 15;
 
-            var arrow = new ArrowObject(avatar.VisionDirection, 4 + @class.Range, 15, 0.05);
+            var arrow = new ArrowObject(avatar.VisionDirection, 4 + @class.Range, 15, 0.06);
 
             this.UseEffects(new Arrow(gameMap, arrow, avatar.VisionDirection,new Types.Point(avatar.Position.X / 32, avatar.Position.Y / 32)).InList<ISceneObject>());
         }

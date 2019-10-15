@@ -331,6 +331,7 @@
         {
             var handlers = elements
                 .Distinct()
+                .Where(c => c.Visible)
                 .Where(x =>
                 {
                     bool handle = x.CanHandle.Contains(handleEvent);

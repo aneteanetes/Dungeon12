@@ -337,6 +337,8 @@ namespace ProjectMercury.Emitters
             this.Initialised = true;
         }
 
+        public string FromAssemblyName { get; set; }
+
         /// <summary>
         /// Initialises the Emitter.
         /// </summary>
@@ -390,7 +392,17 @@ namespace ProjectMercury.Emitters
                 try
                 {
                     if (this.ParticleTexture == null)
-                        this.ParticleTexture = TileSetByName($"Rogue.Resources.Images.Particles.{this.ParticleTextureAssetName}.png");
+                    {
+                        //дефолтный путь для rogue
+                        var path = $"Rogue.Resources.Images.Particles.{this.ParticleTextureAssetName}.png";
+
+                        if (FromAssemblyName != default)
+                        {
+                            path = $"{this.FromAssemblyName}.{this.ParticleTextureAssetName}.png";
+                        }
+
+                        this.ParticleTexture = TileSetByName(path);
+                    }
                 }
                 catch (ContentLoadException e)
                 {

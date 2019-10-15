@@ -729,7 +729,7 @@
                     }
 
                     var particleStream = ResourceLoader.Load(path, path);
-                    var loader = new ParticleEffectLoader(particleStream);
+                    var loader = new ParticleEffectLoader(particleStream,effect.Assembly);
                     particleEffect = loader.Load();
                     particleEffect.Scale = (float)effect.Scale;
                     particleEffect.LoadContent(this.Content);

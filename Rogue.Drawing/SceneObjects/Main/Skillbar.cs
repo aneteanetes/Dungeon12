@@ -41,6 +41,8 @@
             OnEvent(obj);
         }
 
+        public override bool Visible => !gameMap.InSafe(player.Avatar);
+
         public void OnEvent(ClassChangeEvent @event)
         {            
             this.ClearChildrens();

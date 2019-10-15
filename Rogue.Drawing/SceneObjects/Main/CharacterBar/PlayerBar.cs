@@ -14,20 +14,32 @@
         
         public PlayerBar(GameMap gamemap, PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects)
         {
+            bool needSlide() => gamemap.InSafe(playerSceneObject.Avatar);
+
             this.AddChild(new TorchButton(playerSceneObject, showEffects)
             {
                 Left = -1,
-                Top=0.5
+                Top=0.5,
+                SlideNeed= needSlide,
+                SlideOffsetLeft=5
             });
-            this.AddChild(new CharButton(gamemap,playerSceneObject, showEffects));
+            this.AddChild(new CharButton(gamemap, playerSceneObject, showEffects)
+            {
+                SlideNeed = needSlide,
+                SlideOffsetLeft = 5
+            });
             this.AddChild(new SkillsButton(playerSceneObject,showEffects)
             {
-                Left=11.5
+                Left=11.5,
+                SlideNeed = needSlide,
+                SlideOffsetLeft = -5
             });
             this.AddChild(new TalantsButton(playerSceneObject, showEffects)
             {
                 Left=13,
-                Top=0.5
+                Top=0.5,
+                SlideNeed = needSlide,
+                SlideOffsetLeft = -5
             });
         }
     }

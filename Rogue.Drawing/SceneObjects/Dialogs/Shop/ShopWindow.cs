@@ -1,6 +1,7 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Dialogs.Shop
 {
     using Rogue.Control.Keys;
+    using Rogue.Drawing.SceneObjects.Common;
     using Rogue.Drawing.SceneObjects.Inventories;
     using Rogue.Drawing.SceneObjects.Main.CharacterInfo;
     using Rogue.Drawing.SceneObjects.Map;
@@ -55,6 +56,7 @@
         {
             this.Destroy?.Invoke();
             Global.FreezeWorld = null;
+            SkillControl.RestoreClick();
         }
     }
 }

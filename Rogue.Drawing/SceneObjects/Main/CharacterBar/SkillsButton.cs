@@ -8,9 +8,11 @@
     using System;
     using System.Collections.Generic;
 
-    public class SkillsButton : TooltipedSceneObject
+    public class SkillsButton : SlidesafeComponent
     {
         public override bool AbsolutePosition => true;
+
+        public override bool CacheAvailable => false;
 
         private PlayerSceneObject playerSceneObject;
         private Action<List<ISceneObject>> showEffects;
@@ -25,7 +27,7 @@
 
             this.AddChild(new ImageControl("Rogue.Resources.Images.ui.player.skills.png")
             {
-                CacheAvailable = true,
+                CacheAvailable = false,
                 Height = 1.5,
                 Width = 1.5,
             });

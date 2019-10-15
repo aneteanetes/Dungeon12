@@ -17,8 +17,7 @@
     public partial class XNADrawClient : Game, IDrawClient
     {
         private PenumbraComponent penumbra;
-
-
+        
         Texture2D _blankTexture;
         Renderer myRenderer;
 
@@ -81,19 +80,10 @@
             Window.AllowUserResizing = true;
             Window.TextInput += OnTextInput;
             // TODO: Add your initialization logic here
-            ParticleInit();
 
             base.Initialize();
         }
-
-        private ParticleEffect _particleEffect;
-
-        private void ParticleInit()
-        {
-            var particleStream = ResourceLoader.Load("Rogue.Resources.Particles.BeamMeUp.xml");
-            var loader = new ParticleEffectLoader(particleStream);
-            _particleEffect = loader.Load();
-        }
+        
         protected override void LoadContent()
         {
             GraphicsDevice.PresentationParameters.RenderTargetUsage = RenderTargetUsage.PreserveContents;
@@ -213,13 +203,6 @@
             {
                 SunLight.Position += new Vector2(50, 0);
                 //_particleEffect.Position += new Vector2(50, 0);
-            }
-
-
-            if (c.IsKeyDown(Keys.U))
-            {
-                _particleEffect.LoadContent(this.Content);
-                _particleEffect.Initialise();
             }
 
 

@@ -10,7 +10,7 @@ namespace Rogue.Classes.Bowman.Abilities
 {
     public class MightShot : BaseCooldownAbility
     {
-        public override Cooldown Cooldown { get; } = new Cooldown(500, nameof(Bowman)).Chain(10000, nameof(MightShot)).Build();
+        public override Cooldown Cooldown { get; } = new Cooldown(500, nameof(Bowman)).Chain(3000, nameof(MightShot)).Build();
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Right;
 
@@ -39,7 +39,7 @@ namespace Rogue.Classes.Bowman.Abilities
         {
             @class.Energy.RightHand -= 15;
 
-            var arrow = new ArrowObject(avatar.VisionDirection, 4 + @class.Range, 27, 0.05);
+            var arrow = new ArrowObject(avatar.VisionDirection, 4 + @class.Range, 27, 0.045);
 
             this.UseEffects(new Arrow(gameMap, arrow, avatar.VisionDirection, new Types.Point(avatar.Position.X / 32, avatar.Position.Y / 32),true).InList<ISceneObject>());
         }

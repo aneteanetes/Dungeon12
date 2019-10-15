@@ -20,7 +20,13 @@
         private ParticleEffect _particleEffect = new ParticleEffect();
         private XDocument xDocument;
 
-        public ParticleEffectLoader(Stream stream) => xDocument = XDocument.Load(stream);
+        private readonly string asm = null;
+
+        public ParticleEffectLoader(Stream stream, string assembly)
+        {
+            xDocument = XDocument.Load(stream);
+            asm = assembly;
+        }
 
         public ParticleEffect Load(double scale=1)
         {
@@ -97,6 +103,12 @@
         {
             var typeName = $"ProjectMercury.Emitters.{CurrentType}, ProjectMercury";
             emitter = (Emitter)Activator.CreateInstance(Type.GetType(typeName));
+
+            if(asm!=default)
+            {
+                emitter.FromAssemblyName = asm;
+            }
+
             _particleEffect.Add(emitter);
 
             target = emitter;

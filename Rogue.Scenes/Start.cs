@@ -27,9 +27,8 @@
                 Repeat = true,
                 Volume = 0.3
             });
-
-
-            this.AddObject(new Background());
+            
+            this.AddObject(new Background(true));
             this.AddObject(new ImageControl("Rogue.Resources.Images.d12textM.png")
             {
                 Top = 2f,
@@ -54,7 +53,7 @@
                     {
                         Character = new Rogue.Classes.Noone.Noone()
                         {
-                            Origin= Entites.Alive.Enums.Origins.Farmer
+                            Origin = Entites.Alive.Enums.Origins.Farmer
                         }
                     };
                     this.PlayerAvatar.Character.Name = "Ваш персонаж";
@@ -87,7 +86,7 @@
                 Top = 14,
                 OnClick = () =>
                 {
-                   
+
                 }
             });
 

@@ -317,7 +317,13 @@
 
         public bool ForceInvisible { get; set; }
 
-        public virtual bool Visible { get; set; } = true;
+        private bool visible = true;
+
+        public virtual bool Visible
+        {
+            get => visible && (Parent?.Visible ?? true);
+            set => visible = value;
+        }
 
         public virtual int ZIndex { get; set; } = 0;
 

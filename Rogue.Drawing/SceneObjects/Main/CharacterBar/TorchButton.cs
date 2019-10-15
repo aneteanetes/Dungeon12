@@ -9,9 +9,11 @@
     using System;
     using System.Collections.Generic;
 
-    public class TorchButton : TooltipedSceneObject
+    public class TorchButton : SlidesafeComponent
     {
         public override bool AbsolutePosition => true;
+
+        public override bool CacheAvailable => false;
 
         private PlayerSceneObject playerSceneObject;
         private GameMap gamemap;
@@ -25,7 +27,7 @@
 
             this.AddChild(new ImageControl("Rogue.Resources.Images.ui.player.torch.png")
             {
-                CacheAvailable = true,
+                CacheAvailable = false,
                 Height = 1,
                 Width = 1,
             });

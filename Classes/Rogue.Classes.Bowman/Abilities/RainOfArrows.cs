@@ -1,8 +1,10 @@
 ﻿using Rogue.Abilities;
 using Rogue.Abilities.Enums;
 using Rogue.Abilities.Scaling;
+using Rogue.Classes.Bowman.Effects;
 using Rogue.Map;
 using Rogue.Map.Objects;
+using Rogue.View.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,7 +24,7 @@ namespace Rogue.Classes.Bowman.Abilities
 
         protected override bool CanUse(Bowman @class)
         {
-            return false;
+            return true;
         }
 
         protected override void Dispose(GameMap gameMap, Avatar avatar, Bowman @class)
@@ -31,6 +33,10 @@ namespace Rogue.Classes.Bowman.Abilities
 
         protected override void Use(GameMap gameMap, Avatar avatar, Bowman @class)
         {
+            @class.Energy.LeftHand -= 15;
+            @class.Energy.RightHand -= 15;
+            
+            this.UseEffects(new ArrowRain(avatar.Position).InList<ISceneObject>());
         }
     }
 }
