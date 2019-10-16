@@ -101,9 +101,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Equipment", "Rogue.Eq
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Audio", "Rogue.Audio\Rogue.Audio.csproj", "{15F888DE-9F7F-427E-B662-93817A862BE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Classes.Bowman", "Classes\Rogue.Classes.Bowman\Rogue.Classes.Bowman.csproj", "{11FDA54A-2B18-4DA0-9B24-48C1002890FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Classes.Bowman", "Classes\Rogue.Classes.Bowman\Rogue.Classes.Bowman.csproj", "{11FDA54A-2B18-4DA0-9B24-48C1002890FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Events", "Rogue.Events\Rogue.Events.csproj", "{D8B2D192-FCA3-4EB4-9FF8-EB5B5C91F94F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.Events", "Rogue.Events\Rogue.Events.csproj", "{D8B2D192-FCA3-4EB4-9FF8-EB5B5C91F94F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dev", "Dev", "{2C68286C-4668-49D5-8625-AD9404AD80CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.AndroidProjectConverter", "Dev\Rogue.AndroidProjectConverter\Rogue.AndroidProjectConverter.csproj", "{9655FD81-D654-4F28-BFD6-B8654B709D45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -479,6 +483,14 @@ Global
 		{D8B2D192-FCA3-4EB4-9FF8-EB5B5C91F94F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D8B2D192-FCA3-4EB4-9FF8-EB5B5C91F94F}.Release|x86.ActiveCfg = Release|Any CPU
 		{D8B2D192-FCA3-4EB4-9FF8-EB5B5C91F94F}.Release|x86.Build.0 = Release|Any CPU
+		{9655FD81-D654-4F28-BFD6-B8654B709D45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9655FD81-D654-4F28-BFD6-B8654B709D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9655FD81-D654-4F28-BFD6-B8654B709D45}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9655FD81-D654-4F28-BFD6-B8654B709D45}.Debug|x86.Build.0 = Debug|Any CPU
+		{9655FD81-D654-4F28-BFD6-B8654B709D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9655FD81-D654-4F28-BFD6-B8654B709D45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9655FD81-D654-4F28-BFD6-B8654B709D45}.Release|x86.ActiveCfg = Release|Any CPU
+		{9655FD81-D654-4F28-BFD6-B8654B709D45}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -496,6 +508,7 @@ Global
 		{239B3182-170B-468F-9900-9C49A7D5A76B} = {91D239FE-6D9C-4F85-B734-386D1ADB9CD9}
 		{356DC605-4A8A-4B5B-9471-CC299D6324FA} = {239B3182-170B-468F-9900-9C49A7D5A76B}
 		{11FDA54A-2B18-4DA0-9B24-48C1002890FF} = {FE650740-6133-4AE8-9C7A-6BC8478E29BC}
+		{9655FD81-D654-4F28-BFD6-B8654B709D45} = {2C68286C-4668-49D5-8625-AD9404AD80CB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED22073D-6C04-4F62-80B2-5EE0EA19C68D}
