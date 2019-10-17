@@ -1,9 +1,9 @@
 
 #----------------------------- Global Properties ----------------------------#
 
-/outputDir:bin/DesktopGL
-/intermediateDir:obj/DesktopGL
-/platform:DesktopGL
+/outputDir:bin/$(Platform)
+/intermediateDir:obj/$(Platform)
+/platform:Android
 /config:
 /profile:Reach
 /compress:False

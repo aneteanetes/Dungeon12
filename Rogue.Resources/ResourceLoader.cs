@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Loader;
+#if Android
+using System.Linq;
+#endif
 
 namespace Rogue.Resources
 {
@@ -30,6 +33,25 @@ namespace Rogue.Resources
 
         public static Stream Load(string resource, string assemblyName)
         {
+#if Android
+            if(assemblyName.Contains("Rogue.Resources.Particles"))
+            {
+                assemblyName = assemblyName.Replace("Rogue.Resources.Particles", "Rogue.Resources.Android.Particles");
+            }
+            if (resource.Contains("Rogue.Resources.Particles"))
+            {
+                resource = resource.Replace("Rogue.Resources.Particles", "Rogue.Resources.Android.Particles");
+            }
+            if (resource.Contains("Rogue.Resources.")&& !resource.Contains("Rogue.Resources.Android."))
+            {
+                resource = resource.Replace("Rogue.Resources.", "Rogue.Resources.Android.");
+            }
+            if (assemblyName.Contains("Rogue.Resources.") && !assemblyName.Contains("Rogue.Resources.Android."))
+            {
+                assemblyName = assemblyName.Replace("Rogue.Resources.", "Rogue.Resources.Android.");
+            }
+#endif
+
             if (RuntimeCache.ContainsKey(resource))
             {
                 var ms = RuntimeCache[resource];
@@ -57,6 +79,7 @@ namespace Rogue.Resources
 
         private static Assembly GetAssembly(string pathInAssembly)
         {
+
             var assemblyParts = new List<string>(Path.GetFileNameWithoutExtension(pathInAssembly).Split("."));
             
             while (assemblyParts.Count > 0)
@@ -65,7 +88,20 @@ namespace Rogue.Resources
 
                 try
                 {
-                    var asm = AssemblyLoadContext.Default.LoadFromAssemblyPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{assemblyPath}.dll"));
+                    Assembly asm = null;
+#if Core
+                    asm = AssemblyLoadContext.Default.LoadFromAssemblyPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{assemblyPath}.dll"));
+#endif
+#if Android
+                    if(asm==null)
+                    {
+                        asm= Assembly.Load($"{assemblyPath}");
+                    }
+                    if(asm==null)
+                    {
+                        asm = AppDomain.CurrentDomain.GetAssemblies().SingleOrDefault(assembly => assembly.GetName().Name == assemblyPath);
+                    }
+#endif
                     return asm;
                 }
                 catch

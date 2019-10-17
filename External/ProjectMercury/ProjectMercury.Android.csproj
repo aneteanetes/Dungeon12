@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CBEDC76F-B569-4AF9-B748-B830F4924AAA}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TemplateGuid>{9ef11e43-1701-4396-8835-8392d57abb70}</TemplateGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProjectMercury.Android</RootNamespace>
+    <AssemblyName>ProjectMercury.Android</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WINDOWS;Android</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>portable</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>..\..\packages\MonoGame.Framework.Android.3.4.0.459\lib\MonoAndroid\MonoGame.Framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Mono.Android" />
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AsyncUpdateManager.cs" />
+    <Compile Include="BoundingRect.cs" />
+    <Compile Include="Calculator.cs" />
+    <Compile Include="Controllers\Controller.cs" />
+    <Compile Include="Controllers\ControllerCollection.cs" />
+    <Compile Include="Controllers\TimelineController.cs" />
+    <Compile Include="Controllers\TriggerQueueController.cs" />
+    <Compile Include="Emitters\CircleEmitter.cs" />
+    <Compile Include="Emitters\ConeEmitter.cs" />
+    <Compile Include="Emitters\Emitter.cs" />
+    <Compile Include="Emitters\EmitterBlendMode.cs" />
+    <Compile Include="Emitters\EmitterCollection.cs" />
+    <Compile Include="Emitters\EmitterCompatibilityExtensions.cs" />
+    <Compile Include="Emitters\LineEmitter.cs" />
+    <Compile Include="Emitters\MaskEmitter.cs" />
+    <Compile Include="Emitters\PolygonEmitter.cs" />
+    <Compile Include="Emitters\RectEmitter.cs" />
+    <Compile Include="Emitters\TextureEmitter.cs" />
+    <Compile Include="Guard.cs" />
+    <Compile Include="Modifiers\BoundingRectModifier.cs" />
+    <Compile Include="Modifiers\ColourInterpolatorModifier.cs" />
+    <Compile Include="Modifiers\ColourMergeModifier.cs" />
+    <Compile Include="Modifiers\ColourModifier.cs" />
+    <Compile Include="Modifiers\DampingModifier.cs" />
+    <Compile Include="Modifiers\ForceInterpolatorModifier.cs" />
+    <Compile Include="Modifiers\HueShiftModifier.cs" />
+    <Compile Include="Modifiers\LinearGravityModifier.cs" />
+    <Compile Include="Modifiers\Modifier.cs" />
+    <Compile Include="Modifiers\ModifierCollection.cs" />
+    <Compile Include="Modifiers\OpacityFastFadeModifier.cs" />
+    <Compile Include="Modifiers\OpacityInterpolatorModifier.cs" />
+    <Compile Include="Modifiers\OpacityModifier.cs" />
+    <Compile Include="Modifiers\OpacityOscillator.cs" />
+    <Compile Include="Modifiers\PlatformModifier.cs" />
+    <Compile Include="Modifiers\RadialForceModifier.cs" />
+    <Compile Include="Modifiers\RadialGravityModifier.cs" />
+    <Compile Include="Modifiers\RectangleConstraintDeflector.cs" />
+    <Compile Include="Modifiers\RectangleForceModifier.cs" />
+    <Compile Include="Modifiers\RotationModifier.cs" />
+    <Compile Include="Modifiers\RotationRateModifier.cs" />
+    <Compile Include="Modifiers\ScaleInterpolatorModifier.cs" />
+    <Compile Include="Modifiers\ScaleMergeModifier.cs" />
+    <Compile Include="Modifiers\ScaleModifier.cs" />
+    <Compile Include="Modifiers\ScaleOscillator.cs" />
+    <Compile Include="Modifiers\SineForceModifier.cs" />
+    <Compile Include="Modifiers\TrajectoryRotationModifier.cs" />
+    <Compile Include="Modifiers\VelocityClampModifier.cs" />
+    <Compile Include="Particle.cs" />
+    <Compile Include="ParticleEffect.cs" />
+    <Compile Include="ParticleEffectLoader.cs" />
+    <Compile Include="ParticleEffectManager.cs" />
+    <Compile Include="RandomHelper.cs" />
+    <Compile Include="Range.cs" />
+    <Compile Include="Renderers\Renderer.cs" />
+    <Compile Include="Renderers\SpriteBatchRenderer.cs" />
+    <Compile Include="Threading\Parallel.cs" />
+    <Compile Include="VariableFloat.cs" />
+    <Compile Include="VariableFloat3.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\**" />
+    <EmbeddedResource Include="Particles\*" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FastMember">
+      <Version>1.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Collections">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.Common">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Globalization">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.IO">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reflection">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reflection.Emit">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reflection.Emit.ILGeneration">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reflection.Primitives">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Resources.ResourceManager">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Runtime">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Runtime.Extensions">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Text.Encoding">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Text.RegularExpressions">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Threading.Tasks">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="YAXLib">
+      <Version>2.15.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../Rogue.Audio/Rogue.Audio.Android.csproj">
+      <Project>07dd25fd-526f-4694-b993-77677c4a2fbe</Project>
+      <Name>Rogue.Audio.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../../Rogue.Control/Rogue.Control.Android.csproj">
+      <Project>84d3777b-23da-45fc-a25a-1f2be46e835c</Project>
+      <Name>Rogue.Control.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../../Rogue.Events/Rogue.Events.Android.csproj">
+      <Project>e130fe4c-0af4-4f52-96ed-a6982a6fd18f</Project>
+      <Name>Rogue.Events.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../../Rogue.Global/Rogue.Global.Android.csproj">
+      <Project>ab1acc8f-1335-4813-8c4f-36eb5e78120f</Project>
+      <Name>Rogue.Global.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../../Rogue.Resources/Rogue.Resources.Android.csproj">
+      <Project>ca0e6f54-1fd4-4d57-900c-2f5de3b927f1</Project>
+      <Name>Rogue.Resources.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../../Rogue.Settings/Rogue.Settings.Android.csproj">
+      <Project>40a0cf18-79fc-41b5-843d-1ce9aa004a51</Project>
+      <Name>Rogue.Settings.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../../Rogue.Types/Rogue.Types.Android.csproj">
+      <Project>cde87a12-88b7-40b3-aba6-c2f4d34bf8fa</Project>
+      <Name>Rogue.Types.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../../Rogue.Utils/Rogue.Utils.Android.csproj">
+      <Project>ce6be017-ae99-46a1-9c15-b29471d45808</Project>
+      <Name>Rogue.Utils.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../../Rogue.View/Rogue.View.Android.csproj">
+      <Project>b7e18ddd-2629-4ec4-9481-38b563f8c858</Project>
+      <Name>Rogue.View.Android</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

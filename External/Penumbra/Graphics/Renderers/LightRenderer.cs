@@ -93,7 +93,12 @@ namespace Penumbra.Graphics.Renderers
                 _engine.Device.SetVertexArrayObject(_circleVao);
                 _fxLightParamWvp.SetValue(wvp);
                 _fxDebugLightTech.Passes[0].Apply();
+#if Core
                 _engine.Device.DrawIndexedPrimitives(_circleVao.PrimitiveTopology, 0, 0, _circleVao.PrimitiveCount);
+#endif
+#if Android                
+                _engine.Device.DrawIndexedPrimitives(_circleVao.PrimitiveTopology, 0, 0,0,0, _circleVao.PrimitiveCount);
+#endif
             }
         }
 

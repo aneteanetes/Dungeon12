@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B84B42D5-4EE2-496C-BCCC-AFD2C6FDFB98}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TemplateGuid>{9ef11e43-1701-4396-8835-8392d57abb70}</TemplateGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Rogue.Abilities.Android</RootNamespace>
+    <AssemblyName>Rogue.Abilities.Android</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>portable</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Mono.Android" />
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ability.cs" />
+    <Compile Include="Cooldown.cs" />
+    <Compile Include="Enums\AbilityCastType.cs" />
+    <Compile Include="Enums\AbilityPosition.cs" />
+    <Compile Include="Enums\AbilityTargetType.cs" />
+    <Compile Include="Enums\ActionType.cs" />
+    <Compile Include="Enums\ActionTypeAttribute.cs" />
+    <Compile Include="Enums\Location.cs" />
+    <Compile Include="Scaling\ScaleRate.cs" />
+    <Compile Include="Talants\NotAPI\TalantBase.cs" />
+    <Compile Include="Talants\NotAPI\TalantDraw.cs" />
+    <Compile Include="Talants\Talant.cs" />
+    <Compile Include="Talants\TalantInfo.cs" />
+    <Compile Include="Talants\TalantTree.cs" />
+    <Compile Include="Talants\TalantTrees\TalantTree.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\**" />
+    <EmbeddedResource Include="Particles\*" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DeepCloner">
+      <Version>0.10.2</Version>
+    </PackageReference>
+    <PackageReference Include="FastMember">
+      <Version>1.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="LiteDB">
+      <Version>4.1.4</Version>
+    </PackageReference>
+    <PackageReference Include="MathNet.Numerics">
+      <Version>4.8.0-beta01</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.DotNet.PlatformAbstractions">
+      <Version>2.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyModel">
+      <Version>2.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="morelinq">
+      <Version>3.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="runtime.native.System">
+      <Version>4.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.AppContext">
+      <Version>4.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Collections">
+      <Version>4.0.11</Version>
+    </PackageReference>
+    <PackageReference Include="System.Diagnostics.Debug">
+      <Version>4.0.11</Version>
+    </PackageReference>
+    <PackageReference Include="System.Dynamic.Runtime">
+      <Version>4.0.11</Version>
+    </PackageReference>
+    <PackageReference Include="System.Globalization">
+      <Version>4.0.11</Version>
+    </PackageReference>
+    <PackageReference Include="System.IO">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.IO.FileSystem">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.IO.FileSystem.Primitives">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Linq">
+      <Version>4.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Linq.Expressions">
+      <Version>4.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.ObjectModel">
+      <Version>4.0.12</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reflection">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reflection.Emit">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reflection.Emit.ILGeneration">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reflection.Emit.Lightweight">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reflection.Extensions">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reflection.Primitives">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reflection.TypeExtensions">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Resources.ResourceManager">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Runtime">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Runtime.Extensions">
+      <Version>4.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Runtime.Handles">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Runtime.InteropServices">
+      <Version>4.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation">
+      <Version>4.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Text.Encoding">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Threading">
+      <Version>4.0.11</Version>
+    </PackageReference>
+    <PackageReference Include="System.Threading.Tasks">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Rogue.Audio/Rogue.Audio.Android.csproj">
+      <Project>07dd25fd-526f-4694-b993-77677c4a2fbe</Project>
+      <Name>Rogue.Audio.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Classes/Rogue.Classes.Android.csproj">
+      <Project>dc339518-f915-41f3-9441-c7871f6042c4</Project>
+      <Name>Rogue.Classes.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Control/Rogue.Control.Android.csproj">
+      <Project>84d3777b-23da-45fc-a25a-1f2be46e835c</Project>
+      <Name>Rogue.Control.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Conversations/Rogue.Conversations.Android.csproj">
+      <Project>9804f3d2-b8b1-465c-b2d2-cbae4554de92</Project>
+      <Name>Rogue.Conversations.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Data/Rogue.Data.Android.csproj">
+      <Project>2ca93d76-f8c0-4f2d-9c46-3b47c76a45bf</Project>
+      <Name>Rogue.Data.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.DataAccess/Rogue.DataAccess.Android.csproj">
+      <Project>d6cffaa4-3b87-453c-a261-dea773f0759e</Project>
+      <Name>Rogue.DataAccess.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Entites/Rogue.Entites.Android.csproj">
+      <Project>d17ba8fd-e69a-4d27-ad6d-88c08f4ad5f0</Project>
+      <Name>Rogue.Entites.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Equipment/Rogue.Equipment.Android.csproj">
+      <Project>b3dbc5bb-f6ca-4462-8850-5728fea063e3</Project>
+      <Name>Rogue.Equipment.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Events/Rogue.Events.Android.csproj">
+      <Project>e130fe4c-0af4-4f52-96ed-a6982a6fd18f</Project>
+      <Name>Rogue.Events.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Global/Rogue.Global.Android.csproj">
+      <Project>ab1acc8f-1335-4813-8c4f-36eb5e78120f</Project>
+      <Name>Rogue.Global.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Inventory/Rogue.Inventory.Android.csproj">
+      <Project>36127dcb-d9bf-480a-bac3-352cad3b8aa4</Project>
+      <Name>Rogue.Inventory.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Items/Rogue.Items.Android.csproj">
+      <Project>955d10d3-3ff5-4368-bc84-64b382330ecc</Project>
+      <Name>Rogue.Items.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Loot/Rogue.Loot.Android.csproj">
+      <Project>8cc6b744-b7a9-4f95-b416-77e4de220a5e</Project>
+      <Name>Rogue.Loot.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Map/Rogue.Map.Android.csproj">
+      <Project>711aa8da-282f-41c5-9394-671f0a7881ae</Project>
+      <Name>Rogue.Map.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Merchants/Rogue.Merchants.Android.csproj">
+      <Project>12393950-807e-470a-8c42-a674115abab8</Project>
+      <Name>Rogue.Merchants.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Physics/Rogue.Physics.Android.csproj">
+      <Project>35ec712d-163d-49c5-8e1b-52299af38b49</Project>
+      <Name>Rogue.Physics.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Resources/Rogue.Resources.Android.csproj">
+      <Project>ca0e6f54-1fd4-4d57-900c-2f5de3b927f1</Project>
+      <Name>Rogue.Resources.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Settings/Rogue.Settings.Android.csproj">
+      <Project>40a0cf18-79fc-41b5-843d-1ce9aa004a51</Project>
+      <Name>Rogue.Settings.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Transactions/Rogue.Transactions.Android.csproj">
+      <Project>3e54835b-63d3-476f-b198-649393bb746a</Project>
+      <Name>Rogue.Transactions.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Types/Rogue.Types.Android.csproj">
+      <Project>cde87a12-88b7-40b3-aba6-c2f4d34bf8fa</Project>
+      <Name>Rogue.Types.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.Utils/Rogue.Utils.Android.csproj">
+      <Project>ce6be017-ae99-46a1-9c15-b29471d45808</Project>
+      <Name>Rogue.Utils.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="../Rogue.View/Rogue.View.Android.csproj">
+      <Project>b7e18ddd-2629-4ec4-9481-38b563f8c858</Project>
+      <Name>Rogue.View.Android</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

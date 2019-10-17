@@ -78,9 +78,10 @@
         {
             this.Window.Title = "Dungeon 12";
             Window.AllowUserResizing = true;
+#if Core
             Window.TextInput += OnTextInput;
             // TODO: Add your initialization logic here
-
+#endif
             base.Initialize();
         }
         

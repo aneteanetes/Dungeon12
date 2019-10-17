@@ -11,7 +11,7 @@ namespace Rogue.AndroidProjectConverter
 
             try
             {
-                var converter = new SolutionConverter(@"C:\Users\a.tretyakov\source\repos\Rogue2\SolutionTest\SolutionTest.sln");
+                var converter = new SolutionConverter(@"C:\Users\a.tretyakov\source\repos\Rogue2\Rouge.sln");
                 converter.Convert().GetAwaiter().GetResult();
             }
             catch (Exception ex)

@@ -61,11 +61,12 @@
 
             this.pressed = pressed;
         }
-
+#if Core
         private void OnTextInput(object sender, TextInputEventArgs e)
         {
             SceneManager.Current.OnText(e.Character.ToString());
         }
+#endif
 
         private void OnKeyDown(Keys key)
         {

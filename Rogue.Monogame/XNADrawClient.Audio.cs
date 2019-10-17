@@ -28,9 +28,9 @@
 
         public void Effect(string effect, AudioOptions audioOptions = null)
         {
-            var sound = LoadSound(effect).CreateInstance();
-            sound.Volume = (float)(audioOptions?.Volume ?? .5);
-            sound.Play();
+            //var sound = LoadSound(effect).CreateInstance();
+            //sound.Volume = (float)(audioOptions?.Volume ?? .5);
+            //sound.Play();
         }
 
         private readonly Dictionary<string, SoundEffect> soundEffectsCache = new Dictionary<string, SoundEffect>();

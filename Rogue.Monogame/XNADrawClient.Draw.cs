@@ -58,7 +58,9 @@
                 .Where(x => !scene.AbsolutePositionScene && !x.AbsolutePosition)
                 .OrderBy(x => x.Layer).ToArray();
 
+#if Core
             penumbra.BeginDraw();
+#endif
 
             SetSpriteBatch();
 
@@ -68,8 +70,9 @@
             }
             spriteBatch.End();
 
+#if Core
             penumbra.Draw(gameTime);
-
+#endif
             SetSpriteBatch();
 
             for (int i = 0; i < InterfaceObjects.Count; i++)
@@ -109,7 +112,7 @@
 
         private Action<bool> SpriteBatchRestore = null;
 
-        #region frameSettings
+#region frameSettings
 
         private int _frame;
         private TimeSpan _lastFps;
@@ -117,7 +120,7 @@
         private double _fps;
         Stopwatch _st = Stopwatch.StartNew();
 
-        #endregion
+#endregion
         
         private void DrawDebugInfo()
         {
@@ -198,6 +201,9 @@
         {
             if (!tilesetsCache.TryGetValue(tilesetName, out var bitmap))
             {
+#if Android
+                tilesetName = tilesetName.Replace("Rogue.Resources.","Rogue.Resources.Android.");
+#endif
                 var stream = ResourceLoader.Load(tilesetName, tilesetName);
                 if (stream == default)
                     return default;
@@ -661,6 +667,7 @@
 
         private void DrawLight(ISceneObject sceneObject, double x, double y)
         {
+#if Core
             if (sceneObject.Light == null)
                 return;
 
@@ -706,6 +713,7 @@
             }
 
             light.Position = pos;
+#endif
         }
 
         private static readonly Dictionary<string, ParticleEffect> ParticleEffects = new Dictionary<string, ParticleEffect>();

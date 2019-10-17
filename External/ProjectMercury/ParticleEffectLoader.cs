@@ -102,6 +102,9 @@
         private void VisitEmitters(XElement element)
         {
             var typeName = $"ProjectMercury.Emitters.{CurrentType}, ProjectMercury";
+#if Android
+            typeName = $"ProjectMercury.Emitters.{CurrentType}, ProjectMercury.Android";
+#endif
             emitter = (Emitter)Activator.CreateInstance(Type.GetType(typeName));
 
             if(asm!=default)
@@ -125,6 +128,9 @@
             else
             {
                 var typeName = $"ProjectMercury.Modifiers.{CurrentType}, ProjectMercury";
+#if Android
+                typeName = $"ProjectMercury.Modifiers.{CurrentType}, ProjectMercury.Android";
+#endif
                 modifier = (Modifier)Activator.CreateInstance(Type.GetType(typeName));
                 emitter.Modifiers.Add(modifier);
 

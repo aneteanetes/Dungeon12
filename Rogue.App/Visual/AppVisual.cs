@@ -647,5 +647,10 @@
         {
             throw new NotImplementedException();
         }
+
+        public void CacheObject(ISceneObject @object)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
