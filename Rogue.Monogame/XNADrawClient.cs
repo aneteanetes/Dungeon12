@@ -41,11 +41,19 @@
             Radius = 100
         };
 
+        Matrix screenScale = Matrix.Identity;
+
         public XNADrawClient()
         {
             graphics = new GraphicsDeviceManager(this)
             {
-                IsFullScreen = false,
+                IsFullScreen =
+#if Android
+                true,
+#endif
+#if Core
+                false,
+#endif
                 PreferredBackBufferWidth = 1280,
                 PreferredBackBufferHeight = 720,
                 SynchronizeWithVerticalRetrace = true,
@@ -78,6 +86,13 @@
         {
             this.Window.Title = "Dungeon 12";
             Window.AllowUserResizing = true;
+#if Android
+            GraphicsDevice.PresentationParameters.IsFullScreen = true;
+            var r = GraphicsDevice.Viewport.Bounds;
+            var bw = GraphicsDevice.PresentationParameters.BackBufferWidth;
+            var bh = GraphicsDevice.PresentationParameters.BackBufferHeight;
+            screenScale = Matrix.Identity * Matrix.CreateScale(bw / 1280, bh / 720, 0f);
+#endif
 #if Core
             Window.TextInput += OnTextInput;
             // TODO: Add your initialization logic here

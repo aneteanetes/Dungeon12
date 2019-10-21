@@ -97,13 +97,20 @@
             if (!absolute)
             {
                 SpriteBatchRestore = smooth => spriteBatch.Begin(
-                    transformMatrix: Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0), 
+                    transformMatrix:
+#if Android
+                    screenScale*
+#endif
+                    Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0), 
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
                     blendState: BlendState.NonPremultiplied);
             }
             else
             {
                 SpriteBatchRestore = smooth => spriteBatch.Begin(
+#if Android
+                    transformMatrix: screenScale,
+#endif
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
                     blendState: BlendState.NonPremultiplied);
             }

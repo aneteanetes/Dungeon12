@@ -20,6 +20,12 @@
 /processorParam:TextureFormat=Compressed
 /build:Arial.spritefont
 
+#begin dungeontheme.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:dungeontheme.ogg
+
 #begin Montserrat.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

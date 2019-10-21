@@ -20,10 +20,10 @@
     {
         public void Music(string name, AudioOptions audioOptions = null)
         {
-            //var song = LoadSong(name);
-            //MediaPlayer.Play(song);
-            //MediaPlayer.IsRepeating = audioOptions?.Repeat ?? false;
-            //MediaPlayer.Volume = (float)(audioOptions?.Volume ?? .5);
+            var song = LoadSong(name);
+            MediaPlayer.Play(song);
+            MediaPlayer.IsRepeating = audioOptions?.Repeat ?? false;
+            MediaPlayer.Volume = (float)(audioOptions?.Volume ?? .5);
         }
 
         public void Effect(string effect, AudioOptions audioOptions = null)
@@ -51,6 +51,6 @@
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        private Song LoadSong(string name) => Content.Load<Song>($@"Audio\Music\{name}");
+        private Song LoadSong(string name) => Content.Load<Song>($@"{name}");
     }
 }

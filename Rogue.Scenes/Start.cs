@@ -22,7 +22,7 @@
             Global.DrawClient.SetCursor("Cursors.common.png".PathImage());
 
 
-            Global.AudioPlayer.Music("maintheme", new Audio.AudioOptions()
+            Global.AudioPlayer.Music("dungeontheme", new Audio.AudioOptions()
             {
                 Repeat = true,
                 Volume = 0.3
@@ -60,11 +60,11 @@
                     this.PlayerAvatar.Character.Race = Race.Elf;
                     this.PlayerAvatar.Character.Add<RacePerk>();
 
-                    Global.AudioPlayer.Music("town", new Audio.AudioOptions()
-                    {
-                        Repeat = true,
-                        Volume = 0.3
-                    });
+                    //Global.AudioPlayer.Music("town", new Audio.AudioOptions()
+                    //{
+                    //    Repeat = true,
+                    //    Volume = 0.3
+                    //});
 
                     this.Switch<Game.Main>();
                 }
