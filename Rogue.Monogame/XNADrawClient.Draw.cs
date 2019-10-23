@@ -800,7 +800,7 @@
             }
 
             var cache = MaskCache[uid];
-            for (float i = 0f; i < 1; i += 0.01f)
+            for (float i = 0f; i < 1; i += 0.001f)
             {
                 var v = (float)Math.Round(i);
                 if (!cache.ContainsKey(v))

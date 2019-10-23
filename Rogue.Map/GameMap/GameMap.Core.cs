@@ -99,6 +99,29 @@
         }
 
         /// <summary>
+        /// Возвращает всех найденных
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="object"></param>
+        /// <returns></returns>
+        public IEnumerable<T> All<T>(MapObject @object)
+            where T : MapObject
+        {
+            IEnumerable<T> all = Enumerable.Empty<T>();
+
+            var moveArea = Map.Query(@object);
+            if (moveArea != null)
+            {
+                all = moveArea.Nodes.Where(node => node is T)
+                    .Select(node => node as T)
+                    .Where(node => @object.IntersectsWith(node))
+                    .ToArray();
+            }
+
+            return all;
+        }
+
+        /// <summary>
         /// Возвращает первого найденого T
         /// </summary>
         /// <typeparam name="T"></typeparam>

@@ -11,8 +11,10 @@ using System.Text;
 
 namespace Rogue.Classes.Bowman.Abilities
 {
-    public class RainOfArrows : Ability<Bowman>
+    public class RainOfArrows : BaseCooldownAbility
     {
+        public override Cooldown Cooldown { get; } = new Cooldown(500, nameof(Bowman)).Chain(6500, nameof(RainOfArrows)).Build();
+
         public override AbilityPosition AbilityPosition => AbilityPosition.Q;
 
         public override string Name => "Ливень стрел";
@@ -20,11 +22,14 @@ namespace Rogue.Classes.Bowman.Abilities
         public override ScaleRate Scale => ScaleRate.Build(Entites.Enums.Scale.AbilityPower);
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.DmgHealInstant;
+
         public override AbilityTargetType TargetType => AbilityTargetType.NonTarget;
 
+        private Bowman rangeclass;
         protected override bool CanUse(Bowman @class)
         {
-            return true;
+            rangeclass = @class;
+            return @class.Energy.RightHand >= 35 && @class.Energy.LeftHand >= 35;
         }
 
         protected override void Dispose(GameMap gameMap, Avatar avatar, Bowman @class)
@@ -33,10 +38,10 @@ namespace Rogue.Classes.Bowman.Abilities
 
         protected override void Use(GameMap gameMap, Avatar avatar, Bowman @class)
         {
-            @class.Energy.LeftHand -= 15;
-            @class.Energy.RightHand -= 15;
+            @class.Energy.LeftHand -= 35;
+            @class.Energy.RightHand -= 35;
             
-            this.UseEffects(new ArrowRain(avatar.Position).InList<ISceneObject>());
+            this.UseEffects(new ArrowRain(3000, PointerLocation.GameCoordinates, gameMap).InList<ISceneObject>());
         }
     }
 }

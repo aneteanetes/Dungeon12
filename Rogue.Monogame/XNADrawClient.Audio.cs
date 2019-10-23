@@ -20,17 +20,18 @@
     {
         public void Music(string name, AudioOptions audioOptions = null)
         {
-            var song = LoadSong(name);
-            MediaPlayer.Play(song);
-            MediaPlayer.IsRepeating = audioOptions?.Repeat ?? false;
-            MediaPlayer.Volume = (float)(audioOptions?.Volume ?? .5);
+            //var song = LoadSong(name);
+            //MediaPlayer.Stop();
+            //MediaPlayer.Play(song);
+            //MediaPlayer.IsRepeating = audioOptions?.Repeat ?? false;
+            //MediaPlayer.Volume = (float)(audioOptions?.Volume ?? .5);
         }
 
         public void Effect(string effect, AudioOptions audioOptions = null)
         {
-            //var sound = LoadSound(effect).CreateInstance();
-            //sound.Volume = (float)(audioOptions?.Volume ?? .5);
-            //sound.Play();
+            var sound = LoadSound(effect).CreateInstance();
+            sound.Volume = (float)(audioOptions?.Volume ?? .1);
+            sound.Play();
         }
 
         private readonly Dictionary<string, SoundEffect> soundEffectsCache = new Dictionary<string, SoundEffect>();
@@ -51,6 +52,6 @@
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        private Song LoadSong(string name) => Content.Load<Song>($@"{name}");
+        private Song LoadSong(string name) => Content.Load<Song>($@"Audio\Music\{name}");
     }
 }
