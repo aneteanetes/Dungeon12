@@ -1,14 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Rogue.Logging\Rogue.Logging.csproj" />
     <ProjectReference Include="..\Rogue.Map\Rogue.Map.csproj" />
     <ProjectReference Include="..\Rogue.Settings\Rogue.Settings.csproj" />
     <ProjectReference Include="..\Rogue.View\Rogue.View.csproj" />
   </ItemGroup>
-
+  <Import Project="$(SolutionDir)\Symbols.props" />
 </Project>

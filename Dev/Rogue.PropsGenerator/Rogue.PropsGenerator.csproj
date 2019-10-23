@@ -11,4 +11,5 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.3.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="3.3.1" />
   </ItemGroup>
+  <Import Project="$(SolutionDir)\Symbols.props" />
 </Project>

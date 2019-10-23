@@ -1,10 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Rogue.Classes.Noone\Rogue.Classes.Noone.csproj" />
     <ProjectReference Include="..\Rogue.Classes\Rogue.Classes.csproj" />
@@ -18,5 +17,5 @@
     <ProjectReference Include="..\Rogue.Scenes.Manager\Rogue.Scenes.Manager.csproj" />
     <ProjectReference Include="..\Rogue.Utils\Rogue.Utils.csproj" />
   </ItemGroup>
-
+  <Import Project="$(SolutionDir)\Symbols.props" />
 </Project>

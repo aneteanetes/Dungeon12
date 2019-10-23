@@ -1,5 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
@@ -7,11 +7,9 @@
     <OutputType>WinExe</OutputType>
     <StartupObject />
   </PropertyGroup>
-
   <ItemGroup>
     <MonoGameContentReference Include="**\*.mgcb" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Aether.Physics2D" Version="1.4.0" />
     <PackageReference Include="MonoGame.Content.Builder" Version="3.7.0.4" />
@@ -24,7 +22,6 @@
     <!--<PackageReference Include="MonoGame.Penumbra.DesktopGL" Version="1.4.1" />-->
     <!--<PackageReference Include="MonoGame.Penumbra.WindowsDX" Version="1.4.1" />-->
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Classes\Rogue.Classes.Bowman\Rogue.Classes.Bowman.csproj" />
     <ProjectReference Include="..\External\Penumbra\MonoGame.Penumbra.DesktopGL.csproj" />
@@ -36,4 +33,5 @@
     <ProjectReference Include="..\Rogue.View\Rogue.View.csproj" />
   </ItemGroup>
   <Import Project="$(SolutionDir)\NuGet.Common.props" />
+  <Import Project="$(SolutionDir)\Symbols.props" />
 </Project>

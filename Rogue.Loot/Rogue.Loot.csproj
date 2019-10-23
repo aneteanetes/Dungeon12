@@ -1,4 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <LangVersion>7.1</LangVersion>
@@ -8,4 +9,5 @@
     <ProjectReference Include="..\Rogue.Items\Rogue.Items.csproj" />
     <ProjectReference Include="..\Rogue.Utils\Rogue.Utils.csproj" />
   </ItemGroup>
+  <Import Project="$(SolutionDir)\Symbols.props" />
 </Project>

@@ -1,31 +1,26 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="Images\**\*" />
     <None Remove="Fonts\**\*" />
     <None Remove="Particles\**\*" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="Images\**\*" />
     <EmbeddedResource Include="Fonts\**\*" />
     <EmbeddedResource Include="Particles\**\*" />
   </ItemGroup>
-
   <ItemGroup>
     <None Remove="MagicTrail.xml" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="MagicTrail.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Images\Enemies\" />
     <Folder Include="Images\Items\Doll\" />
@@ -38,9 +33,8 @@
     <Folder Include="Images\ui\stats\" />
     <Folder Include="Particles\" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Rogue.Utils\Rogue.Utils.csproj" />
   </ItemGroup>
-
+  <Import Project="$(SolutionDir)\Symbols.props" />
 </Project>

@@ -1,5 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -7,11 +7,9 @@
     <StartupObject />
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="DeepCloner" Version="0.10.2" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Rogue.Classes\Rogue.Classes.csproj" />
     <ProjectReference Include="..\Rogue.DataAccess\Rogue.DataAccess.csproj" />
@@ -25,5 +23,5 @@
     <ProjectReference Include="..\Rogue.Utils\Rogue.Utils.csproj" />
     <ProjectReference Include="..\Rogue.View\Rogue.View.csproj" />
   </ItemGroup>
-
+  <Import Project="$(SolutionDir)\Symbols.props" />
 </Project>

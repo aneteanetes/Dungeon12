@@ -1,17 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="MathNet.Numerics" Version="4.8.0-beta01" />
     <PackageReference Include="morelinq" Version="3.0.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Rogue.Types\Rogue.Types.csproj" />
   </ItemGroup>
-
+  <Import Project="$(SolutionDir)\Symbols.props" />
 </Project>

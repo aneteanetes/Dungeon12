@@ -66,7 +66,6 @@ namespace Rogue.PropsGenerator
                 {
                     var import = new XElement("Import");
                     import.Add(new XAttribute("Project", "$(SolutionDir)\\" + props.Name + ".props"));
-                    import.Add(new XAttribute("PropsGenerator", propName));
                     xml.Root.Add(import);
 
                     xml.Save(proj);
