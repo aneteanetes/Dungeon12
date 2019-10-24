@@ -46,7 +46,7 @@ namespace Rogue.Classes.Noone.Abilities
 
             Global.Time
                 .Timer(nameof(ShieldSkill))
-                .Each(this.Level * 1500)
+                .After(this.Level * 1500)
                 .Do(() => avatar.RemoveState(barrierBuff))
                 .Auto();
         }

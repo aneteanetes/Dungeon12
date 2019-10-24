@@ -56,6 +56,13 @@
 			"X":45,
 			"Y":51
 		}
+	},
+	{
+		"IdentifyName":"FaithIslandParish",
+		"Position":{
+			"X":36,
+			"Y":56
+		}
 	}
   ],
   "Objects": [

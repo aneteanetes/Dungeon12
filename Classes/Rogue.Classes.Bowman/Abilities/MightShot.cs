@@ -8,9 +8,9 @@ using Rogue.View.Interfaces;
 
 namespace Rogue.Classes.Bowman.Abilities
 {
-    public class MightShot : BaseCooldownAbility
+    public class MightShot : BaseCooldownAbility<Bowman>
     {
-        public override Cooldown Cooldown { get; } = new Cooldown(500, nameof(Bowman)).Chain(3000, nameof(MightShot)).Build();
+        public override Cooldown Cooldown { get; } = BaseCooldown.Chain(3000, nameof(MightShot)).Build();
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Right;
 

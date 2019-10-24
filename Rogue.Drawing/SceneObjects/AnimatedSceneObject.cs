@@ -14,7 +14,7 @@
 
         public override bool CacheAvailable => false;
 
-        public AnimatedSceneObject(PlayerSceneObject playerSceneObject, T @object, string tooltip, Rectangle defaultFramePosition, Func<int, AnimationMap, bool> requestNextFrame = null) : base(playerSceneObject,@object,tooltip)
+        public AnimatedSceneObject(PlayerSceneObject playerSceneObject, T @object, string tooltip, Rectangle defaultFramePosition, Func<int, AnimationMap, bool> requestNextFrame = null) : base(playerSceneObject, @object, tooltip)
         {
             this.FramePosition = defaultFramePosition;
             this.RequestNextFrame = requestNextFrame ?? this.DefaultRequestNextFrame;
@@ -28,10 +28,13 @@
         {
             get
             {
-                if (Global.FreezeWorld!=null && !FreezeForceAnimation)
+                if (Global.FreezeWorld != null && !FreezeForceAnimation)
                     return FramePosition;
 
-                FrameCounter++;
+                if (Loop || !AnimationPlayed)
+                {
+                    FrameCounter++;
+                }
 
                 DrawLoop();
                 ChangeAnimationFrame();
@@ -39,6 +42,8 @@
                 return FramePosition;
             }
         }
+
+        private bool AnimationPlayed = false;
 
         public override string Image
         {
@@ -89,7 +94,7 @@
 
         protected Func<int, AnimationMap, bool> RequestNextFrame;
 
-        public double FramesPerSecond=> this.animationMap.FramesPerSecond == default
+        public double FramesPerSecond => this.animationMap.FramesPerSecond == default
                 ? this.animationMap.Frames.Count
                 : this.animationMap.FramesPerSecond;
 
@@ -125,10 +130,17 @@
                 {
                     frame = 0;
                     FrameCounter = 0;
+                    if(!Loop)
+                    {
+                        AnimationPlayed = true;
+                        OnAnimationStop();
+                    }
                 }
             }
         }
 
+        protected virtual bool Loop => true;
+        
         protected virtual void AnimationLoop()
         {
         }

@@ -135,11 +135,11 @@
         public bool IsAlive => aliveTimers.Contains(this.name);
 
         /// <summary>
-        /// Каждые N времени
+        /// Через N времени
         /// </summary>
         /// <param name="intervalMs"></param>
         /// <returns></returns>
-        public TimerTrigger Each(double intervalMs)
+        public TimerTrigger After(double intervalMs)
         {
             timer = new System.Timers.Timer(intervalMs)
             {

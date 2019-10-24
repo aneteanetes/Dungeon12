@@ -82,7 +82,7 @@ namespace Rogue.Classes.Bowman.Abilities
             avatar.OnMoveStop += SpeedEffect;
 
             Global.Time.Timer(nameof(Dodge) + nameof(Use))
-                .Each(10 + (plusSpeed * 5))
+                .After(10 + (plusSpeed * 5))
                 .Do(() => move(true))
                 .Auto();
         }

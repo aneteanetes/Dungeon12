@@ -49,7 +49,7 @@ namespace Rogue.Classes.Noone.Talants.Absordibng
 
                 Global.Time
                     .Timer(nameof(PoisonDebuffPoisonShield))
-                    .Each(value * 1000)
+                    .After(value * 1000)
                     .Do(() => enemy.RemoveState(debuff))
                     .Auto();
             }
@@ -89,7 +89,7 @@ namespace Rogue.Classes.Noone.Talants.Absordibng
                 avatar.Character.Barrier += value;
                 timer = Global.Time
                     .Timer(nameof(PoisonDebuffPoisonShield) + enemy.Uid)
-                    .Each(1000)
+                    .After(1000)
                     .Do(() => DOT(enemy))
                     .Repeat()
                     .Auto();

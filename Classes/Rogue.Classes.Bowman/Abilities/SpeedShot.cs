@@ -11,7 +11,7 @@ using System.Text;
 
 namespace Rogue.Classes.Bowman.Abilities
 {
-    public class SpeedShot : BaseCooldownAbility
+    public class SpeedShot : BaseCooldownAbility<Bowman>
     {
         public override AbilityPosition AbilityPosition => AbilityPosition.Left;
 

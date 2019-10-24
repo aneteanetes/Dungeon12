@@ -42,7 +42,7 @@ namespace Rogue.Classes.Bowman.Effects
                 };
 
             Global.Time.Timer(nameof(ArrowRain))
-                .Each(timeMS)
+                .After(timeMS)
                 .Do(this.Destroy)
                 .Trigger();
         }

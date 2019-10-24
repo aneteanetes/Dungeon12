@@ -302,6 +302,12 @@
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
+            if(ability.Hold)
+            {
+                holds = true;
+                highlight = true;
+            }
+
             Cast(null);
         }
 
@@ -342,6 +348,13 @@
 
         public override void KeyUp(Key key, KeyModifiers modifier)
         {
+            if (ability.Hold && holds)
+            {
+                ability.Release(gameMap, avatar);
+                this.Image = SquareTexture(false);
+                holds = false;
+                highlight = false;
+            }
             this.Unfocus();
         }        
 

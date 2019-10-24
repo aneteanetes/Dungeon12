@@ -11,9 +11,9 @@ using System.Text;
 
 namespace Rogue.Classes.Bowman.Abilities
 {
-    public class RainOfArrows : BaseCooldownAbility
+    public class RainOfArrows : BaseCooldownAbility<Bowman>
     {
-        public override Cooldown Cooldown { get; } = new Cooldown(500, nameof(Bowman)).Chain(6500, nameof(RainOfArrows)).Build();
+        public override Cooldown Cooldown { get; } = BaseCooldown.Chain(6500, nameof(RainOfArrows)).Build();
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Q;
 

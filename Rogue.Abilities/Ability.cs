@@ -155,7 +155,7 @@
 
         public int Level { get; set; } = 1;
 
-        public virtual bool Hold => false;
+        public virtual bool Hold => ActionType == AbilityActionAttribute.Hold;
 
         public bool PassiveWorking { get; set; }
 
@@ -300,5 +300,13 @@
             Dispose(map, avatar, avatar.Character as TClass);
             OnCastRelease?.Invoke();
         }
+    }
+
+    public abstract class BaseCooldownAbility<TClass> : Ability<TClass>
+        where TClass : Character
+    {
+        public override Cooldown Cooldown { get; } = BaseCooldown;
+
+        public static Cooldown BaseCooldown => new Cooldown(500, typeof(TClass).Name);
     }
 }

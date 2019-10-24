@@ -16,15 +16,22 @@ namespace Rogue
 
         private static Dictionary<string, string> imgPathCache = new Dictionary<string, string>();
 
-        public static string ImgPath(this string img)
+        public static string ImgPath(this string img,string callingAsmName=default)
         {
             if(!imgPathCache.TryGetValue(img,out var imgPath))
             {
-                imgPath = $"{Assembly.GetCallingAssembly().GetName().Name}.Images.{img.Replace(@"\", ".")}";
+                imgPath = $"{callingAsmName ?? Assembly.GetCallingAssembly().GetName().Name}.Images.{img.Replace(@"\", ".").Replace(@"/", ".")}";
                 imgPathCache.Add(img, imgPath);                
             }
 
             return imgPath;
         }
+
+        /// <summary>
+        /// Алиас <see cref="ImgPath(string)"/> т.к. название неудачное
+        /// </summary>
+        /// <param name="img"></param>
+        /// <returns></returns>
+        public static string PathAsmImg(this string img) => ImgPath(img, Assembly.GetCallingAssembly().GetName().Name);
     }
 }

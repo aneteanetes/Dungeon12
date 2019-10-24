@@ -85,6 +85,5 @@ namespace Rogue.Classes.Bowman
 
             public override bool CacheAvailable => false;
         }
-
     }
 }

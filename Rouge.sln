@@ -91,7 +91,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dev", "Dev", "{2C68286C-466
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.AndroidProjectConverter", "Dev\Rogue.AndroidProjectConverter\Rogue.AndroidProjectConverter.csproj", "{9655FD81-D654-4F28-BFD6-B8654B709D45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.PropsGenerator", "Dev\Rogue.PropsGenerator\Rogue.PropsGenerator.csproj", "{911F3F6E-2E53-4A29-B994-9828D1D13A6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rogue.PropsGenerator", "Dev\Rogue.PropsGenerator\Rogue.PropsGenerator.csproj", "{911F3F6E-2E53-4A29-B994-9828D1D13A6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rogue.Classes.Servant", "Classes\Rogue.Classes.Servant\Rogue.Classes.Servant.csproj", "{EE83D691-6845-4AE9-97F2-CB0B728E2617}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -421,6 +423,14 @@ Global
 		{911F3F6E-2E53-4A29-B994-9828D1D13A6C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{911F3F6E-2E53-4A29-B994-9828D1D13A6C}.Release|x86.ActiveCfg = Release|Any CPU
 		{911F3F6E-2E53-4A29-B994-9828D1D13A6C}.Release|x86.Build.0 = Release|Any CPU
+		{EE83D691-6845-4AE9-97F2-CB0B728E2617}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE83D691-6845-4AE9-97F2-CB0B728E2617}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE83D691-6845-4AE9-97F2-CB0B728E2617}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EE83D691-6845-4AE9-97F2-CB0B728E2617}.Debug|x86.Build.0 = Debug|Any CPU
+		{EE83D691-6845-4AE9-97F2-CB0B728E2617}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE83D691-6845-4AE9-97F2-CB0B728E2617}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE83D691-6845-4AE9-97F2-CB0B728E2617}.Release|x86.ActiveCfg = Release|Any CPU
+		{EE83D691-6845-4AE9-97F2-CB0B728E2617}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -433,6 +443,7 @@ Global
 		{11FDA54A-2B18-4DA0-9B24-48C1002890FF} = {FE650740-6133-4AE8-9C7A-6BC8478E29BC}
 		{9655FD81-D654-4F28-BFD6-B8654B709D45} = {2C68286C-4668-49D5-8625-AD9404AD80CB}
 		{911F3F6E-2E53-4A29-B994-9828D1D13A6C} = {2C68286C-4668-49D5-8625-AD9404AD80CB}
+		{EE83D691-6845-4AE9-97F2-CB0B728E2617} = {FE650740-6133-4AE8-9C7A-6BC8478E29BC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED22073D-6C04-4F62-80B2-5EE0EA19C68D}
