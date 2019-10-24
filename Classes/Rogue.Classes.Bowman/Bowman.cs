@@ -1,6 +1,7 @@
 ﻿using Rogue.Abilities;
 using Rogue.Abilities.Talants.TalantTrees;
 using Rogue.Classes.Bowman.Abilities;
+using Rogue.Classes.Bowman.Talants;
 using Rogue.Drawing.Impl;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,8 @@ namespace Rogue.Classes.Bowman
 
         public Dodge Dodge { get; set; } = new Dodge();
 
+        public ArrowMakingTalants ArrowMakingTalants { get; set; } = new ArrowMakingTalants();
+
         public override T[] PropertiesOfType<T>()
         {
             switch (typeof(T))
@@ -44,7 +47,16 @@ namespace Rogue.Classes.Bowman
                         Dodge as T
                     };
                 case Type t when t.IsAssignableFrom(typeof(TalantTree)):
-                    return new T[] { };
+                    return new T[] { ArrowMakingTalants as T };
+                default: return default;
+            }
+        }
+
+        public override T PropertyOfType<T>()
+        {
+            switch (typeof(T))
+            {
+                case Type abs when abs == typeof(ArrowMakingTalants): return ArrowMakingTalants as T;
                 default: return default;
             }
         }

@@ -44,9 +44,20 @@ namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo.Talants
                     {
                         switch (i)
                         {
-                            case 1: img.Left += 4; break;
-                            case 2: img.Left += 6; break;
+                            case 1: img.Left += 5; break;
+                            case 2: img.Left += 8; break;
                             default: img.Left += 2; break;
+                        }
+                    }
+
+                    if (inTier == 4)
+                    {
+                        switch (i)
+                        {
+                            case 1: img.Left += 4; break;
+                            case 2: img.Left += 7; break;
+                            case 3: img.Left += 10; break;
+                            default: img.Left += 1; break;
                         }
                     }
 
