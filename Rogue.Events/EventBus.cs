@@ -8,9 +8,14 @@ namespace Rogue.Events
         private readonly Dictionary<string, object> events = new Dictionary<string, object>();
         private List<Action<object>> allsubscribers = new List<Action<object>>();
 
-        public void Subscribe<TEvent>(Action<TEvent> action, bool autoUnsubscribe = true) where TEvent : IEvent
+        /// <summary>
+        /// Подписаться вообще на все события
+        /// </summary>
+        public void Subscribe(Action<object> action) => allsubscribers.Add(action);
+
+        public void Subscribe<TEvent>(Action<TEvent> action, bool autoUnsubscribe = true, params string[] args) where TEvent : IEvent
         {
-            var ev = Get<TEvent>();
+            var ev = Get<TEvent>(args);
             if (autoUnsubscribe)
             {
                 void subs(TEvent @event)
@@ -27,14 +32,15 @@ namespace Rogue.Events
             }
         }
 
-        /// <summary>
-        /// Подписаться вообще на все события
-        /// </summary>
-        public void Subscribe(Action<object> action) => allsubscribers.Add(action);
-
-        private Action<TEvent> Get<TEvent>()
+        private Action<TEvent> Get<TEvent>(params string[] args)
         {
             string @event = typeof(TEvent).FullName;
+
+            if (args != default)
+            {
+                @event += string.Join("`", args);
+            }
+
             if (!events.ContainsKey(@event))
             {
                 Action<TEvent> action = x => { };
@@ -46,7 +52,7 @@ namespace Rogue.Events
                 events.Add(@event, action);
             }
 
-            if(events[@event] is Action<TEvent> tAction)
+            if (events[@event] is Action<TEvent> tAction)
             {
                 return tAction;
             }
@@ -55,9 +61,9 @@ namespace Rogue.Events
             return x => { };
         }
 
-        public void Raise<TEvent>(TEvent @event) where TEvent : IEvent
+        public void Raise<TEvent>(TEvent @event, params string[] args) where TEvent : IEvent
         {
-            Get<TEvent>()?.Invoke(@event);
+            Get<TEvent>(args)?.Invoke(@event);
         }
     }
 }
