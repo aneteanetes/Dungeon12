@@ -24,6 +24,7 @@ namespace Rogue.Proxy
         /// </summary>
         public Func<object> BindGet(string propName)
         {
+            propName = $"___{propName}";
             if (!___BindGetCache.TryGetValue(propName, out var value))
             {
                 value = () => _Type[this, propName];
@@ -42,6 +43,7 @@ namespace Rogue.Proxy
         /// </summary>
         public Action<object> BindSet(string propName)
         {
+            propName = $"___{propName}";
             if (!___BindSetCache.TryGetValue(propName, out var value))
             {
                 value = v => _Type[this, propName] = v;
@@ -72,7 +74,7 @@ namespace Rogue.Proxy
             return proxy.Get(v, proxyId, get, set);
         }
 
-        protected void Set<TCalculatedType>(string backingfieldName, TCalculatedType v, [CallerMemberName] string from = "")
+        protected void Set<TCalculatedType>(TCalculatedType v, [CallerMemberName] string from = "")
         {
             var p = PropertyName(from);
             var get = BindGet(p);
@@ -80,7 +82,7 @@ namespace Rogue.Proxy
             var proxy = Proxies(p);
             var proxyId = GetProxyId(p);
 
-            _Type[this, backingfieldName] = proxy.Set(v, proxyId, get, set);
+            _Type[this, $"___{p}"] = proxy.Set(v, proxyId, get, set);
         }
 
         #region Drawable
