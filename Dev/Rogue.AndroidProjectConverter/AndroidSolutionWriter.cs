@@ -31,7 +31,7 @@ namespace Rogue.AndroidProjectConverter
 
         private string WriteProjInSln(string proj,string path, Guid guid)
         {
-            var tpl = GetTemplate("ProjectInSolutionTemplate.sln");
+            var tpl = GetTemplate("ProjectInSolutionTemplate.slnt");
             return tpl.Replace(ProjectPath, path)
                 .Replace(Uid, guid.ToString())
                 .Replace(Name, proj);
@@ -39,7 +39,7 @@ namespace Rogue.AndroidProjectConverter
 
         public void WriteFile()
         {
-            var tpl = GetTemplate("SolutionTemplate.sln");
+            var tpl = GetTemplate("SolutionTemplate.slnt");
             var prjs = _pool.GetPool().Select(x => WriteProjInSln(x.Item1, x.Item2, x.Item3));
             var sln = tpl.Replace(ProjectsInSolution, string.Join(Environment.NewLine, prjs));
 

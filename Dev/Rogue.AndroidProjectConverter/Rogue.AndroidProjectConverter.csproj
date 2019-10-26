@@ -6,17 +6,19 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Templates\PackageRefTemplate.xml" />
+    <None Remove="Templates\ProjectInSolutionTemplate.slnt" />
     <None Remove="Templates\ProjectRefTemplate.xml" />
     <None Remove="Templates\ProjectTemplate.xml" />
+    <None Remove="Templates\SolutionTemplate.slnt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Templates\ProjectRefTemplate.xml" />
     <EmbeddedResource Include="Templates\PackageRefTemplate.xml" />
     <EmbeddedResource Include="Templates\ProjectTemplate.xml" />
-    <EmbeddedResource Include="Templates\ProjectInSolutionTemplate.sln" />
+    <EmbeddedResource Include="Templates\ProjectInSolutionTemplate.slnt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Templates\SolutionTemplate.sln" />
+    <EmbeddedResource Include="Templates\SolutionTemplate.slnt" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Build.Locator" Version="1.2.6" />
