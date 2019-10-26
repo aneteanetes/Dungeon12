@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\Symbols.props" />
+  <ItemGroup>
+    <PackageReference Include="Lidgren.Network.Core2" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rogue.Events\Rogue.Events.csproj" />
+    <ProjectReference Include="..\Rogue.Global\Rogue.Global.csproj" />
+    <ProjectReference Include="..\Rogue.Proxy\Rogue.Proxy.csproj" />
+  </ItemGroup>
+</Project>
