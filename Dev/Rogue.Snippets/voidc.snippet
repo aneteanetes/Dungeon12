@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>voidc</Title>
+      <Shortcut>voidc</Shortcut>
+      <Description>
+        Создать метод который кеширует результаты
+      </Description>
+      <Author>anete.anetes</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>typeResult</ID>
+          <ToolTip>Тип возвращаемого результата</ToolTip>
+          <Default>long</Default>
+        </Literal>
+        <Literal>
+          <ID>typeArg</ID>
+          <ToolTip>Тип аргумента</ToolTip>
+          <Default>long</Default>
+        </Literal>
+        <Literal>
+          <ID>methodName</ID>
+          <ToolTip>Имя метода</ToolTip>
+          <Default>Prop</Default>
+        </Literal>
+        <Literal>
+          <ID>argName</ID>
+          <ToolTip>Имя аргумента</ToolTip>
+          <Default>long</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[
+        /// <summary>
+        /// 
+        /// <para>
+        /// [Кэшируемый]
+        /// </para>
+        /// </summary>
+        public $typeResult$ $methodName$($typeArg$ $argName$)
+        {
+            if (!___$methodName$Cache.TryGetValue($argName$, out var value))
+            {
+                value = //логика кэширования
+                  default;
+                ___$methodName$Cache.Add($argName$, value);
+            }
+
+            return value;
+        }
+        private readonly Dictionary<$typeArg$, $typeResult$> ___$methodName$Cache = new Dictionary<$typeArg$, $typeResult$>();        
+        $end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
