@@ -123,6 +123,8 @@
             }
         };
 
+        public string Uid { get; } = Guid.NewGuid().ToString();
+
         public Action<Applicable> StateAdded;
 
         public Action<Applicable> StateRemoved;

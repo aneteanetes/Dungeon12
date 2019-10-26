@@ -1,6 +1,7 @@
 ﻿using Rogue.Transactions;
 using Rogue.Types;
 using Rogue.View.Interfaces;
+using System;
 
 namespace Rogue.Abilities.Talants.NotAPI
 {
@@ -23,5 +24,7 @@ namespace Rogue.Abilities.Talants.NotAPI
         public Rectangle Region { get; set; }
 
         public bool Container => false;
+
+        public string Uid { get; } = Guid.NewGuid().ToString();
     }
 }

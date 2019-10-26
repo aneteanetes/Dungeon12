@@ -119,9 +119,9 @@
         private bool loaded = false;
 
 
-        private GameTime gameTime;
+        private Microsoft.Xna.Framework.GameTime gameTime;
         
-        protected override void Update(GameTime gameTime)
+        protected override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             this.gameTime = gameTime;
 

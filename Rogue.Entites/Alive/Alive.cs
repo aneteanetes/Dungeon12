@@ -1,31 +1,30 @@
-﻿using Rogue.Types;
+﻿using Rogue.Network;
+using Rogue.Types;
 
 namespace Rogue.Entites.Alive
 {
     /// <summary>
     /// Живой, с уровнем
     /// </summary>
-    public class Alive : Drawable, IFlowable
+    public class Alive : NetObject, IFlowable
     {
         public int Level { get; set; } = 1;
 
-        private long hitPoints;
-        public long HitPoints
-        {
-            get => hitPoints <= 0 ? 0 : hitPoints;
-            set
-            {
-                hitPoints = value;
-                if (hitPoints <= 0)
-                {
-                    Dead = true;
-                }
-            }
-        }
+        protected override string ProxyId => this.Uid;
+
+        /// <summary>
+        /// 
+        /// <para>
+        /// [Рассчётное через сеть]
+        /// </para>
+        /// </summary>
+        [Proxied(typeof(NetProxy))]
+        public long HitPoints { get => Get(___HitPoints); set => Set(nameof(___HitPoints), value); }
+        public long ___HitPoints;
         
         public long MaxHitPoints { get; set; }
 
-        public bool Dead { get; private set; } = false;
+        public bool Dead { get; set; } = false;
         
 
         private object flowContext = null;

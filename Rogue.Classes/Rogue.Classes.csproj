@@ -10,6 +10,7 @@
     <ProjectReference Include="..\Rogue.Entites\Rogue.Entites.csproj" />
     <ProjectReference Include="..\Rogue.Global\Rogue.Global.csproj" />
     <ProjectReference Include="..\Rogue.Inventory\Rogue.Inventory.csproj" />
+    <ProjectReference Include="..\Rogue.Network\Rogue.Network.csproj" />
   </ItemGroup>
   <Import Project="$(SolutionDir)\Symbols.props" />
 </Project>

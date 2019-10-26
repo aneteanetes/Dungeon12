@@ -29,7 +29,7 @@
             throw new System.NotImplementedException();
         }
         
-        protected override void Draw(GameTime gameTime)
+        protected override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
@@ -42,7 +42,7 @@
             OnPointerMoved();
         }
 
-        private void Draw(ISceneObject[] sceneObjects, GameTime gameTime)
+        private void Draw(ISceneObject[] sceneObjects, Microsoft.Xna.Framework.GameTime gameTime)
         {
             InterfaceObjects.Clear();
 
@@ -198,6 +198,10 @@
         private Dictionary<string, Rect> TileSetCache = new Dictionary<string, Rect>();
         private Dictionary<string, Rect> PosCahce = new Dictionary<string, Rect>();
         private static readonly Dictionary<string, Texture2D> tilesetsCache = new Dictionary<string, Texture2D>();
+
+
+        
+
 
         /// <summary>
         /// TODO: нужно логирование что бы игра не падала но можно было понять причину сбоя

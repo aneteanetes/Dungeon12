@@ -28,6 +28,8 @@ namespace Rogue.Entites.Alive
         public bool Container => false;
 
         public virtual bool ClassDependent { get; set; }
+
+        public string Uid { get; } = Guid.NewGuid().ToString();
     }
 
 }

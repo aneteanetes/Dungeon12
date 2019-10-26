@@ -1,5 +1,6 @@
 ﻿using Rogue.Types;
 using Rogue.View.Interfaces;
+using System;
 
 namespace Rogue.Entites
 {
@@ -20,6 +21,8 @@ namespace Rogue.Entites
         public virtual Rectangle Region { get; set; }
 
         public virtual bool Container => false;
+
+        public string Uid { get; } = Guid.NewGuid().ToString();
 
         /// <summary>
         /// Возвращает свойство типа T - реализация: case of types

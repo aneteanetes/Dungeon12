@@ -62,9 +62,13 @@
         public static T NewAs<T>(this Type type, params object[] argsObj)
             => (T)New<object>(type, type.GetConstructors().FirstOrDefault(), argsObj);
 
-        public static void Call(this object obj, params object[] argsObj)
+        public static void Call(this object @object, string method, params object[] argsObj)
         {
-
+            var methodInfo = @object.GetType().GetMethods().FirstOrDefault(m => m.Name == method);
+            if (methodInfo != default)
+            {
+                Expression.Lambda(Expression.Call(Expression.Constant(@object), methodInfo)).Compile().DynamicInvoke();
+            }
         }
 
         public static void Call(this object obj, Type generics, params object[] argsObj)

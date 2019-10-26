@@ -4,6 +4,8 @@ namespace Rogue.View.Interfaces
 {
     public interface IDrawable : IDrawContext
     {
+        string Uid { get; }
+
         string Icon { get; }
 
         string Name { get; }

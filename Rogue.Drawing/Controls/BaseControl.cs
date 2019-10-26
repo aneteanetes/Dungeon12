@@ -82,6 +82,8 @@
         private List<ISceneObject> children = new List<ISceneObject>();
         public ICollection<ISceneObject> Children => children;
 
+        public string Uid { get; } = Guid.NewGuid().ToString();
+
         public void Append(BaseControl another)
         {
             this.Children.Clear(); /*  */

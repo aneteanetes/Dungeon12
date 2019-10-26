@@ -3,14 +3,15 @@
     using Rogue.Audio;
     using Rogue.Control.Pointer;
     using Rogue.Events;
-    using Rogue.Types;
     using Rogue.View.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public static class Global
     {
+        static Global()
+        {
+            TimeTrigger.GlobalTimeSource = () => Time;
+        }
+
         public static IDrawClient DrawClient;
 
         private static object freezeWorldObject;
@@ -36,7 +37,7 @@
 
         public static bool BlockSceneControls { get; set; }
 
-        public static GlobalTime Time { get; } = new GlobalTime();
+        public static GameTime Time { get; } = new GameTime();
 
         public static EventBus Events { get; } = new EventBus();
 

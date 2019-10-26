@@ -34,9 +34,11 @@
     <ProjectReference Include="..\External\Penumbra\MonoGame.Penumbra.DesktopGL.csproj" />
     <ProjectReference Include="..\External\ProjectMercury\ProjectMercury.csproj" />
     <ProjectReference Include="..\Rogue.Drawing\Rogue.Drawing.csproj" />
+    <ProjectReference Include="..\Rogue.Network\Rogue.Network.csproj" />
     <ProjectReference Include="..\Rogue.Resources\Rogue.Resources.csproj" />
     <ProjectReference Include="..\Rogue.Scenes.Manager\Rogue.Scenes.Manager.csproj" />
     <ProjectReference Include="..\Rogue.Scenes\Rogue.Scenes.csproj" />
+    <ProjectReference Include="..\Rogue.Time\Rogue.Time.csproj" />
     <ProjectReference Include="..\Rogue.View\Rogue.View.csproj" />
   </ItemGroup>
   <Import Project="$(SolutionDir)\NuGet.Common.props" />

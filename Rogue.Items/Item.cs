@@ -62,5 +62,7 @@
         {
             public override Stats AvailableStats => Stats.None;
         }
+
+        public string Uid { get; } = System.Guid.NewGuid().ToString();
     }
 }
