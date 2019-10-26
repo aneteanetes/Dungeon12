@@ -62,7 +62,7 @@
 
         private void AddAlives(bool server=false)
         {
-            this.AddObject(new NetworkSceneObject(new Entites.Alive.Alive()
+            this.AddObject(new NetworkSceneObject(new NetworkObject()
             {
                 Name = "ServerAlive",
                 HitPoints = 100,
@@ -72,7 +72,7 @@
                 Left = 5,
                 Top = 8
             });
-            this.AddObject(new NetworkSceneObject(new Entites.Alive.Alive()
+            this.AddObject(new NetworkSceneObject(new NetworkObject()
             {
                 Name = "ClientAlive",
                 HitPoints = 100,

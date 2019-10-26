@@ -6,9 +6,9 @@ namespace Rogue.Drawing.SceneObjects.NetworkTest
 {
     public class NetworkSceneObject : HandleSceneControl
     {
-        private Alive _alive;
+        private NetworkObject _alive;
 
-        public NetworkSceneObject(Alive alive, bool controls)
+        public NetworkSceneObject(NetworkObject alive, bool controls)
         {
             _alive = alive;
 
@@ -41,5 +41,10 @@ namespace Rogue.Drawing.SceneObjects.NetworkTest
         {
             get => new DrawText($"{_alive.Name} [HP] : {_alive.HitPoints}/{_alive.MaxHitPoints}");
         }
+    }
+
+    public class NetworkObject : Alive
+    {
+        protected override string ProxyId => Name;
     }
 }

@@ -110,6 +110,7 @@
                 DrawClient = this
             };
             SceneManager.Change<Start>();
+            Network.Network.Start();
             // TODO: use this.Content to load your game content here
         }
 

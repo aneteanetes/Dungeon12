@@ -249,7 +249,7 @@
         public static void SetProperty<TValue>(this object @object, string property, TValue value)
         {
             var accessor = TypeAccessor.Create(@object.GetType(), true);
-            accessor[@object, property] = value;            
+            accessor[@object, property] = value;
         }
     }
 }

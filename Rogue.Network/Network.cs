@@ -1,33 +1,74 @@
 ﻿using Lidgren.Network;
+//using MsgPack.Serialization;
 using MessagePack;
 using Rogue.Events.Network;
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Rogue.Network
 {
-    internal partial class Network
+    public partial class Network
     {
-        private static readonly Network instance = new Network();
+        private static Network instance;
+
+        public static void Start()
+        {
+            instance = new Network();
+        }
+
         private bool? IsServer = false;
         private NetPeer peer;
 
-        public Network()
+        internal Network()
         {
             Console.WriteLine(instance);
 
-            Global.Events.Subscribe<CreateNetworkServerEvent>(StartSever);
-            Global.Events.Subscribe<ConnectNetworkServerEvent>(StartClient);
-
+            Global.Events.Subscribe<CreateNetworkServerEvent, Network>(StartSever);
+            Global.Events.Subscribe<ConnectNetworkServerEvent, Network>(StartClient);
             Global.Events.Subscribe<NetworkSendEvent, Network>(Send);
         }
 
-        public NetworkMessage Deserialize(byte[] data)
+        //private readonly MessagePackSerializer serializer = MessagePackSerializer.Get<NetworkMessage>();
+
+        private NetworkMessage Deserialize(byte[] data)
         {
-            return MessagePackSerializer.Deserialize<NetworkMessage>(data);
+            //return (NetworkMessage)serializer.Unpack(new MemoryStream(data));
+
+            var msg = MessagePackSerializer.Deserialize<NetworkMessage>(data, MessagePack.Resolvers.ContractlessStandardResolver.Instance);
+
+            var dataType = Type.GetType(msg.DataType);
+            if (IsSimple(dataType))
+            {
+                msg.Data = Convert.ChangeType(msg.Data, dataType);
+            }
+            else
+            {
+                msg.Data = msg.DataType.CreateAndFill(msg.Data as IDictionary<object, object>);
+            }
+
+            return msg;
         }
 
-        public byte[] Serialize(NetworkMessage msg)
+        bool IsSimple(Type type)
         {
+            var typeInfo = type.GetTypeInfo();
+            if (typeInfo.IsGenericType && typeInfo.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                // nullable type, check if the nested type is simple.
+                return IsSimple(typeInfo.GetGenericArguments()[0]);
+            }
+            return typeInfo.IsPrimitive
+              || typeInfo.IsEnum
+              || type.Equals(typeof(string))
+              || type.Equals(typeof(decimal));
+        }
+
+        private byte[] Serialize(NetworkMessage msg)
+        {
+            //var ms = new MemoryStream();
+            //serializer.Pack(ms, msg);
+            //return ms.ToArray();
             return MessagePackSerializer.Serialize(msg, MessagePack.Resolvers.ContractlessStandardResolver.Instance);
         }
 
@@ -38,6 +79,11 @@ namespace Rogue.Network
 
         private void Send(object data, string[] args)
         {
+            if (peer == null)
+            {
+                return;
+            }
+
             if (args == default)
             {
                 throw new Exception("Сообщение без получателя");
@@ -46,7 +92,8 @@ namespace Rogue.Network
             var msg = new NetworkMessage()
             {
                 Recipient = args[0],
-                Data = data
+                Data = data.GetProperty("Message"),
+                DataType = data.GetProperty("Message").GetType().AssemblyQualifiedName
             };
 
             var bytes = Serialize(msg);
@@ -57,7 +104,10 @@ namespace Rogue.Network
             if (IsServer == true)
             {
                 var server = peer as NetServer;
-                server.SendMessage(m, server.Connections, NetDeliveryMethod.ReliableOrdered, 0);
+                if (server.ConnectionsCount > 0)
+                {
+                    server.SendMessage(m, server.Connections, NetDeliveryMethod.ReliableOrdered, 0);
+                }
             }
             else if (IsServer == false)
             {

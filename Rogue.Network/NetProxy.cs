@@ -15,9 +15,9 @@ namespace Rogue.Network
         {
             if (!___GetCache.Contains(proxyId))
             {
-                Global.Events.Subscribe<NetworkReciveEvent<T>>(e =>
+                Global.Events.Subscribe<NetworkReciveEvent>(e =>
                 {
-                    this.__Set(e.Message);
+                    this.__Set(e.Message.As<T>());
                 }, false, proxyId);
 
                 ___GetCache.Add(proxyId);
@@ -25,11 +25,12 @@ namespace Rogue.Network
 
             return v;
         }
-        private readonly HashSet<string> ___GetCache = new HashSet<string>();
+
+        private static readonly HashSet<string> ___GetCache = new HashSet<string>();
         
         public override T Set<T>(T v, string proxyId)
         {
-            Global.Events.Raise(new NetworkSendEvent<T>(v) { Recipient = proxyId }, proxyId);
+            Global.Events.Raise(new NetworkSendEvent(v) { Recipient = proxyId }, proxyId);
             return v;
         }
     }

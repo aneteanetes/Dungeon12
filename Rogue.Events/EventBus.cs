@@ -10,12 +10,12 @@ namespace Rogue.Events
         private List<Action<object>> allsubscribers = new List<Action<object>>();
         //private List<Action<object>> allsubscribers = new List<Action<object>>();
 
-        private readonly Dictionary<string, Action<object,string[]>> typesubscribers = new Dictionary<string, Action<object, string[]>>();
+        private readonly Dictionary<string, Action<object, string[]>> typesubscribers = new Dictionary<string, Action<object, string[]>>();
 
         /// <summary>
         /// Подписаться вообще на все события
         /// </summary>
-        public void Subscribe(Action<object> action) => allsubscribers.Add(action);
+        public void Subscribe(Action<object> action) /*=> allsubscribers.Add(action);*/{ }
 
         /// <summary>
         /// Подписаться на события всех таких типов
@@ -31,6 +31,7 @@ namespace Rogue.Events
             var ev = Get<TEvent>(args);
             if (autoUnsubscribe)
             {
+                Console.WriteLine("auto unsubs");
                 void subs(TEvent @event)
                 {
                     action?.Invoke(@event);
@@ -41,13 +42,27 @@ namespace Rogue.Events
             }
             else
             {
-                ev += action;
+                string @event = EventTypeName<TEvent>();
+                if (args != default)
+                {
+                    @event += string.Join("`", args);
+                }
+
+                Console.WriteLine($"добавлен к обработчику {@event}");
+                events[@event] = ev += action;
             }
+        }
+
+        public static string EventTypeName<TEvent>()
+        {
+            string name = typeof(TEvent).FullName;
+            int index = name.IndexOf('`');
+            return index == -1 ? name : name.Substring(0, index);
         }
 
         private Action<TEvent> Get<TEvent>(params string[] args)
         {
-            string @event = typeof(TEvent).FullName;
+            string @event = EventTypeName<TEvent>();
 
             if (args != default)
             {
@@ -56,7 +71,9 @@ namespace Rogue.Events
 
             if (!events.ContainsKey(@event))
             {
-                Action<TEvent> action = x => { };
+                Action<TEvent> action = x => {
+                    Console.WriteLine($"вызван обработчик {@event}");
+                };
                 allsubscribers.ForEach(s =>
                 {
                     action += x => s(x);
@@ -76,7 +93,7 @@ namespace Rogue.Events
 
         public void Raise<TEvent>(TEvent @event, params string[] args) where TEvent : IEvent
         {
-            Get<TEvent>(args)?.Invoke(@event);
+            Get<TEvent>(args)?.DynamicInvoke(@event);
             typesubscribers.Where(ts => @event.GetType().FullName.Contains(ts.Key)).ToList().ForEach(ts =>
             {
                 ts.Value?.Invoke(@event, args);

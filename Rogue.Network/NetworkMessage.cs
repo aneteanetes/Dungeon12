@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Rogue.Network
+﻿namespace Rogue.Network
 {
     public class NetworkMessage
     {
         public string Recipient { get; set; }
+
+        public string DataType { get; set; }
 
         public object Data { get; set; }
     }

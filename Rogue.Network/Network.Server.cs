@@ -4,9 +4,9 @@ using System.Threading;
 
 namespace Rogue.Network
 {
-    internal partial class Network
+    public partial class Network
     {
-        private void StartSever(CreateNetworkServerEvent e)
+        private void StartSever(object e, string[] args)
         {
             IsServer = true;
             var config = new NetPeerConfiguration("Dungeon 12 v0.5")
@@ -16,10 +16,11 @@ namespace Rogue.Network
             var server = new NetServer(config);
             peer = server;
             server.Start();
+            SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
             server.RegisterReceivedCallback(new SendOrPostCallback(ServerMessage));
         }
 
-        public void ServerMessage(object peer)
+        private void ServerMessage(object peer)
         {
             var message = (peer as NetServer).ReadMessage();
 
@@ -34,7 +35,7 @@ namespace Rogue.Network
                 case NetIncomingMessageType.ConnectionApproval:
                     break;
                 case NetIncomingMessageType.Data:
-                    int datalen = message.ReadInt32();
+                    int datalen = message.LengthBytes;
                     byte[] data = message.ReadBytes(datalen);
                     var msg = Deserialize(data);
                     Get(msg);
