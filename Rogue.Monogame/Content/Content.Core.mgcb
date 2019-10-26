@@ -123,6 +123,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Montserrat/Montserrat20.spritefont
 
+#begin Montserrat/Montserrat30.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Montserrat/Montserrat30.spritefont
+
 #begin Montserrat/Montserrat40.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

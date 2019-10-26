@@ -29,7 +29,7 @@ namespace Rogue.Network
         
         public override T Set<T>(T v, string proxyId)
         {
-            Global.Events.Raise(new NetworkSendEvent<T>(v), proxyId);
+            Global.Events.Raise(new NetworkSendEvent<T>(v) { Recipient = proxyId }, proxyId);
             return v;
         }
     }

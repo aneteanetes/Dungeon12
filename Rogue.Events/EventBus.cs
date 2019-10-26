@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Rogue.Events
 {
@@ -7,11 +8,23 @@ namespace Rogue.Events
     {
         private readonly Dictionary<string, object> events = new Dictionary<string, object>();
         private List<Action<object>> allsubscribers = new List<Action<object>>();
+        //private List<Action<object>> allsubscribers = new List<Action<object>>();
+
+        private readonly Dictionary<string, Action<object,string[]>> typesubscribers = new Dictionary<string, Action<object, string[]>>();
 
         /// <summary>
         /// Подписаться вообще на все события
         /// </summary>
         public void Subscribe(Action<object> action) => allsubscribers.Add(action);
+
+        /// <summary>
+        /// Подписаться на события всех таких типов
+        /// </summary>
+        /// <typeparam name="TEvent"></typeparam>
+        public void Subscribe<TEvent,TSubscriber>(Action<object,string[]> action)
+        {
+            typesubscribers.Add(typeof(TEvent).FullName, action);
+        }
 
         public void Subscribe<TEvent>(Action<TEvent> action, bool autoUnsubscribe = true, params string[] args) where TEvent : IEvent
         {
@@ -64,6 +77,10 @@ namespace Rogue.Events
         public void Raise<TEvent>(TEvent @event, params string[] args) where TEvent : IEvent
         {
             Get<TEvent>(args)?.Invoke(@event);
+            typesubscribers.Where(ts => @event.GetType().FullName.Contains(ts.Key)).ToList().ForEach(ts =>
+            {
+                ts.Value?.Invoke(@event, args);
+            });
         }
     }
 }

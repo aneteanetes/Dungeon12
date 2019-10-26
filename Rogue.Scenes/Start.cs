@@ -9,7 +9,7 @@
     using Rogue.Scenes.Menus.Creation;
     using System;
 
-    public class Start : GameScene<PlayerNameScene, Game.Main, EditorScene>
+    public class Start : GameScene<SoloDuoScene, Game.Main, EditorScene>
     {
         public Start(SceneManager sceneManager) : base(sceneManager)
         {
@@ -39,7 +39,7 @@
             {
                 Left = 15.5f,
                 Top = 8,
-                OnClick = () => { this.Switch<PlayerNameScene>(); }
+                OnClick = () => { this.Switch<SoloDuoScene>(); }
             });
 
 

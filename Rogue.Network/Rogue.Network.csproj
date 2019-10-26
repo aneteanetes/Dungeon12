@@ -6,6 +6,7 @@
   <Import Project="$(SolutionDir)\Symbols.props" />
   <ItemGroup>
     <PackageReference Include="Lidgren.Network.Core2" Version="1.0.0" />
+    <PackageReference Include="MessagePack" Version="1.8.74" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rogue.Events\Rogue.Events.csproj" />

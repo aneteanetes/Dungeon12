@@ -13,7 +13,7 @@ namespace Rogue.Network
         /// </summary>
         public void Network() => Global.Events.Subscribe<NetworkReciveEvent>(e => this.Dispatch((x, v) => x.Recive(v), e.Message), false, ProxyId);
 
-        protected void Send<T>(T value) => Global.Events.Raise(new NetworkSendEvent(value), this.ProxyId);
+        protected void Send<T>(T value) => Global.Events.Raise(new NetworkSendEvent(value) { Recipient = ProxyId }, this.ProxyId);
 
         public virtual bool Recive(object @object)
         {
