@@ -21,9 +21,14 @@ namespace Rogue.Events
         /// Подписаться на события всех таких типов
         /// </summary>
         /// <typeparam name="TEvent"></typeparam>
-        public void Subscribe<TEvent,TSubscriber>(Action<object,string[]> action)
+        public void Subscribe<TEvent, TSubscriber>(Action<object, string[]> action)
         {
-            typesubscribers.Add(typeof(TEvent).FullName, action);
+            var key = typeof(TEvent).FullName;
+            if (!typesubscribers.TryGetValue(key, out var sub))
+            {
+                typesubscribers.Add(key, action);
+            }
+            typesubscribers[key] += action;
         }
 
         public void Subscribe<TEvent>(Action<TEvent> action, bool autoUnsubscribe = true, params string[] args) where TEvent : IEvent

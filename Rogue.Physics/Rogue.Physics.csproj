@@ -9,6 +9,7 @@
     <PackageReference Include="morelinq" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Rogue.Network\Rogue.Network.csproj" />
     <ProjectReference Include="..\Rogue.Types\Rogue.Types.csproj" />
   </ItemGroup>
   <Import Project="$(SolutionDir)\Symbols.props" />

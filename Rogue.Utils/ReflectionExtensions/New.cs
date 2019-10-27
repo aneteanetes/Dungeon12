@@ -8,6 +8,17 @@
     public static class ReflectionExtensions
     {
         /// <summary>
+        /// Создать новый объект такого типа
+        /// <para>
+        /// Только вот не надо использовать это на типах <see cref="Type"/>
+        /// </para>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="object"></param>
+        /// <returns></returns>
+        public static T New<T>(this object @object) => NewAs<T>(@object.GetType());
+
+        /// <summary>
         /// Instantiate new object through expression tree with first ctor
         /// </summary>
         /// <typeparam name="T"></typeparam>

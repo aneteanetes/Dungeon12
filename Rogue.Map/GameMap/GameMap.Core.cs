@@ -1,5 +1,6 @@
 ﻿namespace Rogue.Map
 {
+    using Rogue.Events.Events;
     using Rogue.Map.Objects;
     using Rogue.Physics;
     using Rogue.Types;
@@ -199,8 +200,6 @@
                 return false;
             }
         }
-
-
     }
 
     public class GameMapObject : MapObject
@@ -273,6 +272,15 @@
         public override PhysicalSize Size { get; set; }
 
         protected override MapObject Self => this;
+
+        public override void Add(MapObject physicalObject)
+        {
+            base.Add(physicalObject);
+            if (physicalObject is Totem totem)
+            {
+                Global.Events.Raise(new TotemArrivedEvent(totem));
+            }
+        }
     }
 
     public class GameMapContainerObject : MapObject

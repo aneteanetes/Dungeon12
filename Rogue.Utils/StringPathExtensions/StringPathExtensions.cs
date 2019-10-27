@@ -38,6 +38,6 @@ namespace Rogue
         /// <summary>
         /// Вернёт имя сборки + строка
         /// <returns></returns>
-        public static string AsmName(this string img) => Assembly.GetCallingAssembly().GetName().Name + img;
+        public static string AsmName(this string img,string between="") => Assembly.GetCallingAssembly().GetName().Name + between+ img;
     }
 }

@@ -1,12 +1,13 @@
 ﻿namespace Rogue.Physics
 {
     using MoreLinq;
+    using Rogue.Network;
     using Rogue.Types;
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    public class PhysicalObject
+    public class PhysicalObject : NetObject
     {
         public virtual PhysicalSize Size { get; set; }
 
@@ -229,7 +230,7 @@
             return nodes;
         }
 
-        public void Add(T physicalObject)
+        public virtual void Add(T physicalObject)
         {
             physicalObject.Root = this;
 

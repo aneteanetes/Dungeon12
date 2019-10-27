@@ -4,6 +4,7 @@ using Rogue.View.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace Rogue.Proxy
@@ -22,12 +23,12 @@ namespace Rogue.Proxy
         /// [Кэшируемый]
         /// </para>
         /// </summary>
-        public Func<object> BindGet(string propName)
+        public Func<object> BindGet(string propName,string ownerClassName)
         {
             propName = $"___{propName}";
             if (!___BindGetCache.TryGetValue(propName, out var value))
             {
-                value = () => _Type[this, propName];
+                value = () => GetBackingFieldValue(propName, ownerClassName);
                 ___BindGetCache.Add(propName, value);
             }
 
@@ -41,12 +42,12 @@ namespace Rogue.Proxy
         /// [Кэшируемый]
         /// </para>
         /// </summary>
-        public Action<object> BindSet(string propName)
+        public Action<object> BindSet(string propName,string ownerclassname)
         {
             propName = $"___{propName}";
             if (!___BindSetCache.TryGetValue(propName, out var value))
             {
-                value = v => _Type[this, propName] = v;
+                value = v => SetBackingFieldValue(v, propName, ownerclassname);
                 ___BindSetCache.Add(propName, value);
             }
 
@@ -63,35 +64,77 @@ namespace Rogue.Proxy
 
         private string GetProxyId(string prop) => $"{ProxyId}.{prop}";
 
-        protected TCalculatedType Get<TCalculatedType>(TCalculatedType v, [CallerMemberName] string from = "")
+        protected TCalculatedType Get<TCalculatedType>(TCalculatedType v, string ownerClassName, [CallerMemberName] string from = "")
         {
             var p = PropertyName(from);
-            var get = BindGet(p);
-            var set = BindSet(p);
+            var get = BindGet(p, ownerClassName);
+            var set = BindSet(p, ownerClassName);
             var proxy = Proxies(p);
             var proxyId = GetProxyId(p);
 
             return proxy.Get(v, proxyId, get, set, this, _Type,p);
         }
-
-        protected void Set<TCalculatedType>(TCalculatedType v, [CallerMemberName] string from = "")
+        
+        protected void Set<TCalculatedType>(TCalculatedType v, string ownerClassName, [CallerMemberName] string from = "")
         {
             var p = PropertyName(from);
-            var get = BindGet(p);
-            var set = BindSet(p);
+            var get = BindGet(p,ownerClassName);
+            var set = BindSet(p,ownerClassName);
             var proxy = Proxies(p);
             var proxyId = GetProxyId(p);
 
-            _Type[this, $"___{p}"] = proxy.Set(v, proxyId, get, set,this,_Type, p);
+            var backingField = $"___{p}";
+
+            var settedValue = proxy.Set(v, proxyId, get, set, this, _Type, p);
+
+            SetBackingFieldValue(settedValue, backingField, ownerClassName);
         }
+
+        private Dictionary<string, FieldInfo> FastMemberCantAccess = new Dictionary<string, FieldInfo>();
+
+        private object GetBackingFieldValue(string propName, string ownerClassName)
+        {
+            if (!FastMemberCantAccess.ContainsKey(propName))
+            {
+                try
+                {
+                    return _Type[this, propName];
+                }
+                catch (ArgumentException)
+                {
+                    var field = Type.GetType(ownerClassName).GetField(propName, BindingFlags.Instance | BindingFlags.NonPublic);
+                    FastMemberCantAccess.Add(propName, field);
+                }
+            }
+            return FastMemberCantAccess[propName].GetValue(this);
+        }
+
+        private void SetBackingFieldValue(object value, string propName, string ownerClassName)
+        {
+            if (!FastMemberCantAccess.ContainsKey(propName))
+            {
+                try
+                {
+                    _Type[this, propName] = value;
+                    return;
+                }
+                catch (ArgumentException)
+                {
+                    var field = Type.GetType(ownerClassName).GetField(propName, BindingFlags.Instance | BindingFlags.NonPublic);
+                    FastMemberCantAccess.Add(propName, field);
+                }
+            }
+            FastMemberCantAccess[propName].SetValue(this, value);
+        }
+
 
         #region Drawable
 
         public string Uid { get; } = Guid.NewGuid().ToString();
 
-        public string Icon { get; set; }
+        public virtual string Icon { get; set; }
 
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         public IDrawColor BackgroundColor { get; set; }
 

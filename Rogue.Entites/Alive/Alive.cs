@@ -20,7 +20,7 @@ namespace Rogue.Entites.Alive
         /// </para>
         /// </summary>
         [Proxied(typeof(NetProxy), typeof(Limit))]
-        public long HitPoints { get => Get(___HitPoints); set => Set(value); }
+        public long HitPoints { get => Get(___HitPoints, typeof(Alive).AssemblyQualifiedName); set => Set(value, typeof(Alive).AssemblyQualifiedName); }
         public long ___HitPoints;
         
         public long MaxHitPoints { get; set; }

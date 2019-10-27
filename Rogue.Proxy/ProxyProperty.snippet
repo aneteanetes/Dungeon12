@@ -24,6 +24,12 @@
           <ToolTip>Имя свойства</ToolTip>
           <Default>Prop</Default>
         </Literal>
+        <Literal default="true" Editable="false">
+          <ID>classname</ID>
+          <ToolTip>Class name</ToolTip>
+          <Function>ClassName()</Function>
+          <Default>ClassNamePlaceholder</Default>
+        </Literal>
       </Declarations>
       <Code Language="csharp">
         <![CDATA[        
@@ -34,7 +40,7 @@
         /// </para>
         /// </summary>
         [Proxied(typeof(NetProxy))]
-        public $type$ $property$ { get => Get(___$property$); set => Set(value); }
+        public $type$ $property$ { get => Get(___$property$,typeof($classname$).AssemblyQualifiedName); set => Set(value,typeof($classname$).AssemblyQualifiedName); }
         private $type$ ___$property$;        
         $end$]]>
       </Code>

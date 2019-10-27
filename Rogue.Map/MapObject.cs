@@ -17,26 +17,13 @@
         public Action Destroy { get; set; }
         
         public virtual bool Obstruction { get; set; }
-
-        public virtual string Icon { get; set; }
-        public string Name { get; set; }
-        public IDrawColor BackgroundColor { get; set; }
-        public IDrawColor ForegroundColor { get; set; }
-
+        
         public bool Animated => this.Animation != null;
 
         public virtual AnimationMap Animation { get; }
 
-        public virtual string Tileset { get; set; }
-
-        public virtual Rectangle TileSetRegion { get; set; }
-
-        public virtual Rectangle Region { get; set; }
-
         public Point Location { get; set; }
-
-        public bool Container => false;
-
+        
         public virtual bool Interactable { get; set; }
 
         public virtual void Interact(object target) => CallInteract(target as dynamic);
@@ -122,8 +109,6 @@
                 Height = this.Size.Height * VisionMultiple.Y
             }
         };
-
-        public string Uid { get; } = Guid.NewGuid().ToString();
 
         public Action<Applicable> StateAdded;
 
