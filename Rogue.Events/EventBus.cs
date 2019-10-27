@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Rogue.Events
@@ -21,12 +22,13 @@ namespace Rogue.Events
         /// Подписаться на события всех таких типов
         /// </summary>
         /// <typeparam name="TEvent"></typeparam>
-        public void Subscribe<TEvent, TSubscriber>(Action<object, string[]> action)
+        public void Subscribe<TEvent, TSubscriber>(Action<object, string[]> action, object from = null)
         {
             var key = typeof(TEvent).FullName;
             if (!typesubscribers.TryGetValue(key, out var sub))
             {
-                typesubscribers.Add(key, action);
+                Action<object,string[]> empty = (x,y) => { };
+                typesubscribers.Add(key, empty);
             }
             typesubscribers[key] += action;
         }

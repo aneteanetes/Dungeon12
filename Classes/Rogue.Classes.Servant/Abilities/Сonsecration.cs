@@ -32,11 +32,11 @@ namespace Rogue.Classes.Servant.Abilities
         {
             @class.FaithPower.Value -= 3;
 
-            this.UseEffects(new СonsecrationCircle(gameMap, avatar, 5000)
+            this.UseEffects(new СonsecrationCircle(gameMap, avatar)
             {
-                Left = (avatar.Position.X / 32) - 1.5,
-                Top = (avatar.Position.Y / 32) - 0.75
-            }.InList<ISceneObject>());
+                Left = (avatar.Position.X / 32) - 1.25,
+                Top = (avatar.Position.Y / 32)-0.25
+            }.Init(5000).InList<ISceneObject>());
         }
     }
 }

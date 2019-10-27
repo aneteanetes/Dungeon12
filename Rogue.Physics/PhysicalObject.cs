@@ -32,6 +32,8 @@
 
         public bool IntersectsWith(PhysicalObject @object) => Intersect(this, @object);
 
+        public bool IntersectsWithOrContains(PhysicalObject @object) => this.IntersectsWith(@object) || this.Contains(@object);
+
         public static bool Intersect(PhysicalObject a, PhysicalObject b)
         {
             var x1 = Math.Max(a.Position.X, b.Position.X);

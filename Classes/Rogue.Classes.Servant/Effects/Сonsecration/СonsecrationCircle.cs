@@ -14,23 +14,36 @@ namespace Rogue.Classes.Servant.Effects.Сonsecration
         public override bool AbsolutePosition => false;
 
         public override bool CacheAvailable => false;
-
-        private GameMap _gameMap;
-
-        public СonsecrationCircle(GameMap gameMap,Physics.PhysicalObject position, double millisec) : base("Effects/concentration.png".PathAsmImg())
+        
+        public СonsecrationCircle(GameMap gameMap, Physics.PhysicalObject position) : base("Effects/concentration.png".PathAsmImg())
         {
-            var totem = new ConsecrationCircleTotem(position.Position.X/32, position.Position.Y/32);
-            
-            _gameMap = gameMap;
+            var totem = new ConsecrationCircleTotem(position.Position.X / 32, position.Position.Y / 32);
+            gameMap.Map.Add(totem);
+
             this.Width = 3;
             this.Height = 1.5;
 
-            this.AddChild(new CircleLight());
+            this.Destroy += () =>
+            {
+                gameMap.Map.Remove(totem);
+                totem.Destroy?.Invoke();
+            };
+        }
+
+        public СonsecrationCircle Init(double millisec)
+        {
+            this.AddChild(new CircleLight()
+            {
+                Left=1.6,
+                Top=0.5
+            });
 
             Global.Time.Timer(Guid.NewGuid().ToString())
                 .After(millisec)
                 .Do(() => this.Destroy?.Invoke())
                 .Auto();
+
+            return this;
         }
 
         private class CircleLight : SceneObject
@@ -69,6 +82,8 @@ namespace Rogue.Classes.Servant.Effects.Сonsecration
         }
 
         public override Applicable ApplicableEffect { get; } = new Buff();
+
+        public override bool CanAffect(MapObject @object) => @object is Avatar;
 
         private class Buff : Applicable
         {

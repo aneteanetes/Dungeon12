@@ -11,6 +11,8 @@ namespace Rogue.Map.Objects
             this.Range = this;
         }
 
+        public abstract bool CanAffect(MapObject @object);
+
         protected override MapObject Self => this;
         
         public abstract Applicable ApplicableEffect { get; }
