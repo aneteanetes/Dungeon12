@@ -8,5 +8,8 @@
         public long AttackPower { get; set; }
 
         public long AbilityPower { get; set; }
+
+        [FlowMethod]
+        public void AddEffect(bool forward) { }
     }
 }

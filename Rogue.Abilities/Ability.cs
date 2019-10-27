@@ -221,6 +221,8 @@
 
         public abstract AbilityTargetType TargetType { get; }
 
+        public Capable Target { get; set; }
+
         public virtual double Spend { get; set; }
 
         public List<(string, string)> Scales { get; set; }

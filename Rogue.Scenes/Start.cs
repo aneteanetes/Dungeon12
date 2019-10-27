@@ -11,6 +11,8 @@
 
     public class Start : GameScene<SoloDuoScene, Game.Main, EditorScene>
     {
+        public override bool AbsolutePositionScene => true;
+
         public Start(SceneManager sceneManager) : base(sceneManager)
         {
         }
@@ -28,18 +30,23 @@
                 Volume = 0.3
             });
             
-            this.AddObject(new Background(true));
+            this.AddObject(new Background(true)
+            {
+                AbsolutePosition = true,
+            });
             this.AddObject(new ImageControl("Rogue.Resources.Images.d12textM.png")
             {
                 Top = 2f,
-                Left = 10f
+                Left = 10f,
+                AbsolutePosition = true,
             });
 
             this.AddObject(new MetallButtonControl("Новая игра")
             {
                 Left = 15.5f,
                 Top = 8,
-                OnClick = () => { this.Switch<SoloDuoScene>(); }
+                OnClick = () => { this.Switch<SoloDuoScene>(); },
+                AbsolutePosition=true,
             });
 
 
@@ -47,15 +54,13 @@
             {
                 Left = 15.5f,
                 Top = 11,
+                AbsolutePosition = true,
                 OnClick = () =>
                 {
-                    this.PlayerAvatar = new Map.Objects.Avatar
+                    this.PlayerAvatar = new Map.Objects.Avatar(new Rogue.Classes.Noone.Noone()
                     {
-                        Character = new Rogue.Classes.Noone.Noone()
-                        {
-                            Origin = Entites.Alive.Enums.Origins.Farmer
-                        }
-                    };
+                        Origin = Entites.Alive.Enums.Origins.Farmer
+                    });
                     this.PlayerAvatar.Character.Name = "Ваш персонаж";
                     this.PlayerAvatar.Character.Race = Race.Elf;
                     this.PlayerAvatar.Character.Add<RacePerk>();
@@ -74,6 +79,7 @@
             {
                 Left = 24,
                 Top = 11,
+                AbsolutePosition = true,
                 OnClick = () =>
                 {
                     this.Switch<EditorScene>();
@@ -84,6 +90,7 @@
             {
                 Left = 15.5f,
                 Top = 14,
+                AbsolutePosition = true,
                 OnClick = () =>
                 {
 
@@ -94,6 +101,7 @@
             {
                 Left = 15.5f,
                 Top = 17,
+                AbsolutePosition = true,
                 OnClick = () =>
                 {
                     Environment.Exit(0);

@@ -1,4 +1,5 @@
 ﻿using Rogue.Control.Pointer;
+using Rogue.Drawing.Impl;
 using Rogue.Drawing.SceneObjects;
 using Rogue.Drawing.SceneObjects.Map;
 using Rogue.Entites.Animations;
@@ -37,6 +38,8 @@ namespace Rogue.Classes.Servant.Effects.FaithShot
                 },
                 TileSet = tileset
             });
+
+            this.AddChild(new Might());
         }
 
         protected override void OnAnimationStop()
@@ -50,6 +53,25 @@ namespace Rogue.Classes.Servant.Effects.FaithShot
 
         protected override void DrawLoop()
         {
+        }
+
+        private class Might : SceneObject
+        {
+            public Might()
+            {
+                this.Width = 1;
+                this.Height = 1;
+
+                this.Effects = new List<View.Interfaces.IEffect>()
+                {
+                    new ParticleEffect()
+                    {
+                        Name="FaithShot",
+                        Scale = 1,
+                        Assembly="Rogue.Classes.Servant"
+                    }
+                };
+            }
         }
     }
 }

@@ -18,5 +18,8 @@
 
         [Display(Name = "Цель сам персонаж")]
         SelfTarget = 4,
+
+        [Display(Name = "Требуется дружественнаяя цель")]
+        TargetFrendly = 5,
     }
 }

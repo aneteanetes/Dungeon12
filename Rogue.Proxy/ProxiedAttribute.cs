@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FastMember;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,19 +22,25 @@ namespace Rogue
                 .Reverse();
         }
 
-        public T Get<T>(T value, string proxyId, Func<object> get, Action<object> set)
+        public T Get<T>(T value, string proxyId, Func<object> get, Action<object> set, object owner, TypeAccessor ownerAccessor, string propName)
         {
             return Proxies.Reduce(value, (p, v) =>
             {
+                p.Name = propName;
+                p.owner = owner;
+                p.ownerAccessor = ownerAccessor;
                 p.BindAccessors(get, set);
                 return p.Get(v, proxyId);
             });
         }
 
-        public T Set<T>(T value, string proxyId, Func<object> get, Action<object> set)
+        public T Set<T>(T value, string proxyId, Func<object> get, Action<object> set, object owner, TypeAccessor ownerAccessor, string propName)
         {
             return Proxies.Reduce(value, (p, v) =>
             {
+                p.Name = propName;
+                p.owner = owner;
+                p.ownerAccessor = ownerAccessor;
                 p.BindAccessors(get, set);
                 return p.Set(v, proxyId);
             });

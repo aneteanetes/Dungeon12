@@ -310,8 +310,6 @@
         {
             if (mouseButton != MouseButton.None)
             {
-                SetAbility(mouseButton);
-
                 var range = ability.Range;
                 return this.MobObj.IntersectsWith(range);
             }
@@ -321,20 +319,17 @@
             return false;
         }
 
-        private Ability ability;
-
         protected override void Action(MouseButton mouseButton) => UseAbility();
 
         protected override void StopAction() { }
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
+            base.KeyDown(key, modifier, hold);
             if (key == Key.Q || key == Key.E)
             {
-                SetAbility(key);
                 UseAbility();
             }
-            base.KeyDown(key, modifier, hold);
         }
 
         private void UseAbility()
@@ -345,6 +340,7 @@
             if (ability.TargetType == AbilityTargetType.Target || ability.TargetType == AbilityTargetType.TargetAndNonTarget)
             {
                 var avatar = playerSceneObject.Avatar;
+                ability.Target = this.@object.Enemy;
                 if (ability.CastAvailableCooldown(avatar))
                 {
                     ability.CastCooldown(location, avatar);
@@ -352,12 +348,6 @@
             }
         }
 
-        private void SetAbility(MouseButton mouseButton) => ability = playerSceneObject.GetAbility(mouseAbiityMap[mouseButton]);
-
-        private void SetAbility(Key key) => ability = playerSceneObject.GetAbility(keyAbiityMap[key]);
-
-        private readonly Dictionary<MouseButton, AbilityPosition> mouseAbiityMap = new Dictionary<MouseButton, AbilityPosition>() { { MouseButton.Left, AbilityPosition.Left }, { MouseButton.Right, AbilityPosition.Right } };
-        private readonly Dictionary<Key, AbilityPosition> keyAbiityMap = new Dictionary<Key, AbilityPosition>() { { Key.Q, AbilityPosition.Q }, { Key.E, AbilityPosition.E } };
         
         [FlowMethod(typeof(DamageContext))]
         public void Damage(bool forward)

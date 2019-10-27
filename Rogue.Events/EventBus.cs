@@ -15,7 +15,7 @@ namespace Rogue.Events
         /// <summary>
         /// Подписаться вообще на все события
         /// </summary>
-        public void Subscribe(Action<object> action) /*=> allsubscribers.Add(action);*/{ }
+        public void Subscribe(Action<object> action) => allsubscribers.Add(action);
 
         /// <summary>
         /// Подписаться на события всех таких типов
@@ -31,7 +31,6 @@ namespace Rogue.Events
             var ev = Get<TEvent>(args);
             if (autoUnsubscribe)
             {
-                Console.WriteLine("auto unsubs");
                 void subs(TEvent @event)
                 {
                     action?.Invoke(@event);
@@ -47,8 +46,6 @@ namespace Rogue.Events
                 {
                     @event += string.Join("`", args);
                 }
-
-                Console.WriteLine($"добавлен к обработчику {@event}");
                 events[@event] = ev += action;
             }
         }
@@ -71,9 +68,7 @@ namespace Rogue.Events
 
             if (!events.ContainsKey(@event))
             {
-                Action<TEvent> action = x => {
-                    Console.WriteLine($"вызван обработчик {@event}");
-                };
+                Action<TEvent> action = x => {};
                 allsubscribers.ForEach(s =>
                 {
                     action += x => s(x);

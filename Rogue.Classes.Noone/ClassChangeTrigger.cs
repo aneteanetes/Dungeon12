@@ -58,6 +58,7 @@ namespace Rogue.Classes
 
             to.Recalculate();
 
+            to.SetParentFlow(SceneObject.Avatar);
             SceneObject.Avatar.Character = to;
 
             Global.Events.Raise(new ClassChangeEvent()

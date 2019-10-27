@@ -44,9 +44,10 @@
                 filter = p => true;
             }
 
-            var classPerks = Modifiers.Where(filter);
-            foreach (var classPerk in classPerks)
+            var classPerks = Modifiers.Where(filter).ToArray();
+            for (int i = 0; i < classPerks.Count(); i++)
             {
+                var classPerk = classPerks.ElementAtOrDefault(i);
                 classPerk.Discard(this);
                 Modifiers.Remove(classPerk);
             }

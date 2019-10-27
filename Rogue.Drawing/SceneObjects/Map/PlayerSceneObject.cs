@@ -50,6 +50,7 @@
             OnStop?.Invoke(dir);
         }
 
+
         public Action OnStart;
         private Action<ISceneObject> destroyBinding;
         
@@ -342,6 +343,8 @@
             if (BlockMoveInput)
                 return;
 
+            base.KeyDown(key, modifier, hold);
+
             switch (key)
             {
                 case Key.D:
@@ -386,10 +389,13 @@
                         OppositeDirections.Add(Direction.Down);
                     }
                     break;
+                case Key.Q:
+                case Key.E:
+                    UseAbility();
+                    break;
                 default: break;
             }
 
-            base.KeyDown(key, modifier, hold);
         }
 
         public override void KeyUp(Key key, KeyModifiers modifier)
@@ -474,19 +480,11 @@
             Key.A,
             Key.W,
             Key.S,
+            Key.E,
+            Key.Q,
             Key.LeftShift
         };
-
-        public override void Focus()
-        {
-            //base.Focus();
-        }
-
-        public override void Unfocus()
-        {
-            //base.Unfocus();
-        }
-
+        
         private Direction _directionVision = Direction.Idle;
         private Direction DirectionVision
         {
@@ -563,8 +561,29 @@
         public List<TalantTree> GetTalantTrees() => talantTrees?.Invoke().ToList();
 
         public Ability GetAbility(AbilityPosition abilityPosition) => this.GetAbilities().FirstOrDefault(x => x.AbilityPosition == abilityPosition);
+        
+        protected override void Action(MouseButton mouseButton) => UseAbility();
 
-        protected override void Action(MouseButton mouseButton) { }
+        private void UseAbility()
+        {
+            if(!InFocus)
+            {
+                return;
+            }
+
+            if (ability == default)
+                return;
+
+            if (ability.TargetType == AbilityTargetType.TargetFrendly)
+            {
+                var avatar = playerSceneObject.Avatar;
+                ability.Target = this.Avatar.Character;
+                if (ability.CastAvailableCooldown(avatar))
+                {
+                    ability.CastCooldown(location, avatar);
+                }
+            }
+        }
 
         protected override void StopAction() { }
 

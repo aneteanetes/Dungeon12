@@ -1,9 +1,15 @@
 ﻿namespace Rogue.Drawing.SceneObjects.Map
 {
+    using Rogue.Abilities;
+    using Rogue.Abilities.Enums;
     using Rogue.Control.Events;
     using Rogue.Control.Keys;
     using Rogue.Control.Pointer;
     using Rogue.Drawing.SceneObjects.Common;
+    using Rogue.Map;
+    using Rogue.View.Interfaces;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public abstract class ClickActionSceneObject<T> : TooltipedSceneObject
         where T : Physics.PhysicalObject
@@ -23,15 +29,27 @@
                     this.playerSceneObject.OnMove += CheckStopAction;
                 }
             }
+
+            if (this is PlayerSceneObject playerSceneObject1)
+            {
+                this.playerSceneObject = playerSceneObject1;
+            }
         }
 
         protected virtual int GrowSize { get; set; } = 3;
 
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
-             ControlEventType.Focus,
-             ControlEventType.Click,
+            ControlEventType.Focus,
+            ControlEventType.Click,
             ControlEventType.Key
+        };
+
+        protected override Key[] KeyHandles => new Key[]
+        {
+            Key.Q,
+            Key.E,
+            Key.LeftShift,
         };
 
         private bool acting = false;
@@ -46,6 +64,8 @@
             if (!Clickable)
                 return;
 
+            SetAbility(args.MouseButton);
+
             if (CheckActionAvailable(args.MouseButton))
             {
                 SkillControl.CancelClick();
@@ -54,6 +74,11 @@
                 Action(args.MouseButton);
             }
         }
+
+        protected Ability ability;
+
+        private readonly Dictionary<MouseButton, AbilityPosition> mouseAbiityMap = new Dictionary<MouseButton, AbilityPosition>() { { MouseButton.Left, AbilityPosition.Left }, { MouseButton.Right, AbilityPosition.Right } };
+        private void SetAbility(MouseButton mouseButton) => ability = playerSceneObject.GetAbility(mouseAbiityMap[mouseButton]);
 
         private void CheckStopAction()
         {
@@ -83,7 +108,16 @@
             {
                 this.ShowTooltip();
             }
+
+            if (key == Key.Q || key == Key.E)
+            {
+                this.SetAbility(key);
+            }
         }
+
+        private void SetAbility(Key key) => ability = playerSceneObject.GetAbility(keyAbiityMap[key]);
+
+        private readonly Dictionary<Key, AbilityPosition> keyAbiityMap = new Dictionary<Key, AbilityPosition>() { { Key.Q, AbilityPosition.Q }, { Key.E, AbilityPosition.E } };
 
         public override void KeyUp(Key key, KeyModifiers modifier)
         {
@@ -91,6 +125,30 @@
             {
                 this.HideTooltip();
             }
+        }
+
+        public override void Focus()
+        {
+            if (@object is MapObject mapObject)
+            {
+                if (playerSceneObject != null)
+                {
+                    playerSceneObject.TargetsInFocus.Add(mapObject);
+                }
+            }
+            base.Focus();
+        }
+
+        public override void Unfocus()
+        {
+            if (@object is MapObject mapObject)
+            {
+                if (playerSceneObject != null)
+                {
+                    playerSceneObject.TargetsInFocus.Remove(mapObject);
+                }
+            }
+            base.Unfocus();
         }
     }
 }

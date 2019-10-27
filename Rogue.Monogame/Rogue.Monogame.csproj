@@ -41,6 +41,9 @@
     <ProjectReference Include="..\Rogue.Time\Rogue.Time.csproj" />
     <ProjectReference Include="..\Rogue.View\Rogue.View.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\Audio\Sound\Rogue.Classes.Servant\" />
+  </ItemGroup>
   <Import Project="$(SolutionDir)\NuGet.Common.props" />
   <Import Project="$(SolutionDir)\Symbols.props" />
 </Project>

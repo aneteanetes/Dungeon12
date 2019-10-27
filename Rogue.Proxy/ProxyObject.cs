@@ -71,7 +71,7 @@ namespace Rogue.Proxy
             var proxy = Proxies(p);
             var proxyId = GetProxyId(p);
 
-            return proxy.Get(v, proxyId, get, set);
+            return proxy.Get(v, proxyId, get, set, this, _Type,p);
         }
 
         protected void Set<TCalculatedType>(TCalculatedType v, [CallerMemberName] string from = "")
@@ -82,7 +82,7 @@ namespace Rogue.Proxy
             var proxy = Proxies(p);
             var proxyId = GetProxyId(p);
 
-            _Type[this, $"___{p}"] = proxy.Set(v, proxyId, get, set);
+            _Type[this, $"___{p}"] = proxy.Set(v, proxyId, get, set,this,_Type, p);
         }
 
         #region Drawable

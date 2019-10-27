@@ -1,9 +1,14 @@
-﻿using System;
+﻿using FastMember;
+using System;
 
 namespace Rogue
 {
     public abstract class ProxyProperty
     {
+        public string Name;
+        public object owner;
+        public TypeAccessor ownerAccessor;
+
         private Func<object> _get;
         private Action<object> _set;
 

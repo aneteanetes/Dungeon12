@@ -34,7 +34,7 @@
         protected string TooltipText;
 
         protected DrawText TooltipDrawText;
-
+        
         public override void Focus()
         {
             base.Focus();
@@ -85,6 +85,24 @@
         {
             aliveTooltip?.Destroy?.Invoke();
             aliveTooltip = null;
+        }
+        
+        [FlowMethod(typeof(AddEffectContext))]
+        public void AddEffect(bool forward)
+        {
+            if (!forward)
+            {
+                var effects = this.GetFlowProperty(nameof(AddEffectContext.Effects), Enumerable.Empty<ISceneObject>());
+                foreach (var effect in effects)
+                {
+                    this.AddChild(effect);
+                }
+            }
+        }
+
+        public class AddEffectContext
+        {
+            public IEnumerable<ISceneObject> Effects { get; set; }
         }
     }
 }

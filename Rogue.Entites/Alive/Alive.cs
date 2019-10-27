@@ -1,4 +1,5 @@
-﻿using Rogue.Network;
+﻿using Rogue.Entites.Alive.Proxies;
+using Rogue.Network;
 using Rogue.Types;
 
 namespace Rogue.Entites.Alive
@@ -18,7 +19,7 @@ namespace Rogue.Entites.Alive
         /// [Рассчётное через сеть]
         /// </para>
         /// </summary>
-        [Proxied(typeof(NetProxy))]
+        [Proxied(typeof(NetProxy), typeof(Limit))]
         public long HitPoints { get => Get(___HitPoints); set => Set(value); }
         public long ___HitPoints;
         

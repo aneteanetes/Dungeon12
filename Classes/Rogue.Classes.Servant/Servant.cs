@@ -9,6 +9,8 @@ namespace Rogue.Classes.Servant
 {
     public class Servant : BaseCharacterTileset
     {
+        public bool Serve { get; set; }
+
         public FaithPower FaithPower { get; set; } = new FaithPower();
 
         public override string Avatar => "servant.png".ImgPath();

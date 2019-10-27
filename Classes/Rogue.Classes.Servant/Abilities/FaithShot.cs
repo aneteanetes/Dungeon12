@@ -11,23 +11,25 @@ namespace Rogue.Classes.Servant.Abilities
 {
     public class FaithShot : BaseCooldownAbility<Servant>
     {
-        public override Cooldown Cooldown { get; } = BaseCooldown.Chain(1000, nameof(FaithShot)).Build();
+        public override Cooldown Cooldown { get; } = BaseCooldown.Chain(2500, nameof(FaithShot)).Build();
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Left;
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.DmgHealInstant;
 
-        public override AbilityTargetType TargetType => AbilityTargetType.TargetAndNonTarget;
+        public override AbilityTargetType TargetType => AbilityTargetType.Target;
 
         public override string Name => "Удар веры";
 
         public override ScaleRate Scale => ScaleRate.Build(Entites.Enums.Scale.AttackDamage);
 
-        protected override bool CanUse(Servant @class) => true;
+        protected override bool CanUse(Servant @class) => !@class.Serve;
         
         protected override void Dispose(GameMap gameMap, Avatar avatar, Servant @class)
         {
         }
+
+        protected override double RangeMultipler => 4;
 
         protected override void Use(GameMap gameMap, Avatar avatar, Servant @class)
         {            

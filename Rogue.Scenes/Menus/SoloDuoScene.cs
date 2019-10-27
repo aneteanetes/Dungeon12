@@ -38,26 +38,6 @@
             });
         }
 
-        private void Next(string value)
-        {
-            if (this.PlayerAvatar == null)
-            {
-                this.PlayerAvatar = new Map.Objects.Avatar
-                {
-                    Character = new Rogue.Classes.Noone.Noone()
-                };
-            }
-
-            this.PlayerAvatar.Character.Name = value[0].ToString().ToUpper() + value.Substring(1);
-
-            this.Switch<PlayerRaceScene>();
-        }
-
-        private void Back()
-        {
-            this.Switch<Start>();
-        }
-
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
             if (keyPressed == Key.Escape && !hold)

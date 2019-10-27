@@ -1,6 +1,7 @@
 ﻿namespace Rogue
 {
     using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
     using Microsoft.Xna.Framework.Media;
@@ -13,11 +14,12 @@
     using Rogue.View.Interfaces;
     using System;
     using System.Collections.Generic;
+    using System.Resources;
 
     public partial class XNADrawClient : Game, IDrawClient
     {
         private PenumbraComponent penumbra;
-        
+
         Texture2D _blankTexture;
         Renderer myRenderer;
 
@@ -66,7 +68,11 @@
             this.IsFixedTimeStep = true;//false;
             this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d); //60);
 
-            penumbra = new PenumbraComponent(this);
+            var _content = new ResourceContentManager(this.Services,
+                new ResourceManager("Rogue.Monogame.Resources", typeof(XNADrawClient).Assembly)
+            );
+
+            penumbra = new PenumbraComponent(this, _content);
             Components.Add(penumbra);
 
             penumbra.Lights.Add(SunLight);

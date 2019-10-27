@@ -1,16 +1,19 @@
 ﻿using Rogue.Abilities;
 using Rogue.Abilities.Enums;
 using Rogue.Abilities.Scaling;
+using Rogue.Drawing.Impl;
+using Rogue.Drawing.SceneObjects;
 using Rogue.Map;
 using Rogue.Map.Objects;
 using Rogue.Transactions;
+using Rogue.View.Interfaces;
 using System;
 
 namespace Rogue.Classes.Servant.Abilities
 {
     public class Prayer : Ability<Servant>
     {
-        public override AbilityPosition AbilityPosition => AbilityPosition.Q;
+        public override AbilityPosition AbilityPosition => AbilityPosition.Right;
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.Hold;
 
@@ -26,6 +29,7 @@ namespace Rogue.Classes.Servant.Abilities
 
         protected override void Use(GameMap gameMap, Avatar avatar, Servant @class)
         {
+            @class.Serve = true;
             holdedBuf = new PrayerBuff(@class);
             avatar.AddState(holdedBuf);
         }
@@ -34,8 +38,28 @@ namespace Rogue.Classes.Servant.Abilities
         {
             if (holdedBuf != null)
             {
+                @class.Serve = false;
                 avatar.RemoveState(holdedBuf);
                 holdedBuf = null;
+            }
+        }
+
+        private class PrayerEffect : SceneObject
+        {
+            public PrayerEffect()
+            {
+                this.Width = 1;
+                this.Height = 1;
+
+                this.Top = 0.5;
+                this.Left = 0.4;
+
+                this.Effects.Add(new ParticleEffect()
+                {
+                    Name="Prayer",
+                    Scale=0.2,
+                    Assembly="".AsmName()
+                });
             }
         }
 
@@ -51,8 +75,14 @@ namespace Rogue.Classes.Servant.Abilities
 
             IDisposable bufTick;
 
+            private PrayerEffect effect;
+
             public void Apply(Avatar avatar)
             {
+                effect = new PrayerEffect();
+
+                avatar.Flow(a => a.AddEffect(true), new { Effects = effect.InList<ISceneObject>() });
+
                 bufTick = Global.Time.Timer(nameof(PrayerBuff) + avatar.Name)
                     .After(3000)
                     .Repeat()
@@ -62,6 +92,7 @@ namespace Rogue.Classes.Servant.Abilities
 
             public void Discard(Avatar avatar)
             {
+                effect.Destroy?.Invoke();
                 bufTick.Dispose();
             }
 

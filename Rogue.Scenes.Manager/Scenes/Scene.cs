@@ -126,8 +126,7 @@
         {
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
-
-
+            
             if (Global.FreezeWorld==null && !Global.BlockSceneControls)
                 KeyPress(key, modifier, keyEventArgs.Hold);
 
@@ -332,6 +331,7 @@
             var handlers = elements
                 .Distinct()
                 .Where(c => c.Visible)
+                .Where(c=> Global.DrawClient.InCamera(c))
                 .Where(x =>
                 {
                     bool handle = x.CanHandle.Contains(handleEvent);

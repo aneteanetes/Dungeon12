@@ -62,6 +62,12 @@
 /processorParam:Quality=Best
 /build:Audio/Sound/focus.mp3
 
+#begin Audio/Sound/Rogue.Classes.Servant/heal.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Sound/Rogue.Classes.Servant/heal.wav
+
 #begin Audio/Sound/step.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

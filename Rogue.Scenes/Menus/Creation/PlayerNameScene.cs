@@ -28,10 +28,7 @@
         {
             if (this.PlayerAvatar == null)
             {
-                this.PlayerAvatar = new Map.Objects.Avatar
-                {
-                    Character = new Rogue.Classes.Noone.Noone()
-                };
+                this.PlayerAvatar = new Map.Objects.Avatar(new Rogue.Classes.Noone.Noone());
             }
 
             this.PlayerAvatar.Character.Name = value[0].ToString().ToUpper() + value.Substring(1);

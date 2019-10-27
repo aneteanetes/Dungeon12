@@ -24,14 +24,16 @@ namespace Penumbra
 
         private bool _initialized;
         private bool _beginDrawCalled;
+        private ResourceContentManager _resContent;
 
         /// <summary>
         /// Constructs a new instance of <see cref="PenumbraComponent"/>.
         /// </summary>
         /// <param name="game">Game object to associate the engine with.</param>
-        public PenumbraComponent(Game game)
+        public PenumbraComponent(Game game, ResourceContentManager content)
             : base(game)
         {
+            _resContent = content;
             // We only need to draw this component.
             Enabled = false;
         }
@@ -98,6 +100,7 @@ namespace Penumbra
         /// Explicitly initializes the engine. This should only be called if the
         /// component was not added to the game's components list through <c>Components.Add</c>.
         /// </summary>
+
         public override void Initialize()
         {
             if (_initialized) return;
@@ -105,17 +108,11 @@ namespace Penumbra
             base.Initialize();
             var deviceManager = (GraphicsDeviceManager)Game.Services.GetService<IGraphicsDeviceManager>();
 #if Core
-            _content = new ResourceContentManager(Game.Services,
-
-                new ResourceManager("MonoGame.Penumbra.DesktopGL.Resource.DesktopGL", typeof(PenumbraComponent).Assembly)
-
-            );
-
             _engine.Load(GraphicsDevice, deviceManager, Game.Window,
-                _content.Load<Effect>("PenumbraHull"),
-                _content.Load<Effect>("PenumbraLight"),
-                _content.Load<Effect>("PenumbraShadow"),
-                _content.Load<Effect>("PenumbraTexture"));
+                _resContent.Load<Effect>("PenumbraHull"),
+                _resContent.Load<Effect>("PenumbraLight"),
+                _resContent.Load<Effect>("PenumbraShadow"),
+                _resContent.Load<Effect>("PenumbraTexture"));
 #endif
             _initialized = true;
         }

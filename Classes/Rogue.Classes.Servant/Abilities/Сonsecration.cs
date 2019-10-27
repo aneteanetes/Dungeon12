@@ -21,7 +21,7 @@ namespace Rogue.Classes.Servant.Abilities
 
         public override AbilityTargetType TargetType => AbilityTargetType.NonTarget;
 
-        protected override bool CanUse(Servant @class) => @class.FaithPower.Value >= 3;
+        protected override bool CanUse(Servant @class) => !@class.Serve && @class.FaithPower.Value >= 3;
 
         protected override void Dispose(GameMap gameMap, Avatar avatar, Servant @class)
         {

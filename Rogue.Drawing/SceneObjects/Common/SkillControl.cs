@@ -329,7 +329,7 @@
                 return;
             }
 
-            if (player.TargetsInFocus.Count == 0)
+            if (player.TargetsInFocus.Count == 0 && (ability.TargetType== AbilityTargetType.NonTarget || ability.TargetType == AbilityTargetType.SelfTarget || ability.TargetType == AbilityTargetType.TargetAndNonTarget))
             {
                 if (this.ability.CastAvailableCooldown(avatar))
                 {

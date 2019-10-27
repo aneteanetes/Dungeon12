@@ -12,7 +12,7 @@ namespace Rogue.Network
             var config = new NetPeerConfiguration("Dungeon 12 v0.5");
             var client = new NetClient(config);
             client.Start();
-            client.Connect(host: "127.0.0.1", port: 3444);
+            client.Connect(host: "192.168.137.242", port: 3444);
             peer = client;
             SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
             client.RegisterReceivedCallback(new SendOrPostCallback(ClientMessage));

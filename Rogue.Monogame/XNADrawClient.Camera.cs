@@ -92,14 +92,25 @@
         private double Width = 40 * 32;
         private double Height = 22.5 * 32;
 
-        private bool InCamera(ISceneObject sceneObject)
+        public bool InCamera(ISceneObject sceneObject)
         {
+            var pos = sceneObject.Position;
+            if (sceneObject.AbsolutePosition)
+            {
+                var byX = pos.X >= 0 && pos.X <= 40;
+                var byY = pos.Y >= 0 && pos.Y <= 22.5;
+                return byX && byY;
+            }
+
+            var w = sceneObject.Position.Width == default ? 0.1 : sceneObject.Position.Width;
+            var h = sceneObject.Position.Height == default ? 0.1 : sceneObject.Position.Height;
+
             var cameraIn = IntersectsWith_WithoutAllocation(
                 CameraOffsetX*-1, CameraOffsetY*-1, Width, Height,
-                sceneObject.Position.X * 32, sceneObject.Position.Y * 32, sceneObject.Position.Width * 32, sceneObject.Position.Height * 32);
+                sceneObject.Position.X * 32, sceneObject.Position.Y * 32,  w * 32, h * 32);
 
             var objIn = IntersectsWith_WithoutAllocation(
-                sceneObject.Position.X * 32, sceneObject.Position.Y * 32, sceneObject.Position.Width * 32, sceneObject.Position.Height * 32,
+                sceneObject.Position.X * 32, sceneObject.Position.Y * 32, w * 32, h * 32,
                 CameraOffsetX, CameraOffsetY, Width, Height);
 
             return cameraIn || objIn;

@@ -21,5 +21,7 @@
         double CameraOffsetLimitY { get; }
 
         void SetCameraSpeed(double speed);
+
+        bool InCamera(ISceneObject sceneObject);
     }
 }

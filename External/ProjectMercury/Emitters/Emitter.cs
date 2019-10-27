@@ -398,7 +398,7 @@ namespace ProjectMercury.Emitters
 
                         if (FromAssemblyName != default)
                         {
-                            path = $"{this.FromAssemblyName}.{this.ParticleTextureAssetName}.png";
+                            path = $"{this.FromAssemblyName}.Images.{this.ParticleTextureAssetName}.png";
                         }
 
                         this.ParticleTexture = TileSetByName(path);

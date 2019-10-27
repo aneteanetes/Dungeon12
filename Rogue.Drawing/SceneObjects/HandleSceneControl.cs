@@ -61,8 +61,10 @@
             return control;
         }
 
+        protected bool InFocus { get; private set; }
         public virtual void Focus()
         {
+            InFocus = true;
             if (this.Cursor != null)
             {
                 Global.DrawClient.SetCursor(("Cursors." + this.Cursor + ".png").PathImage());
@@ -71,6 +73,7 @@
 
         public virtual void Unfocus()
         {
+            InFocus = false;
             if (this.Cursor != null)
             {
                 Global.DrawClient.SetCursor("Cursors.common.png".PathImage());

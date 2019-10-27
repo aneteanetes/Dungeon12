@@ -32,5 +32,8 @@ namespace Rogue.Map
         public void SetParentFlow(IFlowable parent) => flowparent = parent;
 
         public IFlowable GetParentFlow() => flowparent;
+        
+        [FlowMethod]
+        public void AddEffect(bool forward) { }
     }
 }

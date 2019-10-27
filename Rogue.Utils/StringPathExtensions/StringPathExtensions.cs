@@ -33,5 +33,11 @@ namespace Rogue
         /// <param name="img"></param>
         /// <returns></returns>
         public static string PathAsmImg(this string img) => ImgPath(img, Assembly.GetCallingAssembly().GetName().Name);
+
+
+        /// <summary>
+        /// Вернёт имя сборки + строка
+        /// <returns></returns>
+        public static string AsmName(this string img) => Assembly.GetCallingAssembly().GetName().Name + img;
     }
 }
