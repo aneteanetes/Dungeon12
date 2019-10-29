@@ -34,7 +34,7 @@ namespace Rogue.Classes.Servant.Effects.Сonsecration
         {
             this.AddChild(new CircleLight()
             {
-                Left=1.6,
+                Left=1.5,
                 Top=0.5
             });
 

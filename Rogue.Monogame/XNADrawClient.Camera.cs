@@ -94,7 +94,7 @@
 
         public bool InCamera(ISceneObject sceneObject)
         {
-            var pos = sceneObject.Position;
+            var pos = sceneObject.ComputedPosition;
             if (sceneObject.AbsolutePosition)
             {
                 var byX = pos.X >= 0 && pos.X <= 40;
@@ -102,15 +102,15 @@
                 return byX && byY;
             }
 
-            var w = sceneObject.Position.Width == default ? 0.1 : sceneObject.Position.Width;
-            var h = sceneObject.Position.Height == default ? 0.1 : sceneObject.Position.Height;
+            var w = sceneObject.ComputedPosition.Width == default ? 0.1 : sceneObject.ComputedPosition.Width;
+            var h = sceneObject.ComputedPosition.Height == default ? 0.1 : sceneObject.ComputedPosition.Height;
 
             var cameraIn = IntersectsWith_WithoutAllocation(
                 CameraOffsetX*-1, CameraOffsetY*-1, Width, Height,
-                sceneObject.Position.X * 32, sceneObject.Position.Y * 32,  w * 32, h * 32);
+                sceneObject.ComputedPosition.X * 32, sceneObject.ComputedPosition.Y * 32,  w * 32, h * 32);
 
             var objIn = IntersectsWith_WithoutAllocation(
-                sceneObject.Position.X * 32, sceneObject.Position.Y * 32, w * 32, h * 32,
+                sceneObject.ComputedPosition.X * 32, sceneObject.ComputedPosition.Y * 32, w * 32, h * 32,
                 CameraOffsetX, CameraOffsetY, Width, Height);
 
             return cameraIn || objIn;

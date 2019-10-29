@@ -76,9 +76,9 @@ namespace Rogue.Drawing.SceneObjects.Main.CharacterInfo.Talants
 
                             var from = new Point(point.X + 1, point.Y + 2);
                             var to = new Point(img.Left + 1, img.Top);
-                            this.AddChild(new LineSceneControl(from, to,color: color)
+                            this.AddChild(new LineSceneControl(from, to, color: color)
                             {
-                                Depth=2
+                                Depth = 2
                             });
                         }
                     }

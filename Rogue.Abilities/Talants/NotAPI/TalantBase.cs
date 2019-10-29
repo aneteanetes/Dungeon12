@@ -1,4 +1,6 @@
 ﻿using Rogue.Classes;
+using Rogue.Entites.Alive.Proxies;
+using Rogue.Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +16,17 @@ namespace Rogue.Abilities.Talants.NotAPI
 
         public virtual int Tier { get; set; }
 
-        public int Level { get; set; }
 
+        /// <summary>
+        /// 
+        /// <para>
+        /// [Рассчётное через сеть]
+        /// </para>
+        /// </summary>
+        [Proxied(typeof(Limit))]
+        public int Level { get => Get(___Level, typeof(TalantBase).AssemblyQualifiedName); set => Set(value, typeof(TalantBase).AssemblyQualifiedName); }
+        private int ___Level;
+        
         public virtual int MaxLevel { get; set; } = 5;
 
         public bool Available => Opened && (Activatable ? Active : true);

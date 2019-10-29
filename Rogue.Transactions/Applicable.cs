@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rogue.Network;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,7 +15,7 @@ namespace Rogue.Transactions
     /// Карочи, applicable слишком жирная абстракция, поэтому пока что сюда переедет `Image`
     /// </para>
     /// </summary>
-    public abstract class Applicable : IApplicable
+    public abstract class Applicable : NetObject, IApplicable
     {
         public virtual string Image { get; }
 

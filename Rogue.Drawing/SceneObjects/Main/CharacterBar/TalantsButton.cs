@@ -69,7 +69,10 @@
         private void ShowTalWindow()
         {
             if (talWindow != null)
+            {
+                talWindow.Destroy?.Invoke();
                 return;
+            }            
 
             playerSceneObject.StopMovings();
 

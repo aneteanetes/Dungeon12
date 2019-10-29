@@ -14,6 +14,7 @@
     <ProjectReference Include="..\..\Rogue.Entites\Rogue.Entites.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Images\Talants\" />
     <Folder Include="Particles\" />
   </ItemGroup>
   <Import Project="$(SolutionDir)\Symbols.props" />

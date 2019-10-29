@@ -1,6 +1,7 @@
 ﻿using Rogue.Abilities;
 using Rogue.Abilities.Talants.TalantTrees;
 using Rogue.Classes.Servant.Abilities;
+using Rogue.Classes.Servant.Talants;
 using Rogue.Drawing.Impl;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,9 @@ namespace Rogue.Classes.Servant
 
         public Сonsecration Сonsecration { get; set; } = new Сonsecration();
 
-        //public ArrowMakingTalants ArrowMakingTalants { get; set; } = new ArrowMakingTalants();
+        public PowerTalants PowerTalants { get; set; } = new PowerTalants();
+
+        public FaithTalants FaithTalants { get; set; } = new FaithTalants();
 
         public override T[] PropertiesOfType<T>()
         {
@@ -48,19 +51,19 @@ namespace Rogue.Classes.Servant
                         Сonsecration as T
                     };
                 case Type t when t.IsAssignableFrom(typeof(TalantTree)):
-                    return new T[] { };
+                    return new T[] { PowerTalants as T, FaithTalants as T };
                 default: return default;
             }
         }
 
-        //public override T PropertyOfType<T>()
-        //{
-        //    switch (typeof(T))
-        //    {
-        //        case Type abs when abs == typeof(ArrowMakingTalants): return ArrowMakingTalants as T;
-        //        default: return default;
-        //    }
-        //}
+        public override T PropertyOfType<T>()
+        {
+            switch (typeof(T))
+            {
+                case Type abs when abs == typeof(PowerTalants): return PowerTalants as T;
+                default: return default;
+            }
+        }
 
         //public double AtackSpeed { get; set; } = 1;
 
