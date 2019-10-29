@@ -44,6 +44,7 @@
             return (T)AddToValueCache(value);
         }
 
+
         private static object AddToValueCache(this object value)
         {
             var memInfo = value.GetType().GetMember(value.ToString());

@@ -15,16 +15,18 @@
         where TTab : TabControl<TContent, TArgument, TTab>
     {
         public string Title { get; set; }
+        private float _titleTextSize;
 
-        public TabControlFlex(SceneObject parent, bool active, TArgument argument = default, string title = null)
+        public TabControlFlex(SceneObject parent, bool active, TArgument argument = default, string title = null, float titleTextSize= 30f)
             : base(parent, active, argument, title)
         {
+            _titleTextSize = titleTextSize;
             this.Title = title;
         }
 
         private static IEnumerable<(double textWidth, TabControlFlex<TContent, TArgument, TTab> tab)> Measure(TabControlFlex<TContent, TArgument, TTab>[] all)
         {
-            return all.Select(flexTab => (Global.DrawClient.MeasureText(new DrawText(flexTab.Title)).X / 32, flexTab));
+            return all.Select(flexTab => (Global.DrawClient.MeasureText(new DrawText(flexTab.Title) { Size= flexTab._titleTextSize }.Triforce()).X / 32, flexTab));
         }
         
         public static void Flex(TabControlFlex<TContent, TArgument, TTab>[] all)
@@ -52,7 +54,7 @@
                 offset += flexTab.Width;
 
                 flexTab.RemoveChild<TextControl>();
-                flexTab.AddTextCenter(new DrawText(flexTab.Title), true, true);
+                flexTab.AddTextCenter(new DrawText(flexTab.Title) { Size= flexTab._titleTextSize }.Triforce(), true, true);
             }
         }
     }

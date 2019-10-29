@@ -45,6 +45,6 @@ namespace Rogue.Drawing.SceneObjects.NetworkTest
 
     public class NetworkObject : Alive
     {
-        protected override string ProxyId => Name;
+        public override string ProxyId => Name;
     }
 }

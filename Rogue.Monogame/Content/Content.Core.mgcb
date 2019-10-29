@@ -150,6 +150,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Triforce.spritefont
 
+#begin Triforce/Triforce12.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Triforce/Triforce12.spritefont
+
 #begin Triforce/Triforce16.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

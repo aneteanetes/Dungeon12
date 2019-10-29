@@ -11,11 +11,16 @@ namespace Rogue.Proxy
 {
     public class ProxyObject : IDrawable
     {
-        private TypeAccessor _Type;
 
-        public ProxyObject() => _Type = TypeAccessor.Create(this.GetType(),true);
+        protected TypeAccessor _Type;
+
+        public ProxyObject()
+        {
+            ProxyId = this.GetType().Name;
+            _Type = TypeAccessor.Create(this.GetType(), true);
+        }
         
-        protected virtual string ProxyId => this.GetType().Name;
+        public virtual string ProxyId { get; protected set; }
 
         /// <summary>
         /// 

@@ -18,10 +18,17 @@
 
             this.AddChild(new TorchButton(playerSceneObject, showEffects)
             {
-                Left = -1,
+                Left = -2,
                 Top=0.5,
                 SlideNeed= needSlide,
                 SlideOffsetLeft=5
+            });
+            this.AddChild(new JournalButton(playerSceneObject, showEffects)
+            {
+                Left = -1,
+                Top = 0.5,
+                SlideNeed = needSlide,
+                SlideOffsetLeft = 5
             });
             this.AddChild(new CharButton(gamemap, playerSceneObject, showEffects)
             {

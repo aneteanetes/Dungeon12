@@ -2,6 +2,7 @@
 {
     using Rogue.Entites.Alive;
     using Rogue.Entites.Alive.Enums;
+    using Rogue.Entites.Journal;
     using Rogue.Inventory;
     using Rogue.Items;
     using System;
@@ -20,7 +21,9 @@
             this.Clothes.OnPutOn += PutOnItem;
             this.Clothes.OnPutOff += PutOffItem;
         }
-        
+
+        public Journal Journal { get; set; } = new Journal();
+
         public Race Race { get; set; }
 
         public Origins Origin { get; set; }

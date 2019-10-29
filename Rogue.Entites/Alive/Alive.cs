@@ -11,7 +11,7 @@ namespace Rogue.Entites.Alive
     {
         public int Level { get; set; } = 1;
 
-        protected override string ProxyId => this.Uid;
+        public override string ProxyId => this.Uid;
 
         /// <summary>
         /// 
