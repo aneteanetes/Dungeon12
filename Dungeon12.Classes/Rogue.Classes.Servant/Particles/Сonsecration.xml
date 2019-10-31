@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ProjectMercury="ProjectMercury">
+  <Asset Type="ProjectMercury:ParticleEffect">
+    <Item Type="ProjectMercury.Emitters.RectEmitter">
+      <Name>Particles</Name>
+      <Budget>500</Budget>
+      <Term>1</Term>
+      <ReleaseQuantity>1</ReleaseQuantity>
+      <Enabled>True</Enabled>
+      <ReleaseSpeed>
+        <Value>0</Value>
+        <Variation>0</Variation>
+      </ReleaseSpeed>
+      <ReleaseColour>
+        <Value>1 1 0</Value>
+        <Variation>0 0 0</Variation>
+      </ReleaseColour>
+      <ReleaseOpacity>
+        <Value>1</Value>
+        <Variation>0</Variation>
+      </ReleaseOpacity>
+      <ReleaseScale>
+        <Value>2</Value>
+        <Variation>10</Variation>
+      </ReleaseScale>
+      <ReleaseRotation>
+        <Value>0</Value>
+        <Variation>0</Variation>
+      </ReleaseRotation>
+      <ReleaseImpulse>0 0</ReleaseImpulse>
+      <ParticleTextureAssetName>LensFlare</ParticleTextureAssetName>
+      <Modifiers>
+        <Item Type="ProjectMercury.Modifiers.LinearGravityModifier">
+          <Gravity>0 -150</Gravity>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.OpacityInterpolatorModifier">
+          <InitialOpacity>0</InitialOpacity>
+          <MiddleOpacity>1</MiddleOpacity>
+          <MiddlePosition>0.5</MiddlePosition>
+          <FinalOpacity>0</FinalOpacity>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.ScaleInterpolatorModifier">
+          <InitialScale>16</InitialScale>
+          <MiddleScale>32</MiddleScale>
+          <MiddlePosition>0.5</MiddlePosition>
+          <FinalScale>16</FinalScale>
+        </Item>
+      </Modifiers>
+      <BlendMode>Add</BlendMode>
+      <TriggerOffset>0 0</TriggerOffset>
+      <MinimumTriggerPeriod>0</MinimumTriggerPeriod>
+      <Width>100</Width>
+      <Height>100</Height>
+      <Rotation>0</Rotation>
+      <Frame>false</Frame>
+    </Item>
+    <Item Type="ProjectMercury.Emitters.CircleEmitter">
+      <Name>Emitter09</Name>
+      <Budget>1000</Budget>
+      <Term>1.5</Term>
+      <ReleaseQuantity>1</ReleaseQuantity>
+      <Enabled>True</Enabled>
+      <ReleaseSpeed>
+        <Value>0</Value>
+        <Variation>1</Variation>
+      </ReleaseSpeed>
+      <ReleaseColour>
+        <Value>1 1 0</Value>
+        <Variation>0 0 0</Variation>
+      </ReleaseColour>
+      <ReleaseOpacity>
+        <Value>1</Value>
+        <Variation>0</Variation>
+      </ReleaseOpacity>
+      <ReleaseScale>
+        <Value>10</Value>
+        <Variation>100</Variation>
+      </ReleaseScale>
+      <ReleaseRotation>
+        <Value>0</Value>
+        <Variation>0</Variation>
+      </ReleaseRotation>
+      <ReleaseImpulse>0 0</ReleaseImpulse>
+      <ParticleTextureAssetName>BeamBlurred</ParticleTextureAssetName>
+      <Modifiers>
+        <Item Type="ProjectMercury.Modifiers.DampingModifier">
+          <DampingCoefficient>0.5</DampingCoefficient>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.ForceInterpolatorModifier">
+          <InitialForce>5 5</InitialForce>
+          <MiddleForce>0 0.002</MiddleForce>
+          <MiddlePosition>0.003</MiddlePosition>
+          <FinalForce>0 0</FinalForce>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.ScaleInterpolatorModifier">
+          <InitialScale>0</InitialScale>
+          <MiddleScale>64</MiddleScale>
+          <MiddlePosition>0.5</MiddlePosition>
+          <FinalScale>0</FinalScale>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.OpacityFastFadeModifier" />
+      </Modifiers>
+      <BlendMode>Alpha</BlendMode>
+      <TriggerOffset>0 0</TriggerOffset>
+      <MinimumTriggerPeriod>0</MinimumTriggerPeriod>
+      <Radius>48</Radius>
+      <Ring>true</Ring>
+      <Radiate>true</Radiate>
+    </Item>
+    <Item Type="ProjectMercury.Emitters.CircleEmitter">
+      <Name>Copy of Emitter09</Name>
+      <Budget>1000</Budget>
+      <Term>1.5</Term>
+      <ReleaseQuantity>1</ReleaseQuantity>
+      <Enabled>True</Enabled>
+      <ReleaseSpeed>
+        <Value>0</Value>
+        <Variation>1</Variation>
+      </ReleaseSpeed>
+      <ReleaseColour>
+        <Value>1 1 0</Value>
+        <Variation>0 0 0</Variation>
+      </ReleaseColour>
+      <ReleaseOpacity>
+        <Value>0.5</Value>
+        <Variation>0</Variation>
+      </ReleaseOpacity>
+      <ReleaseScale>
+        <Value>1</Value>
+        <Variation>10</Variation>
+      </ReleaseScale>
+      <ReleaseRotation>
+        <Value>0</Value>
+        <Variation>0</Variation>
+      </ReleaseRotation>
+      <ReleaseImpulse>0 0</ReleaseImpulse>
+      <ParticleTextureAssetName>LensFlare</ParticleTextureAssetName>
+      <Modifiers>
+        <Item Type="ProjectMercury.Modifiers.DampingModifier">
+          <DampingCoefficient>0.5</DampingCoefficient>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.ForceInterpolatorModifier">
+          <InitialForce>5 5</InitialForce>
+          <MiddleForce>0 0.002</MiddleForce>
+          <MiddlePosition>0.003</MiddlePosition>
+          <FinalForce>0 0</FinalForce>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.ScaleInterpolatorModifier">
+          <InitialScale>0</InitialScale>
+          <MiddleScale>64</MiddleScale>
+          <MiddlePosition>0.5</MiddlePosition>
+          <FinalScale>0</FinalScale>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.OpacityFastFadeModifier" />
+      </Modifiers>
+      <BlendMode>Alpha</BlendMode>
+      <TriggerOffset>0 0</TriggerOffset>
+      <MinimumTriggerPeriod>0</MinimumTriggerPeriod>
+      <Radius>48</Radius>
+      <Ring>true</Ring>
+      <Radiate>true</Radiate>
+    </Item>
+    <Name>Beam Me Up</Name>
+    <Author>Matt Davey</Author>
+    <Description />
+  </Asset>
+</XnaContent>

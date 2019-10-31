@@ -1,0 +1,19 @@
+﻿{
+  "Icon": "H",
+  "Identity": "Fallen",
+  "Name": "Падший",
+  "Description": "Разгневавший богов.",
+  "Color": {
+    "R": 128,
+    "G": 0,
+    "B": 128,
+    "A": 255
+  },
+  "Effects": [
+    {
+      "Property": "MaxDMG",
+      "Value": 2,
+      "Positive": true
+    }
+  ]
+}

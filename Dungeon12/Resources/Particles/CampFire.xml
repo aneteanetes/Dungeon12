@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="ProjectMercury.ParticleEffect">
+    <Item Type="ProjectMercury.Emitters.LineEmitter">
+      <Name>Smoke</Name>
+      <Budget>100</Budget>
+      <Term>3</Term>
+      <ReleaseQuantity>1</ReleaseQuantity>
+      <Enabled>True</Enabled>
+      <ReleaseSpeed>
+        <Value>128</Value>
+        <Variation>64</Variation>
+      </ReleaseSpeed>
+      <ReleaseColour>
+        <Value>0.5019608 0.5019608 0.5019608</Value>
+        <Variation>0 0 0</Variation>
+      </ReleaseColour>
+      <ReleaseOpacity>
+        <Value>1</Value>
+        <Variation>0</Variation>
+      </ReleaseOpacity>
+      <ReleaseScale>
+        <Value>200</Value>
+        <Variation>100</Variation>
+      </ReleaseScale>
+      <ReleaseRotation>
+        <Value>0</Value>
+        <Variation>3.14</Variation>
+      </ReleaseRotation>
+      <ReleaseImpulse>0 0</ReleaseImpulse>
+      <ParticleTextureAssetName>Cloud001</ParticleTextureAssetName>
+      <Modifiers>
+        <Item Type="ProjectMercury.Modifiers.OpacityInterpolatorModifier">
+          <InitialOpacity>0</InitialOpacity>
+          <MiddleOpacity>0.375</MiddleOpacity>
+          <MiddlePosition>0.5</MiddlePosition>
+          <FinalOpacity>0</FinalOpacity>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.RotationModifier">
+          <RotationRate>0.5</RotationRate>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.ColourModifier">
+          <InitialColour>0.2509804 0.184313729 0.156862751</InitialColour>
+          <UltimateColour>0.2509804 0.2509804 0.2509804</UltimateColour>
+        </Item>
+      </Modifiers>
+      <BlendMode>Alpha</BlendMode>
+      <TriggerOffset>0 -30</TriggerOffset>
+      <MinimumTriggerPeriod>0.1</MinimumTriggerPeriod>
+      <Length>150</Length>
+      <Angle>0</Angle>
+      <Rectilinear>true</Rectilinear>
+      <EmitBothWays>false</EmitBothWays>
+    </Item>
+    <Item Type="ProjectMercury.Emitters.LineEmitter">
+      <Name>Embers</Name>
+      <Budget>100</Budget>
+      <Term>3</Term>
+      <ReleaseQuantity>1</ReleaseQuantity>
+      <Enabled>True</Enabled>
+      <ReleaseSpeed>
+        <Value>192</Value>
+        <Variation>64</Variation>
+      </ReleaseSpeed>
+      <ReleaseColour>
+        <Value>1 0.5019608 0</Value>
+        <Variation>0.25 0 0</Variation>
+      </ReleaseColour>
+      <ReleaseOpacity>
+        <Value>1</Value>
+        <Variation>0</Variation>
+      </ReleaseOpacity>
+      <ReleaseScale>
+        <Value>4</Value>
+        <Variation>2</Variation>
+      </ReleaseScale>
+      <ReleaseRotation>
+        <Value>0</Value>
+        <Variation>0</Variation>
+      </ReleaseRotation>
+      <ReleaseImpulse>0 0</ReleaseImpulse>
+      <ParticleTextureAssetName>Particle005</ParticleTextureAssetName>
+      <Modifiers>
+        <Item Type="ProjectMercury.Modifiers.OpacityInterpolatorModifier">
+          <InitialOpacity>0</InitialOpacity>
+          <MiddleOpacity>1</MiddleOpacity>
+          <MiddlePosition>0.5</MiddlePosition>
+          <FinalOpacity>0</FinalOpacity>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.DampingModifier">
+          <DampingCoefficient>0.8</DampingCoefficient>
+        </Item>
+      </Modifiers>
+      <BlendMode>Add</BlendMode>
+      <TriggerOffset>0 0</TriggerOffset>
+      <MinimumTriggerPeriod>0.15</MinimumTriggerPeriod>
+      <Length>150</Length>
+      <Angle>0</Angle>
+      <Rectilinear>true</Rectilinear>
+      <EmitBothWays>false</EmitBothWays>
+    </Item>
+    <Item Type="ProjectMercury.Emitters.LineEmitter">
+      <Name>Flames1</Name>
+      <Budget>1000</Budget>
+      <Term>1</Term>
+      <ReleaseQuantity>1</ReleaseQuantity>
+      <Enabled>True</Enabled>
+      <ReleaseSpeed>
+        <Value>32</Value>
+        <Variation>32</Variation>
+      </ReleaseSpeed>
+      <ReleaseColour>
+        <Value>0.7529412 0.2509804 0</Value>
+        <Variation>0.25 0 0</Variation>
+      </ReleaseColour>
+      <ReleaseOpacity>
+        <Value>1</Value>
+        <Variation>0</Variation>
+      </ReleaseOpacity>
+      <ReleaseScale>
+        <Value>16</Value>
+        <Variation>0</Variation>
+      </ReleaseScale>
+      <ReleaseRotation>
+        <Value>0</Value>
+        <Variation>3.14</Variation>
+      </ReleaseRotation>
+      <ReleaseImpulse>0 0</ReleaseImpulse>
+      <ParticleTextureAssetName>Flame</ParticleTextureAssetName>
+      <Modifiers>
+        <Item Type="ProjectMercury.Modifiers.OpacityInterpolatorModifier">
+          <InitialOpacity>0</InitialOpacity>
+          <MiddleOpacity>0.65</MiddleOpacity>
+          <MiddlePosition>0.2</MiddlePosition>
+          <FinalOpacity>0</FinalOpacity>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.LinearGravityModifier">
+          <Gravity>0 -150</Gravity>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.ScaleModifier">
+          <InitialScale>64</InitialScale>
+          <UltimateScale>32</UltimateScale>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.RotationModifier">
+          <RotationRate>1</RotationRate>
+        </Item>
+      </Modifiers>
+      <BlendMode>Add</BlendMode>
+      <TriggerOffset>0 0</TriggerOffset>
+      <MinimumTriggerPeriod>0</MinimumTriggerPeriod>
+      <Length>150</Length>
+      <Angle>0</Angle>
+      <Rectilinear>true</Rectilinear>
+      <EmitBothWays>false</EmitBothWays>
+    </Item>
+    <Item Type="ProjectMercury.Emitters.LineEmitter">
+      <Name>Flames2</Name>
+      <Budget>1000</Budget>
+      <Term>1</Term>
+      <ReleaseQuantity>1</ReleaseQuantity>
+      <Enabled>True</Enabled>
+      <ReleaseSpeed>
+        <Value>32</Value>
+        <Variation>32</Variation>
+      </ReleaseSpeed>
+      <ReleaseColour>
+        <Value>0.7529412 0.2509804 0</Value>
+        <Variation>0.25 0 0</Variation>
+      </ReleaseColour>
+      <ReleaseOpacity>
+        <Value>1</Value>
+        <Variation>0</Variation>
+      </ReleaseOpacity>
+      <ReleaseScale>
+        <Value>16</Value>
+        <Variation>0</Variation>
+      </ReleaseScale>
+      <ReleaseRotation>
+        <Value>0</Value>
+        <Variation>3.14</Variation>
+      </ReleaseRotation>
+      <ReleaseImpulse>0 0</ReleaseImpulse>
+      <ParticleTextureAssetName>Flame</ParticleTextureAssetName>
+      <Modifiers>
+        <Item Type="ProjectMercury.Modifiers.OpacityInterpolatorModifier">
+          <InitialOpacity>0</InitialOpacity>
+          <MiddleOpacity>0.65</MiddleOpacity>
+          <MiddlePosition>0.2</MiddlePosition>
+          <FinalOpacity>0</FinalOpacity>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.LinearGravityModifier">
+          <Gravity>0 -150</Gravity>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.ScaleModifier">
+          <InitialScale>64</InitialScale>
+          <UltimateScale>32</UltimateScale>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.RotationModifier">
+          <RotationRate>-1</RotationRate>
+        </Item>
+      </Modifiers>
+      <BlendMode>Add</BlendMode>
+      <TriggerOffset>0 0</TriggerOffset>
+      <MinimumTriggerPeriod>0</MinimumTriggerPeriod>
+      <Length>150</Length>
+      <Angle>0</Angle>
+      <Rectilinear>true</Rectilinear>
+      <EmitBothWays>false</EmitBothWays>
+    </Item>
+    <Name>Camp Fire</Name>
+    <Author>Matt davey</Author>
+    <Description />
+  </Asset>
+</XnaContent>

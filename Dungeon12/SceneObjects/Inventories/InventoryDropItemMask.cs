@@ -1,0 +1,65 @@
+﻿namespace Dungeon12.Drawing.SceneObjects.Inventories
+{
+    using Force.DeepCloner;
+    using Dungeon.Drawing.SceneObjects.Main.CharacterInfo;
+    using Dungeon.Drawing.SceneObjects.Map;
+    using Dungeon.Drawing.SceneObjects.UI;
+    using Dungeon.Map;
+
+    public class InventoryDropItemMask : DropableControl<InventoryItem>
+    {
+        public override bool AbsolutePosition => true;
+        public override bool CacheAvailable => true;
+
+        private PlayerSceneObject playerSceneObject;
+        private Inventory inventory;
+        private GameMap gameMap;
+
+        public InventoryDropItemMask(PlayerSceneObject playerSceneObject, Inventory inventory, GameMap gameMap)
+        {
+            this.gameMap = gameMap;
+            this.inventory = inventory;
+            this.playerSceneObject = playerSceneObject;
+            this.Width = 40;
+            this.Height = 22.5;
+        }
+
+        protected override void OnDrop(InventoryItem source)
+        {
+            if (source.DropProcessed == 1)
+            {
+                if (source.Parent is Inventory invContainer) //получить таргет
+                {
+                    if (invContainer.Parent is CharacterInfoWindow)
+                    {
+                        playerSceneObject.Avatar.Character.Backpack.Remove(source.Item);
+                        AddLootToMap(source);
+
+                        inventory.Refresh();
+                    }
+                    else
+                    {
+                        source.Destroy?.Invoke();
+                        invContainer.Refresh();
+                    }
+                }
+            }
+
+            base.OnDrop(source);
+        }
+
+        private void AddLootToMap(InventoryItem source)
+        {
+            var lootItem = new Rogue.Map.Objects.Loot()
+            {
+                Item = source.Item
+            };
+
+            lootItem.Location = gameMap.RandomizeLocation(playerSceneObject.Avatar.Location.DeepClone());
+            lootItem.Destroy += () => gameMap.Map.Remove(lootItem);
+
+            gameMap.Map.Add(lootItem);
+            gameMap.PublishObject(lootItem);
+        }
+    }
+}

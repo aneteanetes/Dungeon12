@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\**\*" />
+    <EmbeddedResource Include="Particles\**\*" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Rogue.Classes\Rogue.Classes.csproj" />
+    <ProjectReference Include="..\..\Rogue.Drawing\Rogue.Drawing.csproj" />
+    <ProjectReference Include="..\..\Rogue.Entites\Rogue.Entites.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\Effects\" />
+  </ItemGroup>
+  <Import Project="$(SolutionDir)\Symbols.props" />
+</Project>

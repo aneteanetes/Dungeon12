@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ProjectMercury="ProjectMercury">
+  <Asset Type="ProjectMercury:ParticleEffect">
+    <Item Type="ProjectMercury.Emitters.RectEmitter">
+      <Name>Slow Beams</Name>
+      <Budget>100</Budget>
+      <Term>1.5</Term>
+      <ReleaseQuantity>3</ReleaseQuantity>
+      <Enabled>True</Enabled>
+      <ReleaseSpeed>
+        <Value>0</Value>
+        <Variation>0</Variation>
+      </ReleaseSpeed>
+      <ReleaseColour>
+        <Value>0 0.5019608 0.5019608</Value>
+        <Variation>0 0 0.1</Variation>
+      </ReleaseColour>
+      <ReleaseOpacity>
+        <Value>1</Value>
+        <Variation>0</Variation>
+      </ReleaseOpacity>
+      <ReleaseScale>
+        <Value>150</Value>
+        <Variation>0</Variation>
+      </ReleaseScale>
+      <ReleaseRotation>
+        <Value>0</Value>
+        <Variation>0</Variation>
+      </ReleaseRotation>
+      <ReleaseImpulse>0 0</ReleaseImpulse>
+      <ParticleTextureAssetName>Particle001</ParticleTextureAssetName>
+      <Modifiers>
+        <Item Type="ProjectMercury.Modifiers.OpacityInterpolatorModifier">
+          <InitialOpacity>0</InitialOpacity>
+          <MiddleOpacity>0.3</MiddleOpacity>
+          <MiddlePosition>0.5</MiddlePosition>
+          <FinalOpacity>0</FinalOpacity>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.LinearGravityModifier">
+          <Gravity>0 105</Gravity>
+        </Item>
+      </Modifiers>
+      <BlendMode>Alpha</BlendMode>
+      <TriggerOffset>0 0</TriggerOffset>
+      <MinimumTriggerPeriod>0.25</MinimumTriggerPeriod>
+      <Width>120</Width>
+      <Height>100</Height>
+      <Rotation>0</Rotation>
+      <Frame>false</Frame>
+    </Item>
+    <Name>Beam Me Up</Name>
+    <Author>Matt Davey</Author>
+    <Description />
+  </Asset>
+</XnaContent>

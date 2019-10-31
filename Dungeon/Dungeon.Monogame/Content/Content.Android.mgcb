@@ -1,0 +1,106 @@
+
+#----------------------------- Global Properties ----------------------------#
+
+/outputDir:C:\Users\a.tretyakov\source\repos\Rogue2\Platforms\Android\obj\Android\Platformer2D\Content\
+/intermediateDir:C:\Users\a.tretyakov\source\repos\Rogue2\Platforms\Android\Content\bin\Android\Content\
+/platform:WindowsStoreApp
+/config:
+/profile:Reach
+/compress:False
+
+#-------------------------------- References --------------------------------#
+
+
+#---------------------------------- Content ---------------------------------#
+
+#begin Arial.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Arial.spritefont
+
+#begin Montserrat.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Montserrat.spritefont
+
+#begin Montserrat/Montserrat11.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Montserrat/Montserrat11.spritefont
+
+#begin Montserrat/Montserrat12.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Montserrat/Montserrat12.spritefont
+
+#begin Montserrat/Montserrat14.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Montserrat/Montserrat14.spritefont
+
+#begin Montserrat/Montserrat17.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Montserrat/Montserrat17.spritefont
+
+#begin Montserrat/Montserrat19.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Montserrat/Montserrat19.spritefont
+
+#begin Montserrat/Montserrat20.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Montserrat/Montserrat20.spritefont
+
+#begin Montserrat/Montserrat40.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Montserrat/Montserrat40.spritefont
+
+#begin Triforce.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Triforce.spritefont
+
+#begin Triforce/Triforce16.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Triforce/Triforce16.spritefont
+
+#begin Triforce/Triforce24.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Triforce/Triforce24.spritefont
+
+#begin Triforce/Triforce30.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Triforce/Triforce30.spritefont
+

@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <LangVersion>Latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dungeon.Core\Dungeon.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DeepCloner" Version="0.10.2" />
+  </ItemGroup>
+</Project>

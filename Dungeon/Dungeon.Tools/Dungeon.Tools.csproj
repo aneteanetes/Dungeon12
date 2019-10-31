@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <LangVersion>Latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="AndroidProjectConverter\Templates\PackageRefTemplate.xml" />
+    <None Remove="AndroidProjectConverter\Templates\ProjectInSolutionTemplate.slnt" />
+    <None Remove="AndroidProjectConverter\Templates\ProjectRefTemplate.xml" />
+    <None Remove="AndroidProjectConverter\Templates\ProjectTemplate.xml" />
+    <None Remove="AndroidProjectConverter\Templates\SolutionTemplate.slnt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="AndroidProjectConverter\Templates\PackageRefTemplate.xml" />
+    <EmbeddedResource Include="AndroidProjectConverter\Templates\ProjectInSolutionTemplate.slnt" />
+    <EmbeddedResource Include="AndroidProjectConverter\Templates\ProjectRefTemplate.xml" />
+    <EmbeddedResource Include="AndroidProjectConverter\Templates\ProjectTemplate.xml" />
+    <EmbeddedResource Include="AndroidProjectConverter\Templates\SolutionTemplate.slnt" />
+  </ItemGroup>
+</Project>

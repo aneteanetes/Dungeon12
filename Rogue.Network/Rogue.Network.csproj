@@ -12,7 +12,5 @@
   <ItemGroup>
     <ProjectReference Include="..\Rogue.Events\Rogue.Events.csproj" />
     <ProjectReference Include="..\Rogue.Global\Rogue.Global.csproj" />
-    <ProjectReference Include="..\Rogue.Proxy\Rogue.Proxy.csproj" />
-    <ProjectReference Include="..\Rogue.Utils\Rogue.Utils.csproj" />
   </ItemGroup>
 </Project>

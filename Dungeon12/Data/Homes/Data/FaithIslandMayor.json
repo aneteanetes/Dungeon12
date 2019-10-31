@@ -1,0 +1,11 @@
+﻿{
+  "Level": 1,
+  "IdentifyName": "FaithIslandMayor",
+  "Name": "Дом Мэра",
+  "ScreenImage": "Rogue.Resources.Images.NPCs.FaithIsland.home.home (1).png",
+  "Frames": 10,
+  "Conversations": [
+    "FaithIslandMayor",
+    "HighPriestOfFaithF"
+  ]
+}

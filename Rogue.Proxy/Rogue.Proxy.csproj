@@ -4,8 +4,4 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\Symbols.props" />
-  <ItemGroup>
-    <ProjectReference Include="..\Rogue.Utils\Rogue.Utils.csproj" />
-    <ProjectReference Include="..\Rogue.View\Rogue.View.csproj" />
-  </ItemGroup>
 </Project>
