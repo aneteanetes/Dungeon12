@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dungeon12.Classes.Bowman
+namespace Dungeon12.Bowman
 {
     public class Energy
     {

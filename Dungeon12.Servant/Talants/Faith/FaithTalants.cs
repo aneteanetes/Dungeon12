@@ -1,11 +1,11 @@
 ﻿using Dungeon.Abilities.Talants;
-using Dungeon12.Classes.Servant.Talants.Faith;
-using Dungeon12.Classes.Servant.Talants.Power;
+using Dungeon12.Servant.Talants.Faith;
+using Dungeon12.Servant.Talants.Power;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dungeon12.Classes.Servant.Talants
+namespace Dungeon12.Servant.Talants
 {
     public class FaithTalants : TalantTree<Servant>
     {

@@ -60,7 +60,7 @@
                 AbsolutePosition = true,
                 OnClick = () =>
                 {
-                    this.PlayerAvatar = new Avatar(new Dungeon12.Classes.Noone.Noone()
+                    this.PlayerAvatar = new Avatar(new Dungeon12.Noone.Noone()
                     {
                         Origin = Dungeon.Entites.Alive.Enums.Origins.Farmer
                     });

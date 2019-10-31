@@ -31,7 +31,7 @@
         {
             if (this.PlayerAvatar == null)
             {
-                this.PlayerAvatar = new Avatar(new Dungeon12.Classes.Noone.Noone());
+                this.PlayerAvatar = new Avatar(new Dungeon12.Noone.Noone());
             }
 
             this.PlayerAvatar.Character.Name = value[0].ToString().ToUpper() + value.Substring(1);

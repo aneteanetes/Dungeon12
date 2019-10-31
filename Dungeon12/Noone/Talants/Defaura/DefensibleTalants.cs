@@ -1,6 +1,6 @@
 ﻿using Dungeon.Abilities.Talants;
 
-namespace Dungeon12.Classes.Noone.Talants.Defensible
+namespace Dungeon12.Noone.Talants.Defensible
 {
     public class DefensibleTalants : TalantTree<Noone>
     {

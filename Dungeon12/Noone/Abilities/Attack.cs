@@ -1,9 +1,9 @@
-﻿namespace Dungeon12.Classes.Noone.Abilities
+﻿namespace Dungeon12.Noone.Abilities
 {
     using Dungeon.Abilities;
     using Dungeon.Abilities.Enums;
     using Dungeon.Abilities.Scaling;
-    using Dungeon12.Classes.Noone.Talants;
+    using Dungeon12.Noone.Talants;
     using Dungeon.SceneObjects;
     using Dungeon.Map;
     using Dungeon.Map.Objects;

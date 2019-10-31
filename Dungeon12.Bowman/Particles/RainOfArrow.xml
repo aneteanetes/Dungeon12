@@ -28,7 +28,7 @@
         <Variation>0</Variation>
       </ReleaseRotation>
       <ReleaseImpulse>0 0</ReleaseImpulse>
-      <ParticleTextureAssetName>Images.Effects.ArrowRainDrop</ParticleTextureAssetName>
+      <ParticleTextureAssetName>Effects.ArrowRainDrop</ParticleTextureAssetName>
       <Modifiers>
         <Item Type="ProjectMercury.Modifiers.LinearGravityModifier">
           <Gravity>0 3000</Gravity>

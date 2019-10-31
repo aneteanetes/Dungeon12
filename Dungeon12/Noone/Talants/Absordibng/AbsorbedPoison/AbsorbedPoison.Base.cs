@@ -1,6 +1,6 @@
 ﻿using Dungeon.Abilities;
 using Dungeon.Abilities.Talants;
-using Dungeon12.Classes.Noone.Abilities;
+using Dungeon12.Noone.Abilities;
 using Dungeon.SceneObjects;
 using Dungeon.Entites.Enemy;
 using Dungeon.Map;
@@ -11,7 +11,7 @@ using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dungeon12.Classes.Noone.Talants.Absordibng
+namespace Dungeon12.Noone.Talants.Absordibng
 {
     public partial class AbsorbedPoison : Talant<Noone>
     {

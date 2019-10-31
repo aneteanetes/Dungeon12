@@ -3,11 +3,11 @@ using Dungeon.Abilities.Talants;
 using Dungeon.SceneObjects;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
-using Dungeon12.Classes.Noone.Abilities;
+using Dungeon12.Noone.Abilities;
 using System;
 using System.Collections.Generic;
 
-namespace Dungeon12.Classes.Noone.Talants.Absordibng
+namespace Dungeon12.Noone.Talants.Absordibng
 {
     public partial class AbsorbedPoison : Talant<Noone>
     {

@@ -346,7 +346,10 @@
         {
             var image = TileSetByName(sceneObject.Image);
             if (image == default)
+            {
+                Console.WriteLine("dfs");
                 return;
+            }
 
             if (force || !TileSetCache.TryGetValue(sceneObject.Uid, out Rect tileRegion))
             {

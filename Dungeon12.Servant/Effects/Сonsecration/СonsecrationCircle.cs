@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dungeon12.Classes.Servant.Effects.Сonsecration
+namespace Dungeon12.Servant.Effects.Сonsecration
 {
     public class СonsecrationCircle : Dungeon.Drawing.SceneObjects.ImageControl
     {
@@ -60,7 +60,7 @@ namespace Dungeon12.Classes.Servant.Effects.Сonsecration
                     {
                         Name="Сonsecration",
                         Scale = 1,
-                        Assembly="Dungeon.Classes.Servant"
+                        Assembly="Dungeon12.Servant"
                     }
                 };
             }

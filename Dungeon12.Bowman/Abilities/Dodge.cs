@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dungeon12.Classes.Bowman.Abilities
+namespace Dungeon12.Bowman.Abilities
 {
     public class Dodge : Ability<Bowman>
     {

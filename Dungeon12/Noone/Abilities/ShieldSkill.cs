@@ -1,13 +1,13 @@
 ﻿using Dungeon.Abilities;
 using Dungeon.Abilities.Enums;
 using Dungeon.Abilities.Scaling;
-using Dungeon12.Classes.Noone.Talants;
+using Dungeon12.Noone.Talants;
 using Dungeon.Map;
 using Dungeon.Map.Objects;
 using Dungeon.Transactions;
 using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 
-namespace Dungeon12.Classes.Noone.Abilities
+namespace Dungeon12.Noone.Abilities
 {
     public class ShieldSkill : Ability<Noone, AbsorbingTalants>
     {

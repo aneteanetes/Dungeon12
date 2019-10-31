@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dungeon12.Classes.Bowman.Effects
+namespace Dungeon12.Bowman.Effects
 {
     public class Arrow : AnimatedSceneObject<ArrowObject>
     {
@@ -76,7 +76,7 @@ namespace Dungeon12.Classes.Bowman.Effects
                     {
                         Name="PowerArrow",
                         Scale = 1,
-                        Assembly="Dungeon.Classes.Bowman"
+                        Assembly="Dungeon12.Bowman"
                     }
                 };
             }

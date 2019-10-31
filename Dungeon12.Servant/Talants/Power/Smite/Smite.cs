@@ -1,6 +1,6 @@
 ﻿using Dungeon.Abilities.Talants;
 
-namespace Dungeon12.Classes.Servant.Talants.Power
+namespace Dungeon12.Servant.Talants.Power
 {
     public class Smite : Talant<Servant>
     {

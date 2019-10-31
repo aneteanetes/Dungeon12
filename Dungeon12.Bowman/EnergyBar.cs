@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using Dungeon;
 
-namespace Dungeon12.Classes.Bowman
+namespace Dungeon12.Bowman
 {
     public class EnergyBar : ResourceBar<Bowman>
     {
@@ -25,13 +25,13 @@ namespace Dungeon12.Classes.Bowman
             this.AddChild(leftBar);
             this.AddChild(new EnergyBarHand(avatar,false)
             {
-                Left = 0.031+ MeasureImage("Dungeon.Classes.Bowman.Images.energy.png").X+0.1,
+                Left = 0.031+ MeasureImage("Dungeon12.Bowman.Images.energy.png").X+0.1,
                 Top = 0.031,
                 Height = 0.46875
             });
         }
 
-        protected override string BarTile => "Dungeon.Resources.Images.ui.player.hp_back.png";
+        protected override string BarTile => "Dungeon12.Resources.Images.ui.player.hp_back.png";
 
         private class EnergyBarHand : Dungeon.Drawing.SceneObjects.ImageControl
         {
@@ -41,7 +41,7 @@ namespace Dungeon12.Classes.Bowman
 
             public bool left;
 
-            public EnergyBarHand(Bowman archer,bool left=true) : base("Dungeon.Classes.Bowman.Images.energy.png")
+            public EnergyBarHand(Bowman archer,bool left=true) : base("Dungeon12.Bowman.Images.energy.png")
             {
                 this.left = left;
                 this.archer = archer;

@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dungeon12.Classes.Servant.Effects.FaithShot
+namespace Dungeon12.Servant.Effects.FaithShot
 {
     public class Smash : AnimatedSceneObject<Avatar>
     {
@@ -69,7 +69,7 @@ namespace Dungeon12.Classes.Servant.Effects.FaithShot
                     {
                         Name="FaithShot",
                         Scale = 1,
-                        Assembly="Dungeon.Classes.Servant"
+                        Assembly="Dungeon12.Servant"
                     }
                 };
             }

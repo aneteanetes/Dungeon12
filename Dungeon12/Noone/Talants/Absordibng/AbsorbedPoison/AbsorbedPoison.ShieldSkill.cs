@@ -6,10 +6,10 @@ using Dungeon.Map.Objects;
 using Dungeon.SceneObjects;
 using Dungeon.Transactions;
 using Dungeon.View.Interfaces;
-using Dungeon12.Classes.Noone.Abilities;
+using Dungeon12.Noone.Abilities;
 using System;
 
-namespace Dungeon12.Classes.Noone.Talants.Absordibng
+namespace Dungeon12.Noone.Talants.Absordibng
 {
     public partial class AbsorbedPoison : Talant<Noone>
     {

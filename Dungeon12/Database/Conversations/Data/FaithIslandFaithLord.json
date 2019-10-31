@@ -32,7 +32,7 @@
           "Tag": 5,
           "Answer": "(Сменить класс на: Служитель веры)",
           "Text": "Смена класса",
-          "TriggerClass": "Dungeon12.Classes.ClassChangeTrigger",
+          "TriggerClass": "Dungeon12.ClassChangeTrigger",
           "TriggerClassAsm": "Dungeon12",
           "TriggerClassArguments": [
             "Dungeon12.Servant.Servant",

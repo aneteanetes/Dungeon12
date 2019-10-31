@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Classes
+﻿namespace Dungeon12
 {
     using Dungeon;
     using Dungeon.Drawing.SceneObjects;

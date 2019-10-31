@@ -3,7 +3,7 @@ using Dungeon.Drawing.SceneObjects;
 using Dungeon.Drawing.SceneObjects.UI;
 using System.Linq;
 
-namespace Dungeon12.Classes.Servant
+namespace Dungeon12.Servant
 {
     public class FaithPowerBar : ResourceBar<Servant>
     {

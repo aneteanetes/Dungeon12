@@ -1,19 +1,21 @@
 ﻿using Dungeon.Abilities;
 using Dungeon.Abilities.Talants.TalantTrees;
-using Dungeon.Classes;
-using Dungeon12.Classes.Bowman.Talants;
+using Dungeon12;
+using Dungeon12.Bowman.Talants;
 using Dungeon.Drawing.Impl;
-using Dungeon12.Classes.Bowman.Abilities;
+using Dungeon12.Bowman.Abilities;
 using System;
 using System.Collections.Generic;
+using Dungeon12.Bowman;
+using Dungeon.Classes;
 
-namespace Dungeon12.Classes.Bowman
+namespace Dungeon12.Bowman
 {
     public class Bowman : BaseCharacterTileset
     {
         public Energy Energy { get; set; } = new Energy();
 
-        public override string Avatar => "Dungeon.Classes.Bowman.Images.archer.png";
+        public override string Avatar => "Dungeon12.Bowman.Images.archer.png";
 
         public override string ClassName => "Лучник";
 
@@ -23,7 +25,7 @@ namespace Dungeon12.Classes.Bowman
 
         public override ConsoleColor ResourceColor => ConsoleColor.Yellow;
 
-        public override string Tileset => "Dungeon.Classes.Bowman.Images.sprite.png";
+        public override string Tileset => "Dungeon12.Bowman.Images.sprite.png";
 
         public SpeedShot SpeedShot { get; set; } = new SpeedShot();
 

@@ -1,10 +1,10 @@
-﻿namespace Dungeon12.Classes.Noone
+﻿namespace Dungeon12.Noone
 {
     using Dungeon.Abilities;
     using Dungeon.Abilities.Talants.TalantTrees;
-    using Dungeon12.Classes.Noone.Abilities;
-    using Dungeon12.Classes.Noone.Talants;
-    using Dungeon12.Classes.Noone.Talants.Defensible;
+    using Dungeon12.Noone.Abilities;
+    using Dungeon12.Noone.Talants;
+    using Dungeon12.Noone.Talants.Defensible;
     using Dungeon.Drawing.Impl;
     using Dungeon.Entites.Animations;
     using Dungeon.Types;

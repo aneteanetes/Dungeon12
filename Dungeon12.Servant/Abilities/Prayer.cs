@@ -10,7 +10,7 @@ using Dungeon.Transactions;
 using Dungeon.View.Interfaces;
 using System;
 
-namespace Dungeon12.Classes.Servant.Abilities
+namespace Dungeon12.Servant.Abilities
 {
     public class Prayer : Ability<Servant>
     {

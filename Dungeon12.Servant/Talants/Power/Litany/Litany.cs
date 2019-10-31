@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dungeon12.Classes.Servant.Talants.Power
+namespace Dungeon12.Servant.Talants.Power
 {
     public class Litany : Talant<Servant>
     {

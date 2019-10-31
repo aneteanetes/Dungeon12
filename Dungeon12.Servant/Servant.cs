@@ -1,14 +1,16 @@
 ﻿using Dungeon.Abilities;
 using Dungeon.Abilities.Talants.TalantTrees;
-using Dungeon12.Classes.Servant.Abilities;
-using Dungeon12.Classes.Servant.Talants;
+using Dungeon12.Servant.Abilities;
+using Dungeon12.Servant.Talants;
 using Dungeon.Drawing.Impl;
 using System;
 using System.Collections.Generic;
-using Dungeon.Classes;
+using Dungeon12;
 using Dungeon;
+using Dungeon12.Servant;
+using Dungeon.Classes;
 
-namespace Dungeon12.Classes.Servant
+namespace Dungeon12.Servant
 {
     public class Servant : BaseCharacterTileset
     {

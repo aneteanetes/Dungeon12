@@ -2,13 +2,14 @@
 using Dungeon.Abilities;
 using Dungeon.Classes;
 using Dungeon.Conversations;
+using Dungeon.Drawing.Impl;
 using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Events;
 using Dungeon.Map;
 using Dungeon.View.Interfaces;
 using System.Linq;
 
-namespace Dungeon12.Classes
+namespace Dungeon12
 {
     public class ClassChangeTrigger : IConversationTrigger
     {
@@ -67,7 +68,7 @@ namespace Dungeon12.Classes
                 Character = SceneObject.Avatar.Character
             });
 
-            return "Dungeon.Drawing.Impl.DrawText".GetInstanceFromAssembly<IDrawText>("Dungeon.Drawing", "Класс поменяли");
+            return new DrawText("Класс поменяли");
         }
     }
 }

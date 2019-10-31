@@ -4,10 +4,10 @@ using Dungeon.Abilities.Scaling;
 using Dungeon.Entites.Alive;
 using Dungeon.Map;
 using Dungeon.Map.Objects;
-using Dungeon12.Classes.Noone.Talants.Defensible;
+using Dungeon12.Noone.Talants.Defensible;
 using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 
-namespace Dungeon12.Classes.Noone.Abilities
+namespace Dungeon12.Noone.Abilities
 {
     public class Defaura : Ability<Noone, DefensibleTalants>
     {

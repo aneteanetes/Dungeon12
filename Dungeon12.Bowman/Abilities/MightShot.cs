@@ -1,13 +1,13 @@
 ﻿using Dungeon.Abilities;
 using Dungeon.Abilities.Enums;
 using Dungeon.Abilities.Scaling;
-using Dungeon12.Classes.Bowman.Effects;
+using Dungeon12.Bowman.Effects;
 using Dungeon.Map;
 using Dungeon.Map.Objects;
 using Dungeon.View.Interfaces;
 using Dungeon;
 
-namespace Dungeon12.Classes.Bowman.Abilities
+namespace Dungeon12.Bowman.Abilities
 {
     public class MightShot : BaseCooldownAbility<Bowman>
     {

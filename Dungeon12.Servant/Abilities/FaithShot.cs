@@ -1,14 +1,14 @@
 ﻿using Dungeon.Abilities;
 using Dungeon.Abilities.Enums;
 using Dungeon.Abilities.Scaling;
-using Dungeon12.Classes.Servant.Effects.FaithShot;
+using Dungeon12.Servant.Effects.FaithShot;
 using Dungeon.Map;
 using Dungeon.Map.Objects;
 using Dungeon.Physics;
 using Dungeon.View.Interfaces;
 using Dungeon;
 
-namespace Dungeon12.Classes.Servant.Abilities
+namespace Dungeon12.Servant.Abilities
 {
     public class FaithShot : BaseCooldownAbility<Servant>
     {

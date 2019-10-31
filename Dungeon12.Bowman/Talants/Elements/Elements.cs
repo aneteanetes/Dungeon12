@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dungeon12.Classes.Bowman.Talants
+namespace Dungeon12.Bowman.Talants
 {
     public class Elements : Talant<Bowman>
     {

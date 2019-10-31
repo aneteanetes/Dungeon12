@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dungeon12.Classes.Servant.Talants.Faith
+namespace Dungeon12.Servant.Talants.Faith
 {
     public class Psalm : Talant<Servant>
     {

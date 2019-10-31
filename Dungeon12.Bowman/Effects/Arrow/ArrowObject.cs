@@ -1,5 +1,5 @@
 ﻿using Dungeon;
-using Dungeon.Classes;
+using Dungeon12;
 using Dungeon.Entites.Animations;
 using Dungeon.Physics;
 using Dungeon.Types;
@@ -7,8 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Dungeon.Classes;
 
-namespace Dungeon12.Classes.Bowman.Effects
+namespace Dungeon12.Bowman.Effects
 {
     public class ArrowObject : PhysicalObject
     {
