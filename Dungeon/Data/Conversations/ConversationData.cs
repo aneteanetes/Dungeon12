@@ -1,11 +1,9 @@
 ﻿namespace Dungeon.Data.Conversations
 {
     using Dungeon.Conversations;
-    using System;
     using System.Collections.Generic;
-    using System.Text;
 
-    public class ConversationData : Persist
+    public class ConversationData : Dungeon.Data.Persist
     {
         public string Identify { get; set; }
 

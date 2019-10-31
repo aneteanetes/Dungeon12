@@ -12,7 +12,7 @@
 
         public Action<bool> OnChange { get; set; }
 
-        private string Img => $"Dungeon.Resources.Images.ui.checkbox{(Value ? "_f" : "")}.png";
+        private string Img => $"Dungeon12.Resources.Images.ui.checkbox{(Value ? "_f" : "")}.png";
 
         protected override void CallOnEvent(dynamic obj)
         {

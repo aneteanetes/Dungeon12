@@ -7,7 +7,7 @@
     [Template("#")]
     public class Wall : MapObject
     {
-        public override string Tileset => "Dungeon.Resources.Images.Tiles.dblue.png";
+        public override string Tileset => "Dungeon12.Resources.Images.Tiles.dblue.png";
 
         public override bool Obstruction { get => true; set { } }
 

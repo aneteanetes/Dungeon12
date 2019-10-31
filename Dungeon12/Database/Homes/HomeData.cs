@@ -1,11 +1,9 @@
 ﻿namespace Dungeon12.Data.Homes
 {
-    using System.Collections.Generic;
+    using Dungeon.Conversations;
 
     public class HomeData : ConversationalDataStore
     {
-        public string IdentifyName { get; set; }
-
         public string Name { get; set; }
 
         public string ScreenImage { get; set; }

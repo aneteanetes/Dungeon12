@@ -1,14 +1,12 @@
-﻿using Dungeon.Abilities;
+﻿using Dungeon;
+using Dungeon.Abilities;
+using Dungeon.Classes;
 using Dungeon.Conversations;
 using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Events;
 using Dungeon.Map;
 using Dungeon.View.Interfaces;
-using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using Dungeon.Classes;
 
 namespace Dungeon12.Classes
 {

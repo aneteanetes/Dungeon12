@@ -1,6 +1,8 @@
 ﻿namespace Dungeon.Map.Objects
 {
     using System;
+    using Dungeon.Data.Attributes;
+    using Dungeon.Data.Region;
     using Dungeon.Map.Infrastructure;
     using Dungeon.Types;
 
@@ -21,7 +23,7 @@
 
         public override string Icon { get => "."; set { } }
 
-        public override string Tileset => "Dungeon.Resources.Images.Tiles.dblue.png";
+        public override string Tileset => "Dungeon12.Resources.Images.Tiles.dblue.png";
 
         private readonly Rectangle region;
         public override Rectangle TileSetRegion => region;

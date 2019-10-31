@@ -28,7 +28,7 @@
             this.Actions = 5;
         }
 
-        public override string Avatar => "Dungeon.Classes.Noone.Images.noone.png";
+        public override string Avatar => "Dungeon12.Noone.Images.noone.png";
 
         public override string ClassName { get => "Приключенец"; }
         
@@ -50,7 +50,7 @@
 
         public int Actions { get; set; } = 5;
 
-        public override string Tileset => "Dungeon.Classes.Noone.Images.sprite.png";
+        public override string Tileset => "Dungeon12.Noone.Images.sprite.png";
 
         public int Block { get; set; }
 

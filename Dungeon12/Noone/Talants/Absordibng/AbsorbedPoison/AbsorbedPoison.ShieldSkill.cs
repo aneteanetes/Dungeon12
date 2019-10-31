@@ -78,7 +78,7 @@ namespace Dungeon12.Classes.Noone.Talants.Absordibng
                 this.avatar = avatar;
             }
 
-            public override string Image => "Dungeon.Classes.Noone.Images.Abilities.Defstand.buf.png";
+            public override string Image => "Dungeon12.Noone.Images.Abilities.Defstand.buf.png";
 
             private TimerTrigger timer;
 

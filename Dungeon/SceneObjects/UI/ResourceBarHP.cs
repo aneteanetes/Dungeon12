@@ -22,7 +22,7 @@
             this.AddChild(HpBar);
         }
 
-        protected override string BarTile => "Dungeon.Resources.Images.ui.player.hp_back.png";
+        protected override string BarTile => "Dungeon12.Resources.Images.ui.player.hp_back.png";
         
         private class InteractiveHPBar : Dungeon.Drawing.SceneObjects.ImageControl
         {
@@ -30,7 +30,7 @@
 
             private IDrawText hpText;
 
-            public InteractiveHPBar(Character player) : base("Dungeon.Resources.Images.ui.player.hp.png")
+            public InteractiveHPBar(Character player) : base("Dungeon12.Resources.Images.ui.player.hp.png")
             {
                 this.player = player;
 

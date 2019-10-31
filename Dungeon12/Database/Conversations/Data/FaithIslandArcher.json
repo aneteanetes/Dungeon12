@@ -1,6 +1,6 @@
 ﻿{
   "Identify": "FaithIslandArcher",
-  "Face": "Rogue.Resources.Images.NPCs.FaithIsland.ArcherF.png",
+  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.ArcherF.png",
   "Name": "Фэрл Сант",
   "Subjects": [
     {
@@ -52,11 +52,11 @@
           "Tag": 5,
           "Answer": "(Сменить класс на: Лучник)",
           "Text": "Смена класса",
-          "TriggerClass": "Rogue.Classes.ClassChangeTrigger",
-          "TriggerClassAsm": "Rogue.Classes.Noone",
+          "TriggerClass": "Dungeon12.Classes.ClassChangeTrigger",
+          "TriggerClassAsm": "Dungeon12",
           "TriggerClassArguments": [
-            "Rogue.Classes.Bowman.Bowman",
-            "Rogue.Classes.Bowman"
+            "Dungeon12.Bowman.Bowman",
+            "Dungeon12.Bowman"
           ],
           "ReplicsTags": []
         },

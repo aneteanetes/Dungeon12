@@ -92,13 +92,13 @@
         private string SquareTexture(bool focus)
         {
             if (disabled)
-                return $"Dungeon.Resources.Images.ui.squareWeapon_h_d.png";
+                return $"Dungeon12.Resources.Images.ui.squareWeapon_h_d.png";
 
             var f = focus || active
                 ? "_f"
                 : "";
 
-            return $"Dungeon.Resources.Images.ui.squareWeapon_h{f}.png";
+            return $"Dungeon12.Resources.Images.ui.squareWeapon_h{f}.png";
         }
 
         public override void Focus()

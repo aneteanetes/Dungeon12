@@ -3,14 +3,7 @@
     using Dungeon.Conversations;
     using System.Collections.Generic;
 
-    public class ConversationData : Dungeon.Data.Persist
+    public class ConversationData : Dungeon.Data.Conversations.ConversationData
     {
-        public string Identify { get; set; }
-
-        public List<Subject> Subjects { get; set; }
-
-        public string Face { get; set; }
-
-        public string Name { get; set; }
     }
 }

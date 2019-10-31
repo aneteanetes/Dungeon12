@@ -13,7 +13,7 @@
     "X": 1,
     "Y": 1
   },
-  "Tileset": "Rogue.Resources.Images.Enemies.enemies.png",
+  "Tileset": "Dungeon12.Resources.Images.Enemies.enemies.png",
   "TileSetRegion": {
     "X": 64,
     "Y": 0,
@@ -134,7 +134,7 @@
       ],
       "Direction": 4
     },
-    "DieImage": "Rogue.Resources.Images.Enemies.enemies.png",
+    "DieImage": "Dungeon12.Resources.Images.Enemies.enemies.png",
     "DieImagePosition": {
       "X": 32,
       "Y": 0,

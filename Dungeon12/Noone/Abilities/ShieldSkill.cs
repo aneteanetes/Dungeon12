@@ -60,7 +60,7 @@ namespace Dungeon12.Classes.Noone.Abilities
 
             public BarrierBuff(int value) => this.value = value;
 
-            public override string Image => "Dungeon.Classes.Noone.Images.Abilities.ShieldSkill.buf.png";
+            public override string Image => "Dungeon12.Noone.Images.Abilities.ShieldSkill.buf.png";
 
             public void Apply(Avatar avatar)
             {

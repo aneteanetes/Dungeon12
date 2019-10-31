@@ -15,7 +15,7 @@
 
         public LootSceneObject(PlayerSceneObject playerSceneObject, Loot @object, string tooltip) : base(playerSceneObject, @object, tooltip)
         {
-            this.Image = "Dungeon.Resources.Images.Items.loot.png";
+            this.Image = "Dungeon12.Resources.Images.Items.loot.png";
             this.ImageRegion = new Types.Rectangle(0, 0, 16, 16);
 
             this.Height = 0.5;

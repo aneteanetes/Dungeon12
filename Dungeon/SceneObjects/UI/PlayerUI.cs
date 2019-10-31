@@ -64,7 +64,7 @@
 
             public AvatarSceneObject WithFrame()
             {
-                this.AddChild(new ImageControl("Dungeon.Resources.Images.ui.player.avatar.png")
+                this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.player.avatar.png")
                 {
                     Width = this.Width,
                     Height = this.Height,

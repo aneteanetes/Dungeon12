@@ -4,7 +4,7 @@
         public class ObjectHpBar : Dungeon.Drawing.SceneObjects.ImageControl
     {
         public ObjectHpBar(Alive alive)
-            : base("Dungeon.Resources.Images.GUI.hpbar_e.png")
+            : base("Dungeon12.Resources.Images.GUI.hpbar_e.png")
         {
             this.Top -= 0.23;
             this.Left += 0.06;
@@ -21,7 +21,7 @@
             private Alive alive;
 
             public ObjectHpBarGreen(Alive alive)
-                : base("Dungeon.Resources.Images.GUI.hpbar.png")
+                : base("Dungeon12.Resources.Images.GUI.hpbar.png")
             {
                 this.Top += 0.025;
                 this.Left += 0.05;

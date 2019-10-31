@@ -15,6 +15,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    [DataClass(typeof(RegionPart))]
     public partial class MapObject : PhysicalObject<MapObject>, IDrawable
     {
         public Action Die;
@@ -69,6 +70,18 @@
 
         public static MapObject Create(RegionPart regionPart)
         {
+            if (string.IsNullOrEmpty(regionPart.Icon))
+            {
+                if (regionPart.Obstruct)
+                {
+                    regionPart.Icon = "~";
+                }
+                else
+                {
+                    regionPart.Icon = ".";
+                }
+            }
+
             if (!TypeCache.TryGetValue(regionPart.Icon, out var @class))
             {
                 var type = typeof(MapObject).AllAssignedFrom().FirstOrDefault(x =>
@@ -82,6 +95,8 @@
 
                 var dataClassAttr = (DataClassAttribute)Attribute.GetCustomAttribute(type, typeof(DataClassAttribute));
 
+                @class = (type, dataClassAttr.DataType);
+
                 TypeCache.Add(regionPart.Icon, (type, dataClassAttr.DataType));
             }
 
@@ -90,14 +105,30 @@
 
             return mapObject;
         }
-
+        
         public virtual bool CameraAffect { get; set; } = false;
 
         public Point SceenPosition { get; set; }
 
         public virtual ISceneObject View(GameState gameState) => default;
 
-        protected virtual void Load(object dataClass) { }
+        protected virtual void Load(object dataClass)
+        {
+            if (dataClass is RegionPart regionPart)
+            {
+                this.Location = new Point(regionPart.Position.X, regionPart.Position.Y);
+
+                if (regionPart.Region == null)
+                {
+                    var measure = Global.DrawClient.MeasureImage(regionPart.Image);
+                    this.Size = new PhysicalSize
+                    {
+                        Width = measure.X,
+                        Height = measure.Y
+                    };
+                }
+            }
+        }
 
         public Merchant Merchant { get; set; }
 

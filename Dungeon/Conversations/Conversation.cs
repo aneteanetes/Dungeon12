@@ -1,6 +1,10 @@
 ﻿namespace Dungeon.Conversations
 {
+    using Dungeon.Data;
+    using Dungeon.Data.Conversations;
+    using Dungeon.Map.Objects;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Разговор
@@ -19,6 +23,6 @@
         /// <summary>
         /// Переменные в разговоре
         /// </summary>
-        public List<Variable> Variables { get; set; }
+        public List<Variable> Variables { get; set; }        
     }
 }

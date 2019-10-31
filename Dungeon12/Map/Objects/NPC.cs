@@ -1,6 +1,10 @@
 ﻿namespace Dungeon.Map.Objects
 {
     using System;
+    using System.Linq;
+    using Dungeon.Data;
+    using Dungeon.Data.Attributes;
+    using Dungeon.Data.Region;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Entites.Alive;
     using Dungeon.Entites.Enemy;
@@ -11,8 +15,12 @@
     using Dungeon.Settings;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
+    using Dungeon12.Data.Homes;
+    using Dungeon12.Data.Npcs;
+    using Force.DeepCloner;
 
-    [Template("N")]
+    [Template("Npc")]
+    [DataClass(typeof(NPCData))]
     public class NPC : Сonversational
     {
         public NPCMoveable NPCEntity { get; set; }
@@ -20,9 +28,9 @@
         public override string Icon { get => "N"; set { } }
 
         protected override MapObject Self => this;
-        
+
         public override bool Obstruction => true;
-        
+
         public override double MovementSpeed => base.MovementSpeed;
 
         public bool Moving { get; set; }
@@ -49,7 +57,36 @@
 
         public override ISceneObject View(GameState gameState)
         {
-            return new NPCSceneObject(gameState.Player, gameState.Map, this, this.TileSetRegion);            
+            return new NPCSceneObject(gameState.Player, gameState.Map, this, this.TileSetRegion);
+        }
+
+        protected override void Load(object dataClass)
+        {
+            if (dataClass is RegionPart npcData)
+            {
+                var data = Database.Entity<NPCData>(x => x.IdentifyName == npcData.IdentifyName).FirstOrDefault();
+
+                this.NPCEntity = data.NPC.DeepClone();
+                this.Tileset = data.Tileset;
+                this.TileSetRegion = data.TileSetRegion;
+                this.Name = data.Name;
+                this.Size = new PhysicalSize()
+                {
+                    Width = data.Size.X * 32,
+                    Height = data.Size.Y * 32
+                };
+                this.MovementSpeed = data.MovementSpeed;
+                this.Location = npcData.Position;
+
+                if (data.Merchant)
+                {
+                    this.Merchant = new Merchants.Merchant();
+                    this.Merchant.FillBackpacks();
+                }
+                this.BuildConversations(data);
+
+                this.NPCEntity.MoveRegion = this.NPCEntity.MoveRegion * 32;
+            }
         }
     }
 }

@@ -19,7 +19,7 @@
                 {
                     new Weapon()
                     {
-                        Tileset = "Dungeon.Resources.Images.Items.Weapons.OneHand.Swords.TrainerSword.png",
+                        Tileset = "Dungeon12.Resources.Images.Items.Weapons.OneHand.Swords.TrainerSword.png",
                         TileSetRegion = new Types.Rectangle()
                         {
                             X = 0,
@@ -60,7 +60,7 @@
                     },
                     new OffHand()
                     {
-                        Tileset = "Dungeon.Resources.Images.Items.Offhands.Shields.Tall.DragonShield.png",
+                        Tileset = "Dungeon12.Resources.Images.Items.Offhands.Shields.Tall.DragonShield.png",
                         TileSetRegion = new Types.Rectangle()
                         {
                             X = 0,
@@ -158,7 +158,7 @@
 
         public static Weapon GenerateWeapon() => new Weapon()
         {
-            Tileset = "Dungeon.Resources.Images.Items.Weapons.OneHand.Swords.TrainerSword.png",
+            Tileset = "Dungeon12.Resources.Images.Items.Weapons.OneHand.Swords.TrainerSword.png",
             TileSetRegion = new Types.Rectangle()
             {
                 X = 0,

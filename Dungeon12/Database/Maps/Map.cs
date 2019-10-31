@@ -1,6 +1,6 @@
 ﻿namespace Dungeon12.Data.Maps
 {
-    using Dungeon.Data.Mobs;
+    using Dungeon12.Data.Mobs;
     using System.Collections.Generic;
 
     public class Map : Dungeon.Data.Persist

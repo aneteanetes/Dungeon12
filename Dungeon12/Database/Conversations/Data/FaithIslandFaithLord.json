@@ -1,6 +1,6 @@
 ﻿{
   "Identify": "FaithIslandFaithLord",
-  "Face": "Rogue.Resources.Images.NPCs.FaithIsland.FaithLordF.png",
+  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.FaithLordF.png",
   "Name": "Лорд Веры",
   "Subjects": [
     {
@@ -32,11 +32,11 @@
           "Tag": 5,
           "Answer": "(Сменить класс на: Служитель веры)",
           "Text": "Смена класса",
-          "TriggerClass": "Rogue.Classes.ClassChangeTrigger",
-          "TriggerClassAsm": "Rogue.Classes.Noone",
+          "TriggerClass": "Dungeon12.Classes.ClassChangeTrigger",
+          "TriggerClassAsm": "Dungeon12",
           "TriggerClassArguments": [
-            "Rogue.Classes.Servant.Servant",
-            "Rogue.Classes.Servant"
+            "Dungeon12.Servant.Servant",
+            "Dungeon12.Servant"
           ],
           "ReplicsTags": []
         },

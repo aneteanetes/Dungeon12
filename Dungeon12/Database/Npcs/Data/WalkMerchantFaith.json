@@ -7,7 +7,7 @@
     "X": 1,
     "Y": 1
   },
-  "Tileset": "Rogue.Resources.Images.NPCs.FaithIsland.WalkMerchantFaith.png",
+  "Tileset": "Dungeon12.Resources.Images.NPCs.FaithIsland.WalkMerchantFaith.png",
   "TileSetRegion": {
     "X": 64,
     "Y": 0,
@@ -37,7 +37,7 @@
     },
     "Aggressive": true,
     "Idle": {
-      "Tileset": "Rogue.Resources.Images.NPCs.FaithIsland.WalkMerchantFaith.png",
+      "Tileset": "Dungeon12.Resources.Images.NPCs.FaithIsland.WalkMerchantFaith.png",
       "Size": {
         "X": 32,
         "Y": 32
@@ -60,7 +60,7 @@
       "FramesPerSecond": 1.5
     },
     "MoveUp": {
-      "Tileset": "Rogue.Resources.Images.NPCs.FaithIsland.WalkMerchantFaith.png",
+      "Tileset": "Dungeon12.Resources.Images.NPCs.FaithIsland.WalkMerchantFaith.png",
       "Size": {
         "X": 32,
         "Y": 32
@@ -82,7 +82,7 @@
       "Direction": 1
     },
     "MoveDown": {
-      "Tileset": "Rogue.Resources.Images.NPCs.FaithIsland.WalkMerchantFaith.png",
+      "Tileset": "Dungeon12.Resources.Images.NPCs.FaithIsland.WalkMerchantFaith.png",
       "Size": {
         "X": 32,
         "Y": 32
@@ -104,7 +104,7 @@
       "Direction": 2
     },
     "MoveLeft": {
-      "Tileset": "Rogue.Resources.Images.NPCs.FaithIsland.WalkMerchantFaith.png",
+      "Tileset": "Dungeon12.Resources.Images.NPCs.FaithIsland.WalkMerchantFaith.png",
       "Size": {
         "X": 32,
         "Y": 32
@@ -126,7 +126,7 @@
       "Direction": 3
     },
     "MoveRight": {
-      "Tileset": "Rogue.Resources.Images.NPCs.FaithIsland.WalkMerchantFaith.png",
+      "Tileset": "Dungeon12.Resources.Images.NPCs.FaithIsland.WalkMerchantFaith.png",
       "Size": {
         "X": 32,
         "Y": 32

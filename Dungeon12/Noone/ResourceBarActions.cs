@@ -14,7 +14,7 @@
             actions = Enumerable.Range(0, 5)
                 .Select((x, i) =>
                 {
-                    var img = new ActionBarSB("Dungeon.Classes.Noone.Images.action.png")
+                    var img = new ActionBarSB("Dungeon12.Noone.Images.action.png")
                     {
                         Height = 0.5,
                         Width = 0.8,

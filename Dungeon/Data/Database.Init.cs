@@ -35,7 +35,7 @@ namespace Dungeon.Data
         }
 
 
-        private static void LoadAllAssemblies()
+        public static void LoadAllAssemblies()
         {
             var assemblies = new List<Assembly>();
             var asms = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll");
@@ -56,6 +56,7 @@ namespace Dungeon.Data
         {
             foreach (var data in JsonFiles())
             {
+                Console.WriteLine($"Compiling:{data.Type.Name}");
                 using (var db = new LiteDatabase($@"{MainPath}\Data.db"))
                 {
                     var collection = GetGenericLiteCollection(data.Type, db);

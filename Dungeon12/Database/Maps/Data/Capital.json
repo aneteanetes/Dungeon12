@@ -3,7 +3,7 @@
   "Name": "База 21",
   "Mobs": [
     {
-      "Tileset": "Rogue.Resources.Images.Enemies.trainDummy.png",
+      "Tileset": "Dungeon12.Resources.Images.Enemies.trainDummy.png",
       "Size": {
         "X": 1,
         "Y": 1

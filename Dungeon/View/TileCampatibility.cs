@@ -10,7 +10,7 @@ namespace Dungeon.Drawing.Impl
     internal static class TileCampatibility
     {
         //protected virtual bool UI => false;
-        private const string LightBarsTileset = "Dungeon.Resources.Images.GUI.Light Bars.png";
+        private const string LightBarsTileset = "Dungeon12.Resources.Images.GUI.Light Bars.png";
 
         //private void TileCampatibility()
         //{

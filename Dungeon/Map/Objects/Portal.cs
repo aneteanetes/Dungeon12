@@ -12,7 +12,7 @@
     {
         public override string Tileset
         {
-            get => "Dungeon.Resources.Images.Objects.portal.png";
+            get => "Dungeon12.Resources.Images.Objects.portal.png";
             set { }
         }
 
@@ -30,7 +30,7 @@
 
         public override AnimationMap Animation => new AnimationMap
         {
-            TileSet = "Dungeon.Resources.Images.Objects.portal.png",
+            TileSet = "Dungeon12.Resources.Images.Objects.portal.png",
             Size=new Point(32,32),
             Frames=new List<Point>
             {

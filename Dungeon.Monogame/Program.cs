@@ -16,6 +16,8 @@ namespace Dungeon.Monogame
                 Database.Init();
             }
 
+            Database.LoadAllAssemblies();
+
             using (var game = new XNADrawClient())
                 game.Run();
         }

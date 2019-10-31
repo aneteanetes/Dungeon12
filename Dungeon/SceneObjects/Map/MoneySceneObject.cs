@@ -33,7 +33,7 @@
                 amountImage = "b";
             }
 
-            this.Image = $"Dungeon.Resources.Images.Items.gold_{amountImage}.png";
+            this.Image = $"Dungeon12.Resources.Images.Items.gold_{amountImage}.png";
             this.ImageRegion = new Types.Rectangle(0, 0, 24, 24);
 
             this.Height = 0.5;

@@ -48,7 +48,7 @@
         /// </summary>
         private class ArmorBuf : Applicable
         {
-            public override string Image => "Dungeon.Classes.Noone.Images.Abilities.Defstand.buf.png";
+            public override string Image => "Dungeon12.Noone.Images.Abilities.Defstand.buf.png";
 
             public void Apply(Avatar avatar)
             {
