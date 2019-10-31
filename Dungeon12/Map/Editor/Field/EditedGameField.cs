@@ -1,20 +1,17 @@
 ﻿namespace Dungeon12.Map.Editor.Field
 {
-    using Newtonsoft.Json;
     using Dungeon.Control.Events;
     using Dungeon.Control.Pointer;
     using Dungeon.Data.Region;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Resources;
-    using Dungeon.Settings;
     using Dungeon.Types;
-    using Dungeon.View.Interfaces;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using Dungeon12.Map.Editor.Objects;
+    using Newtonsoft.Json;
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using Dungeon12.Map.Editor.Objects;
 
     public class EditedGameField : HandleSceneControl
     {

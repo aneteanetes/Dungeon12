@@ -45,8 +45,8 @@
             var tall = itemKind == ItemKind.Weapon || itemKind == ItemKind.OffHand;
 
             this.borderImage = tall
-                ? "Dungeon.Resources.Images.ui.squareWeapon"
-                : "Dungeon.Resources.Images.ui.square";
+                ? "Dungeon12.Resources.Images.ui.squareWeapon"
+                : "Dungeon12.Resources.Images.ui.square";
 
             this.Width = 2;
             this.Height = tall

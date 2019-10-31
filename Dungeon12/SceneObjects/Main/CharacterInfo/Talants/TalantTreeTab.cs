@@ -3,10 +3,7 @@ using Dungeon.Classes;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Drawing.SceneObjects.UI;
 using Dungeon.Events;
-using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
-using System.Collections.Generic;
-using System.Text;
-
+using System;
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 {
     public class TalantTreeTab : TabControlFlex<TalantTreeTabContent, TalantTree, TalantTreeTab>

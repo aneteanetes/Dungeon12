@@ -32,7 +32,7 @@ namespace ProjectMercury
         {
             set
             {
-                this.ForEach(x => x.Scale = value);
+                this.ForEach(x => x.ScaleDraw = value);
             }
         }
 

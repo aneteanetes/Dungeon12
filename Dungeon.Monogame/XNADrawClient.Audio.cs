@@ -1,19 +1,9 @@
-﻿namespace Rogue
+﻿namespace Dungeon.Monogame
 {
+    using Dungeon.Audio;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Audio;
-    using Microsoft.Xna.Framework.Graphics;
-    using Microsoft.Xna.Framework.Input;
     using Microsoft.Xna.Framework.Media;
-    using Penumbra;
-    using ProjectMercury;
-    using ProjectMercury.Renderers;
-    using Dungeon.Audio;
-    using Dungeon.Resources;
-    using Dungeon.Scenes.Manager;
-    using Dungeon.Scenes.Menus;
-    using Dungeon.View.Interfaces;
-    using System;
     using System.Collections.Generic;
 
     public partial class XNADrawClient : Game, IAudioPlayer

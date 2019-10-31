@@ -1,9 +1,9 @@
 ﻿namespace Dungeon12.Map.Editor.Toolbox
 {
+    using Dungeon;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Settings;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using System;
 
     public class TileSelector : HandleSceneControl
     {

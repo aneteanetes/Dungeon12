@@ -1,11 +1,11 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects
 {
+    using Dungeon;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Settings;
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.View.Interfaces;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
-    using Dungeon;
+    using System;
 
     public class SmallMetallButtonControl : HandleSceneControl
     {
@@ -52,7 +52,7 @@
 
         public Action OnClick { get; set; }
 
-        public override string Image { get; set; } = "Dungeon.Resources.Images.ui.button_s.png";
+        public override string Image { get; set; } = "Dungeon12.Resources.Images.ui.button_s.png";
 
         public override void Click(PointerArgs args)
         {
@@ -61,12 +61,12 @@
 
         public override void Focus()
         {
-            this.Image = "Dungeon.Resources.Images.ui.button_s_f.png";
+            this.Image = "Dungeon12.Resources.Images.ui.button_s_f.png";
         }
 
         public override void Unfocus()
         {
-            this.Image = "Dungeon.Resources.Images.ui.button_s.png";
+            this.Image = "Dungeon12.Resources.Images.ui.button_s.png";
         }
     }
 }

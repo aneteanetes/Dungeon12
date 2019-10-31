@@ -1,17 +1,20 @@
-﻿using System;
+﻿using Dungeon.Data;
+using System;
 using System.Diagnostics;
 
-namespace Rogue.Monogame
+namespace Dungeon.Monogame
 {
     public static class Program
     {
-        private static bool CompileDatabase => false;
+        private static bool CompileDatabase => true;
 
         [STAThread]
         static void Main()
         {
             if (CompileDatabase)
-                Rogue.DataAccess.Program.Main(new string[0]);
+            {
+                Database.Init();
+            }
 
             using (var game = new XNADrawClient())
                 game.Run();

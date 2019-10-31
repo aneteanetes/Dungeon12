@@ -4,6 +4,8 @@
     using Dungeon.Control.Pointer;
     using Dungeon.Events;
     using Dungeon.View.Interfaces;
+    using System.Collections.Generic;
+    using System.Reflection;
 
     public static class Global
     {
@@ -48,5 +50,9 @@
         public static double FPS { get; set; }
 
         public static bool Interacting { get; set; }
+
+        public static IEnumerable<Assembly> Assemblies { get; set; }
+
+        public static string AssemblyGame { get; set; }
     }
 }

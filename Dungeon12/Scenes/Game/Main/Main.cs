@@ -16,6 +16,7 @@
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Main;
+    using Dungeon12.SceneObjects;
     using Dungeon12.Scenes.Menus;
     using System;
     using System.Collections.Generic;
@@ -39,7 +40,7 @@
         {
             this.InitMap();
 
-            var player = new PlayerSceneObject(this.PlayerAvatar, this.Gamemap, x=>this.RemoveObject(x))
+            var player = new Player(this.PlayerAvatar, this.Gamemap, x=>this.RemoveObject(x))
             {
                 Left = PlayerPosition.X,
                 Top = PlayerPosition.Y
@@ -163,7 +164,7 @@
             };
 
             this.Gamemap.LoadRegion("FaithIsland");
-            this.AddObject(new ImageControl("Dungeon.Resources.Images.Regions.FaithIsland.png"));
+            this.AddObject(new ImageControl("Dungeon12.Resources.Images.Regions.FaithIsland.png"));
 
 
             //width = 40

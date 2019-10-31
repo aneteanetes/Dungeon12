@@ -20,7 +20,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
             this.Destroy += () => playerSceneObject.BlockMouse = false;
             this.playerSceneObject = playerSceneObject;
 
-            //this.Image = "Dungeon.Resources.Images.ui.vertical(17x24).png";
+            //this.Image = "Dungeon12.Resources.Images.ui.vertical(17x24).png";
 
             this.Height = 17;
             this.Width = 12; //can resize to 24 with content

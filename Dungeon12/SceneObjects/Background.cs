@@ -9,7 +9,7 @@ namespace Dungeon12.Drawing.SceneObjects
 
         public override bool CacheAvailable => false;
 
-        public Background(bool snow=false) : base("Dungeon.Resources.Images.d12back.png")
+        public Background(bool snow=false) : base("Dungeon12.Resources.Images.d12back.png")
         {
             if (snow)
             {

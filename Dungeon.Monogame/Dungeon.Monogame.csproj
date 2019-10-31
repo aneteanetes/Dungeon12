@@ -7,6 +7,11 @@
     <OutputType>WinExe</OutputType>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;Core;WINDOWS</DefineConstants>
+    <Optimize>false</Optimize>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
   <ItemGroup>
     <MonoGameContentReference Include="**\*.mgcb" />
   </ItemGroup>
@@ -17,7 +22,6 @@
     <None Remove="Content\Content.Android.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aether.Physics2D" Version="1.4.0" />
     <PackageReference Include="MonoGame.Content.Builder" Version="3.7.0.4" />
     <PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="3.7.0.9" />
     <PackageReference Include="YAXLib" Version="2.15.0" />

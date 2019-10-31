@@ -14,7 +14,7 @@
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Dialogs.Shop;
     using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using System;
     using System.Collections.Generic;
 
     /// <summary>

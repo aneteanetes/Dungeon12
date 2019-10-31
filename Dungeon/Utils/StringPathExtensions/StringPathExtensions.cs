@@ -5,12 +5,8 @@ namespace Dungeon
 {
     public static class StringPathExtensions
     {
-        public static string PathResource(this string path)=> "Dungeon.Resources." + path;
-
-        public static string PathImage(this string path) => "".PathResource() + "Images." + path.Replace(@"\",".");
-
-        public static string PathParticle(this string path) => "".PathResource() + path;
-
+        public static string PathImage(this string path) => Assembly.GetCallingAssembly().GetName().Name + ".Resources.Images." + path.Replace(@"\", ".");
+        
         public static string PathPng(this string path) => path + ".png";
 
 

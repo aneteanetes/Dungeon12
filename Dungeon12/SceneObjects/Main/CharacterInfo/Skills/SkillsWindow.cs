@@ -1,5 +1,6 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 {
+    using Dungeon;
     using Dungeon.Abilities;
     using Dungeon.Classes;
     using Dungeon.Control.Keys;
@@ -8,9 +9,8 @@
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.Entites.Alive;
     using Dungeon.View.Interfaces;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -28,7 +28,7 @@
             this.Destroy += () => playerSceneObject.BlockMouse = false;
             this.playerSceneObject = playerSceneObject;
 
-            this.Image = "Dungeon.Resources.Images.ui.vertical_title(17x12).png";
+            this.Image = "Dungeon12.Resources.Images.ui.vertical_title(17x12).png";
 
             this.Height = 17;
             this.Width = 12;
@@ -144,7 +144,7 @@
 
                 this.AddChild(new DarkRectangle() { Color = ConsoleColor.White, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.05, Top = top - 0.25 });
 
-                var border = this.AddChildCenter(new ImageControl("Dungeon.Resources.Images.ui.squareB.png") { CacheAvailable=false });
+                var border = this.AddChildCenter(new ImageControl("Dungeon12.Resources.Images.ui.squareB.png") { CacheAvailable=false });
                 border.Top = 10;
 
                 var img = this.AddChildCenter(new ImageControl(ability.Image_B) { CacheAvailable = false, }, true, false);
@@ -162,7 +162,6 @@
             public override bool CacheAvailable => false;
             public override bool AbsolutePosition => true;
 
-            private PlayerSceneObject playerSceneObject;
             private readonly Action<Ability> open;
             private bool disabled;
             private Ability ability;
@@ -200,13 +199,13 @@
             private string SquareTexture(bool focus)
             {
                 if(disabled)
-                    return $"Dungeon.Resources.Images.ui.squareWeapon_h_d.png";
+                    return $"Dungeon12.Resources.Images.ui.squareWeapon_h_d.png";
 
                 var f = focus || active
                     ? "_f"
                     : "";
 
-                return $"Dungeon.Resources.Images.ui.squareWeapon_h{f}.png";
+                return $"Dungeon12.Resources.Images.ui.squareWeapon_h{f}.png";
             }
 
             public override void Focus()

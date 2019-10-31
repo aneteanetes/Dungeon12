@@ -121,29 +121,19 @@ namespace Dungeon.Drawing.Labirinth
         {
             List<ISceneObject> sceneObjects = new List<ISceneObject>();
 
+            var state = new Game.GameState()
+            {
+                Map = gamemap,
+                Player = player
+            };
+
             foreach (var obj in mapObjects)
             {
-#warning switch case type
-                //switch (obj)
-                //{
-                //    case Mob mob:
-                //        {
-                //            sceneObjects.Add(new EnemySceneObject(this.player, this.gamemap, mob, mob.TileSetRegion));
-                //            break;
-                //        }
-                //    case NPC npc:
-                //        {
-                //            sceneObjects.Add(new NPCSceneObject(this.player, this.gamemap, npc, npc.TileSetRegion));
-                //            break;
-                //        }
-                //    case Home home:
-                //        {
-                //            sceneObjects.Add(new HomeSceneObject(this.player, home, home.Name,this.gamemap));
-                //            break;
-                //        }
-                //    default:
-                //        break;
-                //}
+                var view = obj.View(state);
+                if (view != null)
+                {
+                    sceneObjects.Add(view);
+                }
             }
 
             return sceneObjects;
@@ -151,44 +141,13 @@ namespace Dungeon.Drawing.Labirinth
 
         private void PublishMapObject(MapObject mapObject)
         {
-            SceneObject sceneObject = null;
-
-            switch (mapObject)
+            ISceneObject sceneObject = mapObject.View(new Game.GameState()
             {
-#warning switch case type
-                //case Mob mob:
-                //    {
-                //        sceneObject = new EnemySceneObject(this.player, this.gamemap, mob, mob.TileSetRegion);
-                //        break;
-                //    }
-                //case NPC npc:
-                //    {
-                //        sceneObject = new NPCSceneObject(this.player, this.gamemap, npc, npc.TileSetRegion);
-                //        break;
-                //    }
-                //case Home home:
-                //    {
-                //        sceneObject = new HomeSceneObject(this.player, home, home.Name,this.gamemap);
-                //        break;
-                //    }
-                //case Money money:
-                //    {
-                //        sceneObject = new MoneySceneObject(this.player, money, $"Золото ({money.Amount})");
-                //        break;
-                //    }
-                //case Dungeon.Map.Objects.Loot loot:
-                //    {
-                //        sceneObject = new LootSceneObject(this.player, loot, loot.Item.Name);
-                //        break;
-                //    }
-                default:
-                    break;
-            }
-
-            this.ShowEffects?.Invoke(new List<ISceneObject>()
-            {
-                sceneObject
+                Map = gamemap,
+                Player = player
             });
+
+            this.ShowEffects?.Invoke(sceneObject.InList());
         }
 
         private void AddObject(MapObject[] cell, Point pos)

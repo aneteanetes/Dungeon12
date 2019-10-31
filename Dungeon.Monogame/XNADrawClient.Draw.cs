@@ -1,9 +1,10 @@
-﻿namespace Rogue
+﻿namespace Dungeon.Monogame
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
     using Penumbra;
+    using Dungeon;
     using ProjectMercury;
     using Dungeon.Monogame;
     using Dungeon.Resources;
@@ -156,7 +157,7 @@
             _frame++;
         }
 
-        public Types.Point MeasureText(IDrawText drawText)
+        public Dungeon.Types.Point MeasureText(IDrawText drawText)
         {
             string customFont = null;
             if (drawText.FontName != null)
@@ -168,23 +169,23 @@
 
             var m = font.MeasureString(drawText.StringData);
 
-            return new Types.Point(m.X, m.Y);
+            return new Dungeon.Types.Point(m.X, m.Y);
         }
 
-        public Types.Point MeasureImage(string image)
+        public Dungeon.Types.Point MeasureImage(string image)
         {
             var img = TileSetByName(image);
             if (img == default)
-                return new Types.Point();
+                return new Dungeon.Types.Point();
 
-            return new Types.Point()
+            return new Dungeon.Types.Point()
             {
                 X = img.Width,
                 Y = img.Height
             };
         }
 
-        public void SaveObject(ISceneObject sceneObject, string path, Types.Point offset, string runtimeCacheName = null)
+        public void SaveObject(ISceneObject sceneObject, string path, Dungeon.Types.Point offset, string runtimeCacheName = null)
         {
             throw new System.NotImplementedException();
         }
@@ -389,7 +390,7 @@
                 }
             }
 
-#warning Вот здесь теперь всё хорошо,но это место можно использовать для того что бы заоптимизировать преобразование размеров, т.к. масштабирование текстур происходит тут
+#warning [INFO] Вот здесь теперь всё хорошо,но это место можно использовать для того что бы заоптимизировать преобразование размеров, т.к. масштабирование текстур происходит тут
 
             var dest = new Rectangle(pos.Xi, pos.Yi, pos.Widthi, pos.Heighti);
 
@@ -562,13 +563,13 @@
                     texture = TileSetByName(drawablePath.Texture);
                 }
 
-                var from = new Types.Point(drawablePath.Path.First());
+                var from = new Dungeon.Types.Point(drawablePath.Path.First());
                 from.X *= 32;
                 from.Y *= 32;
                 from.X += x;
                 from.Y += y;
 
-                var to = new Types.Point(drawablePath.Path.Last());
+                var to = new Dungeon.Types.Point(drawablePath.Path.Last());
                 to.X *= 32;
                 to.Y *= 32;
                 to.X += x;
@@ -741,7 +742,7 @@
             {
                 if (!ParticleEffects.TryGetValue(sceneObject.Uid, out var particleEffect))
                 {
-                    var path = $"Dungeon.Resources.Particles.{effect.Name}.xml";
+                    var path = $"{Global.AssemblyGame}.Resources.Particles.{effect.Name}.xml";
                     if(effect.Assembly!=default)
                     {
                         path = $"{effect.Assembly}.Particles.{effect.Name}.xml";

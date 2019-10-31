@@ -15,7 +15,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
 
         public JournalList(PlayerSceneObject playerSceneObject)
         {
-            this.Image = "Dungeon.Resources.Images.ui.vertical_title(17x12).png";
+            this.Image = "Dungeon12.Resources.Images.ui.vertical_title(17x12).png";
 
             this.Height = 17;
             this.Width = 12;

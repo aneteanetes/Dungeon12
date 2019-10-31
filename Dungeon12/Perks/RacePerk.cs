@@ -1,13 +1,12 @@
 ﻿namespace Dungeon12.Races.Perks
 {
-    using FastMember;
     using Dungeon.Classes;
-    using Dungeon.Data.Perks;
     using Dungeon.Data;
+    using Dungeon.Data.Perks;
     using Dungeon.Drawing.Impl;
     using Dungeon.Entites.Alive;
-    using Dungeon.View.Interfaces;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using FastMember;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -22,9 +21,6 @@
         public override string Icon => _icon;
 
         public override string Name => _name;
-
-        public override IDrawColor BackgroundColor { get; set; }
-        public override IDrawColor ForegroundColor { get; set; }
 
         public override string Description => _description;
 

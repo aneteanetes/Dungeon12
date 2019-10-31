@@ -11,6 +11,28 @@
     {
         private static readonly Dictionary<string, Assembly> LoadedAssemblies = new Dictionary<string, Assembly>();
 
+
+        /// <summary>
+        /// 
+        /// <para>
+        /// [Кэшируемый]
+        /// </para>
+        /// </summary>
+        public static Type[] AllAssignedFrom(this Type type)
+        {
+            if (!___AllCache.TryGetValue(type, out var value))
+            {
+                value = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes())
+                    .Where(t => type.IsAssignableFrom(t))
+                    .ToArray();
+                ___AllCache.Add(type, value);
+            }
+
+            return value;
+        }
+        private static readonly Dictionary<Type, Type[]> ___AllCache = new Dictionary<Type, Type[]>();
+
+
         public static T GetInstanceFromAssembly<T>(this object assemblyType)
             => GetTypeFromAssembly<T>(assemblyType)
                 .NewAs<T>();

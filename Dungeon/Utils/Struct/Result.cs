@@ -31,5 +31,15 @@ namespace Dungeon
         }
 
         public static implicit operator bool(Result<T> a) => a.IsSuccess;
+
+        public override bool Equals(object obj)
+        {
+            throw new InvalidOperationException("Result<T> не может в Equals");
+        }
+
+        public override int GetHashCode()
+        {
+            return Value.GetHashCode();
+        }
     }
 }

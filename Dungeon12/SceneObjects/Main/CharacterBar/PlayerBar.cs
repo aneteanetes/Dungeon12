@@ -5,7 +5,8 @@
     using Dungeon.Map;
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Main.CharacterBar;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using Dungeon12.SceneObjects;
+    using System;
     using System.Collections.Generic;
 
     public class PlayerBar : SceneObject
@@ -13,7 +14,7 @@
         public override bool AbsolutePosition => true;
         public override bool CacheAvailable => false;
         
-        public PlayerBar(GameMap gamemap, PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects)
+        public PlayerBar(GameMap gamemap, Player playerSceneObject, Action<List<ISceneObject>> showEffects)
         {
             bool needSlide() => gamemap.InSafe(playerSceneObject.Avatar);
 

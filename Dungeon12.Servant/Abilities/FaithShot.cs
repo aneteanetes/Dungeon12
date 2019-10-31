@@ -53,7 +53,7 @@ namespace Dungeon12.Classes.Servant.Abilities
             {
                 @class.FaithPower.Value++;
                 this.UseEffects(new Smash(avatar).InList<ISceneObject>());
-                enemy.Flow(t => t.Damage(true), new { Damage = 20l });
+                enemy.Flow(t => t.Damage(true), new { Damage = 20L });
             }
         }
     }

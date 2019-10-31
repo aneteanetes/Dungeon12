@@ -1,12 +1,12 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 {
+    using Dungeon;
     using Dungeon.Classes;
     using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.SceneObjects;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Dungeon.Drawing;
 
     public class StatsInfo : HandleSceneControl
     {
@@ -18,7 +18,7 @@
 
         public StatsInfo(Character character)
         {
-            this.Image = "Dungeon.Resources.Images.ui.stats.png";
+            this.Image = "Dungeon12.Resources.Images.ui.stats.png";
             this.Width = 6;
             this.Height = 16;
 

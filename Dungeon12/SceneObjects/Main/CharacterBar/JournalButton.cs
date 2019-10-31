@@ -15,7 +15,6 @@
         public override bool CacheAvailable => false;
 
         private PlayerSceneObject playerSceneObject;
-        private GameMap gamemap;
 
         public JournalButton(PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects) : base("Журнал (L)", showEffects)
         {
@@ -24,7 +23,7 @@
             this.Height = 1;
             this.Width = 1;
 
-            this.AddChild(new ImageControl("Dungeon.Resources.Images.ui.player.journal.png")
+            this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.player.journal.png")
             {
                 CacheAvailable = false,
                 Height = 1,
@@ -40,7 +39,7 @@
                 ? "_f"
                 : "";
 
-            return $"Dungeon.Resources.Images.ui.square{f}.png";
+            return $"Dungeon12.Resources.Images.ui.square{f}.png";
         }
 
         public override void Focus()

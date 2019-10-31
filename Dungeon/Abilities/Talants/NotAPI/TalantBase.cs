@@ -1,6 +1,8 @@
 ﻿using Dungeon.Classes;
 using Dungeon.Entites.Alive.Proxies;
 using Dungeon.Network;
+using Dungeon.Transactions;
+using Dungeon.View.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Text;
 
 namespace Dungeon.Abilities.Talants.NotAPI
 {
-    public abstract class TalantBase : TalantDraw
+    public abstract class TalantBase : Applicable, IDrawable
     {
         public TalantBase(int order) => Order = order;
 
@@ -26,7 +28,7 @@ namespace Dungeon.Abilities.Talants.NotAPI
         [Proxied(typeof(Limit))]
         public int Level { get => Get(___Level, typeof(TalantBase).AssemblyQualifiedName); set => Set(value, typeof(TalantBase).AssemblyQualifiedName); }
         private int ___Level;
-        
+
         public virtual int MaxLevel { get; set; } = 5;
 
         public bool Available => Opened && (Activatable ? Active : true);
@@ -48,6 +50,8 @@ namespace Dungeon.Abilities.Talants.NotAPI
         }
 
         public virtual string Group { get; set; }
+
+        public virtual string Description { get; set; }
 
         public Action<bool> ActiveChanged { get; set; }
 

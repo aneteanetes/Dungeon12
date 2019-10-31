@@ -5,8 +5,7 @@
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Merchants;
     using Dungeon12.Drawing.SceneObjects.Inventories;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
-
+    using System;
     public class ShopTab : TabControl<ShopTabContent, MerchantCategory, ShopTab>
     {
         private PlayerSceneObject playerSceneObject;
@@ -28,7 +27,7 @@
             if (string.IsNullOrEmpty(categoryName))
                 return null;
 
-            return $"Dungeon.Resources.Images.Icons.Shop.{categoryName}.png";
+            return $"Dungeon12.Resources.Images.Icons.Shop.{categoryName}.png";
         }
 
         protected override Func<MerchantCategory, double, ShopTabContent> CreateContent => OpenCategoryTab;

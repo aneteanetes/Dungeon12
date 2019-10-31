@@ -1,11 +1,11 @@
-﻿using Dungeon.Abilities.Talants;
-using Dungeon12.Classes.Noone.Abilities;
+﻿using Dungeon;
+using Dungeon.Abilities.Talants;
 using Dungeon.SceneObjects;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
-using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+using Dungeon12.Classes.Noone.Abilities;
+using System;
 using System.Collections.Generic;
-using Dungeon;
 
 namespace Dungeon12.Classes.Noone.Talants.Absordibng
 {

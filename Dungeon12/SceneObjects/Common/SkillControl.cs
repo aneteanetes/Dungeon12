@@ -118,16 +118,16 @@
         private string SquareTexture(bool focus)
         {
             if (empty || !abilControl.Visible)
-                return $"Dungeon.Resources.Images.ui.square_d.png";
+                return $"Dungeon12.Resources.Images.ui.square_d.png";
 
             if (ability != null)
             {
                 if (ability.CastType == AbilityCastType.Passive)
                 {
                     if (ability.PassiveWorking)
-                        return $"Dungeon.Resources.Images.ui.square_f.png";
+                        return $"Dungeon12.Resources.Images.ui.square_f.png";
                     else
-                        return $"Dungeon.Resources.Images.ui.square_d.png";
+                        return $"Dungeon12.Resources.Images.ui.square_d.png";
                 }
             }
 
@@ -139,7 +139,7 @@
                 ? "_f"
                 : "";
 
-            return $"Dungeon.Resources.Images.ui.square{big}{f}.png";
+            return $"Dungeon12.Resources.Images.ui.square{big}{f}.png";
         }
 
         public bool IsBig => false;
@@ -163,11 +163,11 @@
                     {
                         case AbilityPosition.Left:
                             this.TooltipText = "Поговорить";
-                            img = $"Dungeon.Resources.Images.ui.talk.png";
+                            img = $"Dungeon12.Resources.Images.ui.talk.png";
                             break;
                         case AbilityPosition.Right:
                             this.TooltipText = "Информация";
-                            img = $"Dungeon.Resources.Images.ui.info.png";
+                            img = $"Dungeon12.Resources.Images.ui.info.png";
                             break;
                         default:
                             this.TooltipText = string.Empty;

@@ -15,7 +15,6 @@ namespace Dungeon12.Classes.Bowman.Effects
 {
     public class Arrow : AnimatedSceneObject<ArrowObject>
     {
-        private double _fly;
         private GameMap _gameMap;
 
         public Arrow(GameMap gameMap, ArrowObject arrow, Direction dir,Point from, bool effect=false) : base(null,arrow, "", new Rectangle()

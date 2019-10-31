@@ -1,16 +1,16 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Dialogs
 {
+    using Dungeon;
     using Dungeon.Control.Events;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Dialogs.Origin;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Entites.Alive.Enums;
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Dialogs.Origin;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -23,7 +23,7 @@
         {
             this.destroy = destroy;
             this.add = add;
-            this.AddChild(new HorizontalWindow("Dungeon.Resources.Images.ui.horizontal(26x17).png"));
+            this.AddChild(new HorizontalWindow("Dungeon12.Resources.Images.ui.horizontal(26x17).png"));
 
             this.Width = 26;
             this.Height = 17;

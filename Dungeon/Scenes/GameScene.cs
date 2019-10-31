@@ -132,4 +132,111 @@
             this.AvailableScenes.Add(typeof(TScene5));
         }
     }
+
+    public abstract class StartScene : GameScene
+    {
+        public StartScene(SceneManager sceneManager) : base(sceneManager) { }
+    }
+
+    /// <summary>
+    /// Genric параметры для навигации по коду
+    /// </summary>
+    /// <typeparam name="TScene"></typeparam>
+    public abstract class StartScene<TScene> : StartScene
+    {
+        public StartScene(SceneManager sceneManager) : base(sceneManager)
+        {
+            AvailableScenes.Add(typeof(TScene));
+        }
+    }
+
+    /// <summary>
+    /// Genric параметры для навигации по коду
+    /// </summary>
+    /// <typeparam name="TScene"></typeparam>
+    /// <typeparam name="TScene1"></typeparam>
+    public abstract class StartScene<TScene, TScene1> : StartScene<TScene>
+    {
+        public StartScene(SceneManager sceneManager) : base(sceneManager)
+        {
+            this.AvailableScenes.Add(typeof(TScene));
+            this.AvailableScenes.Add(typeof(TScene1));
+        }
+    }
+
+    /// <summary>
+    /// Genric параметры для навигации по коду
+    /// </summary>
+    /// <typeparam name="TScene"></typeparam>
+    /// <typeparam name="TScene1"></typeparam>
+    /// <typeparam name="TScene2"></typeparam>
+    public abstract class StartScene<TScene, TScene1, TScene2> : StartScene<TScene, TScene2>
+    {
+        public StartScene(SceneManager sceneManager) : base(sceneManager)
+        {
+            this.AvailableScenes.Add(typeof(TScene));
+            this.AvailableScenes.Add(typeof(TScene1));
+            this.AvailableScenes.Add(typeof(TScene2));
+        }
+    }
+
+    /// <summary>
+    /// Genric параметры для навигации по коду
+    /// </summary>
+    /// <typeparam name="TScene"></typeparam>
+    /// <typeparam name="TScene1"></typeparam>
+    /// <typeparam name="TScene2"></typeparam>
+    /// <typeparam name="TScene3"></typeparam>
+    public abstract class StartScene<TScene, TScene1, TScene2, TScene3> : StartScene<TScene, TScene2, TScene3>
+    {
+        public StartScene(SceneManager sceneManager) : base(sceneManager)
+        {
+            this.AvailableScenes.Add(typeof(TScene));
+            this.AvailableScenes.Add(typeof(TScene1));
+            this.AvailableScenes.Add(typeof(TScene2));
+            this.AvailableScenes.Add(typeof(TScene3));
+        }
+    }
+
+    /// <summary>
+    /// Genric параметры для навигации по коду
+    /// </summary>
+    /// <typeparam name="TScene"></typeparam>
+    /// <typeparam name="TScene1"></typeparam>
+    /// <typeparam name="TScene2"></typeparam>
+    /// <typeparam name="TScene3"></typeparam>
+    /// <typeparam name="TScene4"></typeparam>
+    public abstract class StartScene<TScene, TScene1, TScene2, TScene3, TScene4> : StartScene<TScene, TScene2, TScene3, TScene4>
+    {
+        public StartScene(SceneManager sceneManager) : base(sceneManager)
+        {
+            this.AvailableScenes.Add(typeof(TScene));
+            this.AvailableScenes.Add(typeof(TScene1));
+            this.AvailableScenes.Add(typeof(TScene2));
+            this.AvailableScenes.Add(typeof(TScene3));
+            this.AvailableScenes.Add(typeof(TScene4));
+        }
+    }
+
+    /// <summary>
+    /// Genric параметры для навигации по коду
+    /// </summary>
+    /// <typeparam name="TScene"></typeparam>
+    /// <typeparam name="TScene1"></typeparam>
+    /// <typeparam name="TScene2"></typeparam>
+    /// <typeparam name="TScene3"></typeparam>
+    /// <typeparam name="TScene4"></typeparam>
+    /// <typeparam name="TScene5"></typeparam>
+    public abstract class StartScene<TScene, TScene1, TScene2, TScene3, TScene4, TScene5> : StartScene<TScene, TScene2, TScene3, TScene4, TScene5>
+    {
+        public StartScene(SceneManager sceneManager) : base(sceneManager)
+        {
+            this.AvailableScenes.Add(typeof(TScene));
+            this.AvailableScenes.Add(typeof(TScene1));
+            this.AvailableScenes.Add(typeof(TScene2));
+            this.AvailableScenes.Add(typeof(TScene3));
+            this.AvailableScenes.Add(typeof(TScene4));
+            this.AvailableScenes.Add(typeof(TScene5));
+        }
+    }
 }

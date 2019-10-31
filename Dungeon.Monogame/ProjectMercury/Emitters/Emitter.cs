@@ -15,7 +15,7 @@ namespace ProjectMercury.Emitters
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
     using ProjectMercury.Modifiers;
-    using Rogue;
+    using Dungeon;
     using Dungeon.Resources;
 
 #if MPE_RAISEEVENTS
@@ -35,7 +35,7 @@ namespace ProjectMercury.Emitters
 #endif
     public class Emitter
     {
-        public float Scale { get; set; } = 1;
+        public float ScaleDraw { get; set; } = 1;
 
         static private int CreationIndex;
 
@@ -393,8 +393,8 @@ namespace ProjectMercury.Emitters
                 {
                     if (this.ParticleTexture == null)
                     {
-                        //дефолтный путь для rogue
-                        var path = $"Dungeon.Resources.Images.Particles.{this.ParticleTextureAssetName}.png";
+                        //дефолтный путь для Dungeon
+                        var path = $"{Global.AssemblyGame}.Resources.Images.Particles.{this.ParticleTextureAssetName}.png";
 
                         if (FromAssemblyName != default)
                         {
@@ -422,7 +422,7 @@ namespace ProjectMercury.Emitters
             if (!tilesetsCache.TryGetValue(tilesetName, out var bitmap))
             {
                 var stream = ResourceLoader.Load(tilesetName, tilesetName);
-                bitmap = Texture2D.FromStream(Global.TransportVariable as GraphicsDevice, stream);
+                bitmap = Texture2D.FromStream(Dungeon.Global.TransportVariable as GraphicsDevice, stream);
 
                 tilesetsCache.TryAdd(tilesetName, bitmap);
             }

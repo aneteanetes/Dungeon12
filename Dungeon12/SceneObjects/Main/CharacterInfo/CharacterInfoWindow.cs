@@ -1,19 +1,18 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 {
+    using Dungeon;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.Impl;
-    using Dungeon12.Drawing.SceneObjects.Inventories;
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Map;
     using Dungeon.View.Interfaces;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using Dungeon12.Drawing.SceneObjects.Inventories;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Dungeon.Drawing.SceneObjects;
-    using Dungeon;
-    using Dungeon.Drawing;
 
     public class CharacterInfoWindow : DraggableControl<CharacterInfoWindow>
     {
@@ -82,7 +81,7 @@
             if (statBtn)
                 OpenStats();
 
-            this.Image = "Dungeon.Resources.Images.ui.infocharacter.png";
+            this.Image = "Dungeon12.Resources.Images.ui.infocharacter.png";
         }
 
         private void OnDropInventoryItem(InventoryItem item)
@@ -117,7 +116,7 @@
 
             updateableStats.Add("Exp", exp);
 
-            this.AddChild(new ImageControl("Dungeon.Resources.Images.ui.stats.attack.png")
+            this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.stats.attack.png")
             {
                 Height = 0.5,
                 Width = 0.5,
@@ -133,7 +132,7 @@
 
             updateableStats.Add("Dmg", dmgTxt);
 
-            this.AddChild(new ImageControl("Dungeon.Resources.Images.ui.stats.defence.png")
+            this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.stats.defence.png")
             {
                 Height = 0.5,
                 Width = 0.5,
@@ -149,11 +148,11 @@
 
             updateableStats.Add("Arm", arm);
 
-            var goldImg = "Dungeon.Resources.Images.ui.stats.gold.png";
+            var goldImg = "Dungeon12.Resources.Images.ui.stats.gold.png";
             var goldMeasure = this.MeasureImage(goldImg);
 
             var goldLeft = this.Width / 2 - ((goldMeasure.X * 0.8) / 32 / 2);
-            this.AddChild(new ImageControl("Dungeon.Resources.Images.ui.stats.gold.png")
+            this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.stats.gold.png")
             {
                 Height = 0.85,
                 Width = 0.85,
@@ -251,7 +250,6 @@
             public override bool CacheAvailable => false;
             public override bool AbsolutePosition => true;
 
-            private PlayerSceneObject playerSceneObject;
             private readonly Action open;
 
             public StatsButton(Action open, Action<List<ISceneObject>> showEffects) : base("Характеристики", showEffects)
@@ -261,7 +259,7 @@
                 this.Height = 1;
                 this.Width = 1;
 
-                this.AddChild(new ImageControl("Dungeon.Resources.Images.ui.additional.png")
+                this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.additional.png")
                 {
                     AbsolutePosition = true,
                     CacheAvailable = false,
@@ -278,7 +276,7 @@
                     ? "_f"
                     : "";
 
-                return $"Dungeon.Resources.Images.ui.square{f}.png";
+                return $"Dungeon12.Resources.Images.ui.square{f}.png";
             }
 
             public override void Focus()

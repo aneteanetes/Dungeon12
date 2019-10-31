@@ -1,9 +1,12 @@
-﻿namespace Dungeon.Data.Region
+﻿using Dungeon.Types;
+
+namespace Dungeon.Data.Region
 {
-    using Dungeon.Types;
 
     public class RegionPart
     {
+        public string Icon { get; set; }
+
         public string Image { get; set; }
 
         public Rectangle Region { get; set; }

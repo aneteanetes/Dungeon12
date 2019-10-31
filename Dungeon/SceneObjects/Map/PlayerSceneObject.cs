@@ -79,11 +79,6 @@
             AddBuffs();
 
             this.OnMove += () => this.Avatar.OnMove?.Invoke();
-
-            Dungeon.Global.Time
-                .After(8)
-                .Do(() => RemoveTorchlight())
-                .Auto();
         }
 
         protected override void CallOnEvent(dynamic obj)
@@ -147,6 +142,8 @@
             this.AddChild(newBuff);
         }
 
+        protected virtual void OnMoveRegistered(Direction dir) { }
+
         protected override void DrawLoop()
         {
             var _ = NowMoving.Count == 0
@@ -155,10 +152,7 @@
 
             if (NowMoving.Contains(Direction.Up))
             {
-                //if (torchlight != null)
-                //{
-                //    torchlight.Left = 0;
-                //}
+                OnMoveRegistered(Direction.Up);
 
                 this.Avatar.Location.Y -= Speed;
                 if (!DontChangeVisionDirection)                
@@ -178,10 +172,7 @@
             }
             if (NowMoving.Contains(Direction.Down))
             {
-                //if (torchlight != null)
-                //{
-                //    torchlight.Left = 0;
-                //}
+                OnMoveRegistered(Direction.Down);
 
                 this.Avatar.Location.Y += Speed;
                 if (!DontChangeVisionDirection)
@@ -200,10 +191,7 @@
             }
             if (NowMoving.Contains(Direction.Left))
             {
-                //if (torchlight != null)
-                //{
-                //    torchlight.Left = 0.4;
-                //}
+                OnMoveRegistered(Direction.Left);
 
                 this.Avatar.Location.X -= Speed;
                 if (!DontChangeVisionDirection)
@@ -222,10 +210,7 @@
             }
             if (NowMoving.Contains(Direction.Right))
             {
-                //if (torchlight != null)
-                //{
-                //    torchlight.Left = 0.2;
-                //}
+                OnMoveRegistered(Direction.Right); 
 
                 this.Avatar.Location.X += Speed;
                 if (!DontChangeVisionDirection)
@@ -251,8 +236,6 @@
                 Volume = 0.05
             });
         }
-
-        private static int movedRight = 0;
 
         private bool CheckMoveAvailable(Direction direction)
         {
@@ -585,35 +568,5 @@
         protected override void StopAction() { }
 
         public HashSet<MapObject> TargetsInFocus = new HashSet<MapObject>();
-
-#warning torchlight extension
-        //private TorchlightInHandsSceneObject torchlight;
-        private bool torch = false;
-
-        public void Torchlight()
-        {
-            if (!torch && (Dungeon.Global.Time.Hours > 17 || Dungeon.Global.Time.Hours<8))
-            {
-                AddTorchlight();
-            }
-            else
-            {
-                RemoveTorchlight();
-            }
-
-            torch = !torch;
-        }
-
-        private void AddTorchlight()
-        {
-            //torchlight = new TorchlightInHandsSceneObject();
-            //this.AddChild(torchlight);
-        }
-
-        private void RemoveTorchlight()
-        {
-            //this.RemoveChild(torchlight);
-            //torchlight?.Destroy?.Invoke();
-        }
     }
 }

@@ -7,10 +7,9 @@
     using Dungeon.Map;
     using Dungeon.Merchants;
     using Dungeon.View.Interfaces;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
-    using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo;
     using Dungeon12.Drawing.SceneObjects.Inventories;
-    using Dungeon12.Drawing.SceneObjects.Common;
+    using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo;
+    using System;
 
     public class ShopWindow : DraggableControl<ShopWindow>
     {

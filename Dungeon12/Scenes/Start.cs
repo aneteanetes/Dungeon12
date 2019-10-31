@@ -12,7 +12,7 @@
     using Dungeon12.Races.Perks;
     using System;
 
-    public class Start : GameScene<SoloDuoScene, Game.Main, EditorScene>
+    public class Start : StartScene<SoloDuoScene, Game.Main, EditorScene>
     {
         public override bool AbsolutePositionScene => true;
 
@@ -37,7 +37,7 @@
             {
                 AbsolutePosition = true,
             });
-            this.AddObject(new ImageControl("Dungeon.Resources.Images.d12textM.png")
+            this.AddObject(new ImageControl("Dungeon12.Resources.Images.d12textM.png")
             {
                 Top = 2f,
                 Left = 10f,

@@ -1,10 +1,9 @@
 ﻿namespace Dungeon12.Map.Editor.Toolbox
 {
-    using Dungeon.Drawing;
+    using Dungeon;
     using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Drawing.SceneObjects;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using System;
 
     public class ToolboxControl : DarkRectangle
     {
@@ -84,7 +83,7 @@
         {
             if (!string.IsNullOrEmpty(textInputControl.Value))
             {
-                var tileset = $"Dungeon.Resources.Images.Tiles.{textInputControl.Value}.png";
+                var tileset = $"Dungeon12.Resources.Images.Tiles.{textInputControl.Value}.png";
                 tileSelector.Load(tileset);
             }
         }

@@ -1,13 +1,11 @@
-﻿using MoreLinq;
-using Dungeon.Abilities.Talants.TalantTrees;
-using Dungeon.Control.Keys;
+﻿using Dungeon.Control.Keys;
 using Dungeon.Drawing.Impl;
-using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants;
 using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Drawing.SceneObjects.UI;
 using Dungeon.Events;
-using System.Collections.Generic;
 using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants;
+using MoreLinq;
+using System.Collections.Generic;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 {
@@ -25,7 +23,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
             this.Destroy += () => playerSceneObject.BlockMouse = false;
             this.playerSceneObject = playerSceneObject;
 
-            this.Image = "Dungeon.Resources.Images.ui.vertical_title(17x12).png";
+            this.Image = "Dungeon12.Resources.Images.ui.vertical_title(17x12).png";
 
             this.Height = 17;
             this.Width = 12;

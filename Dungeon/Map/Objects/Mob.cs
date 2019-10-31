@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Entites.Enemy;
+    using Dungeon.Game;
     using Dungeon.Map.Infrastructure;
     using Dungeon.Physics;
     using Dungeon.Settings;
@@ -90,6 +92,11 @@
                     //Global.AudioPlayer.Effect(DamageSound ?? "bat");
                 }
             }
+        }
+
+        public override ISceneObject View(GameState gameState)
+        {
+            return new EnemySceneObject(gameState.Player, gameState.Map, this, this.TileSetRegion);
         }
 
         public long Exp => 5;

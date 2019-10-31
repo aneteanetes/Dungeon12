@@ -1,14 +1,13 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Dialogs.Origin
 {
-    using Dungeon.Data.Perks;
+    using Dungeon;
     using Dungeon.Data;
+    using Dungeon.Data.Perks;
     using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Entites.Alive.Enums;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using System;
     using System.Linq;
-    using Dungeon;
-    using Dungeon.Drawing;
 
     public class OriginDescription : ColoredRectangle
     {

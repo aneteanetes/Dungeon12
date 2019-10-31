@@ -8,6 +8,7 @@
     using Dungeon.View.Interfaces;
     using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
+    using Dungeon12.SceneObjects;
 
     public class TorchButton : SlidesafeComponent
     {
@@ -15,17 +16,16 @@
 
         public override bool CacheAvailable => false;
 
-        private PlayerSceneObject playerSceneObject;
-        private GameMap gamemap;
+        private Player playerSceneObject;
 
-        public TorchButton(PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects) : base("Факел (F)", showEffects)
+        public TorchButton(Player playerSceneObject, Action<List<ISceneObject>> showEffects) : base("Факел (F)", showEffects)
         {
             this.playerSceneObject = playerSceneObject;
 
             this.Height = 1;
             this.Width = 1;
 
-            this.AddChild(new ImageControl("Dungeon.Resources.Images.ui.player.torch.png")
+            this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.player.torch.png")
             {
                 CacheAvailable = false,
                 Height = 1,
@@ -46,7 +46,7 @@
                 ? "_f"
                 : "";
 
-            return $"Dungeon.Resources.Images.ui.square{f}.png";
+            return $"Dungeon12.Resources.Images.ui.square{f}.png";
         }
 
         public override void Focus()

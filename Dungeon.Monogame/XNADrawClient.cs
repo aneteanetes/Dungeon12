@@ -1,26 +1,23 @@
-﻿namespace Rogue
+﻿namespace Dungeon.Monogame
 {
+    using Dungeon.Network;
+    using Dungeon.Scenes.Manager;
+    using Dungeon.View.Interfaces;
+    using Dungeon12.Scenes.Menus;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
     using Microsoft.Xna.Framework.Media;
     using Penumbra;
-    using ProjectMercury;
     using ProjectMercury.Renderers;
-    using Dungeon.Resources;
-    using Dungeon.Scenes.Manager;
-    using Dungeon.Scenes.Menus;
-    using Dungeon.View.Interfaces;
     using System;
-    using System.Collections.Generic;
     using System.Resources;
 
     public partial class XNADrawClient : Game, IDrawClient
     {
         private PenumbraComponent penumbra;
 
-        Texture2D _blankTexture;
         Renderer myRenderer;
 
         public SceneManager SceneManager { get; set; }
@@ -77,7 +74,7 @@
 
             penumbra.Lights.Add(SunLight);
 
-            Global.AudioPlayer = this;
+            Dungeon.Global.AudioPlayer = this;
             Dungeon.Global.Time.OnMinute += CalculateSunlight;
 
             myRenderer= new SpriteBatchRenderer
@@ -85,7 +82,7 @@
                 GraphicsDeviceService = graphics
             };
 
-            Global.TransportVariable = GraphicsDevice;
+            Dungeon.Global.TransportVariable = GraphicsDevice;
         }
 
         protected override void Initialize()
@@ -115,8 +112,9 @@
             {
                 DrawClient = this
             };
-            SceneManager.Change<Start>();
-            Network.Network.Start();
+
+            SceneManager.Start();
+            Network.Start();
             // TODO: use this.Content to load your game content here
         }
 
@@ -146,7 +144,7 @@
         {
             if (!loaded)
             {
-                Global.TransportVariable = GraphicsDevice;
+                Dungeon.Global.TransportVariable = GraphicsDevice;
                 myRenderer.LoadContent(Content);
                 loaded = true;
             }

@@ -28,7 +28,7 @@ namespace Dungeon.Entites.Alive.Proxies
 
                 if (l < 0)
                 {
-                    v = 0l.As<T>();
+                    v = 0L.As<T>();
                 }
             }
 

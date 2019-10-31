@@ -1,4 +1,4 @@
-﻿namespace Rogue
+﻿namespace Dungeon.Monogame
 {
     using Microsoft.Xna.Framework.Input;
     using Dungeon.Control.Pointer;
@@ -38,7 +38,7 @@
         {
             Console.WriteLine(isTop);
 
-            SceneManager.Current.OnMouseWheel(isTop ? Control.Pointer.MouseWheelEnum.Up : Control.Pointer.MouseWheelEnum.Down);
+            SceneManager.Current.OnMouseWheel(isTop ? Dungeon.Control.Pointer.MouseWheelEnum.Up : Dungeon.Control.Pointer.MouseWheelEnum.Down);
         }
 
         private delegate ConditionalDelegate ConditionalDelegate(Func<MouseButton, ButtonState, bool> func, MouseButton arg, ButtonState arg2);
@@ -101,13 +101,13 @@
 
             this.light.Position = new Microsoft.Xna.Framework.Vector2(mousePosition.X, mousePosition.Y);
 
-            currentScene.OnMouseMove(new Control.Pointer.PointerArgs
+            currentScene.OnMouseMove(new Dungeon.Control.Pointer.PointerArgs
             {
                 ClickCount = 0,
-                MouseButton = (Control.Pointer.MouseButton)mb,
+                MouseButton = (Dungeon.Control.Pointer.MouseButton)mb,
                 X = mousePosition.X,
                 Y = mousePosition.Y
-            }, new Types.Point(CameraOffsetX, CameraOffsetY));
+            }, new Dungeon.Types.Point(CameraOffsetX, CameraOffsetY));
         }
 
         private readonly Dictionary<MouseButton, ButtonState> buttonPressings = new Dictionary<MouseButton, ButtonState>()
@@ -120,9 +120,9 @@
         private void OnPointerPressed(MouseButton mouseButton)
         {
             var pos = mousePosition;
-            var offset = new Types.Point(CameraOffsetX, CameraOffsetY);
+            var offset = new Dungeon.Types.Point(CameraOffsetX, CameraOffsetY);
 
-            SceneManager.Current.OnMousePress(new Control.Pointer.PointerArgs
+            SceneManager.Current.OnMousePress(new Dungeon.Control.Pointer.PointerArgs
             {
                 ClickCount = 1,
                 MouseButton = mouseButton,

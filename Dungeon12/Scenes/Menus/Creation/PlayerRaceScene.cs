@@ -1,14 +1,15 @@
 ﻿namespace Dungeon12.Scenes.Menus.Creation
 {
+    using Dungeon;
     using Dungeon.Control.Keys;
     using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.Scenes.Manager;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
-    using System.Linq;
     using Dungeon.Scenes;
+    using Dungeon.Scenes.Manager;
     using Dungeon12.Drawing.SceneObjects;
+    using System;
+    using System.Linq;
 
     public class PlayerRaceScene : GameScene<PlayerNameScene, PlayerOriginScene>
     {
@@ -20,7 +21,7 @@
 
         public override void Init()
         {
-            this.AddObject(new ImageControl("Dungeon.Resources.Images.d12back.png"));
+            this.AddObject(new ImageControl("Dungeon12.Resources.Images.d12back.png"));
 
             this.AddObject(new HorizontalWindow()
             {

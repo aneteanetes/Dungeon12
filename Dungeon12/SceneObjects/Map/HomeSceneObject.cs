@@ -7,6 +7,7 @@
     using Dungeon.Map.Objects;
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Dialogs.Shop;
+    using Dungeon12.Map.Objects;
 
     public class HomeSceneObject : ClickActionSceneObject<Home>
     {

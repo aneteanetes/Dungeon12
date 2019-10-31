@@ -67,26 +67,26 @@ namespace Dungeon.Map
 
                 foreach (var @char in line)
                 {
-                    MapObject mapObj = null;
+                    //MapObject mapObj = null;
 
-                    if (@char == '@')
-                    {
-                        mapObj = player;
-                    }
-                    else
-                    {
-                        mapObj = MapObject.Create(@char.ToString());
-                    }
+                    //if (@char == '@')
+                    //{
+                    //    mapObj = player;
+                    //}
+                    //else
+                    //{
+                    //    mapObj = MapObject.Create(@char.ToString());
+                    //}
 
-                    if (@char != '#' && @char != '.')
-                    {
-                        AddMapObject(x, y, MapObject.Create("."));
-                    }
+                    //if (@char != '#' && @char != '.')
+                    //{
+                    //    AddMapObject(x, y, MapObject.Create("."));
+                    //}
 
-                    AddMapObject(x, y, mapObj);
+                    //AddMapObject(x, y, mapObj);
 
-                    listLine.Add(new List<MapObject>() { mapObj });
-                    x++;
+                    //listLine.Add(new List<MapObject>() { mapObj });
+                    //x++;
                 }
 
                 y++;
@@ -178,7 +178,6 @@ namespace Dungeon.Map
         /// </summary>
         public class MazeGenerator
         {
-            private bool ExitExists = false;
             public char[,] Maze { get; private set; }
 
             public int StageWidth { get; set; }
@@ -391,7 +390,7 @@ namespace Dungeon.Map
                 {
                     _setTile(position_x, position_y, type);
                 }
-                catch (System.Exception e)
+                catch
                 {
                     Console.WriteLine(position_x + "/" + Maze.GetLength(0));
                     Console.WriteLine(position_y + "/" + Maze.GetLength(1));

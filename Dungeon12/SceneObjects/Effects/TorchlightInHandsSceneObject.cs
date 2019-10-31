@@ -11,7 +11,7 @@
 
         public TorchlightInHandsSceneObject()
         {
-            this.Image = "Dungeon.Resources.Images.Items.Doll.torchlighthands1.png";
+            this.Image = "Dungeon12.Resources.Images.Items.Doll.torchlighthands1.png";
 
             this.Height = 0.5;
             this.Width = 0.5;

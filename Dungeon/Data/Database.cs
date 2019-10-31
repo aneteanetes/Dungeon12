@@ -6,9 +6,9 @@
     using System.Linq.Expressions;
     using LiteDB;
 
-    public static class Database
+    public static partial class Database
     {
-        private static string MainPath = $@"{AppDomain.CurrentDomain.BaseDirectory}\Data";
+        private static string MainPath = $@"{AppDomain.CurrentDomain.BaseDirectory}";
 
         public static IEnumerable<T> Entity<T>(Expression<Func<T, bool>> predicate = null)
         {

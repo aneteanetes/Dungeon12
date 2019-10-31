@@ -18,7 +18,7 @@
         
         public override void Init()
         {
-            this.AddObject(new ImageControl("Dungeon.Resources.Images.d12back.png"));
+            this.AddObject(new ImageControl("Dungeon12.Resources.Images.d12back.png"));
 
             this.AddObject(new TypeNameDialogue(Next,Back)
             {

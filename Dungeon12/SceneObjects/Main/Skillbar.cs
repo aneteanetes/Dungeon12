@@ -1,21 +1,17 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Main
 {
-    using Dungeon.Abilities;
+    using Dungeon;
     using Dungeon.Abilities.Enums;
-    using Dungeon.Abilities.Scaling;
     using Dungeon.Control.Keys;
-    
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Events;
     using Dungeon.Map;
-    using Dungeon.Map.Objects;
     using Dungeon.View.Interfaces;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using Dungeon12.Drawing.SceneObjects.Common;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Reflection;
-    using Dungeon;
-    using Dungeon12.Drawing.SceneObjects.Common;
 
     public class SkillBar : HandleSceneControl
     {

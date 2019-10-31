@@ -1,4 +1,4 @@
-﻿namespace Rogue
+﻿namespace Dungeon.Monogame
 {
     public partial class XNADrawClient
     {

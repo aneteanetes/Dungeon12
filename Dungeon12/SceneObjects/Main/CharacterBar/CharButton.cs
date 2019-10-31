@@ -28,7 +28,7 @@
             this.Height = 1.5;
             this.Width = 1.5;
 
-            this.AddChild(new ImageControl("Dungeon.Resources.Images.ui.player.character.png")
+            this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.player.character.png")
             {
                 CacheAvailable = false,
                 Height = 1.5,
@@ -44,7 +44,7 @@
                 ? "_f"
                 : "";
 
-            return $"Dungeon.Resources.Images.ui.square{f}.png";
+            return $"Dungeon12.Resources.Images.ui.square{f}.png";
         }
 
         public override void Focus()

@@ -25,87 +25,10 @@
 
             this.SafeZones = persistRegion.SafeZones.Select(safeZone => safeZone * 32);
 
-            foreach (var item in persistRegion.Objects)
+            foreach (var regionObject in persistRegion.Objects)
             {
-                if (item.Obstruct)
-                {
-                    var wall = MapObject.Create("~");
-                    wall.Location = new Point(item.Position.X, item.Position.Y);
-
-                    if (item.Region == null)
-                    {
-                        var measure = Global.DrawClient.MeasureImage(item.Image);
-                        wall.Size = new PhysicalSize
-                        {
-                            Width=measure.X,
-                            Height=measure.Y
-                        };
-                    }
-                    this.Map.Add(wall);
-                }
-            }
-
-            foreach (var npc in persistRegion.NPCs)
-            {
-                var data = Database.Entity<NPCData>(x => x.IdentifyName == npc.IdentifyName).FirstOrDefault();
-
-                var mapNpc = new NPC()
-                {
-                    NPCEntity = data.NPC.DeepClone(),
-                    Tileset = data.Tileset,
-                    TileSetRegion = data.TileSetRegion,
-                    Name = data.Name,
-                    Size = new PhysicalSize()
-                    {
-                        Width = data.Size.X * 32,
-                        Height = data.Size.Y * 32
-                    },
-                    MovementSpeed = data.MovementSpeed,
-                    Location = npc.Position
-                };
-
-                if (data.Merchant)
-                {
-                    LoadMerchant(mapNpc);
-                }
-                BindConversations(data, mapNpc);
-
-                mapNpc.NPCEntity.MoveRegion = mapNpc.NPCEntity.MoveRegion * 32;
-
-                mapNpc.Die += () =>
-                {
-                    this.Map.Remove(mapNpc);
-                };
-
-                this.Map.Add(mapNpc);
-                this.Objects.Add(mapNpc);
-            }
-
-            foreach (var home in persistRegion.Homes)
-            {
-                var data = Database.Entity<HomeData>(x => x.IdentifyName == home.IdentifyName).FirstOrDefault();
-
-                var mapHome = new Home()
-                {
-                    ScreenImage = data.ScreenImage,
-                    Frames = data.Frames,
-                    Name = data.Name,
-                    Size = new PhysicalSize()
-                    {
-                        Width = 32,
-                        Height = 32
-                    },
-                    Location = home.Position
-                };
-
-                if (data.Merchant)
-                {
-                    LoadMerchant(mapHome);
-                }
-                BindConversations(data, mapHome);
-
-                this.Map.Add(mapHome);
-                this.Objects.Add(mapHome);
+                var obj = MapObject.Create(regionObject);
+                this.Map.Add(obj);
             }
 
             SpawnEnemies(20);
@@ -118,76 +41,7 @@
             mapObject.Merchant = new Merchants.Merchant();
             mapObject.Merchant.FillBackpacks();
         }
-
-        public void Load(string identity)
-        {
-            var persistMap = Database.Entity<Data.Maps.Map>(e => e.Identity == identity).First();
-
-            this.Name = persistMap.Name;
-
-            int x = 0;
-            int y = 0;
-
-            var template = persistMap.Template.Trim();
-
-            foreach (var line in template.Replace("\r","").Split('\n'))
-            {
-                var listLine = new List<List<Map.MapObject>>();
-
-                x = 0;
-
-                foreach (var @char in line)
-                {
-                    var mapObj = MapObject.Create(@char.ToString());
-                    mapObj.Location = new Point(x, y);
-                    mapObj.Region = new Rectangle
-                    {
-                        Height = 32,
-                        Width = 32,
-                        Pos = mapObj.Location
-                    };
-
-                    if (mapObj.Obstruction)
-                    {
-                        this.Map.Add(mapObj);
-                    }
-
-                    listLine.Add(new List<MapObject>() { mapObj });
-                    x++;
-                }
-
-                y++;
-
-                this.MapOld.Add(listLine);
-            }
-            
-            foreach (var obj in persistMap.Mobs)
-            {
-                var mob = new Mob()
-                {
-                    Enemy = obj.Enemy,
-                    Size = new PhysicalSize()
-                    {
-                        Height = obj.Size.X * 32,
-                        Width = obj.Size.Y * 32
-                    },
-                    Location = obj.Position,
-                    Tileset = obj.Tileset,
-                    TileSetRegion = obj.TileSetRegion,
-                };
-
-                mob.Die += () =>
-                {
-                    this.Map.Remove(mob);
-                };
-
-                this.Map.Add(mob);
-                this.Objects.Add(mob);
-            }
-
-            SpawnEnemies(2);
-        }
-
+        
         private void SpawnEnemies(int count)
         {
             var data = Database.Entity<MobData>(x => x.Level == this.Level)

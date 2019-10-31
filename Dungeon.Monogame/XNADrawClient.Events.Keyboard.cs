@@ -1,21 +1,10 @@
-﻿namespace Rogue
+﻿namespace Dungeon.Monogame
 {
-    using System;
-    using System.Collections.Concurrent;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Linq;
-    using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Graphics;
-    using Microsoft.Xna.Framework.Input;
     using Dungeon.Control.Keys;
-    using Dungeon.Control.Pointer;
-    using Dungeon.Resources;
     using Dungeon.Scenes.Manager;
-    using Dungeon.Scenes.Menus;
-    using Dungeon.Types;
-    using Dungeon.View.Interfaces;
-    using Rect = Dungeon.Types.Rectangle;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Input;
+    using System.Collections.Generic;
 
     public partial class XNADrawClient
     {
@@ -72,7 +61,7 @@
         {
             var hold = keysHolds.Contains(key);
 
-            SceneManager.Current.OnKeyDown(new Control.Keys.KeyArgs
+            SceneManager.Current.OnKeyDown(new Dungeon.Control.Keys.KeyArgs
             {
                 Key = (Key)key,
                 Modifiers = GetModifier(),
@@ -84,7 +73,7 @@
         {
             keysHolds.Remove(key);
 
-            SceneManager.Current.OnKeyUp(new Control.Keys.KeyArgs
+            SceneManager.Current.OnKeyUp(new Dungeon.Control.Keys.KeyArgs
             {
                 Key = (Key)key,
                 Modifiers = GetModifier()

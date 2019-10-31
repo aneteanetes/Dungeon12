@@ -1,9 +1,10 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Dialogs
 {
+    using Dungeon;
     using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.UI;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using System;
 
     public class TypeNameDialogue : VerticalWindow
     {

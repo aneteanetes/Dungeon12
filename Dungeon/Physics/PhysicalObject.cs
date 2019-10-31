@@ -93,7 +93,7 @@
         }
     }
 
-    public abstract class PhysicalObject<T> : PhysicalObject, IHasNeighbours<T>
+    public abstract class PhysicalObject<T> : PhysicalObject
         where T : PhysicalObject<T>, new()
     {
         public PhysicalObject<T> Root
@@ -291,12 +291,7 @@
             Position = new PhysicalPosition { X = this.Position.X, Y = this.Position.Y },
             Root=this.Root
         };
-
-        public Path<T> GetPath(T one, T another,double speed)
-        {
-            return AStar.FindPath(this, one, another, speed, CalculateDistance, n => 1,CheckDestinationRiched);
-        }
-
+        
         private bool CheckDestinationRiched(T path, T target)
         {
             return path.IntersectsWith(target);

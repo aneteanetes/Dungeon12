@@ -1,11 +1,16 @@
 ﻿namespace Dungeon.Map
 {
+    using Dungeon.Data.Attributes;
+    using Dungeon.Data.Region;
     using Dungeon.Entites.Animations;
+    using Dungeon.Game;
     using Dungeon.Map.Infrastructure;
+    using Dungeon.Merchants;
     using Dungeon.Physics;
     using Dungeon.Transactions;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -15,15 +20,15 @@
         public Action Die;
 
         public Action Destroy { get; set; }
-        
+
         public virtual bool Obstruction { get; set; }
-        
+
         public bool Animated => this.Animation != null;
 
         public virtual AnimationMap Animation { get; }
 
         public Point Location { get; set; }
-        
+
         public virtual bool Interactable { get; set; }
 
         public virtual void Interact(object target) => CallInteract(target as dynamic);
@@ -60,30 +65,28 @@
 
         protected override MapObject Self => this;
 
-        private static readonly Dictionary<string, Type> TypeCache = new Dictionary<string, Type>();
+        private static readonly Dictionary<string, (Type type, Type dataclass)> TypeCache = new Dictionary<string, (Type type, Type dataclass)>();
 
-        public static MapObject Create(string icon)
+        public static MapObject Create(RegionPart regionPart)
         {
-            if (!TypeCache.TryGetValue(icon, out var type))
+            if (!TypeCache.TryGetValue(regionPart.Icon, out var @class))
             {
-                type = icon.GetTypeFromAssembly("Dungeon.Map", (_icon, asm) =>
-                 {
-                     return asm.GetTypes().Where(x => typeof(MapObject).IsAssignableFrom(x))
-                     .FirstOrDefault(x =>
-                     {
-                         var attr = (TemplateAttribute)Attribute.GetCustomAttribute(x, typeof(TemplateAttribute));
-                         if (attr == null)
-                             return false;
+                var type = typeof(MapObject).AllAssignedFrom().FirstOrDefault(x =>
+                    {
+                        var attr = (TemplateAttribute)Attribute.GetCustomAttribute(x, typeof(TemplateAttribute));
+                        if (attr == null)
+                            return false;
 
-                         return attr.Template == icon;
-                     });
-                 });
+                        return attr.Template == regionPart.Icon;
+                    });
 
-                TypeCache.Add(icon, type);
+                var dataClassAttr = (DataClassAttribute)Attribute.GetCustomAttribute(type, typeof(DataClassAttribute));
+
+                TypeCache.Add(regionPart.Icon, (type, dataClassAttr.DataType));
             }
 
-            var mapObject = (MapObject)type.New();
-            mapObject.Icon = icon;
+            var mapObject = @class.type.NewAs<MapObject>();
+            mapObject.Load(regionPart);
 
             return mapObject;
         }
@@ -91,6 +94,12 @@
         public virtual bool CameraAffect { get; set; } = false;
 
         public Point SceenPosition { get; set; }
+
+        public virtual ISceneObject View(GameState gameState) => default;
+
+        protected virtual void Load(object dataClass) { }
+
+        public Merchant Merchant { get; set; }
 
         public virtual double MovementSpeed { get; set; } = 0.04;
 

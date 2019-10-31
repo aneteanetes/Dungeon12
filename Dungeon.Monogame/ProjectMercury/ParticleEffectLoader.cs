@@ -101,7 +101,7 @@
 
         private void VisitEmitters(XElement element)
         {
-            var typeName = $"ProjectMercury.Emitters.{CurrentType}, ProjectMercury";
+            var typeName = $"ProjectMercury.Emitters.{CurrentType}, Dungeon.Monogame";
 #if Android
             typeName = $"ProjectMercury.Emitters.{CurrentType}, ProjectMercury.Android";
 #endif
@@ -127,7 +127,7 @@
             }
             else
             {
-                var typeName = $"ProjectMercury.Modifiers.{CurrentType}, ProjectMercury";
+                var typeName = $"ProjectMercury.Modifiers.{CurrentType}, Dungeon.Monogame";
 #if Android
                 typeName = $"ProjectMercury.Modifiers.{CurrentType}, ProjectMercury.Android";
 #endif

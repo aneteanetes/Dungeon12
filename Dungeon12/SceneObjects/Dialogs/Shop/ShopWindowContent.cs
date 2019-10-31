@@ -22,7 +22,7 @@
 
         public ShopWindowContent(string title, Dungeon.Merchants.Merchant merchant, PlayerSceneObject playerSceneObject, Inventory another)
         {
-            this.Image = "Dungeon.Resources.Images.ui.vertical_title(17x15).png";
+            this.Image = "Dungeon12.Resources.Images.ui.vertical_title(17x15).png";
 
             this.Width = 15;
             this.Height = 17;
