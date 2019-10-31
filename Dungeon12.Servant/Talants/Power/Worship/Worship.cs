@@ -1,4 +1,4 @@
-﻿using Rogue.Abilities.Talants;
+﻿using Dungeon.Abilities.Talants;
 
 namespace Dungeon12.Classes.Servant.Talants.Power
 {

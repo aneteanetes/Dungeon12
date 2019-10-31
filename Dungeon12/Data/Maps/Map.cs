@@ -3,7 +3,7 @@
     using Dungeon.Data.Mobs;
     using System.Collections.Generic;
 
-    public class Map : Persist
+    public class Map : Dungeon.Data.Persist
     {
         public string Identity { get; set; }
 

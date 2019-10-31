@@ -1,10 +1,11 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Dialogs.Shop
 {
-    using Dungeon.Drawing.SceneObjects.Inventories;
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Merchants;
-    using System;
+    using Dungeon12.Drawing.SceneObjects.Inventories;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 
     public class ShopTab : TabControl<ShopTabContent, MerchantCategory, ShopTab>
     {
@@ -27,7 +28,7 @@
             if (string.IsNullOrEmpty(categoryName))
                 return null;
 
-            return $"Rogue.Resources.Images.Icons.Shop.{categoryName}.png";
+            return $"Dungeon.Resources.Images.Icons.Shop.{categoryName}.png";
         }
 
         protected override Func<MerchantCategory, double, ShopTabContent> CreateContent => OpenCategoryTab;

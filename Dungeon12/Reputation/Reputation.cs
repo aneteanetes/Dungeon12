@@ -1,6 +1,6 @@
 ﻿namespace Dungeon12.Reputation
 {
-    using System;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 
     public class Reputation
     {

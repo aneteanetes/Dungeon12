@@ -1,6 +1,6 @@
-﻿using Rogue.Abilities.Talants;
-using Rogue.Classes.Servant.Talants.Faith;
-using Rogue.Classes.Servant.Talants.Power;
+﻿using Dungeon.Abilities.Talants;
+using Dungeon12.Classes.Servant.Talants.Faith;
+using Dungeon12.Classes.Servant.Talants.Power;
 using System;
 using System.Collections.Generic;
 using System.Text;

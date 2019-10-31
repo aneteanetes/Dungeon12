@@ -2,20 +2,17 @@
 {
     using Dungeon.Abilities;
     using Dungeon.Abilities.Enums;
-    using Dungeon.Abilities.Talants;
     using Dungeon.Abilities.Talants.TalantTrees;
     using Dungeon.Classes;
     using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.SceneObjects.Effects;
-    using Dungeon.Drawing.SceneObjects.Gameplay;
     using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.Entites.Alive;
     using Dungeon.Entites.Animations;
     using Dungeon.Events;
     using Dungeon.Map;
     using Dungeon.Map.Objects;
+    using Dungeon.SceneObjects;
     using Dungeon.Transactions;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
@@ -83,7 +80,7 @@
 
             this.OnMove += () => this.Avatar.OnMove?.Invoke();
 
-            Global.Time
+            Dungeon.Global.Time
                 .After(8)
                 .Do(() => RemoveTorchlight())
                 .Auto();
@@ -158,10 +155,10 @@
 
             if (NowMoving.Contains(Direction.Up))
             {
-                if (torchlight != null)
-                {
-                    torchlight.Left = 0;
-                }
+                //if (torchlight != null)
+                //{
+                //    torchlight.Left = 0;
+                //}
 
                 this.Avatar.Location.Y -= Speed;
                 if (!DontChangeVisionDirection)                
@@ -181,10 +178,10 @@
             }
             if (NowMoving.Contains(Direction.Down))
             {
-                if (torchlight != null)
-                {
-                    torchlight.Left = 0;
-                }
+                //if (torchlight != null)
+                //{
+                //    torchlight.Left = 0;
+                //}
 
                 this.Avatar.Location.Y += Speed;
                 if (!DontChangeVisionDirection)
@@ -203,10 +200,10 @@
             }
             if (NowMoving.Contains(Direction.Left))
             {
-                if (torchlight != null)
-                {
-                    torchlight.Left = 0.4;
-                }
+                //if (torchlight != null)
+                //{
+                //    torchlight.Left = 0.4;
+                //}
 
                 this.Avatar.Location.X -= Speed;
                 if (!DontChangeVisionDirection)
@@ -225,10 +222,10 @@
             }
             if (NowMoving.Contains(Direction.Right))
             {
-                if (torchlight != null)
-                {
-                    torchlight.Left = 0.2;
-                }
+                //if (torchlight != null)
+                //{
+                //    torchlight.Left = 0.2;
+                //}
 
                 this.Avatar.Location.X += Speed;
                 if (!DontChangeVisionDirection)
@@ -589,12 +586,13 @@
 
         public HashSet<MapObject> TargetsInFocus = new HashSet<MapObject>();
 
-        private TorchlightInHandsSceneObject torchlight;
+#warning torchlight extension
+        //private TorchlightInHandsSceneObject torchlight;
         private bool torch = false;
 
         public void Torchlight()
         {
-            if (!torch && (Global.Time.Hours > 17 || Global.Time.Hours<8))
+            if (!torch && (Dungeon.Global.Time.Hours > 17 || Dungeon.Global.Time.Hours<8))
             {
                 AddTorchlight();
             }
@@ -608,14 +606,14 @@
 
         private void AddTorchlight()
         {
-            torchlight = new TorchlightInHandsSceneObject();
-            this.AddChild(torchlight);
+            //torchlight = new TorchlightInHandsSceneObject();
+            //this.AddChild(torchlight);
         }
 
         private void RemoveTorchlight()
         {
-            this.RemoveChild(torchlight);
-            torchlight?.Destroy?.Invoke();
+            //this.RemoveChild(torchlight);
+            //torchlight?.Destroy?.Invoke();
         }
     }
 }

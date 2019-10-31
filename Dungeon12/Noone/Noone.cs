@@ -2,14 +2,15 @@
 {
     using Dungeon.Abilities;
     using Dungeon.Abilities.Talants.TalantTrees;
-    using Dungeon.Classes.Noone.Abilities;
-    using Dungeon.Classes.Noone.Talants;
-    using Dungeon.Classes.Noone.Talants.Defensible;
+    using Dungeon12.Classes.Noone.Abilities;
+    using Dungeon12.Classes.Noone.Talants;
+    using Dungeon12.Classes.Noone.Talants.Defensible;
     using Dungeon.Drawing.Impl;
     using Dungeon.Entites.Animations;
     using Dungeon.Types;
-    using System;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
+    using Dungeon.Classes;
 
     public class Noone : BaseCharacterTileset
     {
@@ -27,7 +28,7 @@
             this.Actions = 5;
         }
 
-        public override string Avatar => "Rogue.Classes.Noone.Images.noone.png";
+        public override string Avatar => "Dungeon.Classes.Noone.Images.noone.png";
 
         public override string ClassName { get => "Приключенец"; }
         
@@ -49,7 +50,7 @@
 
         public int Actions { get; set; } = 5;
 
-        public override string Tileset => "Rogue.Classes.Noone.Images.sprite.png";
+        public override string Tileset => "Dungeon.Classes.Noone.Images.sprite.png";
 
         public int Block { get; set; }
 

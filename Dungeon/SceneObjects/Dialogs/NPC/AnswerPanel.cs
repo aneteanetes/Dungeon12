@@ -4,7 +4,7 @@
     using Dungeon.Control.Pointer;
     using Dungeon.Conversations;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects.Base;
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Map;
     using System;

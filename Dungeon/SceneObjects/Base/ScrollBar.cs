@@ -1,6 +1,7 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.Dialogs.Origin
 {
-    using Dungeon.Drawing.SceneObjects.Base;
+    using Dungeon.Drawing.SceneObjects;
+    
     using System;
 
     public class Scrollbar : ColoredRectangle

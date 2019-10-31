@@ -1,30 +1,26 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Common
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+    using Dungeon;
     using Dungeon.Abilities;
     using Dungeon.Abilities.Enums;
     using Dungeon.Abilities.Scaling;
     using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.GUI;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects.Base;
-    using Dungeon.Drawing.SceneObjects.Dialogs.NPC;
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Map;
     using Dungeon.Map.Objects;
+    using Dungeon.SceneObjects;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
+    using System;
+    using System.Collections.Generic;
 
     public class SkillControl : TooltipedSceneObject
     {
-        private static bool interacting = false;
-
-        public static bool CancelClick() => interacting = true;
-        public static bool RestoreClick() => interacting = false;
+        private static bool interacting = Global.Interacting;
 
         public override bool AbsolutePosition => true;
 
@@ -96,14 +92,14 @@
             this.Image = SquareTexture(false);
         }
 
-        private class CooldownMask : ImageControl
+        private class CooldownMask : Dungeon.Drawing.SceneObjects.ImageControl
         {
             public override bool AbsolutePosition => true;
             public override bool CacheAvailable => false;
 
             public CooldownMask(Ability ability) : base(@"ui\square_transparent_mask.png".PathImage())
             {
-                this.Mask = SceneObjects.ImageMask.Radial()
+                this.Mask = Dungeon.Drawing.SceneObjects.ImageMask.Radial()
                     .BindAmount(() => ability.Cooldown?.Percent ?? 0f)
                     .BindVisible(() => ability.Cooldown?.IsActive ?? false);
 
@@ -122,16 +118,16 @@
         private string SquareTexture(bool focus)
         {
             if (empty || !abilControl.Visible)
-                return $"Rogue.Resources.Images.ui.square_d.png";
+                return $"Dungeon.Resources.Images.ui.square_d.png";
 
             if (ability != null)
             {
                 if (ability.CastType == AbilityCastType.Passive)
                 {
                     if (ability.PassiveWorking)
-                        return $"Rogue.Resources.Images.ui.square_f.png";
+                        return $"Dungeon.Resources.Images.ui.square_f.png";
                     else
-                        return $"Rogue.Resources.Images.ui.square_d.png";
+                        return $"Dungeon.Resources.Images.ui.square_d.png";
                 }
             }
 
@@ -143,12 +139,12 @@
                 ? "_f"
                 : "";
 
-            return $"Rogue.Resources.Images.ui.square{big}{f}.png";
+            return $"Dungeon.Resources.Images.ui.square{big}{f}.png";
         }
 
         public bool IsBig => false;
-        //this.ability.AbilityPosition == Rogue.Abilities.Enums.AbilityPosition.Left
-        //    || this.ability.AbilityPosition == Rogue.Abilities.Enums.AbilityPosition.Right;
+        //this.ability.AbilityPosition == Dungeon.Abilities.Enums.AbilityPosition.Left
+        //    || this.ability.AbilityPosition == Dungeon.Abilities.Enums.AbilityPosition.Right;
 
         private string image { get; set; }
 
@@ -167,11 +163,11 @@
                     {
                         case AbilityPosition.Left:
                             this.TooltipText = "Поговорить";
-                            img = $"Rogue.Resources.Images.ui.talk.png";
+                            img = $"Dungeon.Resources.Images.ui.talk.png";
                             break;
                         case AbilityPosition.Right:
                             this.TooltipText = "Информация";
-                            img = $"Rogue.Resources.Images.ui.info.png";
+                            img = $"Dungeon.Resources.Images.ui.info.png";
                             break;
                         default:
                             this.TooltipText = string.Empty;

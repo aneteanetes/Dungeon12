@@ -1,14 +1,15 @@
 ﻿using Dungeon.Drawing.Impl;
+using Dungeon.Drawing.SceneObjects;
 
 namespace Dungeon12.Drawing.SceneObjects
 {
-    public class Background : ImageControl
+    public class Background : Dungeon.Drawing.SceneObjects.ImageControl
     {
         //public override bool AbsolutePosition => true;
 
         public override bool CacheAvailable => false;
 
-        public Background(bool snow=false) : base("Rogue.Resources.Images.d12back.png")
+        public Background(bool snow=false) : base("Dungeon.Resources.Images.d12back.png")
         {
             if (snow)
             {

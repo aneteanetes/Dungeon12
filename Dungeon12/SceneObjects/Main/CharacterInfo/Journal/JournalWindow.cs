@@ -1,11 +1,8 @@
 ﻿using Dungeon.Control.Keys;
-using Dungeon.Drawing.Impl;
-using Dungeon.Drawing.SceneObjects.Main.CharacterInfo.Journal;
-using Dungeon.Drawing.SceneObjects.Main.CharacterInfo.Talants;
 using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Drawing.SceneObjects.UI;
 using Dungeon.Events;
-using System.Collections.Generic;
+using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 {
@@ -23,7 +20,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
             this.Destroy += () => playerSceneObject.BlockMouse = false;
             this.playerSceneObject = playerSceneObject;
 
-            //this.Image = "Rogue.Resources.Images.ui.vertical(17x24).png";
+            //this.Image = "Dungeon.Resources.Images.ui.vertical(17x24).png";
 
             this.Height = 17;
             this.Width = 12; //can resize to 24 with content

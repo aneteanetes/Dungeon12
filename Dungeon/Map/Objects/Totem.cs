@@ -20,6 +20,6 @@ namespace Dungeon.Map.Objects
         /// <summary>
         /// Радиус действия эффекта, по умолчанию равен размерам и положению объекта
         /// </summary>
-        public Physics.PhysicalObject Range { get; }
+        public Dungeon.Physics.PhysicalObject Range { get; }
     }
 }

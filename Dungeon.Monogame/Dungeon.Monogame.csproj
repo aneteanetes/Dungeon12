@@ -30,14 +30,10 @@
     <!--<PackageReference Include="MonoGame.Penumbra.WindowsDX" Version="1.4.1" />-->
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Classes\Rogue.Classes.Bowman\Rogue.Classes.Bowman.csproj" />
-    <ProjectReference Include="..\Classes\Rogue.Classes.Servant\Rogue.Classes.Servant.csproj" />
     <ProjectReference Include="..\Dungeon12.Bowman\Dungeon12.Bowman.csproj" />
     <ProjectReference Include="..\Dungeon12.Servant\Dungeon12.Servant.csproj" />
     <ProjectReference Include="..\Dungeon12\Dungeon12.csproj" />
     <ProjectReference Include="..\Dungeon\Dungeon.csproj" />
-    <ProjectReference Include="..\External\Penumbra\MonoGame.Penumbra.DesktopGL.csproj" />
-    <ProjectReference Include="..\External\ProjectMercury\ProjectMercury.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Audio\Sound\Rogue.Classes.Servant\" />

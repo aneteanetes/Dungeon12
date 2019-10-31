@@ -3,7 +3,9 @@
     using Dungeon.Control.Keys;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Dialogs;
+    using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
+    using Dungeon12.Drawing.SceneObjects.Dialogs;
 
     public class PlayerOriginScene : GameScene<PlayerSummaryScene, PlayerRaceScene>
     {
@@ -15,7 +17,7 @@
 
         public override void Init()
         {
-            this.AddObject(new ImageControl("Rogue.Resources.Images.d12back.png"));
+            this.AddObject(new ImageControl("Dungeon.Resources.Images.d12back.png"));
             this.AddObject(new OriginDialogue(this.AddControl, this.RemoveControl)
             {
                 Top = 3f,

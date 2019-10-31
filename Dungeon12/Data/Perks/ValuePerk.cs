@@ -1,8 +1,9 @@
 ﻿namespace Dungeon12.Data.Perks
 {
+    using Dungeon.Data;
     using System.Collections.Generic;
 
-    public class ValuePerk : Persist
+    public class ValuePerk : Dungeon.Data.Persist
     {
         public string Icon { get; set; }
 

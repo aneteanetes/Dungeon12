@@ -3,7 +3,7 @@
     using Dungeon.Entites.Enemy;
     using Dungeon.Types;
 
-    public class MobData : Persist
+    public class MobData : Dungeon.Data.Persist
     {
         public int Level { get; set; }
 

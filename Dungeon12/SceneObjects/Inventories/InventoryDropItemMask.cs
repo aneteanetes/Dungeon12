@@ -1,10 +1,11 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Inventories
 {
     using Force.DeepCloner;
-    using Dungeon.Drawing.SceneObjects.Main.CharacterInfo;
+    using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Map;
+    using Dungeon.Map.Objects;
 
     public class InventoryDropItemMask : DropableControl<InventoryItem>
     {
@@ -50,7 +51,7 @@
 
         private void AddLootToMap(InventoryItem source)
         {
-            var lootItem = new Rogue.Map.Objects.Loot()
+            var lootItem = new Loot()
             {
                 Item = source.Item
             };

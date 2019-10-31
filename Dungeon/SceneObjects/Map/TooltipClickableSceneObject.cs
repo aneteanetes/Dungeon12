@@ -3,9 +3,7 @@
     using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.GUI;
-    using Dungeon.Drawing.SceneObjects.Common;
-    using Dungeon.Drawing.SceneObjects.Main;
+    using Dungeon.SceneObjects;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using System;
@@ -13,7 +11,7 @@
     using System.Linq;
 
     public abstract class TooltipClickableSceneObject<T> : ClickActionSceneObject<T>
-        where T : Physics.PhysicalObject
+        where T : Dungeon.Physics.PhysicalObject
     {
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
@@ -169,7 +167,7 @@
 
             public override void Click(PointerArgs args)
             {
-                SkillControl.CancelClick();
+                Global.Interacting = true;
                 click?.Invoke();
                 base.Unfocus();
             }
@@ -187,21 +185,21 @@
 
         public ISceneObject Parent { get; set; }
 
-        public Physics.PhysicalObject Bounds { get; set; }
+        public Dungeon.Physics.PhysicalObject Bounds { get; set; }
 
         public void Refresh()
         {
             ClickableTooltip.Left = Parent.ComputedPosition.X;
             ClickableTooltip.Top = Parent.ComputedPosition.Y - 0.8;
 
-            Bounds = new Physics.PhysicalObject()
+            Bounds = new Dungeon.Physics.PhysicalObject()
             {
-                Position = new Physics.PhysicalPosition()
+                Position = new Dungeon.Physics.PhysicalPosition()
                 {
                     X = ClickableTooltip.Position.X * 32,
                     Y = ClickableTooltip.Position.Y * 32
                 },
-                Size = new Physics.PhysicalSize()
+                Size = new Dungeon.Physics.PhysicalSize()
                 {
                     Width = ClickableTooltip.Width * 32,
                     Height = ClickableTooltip.Height * 32

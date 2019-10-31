@@ -1,7 +1,7 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.Map
 {
     using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.GUI;
+    using Dungeon.SceneObjects;
     using Dungeon.Map.Objects;
     using Dungeon.View.Interfaces;
     using System;

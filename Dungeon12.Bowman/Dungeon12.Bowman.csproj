@@ -8,12 +8,10 @@
     <EmbeddedResource Include="Particles\**\*" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Rogue.Classes\Rogue.Classes.csproj" />
-    <ProjectReference Include="..\..\Rogue.Drawing\Rogue.Drawing.csproj" />
-    <ProjectReference Include="..\..\Rogue.Entites\Rogue.Entites.csproj" />
+    <Folder Include="Images\Effects\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\Effects\" />
+    <ProjectReference Include="..\Dungeon12\Dungeon12.csproj" />
   </ItemGroup>
   <Import Project="$(SolutionDir)\Symbols.props" />
 </Project>

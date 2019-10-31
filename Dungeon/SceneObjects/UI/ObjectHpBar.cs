@@ -1,7 +1,7 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.UI
 {
     using Dungeon.Entites.Alive;
-        public class ObjectHpBar : ImageControl
+        public class ObjectHpBar : Dungeon.Drawing.SceneObjects.ImageControl
     {
         public ObjectHpBar(Alive alive)
             : base("Dungeon.Resources.Images.GUI.hpbar_e.png")
@@ -16,7 +16,7 @@
 
         public override bool CacheAvailable => false;
 
-        private class ObjectHpBarGreen : ImageControl
+        private class ObjectHpBarGreen : Dungeon.Drawing.SceneObjects.ImageControl
         {
             private Alive alive;
 

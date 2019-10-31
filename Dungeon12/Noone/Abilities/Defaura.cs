@@ -1,12 +1,11 @@
 ﻿using Dungeon.Abilities;
 using Dungeon.Abilities.Enums;
 using Dungeon.Abilities.Scaling;
-using Dungeon.Classes.Noone.Talants.Defensible;
 using Dungeon.Entites.Alive;
 using Dungeon.Map;
 using Dungeon.Map.Objects;
-using Dungeon.Transactions;
-using System;
+using Dungeon12.Classes.Noone.Talants.Defensible;
+using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 
 namespace Dungeon12.Classes.Noone.Abilities
 {
@@ -18,7 +17,7 @@ namespace Dungeon12.Classes.Noone.Abilities
 
         public override string Name => "Аура защитника";
 
-        public override ScaleRate Scale => ScaleRate.Build(Entites.Enums.Scale.AbilityPower, 0.1);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entites.Enums.Scale.AbilityPower, 0.1);
 
         public override AbilityPosition AbilityPosition => AbilityPosition.E;
 
@@ -45,7 +44,7 @@ namespace Dungeon12.Classes.Noone.Abilities
         {
             var rangeObject = new MapObject
             {
-                Position = new Physics.PhysicalPosition
+                Position = new Dungeon.Physics.PhysicalPosition
                 {
                     X = avatar.Position.X - ((avatar.Size.Width * 4) / 2),
                     Y = avatar.Position.Y - ((avatar.Size.Height * 4) / 2)
@@ -87,7 +86,7 @@ namespace Dungeon12.Classes.Noone.Abilities
         /// </summary>
         private class DefauraBuf : BasePerk
         {
-            public override string Image => "Rogue.Classes.Noone.Images.Abilities.Defaura.buf.png";
+            public override string Image => "Dungeon.Classes.Noone.Images.Abilities.Defaura.buf.png";
 
             public override bool ClassDependent => true;
 

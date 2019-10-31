@@ -3,11 +3,11 @@
     using Dungeon.Abilities;
     using Dungeon.Abilities.Enums;
     using Dungeon.Abilities.Scaling;
-    using Dungeon.Classes.Noone.Talants.Defensible;
+    using Dungeon12.Classes.Noone.Talants.Defensible;
     using Dungeon.Map;
     using Dungeon.Map.Objects;
     using Dungeon.Transactions;
-    using System;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 
     public class Defstand : Ability<Noone, DefensibleTalants>
     {
@@ -19,7 +19,7 @@
 
         public override string Name => "Защитная стойка";
 
-        public override ScaleRate Scale => ScaleRate.Build(Entites.Enums.Scale.AbilityPower, 0.1);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entites.Enums.Scale.AbilityPower, 0.1);
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Right;
 
@@ -48,7 +48,7 @@
         /// </summary>
         private class ArmorBuf : Applicable
         {
-            public override string Image => "Rogue.Classes.Noone.Images.Abilities.Defstand.buf.png";
+            public override string Image => "Dungeon.Classes.Noone.Images.Abilities.Defstand.buf.png";
 
             public void Apply(Avatar avatar)
             {

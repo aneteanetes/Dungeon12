@@ -3,7 +3,7 @@
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Settings;
-    using System;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 
     public class TileSelector : HandleSceneControl
     {
@@ -46,7 +46,7 @@
             
             select(new ImageControl(this.Image)
             {
-                ImageRegion = new Types.Rectangle
+                ImageRegion = new Dungeon.Types.Rectangle
                 {
                     Height = 32,
                     Width = 32,

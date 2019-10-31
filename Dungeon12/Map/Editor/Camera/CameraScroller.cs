@@ -1,20 +1,21 @@
 ﻿namespace Dungeon12.Map.Editor.Camera
 {
+    using Dungeon;
     using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects.Base;
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Settings;
 
     public class CameraScroller : DarkRectangle
     {
-        private Types.Direction direction;
+        private Dungeon.Types.Direction direction;
         private Key key;
 
         public override bool AbsolutePosition => true;
 
-        public CameraScroller(Types.Direction direction, string text, Key key)
+        public CameraScroller(Dungeon.Types.Direction direction, string text, Key key)
         {
             this.key = key;
             this.direction = direction;

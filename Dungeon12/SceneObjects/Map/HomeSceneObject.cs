@@ -3,10 +3,10 @@
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.SceneObjects.Dialogs.NPC;
-    using Dungeon.Drawing.SceneObjects.Dialogs.Shop;
     using Dungeon.Map;
     using Dungeon.Map.Objects;
     using Dungeon.View.Interfaces;
+    using Dungeon12.Drawing.SceneObjects.Dialogs.Shop;
 
     public class HomeSceneObject : ClickActionSceneObject<Home>
     {

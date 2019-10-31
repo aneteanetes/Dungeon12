@@ -3,7 +3,7 @@
     using Dungeon.Physics;
     using System.Collections.Generic;
 
-    public class Region : Persist
+    public class Region : Dungeon.Data.Persist
     {
         public List<RegionPart> Objects { get; set; }
 

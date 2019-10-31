@@ -3,8 +3,8 @@
     using Dungeon.Drawing;
     using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Drawing.SceneObjects.Base;
-    using System;
+    using Dungeon.Drawing.SceneObjects;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 
     public class ToolboxControl : DarkRectangle
     {
@@ -53,7 +53,7 @@
                 Left = textInputControl.Width + 1
             };
             this.AddChild(levelControl);
-            this.AddChild(new TextControl(new DrawText("Уровень") { Size = 15 }.Montserrat()) { Left = 7.5, Top = 0.25 });
+            this.AddChild(new Dungeon.Drawing.SceneObjects.TextControl(new DrawText("Уровень") { Size = 15 }.Montserrat()) { Left = 7.5, Top = 0.25 });
 
             this.AddChild(new CheckBox(new DrawText("Препятствие") { Size=20}.Montserrat())
             {
@@ -84,7 +84,7 @@
         {
             if (!string.IsNullOrEmpty(textInputControl.Value))
             {
-                var tileset = $"Rogue.Resources.Images.Tiles.{textInputControl.Value}.png";
+                var tileset = $"Dungeon.Resources.Images.Tiles.{textInputControl.Value}.png";
                 tileSelector.Load(tileset);
             }
         }

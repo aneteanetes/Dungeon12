@@ -7,5 +7,13 @@
   <ItemGroup>
     <PackageReference Include="LiteDB" Version="4.1.4" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.1.0" />
+    <PackageReference Include="DeepCloner" Version="0.10.2" />
+    <PackageReference Include="FastMember" Version="1.5.0" />
+    <PackageReference Include="Lidgren.Network.Core2" Version="1.0.0" />
+    <PackageReference Include="MessagePack" Version="1.8.74" />
+    <PackageReference Include="MsgPack.Cli" Version="1.0.1" />
+    <PackageReference Include="MathNet.Numerics" Version="4.8.0-beta01" />
+    <PackageReference Include="morelinq" Version="3.0.0" />
   </ItemGroup>
 </Project>

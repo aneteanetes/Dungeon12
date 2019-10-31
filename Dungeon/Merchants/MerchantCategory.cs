@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Merchants
+﻿namespace Dungeon.Merchants
 {
     using Dungeon.Inventory;
     using Dungeon.Items;

@@ -8,7 +8,7 @@
     using System.Collections.Generic;
 
     public abstract class AnimatedSceneObject<T> : ClickActionSceneObject<T>
-        where T : Physics.PhysicalObject
+        where T : Dungeon.Physics.PhysicalObject
     {
         public override bool DrawOutOfSight => false;
 

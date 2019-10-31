@@ -1,4 +1,4 @@
-﻿namespace Rogue
+﻿namespace Dungeon
 {
     using Dungeon.Audio;
     using Dungeon.Control.Pointer;
@@ -46,5 +46,7 @@
         public static PointerArgs PointerLocation { get; set; }
 
         public static double FPS { get; set; }
+
+        public static bool Interacting { get; set; }
     }
 }

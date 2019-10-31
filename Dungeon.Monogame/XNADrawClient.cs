@@ -78,7 +78,7 @@
             penumbra.Lights.Add(SunLight);
 
             Global.AudioPlayer = this;
-            Global.Time.OnMinute += CalculateSunlight;
+            Dungeon.Global.Time.OnMinute += CalculateSunlight;
 
             myRenderer= new SpriteBatchRenderer
             {
@@ -210,11 +210,11 @@
 
             if(c.IsKeyDown(Keys.U))
             {
-                Global.Time.Pause();
+                Dungeon.Global.Time.Pause();
             }
             if (c.IsKeyDown(Keys.Y))
             {
-                Global.Time.Resume();
+                Dungeon.Global.Time.Resume();
             }
 
             if (c.IsKeyDown(Keys.Left))
@@ -255,12 +255,12 @@
             {
                 float illum = BaseIlluminationUnit;
 
-                if (Global.Time.Hours >= 6 && Global.Time.Hours < 18)
+                if (Dungeon.Global.Time.Hours >= 6 && Dungeon.Global.Time.Hours < 18)
                 {
                     illum = BaseIlluminationUnit * 2;
                 }
 
-                if (Global.Time.Hours >= 18)
+                if (Dungeon.Global.Time.Hours >= 18)
                 {
 
                     illum = BaseIlluminationUnit * 4;
@@ -274,7 +274,7 @@
 
         private void CalculateSunlight()
         {
-            var time = Global.Time;
+            var time = Dungeon.Global.Time;
 
             if (time.Hours >= 4 && time.Hours < 22)
             {

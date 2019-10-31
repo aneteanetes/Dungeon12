@@ -1,8 +1,9 @@
-﻿using Rogue.Abilities;
-using Rogue.Abilities.Talants.TalantTrees;
-using Rogue.Classes.Bowman.Abilities;
-using Rogue.Classes.Bowman.Talants;
-using Rogue.Drawing.Impl;
+﻿using Dungeon.Abilities;
+using Dungeon.Abilities.Talants.TalantTrees;
+using Dungeon.Classes;
+using Dungeon12.Classes.Bowman.Talants;
+using Dungeon.Drawing.Impl;
+using Dungeon12.Classes.Bowman.Abilities;
 using System;
 using System.Collections.Generic;
 
@@ -12,7 +13,7 @@ namespace Dungeon12.Classes.Bowman
     {
         public Energy Energy { get; set; } = new Energy();
 
-        public override string Avatar => "Rogue.Classes.Bowman.Images.archer.png";
+        public override string Avatar => "Dungeon.Classes.Bowman.Images.archer.png";
 
         public override string ClassName => "Лучник";
 
@@ -22,7 +23,7 @@ namespace Dungeon12.Classes.Bowman
 
         public override ConsoleColor ResourceColor => ConsoleColor.Yellow;
 
-        public override string Tileset => "Rogue.Classes.Bowman.Images.sprite.png";
+        public override string Tileset => "Dungeon.Classes.Bowman.Images.sprite.png";
 
         public SpeedShot SpeedShot { get; set; } = new SpeedShot();
 

@@ -1,13 +1,13 @@
 ﻿using Dungeon.Abilities;
 using Dungeon.Abilities.Talants;
-using Dungeon.Classes.Noone.Abilities;
-using Dungeon.Drawing.GUI;
+using Dungeon12.Classes.Noone.Abilities;
+using Dungeon.SceneObjects;
 using Dungeon.Entites.Enemy;
 using Dungeon.Map;
 using Dungeon.Map.Objects;
 using Dungeon.Transactions;
 using Dungeon.View.Interfaces;
-using System;
+using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 using System.Collections.Generic;
 using System.Text;
 

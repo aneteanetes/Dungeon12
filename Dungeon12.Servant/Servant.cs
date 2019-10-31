@@ -1,10 +1,12 @@
-﻿using Rogue.Abilities;
-using Rogue.Abilities.Talants.TalantTrees;
-using Rogue.Classes.Servant.Abilities;
-using Rogue.Classes.Servant.Talants;
-using Rogue.Drawing.Impl;
+﻿using Dungeon.Abilities;
+using Dungeon.Abilities.Talants.TalantTrees;
+using Dungeon12.Classes.Servant.Abilities;
+using Dungeon12.Classes.Servant.Talants;
+using Dungeon.Drawing.Impl;
 using System;
 using System.Collections.Generic;
+using Dungeon.Classes;
+using Dungeon;
 
 namespace Dungeon12.Classes.Servant
 {

@@ -4,7 +4,8 @@
     using Dungeon.Drawing.Impl;
     using Dungeon.Settings;
     using Dungeon.View.Interfaces;
-    using System;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using Dungeon;
 
     public class SmallMetallButtonControl : HandleSceneControl
     {
@@ -12,7 +13,7 @@
 
         public SmallMetallButtonControl(string text)
         {
-            textControl = new TextControl(new DrawText(text, ConsoleColor.White) { Size = 30 });
+            textControl = new Dungeon.Drawing.SceneObjects.TextControl(new DrawText(text, ConsoleColor.White) { Size = 30 });
 
             var measure = Global.DrawClient.MeasureText(textControl.Text);
 
@@ -30,7 +31,7 @@
 
         public SmallMetallButtonControl(IDrawText text)
         {
-            textControl = new TextControl(text);
+            textControl = new Dungeon.Drawing.SceneObjects.TextControl(text);
 
             var measure = Global.DrawClient.MeasureText(textControl.Text);
 
@@ -51,7 +52,7 @@
 
         public Action OnClick { get; set; }
 
-        public override string Image { get; set; } = "Rogue.Resources.Images.ui.button_s.png";
+        public override string Image { get; set; } = "Dungeon.Resources.Images.ui.button_s.png";
 
         public override void Click(PointerArgs args)
         {
@@ -60,12 +61,12 @@
 
         public override void Focus()
         {
-            this.Image = "Rogue.Resources.Images.ui.button_s_f.png";
+            this.Image = "Dungeon.Resources.Images.ui.button_s_f.png";
         }
 
         public override void Unfocus()
         {
-            this.Image = "Rogue.Resources.Images.ui.button_s.png";
+            this.Image = "Dungeon.Resources.Images.ui.button_s.png";
         }
     }
 }

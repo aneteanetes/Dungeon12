@@ -1,14 +1,16 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Dialogs.Shop
 {
+    using Dungeon;
     using Dungeon.Control.Keys;
-    using Dungeon.Drawing.SceneObjects.Common;
-    using Dungeon.Drawing.SceneObjects.Inventories;
-    using Dungeon.Drawing.SceneObjects.Main.CharacterInfo;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Map;
+    using Dungeon.Merchants;
     using Dungeon.View.Interfaces;
-    using System;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo;
+    using Dungeon12.Drawing.SceneObjects.Inventories;
+    using Dungeon12.Drawing.SceneObjects.Common;
 
     public class ShopWindow : DraggableControl<ShopWindow>
     {
@@ -18,7 +20,7 @@
 
         protected override Key[] OverrideKeyHandles => new Key[] { Key.Escape };
 
-        public ShopWindow(string title, PlayerSceneObject playerSceneObject, Merchants.Merchant shop, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding, GameMap gameMap)
+        public ShopWindow(string title, PlayerSceneObject playerSceneObject, Merchant shop, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding, GameMap gameMap)
         {
             Global.FreezeWorld = this;
 
@@ -56,7 +58,7 @@
         {
             this.Destroy?.Invoke();
             Global.FreezeWorld = null;
-            SkillControl.RestoreClick();
+            Global.Interacting = false;
         }
     }
 }

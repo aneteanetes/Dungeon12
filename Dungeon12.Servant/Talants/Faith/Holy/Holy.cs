@@ -1,4 +1,4 @@
-﻿using Rogue.Abilities.Talants;
+﻿using Dungeon.Abilities.Talants;
 using System;
 using System.Collections.Generic;
 using System.Text;

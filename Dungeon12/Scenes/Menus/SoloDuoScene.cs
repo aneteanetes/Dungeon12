@@ -2,9 +2,10 @@
 {
     using Dungeon.Control.Keys;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Drawing.SceneObjects.Dialogs;
+    using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
-    using Dungeon.Scenes.Menus.Creation;
+    using Dungeon12.Drawing.SceneObjects;
+    using Dungeon12.Scenes.Menus.Creation;
 
     public class SoloDuoScene : GameScene<PlayerNameScene,NetworkScene, Start>
     {
@@ -17,7 +18,7 @@
         public override void Init()
         {
             this.AddObject(new Background(true));
-            this.AddObject(new ImageControl("Rogue.Resources.Images.d12textM.png")
+            this.AddObject(new ImageControl("Dungeon.Resources.Images.d12textM.png")
             {
                 Top = 2f,
                 Left = 10f

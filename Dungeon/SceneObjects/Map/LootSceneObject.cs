@@ -1,15 +1,10 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.Map
 {
-    using Dungeon.Control.Events;
     using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.GUI;
-    using Dungeon.Drawing.SceneObjects.Base;
-    using Dungeon.Drawing.SceneObjects.Main.CharacterInfo;
     using Dungeon.Items.Enums;
-    using Dungeon.Loot;
     using Dungeon.Map.Objects;
+    using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
-    using System;
     using System.Collections.Generic;
 
     public class LootSceneObject : TooltipClickableSceneObject<Loot>

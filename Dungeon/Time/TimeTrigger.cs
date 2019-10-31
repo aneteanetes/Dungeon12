@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Rogue
+namespace Dungeon
 {
     public class TimeTrigger
     {

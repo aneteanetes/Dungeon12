@@ -1,4 +1,4 @@
-﻿namespace Rogue
+﻿namespace Dungeon
 {
     using FastMember;
     using System.Linq.Expressions;

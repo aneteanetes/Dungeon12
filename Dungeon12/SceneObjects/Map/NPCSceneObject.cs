@@ -1,18 +1,17 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.Map
 {
-    using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.SceneObjects.Dialogs.NPC;
-    using Dungeon.Drawing.SceneObjects.Dialogs.Shop;
-    using Dungeon.Drawing.SceneObjects.Effects;
     using Dungeon.Entites.Alive;
     using Dungeon.Entites.Animations;
     using Dungeon.Map;
     using Dungeon.Map.Objects;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
-    using System;
+    using Dungeon12.Drawing.SceneObjects.Dialogs.Shop;
+    using Dungeon12.Drawing.SceneObjects.Effects;
+    using System;using Dungeon;
     using System.Collections.Generic;
 
     public class NPCSceneObject : MoveableSceneObject<NPC>
@@ -40,7 +39,7 @@
                 this.SetAnimation(mob.NPCEntity.Idle);
             }
 
-            LightTrigger = Global.Time
+            LightTrigger = Dungeon.Global.Time
                 .After(18).Do(AddTorchlight)
                 .After(8).Do(RemoveTorchlight);
         }

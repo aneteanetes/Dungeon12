@@ -1,4 +1,5 @@
 ﻿using Dungeon.Classes;
+using Dungeon.Drawing.SceneObjects;
 using Dungeon.Entites.Journal;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants

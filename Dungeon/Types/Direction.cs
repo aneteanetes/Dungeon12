@@ -10,7 +10,7 @@
     }
 }
 
-namespace Rogue
+namespace Dungeon
 {
     using Dungeon.Types;
     public static class DirectionExtensions

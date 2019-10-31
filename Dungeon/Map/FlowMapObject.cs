@@ -23,7 +23,7 @@ namespace Dungeon.Map
             if (!totem.CanAffect(this))
                 return;
 
-            var timer = Global.Time.Timer(this.Uid + totem.Uid)
+            var timer = Dungeon.Global.Time.Timer(this.Uid + totem.Uid)
                 .After(500)
                 .Do(() => CheckTotem(totem))
                 .Repeat();

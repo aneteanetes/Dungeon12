@@ -1,11 +1,11 @@
 ﻿using Dungeon.Abilities;
 using Dungeon.Abilities.Enums;
 using Dungeon.Abilities.Scaling;
-using Dungeon.Classes.Noone.Talants;
+using Dungeon12.Classes.Noone.Talants;
 using Dungeon.Map;
 using Dungeon.Map.Objects;
 using Dungeon.Transactions;
-using System;
+using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 
 namespace Dungeon12.Classes.Noone.Abilities
 {
@@ -26,14 +26,14 @@ namespace Dungeon12.Classes.Noone.Abilities
 
         public override string Name => "Навык щита";
 
-        public override ScaleRate Scale => ScaleRate.Build(Entites.Enums.Scale.None, 0.1);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entites.Enums.Scale.None, 0.1);
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Q;
 
         protected override bool CanUse(Noone @class)
         {
             var resources = @class.Actions >= 2;
-            var timer = Global.Time.Timer(nameof(ShieldSkill)).IsAlive;
+            var timer = Dungeon.Global.Time.Timer(nameof(ShieldSkill)).IsAlive;
 
             return resources && !timer;
         }
@@ -44,7 +44,7 @@ namespace Dungeon12.Classes.Noone.Abilities
             var barrierBuff = new BarrierBuff(this.Level);
             avatar.AddState(barrierBuff);
 
-            Global.Time
+            Dungeon.Global.Time
                 .Timer(nameof(ShieldSkill))
                 .After(this.Level * 1500)
                 .Do(() => avatar.RemoveState(barrierBuff))
@@ -60,7 +60,7 @@ namespace Dungeon12.Classes.Noone.Abilities
 
             public BarrierBuff(int value) => this.value = value;
 
-            public override string Image => "Rogue.Classes.Noone.Images.Abilities.ShieldSkill.buf.png";
+            public override string Image => "Dungeon.Classes.Noone.Images.Abilities.ShieldSkill.buf.png";
 
             public void Apply(Avatar avatar)
             {

@@ -1,12 +1,13 @@
-﻿using Rogue.Abilities;
-using Rogue.Abilities.Enums;
-using Rogue.Abilities.Scaling;
-using Rogue.Drawing.Impl;
-using Rogue.Drawing.SceneObjects;
-using Rogue.Map;
-using Rogue.Map.Objects;
-using Rogue.Transactions;
-using Rogue.View.Interfaces;
+﻿using Dungeon;
+using Dungeon.Abilities;
+using Dungeon.Abilities.Enums;
+using Dungeon.Abilities.Scaling;
+using Dungeon.Drawing.Impl;
+using Dungeon.Drawing.SceneObjects;
+using Dungeon.Map;
+using Dungeon.Map.Objects;
+using Dungeon.Transactions;
+using Dungeon.View.Interfaces;
 using System;
 
 namespace Dungeon12.Classes.Servant.Abilities
@@ -23,7 +24,7 @@ namespace Dungeon12.Classes.Servant.Abilities
 
         public override string Name => "Исцеление";
 
-        public override ScaleRate Scale => ScaleRate.Build(Entites.Enums.Scale.AttackDamage);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entites.Enums.Scale.AttackDamage);
 
         protected override bool CanUse(Servant @class) => !@class.Serve && @class.FaithPower.Value >= 1;
 
@@ -54,7 +55,7 @@ namespace Dungeon12.Classes.Servant.Abilities
                     Assembly="".AsmName()
                 });
 
-                Global.Time.Timer(Guid.NewGuid().ToString())
+                Dungeon.Global.Time.Timer(Guid.NewGuid().ToString())
                     .After(1700)
                     .Do(() => this.Destroy?.Invoke())
                     .Auto();

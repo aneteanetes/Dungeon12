@@ -1,5 +1,6 @@
 ﻿namespace Dungeon12.Classes
 {
+    using Dungeon;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.UI;
     using System.Linq;
@@ -13,7 +14,7 @@
             actions = Enumerable.Range(0, 5)
                 .Select((x, i) =>
                 {
-                    var img = new ActionBarSB("Rogue.Classes.Noone.Images.action.png")
+                    var img = new ActionBarSB("Dungeon.Classes.Noone.Images.action.png")
                     {
                         Height = 0.5,
                         Width = 0.8,
@@ -53,7 +54,7 @@
 
         public override bool CacheAvailable => false;
 
-        private class ActionBarSB : ImageControl
+        private class ActionBarSB : Dungeon.Drawing.SceneObjects.ImageControl
         {
             public ActionBarSB(string imagePath) : base(imagePath)
             {

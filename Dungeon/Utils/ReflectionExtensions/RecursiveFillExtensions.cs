@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rogue
+namespace Dungeon
 {
     public static class RecursiveFill
     {

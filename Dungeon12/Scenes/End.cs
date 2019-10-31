@@ -1,11 +1,11 @@
 ﻿namespace Dungeon12.Scenes.Menus
 {
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects;
+    using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
-    using Dungeon.Scenes.Menus.Creation;
+    using Dungeon12.Drawing.SceneObjects;
+    using Dungeon12.Scenes.Menus.Creation;
     using System;
-
     public class End : GameScene<PlayerNameScene, Game.Main>
     {
         public End(SceneManager sceneManager) : base(sceneManager)
@@ -16,7 +16,7 @@
         
         public override void Init()
         {
-            var endText = new TextControl(new DrawText("ВАС ОТПИЗДИЛИ", ConsoleColor.Red));
+            var endText = new Dungeon.Drawing.SceneObjects.TextControl(new DrawText("ВАС ОТПИЗДИЛИ", ConsoleColor.Red));
             endText.Text.Size = 72;
             endText.Left = 8;
             endText.Top = 9;

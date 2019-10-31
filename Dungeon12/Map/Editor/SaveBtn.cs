@@ -3,9 +3,11 @@
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects.Base;
-    using Dungeon.Map.Editor.Field;
+    using Dungeon.Drawing.SceneObjects;
+    using Dungeon12.Map.Editor.Field;
     using Dungeon.Settings;
+    using Dungeon12.Map.Editor.Field;
+    using Dungeon;
 
     public class SaveBtn : DarkRectangle
     {
@@ -27,7 +29,7 @@
         public override void Click(PointerArgs args)
         {
             saves++;
-            Global.DrawClient.SaveObject(editedGameField, "map.png", new Types.Point(-20 * 32, 0), $"designcache{saves}");
+            Global.DrawClient.SaveObject(editedGameField, "map.png", new Dungeon.Types.Point(-20 * 32, 0), $"designcache{saves}");
             editedGameField.Save($"designcache{saves}");
         }
     }

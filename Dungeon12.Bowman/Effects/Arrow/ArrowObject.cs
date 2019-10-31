@@ -1,6 +1,8 @@
-﻿using Rogue.Entites.Animations;
-using Rogue.Physics;
-using Rogue.Types;
+﻿using Dungeon;
+using Dungeon.Classes;
+using Dungeon.Entites.Animations;
+using Dungeon.Physics;
+using Dungeon.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;

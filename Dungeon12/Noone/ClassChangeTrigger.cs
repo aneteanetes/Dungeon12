@@ -4,10 +4,11 @@ using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Events;
 using Dungeon.Map;
 using Dungeon.View.Interfaces;
-using System;
+using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Dungeon.Classes;
 
 namespace Dungeon12.Classes
 {
@@ -31,7 +32,7 @@ namespace Dungeon12.Classes
 
             //отключаем все пассивные способности
             from.PropertiesOfType<Ability>()
-                .Where(a => a.CastType == Abilities.Enums.AbilityCastType.Passive)
+                .Where(a => a.CastType == Dungeon.Abilities.Enums.AbilityCastType.Passive)
                 .ToList()
                 .ForEach(a => a.Release(Gamemap.As<GameMap>(), SceneObject.Avatar));
 
@@ -68,7 +69,7 @@ namespace Dungeon12.Classes
                 Character = SceneObject.Avatar.Character
             });
 
-            return "Rogue.Drawing.Impl.DrawText".GetInstanceFromAssembly<IDrawText>("Rogue.Drawing", "Класс поменяли");
+            return "Dungeon.Drawing.Impl.DrawText".GetInstanceFromAssembly<IDrawText>("Dungeon.Drawing", "Класс поменяли");
         }
     }
 }

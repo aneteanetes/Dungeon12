@@ -1,4 +1,4 @@
-﻿namespace Rogue
+﻿namespace Dungeon
 {
     using Dungeon.Classes;
     using Dungeon.Items;

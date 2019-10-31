@@ -7,8 +7,7 @@ using System.Runtime.Loader;
 using System.Text;
 using LiteDB;
 using Newtonsoft.Json;
-using Dungeon.Data.Perks;
-//using Dungeon.DataAccess.Perk;
+//using Dungeon.Data.Perk;
 
 namespace Dungeon.Data
 {
@@ -32,21 +31,6 @@ namespace Dungeon.Data
 
             LoadRogueDataAssembly();
             CompileDatabase();
-
-            //Test();
-        }
-
-        private static void Test()
-        {
-            using (var db = new LiteDatabase($@"{MainPath}\Data.db"))
-            {
-                var collection = db.GetCollection<ValuePerk>();
-
-                foreach (var item in collection.FindAll())
-                {
-                    Console.WriteLine(JsonConvert.SerializeObject(item));
-                }
-            }
         }
 
         private static void CompileDatabase()

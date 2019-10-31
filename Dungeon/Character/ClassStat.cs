@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Classes
+﻿namespace Dungeon.Classes
 {
     using Dungeon.View.Interfaces;
 

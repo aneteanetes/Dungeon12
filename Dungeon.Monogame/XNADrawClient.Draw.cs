@@ -149,7 +149,7 @@
 
             spriteBatch.DrawString(font, text, new Vector2(555, 16), Color.White);
 
-            spriteBatch.DrawString(font, Global.Time, new Vector2(625, 30), Color.Yellow);
+            spriteBatch.DrawString(font, Dungeon.Global.Time, new Vector2(625, 30), Color.Yellow);
 
             spriteBatch.End();
 

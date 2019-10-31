@@ -1,4 +1,4 @@
-﻿namespace Rogue
+﻿namespace Dungeon
 {
     public class Time
     {

@@ -1,5 +1,8 @@
 ﻿namespace Dungeon.Scenes
 {
+    using Dungeon.Logging;
+    using Dungeon.Map;
+    using Dungeon.Map.Objects;
     using Dungeon.Scenes.Manager;
     using System;
     using System.Collections.Generic;
@@ -7,8 +10,13 @@
     public abstract class GameScene : CommandScene
     {
         protected readonly List<Type> AvailableScenes = new List<Type>();
+        public Avatar PlayerAvatar;
 
         public virtual bool CameraAffect => false;
+
+        public GameMap Gamemap;
+
+        public Logger Log;
 
         public GameScene(SceneManager sceneManager) : base(sceneManager)
         {

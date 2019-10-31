@@ -53,7 +53,7 @@
             OnEvent(obj);
         }
 
-        private class AvatarSceneObject : ImageControl
+        private class AvatarSceneObject : Dungeon.Drawing.SceneObjects.ImageControl
         {
             private Character player;
 

@@ -1,17 +1,15 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.Map
 {
-    using Dungeon.Abilities;
     using Dungeon.Abilities.Enums;
     using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.GUI;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Entites.Alive;
     using Dungeon.Entites.Animations;
-    using Dungeon.Entites.Enemy;
     using Dungeon.Map;
     using Dungeon.Map.Objects;
+    using Dungeon.SceneObjects;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using System;

@@ -1,10 +1,11 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Main
 {
-    using Dungeon.Drawing.SceneObjects.Main.CharacterBar;
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Map;
     using Dungeon.View.Interfaces;
-    using System;
+    using Dungeon12.Drawing.SceneObjects.Main.CharacterBar;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
 
     public class PlayerBar : SceneObject

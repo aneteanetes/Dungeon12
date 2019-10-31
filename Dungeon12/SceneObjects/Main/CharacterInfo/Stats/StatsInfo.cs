@@ -2,10 +2,11 @@
 {
     using Dungeon.Classes;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects.Base;
-    using System;
+    using Dungeon.Drawing.SceneObjects;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
     using System.Linq;
+    using Dungeon.Drawing;
 
     public class StatsInfo : HandleSceneControl
     {
@@ -17,7 +18,7 @@
 
         public StatsInfo(Character character)
         {
-            this.Image = "Rogue.Resources.Images.ui.stats.png";
+            this.Image = "Dungeon.Resources.Images.ui.stats.png";
             this.Width = 6;
             this.Height = 16;
 

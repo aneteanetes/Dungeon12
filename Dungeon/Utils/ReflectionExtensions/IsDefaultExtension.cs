@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Rogue
+namespace Dungeon
 {
     public static class IsDefaultExtension
     {

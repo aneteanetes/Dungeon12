@@ -169,7 +169,7 @@
         {
             var rangeObject = new MapObject
             {
-                Position = new Physics.PhysicalPosition
+                Position = new Dungeon.Physics.PhysicalPosition
                 {
                     X = @object.Position.X - ((@object.Size.Width * 2.5) / 2),
                     Y = @object.Position.Y - ((@object.Size.Height * 2.5) / 2)

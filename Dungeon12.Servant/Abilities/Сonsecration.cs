@@ -1,10 +1,11 @@
-﻿using Rogue.Abilities;
-using Rogue.Abilities.Enums;
-using Rogue.Abilities.Scaling;
-using Rogue.Classes.Servant.Effects.Сonsecration;
-using Rogue.Map;
-using Rogue.Map.Objects;
-using Rogue.View.Interfaces;
+﻿using Dungeon.Abilities;
+using Dungeon.Abilities.Enums;
+using Dungeon.Abilities.Scaling;
+using Dungeon12.Classes.Servant.Effects.Сonsecration;
+using Dungeon.Map;
+using Dungeon.Map.Objects;
+using Dungeon.View.Interfaces;
+using Dungeon;
 
 namespace Dungeon12.Classes.Servant.Abilities
 {
@@ -16,7 +17,7 @@ namespace Dungeon12.Classes.Servant.Abilities
 
         public override string Name => "Освящение";
 
-        public override ScaleRate Scale => ScaleRate.Build(Entites.Enums.Scale.AbilityPower);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entites.Enums.Scale.AbilityPower);
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.DmgHealInstant;
 

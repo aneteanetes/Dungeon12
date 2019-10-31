@@ -1,9 +1,10 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Dialogs.Shop
 {
-    using Dungeon.Drawing.SceneObjects.Inventories;
+    using Dungeon12.Drawing.SceneObjects.Inventories;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Merchants;
+    using Dungeon12.Drawing.SceneObjects.Inventories;
     using System.Linq;
 
     public class ShopTabContent : DropableControl<InventoryItem>

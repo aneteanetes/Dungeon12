@@ -5,8 +5,10 @@
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Scenes.Manager;
-    using System;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Linq;
+    using Dungeon.Scenes;
+    using Dungeon12.Drawing.SceneObjects;
 
     public class PlayerRaceScene : GameScene<PlayerNameScene, PlayerOriginScene>
     {
@@ -18,7 +20,7 @@
 
         public override void Init()
         {
-            this.AddObject(new ImageControl("Rogue.Resources.Images.d12back.png"));
+            this.AddObject(new ImageControl("Dungeon.Resources.Images.d12back.png"));
 
             this.AddObject(new HorizontalWindow()
             {
@@ -26,7 +28,7 @@
                 Left = 10f,
             });
 
-            this.AddObject(new TextControl(new DrawText("Выберите расу", new DrawColor(ConsoleColor.White)) { Size = 50 })
+            this.AddObject(new Dungeon.Drawing.SceneObjects.TextControl(new DrawText("Выберите расу", new DrawColor(ConsoleColor.White)) { Size = 50 })
             {
                 Left=15.5,
                 Top=3.5

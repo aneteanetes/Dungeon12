@@ -1,13 +1,14 @@
 ﻿using MoreLinq;
-using Rogue.Drawing;
-using Rogue.Drawing.Impl;
-using Rogue.Drawing.SceneObjects;
-using Rogue.Drawing.SceneObjects.UI;
-using Rogue.View.Interfaces;
+using Dungeon.Drawing;
+using Dungeon.Drawing.Impl;
+using Dungeon.Drawing.SceneObjects;
+using Dungeon.Drawing.SceneObjects.UI;
+using Dungeon.View.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Dungeon;
 
 namespace Dungeon12.Classes.Bowman
 {
@@ -24,15 +25,15 @@ namespace Dungeon12.Classes.Bowman
             this.AddChild(leftBar);
             this.AddChild(new EnergyBarHand(avatar,false)
             {
-                Left = 0.031+ MeasureImage("Rogue.Classes.Bowman.Images.energy.png").X+0.1,
+                Left = 0.031+ MeasureImage("Dungeon.Classes.Bowman.Images.energy.png").X+0.1,
                 Top = 0.031,
                 Height = 0.46875
             });
         }
 
-        protected override string BarTile => "Rogue.Resources.Images.ui.player.hp_back.png";
+        protected override string BarTile => "Dungeon.Resources.Images.ui.player.hp_back.png";
 
-        private class EnergyBarHand : ImageControl
+        private class EnergyBarHand : Dungeon.Drawing.SceneObjects.ImageControl
         {
             private Bowman archer;
 
@@ -40,7 +41,7 @@ namespace Dungeon12.Classes.Bowman
 
             public bool left;
 
-            public EnergyBarHand(Bowman archer,bool left=true) : base("Rogue.Classes.Bowman.Images.energy.png")
+            public EnergyBarHand(Bowman archer,bool left=true) : base("Dungeon.Classes.Bowman.Images.energy.png")
             {
                 this.left = left;
                 this.archer = archer;

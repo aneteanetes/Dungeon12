@@ -1,15 +1,16 @@
 ﻿using Dungeon.Abilities;
 using Dungeon.Abilities.Talants;
-using Dungeon.Classes.Noone.Abilities;
-using Dungeon.Drawing.GUI;
+using Dungeon12.Classes.Noone.Abilities;
+using Dungeon.SceneObjects;
 using Dungeon.Entites.Enemy;
 using Dungeon.Map;
 using Dungeon.Map.Objects;
 using Dungeon.Transactions;
 using Dungeon.View.Interfaces;
-using System;
+using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 using System.Collections.Generic;
 using System.Text;
+using Dungeon;
 
 namespace Dungeon12.Classes.Noone.Talants.Absordibng
 {
@@ -27,7 +28,7 @@ namespace Dungeon12.Classes.Noone.Talants.Absordibng
 
             var rangeObject = new MapObject
             {
-                Position = new Physics.PhysicalPosition
+                Position = new Dungeon.Physics.PhysicalPosition
                 {
                     X = Avatar.Position.X - ((Avatar.Size.Width * 2.5) / 2),
                     Y = Avatar.Position.Y - ((Avatar.Size.Height * 2.5) / 2)
@@ -47,7 +48,7 @@ namespace Dungeon12.Classes.Noone.Talants.Absordibng
                 var debuff = new PoisonDebuffPoisonShield(value * 2, elementalShield, Avatar);
                 enemy.AddState(debuff);
 
-                Global.Time
+                Dungeon.Global.Time
                     .Timer(nameof(PoisonDebuffPoisonShield))
                     .After(value * 1000)
                     .Do(() => enemy.RemoveState(debuff))
@@ -80,14 +81,14 @@ namespace Dungeon12.Classes.Noone.Talants.Absordibng
                 this.avatar = avatar;
             }
 
-            public override string Image => "Rogue.Classes.Noone.Images.Abilities.Defstand.buf.png";
+            public override string Image => "Dungeon.Classes.Noone.Images.Abilities.Defstand.buf.png";
 
             private TimerTrigger timer;
 
             public void Apply(Mob enemy)
             {
                 avatar.Character.Barrier += value;
-                timer = Global.Time
+                timer = Dungeon.Global.Time
                     .Timer(nameof(PoisonDebuffPoisonShield) + enemy.Uid)
                     .After(1000)
                     .Do(() => DOT(enemy))

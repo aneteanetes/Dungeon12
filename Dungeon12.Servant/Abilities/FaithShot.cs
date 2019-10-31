@@ -1,11 +1,12 @@
-﻿using Rogue.Abilities;
-using Rogue.Abilities.Enums;
-using Rogue.Abilities.Scaling;
-using Rogue.Classes.Servant.Effects.FaithShot;
-using Rogue.Map;
-using Rogue.Map.Objects;
-using Rogue.Physics;
-using Rogue.View.Interfaces;
+﻿using Dungeon.Abilities;
+using Dungeon.Abilities.Enums;
+using Dungeon.Abilities.Scaling;
+using Dungeon12.Classes.Servant.Effects.FaithShot;
+using Dungeon.Map;
+using Dungeon.Map.Objects;
+using Dungeon.Physics;
+using Dungeon.View.Interfaces;
+using Dungeon;
 
 namespace Dungeon12.Classes.Servant.Abilities
 {
@@ -21,7 +22,7 @@ namespace Dungeon12.Classes.Servant.Abilities
 
         public override string Name => "Удар веры";
 
-        public override ScaleRate Scale => ScaleRate.Build(Entites.Enums.Scale.AttackDamage);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entites.Enums.Scale.AttackDamage);
 
         protected override bool CanUse(Servant @class) => !@class.Serve;
         

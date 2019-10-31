@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rogue
+namespace Dungeon
 {
     public class Result<T>
     {

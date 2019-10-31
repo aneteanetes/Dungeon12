@@ -3,13 +3,13 @@
     using Dungeon.Abilities;
     using Dungeon.Abilities.Enums;
     using Dungeon.Abilities.Scaling;
-    using Dungeon.Classes.Noone.Talants;
-    using Dungeon.Drawing.GUI;
+    using Dungeon12.Classes.Noone.Talants;
+    using Dungeon.SceneObjects;
     using Dungeon.Map;
     using Dungeon.Map.Objects;
     using Dungeon.Physics;
     using Dungeon.View.Interfaces;
-    using System;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -23,7 +23,7 @@
 
         public override AbilityTargetType TargetType => AbilityTargetType.TargetAndNonTarget;
 
-        public override ScaleRate Scale => ScaleRate.Build(Entites.Enums.Scale.AbilityPower, 0.1);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entites.Enums.Scale.AbilityPower, 0.1);
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Left;
 
@@ -39,7 +39,7 @@
 
             var rangeObject = new MapObject
             {
-                Position = new Physics.PhysicalPosition
+                Position = new Dungeon.Physics.PhysicalPosition
                 {
                     X = avatar.Position.X - ((avatar.Size.Width * 2.5) / 2),
                     Y = avatar.Position.Y - ((avatar.Size.Height * 2.5) / 2)
@@ -86,7 +86,7 @@
 
         protected override void Dispose(GameMap gameMap, Avatar avatar, Noone @class) { }
 
-        public override double Value => Rogue.RandomRogue.Next(10,30);
+        public override double Value => Dungeon.RandomRogue.Next(10,30);
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.EffectInstant;
 

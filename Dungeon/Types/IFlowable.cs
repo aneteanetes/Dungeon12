@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rogue
+namespace Dungeon
 {
     /// <summary>
     /// Интерфейс который указывает что возможно использовать последовательный вызов

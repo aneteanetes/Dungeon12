@@ -1,24 +1,24 @@
 ﻿namespace Dungeon12.Scenes.Game
 {
+    using Dungeon;
     using Dungeon.Control.Keys;
     using Dungeon.Drawing;
     using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.Labirinth;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Drawing.SceneObjects.Main;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Map;
     using Dungeon.Map.Objects;
+    using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
-    using Dungeon.Scenes.Menus;
     using Dungeon.Settings;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
+    using Dungeon12.Drawing.SceneObjects.Main;
+    using Dungeon12.Scenes.Menus;
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Linq;
 
     public class Main : GameScene<Start, Main,End>
     {
@@ -157,13 +157,13 @@
             {
                 Biom = ConsoleColor.DarkGray
             };
-            this.Gamemap.OnMoving += (MapObject obj, Types.Direction dir, bool availabe) =>
+            this.Gamemap.OnMoving += (MapObject obj, Dungeon.Types.Direction dir, bool availabe) =>
             {
                 MapObjectCanAffectCamera(obj, dir, availabe);
             };
 
             this.Gamemap.LoadRegion("FaithIsland");
-            this.AddObject(new ImageControl("Rogue.Resources.Images.Regions.FaithIsland.png"));
+            this.AddObject(new ImageControl("Dungeon.Resources.Images.Regions.FaithIsland.png"));
 
 
             //width = 40
@@ -208,7 +208,7 @@
             };
         }
 
-        private static void MapObjectCanAffectCamera(MapObject obj, Types.Direction dir, bool availabe)
+        private static void MapObjectCanAffectCamera(MapObject obj, Dungeon.Types.Direction dir, bool availabe)
         {
             if (obj.CameraAffect)
             {

@@ -1,21 +1,22 @@
-﻿using Rogue.Drawing.Impl;
-using Rogue.Drawing.SceneObjects;
-using Rogue.Map;
-using Rogue.Map.Objects;
-using Rogue.Transactions;
+﻿using Dungeon;
+using Dungeon.Drawing.Impl;
+using Dungeon.Drawing.SceneObjects;
+using Dungeon.Map;
+using Dungeon.Map.Objects;
+using Dungeon.Transactions;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Dungeon12.Classes.Servant.Effects.Сonsecration
 {
-    public class СonsecrationCircle : ImageControl
+    public class СonsecrationCircle : Dungeon.Drawing.SceneObjects.ImageControl
     {
         public override bool AbsolutePosition => false;
 
         public override bool CacheAvailable => false;
         
-        public СonsecrationCircle(GameMap gameMap, Physics.PhysicalObject position) : base("Effects/concentration.png".PathAsmImg())
+        public СonsecrationCircle(GameMap gameMap, Dungeon.Physics.PhysicalObject position) : base("Effects/concentration.png".PathAsmImg())
         {
             var totem = new ConsecrationCircleTotem(position.Position.X / 32, position.Position.Y / 32);
             gameMap.Map.Add(totem);
@@ -38,7 +39,7 @@ namespace Dungeon12.Classes.Servant.Effects.Сonsecration
                 Top=0.5
             });
 
-            Global.Time.Timer(Guid.NewGuid().ToString())
+            Dungeon.Global.Time.Timer(Guid.NewGuid().ToString())
                 .After(millisec)
                 .Do(() => this.Destroy?.Invoke())
                 .Auto();
@@ -53,13 +54,13 @@ namespace Dungeon12.Classes.Servant.Effects.Сonsecration
                 this.Width = 3;
                 this.Height = 1.5;
                 
-                this.Effects = new List<View.Interfaces.IEffect>()
+                this.Effects = new List<Dungeon.View.Interfaces.IEffect>()
                 {
                     new ParticleEffect()
                     {
                         Name="Сonsecration",
                         Scale = 1,
-                        Assembly="Rogue.Classes.Servant"
+                        Assembly="Dungeon.Classes.Servant"
                     }
                 };
             }
@@ -70,11 +71,11 @@ namespace Dungeon12.Classes.Servant.Effects.Сonsecration
     {
         public ConsecrationCircleTotem(double x, double y)
         {
-            this.Location = new Types.Point(x, y);
+            this.Location = new Dungeon.Types.Point(x, y);
             this.Location.X -= 1.5;
             this.Location.Y -= 0.75;
 
-            this.Size = new Physics.PhysicalSize()
+            this.Size = new Dungeon.Physics.PhysicalSize()
             {
                 Height = 1.5 * 32,
                 Width = 3 * 32

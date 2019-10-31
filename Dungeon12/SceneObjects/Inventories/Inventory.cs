@@ -1,25 +1,21 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Inventories
 {
+    using Dungeon;
     using Dungeon.Classes;
     using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
-    using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.GUI;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects.Base;
-    using Dungeon.Drawing.SceneObjects.Dialogs.Shop;
-    using Dungeon.Drawing.SceneObjects.Main.CharacterInfo;
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.Entites.Alive;
     using Dungeon.Inventory;
-    using Dungeon.Items;
+    using Dungeon.SceneObjects;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
-    using System;
+    using Dungeon12.Drawing.SceneObjects.Dialogs.Shop;
+    using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Чёт я проебал почему так, поэтому если надо выбрасывать на землю, после <see cref="Inventory"/> обязательно добавлять <see cref="InventoryDropItemMask"/>
@@ -41,9 +37,9 @@
 
         private Character @char => playerSceneObject.Avatar.Character;
 
-        private readonly Merchants.Merchant merchant;
+        private readonly Dungeon.Merchants.Merchant merchant;
 
-        public Inventory(PlayerSceneObject playerSceneObject, Backpack backpack, Merchants.Merchant merchant = null)
+        public Inventory(PlayerSceneObject playerSceneObject, Backpack backpack, Dungeon.Merchants.Merchant merchant = null)
         {
             this.merchant = merchant;
             this.playerSceneObject = playerSceneObject;
@@ -187,7 +183,7 @@
                 var x = Math.Ceiling(source.Left);
                 var y = Math.Ceiling(source.Top);
 
-                if (this.backpack.Add(source.Item, new Types.Point(x, y)))
+                if (this.backpack.Add(source.Item, new Dungeon.Types.Point(x, y)))
                 {
                     if (source.Parent is Inventory inventoryParent)
                     {
@@ -276,7 +272,7 @@
                             Fill = true,
                             BackgroundColor = color,
                             Depth = 1,
-                            PathPredefined = View.Enums.PathPredefined.Rectangle,
+                            PathPredefined = Dungeon.View.Enums.PathPredefined.Rectangle,
                             Region = this.Position,
                             Radius = 5f
                         };
@@ -312,7 +308,7 @@
                                 Fill = false,
                                 BackgroundColor = color,
                                 Depth = 1,
-                                PathPredefined = View.Enums.PathPredefined.Rectangle,
+                                PathPredefined = Dungeon.View.Enums.PathPredefined.Rectangle,
                                 Region = this.Position,
                                 Radius = 5f
                             };

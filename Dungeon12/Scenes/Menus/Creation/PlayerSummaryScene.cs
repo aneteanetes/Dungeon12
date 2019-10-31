@@ -2,9 +2,10 @@
 {
     using Dungeon.Control.Keys;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects.Base;
-    using Dungeon.Scenes.Game;
+    using Dungeon.Drawing.SceneObjects;
+    using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
+    using Dungeon12.Scenes.Game;
     using System;
 
     public class PlayerSummaryScene : GameScene<Main,PlayerOriginScene>

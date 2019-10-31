@@ -51,7 +51,7 @@
                             {
                                 Image = obj.Image,
                                 Region = obj.ImageRegion,
-                                Position = new Types.Point(x, y),
+                                Position = new Dungeon.Types.Point(x, y),
                                 Obstruct = obj.Obstruction,
                                 Layer = lvl + 1
                             });

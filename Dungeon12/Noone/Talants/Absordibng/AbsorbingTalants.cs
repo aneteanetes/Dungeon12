@@ -1,7 +1,7 @@
 ﻿using Dungeon.Abilities.Talants;
-using Dungeon.Classes.Noone.Abilities;
-using Dungeon.Classes.Noone.Talants.Absordibng;
-using System;
+using Dungeon12.Classes.Noone.Abilities;
+using Dungeon12.Classes.Noone.Talants.Absordibng;
+using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dungeon12.Classes.Noone.Talants

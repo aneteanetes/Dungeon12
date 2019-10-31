@@ -2,12 +2,14 @@
 {
     using Dungeon.Control.Keys;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Map.Editor.Camera;
-    using Dungeon.Map.Editor.Field;
-    using Dungeon.Map.Editor.Toolbox;
+    using Dungeon12.Map.Editor.Camera;
+    using Dungeon12.Map.Editor.Field;
+    using Dungeon12.Map.Editor.Toolbox;
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
     using Dungeon.Settings;
+    using Dungeon;
+    using Dungeon12.Drawing.SceneObjects;
 
     public class EditorScene : GameScene
     {
@@ -42,22 +44,22 @@
             };
             this.AddObject(saveBtn);
 
-            this.AddObject(new CameraScroller(Types.Direction.Left, "<", Control.Keys.Key.A)
+            this.AddObject(new CameraScroller(Dungeon.Types.Direction.Left, "<", Dungeon.Control.Keys.Key.A)
             {
                 Left = 1,
                 Top = 21.5,
             });
-            this.AddObject(new CameraScroller(Types.Direction.Right, ">", Control.Keys.Key.D)
+            this.AddObject(new CameraScroller(Dungeon.Types.Direction.Right, ">", Dungeon.Control.Keys.Key.D)
             {
                 Left = 3,
                 Top = 21.5,
             });
-            this.AddObject(new CameraScroller(Types.Direction.Down, "?", Control.Keys.Key.S)
+            this.AddObject(new CameraScroller(Dungeon.Types.Direction.Down, "?", Dungeon.Control.Keys.Key.S)
             {
                 Left = 2,
                 Top = 21.5,
             });
-            this.AddObject(new CameraScroller(Types.Direction.Up, "^", Control.Keys.Key.W)
+            this.AddObject(new CameraScroller(Dungeon.Types.Direction.Up, "^", Dungeon.Control.Keys.Key.W)
             {
                 Left = 2,
                 Top = 20.5,

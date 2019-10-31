@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Dungeon.Types;
 
-namespace Rogue
+namespace Dungeon
 {
     public static class Flatten
     {

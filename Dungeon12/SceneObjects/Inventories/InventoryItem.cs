@@ -1,15 +1,16 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Inventories
 {
     using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.GUI;
+    using Dungeon.SceneObjects;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects.Main.CharacterInfo;
+    using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Items;
     using Dungeon.Items.Enums;
     using Dungeon.Types;
-    using System;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Linq;
+    using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo;
 
     public class InventoryItem : DraggableControl<InventoryItem>
     {

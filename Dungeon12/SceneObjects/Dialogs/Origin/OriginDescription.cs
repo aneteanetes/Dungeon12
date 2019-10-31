@@ -1,12 +1,14 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Dialogs.Origin
 {
     using Dungeon.Data.Perks;
-    using Dungeon.DataAccess;
+    using Dungeon.Data;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects.Base;
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Entites.Alive.Enums;
-    using System;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Linq;
+    using Dungeon;
+    using Dungeon.Drawing;
 
     public class OriginDescription : ColoredRectangle
     {
@@ -26,7 +28,7 @@
 
             var perk = Database.Entity<ValuePerk>(x => x.Identity == origin.ToString()).First();
 
-            var desc = new TextControl(new DrawText(perk.Description) { Size = 20 }.Montserrat());
+            var desc = new Dungeon.Drawing.SceneObjects.TextControl(new DrawText(perk.Description) { Size = 20 }.Montserrat());
             desc.Left = .5;
             desc.Top = 2.5;
 
@@ -36,7 +38,7 @@
             foreach (var item in perk.Effects)
             {
                 var color = new DrawColor(item.Positive ? ConsoleColor.Green : ConsoleColor.Red);
-                var perkText = new TextControl(new DrawText(item.Property, color) { Size = 20 }.Montserrat());
+                var perkText = new Dungeon.Drawing.SceneObjects.TextControl(new DrawText(item.Property, color) { Size = 20 }.Montserrat());
                 perkText.Left = .5;
                 perkText.Top = top;
 

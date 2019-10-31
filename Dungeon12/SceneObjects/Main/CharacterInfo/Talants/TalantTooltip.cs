@@ -1,12 +1,13 @@
 ﻿using Dungeon.Abilities.Talants.NotAPI;
 using Dungeon.Classes;
-using Dungeon.Drawing.GUI;
+using Dungeon.SceneObjects;
 using Dungeon.Drawing.Impl;
 using Dungeon.Types;
-using System;
+using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Dungeon.Drawing;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 {

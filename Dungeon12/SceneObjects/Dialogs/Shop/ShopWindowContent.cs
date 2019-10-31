@@ -1,8 +1,9 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Dialogs.Shop
 {
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects.Inventories;
+    using Dungeon12.Drawing.SceneObjects.Inventories;
     using Dungeon.Drawing.SceneObjects.Map;
+    using Dungeon.Drawing.SceneObjects;
 
     public class ShopWindowContent : HandleSceneControl
     {
@@ -19,9 +20,9 @@
             };
         }
 
-        public ShopWindowContent(string title, Merchants.Merchant merchant, PlayerSceneObject playerSceneObject, Inventory another)
+        public ShopWindowContent(string title, Dungeon.Merchants.Merchant merchant, PlayerSceneObject playerSceneObject, Inventory another)
         {
-            this.Image = "Rogue.Resources.Images.ui.vertical_title(17x15).png";
+            this.Image = "Dungeon.Resources.Images.ui.vertical_title(17x15).png";
 
             this.Width = 15;
             this.Height = 17;

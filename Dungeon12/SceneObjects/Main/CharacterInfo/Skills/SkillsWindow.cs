@@ -5,12 +5,12 @@
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects.Base;
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Entites.Alive;
     using Dungeon.View.Interfaces;
-    using System;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -28,7 +28,7 @@
             this.Destroy += () => playerSceneObject.BlockMouse = false;
             this.playerSceneObject = playerSceneObject;
 
-            this.Image = "Rogue.Resources.Images.ui.vertical_title(17x12).png";
+            this.Image = "Dungeon.Resources.Images.ui.vertical_title(17x12).png";
 
             this.Height = 17;
             this.Width = 12;
@@ -38,10 +38,10 @@
 
             var abils = playerSceneObject.GetAbilities();
 
-            var left = abils.FirstOrDefault(x => x.AbilityPosition == Rogue.Abilities.Enums.AbilityPosition.Left);
-            var right = abils.FirstOrDefault(x => x.AbilityPosition == Rogue.Abilities.Enums.AbilityPosition.Right);
-            var q = abils.FirstOrDefault(x => x.AbilityPosition == Rogue.Abilities.Enums.AbilityPosition.Q);
-            var e = abils.FirstOrDefault(x => x.AbilityPosition == Rogue.Abilities.Enums.AbilityPosition.E);
+            var left = abils.FirstOrDefault(x => x.AbilityPosition == Dungeon.Abilities.Enums.AbilityPosition.Left);
+            var right = abils.FirstOrDefault(x => x.AbilityPosition == Dungeon.Abilities.Enums.AbilityPosition.Right);
+            var q = abils.FirstOrDefault(x => x.AbilityPosition == Dungeon.Abilities.Enums.AbilityPosition.Q);
+            var e = abils.FirstOrDefault(x => x.AbilityPosition == Dungeon.Abilities.Enums.AbilityPosition.E);
 
             this.AddChild(new SkillButton(left, OpenSkillInfo, this.ShowEffects,true));
             this.AddChild(new SkillButton(right, OpenSkillInfo, this.ShowEffects)
@@ -113,7 +113,7 @@
                 this.AddChild(new DarkRectangle() { Color = ConsoleColor.White, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.05, Top = top - 0.25 });
 
                 string cost;
-                if (ability.CastType== Rogue.Abilities.Enums.AbilityCastType.Passive)
+                if (ability.CastType== Dungeon.Abilities.Enums.AbilityCastType.Passive)
                 {
                     cost= "-";
                 }
@@ -144,7 +144,7 @@
 
                 this.AddChild(new DarkRectangle() { Color = ConsoleColor.White, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.05, Top = top - 0.25 });
 
-                var border = this.AddChildCenter(new ImageControl("Rogue.Resources.Images.ui.squareB.png") { CacheAvailable=false });
+                var border = this.AddChildCenter(new ImageControl("Dungeon.Resources.Images.ui.squareB.png") { CacheAvailable=false });
                 border.Top = 10;
 
                 var img = this.AddChildCenter(new ImageControl(ability.Image_B) { CacheAvailable = false, }, true, false);
@@ -200,13 +200,13 @@
             private string SquareTexture(bool focus)
             {
                 if(disabled)
-                    return $"Rogue.Resources.Images.ui.squareWeapon_h_d.png";
+                    return $"Dungeon.Resources.Images.ui.squareWeapon_h_d.png";
 
                 var f = focus || active
                     ? "_f"
                     : "";
 
-                return $"Rogue.Resources.Images.ui.squareWeapon_h{f}.png";
+                return $"Dungeon.Resources.Images.ui.squareWeapon_h{f}.png";
             }
 
             public override void Focus()

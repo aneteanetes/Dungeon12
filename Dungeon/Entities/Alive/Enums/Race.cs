@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Rogue
+namespace Dungeon
 {
     /// <summary>
     /// Доступные расы для выбора

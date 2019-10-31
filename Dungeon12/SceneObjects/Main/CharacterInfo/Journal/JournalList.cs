@@ -1,9 +1,9 @@
 ﻿using Dungeon.Drawing.Impl;
-using Dungeon.Drawing.SceneObjects.Main.CharacterInfo.Talants;
+using Dungeon.Drawing.SceneObjects;
 using Dungeon.Drawing.SceneObjects.Map;
-using System;
+using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants;
 using System.Collections.Generic;
-using System.Text;
+using Dungeon;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
 {
@@ -15,7 +15,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
 
         public JournalList(PlayerSceneObject playerSceneObject)
         {
-            this.Image = "Rogue.Resources.Images.ui.vertical_title(17x12).png";
+            this.Image = "Dungeon.Resources.Images.ui.vertical_title(17x12).png";
 
             this.Height = 17;
             this.Width = 12;

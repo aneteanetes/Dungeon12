@@ -3,7 +3,7 @@
     using Dungeon.Drawing.Impl;
     using System;
 
-    public class VerticalWindow : ImageControl
+    public class VerticalWindow : Dungeon.Drawing.SceneObjects.ImageControl
     {
         public VerticalWindow() : base("Dungeon.Resources.Images.ui.vertical(17x12).png")
         {

@@ -53,9 +53,9 @@
             if (previous == null)
                 return;
 
-            next.PlayerAvatar = previous.PlayerAvatar;
-            next.Log = previous.Log;
-            next.Gamemap = previous.Gamemap;
+            //next.PlayerAvatar = previous.PlayerAvatar;
+            //next.Log = previous.Log;
+            //next.Gamemap = previous.Gamemap;
         }
     }
 }

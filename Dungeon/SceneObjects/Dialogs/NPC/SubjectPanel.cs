@@ -4,8 +4,9 @@
     using Dungeon.Control.Pointer;
     using Dungeon.Conversations;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects.Base;
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Map.Objects;
+    using Dungeon.SceneObjects.Base;
     using System;
     using System.Linq;
 
@@ -13,12 +14,12 @@
     {
         public override bool AbsolutePosition => true;
 
-        private MetallButtonControl exitBtn;
+        private ButtonControl exitBtn;
         private Сonversational conv;
         private Action<Subject> select;
         private Action exit;
 
-        public SubjectPanel(Сonversational conv, Action<Subject> select, Action exit)
+        public SubjectPanel(Сonversational conv, Action<Subject> select, Action exit, ButtonControl btn)
         {
             this.select = select;
             this.conv = conv;
@@ -34,13 +35,12 @@
             
             var txt = this.AddTextCenter(new DrawText(conv.Name), true, false);
             txt.Top = 0.5;
-            
-            exitBtn = new MetallButtonControl("Выход")
-            {
-                AbsolutePosition = true,
-                Top = 19,
-                OnClick = ButtonClick
-            };
+
+            exitBtn = btn;
+            btn.AbsolutePosition = true;
+            btn.Top = 19;
+            btn.OnClick = ButtonClick;
+
             exitBtn.Left = this.Width / 2 - exitBtn.Width / 2;
 
             this.AddChild(exitBtn);
@@ -87,7 +87,7 @@
         {
             back = false;
             destroyConversation?.Invoke();
-            exitBtn.SetText("Выход");
+            //exitBtn.SetText("Выход");
 
             conversactionClickable?.Destroy?.Invoke();
             this.RemoveChild(conversactionClickable);
@@ -106,7 +106,7 @@
             if (!alone)
             {
                 back = true;
-                exitBtn.SetText("Назад");
+                //exitBtn.SetText("Назад");
             }
 
             destroyConversation?.Invoke();

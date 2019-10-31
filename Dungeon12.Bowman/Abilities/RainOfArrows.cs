@@ -1,13 +1,14 @@
-﻿using Rogue.Abilities;
-using Rogue.Abilities.Enums;
-using Rogue.Abilities.Scaling;
-using Rogue.Classes.Bowman.Effects;
-using Rogue.Map;
-using Rogue.Map.Objects;
-using Rogue.View.Interfaces;
+﻿using Dungeon.Abilities;
+using Dungeon.Abilities.Enums;
+using Dungeon.Abilities.Scaling;
+using Dungeon12.Classes.Bowman.Effects;
+using Dungeon.Map;
+using Dungeon.Map.Objects;
+using Dungeon.View.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Dungeon;
 
 namespace Dungeon12.Classes.Bowman.Abilities
 {
@@ -19,7 +20,7 @@ namespace Dungeon12.Classes.Bowman.Abilities
 
         public override string Name => "Ливень стрел";
 
-        public override ScaleRate Scale => ScaleRate.Build(Entites.Enums.Scale.AbilityPower);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entites.Enums.Scale.AbilityPower);
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.DmgHealInstant;
 

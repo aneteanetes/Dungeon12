@@ -1,9 +1,10 @@
-﻿using Rogue.Drawing.Impl;
-using Rogue.Drawing.SceneObjects;
-using Rogue.Entites.Enemy;
-using Rogue.Map;
-using Rogue.Map.Objects;
-using Rogue.Types;
+﻿using Dungeon;
+using Dungeon.Drawing.Impl;
+using Dungeon.Drawing.SceneObjects;
+using Dungeon.Entites.Enemy;
+using Dungeon.Map;
+using Dungeon.Map.Objects;
+using Dungeon.Types;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -31,17 +32,17 @@ namespace Dungeon12.Classes.Bowman.Effects
             this.Width = 3;
             this.Height = 3;
 
-            this.Effects = new List<View.Interfaces.IEffect>()
+            this.Effects = new List<Dungeon.View.Interfaces.IEffect>()
                 {
                     new ParticleEffect()
                     {
                         Name="RainOfArrow",
                         Scale = 0.09,
-                        Assembly="Rogue.Classes.Bowman"
+                        Assembly="Dungeon.Classes.Bowman"
                     }
                 };
 
-            Global.Time.Timer(nameof(ArrowRain))
+            Dungeon.Global.Time.Timer(nameof(ArrowRain))
                 .After(timeMS)
                 .Do(this.Destroy)
                 .Trigger();
@@ -58,12 +59,12 @@ namespace Dungeon12.Classes.Bowman.Effects
 
                 var rangeObj = new MapObject()
                 {
-                    Size = new Physics.PhysicalSize()
+                    Size = new Dungeon.Physics.PhysicalSize()
                     {
                         Height = 3 * 32,
                         Width = 3 * 32
                     },
-                    Position = new Physics.PhysicalPosition()
+                    Position = new Dungeon.Physics.PhysicalPosition()
                     {
                         X = this.Left * 32,
                         Y = this.Top * 32

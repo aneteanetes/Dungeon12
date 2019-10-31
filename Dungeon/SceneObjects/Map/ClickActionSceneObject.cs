@@ -5,14 +5,11 @@
     using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.SceneObjects.Common;
     using Dungeon.Map;
-    using Dungeon.View.Interfaces;
     using System.Collections.Generic;
-    using System.Linq;
 
     public abstract class ClickActionSceneObject<T> : TooltipedSceneObject
-        where T : Physics.PhysicalObject
+        where T : Dungeon.Physics.PhysicalObject
     {
         protected readonly PlayerSceneObject playerSceneObject;
         protected readonly T @object;
@@ -68,7 +65,7 @@
 
             if (CheckActionAvailable(args.MouseButton))
             {
-                SkillControl.CancelClick();
+                Global.Interacting = true;
 
                 acting = true;
                 Action(args.MouseButton);

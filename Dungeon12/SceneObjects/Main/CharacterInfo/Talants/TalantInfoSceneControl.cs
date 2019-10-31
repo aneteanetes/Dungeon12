@@ -2,14 +2,14 @@
 using Dungeon.Classes;
 using Dungeon.Control.Events;
 using Dungeon.Control.Pointer;
-using Dungeon.Drawing.GUI;
+using Dungeon.SceneObjects;
 using Dungeon.Drawing.Impl;
-using Dungeon.Drawing.SceneObjects.Base;
+using Dungeon.Drawing.SceneObjects;
 using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Events;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
-using System;
+using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 using System.Collections.Generic;
 using System.Text;
 
@@ -35,7 +35,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
         {
             this.character = character;
             this.talant = talant;
-            var measure = this.MeasureImage("Rogue.Resources.Images.ui.square.png");
+            var measure = this.MeasureImage("Dungeon.Resources.Images.ui.square.png");
 
             this.AddChild(new ImageControl(talant.Image)
             {
@@ -92,7 +92,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
                 ? "_f"
                 : "";
 
-            return $"Rogue.Resources.Images.ui.square{f}.png";
+            return $"Dungeon.Resources.Images.ui.square{f}.png";
         }
 
         public override void Focus()

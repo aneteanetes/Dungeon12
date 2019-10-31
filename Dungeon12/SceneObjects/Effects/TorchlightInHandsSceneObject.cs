@@ -1,6 +1,8 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Effects
 {
+    using Dungeon.Drawing;
     using Dungeon.Drawing.Impl;
+    using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
 
     public class TorchlightInHandsSceneObject : SceneObject
@@ -9,7 +11,7 @@
 
         public TorchlightInHandsSceneObject()
         {
-            this.Image = "Rogue.Resources.Images.Items.Doll.torchlighthands1.png";
+            this.Image = "Dungeon.Resources.Images.Items.Doll.torchlighthands1.png";
 
             this.Height = 0.5;
             this.Width = 0.5;
@@ -39,7 +41,7 @@
                     Color = new DrawColor(245, 132, 66)
                 };
 
-                this.Effects = new List<View.Interfaces.IEffect>()
+                this.Effects = new List<Dungeon.View.Interfaces.IEffect>()
                 {
                     new ParticleEffect()
                     {
@@ -48,7 +50,7 @@
                     }
                 };
 
-                Global.Time
+                Dungeon.Global.Time
                     .After(18).Do(() => Light.Range = 1)
                     .After(19).Do(() => Light.Range = 1.25f)
                     .After(20).Do(() => Light.Range = 1.5f)

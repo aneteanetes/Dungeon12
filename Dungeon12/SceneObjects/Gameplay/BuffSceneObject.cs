@@ -1,8 +1,9 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Gameplay
 {
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Transactions;
 
-    public class BuffSceneObject : ImageControl
+    public class BuffSceneObject : Dungeon.Drawing.SceneObjects.ImageControl
     {
         public override bool CacheAvailable => false;
 

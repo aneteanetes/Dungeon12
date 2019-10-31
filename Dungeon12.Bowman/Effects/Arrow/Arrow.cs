@@ -1,11 +1,12 @@
-﻿using Rogue.Control.Pointer;
-using Rogue.Drawing.Impl;
-using Rogue.Drawing.SceneObjects;
-using Rogue.Drawing.SceneObjects.Map;
-using Rogue.Map;
-using Rogue.Map.Objects;
-using Rogue.Physics;
-using Rogue.Types;
+﻿using Dungeon;
+using Dungeon.Control.Pointer;
+using Dungeon.Drawing.Impl;
+using Dungeon.Drawing.SceneObjects;
+using Dungeon.Drawing.SceneObjects.Map;
+using Dungeon.Map;
+using Dungeon.Map.Objects;
+using Dungeon.Physics;
+using Dungeon.Types;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -70,13 +71,13 @@ namespace Dungeon12.Classes.Bowman.Effects
                     this.Left += 0.25;
                 }
 
-                this.Effects = new List<View.Interfaces.IEffect>()
+                this.Effects = new List<Dungeon.View.Interfaces.IEffect>()
                 {
                     new ParticleEffect()
                     {
                         Name="PowerArrow",
                         Scale = 1,
-                        Assembly="Rogue.Classes.Bowman"
+                        Assembly="Dungeon.Classes.Bowman"
                     }
                 };
             }
@@ -211,7 +212,7 @@ namespace Dungeon12.Classes.Bowman.Effects
         {
             var rangeObject = new MapObject
             {
-                Position = new Physics.PhysicalPosition
+                Position = new Dungeon.Physics.PhysicalPosition
                 {
                     X = (this.Left * 32) + 10,
                     Y = (this.Top * 32) + 10

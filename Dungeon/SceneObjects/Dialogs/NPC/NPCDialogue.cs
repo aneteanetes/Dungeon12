@@ -1,8 +1,6 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.Dialogs.NPC
 {
-    using Dungeon.Control.Keys;
-    using Dungeon.Drawing.SceneObjects.Base;
-    using Dungeon.Drawing.SceneObjects.Common;
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Entites.Animations;
     using Dungeon.Map;
@@ -27,7 +25,7 @@
             this._playerSceneObject = playerSceneObject;
 
             answerPanel = new AnswerPanel(gameMap,playerSceneObject) { DestroyBinding = destroyBinding, ControlBinding= controlBinding };
-            subjectPanel = new SubjectPanel(conversational, answerPanel.Select, this.ExitDialogue);
+            subjectPanel = new SubjectPanel(conversational, answerPanel.Select, this.ExitDialogue, new Dungeon.SceneObjects.Base.ButtonControl("Выход"));
                        
             if (conversational.ScreenImage != null)
             {
@@ -71,7 +69,7 @@
         {
             this.Destroy?.Invoke();
             Global.FreezeWorld = null;
-            SkillControl.RestoreClick();
+            Global.Interacting = false;
         }
 
         protected override void CallOnEvent(dynamic obj)

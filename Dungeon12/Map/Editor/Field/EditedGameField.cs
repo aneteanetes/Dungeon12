@@ -5,16 +5,16 @@
     using Dungeon.Control.Pointer;
     using Dungeon.Data.Region;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Drawing.SceneObjects.Base;
-    using Dungeon.Map.Editor.Objects;
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Resources;
     using Dungeon.Settings;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
-    using System;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using Dungeon12.Map.Editor.Objects;
 
     public class EditedGameField : HandleSceneControl
     {

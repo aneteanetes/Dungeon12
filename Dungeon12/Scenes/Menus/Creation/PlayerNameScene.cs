@@ -3,7 +3,10 @@
     using Dungeon.Control.Keys;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Dialogs;
+    using Dungeon.Map.Objects;
+    using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
+    using Dungeon12.Drawing.SceneObjects.Dialogs;
 
     public class PlayerNameScene : GameScene<PlayerRaceScene,Start>
     {
@@ -15,7 +18,7 @@
         
         public override void Init()
         {
-            this.AddObject(new ImageControl("Rogue.Resources.Images.d12back.png"));
+            this.AddObject(new ImageControl("Dungeon.Resources.Images.d12back.png"));
 
             this.AddObject(new TypeNameDialogue(Next,Back)
             {
@@ -28,7 +31,7 @@
         {
             if (this.PlayerAvatar == null)
             {
-                this.PlayerAvatar = new Map.Objects.Avatar(new Rogue.Classes.Noone.Noone());
+                this.PlayerAvatar = new Avatar(new Dungeon12.Classes.Noone.Noone());
             }
 
             this.PlayerAvatar.Character.Name = value[0].ToString().ToUpper() + value.Substring(1);

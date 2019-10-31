@@ -1,4 +1,4 @@
-﻿namespace Rogue
+﻿namespace Dungeon
 {
     using System;
     using System.Linq;

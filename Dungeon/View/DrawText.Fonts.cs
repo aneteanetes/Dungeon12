@@ -1,4 +1,4 @@
-﻿namespace Dungeon.Drawing
+﻿namespace Dungeon
 {
     using Dungeon.View.Interfaces;
 
@@ -22,4 +22,7 @@
             return drawText;
         }
     }
+}
+namespace Dungeon.Drawing
+{
 }

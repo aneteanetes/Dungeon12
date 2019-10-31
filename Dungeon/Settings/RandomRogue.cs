@@ -1,4 +1,4 @@
-﻿namespace Rogue
+﻿namespace Dungeon
 {
     /// <summary>
     /// хм, а нахуя я заполифилил рандом?

@@ -69,7 +69,7 @@
         {
             var rangeObject = new PhysicalObject
             {
-                Position = new Physics.PhysicalPosition
+                Position = new Dungeon.Physics.PhysicalPosition
                 {
                     X = this.Position.X - ((this.Size.Width * by) / 2),
                     Y = this.Position.Y - ((this.Size.Height * by) / 2)

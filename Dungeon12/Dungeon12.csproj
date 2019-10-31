@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dungeon\Dungeon.Core\Dungeon.Core.csproj" />
-    <ProjectReference Include="..\Dungeon\Dungeon.Engine\Dungeon.Engine.csproj" />
+    <ProjectReference Include="..\Dungeon\Dungeon.csproj" />
   </ItemGroup>
 </Project>

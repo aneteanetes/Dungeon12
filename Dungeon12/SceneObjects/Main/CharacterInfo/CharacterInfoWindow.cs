@@ -3,14 +3,17 @@
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects.Inventories;
+    using Dungeon12.Drawing.SceneObjects.Inventories;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Map;
     using Dungeon.View.Interfaces;
-    using System;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
     using System.Linq;
+    using Dungeon.Drawing.SceneObjects;
+    using Dungeon;
+    using Dungeon.Drawing;
 
     public class CharacterInfoWindow : DraggableControl<CharacterInfoWindow>
     {
@@ -79,7 +82,7 @@
             if (statBtn)
                 OpenStats();
 
-            this.Image = "Rogue.Resources.Images.ui.infocharacter.png";
+            this.Image = "Dungeon.Resources.Images.ui.infocharacter.png";
         }
 
         private void OnDropInventoryItem(InventoryItem item)
@@ -114,7 +117,7 @@
 
             updateableStats.Add("Exp", exp);
 
-            this.AddChild(new ImageControl("Rogue.Resources.Images.ui.stats.attack.png")
+            this.AddChild(new ImageControl("Dungeon.Resources.Images.ui.stats.attack.png")
             {
                 Height = 0.5,
                 Width = 0.5,
@@ -130,7 +133,7 @@
 
             updateableStats.Add("Dmg", dmgTxt);
 
-            this.AddChild(new ImageControl("Rogue.Resources.Images.ui.stats.defence.png")
+            this.AddChild(new ImageControl("Dungeon.Resources.Images.ui.stats.defence.png")
             {
                 Height = 0.5,
                 Width = 0.5,
@@ -146,11 +149,11 @@
 
             updateableStats.Add("Arm", arm);
 
-            var goldImg = "Rogue.Resources.Images.ui.stats.gold.png";
+            var goldImg = "Dungeon.Resources.Images.ui.stats.gold.png";
             var goldMeasure = this.MeasureImage(goldImg);
 
             var goldLeft = this.Width / 2 - ((goldMeasure.X * 0.8) / 32 / 2);
-            this.AddChild(new ImageControl("Rogue.Resources.Images.ui.stats.gold.png")
+            this.AddChild(new ImageControl("Dungeon.Resources.Images.ui.stats.gold.png")
             {
                 Height = 0.85,
                 Width = 0.85,
@@ -179,31 +182,31 @@
 
         private void AddItemWear(Inventory inventory, PlayerSceneObject playerSceneObject)
         {
-            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Items.Enums.ItemKind.Helm)
+            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Dungeon.Items.Enums.ItemKind.Helm)
             {
                 Top = 2,
                 Left = 5
             });
 
-            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Items.Enums.ItemKind.Armor)
+            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Dungeon.Items.Enums.ItemKind.Armor)
             {
                 Top = 4.5,
                 Left = 5
             });
 
-            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Items.Enums.ItemKind.Boots)
+            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Dungeon.Items.Enums.ItemKind.Boots)
             {
                 Top = 7,
                 Left = 5
             });
 
-            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Items.Enums.ItemKind.Weapon)
+            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Dungeon.Items.Enums.ItemKind.Weapon)
             {
                 Top = 3.5,
                 Left = 2
             });
 
-            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Items.Enums.ItemKind.OffHand)
+            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Dungeon.Items.Enums.ItemKind.OffHand)
             {
                 Top = 3.5,
                 Left = 8
@@ -258,7 +261,7 @@
                 this.Height = 1;
                 this.Width = 1;
 
-                this.AddChild(new ImageControl("Rogue.Resources.Images.ui.additional.png")
+                this.AddChild(new ImageControl("Dungeon.Resources.Images.ui.additional.png")
                 {
                     AbsolutePosition = true,
                     CacheAvailable = false,
@@ -275,7 +278,7 @@
                     ? "_f"
                     : "";
 
-                return $"Rogue.Resources.Images.ui.square{f}.png";
+                return $"Dungeon.Resources.Images.ui.square{f}.png";
             }
 
             public override void Focus()

@@ -1,6 +1,7 @@
 ﻿using Dungeon.Control.Commands;
 using Dungeon.Control.Keys;
 using Dungeon.Map;
+using Dungeon.Map.Objects;
 using Dungeon.Types;
 using System.Collections.Generic;
 
@@ -10,7 +11,7 @@ namespace Dungeon12.Scenes.Game
     {
         public GameMap Location { get; set; }
 
-        public Rogue.Map.Objects.Avatar Player { get; set; }
+        public Avatar Player { get; set; }
 
         public Point PlayerPosition { get; set; }
 

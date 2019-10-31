@@ -1,7 +1,7 @@
 ﻿using FastMember;
 using System;
 
-namespace Rogue
+namespace Dungeon
 {
     public abstract class ProxyProperty
     {

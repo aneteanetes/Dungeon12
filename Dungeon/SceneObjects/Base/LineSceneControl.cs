@@ -1,4 +1,4 @@
-﻿namespace Dungeon.Drawing.SceneObjects.Base
+﻿namespace Dungeon.Drawing.SceneObjects
 {
     using System;
     using Dungeon.Drawing.Impl;

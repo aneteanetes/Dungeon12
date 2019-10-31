@@ -73,7 +73,7 @@
 
         protected TextControl AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical = true)
         {
-            var textControl = new TextControl(drawText);
+            var textControl = new Dungeon.Drawing.SceneObjects.TextControl(drawText);
 
             var measure = Global.DrawClient.MeasureText(textControl.Text);
 
@@ -131,7 +131,7 @@
             }
             else
             {
-                var textControl = new TextControl(drawText);
+                var textControl = new Dungeon.Drawing.SceneObjects.TextControl(drawText);
                 this.Children.Add(textControl);
             }
 

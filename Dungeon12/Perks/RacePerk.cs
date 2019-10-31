@@ -3,11 +3,11 @@
     using FastMember;
     using Dungeon.Classes;
     using Dungeon.Data.Perks;
-    using Dungeon.DataAccess;
+    using Dungeon.Data;
     using Dungeon.Drawing.Impl;
     using Dungeon.Entites.Alive;
     using Dungeon.View.Interfaces;
-    using System;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
     using System.Linq;
 

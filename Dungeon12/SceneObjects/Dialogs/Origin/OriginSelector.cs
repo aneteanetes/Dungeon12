@@ -2,9 +2,9 @@
 {
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects.Base;
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Entites.Alive.Enums;
-    using System;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 
     public class OriginSelector : ColoredRectangle
     {
@@ -22,7 +22,7 @@
             Opacity = 0.5;
             Round = 5;
 
-            this.AddChild(new ImageControl($"Rogue.Resources.Images.Origin.{origin.ToString()}.png"));
+            this.AddChild(new ImageControl($"Dungeon.Resources.Images.Origin.{origin.ToString()}.png"));
             this.Height = 3;
             this.Width = 8;
             this.AddTextCenter(new DrawText(origin.ToDisplay())

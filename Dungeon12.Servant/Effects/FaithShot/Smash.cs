@@ -1,11 +1,12 @@
-﻿using Rogue.Control.Pointer;
-using Rogue.Drawing.Impl;
-using Rogue.Drawing.SceneObjects;
-using Rogue.Drawing.SceneObjects.Map;
-using Rogue.Entites.Animations;
-using Rogue.Map.Objects;
-using Rogue.Physics;
-using Rogue.Types;
+﻿using Dungeon;
+using Dungeon.Control.Pointer;
+using Dungeon.Drawing.Impl;
+using Dungeon.Drawing.SceneObjects;
+using Dungeon.Drawing.SceneObjects.Map;
+using Dungeon.Entites.Animations;
+using Dungeon.Map.Objects;
+using Dungeon.Physics;
+using Dungeon.Types;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -62,13 +63,13 @@ namespace Dungeon12.Classes.Servant.Effects.FaithShot
                 this.Width = 1;
                 this.Height = 1;
 
-                this.Effects = new List<View.Interfaces.IEffect>()
+                this.Effects = new List<Dungeon.View.Interfaces.IEffect>()
                 {
                     new ParticleEffect()
                     {
                         Name="FaithShot",
                         Scale = 1,
-                        Assembly="Rogue.Classes.Servant"
+                        Assembly="Dungeon.Classes.Servant"
                     }
                 };
             }

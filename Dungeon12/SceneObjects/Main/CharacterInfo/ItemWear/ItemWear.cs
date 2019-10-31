@@ -1,13 +1,13 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 {
-    using System;
+    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
     using Force.DeepCloner;
     using Dungeon.Classes;
     using Dungeon.Control.Events;
     using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.GUI;
-    using Dungeon.Drawing.SceneObjects.Inventories;
+    using Dungeon.SceneObjects;
+    using Dungeon12.Drawing.SceneObjects.Inventories;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Entites.Alive;
@@ -45,8 +45,8 @@
             var tall = itemKind == ItemKind.Weapon || itemKind == ItemKind.OffHand;
 
             this.borderImage = tall
-                ? "Rogue.Resources.Images.ui.squareWeapon"
-                : "Rogue.Resources.Images.ui.square";
+                ? "Dungeon.Resources.Images.ui.squareWeapon"
+                : "Dungeon.Resources.Images.ui.square";
 
             this.Width = 2;
             this.Height = tall
@@ -225,7 +225,7 @@
                 this.TooltipText = string.Empty;
                 this.item = null;
                 this.Image = string.Empty;
-                this.ImageRegion = new Types.Rectangle(1, 1, 1, 1);
+                this.ImageRegion = new Dungeon.Types.Rectangle(1, 1, 1, 1);
             }
 
             public bool IsEmpty => item == null;

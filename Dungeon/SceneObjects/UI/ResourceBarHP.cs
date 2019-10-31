@@ -24,7 +24,7 @@
 
         protected override string BarTile => "Dungeon.Resources.Images.ui.player.hp_back.png";
         
-        private class InteractiveHPBar : ImageControl
+        private class InteractiveHPBar : Dungeon.Drawing.SceneObjects.ImageControl
         {
             private Character player;
 

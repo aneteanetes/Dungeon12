@@ -1,6 +1,6 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.UI
 {
-    public class HorizontalWindow : ImageControl
+    public class HorizontalWindow : Dungeon.Drawing.SceneObjects.ImageControl
     {
         public HorizontalWindow(string img=null) : base(img ?? "Dungeon.Resources.Images.ui.horizontal(20x13).png")
         {

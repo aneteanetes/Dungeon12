@@ -1,12 +1,15 @@
 ﻿namespace Dungeon12.Scenes.Menus
 {
+    using Dungeon;
     using Dungeon.Drawing;
     using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Map.Editor;
-    using Dungeon.Races.Perks;
+    using Dungeon.Map.Objects;
+    using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
-    using Dungeon.Scenes.Menus.Creation;
+    using Dungeon12.Drawing.SceneObjects;
+    using Dungeon12.Map.Editor;
+    using Dungeon12.Races.Perks;
     using System;
 
     public class Start : GameScene<SoloDuoScene, Game.Main, EditorScene>
@@ -24,7 +27,7 @@
             Global.DrawClient.SetCursor("Cursors.common.png".PathImage());
 
 
-            Global.AudioPlayer.Music("maintheme", new Audio.AudioOptions()
+            Global.AudioPlayer.Music("maintheme", new Dungeon.Audio.AudioOptions()
             {
                 Repeat = true,
                 Volume = 0.3
@@ -34,7 +37,7 @@
             {
                 AbsolutePosition = true,
             });
-            this.AddObject(new ImageControl("Rogue.Resources.Images.d12textM.png")
+            this.AddObject(new ImageControl("Dungeon.Resources.Images.d12textM.png")
             {
                 Top = 2f,
                 Left = 10f,
@@ -57,15 +60,15 @@
                 AbsolutePosition = true,
                 OnClick = () =>
                 {
-                    this.PlayerAvatar = new Map.Objects.Avatar(new Rogue.Classes.Noone.Noone()
+                    this.PlayerAvatar = new Avatar(new Dungeon12.Classes.Noone.Noone()
                     {
-                        Origin = Entites.Alive.Enums.Origins.Farmer
+                        Origin = Dungeon.Entites.Alive.Enums.Origins.Farmer
                     });
                     this.PlayerAvatar.Character.Name = "Ваш персонаж";
                     this.PlayerAvatar.Character.Race = Race.Elf;
                     this.PlayerAvatar.Character.Add<RacePerk>();
 
-                    Global.AudioPlayer.Music("town", new Audio.AudioOptions()
+                    Global.AudioPlayer.Music("town", new Dungeon.Audio.AudioOptions()
                     {
                         Repeat = true,
                         Volume = 0.3
@@ -159,7 +162,7 @@
 
     //    public string Name => "nevermind";
 
-    //    public string Tileset => "Rogue.Classes.BloodMage.Images.Dolls.Character.png";
+    //    public string Tileset => "Dungeon.Classes.BloodMage.Images.Dolls.Character.png";
 
     //    public Rectangle TileSetRegion => Apply();
 

@@ -9,7 +9,7 @@
     using System.Collections.Generic;
 
     public abstract class MoveableSceneObject<T> : AnimatedSceneObject<T>
-        where T : Physics.PhysicalObject
+        where T : Dungeon.Physics.PhysicalObject
     {
         protected Moveable moveable;
         protected GameMap location;
