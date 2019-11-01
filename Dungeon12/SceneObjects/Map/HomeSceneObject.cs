@@ -6,6 +6,7 @@
     using Dungeon.Map;
     using Dungeon.Map.Objects;
     using Dungeon.View.Interfaces;
+    using Dungeon12.Drawing.SceneObjects;
     using Dungeon12.Drawing.SceneObjects.Dialogs.Shop;
     using Dungeon12.Map.Objects;
 
@@ -35,7 +36,7 @@
         }
 
         private ISceneObject Act() => @object.Merchant == null
-            ? (ISceneObject)new NPCDialogue(playerSceneObject, @object, this.DestroyBinding, this.ControlBinding,gameMap)
+            ? (ISceneObject)new NPCDialogue(playerSceneObject, @object, this.DestroyBinding, this.ControlBinding, gameMap, new MetallButtonControl("Выход"))
             : (ISceneObject)new ShopWindow(@object.Name, playerSceneObject, @object.Merchant, this.DestroyBinding, this.ControlBinding, gameMap);
 
         protected override void StopAction() { }

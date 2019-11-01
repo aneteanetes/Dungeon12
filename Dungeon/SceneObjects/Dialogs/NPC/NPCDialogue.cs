@@ -4,6 +4,7 @@
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Entites.Animations;
     using Dungeon.Map;
+    using Dungeon.SceneObjects.Base;
     using Dungeon.View.Interfaces;
     using System;
     using System.Linq;
@@ -18,14 +19,14 @@
         private AnswerPanel answerPanel;
         private PlayerSceneObject _playerSceneObject;
 
-        public NPCDialogue(PlayerSceneObject playerSceneObject, Dungeon.Map.Objects.Сonversational conversational, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding, GameMap gameMap)
+        public NPCDialogue(PlayerSceneObject playerSceneObject, Dungeon.Map.Objects.Сonversational conversational, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding, GameMap gameMap, ButtonControl customizeExit)
         {
             Global.FreezeWorld = this;
 
             this._playerSceneObject = playerSceneObject;
 
             answerPanel = new AnswerPanel(gameMap,playerSceneObject) { DestroyBinding = destroyBinding, ControlBinding= controlBinding };
-            subjectPanel = new SubjectPanel(conversational, answerPanel.Select, this.ExitDialogue, new Dungeon.SceneObjects.Base.ButtonControl("Выход"));
+            subjectPanel = new SubjectPanel(conversational, answerPanel.Select, this.ExitDialogue, customizeExit);
                        
             if (conversational.ScreenImage != null)
             {

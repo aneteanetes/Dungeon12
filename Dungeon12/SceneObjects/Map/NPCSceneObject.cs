@@ -13,6 +13,7 @@
     using Dungeon12.Drawing.SceneObjects.Effects;
     using System;using Dungeon;
     using System.Collections.Generic;
+    using Dungeon12.Drawing.SceneObjects;
 
     public class NPCSceneObject : MoveableSceneObject<NPC>
     {
@@ -71,10 +72,11 @@
             playerSceneObject.StopMovings();
             var sceneObj = Act();
             ShowEffects?.Invoke(sceneObj.InList());
+
         }
 
         private ISceneObject Act() => @object.Merchant == null
-            ? (ISceneObject)new NPCDialogue(playerSceneObject, @object, this.DestroyBinding, this.ControlBinding,location)
+            ? (ISceneObject)new NPCDialogue(playerSceneObject, @object, this.DestroyBinding, this.ControlBinding,location, new MetallButtonControl("Выход"))
             : (ISceneObject)new ShopWindow(@object.Name, playerSceneObject, @object.Merchant, this.DestroyBinding, this.ControlBinding, location);
 
         protected override void StopAction()

@@ -112,7 +112,7 @@
             }
         }
 
-        private void SetAbility(Key key) => ability = playerSceneObject.GetAbility(keyAbiityMap[key]);
+        private void SetAbility(Key key) => ability = playerSceneObject?.GetAbility(keyAbiityMap[key]);
 
         private readonly Dictionary<Key, AbilityPosition> keyAbiityMap = new Dictionary<Key, AbilityPosition>() { { Key.Q, AbilityPosition.Q }, { Key.E, AbilityPosition.E } };
 
