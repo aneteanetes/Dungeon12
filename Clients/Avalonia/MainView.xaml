@@ -1,6 +1,0 @@
-﻿<Window
-    xmlns:visual="clr-namespace:Rogue.App.Visual" xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"    
-        Title="Rogue" Width="1280" Height="720">
-    <visual:AppVisual></visual:AppVisual>
-</Window>
