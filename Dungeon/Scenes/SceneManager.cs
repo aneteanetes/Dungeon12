@@ -48,6 +48,7 @@
             });
 
             Global.AssemblyGame = startSceneType.Assembly.GetName().Name;
+            Global.GameAssembly = startSceneType.Assembly;
 
             if (startSceneType!=null)
             {

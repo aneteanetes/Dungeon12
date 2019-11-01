@@ -27,7 +27,7 @@
             Global.DrawClient.SetCursor("Cursors.common.png".PathImage());
 
 
-            Global.AudioPlayer.Music("maintheme", new Dungeon.Audio.AudioOptions()
+            Global.AudioPlayer.Music("Audio/Music/maintheme.ogg".AsmNameRes(), new Dungeon.Audio.AudioOptions()
             {
                 Repeat = true,
                 Volume = 0.3

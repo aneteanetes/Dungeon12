@@ -54,5 +54,7 @@
         public static IEnumerable<Assembly> Assemblies { get; set; }
 
         public static string AssemblyGame { get; set; }
+
+        public static Assembly GameAssembly { get; set; }
     }
 }

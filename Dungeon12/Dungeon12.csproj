@@ -6,16 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Images\**\*" />
-    <None Remove="Resources\Fonts\**\*" />
-    <None Remove="Resources\Particles\**\*" />
+    <None Remove="Resources\**\*" />
     <None Remove="Noone\Images\**\*" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Noone\Images\**\*" />
-    <EmbeddedResource Include="Resources\Images\**\*" />
-    <EmbeddedResource Include="Resources\Fonts\**\*" />
-    <EmbeddedResource Include="Resources\Particles\**\*" />
+    <EmbeddedResource Include="Resources\**\*" />
   </ItemGroup>
 
   <ItemGroup>

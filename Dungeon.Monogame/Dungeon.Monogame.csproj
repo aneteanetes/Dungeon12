@@ -38,4 +38,11 @@
   </ItemGroup>
   <Import Project="$(SolutionDir)\NuGet.Common.props" />
   <Import Project="$(SolutionDir)\Symbols.props" />
+  
+  <ItemGroup>
+    <MySourceFiles Include="$(SolutionDir)\**\**\Resources\*.*" />
+  </ItemGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Copy SourceFiles="@(MySourceFiles)" DestinationFiles="@(MySourceFiles->'c:\wtf\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
 </Project>

@@ -35,5 +35,10 @@ namespace Dungeon
         /// Вернёт имя сборки + строка
         /// <returns></returns>
         public static string AsmName(this string img,string between="") => Assembly.GetCallingAssembly().GetName().Name + between+ img;
+
+        /// <summary>
+        /// Вернёт имя сборки + Resources + строка
+        /// <returns></returns>
+        public static string AsmNameRes(this string img, string between = "") => Assembly.GetCallingAssembly().GetName().Name + ".Resources." + between.Replace(@"\", ".").Replace(@"/", ".") + img.Replace(@"\", ".").Replace(@"/", ".");
     }
 }
