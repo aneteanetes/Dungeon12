@@ -5,7 +5,9 @@ namespace Dungeon
 {
     public static class StringPathExtensions
     {
-        public static string PathImage(this string path) => Global.AssemblyGame + ".Resources.Images." + path.Replace(@"\", ".");
+        public static string Embedded(this string path) => path.Replace(@"\", ".").Replace(@"/", ".");
+
+        public static string PathImage(this string path) => Global.GameAssemblyName + ".Resources.Images." + path.Embedded();
         
         public static string PathPng(this string path) => path + ".png";
 
@@ -16,7 +18,7 @@ namespace Dungeon
         {
             if(!imgPathCache.TryGetValue(img,out var imgPath))
             {
-                imgPath = $"{callingAsmName ?? Assembly.GetCallingAssembly().GetName().Name}.Images.{img.Replace(@"\", ".").Replace(@"/", ".")}";
+                imgPath = $"{callingAsmName ?? Assembly.GetCallingAssembly().GetName().Name}.Images.{img.Embedded()}";
                 imgPathCache.Add(img, imgPath);                
             }
 
@@ -34,11 +36,21 @@ namespace Dungeon
         /// <summary>
         /// Вернёт имя сборки + строка
         /// <returns></returns>
-        public static string AsmName(this string img,string between="") => Assembly.GetCallingAssembly().GetName().Name + between+ img;
+        public static string AsmName(this string img, string between = "") => Assembly.GetCallingAssembly().GetName().Name + between.Embedded() + img.Embedded();
 
         /// <summary>
         /// Вернёт имя сборки + Resources + строка
         /// <returns></returns>
-        public static string AsmNameRes(this string img, string between = "") => Assembly.GetCallingAssembly().GetName().Name + ".Resources." + between.Replace(@"\", ".").Replace(@"/", ".") + img.Replace(@"\", ".").Replace(@"/", ".");
+        public static string AsmNameRes(this string img, string between = "") => Assembly.GetCallingAssembly().GetName().Name + ".Resources." + between.Embedded() + img.Embedded();
+
+
+        /// <summary>
+        /// Assembly.Resources.Images.Path
+        /// <returns></returns>
+        public static string AsmImgRes(this string img, string between = "") => Assembly.GetCallingAssembly().GetName().Name + ".Resources.Images." + between.Embedded() + img.Embedded();
+
+        public static string AudioPathMusic(this string img, string between = "") => Assembly.GetCallingAssembly().GetName().Name + ".Resources.Audio.Music." + between.Embedded() + img.Embedded();
+
+        public static string AudioPathSound(this string img, string between = "") => Assembly.GetCallingAssembly().GetName().Name + ".Resources.Audio.Sound." + between.Embedded() + img.Embedded();
     }
 }

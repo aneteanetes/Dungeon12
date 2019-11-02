@@ -394,11 +394,11 @@ namespace ProjectMercury.Emitters
                     if (this.ParticleTexture == null)
                     {
                         //дефолтный путь для Dungeon
-                        var path = $"{Global.AssemblyGame}.Resources.Images.Particles.{this.ParticleTextureAssetName}.png";
+                        var path = $"{Global.GameAssemblyName}.Resources.Images.Particles.{this.ParticleTextureAssetName}.png";
 
-                        if (FromAssemblyName != default)
+                        if (!string.IsNullOrWhiteSpace(FromAssemblyName))
                         {
-                            path = $"{this.FromAssemblyName}.Images.{this.ParticleTextureAssetName}.png";
+                            path = $"{this.FromAssemblyName}.Resources.Images.Particles.{this.ParticleTextureAssetName}.png";
                         }
 
                         this.ParticleTexture = TileSetByName(path);
@@ -421,7 +421,7 @@ namespace ProjectMercury.Emitters
         {
             if (!tilesetsCache.TryGetValue(tilesetName, out var bitmap))
             {
-                var stream = ResourceLoader.Load(tilesetName, tilesetName);
+                var stream = ResourceLoader.Load(tilesetName);
                 bitmap = Texture2D.FromStream(Dungeon.Global.TransportVariable as GraphicsDevice, stream);
 
                 tilesetsCache.TryAdd(tilesetName, bitmap);

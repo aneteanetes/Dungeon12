@@ -58,8 +58,7 @@ namespace Dungeon12.Servant.Abilities
                 this.Effects.Add(new ParticleEffect()
                 {
                     Name="Prayer",
-                    Scale=0.2,
-                    Assembly="".AsmName()
+                    Scale=0.2
                 });
             }
         }
@@ -72,7 +71,7 @@ namespace Dungeon12.Servant.Abilities
             private Servant _servant;
             public PrayerBuff(Servant servant) => _servant = servant;
 
-            public override string Image => "Abilities/Prayer/buf.png".PathAsmImg();
+            public override string Image => "Abilities/Prayer/buf.png".AsmImgRes();
 
             IDisposable bufTick;
 

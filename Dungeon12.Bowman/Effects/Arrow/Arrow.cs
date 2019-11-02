@@ -75,8 +75,7 @@ namespace Dungeon12.Bowman.Effects
                     new ParticleEffect()
                     {
                         Name="PowerArrow",
-                        Scale = 1,
-                        Assembly="Dungeon12.Bowman"
+                        Scale = 1
                     }
                 };
             }

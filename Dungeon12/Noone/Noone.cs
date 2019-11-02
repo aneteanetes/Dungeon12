@@ -12,7 +12,7 @@
     using System.Collections.Generic;
     using Dungeon.Classes;
 
-    public class Noone : BaseCharacterTileset
+    public class Noone : Dungeon12Class
     {
         public Noone()
         {
@@ -28,7 +28,7 @@
             this.Actions = 5;
         }
 
-        public override string Avatar => "Dungeon12.Noone.Images.noone.png";
+        public override string Avatar => "Images/noone.png".NoonePath();
 
         public override string ClassName { get => "Приключенец"; }
         
@@ -50,7 +50,7 @@
 
         public int Actions { get; set; } = 5;
 
-        public override string Tileset => "Dungeon12.Noone.Images.sprite.png";
+        public override string Tileset => "Images/sprite.png".NoonePath();
 
         public int Block { get; set; }
 

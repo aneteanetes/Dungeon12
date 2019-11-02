@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Loader;
-#if Android
 using System.Linq;
-#endif
 
 namespace Dungeon.Resources
 {

@@ -2,17 +2,17 @@
 <XnaContent xmlns:ProjectMercury="ProjectMercury">
   <Asset Type="ProjectMercury:ParticleEffect">
     <Item Type="ProjectMercury.Emitters.LineEmitter">
-      <Name>Sparkles</Name>
-      <Budget>700</Budget>
-      <Term>1</Term>
-      <ReleaseQuantity>5</ReleaseQuantity>
+      <Name>Rain Drops</Name>
+      <Budget>500</Budget>
+      <Term>3.5</Term>
+      <ReleaseQuantity>1</ReleaseQuantity>
       <Enabled>True</Enabled>
       <ReleaseSpeed>
-        <Value>0</Value>
-        <Variation>48</Variation>
+        <Value>150</Value>
+        <Variation>50</Variation>
       </ReleaseSpeed>
       <ReleaseColour>
-        <Value>1 1 1</Value>
+        <Value>0.8745098 0.9254902 1</Value>
         <Variation>0 0 0</Variation>
       </ReleaseColour>
       <ReleaseOpacity>
@@ -20,30 +20,29 @@
         <Variation>0</Variation>
       </ReleaseOpacity>
       <ReleaseScale>
-        <Value>16</Value>
-        <Variation>0</Variation>
+        <Value>32</Value>
+        <Variation>16</Variation>
       </ReleaseScale>
       <ReleaseRotation>
         <Value>0</Value>
         <Variation>0</Variation>
       </ReleaseRotation>
       <ReleaseImpulse>0 0</ReleaseImpulse>
-      <ParticleTextureAssetName>Effects.Star</ParticleTextureAssetName>
+      <ParticleTextureAssetName>ArrowRainDrop</ParticleTextureAssetName>
       <Modifiers>
-        <Item Type="ProjectMercury.Modifiers.ColourModifier">
-          <InitialColour>0 0.2509804 0.2509804</InitialColour>
-          <UltimateColour>0.7529412 0.2509804 0</UltimateColour>
-        </Item>
-        <Item Type="ProjectMercury.Modifiers.OpacityModifier">
-          <Initial>0.9</Initial>
-          <Ultimate>0</Ultimate>
+        <Item Type="ProjectMercury.Modifiers.LinearGravityModifier">
+          <Gravity>0 3000</Gravity>
         </Item>
       </Modifiers>
-      <BlendMode>Add</BlendMode>
+      <BlendMode>Alpha</BlendMode>
       <TriggerOffset>0 0</TriggerOffset>
       <MinimumTriggerPeriod>0</MinimumTriggerPeriod>
+      <Length>1000</Length>
+      <Angle>-3.1415925</Angle>
+      <Rectilinear>false</Rectilinear>
+      <EmitBothWays>true</EmitBothWays>
     </Item>
-    <Name>Magic Trail</Name>
+    <Name>Particle Effect</Name>
     <Author />
     <Description />
   </Asset>

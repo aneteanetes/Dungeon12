@@ -3,6 +3,7 @@
     using Dungeon;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.UI;
+    using Dungeon12.Noone;
     using System.Linq;
 
     public class ResourceBarActions : ResourceBar<Noone.Noone>
@@ -14,7 +15,7 @@
             actions = Enumerable.Range(0, 5)
                 .Select((x, i) =>
                 {
-                    var img = new ActionBarSB("Dungeon12.Noone.Images.action.png")
+                    var img = new ActionBarSB("Images/action.png".NoonePath())
                     {
                         Height = 0.5,
                         Width = 0.8,

@@ -104,7 +104,7 @@
 #endif
                     Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0), 
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
-                    blendState: BlendState.NonPremultiplied);
+                    blendState: BlendState.NonPremultiplied/*,effect: GlobalImageFilter*/);
             }
             else
             {
@@ -113,7 +113,7 @@
                     transformMatrix: screenScale,
 #endif
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
-                    blendState: BlendState.NonPremultiplied);
+                    blendState: BlendState.NonPremultiplied/*, effect: GlobalImageFilter*/);
             }
             SpriteBatchRestore.Invoke(false);
         }
@@ -199,11 +199,7 @@
         private Dictionary<string, Rect> TileSetCache = new Dictionary<string, Rect>();
         private Dictionary<string, Rect> PosCahce = new Dictionary<string, Rect>();
         private static readonly Dictionary<string, Texture2D> tilesetsCache = new Dictionary<string, Texture2D>();
-
-
-        
-
-
+               
         /// <summary>
         /// TODO: нужно логирование что бы игра не падала но можно было понять причину сбоя
         /// </summary>
@@ -347,6 +343,7 @@
             var image = TileSetByName(sceneObject.Image);
             if (image == default)
             {
+                Debugger.Break();
                 Console.WriteLine("dfs");
                 return;
             }
@@ -745,13 +742,8 @@
             {
                 if (!ParticleEffects.TryGetValue(sceneObject.Uid, out var particleEffect))
                 {
-                    var path = $"{Global.AssemblyGame}.Resources.Particles.{effect.Name}.xml";
-                    if(effect.Assembly!=default)
-                    {
-                        path = $"{effect.Assembly}.Particles.{effect.Name}.xml";
-                    }
-
-                    var particleStream = ResourceLoader.Load(path, path);
+                    var path = $"{effect.Assembly}.Resources.Particles.{effect.Name}.xml";
+                    var particleStream = ResourceLoader.Load(path);
                     var loader = new ParticleEffectLoader(particleStream,effect.Assembly);
                     particleEffect = loader.Load();
                     particleEffect.Scale = (float)effect.Scale;

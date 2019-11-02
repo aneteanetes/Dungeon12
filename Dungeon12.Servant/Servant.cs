@@ -18,7 +18,7 @@ namespace Dungeon12.Servant
 
         public FaithPower FaithPower { get; set; } = new FaithPower();
 
-        public override string Avatar => "servant.png".ImgPath();
+        public override string Avatar => "servant.png".AsmImgRes();
 
         public override string ClassName => "Слуга веры";
 
@@ -28,7 +28,7 @@ namespace Dungeon12.Servant
 
         public override ConsoleColor ResourceColor => ConsoleColor.Yellow;
 
-        public override string Tileset => "sprite.png".ImgPath();
+        public override string Tileset => "sprite.png".AsmImgRes();
 
         public FaithShot FaithShot { get; set; } = new FaithShot();
 

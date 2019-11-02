@@ -16,7 +16,7 @@ namespace Dungeon12.Servant.Effects.Сonsecration
 
         public override bool CacheAvailable => false;
         
-        public СonsecrationCircle(GameMap gameMap, Dungeon.Physics.PhysicalObject position) : base("Effects/concentration.png".PathAsmImg())
+        public СonsecrationCircle(GameMap gameMap, Dungeon.Physics.PhysicalObject position) : base("Effects/concentration.png".AsmImgRes())
         {
             var totem = new ConsecrationCircleTotem(position.Position.X / 32, position.Position.Y / 32);
             gameMap.Map.Add(totem);
@@ -59,8 +59,7 @@ namespace Dungeon12.Servant.Effects.Сonsecration
                     new ParticleEffect()
                     {
                         Name="Сonsecration",
-                        Scale = 1,
-                        Assembly="Dungeon12.Servant"
+                        Scale = 1
                     }
                 };
             }

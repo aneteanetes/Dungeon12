@@ -91,8 +91,7 @@
                 ? "b"
                 : "";
 
-            var val = type.Replace(generic, $"{generic}.Images")
-                + $".img{b}.png";
+            var val = type.Replace(generic, $"{generic}.Resources.Images") + $".img{b}.png";
 
             return val;
         }

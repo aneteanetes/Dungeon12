@@ -51,8 +51,7 @@ namespace Dungeon12.Servant.Abilities
                 this.Effects.Add(new ParticleEffect()
                 {
                     Name="Heal",
-                    Scale=0.2,
-                    Assembly="".AsmName()
+                    Scale=0.2
                 });
 
                 Dungeon.Global.Time.Timer(Guid.NewGuid().ToString())

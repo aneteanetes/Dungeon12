@@ -7,11 +7,17 @@
 
   <ItemGroup>
     <None Remove="Resources\**\*" />
-    <None Remove="Noone\Images\**\*" />
+    <None Remove="Noone\Resources\**\*" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Noone\Images\**\*" />
+    <EmbeddedResource Include="Noone\Resources\**\*" />
     <EmbeddedResource Include="Resources\**\*" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Noone\Resources\attack.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Noone\Resources\Audio\Sound\attack.wav" />
   </ItemGroup>
 
   <ItemGroup>

@@ -35,7 +35,7 @@
 
         protected override void Use(GameMap gameMap, Avatar avatar, Noone @class)
         {
-            Global.AudioPlayer.Effect("attack");
+            Global.AudioPlayer.Effect("attack".NooneSoundPath());
 
             var rangeObject = new MapObject
             {
@@ -59,7 +59,7 @@
 
                 enemy.Enemy.HitPoints -= value;
 
-                Global.AudioPlayer.Effect(enemy.DamageSound ?? "bat");
+                //Global.AudioPlayer.Effect(enemy.DamageSound ?? "bat");
 
                 if (enemy.Enemy.HitPoints <= 0)
                 {

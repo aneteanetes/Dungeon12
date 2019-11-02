@@ -4,13 +4,10 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Images\**\*" />
-    <EmbeddedResource Include="Particles\**\*" />
     <EmbeddedResource Include="Resources\**\*" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\Talants\" />
-    <Folder Include="Particles\" />
+    <Folder Include="Resources\**\*" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dungeon12\Dungeon12.csproj" />

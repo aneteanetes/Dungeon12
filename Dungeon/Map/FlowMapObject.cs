@@ -58,6 +58,11 @@ namespace Dungeon.Map
 
         private void CheckTotem(Totem totem)
         {
+            if (this.Location == default)
+            {
+                return;
+            }
+
             var totemActive = this.IntersectsWithOrContains(totem.Range);
             if (totemActive != TotemEnableState[totem.Uid])
             {

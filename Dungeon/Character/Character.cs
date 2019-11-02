@@ -53,8 +53,8 @@
 
         public virtual void AddClassPerk() { }
 
-        public virtual string Avatar => "Rogue.Resources.Images.ui.player.noone.png";
-
+        public virtual string Avatar => $"{Global.GameAssemblyName}.Resources.Images.{this.GetType().Name}.png";
+         
         /// <summary>
         /// это пиздец, выпили это нахуй
         /// <para>

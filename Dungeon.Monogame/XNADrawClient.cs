@@ -12,6 +12,7 @@
     using Penumbra;
     using ProjectMercury.Renderers;
     using System;
+    using System.Collections.Generic;
     using System.Resources;
 
     public partial class XNADrawClient : Game, IDrawClient
@@ -19,6 +20,8 @@
         private PenumbraComponent penumbra;
 
         Renderer myRenderer;
+
+        ResourceContentManager _resources;
 
         public SceneManager SceneManager { get; set; }
         GraphicsDeviceManager graphics;
@@ -65,11 +68,11 @@
             this.IsFixedTimeStep = true;//false;
             this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d); //60);
 
-            var _content = new ResourceContentManager(this.Services,
+            _resources = new ResourceContentManager(this.Services,
                 new ResourceManager("Dungeon.Monogame.Resources", typeof(XNADrawClient).Assembly)
             );
 
-            penumbra = new PenumbraComponent(this, _content);
+            penumbra = new PenumbraComponent(this, _resources);
             Components.Add(penumbra);
 
             penumbra.Lights.Add(SunLight);
@@ -102,7 +105,9 @@
 #endif
             base.Initialize();
         }
-        
+
+        private Effect GlobalImageFilter;
+
         protected override void LoadContent()
         {
             GraphicsDevice.PresentationParameters.RenderTargetUsage = RenderTargetUsage.PreserveContents;
@@ -112,6 +117,9 @@
             {
                 DrawClient = this
             };
+
+
+            GlobalImageFilter = _resources.Load<Effect>("ExtractLight");
 
             SceneManager.Start();
             Network.Start();

@@ -1,9 +1,7 @@
 ﻿using Dungeon.Abilities.Talants;
 using Dungeon12.Noone.Abilities;
 using Dungeon12.Noone.Talants.Absordibng;
-using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
-using System.ComponentModel.DataAnnotations;
-
+using System;
 namespace Dungeon12.Noone.Talants
 {
     public class AbsorbingTalants : TalantTree<Noone>

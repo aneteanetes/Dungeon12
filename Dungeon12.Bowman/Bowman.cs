@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using Dungeon12.Bowman;
 using Dungeon.Classes;
+using Dungeon;
 
 namespace Dungeon12.Bowman
 {
@@ -15,7 +16,7 @@ namespace Dungeon12.Bowman
     {
         public Energy Energy { get; set; } = new Energy();
 
-        public override string Avatar => "Dungeon12.Bowman.Images.archer.png";
+        public override string Avatar => "archer.png".AsmImgRes();
 
         public override string ClassName => "Лучник";
 
@@ -25,7 +26,7 @@ namespace Dungeon12.Bowman
 
         public override ConsoleColor ResourceColor => ConsoleColor.Yellow;
 
-        public override string Tileset => "Dungeon12.Bowman.Images.sprite.png";
+        public override string Tileset => "sprite.png".AsmImgRes();
 
         public SpeedShot SpeedShot { get; set; } = new SpeedShot();
 

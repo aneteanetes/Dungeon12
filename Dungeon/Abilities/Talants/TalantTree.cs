@@ -68,18 +68,7 @@
         {
             var accessor = TypeAccessor.Create(this.GetType());
 
-            var members = accessor.GetMembers().Where(m =>
-            {
-                if (m.Type.BaseType == null)
-                    return false;
-
-                if (m.Type.BaseType.IsGenericType)
-                {
-                    return m.Type.BaseType.GetGenericTypeDefinition() == typeof(Talant<>);
-                }
-
-                return false;
-            });
+            var members = accessor.GetMembers().Where(m => typeof(TalantBase).IsAssignableFrom(m.Type));
 
             var talants = members.Select(m => accessor[this, m.Name]).Cast<Talant<TClass>>();
             return talants;

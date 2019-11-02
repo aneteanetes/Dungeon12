@@ -13,12 +13,12 @@
     public abstract class Talant<TClass> : TalantBase
          where TClass : Character
     {
-        public Talant(int order):base(order)
+        public Talant(int order) : base(order)
         {
 
         }
 
-        public override string Image => $"Dungeon.Classes.{this.GetType().BaseType.GenericTypeArguments[0].Name}.Images.Talants.{GetType().Name}.png";
+        public override string Image => $"{Global.GameAssemblyName}.{GetType().Name}.Resources.Images.Talants.{GetType().Name}.png";
 
         /// <summary>
         /// Метод вызывается для того что бы забиндить параметры для <see cref="Applicable.Apply(object)"/> и <see cref="Applicable.Discard(object)"/>
@@ -38,7 +38,7 @@
         public Avatar Avatar { get; set; }
 
         public GameMap GameMap { get; set; }
-        
+
         public virtual bool CanUse(object @object)
         {
             return this.CallCanUse(@object as dynamic);

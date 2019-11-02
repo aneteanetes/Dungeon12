@@ -2,12 +2,17 @@
 {
     using Dungeon.View.Interfaces;
 
-    public class ParticleEffect : IEffect
+    public sealed class ParticleEffect : IEffect
     {
+        public ParticleEffect()
+        {
+            Assembly = System.Reflection.Assembly.GetCallingAssembly().GetName().Name;
+        }
+
         public string Name { get; set; }
 
         public double Scale { get; set; }
 
-        public string Assembly { get; set; }
+        public string Assembly { get; }
     }
 }

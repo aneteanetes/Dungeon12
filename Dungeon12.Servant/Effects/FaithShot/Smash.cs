@@ -22,7 +22,7 @@ namespace Dungeon12.Servant.Effects.FaithShot
             this.Left = @object.Position.X / 32;
             this.Top = @object.Position.Y / 32;
 
-            var tileset = "Effects/faithshot.png".PathAsmImg();
+            var tileset = "Effects/faithshot.png".AsmImgRes();
             this.Image = tileset;
             this.Width = 1;
             this.Height = 1;
@@ -68,8 +68,7 @@ namespace Dungeon12.Servant.Effects.FaithShot
                     new ParticleEffect()
                     {
                         Name="FaithShot",
-                        Scale = 1,
-                        Assembly="Dungeon12.Servant"
+                        Scale = 1
                     }
                 };
             }

@@ -37,8 +37,7 @@ namespace Dungeon12.Bowman.Effects
                     new ParticleEffect()
                     {
                         Name="RainOfArrow",
-                        Scale = 0.09,
-                        Assembly="Dungeon12.Bowman"
+                        Scale = 0.09
                     }
                 };
 
