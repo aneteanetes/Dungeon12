@@ -2,12 +2,9 @@
 {
     using Dungeon.Entites.Alive;
     using Dungeon.Entites.Alive.Enums;
-    using Dungeon.Entites.Journal;
     using Dungeon.Inventory;
-    using Dungeon.Items;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     /// <summary>
     /// Абстрактный класс персонажа
@@ -21,8 +18,6 @@
             this.Clothes.OnPutOn += PutOnItem;
             this.Clothes.OnPutOff += PutOffItem;
         }
-
-        public Journal Journal { get; set; } = new Journal();
 
         public Race Race { get; set; }
 

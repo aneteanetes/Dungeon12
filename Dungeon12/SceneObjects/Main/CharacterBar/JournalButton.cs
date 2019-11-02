@@ -8,15 +8,16 @@
     using Dungeon.View.Interfaces;
     using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
+    using Dungeon12.SceneObjects;
 
     public class JournalButton : SlidesafeComponent
     {
         public override bool AbsolutePosition => true;
         public override bool CacheAvailable => false;
 
-        private PlayerSceneObject playerSceneObject;
+        private Player playerSceneObject;
 
-        public JournalButton(PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects) : base("Журнал (L)", showEffects)
+        public JournalButton(Player playerSceneObject, Action<List<ISceneObject>> showEffects) : base("Журнал (L)", showEffects)
         {
             this.playerSceneObject = playerSceneObject;
 

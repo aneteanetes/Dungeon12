@@ -22,7 +22,7 @@
 
         public IDrawColor TooltipTextColor { get; set; }
 
-        public TooltipedSceneObject(string tooltip, Action<List<ISceneObject>> showEffects)
+        public TooltipedSceneObject(string tooltip, Action<List<ISceneObject>> showEffects=null)
         {
             if (showEffects != null)
             {
@@ -34,12 +34,17 @@
         protected string TooltipText;
 
         protected DrawText TooltipDrawText;
-        
+
         public override void Focus()
         {
             base.Focus();
-            ShowTooltip();
+            if (!DisableTooltipAction)
+            {
+                ShowTooltip();
+            }
         }
+
+        protected bool DisableTooltipAction = false;
 
         protected void ShowTooltip()
         {
@@ -78,7 +83,10 @@
         public override void Unfocus()
         {
             base.Unfocus();
-            HideTooltip();
+            if (!DisableTooltipAction)
+            {
+                HideTooltip();
+            }
         }
 
         protected void HideTooltip()

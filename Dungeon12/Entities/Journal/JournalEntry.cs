@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dungeon.Entites.Journal
+namespace Dungeon12.Entites.Journal
 {
     public class JournalEntry : NetObject
     {

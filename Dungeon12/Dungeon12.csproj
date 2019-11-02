@@ -6,12 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\**\*" />
-    <None Remove="Noone\Resources\**\*" />
+    <None Remove="**\Resources\**\*" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Noone\Resources\**\*" />
-    <EmbeddedResource Include="Resources\**\*" />
+    <EmbeddedResource Include="**\Resources\**\*" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="Noone\Resources\attack.wav" />

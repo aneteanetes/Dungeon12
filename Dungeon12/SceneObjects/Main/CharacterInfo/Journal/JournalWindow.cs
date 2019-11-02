@@ -3,6 +3,7 @@ using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Drawing.SceneObjects.UI;
 using Dungeon.Events;
 using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal;
+using Dungeon12.SceneObjects;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 {
@@ -14,7 +15,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 
         private readonly PlayerSceneObject playerSceneObject;
 
-        public JournalWindow(PlayerSceneObject playerSceneObject)
+        public JournalWindow(Player playerSceneObject)
         {
             playerSceneObject.BlockMouse = true;
             this.Destroy += () => playerSceneObject.BlockMouse = false;

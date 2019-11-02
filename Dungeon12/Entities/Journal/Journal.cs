@@ -1,23 +1,28 @@
-﻿using Dungeon.Network;
+﻿using Dungeon;
+using Dungeon.Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Dungeon.Entites.Journal
+namespace Dungeon12.Entites.Journal
 {
     public class Journal : NetObject
     {
         [Value("Задания")]
+        [Icon("quests")]
         public List<JournalEntry> Quests { get; set; }
 
         [Value("Детали")]
+        [Icon("details")]
         public List<JournalEntry> Details { get; set; }
 
         [Value("Мир")]
+        [Icon("world")]
         public List<JournalEntry> World { get; set; }
 
         [Value("Выполнено")]
+        [Icon("qdone")]
         public List<JournalEntry> QuestsDone { get; set; }
 
         public Journal()
@@ -31,11 +36,10 @@ namespace Dungeon.Entites.Journal
         {
             var prop = _Type.GetMembers().FirstOrDefault(p => p.Name == name);
 
-            var valueAttr = (ValueAttribute)prop.GetAttribute(typeof(ValueAttribute),false);
-
             return new JournalCategory()
             {
-                Name = valueAttr.Value.ToString(),
+                Name = prop.ValueAttribute().ToString(),
+                Icon = $"Journal/{prop.ValueAttribute<IconAttribute>().ToString()}.png".AsmImgRes(),
                 Content = _Type[this, name] as List<JournalEntry>
             };
         }

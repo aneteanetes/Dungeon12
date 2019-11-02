@@ -12,7 +12,7 @@ using Dungeon;
 
 namespace Dungeon12.Bowman
 {
-    public class Bowman : BaseCharacterTileset
+    public class Bowman : Dungeon12Class
     {
         public Energy Energy { get; set; } = new Energy();
 

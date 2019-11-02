@@ -99,11 +99,13 @@
 
         protected virtual void StopAction() { }
 
+
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
             if (key == Key.LeftShift && !hold)
             {
                 this.ShowTooltip();
+                DisableTooltipAction = true;
             }
 
             if (key == Key.Q || key == Key.E)
@@ -118,8 +120,9 @@
 
         public override void KeyUp(Key key, KeyModifiers modifier)
         {
-            if (key == Key.LeftShift || key == Key.RightShift)
+            if (key == Key.LeftShift)
             {
+                DisableTooltipAction = false;
                 this.HideTooltip();
             }
         }

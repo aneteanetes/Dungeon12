@@ -86,7 +86,7 @@ namespace Dungeon12.Noone.Abilities
         /// </summary>
         private class DefauraBuf : BasePerk
         {
-            public override string Image => "Dungeon12.Noone.Images.Abilities.Defaura.buf.png";
+            public override string Image => "Images.Abilities.Defaura.buf.png".NoonePath();
 
             public override bool ClassDependent => true;
 

@@ -12,7 +12,7 @@ using Dungeon.Classes;
 
 namespace Dungeon12.Servant
 {
-    public class Servant : BaseCharacterTileset
+    public class Servant : Dungeon12Class
     {
         public bool Serve { get; set; }
 

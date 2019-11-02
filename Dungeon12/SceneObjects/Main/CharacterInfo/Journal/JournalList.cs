@@ -4,6 +4,7 @@ using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants;
 using System.Collections.Generic;
 using Dungeon;
+using Dungeon12.SceneObjects;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
 {
@@ -13,7 +14,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
 
         public override bool CacheAvailable => false;
 
-        public JournalList(PlayerSceneObject playerSceneObject)
+        public JournalList(Player playerSceneObject)
         {
             this.Image = "Dungeon12.Resources.Images.ui.vertical_title(17x12).png";
 
@@ -25,7 +26,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
 
             var tabs = new List<JournalTab>();
 
-            var jcats = playerSceneObject.Avatar.Character.Journal.JournalCategories;
+            var jcats = playerSceneObject.Avatar.Character.As<Dungeon12Class>().Journal.JournalCategories;
 
             foreach (var jcat in jcats)
             {
@@ -42,7 +43,6 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
                 tabs.Add(tab);
             }
 
-            JournalTab.Flex(tabs.ToArray());
             tabs.ForEach((tab, i) =>
             {
                 this.AddChild(tab);
