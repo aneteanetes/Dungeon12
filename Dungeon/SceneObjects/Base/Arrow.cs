@@ -2,6 +2,7 @@
 {
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.Impl;
+    using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
     using System;
 

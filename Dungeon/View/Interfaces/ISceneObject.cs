@@ -34,6 +34,11 @@
         Rectangle CropPosition { get; }
 
         /// <summary>
+        /// 0..1
+        /// </summary>
+        double Opacity { get; }
+
+        /// <summary>
         /// Position with parent
         /// </summary>
         Rectangle ComputedPosition { get; }

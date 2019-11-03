@@ -6,6 +6,7 @@
     using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Map.Objects;
+    using Dungeon.SceneObjects;
     using Dungeon.SceneObjects.Base;
     using System;
     using System.Linq;

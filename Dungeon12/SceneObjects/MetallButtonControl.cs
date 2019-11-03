@@ -8,7 +8,7 @@
     using System;
     public class MetallButtonControl : ButtonControl
     {
-        public MetallButtonControl(string text) : base(text)
+        public MetallButtonControl(string text) : base(text,24)
         {
         }
 

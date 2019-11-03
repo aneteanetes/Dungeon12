@@ -5,6 +5,7 @@
     using Dungeon.Data.Region;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Resources;
+    using Dungeon.SceneObjects;
     using Dungeon.Types;
     using Dungeon12.Map.Editor.Objects;
     using Newtonsoft.Json;

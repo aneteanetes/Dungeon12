@@ -6,6 +6,7 @@ using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Map;
 using Dungeon.Map.Objects;
 using Dungeon.Physics;
+using Dungeon.SceneObjects;
 using Dungeon.Types;
 using System;
 using System.Collections.Generic;

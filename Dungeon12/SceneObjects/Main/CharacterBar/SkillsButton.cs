@@ -8,7 +8,7 @@
     using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
 
-    public class SkillsButton : SlidesafeComponent
+    public class SkillsButton : SlideComponent
     {
         public override bool AbsolutePosition => true;
 

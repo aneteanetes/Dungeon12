@@ -7,6 +7,7 @@
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Map;
+    using Dungeon.SceneObjects;
     using System;
     using System.Collections.Generic;
     using System.Linq;

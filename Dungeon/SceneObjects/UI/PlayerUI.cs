@@ -5,6 +5,7 @@
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Entites.Alive;
     using Dungeon.Events;
+    using Dungeon.SceneObjects;
     using Dungeon.Types;
     using System;
 

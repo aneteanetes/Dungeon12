@@ -9,7 +9,7 @@
     using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
 
-    public class CharButton : SlidesafeComponent
+    public class CharButton : SlideComponent
     {
         public override bool AbsolutePosition => true;
 

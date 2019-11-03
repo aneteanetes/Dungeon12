@@ -16,8 +16,9 @@ namespace Dungeon.Drawing.Impl
         /// </summary>
         private readonly List<IDrawText> InnerText = new List<IDrawText>();
 
-        public DrawText(string value)
+        public DrawText(string value,float size=12)
         {
+            Size = size;
             stringData = value;
         }
 

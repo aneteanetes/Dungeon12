@@ -3,6 +3,7 @@ using Dungeon.Abilities.Talants.NotAPI;
 using Dungeon.Abilities.Talants.TalantTrees;
 using Dungeon.Classes;
 using Dungeon.Drawing.SceneObjects;
+using Dungeon.SceneObjects;
 using Dungeon.Types;
 using System;
 using System.Collections.Generic;

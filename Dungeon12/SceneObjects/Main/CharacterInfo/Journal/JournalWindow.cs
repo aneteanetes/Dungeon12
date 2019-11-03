@@ -1,9 +1,11 @@
-﻿using Dungeon.Control.Keys;
+﻿using Dungeon;
+using Dungeon.Control.Keys;
 using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Drawing.SceneObjects.UI;
 using Dungeon.Events;
 using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal;
 using Dungeon12.SceneObjects;
+using Dungeon12.SceneObjects.Main.CharacterInfo.Journal;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 {
@@ -14,6 +16,8 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
         public override bool AbsolutePosition => true;
 
         private readonly PlayerSceneObject playerSceneObject;
+
+        private JournalList journalList;
 
         public JournalWindow(Player playerSceneObject)
         {
@@ -29,7 +33,8 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
             this.Left = 3.5;
             this.Top = 2;
 
-            this.AddChild(new JournalList(playerSceneObject));
+            journalList = new JournalList(playerSceneObject);
+            this.AddChild(journalList);
         }
 
         protected override Key[] OverrideKeyHandles => new Key[] { Key.L };
@@ -41,7 +46,14 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
                 base.KeyDown(Key.Escape, modifier, hold);
             }
 
+            if (key == Key.Escape && !journalList.CanDestroyParent)
+            {
+                Global.Events.Raise(new JournalWindowOnKeyProcessedEvent());
+                return;
+            }
+
             base.KeyDown(key, modifier, hold);
+            Global.Events.Raise(new JournalWindowOnKeyProcessedEvent());
         }
 
         public void OnEvent(ClassChangeEvent @event)

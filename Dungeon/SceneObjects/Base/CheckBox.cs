@@ -1,6 +1,7 @@
 ﻿namespace Dungeon.Drawing.SceneObjects
 {
     using Dungeon.Control.Pointer;
+    using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
     using System;
 

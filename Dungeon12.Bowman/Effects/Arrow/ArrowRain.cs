@@ -1,9 +1,9 @@
 ﻿using Dungeon;
 using Dungeon.Drawing.Impl;
-using Dungeon.Drawing.SceneObjects;
 using Dungeon.Entites.Enemy;
 using Dungeon.Map;
 using Dungeon.Map.Objects;
+using Dungeon.SceneObjects;
 using Dungeon.Types;
 using System;
 using System.Collections.Generic;

@@ -9,7 +9,7 @@
     using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
 
-    public class TalantsButton : SlidesafeComponent
+    public class TalantsButton : SlideComponent
     {
         public override bool AbsolutePosition => true;
         public override bool CacheAvailable => false;

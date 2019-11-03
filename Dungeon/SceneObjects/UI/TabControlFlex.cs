@@ -5,6 +5,7 @@
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.SceneObjects;
+    using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;

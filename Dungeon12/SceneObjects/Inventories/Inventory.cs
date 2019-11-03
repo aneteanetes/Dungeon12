@@ -5,7 +5,6 @@
     using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Inventory;

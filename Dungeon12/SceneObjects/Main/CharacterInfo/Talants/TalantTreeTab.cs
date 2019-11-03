@@ -1,8 +1,8 @@
 ﻿using Dungeon.Abilities.Talants.TalantTrees;
 using Dungeon.Classes;
-using Dungeon.Drawing.SceneObjects;
 using Dungeon.Drawing.SceneObjects.UI;
 using Dungeon.Events;
+using Dungeon.SceneObjects;
 using System;
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 {

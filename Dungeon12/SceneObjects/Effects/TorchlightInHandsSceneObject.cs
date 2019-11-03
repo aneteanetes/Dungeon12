@@ -2,7 +2,7 @@
 {
     using Dungeon.Drawing;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects;
+    using Dungeon.SceneObjects;
     using System.Collections.Generic;
 
     public class TorchlightInHandsSceneObject : SceneObject

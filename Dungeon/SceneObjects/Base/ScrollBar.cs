@@ -1,12 +1,14 @@
-﻿namespace Dungeon.Drawing.SceneObjects.Dialogs.Origin
+﻿using Dungeon.Drawing.SceneObjects.Dialogs.Origin;
+
+namespace Dungeon.SceneObjects.Base
 {
     using Dungeon.Drawing.SceneObjects;
-    
+    using Dungeon.SceneObjects.Mixins;
     using System;
 
-    public class Scrollbar : ColoredRectangle
+    public class Scrollbar : ColoredRectangle, IScrollableMixin
     {
-        public Scrollbar(Func<bool> OnUp, Func<bool> OnDown)
+        public Scrollbar(double height, Func<bool> OnUp, Func<bool> OnDown)
         {
             Color = ConsoleColor.Black;
             Depth = 1;
@@ -14,14 +16,14 @@
             Opacity = 0.5;
             Round = 5;
 
-            Height = 13.5;
+            Height = height;// 13.5;
             Width = 1;
 
-            this.Up = new Arrow(OnUp, "▲") { Top = -.35 };
-            this.Down = new Arrow(OnDown, "▼") { Top = this.Top + this.Height - 1.2, };
+            Up = new Arrow(OnUp, "▲") { Top = -.35 };
+            Down = new Arrow(OnDown, "▼") { Top = Top + Height - 1.2, };
 
-            this.AddChild(Up);
-            this.AddChild(Down);
+            AddChild(Up);
+            AddChild(Down);
         }
 
         public Arrow Up { get; set; }

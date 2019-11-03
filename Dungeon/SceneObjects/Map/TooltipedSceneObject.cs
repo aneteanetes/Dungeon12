@@ -2,7 +2,6 @@
 {
     using Dungeon.SceneObjects;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Entites.Alive;
     using Dungeon.Entites.Animations;

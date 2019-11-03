@@ -93,7 +93,7 @@
             spriteBatch.End();
         }
 
-        private void SetSpriteBatch(bool absolute=false)
+        private void SetSpriteBatch(bool absolute=false, bool @interface=false)
         {
             if (!absolute)
             {
@@ -104,7 +104,7 @@
 #endif
                     Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0), 
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
-                    blendState: BlendState.NonPremultiplied/*,effect: GlobalImageFilter*/);
+                    blendState: BlendState.NonPremultiplied,effect: GlobalImageFilter);
             }
             else
             {
@@ -113,7 +113,7 @@
                     transformMatrix: screenScale,
 #endif
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
-                    blendState: BlendState.NonPremultiplied/*, effect: GlobalImageFilter*/);
+                    blendState: BlendState.NonPremultiplied/*, effect: @interface ? null : GlobalImageFilter*/);
             }
             SpriteBatchRestore.Invoke(false);
         }
@@ -393,11 +393,7 @@
 #warning [INFO] Вот здесь теперь всё хорошо,но это место можно использовать для того что бы заоптимизировать преобразование размеров, т.к. масштабирование текстур происходит тут
 
             var dest = new Rectangle(pos.Xi, pos.Yi, pos.Widthi, pos.Heighti);
-
-            if (sceneObject.Effects.Count > 0) {
-                //Console.WriteLine($"texture: {dest.X+CameraOffsetX} {dest.Y+CameraOffsetY}");
-            }
-
+            
             var angle = (float)sceneObject.Angle;
             var origin = angle != 0
                 ? new Vector2(tileRegion.Widthi / 2f, tileRegion.Heighti / 2f)

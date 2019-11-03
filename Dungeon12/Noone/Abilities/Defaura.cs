@@ -81,9 +81,6 @@ namespace Dungeon12.Noone.Abilities
             @class = null;
         }
 
-        /// <summary>
-        /// так то бафы должны действовать и на аватар тоже
-        /// </summary>
         private class DefauraBuf : BasePerk
         {
             public override string Image => "Images.Abilities.Defaura.buf.png".NoonePath();

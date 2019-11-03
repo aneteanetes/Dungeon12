@@ -4,6 +4,7 @@
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Entites.Animations;
     using Dungeon.Map;
+    using Dungeon.SceneObjects;
     using Dungeon.SceneObjects.Base;
     using Dungeon.View.Interfaces;
     using System;

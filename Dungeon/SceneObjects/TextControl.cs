@@ -1,5 +1,6 @@
 ﻿namespace Dungeon.Drawing.SceneObjects
 {
+    using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
 
     public class TextControl : SceneObject

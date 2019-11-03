@@ -25,6 +25,18 @@
             throw new System.Exception("Property had wrong type!");
         }
 
+        public static Func<TClass, TProperty> GetFieldAccessor<TClass, TProperty>(string fieldName)
+        {
+            ParameterExpression param = Expression.Parameter(typeof(TClass), "arg");
+
+            MemberExpression member = Expression.Field(param, fieldName);
+
+            LambdaExpression lambda = Expression.Lambda(typeof(Func<TClass, TProperty>), member, param);
+
+            Func<TClass, TProperty> compiled = (Func<TClass, TProperty>)lambda.Compile();
+            return compiled;
+        }
+
         public static void Dispatch<T>(this T obj, Expression<Action<T, object>> method, object arg)
         {
             var name = (method.Body as MethodCallExpression).Method.Name.Replace("Call", "");

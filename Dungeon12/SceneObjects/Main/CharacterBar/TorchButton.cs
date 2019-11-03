@@ -10,7 +10,7 @@
     using System.Collections.Generic;
     using Dungeon12.SceneObjects;
 
-    public class TorchButton : SlidesafeComponent
+    public class TorchButton : SlideComponent
     {
         public override bool AbsolutePosition => true;
 

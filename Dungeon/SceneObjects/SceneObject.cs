@@ -1,7 +1,11 @@
-﻿namespace Dungeon.Drawing.SceneObjects
+﻿namespace Dungeon.SceneObjects
 {
+    using Dungeon;
     using Dungeon.Drawing.Impl;
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.UI;
+    using Dungeon.Proxy;
+    using Dungeon.SceneObjects.Mixins;
     using Dungeon.Scenes.Manager;
     using Dungeon.Settings;
     using Dungeon.Types;
@@ -10,9 +14,9 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public abstract class SceneObject : ISceneObject, IFlowable
+    public abstract class SceneObject : ISceneObject, IFlowable, IMixinContainer
     {
-        private Dungeon.Scenes.GameScene owner;
+        private Scenes.GameScene owner;
 
         /// <summary>
         /// В КОНСТРУКТОРЕ ЕСТЬ КОСТЫЛЬ
@@ -29,13 +33,13 @@
                 DestroyBinding += owner.RemoveObject;
                 Destroy = () => owner.RemoveObject(this);
                 ShowEffects += owner.ShowEffectsBinding;
-                
+
                 //ПИЗДЕЦ. Это надо лечить
-                if(this is DraggableControl draggableControl)
+                if (this is DraggableControl draggableControl)
                 { }
                 else
                 {
-                    this.ZIndex = DragAndDropSceneControls.DraggableLayers;
+                    ZIndex = DragAndDropSceneControls.DraggableLayers;
                 }
             }
 
@@ -57,9 +61,9 @@
         /// </summary>
         private void ProcessSingleton()
         {
-            if (this.Singleton)
+            if (Singleton)
             {
-                var key = this.GetType().FullName;
+                var key = GetType().FullName;
                 if (singletonInstances.TryGetValue(key, out var instance))
                 {
                     instance.Destroy?.Invoke();
@@ -67,18 +71,18 @@
                 }
 
                 singletonInstances.Add(key, this);
-                this.Destroy += () => singletonInstances.Remove(key);
+                Destroy += () => singletonInstances.Remove(key);
             }
         }
 
         protected TextControl AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical = true)
         {
-            var textControl = new Dungeon.Drawing.SceneObjects.TextControl(drawText);
+            var textControl = new TextControl(drawText);
 
             var measure = Global.DrawClient.MeasureText(textControl.Text);
 
-            var width = this.Width * 32;
-            var height = this.Height * 32;
+            var width = Width * 32;
+            var height = Height * 32;
 
             if (horizontal)
             {
@@ -92,20 +96,20 @@
                 textControl.Top = top / 32;
             }
 
-            this.Children.Add(textControl);
+            Children.Add(textControl);
 
             return textControl;
         }
 
-        protected T AddChildCenter<T>(T control, bool horizontal=true, bool vertical=true)
-            where T: SceneObject
+        protected T AddChildCenter<T>(T control, bool horizontal = true, bool vertical = true)
+            where T : SceneObject
         {
             var measure = MeasureImage(control.Image);
             measure.X = measure.X * 32;
             measure.Y = measure.Y * 32;
 
-            var width = this.Width * 32;
-            var height = this.Height * 32;
+            var width = Width * 32;
+            var height = Height * 32;
 
             if (horizontal)
             {
@@ -118,26 +122,31 @@
                 var top = height / 2 - measure.Y / 2;
                 control.Top = top / 32;
             }
-            this.AddChild(control);
+            AddChild(control);
 
             return control;
         }
-               
+
         public SceneObject WithText(IDrawText drawText, bool center = false)
         {
             if (center)
             {
-                this.AddTextCenter(drawText);
+                AddTextCenter(drawText);
             }
             else
             {
-                var textControl = new Dungeon.Drawing.SceneObjects.TextControl(drawText);
-                this.Children.Add(textControl);
+                var textControl = new TextControl(drawText);
+                Children.Add(textControl);
             }
 
             return this;
         }
 
+        /// <summary>
+        /// Возвращает в абсолютных координатах
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         protected Point MeasureText(IDrawText text) => Global.DrawClient.MeasureText(text);
 
         /// <summary>
@@ -151,6 +160,8 @@
 
             return new Point(m.X / 32, m.Y / 32);
         }
+
+        public virtual double Opacity { get; set; } = 1;
 
         /// <summary>
         /// Relative
@@ -217,50 +228,50 @@
         {
             sceneObject.Destroy += () =>
             {
-                this.RemoveChild(sceneObject);
+                RemoveChild(sceneObject);
                 DestroyBinding(sceneObject);
             };
 
-            this.Destroy += () => sceneObject.Destroy?.Invoke();
+            Destroy += () => sceneObject.Destroy?.Invoke();
 
             if (sceneObject is SceneObject sceneControlObject)
             {
                 sceneControlObject.Parent = this;
             }
 
-            this.Children.Add(sceneObject);
+            Children.Add(sceneObject);
         }
 
         public void ClearChildrens()
         {
-            var forRemove = new List<ISceneObject>(this.Children);
+            var forRemove = new List<ISceneObject>(Children);
 
             foreach (var removing in forRemove)
             {
                 removing.Destroy?.Invoke();
-                this.RemoveChild(removing);
+                RemoveChild(removing);
             }
         }
 
         public void RemoveChild(ISceneObject sceneObject)
         {
-            this.Children.Remove(sceneObject);
+            Children.Remove(sceneObject);
         }
 
         public void RemoveChild<T>()
         {
             var forRemove = new List<ISceneObject>();
 
-            this.Children.Where(x => x.GetType().IsAssignableFrom(typeof(T)) || x.GetType() == typeof(T))
+            Children.Where(x => x.GetType().IsAssignableFrom(typeof(T)) || x.GetType() == typeof(T))
                 .ForEach(x =>
                 {
-                    x.Destroy?.Invoke();
                     forRemove.Add(x);
                 });
 
             foreach (var removing in forRemove)
             {
-                this.RemoveChild(removing);
+                removing.Destroy?.Invoke();
+                RemoveChild(removing);
             }
         }
 
@@ -308,10 +319,10 @@
 
         public virtual Rectangle CropPosition => new Rectangle
         {
-            X = this.Position.X,
-            Y = this.Position.Y,
-            Height = this.Children.Max(c => c.Position.Y + c.Position.Height),
-            Width = this.Children.Max(c => c.Position.X + c.Position.Width)
+            X = Position.X,
+            Y = Position.Y,
+            Height = Children.Max(c => c.Position.Y + c.Position.Height),
+            Width = Children.Max(c => c.Position.X + c.Position.Width)
         };
 
         public virtual int Layer { get; set; }
@@ -354,10 +365,10 @@
 
         public bool IntersectsWith(ISceneObject another)
         {
-            var xsum1 = Math.Max(this.ComputedPosition.X, another.ComputedPosition.X);
-            var xsum2 = Math.Min(this.ComputedPosition.X + this.Width, another.ComputedPosition.X + another.Position.Width);
-            var ysum1 = Math.Max(this.ComputedPosition.Y, another.ComputedPosition.Y);
-            var ysum2 = Math.Min(this.ComputedPosition.Y + this.Height, another.ComputedPosition.Y + another.Position.Height);
+            var xsum1 = Math.Max(ComputedPosition.X, another.ComputedPosition.X);
+            var xsum2 = Math.Min(ComputedPosition.X + Width, another.ComputedPosition.X + another.Position.Width);
+            var ysum1 = Math.Max(ComputedPosition.Y, another.ComputedPosition.Y);
+            var ysum2 = Math.Min(ComputedPosition.Y + Height, another.ComputedPosition.Y + another.Position.Height);
 
             if (xsum2 >= xsum1 && ysum2 >= ysum1)
             {
@@ -382,7 +393,7 @@
 
         private object flowContext = null;
 
-        public T GetFlowProperty<T>(string property,T @default = default) => flowContext.GetProperty<T>(property);
+        public T GetFlowProperty<T>(string property, T @default = default) => flowContext.GetProperty<T>(property);
 
         public bool SetFlowProperty<T>(string property, T value)
         {
@@ -407,5 +418,45 @@
         public void SetParentFlow(IFlowable parent) => flowparent = parent;
 
         public IFlowable GetParentFlow() => flowparent;
+
+        private Dictionary<string, object> MixinContainer = new Dictionary<string, object>();
+
+        public void SetMixinValue<T>(string property, T value)
+        {
+            if (!MixinContainer.ContainsKey(property))
+            {
+                MixinContainer.Add(property, null);
+            }
+
+            MixinContainer[property] = value;
+        }
+
+        public T GetMixinValue<T>(string property)
+        {
+            if (!MixinContainer.ContainsKey(property))
+            {
+                MixinContainer.Add(property, null);
+            }
+
+            return MixinContainer[property].As<T>();
+        }
+
+        private readonly List<object> Mixins = new List<object>();
+
+        public void AddMixin<T>(T mixin) where T : IMixin
+        {
+            Mixins.Add(mixin);
+        }
+
+        public T Mixin<T>() where T : IMixin
+        {
+            var mix = Mixins.FirstOrDefault(m => m is T);
+            if (mix != default)
+            {
+                return (T)mix;
+            }
+
+            return default;
+        }
     }
 }

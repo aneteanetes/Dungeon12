@@ -3,10 +3,10 @@
     using Dungeon;
     using Dungeon.Abilities.Enums;
     using Dungeon.Control.Keys;
-    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Events;
     using Dungeon.Map;
+    using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Common;
     using System;

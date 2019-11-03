@@ -1,19 +1,44 @@
-﻿#include "Macros.fxh"
+﻿// This shader gets the areas that are bright. This will later be blured making bright spots “glow”
 
 sampler TextureSampler : register(s0);
 
+ 
+
+// Get the threshold of what brightness level we want to glow
+
+
+ 
+
+ 
+
 float4 main(float2 texCoord : TEXCOORD0) : COLOR0
 {
-    float4 c = tex2D(TextureSampler, texCoord);
-    float BloomThreshold = 0.05;
+	
+    float Threshold = 0.15;
+    float4 Color = tex2D(TextureSampler, texCoord);
 
-    return saturate((c - BloomThreshold) / (1 - BloomThreshold));
+   
+
+    // Get the bright areas that is brighter than Threshold and return it.
+
+    return saturate((Color- Threshold) / (1- Threshold));
+
 }
 
-technique ThresholdEffect
+ 
+
+ 
+
+technique Bloom
 {
-    pass DefaultPass
+
+    pass P0
     {
+
+            // A post process shader only needs a pixel shader.
+
         PixelShader = compile ps_2_0 main();
+
     }
+
 }

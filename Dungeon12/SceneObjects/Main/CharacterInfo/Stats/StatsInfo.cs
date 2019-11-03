@@ -4,6 +4,7 @@
     using Dungeon.Classes;
     using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.SceneObjects;
+    using Dungeon.SceneObjects;
     using System;
     using System.Collections.Generic;
     using System.Linq;

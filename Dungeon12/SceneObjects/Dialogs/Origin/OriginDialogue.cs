@@ -4,10 +4,10 @@
     using Dungeon.Control.Events;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Drawing.SceneObjects.Dialogs.Origin;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Entites.Alive.Enums;
+    using Dungeon.SceneObjects;
+    using Dungeon.SceneObjects.Base;
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Dialogs.Origin;
     using System;
@@ -33,7 +33,7 @@
             AddOrigins();
             AddDescription();
             
-            scrollbar = new Scrollbar(Up, Down)
+            scrollbar = new Scrollbar(13.5, Up, Down)
             {
                 Left = 9.7,
                 Top = 2.5

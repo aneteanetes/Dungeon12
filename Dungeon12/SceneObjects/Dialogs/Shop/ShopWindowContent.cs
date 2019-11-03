@@ -3,7 +3,7 @@
     using Dungeon.Drawing.Impl;
     using Dungeon12.Drawing.SceneObjects.Inventories;
     using Dungeon.Drawing.SceneObjects.Map;
-    using Dungeon.Drawing.SceneObjects;
+    using Dungeon.SceneObjects;
 
     public class ShopWindowContent : HandleSceneControl
     {

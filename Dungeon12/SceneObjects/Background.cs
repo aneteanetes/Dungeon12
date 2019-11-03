@@ -1,5 +1,5 @@
 ﻿using Dungeon.Drawing.Impl;
-using Dungeon.Drawing.SceneObjects;
+using Dungeon.SceneObjects;
 
 namespace Dungeon12.Drawing.SceneObjects
 {

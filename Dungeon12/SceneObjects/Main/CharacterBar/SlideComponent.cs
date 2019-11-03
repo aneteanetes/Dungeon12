@@ -6,21 +6,25 @@ using System.Text;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterBar
 {
-    public abstract class SlidesafeComponent : TooltipedSceneObject
+    public abstract class SlideComponent : TooltipedSceneObject
     {
-        public double SlideOffsetLeft = 0;
-        public double SlideOffsetTop = 0;
+        public virtual double SlideOffsetLeft { get; set; } = 0;
+        public virtual double SlideOffsetTop { get; set; } = 0;
         public Func<bool> SlideNeed = () => true;
 
-        public SlidesafeComponent(string tooltip, Action<List<ISceneObject>> showEffects) : base(tooltip, showEffects)
+        public SlideComponent(string tooltip="", Action<List<ISceneObject>> showEffects=null) : base(tooltip, showEffects)
         {
         }
+
+        public double LeftOriginal => base.Left;
 
         public override double Left
         {
             get => SlideNeed.Invoke() ? base.Left+SlideOffsetLeft : base.Left;
             set => base.Left = value;
         }
+
+        public double TopOriginal => base.Top;
 
         public override double Top
         {

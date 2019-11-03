@@ -11,9 +11,9 @@ namespace Dungeon.SceneObjects.Base
     {
         protected TextControl textControl;
 
-        public ButtonControl(string text)
+        public ButtonControl(string text, float size=30)
         {
-            textControl = new Dungeon.Drawing.SceneObjects.TextControl(new DrawText(text, ConsoleColor.White) { Size = 30 });
+            textControl = new Dungeon.Drawing.SceneObjects.TextControl(new DrawText(text, ConsoleColor.White) { Size = size }.Triforce());
 
             var measure = Global.DrawClient.MeasureText(textControl.Text);
 

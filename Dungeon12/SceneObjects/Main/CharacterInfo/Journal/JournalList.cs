@@ -1,10 +1,11 @@
 ﻿using Dungeon.Drawing.Impl;
-using Dungeon.Drawing.SceneObjects;
 using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants;
 using System.Collections.Generic;
 using Dungeon;
 using Dungeon12.SceneObjects;
+using System;
+using Dungeon.SceneObjects;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
 {
@@ -13,6 +14,10 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
         public override bool AbsolutePosition => true;
 
         public override bool CacheAvailable => false;
+
+        public bool CanDestroyParent => CanDestroyParentBinding();
+
+        public Func<bool> CanDestroyParentBinding { get; set; } = () => true;
 
         public JournalList(Player playerSceneObject)
         {
@@ -32,7 +37,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
             {
                 var index = jcats.IndexOf(jcat);
 
-                var tab = new JournalTab(this, jcat, playerSceneObject.Avatar.Character, index == 0)
+                var tab = new JournalTab(this, jcat,this, playerSceneObject.Avatar.Character, index == 0)
                 {
                     AbsolutePosition = true,
                     CacheAvailable = false,

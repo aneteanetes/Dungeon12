@@ -1,9 +1,9 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Dialogs.Shop
 {
-    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Merchants;
+    using Dungeon.SceneObjects;
     using Dungeon12.Drawing.SceneObjects.Inventories;
     using System;
     public class ShopTab : TabControl<ShopTabContent, MerchantCategory, ShopTab>

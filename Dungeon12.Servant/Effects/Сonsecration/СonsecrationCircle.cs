@@ -1,8 +1,8 @@
 ﻿using Dungeon;
 using Dungeon.Drawing.Impl;
-using Dungeon.Drawing.SceneObjects;
 using Dungeon.Map;
 using Dungeon.Map.Objects;
+using Dungeon.SceneObjects;
 using Dungeon.Transactions;
 using System;
 using System.Collections.Generic;

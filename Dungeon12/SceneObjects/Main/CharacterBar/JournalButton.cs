@@ -10,7 +10,7 @@
     using System.Collections.Generic;
     using Dungeon12.SceneObjects;
 
-    public class JournalButton : SlidesafeComponent
+    public class JournalButton : SlideComponent
     {
         public override bool AbsolutePosition => true;
         public override bool CacheAvailable => false;

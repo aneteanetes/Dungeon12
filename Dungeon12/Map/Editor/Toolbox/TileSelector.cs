@@ -3,6 +3,7 @@
     using Dungeon;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.SceneObjects;
+    using Dungeon.SceneObjects;
     using System;
 
     public class TileSelector : HandleSceneControl

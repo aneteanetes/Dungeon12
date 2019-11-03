@@ -1,8 +1,8 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Main
 {
-    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Map;
+    using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Main.CharacterBar;
     using Dungeon12.SceneObjects;

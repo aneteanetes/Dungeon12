@@ -11,7 +11,7 @@ namespace Dungeon12.Entites.Journal
 
         public string Group { get; set; }
 
-        public string RegionGroup { get; set; }
+        //public string RegionGroup { get; set; }
 
         public bool Hide { get; set; }
 
