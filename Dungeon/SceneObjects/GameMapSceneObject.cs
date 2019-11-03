@@ -1,5 +1,5 @@
-﻿using Dungeon.Control.Events;
-using Dungeon.Control.Pointer;
+﻿using Dungeon.Control;
+using Dungeon.Control.Events;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Map;

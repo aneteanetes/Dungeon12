@@ -1,7 +1,6 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.Map
 {
     using Dungeon.SceneObjects;
-    using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Entites.Alive;
     using Dungeon.Entites.Animations;
@@ -14,6 +13,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Timers;
+    using Dungeon.Drawing;
 
     public abstract class TooltipedSceneObject : HandleSceneControl
     {

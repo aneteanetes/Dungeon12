@@ -1,5 +1,6 @@
 ﻿namespace Dungeon.SceneObjects
 {
+    using Dungeon.Control;
     using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
@@ -154,6 +155,21 @@
         {
             ControlBinding?.Invoke(sceneObject);
             base.AddChild(sceneObject);
+        }
+
+        /// <summary>
+        /// Добавляет компонент как миксин
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="mixin"></param>
+        public override void AddMixin<T>(T mixin)
+        {
+            mixin.InitAsMixin(this);
+            Mixins.Add(mixin);
+            if (mixin is ISceneObjectControl mixinControl)
+            {
+                this.AddChild(mixinControl);
+            }
         }
     }
 }

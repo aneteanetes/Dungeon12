@@ -3,7 +3,7 @@
     using Dungeon;
     using Dungeon.Control.Events;
     using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.Impl;
+    using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Entites.Alive.Enums;
     using Dungeon.SceneObjects;

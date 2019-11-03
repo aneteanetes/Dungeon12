@@ -1,7 +1,7 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.Dialogs.Origin
 {
-    using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.Impl;
+    using Dungeon.Control;
+    using Dungeon.Drawing;
     using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
     using System;

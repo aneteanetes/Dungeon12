@@ -3,9 +3,9 @@
     using Dungeon;
     using Dungeon.Abilities;
     using Dungeon.Classes;
+    using Dungeon.Control;
     using Dungeon.Control.Keys;
-    using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.Impl;
+    using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Drawing.SceneObjects.UI;
@@ -145,10 +145,10 @@
 
                 this.AddChild(new DarkRectangle() { Color = ConsoleColor.White, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.05, Top = top - 0.25 });
 
-                var border = this.AddChildCenter(new ImageControl("Dungeon12.Resources.Images.ui.squareB.png") { CacheAvailable=false });
+                var border = this.AddChildImageCenter(new ImageControl("Dungeon12.Resources.Images.ui.squareB.png") { CacheAvailable=false });
                 border.Top = 10;
 
-                var img = this.AddChildCenter(new ImageControl(ability.Image_B) { CacheAvailable = false, }, true, false);
+                var img = this.AddChildImageCenter(new ImageControl(ability.Image_B) { CacheAvailable = false, }, true, false);
 
                 img.Top = 10;
             }

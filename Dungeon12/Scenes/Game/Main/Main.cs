@@ -3,13 +3,13 @@
     using Dungeon;
     using Dungeon.Control.Keys;
     using Dungeon.Drawing;
-    using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.Labirinth;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Map;
     using Dungeon.Map.Objects;
+    using Dungeon.SceneObjects;
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
     using Dungeon.Settings;

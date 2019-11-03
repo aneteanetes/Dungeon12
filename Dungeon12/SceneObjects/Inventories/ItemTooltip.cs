@@ -1,13 +1,13 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Inventories
 {
     using Dungeon.SceneObjects;
-    using Dungeon.Drawing.Impl;
     using Dungeon.Items;
     using Dungeon.Items.Enums;
     using Dungeon.Types;
     using System.Collections.Generic;
     using System.Linq;
     using Dungeon;
+    using Dungeon.Drawing;
 
     public class ItemTooltip : Tooltip
     {

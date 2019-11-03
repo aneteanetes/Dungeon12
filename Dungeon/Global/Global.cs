@@ -1,7 +1,7 @@
 ﻿namespace Dungeon
 {
     using Dungeon.Audio;
-    using Dungeon.Control.Pointer;
+    using Dungeon.Control;
     using Dungeon.Events;
     using Dungeon.View.Interfaces;
     using System.Collections.Generic;

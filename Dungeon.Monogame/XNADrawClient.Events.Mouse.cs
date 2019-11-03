@@ -5,6 +5,7 @@
     using Dungeon.Scenes.Manager;
     using System;
     using System.Collections.Generic;
+    using Dungeon.Control;
 
     public partial class XNADrawClient
     {
@@ -36,7 +37,7 @@
 
         private void OnPointerWheelChanged(bool isTop)
         {
-            Console.WriteLine(isTop);
+            //Console.WriteLine(isTop);
 
             SceneManager.Current.OnMouseWheel(isTop ? Dungeon.Control.Pointer.MouseWheelEnum.Up : Dungeon.Control.Pointer.MouseWheelEnum.Down);
         }
@@ -101,7 +102,7 @@
 
             this.light.Position = new Microsoft.Xna.Framework.Vector2(mousePosition.X, mousePosition.Y);
 
-            currentScene.OnMouseMove(new Dungeon.Control.Pointer.PointerArgs
+            currentScene.OnMouseMove(new PointerArgs
             {
                 ClickCount = 0,
                 MouseButton = (Dungeon.Control.Pointer.MouseButton)mb,
@@ -122,7 +123,7 @@
             var pos = mousePosition;
             var offset = new Dungeon.Types.Point(CameraOffsetX, CameraOffsetY);
 
-            SceneManager.Current.OnMousePress(new Dungeon.Control.Pointer.PointerArgs
+            SceneManager.Current.OnMousePress(new PointerArgs
             {
                 ClickCount = 1,
                 MouseButton = mouseButton,
@@ -137,7 +138,7 @@
             var pos = mousePosition;
             var offset = new Types.Point(CameraOffsetX, CameraOffsetY);
 
-            SceneManager.Current.OnMouseRelease(new Control.Pointer.PointerArgs
+            SceneManager.Current.OnMouseRelease(new PointerArgs
             {
                 ClickCount = 1,
                 MouseButton = mouseButton,

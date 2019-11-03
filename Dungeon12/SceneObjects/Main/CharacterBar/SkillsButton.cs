@@ -1,12 +1,14 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Main.CharacterBar
 {
     using Dungeon.Control.Keys;
-    using Dungeon.Control.Pointer;
     using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.View.Interfaces;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using System;
+    using Dungeon;
+    using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
+    using Dungeon.Control;
 
     public class SkillsButton : SlideComponent
     {

@@ -1,8 +1,9 @@
 ﻿namespace Dungeon.Drawing.SceneObjects
 {
+    using Dungeon.Control;
     using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
-    using Dungeon.Control.Pointer;
+    using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
     using System;
     using System.Linq;

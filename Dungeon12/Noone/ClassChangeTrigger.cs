@@ -2,7 +2,7 @@
 using Dungeon.Abilities;
 using Dungeon.Classes;
 using Dungeon.Conversations;
-using Dungeon.Drawing.Impl;
+using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Events;
 using Dungeon.Map;

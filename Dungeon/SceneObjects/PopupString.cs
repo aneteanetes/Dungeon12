@@ -1,6 +1,6 @@
 ﻿namespace Dungeon.SceneObjects
 {
-    using Dungeon.Drawing.Impl;
+    using Dungeon.Drawing;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using System;

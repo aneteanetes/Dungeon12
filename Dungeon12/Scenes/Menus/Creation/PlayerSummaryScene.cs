@@ -1,7 +1,7 @@
 ﻿namespace Dungeon12.Scenes.Menus.Creation
 {
     using Dungeon.Control.Keys;
-    using Dungeon.Drawing.Impl;
+    using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;

@@ -7,7 +7,7 @@ using Dungeon.Settings;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 
-namespace Dungeon.Drawing.Impl
+namespace Dungeon.Drawing
 {
     public class DrawText : IDrawText
     {
@@ -16,7 +16,7 @@ namespace Dungeon.Drawing.Impl
         /// </summary>
         private readonly List<IDrawText> InnerText = new List<IDrawText>();
 
-        public DrawText(string value,float size=12)
+        public DrawText(string value, float size = 12)
         {
             Size = size;
             stringData = value;
@@ -24,13 +24,13 @@ namespace Dungeon.Drawing.Impl
 
         public DrawText(string value, DrawColor foregroundColor) : this(value)
         {
-            this.ForegroundColor = foregroundColor;
+            ForegroundColor = foregroundColor;
         }
 
         public DrawText(string value, DrawColor foregroundColor, float x = 0, float y = 0) : this(value)
         {
-            this.ForegroundColor = foregroundColor;
-            this.Region = new Rectangle
+            ForegroundColor = foregroundColor;
+            Region = new Rectangle
             {
                 X = x,
                 Y = y
@@ -39,8 +39,8 @@ namespace Dungeon.Drawing.Impl
 
         public DrawText(string value, DrawColor foregroundColor, double x = 0, double y = 0) : this(value)
         {
-            this.ForegroundColor = foregroundColor;
-            this.Region = new Rectangle
+            ForegroundColor = foregroundColor;
+            Region = new Rectangle
             {
                 X = x,
                 Y = y
@@ -49,13 +49,13 @@ namespace Dungeon.Drawing.Impl
 
         public DrawText(string value, IDrawColor foregroundColor, IDrawColor backgroundColor = null) : this(value)
         {
-            this.BackgroundColor = backgroundColor;
-            this.ForegroundColor = foregroundColor;
+            BackgroundColor = backgroundColor;
+            ForegroundColor = foregroundColor;
         }
 
         public void SetText(string value)
         {
-            this.stringData = value;
+            stringData = value;
         }
 
         private string stringData;
@@ -63,10 +63,10 @@ namespace Dungeon.Drawing.Impl
         {
             get
             {
-                if (this.InnerText.Count == 0)
-                    return this.stringData;
+                if (InnerText.Count == 0)
+                    return stringData;
                 else
-                    return this.stringData + string.Join("", this.InnerText.Select(x => x.StringData));
+                    return stringData + string.Join("", InnerText.Select(x => x.StringData));
             }
         }
 
@@ -74,7 +74,7 @@ namespace Dungeon.Drawing.Impl
         {
             get
             {
-                if (this.InnerText.Count == 0)
+                if (InnerText.Count == 0)
                 {
                     return new IDrawText[] { this };
                 }
@@ -82,7 +82,7 @@ namespace Dungeon.Drawing.Impl
                 var current = this.DeepClone();
                 current.InnerText.Clear();
 
-                return new IDrawText[] { current }.Concat(this.InnerText);
+                return new IDrawText[] { current }.Concat(InnerText);
             }
         }
 
@@ -92,20 +92,20 @@ namespace Dungeon.Drawing.Impl
             {
                 var flatLength = this.Flat().Sum(x => x.StringData.Length);
 
-                return flatLength + (this.stringData?.Length ?? 0);
+                return flatLength + (stringData?.Length ?? 0);
             }
         }
 
         private IDrawColor foregroundColor;
 
         public IDrawColor BackgroundColor { get; set; }
-        public IDrawColor ForegroundColor { get => foregroundColor ?? new DrawColor(ConsoleColor.White); set => this.foregroundColor = value; }
+        public IDrawColor ForegroundColor { get => foregroundColor ?? new DrawColor(ConsoleColor.White); set => foregroundColor = value; }
 
         public IDrawText This => this;
 
-        public IEnumerable<IDrawText> Nodes => this.InnerText;
+        public IEnumerable<IDrawText> Nodes => InnerText;
 
-        public bool IsEmptyInside => this.InnerText.Count == 0;
+        public bool IsEmptyInside => InnerText.Count == 0;
 
         public Rectangle Region { get; set; }
 
@@ -137,27 +137,27 @@ namespace Dungeon.Drawing.Impl
         {
             if (inherit)
             {
-                drawText.FontAssembly = this.FontAssembly;
-                drawText.FontName = this.FontName;
-                drawText.FontPath = this.FontPath;
-                drawText.Size = this.Size;
+                drawText.FontAssembly = FontAssembly;
+                drawText.FontName = FontName;
+                drawText.FontPath = FontPath;
+                drawText.Size = Size;
             }
 
-            this.InnerText.Add(drawText);
+            InnerText.Add(drawText);
         }
 
-        public void AppendNewLine(bool inherit=true)
+        public void AppendNewLine(bool inherit = true)
         {
             var txt = new DrawText(Environment.NewLine);
-            if(inherit)
+            if (inherit)
             {
-                txt.FontAssembly = this.FontAssembly;
-                txt.FontName = this.FontName;
-                txt.FontPath = this.FontPath;
-                txt.Size = this.Size;
+                txt.FontAssembly = FontAssembly;
+                txt.FontName = FontName;
+                txt.FontPath = FontPath;
+                txt.Size = Size;
             }
 
-            this.InnerText.Add(txt);
+            InnerText.Add(txt);
         }
 
         /// <summary>
@@ -176,10 +176,10 @@ namespace Dungeon.Drawing.Impl
             // если мы заменяем что-то, значит пути назад нет, 
             // затираем простое значение, и добавляем внутрь
             // часть себя что бы превратить в составное
-            if (!string.IsNullOrEmpty(this.stringData))
+            if (!string.IsNullOrEmpty(stringData))
             {
-                this.InnerText.Add(new DrawText(this.stringData, this.ForegroundColor, this.BackgroundColor) { Size=Size,LetterSpacing=LetterSpacing});
-                this.stringData = null;
+                InnerText.Add(new DrawText(stringData, ForegroundColor, BackgroundColor) { Size = Size, LetterSpacing = LetterSpacing });
+                stringData = null;
             }
 
             //получаем все отрезки которые затрагивает новый
@@ -190,9 +190,9 @@ namespace Dungeon.Drawing.Impl
             //если мы вставляем такую же длину как была в то же место - просто заменяем
             if (first.StartIndex == index && first.Text.Length == drawText.Length)
             {
-                var inLineIndex = this.InnerText.IndexOf(first.Text);
-                this.InnerText.RemoveAt(inLineIndex);
-                this.InnerText.Insert(inLineIndex, drawText);
+                var inLineIndex = InnerText.IndexOf(first.Text);
+                InnerText.RemoveAt(inLineIndex);
+                InnerText.Insert(inLineIndex, drawText);
                 return;
             }
 
@@ -201,11 +201,11 @@ namespace Dungeon.Drawing.Impl
             DrawText newRight = null;
             if (first.StartIndex != index)
             {
-                newLeft = new DrawText(first.Text.StringData.Substring(0, index-first.StartIndex), first.Text.ForegroundColor, first.Text.BackgroundColor) { Size = Size, LetterSpacing = LetterSpacing };
+                newLeft = new DrawText(first.Text.StringData.Substring(0, index - first.StartIndex), first.Text.ForegroundColor, first.Text.BackgroundColor) { Size = Size, LetterSpacing = LetterSpacing };
             }
 
             //проверяем надо ли отрезать справа
-            if (first.EndIndex > (index + drawText.Length))
+            if (first.EndIndex > index + drawText.Length)
             {
 
                 var cuttingFrom = first.EndIndex - drawingRange.EndIndex;
@@ -214,18 +214,18 @@ namespace Dungeon.Drawing.Impl
                 //отрезаем от конца (нового) вставляемого элемента до конца строки
                 newRight = new DrawText(first.Text.StringData.Substring(first.Text.Length - cuttingFrom, cuttingFrom), first.Text.ForegroundColor, first.Text.BackgroundColor) { Size = Size, LetterSpacing = LetterSpacing };
 
-                var indexInListOriginalElement = this.InnerText.IndexOf(first.Text);
-                this.InnerText.Remove(first.Text);
+                var indexInListOriginalElement = InnerText.IndexOf(first.Text);
+                InnerText.Remove(first.Text);
 
                 var offset = 0;
 
                 if (newLeft != null && newLeft.Length > 0)
                 {
-                    this.InnerText.Insert(indexInListOriginalElement, newLeft);
+                    InnerText.Insert(indexInListOriginalElement, newLeft);
                     offset += 1;
                 }
-                this.InnerText.Insert(indexInListOriginalElement + (offset), drawText);
-                this.InnerText.Insert(indexInListOriginalElement + (++offset), newRight);
+                InnerText.Insert(indexInListOriginalElement + offset, drawText);
+                InnerText.Insert(indexInListOriginalElement + (++offset), newRight);
 
                 // если мы отрезали справа, значит дальше нас не интересуют элементы, 
                 // хотя они могли попасть из-за того что при проверке на существующий
@@ -241,7 +241,7 @@ namespace Dungeon.Drawing.Impl
                 if (item.EndIndex < drawingRange.EndIndex)
                 {
                     //можно: нахуй его из внутренней коллекции, мы знаем индекс первого элемента, просто уёбем его и ничего не потеряем
-                    this.InnerText.Remove(item.Text);
+                    InnerText.Remove(item.Text);
                 }
                 else if (item.EndIndex > drawingRange.EndIndex)
                 {
@@ -253,32 +253,32 @@ namespace Dungeon.Drawing.Impl
 
                     var offset = 0;
 
-                    var indexInListOriginalElement = this.InnerText.IndexOf(first.Text);
-                    this.InnerText.Remove(first.Text);
+                    var indexInListOriginalElement = InnerText.IndexOf(first.Text);
+                    InnerText.Remove(first.Text);
 
                     if (newLeft != null && newLeft.Length > 0)
                     {
-                        this.InnerText.Insert(indexInListOriginalElement, newLeft);
+                        InnerText.Insert(indexInListOriginalElement, newLeft);
                         offset += 1;
                     }
-                    this.InnerText.Insert(indexInListOriginalElement + (offset), drawText);
-                    this.InnerText.Insert(indexInListOriginalElement + (++offset), newRight);
+                    InnerText.Insert(indexInListOriginalElement + offset, drawText);
+                    InnerText.Insert(indexInListOriginalElement + (++offset), newRight);
 
                     break;
                 }
-                else if (item.EndIndex==drawingRange.EndIndex)
-                {                    
+                else if (item.EndIndex == drawingRange.EndIndex)
+                {
                     var offset = 0;
 
-                    var indexInListOriginalElement = this.InnerText.IndexOf(first.Text);
-                    this.InnerText.Remove(first.Text);
+                    var indexInListOriginalElement = InnerText.IndexOf(first.Text);
+                    InnerText.Remove(first.Text);
 
                     if (newLeft != null && newLeft.Length > 0)
                     {
-                        this.InnerText.Insert(indexInListOriginalElement, newLeft);
+                        InnerText.Insert(indexInListOriginalElement, newLeft);
                         offset += 1;
                     }
-                    this.InnerText.Insert(indexInListOriginalElement + (offset), drawText);
+                    InnerText.Insert(indexInListOriginalElement + offset, drawText);
                 }
             }
 
@@ -307,21 +307,21 @@ namespace Dungeon.Drawing.Impl
         {
             //элемент заканчивается дальше чем отрезок, надо отрезать правую часть
             //отрезаем от конца (нового) вставляемого элемента до конца строки
-            var newRight = new DrawText(cutting.Text.StringData.Substring((insertion.StartIndex + insertion.Text.Length)), cutting.Text.ForegroundColor, cutting.Text.BackgroundColor);
+            var newRight = new DrawText(cutting.Text.StringData.Substring(insertion.StartIndex + insertion.Text.Length), cutting.Text.ForegroundColor, cutting.Text.BackgroundColor);
 
-            var indexInListOriginalElement = this.InnerText.IndexOf(cutting.Text);
-            this.InnerText.Remove(cutting.Text);
+            var indexInListOriginalElement = InnerText.IndexOf(cutting.Text);
+            InnerText.Remove(cutting.Text);
 
             var offset = 0;
 
             DrawText newLeft = null;
             if (newLeft != null)
             {
-                this.InnerText.Insert(indexInListOriginalElement, newLeft);
+                InnerText.Insert(indexInListOriginalElement, newLeft);
                 offset += 1;
             }
-            this.InnerText.Insert(indexInListOriginalElement + (offset), insertion.Text);
-            this.InnerText.Insert(indexInListOriginalElement + (offset * 2), newRight);
+            InnerText.Insert(indexInListOriginalElement + offset, insertion.Text);
+            InnerText.Insert(indexInListOriginalElement + offset * 2, newRight);
 
             // если мы отрезали справа, значит дальше нас не интересуют элементы, 
             // хотя они могли попасть из-за того что при проверке на существующий
@@ -342,7 +342,7 @@ namespace Dungeon.Drawing.Impl
 
             var carry = 0;
             bool startFinded = false;
-            foreach (var item in this.InnerText)
+            foreach (var item in InnerText)
             {
                 carry += item.Length;
 
@@ -373,7 +373,7 @@ namespace Dungeon.Drawing.Impl
         {
             int currentCharInLine = 0;
 
-            foreach (var item in this.InnerText)
+            foreach (var item in InnerText)
             {
                 currentCharInLine += item.StringData.Length;
 
@@ -392,20 +392,20 @@ namespace Dungeon.Drawing.Impl
 
         private bool IndexExists(int index)
         {
-            var line = this.InnerText.Sum(x => x.StringData.Length);
+            var line = InnerText.Sum(x => x.StringData.Length);
             return line >= index;
         }
 
         private int LastIndex()
         {
-            return this.InnerText.Sum(x => x.StringData.Length);
+            return InnerText.Sum(x => x.StringData.Length);
         }
 
         private void FillBeforeIndex(int index)
         {
-            var last = this.LastIndex();
+            var last = LastIndex();
             var line = new string(Enumerable.Range(0, index - last).Select(x => ' ').ToArray());
-            this.InnerText.Add(new DrawText(line));
+            InnerText.Add(new DrawText(line));
         }
 
         public void Prepend(IDrawText drawText)
@@ -423,7 +423,7 @@ namespace Dungeon.Drawing.Impl
         /// <summary>
         /// Creates new drawing text with ' ' chars of full length
         /// </summary>
-        /// <param name="length">if not set, then - <see cref="Dungeon.Settings.DrawingSize.WindowChars"/> </param>
+        /// <param name="length">if not set, then - <see cref="Settings.DrawingSize.WindowChars"/> </param>
         /// <returns></returns>
         public static DrawText Empty(int length = 0, ConsoleColor foregroundColor = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black)
         {
@@ -434,9 +434,9 @@ namespace Dungeon.Drawing.Impl
 
         }
 
-        public void Paint(IDrawColor drawColor, bool recursive=false)
+        public void Paint(IDrawColor drawColor, bool recursive = false)
         {
-            this.ForegroundColor = drawColor;
+            ForegroundColor = drawColor;
             if (recursive)
             {
                 ColorText(this, drawColor);
@@ -457,7 +457,7 @@ namespace Dungeon.Drawing.Impl
 
         public override string ToString()
         {
-            return this.StringData;
+            return StringData;
         }
 
     }

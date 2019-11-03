@@ -1,6 +1,8 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 {
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using System;
+    using Dungeon;
+    using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
     using Force.DeepCloner;
     using Dungeon.Classes;
@@ -15,6 +17,7 @@
     using Dungeon.Items.Enums;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
+    using Dungeon.Control;
 
     public class ItemWear : DropableControl<InventoryItem>
     {

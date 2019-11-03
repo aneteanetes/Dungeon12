@@ -4,7 +4,7 @@
     using Dungeon.Abilities.Scaling;
     using Dungeon.Abilities.Talants;
     using Dungeon.Classes;
-    using Dungeon.Control.Pointer;
+    using Dungeon.Control;
     using Dungeon.Entites.Alive;
     using Dungeon.Map;
     using Dungeon.Map.Objects;

@@ -5,12 +5,14 @@
     using Dungeon12.Noone.Abilities;
     using Dungeon12.Noone.Talants;
     using Dungeon12.Noone.Talants.Defensible;
-    using Dungeon.Drawing.Impl;
     using Dungeon.Entites.Animations;
     using Dungeon.Types;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using System;
+    using Dungeon;
+    using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
     using Dungeon.Classes;
+    using Dungeon.Drawing;
 
     public class Noone : Dungeon12Class
     {

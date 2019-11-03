@@ -1,9 +1,9 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.UI
 {
+    using Dungeon.Control;
     using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
-    using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.Impl;
+    using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
@@ -58,7 +58,7 @@
 
             if (titleImg != null)
             {
-                this.AddChildCenter(new ImageControl(titleImg)
+                this.AddChildImageCenter(new ImageControl(titleImg)
                 {
                     AbsolutePosition = true,
                     CacheAvailable = false,

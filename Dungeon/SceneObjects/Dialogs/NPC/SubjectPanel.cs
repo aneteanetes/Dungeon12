@@ -1,9 +1,9 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.Dialogs.NPC
 {
+    using Dungeon.Control;
     using Dungeon.Control.Keys;
-    using Dungeon.Control.Pointer;
     using Dungeon.Conversations;
-    using Dungeon.Drawing.Impl;
+    using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Map.Objects;
     using Dungeon.SceneObjects;

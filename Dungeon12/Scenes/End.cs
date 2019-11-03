@@ -1,6 +1,7 @@
 ﻿namespace Dungeon12.Scenes.Menus
 {
-    using Dungeon.Drawing.Impl;
+    using Dungeon.Drawing;
+    using Dungeon.SceneObjects;
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
     using Dungeon12.Drawing.SceneObjects;
@@ -16,7 +17,7 @@
         
         public override void Init()
         {
-            var endText = new Dungeon.Drawing.SceneObjects.TextControl(new DrawText("ВАС ОТПИЗДИЛИ", ConsoleColor.Red));
+            var endText = new TextControl(new DrawText("ВАС ОТПИЗДИЛИ", ConsoleColor.Red));
             endText.Text.Size = 72;
             endText.Left = 8;
             endText.Top = 9;

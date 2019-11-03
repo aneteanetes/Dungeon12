@@ -2,13 +2,13 @@
 using Dungeon.Abilities.Talants.TalantTrees;
 using Dungeon12;
 using Dungeon12.Bowman.Talants;
-using Dungeon.Drawing.Impl;
 using Dungeon12.Bowman.Abilities;
 using System;
 using System.Collections.Generic;
 using Dungeon12.Bowman;
 using Dungeon.Classes;
 using Dungeon;
+using Dungeon.Drawing;
 
 namespace Dungeon12.Bowman
 {

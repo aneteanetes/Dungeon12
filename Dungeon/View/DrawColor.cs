@@ -2,34 +2,34 @@
 using System.Collections.Generic;
 using Dungeon.View.Interfaces;
 
-namespace Dungeon.Drawing.Impl
+namespace Dungeon.Drawing
 {
     public class DrawColor : IDrawColor
     {
         public DrawColor(ConsoleColor consoleColor)
         {
             var rgba = ConsoleMap[consoleColor];
-            this.R = rgba.R;
-            this.G = rgba.G;
-            this.B = rgba.B;
-            this.A = rgba.A;
+            R = rgba.R;
+            G = rgba.G;
+            B = rgba.B;
+            A = rgba.A;
         }
 
 
         public DrawColor(byte r, byte g, byte b)
         {
-            this.R = r;
-            this.G = g;
-            this.B = b;
-            this.A = 255;
+            R = r;
+            G = g;
+            B = b;
+            A = 255;
         }
 
         public DrawColor(byte r, byte g, byte b, byte a)
         {
-            this.R = r;
-            this.G = g;
-            this.B = b;
-            this.A = a;
+            R = r;
+            G = g;
+            B = b;
+            A = a;
         }
 
         public byte R { get; set; }

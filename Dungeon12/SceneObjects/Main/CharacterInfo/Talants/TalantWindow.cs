@@ -1,5 +1,5 @@
 ﻿using Dungeon.Control.Keys;
-using Dungeon.Drawing.Impl;
+using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Drawing.SceneObjects.UI;
 using Dungeon.Events;

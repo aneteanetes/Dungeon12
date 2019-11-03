@@ -1,5 +1,6 @@
 ﻿namespace Dungeon.View.Interfaces
 {
+    using Dungeon.Control;
     using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;

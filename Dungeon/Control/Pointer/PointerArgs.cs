@@ -1,6 +1,7 @@
-﻿using Dungeon.Types;
+﻿using Dungeon.Control.Pointer;
+using Dungeon.Types;
 
-namespace Dungeon.Control.Pointer
+namespace Dungeon.Control
 {
     public class PointerArgs
     {
@@ -19,7 +20,7 @@ namespace Dungeon.Control.Pointer
         {
             get
             {
-                var gamecoordinates = new Point(X,Y);
+                var gamecoordinates = new Point(X, Y);
 
                 if (ProcessedOffset)
                 {
@@ -31,20 +32,20 @@ namespace Dungeon.Control.Pointer
                 {
                     if (Offset.X < 1)
                     {
-                        gamecoordinates.X += (Offset.X * -1);
+                        gamecoordinates.X += Offset.X * -1;
                     }
                     else
                     {
-                        gamecoordinates.X -= (Offset.X);
+                        gamecoordinates.X -= Offset.X;
                     }
 
                     if (Offset.Y < 1)
                     {
-                        gamecoordinates.Y += (Offset.Y * -1);
+                        gamecoordinates.Y += Offset.Y * -1;
                     }
                     else
                     {
-                        gamecoordinates.Y -= (Offset.Y);
+                        gamecoordinates.Y -= Offset.Y;
                     }
                 }
 

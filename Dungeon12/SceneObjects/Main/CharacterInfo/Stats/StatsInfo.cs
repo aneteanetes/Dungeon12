@@ -2,7 +2,7 @@
 {
     using Dungeon;
     using Dungeon.Classes;
-    using Dungeon.Drawing.Impl;
+    using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.SceneObjects;
     using System;

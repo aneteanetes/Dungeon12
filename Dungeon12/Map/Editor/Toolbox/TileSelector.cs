@@ -1,7 +1,7 @@
 ﻿namespace Dungeon12.Map.Editor.Toolbox
 {
     using Dungeon;
-    using Dungeon.Control.Pointer;
+    using Dungeon.Control;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.SceneObjects;
     using System;

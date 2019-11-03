@@ -3,9 +3,10 @@
     using Dungeon;
     using Dungeon.Data;
     using Dungeon.Data.Perks;
-    using Dungeon.Drawing.Impl;
+    using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Entites.Alive.Enums;
+    using Dungeon.SceneObjects;
     using System;
     using System.Linq;
 
@@ -27,7 +28,7 @@
 
             var perk = Database.Entity<ValuePerk>(x => x.Identity == origin.ToString()).First();
 
-            var desc = new Dungeon.Drawing.SceneObjects.TextControl(new DrawText(perk.Description) { Size = 20 }.Montserrat());
+            var desc = new TextControl(new DrawText(perk.Description) { Size = 20 }.Montserrat());
             desc.Left = .5;
             desc.Top = 2.5;
 
@@ -37,7 +38,7 @@
             foreach (var item in perk.Effects)
             {
                 var color = new DrawColor(item.Positive ? ConsoleColor.Green : ConsoleColor.Red);
-                var perkText = new Dungeon.Drawing.SceneObjects.TextControl(new DrawText(item.Property, color) { Size = 20 }.Montserrat());
+                var perkText = new TextControl(new DrawText(item.Property, color) { Size = 20 }.Montserrat());
                 perkText.Left = .5;
                 perkText.Top = top;
 

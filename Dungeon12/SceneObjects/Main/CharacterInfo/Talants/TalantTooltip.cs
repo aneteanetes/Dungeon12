@@ -1,9 +1,10 @@
 ﻿using Dungeon.Abilities.Talants.NotAPI;
 using Dungeon.Classes;
 using Dungeon.SceneObjects;
-using Dungeon.Drawing.Impl;
 using Dungeon.Types;
-using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+using System;
+using Dungeon;
+using Dungeon.Drawing.SceneObjects;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

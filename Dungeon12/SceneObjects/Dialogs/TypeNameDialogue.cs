@@ -1,7 +1,7 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Dialogs
 {
     using Dungeon;
-    using Dungeon.Drawing.Impl;
+    using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.UI;
     using System;

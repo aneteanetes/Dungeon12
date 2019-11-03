@@ -1,6 +1,5 @@
-﻿using Dungeon.Control.Pointer;
-using Dungeon.Drawing.Impl;
-using Dungeon.Drawing.SceneObjects;
+﻿using Dungeon.Control;
+using Dungeon.Drawing;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +12,7 @@ namespace Dungeon.SceneObjects.Base
 
         public ButtonControl(string text, float size=30)
         {
-            textControl = new Dungeon.Drawing.SceneObjects.TextControl(new DrawText(text, ConsoleColor.White) { Size = size }.Triforce());
+            textControl = new TextControl(new DrawText(text, ConsoleColor.White) { Size = size }.Triforce());
 
             var measure = Global.DrawClient.MeasureText(textControl.Text);
 

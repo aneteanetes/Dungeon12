@@ -1,5 +1,6 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Inventories
 {
+    using Dungeon.Control;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Items;

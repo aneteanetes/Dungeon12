@@ -1,6 +1,5 @@
 ﻿using MoreLinq;
 using Dungeon.Drawing;
-using Dungeon.Drawing.Impl;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Drawing.SceneObjects.UI;
 using Dungeon.View.Interfaces;

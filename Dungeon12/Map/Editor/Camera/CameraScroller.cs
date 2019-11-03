@@ -1,10 +1,10 @@
 ﻿namespace Dungeon12.Map.Editor.Camera
 {
     using Dungeon;
+    using Dungeon.Control;
     using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
-    using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.Impl;
+    using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Settings;
 

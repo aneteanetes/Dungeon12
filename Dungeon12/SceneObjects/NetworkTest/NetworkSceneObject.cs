@@ -1,6 +1,5 @@
 ﻿using Dungeon;
 using Dungeon.Drawing;
-using Dungeon.Drawing.Impl;
 using Dungeon.Entites.Alive;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;

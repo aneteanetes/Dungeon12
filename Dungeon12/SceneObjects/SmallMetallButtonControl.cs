@@ -1,9 +1,8 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects
 {
     using Dungeon;
-    using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects;
+    using Dungeon.Control;
+    using Dungeon.Drawing;
     using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
     using System;
@@ -14,7 +13,7 @@
 
         public SmallMetallButtonControl(string text)
         {
-            textControl = new Dungeon.Drawing.SceneObjects.TextControl(new DrawText(text, ConsoleColor.White) { Size = 30 });
+            textControl = new TextControl(new DrawText(text, ConsoleColor.White) { Size = 30 });
 
             var measure = Global.DrawClient.MeasureText(textControl.Text);
 
@@ -32,7 +31,7 @@
 
         public SmallMetallButtonControl(IDrawText text)
         {
-            textControl = new Dungeon.Drawing.SceneObjects.TextControl(text);
+            textControl = new TextControl(text);
 
             var measure = Global.DrawClient.MeasureText(textControl.Text);
 

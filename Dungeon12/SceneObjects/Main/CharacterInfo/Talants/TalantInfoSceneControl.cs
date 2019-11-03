@@ -1,9 +1,9 @@
 ﻿using Dungeon;
 using Dungeon.Abilities.Talants.NotAPI;
 using Dungeon.Classes;
+using Dungeon.Control;
 using Dungeon.Control.Events;
-using Dungeon.Control.Pointer;
-using Dungeon.Drawing.Impl;
+using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Events;

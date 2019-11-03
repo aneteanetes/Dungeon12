@@ -2,9 +2,10 @@
 {
     using Dungeon;
     using Dungeon.Control.Keys;
-    using Dungeon.Drawing.Impl;
+    using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.UI;
+    using Dungeon.SceneObjects;
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
     using Dungeon12.Drawing.SceneObjects;
@@ -29,7 +30,7 @@
                 Left = 10f,
             });
 
-            this.AddObject(new Dungeon.Drawing.SceneObjects.TextControl(new DrawText("Выберите расу", new DrawColor(ConsoleColor.White)) { Size = 50 })
+            this.AddObject(new TextControl(new DrawText("Выберите расу", new DrawColor(ConsoleColor.White)) { Size = 50 })
             {
                 Left=15.5,
                 Top=3.5

@@ -82,6 +82,12 @@ namespace Dungeon12.Entites.Journal
             },
             new JournalEntry()
             {
+                Display="Добыча",
+                Group="Обучение",
+                Text="example"
+            },
+            new JournalEntry()
+            {
                 Display="Переправа",
                 Group="Материк",
                 Text="example"
@@ -90,6 +96,48 @@ namespace Dungeon12.Entites.Journal
             {
                 Display="Известия",
                 Group="Материк",
+                Text="example"
+            },
+            new JournalEntry()
+            {
+                Display="Известия",
+                Group="Группа 1",
+                Text="example"
+            },
+            new JournalEntry()
+            {
+                Display="Известия",
+                Group="Группа 2",
+                Text="example"
+            },
+            new JournalEntry()
+            {
+                Display="Известия",
+                Group="Группа 3",
+                Text="example"
+            },
+            new JournalEntry()
+            {
+                Display="Известия",
+                Group="Группа 4",
+                Text="example"
+            },
+            new JournalEntry()
+            {
+                Display="Известия",
+                Group="Группа 5",
+                Text="example"
+            },
+            new JournalEntry()
+            {
+                Display="Известия",
+                Group="Группа 6",
+                Text="example"
+            },
+            new JournalEntry()
+            {
+                Display="Известия",
+                Group="Группа 7",
                 Text="example"
             },
         };

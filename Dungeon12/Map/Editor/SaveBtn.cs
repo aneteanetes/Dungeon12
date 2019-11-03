@@ -1,8 +1,8 @@
 ﻿namespace Dungeon12.Map.Editor
 {
     using Dungeon;
-    using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.Impl;
+    using Dungeon.Control;
+    using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon12.Map.Editor.Field;
 

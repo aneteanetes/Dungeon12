@@ -1,5 +1,6 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.Map
 {
+    using Dungeon.Control;
     using Dungeon.Control.Pointer;
     using Dungeon.Entites.Animations;
     using Dungeon.Map;

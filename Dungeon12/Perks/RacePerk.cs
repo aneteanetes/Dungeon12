@@ -3,7 +3,7 @@
     using Dungeon.Classes;
     using Dungeon.Data;
     using Dungeon.Data.Perks;
-    using Dungeon.Drawing.Impl;
+    using Dungeon.Drawing;
     using Dungeon.Entites.Alive;
     using FastMember;
     using System;

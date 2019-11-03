@@ -2,6 +2,7 @@
 {
     using Dungeon.Abilities;
     using Dungeon.Abilities.Enums;
+    using Dungeon.Control;
     using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;

@@ -101,7 +101,7 @@
             return textControl;
         }
 
-        protected T AddChildCenter<T>(T control, bool horizontal = true, bool vertical = true)
+        protected T AddChildImageCenter<T>(T control, bool horizontal = true, bool vertical = true)
             where T : SceneObject
         {
             var measure = MeasureImage(control.Image);
@@ -121,6 +121,25 @@
             {
                 var top = height / 2 - measure.Y / 2;
                 control.Top = top / 32;
+            }
+            AddChild(control);
+
+            return control;
+        }
+
+        protected T AddChildCenter<T>(T control, bool horizontal = true, bool vertical = true)
+            where T : SceneObject
+        {
+            if (horizontal)
+            {
+                var left = Width / 2d - control.Width / 2d;
+                control.Left = left;
+            }
+
+            if (vertical)
+            {
+                var top = Height / 2d - control.Height / 2d;
+                control.Top = top;
             }
             AddChild(control);
 
@@ -441,11 +460,18 @@
             return MixinContainer[property].As<T>();
         }
 
-        private readonly List<object> Mixins = new List<object>();
+        protected readonly List<object> Mixins = new List<object>();
 
-        public void AddMixin<T>(T mixin) where T : IMixin
+        /// <summary>
+        /// Добавляет компонент как миксин
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="mixin"></param>
+        public virtual void AddMixin<T>(T mixin) where T : IMixin
         {
+            mixin.InitAsMixin(this);
             Mixins.Add(mixin);
+            this.AddChild(mixin);
         }
 
         public T Mixin<T>() where T : IMixin

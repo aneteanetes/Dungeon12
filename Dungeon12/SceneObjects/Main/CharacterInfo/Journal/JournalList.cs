@@ -1,11 +1,11 @@
-﻿using Dungeon.Drawing.Impl;
-using Dungeon.Drawing.SceneObjects.Map;
+﻿using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants;
 using System.Collections.Generic;
 using Dungeon;
 using Dungeon12.SceneObjects;
 using System;
 using Dungeon.SceneObjects;
+using Dungeon.Drawing;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
 {

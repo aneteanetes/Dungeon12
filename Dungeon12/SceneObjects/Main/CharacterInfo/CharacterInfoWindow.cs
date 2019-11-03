@@ -1,13 +1,14 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 {
     using Dungeon;
+    using Dungeon.Control;
     using Dungeon.Control.Keys;
-    using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.Impl;
+    using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Map;
+    using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Inventories;
     using System;

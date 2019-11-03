@@ -4,6 +4,7 @@
     using Dungeon.Abilities.Enums;
     using Dungeon.Abilities.Talants.TalantTrees;
     using Dungeon.Classes;
+    using Dungeon.Control;
     using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;

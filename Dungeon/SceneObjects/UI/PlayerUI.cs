@@ -1,7 +1,7 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.UI
 {
     using Dungeon.Classes;
-    using Dungeon.Drawing.Impl;
+    using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Entites.Alive;
     using Dungeon.Events;

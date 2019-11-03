@@ -1,8 +1,8 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Dialogs.Origin
 {
     using Dungeon;
-    using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.Impl;
+    using Dungeon.Control;
+    using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Entites.Alive.Enums;
     using System;

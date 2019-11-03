@@ -1,9 +1,9 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Dialogs.Shop
 {
-    using Dungeon.Drawing.Impl;
     using Dungeon12.Drawing.SceneObjects.Inventories;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.SceneObjects;
+    using Dungeon.Drawing;
 
     public class ShopWindowContent : HandleSceneControl
     {
