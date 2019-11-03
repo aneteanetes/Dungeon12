@@ -1,7 +1,7 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Dialogs
 {
     using Dungeon;
-    using Dungeon.Control.Events;
+    using Dungeon.Control;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects.UI;

@@ -2,8 +2,8 @@
 {
     using Dungeon;
     using Dungeon.Drawing;
-    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.UI;
+    using Dungeon.SceneObjects;
     using System;
 
     public class TypeNameDialogue : VerticalWindow

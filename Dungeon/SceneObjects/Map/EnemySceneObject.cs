@@ -1,7 +1,7 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.Map
 {
     using Dungeon.Abilities.Enums;
-    using Dungeon.Control.Events;
+    using Dungeon.Control;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.SceneObjects.UI;

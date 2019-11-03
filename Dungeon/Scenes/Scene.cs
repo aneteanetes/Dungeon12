@@ -1,7 +1,6 @@
 ﻿namespace Dungeon.Scenes
 {
     using Dungeon.Control;
-    using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.Scenes.Manager;
@@ -128,7 +127,7 @@
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
             
-            if (Global.FreezeWorld==null && !Global.BlockSceneControls)
+            if (Global.Freezer.World==null && !Global.BlockSceneControls)
                 KeyPress(key, modifier, keyEventArgs.Hold);
 
             var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key).ToArray();
@@ -143,7 +142,7 @@
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
             
-            if (Global.FreezeWorld== null && !Global.BlockSceneControls)
+            if (Global.Freezer.World== null && !Global.BlockSceneControls)
                 KeyUp(key, modifier);
 
             var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key);
@@ -316,9 +315,14 @@
 
         private IEnumerable<ISceneObjectControl> ControlsByHandle(ControlEventType handleEvent, Key key = Key.None)
         {
-            if (Global.FreezeWorld!=null)
+            Global.Freezer.HandleFreezes.TryGetValue(handleEvent, out var freezer);
+            if (Global.Freezer.World != null || freezer != null)
             {
-                var chain = FreezedChain(SceneObjectsControllable.FirstOrDefault(x => x == Global.FreezeWorld));
+                if (freezer == null)
+                {
+                    freezer = Global.Freezer.World;
+                }
+                var chain = FreezedChain(SceneObjectsControllable.FirstOrDefault(x => x == freezer));
                 return WhereHandles(handleEvent, key, chain);
             }
             else

@@ -1,6 +1,6 @@
 ﻿namespace Dungeon.SceneObjects
 {
-    using Dungeon.Control.Events;
+    using Dungeon.Control;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Types;

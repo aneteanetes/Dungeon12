@@ -5,7 +5,6 @@
     using Dungeon.Abilities.Enums;
     using Dungeon.Abilities.Scaling;
     using Dungeon.Control;
-    using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing;

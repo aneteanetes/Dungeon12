@@ -28,7 +28,7 @@
         {
             get
             {
-                if (Global.FreezeWorld != null && !FreezeForceAnimation)
+                if (Global.Freezer.World != null && !FreezeForceAnimation)
                     return FramePosition;
 
                 if (Loop || !AnimationPlayed)

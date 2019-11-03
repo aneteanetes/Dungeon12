@@ -6,7 +6,6 @@
     using System.Collections.Generic;
     using Force.DeepCloner;
     using Dungeon.Classes;
-    using Dungeon.Control.Events;
     using Dungeon.Control.Pointer;
     using Dungeon.SceneObjects;
     using Dungeon12.Drawing.SceneObjects.Inventories;

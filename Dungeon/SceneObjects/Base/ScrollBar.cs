@@ -2,7 +2,7 @@
 
 namespace Dungeon.SceneObjects.Base
 {
-    using Dungeon.Control.Events;
+    using Dungeon.Control;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
@@ -33,6 +33,16 @@ namespace Dungeon.SceneObjects.Base
         public Scrollbar(double height, Func<bool> OnUp, Func<bool> OnDown) : this(height)
         {
             AddArrows(OnUp, OnDown);
+        }
+
+        public void ScrollToTop(Func<bool> contentVisible)
+        {
+            for (int i = 0; i < ScrollIndex; i++)
+            {
+                Up.Click(default);
+                if (contentVisible())
+                    break;
+            }
         }
 
         public Arrow Up { get; set; }

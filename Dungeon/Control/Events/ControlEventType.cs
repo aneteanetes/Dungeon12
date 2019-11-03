@@ -1,4 +1,4 @@
-﻿namespace Dungeon.Control.Events
+﻿namespace Dungeon.Control
 {
     public enum ControlEventType
     {

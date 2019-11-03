@@ -16,24 +16,7 @@
 
         public static IDrawClient DrawClient;
 
-        private static object freezeWorldObject;
-        public static object FreezeWorld
-        {
-            get => freezeWorldObject;
-            set
-            {
-                if (value == null)
-                {
-                    Time.Resume();
-                }
-                else
-                {
-                    Time.Pause();
-                }
-
-                freezeWorldObject = value;
-            }
-        }
+        public static Freezer Freezer { get; set; } = new Freezer();
 
         public static IAudioPlayer AudioPlayer { get; set; }
 

@@ -11,12 +11,14 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
     {
         private readonly Character character;
         private readonly JournalList journalList;
+        private readonly JournalWindow _journalWindow;
 
-        public JournalTab(SceneObject parent, JournalCategory journalCategory, JournalList journalList, Character character, bool active = false)
+        public JournalTab(SceneObject parent, JournalCategory journalCategory, JournalList journalList, Character character, bool active, JournalWindow journalWindow)
             : base(parent, active, journalCategory,titleImg: journalCategory.Icon, tooltip:journalCategory.Name)
         {
             this.journalList = journalList;
             this.character = character;
+            this._journalWindow = journalWindow;
         }
         
         protected override JournalTab Self => this;
@@ -35,7 +37,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 
         private JournalTabContent OpenJournalTab(JournalCategory journalCategory, double left)
         {
-            return new JournalTabContent(journalCategory, journalList, left);
+            return new JournalTabContent(journalCategory,left, _journalWindow);
         }
     }
 }

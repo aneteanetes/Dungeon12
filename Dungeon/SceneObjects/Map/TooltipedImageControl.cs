@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Dungeon.Control.Events;
+using Dungeon.Control;
 using Dungeon.View.Interfaces;
 
 namespace Dungeon.Drawing.SceneObjects.Map

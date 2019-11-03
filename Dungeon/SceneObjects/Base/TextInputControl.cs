@@ -1,28 +1,51 @@
-﻿namespace Dungeon.Drawing.SceneObjects
+﻿namespace Dungeon.SceneObjects
 {
     using Dungeon.Control;
-    using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
-    using Dungeon.SceneObjects;
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.View.Interfaces;
     using System;
     using System.Linq;
 
     public class TextInputControl : ColoredRectangle
-    {        
+    {
         private readonly int limit;
         private readonly bool capitalize;
         private readonly bool autofocus;
-        private bool focus = false;
+        private bool __focus = false;
+
+        public bool focus
+        {
+            get
+            {
+                return __focus;
+            }
+            set
+            {
+                if (value)
+                {
+                    focusRect.Opacity = 0.001;
+                    Global.Freezer.FreezeHandle(ControlEventType.Key, this);
+                }
+                else
+                {
+                    focusRect.Opacity = 0.5;
+                    Global.Freezer.UnfreezeHandle(ControlEventType.Key, this);
+                }
+
+                __focus = value;
+            }
+        }
+
         private readonly ColoredRectangle focusRect;
-        
+
         private static Action<TextInputControl> Change;
 
         private TypingText typingText;
 
-        public Func<string,bool> Validation { get; set; }
+        public Func<string, bool> Validation { get; set; }
 
-        public TextInputControl(IDrawText drawText, int chars, bool capitalize = false, bool autofocus = true, bool absolute=true, bool onEnterOnBlur=false)
+        public TextInputControl(IDrawText drawText, int chars, bool capitalize = false, bool autofocus = true, bool absolute = true, bool onEnterOnBlur = false, double width=0, double height = 0)
         {
             AbsolutePosition = absolute;
             limit = chars;
@@ -40,54 +63,70 @@
 
             var measure = MeasureText(drawText);
 
-            var width = measure.X / 32;
-            var height = measure.Y / 32;
+            if (width == 0)
+            {
+                width = (measure.X / 32) + 0.5;
+            }
 
-            this.Width = width + 0.5;
-            this.Height = height + 0.5;
+            if (height == 0)
+            {
+                height = (measure.Y / 32) + 0.5;
+            }
+
+            Width = width;
+            Height = height;
 
             drawText.SetText("");
 
             typingText = new TypingText(drawText);
             SetInputTextPosition();
 
-            this.AddChild(typingText);
+            AddChild(typingText);
 
             if (!autofocus)
             {
                 Change += sender =>
                 {
-                    if (sender != this && this.focus)
+                    if (sender != this && focus)
                     {
                         if (onEnterOnBlur)
                         {
-                            this.OnEnter?.Invoke(this.Value);
+                            OnEnter?.Invoke(Value);
                         }
-                        this.focus = false;
-                        this.focusRect.Opacity = 0.5;
+                        focus = false;
+                        focusRect.Opacity = 0.5;
                     }
                 };
                 focusRect = new BlurRect()
                 {
-                    Width=this.Width,
-                    Height=this.Height
+                    Width = Width,
+                    Height = Height
                 };
-                this.AddChild(focusRect);
+                AddChild(focusRect);
             }
         }
 
         private void SetInputTextPosition()
         {
-            var width = this.Width * 32;
-            var height = this.Height * 32;
+            var width = Width * 32;
+            var height = Height * 32;
 
-            var measure = MeasureText(typingText.Text);
+            try
+            {
+                var measure = MeasureText(typingText.Text);
 
-            var left = width / 2 - measure.X / 2;
-            typingText.Left = left / 32;
+                var left = width / 2 - measure.X / 2;
+                typingText.Left = left / 32;
 
-            var top = height / 2 - measure.Y / 2;
-            typingText.Top = top / 32;
+                var top = height / 2 - measure.Y / 2;
+                typingText.Top = top / 32;
+            }
+            catch (ArgumentException)
+            {
+                //если мы не можем обработать этот символ - удаляем его
+                typingText.Text.SetText(typingText.Text.StringData.Substring(0, typingText.Text.StringData.Length - 1));
+                SetInputTextPosition();
+            }
         }
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
@@ -97,12 +136,18 @@
 
             var text = typingText.Text;
 
-            if(key== Key.Enter)
+            if (key == Key.Enter)
             {
+                focus = false;
                 OnEnter?.Invoke(Value);
             }
 
-            if(key== Key.Delete)
+            if (key == Key.Escape)
+            {
+                focus = false;
+            }
+
+            if (key == Key.Delete)
             {
                 text.SetText(string.Empty);
                 SetInputTextPosition();
@@ -136,16 +181,29 @@
 
             if (Validation?.Invoke(text) ?? true)
             {
-                innerText.SetText(innerText.StringData + text);
-                SetInputTextPosition();
+                if (text == "\u001b")
+                    return;
+
+                if (text == "\b")
+                {
+                    if (innerText.Length > 0)
+                    {
+                        innerText.SetText(innerText.StringData.Substring(0, innerText.StringData.Length - 1));
+                        SetInputTextPosition();
+                    }
+                }
+                else
+                {
+                    innerText.SetText(innerText.StringData + text);
+                    SetInputTextPosition();
+                }
             }
         }
 
         public override void Click(PointerArgs args)
         {
             focus = true;
-            focusRect.Opacity = 0.001;
-            Change?.Invoke(this);
+            //Change?.Invoke(this);
         }
 
         public override void ClickRelease(PointerArgs args)
@@ -160,7 +218,7 @@
         {
             if (!autofocus)
             {
-                Change?.Invoke(null);
+                //Change?.Invoke(null);
             }
         }
 
@@ -168,14 +226,14 @@
 
         public override void Focus()
         {
-            this.Opacity = 0.7;
-            this.UpdatePath();
+            Opacity = 0.7;
+            UpdatePath();
         }
 
         public override void Unfocus()
         {
-            this.Opacity = 0.5;
-            this.UpdatePath();
+            Opacity = 0.5;
+            UpdatePath();
         }
 
         private string GetChar(Key key)
@@ -183,7 +241,15 @@
             return key.ToString();
         }
 
-        public string Value => this.typingText.Text.StringData;
+        public string Value
+        {
+            get => typingText.Text.StringData;
+            set
+            {
+                typingText.Text.SetText(value);
+                SetInputTextPosition();
+            }
+        }
 
         public Action<string> OnEnter { get; set; }
 

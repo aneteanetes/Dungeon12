@@ -19,21 +19,21 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 
         private JournalList journalList;
 
+        internal ScrollJournalContent scrollJournalContent;
+
         public JournalWindow(Player playerSceneObject)
         {
             playerSceneObject.BlockMouse = true;
             this.Destroy += () => playerSceneObject.BlockMouse = false;
             this.playerSceneObject = playerSceneObject;
-
-            //this.Image = "Dungeon12.Resources.Images.ui.vertical(17x24).png";
-
+            
             this.Height = 17;
-            this.Width = 12; //can resize to 24 with content
+            this.Width = 12;
 
             this.Left = 3.5;
             this.Top = 2;
 
-            journalList = new JournalList(playerSceneObject);
+            journalList = new JournalList(playerSceneObject,this);
             this.AddChild(journalList);
         }
 
@@ -46,14 +46,14 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
                 base.KeyDown(Key.Escape, modifier, hold);
             }
 
-            if (key == Key.Escape && !journalList.CanDestroyParent)
+            if (key == Key.Escape && scrollJournalContent!=null)
             {
-                Global.Events.Raise(new JournalWindowOnKeyProcessedEvent());
+                scrollJournalContent.Destroy();
+                scrollJournalContent = null;
                 return;
             }
 
             base.KeyDown(key, modifier, hold);
-            Global.Events.Raise(new JournalWindowOnKeyProcessedEvent());
         }
 
         public void OnEvent(ClassChangeEvent @event)

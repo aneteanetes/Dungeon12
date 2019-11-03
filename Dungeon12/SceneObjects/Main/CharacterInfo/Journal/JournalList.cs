@@ -19,7 +19,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
 
         public Func<bool> CanDestroyParentBinding { get; set; } = () => true;
 
-        public JournalList(Player playerSceneObject)
+        public JournalList(Player playerSceneObject, JournalWindow journalWindow)
         {
             this.Image = "Dungeon12.Resources.Images.ui.vertical_title(17x12).png";
 
@@ -37,7 +37,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
             {
                 var index = jcats.IndexOf(jcat);
 
-                var tab = new JournalTab(this, jcat,this, playerSceneObject.Avatar.Character, index == 0)
+                var tab = new JournalTab(this, jcat,this, playerSceneObject.Avatar.Character, index == 0, journalWindow)
                 {
                     AbsolutePosition = true,
                     CacheAvailable = false,

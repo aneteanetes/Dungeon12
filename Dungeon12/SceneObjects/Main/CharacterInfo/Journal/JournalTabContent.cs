@@ -1,21 +1,11 @@
-﻿using Dungeon.Classes;
-using Dungeon.Drawing.SceneObjects;
+﻿using Dungeon;
+using Dungeon.SceneObjects;
+using Dungeon.SceneObjects.Base;
 using Dungeon12.Entites.Journal;
+using Dungeon12.SceneObjects.Main.CharacterInfo.Journal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dungeon;
-using Dungeon.Drawing.Impl;
-using Dungeon12.Drawing.SceneObjects.Main.CharacterBar;
-using System;
-using Dungeon.Control.Pointer;
-using Dungeon.View.Interfaces;
-using Dungeon.Control.Keys;
-using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal;
-using Dungeon.Control.Events;
-using Dungeon12.SceneObjects.Main.CharacterInfo.Journal;
-using Dungeon.SceneObjects;
-using Dungeon.SceneObjects.Mixins;
-using Dungeon.SceneObjects.Base;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 {
@@ -23,179 +13,218 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
     {
         public override bool CacheAvailable => false;
 
-        public override bool AbsolutePosition => true;
+        public override bool AbsolutePosition => true;        
 
-        private static readonly HashSet<string> ExpandedGroups = new HashSet<string>();
+        private readonly List<JournalItem> AllItems = new List<JournalItem>();
 
-        private HandleSceneControl currentOpenedScroll;
+        private double _left;
 
-        private JournalCategory _jcategory;
-
-        public JournalTabContent(JournalCategory jcategory, JournalList journalList, double left)
+        public JournalTabContent(JournalCategory jcategory, double left, JournalWindow journalWindow)
         {
-            this.AddMixin(new Scrollbar(13, v => FillContent(left,v))
-            {
-                Left=10.5-left,
-                Top=2
-            });
+            _left = left;
+            AddScroll(left);
+            AddSearch(left);
+            var scrollbar = Mixin<Scrollbar>();
 
-            _jcategory = jcategory;
-            JournalGroup.SlideIndex = 0;
-            JournalGroup.SlideDownCount = 0;
-            JournalGroup.groups.Clear();
-
-            Global.Events.Subscribe<JournalWindowOnKeyProcessedEvent>(e =>
-            {
-                currentOpenedScroll = null;
-            }, false);
-
-            journalList.CanDestroyParentBinding = () => currentOpenedScroll == null;
+            ClearSlideState();
 
             this.Width = 12;
-
             this.Height = 15;
 
-            var groups = _jcategory.Content?.GroupBy(c => c.Group) ?? Enumerable.Empty<IGrouping<string, JournalEntry>>();
-            JournalGrouped = groups.ToList();
+            var models = new List<JournalItemModel>();
 
-            FillContent(left);
+            int i = 0;
+            jcategory.Content?.GroupBy(c => c.Group).ForEach(g =>
+            {
+                models.Add(new JournalItemModel()
+                {
+                    Title = g.Key,
+                    ItemIndex = i,
+                    OnExpand = () =>
+                    {
+                        AllItems.Where(e => e.Model.Group == g.Key)
+                        .ForEach(e =>
+                            {
+                                e.Collapsed = false;
+                            });
+                        scrollbar.MaxDownIndex = (int)Math.Floor(ContentSize - 12);
+                        RecalculatePositions(left);
+                    },
+                    OnCollapse = () =>
+                    {
+                        AllItems.Where(e => e.Model.Group == g.Key)
+                        .ForEach(e =>
+                        {
+                            e.Collapsed = true;
+                        });
+                        Mixin<Scrollbar>().ScrollToTop(ContentVisible);
+                        scrollbar.MaxDownIndex = (int)Math.Floor(ContentSize - 12);
+                        RecalculatePositions(left);
+                    }
+                });
 
-            var scrollbar = Mixin<Scrollbar>();
+                i++;
+
+                foreach (var entry in g)
+                {
+                    models.Add(new JournalItemModel()
+                    {
+                        Title = entry.Display,
+                        ItemIndex = i,
+                        Group = g.Key,
+                        JournalEntry = entry,
+                        ShowEntryContent = scrollJournalContent =>
+                        {
+                            scrollJournalContent.Left += 12;
+
+                            if (journalWindow.scrollJournalContent != null)
+                            {
+                                journalWindow.scrollJournalContent.Destroy();
+                            }
+                            journalWindow.scrollJournalContent = scrollJournalContent;
+                            journalWindow.AddChild(scrollJournalContent);
+                        }
+                    });
+                    i++;
+                }
+            });
+
+            InitJournalItems(models, left);
+            RecalculatePositions(left);
+
             scrollbar.CanDown = ContentSize >= 10;
             scrollbar.MaxDownIndex = (int)Math.Floor(ContentSize - 12);
         }
 
-        private int ScrollShift
+        private void AddScroll(double left)
         {
-            get
+            this.AddMixin(new Scrollbar(13, v => RecalculatePositions(left))
             {
-                var commonHeight = JournalGroups.Sum(g =>
-                {
-                    return 1.5 + (g.IsExpanded ? g.JournalEntries.Sum(e => 1.5) : 0);
-                }) + 1.5;
-                return (int)Math.Round(commonHeight - 13.5, MidpointRounding.AwayFromZero);
-            }
+                Left = 10.5 - left,
+                Top = 2
+            });
         }
 
-        private double ContentSize => JournalGroups.Sum(g => { return 1.5 + (g.IsExpanded ? g.JournalEntries.Sum(e => 1.5) : 0); }) + 1.5;
-
-        List<IGrouping<string, JournalEntry>> JournalGrouped = new List<IGrouping<string, JournalEntry>>();
-        List<JournalGroup> JournalGroups = new List<JournalGroup>();
-
-        private void FillContent(double left, MouseWheelEnum? vector=null)
+        private void AddSearch(double left)
         {
-            this.RemoveChild<JournalGroup>();
-            JournalGroups = new List<JournalGroup>();
-
-            var scrollIndex = this.Mixin<Scrollbar>().ScrollIndex;
-
-            double top = 2 - (scrollIndex*1.5);
-            int i = 0;
-            foreach (var group in JournalGrouped)
+            this.AddChild(new JournalSearch(Filter)
             {
-                var index = JournalGrouped.IndexOf(group);
-                var jgroup = new JournalGroup(group.Key, index, i, group, so =>
-                {
-                    so.Top -= 1.5;
-                    so.Left -= left;
-                    so.Left += 12;
-                    if (currentOpenedScroll != default)
+                AbsolutePosition=true,
+                CacheAvailable=false,
+                Left = .5-left,
+                Top = 2.5
+            });
+        }
+
+        private Func<bool> ContentVisible => () => AllItems.Any(ji => !ji.Collapsed && ji.Visible);
+
+        private void Filter(string value)
+        {
+            value = value.Trim();
+
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                AllItems.Where(x => x.Model.JournalEntry == null)
+                    .ForEach(i =>
                     {
-                        currentOpenedScroll.Destroy();
-                    }
-                    currentOpenedScroll = so;
-                    this.AddChild(so);
-                }, this.Mixin<Scrollbar>());
-                jgroup.SlideNeed = SlideNeed(jgroup);
-                jgroup.Left -= left;
-                jgroup.Left += .5;
-                jgroup.Top += 2 + top;
+                        i.Collapsed = false;
+                    });
+                AllItems.ForEach(i =>
+                    {
+                        if (JournalItem.Expanded.Contains(i.ItemIndex))
+                        {
+                            i.Collapse();
+                            i.Expand();
+                        }
+                        else
+                        {
+                            i.Collapse();
+                        }
+                    });
 
-                JournalGroups.Add(jgroup);
-                this.AddChild(jgroup);
-                top += 1.5;
-
-                //jgroup.OnExpand = () =>
-                //{
-                //    var scrollindex =this.GetMixinValue<int>(ScrollableMixin.ScrollBarIndex);
-                //    ExpandedGroups.Add(group.Key);
-                //    Mixin<Scrollbar>().Down.Active = ScrollShift > 0;
-                //    Mixin<Scrollbar>().Up.Active = scrollindex > 0;
-
-                //    if(ScrollShift < 0)
-                //    {
-                //        this.SetMixinValue(ScrollableMixin.ScrollBarMaxDown, 0);
-                //        this.SetMixinValue<int>(ScrollableMixin.ScrollBarIndex, 0);
-                //    }
-                //    else
-                //    {
-                //        this.SetMixinValue(ScrollableMixin.ScrollBarMaxDown, ScrollShift);
-                //    }
-                //};
-                //jgroup.OnCollapse = () =>
-                //{
-                //    var scrollindex = this.GetMixinValue<int>(ScrollableMixin.ScrollBarIndex);
-                //    ExpandedGroups.Remove(group.Key);
-                //    Mixin<Scrollbar>().Down.Active = ScrollShift > 0;
-                //    Mixin<Scrollbar>().Up.Active = scrollindex > 0;
-                //    if (ScrollShift > 0)
-                //    {
-                //        this.SetMixinValue(ScrollableMixin.ScrollBarMaxDown, 0);
-                //        this.SetMixinValue<int>(ScrollableMixin.ScrollBarIndex, 0);
-                //    }
-                //    else
-                //    {
-                //        this.SetMixinValue(ScrollableMixin.ScrollBarMaxDown, ScrollShift);
-                //    }
-                //};
-                //jgroup.AfterExpandAnother = () =>
-                //{
-                //    //jgroup.Visible = !(jgroup.Top + ScrollShift > 13);
-                //};
-                //jgroup.AfterCollapseAnother = jgroup.AfterExpandAnother;
-
+                Mixin<Scrollbar>().MaxDownIndex = (int)Math.Floor(ContentSize - 12);
+                Mixin<Scrollbar>().ScrollToTop(ContentVisible);
+                RecalculatePositions(_left);
+                return;
             }
 
-            var shift = ScrollShift;
-            foreach (var group in JournalGrouped)
-            {
-                var jg = JournalGroups.FirstOrDefault(j => j.GroupName == group.Key);
-                if (ExpandedGroups.Contains(group.Key))
+            AllItems.Where(i => !i.Search(value))
+                .ForEach(i =>
                 {
-                    jg?.Expand();
-                }
-            }
+                    i.Collapsed = true;
+                });
+
+            AllItems.Where(i => i.Search(value))
+                .ForEach(i =>
+                {
+                    i.Collapsed = false;
+                    if (i.Model.JournalEntry != null)
+                    {
+                        AllItems.Where(a => a.Model.Title == i.Model.Group).ForEach(a => a.Collapsed = false);
+                    }
+                });
+
+            Mixin<Scrollbar>().MaxDownIndex = (int)Math.Floor(ContentSize - 12);
+            RecalculatePositions(_left);
         }
 
-        protected override Key[] KeyHandles => new Key[]
+        private static void ClearSlideState()
         {
-            Key.Escape
-        };
+            JournalItem.Expanded.Clear();
+            JournalItem.SlideIndex = 0;
+            JournalItem.SlideDownCount = 0;
+            JournalItem.AllExpandable.Clear();
+        }
 
-        public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
+        private double ContentSize => AllItems.Where(it => !it.Collapsed).Sum(g => 1.5) + 1.5;
+
+        private void InitJournalItems(List<JournalItemModel> models, double left)
         {
-            if (key == Key.Escape)
+            double top = 2;
+            foreach (var model in models.OrderBy(x => x.ItemIndex))
             {
-                if (currentOpenedScroll != default)
+                var jItem = new JournalItem(model);
+                jItem.SlideNeed = SlideNeed(jItem);
+                jItem.Left -= left;
+                jItem.Left += .5;
+                jItem.Top += 2 + top;
+
+                if (model.JournalEntry == null)
                 {
-                    currentOpenedScroll.Destroy();
+                    JournalItem.AllExpandable.Add(jItem);
                 }
                 else
                 {
-                    base.KeyDown(key, modifier, hold);
+                    jItem.Collapsed = true;
                 }
+
+                this.AddChild(jItem);
+                AllItems.Add(jItem);
+                top += 1.5;
             }
         }
 
-        private Func<bool> SlideNeed(JournalGroup jgroup)
+        private void RecalculatePositions(double left)
+        {
+            var scrollIndex = this.Mixin<Scrollbar>().ScrollIndex;
+
+            double top = 2 - (scrollIndex * 1.5);
+            foreach (var jItem in AllItems.Where(ji => !ji.Collapsed).OrderBy(x => x.ItemIndex))
+            {
+                jItem.Top = 2 + top;
+                top += 1.5;
+            }
+        }
+
+        private Func<bool> SlideNeed(JournalItem jgroup)
         {
             return () =>
             {
-                if (jgroup.GroupIndex <= JournalGroup.SlideIndex)
+                if (jgroup.ItemIndex <= JournalItem.SlideIndex)
                 {
                     return false;
                 }
-                return JournalGroup.SlideDownCount != 0;
+                return JournalItem.SlideDownCount != 0;
             };
         }
     }

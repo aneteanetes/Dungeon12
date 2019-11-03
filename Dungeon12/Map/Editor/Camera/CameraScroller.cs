@@ -2,7 +2,6 @@
 {
     using Dungeon;
     using Dungeon.Control;
-    using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;

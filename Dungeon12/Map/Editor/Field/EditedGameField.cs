@@ -1,7 +1,6 @@
 ﻿namespace Dungeon12.Map.Editor.Field
 {
     using Dungeon.Control;
-    using Dungeon.Control.Events;
     using Dungeon.Control.Pointer;
     using Dungeon.Data.Region;
     using Dungeon.Drawing.SceneObjects;

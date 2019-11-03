@@ -21,7 +21,7 @@
 
         public ShopWindow(string title, PlayerSceneObject playerSceneObject, Merchant shop, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding, GameMap gameMap)
         {
-            Global.FreezeWorld = this;
+            Global.Freezer.World = this;
 
             this.Top = 2;
             this.Left = 0;
@@ -56,7 +56,7 @@
         private void Close()
         {
             this.Destroy?.Invoke();
-            Global.FreezeWorld = null;
+            Global.Freezer.World = null;
             Global.Interacting = false;
         }
     }

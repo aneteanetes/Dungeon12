@@ -22,7 +22,7 @@
 
         public NPCDialogue(PlayerSceneObject playerSceneObject, Dungeon.Map.Objects.Сonversational conversational, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding, GameMap gameMap, ButtonControl customizeExit)
         {
-            Global.FreezeWorld = this;
+            Global.Freezer.World = this;
 
             this._playerSceneObject = playerSceneObject;
 
@@ -70,7 +70,7 @@
         private void ExitDialogue()
         {
             this.Destroy?.Invoke();
-            Global.FreezeWorld = null;
+            Global.Freezer.World = null;
             Global.Interacting = false;
         }
 

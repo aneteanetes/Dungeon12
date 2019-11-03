@@ -1,7 +1,6 @@
 ﻿namespace Dungeon.SceneObjects
 {
     using Dungeon.Control;
-    using Dungeon.Control.Events;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.View.Interfaces;
