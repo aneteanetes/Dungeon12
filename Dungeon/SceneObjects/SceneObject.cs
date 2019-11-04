@@ -377,6 +377,8 @@
 
         public virtual ImageMask Mask { get; set; }
 
+        public virtual bool Blur { get; set; }
+
         public override string ToString()
         {
             return $"{owner.GetType().Name}#{Uid} : {base.ToString()}";

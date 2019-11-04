@@ -394,7 +394,7 @@
 #warning [INFO] Вот здесь теперь всё хорошо,но это место можно использовать для того что бы заоптимизировать преобразование размеров, т.к. масштабирование текстур происходит тут
 
             var dest = new Rectangle(pos.Xi, pos.Yi, pos.Widthi, pos.Heighti);
-            
+
             var angle = (float)sceneObject.Angle;
             var origin = angle != 0
                 ? new Vector2(tileRegion.Widthi / 2f, tileRegion.Heighti / 2f)
@@ -410,7 +410,23 @@
             }
 
             var source = new Rectangle(tileRegion.Xi, tileRegion.Yi, tileRegion.Widthi, tileRegion.Heighti);
-            spriteBatch.Draw(image, dest, source, Color.White, angle, origin, spriteEffects, 0f);
+
+
+
+            if (sceneObject.Blur)
+            {
+                spriteBatch.End();
+                SpriteBatchRestore?.Invoke(true);
+
+                spriteBatch.Draw(image, dest, source, Color.White, angle, origin, spriteEffects, 0f);
+
+                spriteBatch.End();
+                SpriteBatchRestore?.Invoke(false);
+            }
+            else
+            {
+                spriteBatch.Draw(image, dest, source, Color.White, angle, origin, spriteEffects, 0f);
+            }
         }
 
         readonly Dictionary<string, Dictionary<float, Texture2D>> MaskCache = new Dictionary<string, Dictionary<float, Texture2D>>();

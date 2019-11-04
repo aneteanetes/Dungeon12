@@ -88,7 +88,6 @@
         {
             back = false;
             destroyConversation?.Invoke();
-            //exitBtn.SetText("Выход");
 
             conversactionClickable?.Destroy?.Invoke();
             this.RemoveChild(conversactionClickable);
@@ -112,7 +111,7 @@
 
             destroyConversation?.Invoke();
 
-            var face = new ImageControl(conv.Face);
+            var face = new ImageControl(conv.Face) { Blur = true };
             face.Height = 3;
             face.Width = 3;
             face.AbsolutePosition = true;
@@ -229,6 +228,8 @@
                 private readonly Action onClick;
 
                 private TextControl nameText;
+
+                public override bool Blur => true;
 
                 public FaceClickControl(string img, string name, Action onClick)
                 {

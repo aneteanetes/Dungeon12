@@ -75,7 +75,7 @@
                 this.AddChild(new LevelSceneObject(this.player)
                 {
                     Top=1.35,
-                    Left=1.25
+                    Left=1.6
                 });
 
                 return this;
