@@ -48,7 +48,7 @@
 
             if (conv.ScreenImage == null)
             {
-                SetConversation(conv.Conversations.First(), select, true);
+                SetConversation(conv.Conversations.FirstOrDefault(), select, true);
             }
             else
             {
@@ -103,6 +103,28 @@
 
         private void SetConversation(Conversation conv, Action<Subject> select, bool alone=false)
         {
+            if (conv == null)
+            {
+                destroyConversation?.Invoke();
+
+                var staticface = new ImageControl(this.conv.FaceImage) { Blur = true };
+                staticface.Height = 3;
+                staticface.Width = 3;
+                staticface.AbsolutePosition = true;
+                staticface.Top = 2;
+                staticface.Left = this.Width / 2 - staticface.Width / 2;
+
+                this.AddChild(staticface);
+
+                destroyConversation += () =>
+                {
+                    staticface.Destroy?.Invoke();
+                    this.RemoveChild(staticface);
+                };
+
+                return;
+            }
+
             if (!alone)
             {
                 back = true;

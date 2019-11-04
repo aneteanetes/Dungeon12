@@ -22,6 +22,11 @@
             this.mapObj = mapObj;
             this.moveable = moveable;
             this.location = location;
+
+            if(moveable.Static)
+            {
+                RequestStop();
+            }
         }
 
         private int moveDistance = 0;

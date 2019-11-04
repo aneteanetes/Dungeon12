@@ -37,7 +37,14 @@
 			"Y":56
 		}
 	},
-	
+	{
+	"Icon":"Npc",
+		"IdentifyName":"GuardLeft",
+		"Position":{
+			"X":30,
+			"Y":51
+		}
+	},
 	{
 	"Icon":"Npc",
 		"IdentifyName":"ServantOfFaith",

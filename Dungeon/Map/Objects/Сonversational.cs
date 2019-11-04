@@ -8,6 +8,8 @@
 
     public abstract class Сonversational : MapObject
     {
+        public string FaceImage { get; set; }
+
         public List<Conversation> Conversations { get; set; }
 
         public string ScreenImage { get; set; }

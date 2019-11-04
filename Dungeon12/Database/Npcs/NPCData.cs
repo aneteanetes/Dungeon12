@@ -22,5 +22,7 @@
         public double MovementSpeed { get; set; }
 
         public bool Merchant { get; set; }
+
+        public bool Moveable { get; set; } = true;
     }
 }

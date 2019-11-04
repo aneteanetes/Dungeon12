@@ -1,0 +1,53 @@
+﻿{
+  "Level": 1,
+  "IdentifyName": "GuardRight",
+  "Name": "Страж",
+  "Size": {
+    "X": 1,
+    "Y": 1
+  },
+  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.GuardF.png",
+  "Tileset": "Dungeon12.Resources.Images.NPCs.FaithIsland.Guard.png",
+  "TileSetRegion": {
+    "X": 64,
+    "Y": 0,
+    "Width": 32,
+    "Height": 32
+  },
+  "MovementSpeed": 0.01,
+  "Conversations": [
+  ],
+  "NPC": {
+    "Static": true,
+    "WalkChance": {
+      "From": 0,
+      "To": 0
+    },
+    "Idle": {
+      "Tileset": "Dungeon12.Resources.Images.NPCs.FaithIsland.Guard.png",
+      "Size": {
+        "X": 32,
+        "Y": 32
+      },
+      "Frames": [
+        {
+          "X": 0,
+          "Y": 64
+        },
+        {
+          "X": 32,
+          "Y": 64
+        },
+        {
+          "X": 64,
+          "Y": 64
+        }
+      ],
+      "Direction": 4
+    },
+    "MinDMG": 1,
+    "MaxDMG": 3,
+    "HitPoints": 100,
+    "MaxHitPoints": 100
+  }
+}

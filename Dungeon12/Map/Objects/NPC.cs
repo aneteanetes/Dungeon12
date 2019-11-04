@@ -67,7 +67,9 @@
                 var data = Database.Entity<NPCData>(x => x.IdentifyName == npcData.IdentifyName).FirstOrDefault();
 
                 this.NPCEntity = data.NPC.DeepClone();
+                this.Moving = data.Moveable;
                 this.Tileset = data.Tileset;
+                this.FaceImage = data.Face;
                 this.TileSetRegion = data.TileSetRegion;
                 this.Name = data.Name;
                 this.Size = new PhysicalSize()
@@ -85,7 +87,10 @@
                 }
                 this.BuildConversations(data);
 
-                this.NPCEntity.MoveRegion = this.NPCEntity.MoveRegion * 32;
+                if (this.NPCEntity.MoveRegion != null)
+                {
+                    this.NPCEntity.MoveRegion = this.NPCEntity.MoveRegion * 32;
+                }
             }
         }
     }
