@@ -78,6 +78,7 @@
             penumbra.Lights.Add(SunLight);
 
             Dungeon.Global.AudioPlayer = this;
+            Dungeon.Global.Time.OnTimeSet += WhenTimeSetted;
             Dungeon.Global.Time.OnMinute += CalculateSunlight;
 
             myRenderer= new SpriteBatchRenderer
@@ -251,7 +252,6 @@
 
         public void SetScene(IScene scene) => this.scene = scene;
 
-
         private const float Seconds = 1320;
         private float RotationUnit = (1.5708f - 0.8707998f) / Seconds * 2;
         private float BaseIlluminationUnit = (12350 - 3700) / Seconds;
@@ -276,32 +276,53 @@
             }
         }
 
-        private float PositionUnit = 6600 / Seconds;
+        private readonly float PositionUnit = 6600 / Seconds;
 
         private void CalculateSunlight()
         {
-            var time = Dungeon.Global.Time;
+            var time = Global.Time;
+            AddSunLight(1, time.Hours);
+        }
 
-            if (time.Hours >= 4 && time.Hours < 22)
+        private void WhenTimeSetted(Dungeon.Time was, Dungeon.Time now)
+        {
+            var wasTime = new DateTime(1, 1, 1, was.Hours, was.Minutes, 0);
+            var nowTime = new DateTime(1, 1, 1, now.Hours, now.Minutes, 0);
+
+            var minutes = (wasTime - nowTime).TotalMinutes;
+            if (minutes > 0)
             {
-                this.SunLight.Rotation += RotationUnit;
-                this.SunLight.Position += new Vector2(PositionUnit, 0);
-
-                if (time.Hours >= 13)
-                {
-                    this.SunLight.Scale -= new Vector2(IllumnationUnit);
-                }
-                else
-                {
-                    this.SunLight.Scale += new Vector2(IllumnationUnit);
-                }
+                throw new Exception("Двигаем время назад, да?");
             }
 
-            if (time.Hours >= 22)
+            AddSunLight((int)Math.Abs(minutes), now.Hours);
+        }
+
+        private void AddSunLight(int minutes, int hoursNow)
+        {
+            for (int i = 0; i < minutes; i++)
             {
-                SunLight.Rotation = 0.8707998f;
-                SunLight.Scale = new Vector2(3700f);
-                SunLight.Position = new Vector2(-2660, -500);
+                if (hoursNow >= 4 && hoursNow < 22)
+                {
+                    this.SunLight.Rotation += RotationUnit;
+                    this.SunLight.Position += new Vector2(PositionUnit, 0);
+
+                    if (hoursNow >= 13)
+                    {
+                        this.SunLight.Scale -= new Vector2(IllumnationUnit);
+                    }
+                    else
+                    {
+                        this.SunLight.Scale += new Vector2(IllumnationUnit);
+                    }
+                }
+
+                if (hoursNow >= 22)
+                {
+                    SunLight.Rotation = 0.8707998f;
+                    SunLight.Scale = new Vector2(3700f);
+                    SunLight.Position = new Vector2(-2660, -500);
+                }
             }
         }
     }

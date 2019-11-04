@@ -10,6 +10,8 @@
 
         public int Years { get; private set; } = 0;
 
+        public static Time GameStart { get; } = new Time(9, 0, 150, 600);
+
         internal Time(int hours = 0, int minutes = 0, int days = 0, int years = 0)
         {
             Hours = hours;

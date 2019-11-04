@@ -12,10 +12,9 @@
         {
             internalTimer = new System.Timers.Timer
             {
-                Interval = 1
+                Interval = 2000
             };
-            internalTimer.Elapsed += Time;
-            internalTimer.Start();
+            internalTimer.Elapsed += Time;            
         }
 
         /// <summary>
@@ -28,11 +27,16 @@
         /// </summary>
         public void Resume() => this.internalTimer.Start();
 
+        /// <summary>
+        /// Запустить время
+        /// </summary>
+        public void Start() => Resume();
+
         public int Hours { get; private set; } = 0;
 
         public int Minutes { get; private set; } = 0;
 
-        public int Days { get; private set; } = 128;
+        public int Days { get; private set; } = 150;
 
         public int Years { get; private set; } = 600;
         
@@ -48,7 +52,7 @@
                     this.Hours = 0;
                     this.Days += 1;
 
-                    if (this.Days >= 365)
+                    if (this.Days >= 300)
                     {
                         this.Days = 0;
                         this.Years += 1;
@@ -57,6 +61,8 @@
             }
             OnMinute?.Invoke();
         }
+
+        public Action<Time,Time> OnTimeSet { get; set; }
 
         public Action OnMinute { get; set; }
 
@@ -81,14 +87,16 @@
             return new Time(hours, minutes, days, years);
         }
 
-        public void Add(Time time)
+        public GameTime Set(Time time)
         {
+            this.OnTimeSet?.Invoke(new Time(Hours, Minutes, Days, Years), time);
+
             this.Years = time.Years;
             this.Days = time.Days;
             this.Hours = time.Hours;
             this.Minutes = time.Minutes;
 
-            this.OnMinute?.Invoke();
+            return this;
         }
 
         public override string ToString()

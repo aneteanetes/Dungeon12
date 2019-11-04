@@ -40,6 +40,9 @@
         {
             this.InitMap();
 
+            Global.Time.Set(Dungeon.Time.GameStart);
+            Global.Time.Start();
+
             var player = new Player(this.PlayerAvatar, this.Gamemap, x=>this.RemoveObject(x))
             {
                 Left = PlayerPosition.X,
