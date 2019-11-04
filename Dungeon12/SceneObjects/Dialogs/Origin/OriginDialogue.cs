@@ -27,7 +27,7 @@
 
             this.Width = 26;
             this.Height = 17;
-            this.AddTextCenter(new DrawText("Происхождение", new DrawColor(ConsoleColor.White)) { Size = 50 }, true, false)
+            this.AddTextCenter(new DrawText("Происхождение (Предтечи)", new DrawColor(ConsoleColor.White)) { Size = 50 }, true, false)
                 .Top = .5;
 
             AddOrigins();
@@ -38,10 +38,10 @@
                 Left = 9.7,
                 Top = 2.5
             };
-            scrollbar.Down.Active = true;
+            //scrollbar.Down.Active = true;
             this.AddChild(scrollbar);
 
-            var next = new MetallButtonControl("Далее");
+            var next = new MetallButtonControl("Начать");
             next.Left = this.Width / 2 - next.Width / 2;
             next.Top = 16;
 

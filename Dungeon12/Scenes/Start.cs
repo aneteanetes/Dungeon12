@@ -61,7 +61,7 @@
                 {
                     this.PlayerAvatar = new Avatar(new Dungeon12.Noone.Noone()
                     {
-                        Origin = Dungeon.Entites.Alive.Enums.Origins.Farmer
+                        Origin = Dungeon.Entites.Alive.Enums.Origins.Adventurer
                     });
                     this.PlayerAvatar.Character.Name = "Ваш персонаж";
                     this.PlayerAvatar.Character.Race = Race.Elf;

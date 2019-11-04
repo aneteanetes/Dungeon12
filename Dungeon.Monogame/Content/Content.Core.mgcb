@@ -185,3 +185,10 @@
 /processorParam:TextureFormat=Compressed
 /build:Triforce/Triforce30.spritefont
 
+#begin Triforce/Triforce72.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Triforce/Triforce72.spritefont
+

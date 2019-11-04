@@ -13,12 +13,12 @@ namespace Dungeon12.Drawing.SceneObjects
         {
             if (snow)
             {
-                this.Width = 1280 / 32;
-                this.Height = 800 / 32;
+                //this.Width = 1280 / 32;
+                //this.Height = 800 / 32;
                 this.AddChild(new BackgroundSnow());
                 this.AddChild(new BackgroundSnow()
                 {
-                    Left=-3
+                    Left = -3
                 });
                 this.AddChild(new BackgroundSnow()
                 {

@@ -61,7 +61,7 @@
             {
                 assemblyName = staticClass.Split(".").Last();
             }
-            
+
             return GetTypeFromAssembly(staticClass, assemblyName).GetStaticProperty(property);
         }
 
@@ -73,7 +73,7 @@
             }
 
             var value = GetTypeFromAssembly(staticClass, assemblyName).GetStaticProperty(property);
-            if(value is T valueT)
+            if (value is T valueT)
             {
                 return valueT;
             }
@@ -106,7 +106,7 @@
         public static Type GetTypeFromAssembly(this string value, string assemblyName)
             => GetTypeFromAssembly(value, assemblyName, (x, a) => a.GetType(x));
 
-        public static T GetInstanceFromAssembly<T>(this string value, string assemblyName,params object[] arguments)
+        public static T GetInstanceFromAssembly<T>(this string value, string assemblyName, params object[] arguments)
             => GetTypeFromAssembly(value, assemblyName, (x, a) => a.GetType(x))
                 .NewAs<T>(arguments);
 
@@ -133,6 +133,21 @@
             var types = value.GetTypesFromAssembly(assemblyName, searchPattern);
 
             return types.Select(x => (T)x.New()).ToArray();
+        }
+
+        public static object GetType(string typeName)
+        {
+            Type type = null;
+            foreach (var asm in Global.Assemblies)
+            {
+                type = asm?.GetTypes().FirstOrDefault(x => x.Name == typeName);
+                if (type != default)
+                {
+                    break;
+                }
+            }
+
+            return type?.New();
         }
     }
 }

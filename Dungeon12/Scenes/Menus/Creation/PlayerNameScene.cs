@@ -2,13 +2,12 @@
 {
     using Dungeon.Control.Keys;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Drawing.SceneObjects.Dialogs;
     using Dungeon.Map.Objects;
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
     using Dungeon12.Drawing.SceneObjects.Dialogs;
 
-    public class PlayerNameScene : GameScene<PlayerRaceScene,Start>
+    public class PlayerNameScene : GameScene<PlayerOriginScene, SoloDuoScene>
     {
         public PlayerNameScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -36,19 +35,19 @@
 
             this.PlayerAvatar.Character.Name = value[0].ToString().ToUpper() + value.Substring(1);
 
-            this.Switch<PlayerRaceScene>();
+            this.Switch<PlayerOriginScene>();
         }
 
         private void Back()
         {
-            this.Switch<Start>();
+            this.Switch<SoloDuoScene>();
         }
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
             if (keyPressed == Key.Escape && !hold)
             {
-                this.Switch<Start>();
+                this.Switch<SoloDuoScene>();
             }
         }
     }

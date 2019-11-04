@@ -28,9 +28,10 @@
 
             var perk = Database.Entity<ValuePerk>(x => x.Identity == origin.ToString()).First();
 
-            var desc = new TextControl(new DrawText(perk.Description) { Size = 20 }.Montserrat());
+            var desc = new TextControl(new DrawText(perk.Description,wordWrap:true).Montserrat());
             desc.Left = .5;
             desc.Top = 2.5;
+            desc.Width = 12.5;
 
             this.AddChild(desc);
 
@@ -38,7 +39,13 @@
             foreach (var item in perk.Effects)
             {
                 var color = new DrawColor(item.Positive ? ConsoleColor.Green : ConsoleColor.Red);
-                var perkText = new TextControl(new DrawText(item.Property, color) { Size = 20 }.Montserrat());
+
+                if (perk.Effects.IndexOf(item) == 0)
+                {
+                    color = new DrawColor(ConsoleColor.Yellow);
+                }
+
+                var perkText = new TextControl(new DrawText(item.Property, color).Montserrat());
                 perkText.Left = .5;
                 perkText.Top = top;
 

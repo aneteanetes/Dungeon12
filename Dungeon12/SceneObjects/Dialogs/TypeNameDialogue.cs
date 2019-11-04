@@ -11,6 +11,8 @@
         private Action<string> yes;
         private TextInputControl textInput;
 
+        private TextControl validationDisplay;
+
         public TypeNameDialogue(Action<string> yes, Action no)
         {
             this.yes= yes;
@@ -21,8 +23,13 @@
 
             var text = this.AddTextCenter(enterName, true,false);
             text.Top += 0.5;
+            
+            validationDisplay = this.AddTextCenter(new DrawText("Имя не может быть меньше 5 символов!",new DrawColor(ConsoleColor.Red)).Montserrat());
+            validationDisplay.Visible = false;
+            validationDisplay.Top -= 2.5;
 
-            textInput = new TextInputControl(new DrawText("", new DrawColor(ConsoleColor.White)) { Size = 30 }.Montserrat(), 14,true);
+            textInput = new TextInputControl(new DrawText("", new DrawColor(ConsoleColor.White)) { Size = 30 }.Triforce(), 14,true,width:11,height:1.5);
+            textInput.OnTyping += ValidateShow;
             textInput.Top = this.Height / 2 - textInput.Height / 2;
             textInput.Left += 0.75;
            
@@ -41,12 +48,21 @@
             this.AddChild(textInput);
         }
 
+        private void ValidateShow(string data)
+        {
+            validationDisplay.Visible = string.IsNullOrEmpty(data) || data.Length < 5;
+        }
+
         private void OnYes()
         {
             var value = textInput.Value;
             if (!string.IsNullOrWhiteSpace(value))
             {
                 yes?.Invoke(value);
+            }
+            else
+            {
+                validationDisplay.Visible = true;
             }
         }
     }

@@ -24,13 +24,19 @@
             {
                 if (value)
                 {
-                    focusRect.Opacity = 0.001;
-                    Global.Freezer.FreezeHandle(ControlEventType.Key, this);
+                    if (!autofocus)
+                    {
+                        focusRect.Opacity = 0.001;
+                        Global.Freezer.FreezeHandle(ControlEventType.Key, this);
+                    }
                 }
                 else
                 {
-                    focusRect.Opacity = 0.5;
-                    Global.Freezer.UnfreezeHandle(ControlEventType.Key, this);
+                    if (!autofocus)
+                    {
+                        focusRect.Opacity = 0.5;
+                        Global.Freezer.UnfreezeHandle(ControlEventType.Key, this);
+                    }
                 }
 
                 __focus = value;
@@ -108,7 +114,8 @@
 
         private void SetInputTextPosition()
         {
-            var width = Width * 32;
+            OnTyping?.Invoke(Value);
+               var width = Width * 32;
             var height = Height * 32;
 
             try
@@ -134,7 +141,7 @@
             if (!autofocus && !focus)
                 return;
 
-            var text = typingText.Text;
+            //var text = typingText.Text;
 
             if (key == Key.Enter)
             {
@@ -147,22 +154,24 @@
                 focus = false;
             }
 
-            if (key == Key.Delete)
-            {
-                text.SetText(string.Empty);
-                SetInputTextPosition();
-            }
+            //if (key == Key.Delete)
+            //{
+            //    text.SetText(string.Empty);
+            //    SetInputTextPosition();
+            //}
 
-            if (key == Key.Back)
-            {
-                if (text.Length > 0)
-                {
-                    text.SetText(text.StringData.Substring(0, text.StringData.Length - 1));
-                    SetInputTextPosition();
-                }
-                return;
-            }
+            //if (key == Key.Back)
+            //{
+            //    if (text.Length > 0)
+            //    {
+            //        text.SetText(text.StringData.Substring(0, text.StringData.Length - 1));
+            //        SetInputTextPosition();
+            //    }
+            //    return;
+            //}
         }
+
+        public Action<string> OnTyping;
 
         public override void TextInput(string text)
         {

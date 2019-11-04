@@ -23,13 +23,22 @@
             Opacity = 0.5;
             Round = 5;
 
-            this.AddChild(new ImageControl($"Dungeon12.Resources.Images.Origin.{origin.ToString()}.png"));
+            this.AddChild(new ImageControl($"Dungeon12.Resources.Images.Origin.{origin.ToString()}.png")
+            {
+                Width = 2,
+                Height = 2,
+                Left=.5,
+                Top=.5
+            });
+
             this.Height = 3;
             this.Width = 8;
-            this.AddTextCenter(new DrawText(origin.ToDisplay())
+            var t = this.AddTextCenter(new DrawText(origin.ToDisplay())
             {
-                Size =25
-            });
+                Size =24
+            }.Triforce());
+
+            t.Left = 2.5;
         }
        
         public override void Click(PointerArgs args)
