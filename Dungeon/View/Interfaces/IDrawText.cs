@@ -41,5 +41,7 @@
         bool Bold { get; set; }
 
         bool CenterAlign { get; }
+
+        bool WordWrap { get; }
     }
 }

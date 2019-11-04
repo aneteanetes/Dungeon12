@@ -12,42 +12,43 @@ namespace Dungeon.Drawing
     public class DrawText : IDrawText
     {
         /// <summary>
-        /// ЭТО БЛЯДЬ ЛЕНТА ЁБАНЫЙ ТЫ ДУРАК
+        /// это лента, вжуууух вжуууух вжууух
         /// </summary>
         private readonly List<IDrawText> InnerText = new List<IDrawText>();
 
-        public DrawText(string value, float size = 12)
+        public DrawText(string value, float size = 12, bool wordWrap = false)
         {
+            WordWrap = wordWrap;
             Size = size;
             stringData = value;
         }
 
-        public DrawText(string value, DrawColor foregroundColor) : this(value)
+        public DrawText(string value, DrawColor foregroundColor,bool wordWrap=false) : this(value,wordWrap:wordWrap)
         {
             ForegroundColor = foregroundColor;
         }
 
-        public DrawText(string value, DrawColor foregroundColor, float x = 0, float y = 0) : this(value)
-        {
-            ForegroundColor = foregroundColor;
-            Region = new Rectangle
-            {
-                X = x,
-                Y = y
-            };
-        }
+        //public DrawText(string value, DrawColor foregroundColor, /*float x = 0, float y = 0,*/ bool wordWrap = false) : this(value, wordWrap: wordWrap)
+        //{
+        //    ForegroundColor = foregroundColor;
+        //    //Region = new Rectangle
+        //    //{
+        //    //    X = x,
+        //    //    Y = y
+        //    //};
+        //}
 
-        public DrawText(string value, DrawColor foregroundColor, double x = 0, double y = 0) : this(value)
-        {
-            ForegroundColor = foregroundColor;
-            Region = new Rectangle
-            {
-                X = x,
-                Y = y
-            };
-        }
+        //public DrawText(string value, DrawColor foregroundColor, double x = 0, double y = 0, bool wordWrap = false) : this(value, wordWrap: wordWrap)
+        //{
+        //    ForegroundColor = foregroundColor;
+        //    Region = new Rectangle
+        //    {
+        //        X = x,
+        //        Y = y
+        //    };
+        //}
 
-        public DrawText(string value, IDrawColor foregroundColor, IDrawColor backgroundColor = null) : this(value)
+        public DrawText(string value, IDrawColor foregroundColor, IDrawColor backgroundColor = null, bool wordWrap = false) : this(value, wordWrap: wordWrap)
         {
             BackgroundColor = backgroundColor;
             ForegroundColor = foregroundColor;
@@ -130,6 +131,8 @@ namespace Dungeon.Drawing
         public string FontPath { get; set; }
         public string FontAssembly { get; set; }
         public bool CenterAlign { get; set; }
+
+        public bool WordWrap { get; set; }
 
         public void Append(IDrawText drawText) => Append(drawText, true);
 

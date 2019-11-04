@@ -16,6 +16,7 @@
     using System.IO;
     using System.Linq;
     using Rect = Dungeon.Types.Rectangle;
+    using System.Text;
 
     public partial class XNADrawClient : Game, IDrawClient
     {
@@ -309,7 +310,7 @@
 
                     foreach (var range in text.Data)
                     {
-                        DrawSceneText(text.Size, textY, textX, range);
+                        DrawSceneText(text.Size, textY, textX, range, sceneObject);
 
                         if (range.StringData == Environment.NewLine)
                         {
@@ -490,7 +491,7 @@
             return thisTex;
         }
 
-        private void DrawSceneText(float fontSize, double y, double x, IDrawText range)
+        private void DrawSceneText(float fontSize, double y, double x, IDrawText range, ISceneObject sceneObject)
         {
             bool fontWeight = range.Bold;
 
@@ -504,16 +505,21 @@
                 if (string.IsNullOrEmpty(range.FontPath))
                 {
                     spriteFont = Content.Load<SpriteFont>($"{range.FontName}/{range.FontName}{range.Size}");
-                    //typeface = new Typeface(range.FontName, weight: fontWeight);
                 }
                 else
                 {
                     spriteFont = Content.Load<SpriteFont>($"{range.FontName}/{range.FontName}{range.Size}");
-                    //typeface = new Typeface(Font.GetFontFamily(range.FontName, range.FontPath, range.FontAssembly), fontSize: fontSize);
                 }
             }
 
-            var txt = range.StringData;            
+            var txt = range.StringData;
+
+            var componentWidth = sceneObject.Position.Width;
+            if (range.WordWrap && componentWidth > 0)
+            {
+                txt = WrapText(spriteFont, txt, componentWidth*32);
+            }
+
             var color = new Color(range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B, range.ForegroundColor.A);
 
             spriteBatch.End();
@@ -523,6 +529,49 @@
 
             spriteBatch.End();
             SpriteBatchRestore?.Invoke(false);
+        }
+
+        private static string WrapText(SpriteFont font, string text, double maxLineWidth)
+        {
+            string[] words = text.Split(' ');
+            StringBuilder sb = new StringBuilder();
+            float lineWidth = 0f;
+            float spaceWidth = font.MeasureString(" ").X;
+
+            if (maxLineWidth < spaceWidth)
+                return text; //попытка избежать stackoverflowexception
+
+            foreach (string word in words)
+            {
+                Vector2 size = font.MeasureString(word);
+
+                if (lineWidth + size.X < maxLineWidth)
+                {
+                    sb.Append(word + " ");
+                    lineWidth += size.X + spaceWidth;
+                }
+                else
+                {
+                    if (size.X > maxLineWidth)
+                    {
+                        if (sb.ToString() == "")
+                        {
+                            sb.Append(WrapText(font, word.Insert(word.Length / 2, " ") + " ", maxLineWidth));
+                        }
+                        else
+                        {
+                            sb.Append(Environment.NewLine + WrapText(font, word.Insert(word.Length / 2, " ") + " ", maxLineWidth));
+                        }
+                    }
+                    else
+                    {
+                        sb.Append(Environment.NewLine + word + " ");
+                        lineWidth = size.X + spaceWidth;
+                    }
+                }
+            }
+
+            return sb.ToString();
         }
 
         private void DrawScenePath(IDrawablePath drawablePath, double x, double y)

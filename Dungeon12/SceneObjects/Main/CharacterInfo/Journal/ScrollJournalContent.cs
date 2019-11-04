@@ -24,8 +24,9 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
 
             var plusTop = (MeasureText(titleText).Y / 32) + 1;
 
-            var allText = new DrawText(journalEntry.Text, new DrawColor(ConsoleColor.Black)).Montserrat();
+            var allText = new DrawText(journalEntry.Text, new DrawColor(ConsoleColor.Black), true).Montserrat();
             var text = new TextControl(allText);
+            text.Width = 11;
             text.Top += plusTop;
             text.Left = 0.5;
             this.AddChild(text);
