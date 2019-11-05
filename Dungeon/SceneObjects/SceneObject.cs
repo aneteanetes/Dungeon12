@@ -379,6 +379,8 @@
 
         public virtual bool Blur { get; set; }
 
+        public virtual bool Filtered { get; set; } = true;
+
         public override string ToString()
         {
             return $"{owner.GetType().Name}#{Uid} : {base.ToString()}";

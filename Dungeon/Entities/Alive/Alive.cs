@@ -23,7 +23,15 @@ namespace Dungeon.Entites.Alive
         public long HitPoints { get => Get(___HitPoints, typeof(Alive).AssemblyQualifiedName); set => Set(value, typeof(Alive).AssemblyQualifiedName); }
         public long ___HitPoints;
         
-        public long MaxHitPoints { get; set; }
+        /// <summary>
+        /// 
+        /// <para>
+        /// [Рассчётное через сеть]
+        /// </para>
+        /// </summary>
+        [Proxied(typeof(NetProxy))]
+        public long MaxHitPoints { get => Get(___MaxHitPoints, typeof(Alive).AssemblyQualifiedName); set => Set(value, typeof(Alive).AssemblyQualifiedName); }
+        private long ___MaxHitPoints;
 
         public bool Dead { get; set; } = false;
         
@@ -54,5 +62,8 @@ namespace Dungeon.Entites.Alive
         public void SetParentFlow(IFlowable parent) => flowparent = parent;
 
         public IFlowable GetParentFlow() => flowparent;
+
+        [FlowMethod]
+        public void ShowEffect(bool forward) { }
     }
 }

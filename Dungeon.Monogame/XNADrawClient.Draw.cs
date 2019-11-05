@@ -98,28 +98,28 @@
         {
             if (!absolute)
             {
-                SpriteBatchRestore = smooth => spriteBatch.Begin(
+                SpriteBatchRestore = (smooth,filter) => spriteBatch.Begin(
                     transformMatrix:
 #if Android
                     screenScale*
 #endif
                     Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0), 
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
-                    blendState: BlendState.NonPremultiplied,effect: GlobalImageFilter);
+                    blendState: BlendState.NonPremultiplied,effect: filter ? GlobalImageFilter : null);
             }
             else
             {
-                SpriteBatchRestore = smooth => spriteBatch.Begin(
+                SpriteBatchRestore = (smooth,filter) => spriteBatch.Begin(
 #if Android
                     transformMatrix: screenScale,
 #endif
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
                     blendState: BlendState.NonPremultiplied/*, effect: @interface ? null : GlobalImageFilter*/);
             }
-            SpriteBatchRestore.Invoke(false);
+            SpriteBatchRestore.Invoke(false,true);
         }
 
-        private Action<bool> SpriteBatchRestore = null;
+        private Action<bool,bool> SpriteBatchRestore = null;
 
 #region frameSettings
 
@@ -273,7 +273,7 @@
 
                     GraphicsDevice.SetRenderTargets(bitmap);
                     GraphicsDevice.Clear(Color.Transparent);
-                    SpriteBatchRestore.Invoke(false);
+                    SpriteBatchRestore.Invoke(false,sceneObject.Filtered);
 
                     DrawSceneObject(sceneObject, 0, 0, true);
 
@@ -286,7 +286,7 @@
                     spriteBatch.End();
                     GraphicsDevice.SetRenderTarget(null);
 
-                    SpriteBatchRestore.Invoke(false);
+                    SpriteBatchRestore.Invoke(false, sceneObject.Filtered);
                 }
 
                 TileSetCache.TryGetValue(sceneObject.Uid, out var tilesetPos);
@@ -427,12 +427,12 @@
             if (sceneObject.Blur)
             {
                 spriteBatch.End();
-                SpriteBatchRestore?.Invoke(true);
+                SpriteBatchRestore?.Invoke(true, sceneObject.Filtered);
 
                 spriteBatch.Draw(image, dest, source, Color.White, angle, origin, spriteEffects, 0f);
 
                 spriteBatch.End();
-                SpriteBatchRestore?.Invoke(false);
+                SpriteBatchRestore?.Invoke(false, sceneObject.Filtered);
             }
             else
             {
@@ -550,12 +550,12 @@
             var color = new Color(range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B, range.ForegroundColor.A);
 
             spriteBatch.End();
-            SpriteBatchRestore?.Invoke(true);
+            SpriteBatchRestore?.Invoke(true, sceneObject.Filtered);
 
             spriteBatch.DrawString(spriteFont, txt, new Vector2((int)x, (int)y), color);
 
             spriteBatch.End();
-            SpriteBatchRestore?.Invoke(false);
+            SpriteBatchRestore?.Invoke(false, sceneObject.Filtered);
         }
 
         private static string WrapText(SpriteFont font, string text, double maxLineWidth,int counter=0,string original=default)
@@ -850,7 +850,7 @@
 
                 myRenderer.RenderEffect(particleEffect, ref v);
 
-                SpriteBatchRestore.Invoke(false);
+                SpriteBatchRestore.Invoke(false, sceneObject.Filtered);
             }
         }
 

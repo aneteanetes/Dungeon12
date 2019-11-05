@@ -7,6 +7,8 @@
 
     public class PopupString : SceneObject
     {
+        public override bool Filtered => false;
+
         protected override void CallOnEvent(dynamic obj)
         {
             OnEvent(obj);

@@ -104,7 +104,7 @@
             }
             catch (Exception inner)
             {
-                throw new Exception("Ошибка при выполнении flow метода - возможно не указан Parent для вызываемого объекта?", inner);
+                throw new Exception("Ошибка при выполнении flow метода - возможно не указан Parent для вызываемого объекта? Либо, у самого верхнего объекта FlowMethodAttribute без аргументов?", inner);
             }
         }
 

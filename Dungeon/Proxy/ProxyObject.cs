@@ -17,6 +17,7 @@ namespace Dungeon.Proxy
         public ProxyObject()
         {
             ProxyId = this.GetType().Name;
+            InitProxyProperties();
             _Type = TypeAccessor.Create(this.GetType(), true);
         }
         
@@ -67,6 +68,15 @@ namespace Dungeon.Proxy
 
         private ProxiedAttribute Proxies(string prop) => (ProxiedAttribute)_Type.GetMembers().FirstOrDefault(m => m.Name == prop)?.GetAttribute(typeof(ProxiedAttribute), false);
 
+        private ProxyProperty[] ProxiesAdditional(string prop)
+        {
+            if (!Additionals.TryGetValue(prop, out var vals))
+            {
+                return new ProxyProperty[0];
+            }
+            return vals.ToArray();
+        }
+
         private string GetProxyId(string prop) => $"{ProxyId}.{prop}";
 
         protected TCalculatedType Get<TCalculatedType>(TCalculatedType v, string ownerClassName, [CallerMemberName] string from = "")
@@ -75,9 +85,10 @@ namespace Dungeon.Proxy
             var get = BindGet(p, ownerClassName);
             var set = BindSet(p, ownerClassName);
             var proxy = Proxies(p);
+            var add = ProxiesAdditional(p);
             var proxyId = GetProxyId(p);
 
-            return proxy.Get(v, proxyId, get, set, this, _Type,p);
+            return proxy.Get(v, proxyId, get, set, this, _Type,p, add);
         }
         
         protected void Set<TCalculatedType>(TCalculatedType v, string ownerClassName, [CallerMemberName] string from = "")
@@ -86,11 +97,12 @@ namespace Dungeon.Proxy
             var get = BindGet(p,ownerClassName);
             var set = BindSet(p,ownerClassName);
             var proxy = Proxies(p);
+            var add = ProxiesAdditional(p);
             var proxyId = GetProxyId(p);
 
             var backingField = $"___{p}";
 
-            var settedValue = proxy.Set(v, proxyId, get, set, this, _Type, p);
+            var settedValue = proxy.Set(v, proxyId, get, set, this, _Type, p,add);
 
             SetBackingFieldValue(settedValue, backingField, ownerClassName);
         }
@@ -132,6 +144,19 @@ namespace Dungeon.Proxy
             FastMemberCantAccess[propName].SetValue(this, value);
         }
 
+        private Dictionary<string, List<ProxyProperty>> Additionals = new Dictionary<string, List<ProxyProperty>>();
+
+        public virtual void InitProxyProperties() { }
+
+        public void AddProxyProperty(string property, ProxyProperty proxyProperty)
+        {
+            if (!Additionals.ContainsKey(property))
+            {
+                Additionals.Add(property, new List<ProxyProperty>());
+            }
+
+            Additionals[property].Add(proxyProperty);
+        }
 
         #region Drawable
 

@@ -39,7 +39,7 @@
 
             var rangeObject = new MapObject
             {
-                Position = new Dungeon.Physics.PhysicalPosition
+                Position = new PhysicalPosition
                 {
                     X = avatar.Position.X - ((avatar.Size.Width * 2.5) / 2),
                     Y = avatar.Position.Y - ((avatar.Size.Height * 2.5) / 2)
@@ -54,6 +54,7 @@
 
             if (enemy != null)
             {
+                @class.InParry = true;
                 @class.Actions -= 1;
                 var value = (long)this.Value;
 
@@ -81,6 +82,7 @@
                 {
                     new PopupString(value.ToString()+(critical ? "!" : ""), critical ? ConsoleColor.Red : ConsoleColor.White,enemy.Location,25,critical ? 14 : 12,0.06)
                 });
+                @class.InParry = false;
             }
         }
 

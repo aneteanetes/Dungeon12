@@ -47,5 +47,14 @@ namespace Dungeon.Types
 
         public VectorDir VectorX { get; set; }
         public VectorDir VectorY { get; set; }
+
+        public Point Add(double x=0,double y=0)
+        {
+            var p = new Point(this);
+            p.X += x;
+            p.Y += y;
+
+            return p;
+        }
     }
 }

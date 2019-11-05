@@ -24,6 +24,11 @@
         bool Expired { get; }
 
         /// <summary>
+        /// Флаг указывающий что на объект действуют глобальные фильтры
+        /// </summary>
+        bool Filtered { get; }
+
+        /// <summary>
         /// Must exists
         /// </summary>
         Rectangle Position { get; }

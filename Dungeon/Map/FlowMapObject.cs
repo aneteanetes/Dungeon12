@@ -109,5 +109,8 @@ namespace Dungeon.Map
         
         [FlowMethod]
         public void AddEffect(bool forward) { }
+
+        [FlowMethod]
+        public void ShowEffect(bool forward) { }
     }
 }

@@ -22,9 +22,9 @@ namespace Dungeon
                 .Reverse();
         }
 
-        public T Get<T>(T value, string proxyId, Func<object> get, Action<object> set, object owner, TypeAccessor ownerAccessor, string propName)
+        public T Get<T>(T value, string proxyId, Func<object> get, Action<object> set, object owner, TypeAccessor ownerAccessor, string propName, params ProxyProperty[] additional)
         {
-            return Proxies.Reduce(value, (p, v) =>
+            return Proxies.Concat(additional).Reduce(value, (p, v) =>
             {
                 p.Name = propName;
                 p.owner = owner;
@@ -34,9 +34,9 @@ namespace Dungeon
             });
         }
 
-        public T Set<T>(T value, string proxyId, Func<object> get, Action<object> set, object owner, TypeAccessor ownerAccessor, string propName)
+        public T Set<T>(T value, string proxyId, Func<object> get, Action<object> set, object owner, TypeAccessor ownerAccessor, string propName, params ProxyProperty[] additional)
         {
-            return Proxies.Reduce(value, (p, v) =>
+            return Proxies.Concat(additional).Reduce(value, (p, v) =>
             {
                 p.Name = propName;
                 p.owner = owner;

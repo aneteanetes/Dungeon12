@@ -2,6 +2,8 @@
 {
     using Dungeon.Data;
     using Dungeon.Data.Region;
+    using Dungeon.Entites.Enemy;
+    using Dungeon.Loot;
     using Dungeon.Map.Objects;
     using Dungeon.Physics;
     using Dungeon.Types;
@@ -33,85 +35,113 @@
                 }
             }
 
-            //SpawnEnemies(20);
+            SpawnEnemies(50);
 
             return persistRegion.Name;
         }
-        
-        //private void SpawnEnemies(int count)
-        //{
-        //    var data = Database.Entity<MobData>(x => x.Level == this.Level)
-        //        .FirstOrDefault();
 
-        //    for (int i = 0; i < count; i++)
-        //    {
-        //        var mob = new Mob()
-        //        {
-        //            Enemy = data.Enemy.DeepClone(),
-        //            Tileset = data.Tileset,
-        //            TileSetRegion = data.TileSetRegion,
-        //            Name = data.Name,
-        //            Size = new PhysicalSize()
-        //            {
-        //                Width = data.Size.X * 32,
-        //                Height = data.Size.Y * 32
-        //            },
-        //            MovementSpeed=data.MovementSpeed,
-        //            VisionMultiple=data.VisionMultiples,
-        //            AttackRangeMultiples=data.AttackRangeMultiples
-        //        };
-
-        //        mob.Enemy.Name = mob.Name;
-
-        //        bool setted = false;
-
-        //        while (!(setted = TrySetLocation(mob))) ;
-
-        //        if (setted)
-        //        {
-        //            mob.Die += () =>
-        //            {
-        //                List<MapObject> publishObjects = new List<MapObject>();
-
-        //                var loot = LootGenerator.Generate();
-
-        //                if (loot.Gold > 0)
-        //                {
-        //                    var money = new Money() { Amount = loot.Gold };
-        //                    money.Location = RandomizeLocation(mob.Location.DeepClone());
-        //                    money.Destroy += () => Map.Remove(money);
-        //                    Map.Add(money);
-
-        //                    publishObjects.Add(money);
-        //                }
-
-        //                foreach (var item in loot.Items)
-        //                {
-        //                    var lootItem = new Loot()
-        //                    {
-        //                        Item=item
-        //                    };
-
-        //                    lootItem.Location = RandomizeLocation(mob.Location.DeepClone());
-        //                    lootItem.Destroy += () => Map.Remove(lootItem);
-
-        //                    Map.Add(lootItem);
-        //                    publishObjects.Add(lootItem);
-        //                }
-
-        //                this.Map.Remove(mob);
-
-        //                publishObjects.ForEach(this.PublishObject);
-        //            };
-
-        //            this.Map.Add(mob);
-        //            this.Objects.Add(mob);
-        //        }
-        //    }
-        //}
-
-        public Point RandomizeLocation(Point point, RandomizePositionTry @try =null)
+        public class MobData : Dungeon.Data.Persist
         {
+            public int Level { get; set; }
+
+            public string Name { get; set; }
+
+            public string Tileset { get; set; }
+
+            public Point Size { get; set; }
+
+            public Point Position { get; set; }
+
+            public Rectangle TileSetRegion { get; set; }
+
+            public Enemy Enemy { get; set; }
+
+            public double MovementSpeed { get; set; }
+
+            public Point VisionMultiples { get; set; }
+
+            public Point AttackRangeMultiples { get; set; }
+        }
+
+        private void SpawnEnemies(int count)
+        {
+            var data = Database.Entity<MobData>(x => x.Level == this.Level)
+                .FirstOrDefault();
+
+            for (int i = 0; i < count; i++)
+            {
+                var mob = new Mob()
+                {
+                    Enemy = data.Enemy.DeepClone(),
+                    Tileset = data.Tileset,
+                    TileSetRegion = data.TileSetRegion,
+                    Name = data.Name,
+                    Size = new PhysicalSize()
+                    {
+                        Width = data.Size.X * 32,
+                        Height = data.Size.Y * 32
+                    },
+                    MovementSpeed = data.MovementSpeed,
+                    VisionMultiple = data.VisionMultiples,
+                    AttackRangeMultiples = data.AttackRangeMultiples
+                };
+
+                mob.Enemy.Name = mob.Name;
+
+                bool setted = false;
+
+                while (!(setted = TrySetLocation(mob))) ;
+
+                if (setted)
+                {
+                    mob.Die += () =>
+                    {
+                        List<MapObject> publishObjects = new List<MapObject>();
+
+                        var loot = LootGenerator.Generate();
+
+                        if (loot.Gold > 0)
+                        {
+                            var money = new Money() { Amount = loot.Gold };
+                            money.Location = RandomizeLocation(mob.Location.DeepClone());
+                            money.Destroy += () => Map.Remove(money);
+                            Map.Add(money);
+
+                            publishObjects.Add(money);
+                        }
+
+                        foreach (var item in loot.Items)
+                        {
+                            var lootItem = new Loot()
+                            {
+                                Item = item
+                            };
+
+                            lootItem.Location = RandomizeLocation(mob.Location.DeepClone());
+                            lootItem.Destroy += () => Map.Remove(lootItem);
+
+                            Map.Add(lootItem);
+                            publishObjects.Add(lootItem);
+                        }
+
+                        this.Map.Remove(mob);
+
+                        publishObjects.ForEach(this.PublishObject);
+                    };
+
+                    this.Map.Add(mob);
+                    this.Objects.Add(mob);
+                }
+            }
+        }
+
+        public Point RandomizeLocation(Point point, RandomizePositionTry @try =null, int count=0)
+        {
+            if(count>100)
+            {
+                return @try.Existed.FirstOrDefault();
+            }
+
             if (@try == null)
             {
                 @try = new RandomizePositionTry();
@@ -127,7 +157,7 @@
             }))
             {
                 @try.Existed.Add(point.DeepClone());
-                point = RandomizeLocation(point, @try);
+                point = RandomizeLocation(point, @try,++count);
             }
 
             return point;

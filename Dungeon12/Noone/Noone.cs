@@ -14,6 +14,7 @@
     using Dungeon.Classes;
     using Dungeon.Drawing;
     using Dungeon.View.Interfaces;
+    using Dungeon12.Noone.Proxies;
 
     public class Noone : Dungeon12Class
     {
@@ -57,17 +58,27 @@
 
         public override string Tileset => "Images/sprite.png".NoonePath();
 
-        [ClassStat("Блок", ConsoleColor.DarkGreen, 1,"При получении урона есть шанс равный блоку уменьшить урон на процентное соотношение равное блоку.")]
-        public long Block { get; set; }
+        [ClassStat("Блок", ConsoleColor.DarkGreen, 1, "При получении урона есть шанс равный блоку уменьшить урон на процентное соотношение равное блоку.")]
+        public long Block { get; set; } = 0;
 
-        [ClassStat("Паррирование", ConsoleColor.Yellow, 1,"При атаке есть шанс равный паррированию что полученные удары в ближнем бою во время этой атаки станут скользящими - нанесут только треть урона.")]
-        public long Parry { get; set; }
+        [ClassStat("Паррирование", ConsoleColor.Yellow, 1, "При атаке есть шанс равный паррированию что полученные удары в ближнем бою во время этой атаки станут скользящими - нанесут только треть урона, а время восстановления атаки уменьшится на пол секунды.")]
+        public long Parry { get; set; } = 100;
+
+        public bool InParry { get; set; }
 
         [ClassStat("Выносливость", ConsoleColor.DarkRed, "Каждая единица выносливости увеличивает здоровье на 2 еденицы")]
-        public long Stamina { get; set; }
+        public long Stamina { get; set; } = 10;
 
-        [ClassStat("Броня", ConsoleColor.DarkCyan,"Броня уменьшает урон от критических и других видов атак в ближнем бою на прямое кол-во урона.")]
-        public long Armor { get; set; }
+        [ClassStat("Броня", ConsoleColor.DarkCyan, "Броня уменьшает урон от критических и других особых видов атак в ближнем бою на прямое кол-во урона.")]
+        public long Armor { get; set; } = 0;
+
+        public override void InitProxyProperties()
+        {
+            AddProxyProperty(nameof(HitPoints), new BlockProxyProperty());
+            AddProxyProperty(nameof(MaxHitPoints), new StaminaProxyProperty());
+            AddProxyProperty(nameof(HitPoints), new ArmorProxyProperty());
+            AddProxyProperty(nameof(HitPoints), new ParryProxyProperty());
+        }
 
         public AbsorbingTalants Absorbing { get; set; } = new AbsorbingTalants();
 

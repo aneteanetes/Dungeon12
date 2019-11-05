@@ -11,7 +11,7 @@
     /// <summary>
     /// Абстрактный класс персонажа
     /// </summary>
-    public abstract partial class Character : Moveable
+    public abstract partial class Character
     {
         private void BindClassStats()
         {

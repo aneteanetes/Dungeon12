@@ -19,6 +19,8 @@
     {
         protected Tooltip aliveTooltip = null;
 
+        public override bool Filtered => false;
+
         public IDrawColor TooltipTextColor { get; set; }
 
         public TooltipedSceneObject(string tooltip, Action<List<ISceneObject>> showEffects=null)
@@ -104,6 +106,16 @@
                 {
                     this.AddChild(effect);
                 }
+            }
+        }
+
+        [FlowMethod(typeof(AddEffectContext))]
+        public void ShowEffect(bool forward)
+        {
+            if (!forward)
+            {
+                var effects = this.GetFlowProperty(nameof(AddEffectContext.Effects), Enumerable.Empty<ISceneObject>());
+                this.ShowEffects?.Invoke(effects.ToList());
             }
         }
 

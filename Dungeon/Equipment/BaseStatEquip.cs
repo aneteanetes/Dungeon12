@@ -67,7 +67,6 @@
             if (Template == null)
             {
                 Template = string.Join(" ", Enumerable.Range(0, Values.Count()).Select((x, i) => $"{{{i}}}").ToArray());
-                string.Format(Template, Values);
             }
 
             return string.Format(Template, Values.Cast<object>().ToArray());
