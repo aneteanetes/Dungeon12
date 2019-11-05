@@ -7,9 +7,6 @@
     <EmbeddedResource Include="Resources\**\*" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\**\*" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Dungeon12\Dungeon12.csproj" />
   </ItemGroup>
   <Import Project="$(SolutionDir)\Symbols.props" />

@@ -1,6 +1,7 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 {
     using Dungeon;
+    using Dungeon.Classes;
     using Dungeon.Control;
     using Dungeon.Control.Keys;
     using Dungeon.Drawing;
@@ -93,6 +94,35 @@
 
         private Dictionary<string, TextControl> updateableStats = new Dictionary<string, TextControl>();
 
+        private class StatContainer : SceneObject
+        {
+            TextControl _textControl;
+            ClassStat _classStat;
+
+            public StatContainer(ClassStat classStat)
+            {
+                _classStat = classStat;
+                this.Width = 2;
+                this.Height = 1;
+
+                var img = this.AddChildImageCenter(new ImageControl("Dungeon12.Resources.Images.ui.stats.attack.png")
+                {
+                    Height = .5,
+                    Width = .5,
+                    AbsolutePosition = true,
+                    CacheAvailable = false
+                });
+                img.Left = -.5;
+
+                _textControl = this.AddTextCenter(new DrawText(classStat.StatValues, classStat.Color).Montserrat());
+            }
+
+            public override void Update()
+            {
+                _textControl.Text.SetText(_classStat.StatValues);
+            }
+        }
+
         private void FillData(PlayerSceneObject playerSceneObject)
         {
             var character = playerSceneObject.Avatar.Character;
@@ -115,39 +145,66 @@
             exp.Left = .5;
             exp.Top = 2.5;
 
-            updateableStats.Add("Exp", exp);
+            updateableStats.Add("Exp", exp);           
 
-            this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.stats.attack.png")
+            var statGroup = character.ClassStats.GroupBy(s => s.Group);
+
+            var statLeft = statGroup.First();
+            var clsStatTop = 7.5;
+            foreach (var stat in statLeft)
             {
-                Height = 0.5,
-                Width = 0.5,
-                Top = 8,
-                Left = 2,
-                AbsolutePosition = true,
-                CacheAvailable = false
-            });
+                this.AddChild(new StatContainer(stat)
+                {
+                    Top = clsStatTop,
+                    Left = 2,
+                });
+                //this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.stats.attack.png")
+                //{
+                //    Height = 0.5,
+                //    Width = 0.5,
+                //    Top = clsStatTop,
+                //    Left = 2,
+                //    AbsolutePosition = true,
+                //    CacheAvailable = false
+                //});
 
-            var dmgTxt = this.AddTextCenter(new DrawText($"{character.MinDMG} - {character.MaxDMG}", new DrawColor(230, 118, 37, 255)).Montserrat());
-            dmgTxt.Left = 2.75;
-            dmgTxt.Top = 7.95;
+                //var clsstatLeft = this.AddTextCenter(new DrawText(stat.StatValues, stat.Color).Montserrat());
+                //clsstatLeft.Left = 2.75;
+                //clsstatLeft.Top = clsStatTop;
 
-            updateableStats.Add("Dmg", dmgTxt);
+                //updateableStats.Add("ClsStat" + character.ClassStats.IndexOf(stat), clsstatLeft);
 
-            this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.stats.defence.png")
+                clsStatTop += .5;
+            }
+
+            var statRight = statGroup.Last();
+            clsStatTop = 7.5;
+            foreach (var stat in statRight)
             {
-                Height = 0.5,
-                Width = 0.5,
-                Top = 8,
-                Left = 8.5,
-                AbsolutePosition = true,
-                CacheAvailable = false
-            });
+                this.AddChild(new StatContainer(stat)
+                {
+                    Top = clsStatTop,
+                    Left = 8,
+                });
 
-            var arm = this.AddTextCenter(new DrawText($"{character.Defence}", new DrawColor(37, 223, 230, 255)).Montserrat());
-            arm.Left = 8.5 + .75;
-            arm.Top = 7.95;
+                //this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.stats.attack.png")
+                //{
+                //    Height = 0.5,
+                //    Width = 0.5,
+                //    Top = clsStatTop,
+                //    Left = 8,
+                //    AbsolutePosition = true,
+                //    CacheAvailable = false
+                //});
 
-            updateableStats.Add("Arm", arm);
+                //var clsstatLeft = this.AddTextCenter(new DrawText(stat.StatValues, stat.Color).Montserrat());
+                //clsstatLeft.Left = 8.75;
+                //clsstatLeft.Top = clsStatTop;
+
+                //updateableStats.Add("ClsStat" + character.ClassStats.IndexOf(stat), clsstatLeft);
+
+                clsStatTop += .5;
+            }
 
             var goldImg = "Dungeon12.Resources.Images.ui.stats.gold.png";
             var goldMeasure = this.MeasureImage(goldImg);
@@ -175,8 +232,6 @@
             var character = playerSceneObject.Avatar.Character;
             updateableStats["Class"].Text.SetText(character.ClassName);
             updateableStats["Exp"].Text.SetText($"Опыт: {character.EXP}/{character.MaxExp}");
-            updateableStats["Dmg"].Text.SetText($"{character.MinDMG} - {character.MaxDMG}");
-            updateableStats["Arm"].Text.SetText($"{character.Defence}");
             updateableStats["Gold"].Text.SetText($"{character.Gold}");
         }
 

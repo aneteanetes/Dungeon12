@@ -1,14 +1,10 @@
-﻿using Dungeon.Abilities;
+﻿using Dungeon;
+using Dungeon.Abilities;
 using Dungeon.Abilities.Talants.TalantTrees;
+using Dungeon.Classes;
 using Dungeon12.Servant.Abilities;
 using Dungeon12.Servant.Talants;
-using Dungeon.Drawing.Impl;
 using System;
-using System.Collections.Generic;
-using Dungeon12;
-using Dungeon;
-using Dungeon12.Servant;
-using Dungeon.Classes;
 
 namespace Dungeon12.Servant
 {
@@ -69,20 +65,10 @@ namespace Dungeon12.Servant
             }
         }
 
-        //public double AtackSpeed { get; set; } = 1;
+        [ClassStat("Лечение", ConsoleColor.Yellow)]
+        public long HealPower { get; set; }
 
-        //public double Range { get; set; } = 3;
-
-        //public double ArmorPenetration { get; set; }
-
-        //public int CritChance { get; set; }
-
-        //public override IEnumerable<ClassStat> ClassStats => new ClassStat[]
-        //{
-        //    new ClassStat("Скорость атаки",this.AtackSpeed.ToString(), new DrawColor(ConsoleColor.White)),
-        //    new ClassStat("Дальность",$"{this.Range}%", new DrawColor(ConsoleColor.DarkCyan)),
-        //    new ClassStat("Шанс пробить", $"{this.ArmorPenetration}",new DrawColor(ConsoleColor.Yellow)){  Group=1},
-        //    new ClassStat("Шанс крит.", $"{this.CritChance}%",new DrawColor(ConsoleColor.DarkRed)){  Group=1},
-        //};
+        [ClassStat("Урон", ConsoleColor.Blue, 1)]
+        public long DamagePower { get; set; }
     }
 }

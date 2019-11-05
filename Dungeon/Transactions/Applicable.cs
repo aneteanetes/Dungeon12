@@ -17,7 +17,7 @@ namespace Dungeon.Transactions
     /// </summary>
     public abstract class Applicable : NetObject, IApplicable
     {
-        public virtual string Image { get; }
+        public virtual string Image { get; set; }
 
         private bool InApply { get; set; }
 

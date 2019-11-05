@@ -54,13 +54,17 @@
 
         public override string Tileset => "Images/sprite.png".NoonePath();
 
-        public int Block { get; set; }
+        [ClassStat("Блок", ConsoleColor.DarkGreen, 1)]
+        public long Block { get; set; }
 
-        public int Parry { get; set; }
+        [ClassStat("Паррирование", ConsoleColor.Yellow, 1)]
+        public long Parry { get; set; }
 
-        public int Stamina { get; set; }
+        [ClassStat("Выносливость", ConsoleColor.DarkRed)]
+        public long Stamina { get; set; }
 
-        public int CritChance { get; set; }
+        [ClassStat("Броня", ConsoleColor.DarkCyan)]
+        public long Armor { get; set; }
 
         public AbsorbingTalants Absorbing { get; set; } = new AbsorbingTalants();
 
@@ -103,13 +107,5 @@
                 default: return default;
             }
         }
-
-        public override IEnumerable<ClassStat> ClassStats => new ClassStat[]
-        {
-            new ClassStat("Блок",this.Block.ToString(), new DrawColor(ConsoleColor.White)),
-            new ClassStat("Парирование",$"{this.Parry}%", new DrawColor(ConsoleColor.DarkCyan)),
-            new ClassStat("Выносливость", $"{this.Stamina}",new DrawColor(ConsoleColor.Yellow)){  Group=1},
-            new ClassStat("Шанс крит.", $"{this.CritChance}%",new DrawColor(ConsoleColor.DarkRed)){  Group=1},
-        };
     }
 }

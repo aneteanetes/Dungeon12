@@ -21,6 +21,16 @@
         }
     }
 
+    [System.AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = false)]
+    public class TitleAttribute : ValueAttribute
+    {
+        public TitleAttribute(object value) : base(value)
+        {
+        }
+
+        public new string Value => base.Value.ToString();
+    }
+
     public static class ValueAttributeExtensions
     {
         public static object ValueAttribute<T>(this Assembly obj)
@@ -68,5 +78,15 @@
         public static object ValueAttribute(this Module asm) => asm.ValueAttribute<ValueAttribute>();
 
         public static object ValueAttribute(this MemberInfo asm) => asm.ValueAttribute<ValueAttribute>();
+
+        public static TResult Value<TAttribute, TResult>(this Assembly asm) where TAttribute : ValueAttribute => asm.ValueAttribute<TAttribute>().As<TResult>();
+
+        public static TResult Value<TAttribute, TResult>(this Member asm) where TAttribute : ValueAttribute => asm.ValueAttribute<TAttribute>().As<TResult>();
+
+        public static TResult Value<TAttribute, TResult>(this ParameterInfo asm) where TAttribute : ValueAttribute => asm.ValueAttribute<TAttribute>().As<TResult>();
+
+        public static TResult Value<TAttribute, TResult>(this Module asm) where TAttribute : ValueAttribute => asm.ValueAttribute<TAttribute>().As<TResult>();
+
+        public static TResult Value<TAttribute, TResult>(this MemberInfo asm) where TAttribute : ValueAttribute => asm.ValueAttribute<TAttribute>().As<TResult>();
     }
 }

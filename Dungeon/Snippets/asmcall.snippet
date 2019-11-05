@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>asmcall</Title>
+      <Shortcut>asmcall</Shortcut>
+      <Description>
+        Код сборки которая вызывает
+      </Description>
+      <Author>anete.anetes</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>type</ID>
+          <ToolTip>Тип свойства</ToolTip>
+          <Default>long</Default>
+        </Literal>
+        <Literal>
+          <ID>property</ID>
+          <ToolTip>Имя свойства</ToolTip>
+          <Default>Prop</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[System.Reflection.Assembly.GetCallingAssembly().GetName().Name$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

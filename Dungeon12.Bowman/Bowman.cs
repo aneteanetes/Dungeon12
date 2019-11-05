@@ -65,20 +65,16 @@ namespace Dungeon12.Bowman
             }
         }
 
-        public double AtackSpeed { get; set; } = 1;
+        [ClassStat("Скорость атаки", ConsoleColor.White)]
+        public long AtackSpeed { get; set; } = 1;
 
-        public double Range { get; set; } = 3;
+        [ClassStat("Дальность", ConsoleColor.DarkYellow)]
+        public long Range { get; set; } = 3;
 
-        public double ArmorPenetration { get; set; }
+        [ClassStat("Пронзание", ConsoleColor.Yellow)]
+        public long ArmorPenetration { get; set; }
 
-        public int CritChance { get; set; }
-
-        public override IEnumerable<ClassStat> ClassStats => new ClassStat[]
-        {
-            new ClassStat("Скорость атаки",this.AtackSpeed.ToString(), new DrawColor(ConsoleColor.White)),
-            new ClassStat("Дальность",$"{this.Range}%", new DrawColor(ConsoleColor.DarkCyan)),
-            new ClassStat("Шанс пробить", $"{this.ArmorPenetration}",new DrawColor(ConsoleColor.Yellow)){  Group=1},
-            new ClassStat("Шанс крит.", $"{this.CritChance}%",new DrawColor(ConsoleColor.DarkRed)){  Group=1},
-        };
+        [ClassStat("Шанс крит.", ConsoleColor.DarkGreen)]
+        public long CritChance { get; set; }
     }
 }

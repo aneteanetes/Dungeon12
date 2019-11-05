@@ -117,11 +117,11 @@
             {
                 foreach (var cs in group)
                 {
-                    var txt = this.AddTextCenter(new DrawText($"{cs.Title}:  {cs.Value}", cs.Color).Montserrat());
+                    var txt = this.AddTextCenter(new DrawText(cs.Title, cs.Color).Montserrat());
                     txt.Left = 0.5;
                     txt.Top = top;
 
-                    statsText.Add(txt, c => $"{cs.Title}:  {cs.Value}");
+                    statsText.Add(txt, c => cs.Title);
 
                     top += MeasureText(txt.Text).Y / 32;
                 }

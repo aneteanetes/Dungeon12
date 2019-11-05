@@ -5,6 +5,7 @@
     using Dungeon.Inventory;
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Абстрактный класс персонажа
@@ -15,6 +16,7 @@
 
         public Character()
         {
+            this.BindClassStats();
             this.Clothes.OnPutOn += PutOnItem;
             this.Clothes.OnPutOff += PutOffItem;
         }
@@ -59,7 +61,7 @@
         /// <returns></returns>
         public virtual ConsoleColor ResourceColor => ConsoleColor.Blue;
 
-        public virtual IEnumerable<ClassStat> ClassStats => new ClassStat[0];
+        public List<ClassStat> ClassStats { get; } = new List<ClassStat>();
 
         public Backpack Backpack { get; set; } = new Backpack(6, 11);
 
@@ -71,6 +73,29 @@
         public void Recalculate()
         {
 
+        }
+
+        public ClassStat ClassStat<TClass>(Expression<Func<TClass, long>> accessor, ConsoleColor color, int group=0)
+        {
+            if (!(this is TClass @class))
+            {
+                throw new Exception("Нельзя добавить классовый параметр другому классу!");
+            }
+
+            var classParam = Expression.Parameter(typeof(TClass));
+            var lambda = Expression.Lambda<Func<TClass, long>>(accessor, classParam).Compile();
+            if (accessor.Body is MemberExpression memberExpression)
+            {
+                var member = memberExpression.Member;
+                var propertyName = member.Name;
+
+                Func<IEnumerable<long>> prov = () => lambda(@class).InEnumerable();
+
+                var stat = new ClassStat(member.Value<TitleAttribute, string>(), propertyName, StatValues.Function(prov), color);
+                stat.Group = group;
+            }
+
+            return default;
         }
     }
 }
