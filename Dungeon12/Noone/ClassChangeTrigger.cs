@@ -51,6 +51,7 @@ namespace Dungeon12
             to.Idle = from.Idle;
             to.MinDMG = from.MinDMG;
             to.MaxDMG = from.MaxDMG;
+            to.Origin = from.Origin;
 
             to.Race = from.Race;
             to.Name = from.Name;

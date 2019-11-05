@@ -274,11 +274,11 @@ namespace Dungeon.Map
                     // - It avoids creating rooms that are too rectangular: too tall and
                     //   narrow or too wide and flat.
                     // TODO: This isn't very flexible or tunable. Do something better here.
-                    int size = (int)RandomRogue.Range(1, 3 + RoomExtraSize) * 2 + 1;
-                    int rectangularity = (int)RandomRogue.Range(0, 1 + size / 2) * 2;
+                    int size = (int)RandomDungeon.Range(1, 3 + RoomExtraSize) * 2 + 1;
+                    int rectangularity = (int)RandomDungeon.Range(0, 1 + size / 2) * 2;
                     var width = size;
                     var height = size;
-                    if (RandomRogue.Range(0, 1) > 0.5f)
+                    if (RandomDungeon.Range(0, 1) > 0.5f)
                     {
                         width += rectangularity;
                     }
@@ -287,8 +287,8 @@ namespace Dungeon.Map
                         height += rectangularity;
                     }
 
-                    int x = (int)RandomRogue.Range(0, (StageWidth - width) / 2) * 2 + 1;
-                    int y = (int)RandomRogue.Range(0, (StageHeight - height) / 2) * 2 + 1;
+                    int x = (int)RandomDungeon.Range(0, (StageWidth - width) / 2) * 2 + 1;
+                    int y = (int)RandomDungeon.Range(0, (StageHeight - height) / 2) * 2 + 1;
 
                     var room = new Rectangle(x, y, width, height);
 
@@ -351,13 +351,13 @@ namespace Dungeon.Map
                         // Based on how "windy" passages are, try to prefer carving in the
                         // same direction.
                         Vector2 dir;
-                        if (unmadeCells.Contains(lastDirection) && RandomRogue.Range(0, 100) < 100 - WindingPercent)
+                        if (unmadeCells.Contains(lastDirection) && RandomDungeon.Range(0, 100) < 100 - WindingPercent)
                         {
                             dir = lastDirection;
                         }
                         else
                         {
-                            int randomIndex = RandomRogue.Range(0, unmadeCells.Count - 1);
+                            int randomIndex = RandomDungeon.Range(0, unmadeCells.Count - 1);
                             dir = unmadeCells[randomIndex];
                         }
 
@@ -423,13 +423,13 @@ namespace Dungeon.Map
                     int lastSide = -1;
                     // until we have at least 2 connections for that rectangle
                     int doorTries = 0;
-                    int moreDoors = RandomRogue.Range(0, 100) > 100 - ExtraConnectorChance ? 1 : 0;
+                    int moreDoors = RandomDungeon.Range(0, 100) > 100 - ExtraConnectorChance ? 1 : 0;
                     while (connections < 2 + moreDoors && doorTries < 100)
                     {
                         doorTries++;
                         // Pick a random side
-                        int side = RandomRogue.Range(0, 15) % 4;
-                        if (side == lastSide) side = (side + RandomRogue.Range(0, 3)) % 4; // Priority to different side then last one
+                        int side = RandomDungeon.Range(0, 15) % 4;
+                        if (side == lastSide) side = (side + RandomDungeon.Range(0, 3)) % 4; // Priority to different side then last one
                         Line line;
                         Vector2 direction;
                         if (side == 0)
@@ -454,8 +454,8 @@ namespace Dungeon.Map
                         }
 
                         // Pick a random point in the line perpendicular to direction
-                        int randomX = RandomRogue.Range((int)line.Start.X, (int)line.End.X) - 1;
-                        int randomY = RandomRogue.Range((int)line.Start.Y, (int)line.End.Y) - 1;
+                        int randomX = RandomDungeon.Range((int)line.Start.X, (int)line.End.X) - 1;
+                        int randomY = RandomDungeon.Range((int)line.Start.Y, (int)line.End.Y) - 1;
 
                         // Debug
                         // Maze[randomX, randomY] = side.ToString()[0];
@@ -485,9 +485,9 @@ namespace Dungeon.Map
                 try
                 {
                     // Pick a random room
-                    Rectangle randomRoom = _rooms[RandomRogue.Range(0, _rooms.Count - 1)];
+                    Rectangle randomRoom = _rooms[RandomDungeon.Range(0, _rooms.Count - 1)];
                     // Pick a random floor tile in the room, 2 tiles from the wall
-                    Vector2 pos = new Vector2(RandomRogue.Range((int)randomRoom.X + 2, (int)randomRoom.xMax - 2), RandomRogue.Range((int)randomRoom.Y + 2, (int)randomRoom.yMax - 2));
+                    Vector2 pos = new Vector2(RandomDungeon.Range((int)randomRoom.X + 2, (int)randomRoom.xMax - 2), RandomDungeon.Range((int)randomRoom.Y + 2, (int)randomRoom.yMax - 2));
 
                     // set player position
                     if (_getTile(pos) == Floor)
@@ -504,9 +504,9 @@ namespace Dungeon.Map
                 try
                 {
                     // Pick a random room
-                    Rectangle randomRoom = _rooms[RandomRogue.Range(0, _rooms.Count - 1)];
+                    Rectangle randomRoom = _rooms[RandomDungeon.Range(0, _rooms.Count - 1)];
                     // Pick a random floor tile in the room, 2 tiles from the wall
-                    Vector2 pos = new Vector2(RandomRogue.Range((int)randomRoom.X + 1, (int)randomRoom.xMax - 1), RandomRogue.Range((int)randomRoom.Y + 1, (int)randomRoom.yMax - 1));
+                    Vector2 pos = new Vector2(RandomDungeon.Range((int)randomRoom.X + 1, (int)randomRoom.xMax - 1), RandomDungeon.Range((int)randomRoom.Y + 1, (int)randomRoom.yMax - 1));
 
                     // set player position
                     if (_getTile(pos) == Floor)
@@ -525,9 +525,9 @@ namespace Dungeon.Map
                     try
                     {
                         // Pick a random room
-                        Rectangle randomRoom = _rooms[RandomRogue.Range(0, _rooms.Count)];
+                        Rectangle randomRoom = _rooms[RandomDungeon.Range(0, _rooms.Count)];
                         // Pick a random floor tile in the room, 2 tiles from the wall
-                        Vector2 pos = new Vector2(RandomRogue.Range((int)randomRoom.X + 2, (int)randomRoom.xMax - 2), RandomRogue.Range((int)randomRoom.Y + 2, (int)randomRoom.yMax - 2));
+                        Vector2 pos = new Vector2(RandomDungeon.Range((int)randomRoom.X + 2, (int)randomRoom.xMax - 2), RandomDungeon.Range((int)randomRoom.Y + 2, (int)randomRoom.yMax - 2));
 
                         // set player position
                         if (_getTile(pos) == Floor)

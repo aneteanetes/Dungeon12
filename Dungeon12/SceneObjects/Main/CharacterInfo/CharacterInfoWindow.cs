@@ -10,6 +10,7 @@
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Map;
     using Dungeon.SceneObjects;
+    using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Inventories;
     using System;
@@ -94,33 +95,76 @@
 
         private Dictionary<string, TextControl> updateableStats = new Dictionary<string, TextControl>();
 
-        private class StatContainer : SceneObject
+        private class StatContainer : TooltipedSceneObject
         {
             TextControl _textControl;
             ClassStat _classStat;
 
-            public StatContainer(ClassStat classStat)
+            public override bool HideCursor => true;
+            public override bool AbsolutePosition => true;
+            public override bool CacheAvailable => false;
+
+            public StatContainer(ClassStat classStat):base(classStat.StatName)
             {
                 _classStat = classStat;
                 this.Width = 2;
                 this.Height = 1;
 
-                var img = this.AddChildImageCenter(new ImageControl("Dungeon12.Resources.Images.ui.stats.attack.png")
+                var img = this.AddChildImageCenter(new ImageControl(classStat.Image)
                 {
-                    Height = .5,
-                    Width = .5,
                     AbsolutePosition = true,
                     CacheAvailable = false
                 });
-                img.Left = -.5;
+                img.Left -= .6;
 
-                _textControl = this.AddTextCenter(new DrawText(classStat.StatValues, classStat.Color).Montserrat());
+                this.Width = 1;
+                _textControl = this.AddTextCenter(new DrawText(_classStat.StatValues, classStat.Color).Montserrat());
+                _textControl.Left += .8;
+                this.Width = 2;
             }
 
             public override void Update()
             {
                 _textControl.Text.SetText(_classStat.StatValues);
             }
+
+            protected override bool ProvidesTooltip => true;
+
+            protected override Tooltip ProvideTooltip(Point position)
+            {
+                return new StatTooltip(_classStat, position);
+            }
+
+            private class StatTooltip : Tooltip
+            {
+                private static StatTooltip another = null;
+
+                public StatTooltip(ClassStat stat, Point position) : base("", position, new DrawColor(System.ConsoleColor.Black))
+                {
+                    if (another != null)
+                    {
+                        another?.Destroy?.Invoke();
+                        another = null;
+                    }
+
+                    another = this;
+
+                    this.Width = 9;
+                    var title = this.AddTextCenter(new DrawText(stat.StatName, 14).Montserrat());
+                    title.Top += .5;
+
+                    var allText = new DrawText(stat.Description, new DrawColor(ConsoleColor.White), true).Montserrat();
+                    var text = new TextControl(allText);
+                    text.Width = 7.5;
+                    text.Left += .5;
+                    text.Top += 1;
+                    this.AddChild(text);
+
+                    var y = this.MeasureText(allText, text).Y / 32;
+                    this.Height = y + 2;
+                }
+            }
+
         }
 
         private void FillData(PlayerSceneObject playerSceneObject)
@@ -130,16 +174,16 @@
             var txt = this.AddTextCenter(new DrawText(character.Name), true, false);
             txt.Top += 0.2;
 
-            var origin = this.AddTextCenter(new DrawText(character.Origin.ToDisplay(), new DrawColor(ConsoleColor.DarkYellow)).Montserrat());
+            var origin = this.AddTextCenter(new DrawText(character.ClassName, character.ClassColor).Montserrat());
             origin.Left = 7.3;
             origin.Top = 2;
 
 
-            var @class = this.AddTextCenter(new DrawText(character.ClassName, new DrawColor(ConsoleColor.Cyan)).Montserrat());
+            var @class = this.AddTextCenter(new DrawText(character.Origin.ToDisplay(), new DrawColor(ConsoleColor.DarkYellow)).Montserrat());
             @class.Left = 0.5;
             @class.Top = 2;
 
-            updateableStats.Add("Class", @class);
+            updateableStats.Add("Class", origin);
 
             var exp = this.AddTextCenter(new DrawText($"Опыт: {character.EXP}/{character.MaxExp}", new DrawColor(ConsoleColor.White)).Montserrat());
             exp.Left = .5;
@@ -158,23 +202,8 @@
                     Top = clsStatTop,
                     Left = 2,
                 });
-                //this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.stats.attack.png")
-                //{
-                //    Height = 0.5,
-                //    Width = 0.5,
-                //    Top = clsStatTop,
-                //    Left = 2,
-                //    AbsolutePosition = true,
-                //    CacheAvailable = false
-                //});
 
-                //var clsstatLeft = this.AddTextCenter(new DrawText(stat.StatValues, stat.Color).Montserrat());
-                //clsstatLeft.Left = 2.75;
-                //clsstatLeft.Top = clsStatTop;
-
-                //updateableStats.Add("ClsStat" + character.ClassStats.IndexOf(stat), clsstatLeft);
-
-                clsStatTop += .5;
+                clsStatTop += .7;
             }
 
             var statRight = statGroup.Last();
@@ -187,23 +216,7 @@
                     Left = 8,
                 });
 
-                //this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.stats.attack.png")
-                //{
-                //    Height = 0.5,
-                //    Width = 0.5,
-                //    Top = clsStatTop,
-                //    Left = 8,
-                //    AbsolutePosition = true,
-                //    CacheAvailable = false
-                //});
-
-                //var clsstatLeft = this.AddTextCenter(new DrawText(stat.StatValues, stat.Color).Montserrat());
-                //clsstatLeft.Left = 8.75;
-                //clsstatLeft.Top = clsStatTop;
-
-                //updateableStats.Add("ClsStat" + character.ClassStats.IndexOf(stat), clsstatLeft);
-
-                clsStatTop += .5;
+                clsStatTop += .7;
             }
 
             var goldImg = "Dungeon12.Resources.Images.ui.stats.gold.png";

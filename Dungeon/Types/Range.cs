@@ -14,7 +14,7 @@
 
         public int To { get; set; }
 
-        public int Random() => RandomRogue.Next(From, To);
+        public int Random() => RandomDungeon.Next(From, To);
 
         public int Mid() => (From + To) / 2;
     }

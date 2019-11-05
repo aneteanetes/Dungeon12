@@ -135,8 +135,8 @@
 
         private double RandomizePosition(RandomizePositionTry @try = null)
         {
-            var dir = RandomRogue.Next(0, 2) == 0 ? 1 : -1;
-            var offset = RandomRogue.Next(0, 3);
+            var dir = RandomDungeon.Next(0, 2) == 0 ? 1 : -1;
+            var offset = RandomDungeon.Next(0, 3);
 
             if (offset == 1)
                 return 0;
@@ -159,8 +159,8 @@
 
         private bool TrySetLocation(Mob mob)
         {
-            var x = Dungeon.RandomRogue.Next(20, 80);
-            var y = Dungeon.RandomRogue.Next(20, 80);
+            var x = Dungeon.RandomDungeon.Next(20, 80);
+            var y = Dungeon.RandomDungeon.Next(20, 80);
 
             mob.Location = new Point(x, y);
 

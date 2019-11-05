@@ -6,7 +6,7 @@
     /// ааа, для того что бы всегда был один инстанс что бы не тупило
     /// </para>
     /// </summary>
-    public static class RandomRogue
+    public static class RandomDungeon
     {
         private static System.Random SystemRandom = new System.Random();
         private static readonly object syncLock = new object();

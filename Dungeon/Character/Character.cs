@@ -3,6 +3,7 @@
     using Dungeon.Entites.Alive;
     using Dungeon.Entites.Alive.Enums;
     using Dungeon.Inventory;
+    using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
@@ -46,7 +47,7 @@
 
         public virtual void RemoveToResource(double value) { }
 
-        public virtual ConsoleColor ClassColor { get; }
+        public virtual IDrawColor ClassColor { get; }
 
         public virtual void AddClassPerk() { }
 

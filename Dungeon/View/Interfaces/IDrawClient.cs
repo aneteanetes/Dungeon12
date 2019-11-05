@@ -9,7 +9,7 @@
 
         void SetScene(IScene scene);
 
-        Point MeasureText(IDrawText drawText);
+        Point MeasureText(IDrawText drawText,ISceneObject parent=default);
 
         Point MeasureImage(string image);
 

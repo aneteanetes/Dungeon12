@@ -108,7 +108,7 @@ namespace Dungeon12.Noone.Talants.Absordibng
                     {
                         enemy.Die?.Invoke();
 
-                        var expr = RandomRogue.Next(4, 16);
+                        var expr = RandomDungeon.Next(4, 16);
                         avatar.Character.EXP += expr;
 
                         ability.UseEffects?.Invoke(new PopupString($"Вы получаете {expr} опыта!", ConsoleColor.DarkMagenta, avatar.Location, 25, 12, 0.06).InList<ISceneObject>());

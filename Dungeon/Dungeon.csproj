@@ -13,6 +13,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='CompileDatabase|AnyCPU'">
     <DefineConstants>TRACE;Core</DefineConstants>
   </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\**\*" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="LiteDB" Version="4.1.4" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />

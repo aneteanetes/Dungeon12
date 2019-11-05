@@ -16,7 +16,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Timers;
-    using RandomRogue = Dungeon.RandomRogue;
+    using RandomDungeon = Dungeon.RandomDungeon;
 
     public class EnemySceneObject : AnimatedSceneObject<Mob>
     {
@@ -128,19 +128,19 @@
             if (moveDistance == 0)
             {
                 moves.Clear();
-                var next = RandomRogue.Next(0, 10);
+                var next = RandomDungeon.Next(0, 10);
                 if (next > 5)
                 {
-                    var direction = RandomRogue.Next(0, 4);
+                    var direction = RandomDungeon.Next(0, 4);
                     moves.Add(direction);
 
-                    var diagonally = RandomRogue.Next(0, 4);
+                    var diagonally = RandomDungeon.Next(0, 4);
                     if (diagonally != direction && NotPair(direction, diagonally))
                     {
                         moves.Add(diagonally);
                     }
 
-                    moveDistance = RandomRogue.Next(100, 300);
+                    moveDistance = RandomDungeon.Next(100, 300);
                 }
             }
         }
@@ -153,7 +153,7 @@
         {
             var player = avatar.Character;
 
-            var value = (long)RandomRogue.Next(2, 7);
+            var value = (long)RandomDungeon.Next(2, 7);
 
             var dmg = value - player.Defence;
 
@@ -363,7 +363,7 @@
                 if (showExp)
                 {
                     var min = MobObj.Enemy.Level * 4;
-                    var expr = RandomRogue.Next(min, min * 2);
+                    var expr = RandomDungeon.Next(min, min * 2);
                     playerSceneObject.Avatar.Character.Exp(MobObj.Exp);
                     effects.Add(new PopupString($"Вы получаете {expr} опыта!", ConsoleColor.DarkMagenta, playerSceneObject.Avatar.Location, 25, 12, 0.06));
                 }

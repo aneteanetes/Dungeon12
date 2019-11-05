@@ -4,7 +4,7 @@ using Dungeon.View.Interfaces;
 
 namespace Dungeon.Drawing
 {
-    public class DrawColor : IDrawColor
+    public partial class DrawColor : IDrawColor
     {
         public DrawColor(ConsoleColor consoleColor)
         {

@@ -12,7 +12,7 @@
     /// Абстрактный класс персонажа
     /// </summary>
     public abstract partial class Character : Moveable
-    {   
+    {
         private void BindClassStats()
         {
             var props = this.GetType().GetProperties()
@@ -36,7 +36,9 @@
 
                 var stat = new ClassStat(group.Key, group.Select(x => x.Property.Name), value, first.Attribute.Color)
                 {
-                    Group = first.Attribute.Group
+                    Group = first.Attribute.Group,
+                    Description = group?.FirstOrDefault(x=>x.Attribute.Description!=null).Attribute.Description,
+                    Image = $"{Global.GameAssemblyName}/{this.GetType().Name}/Resources/Images/Stats/{first.Property.Name}.png".Embedded()
                 };
 
                 this.ClassStats.Add(stat);

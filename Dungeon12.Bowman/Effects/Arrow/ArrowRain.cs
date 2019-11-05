@@ -72,7 +72,7 @@ namespace Dungeon12.Bowman.Effects
 
                 _gameMap.All<Mob>(rangeObj).ForEach(mob =>
                 {
-                    long Damage = RandomRogue.Range(2, 11);
+                    long Damage = RandomDungeon.Range(2, 11);
                     mob.Flow(t => t.Damage(true), new { Damage });
                 });
             }

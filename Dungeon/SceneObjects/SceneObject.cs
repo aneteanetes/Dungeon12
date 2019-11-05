@@ -166,7 +166,7 @@
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        protected Point MeasureText(IDrawText text) => Global.DrawClient.MeasureText(text);
+        protected Point MeasureText(IDrawText text, SceneObject parent=default) => Global.DrawClient.MeasureText(text, parent);
 
         /// <summary>
         /// измеряет изображение и возвращает уже в формате координат

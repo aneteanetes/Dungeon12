@@ -114,6 +114,8 @@
 
         protected bool InFocus { get; private set; }
 
+        public virtual bool HideCursor { get; set; }
+
         public virtual void Focus()
         {
             InFocus = true;
@@ -121,13 +123,17 @@
             {
                 Global.DrawClient.SetCursor(("Cursors." + Cursor + ".png").PathImage());
             }
+            if (HideCursor)
+            {
+                Global.DrawClient.SetCursor("1px.png".AsmImgRes());
+            }
             dynamicEvents[nameof(Focus)]?.DynamicInvoke();
         }
 
         public virtual void Unfocus()
         {
             InFocus = false;
-            if (Cursor != null)
+            if (Cursor != null || HideCursor)
             {
                 Global.DrawClient.SetCursor("Cursors.common.png".PathImage());
             }

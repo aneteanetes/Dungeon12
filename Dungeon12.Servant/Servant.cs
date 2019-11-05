@@ -2,6 +2,8 @@
 using Dungeon.Abilities;
 using Dungeon.Abilities.Talants.TalantTrees;
 using Dungeon.Classes;
+using Dungeon.Drawing;
+using Dungeon.View.Interfaces;
 using Dungeon12.Servant.Abilities;
 using Dungeon12.Servant.Talants;
 using System;
@@ -17,6 +19,8 @@ namespace Dungeon12.Servant
         public override string Avatar => "servant.png".AsmImgRes();
 
         public override string ClassName => "Слуга веры";
+
+        public override IDrawColor ClassColor => DrawColor.SlateBlue;
 
         public override string ResourceName => "Сила веры";
 
@@ -65,10 +69,10 @@ namespace Dungeon12.Servant
             }
         }
 
-        [ClassStat("Лечение", ConsoleColor.Yellow)]
+        [ClassStat("Лечение", ConsoleColor.Yellow,"Все исцеляющие заклинания или имеющие компонент исцеления в способности исцеляют больше на величину характеристики.")]
         public long HealPower { get; set; }
 
-        [ClassStat("Урон", ConsoleColor.Blue, 1)]
+        [ClassStat("Урон", ConsoleColor.Blue, 1,"К наносимому урону добавляется количество характеристики, а так же, к физическому урону добавляется магический урон равный проценту урона от нанесённого.")]
         public long DamagePower { get; set; }
     }
 }

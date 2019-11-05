@@ -13,6 +13,7 @@
     using System.Collections.Generic;
     using Dungeon.Classes;
     using Dungeon.Drawing;
+    using Dungeon.View.Interfaces;
 
     public class Noone : Dungeon12Class
     {
@@ -32,8 +33,10 @@
 
         public override string Avatar => "Images/noone.png".NoonePath();
 
-        public override string ClassName { get => "Приключенец"; }
-        
+        public override string ClassName { get => "Страж"; }
+
+        public override IDrawColor ClassColor => DrawColor.SaddleBrown;
+
         public override string ResourceName => "Действия";
 
         public override string Resource => this.Actions.ToString();
@@ -54,16 +57,16 @@
 
         public override string Tileset => "Images/sprite.png".NoonePath();
 
-        [ClassStat("Блок", ConsoleColor.DarkGreen, 1)]
+        [ClassStat("Блок", ConsoleColor.DarkGreen, 1,"При получении урона есть шанс равный блоку уменьшить урон на процентное соотношение равное блоку.")]
         public long Block { get; set; }
 
-        [ClassStat("Паррирование", ConsoleColor.Yellow, 1)]
+        [ClassStat("Паррирование", ConsoleColor.Yellow, 1,"При атаке есть шанс равный паррированию что полученные удары в ближнем бою во время этой атаки станут скользящими - нанесут только треть урона.")]
         public long Parry { get; set; }
 
-        [ClassStat("Выносливость", ConsoleColor.DarkRed)]
+        [ClassStat("Выносливость", ConsoleColor.DarkRed, "Каждая единица выносливости увеличивает здоровье на 2 еденицы")]
         public long Stamina { get; set; }
 
-        [ClassStat("Броня", ConsoleColor.DarkCyan)]
+        [ClassStat("Броня", ConsoleColor.DarkCyan,"Броня уменьшает урон от критических и других видов атак в ближнем бою на прямое кол-во урона.")]
         public long Armor { get; set; }
 
         public AbsorbingTalants Absorbing { get; set; } = new AbsorbingTalants();

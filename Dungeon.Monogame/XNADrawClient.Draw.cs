@@ -158,7 +158,7 @@
             _frame++;
         }
 
-        public Dungeon.Types.Point MeasureText(IDrawText drawText)
+        public Dungeon.Types.Point MeasureText(IDrawText drawText, ISceneObject parent=default)
         {
             string customFont = null;
             if (drawText.FontName != null)
@@ -168,7 +168,18 @@
 
             var font = Content.Load<SpriteFont>(customFont ?? "Triforce/Triforce30");
 
-            var m = font.MeasureString(drawText.StringData);
+            var data = drawText.StringData;
+
+            if(drawText.WordWrap && parent!=default)
+            {
+                var parentWidth = parent.Position.Width;
+                if (parentWidth > 0)
+                {
+                    data = WrapText(font, data, parentWidth*32);
+                }
+            }
+
+            var m = font.MeasureString(data);
 
             return new Dungeon.Types.Point(m.X, m.Y);
         }
@@ -547,12 +558,19 @@
             SpriteBatchRestore?.Invoke(false);
         }
 
-        private static string WrapText(SpriteFont font, string text, double maxLineWidth)
+        private static string WrapText(SpriteFont font, string text, double maxLineWidth,int counter=0,string original=default)
         {
+            if (original == default)
+            {
+                original = text;
+            }
             string[] words = text.Split(' ');
             StringBuilder sb = new StringBuilder();
             float lineWidth = 0f;
             float spaceWidth = font.MeasureString(" ").X;
+
+            if (counter > 20)
+                return text;
 
             if (maxLineWidth < spaceWidth)
                 return text; //попытка избежать stackoverflowexception
@@ -572,11 +590,11 @@
                     {
                         if (sb.ToString() == "")
                         {
-                            sb.Append(WrapText(font, word.Insert(word.Length / 2, " ") + " ", maxLineWidth));
+                            sb.Append(WrapText(font, word.Insert(word.Length / 2, " ") + " ", maxLineWidth, ++counter,original));
                         }
                         else
                         {
-                            sb.Append(Environment.NewLine + WrapText(font, word.Insert(word.Length / 2, " ") + " ", maxLineWidth));
+                            sb.Append(Environment.NewLine + WrapText(font, word.Insert(word.Length / 2, " ") + " ", maxLineWidth, ++counter, original));
                         }
                     }
                     else

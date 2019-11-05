@@ -11,7 +11,7 @@
     {
         public Empty()
         {
-            var randomX = Dungeon.RandomRogue.Next(0, 8);
+            var randomX = Dungeon.RandomDungeon.Next(0, 8);
             this.region = new Rectangle
             {
                 X = 24 * randomX,

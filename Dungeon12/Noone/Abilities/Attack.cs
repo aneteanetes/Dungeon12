@@ -65,7 +65,7 @@
                 {
                     enemy.Die?.Invoke();
 
-                    var expr = RandomRogue.Next(4, 16);
+                    var expr = RandomDungeon.Next(4, 16);
                     avatar.Character.EXP += expr;
                     this.UseEffects(new List<ISceneObject>()
                     {
@@ -86,7 +86,7 @@
 
         protected override void Dispose(GameMap gameMap, Avatar avatar, Noone @class) { }
 
-        public override double Value => Dungeon.RandomRogue.Next(10,30);
+        public override double Value => Dungeon.RandomDungeon.Next(10,30);
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.EffectInstant;
 

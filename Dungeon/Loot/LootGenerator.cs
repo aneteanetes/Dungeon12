@@ -1,12 +1,10 @@
 ﻿namespace Dungeon.Loot
 {
     using Dungeon.Classes;
+    using Dungeon.Drawing;
     using Dungeon.Items;
     using Dungeon.Items.Enums;
     using Dungeon.Items.Types;
-    using Dungeon.Loot.Utils;
-    using Dungeon.View.Interfaces;
-    using System.Linq;
 
     public static class LootGenerator
     {
@@ -14,7 +12,7 @@
         {
             return new LootContainer()
             {
-                Gold = RandomRogue.Next(0, 20),
+                Gold = RandomDungeon.Next(0, 20),
                 Items = new System.Collections.Generic.List<Item>()
                 {
                     new Weapon()

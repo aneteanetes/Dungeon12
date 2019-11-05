@@ -64,14 +64,14 @@
             {
                 moves.Clear();
 
-                var direction = RandomRogue.Next(0, 4);
+                var direction = RandomDungeon.Next(0, 4);
 
                 if (DirectionMap[direction].dir == lastClosedDirection)
                     return;
 
                 moves.Add(direction);
 
-                var diagonally = RandomRogue.Next(0, 4);
+                var diagonally = RandomDungeon.Next(0, 4);
                 if (diagonally != direction && NotPair(direction, diagonally))
                 {
                     moves.Add(diagonally);

@@ -21,7 +21,7 @@ namespace Dungeon12.Noone.Talants.Absordibng
                 {
                     enemy.Die?.Invoke();
 
-                    var expr = RandomRogue.Next(4, 16);
+                    var expr = RandomDungeon.Next(4, 16);
                     Avatar.Character.EXP += expr;
                     attack.UseEffects(new List<ISceneObject>()
                     {
