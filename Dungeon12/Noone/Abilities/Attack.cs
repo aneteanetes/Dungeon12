@@ -40,7 +40,6 @@
         protected override void Use(GameMap gameMap, Avatar avatar, Noone @class)
         {
             @class.InParry = true;
-            Console.WriteLine("in parry");
             Global.AudioPlayer.Effect("attack".NooneSoundPath());
 
             var rangeObject = new MapObject
@@ -86,7 +85,6 @@
                     new PopupString(value.ToString()+(critical ? "!" : ""), critical ? ConsoleColor.Red : ConsoleColor.White,enemy.Location,25,critical ? 14 : 12,0.06)
                 });
             }
-            Console.WriteLine("without parry");
             @class.InParry = false;
         }
 

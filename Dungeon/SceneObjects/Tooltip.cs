@@ -9,6 +9,8 @@
 
     public class Tooltip : DarkRectangle
     {
+        public override bool Filtered => false;
+
         public override bool CacheAvailable => false;
 
         public override bool Interface => true;
@@ -30,7 +32,8 @@
             this.Width = (textSize.X / 32) + 0.5;
             this.Height = textSize.Y / 32;
 
-            this.AddTextCenter(drawText);
+            var text = this.AddTextCenter(drawText);
+            text.Filtered = false;
 
             base.Left = position.X - this.Width / 2.4;
             this.Top = position.Y;

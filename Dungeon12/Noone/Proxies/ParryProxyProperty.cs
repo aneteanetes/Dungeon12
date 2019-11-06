@@ -17,16 +17,13 @@ namespace Dungeon12.Noone.Proxies
             if (v < Now && noone.InParry)
             {
                 var dmg = Now - v;
-                var i = RandomDungeon.Next(1, 101);
-                if (i <= noone.Parry)
+
+                var parried = dmg / 2;
+                dmg -= parried;
+                if (parried > 0)
                 {
-                    var parried = dmg / 2;
-                    dmg -= parried;
-                    if (parried > 0)
-                    {
-                        Cooldown.Done(Attack.AttackCooldown);
-                        Message($"Паррировано: {parried}!", DrawColor.Red);
-                    }
+                    Cooldown.Done(Attack.AttackCooldown);
+                    Message($"Паррировано: {parried}!", DrawColor.Red);
                 }
 
                 if (v < dmg)
