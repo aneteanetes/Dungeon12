@@ -28,5 +28,11 @@
         /// </summary>
         /// <param name="object"></param>
         void CacheObject(ISceneObject @object);
+
+        /// <summary>
+        /// Кэширование изображения
+        /// </summary>
+        /// <param name="image">Путь к изображению</param>
+        void CacheImage(string image);
     }
 }

@@ -22,9 +22,9 @@
     {
         public Ability()
         {
-            this.Image = DefaultPath();
+            this.Image = DefaultPath().Cache();
 
-            this.Image_B = DefaultPath(true);
+            this.Image_B = DefaultPath(true).Cache();
         }
 
         /// <summary>

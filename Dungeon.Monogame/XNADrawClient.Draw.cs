@@ -864,6 +864,11 @@
             }
         }
 
+        public void CacheImage(string image)
+        {
+            TileSetByName(image);
+        }
+
         private void CacheImageMask(Texture2D image, ISceneObject sceneObject)
         {
             var uid = sceneObject.Image;
@@ -879,9 +884,9 @@
             }
 
             var cache = MaskCache[uid];
-            for (float i = 0f; i < 1; i += 0.001f)
+            for (float i = 0f; i < 1; i += 0.01f)
             {
-                var v = (float)Math.Round(i);
+                var v = (float)Math.Round(i,2);
                 if (!cache.ContainsKey(v))
                 {
                     cache.Add(v, MakeMask(image, v, mask.Color.Convert(), mask.Opacity));

@@ -1,10 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using Dungeon.View.Interfaces;
 
 namespace Dungeon
 {
     public static class StringPathExtensions
     {
+        /// <summary>
+        /// <see cref="Global"/>.<see cref="IDrawClient.CacheImage"/>
+        /// </summary>
+        /// <param name="imgPath"></param>
+        /// <returns></returns>
+        public static string Cache(this string imgPath)
+        {
+            Global.DrawClient.CacheImage(imgPath);
+            return imgPath;
+        }
+
         public static string Embedded(this string path) => path.Replace(@"\", ".").Replace(@"/", ".");
 
         public static string PathImage(this string path) => Global.GameAssemblyName + ".Resources.Images." + path.Embedded();
