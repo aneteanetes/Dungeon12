@@ -80,10 +80,7 @@
             if (moveDistance != 0)
             {
                 moveDistance--;
-                foreach (var move in moves)
-                {
-                    Move(DirectionMap[move]);
-                }
+                Move();
             }
         }
 
@@ -119,7 +116,7 @@
 
                 if (!this.MobObj.IsChasing)
                 {
-                    moves.Clear();
+                    moveDir = Direction.Idle;
                     moveDistance = 0;
                     Chasing(player as Avatar);
                 }
@@ -127,21 +124,21 @@
 
             if (moveDistance == 0)
             {
-                moves.Clear();
-                var next = RandomDungeon.Next(0, 10);
-                if (next > 5)
+                switch (RandomDungeon.Range(0, 7))
                 {
-                    var direction = RandomDungeon.Next(0, 4);
-                    moves.Add(direction);
-
-                    var diagonally = RandomDungeon.Next(0, 4);
-                    if (diagonally != direction && NotPair(direction, diagonally))
-                    {
-                        moves.Add(diagonally);
-                    }
-
-                    moveDistance = RandomDungeon.Next(100, 300);
+                    case 0: moveDir = Direction.Up; break;
+                    case 1: moveDir = Direction.Down; break;
+                    case 2: moveDir = Direction.Left; break;
+                    case 3: moveDir = Direction.Right; break;
+                    case 4: moveDir = Direction.UpLeft; break;
+                    case 5: moveDir = Direction.UpRight; break;
+                    case 6: moveDir = Direction.DownLeft; break;
+                    case 7: moveDir = Direction.DownRight; break;
+                    default:
+                        break;
                 }
+
+                moveDistance = RandomDungeon.Next(100, 300);
             }
         }
 
@@ -180,24 +177,44 @@
         private void Chasing(Avatar avatar)
         {
             this.MobObj.IsChasing = true;
-            if (avatar.Position.X <= this.MobObj.Position.X)
+
+            var playerPos = avatar.Position;
+            var thisPos = this.MobObj.Position;
+
+            Direction dirX = Direction.Idle;
+            Direction dirY = Direction.Idle;
+
+            if (playerPos.X <= thisPos.X)
             {
-                this.moves.Add(2);
+                dirX = Direction.Left;
             }
-            if (avatar.Position.X >= this.MobObj.Position.X)
+            if (playerPos.X >= thisPos.X)
             {
-                this.moves.Add(3);
+                dirX = Direction.Right;
             }
-            if (avatar.Position.Y >= this.MobObj.Position.Y)
+
+            if (playerPos.Y >= thisPos.Y)
             {
-                this.moves.Add(1);
+                dirY = Direction.Up;
             }
-            if (avatar.Position.Y <= this.MobObj.Position.Y)
+
+            if (playerPos.Y <= thisPos.Y)
             {
-                this.moves.Add(0);
+                dirY = Direction.Down;
             }
+
+            moveDir = (Direction)((int)dirX + (int)dirY);
+
             moveDistance = 60;
         }
+
+        //private readonly Dictionary<int, (Direction dir, Vector vect, Func<Moveable, AnimationMap> anim)> DirectionMap = new Dictionary<int, (Direction, Vector, Func<Moveable, AnimationMap>)>
+        //{
+        //    { 0, (Direction.Up, Vector.Minus, m=>m.MoveUp) },
+        //    { 1,(Direction.Down, Vector.Plus, m=>m.MoveDown) },
+        //    { 2,(Direction.Left, Vector.Minus, m=>m.MoveLeft) },
+        //    { 3,(Direction.Right, Vector.Plus, m=>m.MoveRight) },
+        //};
 
         private bool NotPair(int common, int additional)
         {
@@ -211,45 +228,58 @@
         }
 
         private int moveDistance = 0;
-        private readonly HashSet<int> moves = new HashSet<int>();
+        private Direction moveDir = Direction.Idle;
 
-        private void Move((Direction dir, Vector vect, Func<Moveable, AnimationMap> anim) data)
+        private void Move()
         {
-            switch (data.dir)
+            var moveable = this.MobObj.Enemy;
+            AnimationMap anim = moveable.Idle;
+            var move = moveDir;
+            switch (move)
             {
                 case Direction.Up:
+                    anim = moveable.MoveUp;
+                    this.MobObj.Location.Y -= this.MobObj.MovementSpeed;
+                    break;
                 case Direction.Down:
-                    switch (data.vect)
-                    {
-                        case Vector.Plus:
-                            this.MobObj.Location.Y += this.MobObj.MovementSpeed;
-                            break;
-                        case Vector.Minus:
-                            this.MobObj.Location.Y -= this.MobObj.MovementSpeed;
-                            break;
-                        default:
-                            break;
-                    }
+                    anim = moveable.MoveDown;
+                    this.MobObj.Location.Y += this.MobObj.MovementSpeed;
                     break;
                 case Direction.Left:
+                    anim = moveable.MoveLeft;
+                    this.MobObj.Location.X -= this.MobObj.MovementSpeed;
+                    break;
                 case Direction.Right:
-                    switch (data.vect)
-                    {
-                        case Vector.Plus:
-                            this.MobObj.Location.X += this.MobObj.MovementSpeed;
-                            break;
-                        case Vector.Minus:
-                            this.MobObj.Location.X -= this.MobObj.MovementSpeed;
-                            break;
-                        default:
-                            break;
-                    }
+                    anim = moveable.MoveRight;
+                    this.MobObj.Location.X += this.MobObj.MovementSpeed;
+                    break;
+                case Direction.UpLeft:
+                    anim = moveable.MoveUp;
+                    this.MobObj.Location.Y -= this.MobObj.MovementSpeed;
+                    this.MobObj.Location.X -= this.MobObj.MovementSpeed;
+                    break;
+                case Direction.UpRight:
+                    anim = moveable.MoveUp;
+                    this.MobObj.Location.Y -= this.MobObj.MovementSpeed;
+                    this.MobObj.Location.X += this.MobObj.MovementSpeed;
+                    break;
+                case Direction.DownLeft:
+                    anim = moveable.MoveDown;
+                    this.MobObj.Location.Y += this.MobObj.MovementSpeed;
+                    this.MobObj.Location.X -= this.MobObj.MovementSpeed;
+                    break;
+                case Direction.DownRight:
+                    anim = moveable.MoveDown;
+                    this.MobObj.Location.Y += this.MobObj.MovementSpeed;
+                    this.MobObj.Location.X += this.MobObj.MovementSpeed;
                     break;
                 default:
                     break;
             }
-            SetAnimation(data.anim(this.MobObj.Enemy));
-            if (!CheckMoveAvailable(data.dir))
+
+            SetAnimation(anim);
+
+            if (!CheckMoveAvailable(move))
             {
                 moveDistance = 0;
             }

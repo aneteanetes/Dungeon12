@@ -22,28 +22,46 @@ namespace Dungeon
                 .Reverse();
         }
 
-        public T Get<T>(T value, string proxyId, Func<object> get, Action<object> set, object owner, TypeAccessor ownerAccessor, string propName, params ProxyProperty[] additional)
+        public T Get<T>(T value, string proxyId, Func<object> get, Action<object> set, object owner, TypeAccessor ownerAccessor, string propName, List<ProxyProperty> additional)
         {
-            return Proxies.Concat(additional).Reduce(value, (p, v) =>
+            T reduce(ProxyProperty p, T v)
             {
                 p.Name = propName;
                 p.owner = owner;
                 p.ownerAccessor = ownerAccessor;
                 p.BindAccessors(get, set);
                 return p.Get(v, proxyId);
-            });
+            }
+
+            var result = Proxies.Reduce(value, reduce);
+
+            if (additional != default)
+            {
+                result = additional.Reduce(result, reduce);
+            }
+
+            return result;
         }
 
-        public T Set<T>(T value, string proxyId, Func<object> get, Action<object> set, object owner, TypeAccessor ownerAccessor, string propName, params ProxyProperty[] additional)
+        public T Set<T>(T value, string proxyId, Func<object> get, Action<object> set, object owner, TypeAccessor ownerAccessor, string propName, List<ProxyProperty> additional)
         {
-            return Proxies.Concat(additional).Reduce(value, (p, v) =>
+            T reduce(ProxyProperty p, T v)
             {
                 p.Name = propName;
                 p.owner = owner;
                 p.ownerAccessor = ownerAccessor;
                 p.BindAccessors(get, set);
                 return p.Set(v, proxyId);
-            });
+            }
+
+            var result = Proxies.Reduce(value, reduce);
+
+            if (additional != default)
+            {
+                result = additional.Reduce(result, reduce);
+            }
+
+            return result;
         }
     }
 }

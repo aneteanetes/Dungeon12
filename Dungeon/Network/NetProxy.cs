@@ -13,15 +13,15 @@ namespace Dungeon.Network
         /// </summary>
         public override T Get<T>(T v, string proxyId)
         {
-            if (!___GetCache.Contains(proxyId))
-            {
-                Global.Events.Subscribe<NetworkReciveEvent>(e =>
-                {
-                    this.__Set(e.Message.As<T>());
-                }, false, proxyId);
+            //if (!___GetCache.Contains(proxyId))
+            //{
+            //    Global.Events.Subscribe<NetworkReciveEvent>(e =>
+            //    {
+            //        this.__Set(e.Message.As<T>());
+            //    }, false, proxyId);
 
-                ___GetCache.Add(proxyId);
-            }
+            //    ___GetCache.Add(proxyId);
+            //}
 
             return v;
         }
@@ -30,7 +30,7 @@ namespace Dungeon.Network
         
         public override T Set<T>(T v, string proxyId)
         {
-            Global.Events.Raise(new NetworkSendEvent(v) { Recipient = proxyId }, proxyId);
+            //Global.Events.Raise(new NetworkSendEvent(v) { Recipient = proxyId }, proxyId);
             return v;
         }
     }

@@ -21,7 +21,7 @@ namespace Dungeon.Entites.Alive
         /// </summary>
         [Proxied(typeof(NetProxy), typeof(Limit))]
         public long HitPoints { get => Get(___HitPoints, typeof(Alive).AssemblyQualifiedName); set => Set(value, typeof(Alive).AssemblyQualifiedName); }
-        public long ___HitPoints;
+        private long ___HitPoints;
         
         /// <summary>
         /// 
