@@ -18,15 +18,23 @@ namespace Dungeon.Abilities
             {
                 this.Timer = new System.Timers.Timer(milliseconds);
                 this.Timer.AutoReset = false;
-                this.Timer.Elapsed += (x, y) =>
-                {
-                    cooldowns[name].Watch.Reset();
-                    cooldowns[name].Available = true;
-                    cooldowns[name].IsActive = false;
-                };
+                this.Timer.Elapsed += (x, y) => Done(name);
 
                 cooldowns.Add(name, this);
             }
+        }
+
+        public void Reset() => Done(this.Name);
+
+        /// <summary>
+        /// Сбросить куллдаун до нуля
+        /// </summary>
+        /// <param name="name"></param>
+        public static void Done(string name)
+        {
+            cooldowns[name].Watch.Reset();
+            cooldowns[name].Available = true;
+            cooldowns[name].IsActive = false;
         }
 
         public static Cooldown Make(double milliseconds, string name = null) => new Cooldown(milliseconds, name);

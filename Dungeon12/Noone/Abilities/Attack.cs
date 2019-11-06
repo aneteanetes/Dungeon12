@@ -15,6 +15,8 @@
 
     public class Attack : Ability<Noone,AbsorbingTalants>
     {
+        public const string AttackCooldown = nameof(Noone) + nameof(Attack);
+
         public override int Position => 0;
 
         public override double Spend => 1;
@@ -22,6 +24,8 @@
         public override string Name => "Атака";
 
         public override AbilityTargetType TargetType => AbilityTargetType.TargetAndNonTarget;
+
+        public override Cooldown Cooldown { get; } = new Cooldown(500, AttackCooldown);
 
         public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entites.Enums.Scale.AbilityPower, 0.1);
 
@@ -35,6 +39,8 @@
 
         protected override void Use(GameMap gameMap, Avatar avatar, Noone @class)
         {
+            @class.InParry = true;
+            Console.WriteLine("in parry");
             Global.AudioPlayer.Effect("attack".NooneSoundPath());
 
             var rangeObject = new MapObject
@@ -54,14 +60,11 @@
 
             if (enemy != null)
             {
-                @class.InParry = true;
                 @class.Actions -= 1;
                 var value = (long)this.Value;
 
                 enemy.Enemy.HitPoints -= value;
-
-                //Global.AudioPlayer.Effect(enemy.DamageSound ?? "bat");
-
+                
                 if (enemy.Enemy.HitPoints <= 0)
                 {
                     enemy.Die?.Invoke();
@@ -82,8 +85,9 @@
                 {
                     new PopupString(value.ToString()+(critical ? "!" : ""), critical ? ConsoleColor.Red : ConsoleColor.White,enemy.Location,25,critical ? 14 : 12,0.06)
                 });
-                @class.InParry = false;
             }
+            Console.WriteLine("without parry");
+            @class.InParry = false;
         }
 
         protected override void Dispose(GameMap gameMap, Avatar avatar, Noone @class) { }

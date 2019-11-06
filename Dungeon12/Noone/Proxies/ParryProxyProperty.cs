@@ -1,5 +1,7 @@
 ﻿using Dungeon;
+using Dungeon.Abilities;
 using Dungeon.Drawing;
+using Dungeon12.Noone.Abilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,12 +17,16 @@ namespace Dungeon12.Noone.Proxies
             if (v < Now && noone.InParry)
             {
                 var dmg = Now - v;
-                var i = RandomDungeon.Next(0, 101);
+                var i = RandomDungeon.Next(1, 101);
                 if (i <= noone.Parry)
                 {
-                    var parried = (long)Math.Floor(dmg * (noone.Block / 100d));
+                    var parried = dmg / 2;
                     dmg -= parried;
-                    Message($"Паррировано: {parried}!", DrawColor.Red);
+                    if (parried > 0)
+                    {
+                        Cooldown.Done(Attack.AttackCooldown);
+                        Message($"Паррировано: {parried}!", DrawColor.Red);
+                    }
                 }
 
                 if (v < dmg)

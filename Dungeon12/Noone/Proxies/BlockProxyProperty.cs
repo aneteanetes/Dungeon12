@@ -15,12 +15,15 @@ namespace Dungeon12.Noone.Proxies
             if (v < Now)
             {
                 var dmg = Now - v;
-                var i = RandomDungeon.Next(0, 101);
+                var i = RandomDungeon.Next(1, 101);
                 if (i <= noone.Block)
                 {
                     var block = (long)Math.Floor(dmg * (noone.Block / 100d));
                     dmg -= block;
-                    Message($"Блок: {block}!", DrawColor.Red);
+                    if (block > 0)
+                    {
+                        Message($"Блок: {block}!", DrawColor.Red);
+                    }
                 }
 
                 if (v < dmg)

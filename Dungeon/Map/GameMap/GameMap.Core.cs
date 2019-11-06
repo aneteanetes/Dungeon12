@@ -37,14 +37,23 @@
             var moveAreas = Map.Query(@object,true);
             if (moveAreas.Count > 0)
             {
-                var mapObjs = moveAreas.ToArray()
-                    .SelectMany(x => x.Nodes.ToArray())
-                    .Where(node => node != @object)
-                    .Where(node => @object.IntersectsWith(node))
-                    .ToArray();
-
-                moveAvailable = !mapObjs.Any(x => x.Obstruction);
+                foreach (var moveArea in moveAreas)
+                {
+                    foreach (var node in moveArea.Nodes)
+                    {
+                        if (node != @object && node.IntersectsWith(@object))
+                        {
+                            if (node.Obstruction)
+                            {
+                                moveAvailable = false;
+                                goto moveDetected;
+                            }
+                        }
+                    }
+                }
             }
+
+            moveDetected:
 
             if (moveAvailable)
             {
