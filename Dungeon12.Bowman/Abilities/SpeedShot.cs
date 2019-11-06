@@ -41,9 +41,19 @@ namespace Dungeon12.Bowman.Abilities
         {
             @class.Energy.LeftHand -= 15;
 
-            var arrow = new ArrowObject(avatar.VisionDirection, 4 + @class.Range, 15, 0.06);
+            var baseSpeed = 0.045;
+            var speed = baseSpeed;
 
-            this.UseEffects(new Arrow(gameMap, arrow, avatar.VisionDirection,new Dungeon.Types.Point(avatar.Position.X / 32, avatar.Position.Y / 32)).InList<ISceneObject>());
+            if (@class.AttackSpeed > 0)
+            {
+                speed+=@class.AttackSpeed / 1000d;
+            }
+
+            var range = @class.Range / 15;
+
+            var arrow = new ArrowObject(avatar.VisionDirection, 4 + range, 15, speed);
+
+            this.UseEffects(new Arrow(@class,gameMap, arrow, avatar.VisionDirection,new Dungeon.Types.Point(avatar.Position.X / 32, avatar.Position.Y / 32)).InList<ISceneObject>());
         }
     }
 }

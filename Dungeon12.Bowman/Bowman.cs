@@ -69,10 +69,10 @@ namespace Dungeon12.Bowman
         }
 
         [ClassStat("Скорость атаки", ConsoleColor.White, "Уменьшает куллдаун способностей напрямую использующих лук в соотношении 1к5. Так же незначительно увеличивает скорость полёта стрел.")]
-        public long AtackSpeed { get; set; } = 1;
+        public long AttackSpeed { get; set; } = 1;
 
         [ClassStat("Дальность", ConsoleColor.DarkYellow, "Увеличивает дальность полёта стрел для ккаждых 15 едениц на 1 клетку, а так же радиус других способностей использующих стрелы в зависимости от способности.")]
-        public long Range { get; set; } = 3;
+        public long Range { get; set; } = 15;
 
         [ClassStat("Пронзание", ConsoleColor.Yellow, 1,"Позволяет игнорировать защиту врага на величину характеристики. Так же, каждые 6 едениц дают 1% шанс что обычная стрела пролетит на сквозь.")]
         public long ArmorPenetration { get; set; }

@@ -39,7 +39,7 @@ namespace Dungeon12.Bowman.Abilities
 
             move(false);
 
-            var plusSpeed = @class.AtackSpeed * 0.5;
+            var plusSpeed = 0.5;
             avatar.MovementSpeed += plusSpeed;
 
             var posX = avatar.Position.X;

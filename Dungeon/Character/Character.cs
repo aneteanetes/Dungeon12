@@ -73,9 +73,9 @@
         /// </summary>
         public void Recalculate()
         {
+            FreeProxyProperties();
 
         }
-
         public ClassStat ClassStat<TClass>(Expression<Func<TClass, long>> accessor, ConsoleColor color, int group=0)
         {
             if (!(this is TClass @class))

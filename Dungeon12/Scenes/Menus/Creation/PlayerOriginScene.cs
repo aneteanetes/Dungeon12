@@ -38,6 +38,7 @@
                         default:break;
                     }
 
+                    PlayerAvatar.Character.Recalculate();
                     if (anotherClass != null)
                     {
                         var to = anotherClass;

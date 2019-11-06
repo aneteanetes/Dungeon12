@@ -179,6 +179,11 @@ namespace Dungeon.Proxy
 
         public virtual void InitProxyProperties() { }
 
+        public virtual void FreeProxyProperties()
+        {
+            this.Additionals.Clear();
+        }
+
         public void AddProxyProperty(string property, ProxyProperty proxyProperty)
         {
             if (!Additionals.ContainsKey(property))
@@ -187,6 +192,14 @@ namespace Dungeon.Proxy
             }
 
             Additionals[property].Add(proxyProperty);
+        }
+
+        public void RemoveProxyProperty(string property, ProxyProperty proxyProperty)
+        {
+            if (Additionals.ContainsKey(property))
+            {
+                Additionals[property].Remove(proxyProperty);
+            }
         }
 
         #region Drawable

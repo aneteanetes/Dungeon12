@@ -3,6 +3,7 @@ using Dungeon.Control.Pointer;
 using Dungeon.Drawing.Impl;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Drawing.SceneObjects.Map;
+using Dungeon.Entites.Animations;
 using Dungeon.Map;
 using Dungeon.Map.Objects;
 using Dungeon.Physics;
@@ -18,7 +19,12 @@ namespace Dungeon12.Bowman.Effects
     {
         private GameMap _gameMap;
 
-        public Arrow(GameMap gameMap, ArrowObject arrow, Direction dir,Point from, bool effect=false) : base(null,arrow, "", new Rectangle()
+        private Point destination;
+        private MapObject destinationArea;
+        private MapObject thisArea;
+        private Bowman bowman;
+
+        public Arrow(Bowman bowman, GameMap gameMap, ArrowObject arrow, Direction dir, Point from, bool effect = false) : base(null, arrow, "", new Rectangle()
         {
             Height = 32,
             Width = 32,
@@ -29,13 +35,27 @@ namespace Dungeon12.Bowman.Effects
                         : dir == Direction.Up ? 96 : 0))
         })
         {
+            arrow.Size = new PhysicalSize() { Height = 16, Width = 16 };
             _gameMap = gameMap;
+            destination = Global.PointerLocation.GameCoordinates;
+
+            destinationArea = new MapObject()
+            {
+                Location = new Point(destination),
+                Size = new PhysicalSize() { Height = 32, Width = 32 }
+            };
 
             this.Width = 1;
             this.Height = 1;
 
             this.Left = from.X;
             this.Top = from.Y;
+
+            thisArea = new MapObject()
+            {
+                Location = new Point(this.Left,this.Top),
+                Size = arrow.Size.Copy()
+            };
 
             this.Image = @object.Image;
             SetAnimation(@object.Animation);
@@ -45,7 +65,7 @@ namespace Dungeon12.Bowman.Effects
 
             if (effect)
             {
-                this.AddChild(new Might(dir == Direction.Left || dir == Direction.Right, dir== Direction.Left, dir== Direction.Right));
+                this.AddChild(new Might(dir == Direction.Left || dir == Direction.Right, dir == Direction.Left, dir == Direction.Right));
             }
         }
 
@@ -119,17 +139,16 @@ namespace Dungeon12.Bowman.Effects
 
         private void CalculatePath()
         {
-            var dest = Global.PointerLocation.GameCoordinates;
-            var xDiff =dest.X - this.Left;
-            var yDiff = dest.Y - this.Top;
-            
+            var xDiff = destination.X - this.Left;
+            var yDiff = destination.Y - this.Top;
+
             VectorDir xVector = xDiff < 0 ? VectorDir.Minus : VectorDir.Plus;
             VectorDir yVector = yDiff < 0 ? VectorDir.Minus : VectorDir.Plus;
 
             xDiff = Math.Abs(xDiff);
             yDiff = Math.Abs(yDiff);
 
-            if(xDiff>@object.Range)
+            if (xDiff > @object.Range)
             {
                 xDiff = @object.Range;
             }
@@ -142,13 +161,14 @@ namespace Dungeon12.Bowman.Effects
             var ySteps = yDiff / @object.Speed;
 
             var countPaths = xSteps > ySteps ? xSteps : ySteps;
+            var distance = xSteps > ySteps ? xDiff : yDiff;
 
             var xStepSpeed = @object.Speed;
             var yStepSpeed = @object.Speed;
 
             if (xSteps > ySteps)
             {
-                var moreDiff= ySteps / xSteps; //больше в N раз
+                var moreDiff = ySteps / xSteps; //больше в N раз
                 yStepSpeed *= moreDiff;
             }
 
@@ -158,9 +178,7 @@ namespace Dungeon12.Bowman.Effects
                 xStepSpeed *= moreDiff;
             }
 
-            countPaths /= 24;
-
-            for (double i = 0; i < countPaths; i += @object.Speed)
+            for (double i = 0; i < distance; i += @object.Speed)
             {
                 Trajectory.Enqueue(new Point(xStepSpeed, yStepSpeed)
                 {
@@ -177,36 +195,7 @@ namespace Dungeon12.Bowman.Effects
         }
 
         public override Rectangle ImageRegion => base.ImageRegion;
-
-        protected override void DrawLoop()
-        {
-            if (Trajectory.Count == 0)
-            {
-                RequestStop();
-                return;
-            }
-
-            var step = Trajectory.Dequeue();
-
-            if (step.VectorY == VectorDir.Plus)
-            {
-                this.Top += step.Y;
-            }
-            else
-            {
-                this.Top -= step.Y;
-            }
-
-            if (step.VectorX == VectorDir.Plus)
-            {
-                this.Left += step.X;
-            }
-            else
-            {
-                this.Left -= step.X;
-            }
-        }
-
+        
         protected override void AnimationLoop()
         {
             var rangeObject = new MapObject
@@ -234,6 +223,46 @@ namespace Dungeon12.Bowman.Effects
         protected override void OnAnimationStop()
         {
             this.Destroy?.Invoke();
+        }
+
+        protected override void DrawLoop()
+        {
+            if (Trajectory.Count == 0)
+            {
+                RequestStop();
+                return;
+            }
+
+            if (destinationArea.IntersectsWithOrContains(thisArea))
+            {
+                Trajectory.Clear();
+                RequestStop();
+                return;
+            }
+
+            var step = Trajectory.Dequeue();
+
+            if (step.VectorY == VectorDir.Plus)
+            {
+                this.Top += step.Y;
+                thisArea.Location.Y += step.Y;
+            }
+            else
+            {
+                this.Top -= step.Y;
+                thisArea.Location.Y -= step.Y;
+            }
+
+            if (step.VectorX == VectorDir.Plus)
+            {
+                this.Left += step.X;
+                thisArea.Location.X += step.X;
+            }
+            else
+            {
+                this.Left -= step.X;
+                thisArea.Location.X -= step.X;
+            }
         }
     }
 }
