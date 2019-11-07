@@ -1,6 +1,6 @@
 ﻿using Dungeon;
 using Dungeon12;
-using Dungeon.Entites.Animations;
+using Dungeon.Entities.Animations;
 using Dungeon.Physics;
 using Dungeon.Types;
 using System;

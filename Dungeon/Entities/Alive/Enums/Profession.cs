@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Dungeon.Entites.Enums
+namespace Dungeon.Entities.Enums
 {
     public enum Profession
     {

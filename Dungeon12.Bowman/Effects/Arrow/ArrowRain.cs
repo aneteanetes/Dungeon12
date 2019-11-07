@@ -1,6 +1,6 @@
 ﻿using Dungeon;
 using Dungeon.Drawing.Impl;
-using Dungeon.Entites.Enemy;
+using Dungeon.Entities.Enemy;
 using Dungeon.Map;
 using Dungeon.Map.Objects;
 using Dungeon.SceneObjects;

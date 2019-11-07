@@ -1,6 +1,6 @@
-﻿using Dungeon.Entites.Animations;
+﻿using Dungeon.Entities.Animations;
 
-namespace Dungeon.Entites.Alive
+namespace Dungeon.Entities.Alive
 {
     /// <summary>
     /// Умеет атаковать

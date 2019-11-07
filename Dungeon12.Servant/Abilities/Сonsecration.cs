@@ -17,7 +17,7 @@ namespace Dungeon12.Servant.Abilities
 
         public override string Name => "Освящение";
 
-        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entites.Enums.Scale.AbilityPower);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entities.Enums.Scale.AbilityPower);
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.DmgHealInstant;
 

@@ -2,7 +2,7 @@
 {
     using Dungeon.Data;
     using Dungeon.Data.Region;
-    using Dungeon.Entites.Enemy;
+    using Dungeon.Entities.Enemy;
     using Dungeon.Loot;
     using Dungeon.Map.Objects;
     using Dungeon.Physics;

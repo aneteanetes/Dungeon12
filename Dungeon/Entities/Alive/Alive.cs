@@ -1,8 +1,8 @@
-﻿using Dungeon.Entites.Alive.Proxies;
+﻿using Dungeon.Entities.Alive.Proxies;
 using Dungeon.Network;
 using Dungeon.Types;
 
-namespace Dungeon.Entites.Alive
+namespace Dungeon.Entities.Alive
 {
     /// <summary>
     /// Живой, с уровнем
@@ -56,6 +56,8 @@ namespace Dungeon.Entites.Alive
         public void SetFlowContext(object context) => flowContext = context;
 
         public object GetFlowContext() => flowContext;
+
+        public T GetFlowContext<T>() => flowContext;
 
         private IFlowable flowparent = null;
 

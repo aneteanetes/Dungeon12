@@ -2,7 +2,7 @@
 {
     using Dungeon.Data.Attributes;
     using Dungeon.Data.Region;
-    using Dungeon.Entites.Animations;
+    using Dungeon.Entities.Animations;
     using Dungeon.Game;
     using Dungeon.Map.Infrastructure;
     using Dungeon.Merchants;

@@ -4,7 +4,7 @@
     using Dungeon.Data;
     using Dungeon.Data.Perks;
     using Dungeon.Drawing;
-    using Dungeon.Entites.Alive;
+    using Dungeon.Entities.Alive;
     using FastMember;
     using System;
     using System.Collections.Generic;

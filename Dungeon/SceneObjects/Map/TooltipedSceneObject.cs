@@ -2,9 +2,9 @@
 {
     using Dungeon.SceneObjects;
     using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.Entites.Alive;
-    using Dungeon.Entites.Animations;
-    using Dungeon.Entites.Enemy;
+    using Dungeon.Entities.Alive;
+    using Dungeon.Entities.Animations;
+    using Dungeon.Entities.Enemy;
     using Dungeon.Map;
     using Dungeon.Map.Objects;
     using Dungeon.Types;

@@ -29,10 +29,10 @@
                     Character anotherClass = null;
                     switch (o)
                     {
-                        case Dungeon.Entites.Alive.Enums.Origins.Liver:
+                        case Dungeon.Entities.Alive.Enums.Origins.Liver:
                             anotherClass = new Instance("Bowman").Value<Character>();
                             break;
-                        case Dungeon.Entites.Alive.Enums.Origins.Servant:
+                        case Dungeon.Entities.Alive.Enums.Origins.Servant:
                             anotherClass = new Instance("Servant").Value<Character>();
                             break;
                         default:break;

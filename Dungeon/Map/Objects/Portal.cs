@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
-    using Dungeon.Entites.Animations;
+    using Dungeon.Entities.Animations;
     using Dungeon.Map.Infrastructure;
     using Dungeon.Types;
 

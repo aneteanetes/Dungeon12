@@ -1,7 +1,7 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.Map
 {
-    using Dungeon.Entites.Alive;
-    using Dungeon.Entites.Animations;
+    using Dungeon.Entities.Alive;
+    using Dungeon.Entities.Animations;
     using Dungeon.Map;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;

@@ -1,7 +1,7 @@
 ﻿namespace Dungeon.Map.Objects
 {
     using Dungeon.Drawing.SceneObjects.Map;
-    using Dungeon.Entites.Enemy;
+    using Dungeon.Entities.Enemy;
     using Dungeon.Game;
     using Dungeon.Items;
     using Dungeon.Map.Infrastructure;

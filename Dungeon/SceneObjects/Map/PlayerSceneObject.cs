@@ -8,7 +8,7 @@
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.Entites.Animations;
+    using Dungeon.Entities.Animations;
     using Dungeon.Events;
     using Dungeon.Map;
     using Dungeon.Map.Objects;

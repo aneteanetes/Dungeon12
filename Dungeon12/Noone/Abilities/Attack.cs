@@ -27,7 +27,7 @@
 
         public override Cooldown Cooldown { get; } = new Cooldown(500, AttackCooldown);
 
-        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entites.Enums.Scale.AbilityPower, 0.1);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entities.Enums.Scale.AbilityPower, 0.1);
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Left;
 

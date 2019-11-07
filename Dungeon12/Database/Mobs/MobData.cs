@@ -1,6 +1,6 @@
 ﻿namespace Dungeon12.Data.Mobs
 {
-    using Dungeon.Entites.Enemy;
+    using Dungeon.Entities.Enemy;
     using Dungeon.Types;
 
     public class MobData : Dungeon.Data.Persist

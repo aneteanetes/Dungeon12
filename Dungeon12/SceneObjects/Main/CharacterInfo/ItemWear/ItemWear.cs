@@ -11,7 +11,7 @@
     using Dungeon12.Drawing.SceneObjects.Inventories;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.Entites.Alive;
+    using Dungeon.Entities.Alive;
     using Dungeon.Items;
     using Dungeon.Items.Enums;
     using Dungeon.Types;

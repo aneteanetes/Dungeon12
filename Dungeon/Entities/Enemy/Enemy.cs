@@ -1,6 +1,6 @@
-﻿namespace Dungeon.Entites.Enemy
+﻿namespace Dungeon.Entities.Enemy
 {
-    using Dungeon.Entites.Alive;
+    using Dungeon.Entities.Alive;
     using Dungeon.Types;
 
     public class Enemy : Moveable

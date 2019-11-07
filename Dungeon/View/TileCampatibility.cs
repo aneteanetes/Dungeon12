@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Dungeon.Entites;
+using Dungeon.Entities;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 

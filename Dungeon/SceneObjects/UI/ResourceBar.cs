@@ -1,7 +1,7 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.UI
 {
     using Dungeon.Classes;
-    using Dungeon.Entites.Alive;
+    using Dungeon.Entities.Alive;
 
     public abstract class ResourceBar<T> : ResourceBar
         where T: Character

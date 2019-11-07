@@ -1,5 +1,5 @@
 ﻿using Dungeon.Classes;
-using Dungeon.Entites.Alive.Proxies;
+using Dungeon.Entities.Alive.Proxies;
 using Dungeon.Network;
 using Dungeon.Transactions;
 using Dungeon.View.Interfaces;

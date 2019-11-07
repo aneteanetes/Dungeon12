@@ -1,7 +1,7 @@
-﻿namespace Dungeon.Entites.NPC
+﻿namespace Dungeon.Entities.NPC
 {
     using Dungeon.Conversations;
-    using Dungeon.Entites.Alive;
+    using Dungeon.Entities.Alive;
 
     public class NPCMoveable : Moveable
     {

@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Dungeon.Entites.Enums;
+    using Dungeon.Entities.Enums;
 
     public class ScaleRate
     {

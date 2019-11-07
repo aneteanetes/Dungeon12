@@ -20,7 +20,7 @@ namespace Dungeon12.Bowman.Abilities
 
         public override string Name => "Ливень стрел";
 
-        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entites.Enums.Scale.AbilityPower);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entities.Enums.Scale.AbilityPower);
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.DmgHealInstant;
 

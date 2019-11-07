@@ -2,7 +2,7 @@
 {
     using Dungeon.Control;
     using Dungeon.Control.Pointer;
-    using Dungeon.Entites.Animations;
+    using Dungeon.Entities.Animations;
     using Dungeon.Map;
     using Dungeon.Types;
     using System;

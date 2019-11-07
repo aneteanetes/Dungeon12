@@ -1,7 +1,7 @@
 ﻿namespace Dungeon.Classes
 {
-    using Dungeon.Entites.Alive;
-    using Dungeon.Entites.Alive.Enums;
+    using Dungeon.Entities.Alive;
+    using Dungeon.Entities.Alive.Enums;
     using Dungeon.Inventory;
     using System;
     using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace Dungeon.Entites.Enums
+﻿namespace Dungeon.Entities.Enums
 {
     public enum Scale
     {

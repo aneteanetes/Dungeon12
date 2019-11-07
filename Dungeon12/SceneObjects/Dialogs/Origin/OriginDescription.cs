@@ -5,7 +5,7 @@
     using Dungeon.Data.Perks;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Entites.Alive.Enums;
+    using Dungeon.Entities.Alive.Enums;
     using Dungeon.SceneObjects;
     using System;
     using System.Linq;

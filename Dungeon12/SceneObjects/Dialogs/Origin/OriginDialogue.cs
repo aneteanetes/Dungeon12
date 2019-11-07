@@ -5,7 +5,7 @@
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.Entites.Alive.Enums;
+    using Dungeon.Entities.Alive.Enums;
     using Dungeon.SceneObjects;
     using Dungeon.SceneObjects.Base;
     using Dungeon.View.Interfaces;

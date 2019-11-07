@@ -1,7 +1,7 @@
 ﻿namespace Dungeon12.Data.Npcs
 {
     using Dungeon.Conversations;
-    using Dungeon.Entites.NPC;
+    using Dungeon.Entities.NPC;
     using Dungeon.Types;
     using System.Collections.Generic;
 

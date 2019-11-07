@@ -1,4 +1,4 @@
-﻿using Dungeon.Entites.Animations;
+﻿using Dungeon.Entities.Animations;
 using Dungeon.Types;
 using System;
 using System.Collections.Generic;

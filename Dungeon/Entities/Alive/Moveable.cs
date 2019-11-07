@@ -1,11 +1,12 @@
-﻿namespace Dungeon.Entites.Alive
+﻿namespace Dungeon.Entities.Alive
 {
-    using Dungeon.Entites.Animations;
+    using Dungeon.Entities.Animations;
+    using Dungeon.Entities.Alive;
     using Dungeon.Physics;
     using Dungeon.Types;
     using System.Numerics;
 
-    public class Moveable : Modified
+    public class Moveable : Interactable
     {
         /// <summary>
         /// Тащемта, это костыль, но для прототипа нормально

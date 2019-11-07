@@ -2,7 +2,7 @@
 {
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
-    using Dungeon.Entites.Animations;
+    using Dungeon.Entities.Animations;
     using Dungeon.Map;
     using Dungeon.SceneObjects;
     using Dungeon.SceneObjects.Base;

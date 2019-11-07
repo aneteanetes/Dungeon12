@@ -1,10 +1,11 @@
-﻿namespace Dungeon.Entites.Alive
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Dungeon.Transactions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Dungeon.Transactions;
 
+
+namespace Dungeon.Entities.Alive
+{
     /// <summary>
     /// Изменяемый, постоянно или временно
     /// </summary>

@@ -2,7 +2,7 @@
 using Dungeon.Abilities.Talants;
 using Dungeon12.Noone.Abilities;
 using Dungeon.SceneObjects;
-using Dungeon.Entites.Enemy;
+using Dungeon.Entities.Enemy;
 using Dungeon.Map;
 using Dungeon.Map.Objects;
 using Dungeon.Transactions;

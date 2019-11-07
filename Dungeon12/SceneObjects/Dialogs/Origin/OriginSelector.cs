@@ -4,7 +4,7 @@
     using Dungeon.Control;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Entites.Alive.Enums;
+    using Dungeon.Entities.Alive.Enums;
     using System;
 
     public class OriginSelector : ColoredRectangle

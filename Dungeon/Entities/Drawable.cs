@@ -2,7 +2,7 @@
 using Dungeon.View.Interfaces;
 using System;
 
-namespace Dungeon.Entites
+namespace Dungeon.Entities
 {
     /// <summary>
     /// Отрисовываемый

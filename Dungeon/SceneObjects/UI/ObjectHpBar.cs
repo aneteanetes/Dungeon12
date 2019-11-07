@@ -1,6 +1,6 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.UI
 {
-    using Dungeon.Entites.Alive;
+    using Dungeon.Entities.Alive;
     using Dungeon.Proxy;
     using System;
 

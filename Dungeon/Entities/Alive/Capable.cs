@@ -1,4 +1,4 @@
-﻿namespace Dungeon.Entites.Alive
+﻿namespace Dungeon.Entities.Alive
 {
     /// <summary>
     /// Может использовать модификаторы атаки

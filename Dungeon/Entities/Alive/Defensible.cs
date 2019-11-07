@@ -1,6 +1,6 @@
 ﻿using Dungeon.Network;
 
-namespace Dungeon.Entites.Alive
+namespace Dungeon.Entities.Alive
 {
     /// <summary>
     /// Умеет защищаться

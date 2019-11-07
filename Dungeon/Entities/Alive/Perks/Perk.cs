@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dungeon.Entites.Alive
+namespace Dungeon.Entities.Alive
 {
     public abstract class Perk : Applicable, IDrawable
     {

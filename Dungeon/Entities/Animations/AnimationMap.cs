@@ -1,4 +1,4 @@
-﻿namespace Dungeon.Entites.Animations
+﻿namespace Dungeon.Entities.Animations
 {
     using System.Collections.Generic;
     using Dungeon.Types;

@@ -5,7 +5,7 @@
     using Dungeon12.Noone.Abilities;
     using Dungeon12.Noone.Talants;
     using Dungeon12.Noone.Talants.Defensible;
-    using Dungeon.Entites.Animations;
+    using Dungeon.Entities.Animations;
     using Dungeon.Types;
     using System;
     using Dungeon;

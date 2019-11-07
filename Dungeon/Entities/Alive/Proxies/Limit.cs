@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dungeon.Entites.Alive.Proxies
+namespace Dungeon.Entities.Alive.Proxies
 {
     public class Limit : ProxyProperty
     {

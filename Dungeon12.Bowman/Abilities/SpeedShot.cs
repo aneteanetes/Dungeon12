@@ -22,7 +22,7 @@ namespace Dungeon12.Bowman.Abilities
 
         public override string Name => "Быстрый выстрел";
 
-        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entites.Enums.Scale.AttackDamage);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entities.Enums.Scale.AttackDamage);
 
         private Bowman rangeclass;
         protected override bool CanUse(Bowman @class)

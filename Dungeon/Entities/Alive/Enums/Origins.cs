@@ -1,4 +1,4 @@
-﻿namespace Dungeon.Entites.Alive.Enums
+﻿namespace Dungeon.Entities.Alive.Enums
 {
     using System.ComponentModel.DataAnnotations;
 

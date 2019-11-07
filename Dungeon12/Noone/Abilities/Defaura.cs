@@ -1,7 +1,7 @@
 ﻿using Dungeon.Abilities;
 using Dungeon.Abilities.Enums;
 using Dungeon.Abilities.Scaling;
-using Dungeon.Entites.Alive;
+using Dungeon.Entities.Alive;
 using Dungeon.Map;
 using Dungeon.Map.Objects;
 using Dungeon12.Noone.Talants.Defensible;
@@ -17,7 +17,7 @@ namespace Dungeon12.Noone.Abilities
 
         public override string Name => "Аура защитника";
 
-        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entites.Enums.Scale.AbilityPower, 0.1);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entities.Enums.Scale.AbilityPower, 0.1);
 
         public override AbilityPosition AbilityPosition => AbilityPosition.E;
 

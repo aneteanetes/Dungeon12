@@ -2,7 +2,7 @@
 {
     using Dungeon.Classes;
     using Dungeon.Drawing;
-    using Dungeon.Entites.Alive;
+    using Dungeon.Entities.Alive;
     using Dungeon.View.Interfaces;
     using System;
 

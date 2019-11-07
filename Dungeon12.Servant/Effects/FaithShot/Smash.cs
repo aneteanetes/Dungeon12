@@ -3,7 +3,7 @@ using Dungeon.Control.Pointer;
 using Dungeon.Drawing.Impl;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Drawing.SceneObjects.Map;
-using Dungeon.Entites.Animations;
+using Dungeon.Entities.Animations;
 using Dungeon.Map.Objects;
 using Dungeon.Physics;
 using Dungeon.SceneObjects;

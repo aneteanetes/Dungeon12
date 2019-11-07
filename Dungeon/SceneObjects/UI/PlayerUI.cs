@@ -3,7 +3,7 @@
     using Dungeon.Classes;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects.Map;
-    using Dungeon.Entites.Alive;
+    using Dungeon.Entities.Alive;
     using Dungeon.Events;
     using Dungeon.SceneObjects;
     using Dungeon.Types;

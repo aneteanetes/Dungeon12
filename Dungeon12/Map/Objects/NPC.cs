@@ -6,9 +6,9 @@
     using Dungeon.Data.Attributes;
     using Dungeon.Data.Region;
     using Dungeon.Drawing.SceneObjects.Map;
-    using Dungeon.Entites.Alive;
-    using Dungeon.Entites.Enemy;
-    using Dungeon.Entites.NPC;
+    using Dungeon.Entities.Alive;
+    using Dungeon.Entities.Enemy;
+    using Dungeon.Entities.NPC;
     using Dungeon.Game;
     using Dungeon.Map.Infrastructure;
     using Dungeon.Physics;

@@ -26,7 +26,7 @@ namespace Dungeon12.Noone.Abilities
 
         public override string Name => "Навык щита";
 
-        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entites.Enums.Scale.None, 0.1);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entities.Enums.Scale.None, 0.1);
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Q;
 
