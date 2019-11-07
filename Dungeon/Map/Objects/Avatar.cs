@@ -28,6 +28,7 @@
         public Avatar(Character character)
         {
             Character = character;
+            character.Map = this;
             character.SetParentFlow(this);
             this.ForegroundColor = new MapObjectColor
             {

@@ -1,0 +1,11 @@
+﻿{
+  "Name": "Death",
+  "Display": "Смерть",
+  "Description": "Урон от магии смерти и самой смерти не блокируется",
+  "MagicRate": 0,
+  "PhysicRate": 0,
+  "Image": "",
+  "Color": {
+    "KnownColor": "Black"
+  }
+}

@@ -1,0 +1,11 @@
+﻿{
+  "Name": "Elemental",
+  "Display": "Стихийный урон",
+  "Description": "Является чистейшим источником магии, блокируется на величину магического барьера.",
+  "MagicRate": 1,
+  "PhysicRate": 0,
+  "Image": "",
+  "Color": {
+    "KnownColor": "Sienna"
+  }
+}

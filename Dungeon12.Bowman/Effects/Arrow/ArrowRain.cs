@@ -1,5 +1,6 @@
 ﻿using Dungeon;
 using Dungeon.Drawing.Impl;
+using Dungeon.Entities.Alive;
 using Dungeon.Entities.Enemy;
 using Dungeon.Map;
 using Dungeon.Map.Objects;
@@ -73,7 +74,11 @@ namespace Dungeon12.Bowman.Effects
                 _gameMap.All<Mob>(rangeObj).ForEach(mob =>
                 {
                     long Damage = RandomDungeon.Range(2, 11);
-                    mob.Flow(t => t.Damage(true), new { Damage });
+                    mob.DamageExplicit(new Dungeon.Entities.Alive.Damage()
+                    {
+                        Amount=Damage,
+                        Type=DamageType.Kenetic
+                    });
                 });
             }
         }

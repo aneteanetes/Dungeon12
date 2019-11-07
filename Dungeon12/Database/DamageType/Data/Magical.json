@@ -1,0 +1,11 @@
+﻿{
+  "Name": "Magical",
+  "Display": "Магия",
+  "Description": "Барьер всегда блокирует магический урон на четверть и ещё на относительную величину барьера",
+  "MagicRate": 0.7,
+  "PhysicRate": 0,
+  "Image": "",
+  "Color": {
+    "KnownColor": "MediumVioletRed"
+  }
+}

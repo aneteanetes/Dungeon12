@@ -2,6 +2,7 @@
 {
     using FastMember;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
 
@@ -25,6 +26,16 @@
     public class TitleAttribute : ValueAttribute
     {
         public TitleAttribute(object value) : base(value)
+        {
+        }
+
+        public new string Value => base.Value.ToString();
+    }
+
+    [System.AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = false)]
+    public class InfoAttribute : TitleAttribute
+    {
+        public InfoAttribute(object value) : base(value)
         {
         }
 

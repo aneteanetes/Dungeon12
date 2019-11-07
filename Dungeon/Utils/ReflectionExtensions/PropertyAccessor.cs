@@ -25,6 +25,15 @@
             throw new System.Exception("Property had wrong type!");
         }
 
+        public static bool Is<T>(this object obj)
+        {
+            if (obj is T )
+            {
+                return true;
+            }
+            return false;
+        }
+
         public static Func<TClass, TProperty> GetFieldAccessor<TClass, TProperty>(string fieldName)
         {
             ParameterExpression param = Expression.Parameter(typeof(TClass), "arg");
@@ -234,8 +243,9 @@
 
         public static object GetStaticProperty(this Type type,string property)
         {
-            var accessor = TypeAccessor.Create(type, true);
-            return accessor[null, property];
+            return Expression.Lambda(Expression.MakeMemberAccess(null, type.GetMembers().FirstOrDefault(x => x.Name == property))).Compile().DynamicInvoke();
+            //var accessor = TypeAccessor.Create(type, true);
+            //return accessor[null, property];
         }
 
         public static TValue GetProperty<TValue>(this object @object, string property, TValue @default=default)

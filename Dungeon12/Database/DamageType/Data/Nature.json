@@ -1,0 +1,11 @@
+﻿{
+  "Name": "Nature",
+  "Display": "Природный урон",
+  "Description": "Природный урон блокируется барьером и защитой практически в половину, однако урон природы часто высокий",
+  "MagicRate": 0.47,
+  "PhysicRate": 0.45,
+  "Image": "",
+  "Color": {
+    "KnownColor": "ForestGreen"
+  }
+}

@@ -1,0 +1,11 @@
+﻿{
+  "Name": "FireMagic",
+  "Display": "Магия огня",
+  "Description": "Огненная магия блокируется магическим барьером, и немного физической защитой",
+  "MagicRate": 0.7,
+  "PhysicRate": 0.21,
+  "Image": "",
+  "Color": {
+    "KnownColor": "Red"
+  }
+}

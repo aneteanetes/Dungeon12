@@ -1,0 +1,11 @@
+﻿{
+  "Name": "Light",
+  "Display": "Свет",
+  "Description": "Свет наносит не блокируемый урон",
+  "MagicRate": 0,
+  "PhysicRate": 0,
+  "Image": "",
+  "Color": {
+    "KnownColor": "Cornsilk"
+  }
+}

@@ -3,6 +3,7 @@ using Dungeon.Control.Pointer;
 using Dungeon.Drawing.Impl;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Drawing.SceneObjects.Map;
+using Dungeon.Entities.Alive;
 using Dungeon.Entities.Animations;
 using Dungeon.Map;
 using Dungeon.Map.Objects;
@@ -215,7 +216,11 @@ namespace Dungeon12.Bowman.Effects
             var target = _gameMap.One<Mob>(rangeObject);
             if (target != default)
             {
-                target.Flow(t => t.Damage(true), new { @object.Damage });
+                target.DamageExplicit(new Damage()
+                {
+                    Amount=@object.Damage,
+                    Type=DamageType.Kenetic                    
+                });
                 RequestStop();
             }
         }

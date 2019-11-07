@@ -1,4 +1,5 @@
 ﻿using Dungeon.Entities.Alive.Proxies;
+using Dungeon.Map;
 using Dungeon.Network;
 using Dungeon.Types;
 
@@ -56,14 +57,14 @@ namespace Dungeon.Entities.Alive
         public void SetFlowContext(object context) => flowContext = context;
 
         public object GetFlowContext() => flowContext;
-
-        public T GetFlowContext<T>() => flowContext;
-
+        
         private IFlowable flowparent = null;
 
         public void SetParentFlow(IFlowable parent) => flowparent = parent;
 
         public IFlowable GetParentFlow() => flowparent;
+
+        public virtual MapObject Map { get; set; }
 
         [FlowMethod]
         public void ShowEffect(bool forward) { }

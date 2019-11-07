@@ -1,0 +1,11 @@
+﻿{
+  "Name": "HolyMagic",
+  "Display": "Светлая магия",
+  "Description": "Светлая магия в отличии от тёмной магии - блокируется, хоть и в половину слабже чем обычная магия",
+  "MagicRate": 0.44,
+  "PhysicRate": 0,
+  "Image": "",
+  "Color": {
+    "KnownColor": "LightGoldenrodYellow"
+  }
+}

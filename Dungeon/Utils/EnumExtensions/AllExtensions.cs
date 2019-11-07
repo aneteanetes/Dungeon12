@@ -27,7 +27,17 @@
         {
             var memInfo = typeof(T).GetMember(value.ToString());
             var attributes = memInfo[0].GetCustomAttributes(typeof(DisplayAttribute), false);
-            var description = ((DisplayAttribute)attributes[0]).Name;
+
+            string description = "";
+            if (attributes.Length > 0)
+            {
+                description = ((DisplayAttribute)attributes[0]).Name;
+            }
+            else
+            {
+                attributes = memInfo[0].GetCustomAttributes(typeof(TitleAttribute), false);
+                description = ((TitleAttribute)attributes[0]).Value.As<string>();
+            }
 
             DisplayCache.Add(value, description);
 

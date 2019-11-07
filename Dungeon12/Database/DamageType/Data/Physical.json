@@ -1,0 +1,11 @@
+﻿{
+  "Name": "Physical",
+  "Display": "Физический урон",
+  "Description": "Физический урон уменьшается от защиты",
+  "MagicRate": 0,
+  "PhysicRate": 0.15,
+  "Image": "",
+  "Color": {
+    "KnownColor": "WhiteSmoke"
+  }
+}

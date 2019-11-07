@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Dungeon.Drawing.SceneObjects.Map;
+    using Dungeon.Entities.Alive;
     using Dungeon.Entities.Enemy;
     using Dungeon.Game;
     using Dungeon.Map.Infrastructure;
@@ -75,24 +76,30 @@
             }
         };
 
-        [FlowMethod]
-        public void Damage(bool forward)
+        [ExcplicitFlowMethod]
+        public void DamageExplicit(Damage damage)
         {
-            if (forward)
-            {
-                Global.AudioPlayer.Effect(DamageSound ?? "bat");
-            }
-            else
-            {
-                bool enemyDied = GetFlowProperty<bool>("EnemyDied");
-                if (enemyDied)
-                {
-                    Die?.Invoke();
-                    //death sound
-                    //Global.AudioPlayer.Effect(DamageSound ?? "bat");
-                }
-            }
+            this.Enemy.Damage(damage);
         }
+
+        //[FlowMethod]
+        //public void Damage(bool forward)
+        //{
+        //    if (forward)
+        //    {
+        //        Global.AudioPlayer.Effect(DamageSound ?? "bat");
+        //    }
+        //    else
+        //    {
+        //        bool enemyDied = GetFlowProperty<bool>("EnemyDied");
+        //        if (enemyDied)
+        //        {
+        //            Die?.Invoke();
+        //            //death sound
+        //            //Global.AudioPlayer.Effect(DamageSound ?? "bat");
+        //        }
+        //    }
+        //}
 
         public override ISceneObject View(GameState gameState)
         {

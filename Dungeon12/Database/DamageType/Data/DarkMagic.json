@@ -1,0 +1,11 @@
+﻿{
+  "Name": "DarkMagic",
+  "Display": "Тёмная магия",
+  "Description": "Тёмная магия блокируется магическим барьером, но всегда наносит на 20% больше урона ночью, и на 40% меньше урона днём",
+  "MagicRate": 0.4,
+  "PhysicRate": 0,
+  "Image": "",
+  "Color": {
+    "KnownColor": "DarkSlateBlue"
+  }
+}

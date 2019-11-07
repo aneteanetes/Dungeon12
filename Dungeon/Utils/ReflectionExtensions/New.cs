@@ -82,9 +82,40 @@
             }
         }
 
-        public static void Call(this object obj, Type generics, params object[] argsObj)
+        public static TResult Call<TResult>(this object @object, string method, TResult @default, params object[] argsObj)
         {
+            var methodInfo = @object.GetType().GetMethods().FirstOrDefault(m => m.Name == method);
+            if (methodInfo == default)
+            {
+                methodInfo = @object.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).FirstOrDefault(m => m.Name == method);
+            }
+            if (methodInfo != default)
+            {
+                var from = Expression.Constant(@object);
+                var @params = argsObj.Select(a => Expression.Parameter(a.GetType())).ToArray();
+                var methodCall = Expression.Call(from, methodInfo, @params);
+                return Expression.Lambda(methodCall,@params).Compile().DynamicInvoke(argsObj).As<TResult>();
+            }
 
+            return @default;
+        }
+
+        public static TResult Call<TResult,TFrom>(this object @object, string method, TResult @default, params object[] argsObj)
+        {
+            var methodInfo = typeof(TFrom).GetMethods().FirstOrDefault(m => m.Name == method);
+            if(methodInfo==default)
+            {
+                methodInfo = typeof(TFrom).GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).FirstOrDefault(m => m.Name == method);
+            }
+            if (methodInfo != default)
+            {
+                var from = Expression.Constant(@object);
+                var @params = argsObj.Select(a => Expression.Parameter(a.GetType()));
+                var methodCall = Expression.Call(from, methodInfo, @params);
+                return Expression.Lambda(methodCall, @params).Compile().DynamicInvoke(argsObj).As<TResult>();
+            }
+
+            return @default;
         }
     }
 }
