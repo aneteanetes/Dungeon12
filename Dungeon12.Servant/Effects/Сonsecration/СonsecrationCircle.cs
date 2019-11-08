@@ -19,14 +19,14 @@ namespace Dungeon12.Servant.Effects.Сonsecration
         public СonsecrationCircle(GameMap gameMap, Dungeon.Physics.PhysicalObject position) : base("Effects/concentration.png".AsmImgRes())
         {
             var totem = new ConsecrationCircleTotem(position.Position.X / 32, position.Position.Y / 32);
-            gameMap.Map.Add(totem);
+            gameMap.MapObject.Add(totem);
 
             this.Width = 3;
             this.Height = 1.5;
 
             this.Destroy += () =>
             {
-                gameMap.Map.Remove(totem);
+                gameMap.MapObject.Remove(totem);
                 totem.Destroy?.Invoke();
             };
         }

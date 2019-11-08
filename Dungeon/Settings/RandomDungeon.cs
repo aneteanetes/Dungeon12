@@ -41,5 +41,17 @@
                 return Next(start, end + 1);
             }
         }
+
+        public static bool Chance(int percentForSucess)
+        {
+            var i = Range(1, 100);
+            return i <= percentForSucess;
+        }
+
+        public static bool Chance(long percentForSucess)
+        {
+            var i = Range(1, 100);
+            return i <= percentForSucess;
+        }
     }
 }

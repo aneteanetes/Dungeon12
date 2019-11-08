@@ -2,22 +2,60 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Entities.Alive;
     using Dungeon.Entities.Enemy;
     using Dungeon.Game;
+    using Dungeon.Loot;
     using Dungeon.Map.Infrastructure;
     using Dungeon.Physics;
     using Dungeon.Settings;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
+    using Force.DeepCloner;
+    using static Dungeon.Map.GameMap;
 
     [Template("*")]
     public class Mob : EntityMapObject<Enemy>
     {
         public Mob(Enemy component):base(component)
         {
+            this.Destroy += Dying;
+        }
 
+        private void Dying()
+        {
+            List<MapObject> publishObjects = new List<MapObject>();
+
+            var loot = LootGenerator.Generate();
+
+            if (loot.Gold > 0)
+            {
+                var money = new Money() { Amount = loot.Gold };
+                money.Location = Gamemap.RandomizeLocation(this.Location.DeepClone());
+                money.Destroy += () => Gamemap.MapObject.Remove(money);
+                Gamemap.MapObject.Add(money);
+
+                publishObjects.Add(money);
+            }
+
+            foreach (var item in loot.Items)
+            {
+                var lootItem = new Loot()
+                {
+                    Item = item
+                };
+
+                lootItem.Location = Gamemap.RandomizeLocation(Location.DeepClone());
+                lootItem.Destroy += () => Gamemap.MapObject.Remove(lootItem);
+
+                publishObjects.Add(lootItem);
+            }
+
+            Gamemap.MapObject.Remove(this);
+
+            publishObjects.ForEach(Gamemap.PublishObject);
         }
 
         public override string Icon { get => "*"; set { } }
@@ -69,13 +107,7 @@
                 Height = this.Size.Height * AttackRangeMultiples.Y
             }
         };
-
-        [ExcplicitFlowMethod]
-        public void DamageExplicit(Damage damage)
-        {
-            this.Entity.Damage(damage);
-        }
-
+        
         //[FlowMethod]
         //public void Damage(bool forward)
         //{

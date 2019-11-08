@@ -54,7 +54,7 @@ namespace Dungeon12.Servant.Abilities
             {
                 @class.FaithPower.Value++;
                 this.UseEffects(new Smash(avatar).InList<ISceneObject>());
-                enemy.DamageExplicit(new Dungeon.Entities.Alive.Damage()
+                enemy.Entity.Damage(@class,new Dungeon.Entities.Alive.Damage()
                 {
                     Amount=20,
                     Type= DamageType.HolyMagic

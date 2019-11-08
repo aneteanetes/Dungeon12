@@ -11,6 +11,11 @@
 
     public partial class GameMap : GameComponent
     {
+        public GameMap()
+        {
+            MapObject = new GameMapObject(this);
+        }
+
         public Action<MapObject> PublishObject;
 
         public bool First = true;
@@ -23,7 +28,7 @@
 
         public int Level = 1;
 
-        public GameMapObject Map = new GameMapObject();
+        public GameMapObject MapObject;
 
         public HashSet<MapObject> Objects = new HashSet<MapObject>();
 
@@ -35,7 +40,7 @@
         {
             var moveAvailable = true;
 
-            var moveAreas = Map.Query(@object,true);
+            var moveAreas = MapObject.Query(@object,true);
             if (moveAreas.Count > 0)
             {
                 foreach (var moveArea in moveAreas)
@@ -58,14 +63,14 @@
 
             if (moveAvailable)
             {
-                var wasAreas = Map.QueryReference(@object);
+                var wasAreas = MapObject.QueryReference(@object);
 
                 bool eq = wasAreas.SequenceEqual(moveAreas);
                 
                 if (!eq)
                 {
-                    Map.Remove(@object);
-                    Map.Add(@object);
+                    MapObject.Remove(@object);
+                    MapObject.Add(@object);
                 }
             }
 
@@ -78,7 +83,7 @@
         {
             IEnumerable<Mob> mobs = Enumerable.Empty<Mob>();
 
-            var moveArea = Map.Query(@object);
+            var moveArea = MapObject.Query(@object);
             if (moveArea != null)
             {
                 mobs = moveArea.Nodes.Where(node => node is Mob).Select(node => node as Mob)
@@ -98,7 +103,7 @@
         public bool Any<T>(MapObject @object)
             where T : PhysicalObject
         {
-            var moveArea = Map.Query(@object);
+            var moveArea = MapObject.Query(@object);
             if (moveArea != null)
             {
                 return moveArea.Nodes.Where(node => node is T)
@@ -120,7 +125,7 @@
         {
             IEnumerable<T> all = Enumerable.Empty<T>();
 
-            var moveArea = Map.Query(@object);
+            var moveArea = MapObject.Query(@object);
             if (moveArea != null)
             {
                 all = moveArea.Nodes.Where(node => node is T)
@@ -141,7 +146,7 @@
         public T One<T>(MapObject @object)
             where T : PhysicalObject
         {
-            var moveArea = Map.Query(@object);
+            var moveArea = MapObject.Query(@object);
             if (moveArea != null)
             {
                 return moveArea.Nodes.FirstOrDefault(node =>
@@ -163,7 +168,7 @@
 
             IEnumerable<Сonversational> npcs = Enumerable.Empty<Сonversational>();
 
-            var moveArea = Map.Query(rangeObject);
+            var moveArea = MapObject.Query(rangeObject);
             if (moveArea != null)
             {
                 npcs = moveArea.Nodes.Where(node => node is Сonversational)
@@ -214,8 +219,11 @@
 
     public class GameMapObject : MapObject
     {
-        public GameMapObject()
+        private GameMap _gameMap;
+
+        public GameMapObject(GameMap gameMap)
         {
+            _gameMap = gameMap;
             Position = new PhysicalPosition
             {
                 X = 0,
@@ -285,6 +293,7 @@
 
         public override void Add(MapObject physicalObject)
         {
+            physicalObject.Gamemap = _gameMap;
             base.Add(physicalObject);
             if (physicalObject is Totem totem)
             {

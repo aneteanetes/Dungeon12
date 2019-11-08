@@ -17,7 +17,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 
         private readonly PlayerSceneObject playerSceneObject;
 
-        public TalantWindow(PlayerSceneObject playerSceneObject) : base(default)
+        public TalantWindow(PlayerSceneObject playerSceneObject)
         {
             playerSceneObject.BlockMouse = true;
             this.Destroy += () => playerSceneObject.BlockMouse = false;

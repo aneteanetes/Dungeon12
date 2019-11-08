@@ -63,14 +63,11 @@
                 @class.Actions -= 1;
                 var value = (long)this.Value;
 
-                enemy.Entity.Damage(new Dungeon.Entities.Alive.Damage()
+                enemy.Entity.Damage(@class, new Dungeon.Entities.Alive.Damage()
                 {
                     Amount=value,
                     Type = DamageType.Physical
                 });
-
-#warning exp!!!
-                //new PopupString($"Вы получаете {expr} опыта!", ConsoleColor.DarkMagenta, avatar.Location, 25, 12, 0.06)
                 
                 AttackedEnemy = enemy;
             }

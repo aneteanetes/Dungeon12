@@ -23,7 +23,7 @@
 
         private PlayerSceneObject playerSceneObject;
 
-        public SkillsWindow(PlayerSceneObject playerSceneObject):base(default)
+        public SkillsWindow(PlayerSceneObject playerSceneObject)
         {
             playerSceneObject.BlockMouse = true;
             this.Destroy += () => playerSceneObject.BlockMouse = false;

@@ -2,17 +2,19 @@
 {
     using Dungeon.Control;
     using Dungeon.Drawing.SceneObjects.Map;
-    using Dungeon.GameObjects;
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    public interface IDropableControl : ISceneObjectControl
+    public abstract class DropableControl : EmptyTooltipedSceneObject
     {
+        public DropableControl() : base(null)
+        {
+        }
     }
 
-    public abstract class DropableControl<TSource> : TooltipedSceneObject<EmptyGameComponent>, IDropableControl
+    public abstract class DropableControl<TSource> : DropableControl
         where TSource : DraggableControl<TSource>
     {
         protected override ControlEventType[] Handles => new ControlEventType[]
@@ -21,7 +23,7 @@
              ControlEventType.Focus
         };
 
-        public DropableControl():base(EmptyGameComponent.Empty,"")
+        public DropableControl()
         {
             DragAndDropSceneControls.BindDropable(this);
         }
@@ -64,10 +66,10 @@
     {
         public static int DraggableLayers = 1;
 
-        private static Dictionary<IDropableControl, List<IDraggableControl>> subscribers = new Dictionary<IDropableControl, List<IDraggableControl>>();
-        private static List<IDraggableControl> free = new List<IDraggableControl>();
+        private static Dictionary<DropableControl, List<DraggableControl>> subscribers = new Dictionary<DropableControl, List<DraggableControl>>();
+        private static List<DraggableControl> free = new List<DraggableControl>();
 
-        public static void BindDropable(IDropableControl dropable)
+        public static void BindDropable(DropableControl dropable)
         {
             dropable.Destroy += () =>
             {
@@ -84,14 +86,14 @@
                 }
             };
 
-            var publishers = new List<IDraggableControl>();
+            var publishers = new List<DraggableControl>();
             publishers.AddRange(free.Where(x => x.GetType() == dropable.GetType().BaseType.GetGenericArguments()[0]));
-            publishers.AddRange(subscribers.Where(x => x.Key.GetType().BaseType.GetGenericArguments()[0] == dropable.GetType().BaseType.GetGenericArguments()[0]).SelectMany(x=>x.Value));
+            publishers.AddRange(subscribers.Where(x => x.Key.GetType().BaseType.GetGenericArguments()[0] == dropable.GetType().BaseType.GetGenericArguments()[0]).SelectMany(x => x.Value));
 
             subscribers.Add(dropable, publishers);
         }
 
-        public static void BindDragable(IDraggableControl draggable)
+        public static void BindDragable(DraggableControl draggable)
         {
             var dropables = subscribers.Where(x => x.Key.GetType().BaseType.GetGenericArguments()[0] == draggable.GetType());
 
@@ -116,17 +118,18 @@
             }
         }
 
-        public static DraggableControl<T> GetDropped<T>(IDropableControl dropable)
-            where T : IGameComponent
+        public static DraggableControl<T> GetDropped<T>(DropableControl dropable)
         {
-            return subscribers[dropable].FirstOrDefault(x => x == LastDragged).As<DraggableControl<T>>();
+            return subscribers[dropable]
+                .Cast<DraggableControl<T>>()
+                .FirstOrDefault(x => x == LastDragged);
         }
 
-        private static IDraggableControl LastDragged;
+        private static DraggableControl LastDragged;
 
         public static bool IsDragging => LastDragged != null;
 
-        public static void SetDragged(IDraggableControl draggable)
+        public static void SetDragged(DraggableControl draggable)
         {
             LastDragged = draggable;
         }

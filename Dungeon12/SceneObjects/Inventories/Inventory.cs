@@ -144,7 +144,7 @@
             if (!res)
             {
                 var pos = new Point(inventoryItem.ComputedPosition.X, inventoryItem.ComputedPosition.Y);
-                var msg = new PopupString(res.Value, ConsoleColor.Yellow, pos)
+                var msg = new PopupString(res.Value.AsDrawText().InColor(DrawColor.Yellow), pos)
                 {
                     Layer = 2000,
                     AbsolutePosition = true

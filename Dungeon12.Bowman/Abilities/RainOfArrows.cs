@@ -42,7 +42,7 @@ namespace Dungeon12.Bowman.Abilities
             @class.Energy.LeftHand -= 35;
             @class.Energy.RightHand -= 35;
             
-            this.UseEffects(new ArrowRain(3000, PointerLocation.GameCoordinates, gameMap).InList<ISceneObject>());
+            this.UseEffects(new ArrowRain(@class,3000, PointerLocation.GameCoordinates, gameMap).InList<ISceneObject>());
         }
     }
 }

@@ -57,9 +57,9 @@
             };
 
             lootItem.Location = gameMap.RandomizeLocation(playerSceneObject.Avatar.Location.DeepClone());
-            lootItem.Destroy += () => gameMap.Map.Remove(lootItem);
+            lootItem.Destroy += () => gameMap.MapObject.Remove(lootItem);
 
-            gameMap.Map.Add(lootItem);
+            gameMap.MapObject.Add(lootItem);
             gameMap.PublishObject(lootItem);
         }
     }

@@ -260,48 +260,29 @@
 
         private readonly HashSet<Direction> NowMoving = new HashSet<Direction>();
 
-        [FlowMethod(typeof(MoveStepContext))]
-        public void MoveStep(bool forward)
+        public void MoveStep(Direction dir, bool remove, bool dontChangeVisionDirection, bool disableCameraAffect, bool blockMoveInput)
         {
-            if(!forward)
+            this.DontChangeVisionDirection = dontChangeVisionDirection;
+            if (!remove)
             {
-                var remove = GetFlowProperty<bool>(nameof(MoveStepContext.Remove));
-                var dir = GetFlowProperty<Direction>(nameof(Direction));
-                this.DontChangeVisionDirection = GetFlowProperty<bool>(nameof(MoveStepContext.DontChangeVisionDirection));
-                if (!remove)
-                {
-                    Avatar.CameraAffect = GetFlowProperty<bool>(nameof(MoveStepContext.DisableCameraAffect), true);
-                    this.BlockMoveInput = GetFlowProperty<bool>(nameof(BlockMoveInput));
-                    this.NowMoving.Add(dir);
-                }
-                else
-                {
-                    Avatar.CameraAffect = true;
-                    Avatar.OnMoveStop?.Invoke(dir);
-                    this.NowMoving.Remove(dir);
-                    DontChangeVisionDirection = false;
-                    SwitchPlayerFace(dir.Opposite());
-                    this.BlockMoveInput = false;
-                }
+                Avatar.CameraAffect = disableCameraAffect;
+                this.BlockMoveInput = blockMoveInput;
+                this.NowMoving.Add(dir);
+            }
+            else
+            {
+                Avatar.CameraAffect = true;
+                Avatar.OnMoveStop?.Invoke(dir);
+                this.NowMoving.Remove(dir);
+                DontChangeVisionDirection = false;
+                SwitchPlayerFace(dir.Opposite());
+                this.BlockMoveInput = false;
             }
         }
 
         public bool BlockMoveInput { get; set; }
 
         private bool DontChangeVisionDirection { get; set; } = false;
-
-        public class MoveStepContext
-        {
-            public Direction Direction { get; set; }
-
-            public bool Remove { get; set; }
-
-            public bool DontChangeVisionDirection { get; set; }
-
-            public bool DisableCameraAffect { get; set; }
-
-            public bool BlockMoveInput { get; set; }
-        }
 
         public void StopMovings()
         {

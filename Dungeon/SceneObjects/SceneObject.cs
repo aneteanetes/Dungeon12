@@ -51,7 +51,7 @@
                 ShowEffects += owner.ShowEffectsBinding;
 
                 //ПИЗДЕЦ. Это надо лечить
-                if (this is IDraggableControl draggableControl)
+                if (this is DraggableControl draggableControl)
                 { }
                 else
                 {

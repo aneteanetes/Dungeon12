@@ -25,14 +25,5 @@ namespace Dungeon12.Proxies
         protected abstract long Get(long v, TClass noone, string proxyId);
 
         protected abstract long Set(long v, TClass noone, string proxyId);
-
-        protected void Message(string msg, DrawColor color)
-        {
-#warning вот это уйдёт в слой сущностей
-            //var character = owner.As<TClass>();
-            //var mapObj = character.GetParentFlow().As<yMapObject>();
-
-            //character.Flow(x => x.ShowEffect(true), new { Effects = new PopupString(msg, color, mapObj.Location.Add(y: -.25)).InList<ISceneObject>() });
-        }
     }
 }

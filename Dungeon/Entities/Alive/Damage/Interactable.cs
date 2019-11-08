@@ -8,12 +8,13 @@ namespace Dungeon.Entities.Alive
 {
     public class Interactable : Modified
     {
-        public virtual void Damage(Damage dmg)
+        public virtual void Damage(Interactable attacker, Damage dmg)
         {
-            var amount = this.Call<long>(dmg.Type.Name, 999999999, dmg);
+            var damageName = $"Damage{dmg.Type.Name}";
+            var amount = this.Call<long>(damageName, 999999999, dmg);
             if (amount == 999999999)
             {
-                amount = this.Call<long, Interactable>(dmg.Type.Name, 999999999, dmg);
+                amount = this.Call<long, Interactable>(damageName, 999999999, dmg);
                 if (amount == 999999999)
                 {
                     amount = dmg.Amount;
@@ -22,6 +23,8 @@ namespace Dungeon.Entities.Alive
 
             amount -= Resist(dmg, dmg.Type.PhysicRate, dmg.Type.MagicRate);
 
+            amount = DamageProcess(dmg, amount);
+
             if (amount < 0)
             {
                 amount = 0;
@@ -29,24 +32,22 @@ namespace Dungeon.Entities.Alive
 
             this.HitPoints -= amount;
 
-            var map = this.Map;
-            if(map==default)
-            {
-                var parent = this.GetParentFlow();
-                if(parent.Is<MapObject>())
-                {
-                    map = parent.As<MapObject>();
-                }
-            }
+            var popup = new PopupString(amount.ToString(), dmg.Type.Color.GetColor(), this.MapObject.Location).InList<ISceneObject>();
+            this.MapObject.SceneObject.ShowEffects(popup);
 
-            if (map != default)
+            if (this.HitPoints == 0)
             {
-                this.Flow(x => x.ShowEffect(true), new
-                {
-                    Effects = new PopupString(amount.ToString(), dmg.Type.Color.GetColor(), map.Location).InList<ISceneObject>()
-                });
+                attacker.Exp(this.ExpGain);
+                this.Die();
             }
         }
+
+        /// <summary>
+        /// Обработка нанесения урона перед его применением
+        /// </summary>
+        /// <param name="dmg"></param>
+        /// <param name="amount"></param>
+        protected virtual long DamageProcess(Damage dmg, long amount) => amount;
 
         protected virtual long Resist(Damage dmg, double defence, double barrier)
         {
@@ -81,7 +82,7 @@ namespace Dungeon.Entities.Alive
 
         private long MultipleLong(long @long, double multiple) => (long)Math.Ceiling(@long * multiple);
 
-        protected virtual long DarkMagic(Damage dmg)
+        protected virtual long DamageDarkMagic(Damage dmg)
         {
             var hours = Global.Time.Hours;
             if (hours > 8 && hours < 19)
@@ -94,7 +95,7 @@ namespace Dungeon.Entities.Alive
             }
         }
 
-        protected virtual long FrostMagic(Damage dmg)
+        protected virtual long DamageFrostMagic(Damage dmg)
         {
             if (dmg.MagicPenetration < 15)
             {
@@ -103,7 +104,7 @@ namespace Dungeon.Entities.Alive
             return dmg.Amount;
         }
 
-        protected virtual long Kenetic(Damage dmg)
+        protected virtual long DamageKenetic(Damage dmg)
         {
             if (dmg.ArmorPenetration < 5)
             {
@@ -112,7 +113,7 @@ namespace Dungeon.Entities.Alive
             return dmg.Amount;
         }
 
-        protected virtual long Magical(Damage dmg)
+        protected virtual long DamageMagical(Damage dmg)
         {
             return dmg.Amount / 4;
         }

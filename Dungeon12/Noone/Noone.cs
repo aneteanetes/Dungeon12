@@ -15,6 +15,8 @@
     using Dungeon.Drawing;
     using Dungeon.View.Interfaces;
     using Dungeon12.Noone.Proxies;
+    using Dungeon.Entities.Alive;
+    using Dungeon.SceneObjects;
 
     public class Noone : Dungeon12Class
     {
@@ -74,10 +76,7 @@
 
         public override void InitProxyProperties()
         {
-            AddProxyProperty(nameof(HitPoints), new BlockProxyProperty());
             AddProxyProperty(nameof(MaxHitPoints), new StaminaProxyProperty());
-            AddProxyProperty(nameof(HitPoints), new ArmorProxyProperty());
-            AddProxyProperty(nameof(HitPoints), new ParryProxyProperty());
         }
 
         public AbsorbingTalants Absorbing { get; set; } = new AbsorbingTalants();
@@ -120,6 +119,38 @@
                     };
                 default: return default;
             }
+        }
+
+        protected override long DamageProcess(Damage dmg, long amount)
+        {
+            if (this.InParry)
+            {
+                amount /= 2;
+
+                var text = $"Паррировано: {amount}!".AsDrawText().InColor(DrawColor.Red).Montserrat();
+
+                this.SceneObject.ShowEffects(new PopupString(text, this.MapObject.Location).InList<ISceneObject>());
+
+                return amount;
+            }
+
+            if (RandomDungeon.Chance(this.Block))
+            {
+                var block = (long)Math.Floor(amount * (this.Block / 100d));
+
+                var text = $"Блок: {block}!".AsDrawText().InColor(DrawColor.Red).Montserrat();
+
+                this.SceneObject.ShowEffects(new PopupString(text, this.MapObject.Location).InList<ISceneObject>());
+
+                return amount - block;
+            }
+
+            return amount;
+        }
+
+        protected long DamagePhysical(Damage dmg)
+        {
+            return dmg.Amount - this.Armor / 2;
         }
     }
 }

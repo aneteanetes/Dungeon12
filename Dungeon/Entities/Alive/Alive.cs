@@ -1,7 +1,10 @@
-﻿using Dungeon.Entities.Alive.Proxies;
+﻿using Dungeon.Drawing;
+using Dungeon.Entities.Alive.Proxies;
 using Dungeon.Map;
 using Dungeon.Network;
+using Dungeon.SceneObjects;
 using Dungeon.Types;
+using Dungeon.View.Interfaces;
 
 namespace Dungeon.Entities.Alive
 {
@@ -12,12 +15,38 @@ namespace Dungeon.Entities.Alive
     {
         public int Level { get; set; } = 1;
 
+        public virtual long ExpGain => Level * 10;
+
+        public virtual bool ExpGainer => false;
+
+        public long EXP { get; set; }
+
+        public long MaxExp => Level * 100;
+
+        public void Exp(long amount)
+        {
+            if (!ExpGainer)
+                return;
+
+            EXP += amount;
+
+            var text = $"{amount} опыта!".AsDrawText()
+                .InColor(DrawColor.DarkMagena)
+                .InSize(12);
+
+            var popup = new PopupString(text, this.MapObject?.Location, 25, 0.06).InList<ISceneObject>();
+            this.MapObject.SceneObject.ShowEffects(popup);
+        }
+
         public override string ProxyId => this.Uid;
 
         /// <summary>
         /// 
         /// <para>
         /// [Рассчётное через сеть]
+        /// </para>
+        /// <para>
+        /// [Лимит 0-Max]
         /// </para>
         /// </summary>
         [Proxied(typeof(NetProxy), typeof(Limit))]
@@ -64,9 +93,10 @@ namespace Dungeon.Entities.Alive
 
         public IFlowable GetParentFlow() => flowparent;
 
-        public virtual MapObject Map { get; set; }
-
-        [FlowMethod]
-        public void ShowEffect(bool forward) { }
+        public void Die()
+        {
+            this.SceneObject?.Destroy?.Invoke();
+            this.MapObject?.Destroy?.Invoke();
+        }
     }
 }

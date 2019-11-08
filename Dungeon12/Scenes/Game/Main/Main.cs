@@ -105,7 +105,7 @@
             };
 
             this.AddObject(player);
-            this.Gamemap.Map.Add(this.PlayerAvatar);
+            this.Gamemap.MapObject.Add(this.PlayerAvatar);
 
 
             this.AddObject(new PlayerUI(this.PlayerAvatar.Character));            

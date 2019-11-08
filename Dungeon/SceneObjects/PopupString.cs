@@ -24,7 +24,7 @@
 
         private double speed;
 
-        public PopupString(string text, ConsoleColor color, Point position, int frames, float size = 12, double speed = 0.2)
+        public PopupString(string text, ConsoleColor color, Point position, int frames= 25, float size = 12, double speed = 0.2)
             : this(text, new DrawColor(color), position, frames, size, speed) { }
 
         public PopupString(string text, ConsoleColor color, Point position, bool big=false)
@@ -40,7 +40,7 @@
         {
         }
 
-        public PopupString(DrawText drawText, Point position, int frames, double speed=0.2) : base(drawText)
+        public PopupString(DrawText drawText, Point position, int frames=25, double speed=0.2) : base(drawText)
         {
             this.maxFrames = frames;
             this.Text = Component;

@@ -54,10 +54,10 @@ namespace Dungeon.Map
             int x = 0;
             int y = 0;
 
-            var player = this.Map.Nodes.FirstOrDefault(nod => !typeof(GameMapContainerObject).IsAssignableFrom(nod.GetType()));
+            var player = this.MapObject.Nodes.FirstOrDefault(nod => !typeof(GameMapContainerObject).IsAssignableFrom(nod.GetType()));
 
             this.MapOld = new List<List<List<MapObject>>>();
-            this.Map = new GameMapObject();
+            this.MapObject = new GameMapObject(this);
             
             foreach (var line in genned.Split('\n', StringSplitOptions.RemoveEmptyEntries))
             {
@@ -94,7 +94,7 @@ namespace Dungeon.Map
                 this.MapOld.Add(listLine);
             }
 
-            this.Map.Add(player);
+            this.MapObject.Add(player);
 
             needReloadCache = true;
             generation = false;
@@ -152,7 +152,7 @@ namespace Dungeon.Map
 
             if (mapObj.Obstruction)
             {
-                this.Map.Add(mapObj);
+                this.MapObject.Add(mapObj);
             }
         }
 

@@ -95,7 +95,7 @@
                 this.MobObj.IsChasing = false;
             }
 
-            var players = location.Map.Query(this.MobObj.Vision, true)
+            var players = location.MapObject.Query(this.MobObj.Vision, true)
                 .SelectMany(nodes => nodes.Nodes)
                 .Where(node => this.MobObj.Vision.IntersectsWith(node))
                 .Where(x => typeof(Avatar).IsAssignableFrom(x.GetType()));

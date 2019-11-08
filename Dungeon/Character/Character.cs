@@ -22,18 +22,11 @@
             this.Clothes.OnPutOff += PutOffItem;
         }
 
+        public override bool ExpGainer => true;
+
         public Race Race { get; set; }
 
         public Origins Origin { get; set; }
-
-        public long EXP { get; set; }
-
-        public long MaxExp => 100;
-
-        public void Exp(long amount)
-        {
-            EXP += amount;
-        }
 
         public long Gold { get; set; } = 100;
 

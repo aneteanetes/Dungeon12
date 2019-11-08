@@ -2,6 +2,7 @@
 using Dungeon.Abilities;
 using Dungeon.Abilities.Enums;
 using Dungeon.Abilities.Scaling;
+using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Map;
 using Dungeon.Map.Objects;
 using Dungeon.Types;
@@ -34,70 +35,60 @@ namespace Dungeon12.Bowman.Abilities
 
         protected override void Use(GameMap gameMap, Avatar avatar, Bowman @class)
         {
-            return;
+            var direction = avatar.VisionDirection.Opposite();
+            var move = MoveAvatar(avatar)(direction);
 
-            //var direction = avatar.VisionDirection.Opposite();
-            //var move = MoveAvatar(avatar)(direction);
+            move(false);
 
-            //move(false);
+            var plusSpeed = 0.5;
+            avatar.MovementSpeed += plusSpeed;
 
-            //var plusSpeed = 0.5;
-            //avatar.MovementSpeed += plusSpeed;
+            var posX = avatar.Position.X;
+            var posY = avatar.Position.Y;
 
-            //var posX = avatar.Position.X;
-            //var posY = avatar.Position.Y;
+            // Это работает и сделано так потому что остановка персонажа влияет на камеру
+            // поэтому после того как движение закончится мы вернём нормальную скорость
+            // и только после этого подвинется камера
+            void SpeedEffect(Direction dir)
+            {
+                avatar.MovementSpeed -= plusSpeed;
+                avatar.OnMoveStop -= SpeedEffect;
 
-            //// Это работает и сделано так потому что остановка персонажа влияет на камеру
-            //// поэтому после того как движение закончится мы вернём нормальную скорость
-            //// и только после этого подвинется камера
-            //void SpeedEffect(Direction dir)
-            //{
-            //    avatar.MovementSpeed -= plusSpeed;
-            //    avatar.OnMoveStop -= SpeedEffect;
+                var camera = Global.DrawClient as ICamera;
+                var x = camera.CameraOffsetX;
+                var y = camera.CameraOffsetY;
 
-            //    var camera = Global.DrawClient as ICamera;
-            //    var x = camera.CameraOffsetX;
-            //    var y = camera.CameraOffsetY;
+                var posXnew = avatar.Position.X;
+                var posYnew = avatar.Position.Y;
 
-            //    var posXnew = avatar.Position.X;
-            //    var posYnew = avatar.Position.Y;
+                switch (dir)
+                {
+                    case Direction.Up:
+                        y += posY - posYnew;
+                        break;
+                    case Direction.Down:
+                        y -= posYnew - posY;
+                        break;
+                    case Direction.Left:
+                        x += posX - posXnew;
+                        break;
+                    case Direction.Right:
+                        x -= posXnew - posX;
+                        break;
+                    default: break;
+                }
 
-            //    switch (dir)
-            //    {
-            //        case Direction.Up:
-            //            y += posY - posYnew;
-            //            break;
-            //        case Direction.Down:
-            //            y -= posYnew - posY;
-            //            break;
-            //        case Direction.Left:
-            //            x += posX - posXnew;
-            //            break;
-            //        case Direction.Right:
-            //            x -= posXnew - posX;
-            //            break;
-            //        default: break;
-            //    }
+                camera.SetCamera(x, y);
+            }
 
-            //    camera.SetCamera(x, y);
-            //}
+            avatar.OnMoveStop += SpeedEffect;
 
-            //avatar.OnMoveStop += SpeedEffect;
-
-            //Dungeon.Global.Time.Timer(nameof(Dodge) + nameof(Use))
-            //    .After(10 + (plusSpeed * 5))
-            //    .Do(() => move(true))
-            //    .Auto();
+            Dungeon.Global.Time.Timer(nameof(Dodge) + nameof(Use))
+                .After(10 + (plusSpeed * 5))
+                .Do(() => move(true))
+                .Auto();
         }
 
-#warning Bowman dodge
-        //private static Func<Direction, Action<bool>> MoveAvatar(Avatar avatar) => dir => remove => 
-        //    avatar.Flow(a => a.MoveStep(true),
-        //        new {
-        //            Direction = dir,
-        //            Remove = remove,
-        //            BlockMoveInput = true,
-        //            CameraAffect=false
-        //        });
+        private static Func<Direction, Action<bool>> MoveAvatar(Avatar avatar) => dir => remove => avatar.SceneObject.As<PlayerSceneObject>().MoveStep(dir, remove, true, false, false);
     }
 }

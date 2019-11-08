@@ -36,6 +36,7 @@ namespace Dungeon12.Bowman.Effects
                         : dir == Direction.Up ? 96 : 0))
         })
         {
+            this.bowman = bowman;
             arrow.Size = new PhysicalSize() { Height = 16, Width = 16 };
             _gameMap = gameMap;
             destination = Global.PointerLocation.GameCoordinates;
@@ -218,7 +219,7 @@ namespace Dungeon12.Bowman.Effects
             var target = _gameMap.One<Mob>(rangeObject);
             if (target != default)
             {
-                target.Entity.Damage(new Damage()
+                target.Entity.Damage(this.bowman,new Damage()
                 {
                     Amount=@object.Damage,
                     Type=DamageType.Kenetic                    

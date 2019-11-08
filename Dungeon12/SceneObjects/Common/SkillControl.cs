@@ -336,7 +336,7 @@
                 else
                 {
                     var pos = new Point(player.ComputedPosition.X, player.ComputedPosition.Y);
-                    var effect = new PopupString("Невозможно использовать способность!", ConsoleColor.White, pos).InList<ISceneObject>();
+                    var effect = new PopupString("Невозможно использовать способность!".AsDrawText(), pos).InList<ISceneObject>();
                     this.ShowEffects(effect);
                 }
             }

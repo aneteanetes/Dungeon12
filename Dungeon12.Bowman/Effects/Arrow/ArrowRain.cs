@@ -24,8 +24,11 @@ namespace Dungeon12.Bowman.Effects
 
         public int TimeMs { get; set; }
 
-        public ArrowRain(long timeMS, Point pos, GameMap gameMap)
+        private Bowman _bowman;
+
+        public ArrowRain(Bowman bowman, long timeMS, Point pos, GameMap gameMap)
         {
+            _bowman = bowman;
             _gameMap = gameMap;
 
             this.Left = pos.X - 1.5;
@@ -74,7 +77,7 @@ namespace Dungeon12.Bowman.Effects
                 _gameMap.All<Mob>(rangeObj).ForEach(mob =>
                 {
                     long Damage = RandomDungeon.Range(2, 11);
-                    mob.DamageExplicit(new Dungeon.Entities.Alive.Damage()
+                    mob.Entity.Damage(_bowman,new Dungeon.Entities.Alive.Damage()
                     {
                         Amount=Damage,
                         Type=DamageType.Kenetic

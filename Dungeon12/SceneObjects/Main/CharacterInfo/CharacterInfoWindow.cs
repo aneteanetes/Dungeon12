@@ -34,7 +34,7 @@
         /// <param name="showEffects"></param>
         /// <param name="statBtn"></param>
         /// <param name="selfClose">Вообще я уверен что оставлял там возможность отрубать биндинги, но похуй пока что, экспресс разработка</param>
-        public CharacterInfoWindow(GameMap gameMap, PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects, bool statBtn = true,bool selfClose=true):base(default)
+        public CharacterInfoWindow(GameMap gameMap, PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects, bool statBtn = true,bool selfClose=true)
         {
             playerSceneObject.BlockMouse = true;
             this.Destroy += () => playerSceneObject.BlockMouse = false;

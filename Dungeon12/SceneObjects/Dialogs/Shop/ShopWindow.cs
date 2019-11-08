@@ -20,7 +20,6 @@
         protected override Key[] OverrideKeyHandles => new Key[] { Key.Escape };
 
         public ShopWindow(string title, PlayerSceneObject playerSceneObject, Merchant shop, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding, GameMap gameMap)
-            : base(default)
         {
             Global.Freezer.World = this;
 

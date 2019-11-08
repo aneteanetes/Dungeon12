@@ -18,6 +18,8 @@
     [DataClass(typeof(RegionPart))]
     public class MapObject : PhysicalObject<MapObject>, IGameComponent
     {
+        public GameMap Gamemap { get; set; }
+
         public Action Die;
 
         public Action Destroy { get; set; }

@@ -25,9 +25,9 @@
 
             foreach (var regionObject in persistRegion.Objects)
             {
-                var obj = MapObject.Create(regionObject);
-                obj.Destroy += () => { this.Map.Remove(obj); };
-                this.Map.Add(obj);
+                var obj = Map.MapObject.Create(regionObject);
+                obj.Destroy += () => { this.MapObject.Remove(obj); };
+                this.MapObject.Add(obj);
 
                 if (!(obj is Empty) && !(obj is Wall))
                 {
@@ -93,42 +93,7 @@
 
                 if (setted)
                 {
-                    mob.Die += () =>
-                    {
-                        List<MapObject> publishObjects = new List<MapObject>();
-
-                        var loot = LootGenerator.Generate();
-
-                        if (loot.Gold > 0)
-                        {
-                            var money = new Money() { Amount = loot.Gold };
-                            money.Location = RandomizeLocation(mob.Location.DeepClone());
-                            money.Destroy += () => Map.Remove(money);
-                            Map.Add(money);
-
-                            publishObjects.Add(money);
-                        }
-
-                        foreach (var item in loot.Items)
-                        {
-                            var lootItem = new Loot()
-                            {
-                                Item = item
-                            };
-
-                            lootItem.Location = RandomizeLocation(mob.Location.DeepClone());
-                            lootItem.Destroy += () => Map.Remove(lootItem);
-
-                            Map.Add(lootItem);
-                            publishObjects.Add(lootItem);
-                        }
-
-                        this.Map.Remove(mob);
-
-                        publishObjects.ForEach(this.PublishObject);
-                    };
-
-                    this.Map.Add(mob);
+                    this.MapObject.Add(mob);
                     this.Objects.Add(mob);
                 }
             }
@@ -149,7 +114,7 @@
             point.X += RandomizePosition(@try);
             point.Y += RandomizePosition(@try);
 
-            if (Map.Exists(new MapObject()
+            if (MapObject.Exists(new MapObject()
             {
                 Location = point,
                 Size = new PhysicalSize() { Height = 16, Width = 16 }
@@ -193,7 +158,7 @@
 
             mob.Location = new Point(x, y);
 
-            var otherObject = this.Map.Query(mob).Nodes.Any(node => node.IntersectsWith(mob));
+            var otherObject = this.MapObject.Query(mob).Nodes.Any(node => node.IntersectsWith(mob));
             if (otherObject)
                 return false;
 
