@@ -7,6 +7,6 @@ namespace Dungeon.SceneObjects.Mixins
 {
     public interface IMixin : ISceneObject
     {
-        void InitAsMixin(SceneObject owner);
+        void InitAsMixin(ISceneObject owner);
     }
 }

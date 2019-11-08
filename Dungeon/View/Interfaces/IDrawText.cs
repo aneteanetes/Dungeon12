@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using Dungeon.Types;
 
-    public interface IDrawText : IDrawContext, IGraph<IDrawText>
+    public interface IDrawText : IGameComponent, IDrawContext, IGraph<IDrawText>
     {
         IEnumerable<IDrawText> Data { get; }
 

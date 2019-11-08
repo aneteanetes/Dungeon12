@@ -2,11 +2,11 @@
 {
     using Dungeon.View.Interfaces;
 
-    public class TextControl : SceneObject
+    public class TextControl : SceneObject<IDrawText>
     {
-        public TextControl(IDrawText text)
+        public TextControl(IDrawText component) : base(component)
         {
-            Text = text;
+            Text = component;
         }
     }
 }

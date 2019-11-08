@@ -69,7 +69,7 @@
 
         IImageMask ImageMask { get; }
 
-        ISceneObject Parent { get; }
+        ISceneObject Parent { get; set; }
 
         Action<ISceneObject> DestroyBinding { get; set; }
 
@@ -79,6 +79,30 @@
 
         bool Visible { get; }
         
+        /// <summary>
+        /// Relative
+        /// </summary>
+        double Left { get; set; }
+
+        /// <summary>
+        /// Relative
+        /// </summary>
+        double Top { get; set; }
+
+        /// <summary>
+        /// Relative
+        /// </summary>
+        double Width { get; set; }
+
+        /// <summary>
+        /// Relative
+        /// </summary>
+        double Height { get; set; }
+
+        /// <summary>
+        /// Угол на который надо повернуть объект при отображении
+        /// </summary>
+
         double Angle { get;}
 
         ICollection<ISceneObject> Children { get; }

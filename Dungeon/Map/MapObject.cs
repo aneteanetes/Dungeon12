@@ -16,7 +16,7 @@
     using System.Linq;
 
     [DataClass(typeof(RegionPart))]
-    public partial class MapObject : PhysicalObject<MapObject>, IDrawable
+    public class MapObject : PhysicalObject<MapObject>, IGameComponent
     {
         public Action Die;
 
@@ -44,8 +44,7 @@
             {
                 Height = 32,
                 Width = 32
-            }
-;
+            };
 
             set => _Size = value;
         }
@@ -136,7 +135,7 @@
 
         public virtual Point VisionMultiple { get; set; } = new Point(1.2, 1.2);
 
-        public override MapObject Vision => new MapObject
+        public MapObject Vision => new MapObject
         {
             Position = new PhysicalPosition
             {

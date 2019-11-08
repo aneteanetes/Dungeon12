@@ -8,7 +8,7 @@ namespace Dungeon.Entities.Alive
     /// <summary>
     /// Живой, с уровнем
     /// </summary>
-    public class Alive : NetObject, IFlowable
+    public class Alive : Entity, IFlowable
     {
         public int Level { get; set; } = 1;
 

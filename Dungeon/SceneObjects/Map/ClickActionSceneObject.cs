@@ -8,7 +8,7 @@
     using Dungeon.Map;
     using System.Collections.Generic;
 
-    public abstract class ClickActionSceneObject<T> : TooltipedSceneObject
+    public abstract class ClickActionSceneObject<T> : TooltipedSceneObject<T>
         where T : Dungeon.Physics.PhysicalObject
     {
         protected readonly PlayerSceneObject playerSceneObject;

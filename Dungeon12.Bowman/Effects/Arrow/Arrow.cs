@@ -216,6 +216,7 @@ namespace Dungeon12.Bowman.Effects
             var target = _gameMap.One<Mob>(rangeObject);
             if (target != default)
             {
+                target.Entity.da
                 target.DamageExplicit(new Damage()
                 {
                     Amount=@object.Damage,

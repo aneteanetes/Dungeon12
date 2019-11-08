@@ -13,16 +13,22 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
-    public abstract class SceneObject : ISceneObject, IFlowable, IMixinContainer
+    
+    public abstract class SceneObject<TComponent> : ISceneObject, IFlowable, IMixinContainer
+        where TComponent : IGameComponent
     {
         private Scenes.GameScene owner;
+
+        public TComponent Component { get; }
 
         /// <summary>
         /// В КОНСТРУКТОРЕ ЕСТЬ КОСТЫЛЬ
         /// </summary>
-        public SceneObject()
+        public SceneObject(TComponent component)
         {
+            component.SetView(this);
+            Component = component;
+
             // ЭТО ПИЗДЕЦ КОСТЫЛЬ
             owner = SceneManager.Preapering;
 
@@ -166,7 +172,7 @@
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        protected Point MeasureText(IDrawText text, SceneObject parent=default) => Global.DrawClient.MeasureText(text, parent);
+        protected Point MeasureText(IDrawText text, SceneObject parent = default) => Global.DrawClient.MeasureText(text, parent);
 
         /// <summary>
         /// измеряет изображение и возвращает уже в формате координат
@@ -253,7 +259,7 @@
 
             Destroy += () => sceneObject.Destroy?.Invoke();
 
-            if (sceneObject is SceneObject sceneControlObject)
+            if (sceneObject is ISceneObject sceneControlObject)
             {
                 sceneControlObject.Parent = this;
             }

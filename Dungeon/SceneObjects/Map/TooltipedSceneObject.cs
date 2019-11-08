@@ -15,7 +15,8 @@
     using System.Timers;
     using Dungeon.Drawing;
 
-    public abstract class TooltipedSceneObject : HandleSceneControl
+    public abstract class TooltipedSceneObject<TComponent> : HandleSceneControl<TComponent>
+        where TComponent : IGameComponent
     {
         protected Tooltip aliveTooltip = null;
 
@@ -23,7 +24,7 @@
 
         public IDrawColor TooltipTextColor { get; set; }
 
-        public TooltipedSceneObject(string tooltip, Action<List<ISceneObject>> showEffects=null)
+        public TooltipedSceneObject(TComponent component, string tooltip, Action<List<ISceneObject>> showEffects=null):base(component)
         {
             if (showEffects != null)
             {
@@ -94,34 +95,6 @@
         {
             aliveTooltip?.Destroy?.Invoke();
             aliveTooltip = null;
-        }
-        
-        [FlowMethod(typeof(AddEffectContext))]
-        public void AddEffect(bool forward)
-        {
-            if (!forward)
-            {
-                var effects = this.GetFlowProperty(nameof(AddEffectContext.Effects), Enumerable.Empty<ISceneObject>());
-                foreach (var effect in effects)
-                {
-                    this.AddChild(effect);
-                }
-            }
-        }
-
-        [FlowMethod(typeof(AddEffectContext))]
-        public void ShowEffect(bool forward)
-        {
-            if (!forward)
-            {
-                var effects = this.GetFlowProperty(nameof(AddEffectContext.Effects), Enumerable.Empty<ISceneObject>());
-                this.ShowEffects?.Invoke(effects.ToList());
-            }
-        }
-
-        public class AddEffectContext
-        {
-            public IEnumerable<ISceneObject> Effects { get; set; }
         }
     }
 }

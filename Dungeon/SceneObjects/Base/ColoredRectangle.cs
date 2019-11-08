@@ -7,7 +7,8 @@
     using Dungeon.Settings;
     using Dungeon.View.Interfaces;
 
-    public class ColoredRectangle : HandleSceneControl
+    public class ColoredRectangle<TComponent> : HandleSceneControl<TComponent>
+        where TComponent : IGameComponent
     {
         public ConsoleColor Color { get; set; }
 
@@ -34,6 +35,11 @@
         }
 
         private DrawablePath drawablePath;
+
+        public ColoredRectangle(TComponent component) : base(component)
+        {
+        }
+
         public override IDrawablePath Path
         {
             get
@@ -66,7 +72,7 @@
             OnEvent(obj);
         }
 
-        public ColoredRectangle DarkPanel()
+        public ColoredRectangle<TComponent> DarkPanel()
         {
             Color = ConsoleColor.Black;
             Depth = 1;
@@ -79,9 +85,10 @@
 
     }
 
-    public class DarkRectangle : ColoredRectangle
+    public class DarkRectangle<TComponent> : ColoredRectangle<TComponent>
+        where TComponent : IGameComponent
     {
-        public DarkRectangle()
+        public DarkRectangle(TComponent component):base(component)
         {
             Color = ConsoleColor.Black;
             Depth = 1;

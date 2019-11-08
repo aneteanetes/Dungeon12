@@ -2,7 +2,7 @@
 
 namespace Dungeon.View.Interfaces
 {
-    public interface IDrawable : IDrawContext
+    public interface IDrawable : IGameComponent, IDrawContext
     {
         string Uid { get; }
 

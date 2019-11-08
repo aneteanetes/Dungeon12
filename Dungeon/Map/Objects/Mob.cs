@@ -13,19 +13,8 @@
     using Dungeon.View.Interfaces;
 
     [Template("*")]
-    public class Mob : FlowMapObject
+    public class Mob : EntityMapObject<Enemy>
     {
-        private Enemy _enemy;
-        public Enemy Enemy
-        {
-            get => _enemy;
-            set
-            {
-                value.SetParentFlow(this);
-                _enemy = value;
-            }
-        }
-
         public override string Icon { get => "*"; set { } }
 
         protected override MapObject Self => this;

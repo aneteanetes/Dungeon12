@@ -7,7 +7,7 @@
     using System;
 
     [Template("@")]
-    public class Avatar : FlowMapObject
+    public class Avatar : EntityMapObject<Character>
     {
         public override double MovementSpeed { get; set; } = 0.04;
 

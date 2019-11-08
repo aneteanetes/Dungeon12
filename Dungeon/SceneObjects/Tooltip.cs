@@ -7,7 +7,7 @@
     using Dungeon.View.Interfaces;
     using System;
 
-    public class Tooltip : DarkRectangle
+    public class Tooltip : DarkRectangle<IDrawText>
     {
         public override bool Filtered => false;
 
@@ -23,7 +23,7 @@
             }, position)
         { }
 
-        public Tooltip(IDrawText drawText, Point position)
+        public Tooltip(IDrawText drawText, Point position) : base(drawText)
         {
             Opacity = 0.8;
 

@@ -29,7 +29,7 @@ namespace Dungeon12.Proxies
         protected void Message(string msg, DrawColor color)
         {
             var character = owner.As<TClass>();
-            var mapObj = character.GetParentFlow().As<FlowMapObject>();
+            var mapObj = character.GetParentFlow().As<EntityMapObject>();
 
             character.Flow(x => x.ShowEffect(true), new { Effects = new PopupString(msg, color, mapObj.Location.Add(y: -.25)).InList<ISceneObject>() });
         }

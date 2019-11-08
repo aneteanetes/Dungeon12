@@ -222,6 +222,8 @@ namespace Dungeon.Proxy
 
         public virtual bool Container => false;
 
+        public ISceneObject SceneObject { get; set; }
+
         /// <summary>
         /// Возвращает свойство типа T - реализация: case of types
         /// </summary>
@@ -236,6 +238,11 @@ namespace Dungeon.Proxy
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public virtual T[] PropertiesOfType<T>() where T : class => default;
+
+        public virtual void SetView(ISceneObject sceneObject)
+        {
+            this.SceneObject = sceneObject;
+        }
 
         #endregion
     }

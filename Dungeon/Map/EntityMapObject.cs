@@ -1,15 +1,18 @@
-﻿using Dungeon.Events.Events;
+﻿using Dungeon.Entities;
+using Dungeon.Events.Events;
 using Dungeon.Map.Objects;
-using System;
+using Dungeon.View.Interfaces;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Dungeon.Map
 {
-    public class FlowMapObject : MapObject, IFlowable
+    public class EntityMapObject<TEntity> : MapObject
+        where TEntity : Entity
     {
-        public FlowMapObject()
+        public EntityMapObject(TEntity entity)
         {
+            entity.MapObject = this;
+            Entity = entity;
             Global.Events.Subscribe<TotemArrivedEvent, MapObject>((@event, args) =>
             {
                 this.Dispatch((so, arg) => so.OnEvent(arg), @event);
@@ -79,38 +82,12 @@ namespace Dungeon.Map
             }
         }
 
+        public TEntity Entity { get; }
 
-        private object flowContext = null;
-
-        public T GetFlowProperty<T>(string property, T @default = default) => flowContext.GetProperty<T>(property, @default);
-
-        public bool SetFlowProperty<T>(string property, T value)
+        public override void SetView(ISceneObject sceneObject)
         {
-            try
-            {
-                flowContext.SetProperty(property, value);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            base.SetView(sceneObject);
+            Entity.SceneObject = sceneObject;
         }
-
-        public void SetFlowContext(object context) => flowContext = context;
-
-        public object GetFlowContext() => flowContext;
-
-        private IFlowable flowparent = null;
-
-        public void SetParentFlow(IFlowable parent) => flowparent = parent;
-
-        public IFlowable GetParentFlow() => flowparent;
-        
-        [FlowMethod]
-        public void AddEffect(bool forward) { }
-
-        [FlowMethod]
-        public void ShowEffect(bool forward) { }
     }
 }

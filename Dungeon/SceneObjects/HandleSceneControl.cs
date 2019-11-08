@@ -8,9 +8,10 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public abstract class HandleSceneControl : SceneObject, ISceneObjectControl
+    public abstract class HandleSceneControl<T> : SceneObject<T>, ISceneObjectControl
+        where T : IGameComponent
     {
-        public HandleSceneControl()
+        public HandleSceneControl(T component) : base(component)
         {
             //dynamic binding
             new string[] {
@@ -86,8 +87,8 @@
 
         public virtual void GlobalClick(PointerArgs args) => dynamicEvents[nameof(GlobalClick)]?.DynamicInvoke(args);
 
-        protected T AddControlCenter<T>(T control, bool horizontal = true, bool vertical = true)
-            where T : SceneObject, ISceneObjectControl
+        protected TSceneObject AddControlCenter<TSceneObject>(TSceneObject control, bool horizontal = true, bool vertical = true)
+            where TSceneObject : ISceneObject, ISceneObjectControl
         {
             var measure = MeasureImage(control.Image);
             measure.X = measure.X * 32;
