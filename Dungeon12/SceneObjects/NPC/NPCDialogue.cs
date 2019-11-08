@@ -1,16 +1,22 @@
-﻿namespace Dungeon.Drawing.SceneObjects.Dialogs.NPC
+﻿using Dungeon;
+using Dungeon.Drawing.SceneObjects.Dialogs.NPC;
+
+namespace Dungeon12.SceneObjects.NPC
 {
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Entities.Animations;
+    using Dungeon.GameObjects;
     using Dungeon.Map;
     using Dungeon.SceneObjects;
     using Dungeon.SceneObjects.Base;
+    using Dungeon.Types;
     using Dungeon.View.Interfaces;
+    using Dungeon12.Drawing.SceneObjects;
     using System;
     using System.Linq;
 
-    public class NPCDialogue : HandleSceneControl
+    public class NPCDialogue : EmptyHandleSceneControl
     {
         public override int Layer => 50;
 
@@ -20,18 +26,18 @@
         private AnswerPanel answerPanel;
         private PlayerSceneObject _playerSceneObject;
 
-        public NPCDialogue(PlayerSceneObject playerSceneObject, Dungeon.Map.Objects.Сonversational conversational, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding, GameMap gameMap, ButtonControl customizeExit)
+        public NPCDialogue(PlayerSceneObject playerSceneObject, Dungeon.Map.Objects.Сonversational conversational, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding, GameMap gameMap, MetallButtonControl customizeExit)
         {
             Global.Freezer.World = this;
 
-            this._playerSceneObject = playerSceneObject;
+            _playerSceneObject = playerSceneObject;
 
-            answerPanel = new AnswerPanel(gameMap,playerSceneObject) { DestroyBinding = destroyBinding, ControlBinding= controlBinding };
-            subjectPanel = new SubjectPanel(conversational, answerPanel.Select, this.ExitDialogue, customizeExit);
-                       
+            answerPanel = new AnswerPanel(gameMap, playerSceneObject) { DestroyBinding = destroyBinding, ControlBinding = controlBinding };
+            subjectPanel = new SubjectPanel(conversational, answerPanel.Select, ExitDialogue, customizeExit);
+
             if (conversational.ScreenImage != null)
             {
-                this.AddChild(new DarkRectangle()
+                AddChild(new DarkRectangle()
                 {
                     Opacity = 1,
                     Height = 22.5,
@@ -44,32 +50,32 @@
                     TilesetAnimation = false,
                     FramesPerSecond = conversational.Frames,
                     FullFrames = Enumerable.Range(1, conversational.Frames + 1).Select(f => conversational.ScreenImage.Replace("(1)", $"({f})")).ToArray(),
-                    Size = new Types.Point
+                    Size = new Point
                     {
                         X = 31,
                         Y = 15
                     }
                 };
 
-                var screen = new StandaloneSceneObject(playerSceneObject, conversational.ScreenImage, animMap, conversational.Name, null, new Types.Rectangle(0, 0, 31 * 32, 15 * 32))
+                var screen = new StandaloneSceneObject(playerSceneObject, conversational.ScreenImage, animMap, conversational.Name, null, new Rectangle(0, 0, 31 * 32, 15 * 32))
                 {
                     Height = 15,
                     Width = 31,
                     FreezeForceAnimation = true
                 };
-                this.AddChild(screen);
+                AddChild(screen);
             }
 
-            this.AddChild(subjectPanel);
-            this.AddChild(answerPanel);
+            AddChild(subjectPanel);
+            AddChild(answerPanel);
 
-            this.Height = 22.5;
-            this.Width = 40;
+            Height = 22.5;
+            Width = 40;
         }
 
         private void ExitDialogue()
         {
-            this.Destroy?.Invoke();
+            Destroy?.Invoke();
             Global.Freezer.World = null;
             Global.Interacting = false;
         }

@@ -7,7 +7,7 @@ using System;
 
 namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
 {
-    public class JournalSearch : HandleSceneControl
+    public class JournalSearch : EmptyHandleSceneControl
     {
         public JournalSearch(Action<string> doFilter)
         {
@@ -33,7 +33,7 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
             });
         }
 
-        private class CrossButton : HandleSceneControl
+        private class CrossButton : EmptyHandleSceneControl
         {
             private Action<string> _doFilter;
             private TextInputControl _textInput;
@@ -73,7 +73,7 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
             }
         }
 
-        private class SearchButton : HandleSceneControl
+        private class SearchButton : EmptyHandleSceneControl
         {
             private Action<string> _doFilter;
             private TextInputControl _textInput;

@@ -14,7 +14,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class OriginDialogue : HandleSceneControl
+    public class OriginDialogue : EmptyHandleSceneControl
     {
         private Action<ISceneObjectControl> destroy;
         private Action<ISceneObjectControl> add;

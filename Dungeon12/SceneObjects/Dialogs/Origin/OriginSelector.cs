@@ -5,14 +5,15 @@
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Entities.Alive.Enums;
+    using Dungeon.GameObjects;
     using System;
 
-    public class OriginSelector : ColoredRectangle
+    public class OriginSelector : ColoredRectangle<EmptyGameComponent>
     {
         private readonly Action<Origins> select;
         public readonly Origins origin;
 
-        public OriginSelector(Origins origin, Action<Origins> select)
+        public OriginSelector(Origins origin, Action<Origins> select):base(EmptyGameComponent.Empty)
         {
             this.origin = origin;
             this.select = select;

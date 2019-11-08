@@ -47,7 +47,7 @@ namespace Dungeon12.Servant.Effects.Сonsecration
             return this;
         }
 
-        private class CircleLight : SceneObject
+        private class CircleLight : EmptySceneObject
         {
             public CircleLight()
             {

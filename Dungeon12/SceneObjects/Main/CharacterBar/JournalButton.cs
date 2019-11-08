@@ -19,7 +19,7 @@
 
         private Player playerSceneObject;
 
-        public JournalButton(Player playerSceneObject, Action<List<ISceneObject>> showEffects) : base("Журнал (L)", showEffects)
+        public JournalButton(Player playerSceneObject) : base("Журнал (L)")
         {
             this.playerSceneObject = playerSceneObject;
 

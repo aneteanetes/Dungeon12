@@ -12,6 +12,7 @@
     using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
     using System.Linq;
+    using Dungeon.Entities.Alive;
 
     public class Attack : Ability<Noone,AbsorbingTalants>
     {
@@ -62,28 +63,16 @@
                 @class.Actions -= 1;
                 var value = (long)this.Value;
 
-                enemy.Enemy.HitPoints -= value;
-                
-                if (enemy.Enemy.HitPoints <= 0)
+                enemy.Entity.Damage(new Dungeon.Entities.Alive.Damage()
                 {
-                    enemy.Die?.Invoke();
-
-                    var expr = RandomDungeon.Next(4, 16);
-                    avatar.Character.EXP += expr;
-                    this.UseEffects(new List<ISceneObject>()
-                    {
-                        new PopupString($"Вы получаете {expr} опыта!", ConsoleColor.DarkMagenta,avatar.Location,25, 12,0.06)
-                    });
-                }
-
-                var critical = value > 25;
-
-                AttackedEnemy = enemy;
-
-                this.UseEffects(new List<ISceneObject>()
-                {
-                    new PopupString(value.ToString()+(critical ? "!" : ""), critical ? ConsoleColor.Red : ConsoleColor.White,enemy.Location,25,critical ? 14 : 12,0.06)
+                    Amount=value,
+                    Type = DamageType.Physical
                 });
+
+#warning exp!!!
+                //new PopupString($"Вы получаете {expr} опыта!", ConsoleColor.DarkMagenta, avatar.Location, 25, 12, 0.06)
+                
+                AttackedEnemy = enemy;
             }
             @class.InParry = false;
         }

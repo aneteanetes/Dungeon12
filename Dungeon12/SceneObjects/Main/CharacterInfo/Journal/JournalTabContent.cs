@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 {
-    public class JournalTabContent : HandleSceneControl
+    public class JournalTabContent : EmptyHandleSceneControl
     {
         public override bool CacheAvailable => false;
 

@@ -11,12 +11,17 @@ namespace Dungeon.Map
     {
         public EntityMapObject(TEntity entity)
         {
-            entity.MapObject = this;
-            Entity = entity;
+            ReEntity(entity);
             Global.Events.Subscribe<TotemArrivedEvent, MapObject>((@event, args) =>
             {
                 this.Dispatch((so, arg) => so.OnEvent(arg), @event);
             }, this is Avatar ? this : null);
+        }
+
+        public void ReEntity(TEntity entity)
+        {
+            entity.MapObject = this;
+            Entity = entity;
         }
 
         public virtual void OnEvent(TotemArrivedEvent @event)
@@ -82,7 +87,7 @@ namespace Dungeon.Map
             }
         }
 
-        public TEntity Entity { get; }
+        public TEntity Entity { get; private set; }
 
         public override void SetView(ISceneObject sceneObject)
         {

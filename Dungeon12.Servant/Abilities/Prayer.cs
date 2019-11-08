@@ -45,7 +45,7 @@ namespace Dungeon12.Servant.Abilities
             }
         }
 
-        private class PrayerEffect : SceneObject
+        private class PrayerEffect : EmptySceneObject
         {
             public PrayerEffect()
             {
@@ -81,7 +81,7 @@ namespace Dungeon12.Servant.Abilities
             {
                 effect = new PrayerEffect();
 
-                avatar.Flow(a => a.AddEffect(true), new { Effects = effect.InList<ISceneObject>() });
+                avatar.SceneObject.ShowEffects(effect.InList<ISceneObject>());
 
                 bufTick = Dungeon.Global.Time.Timer(nameof(PrayerBuff) + avatar.Name)
                     .After(3000)

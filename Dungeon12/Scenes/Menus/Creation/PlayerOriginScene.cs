@@ -63,7 +63,7 @@
                         to.Level = from.Level;
 
                         PlayerAvatar.Character = to;
-                        PlayerAvatar.Character.SetParentFlow(PlayerAvatar);
+                        PlayerAvatar.ReEntity(to);
                     }
 
                     PlayerAvatar.Character.Origin = o;

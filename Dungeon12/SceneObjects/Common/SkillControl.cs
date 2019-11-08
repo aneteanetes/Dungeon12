@@ -18,7 +18,7 @@
     using System;
     using System.Collections.Generic;
 
-    public class SkillControl : TooltipedSceneObject
+    public class SkillControl : TooltipedSceneObject<Ability>
     {
         private static bool interacting = Global.Interacting;
 
@@ -43,7 +43,7 @@
         private bool empty = false;
 
         public SkillControl(GameMap gameMap, PlayerSceneObject player, Ability ability, AbilityPosition abilityPosition, Action<List<ISceneObject>> abilityEffects, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding)
-            : base(ability?.Name, abilityEffects)
+            : base(ability, ability?.Name/*, abilityEffects*/)
         {
             this.controlBinding = controlBinding;
             this.destroyBinding = destroyBinding;

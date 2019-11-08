@@ -6,6 +6,7 @@ using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Events;
+using Dungeon.GameObjects;
 using Dungeon.SceneObjects;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
@@ -14,7 +15,7 @@ using System.Collections.Generic;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 {
-    public class TalantInfoSceneControl : TooltipedSceneObject
+    public class TalantInfoSceneControl : TooltipedSceneObject<TalantBase>
     {
         public override bool CacheAvailable => false;
 
@@ -30,7 +31,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 
         private readonly Character character;
 
-        public TalantInfoSceneControl(TalantBase talant, Character character, Action<List<ISceneObject>> showEffects) : base(talant.Name, showEffects)
+        public TalantInfoSceneControl(TalantBase talant, Character character) : base(talant, talant.Name)
         {
             this.character = character;
             this.talant = talant;

@@ -6,6 +6,7 @@
     using Dungeon.Classes;
     using Dungeon.Control;
     using Dungeon.Entities.Alive;
+    using Dungeon.GameObjects;
     using Dungeon.Map;
     using Dungeon.Map.Objects;
     using Dungeon.Physics;
@@ -18,7 +19,7 @@
     /// <summary>
     /// тут кто-то явно сэкономил на времени и въебал виртуальные свойства вместо абстрактных
     /// </summary>
-    public abstract class Ability
+    public abstract class Ability : GameComponent
     {
         public Ability()
         {

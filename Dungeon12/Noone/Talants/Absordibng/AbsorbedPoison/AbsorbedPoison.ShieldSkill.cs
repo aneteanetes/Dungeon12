@@ -100,11 +100,11 @@ namespace Dungeon12.Noone.Talants.Absordibng
 
             private void DOT(Mob enemy)
             {
-                if (!enemy.Enemy.Dead)
+                if (!enemy.Entity.Dead)
                 {
-                    enemy.Enemy.HitPoints -= value;
+                    enemy.Entity.HitPoints -= value;
 
-                    if (enemy.Enemy.HitPoints <= 0)
+                    if (enemy.Entity.HitPoints <= 0)
                     {
                         enemy.Die?.Invoke();
 

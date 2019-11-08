@@ -72,8 +72,7 @@
             this.talantTrees = () => Avatar.Character.PropertiesOfType<TalantTree>();
 
             OnEvent(new ClassChangeEvent());
-
-            player.SetParentFlow(this);
+                      
             player.StateAdded += s => RedrawStates(s);
             player.StateRemoved += s => RedrawStates(s, true);
             AddBuffs();

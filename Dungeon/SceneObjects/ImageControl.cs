@@ -4,7 +4,7 @@ namespace Dungeon.Drawing.SceneObjects
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.SceneObjects;
 
-    public class ImageControl : SceneObject
+    public class ImageControl : EmptySceneObject
     {
         public ImageControl(string imagePath)
         {

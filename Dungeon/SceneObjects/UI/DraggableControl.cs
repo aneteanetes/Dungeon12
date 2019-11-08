@@ -9,14 +9,13 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    public abstract class DraggableControl : TooltipedSceneObject
+
+    public interface IDraggableControl : ISceneObjectControl
     {
-        public DraggableControl() : base(null, null)
-        {
-        }
     }
 
-    public abstract class DraggableControl<T> : DraggableControl
+    public abstract class DraggableControl<T> : TooltipedSceneObject<T>, IDraggableControl, IGameComponent
+        where T:IGameComponent
     {
         public int DropProcessed { get; set; }
 
@@ -34,7 +33,7 @@
 
         public override bool AbsolutePosition => true;
 
-        public DraggableControl()
+        public DraggableControl(T component) : base(component,"")
         {
             this.ZIndex = ++DragAndDropSceneControls.DraggableLayers;
             this.Destroy += () =>
@@ -145,6 +144,7 @@
         public Action OnDrag { get; set; }
 
         public Action OnDrop { get; set; }
+        public ISceneObject SceneObject { get; set; }
 
         private bool dropped = true;
 
@@ -213,6 +213,11 @@
         {
             sceneObject.ZIndex = this.ZIndex;
             base.AddChild(sceneObject);
+        }
+
+        public void SetView(ISceneObject sceneObject)
+        {
+            SceneObject = sceneObject;
         }
     }
 }

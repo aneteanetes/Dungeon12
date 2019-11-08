@@ -3,18 +3,26 @@
     using System;
     using Dungeon.Drawing;
     using Dungeon.Drawing.Impl;
+    using Dungeon.GameObjects;
     using Dungeon.SceneObjects;
     using Dungeon.Settings;
     using Dungeon.Types;
     using Dungeon.View.Enums;
     using Dungeon.View.Interfaces;
 
-    public class LineSceneControl : HandleSceneControl
+    public class LineSceneModel : GameComponent
     {
-        public ConsoleColor Color { get; set; }
+        public Point From { get; set; }
 
-        public string Texture { get; set; }
-        
+        public Point To { get; set; }
+
+        public ConsoleColor Color { get; set; } = ConsoleColor.Black;
+
+        public string Texture { get; set; } = "";
+    }
+
+    public class LineSceneControl : HandleSceneControl<LineSceneModel>
+    {        
         private double opacity;
 
         public double Opacity
@@ -27,13 +35,8 @@
             }
         }
 
-        private (Point from, Point to) linePath;
-
-        public LineSceneControl(Point from, Point to, ConsoleColor color= ConsoleColor.Black, string texture="")
+        public LineSceneControl(LineSceneModel model) : base(model)
         {
-            linePath = (from, to);
-            Color = color;
-            this.Texture = texture;
         }
 
         public int Depth { get; set; } = 1;
@@ -50,7 +53,7 @@
             {
                 if (drawablePath == null)
                 {
-                    var color = new DrawColor(this.Color)
+                    var color = new DrawColor(Component.Color)
                     {
                         Opacity = Opacity,
                         A = 255
@@ -62,11 +65,11 @@
                         BackgroundColor = color,
                         Depth = this.Depth,
                         PathPredefined = PathPredefined.Line,
-                        Texture = this.Texture,
+                        Texture = Component.Texture,
                         Paths = new System.Collections.Generic.List<Point>()
                         {
-                            this.linePath.from,
-                            this.linePath.to
+                            this.Component.From,
+                            this.Component.To
                         }
                     };
                 }

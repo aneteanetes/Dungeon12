@@ -23,7 +23,7 @@
 
         private PlayerSceneObject playerSceneObject;
 
-        public SkillsWindow(PlayerSceneObject playerSceneObject)
+        public SkillsWindow(PlayerSceneObject playerSceneObject):base(default)
         {
             playerSceneObject.BlockMouse = true;
             this.Destroy += () => playerSceneObject.BlockMouse = false;
@@ -44,16 +44,16 @@
             var q = abils.FirstOrDefault(x => x.AbilityPosition == Dungeon.Abilities.Enums.AbilityPosition.Q);
             var e = abils.FirstOrDefault(x => x.AbilityPosition == Dungeon.Abilities.Enums.AbilityPosition.E);
 
-            this.AddChild(new SkillButton(left, OpenSkillInfo, this.ShowEffects,true));
-            this.AddChild(new SkillButton(right, OpenSkillInfo, this.ShowEffects)
+            this.AddChild(new SkillButton(left, OpenSkillInfo, true));
+            this.AddChild(new SkillButton(right, OpenSkillInfo)
             {
                 Left=3
             });
-            this.AddChild(new SkillButton(q, OpenSkillInfo, this.ShowEffects)
+            this.AddChild(new SkillButton(q, OpenSkillInfo)
             {
                 Left = 6
             });
-            this.AddChild(new SkillButton(e, OpenSkillInfo, this.ShowEffects)
+            this.AddChild(new SkillButton(e, OpenSkillInfo)
             {
                 Left = 9
             });
@@ -87,7 +87,7 @@
             base.KeyDown(key, modifier, hold);
         }
 
-        private class SkillInfo : SceneObject
+        private class SkillInfo : EmptySceneObject
         {
             public SkillInfo(Character c, Ability ability)
             {
@@ -154,7 +154,7 @@
             }
         }
 
-        private class SkillButton : TooltipedSceneObject
+        private class SkillButton : EmptyTooltipedSceneObject
         {
             private static Action<SkillButton> InactiveOther;
 
@@ -167,7 +167,7 @@
             private bool disabled;
             private Ability ability;
 
-            public SkillButton(Ability ability, Action<Ability> open, Action<List<ISceneObject>> showEffects, bool active = false) : base("Характеристики", showEffects)
+            public SkillButton(Ability ability, Action<Ability> open, bool active = false) : base("Характеристики")
             {
                 InactiveOther += SetInactive;
                 Destroy += () => { InactiveOther -= SetInactive; };

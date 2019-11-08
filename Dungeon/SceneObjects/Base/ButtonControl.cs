@@ -1,16 +1,18 @@
 ﻿using Dungeon.Control;
 using Dungeon.Drawing;
+using Dungeon.View.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Dungeon.SceneObjects.Base
 {
-    public class ButtonControl : HandleSceneControl
+    public class ButtonControl<TComponent> : HandleSceneControl<TComponent>
+        where TComponent : IGameComponent
     {
         protected TextControl textControl;
 
-        public ButtonControl(string text, float size=30)
+        public ButtonControl(TComponent component, string text, float size = 30) : base(component)
         {
             textControl = new TextControl(new DrawText(text, ConsoleColor.White) { Size = size }.Triforce());
 

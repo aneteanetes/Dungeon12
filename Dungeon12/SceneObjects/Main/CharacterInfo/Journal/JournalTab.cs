@@ -2,6 +2,7 @@
 using Dungeon.Drawing.SceneObjects.UI;
 using Dungeon.Events;
 using Dungeon.SceneObjects;
+using Dungeon.View.Interfaces;
 using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal;
 using Dungeon12.Entites.Journal;
 using System;
@@ -13,7 +14,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
         private readonly JournalList journalList;
         private readonly JournalWindow _journalWindow;
 
-        public JournalTab(SceneObject parent, JournalCategory journalCategory, JournalList journalList, Character character, bool active, JournalWindow journalWindow)
+        public JournalTab(ISceneObject parent, JournalCategory journalCategory, JournalList journalList, Character character, bool active, JournalWindow journalWindow)
             : base(parent, active, journalCategory,titleImg: journalCategory.Icon, tooltip:journalCategory.Name)
         {
             this.journalList = journalList;

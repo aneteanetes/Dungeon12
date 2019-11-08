@@ -6,10 +6,11 @@ using MoreLinq;
 using Dungeon.Settings;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
+using Dungeon.GameObjects;
 
 namespace Dungeon.Drawing
 {
-    public class DrawText : IDrawText
+    public class DrawText : GameComponent, IDrawText
     {
         /// <summary>
         /// это лента, вжуууух вжуууух вжууух

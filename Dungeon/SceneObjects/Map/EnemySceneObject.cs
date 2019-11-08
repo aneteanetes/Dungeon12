@@ -50,7 +50,6 @@
         {
             this.location = location;
             this.MobObj = mob;
-            mob.SetParentFlow(this);
 
             this.Image = mob.Tileset;
             Left = mob.Location.X;
@@ -63,12 +62,12 @@
                 this.Destroy?.Invoke();
             };
 
-            if (mob.Enemy.Idle != null)
+            if (mob.Entity.Idle != null)
             {
-                this.SetAnimation(mob.Enemy.Idle);
+                this.SetAnimation(mob.Entity.Idle);
             }
 
-            this.AddChild(new ObjectHpBar(mob.Enemy));
+            this.AddChild(new ObjectHpBar(mob.Entity));
 
             attackTimer = new Timer(1000);
             attackTimer.AutoReset = false;
@@ -86,7 +85,7 @@
 
         protected override void AnimationLoop()
         {
-            if (!MobObj.Enemy.Aggressive)
+            if (!MobObj.Entity.Aggressive)
             {
                 return;
             }
@@ -232,7 +231,7 @@
 
         private void Move()
         {
-            var moveable = this.MobObj.Enemy;
+            var moveable = this.MobObj.Entity;
             AnimationMap anim = moveable.Idle;
             var move = moveDir;
             switch (move)
@@ -368,7 +367,7 @@
             if (ability.TargetType == AbilityTargetType.Target || ability.TargetType == AbilityTargetType.TargetAndNonTarget)
             {
                 var avatar = playerSceneObject.Avatar;
-                ability.Target = this.@object.Enemy;
+                ability.Target = this.@object.Entity;
                 if (ability.CastAvailableCooldown(avatar))
                 {
                     ability.CastCooldown(location, avatar);
@@ -376,31 +375,31 @@
             }
         }
 
-        
-        [FlowMethod(typeof(DamageContext))]
-        public void Damage(bool forward)
-        {
-            if (!forward)
-            {
-                long dmg = GetFlowProperty<long>("Damage");
-                bool crit = GetFlowProperty<bool>("Critical");
+#warning здесь был flow метод
+        //[FlowMethod(typeof(DamageContext))]
+        //public void Damage(bool forward)
+        //{
+        //    if (!forward)
+        //    {
+        //        long dmg = GetFlowProperty<long>("Damage");
+        //        bool crit = GetFlowProperty<bool>("Critical");
 
-                var effects = new List<ISceneObject>();
-                effects.Add(new PopupString(dmg.ToString() + (crit ? "!" : ""), crit ? ConsoleColor.Red : ConsoleColor.White, MobObj.Location, 25, crit ? 14 : 12, 0.06));
+        //        var effects = new List<ISceneObject>();
+        //        effects.Add(new PopupString(dmg.ToString() + (crit ? "!" : ""), crit ? ConsoleColor.Red : ConsoleColor.White, MobObj.Location, 25, crit ? 14 : 12, 0.06));
 
 
-                bool showExp = GetFlowProperty<bool>("EnemyDied");
-                if (showExp)
-                {
-                    var min = MobObj.Enemy.Level * 4;
-                    var expr = RandomDungeon.Next(min, min * 2);
-                    playerSceneObject.Avatar.Character.Exp(MobObj.Exp);
-                    effects.Add(new PopupString($"Вы получаете {expr} опыта!", ConsoleColor.DarkMagenta, playerSceneObject.Avatar.Location, 25, 12, 0.06));
-                }
+        //        bool showExp = GetFlowProperty<bool>("EnemyDied");
+        //        if (showExp)
+        //        {
+        //            var min = MobObj.Enemy.Level * 4;
+        //            var expr = RandomDungeon.Next(min, min * 2);
+        //            playerSceneObject.Avatar.Character.Exp(MobObj.Exp);
+        //            effects.Add(new PopupString($"Вы получаете {expr} опыта!", ConsoleColor.DarkMagenta, playerSceneObject.Avatar.Location, 25, 12, 0.06));
+        //        }
 
-                this.ShowEffects(effects);
-            }
-        }
+        //        this.ShowEffects(effects);
+        //    }
+        //}
 
         public class DamageContext
         {

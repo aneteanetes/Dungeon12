@@ -4,6 +4,7 @@
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Merchants;
     using Dungeon.SceneObjects;
+    using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Inventories;
     using System;
     public class ShopTab : TabControl<ShopTabContent, MerchantCategory, ShopTab>
@@ -14,7 +15,7 @@
 
         public Inventory ShopInventory { get; private set; }
 
-        public ShopTab(SceneObject parent, Inventory another, Merchant merchant, MerchantCategory merchantCategory, PlayerSceneObject playerSceneObject, bool active = false)
+        public ShopTab(ISceneObject parent, Inventory another, Merchant merchant, MerchantCategory merchantCategory, PlayerSceneObject playerSceneObject, bool active = false)
             : base(parent, active, merchantCategory, titleImg: Title(merchantCategory.Name))
         {
             this.merchant = merchant;

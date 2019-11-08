@@ -5,7 +5,7 @@
     using Dungeon.View.Interfaces;
     using System;
 
-    public class PopupString : SceneObject
+    public class PopupString : SceneObject<DrawText>
     {
         public override bool Filtered => false;
 
@@ -36,9 +36,14 @@
         { }
 
         public PopupString(string text, IDrawColor color, Point position, int frames, float size = 10, double speed = 0.2)
+            : this(new DrawText(text, color) { Size = size }, position, frames, speed)
+        {
+        }
+
+        public PopupString(DrawText drawText, Point position, int frames, double speed=0.2) : base(drawText)
         {
             this.maxFrames = frames;
-            this.Text = new DrawText(text, color) { Size = size };
+            this.Text = Component;
             this.Text.FontName = "Montserrat";
             this.Text.FontAssembly = "Rogue.Resources";
             this.Text.FontPath = "Rogue.Resources.Fonts.Mont.otf";

@@ -9,7 +9,7 @@ using Dungeon.Drawing;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
 {
-    public class JournalList : HandleSceneControl
+    public class JournalList : EmptyHandleSceneControl
     {
         public override bool AbsolutePosition => true;
 

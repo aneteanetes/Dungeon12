@@ -21,7 +21,7 @@
         private Action<List<ISceneObject>> showEffects;
         private GameMap gamemap;
 
-        public CharButton(GameMap gamemap, PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects) : base("Персонаж (C)", showEffects)
+        public CharButton(GameMap gamemap, PlayerSceneObject playerSceneObject) : base("Персонаж (C)")
         {
             this.gamemap = gamemap;
             this.playerSceneObject = playerSceneObject;

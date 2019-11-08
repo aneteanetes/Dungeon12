@@ -15,6 +15,11 @@
     [Template("*")]
     public class Mob : EntityMapObject<Enemy>
     {
+        public Mob(Enemy component):base(component)
+        {
+
+        }
+
         public override string Icon { get => "*"; set { } }
 
         protected override MapObject Self => this;
@@ -68,7 +73,7 @@
         [ExcplicitFlowMethod]
         public void DamageExplicit(Damage damage)
         {
-            this.Enemy.Damage(damage);
+            this.Entity.Damage(damage);
         }
 
         //[FlowMethod]

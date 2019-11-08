@@ -14,6 +14,14 @@
     using System.Linq;
     using System.Timers;
     using Dungeon.Drawing;
+    using Dungeon.GameObjects;
+
+    public abstract class EmptyTooltipedSceneObject : TooltipedSceneObject<EmptyGameComponent>
+    {
+        public EmptyTooltipedSceneObject(string tooltip) : base(EmptyGameComponent.Empty, tooltip)
+        {
+        }
+    }
 
     public abstract class TooltipedSceneObject<TComponent> : HandleSceneControl<TComponent>
         where TComponent : IGameComponent
@@ -24,12 +32,8 @@
 
         public IDrawColor TooltipTextColor { get; set; }
 
-        public TooltipedSceneObject(TComponent component, string tooltip, Action<List<ISceneObject>> showEffects=null):base(component)
+        public TooltipedSceneObject(TComponent component, string tooltip):base(component)
         {
-            if (showEffects != null)
-            {
-                this.ShowEffects = showEffects;
-            }
             TooltipText = tooltip;
         }
 

@@ -6,7 +6,7 @@ using Dungeon.View.Interfaces;
 
 namespace Dungeon12.Drawing.SceneObjects.NetworkTest
 {
-    public class NetworkSceneObject : HandleSceneControl
+    public class NetworkSceneObject : EmptyHandleSceneControl
     {
         private NetworkObject _alive;
 

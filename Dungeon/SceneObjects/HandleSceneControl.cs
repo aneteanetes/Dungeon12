@@ -3,12 +3,22 @@
     using Dungeon.Control;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
+    using Dungeon.Proxy;
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    public abstract class HandleSceneControl<T> : SceneObject<T>, ISceneObjectControl
+    public interface IHandleSceneControl : IMixinContainer
+    {
+        void AddDynamicEvent(string eventName, Delegate method);
+
+        void AddHandle(ControlEventType controlEventType);
+
+        void RemoveHandle(ControlEventType controlEventType);
+    }
+
+    public abstract class HandleSceneControl<T> : SceneObject<T>, ISceneObjectControl, IHandleSceneControl
         where T : IGameComponent
     {
         public HandleSceneControl(T component) : base(component)
@@ -88,7 +98,7 @@
         public virtual void GlobalClick(PointerArgs args) => dynamicEvents[nameof(GlobalClick)]?.DynamicInvoke(args);
 
         protected TSceneObject AddControlCenter<TSceneObject>(TSceneObject control, bool horizontal = true, bool vertical = true)
-            where TSceneObject : ISceneObject, ISceneObjectControl
+            where TSceneObject : ISceneObjectControl
         {
             var measure = MeasureImage(control.Image);
             measure.X = measure.X * 32;

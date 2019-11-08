@@ -5,6 +5,10 @@
 
     public abstract partial class Item : IDrawable
     {
+        public Item()
+        {
+        }
+
         public string SubType { get; set; }
 
         public string Class { get; set; }

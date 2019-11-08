@@ -11,13 +11,13 @@ using System.Linq;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 {
-    public class TalantTreeTabContent : HandleSceneControl
+    public class TalantTreeTabContent : HandleSceneControl<TalantTree>
     {
         public override bool CacheAvailable => false;
 
         public override bool AbsolutePosition => true;
 
-        public TalantTreeTabContent(TalantTree talantTree,Character character, double left)
+        public TalantTreeTabContent(TalantTree talantTree,Character character, double left):base(talantTree)
         {
             this.Width = 12;
             this.Height = 15;
@@ -32,7 +32,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 
                 tier.OrderBy(t=>t.Order).ForEach((talant, i) =>
                 {
-                    var img = this.AddControlCenter(new TalantInfoSceneControl(talant, character, this.ShowEffects), inTier == 1, false);
+                    var img = this.AddControlCenter(new TalantInfoSceneControl(talant, character), inTier == 1, false);
                     img.Left -= left;
 
                     if (inTier == 2)
@@ -76,7 +76,11 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 
                             var from = new Point(point.X + 1, point.Y + 2);
                             var to = new Point(img.Left + 1, img.Top);
-                            this.AddChild(new LineSceneControl(from, to, color: color)
+                            this.AddChild(new LineSceneControl(new LineSceneModel(){
+                                From=from,
+                                To=to,
+                                Color=color
+                            })
                             {
                                 Depth = 2
                             });

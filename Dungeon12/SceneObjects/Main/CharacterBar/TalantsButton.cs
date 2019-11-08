@@ -18,7 +18,7 @@
 
         private PlayerSceneObject playerSceneObject;
 
-        public TalantsButton(PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects) : base("Таланты (X)", showEffects)
+        public TalantsButton(PlayerSceneObject playerSceneObject) : base("Таланты (X)")
         {
             this.playerSceneObject = playerSceneObject;
 

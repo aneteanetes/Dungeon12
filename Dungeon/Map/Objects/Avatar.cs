@@ -25,11 +25,9 @@
 
         public Direction VisionDirection { get; set; }
 
-        public Avatar(Character character)
+        public Avatar(Character character):base(character)
         {
             Character = character;
-            character.Map = this;
-            character.SetParentFlow(this);
             this.ForegroundColor = new MapObjectColor
             {
                 R = 255,

@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace Dungeon.Drawing.Labirinth
 {
-    public class GameMapSceneObject : HandleSceneControl
+    public class GameMapSceneObject : HandleSceneControl<GameMap>
     {
         public override bool IsBatch => true;
 
@@ -24,7 +24,7 @@ namespace Dungeon.Drawing.Labirinth
 
         private PlayerSceneObject player;
 
-        public GameMapSceneObject(GameMap location, PlayerSceneObject avatar)
+        public GameMapSceneObject(GameMap location, PlayerSceneObject avatar):base(location)
         {
             location.PublishObject = PublishMapObject;
             this.player = avatar;
@@ -76,21 +76,6 @@ namespace Dungeon.Drawing.Labirinth
                             Width = 32,
                             Pos = portal.Location
                         };
-
-                        //var portalSceneObject = new StandaloneSceneObject(portal, (frameCounter, animMap) =>
-                        //{
-
-                        //    return frameCounter % (180 / animMap.Frames.Count) == 0;
-                        //})
-                        //{
-                        //    Left = portal.Location.X,
-                        //    Top = portal.Location.Y,
-                        //    Width = 1,
-                        //    Height = 1
-                        //};
-
-                        //newSceneObjects.Add(portalSceneObject);
-                        //gamemap.Map.Add(portal);
 
                         var first = cell[0];
 

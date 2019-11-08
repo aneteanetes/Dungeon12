@@ -3,6 +3,7 @@
     using System;
     using Dungeon.Drawing;
     using Dungeon.Drawing.Impl;
+    using Dungeon.GameObjects;
     using Dungeon.SceneObjects;
     using Dungeon.Settings;
     using Dungeon.View.Interfaces;
@@ -85,10 +86,9 @@
 
     }
 
-    public class DarkRectangle<TComponent> : ColoredRectangle<TComponent>
-        where TComponent : IGameComponent
+    public class DarkRectangle : ColoredRectangle<EmptyGameComponent>
     {
-        public DarkRectangle(TComponent component):base(component)
+        public DarkRectangle() : base(EmptyGameComponent.Empty)
         {
             Color = ConsoleColor.Black;
             Depth = 1;

@@ -12,7 +12,7 @@ using System.Text;
 
 namespace Dungeon12.Bowman.Effects
 {
-    public class ArrowRain : SceneObject
+    public class ArrowRain : EmptySceneObject
     {
         GameMap _gameMap;
 

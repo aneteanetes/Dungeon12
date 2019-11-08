@@ -23,7 +23,7 @@ namespace Dungeon.Entities
         public virtual bool Container => false;
 
         public string Uid { get; } = Guid.NewGuid().ToString();
-
+        
         /// <summary>
         /// Возвращает свойство типа T - реализация: case of types
         /// </summary>
@@ -38,5 +38,12 @@ namespace Dungeon.Entities
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public virtual T[] PropertiesOfType<T>() where T : class => default;
+
+        public ISceneObject SceneObject { get; set; }
+
+        public void SetView(ISceneObject sceneObject)
+        {
+            SceneObject = sceneObject;
+        }
     }
 }

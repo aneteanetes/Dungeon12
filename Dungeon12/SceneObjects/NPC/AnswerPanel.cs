@@ -6,6 +6,7 @@
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
+    using Dungeon.GameObjects;
     using Dungeon.Map;
     using Dungeon.SceneObjects;
     using System;
@@ -147,7 +148,7 @@
             }
         }
 
-        private class AnswerClickable : HandleSceneControl
+        private class AnswerClickable : EmptyHandleSceneControl
         {
             public override bool AbsolutePosition => true;
 

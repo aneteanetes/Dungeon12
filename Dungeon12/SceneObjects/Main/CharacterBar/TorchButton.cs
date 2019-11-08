@@ -20,7 +20,7 @@
 
         private Player playerSceneObject;
 
-        public TorchButton(Player playerSceneObject, Action<List<ISceneObject>> showEffects) : base("Факел (F)", showEffects)
+        public TorchButton(Player playerSceneObject) : base("Факел (F)")
         {
             this.playerSceneObject = playerSceneObject;
 

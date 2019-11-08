@@ -4,13 +4,14 @@
     using Dungeon.Control.Keys;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects.Map;
+    using Dungeon.GameObjects;
     using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    public abstract class TabControl<TContent, TArgument, TTab> : TooltipedSceneObject
+    public abstract class TabControl<TContent, TArgument, TTab> : TooltipedSceneObject<EmptyGameComponent>
         where TContent : ISceneObject
         where TTab : TabControl<TContent, TArgument, TTab>
     {
@@ -33,7 +34,7 @@
 
         private readonly TArgument argument;
 
-        internal readonly SceneObject parent;
+        internal readonly ISceneObject parent;
 
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
@@ -41,8 +42,8 @@
             ControlEventType.Click
         };
 
-        public TabControl(SceneObject parent, bool active, TArgument argument = default, string title = null, string tooltip=null, string titleImg = null, double imgSqSize = 1.5)
-            :base(tooltip)
+        public TabControl(ISceneObject parent, bool active, TArgument argument = default, string title = null, string tooltip=null, string titleImg = null, double imgSqSize = 1.5)
+            :base(EmptyGameComponent.Empty, tooltip)
         {
             InactiveOther += SetInactive;
             Destroy += () => { InactiveOther -= this.SetInactive; };

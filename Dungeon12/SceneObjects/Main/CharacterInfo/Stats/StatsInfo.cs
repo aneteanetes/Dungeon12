@@ -9,7 +9,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class StatsInfo : HandleSceneControl
+    public class StatsInfo : EmptyHandleSceneControl
     {
         public override bool CacheAvailable => false;
 

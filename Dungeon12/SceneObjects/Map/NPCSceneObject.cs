@@ -2,7 +2,6 @@
 {
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.SceneObjects.Dialogs.NPC;
     using Dungeon.Entities.Alive;
     using Dungeon.Entities.Animations;
     using Dungeon.Map;
@@ -11,9 +10,11 @@
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Dialogs.Shop;
     using Dungeon12.Drawing.SceneObjects.Effects;
-    using System;using Dungeon;
+    using System;
+    using Dungeon;
     using System.Collections.Generic;
     using Dungeon12.Drawing.SceneObjects;
+    using Dungeon12.SceneObjects.NPC;
 
     public class NPCSceneObject : MoveableSceneObject<NPC>
     {

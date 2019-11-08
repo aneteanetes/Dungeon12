@@ -57,7 +57,7 @@ namespace Dungeon12.Servant.Effects.FaithShot
         {
         }
 
-        private class Might : SceneObject
+        private class Might : EmptySceneObject
         {
             public Might()
             {

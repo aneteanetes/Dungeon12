@@ -4,6 +4,7 @@
     using Dungeon.Control.Keys;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
+    using Dungeon.GameObjects;
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
     using Dungeon12.Scenes.Game;
@@ -22,13 +23,13 @@
             this.AddObject(new Prologue());
         }
 
-        private class Prologue : ColoredRectangle
+        private class Prologue : ColoredRectangle<EmptyGameComponent>
         {
             public override bool AbsolutePosition => true;
 
             public override bool CacheAvailable => false;
 
-            public Prologue()
+            public Prologue():base(EmptyGameComponent.Empty)
             {
                 this.Width = 40;
                 this.Height = 22.5;

@@ -13,7 +13,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class SkillBar : HandleSceneControl
+    public class SkillBar : EmptyHandleSceneControl
     {
         public override bool AbsolutePosition => true;
 

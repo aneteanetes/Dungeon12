@@ -9,8 +9,6 @@ namespace Dungeon.Entities
 {
     public class Entity : NetObject
     {
-        public ISceneObject SceneObject { get; set; }
-
         public MapObject MapObject { get; set; }
     }
 }

@@ -17,7 +17,7 @@
         public string Title { get; set; }
         private float _titleTextSize;
 
-        public TabControlFlex(SceneObject parent, bool active, TArgument argument = default, string title = null, float titleTextSize= 30f)
+        public TabControlFlex(ISceneObject parent, bool active, TArgument argument = default, string title = null, float titleTextSize= 30f)
             : base(parent, active, argument, title)
         {
             _titleTextSize = titleTextSize;

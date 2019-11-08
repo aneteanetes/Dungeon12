@@ -1,6 +1,7 @@
 ﻿namespace Dungeon.Map
 {
     using Dungeon.Events.Events;
+    using Dungeon.GameObjects;
     using Dungeon.Map.Objects;
     using Dungeon.Physics;
     using Dungeon.Types;
@@ -8,7 +9,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public partial class GameMap
+    public partial class GameMap : GameComponent
     {
         public Action<MapObject> PublishObject;
 

@@ -6,13 +6,14 @@
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Entities.Alive.Enums;
+    using Dungeon.GameObjects;
     using Dungeon.SceneObjects;
     using System;
     using System.Linq;
 
-    public class OriginDescription : ColoredRectangle
+    public class OriginDescription : ColoredRectangle<EmptyGameComponent>
     {
-        public OriginDescription(Origins origin)
+        public OriginDescription(Origins origin):base(EmptyGameComponent.Empty)
         {
             Color = ConsoleColor.Black;
             Depth = 1;

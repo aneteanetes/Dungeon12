@@ -5,7 +5,7 @@
     using Dungeon.SceneObjects;
     using System.Collections.Generic;
 
-    public class TorchlightInHandsSceneObject : SceneObject
+    public class TorchlightInHandsSceneObject : EmptySceneObject
     {
         public override bool CacheAvailable => false;
 
@@ -26,7 +26,7 @@
             OnEvent(obj);
         }
 
-        private class Flame : SceneObject
+        private class Flame : EmptySceneObject
         {
             public override bool CacheAvailable => false;
 

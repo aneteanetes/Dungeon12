@@ -59,8 +59,8 @@ namespace Dungeon12
 
             to.Recalculate();
 
-            to.SetParentFlow(SceneObject.Avatar);
             SceneObject.Avatar.Character = to;
+            SceneObject.Avatar.ReEntity(to);
 
             Global.Events.Raise(new ClassChangeEvent()
             {

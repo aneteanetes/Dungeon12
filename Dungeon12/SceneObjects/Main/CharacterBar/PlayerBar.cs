@@ -9,7 +9,7 @@
     using System;
     using System.Collections.Generic;
 
-    public class PlayerBar : SceneObject
+    public class PlayerBar : EmptySceneObject
     {
         public override bool AbsolutePosition => true;
         public override bool CacheAvailable => false;
@@ -18,32 +18,32 @@
         {
             bool needSlide() => gamemap.InSafe(playerSceneObject.Avatar);
 
-            this.AddChild(new TorchButton(playerSceneObject, showEffects)
+            this.AddChild(new TorchButton(playerSceneObject)
             {
                 Left = -2,
                 Top=0.5,
                 SlideNeed= needSlide,
                 SlideOffsetLeft=5
             });
-            this.AddChild(new JournalButton(playerSceneObject, showEffects)
+            this.AddChild(new JournalButton(playerSceneObject)
             {
                 Left = -1,
                 Top = 0.5,
                 SlideNeed = needSlide,
                 SlideOffsetLeft = 5
             });
-            this.AddChild(new CharButton(gamemap, playerSceneObject, showEffects)
+            this.AddChild(new CharButton(gamemap, playerSceneObject)
             {
                 SlideNeed = needSlide,
                 SlideOffsetLeft = 5
             });
-            this.AddChild(new SkillsButton(playerSceneObject,showEffects)
+            this.AddChild(new SkillsButton(playerSceneObject)
             {
                 Left=11.5,
                 SlideNeed = needSlide,
                 SlideOffsetLeft = -5
             });
-            this.AddChild(new TalantsButton(playerSceneObject, showEffects)
+            this.AddChild(new TalantsButton(playerSceneObject)
             {
                 Left=13,
                 Top=0.5,

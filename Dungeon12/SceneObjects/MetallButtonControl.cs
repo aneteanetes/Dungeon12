@@ -4,11 +4,12 @@
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.SceneObjects;
+    using Dungeon.GameObjects;
     using Dungeon.SceneObjects.Base;
     using System;
-    public class MetallButtonControl : ButtonControl
+    public class MetallButtonControl : ButtonControl<EmptyGameComponent>
     {
-        public MetallButtonControl(string text) : base(text,24)
+        public MetallButtonControl(string text) : base(EmptyGameComponent.Empty, text, 24)
         {
         }
 
@@ -16,7 +17,7 @@
         public override double Height { get => 2.40625; set { } }
 
         public override string Image { get; set; } = "Dungeon12.Resources.Images.ui.button.png";
-        
+
         public override void Focus()
         {
             Global.AudioPlayer.Effect("focus");

@@ -38,7 +38,7 @@ namespace Dungeon12.Servant.Abilities
             Target.Flow(t => t.AddEffect(true), new { Effects = new HealEffect().InList<ISceneObject>() });
         }
 
-        private class HealEffect : SceneObject
+        private class HealEffect : EmptySceneObject
         {
             public HealEffect()
             {

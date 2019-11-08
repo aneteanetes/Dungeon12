@@ -17,7 +17,7 @@ namespace Dungeon12.Noone.Talants.Absordibng
 
             if (enemy != default)
             {
-                if (enemy.Enemy.HitPoints <= 0)
+                if (enemy.Entity.HitPoints <= 0)
                 {
                     enemy.Die?.Invoke();
 

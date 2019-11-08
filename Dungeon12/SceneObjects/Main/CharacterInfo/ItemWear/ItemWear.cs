@@ -194,7 +194,7 @@
             OnEvent(obj);
         }
 
-        private class DressedItem : TooltipedSceneObject
+        private class DressedItem : EmptyTooltipedSceneObject
         {
             public override bool CacheAvailable => false;
 
@@ -202,7 +202,7 @@
 
             public Item item;
 
-            public DressedItem(Item item) : base(item?.Description, null) => Dress(item);
+            public DressedItem(Item item) : base(item?.Description) => Dress(item);
 
             public void Dress(Item itemSource)
             {

@@ -2,13 +2,13 @@
 {
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
-    using Dungeon.Drawing.SceneObjects.Dialogs.NPC;
     using Dungeon.Map;
     using Dungeon.Map.Objects;
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects;
     using Dungeon12.Drawing.SceneObjects.Dialogs.Shop;
     using Dungeon12.Map.Objects;
+    using Dungeon12.SceneObjects.NPC;
 
     public class HomeSceneObject : ClickActionSceneObject<Home>
     {

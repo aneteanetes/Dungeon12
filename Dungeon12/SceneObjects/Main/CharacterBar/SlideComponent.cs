@@ -3,16 +3,17 @@ using Dungeon.View.Interfaces;
 using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 using System.Collections.Generic;
 using System.Text;
+using Dungeon.GameObjects;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterBar
 {
-    public abstract class SlideComponent : TooltipedSceneObject
+    public abstract class SlideComponent : TooltipedSceneObject<EmptyGameComponent>
     {
         public virtual double SlideOffsetLeft { get; set; } = 0;
         public virtual double SlideOffsetTop { get; set; } = 0;
         public Func<bool> SlideNeed = () => true;
 
-        public SlideComponent(string tooltip="", Action<List<ISceneObject>> showEffects=null) : base(tooltip, showEffects)
+        public SlideComponent(string tooltip="") : base(EmptyGameComponent.Empty,tooltip)
         {
         }
 

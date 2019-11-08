@@ -29,5 +29,12 @@ namespace Dungeon.Abilities.Talants.TalantTrees
         public abstract List<IGrouping<int,TalantBase>> Talants { get; }
 
         public string Uid { get; } = Guid.NewGuid().ToString();
+
+        public ISceneObject SceneObject { get; set; }
+
+        public void SetView(ISceneObject sceneObject)
+        {
+            SceneObject = sceneObject;
+        }
     }
 }

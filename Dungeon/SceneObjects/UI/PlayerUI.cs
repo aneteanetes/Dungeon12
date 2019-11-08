@@ -9,11 +9,11 @@
     using Dungeon.Types;
     using System;
 
-    public class PlayerUI : SceneObject
+    public class PlayerUI : SceneObject<Character>
     {
         public override bool AbsolutePosition => true;
 
-        public PlayerUI(Character player)
+        public PlayerUI(Character player) : base(player, false)
         {
             OnEvent(new ClassChangeEvent()
             {
@@ -82,7 +82,7 @@
             }
         }
 
-        private class LevelSceneObject : SceneObject
+        private class LevelSceneObject : EmptySceneObject
         {
             public override bool CacheAvailable => false;
 

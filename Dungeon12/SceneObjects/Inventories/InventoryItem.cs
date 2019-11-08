@@ -18,7 +18,7 @@
 
         private ItemWear[] itemWears;
 
-        public InventoryItem(ItemWear[] itemWears, Item item)
+        public InventoryItem(ItemWear[] itemWears, Item item):base(default)
         {
             this.itemWears = itemWears;
             this.Item = item;

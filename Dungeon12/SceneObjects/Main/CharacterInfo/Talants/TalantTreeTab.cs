@@ -3,6 +3,7 @@ using Dungeon.Classes;
 using Dungeon.Drawing.SceneObjects.UI;
 using Dungeon.Events;
 using Dungeon.SceneObjects;
+using Dungeon.View.Interfaces;
 using System;
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 {
@@ -10,7 +11,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
     {
         private readonly Character character;
 
-        public TalantTreeTab(SceneObject parent, TalantTree talantTree, Character character, bool active = false)
+        public TalantTreeTab(ISceneObject parent, TalantTree talantTree, Character character, bool active = false)
             : base(parent, active, talantTree, talantTree.Name)
         {
             this.character = character;

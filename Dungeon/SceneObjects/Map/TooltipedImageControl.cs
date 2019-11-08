@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 using Dungeon.Control;
+using Dungeon.GameObjects;
 using Dungeon.View.Interfaces;
 
 namespace Dungeon.Drawing.SceneObjects.Map
 {
-    public class TooltipedImageControl : TooltipedSceneObject
+    public class TooltipedImageControl : TooltipedSceneObject<EmptyGameComponent>
     {
         protected override ControlEventType[] Handles => new ControlEventType[] { ControlEventType.Focus };
 
-        public TooltipedImageControl(string img, string tooltip, Action<List<ISceneObject>> showEffects) : base(tooltip, showEffects)
+        public TooltipedImageControl(string img, string tooltip) : base(EmptyGameComponent.Empty, tooltip)
         {
             this.Image = img;
             var measure = this.MeasureImage(img);

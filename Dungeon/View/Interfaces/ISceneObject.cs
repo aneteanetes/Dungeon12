@@ -4,7 +4,7 @@
     using System;
     using System.Collections.Generic;
 
-    public interface ISceneObject
+    public interface ISceneObject : IGameComponent
     {
         bool Shadow { get; set; }
 
@@ -136,6 +136,8 @@
         /// <summary>
         /// Метод вызывается перед отрисовкой, а то заебало уже хаки юзать
         /// </summary>
-        void Update();        
+        void Update();
+
+        void RemoveChild(ISceneObject sceneObject);
     }
 }

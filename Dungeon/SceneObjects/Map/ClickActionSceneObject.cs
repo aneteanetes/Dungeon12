@@ -14,7 +14,7 @@
         protected readonly PlayerSceneObject playerSceneObject;
         protected readonly T @object;
 
-        public ClickActionSceneObject(PlayerSceneObject playerSceneObject, T @object, string tooltip) : base(tooltip, null)
+        public ClickActionSceneObject(PlayerSceneObject playerSceneObject, T @object, string tooltip) : base(@object,tooltip)
         {
             this.@object = @object;
 

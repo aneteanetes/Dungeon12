@@ -200,7 +200,7 @@
             base.OnDrop(source);
         }
 
-        private class InventoryBackBatch : SceneObject
+        private class InventoryBackBatch : EmptySceneObject
         {
             public override bool AbsolutePosition => true;
 
@@ -239,7 +239,7 @@
             }
         }
 
-        private class InventoryCell : SceneObject
+        private class InventoryCell : EmptySceneObject
         {
 
             public InventoryCell()
@@ -282,7 +282,7 @@
                 }
             }
 
-            private class InventoryCellBorder : SceneObject
+            private class InventoryCellBorder : EmptySceneObject
             {
                 public InventoryCellBorder()
                 {

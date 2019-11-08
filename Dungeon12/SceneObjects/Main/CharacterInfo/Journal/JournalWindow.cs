@@ -21,7 +21,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 
         internal ScrollJournalContent scrollJournalContent;
 
-        public JournalWindow(Player playerSceneObject)
+        public JournalWindow(Player playerSceneObject) : base(default)
         {
             playerSceneObject.BlockMouse = true;
             this.Destroy += () => playerSceneObject.BlockMouse = false;

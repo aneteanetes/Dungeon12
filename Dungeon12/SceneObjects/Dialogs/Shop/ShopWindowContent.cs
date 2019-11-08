@@ -5,7 +5,7 @@
     using Dungeon.SceneObjects;
     using Dungeon.Drawing;
 
-    public class ShopWindowContent : HandleSceneControl
+    public class ShopWindowContent : EmptyHandleSceneControl
     {
         public override bool AbsolutePosition => true;
 

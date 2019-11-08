@@ -5,7 +5,7 @@
     using Dungeon.View.Interfaces;
     using System;
 
-    public class CheckBox : HandleSceneControl
+    public class CheckBox : EmptyHandleSceneControl
     {
         public override bool AbsolutePosition => true;
         public override bool CacheAvailable => false;
@@ -36,7 +36,7 @@
             Image = Img;
         }
 
-        private class CheckBoxLabel : HandleSceneControl
+        private class CheckBoxLabel : EmptyHandleSceneControl
         {
             private readonly Action<PointerArgs> click;
 

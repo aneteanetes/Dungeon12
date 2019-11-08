@@ -70,7 +70,9 @@ namespace Dungeon12.Bowman.Effects
             }
         }
 
-        private class Might : SceneObject
+
+
+        private class Might : EmptySceneObject
         {
             public Might(bool offsetTop, bool offsetLeft,bool offsetRight)
             {
@@ -216,8 +218,7 @@ namespace Dungeon12.Bowman.Effects
             var target = _gameMap.One<Mob>(rangeObject);
             if (target != default)
             {
-                target.Entity.da
-                target.DamageExplicit(new Damage()
+                target.Entity.Damage(new Damage()
                 {
                     Amount=@object.Damage,
                     Type=DamageType.Kenetic                    

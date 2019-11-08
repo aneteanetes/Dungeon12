@@ -70,9 +70,8 @@
 
             for (int i = 0; i < count; i++)
             {
-                var mob = new Mob()
+                var mob = new Mob(data.Enemy.DeepClone())
                 {
-                    Enemy = data.Enemy.DeepClone(),
                     Tileset = data.Tileset,
                     TileSetRegion = data.TileSetRegion,
                     Name = data.Name,
@@ -86,7 +85,7 @@
                     AttackRangeMultiples = data.AttackRangeMultiples
                 };
 
-                mob.Enemy.Name = mob.Name;
+                mob.Entity.Name = mob.Name;
 
                 bool setted = false;
 

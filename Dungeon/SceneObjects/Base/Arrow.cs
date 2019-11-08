@@ -6,7 +6,7 @@
     using Dungeon.View.Interfaces;
     using System;
 
-    public class Arrow : HandleSceneControl
+    public class Arrow : EmptyHandleSceneControl
     {
         public override bool CacheAvailable => false;
 

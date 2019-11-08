@@ -8,6 +8,7 @@
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Drawing.SceneObjects.UI;
+    using Dungeon.GameObjects;
     using Dungeon.Map;
     using Dungeon.SceneObjects;
     using Dungeon.Types;
@@ -33,7 +34,7 @@
         /// <param name="showEffects"></param>
         /// <param name="statBtn"></param>
         /// <param name="selfClose">Вообще я уверен что оставлял там возможность отрубать биндинги, но похуй пока что, экспресс разработка</param>
-        public CharacterInfoWindow(GameMap gameMap, PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects, bool statBtn = true,bool selfClose=true)
+        public CharacterInfoWindow(GameMap gameMap, PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects, bool statBtn = true,bool selfClose=true):base(default)
         {
             playerSceneObject.BlockMouse = true;
             this.Destroy += () => playerSceneObject.BlockMouse = false;
@@ -49,7 +50,7 @@
             this.selfclose = selfClose;
 
             if (statBtn)
-                this.AddChild(new StatsButton(OpenStats, showEffects)
+                this.AddChild(new StatsButton(OpenStats)
                 {
                     Top = 2,
                     Left = 10.5
@@ -95,7 +96,7 @@
 
         private Dictionary<string, TextControl> updateableStats = new Dictionary<string, TextControl>();
 
-        private class StatContainer : TooltipedSceneObject
+        private class StatContainer : TooltipedSceneObject<EmptyGameComponent>
         {
             TextControl _textControl;
             ClassStat _classStat;
@@ -104,7 +105,7 @@
             public override bool AbsolutePosition => true;
             public override bool CacheAvailable => false;
 
-            public StatContainer(ClassStat classStat):base(classStat.StatName)
+            public StatContainer(ClassStat classStat):base(EmptyGameComponent.Empty, classStat.StatName)
             {
                 _classStat = classStat;
                 this.Width = 2;
@@ -314,14 +315,14 @@
             }
         }
 
-        private class StatsButton : TooltipedSceneObject
+        private class StatsButton : EmptyTooltipedSceneObject
         {
             public override bool CacheAvailable => false;
             public override bool AbsolutePosition => true;
 
             private readonly Action open;
 
-            public StatsButton(Action open, Action<List<ISceneObject>> showEffects) : base("Характеристики", showEffects)
+            public StatsButton(Action open) : base("Характеристики")
             {
                 this.open = open;
 

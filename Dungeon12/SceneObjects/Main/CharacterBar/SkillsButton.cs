@@ -19,7 +19,7 @@
         private PlayerSceneObject playerSceneObject;
         private Action<List<ISceneObject>> showEffects;
 
-        public SkillsButton(PlayerSceneObject playerSceneObject, Action<List<ISceneObject>> showEffects) : base("Навыки (V)", showEffects)
+        public SkillsButton(PlayerSceneObject playerSceneObject) : base("Навыки (V)")
         {
             this.playerSceneObject = playerSceneObject;
             this.showEffects = showEffects;

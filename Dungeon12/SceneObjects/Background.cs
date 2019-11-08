@@ -27,7 +27,7 @@ namespace Dungeon12.Drawing.SceneObjects
             }
         }
 
-        private class BackgroundSnow : SceneObject
+        private class BackgroundSnow : EmptySceneObject
         {
             public BackgroundSnow()
             {

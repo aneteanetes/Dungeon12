@@ -1,4 +1,6 @@
-﻿namespace Dungeon.Drawing.SceneObjects.Dialogs.NPC
+﻿using Dungeon;
+
+namespace Dungeon12.SceneObjects.NPC
 {
     using Dungeon.Control;
     using Dungeon.Control.Keys;
@@ -8,6 +10,7 @@
     using Dungeon.Map.Objects;
     using Dungeon.SceneObjects;
     using Dungeon.SceneObjects.Base;
+    using Dungeon12.Drawing.SceneObjects;
     using System;
     using System.Linq;
 
@@ -15,26 +18,26 @@
     {
         public override bool AbsolutePosition => true;
 
-        private ButtonControl exitBtn;
+        private MetallButtonControl exitBtn;
         private Сonversational conv;
         private Action<Subject> select;
         private Action exit;
 
-        public SubjectPanel(Сonversational conv, Action<Subject> select, Action exit, ButtonControl btn)
+        public SubjectPanel(Сonversational conv, Action<Subject> select, Action exit, MetallButtonControl btn)
         {
             this.select = select;
             this.conv = conv;
             this.exit = exit;
 
-            this.Opacity = 0.8;
+            Opacity = 0.8;
 
-            this.Top = 0;
-            this.Left = 31;
+            Top = 0;
+            Left = 31;
 
-            this.Height = 22.5;
-            this.Width = 9;
-            
-            var txt = this.AddTextCenter(new DrawText(conv.Name), true, false);
+            Height = 22.5;
+            Width = 9;
+
+            var txt = AddTextCenter(new DrawText(conv.Name), true, false);
             txt.Top = 0.5;
 
             exitBtn = btn;
@@ -42,7 +45,7 @@
             btn.Top = 19;
             btn.OnClick = ButtonClick;
 
-            exitBtn.Left = this.Width / 2 - exitBtn.Width / 2;
+            exitBtn.Left = Width / 2 - exitBtn.Width / 2;
 
             this.AddChild(exitBtn);
 
@@ -101,7 +104,7 @@
             this.AddChild(conversactionClickable);
         }
 
-        private void SetConversation(Conversation conv, Action<Subject> select, bool alone=false)
+        private void SetConversation(Conversation conv, Action<Subject> select, bool alone = false)
         {
             if (conv == null)
             {
@@ -112,14 +115,14 @@
                 staticface.Width = 3;
                 staticface.AbsolutePosition = true;
                 staticface.Top = 2;
-                staticface.Left = this.Width / 2 - staticface.Width / 2;
+                staticface.Left = Width / 2 - staticface.Width / 2;
 
-                this.AddChild(staticface);
+                AddChild(staticface);
 
                 destroyConversation += () =>
                 {
                     staticface.Destroy?.Invoke();
-                    this.RemoveChild(staticface);
+                    RemoveChild(staticface);
                 };
 
                 return;
@@ -138,24 +141,24 @@
             face.Width = 3;
             face.AbsolutePosition = true;
             face.Top = 2;
-            face.Left = this.Width / 2 - face.Width / 2;
+            face.Left = Width / 2 - face.Width / 2;
 
-            this.AddChild(face);
+            AddChild(face);
 
             destroyConversation += () =>
              {
                  face.Destroy?.Invoke();
-                 this.RemoveChild(face);
+                 RemoveChild(face);
              };
 
             if (!alone)
             {
-                var txt = this.AddTextCenter(new DrawText(conv.Name).Montserrat(), true);
+                var txt = AddTextCenter(new DrawText(conv.Name).Montserrat(), true);
                 txt.Top = 5.5;
                 destroyConversation += () =>
                 {
                     txt.Destroy?.Invoke();
-                    this.RemoveChild(txt);
+                    RemoveChild(txt);
                 };
             }
 
@@ -165,7 +168,7 @@
             {
                 var subjClick = new SubjectClickable(subj, select);
                 subjClick.Top = x;
-                subjClick.Left = this.Width / 2 - subjClick.Width / 2;
+                subjClick.Left = Width / 2 - subjClick.Width / 2;
 
                 this.AddChild(subjClick);
                 destroyConversation += () =>
@@ -178,7 +181,7 @@
             }
         }
 
-        private class SubjectClickable : HandleSceneControl
+        private class SubjectClickable : EmptyHandleSceneControl
         {
             public override bool AbsolutePosition => true;
             public override bool CacheAvailable => false;
@@ -191,7 +194,7 @@
                 this.select = select;
                 DrawText txt = subject.Name;
                 this.Text = txt;
-                this.subj = subject;
+                subj = subject;
 
                 this.Width = MeasureText(txt).X / 32;
                 this.Height = 1;
@@ -199,13 +202,13 @@
 
             public override void Focus()
             {
-                this.Text.ForegroundColor = new DrawColor(System.ConsoleColor.Yellow);
+                this.Text.ForegroundColor = new DrawColor(ConsoleColor.Yellow);
                 base.Focus();
             }
 
             public override void Unfocus()
             {
-                this.Text.ForegroundColor = new DrawColor(System.ConsoleColor.White);
+                this.Text.ForegroundColor = new DrawColor(ConsoleColor.White);
                 base.Unfocus();
             }
 
@@ -215,7 +218,7 @@
             }
         }
 
-        private class ConversactionClickable : HandleSceneControl
+        private class ConversactionClickable : EmptyHandleSceneControl
         {
             public override bool CacheAvailable => false;
 
@@ -228,7 +231,7 @@
 
                 foreach (var con in conv.Conversations)
                 {
-                    var face = new FaceClickControl(con.Face,con.Name, () => select(con));
+                    var face = new FaceClickControl(con.Face, con.Name, () => select(con));
                     face.AbsolutePosition = true;
                     face.Top = top;
                     face.Left = this.Width / 2 - face.Width / 2;
@@ -241,7 +244,7 @@
                 this.Height = conv.Conversations.Sum(x => 4.5);
             }
 
-            private class FaceClickControl : HandleSceneControl
+            private class FaceClickControl : EmptyHandleSceneControl
             {
                 public override bool CacheAvailable => false;
 

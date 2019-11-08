@@ -3,11 +3,12 @@
     using Dungeon.Control;
     using Dungeon.Control.Keys;
     using Dungeon.Drawing.SceneObjects;
+    using Dungeon.GameObjects;
     using Dungeon.View.Interfaces;
     using System;
     using System.Linq;
 
-    public class TextInputControl : ColoredRectangle
+    public class TextInputControl : ColoredRectangle<EmptyGameComponent>
     {
         private readonly int limit;
         private readonly bool capitalize;
@@ -43,7 +44,7 @@
             }
         }
 
-        private readonly ColoredRectangle focusRect;
+        private readonly ColoredRectangle<EmptyGameComponent> focusRect;
 
         private static Action<TextInputControl> Change;
 
@@ -52,6 +53,7 @@
         public Func<string, bool> Validation { get; set; }
 
         public TextInputControl(IDrawText drawText, int chars, bool capitalize = false, bool autofocus = true, bool absolute = true, bool onEnterOnBlur = false, double width=0, double height = 0)
+            :base(EmptyGameComponent.Empty)
         {
             AbsolutePosition = absolute;
             limit = chars;

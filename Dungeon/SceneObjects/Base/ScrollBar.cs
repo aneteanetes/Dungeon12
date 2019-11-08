@@ -6,14 +6,16 @@ namespace Dungeon.SceneObjects.Base
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
+    using Dungeon.GameObjects;
     using Dungeon.SceneObjects.Mixins;
+    using Dungeon.View.Interfaces;
     using System;
 
-    public class Scrollbar : ColoredRectangle, IMixin
+    public class Scrollbar : ColoredRectangle<EmptyGameComponent>, IMixin
     {
         private Action<MouseWheelEnum> _redrawContent;
 
-        private Scrollbar(double height)
+        private Scrollbar(double height):base(EmptyGameComponent.Empty)
         {
             Color = ConsoleColor.Black;
             Depth = 1;
@@ -57,9 +59,9 @@ namespace Dungeon.SceneObjects.Base
 
         public bool CanUp { set => Up.Active = value; }
 
-        public void InitAsMixin(SceneObject owner)
+        public void InitAsMixin(ISceneObject owner)
         {
-            if (!(owner is HandleSceneControl handleSceneControl))
+            if (!(owner is IHandleSceneControl handleSceneControl))
                 return;
 
             var upBind = UpBinding(handleSceneControl, _redrawContent);
@@ -67,7 +69,7 @@ namespace Dungeon.SceneObjects.Base
             AddArrows(upBind, downBind);
 
             handleSceneControl.AddHandle(ControlEventType.MouseWheel);
-            handleSceneControl.AddDynamicEvent(nameof(handleSceneControl.MouseWheel), MouseWheelBinding(upBind, downBind));
+            handleSceneControl.AddDynamicEvent(nameof(HandleSceneControl<EmptyGameComponent>.MouseWheel), MouseWheelBinding(upBind, downBind));
         }
 
         private void AddArrows(Func<bool> upBind, Func<bool> downBind)
@@ -92,7 +94,7 @@ namespace Dungeon.SceneObjects.Base
              }
          };
 
-        private static Func<bool> UpBinding(HandleSceneControl handleSceneControl, Action<MouseWheelEnum> redrawContent)
+        private static Func<bool> UpBinding(IHandleSceneControl handleSceneControl, Action<MouseWheelEnum> redrawContent)
         => () =>
         {
             var scrollbar = handleSceneControl.Mixin<Scrollbar>();
@@ -108,7 +110,7 @@ namespace Dungeon.SceneObjects.Base
             return true;
         };
 
-        private static Func<bool> DownBinding(HandleSceneControl handleSceneControl, Action<MouseWheelEnum> redrawContent)
+        private static Func<bool> DownBinding(IHandleSceneControl handleSceneControl, Action<MouseWheelEnum> redrawContent)
         => () =>
         {
             var scrollbar = handleSceneControl.Mixin<Scrollbar>();

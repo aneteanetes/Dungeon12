@@ -4,6 +4,7 @@
     using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.UI;
+    using Dungeon.GameObjects;
     using Dungeon.Proxy;
     using Dungeon.SceneObjects.Mixins;
     using Dungeon.Scenes.Manager;
@@ -14,20 +15,29 @@
     using System.Collections.Generic;
     using System.Linq;
     
-    public abstract class SceneObject<TComponent> : ISceneObject, IFlowable, IMixinContainer
+    public abstract class SceneObject<TComponent> : GameComponent, ISceneObject, IFlowable, IMixinContainer
         where TComponent : IGameComponent
     {
-        private Scenes.GameScene owner;
+        private readonly Scenes.GameScene owner;
 
-        public TComponent Component { get; }
+        public TComponent Component { get; private set; }
 
         /// <summary>
         /// В КОНСТРУКТОРЕ ЕСТЬ КОСТЫЛЬ
         /// </summary>
-        public SceneObject(TComponent component)
+        public SceneObject(TComponent component, bool bindView=true)
         {
-            component.SetView(this);
-            Component = component;
+            if (bindView && component != default)
+            {
+                component.SetView(this);
+                Component = component;
+
+                this.Destroy += () =>
+                {
+                    Component = default;
+                    component.SetView(default);
+                };
+            }
 
             // ЭТО ПИЗДЕЦ КОСТЫЛЬ
             owner = SceneManager.Preapering;
@@ -37,11 +47,11 @@
                 // ВСЕ ЭТИ МЕТОДЫ ПУБЛИЧНЫЕ ТОЛЬКО ПОТОМУ ЧТО НУЖНЫ ЗДЕСЬ
                 ControlBinding += owner.AddControl;
                 DestroyBinding += owner.RemoveObject;
-                Destroy = () => owner.RemoveObject(this);
+                Destroy += () => owner.RemoveObject(this);
                 ShowEffects += owner.ShowEffectsBinding;
 
                 //ПИЗДЕЦ. Это надо лечить
-                if (this is DraggableControl draggableControl)
+                if (this is IDraggableControl draggableControl)
                 { }
                 else
                 {
@@ -108,7 +118,7 @@
         }
 
         protected T AddChildImageCenter<T>(T control, bool horizontal = true, bool vertical = true)
-            where T : SceneObject
+            where T : ISceneObject
         {
             var measure = MeasureImage(control.Image);
             measure.X = measure.X * 32;
@@ -134,7 +144,7 @@
         }
 
         protected T AddChildCenter<T>(T control, bool horizontal = true, bool vertical = true)
-            where T : SceneObject
+            where T : ISceneObject
         {
             if (horizontal)
             {
@@ -152,7 +162,7 @@
             return control;
         }
 
-        public SceneObject WithText(IDrawText drawText, bool center = false)
+        public SceneObject<TComponent> WithText(IDrawText drawText, bool center = false)
         {
             if (center)
             {
@@ -172,7 +182,7 @@
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        protected Point MeasureText(IDrawText text, SceneObject parent = default) => Global.DrawClient.MeasureText(text, parent);
+        protected Point MeasureText(IDrawText text, ISceneObject parent = default) => Global.DrawClient.MeasureText(text, parent);
 
         /// <summary>
         /// измеряет изображение и возвращает уже в формате координат
