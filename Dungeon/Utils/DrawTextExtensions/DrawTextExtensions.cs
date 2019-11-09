@@ -18,6 +18,12 @@ namespace Dungeon
             return drawText;
         }
 
+        public static DrawText InColor(this DrawText drawText, ConsoleColor consoleColor)
+        {
+            drawText.ForegroundColor = new DrawColor(consoleColor);
+            return drawText;
+        }
+
         public static DrawText InSize(this DrawText drawText, long size=12)
         {
             drawText.Size = size;

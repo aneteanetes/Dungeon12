@@ -14,6 +14,54 @@
   ],
   "Objects": [
 	{
+	"Icon":"Barrel",
+		"IdentifyName":"Red",
+		"Position":{
+			"X":34,
+			"Y":42
+		}
+	},
+	{
+	"Icon":"Barrel",
+		"IdentifyName":"Blue",
+		"Position":{
+			"X":37,
+			"Y":48
+		}
+	},
+	{
+	"Icon":"Barrel",
+		"IdentifyName":"Cyan",
+		"Position":{
+			"X":37,
+			"Y":45
+		}
+	},
+	{
+	"Icon":"Barrel",
+		"IdentifyName":"Magenta",
+		"Position":{
+			"X":48,
+			"Y":50
+		}
+	},
+	{
+	"Icon":"Barrel",
+		"IdentifyName":"DarkMagenta",
+		"Position":{
+			"X":55,
+			"Y":53
+		}
+	},
+	{
+	"Icon":"Barrel",
+		"IdentifyName":"Cloudy",
+		"Position":{
+			"X":34,
+			"Y":56
+		}
+	},
+	{
 	"Icon":"Home",
 		"IdentifyName":"FaithIslandMayor",
 		"Position":{

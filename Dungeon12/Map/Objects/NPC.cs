@@ -60,37 +60,34 @@
             return new NPCSceneObject(gameState.Player, gameState.Map, this, this.TileSetRegion);
         }
 
-        protected override void Load(object dataClass)
+        protected override void Load(RegionPart npcData)
         {
-            if (dataClass is RegionPart npcData)
+            var data = Database.Entity<NPCData>(x => x.IdentifyName == npcData.IdentifyName).FirstOrDefault();
+
+            this.NPCEntity = data.NPC.DeepClone();
+            this.Moving = data.Moveable;
+            this.Tileset = data.Tileset;
+            this.FaceImage = data.Face;
+            this.TileSetRegion = data.TileSetRegion;
+            this.Name = data.Name;
+            this.Size = new PhysicalSize()
             {
-                var data = Database.Entity<NPCData>(x => x.IdentifyName == npcData.IdentifyName).FirstOrDefault();
+                Width = data.Size.X * 32,
+                Height = data.Size.Y * 32
+            };
+            this.MovementSpeed = data.MovementSpeed;
+            this.Location = npcData.Position;
 
-                this.NPCEntity = data.NPC.DeepClone();
-                this.Moving = data.Moveable;
-                this.Tileset = data.Tileset;
-                this.FaceImage = data.Face;
-                this.TileSetRegion = data.TileSetRegion;
-                this.Name = data.Name;
-                this.Size = new PhysicalSize()
-                {
-                    Width = data.Size.X * 32,
-                    Height = data.Size.Y * 32
-                };
-                this.MovementSpeed = data.MovementSpeed;
-                this.Location = npcData.Position;
+            if (data.Merchant)
+            {
+                this.Merchant = new Merchants.Merchant();
+                this.Merchant.FillBackpacks();
+            }
+            this.BuildConversations(data);
 
-                if (data.Merchant)
-                {
-                    this.Merchant = new Merchants.Merchant();
-                    this.Merchant.FillBackpacks();
-                }
-                this.BuildConversations(data);
-
-                if (this.NPCEntity.MoveRegion != null)
-                {
-                    this.NPCEntity.MoveRegion = this.NPCEntity.MoveRegion * 32;
-                }
+            if (this.NPCEntity.MoveRegion != null)
+            {
+                this.NPCEntity.MoveRegion = this.NPCEntity.MoveRegion * 32;
             }
         }
     }

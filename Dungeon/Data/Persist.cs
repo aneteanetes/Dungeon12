@@ -7,5 +7,7 @@ namespace Dungeon.Data
     public class Persist
     {
         public int Id { get; set; }
+
+        public string IdentifyName { get; set; }
     }
 }

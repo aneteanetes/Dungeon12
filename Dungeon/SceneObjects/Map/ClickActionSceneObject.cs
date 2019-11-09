@@ -35,6 +35,8 @@
 
         protected virtual int GrowSize { get; set; } = 3;
 
+        protected virtual bool SilentTooltip => false;
+
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
             ControlEventType.Focus,
@@ -104,8 +106,11 @@
         {
             if (key == Key.LeftShift && !hold)
             {
-                this.ShowTooltip();
-                DisableTooltipAction = true;
+                if (!SilentTooltip)
+                {
+                    this.ShowTooltip();
+                    DisableTooltipAction = true;
+                }
             }
 
             if (key == Key.Q || key == Key.E)

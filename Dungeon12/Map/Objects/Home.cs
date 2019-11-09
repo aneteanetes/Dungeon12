@@ -29,29 +29,26 @@
         }
 
 
-        protected override void Load(object dataClass)
+        protected override void Load(RegionPart homeData)
         {
-            if (dataClass is RegionPart homeData)
+            var data = Database.Entity<HomeData>(x => x.IdentifyName == homeData.IdentifyName).FirstOrDefault();
+
+            this.ScreenImage = data.ScreenImage;
+            this.Frames = data.Frames;
+            this.Name = data.Name;
+            this.Size = new PhysicalSize()
             {
-                var data = Database.Entity<HomeData>(x => x.IdentifyName == homeData.IdentifyName).FirstOrDefault();
+                Width = 32,
+                Height = 32
+            };
+            this.Location = homeData.Position;
 
-                this.ScreenImage = data.ScreenImage;
-                this.Frames = data.Frames;
-                this.Name = data.Name;
-                this.Size = new PhysicalSize()
-                {
-                    Width = 32,
-                    Height = 32
-                };
-                this.Location = homeData.Position;
-
-                if (data.Merchant)
-                {
-                    this.Merchant = new Dungeon.Merchants.Merchant();
-                    this.Merchant.FillBackpacks();
-                }
-                this.BuildConversations(data);
+            if (data.Merchant)
+            {
+                this.Merchant = new Dungeon.Merchants.Merchant();
+                this.Merchant.FillBackpacks();
             }
+            this.BuildConversations(data);
         }
     }
 }

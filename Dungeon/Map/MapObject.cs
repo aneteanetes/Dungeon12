@@ -1,5 +1,6 @@
 ﻿namespace Dungeon.Map
 {
+    using Dungeon.Data;
     using Dungeon.Data.Attributes;
     using Dungeon.Data.Region;
     using Dungeon.Entities.Animations;
@@ -113,22 +114,29 @@
 
         public virtual ISceneObject View(GameState gameState) => default;
 
-        protected virtual void Load(object dataClass)
+        protected virtual void Load(RegionPart regionPart)
+        {
+            this.Location = new Point(regionPart.Position.X, regionPart.Position.Y);
+
+            if (regionPart.Region == null)
+            {
+                var measure = Global.DrawClient.MeasureImage(regionPart.Image);
+                this.Size = new PhysicalSize
+                {
+                    Width = measure.X,
+                    Height = measure.Y
+                };
+            }
+        }
+
+        protected TPersist LoadData<TPersist>(object dataClass) where TPersist : Persist
         {
             if (dataClass is RegionPart regionPart)
             {
-                this.Location = new Point(regionPart.Position.X, regionPart.Position.Y);
-
-                if (regionPart.Region == null)
-                {
-                    var measure = Global.DrawClient.MeasureImage(regionPart.Image);
-                    this.Size = new PhysicalSize
-                    {
-                        Width = measure.X,
-                        Height = measure.Y
-                    };
-                }
+                return Database.Entity<TPersist>(x => x.IdentifyName == regionPart.IdentifyName).FirstOrDefault();
             }
+
+            return default;
         }
 
         public Merchant Merchant { get; set; }
