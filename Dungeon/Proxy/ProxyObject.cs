@@ -282,7 +282,6 @@ namespace Dungeon.Proxy
 #endregion
     }
 
-
     public struct CompositeKey
     {
         public string PropertyName { get; set; }

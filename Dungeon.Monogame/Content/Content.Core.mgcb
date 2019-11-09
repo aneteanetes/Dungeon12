@@ -27,6 +27,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Montserrat.spritefont
 
+#begin Montserrat/Montserrat10.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Montserrat/Montserrat10.spritefont
+
 #begin Montserrat/Montserrat11.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

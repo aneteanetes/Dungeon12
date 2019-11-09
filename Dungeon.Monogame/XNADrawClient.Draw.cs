@@ -149,9 +149,9 @@
 
             var font = Content.Load<SpriteFont>("Montserrat");
 
-            spriteBatch.DrawString(font, text, new Vector2(555, 16), Color.White);
+            spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);
 
-            spriteBatch.DrawString(font, Dungeon.Global.Time, new Vector2(625, 30), Color.Yellow);
+            spriteBatch.DrawString(font, Dungeon.Global.Time, new Vector2(1150, 30), Color.Yellow);
 
             spriteBatch.End();
 
@@ -422,6 +422,13 @@
 
             var source = new Rectangle(tileRegion.Xi, tileRegion.Yi, tileRegion.Widthi, tileRegion.Heighti);
 
+            var color = Color.White;
+
+            var alpha = sceneObject.Opacity == 0
+                   ? color.A
+                   : sceneObject.Opacity;
+
+            var drawColor = new Color(color.R, color.G, color.B, (float)alpha);
 
 
             if (sceneObject.Blur)
@@ -429,14 +436,14 @@
                 spriteBatch.End();
                 SpriteBatchRestore?.Invoke(true, sceneObject.Filtered);
 
-                spriteBatch.Draw(image, dest, source, Color.White, angle, origin, spriteEffects, 0f);
+                spriteBatch.Draw(image, dest, source, drawColor, angle, origin, spriteEffects, 0f);
 
                 spriteBatch.End();
                 SpriteBatchRestore?.Invoke(false, sceneObject.Filtered);
             }
             else
             {
-                spriteBatch.Draw(image, dest, source, Color.White, angle, origin, spriteEffects, 0f);
+                spriteBatch.Draw(image, dest, source, drawColor, angle, origin, spriteEffects, 0f);
             }
         }
 

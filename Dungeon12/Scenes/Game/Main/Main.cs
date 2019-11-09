@@ -288,7 +288,7 @@
 
             public override IDrawText Text => new DrawText($"X:{playerAvatar.Location.X} Y:{playerAvatar.Location.Y}").Montserrat();
 
-            public override double Left => 40 / 2 - this.MeasureText(Text).X/32 / 2;
+            public override double Left => 30;
             
             public override double Height => 1;
 

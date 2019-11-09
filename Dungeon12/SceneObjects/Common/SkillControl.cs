@@ -15,6 +15,7 @@
     using Dungeon.SceneObjects;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
+    using Dungeon12.SceneObjects;
     using System;
     using System.Collections.Generic;
 
@@ -335,9 +336,31 @@
                 }
                 else
                 {
-                    var pos = new Point(player.ComputedPosition.X, player.ComputedPosition.Y);
-                    var effect = new PopupString("Невозможно использовать способность!".AsDrawText(), pos).InList<ISceneObject>();
-                    this.ShowEffects(effect);
+                    var txt = "Невозможно использовать способность!".AsDrawText().InSize(10).Montserrat();
+                    MessageBox.Show(txt, this.ShowEffects);
+
+                    Global.Time.Timer("dsadsa")
+                        .After(300)
+                        .Do(() =>
+                        {
+
+                            var txt1 = "Получен уровень 2!".AsDrawText().InSize(10).InColor(DrawColor.Yellow).Montserrat();
+                            MessageBox.Show(txt1, this.ShowEffects);
+                        }).Trigger();
+                    Global.Time.Timer("dsadsaf")
+                      .After(200)
+                      .Do(() =>
+                      {
+                          var txt2 = "Таланты разблокированы!".AsDrawText().InColor(DrawColor.GreenYellow).InSize(10).Montserrat();
+                          MessageBox.Show(txt2, this.ShowEffects);
+                      }).Trigger();
+                    Global.Time.Timer("dsadsad")
+                                                .After(100)
+                                                .Do(() =>
+                                                {
+                                                    var txt3 = "Получено задание: Кровь мясо кишки".AsDrawText().InColor(DrawColor.LightBlue).InSize(10).Montserrat();
+                                                    MessageBox.Show(txt3, this.ShowEffects);
+                                                }).Trigger();
                 }
             }
         }

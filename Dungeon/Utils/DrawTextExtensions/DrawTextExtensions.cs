@@ -20,7 +20,13 @@ namespace Dungeon
 
         public static DrawText InSize(this DrawText drawText, long size=12)
         {
-            drawText.Size = 12;
+            drawText.Size = size;
+            return drawText;
+        }
+
+        public static DrawText WithWordWrap(this DrawText drawText)
+        {
+            drawText.WordWrap = true;
             return drawText;
         }
     }

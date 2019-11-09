@@ -57,8 +57,6 @@
             this.Height = 1;
         }
 
-        protected Rectangle FramePosition;
-
         public override Rectangle Position
         {
             get

@@ -41,7 +41,7 @@
         /// <summary>
         /// 0..1
         /// </summary>
-        double Opacity { get; }
+        double Opacity { get; set; }
 
         /// <summary>
         /// Position with parent

@@ -256,9 +256,9 @@
         {
             var controls = ControlsByHandle(ControlEventType.Focus);
 
-            var newFocused = controls.Where(handler => RegionContains(handler, pointerPressedEventArgs, offset));
+            var nFocused = controls.Where(handler => RegionContains(handler, pointerPressedEventArgs, offset)).ToArray();
 
-            newFocused = WhereLayeredHandlers(newFocused,pointerPressedEventArgs,offset);
+            var newFocused = WhereLayeredHandlers(nFocused, pointerPressedEventArgs,offset);
 
             newFocused= newFocused
                 .Where(x => !SceneObjectsInFocus.Contains(x))
@@ -349,7 +349,7 @@
                     return handle;
                 });
 
-            return handlers;
+            return handlers.ToArray();
         }
 
         private IEnumerable<ISceneObjectControl> WhereLayeredHandlers(IEnumerable<ISceneObjectControl> elements, PointerArgs pointerPressedEventArgs, Point offset)
@@ -357,7 +357,8 @@
             List<ISceneObjectControl> selected = new List<ISceneObjectControl>();
 
             var layered = elements.GroupBy(x => x.ZIndex)
-                .OrderByDescending(x => x.Key);
+                .OrderByDescending(x => x.Key)
+                .ToArray();
 
             //if(elements.Any(x=>x.ZIndex>0))
             //{
