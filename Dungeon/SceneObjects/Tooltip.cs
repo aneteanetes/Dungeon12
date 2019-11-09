@@ -25,6 +25,11 @@
 
         public Tooltip(IDrawText drawText, Point position)
         {
+            if (position == default)
+            {
+                return;
+            }
+
             Opacity = 0.8;
 
             var textSize = this.MeasureText(drawText);

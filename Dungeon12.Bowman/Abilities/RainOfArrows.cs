@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Dungeon;
+using System.Linq;
 
 namespace Dungeon12.Bowman.Abilities
 {
@@ -41,8 +42,12 @@ namespace Dungeon12.Bowman.Abilities
         {
             @class.Energy.LeftHand -= 35;
             @class.Energy.RightHand -= 35;
-            
-            this.UseEffects(new ArrowRain(@class,3000, PointerLocation.GameCoordinates, gameMap).InList<ISceneObject>());
+
+            var range = (@class.Range / 15) + 5;
+
+            var destination = avatar.Location.CalculatePath(PointerLocation.GameCoordinates, range, 0.5);
+
+            this.UseEffects(new ArrowRain(@class, 3000, destination, gameMap).InList<ISceneObject>());
         }
     }
 }

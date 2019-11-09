@@ -30,7 +30,6 @@
             if (bindView && component != default)
             {
                 component.SetView(this);
-                Component = component;
 
                 this.Destroy += () =>
                 {
@@ -38,6 +37,15 @@
                     component.SetView(default);
                 };
             }
+            else if (component != default)
+            {
+                this.Destroy += () =>
+                {
+                    Component = default;
+                };
+            }
+
+            Component = component;
 
             // ЭТО ПИЗДЕЦ КОСТЫЛЬ
             owner = SceneManager.Preapering;

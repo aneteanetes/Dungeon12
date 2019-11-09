@@ -31,8 +31,13 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 
         private readonly Character character;
 
-        public TalantInfoSceneControl(TalantBase talant, Character character) : base(talant, talant.Name)
+        private bool blocked = false;
+
+        public override bool HideCursor => true;
+
+        public TalantInfoSceneControl(TalantBase talant, Character character, bool blocked) : base(talant, talant.Name)
         {
+            this.blocked = blocked;
             this.character = character;
             this.talant = talant;
             var measure = this.MeasureImage("Dungeon12.Resources.Images.ui.square.png");
@@ -43,21 +48,32 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
                 AbsolutePosition=true
             });
 
-            this.AddChild(new DarkRectangle()
+            if (!blocked)
             {
-                Opacity=0.7,
-                CacheAvailable = false,
-                AbsolutePosition = true,
-                Height = 0.75,
-                Width = 1,
-                Top=1.25,
-                Left=1
-            }.WithText(new DrawText($"{talant.Level}/{talant.MaxLevel}", new DrawColor(ConsoleColor.White)).Montserrat(),true));
+                this.AddChild(new DarkRectangle()
+                {
+                    Opacity = 0.7,
+                    CacheAvailable = false,
+                    AbsolutePosition = true,
+                    Height = 0.75,
+                    Width = 1,
+                    Top = 1.25,
+                    Left = 1
+                }.WithText(new DrawText($"{talant.Level}/{talant.MaxLevel}", new DrawColor(ConsoleColor.White)).Montserrat(), true));
+            }
+            else
+            {
+                this.AddChild(new ImageControl("Talants/blocked.png".AsmImgRes())
+                {
+                    CacheAvailable = false,
+                    AbsolutePosition = true
+                });
+            }
 
             this.Height = measure.Y;
             this.Width = measure.X;
 
-            activatable = talant.Activatable && talant.Opened;
+            activatable = talant.Activatable && talant.Opened && !blocked;
 
             this.Image = SquareTexture(activatable ? talant.Active : false);
 
@@ -71,7 +87,12 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 
         protected override Tooltip ProvideTooltip(Point position)
         {
-            return new TalantTooltip(talant,character, position);
+            if (!this.blocked)
+            {
+                return new TalantTooltip(talant, character, position);
+            }
+
+            return new Tooltip("Заблокировано".AsDrawText().InSize(12).Montserrat(), position);
         }
 
         public override void Click(PointerArgs args)
