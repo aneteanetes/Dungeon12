@@ -30,16 +30,11 @@
                 this.Left += 0.05;
                 this.Height = 0.19;
                 this.alive = alive;
-                HitPoints = alive.ProxyBackingGet<Alive, long>(a => a.HitPoints);
-                MaxHitPoints = alive.ProxyBackingGet<Alive, long>(a => a.MaxHitPoints);
             }
-
-            private Func<long> HitPoints;
-            private Func<long> MaxHitPoints;
 
             public override double Width
             {
-                get => (0.8 * (HitPoints() / ((double)MaxHitPoints()) * 100)) / 100;
+                get => (0.8 * (alive.HitPoints / ((double)alive.MaxHitPoints) * 100)) / 100;
                 set { }
             }
 

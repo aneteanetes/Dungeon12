@@ -20,66 +20,6 @@
 /processorParam:TextureFormat=Compressed
 /build:Arial.spritefont
 
-#begin Audio/Music/dungeontheme.ogg
-/importer:OggImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Music/dungeontheme.ogg
-
-#begin Audio/Music/maintheme.ogg
-/importer:OggImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Music/maintheme.ogg
-
-#begin Audio/Music/town.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Music/town.mp3
-
-#begin Audio/Music/towntheme.ogg
-/importer:OggImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Music/towntheme.ogg
-
-#begin Audio/Sound/attack.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/Sound/attack.wav
-
-#begin Audio/Sound/bat.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/Sound/bat.wav
-
-#begin Audio/Sound/focus.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/Sound/focus.mp3
-
-#begin Audio/Sound/Rogue.Classes.Servant/heal.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/Sound/Rogue.Classes.Servant/heal.wav
-
-#begin Audio/Sound/step.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/Sound/step.wav
-
-#begin Audio/Sound/step_g.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/Sound/step_g.wav
-
 #begin Montserrat.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

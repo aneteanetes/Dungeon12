@@ -39,7 +39,6 @@
     <ProjectReference Include="..\Dungeon\Dungeon.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Audio\Sound\Rogue.Classes.Servant\" />
     <Folder Include="ProjectMercury\" />
   </ItemGroup>
   <Import Project="$(SolutionDir)\NuGet.Common.props" />
@@ -47,6 +46,13 @@
   
   <ItemGroup>
     <MySourceFiles Include="$(SolutionDir)\**\**\Resources\*.*" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Remove="Content\Audio\**" />
+    <EmbeddedResource Remove="Content\Audio\**" />
+    <MonoGameContentReference Remove="Content\Audio\**" />
+    <None Remove="Content\Audio\**" />
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Copy SourceFiles="@(MySourceFiles)" DestinationFiles="@(MySourceFiles->'c:\wtf\%(RecursiveDir)%(Filename)%(Extension)')" />

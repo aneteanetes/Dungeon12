@@ -14,8 +14,20 @@ namespace Dungeon.Monogame
 #endif
             Database.LoadAllAssemblies();
 
-            using (var game = new XNADrawClient())
-                game.Run();
+            try
+            {
+                using (var game = new XNADrawClient())
+                {
+                    game.Run();
+                }
+            }
+            catch (ExecutionEngineException ex)
+            {
+                Console.WriteLine(ex.ToString());
+                throw ex; 
+            }
+
+            Console.ReadLine();
         }
     }
 }

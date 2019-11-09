@@ -32,15 +32,20 @@ namespace Dungeon.Proxy
         public Func<object> BindGet(string propName, string ownerClassName)
         {
             propName = $"___{propName}";
-            if (!___BindGetCache.TryGetValue(propName, out var value))
+            var key = new CompositeKey()
+            {
+                Owner = this.GetType(),
+                PropertyName = propName
+            };
+            if (!___BindGetCache.TryGetValue(key, out var value))
             {
                 value = () => GetBackginFieldValueExpression(ownerClassName, propName);// GetBackingFieldValue(propName, ownerClassName);
-                ___BindGetCache.Add(propName, value);
+                ___BindGetCache.Add(key, value);
             }
 
             return value;
         }
-        private readonly Dictionary<string, Func<object>> ___BindGetCache = new Dictionary<string, Func<object>>();
+        private static readonly Dictionary<CompositeKey, Func<object>> ___BindGetCache = new Dictionary<CompositeKey, Func<object>>();
 
         /// <summary>
         /// 
@@ -51,15 +56,20 @@ namespace Dungeon.Proxy
         public Action<object> BindSet<TValue>(string propName, string ownerclassname)
         {
             propName = $"___{propName}";
-            if (!___BindSetCache.TryGetValue(propName, out var value))
+            var key = new CompositeKey()
+            {
+                Owner = this.GetType(),
+                PropertyName = propName
+            };
+            if (!___BindSetCache.TryGetValue(key, out var value))
             {
                 value = v => SetBackingFieldValueExpression(v, propName, ownerclassname, typeof(TValue));
-                ___BindSetCache.Add(propName, value);
+                ___BindSetCache.Add(key, value);
             }
 
             return value;
         }
-        private readonly Dictionary<string, Action<object>> ___BindSetCache = new Dictionary<string, Action<object>>();
+        private static readonly Dictionary<CompositeKey, Action<object>> ___BindSetCache = new Dictionary<CompositeKey, Action<object>>();
 
         private string PropertyName(string callerProp)
         {
@@ -74,16 +84,21 @@ namespace Dungeon.Proxy
         /// </summary>
         public ProxiedAttribute Proxies(string prop)
         {
-            if (!___ProxiedCache.TryGetValue(prop, out var value))
+            var key = new CompositeKey()
+            {
+                Owner = this.GetType(),
+                PropertyName = prop
+            };
+            if (!___ProxiedCache.TryGetValue(key, out var value))
             {
                 value = (ProxiedAttribute)_Type.GetMembers().FirstOrDefault(m => m.Name == prop)?.GetAttribute(typeof(ProxiedAttribute), false);
-                ___ProxiedCache.Add(prop, value);
+                ___ProxiedCache.Add(key, value);
             }
 
             return value;
         }
-        private readonly Dictionary<string, ProxiedAttribute> ___ProxiedCache = new Dictionary<string, ProxiedAttribute>();
-        
+        private static readonly Dictionary<CompositeKey, ProxiedAttribute> ___ProxiedCache = new Dictionary<CompositeKey, ProxiedAttribute>();
+
         private List<ProxyProperty> ProxiesAdditional(string prop)
         {
             if (!Additionals.TryGetValue(prop, out var vals))
@@ -123,8 +138,6 @@ namespace Dungeon.Proxy
             SetBackingFieldValueExpression(settedValue, backingField, ownerClassName, typeof(TCalculatedType));
         }
 
-        private Dictionary<string, FieldInfo> FastMemberCantAccess = new Dictionary<string, FieldInfo>();
-
         /// <summary>
         /// 
         /// <para>
@@ -133,15 +146,25 @@ namespace Dungeon.Proxy
         /// </summary>
         public object GetBackginFieldValueExpression(string ownerClassName, string propName)
         {
-            if (!___GetBackginFieldValueExpressionCache.TryGetValue(propName, out var value))
+            var key = new CompositeKey()
             {
-                value = Expression.Lambda(Expression.Field(Expression.Constant(this), GetField(ownerClassName, propName))).Compile();
-                ___GetBackginFieldValueExpressionCache.Add(propName, value);
+                Owner = this.GetType(),
+                PropertyName = propName
+            };
+
+            if (!___GetBackginFieldValueExpressionCache.TryGetValue(key, out var value))
+            {
+                var p = Expression.Parameter(this.GetType());
+                value = Expression.Lambda(Expression.Field(p, GetField(ownerClassName, propName)), p).Compile();
+
+                ___GetBackginFieldValueExpressionCache.Add(key, value);
             }
 
-            return value.DynamicInvoke();
+            return value.DynamicInvoke(this);
         }
-        private readonly Dictionary<string, Delegate> ___GetBackginFieldValueExpressionCache = new Dictionary<string, Delegate>();
+
+        private static readonly Dictionary<CompositeKey, Delegate> ___GetBackginFieldValueExpressionCache = new Dictionary<CompositeKey, Delegate>();
+
 
         /// <summary>
         /// 
@@ -151,7 +174,11 @@ namespace Dungeon.Proxy
         /// </summary>
         public FieldInfo GetField(string ownerClassName, string propName)
         {
-            var key = ownerClassName + propName;
+            var key = new CompositeKey()
+            {
+                Owner = this.GetType(),
+                PropertyName = ownerClassName + propName
+            };
             if (!___GetFieldCache.TryGetValue(key, out var value))
             {
                 value = Type.GetType(ownerClassName).GetField(propName, BindingFlags.Instance | BindingFlags.NonPublic);
@@ -160,20 +187,28 @@ namespace Dungeon.Proxy
 
             return value;
         }
-        private readonly Dictionary<string, FieldInfo> ___GetFieldCache = new Dictionary<string, FieldInfo>();
+        private static readonly Dictionary<CompositeKey, FieldInfo> ___GetFieldCache = new Dictionary<CompositeKey, FieldInfo>();
 
         private void SetBackingFieldValueExpression(object propValue, string propName, string ownerClassName, Type valueType)
         {
-            if (!___SetBackingFieldValueExpressionCache.TryGetValue(propName, out var value))
+            var key = new CompositeKey()
             {
+                Owner=this.GetType(),
+                PropertyName=propName
+            };
+
+            if (!___SetBackingFieldValueExpressionCache.TryGetValue(key, out var value))
+            {
+                var pType = Expression.Parameter(this.GetType());
                 var p = Expression.Parameter(valueType);
-                value = Expression.Lambda(Expression.Assign(Expression.Field(Expression.Constant(this), GetField(ownerClassName, propName)), p), p).Compile();
-                ___SetBackingFieldValueExpressionCache.Add(propName, value);
+                value = Expression.Lambda(Expression.Assign(Expression.Field(pType, GetField(ownerClassName, propName)), p), pType, p).Compile();
+
+                ___SetBackingFieldValueExpressionCache.Add(key, value);
             }
 
-            value.DynamicInvoke(propValue);
+            value.DynamicInvoke(this,propValue);
         }
-        private readonly Dictionary<string, Delegate> ___SetBackingFieldValueExpressionCache = new Dictionary<string, Delegate>();
+        private static readonly Dictionary<CompositeKey, Delegate> ___SetBackingFieldValueExpressionCache = new Dictionary<CompositeKey, Delegate>();
 
         private Dictionary<string, List<ProxyProperty>> Additionals = new Dictionary<string, List<ProxyProperty>>();
 
@@ -242,12 +277,34 @@ namespace Dungeon.Proxy
         public virtual void SetView(ISceneObject sceneObject)
         {
             this.SceneObject = sceneObject;
-        }
+}
 
-        #endregion
+#endregion
     }
 
-    public static class ProxyObjectExtensions
+
+    public struct CompositeKey
+    {
+        public string PropertyName { get; set; }
+
+        public Type Owner { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if(obj is CompositeKey compositeKey)
+            {
+                return compositeKey.InternalValue.Equals(this.InternalValue);
+            }
+
+            return false;
+        }
+
+        private string InternalValue => PropertyName + Owner?.AssemblyQualifiedName ?? "";
+
+        public override int GetHashCode() => InternalValue.GetHashCode();
+    }
+
+public static class ProxyObjectExtensions
     {
         public static Func<TValue> ProxyBackingGet<TObject, TValue>(this ProxyObject proxyObject, Expression<Func<TObject, TValue>> property)
         {

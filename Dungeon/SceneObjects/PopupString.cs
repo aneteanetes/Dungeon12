@@ -40,7 +40,7 @@
         {
         }
 
-        public PopupString(DrawText drawText, Point position, int frames=25, double speed=0.2) : base(drawText)
+        public PopupString(DrawText drawText, Point position, int frames=30, double speed=0.2) : base(drawText)
         {
             this.maxFrames = frames;
             this.Text = Component;

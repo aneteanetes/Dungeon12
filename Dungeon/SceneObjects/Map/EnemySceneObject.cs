@@ -194,12 +194,12 @@
 
             if (playerPos.Y >= thisPos.Y)
             {
-                dirY = Direction.Up;
+                dirY = Direction.Down;
             }
 
             if (playerPos.Y <= thisPos.Y)
             {
-                dirY = Direction.Down;
+                dirY = Direction.Up;
             }
 
             moveDir = (Direction)((int)dirX + (int)dirY);
