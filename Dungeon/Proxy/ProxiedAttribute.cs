@@ -19,7 +19,8 @@ namespace Dungeon
 
             Proxies = types
                 .Select(t => t.NewAs<ProxyProperty>())
-                .Reverse();
+                .Reverse()
+                .ToList();
         }
 
         public T Get<T>(T value, string proxyId, Func<object> get, Action<object> set, object owner, TypeAccessor ownerAccessor, string propName, List<ProxyProperty> additional)

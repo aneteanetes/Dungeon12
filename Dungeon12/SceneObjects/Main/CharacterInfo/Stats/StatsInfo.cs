@@ -5,6 +5,7 @@
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects.Main.CharacterInfo.Stats;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -98,6 +99,15 @@
                     statsText.Add(txt, c => $"{stat.Title(c)}:  {stat.Value(c)}");
                 }
 
+                if (stat.LevelUped)
+                {
+                    this.AddChild(new StatsUpButton(@char, stat.Up)
+                    {
+                        Top = top+.25,
+                        Left = this.Width - 1.25
+                    });
+                }
+
                 top += MeasureText(txt.Text).Y / 32 + (stat.EndGroup ? 0.3 : 0);
 
                 if (stat.EndGroup)
@@ -138,23 +148,25 @@
 
             new StatDrawData(c=>"Урон",c=>$"{c.MinDMG} - {c.MaxDMG}",c=>ConsoleColor.DarkYellow,true),
 
-            new StatDrawData(c=>"Сила атаки",c=>$"{c.AttackPower}",c=>ConsoleColor.Cyan,false),
+            new StatDrawData(c=>"Сила атаки",c=>$"{c.AttackPower}",c=>ConsoleColor.Cyan,false,true,c=>{ c.AttackPower++; c.FreeStatPoints--; }),
 
-            new StatDrawData(c=>"Сила магии",c=>$"{c.AbilityPower}",c=>ConsoleColor.Magenta,true),
+            new StatDrawData(c=>"Сила магии",c=>$"{c.AbilityPower}",c=>ConsoleColor.Magenta,true,true,c=>{ c.AbilityPower++; c.FreeStatPoints--; }),
 
-            new StatDrawData(c=>"Защита",c=>$"{c.Defence}",c=>ConsoleColor.DarkCyan,false),
+            new StatDrawData(c=>"Защита",c=>$"{c.Defence}",c=>ConsoleColor.DarkCyan,false,true,c=>{ c.Defence++; c.FreeStatPoints--; }),
 
-            new StatDrawData(c=>"Барьер",c=>$"{c.Barrier}",c=>ConsoleColor.DarkMagenta,true),
+            new StatDrawData(c=>"Барьер",c=>$"{c.Barrier}",c=>ConsoleColor.DarkMagenta,true,true,c=>{ c.Barrier++; c.FreeStatPoints--; }),
         };
 
         public class StatDrawData
         {
-            public StatDrawData(Func<Character, string> title, Func<Character, string> formula, Func<Character, ConsoleColor> color, bool group)
+            public StatDrawData(Func<Character, string> title, Func<Character, string> formula, Func<Character, ConsoleColor> color, bool group, bool levlUped=false,Action<Character> up=default)
             {
                 Title = title;
                 Value = formula;
                 Color = color;
                 EndGroup = group;
+                LevelUped = levlUped;
+                Up = up;
             }
 
             public Func<Character,string> Title { get; set; }
@@ -165,6 +177,9 @@
 
             public bool EndGroup { get; set; }
 
+            public bool LevelUped { get; set; }
+
+            public Action<Character> Up { get; set; }
         }
     }
 }

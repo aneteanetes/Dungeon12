@@ -31,9 +31,42 @@
 
         private List<ISceneObject> SceneObjects = new List<ISceneObject>();
 
-        private List<ISceneObjectControl> SceneObjectsControllable = new List<ISceneObjectControl>();
+        private List<ISceneObjectControl> sceneObjectControls = new List<ISceneObjectControl>();
+        private bool sceneObjectControlsUpdated = false;
+        
+        private List<ISceneObjectControl> SceneObjectsControllable
+        {
+            get
+            {
+                return new List<ISceneObjectControl>(sceneObjectControls);
+                if (sceneObjectControlsUpdated)
+                {
+                    sceneObjectControlsUpdated = false;
+                    return new List<ISceneObjectControl>(sceneObjectControls);
+                }
 
-        private List<ISceneObjectControl> SceneObjectsInFocus = new List<ISceneObjectControl>();
+                return sceneObjectControls;
+            }
+        }
+
+        private List<ISceneObjectControl> sceneObjectsInFocuses = new List<ISceneObjectControl>();
+        private bool sceneObjectsInFocusesUpdated = false;
+
+        private List<ISceneObjectControl> SceneObjectsInFocus
+        {
+            get
+            {
+                return new List<ISceneObjectControl>(sceneObjectsInFocuses);
+                if (sceneObjectsInFocusesUpdated)
+                {
+                    sceneObjectsInFocusesUpdated = false;
+                    return new List<ISceneObjectControl>(sceneObjectsInFocuses);
+                };
+
+                return sceneObjectsInFocuses;
+            }
+        }
+
 
         protected void AddObject(ISceneObject sceneObject)
         {
@@ -72,20 +105,22 @@
 
         public void AddControl(ISceneObjectControl sceneObjectControl)
         {
+            sceneObjectControls.Add(sceneObjectControl);
+            sceneObjectControlsUpdated = true;
             sceneObjectControl.Destroy +=()=> { RemoveControl(sceneObjectControl); };
-            SceneObjectsControllable.Add(sceneObjectControl);
         }
 
         public void RemoveControl(ISceneObjectControl sceneObjectControl)
         {
-            SceneObjectsControllable.Remove(sceneObjectControl);
+            sceneObjectControls.Remove(sceneObjectControl);
+            sceneObjectControlsUpdated = true;
         }
 
         public void RemoveObject(ISceneObject sceneObject)
         {
             if (sceneObject is ISceneObjectControl sceneObjectControl)
             {
-                SceneObjectsControllable.Remove(sceneObjectControl);
+                RemoveControl(sceneObjectControl);
             }
 
             SceneObjects.Remove(sceneObject);
@@ -95,7 +130,7 @@
         {
             if (sceneObject is ISceneObjectControl sceneObjectControl)
             {
-                SceneObjectsControllable.Add(sceneObjectControl);
+                AddControl(sceneObjectControl);
             }
 
             foreach (var childSceneObject in sceneObject.Children)
@@ -256,21 +291,24 @@
         {
             var controls = ControlsByHandle(ControlEventType.Focus);
 
-            var nFocused = controls.Where(handler => RegionContains(handler, pointerPressedEventArgs, offset)).ToArray();
+            var nFocused = controls.Where(handler => RegionContains(handler, pointerPressedEventArgs, offset));
 
             var newFocused = WhereLayeredHandlers(nFocused, pointerPressedEventArgs,offset);
 
-            newFocused= newFocused
-                .Where(x => !SceneObjectsInFocus.Contains(x))
-                .ToArray();
+            sceneObjectsInFocusesUpdated = true;
+            var inFocus = SceneObjectsInFocus;
 
-            var newLostFocused = SceneObjectsInFocus.Where(x => !RegionContains(x, pointerPressedEventArgs, offset))
-                .ToArray();
+            newFocused = newFocused
+                .Where(x => !inFocus.Contains(x));
+
+            var newLostFocused = inFocus.Where(x => !RegionContains(x, pointerPressedEventArgs, offset));
 
             foreach (var item in newLostFocused)
             {
                 item.Unfocus();
-                SceneObjectsInFocus.Remove(item);
+                sceneObjectsInFocuses.Remove(item);
+                sceneObjectsInFocusesUpdated = true;
+                //SceneObjectsInFocus.Remove(item);
             }
 
             if (newFocused.Count() > 0)
@@ -280,7 +318,8 @@
                     control.Focus();
                 }
 
-                SceneObjectsInFocus.AddRange(newFocused);
+                sceneObjectsInFocuses.AddRange(newFocused);
+                sceneObjectsInFocusesUpdated = true;
             }
         }
 
@@ -349,7 +388,7 @@
                     return handle;
                 });
 
-            return handlers.ToArray();
+            return handlers;
         }
 
         private IEnumerable<ISceneObjectControl> WhereLayeredHandlers(IEnumerable<ISceneObjectControl> elements, PointerArgs pointerPressedEventArgs, Point offset)
@@ -357,8 +396,7 @@
             List<ISceneObjectControl> selected = new List<ISceneObjectControl>();
 
             var layered = elements.GroupBy(x => x.ZIndex)
-                .OrderByDescending(x => x.Key)
-                .ToArray();
+                .OrderByDescending(x => x.Key);
 
             //if(elements.Any(x=>x.ZIndex>0))
             //{

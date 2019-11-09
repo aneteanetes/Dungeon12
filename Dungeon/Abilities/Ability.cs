@@ -10,6 +10,7 @@
     using Dungeon.Map;
     using Dungeon.Map.Objects;
     using Dungeon.Physics;
+    using Dungeon.SceneObjects;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using System;
@@ -32,6 +33,11 @@
         /// Навык доступен в защищённой зоне
         /// </summary>
         public virtual bool AvailableInSafeZone => false;
+
+        /// <summary>
+        /// Флаг указывающий что надо говорить о том что способность не может быть использована
+        /// </summary>
+        public virtual bool Notifying { get; set; } = true;
 
         /// <summary>
         /// Добавить эффекты при использовании
@@ -173,11 +179,27 @@
             {
                 if (!this.Cooldown.Check())
                 {
+                    if (this.Notifying)
+                    {
+                        var txt = "Способность восстанавливается".AsDrawText().InSize(10).Montserrat();
+                        MessageBox.Show(txt, avatar.SceneObject.ShowEffects);
+                    }
                     return false;
                 }
             }
 
-            return CastAvailable(avatar);
+            var available = CastAvailable(avatar);
+
+            if (!available)
+            {
+                if (this.Notifying)
+                {
+                    var txt = "Невозможно использовать способность!".AsDrawText().InSize(10).Montserrat();
+                    MessageBox.Show(txt, avatar.SceneObject.ShowEffects);
+                }
+            }
+
+            return available;
         }
 
         protected PointerArgs PointerLocation => Global.PointerLocation;

@@ -61,6 +61,7 @@ namespace Dungeon12
 
             SceneObject.Avatar.Character = to;
             SceneObject.Avatar.ReEntity(to);
+            SceneObject.Avatar.Character.SetView(SceneObject);
 
             Global.Events.Raise(new ClassChangeEvent()
             {

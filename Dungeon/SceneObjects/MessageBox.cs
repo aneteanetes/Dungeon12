@@ -1,17 +1,12 @@
-﻿using Dungeon.Drawing;
-using Dungeon.SceneObjects;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Dungeon;
-using Dungeon.Drawing.SceneObjects;
-using Dungeon.Control;
+﻿using Dungeon.Control;
+using Dungeon.Drawing;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using Dungeon12.Drawing.SceneObjects.Main.CharacterBar;
 
-namespace Dungeon12.SceneObjects
+namespace Dungeon.SceneObjects
 {
     public class MessageBox : EmptyHandleSceneControl
     {
@@ -40,10 +35,9 @@ namespace Dungeon12.SceneObjects
                 ShowedBoxes++;
             }
 
-            this.Image = "GUI/msg.png".AsmImgRes();
+            this.Image = "Dungeon12.Resources.Images.GUI.msg.png";
 
             this.AddTextCenter(component);
-            //this.AddChild(new ImageControl("GUI/msg_mask.png".AsmImgRes()));
 
             this.Destroy += () =>
             {
@@ -95,6 +89,7 @@ namespace Dungeon12.SceneObjects
 
         public override void Click(PointerArgs args)
         {
+            Global.Interacting = true;
             this.Destroy?.Invoke();
         }
 

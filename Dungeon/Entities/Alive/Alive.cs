@@ -21,7 +21,7 @@ namespace Dungeon.Entities.Alive
 
         public long EXP { get; set; }
 
-        public long MaxExp => Level * 100;
+        public long MaxExp => 1;// Level * 100 + EXP;
 
         public void Exp(long amount)
         {
@@ -36,7 +36,25 @@ namespace Dungeon.Entities.Alive
 
             var popup = new PopupString(text, this.MapObject?.Location, 25, 0.06).InList<ISceneObject>();
             this.MapObject.SceneObject.ShowEffects(popup);
+
+            if (EXP >= MaxExp)
+            {
+                LevelUp();
+            }
         }
+
+        protected virtual void LevelUp()
+        {
+            this.Level++;
+            FreeStatPoints++;
+
+            var visual = this.SceneObject.ShowEffects;
+            
+            var txt = $"Вы достигли {this.Level} уровня!".AsDrawText().InSize(10).Montserrat();
+            MessageBox.Show(txt, visual);
+        }
+
+        public int FreeStatPoints { get; set; }
 
         public override string ProxyId => this.Uid;
 

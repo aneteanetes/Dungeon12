@@ -21,8 +21,6 @@
 
     public class SkillControl : TooltipedSceneObject<Ability>
     {
-        private static bool interacting = Global.Interacting;
-
         public override bool AbsolutePosition => true;
 
         private readonly Ability ability;
@@ -310,9 +308,9 @@
 
         private void Cast(PointerArgs args)
         {
-            if (interacting)
+            if (Global.Interacting)
             {
-                interacting = false;
+                Global.Interacting = false;
                 return;
             }
 
@@ -326,41 +324,13 @@
                 return;
             }
 
-            if (player.TargetsInFocus.Count == 0 && (ability.TargetType== AbilityTargetType.NonTarget || ability.TargetType == AbilityTargetType.SelfTarget || ability.TargetType == AbilityTargetType.TargetAndNonTarget))
+            if (player.TargetsInFocus.Count == 0 && (ability.TargetType == AbilityTargetType.NonTarget || ability.TargetType == AbilityTargetType.SelfTarget || ability.TargetType == AbilityTargetType.TargetAndNonTarget))
             {
                 if (this.ability.CastAvailableCooldown(avatar))
                 {
                     this.ability.CastCooldown(gameMap, avatar);
                     this.highlight = true;
                     this.Image = SquareTexture(true);
-                }
-                else
-                {
-                    var txt = "Невозможно использовать способность!".AsDrawText().InSize(10).Montserrat();
-                    MessageBox.Show(txt, this.ShowEffects);
-
-                    Global.Time.Timer("dsadsa")
-                        .After(300)
-                        .Do(() =>
-                        {
-
-                            var txt1 = "Получен уровень 2!".AsDrawText().InSize(10).InColor(DrawColor.Yellow).Montserrat();
-                            MessageBox.Show(txt1, this.ShowEffects);
-                        }).Trigger();
-                    Global.Time.Timer("dsadsaf")
-                      .After(200)
-                      .Do(() =>
-                      {
-                          var txt2 = "Таланты разблокированы!".AsDrawText().InColor(DrawColor.GreenYellow).InSize(10).Montserrat();
-                          MessageBox.Show(txt2, this.ShowEffects);
-                      }).Trigger();
-                    Global.Time.Timer("dsadsad")
-                                                .After(100)
-                                                .Do(() =>
-                                                {
-                                                    var txt3 = "Получено задание: Кровь мясо кишки".AsDrawText().InColor(DrawColor.LightBlue).InSize(10).Montserrat();
-                                                    MessageBox.Show(txt3, this.ShowEffects);
-                                                }).Trigger();
                 }
             }
         }

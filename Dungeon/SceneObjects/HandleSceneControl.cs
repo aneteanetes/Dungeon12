@@ -21,7 +21,7 @@
     public abstract class HandleSceneControl<T> : SceneObject<T>, ISceneObjectControl, IHandleSceneControl
         where T : IGameComponent
     {
-        public HandleSceneControl(T component) : base(component)
+        public HandleSceneControl(T component, bool bindView = true) : base(component, bindView)
         {
             //dynamic binding
             new string[] {

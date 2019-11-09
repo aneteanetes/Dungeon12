@@ -72,6 +72,8 @@
                     Left=+.06
                 });
 
+                this.AddChild(new LevelUpMask(player));
+
                 this.AddChild(new LevelSceneObject(this.player)
                 {
                     Top=1.35,
@@ -79,6 +81,17 @@
                 });
 
                 return this;
+            }
+
+            private class LevelUpMask : ImageControl
+            {
+                private Character _character;
+                public LevelUpMask(Character character) : base("Dungeon12.Resources.Images.GUI.levelup.png")
+                {
+                    _character = character;
+                }
+
+                public override bool Visible => _character.FreeStatPoints > 0;
             }
         }
 
