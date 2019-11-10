@@ -295,7 +295,7 @@
             }
         }
 
-        private StatsInfo statsInfo = null;
+        private StatsInfoWindow statsInfo = null;
 
         private void OpenStats()
         {
@@ -307,7 +307,7 @@
             }
             else
             {
-                statsInfo = new StatsInfo(playerSceneObject.Avatar.Character)
+                statsInfo = new StatsInfoWindow(playerSceneObject.Avatar.Character)
                 {
                     Left = this.Width + 0.5
                 };

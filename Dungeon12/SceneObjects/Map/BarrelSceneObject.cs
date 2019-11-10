@@ -14,6 +14,8 @@ namespace Dungeon12.SceneObjects.Map
 
         protected override bool SilentTooltip => true;
 
+        public override string Cursor => "take";
+
         public BarrelSceneObject(PlayerSceneObject playerSceneObject, Barrel @object) : base(playerSceneObject, @object, @object.Name)
         {
             Left = @object.Location.X + .125;

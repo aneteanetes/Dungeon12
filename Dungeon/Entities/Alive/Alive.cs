@@ -21,7 +21,7 @@ namespace Dungeon.Entities.Alive
 
         public long EXP { get; set; }
 
-        public long MaxExp => 1;// Level * 100 + EXP;
+        public long MaxExp => Level * 100 + EXP;
 
         public void Exp(long amount)
         {

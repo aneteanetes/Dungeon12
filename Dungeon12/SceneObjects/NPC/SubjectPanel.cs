@@ -14,7 +14,7 @@ namespace Dungeon12.SceneObjects.NPC
     using System;
     using System.Linq;
 
-    public class SubjectPanel : DarkRectangle
+    public class SubjectPanel : EmptyHandleSceneControl
     {
         public override bool AbsolutePosition => true;
 
@@ -29,7 +29,9 @@ namespace Dungeon12.SceneObjects.NPC
             this.conv = conv;
             this.exit = exit;
 
-            Opacity = 0.8;
+            //Opacity = 0.8;
+
+            Image = "ui/dialogs/subjectpanel.png".AsmImgRes();
 
             Top = 0;
             Left = 31;

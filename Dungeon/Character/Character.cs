@@ -13,8 +13,6 @@
     /// </summary>
     public abstract partial class Character : Moveable
     {
-        //private List<Equipment> Equipment = new List<Equipment>();
-
         public Character()
         {
             this.BindClassStats();
@@ -56,6 +54,10 @@
         public virtual ConsoleColor ResourceColor => ConsoleColor.Blue;
 
         public List<ClassStat> ClassStats { get; } = new List<ClassStat>();
+
+        public virtual IDrawText MainAbilityDamageView { get; set; }
+
+        public virtual string MainAbilityDamageText { get; set; }
 
         public Backpack Backpack { get; set; } = new Backpack(6, 11);
 

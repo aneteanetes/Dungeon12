@@ -167,6 +167,11 @@
             };
 
             this.Gamemap.LoadRegion("FaithIsland");
+            this.AddObject(new ImageControl("Dungeon12.Resources.Images.Regions.FaithIsland_back.png")
+            {
+                Left = -15,
+                Top = -15
+            });
             this.AddObject(new ImageControl("Dungeon12.Resources.Images.Regions.FaithIsland.png"));
 
 

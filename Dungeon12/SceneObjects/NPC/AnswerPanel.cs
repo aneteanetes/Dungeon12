@@ -13,7 +13,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class AnswerPanel : DarkRectangle
+    public class AnswerPanel : EmptyHandleSceneControl
     {
         public override bool CacheAvailable => false;
 
@@ -27,14 +27,24 @@
             this.gameMap = gameMap;
             this.playerSceneObject = playerSceneObject;
 
-            this.Opacity = 0.8;
+            //this.Opacity = 0.8;
+
+            Image = "ui/dialogs/answerpanel.png".AsmImgRes();
 
             this.Top = 15;
             this.Left = 0;
 
             this.Height = 7.5;
             this.Width = 31;
+
+            dialogText = this.AddTextCenter("".AsDrawText().InSize(12).Montserrat().WithWordWrap(), false, false);
+            dialogText.Left = 1;
+            dialogText.Top = .5;
+            dialogText.Width = 30;
+            dialogText.Height = 4;
         }
+
+        private TextControl dialogText;
 
         private double space;
 
@@ -53,9 +63,9 @@
                 a.Destroy?.Invoke();
             });
 
-            var text = new DrawText(prevText ?? subject.Text).Montserrat();
-            space = this.MeasureText(text).Y / 32;
-            this.Text = text;
+
+            dialogText.Text.SetText(prevText ?? subject.Text);
+            space = this.MeasureText(dialogText.Text,dialogText).Y / 32;
 
             var y = space + 1;
 
@@ -108,9 +118,9 @@
                 a.Destroy?.Invoke();
             });
 
-            var text = new DrawText(replica.Text).Montserrat();
-            space = this.MeasureText(text).Y / 32;
-            this.Text = text;
+
+            dialogText.Text.SetText(replica.Text);
+            space = this.MeasureText(dialogText.Text,dialogText).Y / 32;
 
             var y = space + 1;
 
@@ -144,7 +154,10 @@
                 convTrigger.PlayerSceneObject = playerSceneObject;
                 convTrigger.Gamemap = gameMap;
 
-                this.Text = convTrigger.Execute(replica.TriggerClassArguments);
+                var triggerText= convTrigger.Execute(replica.TriggerClassArguments);
+
+                dialogText.Text.SetText(triggerText.StringData);
+                space = this.MeasureText(dialogText.Text,dialogText).Y / 32;
             }
         }
 
