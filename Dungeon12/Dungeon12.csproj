@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="CardGame\Map\" />
     <Folder Include="Noone\Resources\Images\Stats\" />
     <Folder Include="Resources\Images\ui\checkbox\" />
     <Folder Include="Resources\Images\ui\journal\" />
