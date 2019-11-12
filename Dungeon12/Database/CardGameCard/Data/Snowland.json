@@ -1,0 +1,8 @@
+﻿{
+  "Name": "Снежная земля",
+  "CardType": "Region",
+  "Card": {
+    "Rounds": 4,
+    "Size": 3
+  }
+}

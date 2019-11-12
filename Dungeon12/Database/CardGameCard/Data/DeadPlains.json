@@ -1,0 +1,8 @@
+﻿{
+  "Name": "Мёртвые равнины",
+  "CardType": "Region",
+  "Card": {
+    "Rounds": 5,
+    "Size": 4
+  }
+}

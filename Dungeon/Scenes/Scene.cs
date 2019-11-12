@@ -31,43 +31,12 @@
 
         private List<ISceneObject> SceneObjects = new List<ISceneObject>();
 
-        private List<ISceneObjectControl> sceneObjectControls = new List<ISceneObjectControl>();
-        private bool sceneObjectControlsUpdated = false;
+        private List<ISceneObjectControl> sceneObjectControls = new List<ISceneObjectControl>();        
+        private List<ISceneObjectControl> SceneObjectsControllable=> new List<ISceneObjectControl>(sceneObjectControls);
         
-        private List<ISceneObjectControl> SceneObjectsControllable
-        {
-            get
-            {
-                return new List<ISceneObjectControl>(sceneObjectControls);
-                if (sceneObjectControlsUpdated)
-                {
-                    sceneObjectControlsUpdated = false;
-                    return new List<ISceneObjectControl>(sceneObjectControls);
-                }
-
-                return sceneObjectControls;
-            }
-        }
-
         private List<ISceneObjectControl> sceneObjectsInFocuses = new List<ISceneObjectControl>();
-        private bool sceneObjectsInFocusesUpdated = false;
-
-        private List<ISceneObjectControl> SceneObjectsInFocus
-        {
-            get
-            {
-                return new List<ISceneObjectControl>(sceneObjectsInFocuses);
-                if (sceneObjectsInFocusesUpdated)
-                {
-                    sceneObjectsInFocusesUpdated = false;
-                    return new List<ISceneObjectControl>(sceneObjectsInFocuses);
-                };
-
-                return sceneObjectsInFocuses;
-            }
-        }
-
-
+        private List<ISceneObjectControl> SceneObjectsInFocus=> new List<ISceneObjectControl>(sceneObjectsInFocuses);
+        
         protected void AddObject(ISceneObject sceneObject)
         {
             if (sceneObject.ControlBinding == null)
@@ -106,14 +75,12 @@
         public void AddControl(ISceneObjectControl sceneObjectControl)
         {
             sceneObjectControls.Add(sceneObjectControl);
-            sceneObjectControlsUpdated = true;
             sceneObjectControl.Destroy +=()=> { RemoveControl(sceneObjectControl); };
         }
 
         public void RemoveControl(ISceneObjectControl sceneObjectControl)
         {
             sceneObjectControls.Remove(sceneObjectControl);
-            sceneObjectControlsUpdated = true;
         }
 
         public void RemoveObject(ISceneObject sceneObject)
@@ -145,6 +112,9 @@
 
         public void OnText(string text)
         {
+            if (destroyed)
+                return;
+
             var textControls = ControlsByHandle(ControlEventType.Text);
 
             for (int i = 0; i < textControls.Count(); i++)
@@ -159,6 +129,7 @@
 
         public void OnKeyDown(KeyArgs keyEventArgs)
         {
+
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
             
@@ -174,6 +145,9 @@
 
         public void OnKeyUp(KeyArgs keyEventArgs)
         {
+            if (destroyed)
+                return;
+
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
             
@@ -193,6 +167,9 @@
 
         public void OnMousePress(PointerArgs pointerPressedEventArgs, Point offset)
         {
+            if (destroyed)
+                return;
+
             var keyControls = ControlsByHandle(ControlEventType.Click);
             var globalKeyHandlers = ControlsByHandle(ControlEventType.GlobalClick);
             
@@ -210,6 +187,9 @@
 
         public void OnMouseRelease(PointerArgs pointerPressedEventArgs, Point offset)
         {
+            if (destroyed)
+                return;
+
             var keyControls = ControlsByHandle(ControlEventType.ClickRelease);
             var globalKeyHandlers = ControlsByHandle(ControlEventType.GlobalClickRelease);
 
@@ -226,6 +206,9 @@
 
         public void OnMouseWheel(MouseWheelEnum wheelEnum)
         {
+            if (destroyed)
+                return;
+
             var wheelControls = ControlsByHandle(ControlEventType.MouseWheel);
 
             for (int i = 0; i < wheelControls.Count(); i++)
@@ -295,7 +278,6 @@
 
             var newFocused = WhereLayeredHandlers(nFocused, pointerPressedEventArgs,offset);
 
-            sceneObjectsInFocusesUpdated = true;
             var inFocus = SceneObjectsInFocus;
 
             newFocused = newFocused
@@ -307,7 +289,6 @@
             {
                 item.Unfocus();
                 sceneObjectsInFocuses.Remove(item);
-                sceneObjectsInFocusesUpdated = true;
                 //SceneObjectsInFocus.Remove(item);
             }
 
@@ -319,7 +300,6 @@
                 }
 
                 sceneObjectsInFocuses.AddRange(newFocused);
-                sceneObjectsInFocusesUpdated = true;
             }
         }
 
@@ -354,6 +334,9 @@
 
         private IEnumerable<ISceneObjectControl> ControlsByHandle(ControlEventType handleEvent, Key key = Key.None)
         {
+            if (destroyed)
+                return Enumerable.Empty<ISceneObjectControl>();
+
             Global.Freezer.HandleFreezes.TryGetValue(handleEvent, out var freezer);
             if (Global.Freezer.World != null || freezer != null)
             {
@@ -469,6 +452,19 @@
         {
 
             
+        }
+
+        private bool destroyed = false;
+        public void Destroy()
+        {
+            var sceneObjsForRemove = new List<ISceneObject>(SceneObjects);
+            sceneObjsForRemove.ForEach(x => x.Destroy?.Invoke());
+            sceneObjsForRemove.Clear();
+
+            sceneObjsForRemove = new List<ISceneObject>(sceneObjectControls);
+            sceneObjsForRemove.ForEach(x => x.Destroy?.Invoke());
+            sceneObjsForRemove.Clear();
+            destroyed = true;
         }
 
         #endregion

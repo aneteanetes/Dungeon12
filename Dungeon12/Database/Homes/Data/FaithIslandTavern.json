@@ -1,0 +1,10 @@
+﻿{
+  "Level": 1,
+  "IdentifyName": "FaithIslandTavern",
+  "Name": "Таверна",
+  "ScreenImage": "Dungeon12.Resources.Images.NPCs.FaithIsland.home.home (1).png",
+  "Frames": 10,
+  "Conversations": [
+    "FaithIslandTavern"
+  ]
+}

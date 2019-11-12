@@ -1,0 +1,8 @@
+﻿{
+  "Name": "Край храбрых",
+  "CardType": "Region",
+  "Card": {
+    "Rounds": 4,
+    "Size": 1
+  }
+}

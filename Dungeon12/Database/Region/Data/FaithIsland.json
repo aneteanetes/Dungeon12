@@ -22,6 +22,14 @@
 		}
 	},
 	{
+	"Icon":"Home",
+		"IdentifyName":"FaithIslandTavern",
+		"Position":{
+			"X":33,
+			"Y":48
+		}
+	},
+	{
 	"Icon":"Barrel",
 		"IdentifyName":"Blue",
 		"Position":{

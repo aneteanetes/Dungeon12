@@ -2,6 +2,7 @@
 {
     public enum CardType
     {
+        None = -1,
         Resource = 0,
         Guardian = 1,
         Ability = 2,

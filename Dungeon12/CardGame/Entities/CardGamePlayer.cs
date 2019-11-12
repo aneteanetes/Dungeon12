@@ -41,7 +41,7 @@ namespace Dungeon12.CardGame.Entities
 
         public List<GuardCard> Guards { get; set; }
 
-        public bool Damage(CardGamePlayer enemy, int amount)
+        public bool Damage(CardGamePlayer enemy, int amount,AreaCard areaCard)
         {
             List<GuardCard> forRemove = new List<GuardCard>();
 
@@ -61,7 +61,40 @@ namespace Dungeon12.CardGame.Entities
 
             forRemove.ForEach(g =>
             {
-                g.OnDie(enemy, this);
+                g.OnDie(enemy, this,areaCard);
+                Guards.Remove(g);
+            });
+
+            enemy.Influence += amount;
+
+            this.Hits -= amount;
+            if (this.Hits <= 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool DamageAll(CardGamePlayer enemy, int amount, AreaCard areaCard)
+        {
+            List<GuardCard> forRemove = new List<GuardCard>();
+
+            foreach (var guard in Guards)
+            {
+                if (guard.Shield - amount <= 0)
+                {
+                    forRemove.Add(guard);
+                }
+                else
+                {
+                    guard.Shield -= amount;
+                }
+            }
+
+            forRemove.ForEach(g =>
+            {
+                g.OnDie(enemy, this,areaCard);
                 Guards.Remove(g);
             });
 
@@ -82,7 +115,7 @@ namespace Dungeon12.CardGame.Entities
 
         public Queue<Card> Cards { get; set; }
 
-        public List<Card> HandCards { get; set; }
+        public List<Card> HandCards { get; set; } = new List<Card>();
 
         public void Discard(Card handCard)
         {

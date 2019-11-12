@@ -11,19 +11,22 @@
     public static partial class Database
     {
         private static string MainPath = $@"{AppDomain.CurrentDomain.BaseDirectory}";
-        
+
         /// <summary>
         /// 
         /// <para>
         /// [Кэшируемый]
         /// </para>
         /// </summary>
-        public static IEnumerable<T> Entity<T>(Expression<Func<T,bool>> predicate=null, object cacheObject = default)
+        public static IEnumerable<T> Entity<T>(Expression<Func<T, bool>> predicate = null, object cacheObject = default)
         {
+            if (cacheObject == default)
+                return EntityQuery<T>(predicate);
+
             var key = new CompositeKey<object>()
             {
-                Owner=typeof(T),
-                Value=predicate ?? cacheObject
+                Owner = typeof(T),
+                Value = predicate ?? cacheObject
             };
 
             if (!___EntityCache.TryGetValue(key, out var value))

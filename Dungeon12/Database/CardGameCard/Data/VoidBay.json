@@ -1,0 +1,8 @@
+﻿{
+  "Name": "Бухта пустоты",
+  "CardType": "Region",
+  "Card": {
+    "Rounds": 3,
+    "Size": 2
+  }
+}

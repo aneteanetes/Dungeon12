@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Noone\Resources\Images\Stats\" />
+    <Folder Include="Resources\Images\Cards\" />
     <Folder Include="Resources\Images\ui\checkbox\" />
     <Folder Include="Resources\Images\ui\journal\" />
   </ItemGroup>

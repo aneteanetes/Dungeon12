@@ -32,7 +32,11 @@
             this._icon = perk.Icon;
             this._name = perk.Name;
             this._description = perk.Description;
-            this.ForegroundColor = new DrawColor(perk.Color.R, perk.Color.G, perk.Color.B, perk.Color.A);
+
+            if (perk.Color != null)
+            {
+                this.ForegroundColor = new DrawColor(perk.Color.R, perk.Color.G, perk.Color.B, perk.Color.A);
+            }
 
             PlayerAccessor = TypeAccessor.Create(player.GetType());
 

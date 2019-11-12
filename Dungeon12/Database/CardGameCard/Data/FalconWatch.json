@@ -1,0 +1,8 @@
+﻿{
+  "Name": "Дозор Сокола",
+  "CardType": "Region",
+  "Card": {
+    "Rounds": 4,
+    "Size": 2
+  }
+}

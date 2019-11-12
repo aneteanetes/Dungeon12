@@ -56,7 +56,7 @@
             }
         }
 
-        public void Change<TScene>() where TScene : GameScene
+        public void Change<TScene>(params string[] args) where TScene : GameScene
         {
             var sceneType = typeof(TScene);
             if (!SceneCache.TryGetValue(sceneType, out GameScene next))
@@ -64,7 +64,7 @@
                 next = sceneType.New<TScene>(this);
                 SceneCache.Add(typeof(TScene), next);
 
-                Populate(Current, next);
+                Populate(Current, next, args);
                 Preapering = next;
                 next.Init();
             }
@@ -72,10 +72,22 @@
             if (Current?.Destroyable ?? false)
             {
                 SceneCache.Remove(Current.GetType());
+                Current.Destroy();
+            }
+
+            //Если мы переключаем сцену, а она в это время фризит мир - надо освободить мир
+            if (Current.Freezer != null)
+            {
+                Global.Freezer.World = null;
             }
 
             Preapering = next;
             Current = next;
+            //Если мы переключаем сцену, а в следующей есть физер - значит надо восстановить её состояние
+            if (next.Freezer != null)
+            {
+                Global.Freezer.World = next.Freezer;
+            }
 
             Current.Activate();
         }
@@ -103,7 +115,7 @@
             Current.Activate();
         }
 
-        private void Populate(GameScene previous, GameScene next)
+        private void Populate(GameScene previous, GameScene next, string[] args = default)
         {
             if (previous == null)
                 return;
@@ -111,6 +123,7 @@
             next.PlayerAvatar = previous.PlayerAvatar;
             next.Log = previous.Log;
             next.Gamemap = previous.Gamemap;
+            next.Args = args;
         }
     }
 }

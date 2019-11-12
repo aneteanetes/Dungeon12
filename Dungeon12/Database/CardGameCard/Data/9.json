@@ -1,0 +1,9 @@
+﻿{
+  "Name": "Взрыв бочки",
+  "Number": 9,
+  "CardType": "Ability",
+  "Card": {
+    "ResourceMultiplier": 1,
+    "PublishTriggerName": "DamageCardAbilityAll"
+  }
+}

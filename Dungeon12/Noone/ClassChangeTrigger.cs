@@ -13,13 +13,13 @@ namespace Dungeon12
 {
     public class ClassChangeTrigger : IConversationTrigger
     {
-        public object PlayerSceneObject { get; set; }
+        public PlayerSceneObject PlayerSceneObject { get; set; }
 
-        public object Gamemap { get; set; }
+        public GameMap Gamemap { get; set; }
 
         public IDrawText Execute(string[] args)
         {
-            var SceneObject = this.PlayerSceneObject.As<PlayerSceneObject>();
+            var SceneObject = this.PlayerSceneObject;
 
             Character from = SceneObject.Avatar.Character;
 
@@ -33,7 +33,7 @@ namespace Dungeon12
             from.PropertiesOfType<Ability>()
                 .Where(a => a.CastType == Dungeon.Abilities.Enums.AbilityCastType.Passive)
                 .ToList()
-                .ForEach(a => a.Release(Gamemap.As<GameMap>(), SceneObject.Avatar));
+                .ForEach(a => a.Release(Gamemap, SceneObject.Avatar));
 
             // убираем все перки которые имеют отношение к классу
             from.RemoveAll(p => p.ClassDependent);
@@ -66,7 +66,7 @@ namespace Dungeon12
             Global.Events.Raise(new ClassChangeEvent()
             {
                 PlayerSceneObject = SceneObject,
-                GameMap = Gamemap.As<GameMap>(),
+                GameMap = Gamemap,
                 Character = SceneObject.Avatar.Character
             });
 

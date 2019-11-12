@@ -261,6 +261,25 @@
             }
         }
 
+        public static TValue GetPropertyExpr<TValue>(this object @object, string propName)
+        {
+            var type = @object.GetType();
+            var key = propName + type.AssemblyQualifiedName;
+
+            if (!___GetBackginFieldValueExpressionCache.TryGetValue(key, out var value))
+            {
+                var p = Expression.Parameter(type);
+                value = Expression.Lambda(Expression.PropertyOrField(p, propName), p).Compile();
+
+                ___GetBackginFieldValueExpressionCache.Add(key, value);
+            }
+
+            return value.DynamicInvoke(@object).As<TValue>();
+        }
+
+        private static readonly Dictionary<string, Delegate> ___GetBackginFieldValueExpressionCache = new Dictionary<string, Delegate>();
+
+
         public static TObject SetProperty<TObject, TValue>(this TObject @object, string property, TValue value)
         {
             var accessor = TypeAccessor.Create(@object.GetType(), true);

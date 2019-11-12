@@ -15,13 +15,14 @@
     using Dungeon.Settings;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
+    using Dungeon12.CardGame.Scene;
     using Dungeon12.Drawing.SceneObjects.Main;
     using Dungeon12.SceneObjects;
     using Dungeon12.Scenes.Menus;
     using System;
     using System.Collections.Generic;
 
-    public class Main : GameScene<Start, Main,End>
+    public class Main : GameScene<Start, Main,End, CardGameScene>
     {
         private readonly Point PlayerPosition = new Point { X = 42, Y = 45 };
 

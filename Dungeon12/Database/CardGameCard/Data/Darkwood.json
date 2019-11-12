@@ -1,0 +1,8 @@
+﻿{
+  "Name": "Тёмный лес",
+  "CardType": "Region",
+  "Card": {
+    "Rounds": 5,
+    "Size": 3
+  }
+}

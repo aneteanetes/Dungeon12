@@ -1,0 +1,8 @@
+﻿{
+  "Name": "Серебряный дол",
+  "CardType": "Region",
+  "Card": {
+    "Rounds": 4,
+    "Size": 3
+  }
+}

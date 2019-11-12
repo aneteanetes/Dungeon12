@@ -16,12 +16,8 @@ namespace Dungeon.Types
 
         public override bool Equals(object obj)
         {
-            if (typeof(CompositeKey<>).IsAssignableFrom(obj.GetType()))
-            {
-                return obj.GetProperty<string>(nameof(InternalValue)).Equals(this.InternalValue);
-            }
-
-            return false;
+            var internalValue = obj.GetPropertyExpr<string>(nameof(InternalValue));
+            return internalValue == this.InternalValue;
         }
 
         private string InternalValue => Value.ToString() + Owner?.AssemblyQualifiedName ?? "";

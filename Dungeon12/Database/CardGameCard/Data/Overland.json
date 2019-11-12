@@ -1,0 +1,8 @@
+﻿{
+  "Name": "Окраина",
+  "CardType": "Region",
+  "Card": {
+    "Rounds": 4,
+    "Size": 2
+  }
+}

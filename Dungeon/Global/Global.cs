@@ -3,6 +3,7 @@
     using Dungeon.Audio;
     using Dungeon.Control;
     using Dungeon.Events;
+    using Dungeon.Scenes.Manager;
     using Dungeon.View.Interfaces;
     using System.Collections.Generic;
     using System.Reflection;
@@ -39,5 +40,7 @@
         public static string GameAssemblyName { get; set; }
 
         public static Assembly GameAssembly { get; set; }
+
+        public static SceneManager SceneManager { get; set; }
     }
 }

@@ -6,6 +6,8 @@ namespace Dungeon12.Database.CardGameCard
 {
     public class CardGameCardData : Persist
     {
+        public string Name { get; set; }
+
         public int Number { get; set; }
 
         public CardType Type { get; set; }

@@ -1,0 +1,9 @@
+﻿{
+  "Name": "Отравление",
+  "Number": 8,
+  "CardType": "Ability",
+  "Card": {
+    "ResourceMultiplier": 1,
+    "TurnTriggerName": "DamageCardAbilityAll"
+  }
+}

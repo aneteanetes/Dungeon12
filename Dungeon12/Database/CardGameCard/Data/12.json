@@ -1,0 +1,8 @@
+﻿{
+  "Name": "Наёмники",
+  "Number": 12,
+  "CardType": "Guardian",
+  "Card": {
+    "Shield": 2
+  }
+}

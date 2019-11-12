@@ -19,33 +19,35 @@ namespace Dungeon12.CardGame.Entities
 
         public string PublishTriggerName { get; set; }
 
-        public virtual void OnPublish(CardGamePlayer enemy, CardGamePlayer player)
+        public virtual void OnPublish(CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
         {
             if (PublishTriggerName != default)
             {
-                PublishTriggerName.GetInstanceFromAssembly<IAbilityCardTrigger>(Assembly).Activate(this, enemy, player);
+                PublishTriggerName.GetInstanceFromAssembly<IAbilityCardTrigger>(Assembly).Activate(this, enemy, player,areaCard);
             }
         }
 
         public string TurnTriggerName { get; set; }
 
-        public void OnTurn(CardGamePlayer enemy, CardGamePlayer player)
+        public void OnTurn(CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
         {
             if (TurnTriggerName != default)
             {
-                TurnTriggerName.GetInstanceFromAssembly<IAbilityCardTrigger>(Assembly).Activate(this, enemy, player);
+                TurnTriggerName.GetInstanceFromAssembly<IAbilityCardTrigger>(Assembly).Activate(this, enemy, player,areaCard);
             }
         }
 
         public string DieTriggerName { get; set; }
 
-        public void OnDie(CardGamePlayer enemy, CardGamePlayer player)
+        public void OnDie(CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
         {
             if (DieTriggerName != default)
             {
-                DieTriggerName.GetInstanceFromAssembly<IAbilityCardTrigger>(Assembly).Activate(this, enemy, player);
+                DieTriggerName.GetInstanceFromAssembly<IAbilityCardTrigger>(Assembly).Activate(this, enemy, player,areaCard);
             }
         }
+
+        public CardType CardType { get; set; }
 
         public new static List<Card> Load(Expression<Func<CardGameCardData, bool>> filterOne, object cacheObject=default)
         {
@@ -68,7 +70,9 @@ namespace Dungeon12.CardGame.Entities
 
                 if (card != default)
                 {
+                    card.CardType = dataClass.Type;
                     card.Assembly = dataClass.Assembly;
+                    card.Name = dataClass.Name;
                     cards.Add(card);
                 }
             }          

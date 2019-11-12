@@ -1,0 +1,9 @@
+﻿{
+  "Name": "Дипломатия",
+  "Number": 10,
+  "CardType": "Ability",
+  "Card": {
+    "ResourceMultiplier": 0,
+    "PublishTriggerName": "TakeGuardCardAbility"
+  }
+}

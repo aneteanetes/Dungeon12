@@ -9,5 +9,7 @@ namespace Dungeon.View.Interfaces
         ISceneObject[] Objects { get; }
 
         bool AbsolutePositionScene { get; }
+
+        void Destroy();
     }
 }

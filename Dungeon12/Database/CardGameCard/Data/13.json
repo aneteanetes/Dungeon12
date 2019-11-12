@@ -1,0 +1,9 @@
+﻿{
+  "Name": "Вольные всадники",
+  "Number": 12,
+  "CardType": "Guardian",
+  "Card": {
+    "Shield": 5,
+    "TurnTriggerName": "ChanceEscapeGuard"
+  }
+}

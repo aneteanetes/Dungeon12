@@ -6,12 +6,13 @@
     using Dungeon.Map.Objects;
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
+    using Dungeon12.CardGame.Scene;
     using Dungeon12.Drawing.SceneObjects;
     using Dungeon12.Map.Editor;
     using Dungeon12.Races.Perks;
     using System;
 
-    public class Start : StartScene<SoloDuoScene, Game.Main, EditorScene>
+    public class Start : StartScene<SoloDuoScene, Game.Main, EditorScene, CardGameScene>
     {
         public override bool AbsolutePositionScene => true;
 
@@ -59,21 +60,21 @@
                 AbsolutePosition = true,
                 OnClick = () =>
                 {
-                    this.PlayerAvatar = new Avatar(new Dungeon12.Noone.Noone()
-                    {
-                        Origin = Dungeon.Entities.Alive.Enums.Origins.Adventurer
-                    });
-                    this.PlayerAvatar.Character.Name = "Ваш персонаж";
-                    this.PlayerAvatar.Character.Race = Race.Elf;
-                    this.PlayerAvatar.Character.Add<RacePerk>();
+                    this.Switch<CardGameScene>();
 
-                    Global.AudioPlayer.Music("town", new Dungeon.Audio.AudioOptions()
-                    {
-                        Repeat = true,
-                        Volume = 0.3
-                    });
+                    //this.PlayerAvatar = new Avatar(new Dungeon12.Noone.Noone()
+                    //{
+                    //    Origin = Dungeon.Entities.Alive.Enums.Origins.Adventurer
+                    //});
+                    //this.PlayerAvatar.Character.Name = "Ваш персонаж";
 
-                    this.Switch<Game.Main>();
+                    //Global.AudioPlayer.Music("town", new Dungeon.Audio.AudioOptions()
+                    //{
+                    //    Repeat = true,
+                    //    Volume = 0.3
+                    //});
+
+                    //this.Switch<Game.Main>();
                 }
             });
 

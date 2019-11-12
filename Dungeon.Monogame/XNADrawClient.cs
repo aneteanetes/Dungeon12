@@ -120,6 +120,8 @@
             };
 
 
+            Global.SceneManager = this.SceneManager;
+
             GlobalImageFilter = _resources.Load<Effect>("ExtractLight");
 
             SceneManager.Start();

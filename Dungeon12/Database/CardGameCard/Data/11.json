@@ -1,0 +1,8 @@
+﻿{
+  "Name": "Ополчение региона",
+  "Number": 11,
+  "CardType": "Guardian",
+  "Card": {
+    "Shield": 1
+  }
+}

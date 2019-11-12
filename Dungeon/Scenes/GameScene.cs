@@ -9,8 +9,12 @@
 
     public abstract class GameScene : CommandScene
     {
+        public object Freezer;
+
         protected readonly List<Type> AvailableScenes = new List<Type>();
         public Avatar PlayerAvatar;
+
+        public string[] Args { get; set; }
 
         public virtual bool CameraAffect => false;
 

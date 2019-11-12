@@ -1,4 +1,5 @@
 ﻿using Dungeon;
+using Dungeon.GameObjects;
 using Dungeon12.CardGame.Entities;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace Dungeon12.CardGame.Engine
 {
-    public class CardGame
+    public class CardGame : GameComponent
     {
         private CardGameSettings _cardGameSettings;
         private Queue<Card> areaDeck;
@@ -62,8 +63,8 @@ namespace Dungeon12.CardGame.Engine
                 }
             }
 
-            Player1.Guards.ForEach(g => g.OnTurn(Player2, Player1));
-            Player2.Guards.ForEach(g => g.OnTurn(Player2, Player1));
+            Player1.Guards.ForEach(g => g.OnTurn(Player2, Player1, currentArea));
+            Player2.Guards.ForEach(g => g.OnTurn(Player2, Player1, currentArea));
 
             return false;
         }
@@ -100,7 +101,7 @@ namespace Dungeon12.CardGame.Engine
         public bool PlayCard(Card card, CardGamePlayer player)
         {
             var enemy = player == Player1 ? Player2 : Player1;
-            card.OnPublish(enemy, player);
+            card.OnPublish(enemy, player,currentArea);
             switch (card)
             {
                 case GuardCard guard:

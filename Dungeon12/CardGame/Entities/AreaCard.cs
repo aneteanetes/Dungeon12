@@ -19,5 +19,7 @@ namespace Dungeon12.CardGame.Entities
         [Proxied(typeof(NetProxy))]
         public int Rounds { get => Get(___Rounds, typeof(AreaCard).AssemblyQualifiedName); set => Set(value, typeof(AreaCard).AssemblyQualifiedName); }
         private int ___Rounds;
+
+        public int Size { get; set; } = 1;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dungeon.Scenes.Manager;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -19,6 +20,7 @@ namespace Dungeon.Control
                 }
                 else
                 {
+                    SceneManager.Current.Freezer = value;
                     Global.Time.Pause();
                 }
 
