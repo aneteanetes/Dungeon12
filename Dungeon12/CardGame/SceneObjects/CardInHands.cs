@@ -22,7 +22,7 @@ namespace Dungeon12.CardGame.SceneObjects
                     AbsolutePosition = true,
                     CacheAvailable = false
                 });
-                left += 5.5;
+                left += 5;
             });
         }
     }

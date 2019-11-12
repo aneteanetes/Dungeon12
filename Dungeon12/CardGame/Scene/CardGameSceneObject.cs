@@ -21,7 +21,10 @@ namespace Dungeon12.CardGame.Scene
 
             var (Player1, Player2) = component.Start(playerDeck, enemyDeck);
 
-            var pLeft = new CardPlayerSceneObject(Player1);
+            var pLeft = new CardPlayerSceneObject(Player1)
+            {
+                Left=2
+            };
             var pRight = new CardPlayerSceneObject(Player2);
             pRight.Left = 40 - pRight.Width;
 
@@ -39,7 +42,8 @@ namespace Dungeon12.CardGame.Scene
 
             this.AddChild(new CardInHands(Player1)
             {
-                Top=12,
+                Left = 7.5,
+                Top = 14,
                 AbsolutePosition = true,
                 CacheAvailable = false
             });
