@@ -14,6 +14,9 @@ namespace Dungeon.Abilities.Talants.TalantTrees
 
         public string Icon { get; }
 
+        private string _image;
+        public string Image { get => _image ?? Icon; set => _image = value; }
+
         public abstract string Tileset { get; }
 
         public Rectangle TileSetRegion { get; }

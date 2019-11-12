@@ -375,32 +375,6 @@
             }
         }
 
-#warning здесь был flow метод
-        //[FlowMethod(typeof(DamageContext))]
-        //public void Damage(bool forward)
-        //{
-        //    if (!forward)
-        //    {
-        //        long dmg = GetFlowProperty<long>("Damage");
-        //        bool crit = GetFlowProperty<bool>("Critical");
-
-        //        var effects = new List<ISceneObject>();
-        //        effects.Add(new PopupString(dmg.ToString() + (crit ? "!" : ""), crit ? ConsoleColor.Red : ConsoleColor.White, MobObj.Location, 25, crit ? 14 : 12, 0.06));
-
-
-        //        bool showExp = GetFlowProperty<bool>("EnemyDied");
-        //        if (showExp)
-        //        {
-        //            var min = MobObj.Enemy.Level * 4;
-        //            var expr = RandomDungeon.Next(min, min * 2);
-        //            playerSceneObject.Avatar.Character.Exp(MobObj.Exp);
-        //            effects.Add(new PopupString($"Вы получаете {expr} опыта!", ConsoleColor.DarkMagenta, playerSceneObject.Avatar.Location, 25, 12, 0.06));
-        //        }
-
-        //        this.ShowEffects(effects);
-        //    }
-        //}
-
         public class DamageContext
         {
             public long Damage { get; set; }

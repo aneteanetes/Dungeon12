@@ -10,6 +10,8 @@ namespace Dungeon.Entities
     public class Drawable : IDrawable
     {
         public string Icon { get; set; }
+        private string _image;
+        public string Image { get => _image ?? Icon; set => _image = value; }
         public string Name { get; set; }
         public IDrawColor BackgroundColor { get; set; }
         public IDrawColor ForegroundColor { get; set; }

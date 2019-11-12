@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Dungeon12.CardGame.Entities
 {
-    public class GuardCard : Card
+    public class GuardCard : AbilityCard
     {
         /// <summary>
         /// 
@@ -17,7 +17,5 @@ namespace Dungeon12.CardGame.Entities
         [Proxied(typeof(NetProxy))]
         public int Shield { get => Get(___Shield, typeof(GuardCard).AssemblyQualifiedName); set => Set(value, typeof(GuardCard).AssemblyQualifiedName); }
         private int ___Shield;
-
-        public string TurnTriggerName { get; set; }
     }
 }

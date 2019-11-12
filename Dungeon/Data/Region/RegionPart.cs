@@ -5,8 +5,6 @@ namespace Dungeon.Data.Region
 
     public class RegionPart : Persist
     {
-        public string IdentifyName { get; set; }
-
         public string Icon { get; set; }
 
         public string Image { get; set; }

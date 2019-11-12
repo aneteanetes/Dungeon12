@@ -178,7 +178,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="mixin"></param>
-        public override void AddMixin<T>(T mixin)
+        public override void AddMixin<TMixin>(TMixin mixin)
         {
             mixin.InitAsMixin(this);
             Mixins.Add(mixin);

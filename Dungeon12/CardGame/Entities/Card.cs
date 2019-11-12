@@ -3,14 +3,17 @@ using Dungeon.Data.Attributes;
 using Dungeon.Entities;
 using Dungeon.Map;
 using Dungeon12.CardGame.Interfaces;
+using Dungeon12.Database.CardGameCard;
+using Dungeon12.Database.CardGameDeck;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Dungeon12.CardGame.Entities
 {
-    [DataClass(typeof(string))]
-    public class Card : Entity
+    public class Card : DataEntity<Card, CardGameCardData>
     {
         public string Description { get; set; }
 
@@ -20,7 +23,7 @@ namespace Dungeon12.CardGame.Entities
         {
             if (PublishTriggerName != default)
             {
-                PublishTriggerName.GetInstanceFromAssembly<IAbilityCardTrigger>(Assembly).Activate(this,enemy, player);
+                PublishTriggerName.GetInstanceFromAssembly<IAbilityCardTrigger>(Assembly).Activate(this, enemy, player);
             }
         }
 
@@ -42,6 +45,35 @@ namespace Dungeon12.CardGame.Entities
             {
                 DieTriggerName.GetInstanceFromAssembly<IAbilityCardTrigger>(Assembly).Activate(this, enemy, player);
             }
+        }
+
+        public new static List<Card> Load(Expression<Func<CardGameCardData, bool>> filterOne, object cacheObject=default)
+        {
+            List<Card> cards = new List<Card>();
+            var dataClasses = Dungeon.Data.Database.Entity(filterOne);
+
+            foreach (var dataClass in dataClasses)
+            {
+                Card card = default;
+                if (dataClass != default)
+                {
+                    switch (dataClass.Type)
+                    {
+                        case CardType.Resource: card = dataClass.Card; break;
+                        case CardType.Guardian: card = dataClass.Card.As<GuardCard>(); break;
+                        case CardType.Ability: card = dataClass.Card.As<AbilityCard>(); break;
+                        case CardType.Region: card = dataClass.Card.As<AreaCard>(); break;
+                    }
+                }
+
+                if (card != default)
+                {
+                    card.Assembly = dataClass.Assembly;
+                    cards.Add(card);
+                }
+            }          
+
+            return cards;
         }
     }
 }

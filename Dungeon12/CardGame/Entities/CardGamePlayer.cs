@@ -79,5 +79,32 @@ namespace Dungeon12.CardGame.Entities
         public int RoundPoints { get; set; }
 
         public Deck Deck { get; set; }
+
+        public Queue<Card> Cards { get; set; }
+
+        public List<Card> HandCards { get; set; }
+
+        public void Discard(Card handCard)
+        {
+            HandCards.Remove(handCard);
+        }
+
+        public bool AddInHand()
+        {
+            if (HandCards.Count >= 5)
+            {
+                return false;
+            }
+
+            var card = Cards.Dequeue();
+            if (card == default)
+            {
+                return false;
+            }
+
+            HandCards.Add(card);
+
+            return true;
+        }
     }
 }

@@ -20,7 +20,6 @@ namespace Penumbra
     public class PenumbraComponent : DrawableGameComponent
     {
         private readonly PenumbraEngine _engine = new PenumbraEngine();
-        private ContentManager _content;
 
         private bool _initialized;
         private bool _beginDrawCalled;
@@ -155,7 +154,7 @@ namespace Penumbra
         protected override void UnloadContent()
         {
             _engine.Dispose();
-            _content?.Dispose();
+            _resContent?.Dispose();
         }
 
         /// <inheritdoc />

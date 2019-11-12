@@ -16,7 +16,7 @@
         public bool Fill { get; set; }
 
         private double opacity;
-        public double Opacity
+        public new double Opacity
         {
             get => opacity;
             set

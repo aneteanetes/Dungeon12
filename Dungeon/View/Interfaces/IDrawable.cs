@@ -8,6 +8,12 @@ namespace Dungeon.View.Interfaces
 
         string Icon { get; }
 
+        /// <summary>
+        /// Возвращает <see cref="Icon"/> или значение
+        /// <para>По сути это обратная совместимость которую надо будет выпилить</para>
+        /// </summary>
+        string Image { get; }
+
         string Name { get; }
 
         string Tileset { get; }

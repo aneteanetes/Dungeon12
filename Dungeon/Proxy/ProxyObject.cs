@@ -32,10 +32,10 @@ namespace Dungeon.Proxy
         public Func<object> BindGet(string propName, string ownerClassName)
         {
             propName = $"___{propName}";
-            var key = new CompositeKey()
+            var key = new CompositeKey<string>()
             {
                 Owner = this.GetType(),
-                PropertyName = propName
+                Value = propName
             };
             if (!___BindGetCache.TryGetValue(key, out var value))
             {
@@ -45,7 +45,7 @@ namespace Dungeon.Proxy
 
             return value;
         }
-        private static readonly Dictionary<CompositeKey, Func<object>> ___BindGetCache = new Dictionary<CompositeKey, Func<object>>();
+        private static readonly Dictionary<CompositeKey<string>, Func<object>> ___BindGetCache = new Dictionary<CompositeKey<string>, Func<object>>();
 
         /// <summary>
         /// 
@@ -56,10 +56,10 @@ namespace Dungeon.Proxy
         public Action<object> BindSet<TValue>(string propName, string ownerclassname)
         {
             propName = $"___{propName}";
-            var key = new CompositeKey()
+            var key = new CompositeKey<string>()
             {
                 Owner = this.GetType(),
-                PropertyName = propName
+                Value = propName
             };
             if (!___BindSetCache.TryGetValue(key, out var value))
             {
@@ -69,7 +69,7 @@ namespace Dungeon.Proxy
 
             return value;
         }
-        private static readonly Dictionary<CompositeKey, Action<object>> ___BindSetCache = new Dictionary<CompositeKey, Action<object>>();
+        private static readonly Dictionary<CompositeKey<string>, Action<object>> ___BindSetCache = new Dictionary<CompositeKey<string>, Action<object>>();
 
         private string PropertyName(string callerProp)
         {
@@ -84,10 +84,10 @@ namespace Dungeon.Proxy
         /// </summary>
         public ProxiedAttribute Proxies(string prop)
         {
-            var key = new CompositeKey()
+            var key = new CompositeKey<string>()
             {
                 Owner = this.GetType(),
-                PropertyName = prop
+                Value = prop
             };
             if (!___ProxiedCache.TryGetValue(key, out var value))
             {
@@ -97,7 +97,7 @@ namespace Dungeon.Proxy
 
             return value;
         }
-        private static readonly Dictionary<CompositeKey, ProxiedAttribute> ___ProxiedCache = new Dictionary<CompositeKey, ProxiedAttribute>();
+        private static readonly Dictionary<CompositeKey<string>, ProxiedAttribute> ___ProxiedCache = new Dictionary<CompositeKey<string>, ProxiedAttribute>();
 
         private List<ProxyProperty> ProxiesAdditional(string prop)
         {
@@ -146,10 +146,10 @@ namespace Dungeon.Proxy
         /// </summary>
         public object GetBackginFieldValueExpression(string ownerClassName, string propName)
         {
-            var key = new CompositeKey()
+            var key = new CompositeKey<string>()
             {
                 Owner = this.GetType(),
-                PropertyName = propName
+                Value = propName
             };
 
             if (!___GetBackginFieldValueExpressionCache.TryGetValue(key, out var value))
@@ -163,7 +163,7 @@ namespace Dungeon.Proxy
             return value.DynamicInvoke(this);
         }
 
-        private static readonly Dictionary<CompositeKey, Delegate> ___GetBackginFieldValueExpressionCache = new Dictionary<CompositeKey, Delegate>();
+        private static readonly Dictionary<CompositeKey<string>, Delegate> ___GetBackginFieldValueExpressionCache = new Dictionary<CompositeKey<string>, Delegate>();
 
 
         /// <summary>
@@ -174,10 +174,10 @@ namespace Dungeon.Proxy
         /// </summary>
         public FieldInfo GetField(string ownerClassName, string propName)
         {
-            var key = new CompositeKey()
+            var key = new CompositeKey<string>()
             {
                 Owner = this.GetType(),
-                PropertyName = ownerClassName + propName
+                Value = ownerClassName + propName
             };
             if (!___GetFieldCache.TryGetValue(key, out var value))
             {
@@ -187,14 +187,14 @@ namespace Dungeon.Proxy
 
             return value;
         }
-        private static readonly Dictionary<CompositeKey, FieldInfo> ___GetFieldCache = new Dictionary<CompositeKey, FieldInfo>();
+        private static readonly Dictionary<CompositeKey<string>, FieldInfo> ___GetFieldCache = new Dictionary<CompositeKey<string>, FieldInfo>();
 
         private void SetBackingFieldValueExpression(object propValue, string propName, string ownerClassName, Type valueType)
         {
-            var key = new CompositeKey()
+            var key = new CompositeKey<string>()
             {
-                Owner=this.GetType(),
-                PropertyName=propName
+                Owner = this.GetType(),
+                Value = propName
             };
 
             if (!___SetBackingFieldValueExpressionCache.TryGetValue(key, out var value))
@@ -208,7 +208,7 @@ namespace Dungeon.Proxy
 
             value.DynamicInvoke(this,propValue);
         }
-        private static readonly Dictionary<CompositeKey, Delegate> ___SetBackingFieldValueExpressionCache = new Dictionary<CompositeKey, Delegate>();
+        private static readonly Dictionary<CompositeKey<string>, Delegate> ___SetBackingFieldValueExpressionCache = new Dictionary<CompositeKey<string>, Delegate>();
 
         private Dictionary<string, List<ProxyProperty>> Additionals = new Dictionary<string, List<ProxyProperty>>();
 
@@ -242,6 +242,9 @@ namespace Dungeon.Proxy
         public string Uid { get; } = Guid.NewGuid().ToString();
 
         public virtual string Icon { get; set; }
+
+        private string _image;
+        public string Image { get => _image ?? Icon; set => _image = value; }
 
         public virtual string Name { get; set; }
 
@@ -280,27 +283,6 @@ namespace Dungeon.Proxy
 }
 
 #endregion
-    }
-
-    public struct CompositeKey
-    {
-        public string PropertyName { get; set; }
-
-        public Type Owner { get; set; }
-
-        public override bool Equals(object obj)
-        {
-            if(obj is CompositeKey compositeKey)
-            {
-                return compositeKey.InternalValue.Equals(this.InternalValue);
-            }
-
-            return false;
-        }
-
-        private string InternalValue => PropertyName + Owner?.AssemblyQualifiedName ?? "";
-
-        public override int GetHashCode() => InternalValue.GetHashCode();
     }
 
 public static class ProxyObjectExtensions

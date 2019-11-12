@@ -127,9 +127,6 @@
             // TODO: use this.Content to load your game content here
         }
 
-        private bool visibleEmitters = true;
-
-
         private bool loaded = false;
 
 
@@ -163,14 +160,11 @@
             if (c.IsKeyDown(Keys.K))
             {
                 penumbra.Visible = false;
-                visibleEmitters = false;
             }
 
             if (c.IsKeyDown(Keys.L))
             {
                 penumbra.Visible = true;
-                //_particleEffect.Trigger();
-                visibleEmitters = true;
             }
 
             if (c.IsKeyDown(Keys.Down))

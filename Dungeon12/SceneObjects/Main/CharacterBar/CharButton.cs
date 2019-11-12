@@ -18,14 +18,12 @@
         public override bool CacheAvailable => false;
 
         private PlayerSceneObject playerSceneObject;
-        private Action<List<ISceneObject>> showEffects;
         private GameMap gamemap;
 
         public CharButton(GameMap gamemap, PlayerSceneObject playerSceneObject) : base("Персонаж (C)")
         {
             this.gamemap = gamemap;
             this.playerSceneObject = playerSceneObject;
-            this.showEffects = showEffects;
 
             this.Height = 1.5;
             this.Width = 1.5;
@@ -79,7 +77,7 @@
 
             playerSceneObject.StopMovings();
 
-            characterInfoWindow = new CharacterInfoWindow(gamemap,playerSceneObject, showEffects);
+            characterInfoWindow = new CharacterInfoWindow(gamemap,playerSceneObject, ShowEffects);
             characterInfoWindow.Destroy += () => characterInfoWindow = null;
 
             this.ShowEffects(new List<ISceneObject>()

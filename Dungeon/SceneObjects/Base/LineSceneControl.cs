@@ -25,7 +25,7 @@
     {        
         private double opacity;
 
-        public double Opacity
+        public new double Opacity
         {
             get => opacity;
             set

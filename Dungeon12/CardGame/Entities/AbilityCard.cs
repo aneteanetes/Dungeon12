@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Dungeon12.CardGame.Entities
 {
-    public class AbilityCard : Card
+    public class AbilityCard : AreaCard
     {
         public int ResourceMultiplier { get; set; }
     }

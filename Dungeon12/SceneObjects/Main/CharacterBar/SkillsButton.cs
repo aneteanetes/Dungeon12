@@ -17,12 +17,10 @@
         public override bool CacheAvailable => false;
 
         private PlayerSceneObject playerSceneObject;
-        private Action<List<ISceneObject>> showEffects;
 
         public SkillsButton(PlayerSceneObject playerSceneObject) : base("Навыки (V)")
         {
             this.playerSceneObject = playerSceneObject;
-            this.showEffects = showEffects;
 
             this.Height = 1.5;
             this.Width = 1.5;

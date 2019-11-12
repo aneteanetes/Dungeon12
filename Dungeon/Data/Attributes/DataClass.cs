@@ -12,7 +12,7 @@ namespace Dungeon.Data.Attributes
 
         public DataClassAttribute(Type dataType)
         {
-            if (!typeof(RegionPart).IsAssignableFrom(dataType))
+            if (!typeof(Persist).IsAssignableFrom(dataType))
             {
                 throw new InvalidCastException($"Тип {dataType.Name} не может быть использовать как класс данных!");
             }

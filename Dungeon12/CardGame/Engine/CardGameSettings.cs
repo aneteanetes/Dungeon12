@@ -11,5 +11,7 @@ namespace Dungeon12.CardGame.Engine
         public int Hits { get; set; }
 
         public int Resources { get; set; }
+
+        public object Reward { get; set; }
     }
 }

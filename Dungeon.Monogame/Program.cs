@@ -15,18 +15,18 @@ namespace Dungeon.Monogame
 #endif
             Database.LoadAllAssemblies();
 
-            try
+            //try
+            //{
+            using (var game = new XNADrawClient())
             {
-                using (var game = new XNADrawClient())
-                {
-                    game.Run();
-                }
+                game.Run();
             }
-            catch (ExecutionEngineException ex)
-            {
-                Console.WriteLine(ex.ToString());
-                throw ex; 
-            }
+            //}
+            //catch (ExecutionEngineException ex)
+            //{
+            //    Console.WriteLine(ex.ToString());
+            //    throw ex; 
+            //}
 
             Console.ReadLine();
         }
