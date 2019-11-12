@@ -1,0 +1,8 @@
+﻿{
+  "Name": "Стражник",
+  "Number": 2,
+  "CardType": "Guardian",
+  "Card": {
+    "Shield": 5
+  }
+}

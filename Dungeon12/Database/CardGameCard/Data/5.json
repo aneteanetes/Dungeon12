@@ -1,0 +1,9 @@
+﻿{
+  "Name": "Круговая защита",
+  "Number": 5,
+  "CardType": "Ability",
+  "Card": {
+    "ResourceMultiplier": 1,
+    "PublishTriggerName": "AddShieldGuards"
+  }
+}

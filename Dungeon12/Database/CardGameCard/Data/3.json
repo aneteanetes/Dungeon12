@@ -1,0 +1,9 @@
+﻿{
+  "Name": "Удар Стража",
+  "Number": 2,
+  "CardType": "Ability",
+  "Card": {
+    "ResourceMultiplier": 2,
+    "PublishTriggerName": "AttackWithGuardsCount"
+  }
+}

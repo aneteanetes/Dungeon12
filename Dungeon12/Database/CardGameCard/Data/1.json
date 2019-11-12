@@ -1,0 +1,8 @@
+﻿{
+  "Name": "Оруженосец",
+  "Number": 1,
+  "CardType": "Guardian",
+  "Card": {
+    "Shield": 2
+  }
+}

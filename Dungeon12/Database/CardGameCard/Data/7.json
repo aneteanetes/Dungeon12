@@ -1,0 +1,9 @@
+﻿{
+  "Name": "Атака",
+  "Number": 7,
+  "CardType": "Ability",
+  "Card": {
+    "ResourceMultiplier": 3,
+    "PublishTriggerName": "DamageCardAbility"
+  }
+}

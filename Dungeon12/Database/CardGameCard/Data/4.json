@@ -1,0 +1,9 @@
+﻿{
+  "Name": "Аура шипов",
+  "Number": 4,
+  "CardType": "Ability",
+  "Card": {
+    "ResourceMultiplier": 1,
+    "PublishTriggerName": "EachRoundAttackerGetsOne"
+  }
+}
