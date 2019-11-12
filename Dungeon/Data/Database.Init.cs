@@ -65,7 +65,12 @@ namespace Dungeon.Data
 
                     foreach (var item in data.JsonFiles)
                     {
-                        AddToGenericList(list, JsonConvert.DeserializeObject(File.ReadAllText(item, Encoding.UTF8), data.Type));
+                        var obj = JsonConvert.DeserializeObject(File.ReadAllText(item, Encoding.UTF8), data.Type);
+                        if(obj is Persist persist)
+                        {
+                            persist.Assembly = data.Assembly;
+                        }
+                        AddToGenericList(list, obj);
                     }
 
                     Insert(collection, list);
@@ -124,6 +129,8 @@ namespace Dungeon.Data
 
             return databaseDirectories.SelectMany(databaseDirectory =>
             {
+                var asm = new DirectoryInfo(databaseDirectory).Parent.Name;
+
                 return Directory.GetDirectories(databaseDirectory).Select(dataDirectory =>
                 {
                     var csFileDeclaringType = Directory.GetFiles(dataDirectory, "*.cs").ToArray();
@@ -146,6 +153,7 @@ namespace Dungeon.Data
 
                     return new DataInfo
                     {
+                        Assembly=asm,
                         Type = type,
                         JsonFiles = Directory.GetFiles(dataPath, "*.json", SearchOption.AllDirectories)
                     };
@@ -156,6 +164,8 @@ namespace Dungeon.Data
 
     internal class DataInfo
     {
+        public string Assembly { get; set; }
+
         public Type Type { get; set; }
 
         public IEnumerable<string> JsonFiles { get; set; }

@@ -2,6 +2,7 @@
 using Dungeon.Entities;
 using Dungeon.Network;
 using Dungeon12.CardGame.Engine;
+using Dungeon12.CardGame.Interfaces;
 using System.Collections.Generic;
 
 namespace Dungeon12.CardGame.Entities
@@ -40,7 +41,7 @@ namespace Dungeon12.CardGame.Entities
 
         public List<GuardCard> Guards { get; set; }
 
-        public bool Damage(int amount)
+        public bool Damage(CardGamePlayer enemy, int amount)
         {
             List<GuardCard> forRemove = new List<GuardCard>();
 
@@ -58,7 +59,14 @@ namespace Dungeon12.CardGame.Entities
                 }
             }
 
-            forRemove.ForEach(g => Guards.Remove(g));
+            forRemove.ForEach(g =>
+            {
+                g.OnDie(enemy, this);
+                Guards.Remove(g);
+            });
+
+            enemy.Influence += amount;
+
             this.Hits -= amount;
             if (this.Hits <= 0)
             {

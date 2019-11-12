@@ -9,6 +9,7 @@ namespace Dungeon.Monogame
         [STAThread]
         static void Main()
         {
+            Database.Init();
 #if COMPILEDATABASE
             Database.Init();
 #endif

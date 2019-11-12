@@ -9,5 +9,7 @@ namespace Dungeon.Data
         public int Id { get; set; }
 
         public string IdentifyName { get; set; }
+
+        public string Assembly { get; set; }
     }
 }

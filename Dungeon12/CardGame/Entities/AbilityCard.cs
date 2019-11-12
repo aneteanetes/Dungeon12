@@ -8,14 +8,6 @@ namespace Dungeon12.CardGame.Entities
 {
     public class AbilityCard : Card
     {
-        public string ActivateTriggerName { get; set; }
-
-        public void Activate(CardGamePlayer enemy, CardGamePlayer player)
-        {
-            if (ActivateTriggerName != default)
-            {
-                ActivateTriggerName.GetInstanceFromAssembly<IAbilityCardTrigger>("Dungeon12").Activate(enemy, player);
-            }
-        }
+        public int ResourceMultiplier { get; set; }
     }
 }

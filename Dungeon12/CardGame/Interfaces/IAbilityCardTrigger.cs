@@ -7,6 +7,6 @@ namespace Dungeon12.CardGame.Interfaces
 {
     public interface IAbilityCardTrigger
     {
-        void Activate(CardGamePlayer enemy, CardGamePlayer player);
+        void Activate(Card card, CardGamePlayer enemy, CardGamePlayer player);
     }
 }

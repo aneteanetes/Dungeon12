@@ -10,5 +10,7 @@ namespace Dungeon.Entities
     public class Entity : NetObject
     {
         public MapObject MapObject { get; set; }
+
+        public string Assembly { get; set; }
     }
 }

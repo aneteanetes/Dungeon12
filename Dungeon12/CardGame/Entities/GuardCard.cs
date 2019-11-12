@@ -17,5 +17,7 @@ namespace Dungeon12.CardGame.Entities
         [Proxied(typeof(NetProxy))]
         public int Shield { get => Get(___Shield, typeof(GuardCard).AssemblyQualifiedName); set => Set(value, typeof(GuardCard).AssemblyQualifiedName); }
         private int ___Shield;
+
+        public string TurnTriggerName { get; set; }
     }
 }

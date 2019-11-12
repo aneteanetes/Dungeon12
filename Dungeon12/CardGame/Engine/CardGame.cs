@@ -30,10 +30,10 @@ namespace Dungeon12.CardGame.Engine
         {
             Player1 = new CardGamePlayer()
             {
-                Influence=this._cardGameSettings.Influence,
-                Hits=this._cardGameSettings.Hits,
-                Resources=this._cardGameSettings.Resources,
-                Deck=enemyDeck
+                Influence = this._cardGameSettings.Influence,
+                Hits = this._cardGameSettings.Hits,
+                Resources = this._cardGameSettings.Resources,
+                Deck = enemyDeck
             };
 
             Player2 = new CardGamePlayer()
@@ -54,12 +54,14 @@ namespace Dungeon12.CardGame.Engine
             if (currentArea.Rounds == 0)
             {
                 currentArea = areaDeck.Cards.Dequeue().As<AreaCard>();
+                if (currentArea == default)
+                {
+                    return true;
+                }
             }
 
-            if (areaDeck.Cards.Count == 0)
-            {
-                return true;
-            }
+            Player1.Guards.ForEach(g => g.OnTurn(Player2, Player1));
+            Player2.Guards.ForEach(g => g.OnTurn(Player2, Player1));
 
             return false;
         }
@@ -67,20 +69,18 @@ namespace Dungeon12.CardGame.Engine
         public bool PlayCard(Card card, CardGamePlayer player)
         {
             var enemy = player == Player1 ? Player2 : Player1;
+            card.OnPublish(enemy, player);
             switch (card)
             {
-                case AbilityCard ability:
-                    {
-                        ability.Activate(enemy, player);
-                        break;
-                    }
                 case GuardCard guard:
                     {
+                        player.Influence += 5;
                         player.Guards.Add(guard);
                         break;
                     }
                 case Card _:
                     {
+                        player.Influence += 1;
                         player.Resources++;
                         break;
                     }
