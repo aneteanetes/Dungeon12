@@ -1,10 +1,6 @@
-﻿using Dungeon.SceneObjects;
+﻿using Dungeon;
+using Dungeon.SceneObjects;
 using Dungeon12.CardGame.Engine;
-using Dungeon12.Drawing.SceneObjects;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Dungeon;
 using Dungeon12.CardGame.SceneObjects;
 using System.Linq;
 
@@ -23,7 +19,7 @@ namespace Dungeon12.CardGame.Scene
 
             var pLeft = new CardPlayerSceneObject(Player1)
             {
-                Left=2
+                Left = 2
             };
             var pRight = new CardPlayerSceneObject(Player2);
             pRight.Left = 40 - pRight.Width;
@@ -31,22 +27,23 @@ namespace Dungeon12.CardGame.Scene
             this.AddChild(pLeft);
             this.AddChild(pRight);
 
-            var g = Player1.Deck.Cards.First();
-            g.CardType = Interfaces.CardType.Guardian;
-
-            Player1.HandCards.Add(g);
-            Player1.HandCards.Add(g);
-            Player1.HandCards.Add(g);
-            Player1.HandCards.Add(g);
-            Player1.HandCards.Add(g);
+            component.Turn();
+            component.PlayerTurn(Player1);
 
             this.AddChild(new CardInHands(Player1)
             {
                 Left = 7.5,
                 Top = 14,
                 AbsolutePosition = true,
-                CacheAvailable = false
+                CacheAvailable = false,
+                AfterHandPlayed = EnemyTurn
             });
+        }
+
+        private void EnemyTurn()
+        {
+            Component.PlayerTurn(Component.Player2);
+            Component.Turn();
         }
     }
 }

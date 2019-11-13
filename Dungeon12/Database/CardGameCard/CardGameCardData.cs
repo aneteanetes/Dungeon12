@@ -1,6 +1,8 @@
 ﻿using Dungeon.Data;
 using Dungeon12.CardGame.Entities;
 using Dungeon12.CardGame.Interfaces;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Dungeon12.Database.CardGameCard
 {
@@ -10,7 +12,7 @@ namespace Dungeon12.Database.CardGameCard
 
         public int Number { get; set; }
 
-        public CardType Type { get; set; }
+        public CardType CardType { get; set; }
 
         public GuardCard Card { get; set; }
     }

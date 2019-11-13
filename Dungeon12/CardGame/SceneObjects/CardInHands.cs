@@ -25,5 +25,7 @@ namespace Dungeon12.CardGame.SceneObjects
                 left += 5;
             });
         }
+
+        public Action AfterHandPlayed { get; set; }
     }
 }

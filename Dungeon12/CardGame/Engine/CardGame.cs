@@ -15,11 +15,11 @@ namespace Dungeon12.CardGame.Engine
         public CardGame(CardGameSettings cardGameSettings)
         {
             _cardGameSettings = cardGameSettings;
-            areaDeck = Card.Load(x => x.Type == Interfaces.CardType.Region).Shuffle().AsQueue();
+            areaDeck = Card.Load(x => x.CardType == Interfaces.CardType.Region).Shuffle().AsQueue();
         }
 
-        private CardGamePlayer Player1;
-        private CardGamePlayer Player2;
+        public CardGamePlayer Player1 { get; private set; }
+        public CardGamePlayer Player2 { get; private set; }
         private CardGamePlayer Winner;
 
         public (CardGamePlayer Player1, CardGamePlayer Player2) Start(Deck player1deck, Deck player2deck)
@@ -53,8 +53,8 @@ namespace Dungeon12.CardGame.Engine
                 return true;
             }
 
-            currentArea.Rounds--;
-            if (currentArea.Rounds == 0)
+            bool nextRound = currentArea != default && currentArea.Rounds != 0;
+            if (nextRound)
             {
                 currentArea = areaDeck.Dequeue().As<AreaCard>();
                 if (currentArea == default)
@@ -62,6 +62,7 @@ namespace Dungeon12.CardGame.Engine
                     return true;
                 }
             }
+            currentArea.Rounds--;
 
             Player1.Guards.ForEach(g => g.OnTurn(Player2, Player1, currentArea));
             Player2.Guards.ForEach(g => g.OnTurn(Player2, Player1, currentArea));

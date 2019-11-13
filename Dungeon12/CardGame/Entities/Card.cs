@@ -59,7 +59,7 @@ namespace Dungeon12.CardGame.Entities
                 Card card = default;
                 if (dataClass != default)
                 {
-                    switch (dataClass.Type)
+                    switch (dataClass.CardType)
                     {
                         case CardType.Resource: card = dataClass.Card; break;
                         case CardType.Guardian: card = dataClass.Card.As<GuardCard>(); break;
@@ -70,7 +70,7 @@ namespace Dungeon12.CardGame.Entities
 
                 if (card != default)
                 {
-                    card.CardType = dataClass.Type;
+                    card.CardType = dataClass.CardType;
                     card.Assembly = dataClass.Assembly;
                     card.Name = dataClass.Name;
                     cards.Add(card);
