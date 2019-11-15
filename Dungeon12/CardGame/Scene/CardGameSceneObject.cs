@@ -2,7 +2,6 @@
 using Dungeon.SceneObjects;
 using Dungeon12.CardGame.Engine;
 using Dungeon12.CardGame.SceneObjects;
-using System.Linq;
 
 namespace Dungeon12.CardGame.Scene
 {
