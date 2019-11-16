@@ -1,6 +1,7 @@
 ﻿{
-  "Name": "Зейя",
+  "Name": "Итерия",
   "CardType": "Region",
+  "Image": "iteria",
   "Card": {
     "Rounds": 6,
     "Size": 5

@@ -1,6 +1,7 @@
 ﻿{
   "Name": "Край храбрых",
   "CardType": "Region",
+  "Image": "brave",
   "Card": {
     "Rounds": 4,
     "Size": 1

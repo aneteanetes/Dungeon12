@@ -1,6 +1,7 @@
 ﻿{
   "Name": "Дозор Сокола",
   "CardType": "Region",
+  "Image": "falcon",
   "Card": {
     "Rounds": 4,
     "Size": 2

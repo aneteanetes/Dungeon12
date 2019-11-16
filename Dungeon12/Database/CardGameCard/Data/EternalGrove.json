@@ -1,6 +1,7 @@
 ﻿{
   "Name": "Вечная роща",
   "CardType": "Region",
+  "Image": "eternal",
   "Card": {
     "Rounds": 4,
     "Size": 1

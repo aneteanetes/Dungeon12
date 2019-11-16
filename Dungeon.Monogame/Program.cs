@@ -27,8 +27,6 @@ namespace Dungeon.Monogame
             //    Console.WriteLine(ex.ToString());
             //    throw ex; 
             //}
-
-            Console.ReadLine();
         }
     }
 }

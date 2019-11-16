@@ -1,6 +1,7 @@
 ﻿{
   "Name": "Тёмный лес",
   "CardType": "Region",
+  "Image": "darkwood",
   "Card": {
     "Rounds": 5,
     "Size": 3

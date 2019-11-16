@@ -1,6 +1,7 @@
 ﻿{
   "Name": "Серебряный дол",
   "CardType": "Region",
+  "Image": "silver",
   "Card": {
     "Rounds": 4,
     "Size": 3

@@ -9,6 +9,8 @@ namespace Dungeon12.CardGame.Triggers
 {
     public class TakeGuardCardAbility : IAbilityCardTrigger
     {
+        public string Description => "Забирает вражеского стража если они есть.";
+
         public void Activate(Card card, CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
         {
             var enemyGuard = enemy.Guards.FirstOrDefault();

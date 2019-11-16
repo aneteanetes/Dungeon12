@@ -19,6 +19,10 @@
 
     public abstract class DraggableControl<T> : DraggableControl
     {
+        public override bool DrawOutOfSight => true;
+
+        public virtual bool DestroyOnEscape => true;
+
         public int DropProcessed { get; set; }
 
         public bool DisableDrag { get; set; }
@@ -35,16 +39,27 @@
 
         public override bool AbsolutePosition => true;
 
+        /// <summary>
+        /// Блокировать контроль сцены пока объект существует
+        /// </summary>
+        public virtual bool BlockSceneControls { get; set; } = true;
+
         public DraggableControl()
         {
             this.ZIndex = ++DragAndDropSceneControls.DraggableLayers;
             this.Destroy += () =>
             {
-                Global.BlockSceneControls = false;
+                if (BlockSceneControls)
+                {
+                    Global.BlockSceneControls = false;
+                }
                 DragAndDropSceneControls.DraggableLayers--;
             };
 
-            Global.BlockSceneControls = true;
+            if (BlockSceneControls)
+            {
+                Global.BlockSceneControls = true;
+            }
             DragAndDropSceneControls.BindDragable(this);
         }
 
@@ -204,7 +219,7 @@
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
-            if (key == Key.Escape)
+            if (this.DestroyOnEscape && key == Key.Escape)
             {
                 this.Destroy?.Invoke();
             }

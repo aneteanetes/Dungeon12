@@ -19,32 +19,44 @@ namespace Dungeon12.CardGame.Entities
 
         public string PublishTriggerName { get; set; }
 
+        public IAbilityCardTrigger GetTrigger(string name)
+        {
+            if (name != default)
+            {
+                return name.GetInstanceFromAssembly<IAbilityCardTrigger>(Assembly);
+            }
+
+            return default;
+        }
+
+        public IEnumerable<IAbilityCardTrigger> GetAllTriggers()
+        {
+            List<IAbilityCardTrigger> abilityCardTriggers = new List<IAbilityCardTrigger>();
+
+            abilityCardTriggers.Add(GetTrigger(PublishTriggerName));
+            abilityCardTriggers.Add(GetTrigger(TurnTriggerName));
+            abilityCardTriggers.Add(GetTrigger(DieTriggerName));
+
+            return abilityCardTriggers.Where(a => a != default);
+        }
+
         public virtual void OnPublish(CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
         {
-            if (PublishTriggerName != default)
-            {
-                PublishTriggerName.GetInstanceFromAssembly<IAbilityCardTrigger>(Assembly).Activate(this, enemy, player,areaCard);
-            }
+            GetTrigger(PublishTriggerName)?.Activate(this, enemy, player,areaCard);
         }
 
         public string TurnTriggerName { get; set; }
 
         public void OnTurn(CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
         {
-            if (TurnTriggerName != default)
-            {
-                TurnTriggerName.GetInstanceFromAssembly<IAbilityCardTrigger>(Assembly).Activate(this, enemy, player,areaCard);
-            }
+            GetTrigger(TurnTriggerName)?.Activate(this, enemy, player,areaCard);
         }
 
         public string DieTriggerName { get; set; }
 
         public void OnDie(CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
         {
-            if (DieTriggerName != default)
-            {
-                DieTriggerName.GetInstanceFromAssembly<IAbilityCardTrigger>(Assembly).Activate(this, enemy, player,areaCard);
-            }
+            GetTrigger(DieTriggerName)?.Activate(this, enemy, player, areaCard);
         }
 
         public CardType CardType { get; set; }
@@ -71,6 +83,7 @@ namespace Dungeon12.CardGame.Entities
                 if (card != default)
                 {
                     card.CardType = dataClass.CardType;
+                    card.Image = dataClass.Image;
                     card.Assembly = dataClass.Assembly;
                     card.Name = dataClass.Name;
                     cards.Add(card);

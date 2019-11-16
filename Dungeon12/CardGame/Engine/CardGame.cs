@@ -43,32 +43,40 @@ namespace Dungeon12.CardGame.Engine
             return (Player1, Player2);
         }
 
-        private AreaCard currentArea;
+        public AreaCard CurrentArea { get; private set; }
+
+        public bool AreaEnded = false;
 
         public bool Turn()
         {
             Winner = CheckWinner();
             if (Winner != null)
             {
+                OnafterTurn?.Invoke();
                 return true;
             }
 
-            bool nextRound = currentArea != default && currentArea.Rounds != 0;
+            bool nextRound = CurrentArea == default || CurrentArea.Rounds == 0;
             if (nextRound)
             {
-                currentArea = areaDeck.Dequeue().As<AreaCard>();
-                if (currentArea == default)
+                CurrentArea = areaDeck.Dequeue().As<AreaCard>();
+                if (CurrentArea == default)
                 {
+                    AreaEnded = true;
+                    OnafterTurn?.Invoke();
                     return true;
                 }
             }
-            currentArea.Rounds--;
+            CurrentArea.Rounds--;
 
-            Player1.Guards.ForEach(g => g.OnTurn(Player2, Player1, currentArea));
-            Player2.Guards.ForEach(g => g.OnTurn(Player2, Player1, currentArea));
+            Player1.Guards.ForEach(g => g.OnTurn(Player2, Player1, CurrentArea));
+            Player2.Guards.ForEach(g => g.OnTurn(Player2, Player1, CurrentArea));
 
+            OnafterTurn?.Invoke();
             return false;
         }
+
+        public Action OnafterTurn { get; set; }
 
         public CardGamePlayer CheckWinner()
         {
@@ -102,7 +110,7 @@ namespace Dungeon12.CardGame.Engine
         public bool PlayCard(Card card, CardGamePlayer player)
         {
             var enemy = player == Player1 ? Player2 : Player1;
-            card.OnPublish(enemy, player,currentArea);
+            card.OnPublish(enemy, player,CurrentArea);
             switch (card)
             {
                 case GuardCard guard:
@@ -114,7 +122,7 @@ namespace Dungeon12.CardGame.Engine
                 case Card _:
                     {
                         player.Influence += 1;
-                        player.Resources++;
+                        player.AddResource();
                         break;
                     }
                 default:

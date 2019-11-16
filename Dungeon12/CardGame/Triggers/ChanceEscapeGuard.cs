@@ -6,6 +6,8 @@ namespace Dungeon12.CardGame.Triggers
 {
     public class ChanceEscapeGuard : IAbilityCardTrigger
     {
+        public string Description => "20% шанс что страж исчезнет";
+
         public void Activate(Card card, CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
         {
             if (RandomDungeon.Chance(20))

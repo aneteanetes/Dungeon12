@@ -26,7 +26,7 @@
             {
                 Hits = 100,
                 Influence = 100,
-                Resources = 0
+                Resources = 5
             });
 
             Global.Freezer.World = game;

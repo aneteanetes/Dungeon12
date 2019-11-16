@@ -3,6 +3,7 @@ using Dungeon.Entities;
 using Dungeon.Network;
 using Dungeon12.CardGame.Engine;
 using Dungeon12.CardGame.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace Dungeon12.CardGame.Entities
@@ -39,7 +40,7 @@ namespace Dungeon12.CardGame.Entities
         public int Resources { get => Get(___Resources, typeof(CardGamePlayer).AssemblyQualifiedName); set => Set(value, typeof(CardGamePlayer).AssemblyQualifiedName); }
         private int ___Resources;
 
-        public List<GuardCard> Guards { get; set; }
+        public List<GuardCard> Guards { get; set; } = new List<GuardCard>();
 
         public bool Damage(CardGamePlayer enemy, int amount,AreaCard areaCard)
         {
@@ -122,6 +123,16 @@ namespace Dungeon12.CardGame.Entities
             HandCards.Remove(handCard);
         }
 
+        public Action OnResourceAdded { get; set; }
+
+        public void AddResource()
+        {
+            this.Resources++;
+            OnResourceAdded?.Invoke();
+        }
+
+        public Action HandChanged { get; set; }
+
         public bool AddInHand()
         {
             if (HandCards.Count >= 5)
@@ -136,6 +147,7 @@ namespace Dungeon12.CardGame.Entities
             }
 
             HandCards.Add(card);
+            HandChanged?.Invoke();
 
             return true;
         }

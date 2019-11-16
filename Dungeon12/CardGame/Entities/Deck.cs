@@ -46,7 +46,12 @@ namespace Dungeon12.CardGame.Engine
         protected override void Init(CardGameDeckData dataClass)
         {
             this.Name = dataClass.Name;
-            this.Cards = Card.Load(x => dataClass.Cards.Contains(x.Number), this.Name);
+            var deckCards = Card.Load(x => dataClass.Cards.Contains(x.Number), this.Name);
+            for (int i = 0; i < 5; i++)
+            {
+                deckCards.Add(new Card() { CardType = Interfaces.CardType.Resource });
+            }
+            this.Cards = deckCards;
         }
     }
 }

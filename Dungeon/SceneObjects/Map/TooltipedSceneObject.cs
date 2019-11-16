@@ -32,7 +32,7 @@
 
         public IDrawColor TooltipTextColor { get; set; }
 
-        public TooltipedSceneObject(TComponent component, string tooltip):base(component)
+        public TooltipedSceneObject(TComponent component, string tooltip, bool bindView=false):base(component,bindView)
         {
             TooltipText = tooltip;
         }

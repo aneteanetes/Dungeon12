@@ -129,7 +129,6 @@
 
         public void OnKeyDown(KeyArgs keyEventArgs)
         {
-
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
             
@@ -358,7 +357,7 @@
             var handlers = elements
                 .Distinct()
                 .Where(c => c.Visible)
-                .Where(c=> Global.DrawClient.InCamera(c))
+                .Where(c=> c.DrawOutOfSight || Global.DrawClient.InCamera(c))
                 .Where(x =>
                 {
                     bool handle = x.CanHandle.Contains(handleEvent);

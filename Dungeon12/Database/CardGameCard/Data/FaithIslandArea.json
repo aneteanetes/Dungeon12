@@ -1,6 +1,7 @@
 ﻿{
   "Name": "Остров Веры",
   "CardType": "Region",
+  "Image": "faith",
   "Card": {
     "Rounds": 3,
     "Size": 1

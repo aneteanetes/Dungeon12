@@ -1,9 +1,11 @@
 ﻿using Dungeon;
+using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon12.CardGame.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Dungeon;
 
 namespace Dungeon12.CardGame.SceneObjects
 {
@@ -15,24 +17,62 @@ namespace Dungeon12.CardGame.SceneObjects
         public override bool AbsolutePosition => true;
         public override bool CacheAvailable => false;
 
-        public CardPlayerSceneObject(CardGamePlayer component, bool bindView = true) : base(component, bindView)
+        private bool _reverse;
+
+        public CardPlayerSceneObject(CardGamePlayer component, bool reverse=false, bool bindView = true) : base(component, bindView)
         {
+            _reverse = reverse;
             this.Height = 22.5;
             this.Width = 7.5;
 
-            influence = this.AddTextCenter($" ".AsDrawText().InSize(30).Triforce(), false, false);
-            influence.Top = 1;
+            void AddBox(string box,Func<int> source, double left=0)
+            {
+                this.AddChild(new ImageControl($"Cards/UI/{box}.png".AsmImgRes())
+                {
+                    AbsolutePosition = true,
+                    CacheAvailable = false,
+                    Left = left
+                });
 
-            var m = MeasureText(influence.Text).Y/32;
-            
-            hits = this.AddTextCenter($" ".AsDrawText().InSize(30).Triforce(), false, false);
-            hits.Top = 1.5 + m;
+                var num = new CardNum(source, 1.8, 1.8, .9)
+                {
+                    Top = .75,
+                    Left = left - .2,
+                };
+                num.SlideNeed = () =>
+                {
+                    var needSlide = num.Value < 100;
+                    if (needSlide)
+                    {
+                        num.SlideOffsetLeft = num.Value.ToString().Length == 2 ? .5 : 1;
+                    }
+                    return needSlide;
+                };
+                this.AddChild(num);
+            }
+
+            AddBox("hits", () => component.Hits, reverse ? 3.5 : 0);
+            AddBox("influence", () => component.Influence, reverse ? 0 : 3.5);
+
+            for (int i = 0; i < component.Resources; i++)
+            {
+                AddResBox();
+            }
         }
 
-        public override void Update()
+        private void AddResBox()
         {
-            influence.Text.SetText($"Влияние: {Component.Influence}");
-            hits.Text.SetText($"Жизни: {Component.Hits}");
+            this.AddChild(new ImageControl($"Cards/Guardian/ressquare.png".AsmImgRes())
+            {
+                AbsolutePosition = true,
+                CacheAvailable = false,
+                Top = topRes,
+                Left = _reverse ? 3.4 : 0
+            });
+
+            topRes += 3;
         }
+
+        private double topRes = 4;
     }
 }

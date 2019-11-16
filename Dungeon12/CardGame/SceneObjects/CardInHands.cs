@@ -12,9 +12,14 @@ namespace Dungeon12.CardGame.SceneObjects
         {
             this.Width = 40;
             this.Height = 5;
-            var left = 0d;
+            Redraw();
+            component.HandChanged += Redraw;
+        }
 
-            component.HandCards.ForEach(hc =>
+        private void Redraw()
+        {
+            var left = 0d;
+            Component.HandCards.ForEach(hc =>
             {
                 this.AddChild(new CardSceneObject(hc)
                 {
@@ -25,6 +30,8 @@ namespace Dungeon12.CardGame.SceneObjects
                 left += 5;
             });
         }
+
+
 
         public Action AfterHandPlayed { get; set; }
     }

@@ -11,6 +11,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterBar
     {
         public virtual double SlideOffsetLeft { get; set; } = 0;
         public virtual double SlideOffsetTop { get; set; } = 0;
+
         public Func<bool> SlideNeed = () => true;
 
         public SlideComponent(string tooltip="") : base(EmptyGameComponent.Empty,tooltip)

@@ -1,6 +1,7 @@
 ﻿{
   "Name": "Окраина",
   "CardType": "Region",
+  "Image": "overland",
   "Card": {
     "Rounds": 4,
     "Size": 2

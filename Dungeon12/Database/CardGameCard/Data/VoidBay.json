@@ -1,6 +1,7 @@
 ﻿{
   "Name": "Бухта пустоты",
   "CardType": "Region",
+  "Image": "void",
   "Card": {
     "Rounds": 3,
     "Size": 2

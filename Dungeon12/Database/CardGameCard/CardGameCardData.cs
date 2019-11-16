@@ -15,5 +15,7 @@ namespace Dungeon12.Database.CardGameCard
         public CardType CardType { get; set; }
 
         public GuardCard Card { get; set; }
+
+        public string Image { get; set; }
     }
 }

@@ -8,6 +8,8 @@ namespace Dungeon12.CardGame.Triggers
 {
     public class AddShieldGuards : IAbilityCardTrigger
     {
+        public string Description => "Увеличивает щиты стражей на 1*ресурсы.";
+
         public void Activate(Card card, CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
         {
             player.Guards.ForEach(g =>

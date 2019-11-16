@@ -18,13 +18,21 @@ namespace Dungeon12.CardGame.Scene
 
             var pLeft = new CardPlayerSceneObject(Player1)
             {
-                Left = 2
+                Left = 1,
+                Top=1
             };
-            var pRight = new CardPlayerSceneObject(Player2);
+            var pRight = new CardPlayerSceneObject(Player2,true);
+            pRight.Top = 1;
             pRight.Left = 40 - pRight.Width;
 
             this.AddChild(pLeft);
             this.AddChild(pRight);
+
+            this.AddChild(new LandCardSceneObject(component)
+            {
+                Left = 16,
+                Top = 1
+            });
 
             component.Turn();
             component.PlayerTurn(Player1);
