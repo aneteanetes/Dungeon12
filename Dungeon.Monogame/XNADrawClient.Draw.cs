@@ -420,7 +420,7 @@
                 spriteEffects = maskResult.effects;
             }
 
-            var source = new Rectangle(tileRegion.Xi, tileRegion.Yi, tileRegion.Widthi, tileRegion.Heighti);
+            Rectangle source = new Rectangle(tileRegion.Xi, tileRegion.Yi, tileRegion.Widthi, tileRegion.Heighti);
 
             var color = Color.White;
 
@@ -436,14 +436,28 @@
                 spriteBatch.End();
                 SpriteBatchRestore?.Invoke(true, sceneObject.Filtered);
 
-                spriteBatch.Draw(image, dest, source, drawColor, angle, origin, spriteEffects, 0f);
+                if (sceneObject.Scale > 0)
+                {
+                    spriteBatch.Draw(image, new Vector2(dest.X,dest.Y), source, drawColor, angle, origin,(float)sceneObject.Scale, spriteEffects, 0f);
+                }
+                else
+                {
+                    spriteBatch.Draw(image, dest, source, drawColor, angle, origin, spriteEffects, 0f);
+                }
 
                 spriteBatch.End();
                 SpriteBatchRestore?.Invoke(false, sceneObject.Filtered);
             }
             else
             {
-                spriteBatch.Draw(image, dest, source, drawColor, angle, origin, spriteEffects, 0f);
+                if (sceneObject.Scale > 0)
+                {
+                    spriteBatch.Draw(image, new Vector2(dest.X, dest.Y), source, drawColor, angle, origin, (float)sceneObject.Scale, spriteEffects, 0f);
+                }
+                else
+                {
+                    spriteBatch.Draw(image, dest, source, drawColor, angle, origin, spriteEffects, 0f);
+                }
             }
         }
 
@@ -559,7 +573,14 @@
             spriteBatch.End();
             SpriteBatchRestore?.Invoke(true, sceneObject.Filtered);
 
-            spriteBatch.DrawString(spriteFont, txt, new Vector2((int)x, (int)y), color);
+            if (sceneObject.Scale > 0)
+            {
+                spriteBatch.DrawString(spriteFont, txt, new Vector2((int)x, (int)y), color, 0, Vector2.Zero, (float)sceneObject.Scale, SpriteEffects.None, 1);
+            }
+            else
+            {
+                spriteBatch.DrawString(spriteFont, txt, new Vector2((int)x, (int)y), color);
+            }
 
             spriteBatch.End();
             SpriteBatchRestore?.Invoke(false, sceneObject.Filtered);

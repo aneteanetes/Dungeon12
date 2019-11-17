@@ -8,11 +8,11 @@ namespace Dungeon12.CardGame.Triggers
 {
     public class AddInfluence : IAbilityCardTrigger
     {
-        public string Description => "Добавляет 1*ресурсы влияния.";
+        public string Description => "Добавляет 2*ресурсы влияния.";
 
         public void Activate(Card card, CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
         {
-            player.Influence += 1 * player.Resources;
+            player.Influence += 2 * player.Resources;
         }
     }
 }

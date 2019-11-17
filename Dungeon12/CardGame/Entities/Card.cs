@@ -54,9 +54,12 @@ namespace Dungeon12.CardGame.Entities
 
         public string DieTriggerName { get; set; }
 
+        public Action OnDieEvent { get; set; }
+
         public void OnDie(CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
         {
             GetTrigger(DieTriggerName)?.Activate(this, enemy, player, areaCard);
+            OnDieEvent?.Invoke();
         }
 
         public CardType CardType { get; set; }

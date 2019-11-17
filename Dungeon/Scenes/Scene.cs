@@ -74,8 +74,11 @@
 
         public void AddControl(ISceneObjectControl sceneObjectControl)
         {
-            sceneObjectControls.Add(sceneObjectControl);
-            sceneObjectControl.Destroy +=()=> { RemoveControl(sceneObjectControl); };
+            if(!sceneObjectControls.Contains(sceneObjectControl))
+            {
+                sceneObjectControls.Add(sceneObjectControl);
+                sceneObjectControl.Destroy += () => { RemoveControl(sceneObjectControl); };
+            }
         }
 
         public void RemoveControl(ISceneObjectControl sceneObjectControl)

@@ -4,8 +4,13 @@ namespace Dungeon.Drawing.SceneObjects
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.SceneObjects;
 
+    /// <summary>
+    /// По умолчанию не реагирует на события
+    /// </summary>
     public class ImageControl : EmptySceneObject
     {
+        public override bool Events => false;
+
         public ImageControl(string imagePath)
         {
             Image = imagePath;

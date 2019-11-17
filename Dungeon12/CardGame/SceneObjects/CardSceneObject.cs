@@ -1,4 +1,5 @@
 ﻿using Dungeon;
+using Dungeon.Control;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Drawing.SceneObjects.UI;
 using Dungeon.SceneObjects;
@@ -11,28 +12,26 @@ namespace Dungeon12.CardGame.SceneObjects
 {
     public class CardSceneObject : DraggableControl<CardSceneObject>
     {
-        private bool _counter = false;
-        private Card card;
+        public Card Card { get; private set; }
         
         public override bool DestroyOnEscape => false;
 
         public override bool BlockSceneControls => false;
 
-        public CardSceneObject(Card card, bool counter = false)
+        public CardGamePlayer Player { get; private set; }
+
+        public CardSceneObject(Card card, CardGamePlayer player)
         {
-            this.card = card;
-            _counter = counter;
+            Player = player;
+            this.Card = card;
             this.Width = 4.65625;
             this.Height = 7;
 
-            if (counter)
-            {
-                this.Image = "Cards/Guardian/region0.png".AsmImgRes();
-            }
-            else
-            {
-                this.Image = $"Cards/Guardian/{ImageMap[card.CardType]}0.png".AsmImgRes();
-            }
+            //if (counter)
+            //{
+            //    this.Image = "Cards/Guardian/region0.png".AsmImgRes();
+            //}
+            this.Image = $"Cards/Guardian/{ImageMap[card.CardType]}0.png".AsmImgRes();
 
             switch (card.CardType)
             {
@@ -53,18 +52,37 @@ namespace Dungeon12.CardGame.SceneObjects
             }
         }
 
+        public override void Click(PointerArgs args)
+        {
+            if (args.MouseButton == Dungeon.Control.Pointer.MouseButton.Right)
+            {
+                Player.Discard(this.Card);
+            }
+            else
+            {
+                base.Click(args);
+            }
+        }
+
+        public CardSceneObject Minimize()
+        {
+            this.ScaleTo(.6);
+            GuardShieldText.Top = 3.2;
+            return this;
+        }
+
         public override void Update()
         {
-            switch (card.CardType)
+            switch (Card.CardType)
             {
                 case CardType.Guardian:
-                    UpdateAsGuard(card.As<GuardCard>());
+                    UpdateAsGuard(Card.As<GuardCard>());
                     break;
                 case CardType.Ability:
-                    UpdateAsAbility(card.As<AbilityCard>());
+                    UpdateAsAbility(Card.As<AbilityCard>());
                     break;
                 case CardType.Region:
-                    UpdateAsRegion(card.As<AreaCard>());
+                    UpdateAsRegion(Card.As<AreaCard>());
                     break;
                 default:
                     break;
@@ -77,6 +95,7 @@ namespace Dungeon12.CardGame.SceneObjects
         }
 
         private TextControl CardNameControl;
+        private TextControl GuardShieldText;
         private void AsGuard(GuardCard guardCard)
         {
             CardNameControl = this.AddTextCenter(guardCard.Name.AsDrawText().InSize(12).WithWordWrap().Montserrat(), false, false);
@@ -85,7 +104,7 @@ namespace Dungeon12.CardGame.SceneObjects
             CardNameControl.Left = .5;
             CardNameControl.Top = .30;
 
-            var GuardShieldText = this.AddTextCenter(guardCard.Shield.ToString().AsDrawText().InSize(72).Triforce(), true, false);
+            GuardShieldText = this.AddTextCenter(guardCard.Shield.ToString().AsDrawText().InSize(72).Triforce(), true, false);
             GuardShieldText.Top = 3.8;
 
             this.AddChild(new ImageControl($"Cards/Guardian/guard1.png".AsmImgRes())
@@ -154,6 +173,7 @@ namespace Dungeon12.CardGame.SceneObjects
 
         private void UpdateAsGuard(GuardCard guardCard)
         {
+            GuardShieldText.Text.SetText(guardCard.Shield.ToString());
         }
 
         private void UpdateAsAbility(AbilityCard abilityCard)

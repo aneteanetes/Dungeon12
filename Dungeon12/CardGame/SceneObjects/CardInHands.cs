@@ -8,20 +8,28 @@ namespace Dungeon12.CardGame.SceneObjects
 {
     public class CardInHands : HandleSceneControl<CardGamePlayer>
     {
-        public CardInHands(CardGamePlayer component) : base(component, false)
+        public CardInHands(CardGamePlayer component, Action enemyTurn) : base(component, false)
         {
             this.Width = 40;
             this.Height = 5;
+
+            this.AddChild(new CardSkipSceneObject()
+            {
+                Skip = enemyTurn,
+                Left =-3
+            });
+
             Redraw();
             component.HandChanged += Redraw;
         }
 
-        private void Redraw()
+        public void Redraw()
         {
+            this.RemoveChild<CardSceneObject>();
             var left = 0d;
             Component.HandCards.ForEach(hc =>
             {
-                this.AddChild(new CardSceneObject(hc)
+                this.AddChild(new CardSceneObject(hc,this.Component)
                 {
                     Left = left,
                     AbsolutePosition = true,
@@ -30,9 +38,5 @@ namespace Dungeon12.CardGame.SceneObjects
                 left += 5;
             });
         }
-
-
-
-        public Action AfterHandPlayed { get; set; }
     }
 }

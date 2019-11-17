@@ -54,25 +54,36 @@ namespace Dungeon12.CardGame.SceneObjects
             AddBox("hits", () => component.Hits, reverse ? 3.5 : 0);
             AddBox("influence", () => component.Influence, reverse ? 0 : 3.5);
 
-            for (int i = 0; i < component.Resources; i++)
+            for (int i = 0; i < 5; i++)
             {
-                AddResBox();
+                this.AddChild(new ResBox(component, i)
+                {
+                    AbsolutePosition = true,
+                    CacheAvailable = false,
+                    Top = topRes,
+                    Left = _reverse ? 3.4 : 0
+                });
+
+                topRes += 3;
             }
         }
-
-        private void AddResBox()
-        {
-            this.AddChild(new ImageControl($"Cards/Guardian/ressquare.png".AsmImgRes())
-            {
-                AbsolutePosition = true,
-                CacheAvailable = false,
-                Top = topRes,
-                Left = _reverse ? 3.4 : 0
-            });
-
-            topRes += 3;
-        }
-
         private double topRes = 4;
+
+        private class ResBox : ImageControl
+        {
+            public override bool AbsolutePosition => true;
+
+            public override bool CacheAvailable => false;
+
+            private int _res;
+            private CardGamePlayer _component;
+            public ResBox(CardGamePlayer component, int res) : base("Cards/Guardian/ressquare.png".AsmImgRes())
+            {
+                _res = res;
+                _component = component;
+            }
+
+            public override string Image => $"Cards/Guardian/ressquare{(_component.Resources > _res ? "" : "0")}.png".AsmImgRes();                
+        }
     }
 }

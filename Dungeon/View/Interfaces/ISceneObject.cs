@@ -44,6 +44,11 @@
         double Opacity { get; set; }
 
         /// <summary>
+        /// Масштаб
+        /// </summary>
+        double Scale { get; set; }
+
+        /// <summary>
         /// Position with parent
         /// </summary>
         Rectangle ComputedPosition { get; }

@@ -14,18 +14,20 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    
+
     public abstract class SceneObject<TComponent> : GameComponent, ISceneObject, IFlowable, IMixinContainer
         where TComponent : IGameComponent
     {
         private readonly Scenes.GameScene owner;
+
+        public virtual bool Events => true;
 
         public TComponent Component { get; private set; }
 
         /// <summary>
         /// В КОНСТРУКТОРЕ ЕСТЬ КОСТЫЛЬ
         /// </summary>
-        public SceneObject(TComponent component, bool bindView=true)
+        public SceneObject(TComponent component, bool bindView = true)
         {
             if (bindView && component != default)
             {
@@ -67,10 +69,13 @@
                 }
             }
 
-            Global.Events.Subscribe(@event =>
+            if (Events)
             {
-                this.Dispatch((so, arg) => so.OnEvent(arg), @event);
-            });
+                Global.Events.Subscribe(@event =>
+                {
+                    this.Dispatch((so, arg) => so.OnEvent(arg), @event);
+                });
+            }
 
             //ХВАТИТ ОРАТЬ В КОММЕНТАРИЯХ
             // пожалуйста :)
@@ -301,6 +306,8 @@
             Children.Remove(sceneObject);
         }
 
+        public IEnumerable<T> GetChildren<T>() => Children.Where(x => x is T).Select(x => (T)x);
+
         public void RemoveChild<T>()
         {
             var forRemove = new List<ISceneObject>();
@@ -404,6 +411,18 @@
         public virtual bool Blur { get; set; }
 
         public virtual bool Filtered { get; set; } = true;
+
+        public virtual double Scale { get; set; }
+
+        public SceneObject<TComponent> ScaleTo(double value)
+        {
+            foreach (var child in Children)
+            {
+                child.Scale = value;
+            }
+            Scale = value;
+            return this;
+        }    
 
         public override string ToString()
         {

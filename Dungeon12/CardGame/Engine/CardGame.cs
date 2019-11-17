@@ -1,8 +1,11 @@
 ﻿using Dungeon;
 using Dungeon.GameObjects;
+using Dungeon.SceneObjects;
+using Dungeon.Types;
 using Dungeon12.CardGame.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Dungeon12.CardGame.Engine
@@ -10,7 +13,7 @@ namespace Dungeon12.CardGame.Engine
     public class CardGame : GameComponent
     {
         private CardGameSettings _cardGameSettings;
-        private Queue<Card> areaDeck;
+        private SafeQueue<Card> areaDeck;
 
         public CardGame(CardGameSettings cardGameSettings)
         {
@@ -19,6 +22,7 @@ namespace Dungeon12.CardGame.Engine
         }
 
         public CardGamePlayer Player1 { get; private set; }
+        public CardGamePlayer ActivePlayer { get; private set; }
         public CardGamePlayer Player2 { get; private set; }
         private CardGamePlayer Winner;
 
@@ -27,7 +31,7 @@ namespace Dungeon12.CardGame.Engine
             Player1 = new CardGamePlayer()
             {
                 Hits = this._cardGameSettings.Hits,
-                Resources = this._cardGameSettings.Resources,
+                MaxResources = this._cardGameSettings.Resources,
                 Deck = player1deck,
             };
             Player1.Cards = Player1.Deck.Cards.Shuffle().AsQueue();
@@ -35,7 +39,7 @@ namespace Dungeon12.CardGame.Engine
             Player2 = new CardGamePlayer()
             {
                 Hits = this._cardGameSettings.Hits,
-                Resources = this._cardGameSettings.Resources,
+                MaxResources = this._cardGameSettings.Resources,
                 Deck = player2deck
             };
             Player2.Cards = Player2.Deck.Cards.Shuffle().AsQueue();
@@ -59,6 +63,7 @@ namespace Dungeon12.CardGame.Engine
             bool nextRound = CurrentArea == default || CurrentArea.Rounds == 0;
             if (nextRound)
             {
+                Message("Смена территории");
                 CurrentArea = areaDeck.Dequeue().As<AreaCard>();
                 if (CurrentArea == default)
                 {
@@ -66,14 +71,39 @@ namespace Dungeon12.CardGame.Engine
                     OnafterTurn?.Invoke();
                     return true;
                 }
+
+                //if (Player1.Influence > Player2.Influence)
+                //{
+                //    Message($"{Player1.Name} получает ресурсы");
+                //    Player1.MaxResources++;
+                //    Player2.MaxResources--;
+                //}
+                //else if (Player2.Influence > Player1.Influence)
+                //{
+                //    Message($"{Player2.Name} получает ресурсы");
+                //    Player2.MaxResources++;
+                //    Player1.MaxResources--;
+                //}
             }
             CurrentArea.Rounds--;
 
-            Player1.Guards.ForEach(g => g.OnTurn(Player2, Player1, CurrentArea));
-            Player2.Guards.ForEach(g => g.OnTurn(Player2, Player1, CurrentArea));
+            ForEachGuard(Player2, Player1);
+            ForEachGuard(Player1, Player2);
 
             OnafterTurn?.Invoke();
             return false;
+        }
+
+        private void ForEachGuard(CardGamePlayer enemy, CardGamePlayer player)
+        {
+            for (int i = 0; i < player.Guards.Count; i++)
+            {
+                var g = player.Guards.ElementAtOrDefault(i);
+                if (g != default)
+                {
+                    g.OnTurn(enemy, player, CurrentArea);
+                }
+            }
         }
 
         public Action OnafterTurn { get; set; }
@@ -104,6 +134,7 @@ namespace Dungeon12.CardGame.Engine
 
         public bool PlayerTurn(CardGamePlayer player)
         {
+            player.Resources = player.MaxResources;
             return player.AddInHand();
         }
 
@@ -111,25 +142,40 @@ namespace Dungeon12.CardGame.Engine
         {
             var enemy = player == Player1 ? Player2 : Player1;
             card.OnPublish(enemy, player,CurrentArea);
-            switch (card)
+            switch (card.CardType)
             {
-                case GuardCard guard:
+                case Interfaces.CardType.Guardian:
                     {
+                        player.Resources--;
                         player.Influence += 5;
-                        player.Guards.Add(guard);
+                        if (player.Guards.Count < 5)
+                        {
+                            player.Guards.Add(card.As<GuardCard>());
+                        }
                         break;
                     }
-                case Card _:
+                case  Interfaces.CardType.Ability:
                     {
+                        player.Resources = 0;
                         player.Influence += 1;
-                        player.AddResource();
                         break;
                     }
                 default:
+                    {
+                        player.Influence += 1;
+                        player.AddResource();
+                    }
                     break;
             }
 
+            player.HandCards.Remove(card);
+
             return true;
+        }
+
+        public void Message(string text)
+        {
+            MessageBox.Show(text, this.SceneObject.ShowEffects);
         }
     }
 }
