@@ -13,5 +13,7 @@ namespace Dungeon12.CardGame.Engine
         public int Resources { get; set; }
 
         public object Reward { get; set; }
+
+        public int CardsInDeck { get; set; } = 24;
     }
 }

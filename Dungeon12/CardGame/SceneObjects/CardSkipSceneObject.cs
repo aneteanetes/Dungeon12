@@ -5,10 +5,11 @@ using System.Text;
 using Dungeon;
 using Dungeon.Control;
 using Dungeon12.CardGame.Entities;
+using Dungeon.Drawing.SceneObjects.Map;
 
 namespace Dungeon12.CardGame.SceneObjects
 {
-    public class CardSkipSceneObject : EmptyHandleSceneControl
+    public class CardSkipSceneObject : EmptyTooltipedSceneObject
     {
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
@@ -17,7 +18,7 @@ namespace Dungeon12.CardGame.SceneObjects
 
         public Action Skip { get; set; }
 
-        public CardSkipSceneObject()
+        public CardSkipSceneObject():base("Пропустить ход")
         {
             this.Image = "Cards/Guardian/skip.png".AsmImgRes();
             this.Width = 4.65625/2;

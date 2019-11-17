@@ -27,8 +27,8 @@ namespace Dungeon12.CardGame.SceneObjects
             if (areaCard != default)
             {
                 areaCard.Destroy();
-
             }
+
             areaCard = new CardSceneObject(Component.CurrentArea,default)
             {
                 DisableDrag = true

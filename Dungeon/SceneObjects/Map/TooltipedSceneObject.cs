@@ -16,7 +16,7 @@
     using Dungeon.Drawing;
     using Dungeon.GameObjects;
 
-    public abstract class EmptyTooltipedSceneObject : TooltipedSceneObject<EmptyGameComponent>
+    public class EmptyTooltipedSceneObject : TooltipedSceneObject<EmptyGameComponent>
     {
         public EmptyTooltipedSceneObject(string tooltip) : base(EmptyGameComponent.Empty, tooltip)
         {

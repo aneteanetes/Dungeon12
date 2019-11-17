@@ -47,7 +47,7 @@ namespace Dungeon12.CardGame.Engine
         {
             this.Name = dataClass.Name;
             var deckCards = Card.Load(x => dataClass.Cards.Contains(x.Number), this.Name);
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 3; i++)
             {
                 deckCards.Add(new Card() { CardType = Interfaces.CardType.Resource });
             }

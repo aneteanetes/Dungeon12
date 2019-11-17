@@ -2,11 +2,14 @@
 {
     using Dungeon;
     using Dungeon.Control.Keys;
+    using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects.UI;
+    using Dungeon.SceneObjects;
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
     using Dungeon12.CardGame.Engine;
     using Dungeon12.CardGame.SceneObjects;
+    using Dungeon12.Drawing.SceneObjects;
     using Dungeon12.Scenes.Game;
     using Dungeon12.Scenes.Menus;
     using System;
@@ -27,23 +30,54 @@
 
             var game = new CardGame(new CardGameSettings()
             {
-                Hits = 100,
-                Influence = 100,
+                Hits = 20,
+                Influence = 25,
                 Resources = 1
             });
 
             Global.Freezer.World = game;
 
             var dropMask = new CardDropMask();
-
-            this.AddObject(new CardGameSceneObject(game, enemyDeck,Deck.Load("Guardian"), dropMask));
+            var cardgameSceneObject = new CardGameSceneObject(game, enemyDeck, Deck.Load("Guardian"), dropMask);
+            this.AddObject(cardgameSceneObject);
             this.AddObject(dropMask);
+            
+            game.OnWin += winner =>
+            {
+                dropMask.Destroy?.Invoke();
+                cardgameSceneObject.Destroy?.Invoke();
+
+                this.AddObject(new Background());
+
+                var endText = new TextControl(new DrawText($"Выйграл {winner.Name}", ConsoleColor.Blue).Triforce());
+                endText.Text.Size = 72;
+                endText.Left = 8;
+                endText.Top = 9;
+                this.AddObject(endText);
+
+                this.AddObject(new MetallButtonControl("Ок")
+                {
+                    Left = 15.5f,
+                    Top = 17,
+                    OnClick = () =>
+                    {
+                        Environment.Exit(0);
+                    }
+                });
+
+                Global.Time.Timer(Guid.NewGuid().ToString())
+                    .After(1000)
+                    .Do(() =>
+                    {
+                        this.Switch<Main>();
+                    }).Auto();
+            };
         }
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
             if (keyPressed == Key.Escape)
-                this.Switch<Start>();
+                this.Switch<Main>();
         }
     }
 

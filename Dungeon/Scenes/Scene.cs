@@ -415,6 +415,12 @@
 
         private IEnumerable<ISceneObjectControl> FreezedChain(ISceneObject freezing)
         {
+            if(freezing==null)
+            {
+                //такая ситуация может быть когда мы зафризили сцену, но компонент удалили
+                return Enumerable.Empty<ISceneObjectControl>();
+            }
+
             List<ISceneObjectControl> freezingChain = new List<ISceneObjectControl>();
             freezingChain.Add(freezing as ISceneObjectControl);
 

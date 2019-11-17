@@ -1,5 +1,6 @@
 ﻿using Dungeon;
 using Dungeon.Drawing.SceneObjects.UI;
+using Dungeon.SceneObjects;
 using Dungeon12.CardGame.Entities;
 using System;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Dungeon12.CardGame.SceneObjects
 
         public GameDeskSceneObject(Engine.CardGame cardGame)
         {
+            this.TooltipText = "Поле боя";
             _cardGame = cardGame;
 
             this.Width = 35;
@@ -70,6 +72,17 @@ namespace Dungeon12.CardGame.SceneObjects
         protected override void OnDrop(CardSceneObject source)
         {
             var card = source.Card;
+            if (card.CardType == Interfaces.CardType.Guardian)
+            {
+                if (_cardGame.Player1.Guards.Count == _cardGame.CurrentArea.Size)
+                {
+                    source.Destroy.Invoke();
+                    MessageBox.Show("Поле боя заполнено!", this.ShowEffects);
+                    _cardGame.Player1.HandChanged?.Invoke();
+                    return;
+                }
+            }
+
             var wasGuards = _cardGame.Player1.Guards.Count;
             _cardGame.PlayCard(card, _cardGame.Player1);
             var nowGuards = _cardGame.Player1.Guards.Count;
@@ -86,9 +99,26 @@ namespace Dungeon12.CardGame.SceneObjects
                     break;
             }
 
+            RefreshDeck();
+
             source.Destroy?.Invoke();
 
             AfterHandPlayed?.Invoke(this);
+        }
+
+        public void RefreshDeck()
+        {
+            this.RemoveChild<CardSceneObject>();
+            playerCards = 0;
+            foreach (var playerCard in _cardGame.Player1.Guards)
+            {
+                AddCard(playerCard, _cardGame.Player1);
+            }
+            enemyCards = 0;
+            foreach (var enemyCard in _cardGame.Player2.Guards)
+            {
+                AddCardEnemy(enemyCard, _cardGame.Player2);
+            }
         }
     }
 }

@@ -28,5 +28,7 @@ namespace Dungeon.Types
         {
             _queue.Enqueue(item);
         }
+
+        public int Count => _queue.Count;
     }
 }

@@ -157,13 +157,30 @@ namespace Dungeon12.CardGame.Entities
                 return false;
             }
 
-            var card = Cards.Dequeue();
-            if (card == default)
+            var res = this.Resources;
+            var free = 5 - HandCards.Count;
+
+            var add = res;
+            if (res > free)
+            {
+                add = free;
+            }
+
+            if (add == 0)
             {
                 return false;
             }
 
-            HandCards.Add(card);
+            for (int i = 0; i < add; i++)
+            {
+                var card = Cards.Dequeue();
+                if (card == default)
+                {
+                    break;
+                }
+
+                HandCards.Add(card);
+            }
             HandChanged?.Invoke();
 
             return true;
@@ -187,7 +204,8 @@ namespace Dungeon12.CardGame.Entities
             var inHand = this.HandCards;
 
             // если у нас мало хп, надо прикрыться
-            if (Hits <= 30)
+            // но только если можно разыграть карту защитника
+            if (Hits <= 30 && this.Guards.Count< cardGame.CurrentArea.Size)
             {
                 var guard = AutoGuard();
                 if (guard != default)
@@ -226,8 +244,20 @@ namespace Dungeon12.CardGame.Entities
 
             // в любом другом случае разыгрываем случайную карту если она есть
             var randomCard = HandCards.FirstOrDefault();
-            if(randomCard!=default)
+            if (randomCard != default)
             {
+                // если случайная карта это защитник и мы не можем его разыграть
+                if(randomCard.CardType== CardType.Guardian && this.Guards.Count < cardGame.CurrentArea.Size)
+                {
+                    return randomCard;
+                }
+                else
+                {
+                    //пытаемся найти другую карту или вернуть ничего для пропуска хода
+                    var randomNotGuard = HandCards.FirstOrDefault(x => x.CardType != CardType.Guardian);
+                    return randomNotGuard;
+                }
+
                 return randomCard;
             }
 

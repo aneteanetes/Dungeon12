@@ -418,6 +418,8 @@
         {
             foreach (var child in Children)
             {
+                child.Top *= value;
+                child.Left *= value;
                 child.Scale = value;
             }
             Scale = value;

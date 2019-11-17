@@ -4,6 +4,6 @@
   "CardType": "Ability",
   "Card": {
     "ResourceMultiplier": 1,
-    "PublishTriggerName": "EachRoundAttackerGetsOne"
+    "TurnTriggerName": "EachRoundAttackerGetsOne"
   }
 }

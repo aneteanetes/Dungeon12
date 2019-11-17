@@ -15,6 +15,8 @@ namespace Dungeon12.CardGame.Engine
         private CardGameSettings _cardGameSettings;
         private SafeQueue<Card> areaDeck;
 
+        public Action<CardGamePlayer> OnWin { get; set; }
+
         public CardGame(CardGameSettings cardGameSettings)
         {
             _cardGameSettings = cardGameSettings;
@@ -26,44 +28,67 @@ namespace Dungeon12.CardGame.Engine
         public CardGamePlayer Player2 { get; private set; }
         private CardGamePlayer Winner;
 
-        public (CardGamePlayer Player1, CardGamePlayer Player2) Start(Deck player1deck, Deck player2deck)
+        public (CardGamePlayer Player1, CardGamePlayer Player2) Start(Deck player1deck,string name1, Deck player2deck, string name2)
         {
             Player1 = new CardGamePlayer()
             {
                 Hits = this._cardGameSettings.Hits,
                 MaxResources = this._cardGameSettings.Resources,
                 Deck = player1deck,
+                Name=name1
             };
-            Player1.Cards = Player1.Deck.Cards.Shuffle().AsQueue();
+
+            Player1.Cards = PrepeareDeck(Player1.Deck.Cards);
 
             Player2 = new CardGamePlayer()
             {
                 Hits = this._cardGameSettings.Hits,
                 MaxResources = this._cardGameSettings.Resources,
-                Deck = player2deck
+                Deck = player2deck,
+                Name=name2
             };
-            Player2.Cards = Player2.Deck.Cards.Shuffle().AsQueue();
+            Player2.Cards = PrepeareDeck(Player2.Deck.Cards);
 
             return (Player1, Player2);
+        }
+
+        private SafeQueue<Card> PrepeareDeck(IEnumerable<Card> deckCards)
+        {
+            var newDeckCards = new List<Card>(deckCards);
+            var diff = _cardGameSettings.CardsInDeck - newDeckCards.Count;
+            if (diff != 0)
+            {
+                if (diff > 0)
+                {
+                    newDeckCards.AddRange(newDeckCards.Shuffle().Take(diff));
+                }
+                else
+                {
+                    newDeckCards.RemoveRange(0, Math.Abs(diff));
+                }
+            }
+
+            return newDeckCards.Shuffle().AsQueue();
         }
 
         public AreaCard CurrentArea { get; private set; }
 
         public bool AreaEnded = false;
+        private List<(Card, CardGamePlayer)> OnTurnCards = new List<(Card, CardGamePlayer)>();
 
         public bool Turn()
         {
             Winner = CheckWinner();
             if (Winner != null)
             {
-                OnafterTurn?.Invoke();
-                return true;
+                OnWin?.Invoke(Winner);
             }
 
             bool nextRound = CurrentArea == default || CurrentArea.Rounds == 0;
             if (nextRound)
             {
                 Message("Смена территории");
+                OnTurnCards.Clear();
                 CurrentArea = areaDeck.Dequeue().As<AreaCard>();
                 if (CurrentArea == default)
                 {
@@ -89,6 +114,11 @@ namespace Dungeon12.CardGame.Engine
 
             ForEachGuard(Player2, Player1);
             ForEachGuard(Player1, Player2);
+            OnTurnCards.ForEach(c =>
+            {
+                var e = c.Item2 == Player1 ? Player2 : Player1;
+                c.Item1.OnTurn(e, c.Item2, CurrentArea);
+            });
 
             OnafterTurn?.Invoke();
             return false;
@@ -129,6 +159,39 @@ namespace Dungeon12.CardGame.Engine
                 return Player2;
             }
 
+            var player1cardsLost = Player1.Cards.Count == 0 && Player1.HandCards.Count == 0;
+            var player2cardsLost = Player2.Cards.Count == 0 && Player2.HandCards.Count == 0;
+
+            if (player1cardsLost || player2cardsLost)
+            {
+                Message($"У {(player1cardsLost ? Player1.Name : Player2.Name)} кончились карты!");
+
+                if (Player1.Influence > Player2.Influence)
+                {
+                    return Player1;
+                }
+                else if (Player2.Influence > Player1.Influence)
+                {
+                    return Player2;
+                }
+                else if(Player1.Hits > Player2.Hits)
+                {
+                    return Player1;
+                }
+                else if (Player2.Hits > Player1.Hits)
+                {
+                    return Player2;
+                }
+                else if (Player1.Guards.Count > Player2.Guards.Count)
+                {
+                    return Player1;
+                }
+                else if (Player2.Guards.Count > Player1.Guards.Count)
+                {
+                    return Player2;
+                }
+            }
+
             return default;
         }
 
@@ -141,7 +204,7 @@ namespace Dungeon12.CardGame.Engine
         public bool PlayCard(Card card, CardGamePlayer player)
         {
             var enemy = player == Player1 ? Player2 : Player1;
-            card.OnPublish(enemy, player,CurrentArea);
+            card.OnPublish(enemy, player, CurrentArea);
             switch (card.CardType)
             {
                 case Interfaces.CardType.Guardian:
@@ -154,8 +217,12 @@ namespace Dungeon12.CardGame.Engine
                         }
                         break;
                     }
-                case  Interfaces.CardType.Ability:
+                case Interfaces.CardType.Ability:
                     {
+                        if (card.TurnTriggerName != default)
+                        {
+                            OnTurnCards.Add((card, player));
+                        }
                         player.Resources = 0;
                         player.Influence += 1;
                         break;

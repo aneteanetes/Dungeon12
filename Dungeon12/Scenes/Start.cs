@@ -60,21 +60,21 @@
                 AbsolutePosition = true,
                 OnClick = () =>
                 {
-                    this.Switch<CardGameScene>();
+                    //this.Switch<CardGameScene>();
 
-                    //this.PlayerAvatar = new Avatar(new Dungeon12.Noone.Noone()
-                    //{
-                    //    Origin = Dungeon.Entities.Alive.Enums.Origins.Adventurer
-                    //});
-                    //this.PlayerAvatar.Character.Name = "Ваш персонаж";
+                    this.PlayerAvatar = new Avatar(new Dungeon12.Noone.Noone()
+                    {
+                        Origin = Dungeon.Entities.Alive.Enums.Origins.Adventurer
+                    });
+                    this.PlayerAvatar.Character.Name = "Ваш персонаж";
 
-                    //Global.AudioPlayer.Music("town", new Dungeon.Audio.AudioOptions()
-                    //{
-                    //    Repeat = true,
-                    //    Volume = 0.3
-                    //});
+                    Global.AudioPlayer.Music("town", new Dungeon.Audio.AudioOptions()
+                    {
+                        Repeat = true,
+                        Volume = 0.3
+                    });
 
-                    //this.Switch<Game.Main>();
+                    this.Switch<Game.Main>();
                 }
             });
 

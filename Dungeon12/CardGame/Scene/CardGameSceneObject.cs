@@ -1,6 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Drawing.SceneObjects.UI;
 using Dungeon.SceneObjects;
+using Dungeon.View.Interfaces;
 using Dungeon12.CardGame.Engine;
 using Dungeon12.CardGame.SceneObjects;
 using System;
@@ -16,7 +17,7 @@ namespace Dungeon12.CardGame.Scene
 
             this.Image = "ui/horizontal(40x225).png".AsmImgRes();
 
-            var (Player1, Player2) = component.Start(playerDeck, enemyDeck);
+            var (Player1, Player2) = component.Start(playerDeck, "Персонаж", enemyDeck, "Трактирщик");
 
             var pLeft = new CardPlayerSceneObject(Player1)
             {
@@ -54,14 +55,67 @@ namespace Dungeon12.CardGame.Scene
             this.AddChild(cardInHands);
 
             cardDropMask.OnDropInMask += cardInHands.Redraw;
+
+            this.Destroy += () => enemyCardPlaying?.Destroy?.Invoke();
         }
+
+        private CardSceneObject enemyCardPlaying = default;
 
         private void EnemyTurn(GameDeskSceneObject gameDeskSceneObject)
         {
             Component.PlayerTurn(Component.Player2);
 
             var card = Component.Player2.Auto(Component);
+
             if (card != default)
+            {
+                var c = new CardSceneObject(card, Component.Player2)
+                .Maximize();
+
+                var left = Width / 2d - (4.65625 * 1.5) / 2d;
+                c.Left = left-1;
+
+                var top = Height / 2d - (7 * 1.5) / 2d;
+                c.Top = top;
+
+                var @lock = new LockSceneObject();
+                this.ShowEffects(@lock.InList<ISceneObject>());
+                Global.Freezer.World = @lock;
+
+                enemyCardPlaying = c;
+                c.OnFlush = () => AfterCardFlushed(gameDeskSceneObject, card, c);
+
+                Global.Time.Timer(Guid.NewGuid().ToString())
+                    .After(500)
+                    .Do(() =>
+                    {
+                        this.ShowEffects(c.InList<ISceneObject>());
+                        Global.Freezer.World = c;
+                        @lock.Destroy?.Invoke();
+                        Global.Time.Timer(Guid.NewGuid().ToString())
+                            .After(2000)
+                            .Do(() =>
+                            {
+                                AfterCardFlushed(gameDeskSceneObject, card, c);
+                            })
+                            .Trigger();
+                    }).Auto();
+            }
+            else
+            {
+                MessageBox.Show($"{Component.Player2.Name} пропускает ход", this.ShowEffects);
+            }
+        }
+
+        private class LockSceneObject : EmptyHandleSceneControl
+        { }
+
+        private void AfterCardFlushed(GameDeskSceneObject gameDeskSceneObject, Entities.Card card, CardSceneObject c)
+        {
+            if (c.Flushed)
+                return;
+
+            try
             {
                 var wasGuards = Component.Player2.Guards.Count;
                 Component.PlayCard(card, Component.Player2);
@@ -78,10 +132,16 @@ namespace Dungeon12.CardGame.Scene
                     default:
                         break;
                 }
-            }
 
-            Component.Turn();
-            Component.PlayerTurn(Component.Player1);
+                Component.Turn();
+                Component.PlayerTurn(Component.Player1);
+                c.Destroy?.Invoke();
+
+                Global.Freezer.World = null;
+            }
+            catch { }
+
+            gameDeskSceneObject.RefreshDeck();
         }
     }
 }

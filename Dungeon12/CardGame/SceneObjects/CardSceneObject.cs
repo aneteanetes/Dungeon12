@@ -5,6 +5,7 @@ using Dungeon.Drawing.SceneObjects.UI;
 using Dungeon.SceneObjects;
 using Dungeon12.CardGame.Entities;
 using Dungeon12.CardGame.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,15 +23,12 @@ namespace Dungeon12.CardGame.SceneObjects
 
         public CardSceneObject(Card card, CardGamePlayer player)
         {
+            this.TooltipText = "Карта: " + card.Name;
             Player = player;
             this.Card = card;
             this.Width = 4.65625;
             this.Height = 7;
 
-            //if (counter)
-            //{
-            //    this.Image = "Cards/Guardian/region0.png".AsmImgRes();
-            //}
             this.Image = $"Cards/Guardian/{ImageMap[card.CardType]}0.png".AsmImgRes();
 
             switch (card.CardType)
@@ -52,8 +50,21 @@ namespace Dungeon12.CardGame.SceneObjects
             }
         }
 
+        public bool Maximized { get; set; } = false;
+
+        public Action OnFlush { get; set; }
+
+        public bool Flushed { get; set; } = false;
+
         public override void Click(PointerArgs args)
         {
+            if(Maximized)
+            {
+                OnFlush?.Invoke();
+                Flushed = true;
+                return;
+            }
+
             if (args.MouseButton == Dungeon.Control.Pointer.MouseButton.Right)
             {
                 Player.Discard(this.Card);
@@ -68,6 +79,13 @@ namespace Dungeon12.CardGame.SceneObjects
         {
             this.ScaleTo(.6);
             GuardShieldText.Top = 3.2;
+            return this;
+        }
+
+        public CardSceneObject Maximize()
+        {
+            this.ScaleTo(1.5);
+            this.Maximized = true;
             return this;
         }
 

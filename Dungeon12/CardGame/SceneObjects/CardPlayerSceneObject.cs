@@ -6,10 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Dungeon;
+using Dungeon.Drawing.SceneObjects.Map;
 
 namespace Dungeon12.CardGame.SceneObjects
 {
-    public class CardPlayerSceneObject : SceneObject<CardGamePlayer>
+    public class CardPlayerSceneObject : HandleSceneControl<CardGamePlayer>
     {
         private TextControl influence;
         private TextControl hits;
@@ -25,10 +26,11 @@ namespace Dungeon12.CardGame.SceneObjects
             this.Height = 22.5;
             this.Width = 7.5;
 
-            void AddBox(string box,Func<int> source, double left=0)
+            void AddBox(string box,Func<int> source, double left=0,string tooltip="")
             {
-                this.AddChild(new ImageControl($"Cards/UI/{box}.png".AsmImgRes())
+                this.AddChild(new EmptyTooltipedSceneObject(tooltip)
                 {
+                    Image= $"Cards/UI/{box}.png".AsmImgRes(),
                     AbsolutePosition = true,
                     CacheAvailable = false,
                     Left = left
@@ -51,8 +53,8 @@ namespace Dungeon12.CardGame.SceneObjects
                 this.AddChild(num);
             }
 
-            AddBox("hits", () => component.Hits, reverse ? 3.5 : 0);
-            AddBox("influence", () => component.Influence, reverse ? 0 : 3.5);
+            AddBox("hits", () => component.Hits, reverse ? 3.5 : 0,"Очки жизней");
+            AddBox("influence", () => component.Influence, reverse ? 0 : 3.5,"Влияние");
 
             for (int i = 0; i < 5; i++)
             {
@@ -69,7 +71,7 @@ namespace Dungeon12.CardGame.SceneObjects
         }
         private double topRes = 4;
 
-        private class ResBox : ImageControl
+        private class ResBox : EmptyTooltipedSceneObject
         {
             public override bool AbsolutePosition => true;
 
@@ -77,8 +79,9 @@ namespace Dungeon12.CardGame.SceneObjects
 
             private int _res;
             private CardGamePlayer _component;
-            public ResBox(CardGamePlayer component, int res) : base("Cards/Guardian/ressquare.png".AsmImgRes())
+            public ResBox(CardGamePlayer component, int res) : base("Ресурс")
             {
+                Image = "Cards/Guardian/ressquare.png".AsmImgRes();
                 _res = res;
                 _component = component;
             }

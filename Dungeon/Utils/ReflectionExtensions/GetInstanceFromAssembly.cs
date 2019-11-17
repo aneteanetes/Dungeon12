@@ -107,7 +107,7 @@
             => GetTypeFromAssembly(value, assemblyName, (x, a) => a.GetType(x));
 
         public static T GetInstanceFromAssembly<T>(this string value, string assemblyName, params object[] arguments)
-            => GetTypeFromAssembly(value, assemblyName, (x, a) => a.GetTypes().FirstOrDefault(t => t.Name == x))
+            => GetTypeFromAssembly(value, assemblyName, (x, a) => a.GetType(value) ?? a.GetTypes().FirstOrDefault(t => t.Name == x))
                 .NewAs<T>(arguments);
 
         public static Type[] GetTypesFromAssembly(this string value, string assemblyName, Func<string, Assembly, IEnumerable<Type>> searchPattern)
