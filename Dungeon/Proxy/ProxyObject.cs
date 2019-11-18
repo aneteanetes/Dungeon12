@@ -7,6 +7,8 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Linq.Expressions;
+using Dungeon.Entities;
+using Dungeon.Data;
 
 namespace Dungeon.Proxy
 {

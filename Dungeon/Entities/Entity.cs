@@ -48,5 +48,20 @@ namespace Dungeon.Entities
 
             return entity;
         }
+
+        public static IEnumerable<TEntity> LoadAll(Expression<Func<TPersist, bool>> filter = null, object cacheObject = default)
+        {
+            List<TEntity> entities = new List<TEntity>();
+
+            var dataClasses = Database.Entity(filter, cacheObject).ToList();
+            foreach (var dataClass in dataClasses)
+            {
+                var entity = typeof(TEntity).New<TEntity>();
+                entity.Init(dataClass);
+                entities.Add(entity);
+            }
+
+            return entities;
+        }
     }
 }

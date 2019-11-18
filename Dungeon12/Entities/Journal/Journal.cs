@@ -68,27 +68,7 @@ namespace Dungeon12.Entites.Journal
 
         [Value("Мир")]
         [Icon("world")]
-        public List<JournalEntry> World { get; set; } = new List<JournalEntry>()
-        {
-            new JournalEntry()
-            {
-                Display="Учителя обороны",
-                Group="Учителя",
-                Text="example"
-            },
-            new JournalEntry()
-            {
-                Display="Учителя служителей",
-                Group="Учителя",
-                Text="example"
-            },
-            new JournalEntry()
-            {
-                Display="Остров веры",
-                Group="Маршруты",
-                Text="example"
-            }
-        };
+        public List<JournalEntry> World { get; set; } = new List<JournalEntry>(JournalEntry.LoadAll());
 
         [Value("Выполнено")]
         [Icon("qdone")]

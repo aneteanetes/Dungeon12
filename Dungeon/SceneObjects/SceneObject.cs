@@ -1,6 +1,7 @@
 ﻿namespace Dungeon.SceneObjects
 {
     using Dungeon;
+    using Dungeon.Drawing;
     using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.UI;
@@ -196,6 +197,20 @@
         /// <param name="text"></param>
         /// <returns></returns>
         protected Point MeasureText(IDrawText text, ISceneObject parent = default) => Global.DrawClient.MeasureText(text, parent);
+
+        protected DrawText CutText(DrawText text, double height)
+        {
+            var y = this.MeasureText(text, this).Y / 32;
+            if (y > height)
+            {
+                text.SetText(text.StringData.Remove(text.StringData.LastIndexOf(" ")));
+                return CutText(text, height);
+            }
+            else
+            {
+                return text;
+            }
+        }
 
         /// <summary>
         /// измеряет изображение и возвращает уже в формате координат

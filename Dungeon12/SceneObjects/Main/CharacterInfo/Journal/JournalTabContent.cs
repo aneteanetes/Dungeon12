@@ -65,7 +65,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 
                 i++;
 
-                foreach (var entry in g)
+                foreach (var entry in g.OrderBy(z=>z.Order))
                 {
                     models.Add(new JournalItemModel()
                     {

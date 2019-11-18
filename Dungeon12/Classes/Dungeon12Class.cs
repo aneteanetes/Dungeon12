@@ -5,7 +5,7 @@ using Dungeon12.CardGame.Engine;
 
 namespace Dungeon12
 {
-    public abstract class Dungeon12Class : BaseCharacterTileset
+    public class Dungeon12Class : BaseCharacterTileset
     {
         public override string Avatar => GetType().Name.AsmImgRes();
                

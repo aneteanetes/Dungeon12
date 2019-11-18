@@ -24,13 +24,13 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Stats
             ControlEventType.Focus,
         };
 
-        public StatsUpButton(Character component,Action<Character> up) : base(component,false)
+        public StatsUpButton(Character component,Action<Character> up, string text="+") : base(component,false)
         {
             this.Width = .5;
             this.Height = .5;
             _up = up;
             this.Image = "ui/checkbox/on.png".AsmImgRes();
-            this.AddTextCenter("+".AsDrawText().InSize(10).Montserrat());
+            this.AddTextCenter(text.AsDrawText().InSize(10).Montserrat());
         }
 
         public override void Focus()
