@@ -32,7 +32,7 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
 
             string text = journalEntry.Text;
 
-            while (text!="")
+            while (text != "")
             {
                 var txt = new DrawText(text, new DrawColor(ConsoleColor.Black), true).Montserrat();
                 txt = CutText(txt, 13);
@@ -43,7 +43,7 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
                 page.Visible = false;
                 Texts.Add(page);
 
-                text=text.Replace(txt.StringData, "");
+                text = text.Replace(txt.StringData, "");
             }
 
             Texts.ForEach(t => this.AddChild(t));
@@ -62,7 +62,7 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
                  }, "<")
                 {
                     Left=10.5,
-                    Top=16.5
+                    Top=16
                 });
                 this.AddChild(new PageButton(() =>
                 {
@@ -75,7 +75,7 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
                 }, ">")
                 {
                     Left = 11,
-                    Top = 16.5
+                    Top = 16
                 });
             }
         }
