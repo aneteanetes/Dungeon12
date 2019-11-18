@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Dungeon.Entities.Alive.Proxies
 {
+    /// <summary>
+    /// Такое свойство лимитируется соседним с припиской Max
+    /// </summary>
     public class Limit : ProxyProperty
     {
         public override T Get<T>(T v, string proxyId) => v;
