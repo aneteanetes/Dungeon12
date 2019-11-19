@@ -112,8 +112,6 @@
 
         public Point SceenPosition { get; set; }
 
-        public virtual ISceneObject View(GameState gameState) => default;
-
         protected virtual void Load(RegionPart regionPart)
         {
             this.Location = new Point(regionPart.Position.X, regionPart.Position.Y);

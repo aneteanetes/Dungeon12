@@ -20,9 +20,7 @@
         where TComponent : IGameComponent
     {
         private readonly Scenes.GameScene owner;
-
-        public virtual bool Events => true;
-
+        
         public TComponent Component { get; private set; }
 
         /// <summary>
@@ -69,17 +67,6 @@
                     ZIndex = DragAndDropSceneControls.DraggableLayers;
                 }
             }
-
-            if (Events)
-            {
-                Global.Events.Subscribe(@event =>
-                {
-                    this.Dispatch((so, arg) => so.OnEvent(arg), @event);
-                });
-            }
-
-            //ХВАТИТ ОРАТЬ В КОММЕНТАРИЯХ
-            // пожалуйста :)
 
             ProcessSingleton();
         }

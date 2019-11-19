@@ -101,7 +101,7 @@ namespace Dungeon.Resources
         {
 
             var assemblyParts = new List<string>(Path.GetFileNameWithoutExtension(pathInAssembly).Split("."));
-            
+
             while (assemblyParts.Count > 0)
             {
                 var assemblyPath = string.Join('.', assemblyParts);
@@ -131,6 +131,43 @@ namespace Dungeon.Resources
             }
 
             return null;
+        }
+
+        public static Type LoadType(string className)
+        {
+            if (string.IsNullOrWhiteSpace(className))
+                return default;
+
+            var type = TryGetFromAssembly(className, Global.GameAssembly);
+            if (type == default)
+            {
+                foreach (var asm in Global.Assemblies)
+                {
+                    type = TryGetFromAssembly(className, asm);
+                    if (type != default)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (type == default)
+            {
+                throw new DllNotFoundException($"Тип {className} не найден ни в одной из загруженных сборок!");
+            }
+
+            return type;
+        }
+
+        private static Type TryGetFromAssembly(string className, Assembly assembly)
+        {
+            var type = assembly.GetType(className);
+            if (type == default)
+            {
+                type = assembly.GetTypes().FirstOrDefault(x => x.Name == className);
+            }
+
+            return type;
         }
     }
 }

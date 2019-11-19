@@ -1,11 +1,12 @@
-﻿using Dungeon.View.Interfaces;
+﻿using Dungeon.Transactions;
+using Dungeon.View.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Dungeon.GameObjects
 {
-    public abstract class GameComponent : IGameComponent
+    public abstract class GameComponent : Applicable, IGameComponent
     {
         public ISceneObject SceneObject { get; set; }
 

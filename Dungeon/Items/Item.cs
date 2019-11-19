@@ -1,6 +1,7 @@
 ﻿namespace Dungeon.Items
 {
     using System.Collections.Generic;
+    using Dungeon.Entities;
     using Dungeon.GameObjects;
     using Dungeon.Items.Enums;
     using Dungeon.Transactions;
@@ -12,7 +13,7 @@
     /// //Вес = (УровеньПредмета — КачествоПредмета) * МультипликаторКачества * МультипликаторВидаПредмета;
     /// формирование цен бладжад
     /// </summary>
-    public abstract partial class Item : GameComponent, IDrawable
+    public abstract partial class Item : DataEntity<Item, ItemData>, IDrawable
     {
         public string Icon { get; set; }
 

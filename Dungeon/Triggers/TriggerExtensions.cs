@@ -13,6 +13,9 @@ namespace Dungeon
         public static TTrigger Trigger<TTrigger>(this string className)
             where TTrigger : ITrigger
         {
+            if (string.IsNullOrWhiteSpace(className))
+                return default;
+
             var type = TryGetFromAssembly(className, Global.GameAssembly);
             if (type == default)
             {

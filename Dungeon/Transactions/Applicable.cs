@@ -15,8 +15,30 @@ namespace Dungeon.Transactions
     /// Карочи, applicable слишком жирная абстракция, поэтому пока что сюда переедет `Image`
     /// </para>
     /// </summary>
-    public abstract class Applicable : NetObject, IApplicable
+    public abstract class Applicable : IApplicable
     {
+        /// <summary>
+        /// Флаг указывающий что этот объект обрабатывает любые события шины через диспатч
+        /// </summary>
+        public virtual bool Events => false;
+
+        public Applicable()
+        {
+            if (Events)
+            {
+                Global.Events.Subscribe(@event =>
+                {
+                    this.Dispatch((so, arg) => so.OnEvent(arg), @event);
+                });
+            }
+        }
+
+        public virtual void OnEvent(object @object)
+        {
+            CallOnEvent(@object as dynamic);
+        }
+        protected virtual void CallOnEvent(dynamic obj) => this.OnEvent(obj);
+
         public virtual string Image { get; set; }
 
         private bool InApply { get; set; }

@@ -9,10 +9,11 @@ using System.Runtime.CompilerServices;
 using System.Linq.Expressions;
 using Dungeon.Entities;
 using Dungeon.Data;
+using Dungeon.Transactions;
 
 namespace Dungeon.Proxy
 {
-    public class ProxyObject : IDrawable
+    public class ProxyObject : Applicable, IDrawable
     {
         protected TypeAccessor _Type;
 
@@ -284,7 +285,11 @@ namespace Dungeon.Proxy
             this.SceneObject = sceneObject;
 }
 
-#endregion
+        protected override void CallApply(dynamic obj) { }
+
+        protected override void CallDiscard(dynamic obj) { }
+
+        #endregion
     }
 
 public static class ProxyObjectExtensions

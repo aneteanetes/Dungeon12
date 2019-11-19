@@ -11,8 +11,14 @@ namespace Dungeon12.Database.Rewards
 
         public string RewardText { get; set; }
 
-        public string ItemGenerator { get; set; }
+        public int[] ItemsId { get; set; }
 
-        public string EntityUpGenerator { get; set; }
+        public int[] PerksId { get; set; }
+
+        public int Exp { get; set; }
+
+        public int Gold { get; set; }
+
+        public string TriggerName { get; set; }
     }
 }
