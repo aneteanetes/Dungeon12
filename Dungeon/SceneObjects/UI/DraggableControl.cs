@@ -225,7 +225,7 @@
             }
         }
 
-        protected override void AddChild(ISceneObjectControl sceneObject)
+        public override void AddChild(ISceneObjectControl sceneObject)
         {
             sceneObject.ZIndex = this.ZIndex;
             base.AddChild(sceneObject);

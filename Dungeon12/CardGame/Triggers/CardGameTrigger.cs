@@ -15,6 +15,8 @@ namespace Dungeon12
 {
     public class CardGameTrigger : IConversationTrigger
     {
+        public bool Storable => false;
+
         public IDrawText Trigger(PlayerSceneObject arg1, GameMap arg2, string[] args)
         {
             Global.SceneManager.Change<CardGameScene>(args);

@@ -167,7 +167,7 @@
 
         public virtual void TextInput(string text) => dynamicEvents[nameof(TextInput)]?.DynamicInvoke(text);
 
-        protected virtual void AddChild(ISceneObjectControl sceneObject)
+        public virtual void AddChild(ISceneObjectControl sceneObject)
         {
             ControlBinding?.Invoke(sceneObject);
             base.AddChild(sceneObject);

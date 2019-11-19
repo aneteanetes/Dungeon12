@@ -1,6 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.SceneObjects;
 using Dungeon.SceneObjects.Base;
+using Dungeon.View.Interfaces;
 using Dungeon12.Entites.Journal;
 using Dungeon12.SceneObjects.Main.CharacterInfo.Journal;
 using System;

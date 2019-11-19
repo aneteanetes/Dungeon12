@@ -1,5 +1,6 @@
 ﻿using Dungeon;
 using Dungeon.Control;
+using Dungeon.Control.Pointer;
 using Dungeon.Drawing;
 using Dungeon.SceneObjects;
 using Dungeon12.Entites.Journal;
@@ -17,6 +18,11 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
 
         private List<TextControl> Texts = new List<TextControl>();
         private int page = 1;
+
+        protected override ControlEventType[] Handles { get; } = new ControlEventType[]
+        {
+             ControlEventType.MouseWheel
+        };
 
         public ScrollJournalContent(JournalEntry journalEntry)
         {
@@ -51,32 +57,48 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
 
             if (Texts.Count>1)
             {
-                this.AddChild(new PageButton(() =>
-                 {
-                     if (page > 1)
-                     {
-                         this.Texts[page-1].Visible = false;
-                         page--;
-                         this.Texts[page-1].Visible = true;
-                     }
-                 }, "<")
+                this.AddChild(new PageButton(PageBack, "<")
                 {
-                    Left=10.5,
-                    Top=16
+                    Left = 10.5,
+                    Top = 16
                 });
-                this.AddChild(new PageButton(() =>
-                {
-                    if (page < Texts.Count)
-                    {
-                        this.Texts[page-1].Visible = false;
-                        page++;
-                        this.Texts[page-1].Visible = true;
-                    }
-                }, ">")
+                this.AddChild(new PageButton(PageForward, ">")
                 {
                     Left = 11,
                     Top = 16
                 });
+            }
+        }
+
+        private void PageForward()
+        {
+            if (page < Texts.Count)
+            {
+                this.Texts[page - 1].Visible = false;
+                page++;
+                this.Texts[page - 1].Visible = true;
+            }
+        }
+
+        private void PageBack()
+        {
+            if (page > 1)
+            {
+                this.Texts[page - 1].Visible = false;
+                page--;
+                this.Texts[page - 1].Visible = true;
+            }
+        }
+
+        public override void MouseWheel(MouseWheelEnum mouseWheelEnum)
+        {
+            if(mouseWheelEnum== MouseWheelEnum.Down)
+            {
+                PageBack();
+            }
+            else
+            {
+                PageForward();
             }
         }
 

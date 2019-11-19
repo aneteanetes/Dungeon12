@@ -13,6 +13,8 @@ namespace Dungeon12.Entities.Journal
 {
     public class JournalAddTrigger : IConversationTrigger
     {
+        public bool Storable => true;
+
         public IDrawText Trigger(PlayerSceneObject arg1, GameMap arg2, string[] arg3)
         {
             var category = arg3[0];

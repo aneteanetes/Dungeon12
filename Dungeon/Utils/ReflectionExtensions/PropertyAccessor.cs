@@ -12,6 +12,11 @@
     {
         public static T As<T>(this object obj)
         {
+            if (obj == default)
+            {
+                return default;
+            }
+
             if (obj is T tObj)
             {
                 return tObj;

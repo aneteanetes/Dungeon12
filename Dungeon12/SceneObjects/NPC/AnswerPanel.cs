@@ -107,8 +107,8 @@
 
             if (replica.Replics.Count == 0)
             {
-                FireTrigger(replica);
-                SelectSubject(lastSubject, replica.Text);
+                var triggerPassed = FireTrigger(replica);
+                SelectSubject(lastSubject, triggerPassed ? dialogText.Text.StringData : replica.Text);
                 return;
             }
 
@@ -144,17 +144,35 @@
             FireTrigger(replica);
         }
 
-        private void FireTrigger(Replica replica)
+        private bool FireTrigger(Replica replica)
         {
             if (replica.TriggerClass != null)
             {
-                var triggerText = replica.TriggerClass
-                    .Trigger<IConversationTrigger>()
-                    .Trigger(playerSceneObject, gameMap, replica.TriggerClassArguments);
+                var trigger = replica.TriggerClass
+                    .Trigger<IConversationTrigger>();
 
-                dialogText.Text.SetText(triggerText.StringData);
-                space = this.MeasureText(dialogText.Text,dialogText).Y / 32;
+                bool fire = true;
+                var storeName = replica.TriggerClass + string.Join("`%", replica.TriggerClassArguments);
+                if (trigger.Storable)
+                {
+                    fire = !playerSceneObject.Component.Entity[storeName].As<bool>();
+                }
+                if (fire)
+                {
+                    var triggerText = trigger.Trigger(playerSceneObject, gameMap, replica.TriggerClassArguments);
+                    dialogText.Text.SetText(triggerText.StringData);
+                    space = this.MeasureText(dialogText.Text, dialogText).Y / 32;
+
+                    if(trigger.Storable)
+                    {
+                        playerSceneObject.Component.Entity[storeName] = true;
+                    }
+
+                    return triggerText.StringData != string.Empty;
+                }
             }
+
+            return false;
         }
 
         private class AnswerClickable : EmptyHandleSceneControl

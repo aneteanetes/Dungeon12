@@ -93,5 +93,25 @@
 
             return default;
         }
+
+        public Dictionary<string, object> Variables = new Dictionary<string, object>();
+
+        public T GetVariable<T>(string name)
+        {
+            Variables.TryGetValue(name, out var v);
+            return v.As<T>();
+        }
+
+        public T SetVariable<T>(string name, T value)
+        {
+            Variables[name] = value;
+            return value;
+        }
+
+        public object this[string variable]
+        {
+            get => Variables.ContainsKey(variable) ? Variables[variable] : default;
+            set => Variables[variable] = value;
+        }
     }
 }

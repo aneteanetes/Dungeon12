@@ -7,5 +7,6 @@ namespace Dungeon.Conversations
 {
     public interface IConversationTrigger : ITrigger<IDrawText,PlayerSceneObject,GameMap,string[]>
     {
+        bool Storable { get; }
     }
 }
