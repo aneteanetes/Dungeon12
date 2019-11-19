@@ -21,12 +21,7 @@ namespace Dungeon12.CardGame.Entities
 
         public IAbilityCardTrigger GetTrigger(string name)
         {
-            if (name != default)
-            {
-                return name.GetInstanceFromAssembly<IAbilityCardTrigger>(Assembly);
-            }
-
-            return default;
+            return name.Trigger<IAbilityCardTrigger>();
         }
 
         public IEnumerable<IAbilityCardTrigger> GetAllTriggers()
@@ -42,14 +37,14 @@ namespace Dungeon12.CardGame.Entities
 
         public virtual void OnPublish(CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
         {
-            GetTrigger(PublishTriggerName)?.Activate(this, enemy, player,areaCard);
+            GetTrigger(PublishTriggerName)?.Trigger(this, enemy, player,areaCard);
         }
 
         public string TurnTriggerName { get; set; }
 
         public void OnTurn(CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
         {
-            GetTrigger(TurnTriggerName)?.Activate(this, enemy, player,areaCard);
+            GetTrigger(TurnTriggerName)?.Trigger(this, enemy, player,areaCard);
         }
 
         public string DieTriggerName { get; set; }
@@ -58,7 +53,7 @@ namespace Dungeon12.CardGame.Entities
 
         public void OnDie(CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
         {
-            GetTrigger(DieTriggerName)?.Activate(this, enemy, player, areaCard);
+            GetTrigger(DieTriggerName)?.Trigger(this, enemy, player, areaCard);
             OnDieEvent?.Invoke();
         }
 

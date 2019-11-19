@@ -5,12 +5,7 @@ using System.Collections.Generic;
 
 namespace Dungeon.Conversations
 {
-    public interface IConversationTrigger
+    public interface IConversationTrigger : ITrigger<IDrawText,PlayerSceneObject,GameMap,string[]>
     {
-        PlayerSceneObject PlayerSceneObject { get; set; }
-
-        GameMap Gamemap { get; set; }
-
-        IDrawText Execute(string[] args);
     }
 }

@@ -13,13 +13,9 @@ namespace Dungeon12
 {
     public class ClassChangeTrigger : IConversationTrigger
     {
-        public PlayerSceneObject PlayerSceneObject { get; set; }
-
-        public GameMap Gamemap { get; set; }
-
-        public IDrawText Execute(string[] args)
+        public IDrawText Trigger(PlayerSceneObject PlayerSceneObject, GameMap Gamemap, string[] args)
         {
-            var SceneObject = this.PlayerSceneObject;
+            var SceneObject = PlayerSceneObject;
 
             Character from = SceneObject.Avatar.Character;
 

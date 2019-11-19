@@ -7,11 +7,11 @@ using System.Text;
 
 namespace Dungeon12.CardGame.Triggers
 {
-    public class TakeGuardCardAbility : IAbilityCardTrigger
+    public class TakeGuardCardAbility : AbilityCardTrigger
     {
-        public string Description => "Забирает вражеского стража если они есть.";
+        public override string Description => "Забирает вражеского стража если они есть.";
 
-        public void Activate(Card card, CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
+        public override void Activate(Card card, CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
         {
             var enemyGuard = enemy.Guards.FirstOrDefault();
             if(enemyGuard!=null)

@@ -6,11 +6,11 @@ using System.Text;
 
 namespace Dungeon12.CardGame.Triggers
 {
-    public class DamageCardAbility : IAbilityCardTrigger
+    public class DamageCardAbility : AbilityCardTrigger
     {
-        public string Description => "Наносит 1 плюс ресурсы*уровень карты";
+        public override string Description => "Наносит 1 плюс ресурсы*уровень карты";
 
-        public void Activate(Card card, CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
+        public override void Activate(Card card, CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
         {
             if(!(card is AbilityCard abilityCard))
             {

@@ -6,11 +6,11 @@ using System.Text;
 
 namespace Dungeon12.CardGame.Triggers
 {
-    public class EachRoundAttackerGetsOne : IAbilityCardTrigger
+    public class EachRoundAttackerGetsOne : AbilityCardTrigger
     {
-        public string Description => "Наносит 1 урон каждый ход";
+        public override string Description => "Наносит 1 урон каждый ход";
 
-        public void Activate(Card card, CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
+        public override void Activate(Card card, CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
         {
             enemy.Damage(player, 1, areaCard);
         }

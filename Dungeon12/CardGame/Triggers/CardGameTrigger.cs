@@ -15,11 +15,7 @@ namespace Dungeon12
 {
     public class CardGameTrigger : IConversationTrigger
     {
-        public PlayerSceneObject PlayerSceneObject { get; set; }
-
-        public GameMap Gamemap { get; set; }
-
-        public IDrawText Execute(string[] args)
+        public IDrawText Trigger(PlayerSceneObject arg1, GameMap arg2, string[] args)
         {
             Global.SceneManager.Change<CardGameScene>(args);
             return "Игра началась...".AsDrawText().Montserrat();

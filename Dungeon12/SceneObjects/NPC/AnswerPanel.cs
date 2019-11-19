@@ -148,13 +148,9 @@
         {
             if (replica.TriggerClass != null)
             {
-                var convTrigger = replica.TriggerClass
-                    .GetInstanceFromAssembly<IConversationTrigger>(replica.TriggerClassAsm);
-
-                convTrigger.PlayerSceneObject = playerSceneObject;
-                convTrigger.Gamemap = gameMap;
-
-                var triggerText= convTrigger.Execute(replica.TriggerClassArguments);
+                var triggerText = replica.TriggerClass
+                    .Trigger<IConversationTrigger>()
+                    .Trigger(playerSceneObject, gameMap, replica.TriggerClassArguments);
 
                 dialogText.Text.SetText(triggerText.StringData);
                 space = this.MeasureText(dialogText.Text,dialogText).Y / 32;
