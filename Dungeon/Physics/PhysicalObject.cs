@@ -1,13 +1,10 @@
 ﻿namespace Dungeon.Physics
 {
-    using MoreLinq;
-    using Dungeon.Network;
-    using Dungeon.Types;
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    public class PhysicalObject : NetObject
+    public class PhysicalObject : Visual
     {
         public virtual PhysicalSize Size { get; set; }
 

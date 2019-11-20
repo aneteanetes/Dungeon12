@@ -23,7 +23,7 @@
 
         public override bool Obstruction => true;
 
-        public override ISceneObject View(GameState gameState)
+        public override ISceneObject Visual(GameState gameState)
         {
             return new HomeSceneObject(gameState.Player, this, this.Name, gameState.Map);
         }

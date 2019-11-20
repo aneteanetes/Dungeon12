@@ -37,7 +37,7 @@ namespace Dungeon12.Map.Objects
             this.Location = regionPart.Position;
         }
 
-        public override ISceneObject View(GameState gameState)
+        public override ISceneObject Visual(GameState gameState)
         {
             return new BarrelSceneObject(gameState.Player, this);
         }

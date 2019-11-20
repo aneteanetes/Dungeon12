@@ -55,7 +55,7 @@
             set { }
         }
 
-        public override ISceneObject View(GameState gameState)
+        public override ISceneObject Visual(GameState gameState)
         {
             return new NPCSceneObject(gameState.Player, gameState.Map, this, this.TileSetRegion);
         }

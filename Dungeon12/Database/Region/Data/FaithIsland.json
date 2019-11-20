@@ -1,5 +1,6 @@
 ﻿{
   "Name": "FaithIsland",
+  "Display":"Остров Веры",
   "SafeZones":[
 	{
 		"Size":{

@@ -10,8 +10,10 @@ using System.Text;
 
 namespace Dungeon.Entities
 {
-    public class Entity : NetObject
+    public class Entity : Visual
     {
+        public string Identifier { get; set; }
+
         public MapObject MapObject { get; set; }
 
         public string Assembly { get; set; }

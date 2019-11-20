@@ -264,8 +264,6 @@
 
         public string Uid { get; } = Guid.NewGuid().ToString();
 
-        public virtual string Image { get; set; }
-
         public virtual Rectangle ImageRegion { get; set; }
 
         public virtual IDrawText Text { get; protected set; }
@@ -448,7 +446,9 @@
             return false;
         }
 
-        public virtual void Update() { }
+        public Action<SceneObject<TComponent>> OnUpdate { get; set; }
+
+        public virtual void Update() => OnUpdate?.Invoke(this);
 
         public virtual void OnEvent(object @object)
         {

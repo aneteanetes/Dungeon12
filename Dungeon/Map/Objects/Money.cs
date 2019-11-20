@@ -15,7 +15,7 @@
 
         public override bool Interactable => true;
 
-        public override ISceneObject View(GameState gameState)
+        public override ISceneObject Visual(GameState gameState)
         {
             return new MoneySceneObject(gameState.Player, this, $"Золото ({this.Amount})");
         }

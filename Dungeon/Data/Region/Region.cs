@@ -10,5 +10,7 @@
         public List<PhysicalObject> SafeZones { get; set; }
 
         public string Name { get; set; }
+
+        public string Display { get; set; }
     }
 }

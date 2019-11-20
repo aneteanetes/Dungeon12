@@ -14,5 +14,9 @@ namespace Dungeon.GameObjects
         {
             SceneObject = sceneObject;
         }
+
+        protected override void CallApply(dynamic obj) { }
+
+        protected override void CallDiscard(dynamic obj) { }
     }
 }

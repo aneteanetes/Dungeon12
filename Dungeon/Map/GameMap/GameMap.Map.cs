@@ -35,6 +35,8 @@
                 }
             }
 
+            this.Name = persistRegion.Display;
+
             SpawnEnemies(50);
 
             return persistRegion.Name;

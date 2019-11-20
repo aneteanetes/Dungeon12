@@ -1,6 +1,7 @@
 ﻿using Dungeon.Entities;
 using Dungeon.Network;
 using Dungeon12.Database.Journal;
+using Dungeon12.Entities.Quests;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,6 +19,8 @@ namespace Dungeon12.Entites.Journal
         public int Order { get; set; }
 
         public string Text { get; set; }
+
+        public IQuest Quest { get; set; }
 
         protected override void Init(JournalData dataClass)
         {

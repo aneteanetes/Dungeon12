@@ -1,11 +1,12 @@
-﻿using Dungeon.View.Interfaces;
+﻿using Dungeon.Map;
+using Dungeon.View.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Dungeon12.Entities.Quests
 {
-    public interface IQuest : IDrawable
+    public interface IQuest : IDrawable, IVisual
     {
         long Progress { get; set; }
 
@@ -14,10 +15,12 @@ namespace Dungeon12.Entities.Quests
         string Description { get; set; }
 
         Reward Reward { get; set; }
-        
+
         Dungeon12Class Character { get; }
 
-        void Bind(Dungeon12Class @class);
+        QuestProgress QuestProgress { get; }
+
+        void Bind(Dungeon12Class @class, GameMap gameMap);
 
         void Complete();
     }

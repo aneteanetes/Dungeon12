@@ -1,9 +1,13 @@
 ﻿using Dungeon;
 using Dungeon.Entities;
-using Dungeon.Entities.Alive.Events;
 using Dungeon.Entities.Alive.Proxies;
+using Dungeon.Game;
+using Dungeon.Map;
 using Dungeon.Network;
+using Dungeon.SceneObjects;
+using Dungeon.View.Interfaces;
 using Dungeon12.Database.Quests;
+using System.Linq;
 
 namespace Dungeon12.Entities.Quests
 {
@@ -38,35 +42,61 @@ namespace Dungeon12.Entities.Quests
 
         public Dungeon12Class Character => throw new System.NotImplementedException();
 
-        protected string IdentifyName { get; set; }
-
         protected override void Init(TQuestData dataClass)
         {
             this.Name = dataClass.Name;
             this.Description = dataClass.Description;
             this.MaxProgress = dataClass.MaxProgress;
             this.Reward = Reward.Load(dataClass.RewardIdentify);
-            this.IdentifyName = dataClass.IdentifyName;
+            this.Identifier = dataClass.IdentifyName;
         }
 
         protected Dungeon12Class _class;
+        protected GameMap _gameMap;
 
         /// <summary>
         /// Можно выполнять несколько раз
         /// </summary>
         protected virtual bool Reactivated => false;
 
-        public void Bind(Dungeon12Class @class)
+        public QuestProgress QuestProgress { get; protected set; }
+
+        public void Bind(Dungeon12Class @class, GameMap gameMap)
         {
-            if (@class[IdentifyName] == default || Reactivated)
+            _gameMap = gameMap;
+            if (@class[Identifier] == default || Reactivated)
             {
                 _class = @class;
+                _class.Journal.Quests.Add(new Entites.Journal.JournalEntry()
+                {
+                    Identifier = this.Identifier,
+                    Group = gameMap.Name,
+                    Display = this.Name,
+                    Text = this.Description,
+                    Quest=this
+                });
+                _class.ActiveQuests.Add(this);
             }
-        } 
+        }
+
+        public override ISceneObject Visual(GameState gameState)
+        {
+            return new TextControl(ProgressText.AsDrawText().Montserrat())
+            {
+                OnUpdate = x => x.Text.SetText(ProgressText)
+            };
+        }
+
+        private string ProgressText => $"Прогресс: {Progress}/{MaxProgress}";
 
         public void Complete()
         {
-            _class[IdentifyName] = true;
+            _class[Identifier] = true;
+            _class.ActiveQuests.Remove(this);
+            this.Reward.GiveReward.Trigger(_class, _gameMap);
+            var q = _class.Journal.Quests.First(q => q.Identifier == this.Identifier);
+            _class.Journal.Quests.Remove(q);
+            _class.Journal.QuestsDone.Add(q);
         }
     }
 }

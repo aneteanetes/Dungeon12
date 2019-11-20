@@ -19,7 +19,7 @@ namespace Dungeon12.Entities.Quests
 
         public int Gold { get; set; }
 
-        public IRewardTrigger Trigger { get; set; }
+        public IRewardTrigger GiveReward { get; set; }
 
         protected override void Init(RewardData dataClass)
         {
@@ -31,7 +31,7 @@ namespace Dungeon12.Entities.Quests
             this.Items = Item.LoadAll(x => dataClass.ItemsId.Contains(x.ObjectId)).ToList();
             this.Perks = Perk.LoadAll(x => dataClass.PerksId.Contains(x.ObjectId)).ToList();
 
-            Trigger = dataClass.TriggerName.Trigger<IRewardTrigger>();
+            GiveReward = dataClass.TriggerName.Trigger<IRewardTrigger>();
         }
     }
 }

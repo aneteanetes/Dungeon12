@@ -114,7 +114,7 @@ namespace Dungeon.Drawing.Labirinth
 
             foreach (var obj in mapObjects)
             {
-                var view = obj.View(state);
+                var view = obj.Visual(state);
                 if (view != null)
                 {
                     sceneObjects.Add(view);
@@ -126,7 +126,7 @@ namespace Dungeon.Drawing.Labirinth
 
         private void PublishMapObject(MapObject mapObject)
         {
-            ISceneObject sceneObject = mapObject.View(new Game.GameState()
+            ISceneObject sceneObject = mapObject.Visual(new Game.GameState()
             {
                 Map = gamemap,
                 Player = player
