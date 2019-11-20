@@ -91,7 +91,7 @@
         {
             var triggeredVariable = replica.Conversation.Variables.FirstOrDefault(@var => var.Triggered && var.TriggeredFrom == replica.Tag);
 
-            if(triggeredVariable !=null)
+            if (triggeredVariable != null)
             {
                 replica = triggeredVariable.Replica;
             }
@@ -102,6 +102,11 @@
                 {
                     variable.Triggered = true;
                     variable.TriggeredFrom = replica.Tag;
+                    if (variable.Global)
+                    {
+                        var globalName = variable.GlobalName(replica.Conversation.Id, replica.Tag);
+                        playerSceneObject.Component.Entity[globalName] = true;
+                    }
                 }
             }
 

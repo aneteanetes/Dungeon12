@@ -25,6 +25,7 @@
 
             this.Conversations = conversations.Select(c => new Conversation()
             {
+                Id=c.Identify,
                 Subjects = c.Subjects,
                 Face = c.Face,
                 Name = c.Name
@@ -43,8 +44,11 @@
             bool bindedWalk = false;
             private readonly List<Replica> replics = new List<Replica>();
 
+            private string _id;
+
             public override void Visit(Conversation conversation)
             {
+                _id = conversation.Id;
                 base.Visit(conversation);
                 bindedWalk = true;
                 this.Reset();
@@ -72,6 +76,15 @@
                     foreach (var variable in replica.Variables)
                     {
                         variable.Replica = this.replics.FirstOrDefault(r => r.Tag == variable.Value);
+                        if(variable.Global)
+                        {
+                            var globalName = variable.GlobalName(_id, replica.Tag);
+                            if (Global.GameState.Player.Component.Entity[globalName] != default)
+                            {
+                                variable.Triggered = true;
+                                variable.TriggeredFrom = replica.Tag;
+                            }
+                        }
                     }
                 }
             }

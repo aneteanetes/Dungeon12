@@ -11,6 +11,8 @@
     /// </summary>
     public class Conversation
     {
+        public string Id { get; set; }
+
         public string Face { get; set; }
 
         public string Name { get; set; }

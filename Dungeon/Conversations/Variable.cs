@@ -38,5 +38,7 @@
         /// Определяет нужно ли сохранять флаг о том что переменная установлена
         /// </summary>
         public bool Global { get; set; }
+
+        public string GlobalName(string conversationId,int replicaTag) => $"{conversationId}{replicaTag}{Name}";
     }
 }

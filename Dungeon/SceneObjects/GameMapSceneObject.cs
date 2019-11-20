@@ -106,15 +106,18 @@ namespace Dungeon.Drawing.Labirinth
         {
             List<ISceneObject> sceneObjects = new List<ISceneObject>();
 
-            var state = new Game.GameState()
+            if (Global.GameState == default)
             {
-                Map = gamemap,
-                Player = player
-            };
+                Global.GameState = new Game.GameState()
+                {
+                    Map = gamemap,
+                    Player = player
+                };
+            }
 
             foreach (var obj in mapObjects)
             {
-                var view = obj.Visual(state);
+                var view = obj.Visual(Global.GameState);
                 if (view != null)
                 {
                     sceneObjects.Add(view);
