@@ -12,7 +12,7 @@ namespace Dungeon12.SceneObjects
 {
     public class Player : PlayerSceneObject
     {
-        public Player(Avatar player, GameMap location, Action<ISceneObject> destroyBinding) : base(player, location, destroyBinding)
+        public Player(Avatar player, Action<ISceneObject> destroyBinding) : base(player, destroyBinding)
         {
             Dungeon.Global.Time
                 .After(8)

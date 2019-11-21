@@ -64,17 +64,41 @@
                 a.Destroy?.Invoke();
             });
 
+            List<Replica> replics = new List<Replica>();
 
-            dialogText.Text.SetText(prevText ?? subject.Text);
+            var triggeredVariable = subject.Conversation.Variables.FirstOrDefault(@var => var.Triggered && var.TriggeredFrom == var.GlobalName(subject.Conversation.Id, subject.Name).GetHashCode());
+            if (triggeredVariable != null)
+            {
+                dialogText.Text.SetText(triggeredVariable.Replica.Text);
+                replics.AddRange(triggeredVariable.Replica.Replics);
+            }
+            else
+            {
+                dialogText.Text.SetText(prevText ?? subject.Text);
+                replics.AddRange(subject.Replics.Where(x => x.Shown));
+            }
+
+            if (subject.Variables != null)
+            {
+                foreach (var variable in subject.Variables)
+                {
+                    var globalName = variable.GlobalName(subject.Conversation.Id, subject.Name);
+                    variable.Triggered = true;
+                    variable.TriggeredFrom = globalName.GetHashCode();
+                    if (variable.Global)
+                    {
+                        playerSceneObject.Component.Entity[globalName] = true;
+                    }
+                }
+            }
+
             space = this.MeasureText(dialogText.Text,dialogText).Y / 32;
 
             var y = space + 1;
 
-            var shownReplics = subject.Replics.Where(x => x.Shown).ToArray();
-
-            for (int i = 0; i < shownReplics.Length; i++)
+            for (int i = 0; i < replics.Count; i++)
             {
-                var replica = shownReplics[i];
+                var replica = replics[i];
                 var answer = new AnswerClickable(i + 1, replica, this.Select)
                 {
                     Left = 1,
@@ -111,6 +135,18 @@
                 }
             }
 
+            if (replica.Escape)
+            {
+                currentAnswers.ForEach(a =>
+                {
+                    dialogText.Text.SetText("");
+                    this.RemoveChild(a);
+                    a.Destroy?.Invoke();
+                });
+                BackAction?.Invoke();
+                return;
+            }
+
             if (replica.Replics.Count == 0)
             {
                 var triggerPassed = FireTrigger(replica);
@@ -123,12 +159,6 @@
                 this.RemoveChild(a);
                 a.Destroy?.Invoke();
             });
-
-            if(replica.Escape)
-            {
-                BackAction?.Invoke();
-                return;
-            }
 
             dialogText.Text.SetText(replica.Text);
             space = this.MeasureText(dialogText.Text,dialogText).Y / 32;

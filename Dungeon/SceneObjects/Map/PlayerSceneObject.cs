@@ -36,7 +36,8 @@
         };
 
         private Character Player => Avatar.Character;
-        private readonly GameMap location;
+
+        private GameMap Location => Global.GameState.Map;
 
         public Action<Direction> OnStop;
 
@@ -51,7 +52,7 @@
         public Action OnStart;
         private Action<ISceneObject> destroyBinding;
         
-        public PlayerSceneObject(Avatar player, GameMap location, Action<ISceneObject> destroyBinding)
+        public PlayerSceneObject(Avatar player, Action<ISceneObject> destroyBinding)
             : base(null,player, player.Character.Name,new Rectangle
             {
                 X = 32,
@@ -62,7 +63,6 @@
         {
             this.destroyBinding = destroyBinding;
             this.Avatar = player;
-            this.location = location;
             this.Width = 1;
             this.Height = 1;
 
@@ -238,7 +238,7 @@
 
         private bool CheckMoveAvailable(Direction direction)
         {
-            if (this.location.Move(Avatar, direction))
+            if (this.Location.Move(Avatar, direction))
             {
                 this.Left = Avatar.Location.X;
                 this.Top = Avatar.Location.Y;
@@ -540,7 +540,7 @@
                 ability.Target = this.Avatar.Character;
                 if (ability.CastAvailableCooldown(avatar))
                 {
-                    ability.CastCooldown(location, avatar);
+                    ability.CastCooldown(Location, avatar);
                 }
             }
         }

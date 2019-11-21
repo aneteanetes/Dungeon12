@@ -39,7 +39,7 @@
 
         public override void Init()
         {
-            var player = new Player(this.PlayerAvatar, this.Gamemap, x => this.RemoveObject(x))
+            var player = new Player(this.PlayerAvatar, x => this.RemoveObject(x))
             {
                 Left = PlayerPosition.X,
                 Top = PlayerPosition.Y

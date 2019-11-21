@@ -39,6 +39,6 @@
         /// </summary>
         public bool Global { get; set; }
 
-        public string GlobalName(string conversationId,int replicaTag) => $"{conversationId}{replicaTag}{Name}";
+        public string GlobalName(string conversationId,object replicaTag) => $"{conversationId}{replicaTag}{Name}";
     }
 }

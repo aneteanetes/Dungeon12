@@ -54,7 +54,36 @@
                 this.Reset();
                 base.Visit(conversation);
 
+                foreach (var subject in conversation.Subjects)
+                {
+                    subject.Conversation = conversation;
+                    foreach (var variable in subject.Variables)
+                    {
+                        variable.Replica = this.replics.FirstOrDefault(r => r.Tag == variable.Value);
+                        if (variable.Global)
+                        {
+                            var globalName = variable.GlobalName(_id, subject.Name);
+                            if (Global.GameState.Player.Component.Entity[globalName] != default)
+                            {
+                                variable.Triggered = true;
+                                variable.TriggeredFrom = globalName.GetHashCode();
+                            }
+                        }
+                    }
+                }
+
                 conversation.Variables = this.variables;
+            }
+
+            protected override void VisitSubject(Subject subject)
+            {
+                if(!bindedWalk)
+                {
+                    if (subject.Variables != null)
+                        variables.AddRange(subject.Variables);
+                }
+
+                base.VisitSubject(subject);
             }
 
             protected override void VisitReplica(Replica replica)
