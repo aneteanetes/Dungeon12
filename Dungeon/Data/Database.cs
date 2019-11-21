@@ -1,10 +1,12 @@
 ﻿namespace Dungeon.Data
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Linq.Expressions;
+    using Dungeon.Resources;
     using Dungeon.Types;
     using LiteDB;
 
@@ -37,7 +39,69 @@
 
             return value.As<IEnumerable<T>>();
         }
+
         private static readonly Dictionary<CompositeKey<object>, object> ___EntityCache = new Dictionary<CompositeKey<object>, object>();
+        
+        /// <summary>
+        /// это надо кэшировать
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="type"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static T Entity<T>(string type, string id)
+        {
+            //GetEntityTypeLambdaRuntime(type)
+
+            var t = ResourceLoader.LoadType(type);
+
+            var funcType = typeof(Func<,>).MakeGenericType(new Type[] { t, typeof(bool) });
+
+            var boolExprParam = Expression.Parameter(typeof(bool));
+
+            var typeParameter = Expression.Parameter(t);
+
+            var propExpr = Expression.Property(typeParameter, "IdentifyName");
+
+            var idExpressionParam = Expression.Parameter(typeof(string));
+
+            var setExpr = Expression.Equal(propExpr, Expression.Constant(id));
+
+            var exprParam = Expression.Lambda(funcType, setExpr, typeParameter);
+
+            var expressionTypeParam = Expression.Parameter(exprParam.GetType());
+            var objParam = Expression.Parameter(typeof(object));
+
+            var genericEntity = typeof(Database).GetMethods().FirstOrDefault(x => x.Name == "Entity" && x.GetParameters().FirstOrDefault().ParameterType != typeof(string));
+            genericEntity = genericEntity.MakeGenericMethod(t);
+            
+            var methodCall = Expression.Call(genericEntity, expressionTypeParam,objParam);
+
+            var entity = Expression.Lambda(methodCall, expressionTypeParam, objParam).Compile().DynamicInvoke(exprParam, default);
+            var @enum = entity.As<IEnumerable>().GetEnumerator();
+            @enum.MoveNext();
+            return @enum.Current.As<T>();
+        }
+
+
+        /// <summary>
+        /// 
+        /// <para>
+        /// [Кэшируемый]
+        /// </para>
+        /// </summary>
+        private static Delegate GetEntityTypeLambdaRuntime(string typeName)
+        {
+            if (!___GetEntityTypeLambdaRuntimeCache.TryGetValue(typeName, out var value))
+            {
+                value = //логика кэширования
+                  default;
+                ___GetEntityTypeLambdaRuntimeCache.Add(typeName, value);
+            }
+
+            return value;
+        }
+        private static readonly Dictionary<string, Delegate> ___GetEntityTypeLambdaRuntimeCache = new Dictionary<string, Delegate>();
 
 
         public static IEnumerable<T> EntityQuery<T>(Expression<Func<T, bool>> predicate = null)

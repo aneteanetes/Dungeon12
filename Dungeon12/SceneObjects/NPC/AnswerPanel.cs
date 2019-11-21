@@ -66,7 +66,7 @@
 
             List<Replica> replics = new List<Replica>();
 
-            var triggeredVariable = subject.Conversation.Variables.FirstOrDefault(@var => var.Triggered && var.TriggeredFrom == var.GlobalName(subject.Conversation.Id, subject.Name).GetHashCode());
+            var triggeredVariable = subject.Variables.FirstOrDefault(@var => var.Triggered);
             if (triggeredVariable != null)
             {
                 dialogText.Text.SetText(triggeredVariable.Replica.Text);
@@ -76,20 +76,6 @@
             {
                 dialogText.Text.SetText(prevText ?? subject.Text);
                 replics.AddRange(subject.Replics.Where(x => x.Shown));
-            }
-
-            if (subject.Variables != null)
-            {
-                foreach (var variable in subject.Variables)
-                {
-                    var globalName = variable.GlobalName(subject.Conversation.Id, subject.Name);
-                    variable.Triggered = true;
-                    variable.TriggeredFrom = globalName.GetHashCode();
-                    if (variable.Global)
-                    {
-                        playerSceneObject.Component.Entity[globalName] = true;
-                    }
-                }
             }
 
             space = this.MeasureText(dialogText.Text,dialogText).Y / 32;
@@ -125,13 +111,7 @@
             {
                 foreach (var variable in replica.Variables)
                 {
-                    variable.Triggered = true;
-                    variable.TriggeredFrom = replica.Tag;
-                    if (variable.Global)
-                    {
-                        var globalName = variable.GlobalName(replica.Conversation.Id, replica.Tag);
-                        playerSceneObject.Component.Entity[globalName] = true;
-                    }
+                    variable.Trigger(replica.Tag);
                 }
             }
 
@@ -201,15 +181,19 @@
                 if (fire)
                 {
                     var triggerText = trigger.Trigger(playerSceneObject, gameMap, replica.TriggerClassArguments);
-                    dialogText.Text.SetText(triggerText.StringData);
-                    space = this.MeasureText(dialogText.Text, dialogText).Y / 32;
-
-                    if(trigger.Storable)
+                    if (triggerText != default)
                     {
-                        playerSceneObject.Component.Entity[storeName] = true;
-                    }
+                        dialogText.Text.SetText(triggerText.StringData);
+                        space = this.MeasureText(dialogText.Text, dialogText).Y / 32;
 
-                    return triggerText.StringData != string.Empty;
+                        if (trigger.Storable)
+                        {
+                            playerSceneObject.Component.Entity[storeName] = true;
+                        }
+
+                        return triggerText.StringData != string.Empty;
+                    }
+                    return true;
                 }
             }
 

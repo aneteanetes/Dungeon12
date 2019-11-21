@@ -55,6 +55,19 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
             Texts.ForEach(t => this.AddChild(t));
             Texts[0].Visible = true;
 
+            if(journalEntry.Quest!=default)
+            {
+                var visualProgress = journalEntry.Quest.Visual(Global.GameState);
+                visualProgress.Left = 2;
+                visualProgress.Top = 14;
+                this.AddChild(visualProgress);
+                
+                var visualReward = journalEntry.Quest.Reward.Visual(Global.GameState);
+                visualReward.Left = 2;
+                visualReward.Top = 15;
+                this.AddChild(visualReward);
+            }
+
             if (Texts.Count>1)
             {
                 this.AddChild(new PageButton(PageBack, "<")

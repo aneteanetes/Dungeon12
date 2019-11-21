@@ -79,6 +79,9 @@ namespace Dungeon.Resources
 
         private static Type TryGetFromAssembly(string className, Assembly assembly)
         {
+            if (assembly == default)
+                return default;
+
             var type = assembly.GetType(className);
             if (type == default)
             {

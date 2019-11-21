@@ -1,0 +1,11 @@
+﻿{
+  "Name": "Крысиный король",
+  "Description": "Соберите 5 клыков летучих мышей.",
+  "RewardIdentify": "RatKing",
+  "ItemsIdentify": [
+    "BatTooth"
+  ],
+  "Amount": [
+    5
+  ]
+}

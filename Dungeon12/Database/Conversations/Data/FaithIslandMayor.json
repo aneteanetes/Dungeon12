@@ -74,6 +74,10 @@
               "Value": 44,
               "Global": true
             }
+          ],
+          "TriggerClass": "QuestConversationTrigger",
+          "TriggerClassArguments": [
+            "RatKing"
           ]
         },
         {
@@ -108,7 +112,7 @@
           "Tag": 46,
           "Answer": "Нет",
           "Text": "Возвращайтесь когда всё будет готово!",
-          "ReplicsTags": [] //go to start
+          "ReplicsTags": [ 7 ] //go to start
         },
         {
           "Shown": true,

@@ -1,4 +1,5 @@
 ﻿using Dungeon.Drawing;
+using Dungeon.View.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +14,12 @@ namespace Dungeon
         }
 
         public static DrawText InColor(this DrawText drawText, DrawColor drawColor)
+        {
+            drawText.ForegroundColor = drawColor;
+            return drawText;
+        }
+
+        public static DrawText InColor(this DrawText drawText, IDrawColor drawColor)
         {
             drawText.ForegroundColor = drawColor;
             return drawText;

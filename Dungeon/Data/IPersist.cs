@@ -4,20 +4,20 @@ using System.Text;
 
 namespace Dungeon.Data
 {
-    public class Persist : IPersist
+    public interface IPersist
     {
         /// <summary>
         /// Внутреннее свойство для LiteDb
         /// </summary>
-        public int Id { get; set; }
+        int Id { get; set; }
 
         /// <summary>
         /// числовой Id который можно использовать в коде
         /// </summary>
-        public int ObjectId { get; set; }
+        int ObjectId { get; set; }
 
-        public string IdentifyName { get; set; }
+        string IdentifyName { get; set; }
 
-        public string Assembly { get; set; }
+        string Assembly { get; set; }
     }
 }

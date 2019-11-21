@@ -9,7 +9,7 @@
             if (this.Gold - item.Cost >= 0)
             {
                 this.Gold -= item.Cost;
-                this.Backpack.Add(item);
+                this.Backpack.Add(item, owner: this);
 
                 return Result<string>
 					.Success;

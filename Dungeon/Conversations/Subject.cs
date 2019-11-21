@@ -17,7 +17,9 @@
         /// </summary>
         public string Text { get; set; }
 
-
+        /// <summary>
+        /// Темы разговора могут реагировать на переменные, но не могут их выставлять
+        /// </summary>
         public List<Variable> Variables { get; set; } = new List<Variable>();
 
         public Conversation Conversation { get; set; }

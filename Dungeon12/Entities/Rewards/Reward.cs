@@ -1,7 +1,10 @@
 ﻿using Dungeon;
 using Dungeon.Entities;
 using Dungeon.Entities.Alive;
+using Dungeon.Game;
 using Dungeon.Items;
+using Dungeon.SceneObjects;
+using Dungeon.View.Interfaces;
 using Dungeon12.Database.Rewards;
 using Dungeon12.Entities.Rewards.Triggers;
 using System.Collections.Generic;
@@ -32,6 +35,11 @@ namespace Dungeon12.Entities.Quests
             this.Perks = Perk.LoadAll(x => dataClass.PerksId.Contains(x.ObjectId)).ToList();
 
             GiveReward = dataClass.TriggerName.Trigger<IRewardTrigger>();
+        }
+
+        public override ISceneObject Visual(GameState gameState)
+        {
+            return new TextControl(("Опыт: " + Exp.ToString()).AsDrawText().InColor(this.ForegroundColor).Montserrat());
         }
     }
 }

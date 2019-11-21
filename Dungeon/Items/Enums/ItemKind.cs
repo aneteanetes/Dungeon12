@@ -20,6 +20,7 @@ namespace Dungeon.Items.Enums
         Scroll = 8,
         Poison = 9,
         Resource = 10,
-        Rune = 11
+        Rune = 11,
+        Quest=12
     }
 }

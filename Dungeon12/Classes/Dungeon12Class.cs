@@ -15,6 +15,6 @@ namespace Dungeon12
 
         public Deck CardDeck { get; set; } = Deck.Load("Guardian");
 
-        public List<IQuest> ActiveQuests { get; set; }
+        public List<IQuest> ActiveQuests { get; set; } = new List<IQuest>();
     }
 }

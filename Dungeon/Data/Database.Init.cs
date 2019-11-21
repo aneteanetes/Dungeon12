@@ -7,6 +7,7 @@ using LiteDB;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Runtime.Loader;
+using Dungeon.Resources;
 
 namespace Dungeon.Data
 {
@@ -66,9 +67,13 @@ namespace Dungeon.Data
                     foreach (var item in data.JsonFiles)
                     {
                         var obj = JsonConvert.DeserializeObject(File.ReadAllText(item, Encoding.UTF8), data.Type);
-                        if(obj is Persist persist)
+                        if(obj is IPersist persist)
                         {
                             persist.Assembly = data.Assembly;
+                            if (persist.IdentifyName == default)
+                            {
+                                persist.IdentifyName = Path.GetFileNameWithoutExtension(item);
+                            }
                         }
                         AddToGenericList(list, obj);
                     }
@@ -149,7 +154,7 @@ namespace Dungeon.Data
                     }
 
                     var typeName = Path.GetFileNameWithoutExtension(csFile);
-                    var type = Global.Assemblies.SelectMany(a => a.GetTypes()).FirstOrDefault(x => x.Name == typeName);
+                    var type = ResourceLoader.LoadType(typeName);
 
                     return new DataInfo
                     {

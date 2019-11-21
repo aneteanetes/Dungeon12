@@ -54,25 +54,24 @@
                 this.Reset();
                 base.Visit(conversation);
 
+                conversation.Variables = this.variables;
+
                 foreach (var subject in conversation.Subjects)
                 {
-                    subject.Conversation = conversation;
                     foreach (var variable in subject.Variables)
                     {
                         variable.Replica = this.replics.FirstOrDefault(r => r.Tag == variable.Value);
-                        if (variable.Global)
+                        var sourceVar = conversation.Variables.FirstOrDefault(v => v.Name == variable.Name);
+                        if (sourceVar != default && variable.Global)
                         {
                             var globalName = variable.GlobalName(_id, subject.Name);
                             if (Global.GameState.Player.Component.Entity[globalName] != default)
                             {
-                                variable.Triggered = true;
-                                variable.TriggeredFrom = globalName.GetHashCode();
+                                variable.Trigger(sourceVar.Value);
                             }
                         }
                     }
                 }
-
-                conversation.Variables = this.variables;
             }
 
             protected override void VisitSubject(Subject subject)
@@ -80,7 +79,13 @@
                 if(!bindedWalk)
                 {
                     if (subject.Variables != null)
-                        variables.AddRange(subject.Variables);
+                    {
+                        foreach (var v in subject.Variables)
+                        {
+                            v.Conversation = this.conversation;
+                            variables.Add(v);
+                        }
+                    }
                 }
 
                 base.VisitSubject(subject);
@@ -91,9 +96,14 @@
                 if (!bindedWalk)
                 {
                     replics.Add(replica);
-
                     if (replica.Variables != null)
-                        variables.AddRange(replica.Variables);
+                    {
+                        foreach (var v in replica.Variables)
+                        {
+                            v.Conversation = this.conversation;
+                            variables.Add(v);
+                        }
+                    }
                 }
                 else
                 {
@@ -110,8 +120,7 @@
                             var globalName = variable.GlobalName(_id, replica.Tag);
                             if (Global.GameState.Player.Component.Entity[globalName] != default)
                             {
-                                variable.Triggered = true;
-                                variable.TriggeredFrom = replica.Tag;
+                                variable.Trigger(variable.Value);
                             }
                         }
                     }

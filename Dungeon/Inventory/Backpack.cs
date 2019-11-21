@@ -5,6 +5,7 @@
     using Dungeon.Physics;
     using Dungeon.Types;
     using System.Linq;
+    using Dungeon.Entities.Alive;
 
     public class Backpack
     {
@@ -30,7 +31,17 @@
 
         public Item[] GetItems() => Container.Nodes.Select(x => x.Item).ToArray();
 
-        public bool Add(Item itemSource, Point location = null)
+        /// <summary>
+        /// Добавляет предмет
+        /// <para>
+        /// События: <see cref="ItemPickedUpEvent"/> (кроме перетаскиваний, там сложно и может не работать)
+        /// </para>
+        /// </summary>
+        /// <param name="itemSource"></param>
+        /// <param name="location"></param>
+        /// <param name="owner"></param>
+        /// <returns></returns>
+        public bool Add(Item itemSource, Point location = null, Alive owner=default)
         {
             var item = itemSource.DeepClone();
             var backpackItem = new BackpackItem()
@@ -74,6 +85,8 @@
             backpackItem.Size.Height += .2;
             backpackItem.Position.X -= .1;
             backpackItem.Position.Y -= .1;
+
+            Global.Events.Raise(new ItemPickedUpEvent() { Item = item, Owner= owner });
 
             return true;
         }

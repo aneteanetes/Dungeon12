@@ -47,6 +47,9 @@
         /// <returns></returns>
         public static T New<T>(this Type type, ConstructorInfo ctor, params object[] argsObj)
         {
+            if (ctor == default)
+                return default;
+
             ParameterInfo[] par = ctor.GetParameters();
             Expression[] args = new Expression[par.Length];
             ParameterExpression param = Expression.Parameter(typeof(object[]));

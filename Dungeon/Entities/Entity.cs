@@ -12,7 +12,7 @@ namespace Dungeon.Entities
 {
     public class Entity : VisualObject
     {
-        public string Identifier { get; set; }
+        public string IdentifyName { get; set; }
 
         public MapObject MapObject { get; set; }
 
@@ -30,6 +30,9 @@ namespace Dungeon.Entities
         public static TEntity Load(string id)
         {
             var entity = typeof(TEntity).New<TEntity>();
+            if (entity == default)
+                return default;
+
             var dataClass = Database.Entity<TPersist>(x => x.IdentifyName == id, id).FirstOrDefault();
             if (dataClass != default)
             {
