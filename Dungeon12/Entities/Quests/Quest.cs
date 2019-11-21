@@ -59,8 +59,6 @@ namespace Dungeon12.Entities.Quests
         /// </summary>
         protected virtual bool Reactivated => false;
 
-        public QuestProgress QuestProgress { get; protected set; }
-
         public void Bind(Dungeon12Class @class, GameMap gameMap)
         {
             _gameMap = gameMap;

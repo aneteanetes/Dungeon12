@@ -247,7 +247,7 @@ namespace Dungeon.Proxy
         public virtual string Icon { get; set; }
 
         private string _image;
-        public string Image { get => _image ?? Icon; set => _image = value; }
+        public virtual string Image { get => _image ?? Icon; set => _image = value; }
 
         public virtual string Name { get; set; }
 

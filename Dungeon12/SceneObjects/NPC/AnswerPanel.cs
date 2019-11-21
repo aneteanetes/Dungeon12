@@ -21,6 +21,7 @@
 
         private GameMap gameMap;
         private PlayerSceneObject playerSceneObject;
+        public Action BackAction { get; set; }
 
         public AnswerPanel(GameMap gameMap, PlayerSceneObject playerSceneObject)
         {
@@ -90,7 +91,7 @@
         public void Select(Replica replica)
         {
             var triggeredVariable = replica.Conversation.Variables.FirstOrDefault(@var => var.Triggered && var.TriggeredFrom == replica.Tag);
-
+            
             if (triggeredVariable != null)
             {
                 replica = triggeredVariable.Replica;
@@ -123,6 +124,11 @@
                 a.Destroy?.Invoke();
             });
 
+            if(replica.Escape)
+            {
+                BackAction?.Invoke();
+                return;
+            }
 
             dialogText.Text.SetText(replica.Text);
             space = this.MeasureText(dialogText.Text,dialogText).Y / 32;

@@ -39,12 +39,7 @@
 
         public override void Init()
         {
-            this.InitMap();
-
-            Global.Time.Set(Dungeon.Time.GameStart);
-            Global.Time.Start();
-
-            var player = new Player(this.PlayerAvatar, this.Gamemap, x=>this.RemoveObject(x))
+            var player = new Player(this.PlayerAvatar, this.Gamemap, x => this.RemoveObject(x))
             {
                 Left = PlayerPosition.X,
                 Top = PlayerPosition.Y
@@ -53,6 +48,13 @@
             {
                 MapObjectCanAffectCamera(this.PlayerAvatar, dir, false);
             };
+
+            Global.GameState.Player = player;
+
+            this.InitMap();
+
+            Global.Time.Set(Dungeon.Time.GameStart);
+            Global.Time.Start();
 
             List<ISceneObject> temp = new List<ISceneObject>();
 

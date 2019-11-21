@@ -224,7 +224,7 @@
 #if Android
                 tilesetName = tilesetName.Replace("Dungeon.Resources.","Dungeon.Resources.Android.");
 #endif
-                var stream = ResourceLoader.Load(tilesetName, tilesetName);
+                var stream = ResourceLoader.Load(tilesetName);
                 if (stream == default)
                     return default;
 

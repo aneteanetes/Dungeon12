@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Dungeon.Entities
 {
-    public class Entity : Visual
+    public class Entity : VisualObject
     {
         public string Identifier { get; set; }
 

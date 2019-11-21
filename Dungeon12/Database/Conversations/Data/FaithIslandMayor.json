@@ -60,14 +60,22 @@
           "Tag": 5,
           "Answer": "Взять задание",
           "Text": "Отлично! Летучих мышей можно найти в любой пещере на Острове Веры",
-          "ReplicsTags": [],
+          "ReplicsTags": [ 7 ],
           "Variables": [
             {
               "Name": "QuestGet",
               "Value": 44,
-              "Global": false
+              "Global": true
             }
           ]
+        },
+        {
+          "Shown": false,
+          "Tag": 7,
+          "Answer": "Назад",
+          "Text": "",
+          "ReplicsTags": [],
+          "Escape": true
         },
         {
           "Shown": false,

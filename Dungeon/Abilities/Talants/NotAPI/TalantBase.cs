@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Dungeon.Abilities.Talants.NotAPI
 {
-    public abstract class TalantBase : Applicable, IDrawable
+    public abstract class TalantBase : NetObject, IDrawable
     {
         public TalantBase(int order) => Order = order;
 

@@ -69,7 +69,7 @@ namespace Dungeon12.SceneObjects.NPC
             }
         }
 
-        private void ButtonClick()
+        public void ButtonClick()
         {
             if (back)
             {

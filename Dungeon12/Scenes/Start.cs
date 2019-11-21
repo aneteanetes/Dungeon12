@@ -60,7 +60,6 @@
                 AbsolutePosition = true,
                 OnClick = () =>
                 {
-                    //this.Switch<CardGameScene>();
 
                     this.PlayerAvatar = new Avatar(new Dungeon12.Noone.Noone()
                     {

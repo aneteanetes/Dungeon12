@@ -61,5 +61,7 @@ namespace Dungeon.Conversations
         /// Аргументы для <see cref="IConversationTrigger.Execute(string[])"/>
         /// </summary>
         public string[] TriggerClassArguments { get; set; }
+
+        public bool Escape { get; set; }
     }
 }

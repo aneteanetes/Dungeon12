@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class PhysicalObject : Visual
+    public class PhysicalObject : VisualObject
     {
         public virtual PhysicalSize Size { get; set; }
 

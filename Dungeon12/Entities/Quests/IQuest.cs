@@ -18,8 +18,6 @@ namespace Dungeon12.Entities.Quests
 
         Dungeon12Class Character { get; }
 
-        QuestProgress QuestProgress { get; }
-
         void Bind(Dungeon12Class @class, GameMap gameMap);
 
         void Complete();

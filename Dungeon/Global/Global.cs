@@ -44,6 +44,6 @@
 
         public static SceneManager SceneManager { get; set; }
 
-        public static GameState GameState { get; set; }
+        public static GameState GameState { get; set; } = new GameState();
     }
 }

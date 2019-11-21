@@ -19,6 +19,8 @@
 
         public string LoadRegion(string name)
         {
+            Global.GameState.Map = this;
+
             var persistRegion = Database.Entity<Region>(e => e.Name == name).First();
 
             this.SafeZones = persistRegion.SafeZones.Select(safeZone => safeZone * 32);

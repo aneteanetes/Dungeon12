@@ -34,6 +34,7 @@ namespace Dungeon12.SceneObjects.NPC
 
             answerPanel = new AnswerPanel(gameMap, playerSceneObject) { DestroyBinding = destroyBinding, ControlBinding = controlBinding };
             subjectPanel = new SubjectPanel(conversational, answerPanel.Select, ExitDialogue, customizeExit);
+            answerPanel.BackAction = subjectPanel.ButtonClick;
 
             if (conversational.ScreenImage != null)
             {
