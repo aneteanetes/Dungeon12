@@ -140,7 +140,7 @@
                 a.Destroy?.Invoke();
             });
 
-            dialogText.Text.SetText(replica.Text);
+            dialogText.Text.SetText(replica.Text ?? " ");
             space = this.MeasureText(dialogText.Text,dialogText).Y / 32;
 
             var y = space + 1;
@@ -180,7 +180,7 @@
                 }
                 if (fire)
                 {
-                    var triggerText = trigger.Trigger(playerSceneObject, gameMap, replica.TriggerClassArguments);
+                    var triggerText = trigger.Trigger(playerSceneObject, gameMap, replica.TriggerClassArguments,replica);
                     if (triggerText != default)
                     {
                         dialogText.Text.SetText(triggerText.StringData);

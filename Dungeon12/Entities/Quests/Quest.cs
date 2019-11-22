@@ -16,29 +16,27 @@ namespace Dungeon12.Entities.Quests
     {
         public override bool Events => true;
 
-        ///// <summary>
-        ///// Текущий прогресс
-        ///// <para>
-        ///// [Рассчётное через сеть] [Лимитированое]
-        ///// </para>
-        ///// </summary>
-        //[Proxied(typeof(NetProxy), typeof(Limit))]
-        //public long Progress { get => Get(___Progress, typeof(Quest<>).AssemblyQualifiedName); set => Set(value, typeof(Quest<>).AssemblyQualifiedName); }
-        //private long ___Progress;
+        /// <summary>
+        /// 
+        /// <para>
+        /// [Рассчётное через сеть]
+        /// </para>
+        /// </summary>
+        [Proxied(typeof(NetProxy))]
+        public long Progress { get => Get(___Progress, typeof(Quest<>).AssemblyQualifiedName); set => Set(value, typeof(Quest<>).AssemblyQualifiedName); }
+        private long ___Progress;
 
-        ///// <summary>
-        ///// Нужный прогресс
-        ///// <para>
-        ///// [Рассчётное через сеть]
-        ///// </para>
-        ///// </summary>
-        //[Proxied(typeof(NetProxy))]
-        //public long MaxProgress { get => Get(___MaxProgress, typeof(Quest<>).AssemblyQualifiedName); set => Set(value, typeof(Quest<>).AssemblyQualifiedName); }
-        //private long ___MaxProgress;
 
-        public long Progress { get; set; } //закоментирован сетевой вариант т.к. там generic
+        /// <summary>
+        /// 
+        /// <para>
+        /// [Рассчётное через сеть]
+        /// </para>
+        /// </summary>
+        [Proxied(typeof(NetProxy))]
+        public long MaxProgress { get => Get(___MaxProgress, typeof(Quest<>).AssemblyQualifiedName); set => Set(value, typeof(Quest<>).AssemblyQualifiedName); }
+        private long ___MaxProgress;
 
-        public long MaxProgress { get; set; } //закоментирован сетевой вариант т.к. там generic
 
         public string Description { get; set; }
 
@@ -90,6 +88,12 @@ namespace Dungeon12.Entities.Quests
         }
 
         private string ProgressText => $"Прогресс: {Progress}/{MaxProgress}";
+
+        public int Id { get; set; }
+
+        public int ObjectId { get; set; }
+
+        public bool IsCompleted() => Progress == MaxProgress;
 
         public void Complete()
         {

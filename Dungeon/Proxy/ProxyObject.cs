@@ -158,7 +158,18 @@ namespace Dungeon.Proxy
             if (!___GetBackginFieldValueExpressionCache.TryGetValue(key, out var value))
             {
                 var p = Expression.Parameter(this.GetType());
-                value = Expression.Lambda(Expression.Field(p, GetField(ownerClassName, propName)), p).Compile();
+
+                var ownerType = Type.GetType(ownerClassName);
+                var baseType = this.GetType().BaseType;
+                if (ownerType.IsGenericType && baseType.IsGenericType && baseType.GetGenericTypeDefinition() == ownerType)
+                {
+                    p = Expression.Parameter(p.Type.BaseType);
+                    value = Expression.Lambda(Expression.Field(p, propName), p).Compile();
+                }
+                else
+                {
+                    value = Expression.Lambda(Expression.Field(p, GetField(ownerClassName, propName)), p).Compile();
+                }
 
                 ___GetBackginFieldValueExpressionCache.Add(key, value);
             }
@@ -204,7 +215,19 @@ namespace Dungeon.Proxy
             {
                 var pType = Expression.Parameter(this.GetType());
                 var p = Expression.Parameter(valueType);
-                value = Expression.Lambda(Expression.Assign(Expression.Field(pType, GetField(ownerClassName, propName)), p), pType, p).Compile();
+
+                var ownerType = Type.GetType(ownerClassName);
+                var baseType = this.GetType().BaseType;
+                if (ownerType.IsGenericType && baseType.IsGenericType && baseType.GetGenericTypeDefinition() == ownerType)
+                {
+                    pType = Expression.Parameter(pType.Type.BaseType);
+                    value = Expression.Lambda(Expression.Assign(Expression.Field(pType, propName), p), pType, p).Compile();
+
+                }
+                else
+                {
+                    value = Expression.Lambda(Expression.Assign(Expression.Field(pType, GetField(ownerClassName, propName)), p), pType, p).Compile();
+                }
 
                 ___SetBackingFieldValueExpressionCache.Add(key, value);
             }

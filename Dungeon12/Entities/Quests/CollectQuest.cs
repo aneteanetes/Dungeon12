@@ -15,26 +15,6 @@ namespace Dungeon12.Entities.Quests
     {
         public Dictionary<string, Pair<int, int>> Targets { get; set; } = new Dictionary<string, Pair<int, int>>();
 
-        /// <summary>
-        /// Текущий прогресс
-        /// <para>
-        /// [Рассчётное через сеть] [Лимитированое]
-        /// </para>
-        /// </summary>
-        [Proxied(typeof(NetProxy), typeof(Limit))]
-        public new long Progress { get => Get(___Progress, typeof(CollectQuest).AssemblyQualifiedName); set => Set(value, typeof(Quest<>).AssemblyQualifiedName); }
-        private long ___Progress;
-
-        /// <summary>
-        /// Нужный прогресс
-        /// <para>
-        /// [Рассчётное через сеть]
-        /// </para>
-        /// </summary>
-        [Proxied(typeof(NetProxy))]
-        public new long MaxProgress { get => Get(___MaxProgress, typeof(CollectQuest).AssemblyQualifiedName); set => Set(value, typeof(Quest<>).AssemblyQualifiedName); }
-        private long ___MaxProgress;
-
         protected override void Init(QuestCollectData dataClass)
         {
             base.Init(dataClass);
@@ -43,7 +23,7 @@ namespace Dungeon12.Entities.Quests
                 Targets.Add(id, new Pair<int, int>(dataClass.Amount[i], 0));
             });
 
-            dataClass.MaxProgress = Targets.Sum(a => a.Value.Key);
+            MaxProgress = Targets.Sum(a => a.Value.Key);
         }
 
         public new static CollectQuest Load(string id)

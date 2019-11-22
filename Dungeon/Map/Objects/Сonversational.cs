@@ -58,8 +58,11 @@
 
                 foreach (var subject in conversation.Subjects)
                 {
-                    foreach (var variable in subject.Variables)
+                    foreach (var variable in subject.Variables.Concat(subject.Visible.InEnumerable()))
                     {
+                        if (variable == default) //это переменная видимости темы разговора
+                            continue;
+
                         variable.Replica = this.replics.FirstOrDefault(r => r.Tag == variable.Value);
                         var sourceVar = conversation.Variables.FirstOrDefault(v => v.Name == variable.Name);
                         if (sourceVar != default && variable.Global)
@@ -78,6 +81,11 @@
             {
                 if(!bindedWalk)
                 {
+                    if (subject.Visible != default)
+                    {
+                        subject.Visible.Conversation = this.conversation;
+                        variables.Add(subject.Visible);
+                    }
                     if (subject.Variables != null)
                     {
                         foreach (var v in subject.Variables)

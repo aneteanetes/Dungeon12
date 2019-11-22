@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Dungeon.Conversations
 {
-    public interface IConversationTrigger : ITrigger<IDrawText,PlayerSceneObject,GameMap,string[]>
+    public interface IConversationTrigger : ITrigger<IDrawText,PlayerSceneObject,GameMap,string[],Replica>
     {
         bool Storable { get; }
     }

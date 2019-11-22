@@ -13,11 +13,11 @@ using System.Text;
 
 namespace Dungeon12
 {
-    public class CardGameTrigger : IConversationTrigger
+    public class CardGameTrigger : ConversationTrigger
     {
-        public bool Storable => false;
+        public override bool Storable => false;
 
-        public IDrawText Trigger(PlayerSceneObject arg1, GameMap arg2, string[] args)
+        protected override IDrawText Trigger(PlayerSceneObject arg1, GameMap arg2, string[] args)
         {
             Global.SceneManager.Change<CardGameScene>(args);
             return "Игра началась...".AsDrawText().Montserrat();

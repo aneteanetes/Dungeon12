@@ -22,6 +22,8 @@
         /// </summary>
         public List<Variable> Variables { get; set; } = new List<Variable>();
 
+        public Variable Visible { get; set; }
+
         public Conversation Conversation { get; set; }
 
         /// <summary>

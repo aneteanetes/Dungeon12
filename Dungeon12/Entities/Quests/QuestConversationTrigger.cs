@@ -9,11 +9,11 @@ using System.Text;
 
 namespace Dungeon12.Entities.Quests
 {
-    public class QuestConversationTrigger : IConversationTrigger
+    public class QuestConversationTrigger : ConversationTrigger
     {
-        public bool Storable => true;
+        public override bool Storable => true;
 
-        public IDrawText Trigger(PlayerSceneObject arg1, GameMap arg2, string[] arg3)
+        protected override IDrawText Trigger(PlayerSceneObject arg1, GameMap arg2, string[] arg3)
         {
             var @class = arg1.Component.Entity.As<Dungeon12Class>();
             var quest = QuestLoader.Load(arg3[0]);

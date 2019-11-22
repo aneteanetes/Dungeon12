@@ -11,11 +11,11 @@ using System.Text;
 
 namespace Dungeon12.Entities.Journal
 {
-    public class JournalAddTrigger : IConversationTrigger
+    public class JournalAddTrigger : ConversationTrigger
     {
-        public bool Storable => true;
+        public override bool Storable => true;
 
-        public IDrawText Trigger(PlayerSceneObject arg1, GameMap arg2, string[] arg3)
+        protected override IDrawText Trigger(PlayerSceneObject arg1, GameMap arg2, string[] arg3)
         {
             var category = arg3[0];
             var filter = arg3[1];

@@ -11,11 +11,11 @@ using System.Linq;
 
 namespace Dungeon12
 {
-    public class ClassChangeTrigger : IConversationTrigger
+    public class ClassChangeTrigger : ConversationTrigger
     {
-        public bool Storable => false;
+        public override bool Storable => false;
 
-        public IDrawText Trigger(PlayerSceneObject PlayerSceneObject, GameMap Gamemap, string[] args)
+        protected override IDrawText Trigger(PlayerSceneObject PlayerSceneObject, GameMap Gamemap, string[] args)
         {
             var SceneObject = PlayerSceneObject;
 

@@ -57,10 +57,17 @@ namespace Dungeon.Conversations
         /// </summary>
         public string TriggerClassAsm { get; set; }
 
+        private string[] _triggerClassArguments;
         /// <summary>
         /// Аргументы для <see cref="IConversationTrigger.Execute(string[])"/>
         /// </summary>
-        public string[] TriggerClassArguments { get; set; }
+        public string[] TriggerClassArguments { get => _triggerClassArguments ?? _triggerArguments; set => _triggerClassArguments = value; }
+
+        private string[] _triggerArguments;
+        /// <summary>
+        /// Аргументы для <see cref="IConversationTrigger.Execute(string[])"/>
+        /// </summary>
+        public string[] TriggerArguments { get => _triggerArguments ?? _triggerClassArguments; set => _triggerArguments = value; }
 
         public bool Escape { get; set; }
     }
