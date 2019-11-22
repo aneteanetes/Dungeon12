@@ -7,7 +7,7 @@ namespace Dungeon.Events
 {
     public class EventBus
     {
-        private readonly Dictionary<string, object> events = new Dictionary<string, object>();
+        private readonly Dictionary<string, Delegate> events = new Dictionary<string, Delegate>();
         private List<Action<object>> allsubscribers = new List<Action<object>>();
         //private List<Action<object>> allsubscribers = new List<Action<object>>();
 
@@ -76,12 +76,12 @@ namespace Dungeon.Events
             if (!events.ContainsKey(@event))
             {
                 Action<TEvent> action = x => {};
+                events.Add(@event, action);
                 allsubscribers.ForEach(s =>
                 {
-                    action += x => s(x);
+                    var ev = (Action<TEvent>)events[@event];
+                    events[@event] = ev += x => s(x);
                 });
-
-                events.Add(@event, action);
             }
 
             if (events[@event] is Action<TEvent> tAction)

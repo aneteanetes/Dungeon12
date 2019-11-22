@@ -1,6 +1,6 @@
 ﻿{
-  "ItemIdentify": "BatTooth",
-  "ItemType": "QuestItem",
+  "ItemGeneratorTrigger": "QuestItemsGenerator",
+  "ItemGeneratorArguments": [ "BatTooth" ],
   "Chance": 90,
   "LootTableIdentify": "Bat"
 }

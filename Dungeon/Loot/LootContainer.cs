@@ -7,6 +7,6 @@
     {
         public int Gold { get; set; }
 
-        public List<Item> Items { get; set; }
+        public List<Item> Items { get; set; } = new List<Item>();
     }
 }

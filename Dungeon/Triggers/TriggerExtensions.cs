@@ -10,6 +10,12 @@ namespace Dungeon
 {
     public static class TriggerExtensions
     {
+        /// <summary>
+        /// Создаёт триггер из имени типа
+        /// </summary>
+        /// <typeparam name="TTrigger"></typeparam>
+        /// <param name="className"></param>
+        /// <returns></returns>
         public static TTrigger Trigger<TTrigger>(this string className)
             where TTrigger : ITrigger
         {

@@ -3,6 +3,7 @@ using Dungeon.Entities;
 using Dungeon.Entities.Alive;
 using Dungeon.Game;
 using Dungeon.Items;
+using Dungeon.Loot;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.Database.Rewards;
@@ -14,7 +15,7 @@ namespace Dungeon12.Entities.Quests
 {
     public class Reward : DataEntity<Reward, RewardData>
     {
-        public List<Item> Items { get; set; }
+        public List<LootGenerator> ItemGenerators { get; set; }
 
         public List<Perk> Perks { get; set; }
 
@@ -31,7 +32,10 @@ namespace Dungeon12.Entities.Quests
             this.Exp = dataClass.Exp;
             this.Gold = dataClass.Gold;
 
-            this.Items = Item.LoadAll(x => dataClass.ItemsId.Contains(x.ObjectId)).ToList();
+            this.ItemGenerators = LootDrop.Load<LootDrop>(x => dataClass.LootDropIds.Contains(x.IdentifyName))
+                .Select(x => x.Generator)
+                .ToList();
+
             this.Perks = Perk.LoadAll(x => dataClass.PerksId.Contains(x.ObjectId)).ToList();
 
             GiveReward = dataClass.TriggerName.Trigger<IRewardTrigger>();

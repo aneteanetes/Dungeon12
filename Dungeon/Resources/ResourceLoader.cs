@@ -71,6 +71,11 @@ namespace Dungeon.Resources
 
             if (type == default)
             {
+                type = Type.GetType(className);
+            }
+
+            if (type == default)
+            {
                 throw new DllNotFoundException($"Тип {className} не найден ни в одной из загруженных сборок!");
             }
 

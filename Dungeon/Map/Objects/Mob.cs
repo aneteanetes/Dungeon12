@@ -22,8 +22,8 @@
         private void Dying()
         {
             List<MapObject> publishObjects = new List<MapObject>();
-
-            var loot = LootGenerator.Generate();
+                        
+            var loot = this.Entity.LootTable.Generate();
 
             if (loot.Gold > 0)
             {

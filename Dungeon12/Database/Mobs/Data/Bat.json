@@ -22,6 +22,7 @@
   },
   "MovementSpeed": 0.01,
   "Enemy": {
+    "LootTableName": "Bat",
     "Aggressive": true,
     "Idle": {
       "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",

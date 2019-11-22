@@ -157,8 +157,8 @@
 
         private bool TrySetLocation(Mob mob)
         {
-            var x = Dungeon.RandomDungeon.Next(20, 80);
-            var y = Dungeon.RandomDungeon.Next(20, 80);
+            var x = Dungeon.RandomDungeon.Next(20, 70);
+            var y = Dungeon.RandomDungeon.Next(20, 70);
 
             mob.Location = new Point(x, y);
 

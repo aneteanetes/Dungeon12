@@ -14,6 +14,12 @@
     {
         private static string MainPath = $@"{AppDomain.CurrentDomain.BaseDirectory}";
 
+        public static T EntitySingle<T>(string id, object cacheObject = default)
+            where T : IPersist
+        {
+            return Entity<T>(x => x.IdentifyName == id, cacheObject).FirstOrDefault();
+        }
+
         /// <summary>
         /// 
         /// <para>
@@ -21,6 +27,7 @@
         /// </para>
         /// </summary>
         public static IEnumerable<T> Entity<T>(Expression<Func<T, bool>> predicate = null, object cacheObject = default)
+            where T : IPersist
         {
             if (cacheObject == default)
                 return EntityQuery<T>(predicate);
@@ -41,7 +48,7 @@
         }
 
         private static readonly Dictionary<CompositeTypeKey<object>, object> ___EntityCache = new Dictionary<CompositeTypeKey<object>, object>();
-        
+
         /// <summary>
         /// это надо кэшировать
         /// </summary>
@@ -49,7 +56,8 @@
         /// <param name="type"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static T Entity<T>(string type, string id)
+        public static T EntitySingle<T>(string type, string id)
+            where T : IPersist
         {
             //GetEntityTypeLambdaRuntime(type)
 
@@ -74,8 +82,8 @@
 
             var genericEntity = typeof(Database).GetMethods().FirstOrDefault(x => x.Name == "Entity" && x.GetParameters().FirstOrDefault().ParameterType != typeof(string));
             genericEntity = genericEntity.MakeGenericMethod(t);
-            
-            var methodCall = Expression.Call(genericEntity, expressionTypeParam,objParam);
+
+            var methodCall = Expression.Call(genericEntity, expressionTypeParam, objParam);
 
             var entity = Expression.Lambda(methodCall, expressionTypeParam, objParam).Compile().DynamicInvoke(exprParam, default);
             var @enum = entity.As<IEnumerable>().GetEnumerator();
@@ -112,7 +120,7 @@
             using (var db = new LiteDatabase($@"{MainPath}\Data.db"))
             {
                 var collection = db.GetCollection<T>();
-                
+
                 if (predicate != null)
                     return collection.Find(predicate);
 

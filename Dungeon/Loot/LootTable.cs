@@ -1,5 +1,6 @@
 ﻿using Dungeon.Data;
 using Dungeon.Types;
+using LiteDB;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,7 +10,23 @@ namespace Dungeon.Loot
     {
         private LootTable() { }
 
-        public Dictionary<Pair<string,string>, int> Items { get; set; }
+        public string[] LootDropIds { get; set; } = new string[0];
+
+        private List<LootDrop> _lootDrops;
+
+        [BsonIgnore]
+        public List<LootDrop> LootDrops
+        {
+            get
+            {
+                if (_lootDrops == default)
+                {
+                    _lootDrops = Database.Entity<LootDrop>(x => LootDropIds.Contains(x.IdentifyName)).ToList();
+                }
+
+                return _lootDrops;
+            }
+        }
 
         public LootContainer Generate(int goldAmount = 0)
         {
@@ -18,11 +35,11 @@ namespace Dungeon.Loot
                 Gold = goldAmount
             };
 
-            foreach (var item in Items)
+            foreach (var lootDrop in LootDrops)
             {
-                if (RandomDungeon.Chance(item.Value))
+                if (RandomDungeon.Chance(lootDrop.Chance))
                 {
-                    var loot = Database.Entity<Items.Item>(item.Key.First, item.Key.Second);
+                    var loot = lootDrop.Generator.Generate();
                     container.Items.Add(loot);
                 }
             }

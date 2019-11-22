@@ -1,12 +1,8 @@
 ﻿using Dungeon;
-using Dungeon.Entities.Alive.Events;
-using Dungeon.Entities.Alive.Proxies;
 using Dungeon.Inventory;
 using Dungeon.Loot;
-using Dungeon.Network;
 using Dungeon.Types;
 using Dungeon12.Database.QuestCollect;
-using Dungeon12.Database.QuestsKill;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,7 +26,7 @@ namespace Dungeon12.Entities.Quests
             {
                 var lootDrop = Dungeon.Data.Database.Entity<LootDrop>(drop => drop.IdentifyName == x).FirstOrDefault();
                 LootDrops.Add(lootDrop);
-                LootTable.GetLootTable(lootDrop.LootTableIdentify).Items.Add(new Pair<string, string>(lootDrop.ItemType, lootDrop.ItemIdentify), lootDrop.Chance);
+                LootTable.GetLootTable(lootDrop.LootTableIdentify).LootDrops.Add(lootDrop);
             });
 
             MaxProgress = Targets.Sum(a => a.Value.Second);
@@ -40,7 +36,7 @@ namespace Dungeon12.Entities.Quests
         {
             LootDrops.ForEach(lootDrop =>
             {
-                LootTable.GetLootTable(lootDrop.LootTableIdentify).Items.Remove(new Pair<string, string>(lootDrop.ItemType, lootDrop.ItemIdentify));
+                LootTable.GetLootTable(lootDrop.LootTableIdentify).LootDrops.Remove(lootDrop);
             });
             LootDrops.Clear();
             base.Complete();

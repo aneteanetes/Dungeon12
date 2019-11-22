@@ -21,6 +21,7 @@ namespace Dungeon.Items.Enums
         Poison = 9,
         Resource = 10,
         Rune = 11,
-        Quest=12
+        [Display(Name = "Предмет задания")]
+        Quest =12
     }
 }

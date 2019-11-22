@@ -11,7 +11,7 @@ namespace Dungeon12.Database.Rewards
 
         public string RewardText { get; set; }
 
-        public int[] ItemsId { get; set; }
+        public string[] LootDropIds { get; set; } = new string[0];
 
         public int[] PerksId { get; set; }
 

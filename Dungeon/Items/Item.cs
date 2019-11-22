@@ -3,19 +3,21 @@
     using System.Collections.Generic;
     using Dungeon.Data;
     using Dungeon.Entities;
+    using Dungeon.Entities.Alive;
     using Dungeon.GameObjects;
     using Dungeon.Items.Enums;
     using Dungeon.Loot;
     using Dungeon.Transactions;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
+    using LiteDB;
 
     /// <summary>
     /// вещи могут быть сетами -не забыть
     /// //Вес = (УровеньПредмета — КачествоПредмета) * МультипликаторКачества * МультипликаторВидаПредмета;
     /// формирование цен бладжад
     /// </summary>
-    public abstract partial class Item : LootEntity, IDrawable, IPersist
+    public abstract partial class Item : Drawable, IPersist, ILootable
     {
         public string Description { get; set; }
 
@@ -44,11 +46,17 @@
 
         public Point InventoryPosition { get; set; }
 
-        public Point InventorySize { get; set; }
+        public virtual Point InventorySize { get; set; }
+
+        public string LootTableName { get; set; }
+
+        [BsonIgnore]
+        public LootTable LootTable => LootTable.GetLootTable(this.LootTableName ?? this.IdentifyName);
 
         public int Id { get; set; }
-
         public int ObjectId { get; set; }
+        public string IdentifyName { get; set; }
+        public string Assembly { get; set; }
 
         private class EmptyItem : Item
         {

@@ -1,7 +1,15 @@
-﻿namespace Dungeon.Items.Enums
+﻿using Dungeon.Drawing;
+
+namespace Dungeon.Items.Enums
 {
     public enum Rarity
     {
+        /// <summary>
+        /// magenta
+        /// </summary>
+        [Color(255, 0, 255)]
+        Quest = 0,
+
         /// <summary>
         /// Gray
         /// </summary>

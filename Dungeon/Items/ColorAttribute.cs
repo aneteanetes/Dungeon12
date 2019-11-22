@@ -1,12 +1,13 @@
 ﻿namespace Dungeon.Items
 {
+    using Dungeon.Drawing;
     using Dungeon.View.Interfaces;
     using System;
 
     public class ColorAttribute : Attribute
     {
         public IDrawColor DrawColor { get; set; }
-
+        
         public ColorAttribute(byte r, byte g, byte b)
         {
             DrawColor = new InnerDrawColor

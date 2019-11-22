@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Dungeon.Data
@@ -19,5 +20,9 @@ namespace Dungeon.Data
         public string IdentifyName { get; set; }
 
         public string Assembly { get; set; }
+
+        public static IEnumerable<T> Load<T>(Expression<Func<T, bool>> predicate = null, object cacheObject = default)
+            where T : IPersist
+            => Database.Entity<T>(predicate, cacheObject);
     }
 }
