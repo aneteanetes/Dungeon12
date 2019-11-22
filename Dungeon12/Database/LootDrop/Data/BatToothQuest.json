@@ -1,0 +1,6 @@
+﻿{
+  "ItemIdentify": "BatTooth",
+  "ItemType": "QuestItem",
+  "Chance": 90,
+  "LootTableIdentify": "Bat"
+}

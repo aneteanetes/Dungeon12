@@ -2,9 +2,9 @@
 
 namespace Dungeon.Types
 {
-    public struct CompositeKey<T>
+    public struct CompositeTypeKey<T>
     {
-        public CompositeKey(Type owner, T value)
+        public CompositeTypeKey(Type owner, T value)
         {
             this.Value = value;
             this.Owner = owner;

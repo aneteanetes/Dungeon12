@@ -6,15 +6,15 @@ namespace Dungeon.Types
 {
     public struct Pair<TKey, TValue>
     {
-        public Pair(TKey key, TValue value)
+        public Pair(TKey first, TValue second)
         {
-            Key = key;
-            Value = value;
+            First = first;
+            Second = second;
         }
 
-        public TKey Key { get; set; }
+        public TKey First { get; set; }
 
-        public TValue Value { get; set; }
+        public TValue Second { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -22,7 +22,7 @@ namespace Dungeon.Types
             return internalValue == this.InternalValue;
         }
 
-        private string InternalValue => Key.ToString();
+        private string InternalValue => First.ToString();
 
         public override int GetHashCode() => InternalValue.GetHashCode();
     }

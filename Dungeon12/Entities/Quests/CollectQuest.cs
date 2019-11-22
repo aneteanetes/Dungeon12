@@ -2,6 +2,7 @@
 using Dungeon.Entities.Alive.Events;
 using Dungeon.Entities.Alive.Proxies;
 using Dungeon.Inventory;
+using Dungeon.Loot;
 using Dungeon.Network;
 using Dungeon.Types;
 using Dungeon12.Database.QuestCollect;
@@ -13,6 +14,8 @@ namespace Dungeon12.Entities.Quests
 {
     public class CollectQuest : Quest<QuestCollectData>
     {
+        private List<LootDrop> LootDrops = new List<LootDrop>();
+
         public Dictionary<string, Pair<int, int>> Targets { get; set; } = new Dictionary<string, Pair<int, int>>();
 
         protected override void Init(QuestCollectData dataClass)
@@ -23,7 +26,24 @@ namespace Dungeon12.Entities.Quests
                 Targets.Add(id, new Pair<int, int>(dataClass.Amount[i], 0));
             });
 
-            MaxProgress = Targets.Sum(a => a.Value.Key);
+            dataClass.LootDropsIdentify.ForEach(x =>
+            {
+                var lootDrop = Dungeon.Data.Database.Entity<LootDrop>(drop => drop.IdentifyName == x).FirstOrDefault();
+                LootDrops.Add(lootDrop);
+                LootTable.GetLootTable(lootDrop.LootTableIdentify).Items.Add(new Pair<string, string>(lootDrop.ItemType, lootDrop.ItemIdentify), lootDrop.Chance);
+            });
+
+            MaxProgress = Targets.Sum(a => a.Value.Second);
+        }
+
+        public override void Complete()
+        {
+            LootDrops.ForEach(lootDrop =>
+            {
+                LootTable.GetLootTable(lootDrop.LootTableIdentify).Items.Remove(new Pair<string, string>(lootDrop.ItemType, lootDrop.ItemIdentify));
+            });
+            LootDrops.Clear();
+            base.Complete();
         }
 
         public new static CollectQuest Load(string id)
@@ -48,9 +68,9 @@ namespace Dungeon12.Entities.Quests
             {
                 if (Targets.TryGetValue(itemPickedUpEvent.Item.Name, out var progress))
                 {
-                    if (progress.Key < progress.Value)
+                    if (progress.First < progress.Second)
                     {
-                        progress.Value++;
+                        progress.Second++;
                         this.Progress++;
                     }
                 }

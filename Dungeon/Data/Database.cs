@@ -25,7 +25,7 @@
             if (cacheObject == default)
                 return EntityQuery<T>(predicate);
 
-            var key = new CompositeKey<object>()
+            var key = new CompositeTypeKey<object>()
             {
                 Owner = typeof(T),
                 Value = predicate ?? cacheObject
@@ -40,7 +40,7 @@
             return value.As<IEnumerable<T>>();
         }
 
-        private static readonly Dictionary<CompositeKey<object>, object> ___EntityCache = new Dictionary<CompositeKey<object>, object>();
+        private static readonly Dictionary<CompositeTypeKey<object>, object> ___EntityCache = new Dictionary<CompositeTypeKey<object>, object>();
         
         /// <summary>
         /// это надо кэшировать

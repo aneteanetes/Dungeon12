@@ -95,7 +95,7 @@ namespace Dungeon12.Entities.Quests
 
         public bool IsCompleted() => Progress == MaxProgress;
 
-        public void Complete()
+        public virtual void Complete()
         {
             _class[IdentifyName] = true;
             _class.ActiveQuests.Remove(this);

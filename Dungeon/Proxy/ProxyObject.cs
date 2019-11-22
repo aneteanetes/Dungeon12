@@ -35,7 +35,7 @@ namespace Dungeon.Proxy
         public Func<object> BindGet(string propName, string ownerClassName)
         {
             propName = $"___{propName}";
-            var key = new CompositeKey<string>()
+            var key = new CompositeTypeKey<string>()
             {
                 Owner = this.GetType(),
                 Value = propName
@@ -48,7 +48,7 @@ namespace Dungeon.Proxy
 
             return value;
         }
-        private static readonly Dictionary<CompositeKey<string>, Func<object>> ___BindGetCache = new Dictionary<CompositeKey<string>, Func<object>>();
+        private static readonly Dictionary<CompositeTypeKey<string>, Func<object>> ___BindGetCache = new Dictionary<CompositeTypeKey<string>, Func<object>>();
 
         /// <summary>
         /// 
@@ -59,7 +59,7 @@ namespace Dungeon.Proxy
         public Action<object> BindSet<TValue>(string propName, string ownerclassname)
         {
             propName = $"___{propName}";
-            var key = new CompositeKey<string>()
+            var key = new CompositeTypeKey<string>()
             {
                 Owner = this.GetType(),
                 Value = propName
@@ -72,7 +72,7 @@ namespace Dungeon.Proxy
 
             return value;
         }
-        private static readonly Dictionary<CompositeKey<string>, Action<object>> ___BindSetCache = new Dictionary<CompositeKey<string>, Action<object>>();
+        private static readonly Dictionary<CompositeTypeKey<string>, Action<object>> ___BindSetCache = new Dictionary<CompositeTypeKey<string>, Action<object>>();
 
         private string PropertyName(string callerProp)
         {
@@ -87,7 +87,7 @@ namespace Dungeon.Proxy
         /// </summary>
         public ProxiedAttribute Proxies(string prop)
         {
-            var key = new CompositeKey<string>()
+            var key = new CompositeTypeKey<string>()
             {
                 Owner = this.GetType(),
                 Value = prop
@@ -100,7 +100,7 @@ namespace Dungeon.Proxy
 
             return value;
         }
-        private static readonly Dictionary<CompositeKey<string>, ProxiedAttribute> ___ProxiedCache = new Dictionary<CompositeKey<string>, ProxiedAttribute>();
+        private static readonly Dictionary<CompositeTypeKey<string>, ProxiedAttribute> ___ProxiedCache = new Dictionary<CompositeTypeKey<string>, ProxiedAttribute>();
 
         private List<ProxyProperty> ProxiesAdditional(string prop)
         {
@@ -149,7 +149,7 @@ namespace Dungeon.Proxy
         /// </summary>
         public object GetBackginFieldValueExpression(string ownerClassName, string propName)
         {
-            var key = new CompositeKey<string>()
+            var key = new CompositeTypeKey<string>()
             {
                 Owner = this.GetType(),
                 Value = propName
@@ -177,7 +177,7 @@ namespace Dungeon.Proxy
             return value.DynamicInvoke(this);
         }
 
-        private static readonly Dictionary<CompositeKey<string>, Delegate> ___GetBackginFieldValueExpressionCache = new Dictionary<CompositeKey<string>, Delegate>();
+        private static readonly Dictionary<CompositeTypeKey<string>, Delegate> ___GetBackginFieldValueExpressionCache = new Dictionary<CompositeTypeKey<string>, Delegate>();
 
 
         /// <summary>
@@ -188,7 +188,7 @@ namespace Dungeon.Proxy
         /// </summary>
         public FieldInfo GetField(string ownerClassName, string propName)
         {
-            var key = new CompositeKey<string>()
+            var key = new CompositeTypeKey<string>()
             {
                 Owner = this.GetType(),
                 Value = ownerClassName + propName
@@ -201,11 +201,11 @@ namespace Dungeon.Proxy
 
             return value;
         }
-        private static readonly Dictionary<CompositeKey<string>, FieldInfo> ___GetFieldCache = new Dictionary<CompositeKey<string>, FieldInfo>();
+        private static readonly Dictionary<CompositeTypeKey<string>, FieldInfo> ___GetFieldCache = new Dictionary<CompositeTypeKey<string>, FieldInfo>();
 
         private void SetBackingFieldValueExpression(object propValue, string propName, string ownerClassName, Type valueType)
         {
-            var key = new CompositeKey<string>()
+            var key = new CompositeTypeKey<string>()
             {
                 Owner = this.GetType(),
                 Value = propName
@@ -234,7 +234,7 @@ namespace Dungeon.Proxy
 
             value.DynamicInvoke(this,propValue);
         }
-        private static readonly Dictionary<CompositeKey<string>, Delegate> ___SetBackingFieldValueExpressionCache = new Dictionary<CompositeKey<string>, Delegate>();
+        private static readonly Dictionary<CompositeTypeKey<string>, Delegate> ___SetBackingFieldValueExpressionCache = new Dictionary<CompositeTypeKey<string>, Delegate>();
 
         private Dictionary<string, List<ProxyProperty>> Additionals = new Dictionary<string, List<ProxyProperty>>();
 

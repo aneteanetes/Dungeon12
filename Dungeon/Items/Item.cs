@@ -5,6 +5,7 @@
     using Dungeon.Entities;
     using Dungeon.GameObjects;
     using Dungeon.Items.Enums;
+    using Dungeon.Loot;
     using Dungeon.Transactions;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
@@ -14,7 +15,7 @@
     /// //Вес = (УровеньПредмета — КачествоПредмета) * МультипликаторКачества * МультипликаторВидаПредмета;
     /// формирование цен бладжад
     /// </summary>
-    public abstract partial class Item : DataEntity<Item, ItemData>, IDrawable, IPersist
+    public abstract partial class Item : LootEntity, IDrawable, IPersist
     {
         public string Description { get; set; }
 
@@ -44,23 +45,14 @@
         public Point InventoryPosition { get; set; }
 
         public Point InventorySize { get; set; }
-               
+
+        public int Id { get; set; }
+
+        public int ObjectId { get; set; }
+
         private class EmptyItem : Item
         {
             public override Stats AvailableStats => Stats.None;
         }
-
-
-        /// <summary>
-        /// Внутреннее свойство для LiteDb
-        /// </summary>
-        public int Id { get; set; }
-
-        /// <summary>
-        /// числовой Id который можно использовать в коде
-        /// </summary>
-        public int ObjectId { get; set; }
-
-        public string IdentifyName { get; set; }
     }
 }

@@ -1,20 +1,15 @@
 ﻿namespace Dungeon.Map.Objects
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Dungeon.Drawing.SceneObjects.Map;
-    using Dungeon.Entities.Alive;
     using Dungeon.Entities.Enemy;
     using Dungeon.Game;
     using Dungeon.Loot;
     using Dungeon.Map.Infrastructure;
     using Dungeon.Physics;
-    using Dungeon.Settings;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using Force.DeepCloner;
-    using static Dungeon.Map.GameMap;
+    using System.Collections.Generic;
 
     [Template("*")]
     public class Mob : EntityMapObject<Enemy>

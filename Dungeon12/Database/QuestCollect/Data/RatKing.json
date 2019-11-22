@@ -2,6 +2,9 @@
   "Name": "Крысиный король",
   "Description": "Соберите 5 клыков летучих мышей.",
   "RewardIdentify": "RatKing",
+  "LootDropsIdentify": [
+    "BatToothQuest"
+  ],
   "ItemsIdentify": [
     "BatTooth"
   ],

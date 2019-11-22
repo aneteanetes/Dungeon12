@@ -18,7 +18,7 @@ namespace Dungeon12.Entities.Quests
                 Targets.Add(id, new Pair<int, int>(dataClass.Amount[i], 0));
             });
 
-            dataClass.MaxProgress = Targets.Sum(a => a.Value.Key);
+            dataClass.MaxProgress = Targets.Sum(a => a.Value.First);
         }
 
         public void OnEvent(AliveKillEvent aliveKillEvent)
@@ -30,9 +30,9 @@ namespace Dungeon12.Entities.Quests
             {
                 if (Targets.TryGetValue(aliveKillEvent.Victim.Name, out var progress))
                 {
-                    if (progress.Key < progress.Value)
+                    if (progress.First < progress.Second)
                     {
-                        progress.Value++;
+                        progress.Second++;
                         this.Progress++;
                     }
                 }
