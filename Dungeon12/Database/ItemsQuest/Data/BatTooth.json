@@ -1,4 +1,6 @@
 ﻿{
   "Name": "Зуб летучей мыши",
-  "Tileset": "Dungeon12.Resources.Images.Items.Quest.tooth.png"
+  "Tileset": "Dungeon12.Resources.Images.Items.Quest.tooth.png",
+  "Stackable": true,
+  "QuantityMax": 5
 }

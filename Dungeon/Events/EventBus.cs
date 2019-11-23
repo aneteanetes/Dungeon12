@@ -19,6 +19,12 @@ namespace Dungeon.Events
         public void Subscribe(Action<object> action) => allsubscribers.Add(action);
 
         /// <summary>
+        /// Отписаться от всех событий
+        /// </summary>
+        /// <param name="action"></param>
+        public void Unsubscribe(Action<object> action) => allsubscribers.Remove(action);
+
+        /// <summary>
         /// Подписаться на события всех таких типов
         /// </summary>
         /// <typeparam name="TEvent"></typeparam>

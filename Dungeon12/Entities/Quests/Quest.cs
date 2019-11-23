@@ -22,7 +22,7 @@ namespace Dungeon12.Entities.Quests
         /// [Рассчётное через сеть]
         /// </para>
         /// </summary>
-        [Proxied(typeof(NetProxy))]
+        [Proxied(typeof(NetProxy),typeof(Limit))]
         public long Progress { get => Get(___Progress, typeof(Quest<>).AssemblyQualifiedName); set => Set(value, typeof(Quest<>).AssemblyQualifiedName); }
         private long ___Progress;
 
@@ -87,7 +87,7 @@ namespace Dungeon12.Entities.Quests
             };
         }
 
-        private string ProgressText => $"Прогресс: {Progress}/{MaxProgress}";
+        private string ProgressText => Done ? "Выполнено" : $"Прогресс: {Progress}/{MaxProgress}";
 
         public int Id { get; set; }
 
@@ -95,14 +95,18 @@ namespace Dungeon12.Entities.Quests
 
         public bool IsCompleted() => Progress == MaxProgress;
 
+        private bool Done { get; set; }
+
         public virtual void Complete()
         {
+            Done = true;
             _class[IdentifyName] = true;
             _class.ActiveQuests.Remove(this);
             this.Reward.GiveReward.Trigger(this.Reward, _class, _gameMap);
             var q = _class.Journal.Quests.First(qu => qu.IdentifyName == this.IdentifyName);
             _class.Journal.Quests.Remove(q);
             _class.Journal.QuestsDone.Add(q);
+            UnsubscribeEvents();
         }
     }
 }

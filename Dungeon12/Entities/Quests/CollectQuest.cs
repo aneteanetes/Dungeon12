@@ -31,7 +31,7 @@ namespace Dungeon12.Entities.Quests
                 LootTable.GetLootTable(lootDrop.LootTableIdentify).LootDrops.Add(lootDrop);
             });
 
-            MaxProgress = Targets.Sum(a => a.Value.Second);
+            MaxProgress = Targets.Sum(a => a.Value.First);
         }
 
         public override void Complete()

@@ -1,7 +1,9 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Inventories
 {
+    using Dungeon;
     using Dungeon.Control;
     using Dungeon.Control.Pointer;
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Items;
     using Dungeon.SceneObjects;
@@ -30,6 +32,20 @@
             AbsolutePosition = true;
             Left = item.InventoryPosition.X;
             Top = item.InventoryPosition.Y;
+
+            if (item.Stackable)
+            {
+                this.AddChild(new DarkRectangle()
+                {
+                    Opacity = 0.7,
+                    CacheAvailable = false,
+                    AbsolutePosition = true,
+                    Height = .5,
+                    Width = .5,
+                    Top = this.Height - .5,
+                    Left = this.Width - .5
+                }.WithText(item.Quantity.ToString().AsDrawText().InSize(10).InColor(ConsoleColor.White).Montserrat(), true));
+            }
 
             base.OnDrag += PreDrag;
         }

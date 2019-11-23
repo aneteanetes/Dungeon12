@@ -26,11 +26,18 @@ namespace Dungeon.Transactions
         {
             if (Events)
             {
-                Global.Events.Subscribe(@event =>
-                {
-                    this.Dispatch((so, arg) => so.OnEvent(arg), @event);
-                });
+                Global.Events.Subscribe(EventDispatch);
             }
+        }
+
+        private void EventDispatch(object @event)
+        {
+            this.Dispatch((so, arg) => so.OnEvent(arg), @event);
+        }
+
+        public void UnsubscribeEvents()
+        {
+            Global.Events.Unsubscribe(EventDispatch);
         }
 
         public virtual void OnEvent(object @object)

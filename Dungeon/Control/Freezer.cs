@@ -17,6 +17,7 @@ namespace Dungeon.Control
                 if (value == null)
                 {
                     Global.Time.Resume();
+                    SceneManager.Current.Freezer = null;
                 }
                 else
                 {

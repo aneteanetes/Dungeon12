@@ -41,15 +41,17 @@
         /// <param name="itemSource"></param>
         /// <param name="location"></param>
         /// <param name="owner"></param>
+        /// <param name="moving">этот параметр используется для ПЕРЕМЕЩЕНИЯ стакуемых вещей</param>
         /// <returns></returns>
-        public bool Add(Item itemSource, Point location = null, Alive owner=default, int quantity = 1)
+        public bool Add(Item itemSource, Point location = null, Alive owner=default, int quantity = 1, bool moving=false)
         {
-            if (itemSource.Stackable)
+            if (itemSource.Stackable && !moving)
             {
-                if (AddStackable(itemSource, quantity, out var overflow))
+                if (AddStackable(itemSource, quantity,owner, out var overflow))
                 {
                     if (overflow == 0)
                     {
+                        AddStackableEvent(itemSource, owner, quantity);
                         // если удалось добавить в стакаемую вещь, тогда не надо её добавлять в инвентарь,
                         // и наоборот, если вещь умеет стакаться, но её ещё нет, надо добавить физический экземпляр
                         // если при добавлении стак переполнился, значит надо добавить новый экземпляр
@@ -101,6 +103,7 @@
 
             if (item.Stackable && quantity > 1)
             {
+                AddStackableEvent(itemSource, owner, quantity-1);
                 backpackItem.Item.QuantityAdd(quantity - 1);
             }
 
@@ -110,12 +113,31 @@
             backpackItem.Position.X -= .1;
             backpackItem.Position.Y -= .1;
 
-            Global.Events.Raise(new ItemPickedUpEvent() { Item = item, Owner= owner });
+            if (!moving)
+            {
+                Global.Events.Raise(new ItemPickedUpEvent() { Item = item, Owner = owner });
+            }
 
             return true;
         }
 
-        private bool AddStackable(Item itemSource, int quantity, out int overflow)
+        private static void AddStackableEvent(Item itemSource, Alive owner, int quantity)
+        {
+            for (int i = 0; i < quantity; i++)
+            {
+                Global.Events.Raise(new ItemPickedUpEvent() { Item = itemSource, Owner = owner });
+            }
+        }
+
+        private static void RemoveStackableEvent(Item itemSource, Alive owner, int quantity)
+        {
+            for (int i = 0; i < quantity; i++)
+            {
+                Global.Events.Raise(new ItemDropOffEvent() { Item = itemSource, Owner = owner });
+            }
+        }
+
+        private bool AddStackable(Item itemSource, int quantity,Alive owner, out int overflow)
         {
             overflow = 0;
             var stackableItem = Container.Nodes
@@ -128,7 +150,7 @@
             }
 
             overflow = stackableItem.Item.QuantityAdd(quantity);
-            return overflow > 0;
+            return overflow >= 0;
         }
 
         private bool TrySetLocation(BackpackItem item, Point location)
@@ -190,13 +212,15 @@
         /// </summary>
         /// <param name="item"></param>
         /// <param name="owner"></param>
+        /// <param name="moving">этот параметр используется для ПЕРЕМЕЩЕНИЯ стакуемых вещей</param>
         /// <returns></returns>
-        public bool Remove(Item item, Alive owner = default, int quantity = 1)
+        public bool Remove(Item item, Alive owner = default, int quantity = 1, bool moving=false)
         {
-            if(item.Stackable)
+            if(item.Stackable && !moving)
             {
                 if (RemoveStackable(item, owner, quantity))
                 {
+                    RemoveStackableEvent(item, owner, quantity);
                     // если удалось удалить стаки из одного и он остался
                     // не надо удалять предмет
                     return true;
@@ -211,7 +235,10 @@
             if (item != null)
             {
                 Container.Nodes.Remove(backpackItem);
-                Global.Events.Raise(new ItemDropOffEvent() { Item = item, Owner = owner });
+                if (!moving)
+                {
+                    Global.Events.Raise(new ItemDropOffEvent() { Item = item, Owner = owner });
+                }
                 return true;
             }
 

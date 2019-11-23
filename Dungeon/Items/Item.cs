@@ -28,9 +28,9 @@
         /// [Лимит]
         /// </summary>
         [Proxied(typeof(Limit))]
-        public virtual int Quantity { get; set; }
+        public virtual int Quantity { get; set; } = 1;
 
-        public virtual int QuantitykMax { get; set; }
+        public virtual int QuantitykMax { get; set; } = 20;
 
         public virtual int QuantityRemove(int quantity)
         {

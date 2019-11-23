@@ -186,14 +186,14 @@
                 var x = Math.Ceiling(source.Left);
                 var y = Math.Ceiling(source.Top);
 
-                if (this.backpack.Add(source.Item, new Dungeon.Types.Point(x, y)))
+                if (this.backpack.Add(source.Item, new Dungeon.Types.Point(x, y),moving:true))
                 {
                     if (source.Parent is Inventory inventoryParent)
                     {
                         inventoryParent.backpack.Remove(source.Item,
                             playerSceneObject.Component.Entity.Backpack == inventoryParent.backpack
                             ? playerSceneObject.Component.Entity
-                            : default);
+                            : default, moving: true);
                         inventoryParent.Refresh();
                     }
                 }
