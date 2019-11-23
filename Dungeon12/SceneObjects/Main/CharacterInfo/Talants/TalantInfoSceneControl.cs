@@ -133,15 +133,5 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
             }
             base.Unfocus();
         }
-
-        protected override void CallOnEvent(dynamic obj)
-        {
-            OnEvent(obj);
-        }
-
-        public void OnEvent(ClassChangeEvent @event)
-        {
-
-        }
     }
 }

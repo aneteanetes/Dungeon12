@@ -899,7 +899,6 @@
 
         private void CacheImageMask(Texture2D image, ISceneObject sceneObject)
         {
-            return;
             var uid = sceneObject.Image;
             var mask = sceneObject.ImageMask;
 

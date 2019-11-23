@@ -3,6 +3,7 @@ using Dungeon.SceneObjects;
 using Dungeon.SceneObjects.Base;
 using Dungeon.View.Interfaces;
 using Dungeon12.Entites.Journal;
+using Dungeon12.Entities.Quests;
 using Dungeon12.SceneObjects.Main.CharacterInfo.Journal;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 
         private double _left;
 
-        public JournalTabContent(JournalCategory jcategory, double left, JournalWindow journalWindow)
+        public JournalTabContent(JournalCategory jcategory, double left, JournalWindow journalWindow, IQuest quest)
         {
             _left = left;
             AddScroll(left);
@@ -95,6 +96,15 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 
             scrollbar.CanDown = ContentSize >= 10;
             scrollbar.MaxDownIndex = (int)Math.Floor(ContentSize - 12);
+
+            if(quest!=default)
+            {
+                var model = models.FirstOrDefault(m => m.JournalEntry?.Quest == quest);
+                if(model != default)
+                {
+                    this.GetChildren<JournalItem>().FirstOrDefault(ji => ji.Model == model)?.Click(default);
+                }
+            }
         }
 
         private void AddScroll(double left)

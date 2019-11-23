@@ -6,6 +6,7 @@ using Dungeon12.SceneObjects;
 using System;
 using Dungeon.SceneObjects;
 using Dungeon.Drawing;
+using Dungeon12.Entities.Quests;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
 {
@@ -19,7 +20,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
 
         public Func<bool> CanDestroyParentBinding { get; set; } = () => true;
 
-        public JournalList(Player playerSceneObject, JournalWindow journalWindow)
+        public JournalList(Player playerSceneObject, JournalWindow journalWindow, IQuest quest)
         {
             this.Image = "Dungeon12.Resources.Images.ui.vertical_title(17x12).png";
 
@@ -53,7 +54,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
                 this.AddChild(tab);
                 if (i == 0)
                 {
-                    tab.Open();
+                    tab.Open(quest);
                 }
             });
         }

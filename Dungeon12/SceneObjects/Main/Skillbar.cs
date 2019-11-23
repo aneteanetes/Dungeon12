@@ -15,6 +15,8 @@
 
     public class SkillBar : EmptyHandleSceneControl
     {
+        public override bool Events => true;
+
         public override bool AbsolutePosition => true;
 
         private GameMap gameMap;

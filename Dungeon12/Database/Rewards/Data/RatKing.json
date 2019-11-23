@@ -6,5 +6,6 @@
   },
   "RewardText": "Опыт",
   "Exp": 10,
+  "Gold": 100,
   "TriggerName": "SimpleRewardTrigger"
 }

@@ -2,7 +2,9 @@
 using Dungeon.Control;
 using Dungeon.Control.Pointer;
 using Dungeon.Drawing;
+using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.SceneObjects;
+using Dungeon.View.Interfaces;
 using Dungeon12.Entites.Journal;
 using Dungeon12.SceneObjects.Main.CharacterInfo.Stats;
 using System;
@@ -58,24 +60,23 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
             if(journalEntry.Quest!=default)
             {
                 var visualProgress = journalEntry.Quest.Visual(Global.GameState);
-                visualProgress.Left = 2;
+                visualProgress.Left = 2.5;
                 visualProgress.Top = 14;
                 this.AddChild(visualProgress);
-                
-                var visualReward = journalEntry.Quest.Reward.Visual(Global.GameState);
-                visualReward.Left = 2;
+
+                var visualReward = journalEntry.Quest.Reward.Visual(Global.GameState).As<ISceneObjectControl>();
                 visualReward.Top = 15;
-                this.AddChild(visualReward);
+                this.AddControlCenter(visualReward,false,false);
             }
 
             if (Texts.Count>1)
             {
-                this.AddChild(new PageButton(PageBack, "<")
+                this.AddChild(new PageButton(PageBack, "<","Назад")
                 {
                     Left = 10.5,
                     Top = 16
                 });
-                this.AddChild(new PageButton(PageForward, ">")
+                this.AddChild(new PageButton(PageForward, ">","Вперёд")
                 {
                     Left = 11,
                     Top = 16
@@ -114,62 +115,62 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
                 PageForward();
             }
         }
+    }
 
-        public class PageButton : EmptyHandleSceneControl
+    public class PageButton : EmptyTooltipedSceneObject
+    {
+        public override bool AbsolutePosition => true;
+
+        public override bool CacheAvailable => false;
+
+        private Action click;
+
+        protected override ControlEventType[] Handles { get; } = new ControlEventType[]
         {
-            public override bool AbsolutePosition => true;
-
-            public override bool CacheAvailable => false;
-
-            private Action click;
-
-            protected override ControlEventType[] Handles { get; } = new ControlEventType[]
-            {
                 ControlEventType.Click,
                 ControlEventType.ClickRelease,
                 ControlEventType.GlobalClickRelease,
                 ControlEventType.Focus,
-            };
+        };
 
-            public PageButton(Action click, string text = "+")
-            {
-                this.Width = .5;
-                this.Height = .5;
-                this.click = click;
-                this.Image = "ui/checkbox/on.png".AsmImgRes();
-                this.AddTextCenter(text.AsDrawText().InSize(10).Montserrat());
-            }
+        public PageButton(Action click, string text = "+",string tooltip=""):base(tooltip)
+        {
+            this.Width = .5;
+            this.Height = .5;
+            this.click = click;
+            this.Image = "ui/checkbox/on.png".AsmImgRes();
+            this.AddTextCenter(text.AsDrawText().InSize(10).Montserrat());
+        }
 
-            public override void Focus()
-            {
-                this.Image = "ui/checkbox/hover.png".AsmImgRes();
-                base.Focus();
-            }
+        public override void Focus()
+        {
+            this.Image = "ui/checkbox/hover.png".AsmImgRes();
+            base.Focus();
+        }
 
-            public override void Unfocus()
-            {
-                this.Image = "ui/checkbox/on.png".AsmImgRes();
-                base.Unfocus();
-            }
+        public override void Unfocus()
+        {
+            this.Image = "ui/checkbox/on.png".AsmImgRes();
+            base.Unfocus();
+        }
 
-            public override void Click(PointerArgs args)
-            {
-                this.Image = "ui/checkbox/pressed.png".AsmImgRes();
-                base.Click(args);
-            }
+        public override void Click(PointerArgs args)
+        {
+            this.Image = "ui/checkbox/pressed.png".AsmImgRes();
+            base.Click(args);
+        }
 
-            public override void ClickRelease(PointerArgs args)
-            {
-                this.Image = "ui/checkbox/on.png".AsmImgRes();
-                click?.Invoke();
-                base.ClickRelease(args);
-            }
+        public override void ClickRelease(PointerArgs args)
+        {
+            this.Image = "ui/checkbox/on.png".AsmImgRes();
+            click?.Invoke();
+            base.ClickRelease(args);
+        }
 
-            public override void GlobalClickRelease(PointerArgs args)
-            {
-                this.Image = "ui/checkbox/on.png".AsmImgRes();
-                base.ClickRelease(args);
-            }
+        public override void GlobalClickRelease(PointerArgs args)
+        {
+            this.Image = "ui/checkbox/on.png".AsmImgRes();
+            base.ClickRelease(args);
         }
     }
 }

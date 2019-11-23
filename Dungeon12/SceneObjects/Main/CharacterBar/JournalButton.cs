@@ -11,6 +11,8 @@
     using System.Collections.Generic;
     using Dungeon12.SceneObjects;
     using Dungeon.Control;
+    using Dungeon12.Entities.Quests;
+    using Dungeon.Scenes.Manager;
 
     public class JournalButton : SlideComponent
     {
@@ -62,13 +64,25 @@
             Key.L
         };
 
-        public override void KeyDown(Key key, KeyModifiers modifier, bool hold) => ShowTalWindow();
+        public override void KeyDown(Key key, KeyModifiers modifier, bool hold) => ShowJournalBtn();
 
-        public override void Click(PointerArgs args) => ShowTalWindow();
+        public override void Click(PointerArgs args) => ShowJournalBtn();
 
-        private JournalWindow jWindow = null;
+        private static JournalWindow jWindow = null;
 
-        private void ShowTalWindow()
+        public static void OpenQuest(IQuest quest)
+        {
+            if (jWindow == null)
+            {
+                Global.GameState.Player.StopMovings();
+                jWindow = new JournalWindow(Global.GameState.Player.As<Player>(),quest);
+                jWindow.Destroy += () => jWindow = null;
+
+                SceneManager.Current.ShowEffectsBinding(jWindow.InList<ISceneObject>());
+            }
+        }
+
+        private void ShowJournalBtn()
         {
             if (jWindow != null)
             {

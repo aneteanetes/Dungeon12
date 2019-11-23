@@ -40,7 +40,7 @@
                 }.Montserrat();
 
                 var text = this.AddTextCenter(hpText);
-                    text.Top += 0.2;
+                text.Top += 0.2;
                 text.Left += 0.2;
             }
 

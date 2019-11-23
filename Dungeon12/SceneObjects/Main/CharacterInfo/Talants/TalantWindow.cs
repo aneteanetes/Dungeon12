@@ -75,15 +75,5 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 
             base.KeyDown(key, modifier, hold);
         }
-
-        public void OnEvent(ClassChangeEvent @event)
-        {
-
-        }
-
-        protected override void CallOnEvent(dynamic obj)
-        {
-            OnEvent(obj);
-        }
     }
 }

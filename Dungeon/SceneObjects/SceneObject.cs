@@ -56,7 +56,11 @@
                 // ВСЕ ЭТИ МЕТОДЫ ПУБЛИЧНЫЕ ТОЛЬКО ПОТОМУ ЧТО НУЖНЫ ЗДЕСЬ
                 ControlBinding += owner.AddControl;
                 DestroyBinding += owner.RemoveObject;
-                Destroy += () => owner.RemoveObject(this);
+                Destroy += () =>
+                {
+                    owner.RemoveObject(this);
+                    this.UnsubscribeEvents();
+                };
                 ShowEffects += owner.ShowEffectsBinding;
 
                 //ПИЗДЕЦ. Это надо лечить
@@ -144,7 +148,7 @@
             return control;
         }
 
-        protected T AddChildCenter<T>(T control, bool horizontal = true, bool vertical = true)
+        protected virtual T AddChildCenter<T>(T control, bool horizontal = true, bool vertical = true)
             where T : ISceneObject
         {
             if (horizontal)
@@ -449,17 +453,6 @@
         public Action<SceneObject<TComponent>> OnUpdate { get; set; }
 
         public virtual void Update() => OnUpdate?.Invoke(this);
-
-        public virtual void OnEvent(object @object)
-        {
-            CallOnEvent(@object as dynamic);
-        }
-
-        /// <summary>
-        /// Method must call this.Discard(obj); for runtime dynamic binding 
-        /// </summary>
-        /// <param name="obj"></param>
-        protected virtual void CallOnEvent(dynamic obj) => OnEvent(obj);
 
         private object flowContext = null;
 

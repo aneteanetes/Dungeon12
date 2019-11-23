@@ -20,17 +20,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
         protected override TalantTreeTab Self => this;
 
         protected override Func<TalantTree, double, TalantTreeTabContent> CreateContent => OpenTalantTreeTab;
-
-        protected override void CallOnEvent(dynamic obj)
-        {
-            OnEvent(obj);
-        }
-
-        public void OnEvent(ClassChangeEvent @event)
-        {
-
-        }
-
+        
         private TalantTreeTabContent OpenTalantTreeTab(TalantTree talantTree, double left)
         {
             return new TalantTreeTabContent(talantTree,this.character, left);

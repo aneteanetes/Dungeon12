@@ -10,6 +10,7 @@ namespace Dungeon12.Entities.Rewards.Triggers
         public IDrawText Trigger(Reward arg1, Dungeon12Class arg2, GameMap arg3)
         {
             arg2.Exp(arg1.Exp);
+            arg2.Gold += arg1.Gold;
             return " ".AsDrawText();
         }
     }

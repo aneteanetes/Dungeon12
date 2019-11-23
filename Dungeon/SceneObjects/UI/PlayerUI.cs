@@ -11,17 +11,22 @@
 
     public class PlayerUI : SceneObject<Character>
     {
+        public override bool Events => true;
+
         public override bool AbsolutePosition => true;
 
         public PlayerUI(Character player) : base(player, false)
         {
+            Width = 10;
+            Height = 22.5;
+
             OnEvent(new ClassChangeEvent()
             {
                 Character = player
             });
         }
 
-        public virtual void OnEvent(ClassChangeEvent @event)
+        public void OnEvent(ClassChangeEvent @event)
         {
             var player = @event.Character.As<Character>();
 
@@ -49,10 +54,7 @@
             this.AddChild(resbar);
         }
 
-        protected override void CallOnEvent(dynamic obj)
-        {
-            OnEvent(obj);
-        }
+        protected override void CallOnEvent(dynamic obj) => OnEvent(obj);
 
         private class AvatarSceneObject : Dungeon.Drawing.SceneObjects.ImageControl
         {

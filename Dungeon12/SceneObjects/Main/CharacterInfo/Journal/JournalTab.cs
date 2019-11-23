@@ -5,6 +5,7 @@ using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal;
 using Dungeon12.Entites.Journal;
+using Dungeon12.Entities.Quests;
 using System;
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 {
@@ -25,20 +26,18 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
         protected override JournalTab Self => this;
 
         protected override Func<JournalCategory, double, JournalTabContent> CreateContent => OpenJournalTab;
-
-        protected override void CallOnEvent(dynamic obj)
-        {
-            OnEvent(obj);
-        }
-
-        public void OnEvent(ClassChangeEvent @event)
-        {
-
-        }
-
+        
         private JournalTabContent OpenJournalTab(JournalCategory journalCategory, double left)
         {
-            return new JournalTabContent(journalCategory,left, _journalWindow);
+            return new JournalTabContent(journalCategory,left, _journalWindow,_quest);
+        }
+
+        private IQuest _quest;
+
+        public void Open(IQuest quest)
+        {
+            _quest = quest;
+            base.Open();
         }
     }
 }

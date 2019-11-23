@@ -8,6 +8,7 @@ using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.Database.Rewards;
 using Dungeon12.Entities.Rewards.Triggers;
+using Dungeon12.SceneObjects.UI;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,9 +16,9 @@ namespace Dungeon12.Entities.Quests
 {
     public class Reward : DataEntity<Reward, RewardData>
     {
-        public List<LootGenerator> ItemGenerators { get; set; }
+        public List<LootGenerator> ItemGenerators { get; set; } = new List<LootGenerator>();
 
-        public List<Perk> Perks { get; set; }
+        public List<Perk> Perks { get; set; } = new List<Perk>();
 
         public int Exp { get; set; }
 
@@ -43,7 +44,7 @@ namespace Dungeon12.Entities.Quests
 
         public override ISceneObject Visual(GameState gameState)
         {
-            return new TextControl(("Опыт: " + Exp.ToString()).AsDrawText().InColor(this.ForegroundColor).Montserrat());
+            return new RewardSceneObject(this);
         }
     }
 }

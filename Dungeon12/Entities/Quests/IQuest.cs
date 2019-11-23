@@ -25,5 +25,10 @@ namespace Dungeon12.Entities.Quests
         bool IsCompleted();
 
         void Complete();
+
+        /// <summary>
+        /// Флаг отслеживания задания
+        /// </summary>
+        bool Discover { get; set; }
     }
 }

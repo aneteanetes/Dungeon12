@@ -22,6 +22,8 @@
 
     public class PlayerSceneObject : AnimatedSceneObject<Avatar>
     {
+        public override bool Events => true;
+
         public override bool Shadow => true;
 
         public Avatar Avatar { get; set; }

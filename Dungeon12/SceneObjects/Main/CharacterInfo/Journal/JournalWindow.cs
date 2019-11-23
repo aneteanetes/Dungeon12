@@ -4,6 +4,7 @@ using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Drawing.SceneObjects.UI;
 using Dungeon.Events;
 using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal;
+using Dungeon12.Entities.Quests;
 using Dungeon12.SceneObjects;
 using Dungeon12.SceneObjects.Main.CharacterInfo.Journal;
 
@@ -21,19 +22,19 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 
         internal ScrollJournalContent scrollJournalContent;
 
-        public JournalWindow(Player playerSceneObject)
+        public JournalWindow(Player playerSceneObject, IQuest quest = default)
         {
             playerSceneObject.BlockMouse = true;
             this.Destroy += () => playerSceneObject.BlockMouse = false;
             this.playerSceneObject = playerSceneObject;
-            
+
             this.Height = 17;
             this.Width = 12;
 
             this.Left = 3.5;
             this.Top = 2;
 
-            journalList = new JournalList(playerSceneObject,this);
+            journalList = new JournalList(playerSceneObject, this, quest);
             this.AddChild(journalList);
         }
 
@@ -54,16 +55,6 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
             }
 
             base.KeyDown(key, modifier, hold);
-        }
-
-        public void OnEvent(ClassChangeEvent @event)
-        {
-
-        }
-
-        protected override void CallOnEvent(dynamic obj)
-        {
-            OnEvent(obj);
         }
     }
 }

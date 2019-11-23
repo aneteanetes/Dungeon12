@@ -68,11 +68,6 @@
             }
         }
 
-        protected override void CallOnEvent(dynamic obj)
-        {
-            OnEvent(obj);
-        }
-
         public ColoredRectangle<TComponent> DarkPanel()
         {
             Color = ConsoleColor.Black;

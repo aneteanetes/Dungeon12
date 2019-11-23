@@ -7,6 +7,7 @@ using Dungeon.Network;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.Database.Quests;
+using Dungeon12.SceneObjects.UI;
 using System.Linq;
 
 namespace Dungeon12.Entities.Quests
@@ -75,16 +76,15 @@ namespace Dungeon12.Entities.Quests
                     Text = this.Description,
                     Quest=this
                 });
+                this.Discover = true;
+                Global.Events.Raise(new QuestDiscoverEvent(this));
                 _class.ActiveQuests.Add(this);
             }
         }
 
         public override ISceneObject Visual(GameState gameState)
         {
-            return new TextControl(ProgressText.AsDrawText().Montserrat())
-            {
-                OnUpdate = x => x.Text.SetText(ProgressText)
-            };
+            return new QuestDescoverSceneObject(this, true);
         }
 
         private string ProgressText => Done ? "Выполнено" : $"Прогресс: {Progress}/{MaxProgress}";
@@ -95,7 +95,12 @@ namespace Dungeon12.Entities.Quests
 
         public bool IsCompleted() => Progress == MaxProgress;
 
+        /// <summary>
+        /// костыль потому что при выполнении какой-то непонятный прогресс показывает
+        /// </summary>
         private bool Done { get; set; }
+
+        public bool Discover { get; set; }
 
         public virtual void Complete()
         {

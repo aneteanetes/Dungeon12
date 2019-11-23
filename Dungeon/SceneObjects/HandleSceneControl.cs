@@ -4,6 +4,7 @@
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.Proxy;
+    using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
@@ -97,15 +98,32 @@
 
         public virtual void GlobalClick(PointerArgs args) => dynamicEvents[nameof(GlobalClick)]?.DynamicInvoke(args);
 
-        protected TSceneObject AddControlCenter<TSceneObject>(TSceneObject control, bool horizontal = true, bool vertical = true)
+        /// <summary>
+        /// Если есть изображение то мерит по нему, иначе по размеру контрола
+        /// </summary>
+        /// <typeparam name="TSceneObject"></typeparam>
+        /// <param name="control"></param>
+        /// <param name="horizontal"></param>
+        /// <param name="vertical"></param>
+        /// <param name="forceNotImage">принудительно мерять по контролу а не изображению</param>
+        /// <returns></returns>
+        protected TSceneObject AddControlCenter<TSceneObject>(TSceneObject control, bool horizontal = true, bool vertical = true, bool forceNotImage=false)
             where TSceneObject : ISceneObjectControl
         {
-            var measure = MeasureImage(control.Image);
-            measure.X = measure.X * 32;
-            measure.Y = measure.Y * 32;
+            ControlBinding?.Invoke(control);
 
-            var width = Width * 32;
-            var height = Height * 32;
+            Point measure = string.IsNullOrWhiteSpace(control.Image) && !forceNotImage
+                ? new Point(control.Width, control.Height)
+                : new Point(MeasureImage(control.Image).X * 32, MeasureImage(control.Image).Y * 32);
+
+            double width = this.Width;
+            double height = this.Height;
+
+            if (!string.IsNullOrWhiteSpace(control.Image) && !forceNotImage)
+            {
+                width = Width * 32;
+                height = Height * 32;
+            }
 
             if (horizontal)
             {
@@ -118,6 +136,7 @@
                 var top = height / 2 - measure.Y / 2;
                 control.Top = top / 32;
             }
+
             AddChild(control);
 
             return control;

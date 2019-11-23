@@ -18,6 +18,7 @@
     using Dungeon12.CardGame.Scene;
     using Dungeon12.Drawing.SceneObjects.Main;
     using Dungeon12.SceneObjects;
+    using Dungeon12.SceneObjects.UI;
     using Dungeon12.Scenes.Menus;
     using System;
     using System.Collections.Generic;
@@ -111,7 +112,7 @@
             this.Gamemap.MapObject.Add(this.PlayerAvatar);
 
 
-            this.AddObject(new PlayerUI(this.PlayerAvatar.Character));            
+            this.AddObject(new Dungeon12PlayerUI(this.PlayerAvatar.Character));
 
 #if DEBUG
             this.AddObject(new Position(this.PlayerAvatar));
