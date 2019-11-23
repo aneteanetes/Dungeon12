@@ -77,11 +77,6 @@ namespace Dungeon.Events
             {
                 Action<TEvent> action = x => {};
                 events.Add(@event, action);
-                allsubscribers.ForEach(s =>
-                {
-                    var ev = (Action<TEvent>)events[@event];
-                    events[@event] = ev += x => s(x);
-                });
             }
 
             if (events[@event] is Action<TEvent> tAction)
@@ -96,6 +91,10 @@ namespace Dungeon.Events
         public void Raise<TEvent>(TEvent @event, params string[] args) where TEvent : IEvent
         {
             Get<TEvent>(args)?.DynamicInvoke(@event);
+            allsubscribers.ForEach(x =>
+            {
+                x.Invoke(@event);
+            });
             typesubscribers.Where(ts => @event.GetType().FullName.Contains(ts.Key)).ToList().ForEach(ts =>
             {
                 ts.Value?.Invoke(@event, args);

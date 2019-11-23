@@ -6,6 +6,7 @@
     using Dungeon.Types;
     using System.Linq;
     using Dungeon.Entities.Alive;
+    using MoreLinq;
 
     public class Backpack
     {
@@ -34,15 +35,33 @@
         /// <summary>
         /// Добавляет предмет
         /// <para>
-        /// События: <see cref="ItemPickedUpEvent"/> (кроме перетаскиваний, там сложно и может не работать)
+        /// События: <see cref="ItemPickedUpEvent"/>
         /// </para>
         /// </summary>
         /// <param name="itemSource"></param>
         /// <param name="location"></param>
         /// <param name="owner"></param>
         /// <returns></returns>
-        public bool Add(Item itemSource, Point location = null, Alive owner=default)
+        public bool Add(Item itemSource, Point location = null, Alive owner=default, int quantity = 1)
         {
+            if (itemSource.Stackable)
+            {
+                if (AddStackable(itemSource, quantity, out var overflow))
+                {
+                    if (overflow == 0)
+                    {
+                        // если удалось добавить в стакаемую вещь, тогда не надо её добавлять в инвентарь,
+                        // и наоборот, если вещь умеет стакаться, но её ещё нет, надо добавить физический экземпляр
+                        // если при добавлении стак переполнился, значит надо добавить новый экземпляр
+                        return true;
+                    }
+                    else
+                    {
+                        // если стак переполнился, значит надо добавить столько сколько переполнилось
+                        quantity = overflow;
+                    }
+                }
+            }
             var item = itemSource.DeepClone();
             var backpackItem = new BackpackItem()
             {
@@ -80,6 +99,11 @@
                 return false;
             }
 
+            if (item.Stackable && quantity > 1)
+            {
+                backpackItem.Item.QuantityAdd(quantity - 1);
+            }
+
             Container.Add(backpackItem);
             backpackItem.Size.Width += .2;
             backpackItem.Size.Height += .2;
@@ -89,6 +113,22 @@
             Global.Events.Raise(new ItemPickedUpEvent() { Item = item, Owner= owner });
 
             return true;
+        }
+
+        private bool AddStackable(Item itemSource, int quantity, out int overflow)
+        {
+            overflow = 0;
+            var stackableItem = Container.Nodes
+                .FirstOrDefault(n => n.Item.IdentifyName == itemSource.IdentifyName
+                && !n.Item.StackFull);
+
+            if (stackableItem == default)
+            {
+                return false;
+            }
+
+            overflow = stackableItem.Item.QuantityAdd(quantity);
+            return overflow > 0;
         }
 
         private bool TrySetLocation(BackpackItem item, Point location)
@@ -142,16 +182,63 @@
             return true;
         }
 
-        public bool Remove(Item item)
+        /// <summary>
+        /// Удаляет предмет
+        /// <para>
+        /// События: <see cref="ItemDropOffEvent"/>
+        /// </para>
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="owner"></param>
+        /// <returns></returns>
+        public bool Remove(Item item, Alive owner = default, int quantity = 1)
         {
+            if(item.Stackable)
+            {
+                if (RemoveStackable(item, owner, quantity))
+                {
+                    // если удалось удалить стаки из одного и он остался
+                    // не надо удалять предмет
+                    return true;
+                    // другая ситуация которая может породить true:
+                    // когда мы удаляем кол-во вещей в разных стаках
+                    // тогда в методе RemoveStackable будет вызываться
+                    // Remove с признаком не stackable если стак удалился
+                }
+            }
+
             var backpackItem = Container.Nodes.FirstOrDefault(n => n.Item == item);
             if (item != null)
             {
                 Container.Nodes.Remove(backpackItem);
+                Global.Events.Raise(new ItemDropOffEvent() { Item = item, Owner = owner });
                 return true;
             }
 
             return false;
+        }
+
+        private bool RemoveStackable(Item item, Alive owner, int quantity)
+        {
+            var stackableItem = Container.Nodes
+                .Where(n => n.Item.IdentifyName == item.IdentifyName)
+                .MaxBy(n => n.Item.Quantity)
+                .FirstOrDefault();
+
+            var overflow = stackableItem.Item.QuantityRemove(quantity);
+            if (overflow < 0)
+            {
+                item.Stackable = false;
+                Remove(item, owner);
+                item.Stackable = true;
+                Remove(item, owner, overflow);
+                return true;
+            }
+            else if (overflow == 0)
+            {
+                return false;
+            }
+            else return true;
         }
 
         private class BackpackItem : PhysicalObject<BackpackItem>

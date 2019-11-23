@@ -1,4 +1,5 @@
-﻿using Dungeon.Data;
+﻿using Dungeon.Classes;
+using Dungeon.Data;
 using Dungeon.Map;
 using Dungeon.View.Interfaces;
 using System;

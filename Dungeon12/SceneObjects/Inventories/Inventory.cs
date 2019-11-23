@@ -126,7 +126,10 @@
                         var res = @char.Sell(inventoryItem.Item, shopCategoryTab.Merchant);
                         if(res)
                         {
-                            anotherInventory.backpack.Add(inventoryItem.Item);
+                            anotherInventory.backpack.Add(inventoryItem.Item, owner:
+                                playerSceneObject.Component.Entity.Backpack == anotherInventory.backpack
+                                ? playerSceneObject.Component.Entity
+                                : default);
                         }
 
                         Trade(res, inventoryItem, anotherInventory);
@@ -187,7 +190,10 @@
                 {
                     if (source.Parent is Inventory inventoryParent)
                     {
-                        inventoryParent.backpack.Remove(source.Item);
+                        inventoryParent.backpack.Remove(source.Item,
+                            playerSceneObject.Component.Entity.Backpack == inventoryParent.backpack
+                            ? playerSceneObject.Component.Entity
+                            : default);
                         inventoryParent.Refresh();
                     }
                 }

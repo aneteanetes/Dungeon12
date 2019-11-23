@@ -4,6 +4,7 @@
     using Dungeon.Data;
     using Dungeon.Entities;
     using Dungeon.Entities.Alive;
+    using Dungeon.Entities.Alive.Proxies;
     using Dungeon.GameObjects;
     using Dungeon.Items.Enums;
     using Dungeon.Loot;
@@ -19,6 +20,47 @@
     /// </summary>
     public abstract partial class Item : Drawable, IPersist, ILootable
     {
+        public virtual bool Stackable { get; set; }
+
+        public bool StackFull => Quantity == QuantitykMax;
+
+        /// <summary>
+        /// [Лимит]
+        /// </summary>
+        [Proxied(typeof(Limit))]
+        public virtual int Quantity { get; set; }
+
+        public virtual int QuantitykMax { get; set; }
+
+        public virtual int QuantityRemove(int quantity)
+        {
+            var overflow = Quantity - quantity;
+            if(overflow<0)
+            {
+                Quantity = 0;
+                return overflow;
+            }
+            else if (overflow==0)
+            {
+                return 0;
+            }
+
+            Quantity -= quantity;
+            return 1;
+        }
+
+        public virtual int QuantityAdd(int quantity)
+        {
+            var max = (Quantity + quantity) - QuantitykMax;
+            if (max > 0)
+            {
+                Quantity = QuantitykMax;
+                return max;
+            }
+            Quantity += quantity;
+            return 0;
+        }
+
         public string Description { get; set; }
 
         public abstract Stats AvailableStats { get; }

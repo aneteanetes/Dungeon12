@@ -1,5 +1,7 @@
 ﻿using Dungeon;
+using Dungeon.Classes;
 using Dungeon.Inventory;
+using Dungeon.Items;
 using Dungeon.Loot;
 using Dungeon.Types;
 using Dungeon12.Database.QuestCollect;
@@ -39,6 +41,13 @@ namespace Dungeon12.Entities.Quests
                 LootTable.GetLootTable(lootDrop.LootTableIdentify).LootDrops.Remove(lootDrop);
             });
             LootDrops.Clear();
+
+            foreach (var target in Targets)
+            {
+                var itemForRemove = _class.Backpack.GetItems().FirstOrDefault(i => i.IdentifyName == target.Key);
+                _class.Backpack.Remove(itemForRemove, _class, target.Value.First);
+            }
+
             base.Complete();
         }
 
@@ -62,15 +71,35 @@ namespace Dungeon12.Entities.Quests
 
             if (itemPickedUpEvent.Owner == _class)
             {
-                if (Targets.TryGetValue(itemPickedUpEvent.Item.Name, out var progress))
+                if (Targets.TryGetValue(itemPickedUpEvent.Item.IdentifyName, out var progress))
                 {
-                    if (progress.First < progress.Second)
+                    progress.Second++;
+                    if (progress.First > progress.Second)
                     {
-                        progress.Second++;
                         this.Progress++;
                     }
                 }
             }
         }
+
+        public void OnEvent(ItemDropOffEvent itemDropOffEvent)
+        {
+            if (_class == default)
+                return;
+
+            if (itemDropOffEvent.Owner == _class)
+            {
+                if (Targets.TryGetValue(itemDropOffEvent.Item.IdentifyName, out var progress))
+                {
+                    progress.Second--;
+                    if (progress.Second < progress.First)
+                    {
+                        this.Progress--;
+                    }
+                }
+            }
+        }
+
+        protected override void CallOnEvent(dynamic obj) => OnEvent(obj);
     }
 }

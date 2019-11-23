@@ -33,7 +33,7 @@
                 {
                     if (invContainer.Parent is CharacterInfoWindow)
                     {
-                        playerSceneObject.Avatar.Character.Backpack.Remove(source.Item);
+                        playerSceneObject.Avatar.Character.Backpack.Remove(source.Item,playerSceneObject.Component.Entity);
                         AddLootToMap(source);
 
                         inventory.Refresh();

@@ -23,7 +23,7 @@
         public Result<string> Sell(Item item, object merchant)
         {
             this.Gold += item.Cost;
-            this.Backpack.Remove(item);
+            this.Backpack.Remove(item,this);
 
             return Result<string>.Success;
         }
