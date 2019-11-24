@@ -46,9 +46,14 @@
                 {
                     try
                     {
-                        var load = ResourceLoader.Load(name);
-                        sound = SoundEffect.FromStream(load);
+                        var res = ResourceLoader.Load(name);
+                        sound = SoundEffect.FromStream(res.Stream);
                         soundEffectsCache[name] = sound;
+                        res.Dispose += () =>
+                        {
+                            sound.Dispose();
+                            soundEffectsCache.Remove(name);
+                        };
                     }
                     catch
                     {
@@ -93,11 +98,16 @@
                         {
                             using (var fileStream = File.Create(tempFilePath))
                             {
-                                song.CopyTo(fileStream);
+                                song.Stream.CopyTo(fileStream);
                             }
                         }
 
                         value = Song.FromUri(name, new Uri(tempFilePath));
+
+                        song.Dispose += () =>
+                        {
+                            value.Dispose();
+                        };
                     }
                     catch 
                     {

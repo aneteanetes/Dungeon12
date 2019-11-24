@@ -224,13 +224,19 @@
 #if Android
                 tilesetName = tilesetName.Replace("Dungeon.Resources.","Dungeon.Resources.Android.");
 #endif
-                var stream = ResourceLoader.Load(tilesetName);
-                if (stream == default)
+                var res = ResourceLoader.Load(tilesetName);
+                if (res == default)
                     return default;
 
-                bitmap = Texture2D.FromStream(GraphicsDevice, stream);
+                bitmap = Texture2D.FromStream(GraphicsDevice, res.Stream);
 
                 tilesetsCache.TryAdd(tilesetName, bitmap);
+
+                res.Dispose += () =>
+                 {
+                     tilesetsCache.Remove(tilesetName);
+                     bitmap.Dispose();
+                 };
             }
 
             return bitmap;
@@ -850,8 +856,9 @@
                 if (!ParticleEffects.TryGetValue(sceneObject.Uid, out var particleEffect))
                 {
                     var path = $"{effect.Assembly}.Resources.Particles.{effect.Name}.xml";
-                    var particleStream = ResourceLoader.Load(path);
-                    var loader = new ParticleEffectLoader(particleStream,effect.Assembly);
+                    var particleRes = ResourceLoader.Load(path);
+                    var loader = new ParticleEffectLoader(particleRes.Stream, effect.Assembly);
+
                     particleEffect = loader.Load();
                     particleEffect.Scale = (float)effect.Scale;
                     particleEffect.LoadContent(this.Content);
@@ -899,6 +906,7 @@
 
         private void CacheImageMask(Texture2D image, ISceneObject sceneObject)
         {
+            return;
             var uid = sceneObject.Image;
             var mask = sceneObject.ImageMask;
 

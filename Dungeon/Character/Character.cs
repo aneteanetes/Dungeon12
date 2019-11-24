@@ -1,5 +1,6 @@
 ﻿namespace Dungeon.Classes
 {
+    using Dungeon.Data;
     using Dungeon.Entities.Alive;
     using Dungeon.Entities.Alive.Enums;
     using Dungeon.Inventory;
@@ -11,7 +12,7 @@
     /// <summary>
     /// Абстрактный класс персонажа
     /// </summary>
-    public abstract partial class Character : Moveable
+    public abstract partial class Character : Moveable, IPersist
     {
         public Character()
         {
@@ -62,6 +63,10 @@
         public Backpack Backpack { get; set; } = new Backpack(6, 11);
 
         public Wear Clothes { get; set; } = new Wear();
+
+        public int Id { get; set; }
+
+        public int ObjectId { get; set; }
 
         /// <summary>
         /// Пересчитывает все характеристики

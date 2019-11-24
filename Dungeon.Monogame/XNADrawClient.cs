@@ -114,6 +114,9 @@
             GraphicsDevice.PresentationParameters.RenderTargetUsage = RenderTargetUsage.PreserveContents;
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+
+            IntPtr winHandle = Window.Handle;            
+
             SceneManager = new SceneManager
             {
                 DrawClient = this
@@ -288,7 +291,12 @@
             var minutes = (wasTime - nowTime).TotalMinutes;
             if (minutes > 0)
             {
-                throw new Exception("Двигаем время назад, да?");
+                //throw new Exception("Двигаем время назад, да?");
+
+                wasTime = new DateTime(1, 1, 1, was.Hours, was.Minutes, 0);
+                nowTime = new DateTime(1, 1, 2, now.Hours, now.Minutes, 0);
+
+                minutes = (wasTime - nowTime).TotalMinutes;
             }
 
             AddSunLight((int)Math.Abs(minutes), now.Hours);

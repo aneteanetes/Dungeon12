@@ -4,12 +4,13 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Loader;
 using System.Linq;
+using Dungeon.Scenes.Manager;
 
 namespace Dungeon.Resources
 {
     public static class ResourceLoader
     {
-        public static Stream Load(string resource)
+        public static Resource Load(string resource, bool caching = false)
         {
             var assembly = Assembly.GetExecutingAssembly();
             var resourceName = resource;
@@ -42,7 +43,19 @@ namespace Dungeon.Resources
                 stream.Seek(0, SeekOrigin.Begin);
             }
 
-            return stream;
+            var res = new Resource()
+            {
+                Name = resource,
+                Stream = stream,
+                Dispose = () => stream?.Dispose()
+            };
+
+            if (!caching)
+            {
+                SceneManager.Preapering.Resources.Add(res);
+            }
+
+            return res;
         }
 
         private static Dictionary<string, Stream> RuntimeCache = new Dictionary<string, Stream>();

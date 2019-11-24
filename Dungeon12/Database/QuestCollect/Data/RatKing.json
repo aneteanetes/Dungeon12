@@ -1,6 +1,6 @@
 ﻿{
   "Name": "Крысиный король",
-  "Description": "Соберите 5 клыков летучих мышей.",
+  "Description": "Соберите 2 клыков летучих мышей.",
   "RewardIdentify": "RatKing",
   "LootDropsIdentify": [
     "BatToothQuest"
@@ -9,6 +9,6 @@
     "BatTooth"
   ],
   "Amount": [
-    5
+    2
   ]
 }

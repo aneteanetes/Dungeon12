@@ -26,6 +26,8 @@
         public static GameScene Current = null;
         public static GameScene Preapering = null;
 
+        public GameScene CurrentScene { get; set; }
+
         public void Start()
         {
             Type startSceneType = null;
@@ -56,9 +58,35 @@
             }
         }
 
-        public void Change<TScene>(params string[] args) where TScene : GameScene
+        /// <summary>
+        /// Возможность явно уничтожать сцены, полезно для сцен которые не <see cref="Scene.Destroyable"/>
+        /// </summary>
+        /// <typeparam name="TScene"></typeparam>
+        public static void Destroy<TScene>() where TScene : GameScene
         {
             var sceneType = typeof(TScene);
+
+            if (SceneCache.TryGetValue(sceneType, out var existedScene))
+            {
+                SceneCache.Remove(sceneType);
+                existedScene.Destroy();
+            }
+        }
+
+        public void Change<TScene>(params string[] args) where TScene : GameScene
+        {
+            // вначале уничтожаем сцену, потому что если мы
+            // хотим переключить на ту же самую сцену,
+            // она будет в кэше и не будет создана т.к.
+            // будет в состоянии "не удаляемой"
+            if (Current?.Destroyable ?? false)
+            {
+                SceneCache.Remove(Current.GetType());
+                Current.Destroy();
+            }
+
+            var sceneType = typeof(TScene);
+
             if (!SceneCache.TryGetValue(sceneType, out GameScene next))
             {
                 next = sceneType.New<TScene>(this);
@@ -66,13 +94,8 @@
 
                 Populate(Current, next, args);
                 Preapering = next;
+                CurrentScene = Preapering;
                 next.Init();
-            }
-
-            if (Current?.Destroyable ?? false)
-            {
-                SceneCache.Remove(Current.GetType());
-                Current.Destroy();
             }
 
             //Если мы переключаем сцену, а она в это время фризит мир - надо освободить мир
@@ -82,6 +105,7 @@
             }
 
             Preapering = next;
+            CurrentScene = Preapering;
             Current = next;
             //Если мы переключаем сцену, а в следующей есть физер - значит надо восстановить её состояние
             if (next.Freezer != null)
@@ -90,10 +114,16 @@
             }
 
             Current.Activate();
+            CurrentScene = Current;
         }
 
         public void Change(Type sceneType)
         {
+            if (Current?.Destroyable ?? false)
+            {
+                SceneCache.Remove(Current.GetType());
+            }
+
             if (!SceneCache.TryGetValue(sceneType, out GameScene next))
             {
                 next = sceneType.NewAs<GameScene>(this);
@@ -101,18 +131,16 @@
 
                 Populate(Current, next);
                 Preapering = next;
+                CurrentScene = Preapering;
                 next.Init();
-            }
-            
-            if (Current?.Destroyable ?? false)
-            {
-                SceneCache.Remove(Current.GetType());
             }
 
             Preapering = next;
+            CurrentScene = Preapering;
             Current = next;
             
             Current.Activate();
+            CurrentScene = Current;
         }
 
         private void Populate(GameScene previous, GameScene next, string[] args = default)

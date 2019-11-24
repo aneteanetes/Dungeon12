@@ -119,46 +119,6 @@
 #endif
         }
 
-        //private void ShowEffectsBinding(List<ISceneObject> e)
-        //{
-        //    e.ForEach(effect =>
-        //    {
-        //        if (effect.ShowEffects == null)
-        //        {
-        //            effect.ShowEffects = ShowEffectsBinding;
-        //        }
-        //        if(effect is HandleSceneControl effectControl)
-        //        {
-        //            effectControl.ControlBinding = this.AddControl;
-        //        }
-
-        //        effect.Destroy += () =>
-        //        {
-        //            this.RemoveObject(effect);
-        //        };
-        //        this.AddObject(effect);
-        //    });
-        //}
-
-        private void FillCommands()
-        {
-            this.Commands.Add(new MoveCommand()
-            {
-                Location = this.Gamemap,
-                PlayerPosition = this.PlayerPosition,
-                Player = this.PlayerAvatar
-            });
-
-            //this.Commands.Add(new Control.Commands.Command { Key = Key.E, Name = "Действие" });
-            //this.Commands.Add(new Control.Commands.Command { Key = Key.F, Name = "Подобрать" });
-            //this.Commands.Add(new Control.Commands.Command { Key = Key.C, Name = "Персонаж" });
-            //this.Commands.Add(new Control.Commands.Command { Key = Key.I, Name = "Инвентарь" });
-            //this.Commands.Add(new Control.Commands.Command { Key = Key.Q, Name = "Атаковать" });
-            //this.Commands.Add(new Control.Commands.Command { Key = Key.Z, Name = "Осмотреться" });
-            //this.Commands.Add(new Control.Commands.Command { Key = Key.R, Name = "Способности" });
-            //this.Commands.Add(new Control.Commands.Command { Key = Key.Escape, Name = "Меню" });
-        }
-
         private void InitMap()
         {
             this.Gamemap = new GameMap()
@@ -282,7 +242,7 @@
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
             if (keyPressed == Key.Escape)
-                this.Switch<Start>();
+                this.Switch<Start>("main");
         }
 
         private class Position : TextControl

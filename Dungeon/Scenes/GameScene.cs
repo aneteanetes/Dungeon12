@@ -26,12 +26,12 @@
         {
         }
 
-        protected override void Switch<T>()
+        protected override void Switch<T>(params string[] args)
         {
             if (!AvailableScenes.Contains(typeof(T)))
                 throw new Exception($"Scene of type '{typeof(T)}' can't be switched from '{this.GetType()}' scene!");
 
-            base.Switch<T>();
+            base.Switch<T>(args);
         }
     }
 

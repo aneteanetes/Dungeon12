@@ -15,18 +15,16 @@ namespace Dungeon.Monogame
 #endif
             Database.LoadAllAssemblies();
 
-            //try
-            //{
             using (var game = new XNADrawClient())
             {
+                Global.Exit += () =>
+                 {
+                     game.Dispose();
+                     game.Exit();
+                     Environment.Exit(0);
+                 };
                 game.Run();
             }
-            //}
-            //catch (ExecutionEngineException ex)
-            //{
-            //    Console.WriteLine(ex.ToString());
-            //    throw ex; 
-            //}
         }
     }
 }

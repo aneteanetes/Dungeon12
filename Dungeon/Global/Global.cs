@@ -2,10 +2,12 @@
 {
     using Dungeon.Audio;
     using Dungeon.Control;
+    using Dungeon.Data;
     using Dungeon.Events;
     using Dungeon.Game;
     using Dungeon.Scenes.Manager;
     using Dungeon.View.Interfaces;
+    using System;
     using System.Collections.Generic;
     using System.Reflection;
 
@@ -45,5 +47,11 @@
         public static SceneManager SceneManager { get; set; }
 
         public static GameState GameState { get; set; } = new GameState();
+
+        public static string Save() => Database.Save();
+
+        public static SavedGame Load(string id) => Database.Load(id);
+
+        public static Action Exit { get; set; }
     }
 }

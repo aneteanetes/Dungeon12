@@ -17,6 +17,7 @@ namespace ProjectMercury.Emitters
     using ProjectMercury.Modifiers;
     using Dungeon;
     using Dungeon.Resources;
+    using Dungeon.Scenes.Manager;
 
 #if MPE_RAISEEVENTS
     /// <summary>
@@ -421,10 +422,15 @@ namespace ProjectMercury.Emitters
         {
             if (!tilesetsCache.TryGetValue(tilesetName, out var bitmap))
             {
-                var stream = ResourceLoader.Load(tilesetName);
-                bitmap = Texture2D.FromStream(Dungeon.Global.TransportVariable as GraphicsDevice, stream);
-
+                var res = ResourceLoader.Load(tilesetName);
+                bitmap = Texture2D.FromStream(Dungeon.Global.TransportVariable as GraphicsDevice, res.Stream);
                 tilesetsCache.TryAdd(tilesetName, bitmap);
+
+                res.Dispose += () =>
+                {
+                    bitmap.Dispose();
+                    tilesetsCache.Remove(tilesetName);
+                };
             }
 
             return bitmap;

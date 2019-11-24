@@ -444,6 +444,8 @@
 
         public virtual void Init() { }
 
+        public List<Dungeon.Resources.Resource> Resources = new List<Resources.Resource>();
+
         public void Activate()
         {
             this.sceneManager.DrawClient.SetScene(this);
@@ -451,9 +453,9 @@
 
         #region protected utils
         
-        protected virtual void Switch<T>() where T : GameScene
+        protected virtual void Switch<T>(params string[] args) where T : GameScene
         {
-            this.sceneManager.Change<T>();
+            this.sceneManager.Change<T>(args);
         }
 
         protected void Switch(string sceneClassName)
@@ -472,6 +474,10 @@
             sceneObjsForRemove = new List<ISceneObject>(sceneObjectControls);
             sceneObjsForRemove.ForEach(x => x.Destroy?.Invoke());
             sceneObjsForRemove.Clear();
+
+            Resources.ForEach(r => r.Dispose?.Invoke());
+            Resources.Clear();
+            GC.Collect();
             destroyed = true;
         }
 
