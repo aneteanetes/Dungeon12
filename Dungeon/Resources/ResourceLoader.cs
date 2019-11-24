@@ -56,7 +56,13 @@ namespace Dungeon.Resources
                 Dispose = () => stream?.Dispose()
             };
 
-            if (!caching)
+            bool addToScene = !caching;
+            if (NotDisposingResources)
+            {
+                addToScene = !SceneManager.Preapering.Resources.Any(r => r.Name == res.Name);
+            }
+
+            if (addToScene)
             {
                 SceneManager.Preapering.Resources.Add(res);
             }

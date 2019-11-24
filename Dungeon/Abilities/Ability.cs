@@ -39,6 +39,7 @@
         /// </summary>
         public virtual bool Notifying { get; set; } = true;
 
+        [Newtonsoft.Json.JsonIgnore]
         /// <summary>
         /// Добавить эффекты при использовании
         /// </summary>

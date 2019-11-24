@@ -5,6 +5,7 @@
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Map.Objects;
+    using Dungeon.SceneObjects;
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
     using Dungeon12.CardGame.Scene;
@@ -108,7 +109,15 @@
                 AbsolutePosition = true,
                 OnClick = () =>
                 {
-
+                    if(isGame)
+                    {
+                        var saveName =  Dungeon.Data.Database.Save();
+                        MessageBox.Show($"Игра сохранена: {saveName}", this.ShowEffectsBinding);
+                    }
+                    else
+                    {
+                        //
+                    }
                 }
             });
 

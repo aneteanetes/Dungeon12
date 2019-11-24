@@ -39,8 +39,10 @@
             OnMinute?.Invoke();
         }
 
+        [Newtonsoft.Json.JsonIgnore]
         public Action<Time,Time> OnTimeSet { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         public Action OnMinute { get; set; }
 
         public static implicit operator string(GameTime globalTime) => globalTime.ToString();

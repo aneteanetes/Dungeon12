@@ -53,8 +53,10 @@ namespace Dungeon.Abilities.Talants.NotAPI
 
         public virtual string Description { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         public Action<bool> ActiveChanged { get; set; }
-
+        
+        [Newtonsoft.Json.JsonIgnore]
         public Action<TalantBase> GroupActive { get; set; }
 
         public virtual bool Activatable { get; set; }

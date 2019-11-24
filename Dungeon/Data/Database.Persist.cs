@@ -10,6 +10,9 @@ using System.Runtime.Loader;
 using Dungeon.Resources;
 using Dungeon.Classes;
 using Dungeon.Map.Objects;
+using Dungeon.Types;
+using Dungeon.Map;
+using Dungeon.View.Interfaces;
 
 namespace Dungeon.Data
 {
@@ -17,13 +20,28 @@ namespace Dungeon.Data
     {
         public static string Save()
         {
-            var character = Global.GameState.Player.Component;
-            var id = $"{character.Entity.Name}`{DateTime.Now.ToString()}";
-            var save = new SavedGame() { Time = Global.Time, Character = character, IdentifyName = id };
+            var avatar = Global.GameState.Player.Component;
+            var id = $"{avatar.Entity.Name}`{DateTime.Now.ToString()}";
+
+            var save = new SavedGame() { Time = Global.Time, Character = new CharSaveModel()
+            {
+                Character=avatar.Entity,
+                Location=avatar.Location
+            }, IdentifyName = id };
+
+            var saveModel = new SaveModel()
+            {
+                Name = id,
+                Data = JsonConvert.SerializeObject(save, new JsonSerializerSettings()
+                {
+                    Converters = new IgnoreConverter().InList<JsonConverter>(),
+                    ContractResolver = new WritablePropertiesOnlyResolver()
+                })
+            };
 
             using (var db = new LiteDatabase($@"{MainPath}\Data.db"))
             {
-                db.GetCollection<SavedGame>().Insert(save);
+                db.GetCollection<SaveModel>().Insert(saveModel);
             }
 
             return id;
@@ -35,10 +53,53 @@ namespace Dungeon.Data
         }
     }
 
+    public class WritablePropertiesOnlyResolver : Newtonsoft.Json.Serialization.DefaultContractResolver
+    {
+        protected override IList<Newtonsoft.Json.Serialization.JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
+        {
+            IList<Newtonsoft.Json.Serialization.JsonProperty> props = base.CreateProperties(type, memberSerialization);
+            return props.Where(p => p.Writable).ToList();
+        }
+    }
+
+    public class IgnoreConverter : JsonConverter
+    {
+        public override bool CanConvert(Type objectType)
+        {
+            return typeof(Delegate).IsAssignableFrom(objectType) 
+                || typeof(MapObject).IsAssignableFrom(objectType) 
+                || typeof(ISceneObject).IsAssignableFrom(objectType);
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, Newtonsoft.Json.JsonSerializer serializer)
+        {
+            return null;
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, Newtonsoft.Json.JsonSerializer serializer)
+        {
+            writer.WriteNull();
+        }
+    }
+
+    public class SaveModel : Persist
+    {
+        public string Name { get; set; }
+
+        public string Data { get; set; }
+    }
+
     public class SavedGame : Persist
     {
         public GameTime Time { get; set; }
 
-        public Avatar Character { get; set; }
+        public CharSaveModel Character { get; set; }
+    }
+
+    public class CharSaveModel
+    {
+        public Character Character { get; set; }
+
+        public Point Location { get; set; }
     }
 }

@@ -27,6 +27,7 @@
 
             return new Dictionary<Scale, Func<double, ScaleRate>>()
             {
+                {Scale.None,rate.Ability },
                 {Scale.AbilityPower,rate.Ability },
                 {Scale.AttackDamage,rate.Attack },
                 {Scale.True,rate.True },
@@ -45,6 +46,11 @@
         public ScaleRate Attack(double value)
         {
             this.AttackRate = value;
+            return this;
+        }
+
+        public ScaleRate None(double value)
+        {
             return this;
         }
 

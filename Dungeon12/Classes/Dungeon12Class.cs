@@ -13,7 +13,7 @@ namespace Dungeon12
                
         public Journal Journal { get; set; } = new Journal();
 
-        public Deck CardDeck { get; set; } = Deck.Load("Guardian");
+        public Deck CardDeck { get; } = Deck.Load("Guardian");
 
         public List<IQuest> ActiveQuests { get; set; } = new List<IQuest>();
     }
