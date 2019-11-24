@@ -280,7 +280,7 @@
         private void CalculateSunlight()
         {
             var time = Global.Time;
-            AddSunLight(1, time.Hours);
+            AddSunLight(1, time);
         }
 
         private void WhenTimeSetted(Dungeon.Time was, Dungeon.Time now)
@@ -299,19 +299,20 @@
                 minutes = (wasTime - nowTime).TotalMinutes;
             }
 
-            AddSunLight((int)Math.Abs(minutes), now.Hours);
+            AddSunLight((int)Math.Abs(minutes), was);
         }
 
-        private void AddSunLight(int minutes, int hoursNow)
+        private void AddSunLight(int minutes, Time was)
         {
             for (int i = 0; i < minutes; i++)
             {
-                if (hoursNow >= 4 && hoursNow < 22)
+                was.AddMinute();
+                if (was.Hours >= 4 && was.Hours < 22)
                 {
                     this.SunLight.Rotation += RotationUnit;
                     this.SunLight.Position += new Vector2(PositionUnit, 0);
 
-                    if (hoursNow >= 13)
+                    if (was.Hours >= 13)
                     {
                         this.SunLight.Scale -= new Vector2(IllumnationUnit);
                     }
@@ -321,7 +322,7 @@
                     }
                 }
 
-                if (hoursNow >= 22)
+                if (was.Hours >= 22)
                 {
                     SunLight.Rotation = 0.8707998f;
                     SunLight.Scale = new Vector2(3700f);

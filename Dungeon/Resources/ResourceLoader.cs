@@ -10,6 +10,12 @@ namespace Dungeon.Resources
 {
     public static class ResourceLoader
     {
+        /// <summary>
+        /// Флаг позволяющий не освобождать ресуры
+        /// полезно для дебага
+        /// </summary>
+        public static bool NotDisposingResources = false;
+
         public static Resource Load(string resource, bool caching = false)
         {
             var assembly = Assembly.GetExecutingAssembly();

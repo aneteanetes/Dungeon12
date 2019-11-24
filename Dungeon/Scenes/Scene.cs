@@ -3,6 +3,7 @@
     using Dungeon.Control;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
+    using Dungeon.Resources;
     using Dungeon.Scenes.Manager;
     using Dungeon.Settings;
     using Dungeon.Types;
@@ -475,9 +476,12 @@
             sceneObjsForRemove.ForEach(x => x.Destroy?.Invoke());
             sceneObjsForRemove.Clear();
 
-            Resources.ForEach(r => r.Dispose?.Invoke());
-            Resources.Clear();
-            GC.Collect();
+            if (!ResourceLoader.NotDisposingResources)
+            {
+                Resources.ForEach(r => r.Dispose?.Invoke());
+                Resources.Clear();
+                GC.Collect();
+            }
             destroyed = true;
         }
 

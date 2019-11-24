@@ -1,4 +1,5 @@
 ﻿using Dungeon.Data;
+using Dungeon.Resources;
 using System;
 using System.Diagnostics;
 
@@ -9,7 +10,10 @@ namespace Dungeon.Monogame
         [STAThread]
         static void Main()
         {
-            Database.Init();
+#if DEBUG
+            ResourceLoader.NotDisposingResources = true;
+#endif
+            //Database.Init();
 #if COMPILEDATABASE
             Database.Init();
 #endif

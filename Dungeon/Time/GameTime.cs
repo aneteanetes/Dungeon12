@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Text;
 
-    public class GameTime
+    public class GameTime : Time
     {
         private System.Timers.Timer internalTimer;
 
@@ -32,33 +32,10 @@
         /// </summary>
         public void Start() => Resume();
 
-        public int Hours { get; private set; } = 0;
 
-        public int Minutes { get; private set; } = 0;
-
-        public int Days { get; private set; } = 150;
-
-        public int Years { get; private set; } = 600;
-        
         private void Time(object sender, System.Timers.ElapsedEventArgs e)
         {
-            this.Minutes += 1;
-            if (this.Minutes > 59)
-            {
-                this.Minutes = 0;
-                this.Hours += 1;
-                if (Hours > 23)
-                {
-                    this.Hours = 0;
-                    this.Days += 1;
-
-                    if (this.Days >= 300)
-                    {
-                        this.Days = 0;
-                        this.Years += 1;
-                    }
-                }
-            }
+            AddMinute();
             OnMinute?.Invoke();
         }
 
