@@ -31,6 +31,11 @@ namespace Dungeon.Data
 
             var saveModel = new SaveModel()
             {
+                RegionName = Global.GameState.Map.Name,
+                CharacterName = avatar.Entity.Name,
+                IdentifyName = id,
+                ClassName = avatar.Entity.ClassName,
+                Level = avatar.Entity.Level,
                 Name = id,
                 Data = JsonConvert.SerializeObject(save, new JsonSerializerSettings()
                 {
@@ -85,6 +90,14 @@ namespace Dungeon.Data
     public class SaveModel : Persist
     {
         public string Name { get; set; }
+
+        public string RegionName { get; set; }
+
+        public string CharacterName { get; set; }
+
+        public string ClassName { get; set; }
+
+        public int Level { get; set; }
 
         public string Data { get; set; }
     }

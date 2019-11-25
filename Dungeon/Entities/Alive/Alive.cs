@@ -21,7 +21,7 @@ namespace Dungeon.Entities.Alive
 
         public long EXP { get; set; }
 
-        public long MaxExp => Level * 100 + EXP;
+        public long MaxExp { get; set; } = 100;
 
         public void Exp(long amount)
         {
@@ -45,6 +45,7 @@ namespace Dungeon.Entities.Alive
 
         protected virtual void LevelUp()
         {
+            this.MaxExp = Level * 100 + EXP;
             this.Level++;
             FreeStatPoints++;
 
