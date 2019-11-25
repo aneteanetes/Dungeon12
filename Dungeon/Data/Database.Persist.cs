@@ -52,10 +52,12 @@ namespace Dungeon.Data
             return id;
         }
 
-        public static SavedGame Load(string id)
+        public static SaveModel Load(string id)
         {
-            return Entity<SavedGame>(x => x.IdentifyName == id).FirstOrDefault();
+            return Entity<SaveModel>(x => x.IdentifyName == id).FirstOrDefault();
         }
+
+        public static IEnumerable<SaveModel> SavedGames()=> Entity<SaveModel>(cacheObject: new Guid());
     }
 
     public class WritablePropertiesOnlyResolver : Newtonsoft.Json.Serialization.DefaultContractResolver

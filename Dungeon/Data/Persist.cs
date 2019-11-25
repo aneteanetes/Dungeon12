@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Dungeon.GameObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
 namespace Dungeon.Data
 {
-    public class Persist : IPersist
+    public class Persist : GameComponent, IPersist
     {
         /// <summary>
         /// Внутреннее свойство для LiteDb
