@@ -1,6 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.SceneObjects;
 using Dungeon.SceneObjects.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,25 +11,32 @@ namespace Dungeon12.SceneObjects.SaveLoad
     {
         private bool isSave;
 
-        public SaveLoadWindow(bool isSave)
+        public SaveLoadWindow(bool isSave, Action switchMain)
         {
-            Image = "ui/vertical17x24.png".AsmImgRes();
+            Image = "ui/vertical(17x24).png".AsmImgRes();
             this.Width = 24;
             this.Height = 17;
 
-            this.AddMixin(new Scrollbar(17, v => RecalculatePositions())
+            this.AddMixin(new Scrollbar(16, v => RecalculatePositions())
             {
-                Left = 23,
+                Left = 22.5,
+                Top=.5,
             });
 
+            double top = .5;
             Dungeon.Data.Database.SavedGames().ForEach((savedGame,i) =>
             {
-                var slot = new SaveLoadSlot(savedGame)
+                var slot = new SaveLoadSlot(savedGame, isSave, switchMain)
                 {
-                    ItemIndex = i
+                    ItemIndex = i,
+                    Left=.5,
+                    Top=top
                 };
 
+                top += 3;
+
                 Slots.Add(slot);
+                this.AddControlCenter(slot, false, false);
             });
         }
 

@@ -25,8 +25,6 @@
 
     public class Main : GameScene<Start, Main,End, CardGameScene>
     {
-        private readonly Point PlayerPosition = new Point { X = 42, Y = 45 };
-
         private readonly DrawingSize DrawingSize = new DrawingSize();
 
         //public override bool CameraAffect => true;
@@ -42,8 +40,8 @@
         {
             var player = new Player(this.PlayerAvatar, x => this.RemoveObject(x))
             {
-                Left = PlayerPosition.X,
-                Top = PlayerPosition.Y
+                Left = this.PlayerAvatar.Location.X,
+                Top = this.PlayerAvatar.Location.Y
             };
             player.OnStop = (dir) =>
             {
@@ -142,32 +140,36 @@
             //width = 40
             //height = 22.5
 
-            var playerPos = PlayerPosition;
 
             //перенести туда где location
-            this.PlayerAvatar.Location = playerPos;
+            if (this.PlayerAvatar.Location == default)
+            {
+                var playerPos = new Point { X = 42, Y = 45 }; ;
 
-            double xOffset = 0;
-            double yOffset = 0;
+                this.PlayerAvatar.Location = playerPos;
 
-            if (playerPos.X > 29)
-            {
-                xOffset -= playerPos.X - 20;
-            }
-            if (playerPos.X < 11)
-            {
-                xOffset += playerPos.X - 20;
-            }
-            if (playerPos.Y > 16.25)
-            {
-                yOffset -= playerPos.Y - 11.25;
-            }
-            if (playerPos.Y < 6.25)
-            {
-                yOffset += playerPos.Y - 11.25;
-            }
+                double xOffset = 0;
+                double yOffset = 0;
 
-            SceneManager.StaticDrawClient.SetCamera(xOffset*32, yOffset*32);
+                if (playerPos.X > 29)
+                {
+                    xOffset -= playerPos.X - 20;
+                }
+                if (playerPos.X < 11)
+                {
+                    xOffset += playerPos.X - 20;
+                }
+                if (playerPos.Y > 16.25)
+                {
+                    yOffset -= playerPos.Y - 11.25;
+                }
+                if (playerPos.Y < 6.25)
+                {
+                    yOffset += playerPos.Y - 11.25;
+                }
+
+                SceneManager.StaticDrawClient.SetCamera(xOffset * 32, yOffset * 32);
+            }
 
 
             var drawClient = SceneManager.StaticDrawClient;

@@ -122,6 +122,8 @@
                 DrawClient = this
             };
 
+            Global.Camera = this;
+
 
             Global.SceneManager = this.SceneManager;
 

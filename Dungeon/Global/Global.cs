@@ -18,7 +18,9 @@
             TimeTrigger.GlobalTimeSource = () => Time;
         }
 
-        public static IDrawClient DrawClient;
+        public static ICamera Camera { get; set; }
+
+        public static IDrawClient DrawClient { get; set; }
 
         public static Freezer Freezer { get; set; } = new Freezer();
 
@@ -48,9 +50,9 @@
 
         public static GameState GameState { get; set; } = new GameState();
 
-        public static string Save() => Database.Save();
+        public static string Save(int id=0) => Database.Save(id);
 
-        public static SavedGame Load(string id) => Database.Load(id);
+        public static SaveModel Load(string id) => Database.Load(id);
 
         public static Action Exit { get; set; }
     }

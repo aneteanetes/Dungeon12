@@ -6,6 +6,8 @@
 
         public int Minutes { get; set; } = 0;
 
+        public int Months { get; set; } = 5;        
+
         public int Days { get; set; } = 150;
 
         public int Years { get; set; } = 600;
@@ -32,9 +34,15 @@
                     this.Hours = 0;
                     this.Days += 1;
 
-                    if (this.Days >= 300)
+                    if (this.Days > 30)
                     {
                         this.Days = 0;
+                        this.Months++;
+                    }
+
+                    if (this.Months > 10)
+                    {
+                        this.Months = 0;
                         this.Years += 1;
                     }
                 }

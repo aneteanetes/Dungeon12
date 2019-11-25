@@ -28,10 +28,10 @@ namespace Dungeon12.Scenes.SaveLoad
             var isSave = Args.ElementAtOrDefault(1) != default;
 
             this.AddObject(new Background());
-            this.AddObject(new SaveLoadWindow(isSave)
+            this.AddObject(new SaveLoadWindow(isSave, () => this.Switch<Main>())
             {
                 Left = 8,
-                Top = 7
+                Top = 2.5
             });
         }
 

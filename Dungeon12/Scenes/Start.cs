@@ -13,10 +13,11 @@
     using Dungeon12.Map.Editor;
     using Dungeon12.Races.Perks;
     using Dungeon12.Scenes.Game;
+    using Dungeon12.Scenes.SaveLoad;
     using System;
     using System.Linq;
 
-    public class Start : StartScene<SoloDuoScene, Game.Main, EditorScene, CardGameScene,Start>
+    public class Start : StartScene<SoloDuoScene, Game.Main, EditorScene, CardGameScene,Start, SaveLoadScene>
     {
         public override bool AbsolutePositionScene => true;
 
@@ -75,19 +76,21 @@
                 AbsolutePosition = true,
                 OnClick = () =>
                 {
-                    this.PlayerAvatar = new Avatar(new Dungeon12.Noone.Noone()
-                    {
-                        Origin = Dungeon.Entities.Alive.Enums.Origins.Adventurer
-                    });
-                    this.PlayerAvatar.Character.Name = "Ваш персонаж";
+                    this.Switch<SaveLoadScene>("game");
 
-                    Global.AudioPlayer.Music("town", new Dungeon.Audio.AudioOptions()
-                    {
-                        Repeat = true,
-                        Volume = 0.3
-                    });
+                    //this.PlayerAvatar = new Avatar(new Dungeon12.Noone.Noone()
+                    //{
+                    //    Origin = Dungeon.Entities.Alive.Enums.Origins.Adventurer
+                    //});
+                    //this.PlayerAvatar.Character.Name = "Ваш персонаж";
 
-                    this.Switch<Game.Main>();
+                    //Global.AudioPlayer.Music("town", new Dungeon.Audio.AudioOptions()
+                    //{
+                    //    Repeat = true,
+                    //    Volume = 0.3
+                    //});
+
+                    //this.Switch<Game.Main>();
                 }
             });
 
@@ -109,15 +112,16 @@
                 AbsolutePosition = true,
                 OnClick = () =>
                 {
-                    if(isGame)
-                    {
-                        var saveName =  Dungeon.Data.Database.Save();
-                        MessageBox.Show($"Игра сохранена: {saveName}", this.ShowEffectsBinding);
-                    }
-                    else
-                    {
-                        //
-                    }
+                    this.Switch<SaveLoadScene>("game","saving");
+                    //if (isGame)
+                    //{
+                    //    var saveName =  Dungeon.Data.Database.Save();
+                    //    MessageBox.Show($"Игра сохранена: {saveName}", this.ShowEffectsBinding);
+                    //}
+                    //else
+                    //{
+                    //    //
+                    //}
                 }
             });
 

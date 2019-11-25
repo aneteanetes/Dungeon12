@@ -10,6 +10,8 @@ namespace Dungeon
     {
         public static DrawText AsDrawText(this string value)
         {
+            if (string.IsNullOrWhiteSpace(value))
+                value = " ";
             return new DrawText(value);
         }
 

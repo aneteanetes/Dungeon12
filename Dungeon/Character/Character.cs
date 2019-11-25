@@ -4,9 +4,11 @@
     using Dungeon.Entities.Alive;
     using Dungeon.Entities.Alive.Enums;
     using Dungeon.Inventory;
+    using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Linq.Expressions;
 
     /// <summary>
@@ -99,24 +101,24 @@
             return default;
         }
 
-        public Dictionary<string, object> Variables = new Dictionary<string, object>();
+        public List<Pair<string, object>> Variables = new List<Pair<string, object>>();
 
-        public T GetVariable<T>(string name)
-        {
-            Variables.TryGetValue(name, out var v);
-            return v.As<T>();
-        }
+        public T GetVariable<T>(string name) => Variables.FirstOrDefault(n => n.First == name).Second.As<T>();
 
         public T SetVariable<T>(string name, T value)
         {
-            Variables[name] = value;
+            var v = Variables.FirstOrDefault(n => n.First == name);
+            if (v.First != default)
+            {
+                v.Second = value;
+            }
             return value;
         }
 
         public object this[string variable]
         {
-            get => Variables.ContainsKey(variable) ? Variables[variable] : default;
-            set => Variables[variable] = value;
+            get => GetVariable<object>(variable);
+            set => SetVariable(variable, variable);
         }
     }
 }
