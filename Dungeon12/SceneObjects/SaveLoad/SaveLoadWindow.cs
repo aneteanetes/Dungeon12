@@ -20,17 +20,33 @@ namespace Dungeon12.SceneObjects.SaveLoad
             this.AddMixin(new Scrollbar(16, v => RecalculatePositions())
             {
                 Left = 22.5,
-                Top=.5,
+                Top = .5,
             });
 
             double top = .5;
-            Dungeon.Data.Database.SavedGames().ForEach((savedGame,i) =>
+
+            if (isSave)
+            {
+                var emptySaveSlot = new SaveLoadSlot(default, isSave, switchMain)
+                {
+                    ItemIndex = -1,
+                    Left = .5,
+                    Top = top
+                };
+
+                top += 3;
+
+                Slots.Add(emptySaveSlot);
+                this.AddControlCenter(emptySaveSlot, false, false);
+            }
+
+            Dungeon.Data.Database.SavedGames().ForEach((savedGame, i) =>
             {
                 var slot = new SaveLoadSlot(savedGame, isSave, switchMain)
                 {
                     ItemIndex = i,
-                    Left=.5,
-                    Top=top
+                    Left = .5,
+                    Top = top
                 };
 
                 top += 3;

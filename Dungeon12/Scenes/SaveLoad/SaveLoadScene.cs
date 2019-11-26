@@ -39,7 +39,7 @@ namespace Dungeon12.Scenes.SaveLoad
         {
             if (keyPressed == Key.Escape)
             {
-                this.Switch<Start>(isGame ? new string[1] : default);
+                this.Switch<Start>(isGame ? new string[1] { "true" } : default);
             }
         }
     }

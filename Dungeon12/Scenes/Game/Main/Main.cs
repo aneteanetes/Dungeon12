@@ -40,8 +40,8 @@
         {
             var player = new Player(this.PlayerAvatar, x => this.RemoveObject(x))
             {
-                Left = this.PlayerAvatar.Location.X,
-                Top = this.PlayerAvatar.Location.Y
+                Left = this.PlayerAvatar?.Location?.X ??0 ,
+                Top = this.PlayerAvatar?.Location?.Y?? 0
             };
             player.OnStop = (dir) =>
             {
@@ -169,6 +169,9 @@
                 }
 
                 SceneManager.StaticDrawClient.SetCamera(xOffset * 32, yOffset * 32);
+
+                Global.GameState.Player.Left = this.PlayerAvatar.Location.X;
+                Global.GameState.Player.Top = this.PlayerAvatar.Location.Y;
             }
 
 

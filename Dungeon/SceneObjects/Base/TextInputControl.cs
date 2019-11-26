@@ -29,6 +29,7 @@
                     {
                         focusRect.Opacity = 0.001;
                         Global.Freezer.FreezeHandle(ControlEventType.Key, this);
+                        Global.BlockSceneControls = true;
                     }
                 }
                 else
@@ -37,6 +38,7 @@
                     {
                         focusRect.Opacity = 0.5;
                         Global.Freezer.UnfreezeHandle(ControlEventType.Key, this);
+                        Global.BlockSceneControls = false;
                     }
                 }
 

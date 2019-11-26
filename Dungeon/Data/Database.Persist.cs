@@ -18,10 +18,10 @@ namespace Dungeon.Data
 {
     public static partial class Database
     {
-        public static string Save(int liteDbId = 0)
+        public static string Save(int liteDbId = 0, string saveGameName=null)
         {
             var avatar = Global.GameState.Player.Component;
-            var id = $"{avatar.Entity.Name}`{DateTime.Now.ToString()}";
+            var id = saveGameName ?? $"{DateTime.Now.ToString()}";
 
             var save = new SavedGame()
             {
@@ -39,6 +39,7 @@ namespace Dungeon.Data
             var saveModel = new SaveModel()
             {
                 GameTime = $"{save.Time.Hours}:{save.Time.Minutes} [{save.Time.Years} год месяца Зимы]",
+                ScreenPosition=avatar.SceenPosition,
                 RegionName = Global.GameState.Map.Name,
                 CharacterName = avatar.Entity.Name,
                 IdentifyName = id,
@@ -82,7 +83,7 @@ namespace Dungeon.Data
             return Entity<SaveModel>(x => x.IdentifyName == id).FirstOrDefault();
         }
 
-        public static IEnumerable<SaveModel> SavedGames()=> Entity<SaveModel>(cacheObject: new Guid());
+        public static IEnumerable<SaveModel> SavedGames()=> Entity<SaveModel>();
     }
 
     public class WritablePropertiesOnlyResolver : Newtonsoft.Json.Serialization.DefaultContractResolver
@@ -117,6 +118,8 @@ namespace Dungeon.Data
     public class SaveModel : Persist
     {
         public string GameTime { get; set; }
+
+        public Point ScreenPosition { get; set; }
 
         public string Name { get; set; }
 
