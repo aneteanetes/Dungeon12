@@ -44,7 +44,7 @@
             {
                 sceneObject.ControlBinding += this.RemoveControl;
                 sceneObject.DestroyBinding += this.RemoveObject;
-                sceneObject.ShowEffects += ShowEffectsBinding;
+                sceneObject.ShowInScene += ShowEffectsBinding;
             }
 
             AddControlRecursive(sceneObject);
@@ -56,9 +56,9 @@
         {
             e.ForEach(effect =>
             {
-                if (effect.ShowEffects == null)
+                if (effect.ShowInScene == null)
                 {
-                    effect.ShowEffects = ShowEffectsBinding;
+                    effect.ShowInScene = ShowEffectsBinding;
                 }
                 if (effect.ControlBinding==null)
                 {

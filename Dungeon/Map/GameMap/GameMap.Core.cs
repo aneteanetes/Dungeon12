@@ -16,6 +16,8 @@
             MapObject = new GameMapObject(this);
         }
 
+        public bool Loaded { get; set; } = false;
+
         public Action<MapObject> PublishObject;
 
         public bool First = true;
@@ -31,6 +33,8 @@
         public GameMapObject MapObject;
 
         public HashSet<MapObject> Objects = new HashSet<MapObject>();
+
+        public HashSet<MapObject> SaveableObjects => Objects.Where(x => x.Saveable).ToHashSet();
 
         public List<List<List<MapObject>>> MapOld = new List<List<List<MapObject>>>();
         

@@ -101,7 +101,7 @@ namespace Dungeon.Drawing.Labirinth
         {
             List<ISceneObject> sceneObjects = new List<ISceneObject>();
 
-            foreach (var obj in mapObjects)
+            foreach (var obj in mapObjects.Where(x=>!(x is Obstruct)))
             {
                 var view = obj.Visual(Global.GameState);
                 if (view != null)
@@ -121,7 +121,7 @@ namespace Dungeon.Drawing.Labirinth
                 Player = player
             });
 
-            this.ShowEffects?.Invoke(sceneObject.InList());
+            this.ShowInScene?.Invoke(sceneObject.InList());
         }
 
         private void AddObject(MapObject[] cell, Point pos)

@@ -19,6 +19,8 @@ namespace Dungeon12.Map.Objects
     [DataClass(typeof(BarrelData))]
     public class Barrel : MapObject
     {
+        public override bool Saveable => true;
+
         public override bool Obstruction => true;
 
         public ConsoleColor Color { get; set; }
@@ -87,7 +89,7 @@ namespace Dungeon12.Map.Objects
             {
                 var txt = text.AsDrawText().InSize(12).InColor(this.Color).Montserrat();
                 var popup = new PopupString(txt, alive.MapObject.Location);
-                alive.SceneObject.ShowEffects(popup.InList<ISceneObject>());
+                alive.SceneObject.ShowInScene(popup.InList<ISceneObject>());
             }
         }
     }

@@ -35,7 +35,7 @@ namespace Dungeon.Entities.Alive
                 .InSize(12);
 
             var popup = new PopupString(text, this.MapObject?.Location, 25, 0.06).InList<ISceneObject>();
-            this.MapObject.SceneObject.ShowEffects(popup);
+            this.MapObject.SceneObject.ShowInScene(popup);
 
             if (EXP >= MaxExp)
             {
@@ -49,7 +49,7 @@ namespace Dungeon.Entities.Alive
             this.Level++;
             FreeStatPoints++;
 
-            var visual = this.SceneObject.ShowEffects;
+            var visual = this.SceneObject.ShowInScene;
             
             var txt = $"Вы достигли {this.Level} уровня!".AsDrawText().InSize(10).Montserrat();
             MessageBox.Show(txt, visual);

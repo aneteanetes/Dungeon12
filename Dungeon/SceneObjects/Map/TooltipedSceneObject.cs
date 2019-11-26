@@ -78,7 +78,7 @@
                 aliveTooltip.Layer = 100;
 
                 this.Destroy += () => aliveTooltip?.Destroy?.Invoke();
-                this.ShowEffects(new List<ISceneObject>() { aliveTooltip });
+                this.ShowInScene(new List<ISceneObject>() { aliveTooltip });
             }
         }
 

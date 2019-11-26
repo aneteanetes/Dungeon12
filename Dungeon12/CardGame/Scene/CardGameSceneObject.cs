@@ -79,7 +79,7 @@ namespace Dungeon12.CardGame.Scene
                 c.Top = top;
 
                 var @lock = new LockSceneObject();
-                this.ShowEffects(@lock.InList<ISceneObject>());
+                this.ShowInScene(@lock.InList<ISceneObject>());
                 Global.Freezer.World = @lock;
 
                 enemyCardPlaying = c;
@@ -89,7 +89,7 @@ namespace Dungeon12.CardGame.Scene
                     .After(500)
                     .Do(() =>
                     {
-                        this.ShowEffects(c.InList<ISceneObject>());
+                        this.ShowInScene(c.InList<ISceneObject>());
                         Global.Freezer.World = c;
                         @lock.Destroy?.Invoke();
                         Global.Time.Timer(Guid.NewGuid().ToString())
@@ -103,7 +103,7 @@ namespace Dungeon12.CardGame.Scene
             }
             else
             {
-                MessageBox.Show($"{Component.Player2.Name} пропускает ход", this.ShowEffects);
+                MessageBox.Show($"{Component.Player2.Name} пропускает ход", this.ShowInScene);
             }
         }
 

@@ -17,9 +17,12 @@
 
         public bool InSafe(MapObject @object) => SafeZones.Any(safeZone => safeZone.IntersectsWith(@object));
 
+        public string MapIdentifyId { get; private set; }
+
         public string InitRegion(string name)
         {
             Global.GameState.Map = this;
+            MapIdentifyId = name;
 
             var persistRegion = Database.Entity<Region>(e => e.Name == name).First();
 
@@ -46,7 +49,43 @@
 
         public string LoadRegion(MapSaveModel mapSaveModel)
         {
-            return default;
+            MapIdentifyId = mapSaveModel.Name;
+            Loaded = true;
+
+            if (Global.GameState.Map != this)
+            {
+                Global.GameState.Map = this;
+            }
+
+            var persistRegion = Database.Entity<Region>(e => e.Name == mapSaveModel.Name).First();
+
+            this.SafeZones = persistRegion.SafeZones.Select(safeZone => safeZone * 32);
+
+            foreach (var regionObject in persistRegion.Objects)
+            {
+                var obj = Map.MapObject.Create(regionObject,false);
+                if (obj != default)
+                {
+                    obj.Destroy += () => { this.MapObject.Remove(obj); };
+                    this.MapObject.Add(obj);
+
+                    if (!(obj is Empty) && !(obj is Wall))
+                    {
+                        this.Objects.Add(obj);
+                    }
+                }
+            }
+
+            this.Name = persistRegion.Display;
+
+            foreach (var saveableObject in mapSaveModel.Objects)
+            {
+                saveableObject.Reload();
+                this.MapObject.Add(saveableObject);
+                this.Objects.Add(saveableObject);
+            }
+
+            return persistRegion.Name;
         }
 
         public class MobData : Dungeon.Data.Persist

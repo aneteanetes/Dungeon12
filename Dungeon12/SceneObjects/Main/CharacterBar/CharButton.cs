@@ -77,10 +77,10 @@
 
             playerSceneObject.StopMovings();
 
-            characterInfoWindow = new CharacterInfoWindow(gamemap,playerSceneObject, ShowEffects);
+            characterInfoWindow = new CharacterInfoWindow(gamemap,playerSceneObject, ShowInScene);
             characterInfoWindow.Destroy += () => characterInfoWindow = null;
 
-            this.ShowEffects(new List<ISceneObject>()
+            this.ShowInScene(new List<ISceneObject>()
             {
                 characterInfoWindow
             });

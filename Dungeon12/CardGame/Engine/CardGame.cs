@@ -242,7 +242,7 @@ namespace Dungeon12.CardGame.Engine
 
         public void Message(string text)
         {
-            MessageBox.Show(text, this.SceneObject.ShowEffects);
+            MessageBox.Show(text, this.SceneObject.ShowInScene);
         }
     }
 }

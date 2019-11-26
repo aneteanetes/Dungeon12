@@ -167,7 +167,7 @@
 
             var critical = dmg > 6;
 
-            this.ShowEffects(new List<ISceneObject>()
+            this.ShowInScene(new List<ISceneObject>()
                 {
                     new PopupString(dmg.ToString()+(critical ? "!" : ""), critical ? ConsoleColor.Red : ConsoleColor.White,avatar.Location,25,critical ? 14 : 12,0.06)
                 });

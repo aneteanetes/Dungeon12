@@ -26,7 +26,7 @@
             this.Top = 2;
             this.Left = 0;
 
-            var charInfo = new CharacterInfoWindow(gameMap, playerSceneObject, this.ShowEffects, false,false)
+            var charInfo = new CharacterInfoWindow(gameMap, playerSceneObject, this.ShowInScene, false,false)
             {
                 Left = 16 + 5,
                 DisableDrag = true

@@ -77,7 +77,7 @@
             skillsWindow = new SkillsWindow(playerSceneObject);
             skillsWindow.Destroy += () => skillsWindow = null;
 
-            this.ShowEffects(new List<ISceneObject>()
+            this.ShowInScene(new List<ISceneObject>()
             {
                 skillsWindow
             });

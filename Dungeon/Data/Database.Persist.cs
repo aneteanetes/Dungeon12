@@ -20,59 +20,62 @@ namespace Dungeon.Data
     {
         public static string Save(int liteDbId = 0, string saveGameName=null)
         {
-            var map = Global.GameState.Map;
-            var avatar = Global.GameState.Player.Component;
-            var id = saveGameName ?? $"{DateTime.Now.ToString()}";
-
-            var save = new SavedGame()
+            using (var db = new LiteDatabase($@"{MainPath}\Data.db"))
             {
-                Time = Global.Time,
-                Character = new CharSaveModel()
+                var map = Global.GameState.Map;
+                var avatar = Global.GameState.Player.Component;
+                var id = saveGameName ?? $"{DateTime.Now.ToString()}";
+
+                if (liteDbId != 0)
                 {
-                    Character = avatar.Entity,
-                    Location = avatar.Location
-                },
-                IdentifyName = id,
-                Map=new MapSaveModel()
-                {
-                    Name=map.Name,
-                    Objects=map.Objects
+                    id = db.GetCollection<SaveModel>().FindById(liteDbId).IdentifyName;
                 }
-            };
 
-            var camera = Global.DrawClient as ICamera;
+                var save = new SavedGame()
+                {
+                    Time = Global.Time,
+                    Character = new CharSaveModel()
+                    {
+                        Character = avatar.Entity,
+                        Location = avatar.Location
+                    },
+                    IdentifyName = id,
+                    Map = new MapSaveModel()
+                    {
+                        Name = map.MapIdentifyId,
+                        Objects = map.SaveableObjects
+                    }
+                };
 
-            var saveModel = new SaveModel()
-            {
-                GameTime = $"{save.Time.Hours}:{save.Time.Minutes} [{save.Time.Years} год месяца Зимы]",
-                ScreenPosition=avatar.SceenPosition,
-                RegionName = Global.GameState.Map.Name,
-                CharacterName = avatar.Entity.Name,
-                IdentifyName = id,
-                ClassName = avatar.Entity.ClassName,
-                Level = avatar.Entity.Level,
-                Name = id,
-                CameraOffset= new Point(camera.CameraOffsetX, camera.CameraOffsetY),
-                Data = JsonConvert.SerializeObject(save, GetSaveSerializeSettings()),
-                
-            };
+                var camera = Global.DrawClient as ICamera;
 
-            if (liteDbId != 0)
-            {
-                using (var db = new LiteDatabase($@"{MainPath}\Data.db"))
+                var saveModel = new SaveModel()
+                {
+                    GameTime = $"{save.Time.Hours}:{save.Time.Minutes} [{save.Time.Years} год месяца Зимы]",
+                    ScreenPosition = avatar.SceenPosition,
+                    RegionName = Global.GameState.Map.Name,
+                    CharacterName = avatar.Entity.Name,
+                    IdentifyName = id,
+                    ClassName = avatar.Entity.ClassName,
+                    Level = avatar.Entity.Level,
+                    Name = id,
+                    CameraOffset = new Point(camera.CameraOffsetX, camera.CameraOffsetY),
+                    Data = JsonConvert.SerializeObject(save, GetSaveSerializeSettings()),
+
+                };
+
+                if (liteDbId != 0)
                 {
                     db.GetCollection<SaveModel>().Update(liteDbId, saveModel);
+
                 }
-            }
-            else
-            {
-                using (var db = new LiteDatabase($@"{MainPath}\Data.db"))
+                else
                 {
                     db.GetCollection<SaveModel>().Insert(saveModel);
                 }
-            }
 
-            return id;
+                return id;
+            }
         }
 
         public static JsonSerializerSettings GetSaveSerializeSettings()
@@ -91,6 +94,14 @@ namespace Dungeon.Data
         }
 
         public static IEnumerable<SaveModel> SavedGames()=> Entity<SaveModel>();
+
+        public static bool RemoveSavedGame(int id)
+        {
+            using (var db = new LiteDatabase($@"{MainPath}\Data.db"))
+            {
+                return db.GetCollection<SaveModel>().Delete(id);
+            }
+        }
     }
 
     public class WritablePropertiesOnlyResolver : Newtonsoft.Json.Serialization.DefaultContractResolver

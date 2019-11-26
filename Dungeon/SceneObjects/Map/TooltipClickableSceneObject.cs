@@ -75,7 +75,7 @@
                     ClickableTooltipBoundsContainer.ClickableTooltipsBounds.Remove(boundInfo);
                     clickableTooltip?.Destroy?.Invoke();
                 };
-                this.ShowEffects(clickableTooltip.InList<ISceneObject>());
+                this.ShowInScene(clickableTooltip.InList<ISceneObject>());
             }
         }
 

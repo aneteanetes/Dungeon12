@@ -1,5 +1,6 @@
 ﻿namespace Dungeon.Conversations
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -19,6 +20,7 @@
         /// </summary>
         public int Value { get; set; }
 
+        [JsonIgnore]
         /// <summary>
         /// Реплика которая должна сработать если переменная установлена
         /// </summary>
@@ -41,6 +43,7 @@
 
         public string GlobalName(string conversationId, object replicaTag) => $"{conversationId}{replicaTag}{Name}";
 
+        [JsonIgnore]
         public Conversation Conversation { get; set; }
 
         public void Trigger(int from, List<Variable> matched = null)

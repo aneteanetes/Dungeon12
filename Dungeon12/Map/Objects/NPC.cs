@@ -23,6 +23,8 @@
     [DataClass(typeof(NPCData))]
     public class NPC : Сonversational
     {
+        public override bool Saveable => true;
+
         public NPCMoveable NPCEntity { get; set; }
 
         public override string Icon { get => "N"; set { } }

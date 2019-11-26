@@ -124,7 +124,7 @@
         /// <summary>
         /// Посылание эффектов в сцену
         /// </summary>
-        Action<List<ISceneObject>> ShowEffects { get; set; }
+        Action<List<ISceneObject>> ShowInScene { get; set; }
 
         int ZIndex { get; set; }
 

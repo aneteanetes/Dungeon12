@@ -9,13 +9,26 @@ namespace Dungeon12.SceneObjects.SaveLoad
 {
     public class SaveLoadWindow : EmptyHandleSceneControl
     {
-        private bool isSave;
+        private bool _isSave;
+        private Action _switchMain;
 
         public SaveLoadWindow(bool isSave, Action switchMain)
         {
+            _switchMain = switchMain;
+            _isSave = isSave;
+
             Image = "ui/vertical(17x24).png".AsmImgRes();
             this.Width = 24;
             this.Height = 17;
+
+            ReDraw();
+        }
+
+        public void ReDraw()
+        {
+            Slots.Clear();
+            this.ClearChildrens();
+
 
             this.AddMixin(new Scrollbar(16, v => RecalculatePositions())
             {
@@ -23,11 +36,10 @@ namespace Dungeon12.SceneObjects.SaveLoad
                 Top = .5,
             });
 
-            double top = .5;
-
-            if (isSave)
+            double top = 1;
+            if (_isSave)
             {
-                var emptySaveSlot = new SaveLoadSlot(default, isSave, switchMain)
+                var emptySaveSlot = new SaveLoadSlot(default, _isSave, _switchMain, this)
                 {
                     ItemIndex = -1,
                     Left = .5,
@@ -42,7 +54,7 @@ namespace Dungeon12.SceneObjects.SaveLoad
 
             Dungeon.Data.Database.SavedGames().ForEach((savedGame, i) =>
             {
-                var slot = new SaveLoadSlot(savedGame, isSave, switchMain)
+                var slot = new SaveLoadSlot(savedGame, _isSave, _switchMain, this)
                 {
                     ItemIndex = i,
                     Left = .5,
@@ -54,6 +66,10 @@ namespace Dungeon12.SceneObjects.SaveLoad
                 Slots.Add(slot);
                 this.AddControlCenter(slot, false, false);
             });
+
+            var scrollbar = this.Mixin<Scrollbar>();
+            scrollbar.CanDown = Slots.Count > 5;
+            scrollbar.MaxDownIndex = (Slots.Count - 5);
         }
 
         private List<SaveLoadSlot> Slots = new List<SaveLoadSlot>();

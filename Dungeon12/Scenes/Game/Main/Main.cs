@@ -70,7 +70,7 @@
                     foreach (var @new in newitems)
                     {
                         @new.Destroy += () => this.RemoveObject(@new);
-                        @new.ShowEffects = ShowEffectsBinding;
+                        @new.ShowInScene = ShowEffectsBinding;
                         this.AddObject(@new);
                     }
                 },
@@ -81,7 +81,7 @@
                     listObj.ForEach(o => this.AddObject(o));
                 }
             };
-            mapSceneObect.ShowEffects = this.ShowEffectsBinding;
+            mapSceneObect.ShowInScene = this.ShowEffectsBinding;
             this.AddObject(mapSceneObect);
             mapSceneObect.Init();
 
@@ -119,27 +119,38 @@
 
         private void InitMap()
         {
-            this.Gamemap = new GameMap()
+            if (this.Gamemap == default && Global.GameState.Map == default)
             {
-                Biom = ConsoleColor.DarkGray
-            };
-            this.Gamemap.OnMoving += (MapObject obj, Dungeon.Types.Direction dir, bool availabe) =>
+                this.Gamemap = new GameMap()
+                {
+                    Biom = ConsoleColor.DarkGray
+                };
+            }
+            else if (this.Gamemap==default)
             {
-                MapObjectCanAffectCamera(obj, dir, availabe);
-            };
+                this.Gamemap = Global.GameState.Map;
+            }
 
-            this.Gamemap.InitRegion("FaithIsland");
+            if (!this.Gamemap.Loaded)
+            {
+                this.Gamemap.InitRegion("FaithIsland");
+            }
+
+            if(this.Gamemap.OnMoving==default)
+            {
+                this.Gamemap.OnMoving += (MapObject obj, Dungeon.Types.Direction dir, bool availabe) =>
+                {
+                    MapObjectCanAffectCamera(obj, dir, availabe);
+                };
+            }
+
+            // покачто здесь
             this.AddObject(new ImageControl("Dungeon12.Resources.Images.Regions.FaithIsland_back.png")
             {
                 Left = -15,
                 Top = -15
             });
             this.AddObject(new ImageControl("Dungeon12.Resources.Images.Regions.FaithIsland.png"));
-
-
-            //width = 40
-            //height = 22.5
-
 
             //перенести туда где location
             if (this.PlayerAvatar.Location == default)
@@ -184,6 +195,8 @@
                 Width = 32,
                 Pos = this.PlayerAvatar.Location
             };
+
+            this.Gamemap.Loaded = false;
         }
 
         private static void MapObjectCanAffectCamera(MapObject obj, Dungeon.Types.Direction dir, bool availabe)

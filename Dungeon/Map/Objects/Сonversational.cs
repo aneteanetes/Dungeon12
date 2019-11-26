@@ -68,7 +68,7 @@
                         if (sourceVar != default && variable.Global)
                         {
                             var globalName = variable.GlobalName(_id, subject.Name);
-                            if (Global.GameState.Player.Component.Entity[globalName] != default)
+                            if (Global.GameState.Character[globalName] != default)
                             {
                                 variable.Trigger(sourceVar.Value);
                             }
@@ -126,7 +126,7 @@
                         if(variable.Global)
                         {
                             var globalName = variable.GlobalName(_id, replica.Tag);
-                            if (Global.GameState.Player.Component.Entity[globalName] != default)
+                            if (Global.GameState.Character[globalName] != default)
                             {
                                 variable.Trigger(variable.Value);
                             }

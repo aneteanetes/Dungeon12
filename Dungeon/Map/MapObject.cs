@@ -19,6 +19,19 @@
     [DataClass(typeof(RegionPart))]
     public class MapObject : PhysicalObject<MapObject>, IGameComponent
     {
+        /// <summary>
+        /// Метод перезагрузки сущности, как правило для сохраняемых
+        /// </summary>
+        public virtual void Reload() { }
+
+        /// <summary>
+        /// Признак указывающий что этот объект сохраняемый
+        /// <para>
+        /// Желательно что бы это работало только для типа, а не для экземпляров
+        /// </para>
+        /// </summary>
+        public virtual bool Saveable => false;
+
         public GameMap Gamemap { get; set; }
 
         public Action Die;
@@ -58,8 +71,8 @@
         {
             get => _Position ?? new PhysicalPosition
             {
-                X = this.Location.X * 32,
-                Y = this.Location.Y * 32
+                X = (this.Location?.X ?? 0) * 32,
+                Y = (this.Location?.Y ?? 0) * 32
             }
 ;
 
@@ -70,7 +83,7 @@
 
         private static readonly Dictionary<string, (Type type, Type dataclass)> TypeCache = new Dictionary<string, (Type type, Type dataclass)>();
 
-        public static MapObject Create(RegionPart regionPart)
+        public static MapObject Create(RegionPart regionPart, bool saveable = true)
         {
             if (string.IsNullOrEmpty(regionPart.Icon))
             {
@@ -103,9 +116,13 @@
             }
 
             var mapObject = @class.type.NewAs<MapObject>();
-            mapObject.Load(regionPart);
+            if (!mapObject.Saveable || (mapObject.Saveable && saveable))
+            { 
+                mapObject.Load(regionPart);
+                return mapObject;
+            }
 
-            return mapObject;
+            return default;
         }
         
         public virtual bool CameraAffect { get; set; } = false;

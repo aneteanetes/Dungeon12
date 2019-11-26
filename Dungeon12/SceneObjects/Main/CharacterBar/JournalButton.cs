@@ -95,7 +95,7 @@
             jWindow = new JournalWindow(playerSceneObject);
             jWindow.Destroy += () => jWindow = null;
 
-            this.ShowEffects(new List<ISceneObject>()
+            this.ShowInScene(new List<ISceneObject>()
             {
                 jWindow
             });

@@ -3,6 +3,7 @@ using Dungeon.Events.Events;
 using Dungeon.Map.Objects;
 using Dungeon.View.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Dungeon.Map
 {
@@ -18,10 +19,15 @@ namespace Dungeon.Map
             }, this is Avatar ? this : null);
         }
 
+        public override void Reload() => ReEntity(Entity);
+
         public void ReEntity(TEntity entity)
         {
-            entity.MapObject = this;
-            Entity = entity;
+            if (entity != default) // случай загрузки
+            {
+                entity.MapObject = this;
+                Entity = entity;
+            }
         }
 
         public virtual void OnEvent(TotemArrivedEvent @event)
@@ -87,7 +93,15 @@ namespace Dungeon.Map
             }
         }
 
-        public TEntity Entity { get; private set; }
+        /// <summary>
+        /// сеттер не приватный потому что сериализация
+        /// </summary>
+        public TEntity Entity
+        {
+            get;
+            /*private*/            
+            set;
+        }
 
         public override void SetView(ISceneObject sceneObject)
         {

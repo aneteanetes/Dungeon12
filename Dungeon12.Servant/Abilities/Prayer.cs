@@ -81,7 +81,7 @@ namespace Dungeon12.Servant.Abilities
             {
                 effect = new PrayerEffect();
 
-                avatar.SceneObject.ShowEffects(effect.InList<ISceneObject>());
+                avatar.SceneObject.ShowInScene(effect.InList<ISceneObject>());
 
                 bufTick = Dungeon.Global.Time.Timer(nameof(PrayerBuff) + avatar.Name)
                     .After(3000)

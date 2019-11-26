@@ -22,6 +22,8 @@ namespace Dungeon12.SceneObjects.Map
             Top = @object.Location.Y;
             Width = .75;
             Height = .75;
+
+            this.TooltipText = @object.Used ? "Пустая бочка" : @object.Name;
         }
 
         public override string Image => $"Objects/barrels/barell_{(@object.Used ? "empty" : @object.IdentifyName.ToLowerInvariant())}.png".AsmImgRes();

@@ -3,6 +3,7 @@
     using Dungeon.Data;
     using Dungeon.Data.Conversations;
     using Dungeon.Map.Objects;
+    using Newtonsoft.Json;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -17,6 +18,7 @@
 
         public string Name { get; set; }
 
+        [JsonIgnore]
         /// <summary>
         /// Темы этого разговора
         /// </summary>

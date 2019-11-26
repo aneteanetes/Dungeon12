@@ -56,7 +56,7 @@
             var abilities = player.GetAbilities();
             foreach (var ability in abilities)
             {
-                ability.UseEffects = this.ShowEffects;
+                ability.UseEffects = this.ShowInScene;
             }
 
             var left = abilities.FirstOrDefault(a => a.AbilityPosition == AbilityPosition.Left);

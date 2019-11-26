@@ -1,5 +1,7 @@
 ﻿using Dungeon;
+using Dungeon.Control;
 using Dungeon.Data;
+using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Map.Objects;
 using Dungeon.SceneObjects;
@@ -12,8 +14,11 @@ namespace Dungeon12.SceneObjects.SaveLoad
 {
     public class SaveLoadSlot : HandleSceneControl<SaveModel>
     {
-        public SaveLoadSlot(SaveModel component, bool isSave, Action switchMain) : base(component, false)
+        private SaveLoadWindow _saveLoadWindow;
+
+        public SaveLoadSlot(SaveModel component, bool isSave, Action switchMain, SaveLoadWindow saveLoadWindow) : base(component, false)
         {
+            _saveLoadWindow = saveLoadWindow;
             Image = "ui/dialogs/answerpanel.png".AsmImgRes();
 
             this.Width = 22;
@@ -61,8 +66,10 @@ namespace Dungeon12.SceneObjects.SaveLoad
                         }
 
                         input.Value = Dungeon.Data.Database.Save(saveGameName: value);
-                        MessageBox.Show($"Игра {value} сохранена!", this.ShowEffects);
-                        switchMain?.Invoke();
+                        MessageBox.Show($"Игра {value} сохранена!", this.ShowInScene);
+                        _saveLoadWindow.ReDraw();
+
+                        input.FreeIfFreeze();
                     }
                 });
             }
@@ -75,7 +82,9 @@ namespace Dungeon12.SceneObjects.SaveLoad
                     Top = .25,
                     AbsolutePosition = true,
                     OnClick = () =>
-                    {                        
+                    {
+                        SceneManager.Destroy<Scenes.Game.Main>();
+
                         var data = JsonConvert.DeserializeObject<SavedGame>(Component.Data, Dungeon.Data.Database.GetSaveSerializeSettings());
                         SceneManager.Current.PlayerAvatar = new Avatar(data.Character.Character)
                         {
@@ -83,13 +92,18 @@ namespace Dungeon12.SceneObjects.SaveLoad
                             SceenPosition = Component.ScreenPosition
                         };
 
+                        Global.GameState.Character = SceneManager.Current.PlayerAvatar.Entity;
+
                         Global.Camera.SetCamera(Component.CameraOffset.X, component.CameraOffset.Y);
+
+                        Global.GameState.Map = new Dungeon.Map.GameMap();
+                        Global.GameState.Map.LoadRegion(data.Map);
 
                         switchMain?.Invoke();
                     }
                 });
             }
-            else if (Component!=default)
+            else if (Component != default)
             {
                 this.AddChild(new MetallButtonControl("Перезаписать")
                 {
@@ -99,10 +113,33 @@ namespace Dungeon12.SceneObjects.SaveLoad
                     OnClick = () =>
                     {
                         var overwrited = Global.Save(Component.Id);
-                        MessageBox.Show($"Игра {component.Name} перезаписана!", this.ShowEffects);
+                        MessageBox.Show($"Игра {component.Name} перезаписана!", this.ShowInScene);
+                        _saveLoadWindow.ReDraw();
                     }
                 });
             }
+        }
+
+        public override void Click(PointerArgs args)
+        {
+            if (args.MouseButton == Dungeon.Control.Pointer.MouseButton.Right)
+            {
+                if (Component != default)
+                {
+                    QuestionBox.Show(new QuestionBoxModel()
+                    {
+                        Text = "Вы действительно хотите удалить эту сохранённую игру?",
+                        Yes = Delete
+                    }, ShowInScene);
+                }
+            }
+        }
+
+        private void Delete()
+        {
+            Dungeon.Data.Database.RemoveSavedGame(this.Component.Id);
+            this.Destroy?.Invoke();
+            _saveLoadWindow.ReDraw();
         }
 
         public int ItemIndex { get; set; }
@@ -114,7 +151,7 @@ namespace Dungeon12.SceneObjects.SaveLoad
                 if (this.Top < 0)
                     return false;
 
-                if (this.Top > 21)
+                if (this.Top > 15)
                     return false;
 
                 return true;

@@ -32,7 +32,7 @@
         {
             playerSceneObject.StopMovings();
             var actionObject = Act();
-            ShowEffects?.Invoke(actionObject.InList());
+            ShowInScene?.Invoke(actionObject.InList());
         }
 
         private ISceneObject Act() => @object.Merchant == null

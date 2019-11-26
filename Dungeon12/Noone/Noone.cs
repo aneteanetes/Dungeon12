@@ -133,7 +133,7 @@
 
                 var text = $"Паррировано: {amount}!".AsDrawText().InColor(DrawColor.Red).Montserrat();
 
-                this.SceneObject.ShowEffects(new PopupString(text, this.MapObject.Location).InList<ISceneObject>());
+                this.SceneObject.ShowInScene(new PopupString(text, this.MapObject.Location).InList<ISceneObject>());
 
                 return amount;
             }
@@ -144,7 +144,7 @@
 
                 var text = $"Блок: {block}!".AsDrawText().InColor(DrawColor.Red).Montserrat();
 
-                this.SceneObject.ShowEffects(new PopupString(text, this.MapObject.Location).InList<ISceneObject>());
+                this.SceneObject.ShowInScene(new PopupString(text, this.MapObject.Location).InList<ISceneObject>());
 
                 return amount - block;
             }

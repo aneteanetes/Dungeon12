@@ -76,7 +76,7 @@
                 AbsolutePosition = true,
                 OnClick = () =>
                 {
-                    this.Switch<SaveLoadScene>("game");
+                    this.Switch<SaveLoadScene>(isGame ? "game" : default);
 
                     //this.PlayerAvatar = new Avatar(new Dungeon12.Noone.Noone()
                     //{

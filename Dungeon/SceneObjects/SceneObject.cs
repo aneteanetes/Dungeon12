@@ -61,7 +61,7 @@
                     owner.RemoveObject(this);
                     this.UnsubscribeEvents();
                 };
-                ShowEffects += owner.ShowEffectsBinding;
+                ShowInScene += owner.ShowEffectsBinding;
 
                 //ПИЗДЕЦ. Это надо лечить
                 if (this is DraggableControl draggableControl)
@@ -365,7 +365,7 @@
 
         public Action Destroy { get; set; }
 
-        public Action<List<ISceneObject>> ShowEffects { get; set; }
+        public Action<List<ISceneObject>> ShowInScene { get; set; }
 
         public Action<ISceneObject> DestroyBinding { get; set; }
 

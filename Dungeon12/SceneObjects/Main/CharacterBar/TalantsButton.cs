@@ -80,7 +80,7 @@
             talWindow = new TalantWindow(playerSceneObject);
             talWindow.Destroy += () => talWindow = null;
 
-            this.ShowEffects(new List<ISceneObject>()
+            this.ShowInScene(new List<ISceneObject>()
             {
                 talWindow
             });

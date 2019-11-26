@@ -15,6 +15,7 @@
         private readonly bool autofocus;
         private bool __focus = false;
 
+        private bool freezing = false;
         public bool focus
         {
             get
@@ -28,6 +29,7 @@
                     if (!autofocus)
                     {
                         focusRect.Opacity = 0.001;
+                        freezing = true;
                         Global.Freezer.FreezeHandle(ControlEventType.Key, this);
                         Global.BlockSceneControls = true;
                     }
@@ -36,6 +38,7 @@
                 {
                     if (!autofocus)
                     {
+                        freezing = false;
                         focusRect.Opacity = 0.5;
                         Global.Freezer.UnfreezeHandle(ControlEventType.Key, this);
                         Global.BlockSceneControls = false;
@@ -43,6 +46,17 @@
                 }
 
                 __focus = value;
+            }
+        }
+
+        /// <summary>
+        /// Освобождает <see cref="Freezer.HandleFreezes"/> и <see cref="Global.BlockSceneControls"/> если держит их
+        /// </summary>
+        public void FreeIfFreeze()
+        {
+            if (freezing)
+            {
+                focus = false;
             }
         }
 

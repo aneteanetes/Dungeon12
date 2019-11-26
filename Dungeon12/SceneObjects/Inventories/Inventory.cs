@@ -152,7 +152,7 @@
                     Layer = 2000,
                     AbsolutePosition = true
                 };
-                this.ShowEffects(msg.InList<ISceneObject>());
+                this.ShowInScene(msg.InList<ISceneObject>());
 
             }
 

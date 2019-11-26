@@ -72,7 +72,7 @@
         {
             playerSceneObject.StopMovings();
             var sceneObj = Act();
-            ShowEffects?.Invoke(sceneObj.InList());
+            ShowInScene?.Invoke(sceneObj.InList());
 
         }
 
