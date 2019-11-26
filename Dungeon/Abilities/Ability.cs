@@ -45,6 +45,7 @@
         /// </summary>
         public Action<List<ISceneObject>> UseEffects;
 
+        [Newtonsoft.Json.JsonIgnore]
         public MapObject Owner { get; set; }
 
         /// <summary>

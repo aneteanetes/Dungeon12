@@ -93,19 +93,16 @@
     public abstract class PhysicalObject<T> : PhysicalObject
         where T : PhysicalObject<T>
     {
+        [Newtonsoft.Json.JsonIgnore]
         public PhysicalObject<T> Root
         {
             get;
             set;
         }
 
-        /// <summary>
-        /// Объект с которого начинается путь
-        /// </summary>
-        private PhysicalObject<T> StartObject;
-
         protected abstract T Self { get; }
 
+        [Newtonsoft.Json.JsonIgnore]
         public List<T> Nodes { get; set; } = new List<T>();
 
         protected virtual bool Containable => false;

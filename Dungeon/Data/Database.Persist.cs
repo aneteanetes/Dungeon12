@@ -20,6 +20,7 @@ namespace Dungeon.Data
     {
         public static string Save(int liteDbId = 0, string saveGameName=null)
         {
+            var map = Global.GameState.Map;
             var avatar = Global.GameState.Player.Component;
             var id = saveGameName ?? $"{DateTime.Now.ToString()}";
 
@@ -31,7 +32,12 @@ namespace Dungeon.Data
                     Character = avatar.Entity,
                     Location = avatar.Location
                 },
-                IdentifyName = id
+                IdentifyName = id,
+                Map=new MapSaveModel()
+                {
+                    Name=map.Name,
+                    Objects=map.Objects
+                }
             };
 
             var camera = Global.DrawClient as ICamera;
@@ -47,7 +53,8 @@ namespace Dungeon.Data
                 Level = avatar.Entity.Level,
                 Name = id,
                 CameraOffset= new Point(camera.CameraOffsetX, camera.CameraOffsetY),
-                Data = JsonConvert.SerializeObject(save, GetSaveSerializeSettings())
+                Data = JsonConvert.SerializeObject(save, GetSaveSerializeSettings()),
+                
             };
 
             if (liteDbId != 0)
@@ -99,8 +106,8 @@ namespace Dungeon.Data
     {
         public override bool CanConvert(Type objectType)
         {
-            return typeof(Delegate).IsAssignableFrom(objectType) 
-                || typeof(MapObject).IsAssignableFrom(objectType) 
+            return typeof(Delegate).IsAssignableFrom(objectType)
+                || typeof(GameMap).IsAssignableFrom(objectType)
                 || typeof(ISceneObject).IsAssignableFrom(objectType);
         }
 
@@ -141,6 +148,15 @@ namespace Dungeon.Data
         public GameTime Time { get; set; }
 
         public CharSaveModel Character { get; set; }
+
+        public MapSaveModel Map { get; set; }
+    }
+
+    public class MapSaveModel
+    {
+        public string Name { get; set; }
+
+        public HashSet<MapObject> Objects { get; set; }
     }
 
     public class CharSaveModel

@@ -13,11 +13,11 @@
 
     public partial class GameMap
     {
-        private IEnumerable<PhysicalObject> SafeZones = new List<PhysicalObject>();
+        public IEnumerable<PhysicalObject> SafeZones { get; set; } = new List<PhysicalObject>();
 
         public bool InSafe(MapObject @object) => SafeZones.Any(safeZone => safeZone.IntersectsWith(@object));
 
-        public string LoadRegion(string name)
+        public string InitRegion(string name)
         {
             Global.GameState.Map = this;
 
@@ -42,6 +42,11 @@
             SpawnEnemies(50);
 
             return persistRegion.Name;
+        }
+
+        public string LoadRegion(MapSaveModel mapSaveModel)
+        {
+            return default;
         }
 
         public class MobData : Dungeon.Data.Persist

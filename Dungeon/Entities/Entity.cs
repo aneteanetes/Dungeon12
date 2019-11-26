@@ -14,6 +14,7 @@ namespace Dungeon.Entities
     {
         public string IdentifyName { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         public MapObject MapObject { get; set; }
 
         public string Assembly { get; set; }

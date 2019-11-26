@@ -128,7 +128,7 @@
                 MapObjectCanAffectCamera(obj, dir, availabe);
             };
 
-            this.Gamemap.LoadRegion("FaithIsland");
+            this.Gamemap.InitRegion("FaithIsland");
             this.AddObject(new ImageControl("Dungeon12.Resources.Images.Regions.FaithIsland_back.png")
             {
                 Left = -15,
