@@ -78,7 +78,7 @@
             return (method.Body as MethodCallExpression).Method.Name;
         }
 
-        public static void Flow<T>(this T obj, Expression<Action<T>> method, object args=null, bool up = true)
+        private static void Flow<T>(this T obj, Expression<Action<T>> method, object args=null, bool up = true)
             where T : IFlowable
         {
             var caller = up ? UpperFlowable(obj) : obj;

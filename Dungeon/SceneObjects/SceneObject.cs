@@ -528,5 +528,10 @@
 
             return default;
         }
+
+        public void AddEffects(params ISceneObject[] effects)
+        {
+            effects.ForEach(this.AddChild);
+        }
     }
 }

@@ -64,7 +64,10 @@
                         this.Switch<Start>();
                     }
                     else
+                    {
                         this.Switch<SoloDuoScene>();
+                        Global.GameState.Reset();
+                    }
                 },
                 AbsolutePosition=true,
             });

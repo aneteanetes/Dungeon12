@@ -18,7 +18,7 @@ namespace Dungeon.Game
             set
             {
                 _player = value;
-                Character = _player.Component.Entity;
+                Character = _player?.Component?.Entity;
             }
         }
 
@@ -26,5 +26,11 @@ namespace Dungeon.Game
         /// Потому что при загрузке например персонаж быть может, а его представление - нет
         /// </summary>
         public Character Character { get; set; }
+
+        public void Reset()
+        {
+            this.Map = default;
+            this.Player = default;
+        }
     }
 }

@@ -119,16 +119,17 @@
 
         private void InitMap()
         {
-            if (this.Gamemap == default && Global.GameState.Map == default)
+            if (Global.GameState.Map != default)
+            {
+                this.Gamemap = Global.GameState.Map;
+            }
+
+            if (this.Gamemap == default)
             {
                 this.Gamemap = new GameMap()
                 {
                     Biom = ConsoleColor.DarkGray
                 };
-            }
-            else if (this.Gamemap==default)
-            {
-                this.Gamemap = Global.GameState.Map;
             }
 
             if (!this.Gamemap.Loaded)

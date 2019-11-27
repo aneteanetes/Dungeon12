@@ -282,6 +282,8 @@ namespace Dungeon.Proxy
 
         public virtual Rectangle TileSetRegion { get; set; }
 
+        public virtual Rectangle TileSetRegionStart { get; set; }
+
         public virtual Rectangle Region { get; set; }
 
         public virtual bool Container => false;

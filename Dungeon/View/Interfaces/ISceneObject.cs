@@ -72,6 +72,8 @@
         /// </summary>
         bool Blur { get; }
 
+        void AddEffects(params ISceneObject[] effects);
+
         IImageMask ImageMask { get; }
 
         ISceneObject Parent { get; set; }

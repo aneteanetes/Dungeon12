@@ -35,7 +35,7 @@ namespace Dungeon12.Servant.Abilities
             long val = 10;
             Target.HitPoints += val;
             Global.AudioPlayer.Effect(@"Audio\Sound\heal.wav".AsmNameRes());
-            Target.Flow(t => t.AddEffect(true), new { Effects = new HealEffect().InList<ISceneObject>() });
+            Target.MapObject.SceneObject.AddEffects(new HealEffect());
         }
 
         private class HealEffect : EmptySceneObject
