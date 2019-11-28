@@ -10,8 +10,10 @@
     using Dungeon.Settings;
     using Dungeon;
     using Dungeon12.Drawing.SceneObjects;
+    using System;
+    using Dungeon12.Scenes.Menus;
 
-    public class EditorScene : GameScene
+    public class EditorScene : GameScene<Start>
     {
         public override bool AbsolutePositionScene => false;
 
@@ -30,6 +32,17 @@
             Global.DrawClient.SetCameraSpeed(5);
 
             this.AddObject(new Background());
+
+            this.AddObject(new DarkRectangle
+            {
+                Fill = false,
+                Color = ConsoleColor.White,
+                Opacity = 1,
+                Left = 19.5,
+                Top = -0.5,
+                Width = 100.5,
+                Height = 100.5
+            });
 
             var field = new EditedGameField
             {
@@ -74,6 +87,11 @@
                 {
                     saveBtn.Click(null);
                 }
+            }
+
+            if(keyPressed== Key.Escape)
+            {
+                Switch<Start>();
             }
         }
     }

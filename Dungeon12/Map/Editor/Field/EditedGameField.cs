@@ -20,26 +20,11 @@
         private int lvl = 1;
         private bool obstruct = false;
         private bool fulltile = false;
-
-        private DarkRectangle border;
-
+        
         public EditedGameField()
         {
             this.Width = 100;
             this.Height = 100;
-
-            border = new DarkRectangle
-            {
-                Fill = false,
-                Color = ConsoleColor.White,
-                Opacity = 1
-            };
-            border.Left = -0.5;
-            border.Top = -0.5;
-            border.Width = 100;
-            border.Height = 100;
-            
-            this.AddChild(border);
 
             LoadFile();
         }
@@ -123,20 +108,19 @@
             this.Children.Clear();
 
 
-            this.AddChild(border);
-            //if (measure)
-            //{
+            if (measure)
+            {
                 var size = MeasureImage(save);
                 this.AddChild(new ImageControl(save)
                 {
                     Width = size.X,
                     Height = size.Y,
                 });
-            //}
-            //else
-            //{
-            //    this.AddChild(new ImageControl(save));
-            //}
+            }
+            else
+            {
+                this.AddChild(new ImageControl(save));
+            }
         }
 
         private void LoadFile()

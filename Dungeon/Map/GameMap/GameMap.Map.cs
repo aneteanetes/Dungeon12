@@ -2,12 +2,16 @@
 {
     using Dungeon.Data;
     using Dungeon.Data.Region;
+    using Dungeon.Drawing.SceneObjects;
     using Dungeon.Entities.Enemy;
     using Dungeon.Loot;
     using Dungeon.Map.Objects;
     using Dungeon.Physics;
+    using Dungeon.Scenes.Manager;
     using Dungeon.Types;
+    using Dungeon.View.Interfaces;
     using Force.DeepCloner;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -41,11 +45,12 @@
             }
 
             this.Name = persistRegion.Display;
-
-            //SpawnEnemies(50);
+            this.LoadedRegionData = persistRegion;
 
             return persistRegion.Name;
         }
+
+        public Region LoadedRegionData { get; set; }
 
         public string LoadRegion(MapSaveModel mapSaveModel)
         {
@@ -77,6 +82,7 @@
             }
 
             this.Name = persistRegion.Display;
+            this.LoadedRegionData = persistRegion;
 
             foreach (var saveableObject in mapSaveModel.Objects)
             {

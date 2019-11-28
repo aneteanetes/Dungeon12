@@ -72,7 +72,11 @@
                 publishObjects.Add(lootItem);
             }
 
-            Gamemap.MapObject.Remove(this);
+            if(!Gamemap.MapObject.Remove(this))
+            {
+                throw new System.Exception("Объект не удаляется!");
+            }
+
             Gamemap.Objects.Remove(this);
 
             publishObjects.ForEach(Gamemap.PublishObject);

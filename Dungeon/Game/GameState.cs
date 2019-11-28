@@ -11,6 +11,8 @@ namespace Dungeon.Game
     {
         public GameMap Map { get; set; }
 
+        public List<GameMap> Underlevels { get; set; } = new List<GameMap>();
+
         private PlayerSceneObject _player { get; set; }
         public PlayerSceneObject Player
         {

@@ -18,6 +18,16 @@ namespace Dungeon.Resources
 
         public static Resource Load(string resource, bool caching = false)
         {
+            if(RuntimeCache.ContainsKey(resource))
+            {
+                return new Resource()
+                {
+                    Dispose = () => { },
+                    Name = resource,
+                    Stream = RuntimeCache[resource]
+                };
+            }
+
             var assembly = Assembly.GetExecutingAssembly();
             var resourceName = resource;
 

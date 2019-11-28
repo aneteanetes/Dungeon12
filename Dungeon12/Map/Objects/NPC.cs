@@ -99,6 +99,11 @@
         {
             var data = Database.Entity<NPCData>(x => x.IdentifyName == IdentifyName).FirstOrDefault();
             this.BuildConversations(data);
+
+            if (this.Merchant!=default)
+            {
+                this.Merchant.FillBackpacks();
+            }
         }
     }
 }

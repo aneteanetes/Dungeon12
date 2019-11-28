@@ -199,7 +199,32 @@
 
         public void SaveObject(ISceneObject sceneObject, string path, Dungeon.Types.Point offset, string runtimeCacheName = null)
         {
-            throw new System.NotImplementedException();
+            int w = (int)sceneObject.Width*32;
+            int h = (int)sceneObject.Height*32;
+
+            var bitmap = new RenderTarget2D(GraphicsDevice, w, h, false, GraphicsDevice.PresentationParameters.BackBufferFormat, DepthFormat.Depth24);
+
+            try
+            {
+                spriteBatch.End();
+            }
+            catch { }
+
+            GraphicsDevice.SetRenderTargets(bitmap);
+            GraphicsDevice.Clear(Color.Transparent);
+            SpriteBatchRestore.Invoke(false, sceneObject.Filtered);
+
+            DrawSceneObject(sceneObject, offset.X, offset.Y, true,true,true);
+            
+            spriteBatch.End();
+            GraphicsDevice.SetRenderTarget(null);
+
+            using (var f = File.Create(path))
+            {
+                bitmap.SaveAsPng(f, w, h);
+            }
+
+            tilesetsCache.Add(runtimeCacheName, bitmap);
         }
 
         public void Animate(IAnimationSession animationSession)

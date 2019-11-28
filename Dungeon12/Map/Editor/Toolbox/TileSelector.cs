@@ -25,11 +25,12 @@
         {
             try
             {
-                var measure = Global.DrawClient.MeasureImage(tileset);
+                var img = tileset.Replace("\r", "");
+                var measure = Global.DrawClient.MeasureImage(img);
                 this.Width = measure.X / 32;
                 this.Height = measure.Y / 32;
 
-                this.Image = tileset;
+                this.Image = img;
             }
             catch { }
         }
@@ -38,7 +39,10 @@
         {
             if (FullTile)
             {
-                select(new ImageControl(this.Image));
+                select(new ImageControl(this.Image)
+                {
+                    CacheAvailable=false
+                });
                 return;
             }
 
@@ -53,7 +57,8 @@
                     Width = 32,
                     X = Math.Truncate(x)*32,
                     Y = Math.Truncate(y)*32
-                }
+                },
+                CacheAvailable=false
             });
         }
     }

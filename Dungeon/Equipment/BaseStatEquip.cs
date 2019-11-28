@@ -42,12 +42,18 @@
     {
         public Func<List<long>> Provider { get; set; }
 
-        public List<long> Values => Provider();
+        public List<long> Values => Provider == default ? new List<long>() : Provider();
 
         public long this[int index]
         {
-            get => Values[index];
-            set => Values[index] = value;
+            get => Values.ElementAtOrDefault(index);
+            set
+            {
+                if (Values.Count >= (index + 1))
+                {
+                    Values[index] = value;
+                }
+            }
         }
 
         public static StatValues Function(Func<IEnumerable<long>> provider) => new StatValues() { Provider = () => provider().ToList() };
@@ -69,7 +75,11 @@
                 Template = string.Join(" ", Enumerable.Range(0, Values.Count()).Select((x, i) => $"{{{i}}}").ToArray());
             }
 
-            return string.Format(Template, Values.Cast<object>().ToArray());
+            if (Provider != default)
+            {
+                return string.Format(Template, Values.Cast<object>().ToArray());
+            }
+            return "STAT LOADING";
         }
 
         public static implicit operator string(StatValues statValues)=>statValues.ToString();

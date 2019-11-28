@@ -44,7 +44,12 @@ namespace Dungeon.Data
                     {
                         Name = map.MapIdentifyId,
                         Objects = map.SaveableObjects
-                    }
+                    },
+                    Underlevels = Global.GameState.Underlevels.Select(lvl => new MapSaveModel()
+                    {
+                        Name = lvl.MapIdentifyId,
+                        Objects = lvl.SaveableObjects
+                    }).ToList()
                 };
 
                 var camera = Global.DrawClient as ICamera;
@@ -161,6 +166,8 @@ namespace Dungeon.Data
         public CharSaveModel Character { get; set; }
 
         public MapSaveModel Map { get; set; }
+
+        public List<MapSaveModel> Underlevels { get; set; }
     }
 
     public class MapSaveModel

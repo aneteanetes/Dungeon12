@@ -93,6 +93,7 @@ namespace Dungeon12.SceneObjects.SaveLoad
                         };
 
                         Global.GameState.Character = SceneManager.Current.PlayerAvatar.Entity;
+                        Global.GameState.Character.Reload();
 
                         Global.Camera.SetCamera(Component.CameraOffset.X, component.CameraOffset.Y);
 

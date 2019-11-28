@@ -1,6 +1,12 @@
 ﻿{
   "Name": "FaithIsland",
   "Display":"Остров Веры",
+  "Tile":"Dungeon12.Resources.Images.Regions.FaithIsland.png",
+  "TileBack":"Dungeon12.Resources.Images.Regions.FaithIsland_back.png",
+  "TileBackOffset":{
+	"X":-15,
+	"Y":-15
+  },
   "SafeZones":[
 	{
 		"Size":{

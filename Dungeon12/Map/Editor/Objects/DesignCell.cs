@@ -6,6 +6,8 @@
 
     public class DesignCell : Dungeon.Drawing.SceneObjects.ImageControl
     {
+        public override bool CacheAvailable => false;
+
         public DesignCell(string img, bool obstruction) : base(img)
         {
             Obstruction = obstruction;

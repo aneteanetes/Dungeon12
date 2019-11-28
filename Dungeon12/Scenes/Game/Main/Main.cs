@@ -145,13 +145,21 @@
                 };
             }
 
-            // покачто здесь
-            this.AddObject(new ImageControl("Dungeon12.Resources.Images.Regions.FaithIsland_back.png")
+            var persistRegion = this.Gamemap.LoadedRegionData;
+            var tileBack = persistRegion.TileBack;
+            if (tileBack != default)
             {
-                Left = -15,
-                Top = -15
-            });
-            this.AddObject(new ImageControl("Dungeon12.Resources.Images.Regions.FaithIsland.png"));
+                var back = new ImageControl(tileBack);
+                var offset = persistRegion.TileBackOffset;
+                if (offset != default)
+                {
+                    back.Left = offset.X;
+                    back.Top = offset.Y;
+                }
+                this.AddObject(back);
+            }
+
+            this.AddObject(new ImageControl(persistRegion.Tile));
 
             //перенести туда где location
             if (this.PlayerAvatar.Location == default)

@@ -19,6 +19,11 @@
         public Character()
         {
             this.BindClassStats();
+            Reload();
+        }
+
+        public void Reload()
+        {
             this.Clothes.OnPutOn += PutOnItem;
             this.Clothes.OnPutOff += PutOffItem;
         }

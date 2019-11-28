@@ -253,21 +253,28 @@
         /// <returns></returns>
         public bool Remove(T physicalObject)
         {
+            bool removed = false;
             var areas = QueryReference(physicalObject);
             foreach (var area in areas)
             {
                 area.Nodes.Remove(physicalObject);
+                removed = true;
             }
 
-            //foreach (var nodeInRoot in this.Nodes)
-            //{
-            //    if (nodeInRoot.Nodes.Contains(physicalObject))
-            //    {
-            //        nodeInRoot.Nodes.Remove(physicalObject);
-            //    }
-            //}
+            if(!removed)
+            {
+                areas = this.Query(physicalObject, true);
+                foreach (var area in areas)
+                {
+                    if (area.Contains(physicalObject))
+                    {
+                        area.Nodes.Remove(physicalObject);
+                        removed = true;
+                    }
+                }
+            }
 
-            return true;
+            return removed;
         }
         
         public T this[int index] => Nodes[index];

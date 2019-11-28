@@ -7,6 +7,7 @@
     using System.Linq;
     using Dungeon.Entities.Alive;
     using MoreLinq;
+    using System.Collections.Generic;
 
     public class Backpack
     {
@@ -31,6 +32,18 @@
         private readonly BackpackContainer Container;
 
         public Item[] GetItems() => Container.Nodes.Select(x => x.Item).ToArray();
+
+        public List<BackpackItem> BackpackSaveItems
+        {
+            get => Container.Nodes;
+            set
+            {
+                foreach (var item in value)
+                {
+                    Add(item.Item, item.Position.ToPoint(), null, item.Item.Quantity, true);
+                }
+            }
+        }
 
         /// <summary>
         /// Добавляет предмет
@@ -268,7 +281,7 @@
             else return true;
         }
 
-        private class BackpackItem : PhysicalObject<BackpackItem>
+        public class BackpackItem : PhysicalObject<BackpackItem>
         {
             public Item Item { get; set; }
 
@@ -277,7 +290,7 @@
             protected override bool Containable => true;
         }
 
-        private class BackpackContainer : BackpackItem
+        public class BackpackContainer : BackpackItem
         {
             protected override bool Containable => true;
         }

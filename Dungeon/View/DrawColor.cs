@@ -6,6 +6,8 @@ namespace Dungeon.Drawing
 {
     public partial class DrawColor : IDrawColor
     {
+        public DrawColor() { }
+
         public DrawColor(ConsoleColor consoleColor)
         {
             var rgba = ConsoleMap[consoleColor];

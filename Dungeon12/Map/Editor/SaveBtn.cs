@@ -26,7 +26,9 @@
         public override void Click(PointerArgs args)
         {
             saves++;
-            Global.DrawClient.SaveObject(editedGameField, "map.png", new Dungeon.Types.Point(-20 * 32, 0), $"designcache{saves}");
+            editedGameField.Left = 0;
+            Global.DrawClient.SaveObject(editedGameField, "map.png", new Dungeon.Types.Point(0, 0), $"designcache{saves}");
+            editedGameField.Left = 20;
             editedGameField.Save($"designcache{saves}");
         }
     }
