@@ -33,8 +33,6 @@
 
         public override bool Obstruction => true;
 
-        public override double MovementSpeed => base.MovementSpeed;
-
         public bool Moving { get; set; }
 
         public override PhysicalSize Size
@@ -62,8 +60,12 @@
             return new NPCSceneObject(gameState.Player, gameState.Map, this, this.TileSetRegion);
         }
 
+        public string IdentifyName { get; set; }
+
         protected override void Load(RegionPart npcData)
         {
+            this.IdentifyName = npcData.IdentifyName;
+
             var data = Database.Entity<NPCData>(x => x.IdentifyName == npcData.IdentifyName).FirstOrDefault();
 
             this.NPCEntity = data.NPC.DeepClone();
@@ -91,6 +93,12 @@
             {
                 this.NPCEntity.MoveRegion = this.NPCEntity.MoveRegion * 32;
             }
+        }
+
+        public override void Reload()
+        {
+            var data = Database.Entity<NPCData>(x => x.IdentifyName == IdentifyName).FirstOrDefault();
+            this.BuildConversations(data);
         }
     }
 }
