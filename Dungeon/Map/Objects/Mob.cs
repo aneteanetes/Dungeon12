@@ -17,6 +17,8 @@
     [Template("*")]
     public class Mob : EntityMapObject<Enemy>
     {
+        public Mob() : this(default) { }
+
         public Mob(Enemy component):base(component)
         {
             this.Destroy += Dying;
@@ -71,6 +73,7 @@
             }
 
             Gamemap.MapObject.Remove(this);
+            Gamemap.Objects.Remove(this);
 
             publishObjects.ForEach(Gamemap.PublishObject);
         }
@@ -82,8 +85,6 @@
         public override bool Obstruction => true;
 
         public bool IsChasing { get; set; }
-
-        public override double MovementSpeed => base.MovementSpeed;
 
         public bool Moving { get; set; }
 

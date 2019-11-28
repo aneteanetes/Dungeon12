@@ -1,46 +1,46 @@
-﻿using Dungeon.Data;
+﻿using Dungeon;
 using Dungeon.Data.Attributes;
 using Dungeon.Data.Region;
-using Dungeon.Entities;
 using Dungeon.Map;
-using Dungeon12.Database.Respawn;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Dungeon;
+using Dungeon.Map.Infrastructure;
 using Dungeon.Physics;
 using Dungeon.Types;
+using Dungeon12.Database.Respawn;
 using System.Linq;
 
 namespace Dungeon12.Map.Objects
 {
+    [Template("Respawn")]
     [DataClass(typeof(RespawnData))]
     public class Respawn : MapObject
     {
-        /// <summary>
-        /// TODO: сделать период респауна в игровом времени
-        /// </summary>
-        public Dictionary<string, int> MobRespawnData { get; set; }
-
         public PhysicalObject SpawnArea { get; set; }
+
+        /// <summary>
+        /// Грязнущий хак:
+        /// <para>
+        /// Респаун сохраняется, а значит не будет делать новые объекты
+        /// При этом старые объекты сохраняются
+        /// Но когда мы переходим в другой регион респаун спадает потому что мы сохраняем только текущий регион
+        /// </para>
+        /// </summary>
+        public override bool Saveable => true;
 
         protected override void Load(RegionPart regionPart)
         {
-            base.Load(regionPart);
             var data = regionPart.As<RespawnData>();
-            MobRespawnData = data.MobsNameAmount;
             SpawnArea = data.Zone;
 
-            foreach (var mobData in MobRespawnData)
+            foreach (var spawnData in data.Respawns)
             {
-                for (int i = 0; i < mobData.Value; i++)
+                for (int i = 0; i < spawnData.Amount; i++)
                 {
-                    var mob = Create(new RegionPart()
+                    var mapObject = Create(new RegionPart()
                     {
-                        Icon = "*",
-                        IdentifyName = mobData.Key
+                        Icon = spawnData.Icon,
+                        IdentifyName = spawnData.Identify
                     });
-                    SetLocation(20, mob);
+                    SetLocation(20, mapObject);
                 }
             }
         }
@@ -64,7 +64,9 @@ namespace Dungeon12.Map.Objects
 
             mob.Location = new Point(x, y);
 
-            var otherObject = Global.GameState.Map.MapObject.Query(mob).Nodes.Any(node => node.IntersectsWith(mob));
+            var map = Global.GameState.Map;
+
+            var otherObject = map.MapObject.Query(mob).Nodes.Any(node => node.IntersectsWith(mob));
             if (otherObject)
                 return false;
 
@@ -72,6 +74,9 @@ namespace Dungeon12.Map.Objects
             {
                 return false;
             }
+            
+            map.MapObject.Add(mob);
+            map.Objects.Add(mob);
 
             return true;
         }

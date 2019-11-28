@@ -14,6 +14,27 @@
 	}
   ],
   "Objects": [
+	  {
+		"$type":"Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"Icon":"Respawn",
+		"Zone":{
+			"Position":{
+					"X":38,
+					"Y":34
+				},
+			"Size":{
+				"Width":5,
+				"Height":3
+			}
+		},
+		"Respawns":[
+			{
+				"Identify":"Bat",
+				"Icon":"*",
+				"Amount":5
+			}
+		]
+	  },
 	{
 	"Icon":"Barrel",
 		"IdentifyName":"Red",

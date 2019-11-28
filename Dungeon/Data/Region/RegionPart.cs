@@ -6,9 +6,7 @@ namespace Dungeon.Data.Region
     public class RegionPart : Persist
     {
         public string Icon { get; set; }
-
-        public string Image { get; set; }
-
+        
         public Rectangle Region { get; set; }
 
         public bool Obstruct { get; set; }

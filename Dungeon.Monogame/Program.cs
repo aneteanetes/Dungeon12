@@ -13,7 +13,7 @@ namespace Dungeon.Monogame
 #if DEBUG
             ResourceLoader.NotDisposingResources = true;
 #endif
-            //Database.Init();
+            Database.Init();
 #if COMPILEDATABASE
             Database.Init();
 #endif

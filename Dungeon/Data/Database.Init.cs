@@ -66,7 +66,7 @@ namespace Dungeon.Data
 
                     foreach (var item in data.JsonFiles)
                     {
-                        var obj = JsonConvert.DeserializeObject(File.ReadAllText(item, Encoding.UTF8), data.Type);
+                        var obj = JsonConvert.DeserializeObject(File.ReadAllText(item, Encoding.UTF8), data.Type,GetSaveSerializeSettings());
                         if(obj is IPersist persist)
                         {
                             persist.Assembly = data.Assembly;

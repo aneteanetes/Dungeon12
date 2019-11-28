@@ -14,10 +14,10 @@
     {
         private static string MainPath = $@"{AppDomain.CurrentDomain.BaseDirectory}";
 
-        public static T EntitySingle<T>(string id, object cacheObject = default)
+        public static T EntitySingle<T>(string id, object cacheObject = default, string db = "Data")
             where T : IPersist
         {
-            return Entity<T>(x => x.IdentifyName == id, cacheObject).FirstOrDefault();
+            return Entity<T>(x => x.IdentifyName == id, cacheObject, db).FirstOrDefault();
         }
 
         /// <summary>
@@ -26,11 +26,11 @@
         /// [Кэшируемый]
         /// </para>
         /// </summary>
-        public static IEnumerable<T> Entity<T>(Expression<Func<T, bool>> predicate = null, object cacheObject = default)
+        public static IEnumerable<T> Entity<T>(Expression<Func<T, bool>> predicate = null, object cacheObject = default,string db="Data")
             where T : IPersist
         {
             if (cacheObject == default)
-                return EntityQuery<T>(predicate);
+                return EntityQuery<T>(predicate,db);
 
             var key = new CompositeTypeKey<object>()
             {
@@ -112,12 +112,12 @@
         private static readonly Dictionary<string, Delegate> ___GetEntityTypeLambdaRuntimeCache = new Dictionary<string, Delegate>();
 
 
-        public static IEnumerable<T> EntityQuery<T>(Expression<Func<T, bool>> predicate = null)
+        public static IEnumerable<T> EntityQuery<T>(Expression<Func<T, bool>> predicate = null, string dbName = "Data")
         {
             if (!Directory.Exists(MainPath))
                 Directory.CreateDirectory(MainPath);
 
-            using (var db = new LiteDatabase($@"{MainPath}\Data.db"))
+            using (var db = new LiteDatabase($@"{MainPath}\{dbName}.db"))
             {
                 var collection = db.GetCollection<T>();
 

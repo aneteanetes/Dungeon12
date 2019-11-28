@@ -20,7 +20,7 @@ namespace Dungeon.Data
     {
         public static string Save(int liteDbId = 0, string saveGameName=null)
         {
-            using (var db = new LiteDatabase($@"{MainPath}\Data.db"))
+            using (var db = new LiteDatabase($@"{MainPath}\Saves.db"))
             {
                 var map = Global.GameState.Map;
                 var avatar = Global.GameState.Player.Component;
@@ -90,14 +90,14 @@ namespace Dungeon.Data
 
         public static SaveModel Load(string id)
         {
-            return Entity<SaveModel>(x => x.IdentifyName == id).FirstOrDefault();
+            return Entity<SaveModel>(x => x.IdentifyName == id,db:"Saves").FirstOrDefault();
         }
 
-        public static IEnumerable<SaveModel> SavedGames()=> Entity<SaveModel>();
+        public static IEnumerable<SaveModel> SavedGames()=> Entity<SaveModel>(db: "Saves");
 
         public static bool RemoveSavedGame(int id)
         {
-            using (var db = new LiteDatabase($@"{MainPath}\Data.db"))
+            using (var db = new LiteDatabase($@"{MainPath}\Saves.db"))
             {
                 return db.GetCollection<SaveModel>().Delete(id);
             }
