@@ -1,5 +1,7 @@
 ﻿namespace Dungeon.Map.Objects
 {
+    using Dungeon.Data;
+    using Dungeon.Data.Region;
     using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Entities.Enemy;
     using Dungeon.Game;
@@ -10,6 +12,7 @@
     using Dungeon.View.Interfaces;
     using Force.DeepCloner;
     using System.Collections.Generic;
+    using static Dungeon.Map.GameMap;
 
     [Template("*")]
     public class Mob : EntityMapObject<Enemy>
@@ -17,6 +20,25 @@
         public Mob(Enemy component):base(component)
         {
             this.Destroy += Dying;
+        }
+        public override bool Saveable => true;
+
+        protected override void Load(RegionPart regionPart)
+        {
+            var data = Database.EntitySingle<MobData>(regionPart.IdentifyName);
+            this.ReEntity(data.Enemy.DeepClone());
+
+            Tileset = data.Tileset;
+            TileSetRegion = data.TileSetRegion;
+            Name = data.Name;
+            Size = new PhysicalSize()
+            {
+                Width = data.Size.X * 32,
+                Height = data.Size.Y * 32
+            };
+            MovementSpeed = data.MovementSpeed;
+            VisionMultiple = data.VisionMultiples;
+            AttackRangeMultiples = data.AttackRangeMultiples;
         }
 
         private void Dying()

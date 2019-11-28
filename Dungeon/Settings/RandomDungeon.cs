@@ -1,4 +1,6 @@
-﻿namespace Dungeon
+﻿using System;
+
+namespace Dungeon
 {
     /// <summary>
     /// хм, а нахуя я заполифилил рандом?
@@ -34,6 +36,12 @@
             }
         }
 
+        /// <summary>
+        /// Возвращает случайное число между двумя включая оба
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
         public static int Range(int start, int end)
         {
             lock (syncLock)
@@ -41,6 +49,14 @@
                 return Next(start, end + 1);
             }
         }
+
+        /// <summary>
+        /// Возвращает случайное число между двумя включая оба
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        public static int Range(double start, double end) => Range((int)Math.Ceiling(start), (int)Math.Ceiling(end));
 
         public static bool Chance(int percentForSucess)
         {
