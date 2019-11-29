@@ -23,12 +23,16 @@
 
         public string MapIdentifyId { get; private set; }
 
+        public bool IsUnderLevel { get; set; }
+
         public string InitRegion(string name)
         {
             Global.GameState.Map = this;
             MapIdentifyId = name;
 
             var persistRegion = Database.Entity<Region>(e => e.Name == name).First();
+
+            this.IsUnderLevel = persistRegion.IsUnderLevel;
 
             this.SafeZones = persistRegion.SafeZones.Select(safeZone => safeZone * 32);
 

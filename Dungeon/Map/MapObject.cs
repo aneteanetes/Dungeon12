@@ -48,6 +48,10 @@
 
         public virtual bool Interactable { get; set; }
 
+        /// <summary>
+        /// Dynamic dispatch
+        /// </summary>
+        /// <param name="target"></param>
         public virtual void Interact(object target) => CallInteract(target as dynamic);
 
         protected virtual void CallInteract(dynamic obj) => Interact(obj);

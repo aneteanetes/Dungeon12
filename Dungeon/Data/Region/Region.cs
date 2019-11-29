@@ -19,5 +19,7 @@
         public string Name { get; set; }
 
         public string Display { get; set; }
+
+        public bool IsUnderLevel { get; set; }
     }
 }

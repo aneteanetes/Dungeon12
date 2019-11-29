@@ -137,7 +137,7 @@
                 this.Gamemap.InitRegion("FaithIsland");
             }
 
-            if(this.Gamemap.OnMoving==default)
+            if (this.Gamemap.OnMoving == default)
             {
                 this.Gamemap.OnMoving += (MapObject obj, Dungeon.Types.Direction dir, bool availabe) =>
                 {

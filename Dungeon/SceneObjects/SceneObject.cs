@@ -218,6 +218,24 @@
         public virtual double Opacity { get; set; } = 1;
 
         /// <summary>
+        /// Установить размер объекта в соответствии с изображением (если оно есть)
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        public void AutoSizeImage(double width=1,double height=1)
+        {
+            if (this.Image != default)
+            {
+                var m = MeasureImage(this.Image);
+                width = m.X;
+                height = m.Y;
+            }
+
+            this.Width = width;
+            this.Height = height;
+        }
+
+        /// <summary>
         /// Relative
         /// </summary>
         public virtual double Left { get; set; }

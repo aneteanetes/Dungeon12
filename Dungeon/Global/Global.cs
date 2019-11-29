@@ -52,6 +52,11 @@
 
         public static string Save(int id=0) => Database.Save(id);
 
+        /// <summary>
+        /// Сохраняет текущий регион в память
+        /// </summary>
+        public static void SaveInMemmory() => Database.Save(0, "@!#$memory$#!@", true, true);
+
         public static SaveModel Load(string id) => Database.Load(id);
 
         public static Action Exit { get; set; }

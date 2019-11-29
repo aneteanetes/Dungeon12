@@ -4,6 +4,7 @@
     using Dungeon.GameObjects;
     using Dungeon.Map.Objects;
     using Dungeon.Physics;
+    using Dungeon.Scenes.Manager;
     using Dungeon.Types;
     using System;
     using System.Collections.Generic;
@@ -53,6 +54,10 @@
                     {
                         if (node != @object && node.IntersectsWith(@object))
                         {
+                            if (node.Interactable)
+                            {
+                                node.Dispatch((x, y) => x.Interact(y), @object);
+                            }
                             if (node.Obstruction)
                             {
                                 moveAvailable = false;
@@ -218,6 +223,39 @@
                 }
                 return false;
             }
+        }
+
+        public void SetPlayerLocation(Point playerPos=default)
+        {
+            playerPos = playerPos ?? new Point { X = 42, Y = 45 };
+
+            var avatar = Global.GameState.Player.Component;
+            avatar.Location = playerPos;
+
+            double xOffset = 0;
+            double yOffset = 0;
+
+            if (playerPos.X > 29)
+            {
+                xOffset -= playerPos.X - 20;
+            }
+            if (playerPos.X < 11)
+            {
+                xOffset += playerPos.X - 20;
+            }
+            if (playerPos.Y > 16.25)
+            {
+                yOffset -= playerPos.Y - 11.25;
+            }
+            if (playerPos.Y < 6.25)
+            {
+                yOffset += playerPos.Y - 11.25;
+            }
+
+            SceneManager.StaticDrawClient.SetCamera(xOffset * 32, yOffset * 32);
+
+            Global.GameState.Player.Left = avatar.Location.X;
+            Global.GameState.Player.Top = avatar.Location.Y;
         }
     }
 

@@ -73,7 +73,7 @@
             }
         }
 
-        public void Change<TScene>(params string[] args) where TScene : GameScene
+        public static void Switch<TScene>(params string[] args) where TScene : GameScene
         {
             // вначале уничтожаем сцену, потому что если мы
             // хотим переключить на ту же самую сцену,
@@ -89,12 +89,12 @@
 
             if (!SceneCache.TryGetValue(sceneType, out GameScene next))
             {
-                next = sceneType.New<TScene>(this);
+                next = sceneType.New<TScene>(Global.SceneManager);
                 SceneCache.Add(typeof(TScene), next);
 
                 Populate(Current, next, args);
                 Preapering = next;
-                CurrentScene = Preapering;
+                Global.SceneManager.CurrentScene = Preapering;
                 next.Init();
             }
 
@@ -105,7 +105,7 @@
             }
 
             Preapering = next;
-            CurrentScene = Preapering;
+            Global.SceneManager.CurrentScene = Preapering;
             Current = next;
             //Если мы переключаем сцену, а в следующей есть физер - значит надо восстановить её состояние
             if (next.Freezer != null)
@@ -114,8 +114,10 @@
             }
 
             Current.Activate();
-            CurrentScene = Current;
+            Global.SceneManager.CurrentScene = Current;
         }
+
+        public void Change<TScene>(params string[] args) where TScene : GameScene => Switch<TScene>(args);
 
         public void Change(Type sceneType)
         {
@@ -143,7 +145,7 @@
             CurrentScene = Current;
         }
 
-        private void Populate(GameScene previous, GameScene next, string[] args = default)
+        private static void Populate(GameScene previous, GameScene next, string[] args = default)
         {
             if (previous == null)
                 return;

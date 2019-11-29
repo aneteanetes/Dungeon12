@@ -18,11 +18,12 @@ namespace Dungeon.Data
 {
     public static partial class Database
     {
-        public static string Save(int liteDbId = 0, string saveGameName=null)
+        public static string Save(int liteDbId = 0, string saveGameName = null, bool overrideExistedName=false, bool hiddenSave=false)
         {
             using (var db = new LiteDatabase($@"{MainPath}\Saves.db"))
             {
                 var map = Global.GameState.Map;
+                var region = Global.GameState.Region;
                 var avatar = Global.GameState.Player.Component;
                 var id = saveGameName ?? $"{DateTime.Now.ToString()}";
 
@@ -40,6 +41,11 @@ namespace Dungeon.Data
                         Location = avatar.Location
                     },
                     IdentifyName = id,
+                    Region = new MapSaveModel()
+                    {
+                        Name = region?.Name,
+                        Objects = region?.SaveableObjects ?? new HashSet<MapObject>()
+                    },
                     Map = new MapSaveModel()
                     {
                         Name = map.MapIdentifyId,
@@ -66,13 +72,25 @@ namespace Dungeon.Data
                     Name = id,
                     CameraOffset = new Point(camera.CameraOffsetX, camera.CameraOffsetY),
                     Data = JsonConvert.SerializeObject(save, GetSaveSerializeSettings()),
-
+                    Hidden=hiddenSave
                 };
 
                 if (liteDbId != 0)
                 {
                     db.GetCollection<SaveModel>().Update(liteDbId, saveModel);
 
+                }
+                else if (saveGameName!=default && overrideExistedName)
+                {
+                    var getCurrent = Entity<SaveModel>(x => x.IdentifyName == saveGameName).FirstOrDefault();
+                    if(getCurrent!=default)
+                    {
+                        db.GetCollection<SaveModel>().Update(getCurrent.Id, saveModel);
+                    }
+                    else
+                    {
+                        db.GetCollection<SaveModel>().Insert(saveModel);
+                    }
                 }
                 else
                 {
@@ -98,7 +116,7 @@ namespace Dungeon.Data
             return Entity<SaveModel>(x => x.IdentifyName == id,db:"Saves").FirstOrDefault();
         }
 
-        public static IEnumerable<SaveModel> SavedGames()=> Entity<SaveModel>(db: "Saves");
+        public static IEnumerable<SaveModel> SavedGames() => Entity<SaveModel>(db: "Saves").Where(x=>!x.Hidden);
 
         public static bool RemoveSavedGame(int id)
         {
@@ -157,6 +175,8 @@ namespace Dungeon.Data
         public int Level { get; set; }
 
         public string Data { get; set; }
+
+        public bool Hidden { get; set; }
     }
 
     public class SavedGame : Persist
@@ -166,6 +186,8 @@ namespace Dungeon.Data
         public CharSaveModel Character { get; set; }
 
         public MapSaveModel Map { get; set; }
+
+        public MapSaveModel Region { get; set; }
 
         public List<MapSaveModel> Underlevels { get; set; }
     }
