@@ -139,12 +139,15 @@
 
             if (regionPart.Region == null)
             {
-                var measure = Global.DrawClient.MeasureImage(regionPart.Image);
-                this.Size = new PhysicalSize
+                if (regionPart.Image != default)
                 {
-                    Width = measure.X,
-                    Height = measure.Y
-                };
+                    var measure = Global.DrawClient.MeasureImage(regionPart.Image);
+                    this.Size = new PhysicalSize
+                    {
+                        Width = measure.X,
+                        Height = measure.Y
+                    };
+                }
             }
         }
 

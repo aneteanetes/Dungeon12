@@ -107,7 +107,6 @@
             this.Field.Save();
             this.Children.Clear();
 
-
             if (measure)
             {
                 var size = MeasureImage(save);

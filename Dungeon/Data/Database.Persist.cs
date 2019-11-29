@@ -24,7 +24,7 @@ namespace Dungeon.Data
             {
                 var map = Global.GameState.Map;
                 var region = Global.GameState.Region;
-                var avatar = Global.GameState.Player.Component;
+                var avatar = Global.GameState.Player.Avatar;
                 var id = saveGameName ?? $"{DateTime.Now.ToString()}";
 
                 if (liteDbId != 0)

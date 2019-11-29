@@ -8,12 +8,13 @@ using Dungeon.Map.Objects;
 using Dungeon.Scenes.Manager;
 using Dungeon.View.Interfaces;
 using Dungeon12.Data;
+using Dungeon12.SceneObjects.Map;
 using Dungeon12.Scenes.Game;
 using System.Linq;
 
 namespace Dungeon12.Map
 {
-    [Template("Respawn")]
+    [Template("Teleport")]
     [DataClass(typeof(TransporterData))]
     public class Transporter : MapObject
     {
@@ -21,22 +22,25 @@ namespace Dungeon12.Map
 
         public TransporterData Data { get; set; }
 
+        public override string Name => Data.Name;
+
         protected override void Load(RegionPart regionPart)
         {
-            base.Load(regionPart);
-
+            base.Load(regionPart);            
             this.Data = regionPart.As<TransporterData>();
         }
 
         public override ISceneObject Visual(GameState gameState)
         {
-            return base.Visual(gameState);
+            return new TransporterSceneObject(Global.GameState.Player, this);
         }
 
         public override bool Interactable => true;
 
         public void Interact(Avatar player)
         {
+            Global.GameState.Player.StopMovings();
+
             // уничтожаем что у нас там есть сейчас в игре
             SceneManager.Destroy<Scenes.Game.Main>();
 
@@ -53,7 +57,7 @@ namespace Dungeon12.Map
                 Global.SaveInMemmory();
 
                 // объекты не на текущей карте должны перестать "двигаться"
-                Global.GameState.Map.OnMoving = default;
+                Global.GameState.Map.Disabled = true;
 
                 var inMemmoryUnderlevel = Global.GameState.Underlevels.FirstOrDefault(x => x.MapIdentifyId == Data.UnderlevelIdentify);
                 if (inMemmoryUnderlevel != default)
@@ -86,6 +90,9 @@ namespace Dungeon12.Map
 #warning TODO: реализовать когда появятся другие регионы
                 }
             }
+
+            // указываем что карта загружена что бы она не инициализировалась "по-умолчанию"
+            Global.GameState.Map.Loaded = true;
 
             // устанавливаем персонажа
             // внутри установится и камера

@@ -62,6 +62,9 @@
 
             File.WriteAllText("map.json", JsonConvert.SerializeObject(rp));
 
+            var clear = rp.Where(x => x.Obstruct);
+            File.WriteAllText("map_publish.json", JsonConvert.SerializeObject(clear));
+
             return rp;
         }
     }

@@ -21,7 +21,7 @@
     {
         private readonly Scenes.GameScene owner;
         
-        public TComponent Component { get; private set; }
+        public virtual TComponent Component { get; private set; }
 
         /// <summary>
         /// В КОНСТРУКТОРЕ ЕСТЬ КОСТЫЛЬ

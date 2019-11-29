@@ -29,11 +29,6 @@ namespace Dungeon.Drawing.Labirinth
             location.PublishObject = PublishMapObject;
             this.player = avatar;
             gamemap = location;
-            gamemap.OnGeneration = () =>
-            {
-                gamemap.Level += 1;
-                Init();
-            };
         }
 
         public Action<List<ISceneObject>, List<ISceneObject>> OnReload;

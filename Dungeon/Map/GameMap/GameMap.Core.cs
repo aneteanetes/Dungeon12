@@ -41,8 +41,13 @@
         
         public Action<MapObject, Direction,bool> OnMoving;
 
+        public bool Disabled { get; set; }
+
         public bool Move(MapObject @object, Direction direction)
         {
+            if (Disabled)
+                return false;
+
             var moveAvailable = true;
 
             var moveAreas = MapObject.Query(@object,true);
