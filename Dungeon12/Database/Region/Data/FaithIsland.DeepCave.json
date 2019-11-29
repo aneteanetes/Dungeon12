@@ -9,6 +9,14 @@
   "IdentifyName": "FaithIsland.DeepCave",
   "Objects": [
     {
+      "Icon": "Barrel",
+      "IdentifyName": "Red",
+      "Position": {
+        "X": 1,
+        "Y": 1
+      }
+    },
+    {
       "Icon": null,
       "Region": {
         "X": 448.0,
