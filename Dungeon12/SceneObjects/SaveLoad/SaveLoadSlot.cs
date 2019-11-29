@@ -3,6 +3,7 @@ using Dungeon.Control;
 using Dungeon.Data;
 using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
+using Dungeon.Map;
 using Dungeon.Map.Objects;
 using Dungeon.SceneObjects;
 using Dungeon.Scenes.Manager;
@@ -86,6 +87,7 @@ namespace Dungeon12.SceneObjects.SaveLoad
                         SceneManager.Destroy<Scenes.Game.Main>();
 
                         var data = JsonConvert.DeserializeObject<SavedGame>(Component.Data, Dungeon.Data.Database.GetSaveSerializeSettings());
+
                         SceneManager.Current.PlayerAvatar = new Avatar(data.Character.Character)
                         {
                             Location = data.Character.Location,
@@ -99,6 +101,11 @@ namespace Dungeon12.SceneObjects.SaveLoad
 
                         Global.GameState.Map = new Dungeon.Map.GameMap();
                         Global.GameState.Map.LoadRegion(data.Map);
+
+
+                        var regionMap = new GameMap();
+                        regionMap.LoadRegion(data.Region, true);
+                        Global.GameState.Region = regionMap;
 
                         switchMain?.Invoke();
                     }

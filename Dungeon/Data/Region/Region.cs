@@ -12,6 +12,8 @@
 
         public Point TileBackOffset { get; set; }
 
+        public Point Offset { get; set; }
+
         public List<RegionPart> Objects { get; set; }
 
         public List<PhysicalObject> SafeZones { get; set; }

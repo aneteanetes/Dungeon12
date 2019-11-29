@@ -12,6 +12,7 @@
     using Dungeon12.Drawing.SceneObjects;
     using Dungeon12.Map.Editor;
     using Dungeon12.Races.Perks;
+    using Dungeon12.SceneObjects;
     using Dungeon12.Scenes.Game;
     using Dungeon12.Scenes.SaveLoad;
     using System;
@@ -60,8 +61,18 @@
                 {
                     if (isGame)
                     {
-                        SceneManager.Destroy<Main>();
-                        this.Switch<Start>();
+                        QuestionBox.Show(new QuestionBoxModel()
+                        {
+                            Text=$"Вы уверены что хотите выйти в главное меню?{Environment.NewLine}Весь не сохранённый прогресс пропадет.",
+                            Yes = () =>
+                            {
+                                Global.RemoveSaveInMemmory();
+                                this.ClearState();
+                                Global.GameState = new Dungeon.Game.GameState();
+                                SceneManager.Destroy<Main>();
+                                this.Switch<Start>();
+                            }
+                        }, this.ShowEffectsBinding);
                     }
                     else
                     {

@@ -37,7 +37,8 @@
 
             CalculateCamera();
 
-            Draw(this.scene.Objects, gameTime);
+            if (this.scene != default)
+                Draw(this.scene.Objects, gameTime);
 
             DrawDebugInfo();
 
@@ -918,10 +919,11 @@
         {
             var image = TileSetByName(sceneObject.Image);
 
-            if (sceneObject.ImageMask != default && sceneObject.ImageMask.CacheAvailable)
-            {
-                CacheImageMask(image, sceneObject);
-            }
+            if (ResourceLoader.CacheImagesAndMasks)
+                if (sceneObject.ImageMask != default && sceneObject.ImageMask.CacheAvailable)
+                {
+                    CacheImageMask(image, sceneObject);
+                }
         }
 
         public void CacheImage(string image)

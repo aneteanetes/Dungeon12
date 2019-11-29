@@ -22,6 +22,13 @@
 
         public Logger Log;
 
+        public void ClearState()
+        {
+            PlayerAvatar = default;
+            Gamemap = default;
+            Args = default;
+        }
+
         public GameScene(SceneManager sceneManager) : base(sceneManager)
         {
         }

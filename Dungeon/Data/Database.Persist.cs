@@ -43,7 +43,7 @@ namespace Dungeon.Data
                     IdentifyName = id,
                     Region = new MapSaveModel()
                     {
-                        Name = region?.Name,
+                        Name = region?.MapIdentifyId,
                         Objects = region?.SaveableObjects ?? new HashSet<MapObject>()
                     },
                     Map = new MapSaveModel()

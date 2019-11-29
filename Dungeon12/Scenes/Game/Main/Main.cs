@@ -112,6 +112,9 @@
 
             this.AddObject(new Dungeon12PlayerUI(this.PlayerAvatar.Character));
 
+            // размораживаем рисование пресонажа
+            Global.GameState.Player.FreezeDrawLoop = false;
+
 #if DEBUG
             this.AddObject(new Position(this.PlayerAvatar));
 #endif

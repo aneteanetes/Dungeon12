@@ -44,6 +44,19 @@ namespace Dungeon12.Map
             // уничтожаем что у нас там есть сейчас в игре
             SceneManager.Destroy<Scenes.Game.Main>();
 
+            // замораживаем рисование пресонажа
+            Global.GameState.Player.FreezeDrawLoop = true;
+
+            //удаляем нахой персонажа с карты
+            Global.GameState.Map.MapObject.Remove(player);
+
+            // разъёбываем нахуй всё что бы сцена точно удалилась
+            Global.DrawClient.SetScene(default);
+            
+            // объекты не на текущей карте должны перестать "двигаться"
+            // замораживаем движение на текущей карте
+            Global.GameState.Map.Disabled = true;
+
             var isUnderLevel = Data.UnderlevelIdentify != default;
             if (isUnderLevel)
             {
@@ -55,9 +68,6 @@ namespace Dungeon12.Map
 
                 // сохраняем текущее состояние в памяти
                 Global.SaveInMemmory();
-
-                // объекты не на текущей карте должны перестать "двигаться"
-                Global.GameState.Map.Disabled = true;
 
                 var inMemmoryUnderlevel = Global.GameState.Underlevels.FirstOrDefault(x => x.MapIdentifyId == Data.UnderlevelIdentify);
                 if (inMemmoryUnderlevel != default)
@@ -91,6 +101,9 @@ namespace Dungeon12.Map
                 }
             }
 
+            // восстанавливаем движение на именно текущей карте
+            Global.GameState.Map.Disabled = false;
+
             // указываем что карта загружена что бы она не инициализировалась "по-умолчанию"
             Global.GameState.Map.Loaded = true;
 
@@ -98,6 +111,7 @@ namespace Dungeon12.Map
             // внутри установится и камера
             Global.GameState.Map.SetPlayerLocation(Data.Destination);
 
+            Global.DrawClient.SetCursor("Cursors.common.png".PathImage());
             // переключаемся на главную сцену
             SceneManager.Switch<Main>();
         }

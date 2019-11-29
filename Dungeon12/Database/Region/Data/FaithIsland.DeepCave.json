@@ -7,13 +7,23 @@
   "Display": "Глубокие пещеры",
   "IsUnderLevel": true,
   "IdentifyName": "FaithIsland.DeepCave",
+  "Offset": {
+    "X": -6.5,
+    "Y": -1
+  },
   "Objects": [
     {
-      "Icon": "Barrel",
-      "IdentifyName": "Red",
+      "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Teleport",
+      "Name": "Остров веры",
       "Position": {
-        "X": 1,
-        "Y": 1
+        "X": 76.6,
+        "Y": 19
+      },
+      "RegionIdentify": "FaithIsland",
+      "Destination": {
+        "X": 42,
+        "Y": 45
       }
     },
     {

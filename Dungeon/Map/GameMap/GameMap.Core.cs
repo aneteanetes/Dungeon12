@@ -53,23 +53,30 @@
             var moveAreas = MapObject.Query(@object,true);
             if (moveAreas.Count > 0)
             {
-                foreach (var moveArea in moveAreas)
+                try
                 {
-                    foreach (var node in moveArea.Nodes)
+                    foreach (var moveArea in moveAreas)
                     {
-                        if (node != @object && node.IntersectsWith(@object))
+                        foreach (var node in moveArea.Nodes)
                         {
-                            if (node.Interactable)
+                            if (node != @object && node.IntersectsWith(@object))
                             {
-                                node.Dispatch((x, y) => x.Interact(y), @object);
-                            }
-                            if (node.Obstruction)
-                            {
-                                moveAvailable = false;
-                                goto moveDetected;
+                                if (node.Interactable)
+                                {
+                                    node.Dispatch((x, y) => x.Interact(y), @object);
+                                }
+                                if (node.Obstruction)
+                                {
+                                    moveAvailable = false;
+                                    goto moveDetected;
+                                }
                             }
                         }
                     }
+                }
+                catch (InvalidOperationException)
+                {
+                    return false; // поправили блядь карту
                 }
             }
 
@@ -236,31 +243,29 @@
 
             var avatar = Global.GameState.Player.Component;
             avatar.Location = playerPos;
+            avatar.SceenPosition = new Point(0, 0);
 
             double xOffset = 0;
             double yOffset = 0;
 
-            if (playerPos.X > 29)
-            {
-                xOffset -= playerPos.X - 20;
-            }
-            if (playerPos.X < 11)
-            {
-                xOffset += playerPos.X - 20;
-            }
-            if (playerPos.Y > 16.25)
-            {
-                yOffset -= playerPos.Y - 11.25;
-            }
-            if (playerPos.Y < 6.25)
-            {
-                yOffset += playerPos.Y - 11.25;
-            }
+            CenterOnCharacter(playerPos, ref xOffset, ref yOffset);
 
-            SceneManager.StaticDrawClient.SetCamera(xOffset * 32, yOffset * 32);
+            Global.DrawClient.SetCamera(xOffset * 32, yOffset * 32);
 
             Global.GameState.Player.Left = avatar.Location.X;
             Global.GameState.Player.Top = avatar.Location.Y;
+        }
+
+        /// <summary>
+        /// Центрирует камеру на персонаже
+        /// </summary>
+        /// <param name="playerPos"></param>
+        /// <param name="xOffset"></param>
+        /// <param name="yOffset"></param>
+        private static void CenterOnCharacter(Point playerPos, ref double xOffset, ref double yOffset)
+        {
+            xOffset -= playerPos.X - 20;
+            yOffset -= playerPos.Y - 11.25;
         }
     }
 

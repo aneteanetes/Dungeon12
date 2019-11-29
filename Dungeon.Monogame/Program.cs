@@ -12,11 +12,9 @@ namespace Dungeon.Monogame
         {
 #if DEBUG
             ResourceLoader.NotDisposingResources = true;
-#endif
+            ResourceLoader.CacheImagesAndMasks = false;
             Database.Init();
-#if COMPILEDATABASE
-            Database.Init();
-#endif
+#endif      
             Database.LoadAllAssemblies();
 
             using (var game = new XNADrawClient())

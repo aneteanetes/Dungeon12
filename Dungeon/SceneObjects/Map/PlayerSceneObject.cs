@@ -147,8 +147,19 @@
 
         protected virtual void OnMoveRegistered(Direction dir) { }
 
+        /// <summary>
+        /// заморозить отрисовку
+        /// <para>
+        /// Требуется что бы при загрузке новый объект персонажа случайно не получил старую ссылку на карту
+        /// </para>
+        /// </summary>
+        public bool FreezeDrawLoop { get; set; }
+
         protected override void DrawLoop()
         {
+            if (FreezeDrawLoop)
+                return;
+
             var _ = NowMoving.Count == 0
                 ? RequestStop()
                 : RequestResume();
@@ -290,12 +301,14 @@
 
         public void StopMovings()
         {
+            this.RequestDrawStop();
             this.RequestStop();
-            foreach (var moving in NowMoving)
+            var m = new HashSet<Direction>(NowMoving);
+            NowMoving.Clear();
+            foreach (var moving in m)
             {
                 OnStopFlow(moving);
             }
-            this.NowMoving.Clear();
         }
 
         public bool BlockMouse { get; set; }

@@ -36,7 +36,8 @@
                     FrameCounter++;
                 }
 
-                DrawLoop();
+                if (!drawStop)
+                    DrawLoop();
                 ChangeAnimationFrame();
 
                 return FramePosition;
@@ -81,6 +82,9 @@
             this.OnAnimationStop();
             return animationStop = true;
         }
+
+        private bool drawStop = false;
+        protected bool RequestDrawStop() => drawStop = true;
 
         protected virtual void OnAnimationStop() { }
 

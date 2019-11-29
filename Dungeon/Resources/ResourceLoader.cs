@@ -16,6 +16,11 @@ namespace Dungeon.Resources
         /// </summary>
         public static bool NotDisposingResources = false;
 
+        /// <summary>
+        /// Флаг кэширования изображений и их масок
+        /// </summary>
+        public static bool CacheImagesAndMasks = true;
+
         public static Resource Load(string resource, bool caching = false)
         {
             if(RuntimeCache.ContainsKey(resource))

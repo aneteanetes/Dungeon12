@@ -33,11 +33,21 @@
             var persistRegion = Database.Entity<Region>(e => e.Name == name).First();
 
             this.IsUnderLevel = persistRegion.IsUnderLevel;
+            if (!IsUnderLevel)
+            {
+                Global.GameState.Region = this;
+            }
 
             this.SafeZones = persistRegion.SafeZones.Select(safeZone => safeZone * 32);
 
             foreach (var regionObject in persistRegion.Objects)
             {
+                if(regionObject.Obstruct && persistRegion.Offset!=default)
+                {
+                    regionObject.Position.X += persistRegion.Offset.X;
+                    regionObject.Position.Y += persistRegion.Offset.Y;
+                }
+
                 var obj = Map.MapObject.Create(regionObject);
                 obj.Destroy += () => { this.MapObject.Remove(obj); };
                 this.MapObject.Add(obj);
@@ -56,14 +66,23 @@
 
         public Region LoadedRegionData { get; set; }
 
-        public string LoadRegion(MapSaveModel mapSaveModel)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mapSaveModel"></param>
+        /// <param name="loadLocal">загрузить карту в объект при этом не присваивая её текущей карте</param>
+        /// <returns></returns>
+        public string LoadRegion(MapSaveModel mapSaveModel, bool loadLocal=false)
         {
             MapIdentifyId = mapSaveModel.Name;
             Loaded = true;
 
-            if (Global.GameState.Map != this)
+            if (!loadLocal)
             {
-                Global.GameState.Map = this;
+                if (Global.GameState.Map != this)
+                {
+                    Global.GameState.Map = this;
+                }
             }
 
             var persistRegion = Database.Entity<Region>(e => e.Name == mapSaveModel.Name).First();
@@ -72,6 +91,11 @@
 
             foreach (var regionObject in persistRegion.Objects)
             {
+                if (regionObject.Obstruct && persistRegion.Offset != default)
+                {
+                    regionObject.Position.X += persistRegion.Offset.X;
+                    regionObject.Position.Y += persistRegion.Offset.Y;
+                }
                 var obj = Map.MapObject.Create(regionObject,false);
                 if (obj != default)
                 {
