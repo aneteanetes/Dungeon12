@@ -239,6 +239,7 @@
 
         public void SetPlayerLocation(Point playerPos=default)
         {
+            playerPos = playerPos.Copy();
             playerPos = playerPos ?? new Point { X = 42, Y = 45 };
 
             var avatar = Global.GameState.Player.Component;

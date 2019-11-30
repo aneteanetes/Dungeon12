@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Dungeon.Types
 {
+    /// <summary>
+    /// Это ссылочный тип! А значит мы получаем бесценную возможность сравнивать с null, но при этом ИЗМЕНЕНИЯ КООРДИНАТ ПРОИСХОДИТ ПО ССЫЛКЕ
+    /// </summary>
     public class Point
     {
         public Point()
@@ -122,6 +126,15 @@ namespace Dungeon.Types
             }
 
             return last;
+        }
+
+        public override string ToString() => $"X: {X}, Y:{Y}";
+
+        public Point Copy() => new Point(this);
+
+        public bool EqualTo(double x, double y)
+        {
+            return this.X == x && this.Y == y;
         }
     }
 }
