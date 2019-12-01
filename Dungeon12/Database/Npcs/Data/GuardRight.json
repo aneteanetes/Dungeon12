@@ -14,6 +14,7 @@
     "Width": 32,
     "Height": 32
   },
+  "FractionIdentify": "FaithIslandFauna",
   "NoInteract": true,
   "NoInteractText": "Страж несёт службу",
   "MovementSpeed": 0.01,

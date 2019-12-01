@@ -1,0 +1,5 @@
+﻿{
+  "IdentifyName": "FaithIslandFauna",
+  "Name": "Фауна Острова Веры",
+  "Enemies": [ "FaithIslandTown" ]
+}

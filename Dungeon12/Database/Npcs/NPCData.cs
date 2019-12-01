@@ -3,6 +3,7 @@
     using Dungeon.Conversations;
     using Dungeon.Entities.NPC;
     using Dungeon.Types;
+    using Dungeon12.Entities.NPC;
     using System.Collections.Generic;
 
     public class NPCData : ConversationalDataStore
@@ -17,7 +18,7 @@
 
         public Rectangle TileSetRegion { get; set; }
 
-        public NPCMoveable NPC { get; set; }
+        public FractionNPC NPC { get; set; }
 
         public double MovementSpeed { get; set; }
 
@@ -28,5 +29,7 @@
         public string NoInteractText { get; set; }
 
         public bool NoInteract { get; set; }
+
+        public string FractionIdentify { get; set; }
     }
 }

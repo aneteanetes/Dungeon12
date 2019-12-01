@@ -23,6 +23,8 @@
             ? "speak"
             : "shop";
 
+        protected override bool SilentTooltip => true;
+
         public NPCSceneObject(PlayerSceneObject playerSceneObject, GameMap location, NPC mob, Rectangle defaultFramePosition)
             : base(playerSceneObject, mob, location, mob, mob.NPCEntity, defaultFramePosition)
         {

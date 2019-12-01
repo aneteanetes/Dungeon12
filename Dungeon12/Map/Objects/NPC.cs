@@ -17,6 +17,8 @@
     using Dungeon.View.Interfaces;
     using Dungeon12.Data.Homes;
     using Dungeon12.Data.Npcs;
+    using Dungeon12.Entities.Fractions;
+    using Dungeon12.Entities.NPC;
     using Force.DeepCloner;
 
     [Template("Npc")]
@@ -25,7 +27,7 @@
     {
         public override bool Saveable => true;
 
-        public NPCMoveable NPCEntity { get; set; }
+        public FractionNPC NPCEntity { get; set; }
 
         public override string Icon { get => "N"; set { } }
 
@@ -95,6 +97,11 @@
                 this.Merchant.FillBackpacks();
             }
             this.BuildConversations(data);
+
+            if (data.FractionIdentify != default)
+            {
+                this.NPCEntity.Fraction = FractionView.Load(data.FractionIdentify).ToFraction();
+            }
 
             if (this.NPCEntity.MoveRegion != null)
             {

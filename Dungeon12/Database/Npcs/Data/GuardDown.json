@@ -19,6 +19,7 @@
   "MovementSpeed": 0.01,
   "Conversations": [
   ],
+  "FractionIdentify": "FaithIslandFauna",
   "NPC": {
     "WalkChance": {
       "From": 0,

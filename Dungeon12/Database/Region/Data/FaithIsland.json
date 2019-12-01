@@ -143,10 +143,58 @@
     },
     {
       "Icon": "Npc",
+      "IdentifyName": "GuardDown",
+      "Position": {
+        "X": 39,
+        "Y": 56
+      }
+    },
+    {
+      "Icon": "Npc",
+      "IdentifyName": "GuardDown",
+      "Position": {
+        "X": 54,
+        "Y": 57
+      }
+    },
+    {
+      "Icon": "Npc",
+      "IdentifyName": "GuardRight",
+      "Position": {
+        "X": 59,
+        "Y": 48
+      }
+    },
+    {
+      "Icon": "Npc",
+      "IdentifyName": "GuardRight",
+      "Position": {
+        "X": 59,
+        "Y": 54.5
+      }
+    },
+    {
+      "Icon": "Npc",
+      "IdentifyName": "GuardUp",
+      "Position": {
+        "X": 48,
+        "Y": 37.5
+      }
+    },
+    {
+      "Icon": "Npc",
+      "IdentifyName": "GuardUp",
+      "Position": {
+        "X": 50,
+        "Y": 37.5
+      }
+    },
+    {
+      "Icon": "Npc",
       "IdentifyName": "ServantOfFaith",
       "Position": {
-        "X": 45,
-        "Y": 45
+        "X": 57,
+        "Y": 48
       }
     },
     {
@@ -3145,28 +3193,6 @@
       "Position": {
         "X": 20.0,
         "Y": 54.0,
-        "VectorX": 0,
-        "VectorY": 0
-      },
-      "Layer": 1,
-      "Id": 0,
-      "ObjectId": 0,
-      "IdentifyName": null,
-      "Assembly": null,
-      "Image": "Dungeon12.Resources.Images.Tiles.water.png"
-    },
-    {
-      "Icon": null,
-      "Region": {
-        "X": 0.0,
-        "Y": 384.0,
-        "Width": 32.0,
-        "Height": 32.0
-      },
-      "Obstruct": true,
-      "Position": {
-        "X": 20.0,
-        "Y": 55.0,
         "VectorX": 0,
         "VectorY": 0
       },

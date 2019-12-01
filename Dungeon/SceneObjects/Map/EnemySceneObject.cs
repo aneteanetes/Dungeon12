@@ -20,6 +20,8 @@
 
     public class EnemySceneObject : AnimatedSceneObject<Mob>
     {
+        protected override bool SilentTooltip => true;
+
         public Mob MobObj { get; set; }
 
         private readonly GameMap location;

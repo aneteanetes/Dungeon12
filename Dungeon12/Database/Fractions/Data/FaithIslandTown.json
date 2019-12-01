@@ -1,0 +1,8 @@
+﻿{
+  "IdentifyName": "FaithIslandTown",
+  "Name": "Остров Веры",
+  "Playable": true,
+  "Enemies": [
+    "FaithIslandFauna"
+  ]
+}

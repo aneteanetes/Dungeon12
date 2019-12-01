@@ -72,6 +72,8 @@ namespace Dungeon.SceneObjects
         private static int ShowedBoxes { get; set; }
         private static Dictionary<string, MessageBox> CurrentBoxes = new Dictionary<string, MessageBox>();
 
+        public static void Show(string text) => Show(text, Global.SceneManager.CurrentScene.ShowEffectsBinding);
+
         public static void Show(string text, Action<List<ISceneObject>> publisher) => Show(text.AsDrawText().InSize(10).Montserrat(), publisher);
 
         public static void Show(DrawText text, Action<List<ISceneObject>> publisher, int frames =400)
