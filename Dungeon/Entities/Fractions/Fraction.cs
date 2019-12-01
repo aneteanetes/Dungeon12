@@ -1,24 +1,24 @@
-﻿using Dungeon.Entities;
-using Dungeon12.Database.Fractions;
+﻿using Dungeon.Data.Fractions;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Dungeon12.Entities.Fractions
+namespace Dungeon.Entities.Fractions
 {
     public class FractionView : DataEntity<FractionView, FractionData>
     {
         public string[] EnemiesIdentities { get; set; }
-
+                
         protected override void Init(FractionData dataClass)
         {
-            this.Name = dataClass.Name;
+            Name = dataClass.Name;
             EnemiesIdentities = dataClass.Enemies;
+            this.IdentifyName = dataClass.IdentifyName;
         }
 
-        public Fraction ToFraction() => new Fraction(this.Name)
+        public Fraction ToFraction() => new Fraction(Name)
         {
-            Name = this.Name,
-            EnemiesIdentities = this.EnemiesIdentities
+            Name = Name,
+            EnemiesIdentities = EnemiesIdentities
         };
     }
 
@@ -31,6 +31,6 @@ namespace Dungeon12.Entities.Fractions
 
         public FractionProgress Progress { get; set; }
 
-        public IEnumerable<FractionView> Enemies => Dungeon.Data.Database.EntityQuery<FractionView>(x => EnemiesIdentities.Contains(x.IdentifyName));
+        public IEnumerable<FractionView> Enemies => Data.Database.EntityQuery<FractionView>(x => EnemiesIdentities.Contains(x.IdentifyName));
     }
 }

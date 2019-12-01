@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Dungeon12.Entities.Fractions
+namespace Dungeon.Entities.Fractions
 {
     public enum FractionLevel
     {

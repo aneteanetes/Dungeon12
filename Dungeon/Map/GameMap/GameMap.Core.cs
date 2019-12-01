@@ -100,28 +100,13 @@
             return moveAvailable;
         }
         
-        public IEnumerable<Mob> Enemies(MapObject @object)
-        {
-            IEnumerable<Mob> mobs = Enumerable.Empty<Mob>();
-
-            var moveArea = MapObject.Query(@object);
-            if (moveArea != null)
-            {
-                mobs = moveArea.Nodes.Where(node => node is Mob).Select(node => node as Mob)
-                    .Where(node => @object.IntersectsWith(node))
-                    .ToArray();
-            }
-
-            return mobs.ToArray();
-        }
-        
         /// <summary>
         /// Получить информацию о том что объекты такого типа есть
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="object"></param>
         /// <returns></returns>
-        public bool Any<T>(MapObject @object)
+        public bool Any<T>(MapObject @object, Func<T,bool> filter=default)
             where T : PhysicalObject
         {
             var moveArea = MapObject.Query(@object);
@@ -129,7 +114,7 @@
             {
                 return moveArea.Nodes.Where(node => node is T)
                    .Select(node => node as T)
-                   .Any(node => @object.IntersectsWith(node));
+                   .Any(node => @object.IntersectsWith(node) && (filter?.Invoke(node) ?? true));
             }
 
             return false;
@@ -141,7 +126,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="object"></param>
         /// <returns></returns>
-        public IEnumerable<T> All<T>(MapObject @object)
+        public IEnumerable<T> All<T>(MapObject @object, Func<T, bool> filter = default)
             where T : MapObject
         {
             IEnumerable<T> all = Enumerable.Empty<T>();
@@ -151,7 +136,7 @@
             {
                 all = moveArea.Nodes.Where(node => node is T)
                     .Select(node => node as T)
-                    .Where(node => @object.IntersectsWith(node))
+                    .Where(node => @object.IntersectsWith(node) && (filter?.Invoke(node) ?? true))
                     .ToArray();
             }
 
@@ -164,8 +149,8 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="object"></param>
         /// <returns></returns>
-        public T One<T>(MapObject @object)
-            where T : PhysicalObject
+        public T One<T>(MapObject @object, Func<T, bool> filter = default)
+            where T : MapObject
         {
             var moveArea = MapObject.Query(@object);
             if (moveArea != null)
@@ -174,7 +159,7 @@
                 {
                     if (node is T nodeT)
                     {
-                        return nodeT.IntersectsWith(@object);
+                        return nodeT.IntersectsWith(@object) && (filter?.Invoke(nodeT) ?? true);
                     }
                     return false;
                 }) as T;

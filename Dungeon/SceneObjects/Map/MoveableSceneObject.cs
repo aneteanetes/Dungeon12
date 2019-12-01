@@ -3,10 +3,13 @@
     using Dungeon.Entities.Alive;
     using Dungeon.Entities.Animations;
     using Dungeon.Map;
+    using Dungeon.Map.Objects;
+    using Dungeon.Physics;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public abstract class MoveableSceneObject<T> : AnimatedSceneObject<T>
         where T : Dungeon.Physics.PhysicalObject
@@ -16,21 +19,31 @@
 
         protected MapObject mapObj;
 
-        public MoveableSceneObject(PlayerSceneObject playerSceneObject, T @object, GameMap location,MapObject mapObj,Moveable moveable,Rectangle defaultFramePosition) 
-            : base(playerSceneObject,@object,mapObj.Name,defaultFramePosition)
+        public MoveableSceneObject(PlayerSceneObject playerSceneObject, T @object, GameMap location, MapObject mapObj, Moveable moveable, Rectangle defaultFramePosition)
+            : base(playerSceneObject, @object, mapObj.Name, defaultFramePosition)
         {
             this.mapObj = mapObj;
             this.moveable = moveable;
             this.location = location;
 
-            if(moveable.Static)
+            if (moveable.Static)
             {
                 RequestStop();
             }
+            else
+            {
+                var moveTimer = Global.Time.Timer()
+                    .After(200)
+                    .Repeat()
+                    .Do(CalculateMove)
+                    .Auto();
+
+                this.Destroy += () => moveTimer.Dispose();
+            }
         }
 
-        private int moveDistance = 0;
-        private readonly HashSet<int> moves = new HashSet<int>();
+        protected int moveDistance = 0;
+        protected readonly HashSet<Direction> moves = new HashSet<Direction>();
 
         protected override void DrawLoop()
         {
@@ -43,7 +56,7 @@
                 
                 foreach (var move in moves)
                 {
-                    Move(DirectionMap[move]);
+                    Move(move);
                 }
             }
             else if (moveDistance < 0)
@@ -51,9 +64,18 @@
                 moveDistance++;
             }
         }
-        protected override void AnimationLoop()
+
+        /// <summary>
+        /// Метод выполняющийся когда в фоновом потоке таймер выполняет рассчёт перемещения
+        /// </summary>
+        /// <returns>Флаг рассчёта движения или нет</returns>
+        protected virtual bool OnLogic() => true;
+        
+        private Direction _dir = Direction.Idle;
+
+        private void CalculateMove()
         {
-            if (moveable.Static)
+            if(!OnLogic())
                 return;
 
             if (moveDistance != 0)
@@ -64,62 +86,66 @@
             {
                 moves.Clear();
 
-                var direction = RandomDungeon.Next(0, 4);
+                var direction = _dir.Rangom();
 
-                if (DirectionMap[direction].dir == lastClosedDirection)
+                if (direction == lastClosedDirection)
                     return;
 
                 moves.Add(direction);
-
-                var diagonally = RandomDungeon.Next(0, 4);
-                if (diagonally != direction && NotPair(direction, diagonally))
-                {
-                    moves.Add(diagonally);
-                }
 
                 moveDistance = moveable.WalkDistance.Random();
             }
         }
 
-        private void Move((Direction dir, Vector vect, Func<Moveable, AnimationMap> anim) data)
+        protected override void AnimationLoop()
         {
-            switch (data.dir)
+            if (moveable.Static)
+                return;
+        }
+
+        protected void Move(Direction dir)
+        {
+            var anim = MovementMap[dir];
+
+            switch (dir)
             {
+                case Direction.Idle:
+                    break;
                 case Direction.Up:
+                    mapObj.Location.Y -= mapObj.MovementSpeed;
+                    break;
                 case Direction.Down:
-                    switch (data.vect)
-                    {
-                        case Vector.Plus:
-                            mapObj.Location.Y += mapObj.MovementSpeed;
-                            break;
-                        case Vector.Minus:
-                            mapObj.Location.Y -= mapObj.MovementSpeed;
-                            break;
-                        default:
-                            break;
-                    }
+                    mapObj.Location.Y += mapObj.MovementSpeed;
                     break;
                 case Direction.Left:
+                    mapObj.Location.X -= mapObj.MovementSpeed;
+                    break;
                 case Direction.Right:
-                    switch (data.vect)
-                    {
-                        case Vector.Plus:
-                            mapObj.Location.X += mapObj.MovementSpeed;
-                            break;
-                        case Vector.Minus:
-                            mapObj.Location.X -= mapObj.MovementSpeed;
-                            break;
-                        default:
-                            break;
-                    }
+                    mapObj.Location.X += mapObj.MovementSpeed;
+                    break;
+                case Direction.UpLeft:
+                    mapObj.Location.Y -= mapObj.MovementSpeed;
+                    mapObj.Location.X -= mapObj.MovementSpeed;
+                    break;
+                case Direction.UpRight:
+                    mapObj.Location.Y -= mapObj.MovementSpeed;
+                    mapObj.Location.X += mapObj.MovementSpeed;
+                    break;
+                case Direction.DownLeft:
+                    mapObj.Location.Y += mapObj.MovementSpeed;
+                    mapObj.Location.X -= mapObj.MovementSpeed;
+                    break;
+                case Direction.DownRight:
+                    mapObj.Location.Y += mapObj.MovementSpeed;
+                    mapObj.Location.X += mapObj.MovementSpeed;
                     break;
                 default:
                     break;
             }
 
-            SetAnimation(data.anim(moveable));
+            SetAnimation(anim(moveable));
 
-            if (!CheckMoveAvailable(data.dir))
+            if (!CheckMoveAvailable(dir))
             {
                 moveDistance = -moveable.WaitTime;
                 SetAnimation(moveable.Idle);
@@ -152,29 +178,17 @@
             }
         }
 
-        protected virtual Dictionary<int, (Direction dir, Vector vect, Func<Moveable, AnimationMap> anim)> DirectionMap => new Dictionary<int, (Direction, Vector, Func<Moveable, AnimationMap>)>
+        private Dictionary<Direction, Func<Moveable, AnimationMap>> MovementMap => new Dictionary<Direction, Func<Moveable, AnimationMap>>()
         {
-            { 0,(Direction.Up, Vector.Minus, m=>m.MoveUp) },
-            { 1,(Direction.Down, Vector.Plus, m=>m.MoveDown) },
-            { 2,(Direction.Left, Vector.Minus, m=>m.MoveLeft) },
-            { 3,(Direction.Right, Vector.Plus, m=>m.MoveRight) },
+            { Direction.Idle,x=>x.Idle },
+            { Direction.Left,x=>x.MoveLeft },
+            { Direction.Right,x=>x.MoveRight},
+            { Direction.Down,x=>x.MoveDown },
+            { Direction.Up,x=>x.MoveUp },
+            { Direction.DownLeft,x=>x.MoveDown },
+            { Direction.DownRight,x=>x.MoveDown },
+            { Direction.UpLeft,x=>x.MoveUp },
+            { Direction.UpRight,x=>x.MoveUp },
         };
-
-        private bool NotPair(int common, int additional)
-        {
-            if (common + additional == 1)
-                return false;
-
-            if (common + additional == 5)
-                return false;
-
-            return true;
-        }
-
-        public enum Vector
-        {
-            Plus,
-            Minus
-        }
     }
 }

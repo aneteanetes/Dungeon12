@@ -6,6 +6,8 @@ using Dungeon.Map;
 using Dungeon.Map.Objects;
 using Dungeon12.Noone.Talants.Defensible;
 using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+using Dungeon12.Data.Npcs;
+using Dungeon12.Map.Objects;
 
 namespace Dungeon12.Noone.Abilities
 {
@@ -55,7 +57,7 @@ namespace Dungeon12.Noone.Abilities
             rangeObject.Size.Height *= 4;
             rangeObject.Size.Width *= 4;
 
-            var enemyNear = gameMap.Any<Mob>(rangeObject);
+            var enemyNear = gameMap.Any<NPCMap>(rangeObject,n=>n.IsEnemy);
             this.PassiveWorking = enemyNear;
             if (enemyNear != enabled)
             {

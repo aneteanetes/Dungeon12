@@ -3,6 +3,7 @@
     using Dungeon.Data;
     using Dungeon.Data.Attributes;
     using Dungeon.Data.Region;
+    using Dungeon.Entities;
     using Dungeon.Entities.Animations;
     using Dungeon.Game;
     using Dungeon.Map.Infrastructure;
@@ -23,6 +24,8 @@
         /// Метод перезагрузки сущности, как правило для сохраняемых
         /// </summary>
         public virtual void Reload() { }
+
+        public virtual Entity BindedEntity => default;
 
         /// <summary>
         /// Признак указывающий что этот объект сохраняемый

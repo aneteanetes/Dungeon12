@@ -2,7 +2,7 @@
 using Dungeon.SceneObjects;
 using System;
 
-namespace Dungeon12.Entities.Fractions
+namespace Dungeon.Entities.Fractions
 {
     public class FractionProgress
     {

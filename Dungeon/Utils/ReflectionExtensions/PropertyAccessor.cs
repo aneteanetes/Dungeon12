@@ -39,6 +39,8 @@
             return false;
         }
 
+        public static bool IsNot<T>(this object obj) => !(obj is T);
+
         public static Func<TClass, TProperty> GetFieldAccessor<TClass, TProperty>(string fieldName)
         {
             ParameterExpression param = Expression.Parameter(typeof(TClass), "arg");

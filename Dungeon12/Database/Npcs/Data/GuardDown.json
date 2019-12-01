@@ -21,6 +21,7 @@
   ],
   "FractionIdentify": "FaithIslandFauna",
   "NPC": {
+    "Aggressive": true,
     "WalkChance": {
       "From": 0,
       "To": 0

@@ -11,8 +11,8 @@ namespace Dungeon.AndroidProjectConverter
         protected string GetTemplate(string templatName)
         {
             var tplPath = "Dungeon.AndroidProjectConverter.Templates." + templatName;
-            var stream = ResourceLoader.Load(tplPath);
-            StreamReader reader = new StreamReader(stream);
+            var res = ResourceLoader.Load(tplPath);
+            StreamReader reader = new StreamReader(res.Stream);
             return reader.ReadToEnd();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Dungeon.Entities;
+using Dungeon.Entities.Alive;
 using Dungeon.Events.Events;
 using Dungeon.Map.Objects;
 using Dungeon.View.Interfaces;
@@ -7,9 +8,11 @@ using System.Linq;
 
 namespace Dungeon.Map
 {
-    public class EntityMapObject<TEntity> : MapObject
+    public class EntityMapObject<TEntity> : Сonversational
         where TEntity : Entity
     {
+        public override Entity BindedEntity => Entity;
+
         public EntityMapObject(TEntity entity)
         {
             ReEntity(entity);
@@ -27,6 +30,10 @@ namespace Dungeon.Map
             {
                 entity.MapObject = this;
                 Entity = entity;
+                if(entity is Alive aliveEntity)
+                {
+                    aliveEntity.OnDie += this.Die;
+                }
             }
         }
 

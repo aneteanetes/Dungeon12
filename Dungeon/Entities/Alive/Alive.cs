@@ -5,6 +5,7 @@ using Dungeon.Network;
 using Dungeon.SceneObjects;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
+using System;
 
 namespace Dungeon.Entities.Alive
 {
@@ -112,8 +113,11 @@ namespace Dungeon.Entities.Alive
 
         public IFlowable GetParentFlow() => flowparent;
 
+        public Action OnDie { get; set; }
+
         public void Die()
         {
+            OnDie?.Invoke();
             this.SceneObject?.Destroy?.Invoke();
             this.MapObject?.Destroy?.Invoke();
         }

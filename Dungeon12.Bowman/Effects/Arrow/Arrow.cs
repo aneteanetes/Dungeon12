@@ -10,6 +10,7 @@ using Dungeon.Map.Objects;
 using Dungeon.Physics;
 using Dungeon.SceneObjects;
 using Dungeon.Types;
+using Dungeon12.Map.Objects;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -216,7 +217,7 @@ namespace Dungeon12.Bowman.Effects
                 }
             };
 
-            var target = _gameMap.One<Mob>(rangeObject);
+            var target = _gameMap.One<NPCMap>(rangeObject,n=>n.IsEnemy);
             if (target != default)
             {
                 target.Entity.Damage(this.bowman,new Damage()

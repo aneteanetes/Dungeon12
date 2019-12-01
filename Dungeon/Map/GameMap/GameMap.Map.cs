@@ -2,16 +2,10 @@
 {
     using Dungeon.Data;
     using Dungeon.Data.Region;
-    using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Entities.Enemy;
-    using Dungeon.Loot;
     using Dungeon.Map.Objects;
     using Dungeon.Physics;
-    using Dungeon.Scenes.Manager;
     using Dungeon.Types;
-    using Dungeon.View.Interfaces;
     using Force.DeepCloner;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -122,65 +116,6 @@
             return persistRegion.Name;
         }
 
-        public class MobData : Dungeon.Data.Persist
-        {
-            public int Level { get; set; }
-
-            public string Name { get; set; }
-
-            public string Tileset { get; set; }
-
-            public Point Size { get; set; }
-
-            public Point Position { get; set; }
-
-            public Rectangle TileSetRegion { get; set; }
-
-            public Enemy Enemy { get; set; }
-
-            public double MovementSpeed { get; set; }
-
-            public Point VisionMultiples { get; set; }
-
-            public Point AttackRangeMultiples { get; set; }
-        }
-
-        private void SpawnEnemies(int count)
-        {
-            var data = Database.Entity<MobData>(x => x.Level == this.Level)
-                .FirstOrDefault();
-
-            for (int i = 0; i < count; i++)
-            {
-                var mob = new Mob(data.Enemy.DeepClone())
-                {
-                    Tileset = data.Tileset,
-                    TileSetRegion = data.TileSetRegion,
-                    Name = data.Name,
-                    Size = new PhysicalSize()
-                    {
-                        Width = data.Size.X * 32,
-                        Height = data.Size.Y * 32
-                    },
-                    MovementSpeed = data.MovementSpeed,
-                    VisionMultiple = data.VisionMultiples,
-                    AttackRangeMultiples = data.AttackRangeMultiples
-                };
-
-                mob.Entity.Name = mob.Name;
-
-                bool setted = false;
-
-                while (!(setted = TrySetLocation(mob))) ;
-
-                if (setted)
-                {
-                    this.MapObject.Add(mob);
-                    this.Objects.Add(mob);
-                }
-            }
-        }
-
         public Point RandomizeLocation(Point point, RandomizePositionTry @try =null, int count=0)
         {
             if(count>100)
@@ -231,25 +166,6 @@
             public int TryCount => Existed.Count == 0
                 ? 1
                 : ((Existed.Count - 1) % 8) + 1;
-        }
-
-        private bool TrySetLocation(Mob mob)
-        {
-            var x = Dungeon.RandomDungeon.Next(20, 70);
-            var y = Dungeon.RandomDungeon.Next(20, 70);
-
-            mob.Location = new Point(x, y);
-
-            var otherObject = this.MapObject.Query(mob).Nodes.Any(node => node.IntersectsWith(mob));
-            if (otherObject)
-                return false;
-
-            if (InSafe(mob))
-            {
-                return false;
-            }
-            
-            return true;
         }
     }
 }

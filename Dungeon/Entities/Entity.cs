@@ -1,4 +1,5 @@
 ﻿using Dungeon.Data;
+using Dungeon.Entities.Fractions;
 using Dungeon.Map;
 using Dungeon.Network;
 using Dungeon.View.Interfaces;
@@ -12,6 +13,19 @@ namespace Dungeon.Entities
 {
     public class Entity : VisualObject
     {
+        public Fraction Fraction { get; set; }
+
+        public bool IsEnemy(Entity anoter)
+        {
+            var thisHate = this.Fraction?.EnemiesIdentities.Any(x => x == anoter.IdentifyName) ?? false;
+            if (!thisHate)
+            {
+                return anoter.Fraction.IsEnemy(this);
+            }
+
+            return false;
+        }
+
         public string IdentifyName { get; set; }
 
         [Newtonsoft.Json.JsonIgnore]

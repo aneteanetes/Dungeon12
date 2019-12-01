@@ -3,6 +3,7 @@
     using Dungeon.Conversations;
     using Dungeon.Data;
     using Dungeon.Data.Conversations;
+    using Dungeon.Entities;
     using System.Collections.Generic;
     using System.Linq;
 

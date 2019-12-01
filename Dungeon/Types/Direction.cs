@@ -37,5 +37,21 @@ namespace Dungeon
                 default: return Direction.Idle;
             }
         }
+
+        public static Direction Rangom(this Direction dir)
+        {
+            switch (RandomDungeon.Range(0,9))
+            {
+                case 1: return Direction.Up;
+                case 2: return Direction.Down;
+                case 3: return Direction.Left;
+                case 4: return Direction.Right;
+                case 5: return Direction.UpLeft;
+                case 6: return Direction.UpRight;
+                case 7: return Direction.DownLeft;
+                case 8: return Direction.DownRight;
+                default: return Direction.Idle;
+            }
+        }
     }
 }

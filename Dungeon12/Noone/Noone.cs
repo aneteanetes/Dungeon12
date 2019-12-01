@@ -26,7 +26,7 @@
             timer.Elapsed += RestoreActions;
             timer.Start();
 
-            this.HitPoints = this.MaxHitPoints = 100;
+            this.HitPoints = this.MaxHitPoints = this.InitialHP;
             this.Level = 1;
             this.MinDMG = 1;
             this.MaxDMG = 2;

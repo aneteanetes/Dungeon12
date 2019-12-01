@@ -1,20 +1,11 @@
 ﻿namespace Dungeon.Drawing.SceneObjects.Map
 {
-    using Dungeon.SceneObjects;
-    using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.Entities.Alive;
-    using Dungeon.Entities.Animations;
-    using Dungeon.Entities.Enemy;
-    using Dungeon.Map;
-    using Dungeon.Map.Objects;
-    using Dungeon.Types;
-    using Dungeon.View.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Timers;
     using Dungeon.Drawing;
     using Dungeon.GameObjects;
+    using Dungeon.SceneObjects;
+    using Dungeon.Types;
+    using Dungeon.View.Interfaces;
+    using System.Collections.Generic;
 
     public class EmptyTooltipedSceneObject : TooltipedSceneObject<EmptyGameComponent>
     {

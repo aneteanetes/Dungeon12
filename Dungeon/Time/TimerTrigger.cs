@@ -46,7 +46,7 @@ namespace Dungeon
             timer.Elapsed += (s, e) =>
             {
                 action?.Invoke();
-                if (!timer.AutoReset)
+                if (!timer.AutoReset && !this.recoverable)
                 {
                     this.Dispose();
                 }
@@ -62,6 +62,18 @@ namespace Dungeon
         public TimerTrigger Repeat()
         {
             timer.AutoReset = true;
+            return this;
+        }
+
+        private bool recoverable = false;
+
+        /// <summary>
+        /// Таймер будет запускаться несколько раз
+        /// </summary>
+        /// <returns></returns>
+        public TimerTrigger Recoverable()
+        {
+            recoverable = true;
             return this;
         }
 
@@ -87,6 +99,9 @@ namespace Dungeon
         /// </summary>
         public void Trigger() => Auto();
 
+        /// <summary>
+        /// Остановить, уничтожить, и освободить таймер
+        /// </summary>
         public void Dispose()
         {
             timer?.Dispose();

@@ -1,13 +1,13 @@
-﻿namespace Dungeon12.Data.Npcs
-{
-    using Dungeon.Conversations;
-    using Dungeon.Entities.NPC;
-    using Dungeon.Types;
-    using Dungeon12.Entities.NPC;
-    using System.Collections.Generic;
+﻿using Dungeon.Conversations;
+using Dungeon.Types;
+using Dungeon12.Entities;
 
+namespace Dungeon12.Data.Npcs
+{
     public class NPCData : ConversationalDataStore
     {
+        public bool IsEnemy { get; set; }
+
         public string Name { get; set; }
 
         public string Face { get; set; }
@@ -18,7 +18,7 @@
 
         public Rectangle TileSetRegion { get; set; }
 
-        public FractionNPC NPC { get; set; }
+        public NPC NPC { get; set; }
 
         public double MovementSpeed { get; set; }
 
@@ -31,5 +31,11 @@
         public bool NoInteract { get; set; }
 
         public string FractionIdentify { get; set; }
+
+        public int Level { get; set; }
+
+        public Point VisionMultiples { get; set; }
+
+        public Point AttackRangeMultiples { get; set; }
     }
 }

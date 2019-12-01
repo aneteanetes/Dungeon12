@@ -1,14 +1,11 @@
 ﻿using Dungeon;
 using Dungeon.Drawing.Impl;
 using Dungeon.Entities.Alive;
-using Dungeon.Entities.Enemy;
 using Dungeon.Map;
-using Dungeon.Map.Objects;
 using Dungeon.SceneObjects;
 using Dungeon.Types;
-using System;
+using Dungeon12.Map.Objects;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Dungeon12.Bowman.Effects
 {
@@ -74,7 +71,7 @@ namespace Dungeon12.Bowman.Effects
                     }
                 };
 
-                _gameMap.All<Mob>(rangeObj).ForEach(mob =>
+                _gameMap.All<NPCMap>(rangeObj).ForEach(mob =>
                 {
                     long Damage = RandomDungeon.Range(2, 11);
                     mob.Entity.Damage(_bowman,new Dungeon.Entities.Alive.Damage()

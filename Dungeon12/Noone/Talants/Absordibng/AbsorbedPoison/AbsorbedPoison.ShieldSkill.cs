@@ -6,6 +6,7 @@ using Dungeon.Map.Objects;
 using Dungeon.SceneObjects;
 using Dungeon.Transactions;
 using Dungeon.View.Interfaces;
+using Dungeon12.Map.Objects;
 using Dungeon12.Noone.Abilities;
 using System;
 
@@ -82,7 +83,7 @@ namespace Dungeon12.Noone.Talants.Absordibng
 
             private TimerTrigger timer;
 
-            public void Apply(Mob enemy)
+            public void Apply(NPCMap enemy)
             {
                 avatar.Character.Barrier += value;
                 timer = Dungeon.Global.Time
@@ -93,12 +94,12 @@ namespace Dungeon12.Noone.Talants.Absordibng
                     .Auto();
             }
 
-            public void Discard(Mob enemy)
+            public void Discard(NPCMap enemy)
             {
                 timer.StopDestroy();
             }
 
-            private void DOT(Mob enemy)
+            private void DOT(NPCMap enemy)
             {
                 if (!enemy.Entity.Dead)
                 {

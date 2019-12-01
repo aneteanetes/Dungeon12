@@ -55,6 +55,13 @@
         public TimerTrigger Timer(string name) => new TimerTrigger(name);
 
         /// <summary>
+        /// Таймер
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public TimerTrigger Timer() => Timer(Guid.NewGuid().ToString());
+
+        /// <summary>
         /// Действие после времени
         /// </summary>
         /// <param name="hours"></param>

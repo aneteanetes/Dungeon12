@@ -13,6 +13,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Dungeon.Entities.Alive;
+    using Dungeon12.Map.Objects;
 
     public class Attack : Ability<Noone,AbsorbingTalants>
     {
@@ -36,7 +37,7 @@
 
         protected override double RangeMultipler => 2.5;
 
-        public Mob AttackedEnemy { get; set; }
+        public NPCMap AttackedEnemy { get; set; }
 
         protected override void Use(GameMap gameMap, Avatar avatar, Noone @class)
         {

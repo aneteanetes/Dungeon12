@@ -8,6 +8,7 @@ using Dungeon.Physics;
 using Dungeon.View.Interfaces;
 using Dungeon;
 using Dungeon.Entities.Alive;
+using Dungeon12.Map.Objects;
 
 namespace Dungeon12.Servant.Abilities
 {
@@ -49,7 +50,7 @@ namespace Dungeon12.Servant.Abilities
                 }
             };
 
-            var enemy = gameMap.One<Mob>(rangeObject);
+            var enemy = gameMap.One<NPCMap>(rangeObject,x=>x.IsEnemy);
             if (enemy != default)
             {
                 @class.FaithPower.Value++;
