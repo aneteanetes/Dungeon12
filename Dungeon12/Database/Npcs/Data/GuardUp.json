@@ -1,11 +1,13 @@
 ﻿{
   "Level": 1,
   "IdentifyName": "GuardUp",
-  "Name": "Страж",
+  "Name": "Страж материка",
   "Size": {
     "X": 1,
     "Y": 1
   },
+  "NoInteract": true,
+  "NoInteractText": "Страж несёт службу",
   "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.GuardF.png",
   "Tileset": "Dungeon12.Resources.Images.NPCs.FaithIsland.Guard.png",
   "TileSetRegion": {
@@ -18,7 +20,6 @@
   "Conversations": [
   ],
   "NPC": {
-    "Static": true,
     "WalkChance": {
       "From": 0,
       "To": 0

@@ -33,6 +33,10 @@
 
         public override bool Obstruction => true;
 
+        public bool NoInteract { get; set; }
+
+        public string NoInteractText { get; set; }
+
         public bool Moving { get; set; }
 
         public override PhysicalSize Size
@@ -81,6 +85,9 @@
             };
             this.MovementSpeed = data.MovementSpeed;
             this.Location = npcData.Position;
+
+            this.NoInteract = data.NoInteract;
+            this.NoInteractText = data.NoInteractText;
 
             if (data.Merchant)
             {

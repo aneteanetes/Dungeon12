@@ -15,6 +15,7 @@
     using System.Collections.Generic;
     using Dungeon12.Drawing.SceneObjects;
     using Dungeon12.SceneObjects.NPC;
+    using Dungeon.SceneObjects;
 
     public class NPCSceneObject : MoveableSceneObject<NPC>
     {
@@ -67,13 +68,19 @@
             LightTrigger.Trigger();
             base.DrawLoop();
         }
-        
+
         protected override void Action(MouseButton mouseButton)
         {
-            playerSceneObject.StopMovings();
-            var sceneObj = Act();
-            ShowInScene?.Invoke(sceneObj.InList());
-
+            if (!@object.NoInteract)
+            {
+                playerSceneObject.StopMovings();
+                var sceneObj = Act();
+                ShowInScene?.Invoke(sceneObj.InList());
+            }
+            else
+            {
+                MessageBox.Show(@object.NoInteractText, ShowInScene);
+            }
         }
 
         private ISceneObject Act() => @object.Merchant == null

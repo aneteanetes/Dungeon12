@@ -1,7 +1,7 @@
 ﻿{
   "Level": 1,
   "IdentifyName": "GuardLeft",
-  "Name": "Страж",
+  "Name": "Страж запада",
   "Size": {
     "X": 1,
     "Y": 1
@@ -14,14 +14,37 @@
     "Width": 32,
     "Height": 32
   },
+  "NoInteract": true,
+  "NoInteractText": "Страж несёт службу",
   "MovementSpeed": 0.01,
   "Conversations": [
   ],
   "NPC": {
-    "Static": true,
     "WalkChance": {
       "From": 0,
       "To": 0
+    },
+    "Idle": {
+      "Tileset": "Dungeon12.Resources.Images.NPCs.FaithIsland.Guard.png",
+      "Size": {
+        "X": 32,
+        "Y": 32
+      },
+      "Frames": [
+        {
+          "X": 0,
+          "Y": 32
+        },
+        {
+          "X": 32,
+          "Y": 32
+        },
+        {
+          "X": 64,
+          "Y": 32
+        }
+      ],
+      "Direction": 4
     },
     "MinDMG": 1,
     "MaxDMG": 3,

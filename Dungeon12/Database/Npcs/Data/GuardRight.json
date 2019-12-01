@@ -1,7 +1,7 @@
 ﻿{
   "Level": 1,
   "IdentifyName": "GuardRight",
-  "Name": "Страж",
+  "Name": "Восточный Страж",
   "Size": {
     "X": 1,
     "Y": 1
@@ -14,11 +14,12 @@
     "Width": 32,
     "Height": 32
   },
+  "NoInteract": true,
+  "NoInteractText": "Страж несёт службу",
   "MovementSpeed": 0.01,
   "Conversations": [
   ],
   "NPC": {
-    "Static": true,
     "WalkChance": {
       "From": 0,
       "To": 0

@@ -28,6 +28,8 @@
 
         public override bool Shadow => true;
 
+        protected override bool SilentTooltip => true;
+
         public Avatar Avatar { get; set; }
 
         public override int Layer => 1;
@@ -301,7 +303,6 @@
 
         public void StopMovings()
         {
-            this.RequestDrawStop();
             this.RequestStop();
             var m = new HashSet<Direction>(NowMoving);
             NowMoving.Clear();

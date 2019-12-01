@@ -24,5 +24,9 @@
         public bool Merchant { get; set; }
 
         public bool Moveable { get; set; } = true;
+
+        public string NoInteractText { get; set; }
+
+        public bool NoInteract { get; set; }
     }
 }

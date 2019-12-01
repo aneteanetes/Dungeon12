@@ -130,6 +130,14 @@
       "IdentifyName": "GuardLeft",
       "Position": {
         "X": 30,
+        "Y": 49
+      }
+    },
+    {
+      "Icon": "Npc",
+      "IdentifyName": "GuardLeft",
+      "Position": {
+        "X": 30,
         "Y": 51
       }
     },
@@ -2284,28 +2292,6 @@
       "Position": {
         "X": 16.0,
         "Y": 48.0,
-        "VectorX": 0,
-        "VectorY": 0
-      },
-      "Layer": 1,
-      "Id": 0,
-      "ObjectId": 0,
-      "IdentifyName": null,
-      "Assembly": null,
-      "Image": "Dungeon12.Resources.Images.Tiles.water.png"
-    },
-    {
-      "Icon": null,
-      "Region": {
-        "X": 0.0,
-        "Y": 384.0,
-        "Width": 32.0,
-        "Height": 32.0
-      },
-      "Obstruct": true,
-      "Position": {
-        "X": 16.0,
-        "Y": 49.0,
         "VectorX": 0,
         "VectorY": 0
       },
@@ -13309,8 +13295,8 @@
   "SafeZones": [
     {
       "Size": {
-        "Height": 19.0,
-        "Width": 29.0
+        "Height": 20.0,
+        "Width": 30.0
       },
       "Position": {
         "X": 30.0,
