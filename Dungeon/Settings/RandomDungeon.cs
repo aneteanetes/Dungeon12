@@ -36,6 +36,8 @@ namespace Dungeon
             }
         }
 
+        public static int Next(long minValue, long maxValue) => Next((int)minValue, (int)maxValue);
+
         /// <summary>
         /// Возвращает случайное число между двумя включая оба
         /// </summary>

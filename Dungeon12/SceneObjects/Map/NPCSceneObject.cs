@@ -189,10 +189,31 @@
             if (isChasing)
                 return false;
 
-            var targets = location.MapObject.Query(this.mapObj.Vision, true).ToList()
-                .SelectMany(nodes => nodes.Nodes)
-                .Where(node => this.mapObj.Vision.IntersectsWith(node))
-                .ToList();
+            List<MapObject> targets = new List<MapObject>();
+
+            var query = location.MapObject.Query(this.mapObj.Vision, true);
+            var areaCounts = query.Count;
+
+            for (int i = 0; i < areaCounts; i++)
+            {
+                var e = query.ElementAtOrDefault(i);
+                if (e != default)
+                {
+                    var nodes = e.Nodes;
+                    var count = nodes.Count;
+                    for (int j = 0; j < count; j++)
+                    {
+                        var node = nodes.ElementAtOrDefault(j);
+                        if (node != default)
+                        {
+                            if (this.mapObj.Vision.IntersectsWith(node))
+                            {
+                                targets.Add(node);
+                            }
+                        }
+                    }
+                }
+            }
 
             if (@object.IsEnemy)
             {
@@ -271,34 +292,19 @@
 
         private static bool IsMapObjAvatar(MapObject x) => typeof(Avatar).IsAssignableFrom(x.GetType());
 
-        private bool IsMapObjEnemyFractional(MapObject x) => typeof(NPCMap).IsAssignableFrom(x.GetType()) && x!=@object && x.BindedEntity.IsEnemy(NPC);
+        private bool IsMapObjEnemyFractional(MapObject x) => typeof(NPCMap).IsAssignableFrom(x.GetType()) && x!=@object && NPC.IsEnemy(x.BindedEntity);
 
         private void Attack(MapObject mapTarget)
         {
-            var target = mapTarget.BindedEntity.As<Defensible>();
+            var target = mapTarget.BindedEntity.As<Interactable>();
 
-            var value = (long)RandomDungeon.Next(2, 7);
+            var value = (long)RandomDungeon.Next(NPC.MinDMG, NPC.MaxDMG);
 
-            var dmg = value - target.Defence;
-
-            if (dmg < 0)
+            target.Damage(NPC, new Damage()
             {
-                dmg = 0;
-            }
-
-            target.HitPoints -= dmg;
-
-            if (target.HitPoints <= 0)
-            {
-                mapTarget.Die?.Invoke();
-            }
-
-            var critical = dmg > 6;
-
-            this.ShowInScene(new List<ISceneObject>()
-                {
-                    new PopupString(dmg.ToString()+(critical ? "!" : ""), critical ? ConsoleColor.Red : ConsoleColor.White,mapTarget.Location,25,critical ? 14 : 12,0.06)
-                });
+                Amount = value,
+                Type = DamageType.Physical
+            });
         }
 
         public override void Focus()

@@ -18,6 +18,7 @@ namespace Dungeon.Entities.Fractions
         public Fraction ToFraction() => new Fraction(Name)
         {
             Name = Name,
+            IdentifyName=this.IdentifyName,
             EnemiesIdentities = EnemiesIdentities
         };
     }

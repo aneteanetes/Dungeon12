@@ -2,6 +2,10 @@
   "Level": 1,
   "IdentifyName": "GuardDown",
   "Name": "Страж моря",
+  "VisionMultiples": {
+    "X": 2,
+    "Y": 2
+  },
   "Size": {
     "X": 1,
     "Y": 1
@@ -21,6 +25,7 @@
   ],
   "FractionIdentify": "FaithIslandTown",
   "NPC": {
+    "Invulnerable": true,
     "Aggressive": true,
     "WalkChance": 0,
     "Idle": {

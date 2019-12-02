@@ -151,8 +151,8 @@
       "Width": 32,
       "Height": 16
     },
-    "MinDMG": 1,
-    "MaxDMG": 3,
+    "MinDMG": 5,
+    "MaxDMG": 15,
     "HitPoints": 100,
     "MaxHitPoints": 100
   }

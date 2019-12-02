@@ -15,22 +15,23 @@ namespace Dungeon.Entities
     {
         public Fraction Fraction { get; set; }
 
-        public bool IsEnemy(Entity anoter)
+        public bool IsEnemy(Entity another)
         {
-            var thisHate = this.Fraction?.EnemiesIdentities.Any(x => x == anoter.IdentifyName) ?? false;
+            if (this.Is<Fraction>() || another.Is<Fraction>())
+                return false;
+
+            var thisHate = this.Fraction?.EnemiesIdentities.Any(x => x == another.Fraction?.IdentifyName) ?? false;
             if (!thisHate)
             {
-                if (anoter.Fraction == default)
-                {
-                    return false;
-                }
-                else
-                {
-                    return anoter.Fraction.IsEnemy(this);
-                }
+                return another.IsEnemyInternal(this);
             }
 
-            return false;
+            return true;
+        }
+
+        private bool IsEnemyInternal(Entity another)
+        {
+            return this.Fraction?.EnemiesIdentities.Any(x => x == another.Fraction?.IdentifyName) ?? false;
         }
 
         public string IdentifyName { get; set; }
@@ -55,7 +56,7 @@ namespace Dungeon.Entities
             if (entity == default)
                 return default;
 
-            var dataClass = Database.Entity<TPersist>(x => x.IdentifyName == id, id).FirstOrDefault();
+            var dataClass = Database.Entity<TPersist>(x => x.IdentifyName == id).FirstOrDefault();
             if (dataClass != default)
             {
                 entity.Init(dataClass);

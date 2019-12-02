@@ -9,6 +9,8 @@ namespace Dungeon
 
         private readonly string name;
 
+        private static object aliveTimeslock = new object();
+
         private static readonly HashSet<string> aliveTimers = new HashSet<string>();
 
         internal TimerTrigger(string name)
@@ -83,7 +85,8 @@ namespace Dungeon
         /// <returns></returns>
         public TimerTrigger Auto()
         {
-            aliveTimers.Add(name);
+            lock (aliveTimeslock)
+                aliveTimers.Add(name);
             timer.Start(); //обдумать ещё
             return this;
         }
@@ -105,7 +108,8 @@ namespace Dungeon
         public void Dispose()
         {
             timer?.Dispose();
-            aliveTimers.Remove(this.name);
+            lock (aliveTimeslock)
+                aliveTimers.Remove(this.name);
         }
     }
 }

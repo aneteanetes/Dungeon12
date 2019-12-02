@@ -9,8 +9,13 @@ namespace Dungeon.Entities.Alive
 {
     public class Interactable : Modified
     {
+        public bool Invulnerable { get; set; }
+
         public virtual void Damage(Interactable attacker, Damage dmg)
         {
+            if (Invulnerable)
+                return;
+
             var damageName = $"Damage{dmg.Type.Name}";
             var amount = this.Call<long>(damageName, 999999999, dmg);
             if (amount == 999999999)
