@@ -58,11 +58,12 @@ namespace Dungeon
         /// <returns></returns>
         public static int Range(double start, double end) => Range((int)Math.Ceiling(start), (int)Math.Ceiling(end));
 
-        public static bool Chance(int percentForSucess)
+        public static bool Chance(double percentForSucess)
         {
             var i = Range(1, 100);
             return i <= percentForSucess;
         }
+        public static bool Chance(int percentForSucess) => Chance((double)percentForSucess);
 
         public static bool Chance(long percentForSucess)
         {

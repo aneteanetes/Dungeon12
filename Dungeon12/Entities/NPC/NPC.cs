@@ -2,6 +2,7 @@
 using Dungeon.Entities.Alive;
 using Dungeon.Loot;
 using Dungeon.Types;
+using LiteDB;
 
 namespace Dungeon12.Entities
 {
@@ -23,6 +24,7 @@ namespace Dungeon12.Entities
 
         public bool ChasingEnemies { get; set; }
 
+        [BsonIgnore]
         public LootTable LootTable => LootTable.GetLootTable(this.LootTableName ?? this.IdentifyName ?? this.Name);
     }
 }

@@ -27,7 +27,7 @@
 
         public virtual Range WalkDistance { get; set; }
 
-        public virtual Range WalkChance { get; set; }
+        public virtual double WalkChance { get; set; }
 
         public virtual int WaitTime { get; set; }
     }

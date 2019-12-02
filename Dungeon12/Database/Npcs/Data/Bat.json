@@ -1,6 +1,7 @@
 ﻿{
   "Level": 1,
   "Name": "Летучая мышь",
+  "IsEnemy": true,
   "VisionMultiples": {
     "X": 6,
     "Y": 6
@@ -20,8 +21,16 @@
     "Width": 32,
     "Height": 32
   },
+  "FractionIdentify": "FaithIslandFauna",
   "MovementSpeed": 0.01,
-  "Enemy": {
+  "NPC": {
+    "ChasingPlayers": true,
+    "WaitTime": 10,
+    "WalkChance": 90,
+    "WalkDistance": {
+      "From": 100,
+      "To": 300
+    },
     "LootTableName": "Bat",
     "Aggressive": true,
     "Idle": {

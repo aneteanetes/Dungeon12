@@ -40,7 +40,7 @@
       "Respawns": [
         {
           "Identify": "Bat",
-          "Icon": "*",
+          "Icon": "Npc",
           "Amount": 5
         }
       ]

@@ -31,8 +31,6 @@
 
         public override bool Saveable => true;
 
-        public NPC NPC { get; set; }
-
         public override string Icon { get => "N"; set { } }
 
         protected override MapObject Self => this;
@@ -88,8 +86,18 @@
 
             this.ReEntity(data.NPC.DeepClone());
 
-            VisionMultiple = data.VisionMultiples;
-            AttackRangeMultiples = data.AttackRangeMultiples;
+            if (data.VisionMultiples != default)
+            {
+                VisionMultiple = data.VisionMultiples;
+            }
+            if (data.AttackRangeMultiples != default)
+            {
+                AttackRangeMultiples = data.AttackRangeMultiples;
+            }
+            else
+            {
+                AttackRangeMultiples = VisionMultiple;
+            }
 
             this.IsEnemy = data.IsEnemy;
 
@@ -119,15 +127,15 @@
                 }
                 this.BuildConversations(data);
 
-                if (this.NPC.MoveRegion != null)
+                if (Entity.MoveRegion != null)
                 {
-                    this.NPC.MoveRegion = this.NPC.MoveRegion * 32;
+                    Entity.MoveRegion = Entity.MoveRegion * 32;
                 }
             }
 
             if (data.FractionIdentify != default)
             {
-                this.NPC.Fraction = FractionView.Load(data.FractionIdentify).ToFraction();
+                Entity.Fraction = FractionView.Load(data.FractionIdentify).ToFraction();
             }
         }
 

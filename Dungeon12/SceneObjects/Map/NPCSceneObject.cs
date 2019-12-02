@@ -28,7 +28,7 @@
     {
         protected override bool SilentTooltip => true;
 
-        private NPC NPC => @object.NPC;
+        private NPC NPC => @object.Entity;
 
         public override string Cursor
         {
@@ -44,7 +44,7 @@
         }
 
         public NPCSceneObject(PlayerSceneObject playerSceneObject, GameMap location, NPCMap mob, Rectangle defaultFramePosition)
-            : base(playerSceneObject, mob, location, mob, mob.NPC, defaultFramePosition)
+            : base(playerSceneObject, mob, location, mob, mob.Entity, defaultFramePosition)
         {
             this.Image = mob.Tileset;
             Left = mob.Location.X;
@@ -57,9 +57,9 @@
                 this.Destroy?.Invoke();
             };
 
-            if (mob.NPC.Idle != null)
+            if (mob.Entity.Idle != null)
             {
-                this.SetAnimation(mob.NPC.Idle);
+                this.SetAnimation(mob.Entity.Idle);
             }
 
             if (!mob.IsEnemy)
@@ -71,7 +71,7 @@
             else
             {
                 this.AddChild(new ObjectHpBar(mob.Entity));
-            }            
+            }
 
             attackTimer = Global.Time.Timer()
                 .After(1000)
@@ -145,7 +145,7 @@
         }
 
         private ISceneObject Act() => @object.Merchant == null
-            ? (ISceneObject)new NPCDialogue(playerSceneObject, @object, this.DestroyBinding, this.ControlBinding,location, new MetallButtonControl("Выход"))
+            ? (ISceneObject)new NPCDialogue(playerSceneObject, @object, this.DestroyBinding, this.ControlBinding, location, new MetallButtonControl("Выход"))
             : (ISceneObject)new ShopWindow(@object.Name, playerSceneObject, @object.Merchant, this.DestroyBinding, this.ControlBinding, location);
 
         protected override void StopAction()
@@ -170,7 +170,7 @@
         {
             OnEvent(obj);
         }
-        
+
         private bool attackAvailable = true;
         private TimerTrigger attackTimer;
 
@@ -178,7 +178,7 @@
 
         protected override bool OnLogic()
         {
-            if (!this.@object.NPC.Aggressive)
+            if (!this.@object.Entity.Aggressive)
                 return true;
 
             if (moveDistance == 0)
@@ -186,17 +186,21 @@
                 isChasing = false;
             }
 
-            var targets = location.MapObject.Query(this.mapObj.Vision, true)
+            if (isChasing)
+                return false;
+
+            var targets = location.MapObject.Query(this.mapObj.Vision, true).ToList()
                 .SelectMany(nodes => nodes.Nodes)
-                .Where(node => this.mapObj.Vision.IntersectsWith(node));
+                .Where(node => this.mapObj.Vision.IntersectsWith(node))
+                .ToList();
 
             if (@object.IsEnemy)
             {
-                targets = targets.Where(x => IsMapObjAvatar(x) || IsMapObjEnemyFractional(x));
+                targets = targets.Where(x => IsMapObjAvatar(x) || IsMapObjEnemyFractional(x)).ToList();
             }
             else
             {
-                targets = targets.Where(IsMapObjEnemyFractional);
+                targets = targets.Where(IsMapObjEnemyFractional).ToList();
             }
 
             if (targets.Count() > 0)
@@ -209,18 +213,26 @@
                         Attack(target);
                         attackAvailable = false;
                         attackTimer.Trigger();
+                        return false;
                     }
                 }
 
                 if (NPC.ChasingPlayers && target.Is<Avatar>())
                 {
-                    moves.Clear();
+                    move = Direction.Idle;
                     moveDistance = 0;
                     Chasing(target as Avatar);
+
+                    return false;
                 }
             }
+            else if (isChasing)
+            {
+                isChasing = false;
+                moveDistance = 0;
+            }
 
-            return false;
+            return true;
         }
 
         private void Chasing(MapObject target)
@@ -252,15 +264,15 @@
                 dirY = Direction.Up;
             }
 
-            moves.Add((Direction)((int)dirX + (int)dirY));
+            move = (Direction)((int)dirX + (int)dirY);
 
             moveDistance = 60;
         }
 
-        private static bool IsMapObjAvatar(MapObject x)  => typeof(Avatar).IsAssignableFrom(x.GetType());
+        private static bool IsMapObjAvatar(MapObject x) => typeof(Avatar).IsAssignableFrom(x.GetType());
 
-        private bool IsMapObjEnemyFractional(MapObject x) => x.BindedEntity.IsEnemy(NPC);
-        
+        private bool IsMapObjEnemyFractional(MapObject x) => typeof(NPCMap).IsAssignableFrom(x.GetType()) && x!=@object && x.BindedEntity.IsEnemy(NPC);
+
         private void Attack(MapObject mapTarget)
         {
             var target = mapTarget.BindedEntity.As<Defensible>();
@@ -322,6 +334,33 @@
                 return false;
             }
             return true;
+        }
+
+        protected override bool CheckMoveAvailable(Direction direction)
+        {
+            bool inMoveRegion;
+            if (@object.IsEnemy)
+            {
+                inMoveRegion = !location.InSafe(this.mapObj);
+            }
+            else
+            {
+                inMoveRegion = (moveable?.MoveRegion.IntersectsWith(this.mapObj) ?? false);
+            }
+
+            if (inMoveRegion && this.location.Move(this.mapObj, direction))
+            {
+                this.Left = this.mapObj.Location.X;
+                this.Top = this.mapObj.Location.Y;
+                return true;
+            }
+            else
+            {
+                lastClosedDirection = direction;
+                this.mapObj.Location.X = this.Left;
+                this.mapObj.Location.Y = this.Top;
+                return false;
+            }
         }
     }
 }

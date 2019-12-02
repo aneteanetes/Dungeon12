@@ -43,7 +43,7 @@
         }
 
         protected int moveDistance = 0;
-        protected readonly HashSet<Direction> moves = new HashSet<Direction>();
+        protected Direction move;
 
         protected override void DrawLoop()
         {
@@ -53,11 +53,7 @@
             if (moveDistance > 0)
             {
                 moveDistance--;
-                
-                foreach (var move in moves)
-                {
-                    Move(move);
-                }
+                Move(move);
             }
             else if (moveDistance < 0)
             {
@@ -81,17 +77,16 @@
             if (moveDistance != 0)
                 return;
 
-            var next = moveable.WalkChance.Random();
-            if (next > moveable.WalkChance.Mid())
+            if (RandomDungeon.Chance(moveable.WalkChance))
             {
-                moves.Clear();
+                move = Direction.Idle;
 
                 var direction = _dir.Rangom();
 
                 if (direction == lastClosedDirection)
                     return;
 
-                moves.Add(direction);
+                move = direction;
 
                 moveDistance = moveable.WalkDistance.Random();
             }
@@ -157,9 +152,9 @@
             }
         }
 
-        private Direction lastClosedDirection;
+        protected Direction lastClosedDirection;
 
-        private bool CheckMoveAvailable(Direction direction)
+        protected virtual bool CheckMoveAvailable(Direction direction)
         {
             var inMoveRegion = (moveable?.MoveRegion.IntersectsWith(this.mapObj) ?? false);
 

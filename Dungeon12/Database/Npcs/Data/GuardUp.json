@@ -6,7 +6,7 @@
     "X": 1,
     "Y": 1
   },
-  "FractionIdentify": "FaithIslandFauna",
+  "FractionIdentify": "FaithIslandTown",
   "NoInteract": true,
   "NoInteractText": "Страж несёт службу",
   "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.GuardF.png",
@@ -22,10 +22,7 @@
   ],
   "NPC": {
     "Aggressive": true,
-    "WalkChance": {
-      "From": 0,
-      "To": 0
-    },
+    "WalkChance": 0,
     "Idle": {
       "Tileset": "Dungeon12.Resources.Images.NPCs.FaithIsland.Guard.png",
       "Size": {

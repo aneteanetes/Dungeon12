@@ -20,7 +20,14 @@ namespace Dungeon.Entities
             var thisHate = this.Fraction?.EnemiesIdentities.Any(x => x == anoter.IdentifyName) ?? false;
             if (!thisHate)
             {
-                return anoter.Fraction.IsEnemy(this);
+                if (anoter.Fraction == default)
+                {
+                    return false;
+                }
+                else
+                {
+                    return anoter.Fraction.IsEnemy(this);
+                }
             }
 
             return false;
