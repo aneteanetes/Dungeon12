@@ -27,6 +27,7 @@
             MapIdentifyId = name;
 
             var persistRegion = Database.Entity<Region>(e => e.Name == name).First();
+            LoadTexturePositions(name);
 
             this.IsUnderLevel = persistRegion.IsUnderLevel;
             if (!IsUnderLevel)
@@ -57,13 +58,14 @@
             this.Name = persistRegion.Display;
             this.LoadedRegionData = persistRegion;
 
-            LoadTexturePositions(name);
-
             return persistRegion.Name;
         }
 
         public Region LoadedRegionData { get; set; }
 
+        /// <summary>
+        /// Расположение текстур
+        /// </summary>
         public List<PhysicalObject> Textures { get; set; } = new List<PhysicalObject>();
 
         /// <summary>
@@ -86,6 +88,7 @@
             }
 
             var persistRegion = Database.Entity<Region>(e => e.Name == mapSaveModel.Name).First();
+            LoadTexturePositions(MapIdentifyId);
 
             this.SafeZones = persistRegion.SafeZones.Select(safeZone => safeZone * 32);
 
@@ -119,18 +122,25 @@
                 this.Objects.Add(saveableObject);
             }
 
-            LoadTexturePositions(MapIdentifyId);
-
             return persistRegion.Name;
         }
 
         private void LoadTexturePositions(string identify)
         {
-            var res = $"{Global.GameAssemblyName}/Resources/Data/Regions/{identify}.json".Embedded();
-            if(ResourceLoader.Exists(res))
+            var res = $"{Global.GameAssemblyName}/Resources/Data/Regions/{identify}Textures.json".Embedded();
+            if (ResourceLoader.Exists(res))
             {
                 var texturesData = ResourceLoader.Load(res).Stream.AsString();
-                this.Textures = JsonConvert.DeserializeObject<PhysicalObjectProjection[]>(texturesData).Select(x=>x.PhysicalObject).ToList();
+                this.Textures = JsonConvert.DeserializeObject<PhysicalObjectProjection[]>(texturesData).Select(x =>
+                {
+                    var po = x.PhysicalObject;
+                    po.Position = new PhysicalPosition()
+                    {
+                        X = po.Position.X * 32,
+                        Y = po.Position.Y * 32
+                    };
+                    return po;
+                }).ToList();
             }
         }
 

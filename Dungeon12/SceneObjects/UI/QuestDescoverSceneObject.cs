@@ -92,7 +92,7 @@ namespace Dungeon12.SceneObjects.UI
                 this.Height = .75;
             }
 
-            public override double Width => 7 * (((double)Component.Progress / Component.MaxProgress * 100) / 100); //7
+            public override double Width => 6 * (((double)Component.Progress / Component.MaxProgress * 100) / 100); //7
         }
     }
 }

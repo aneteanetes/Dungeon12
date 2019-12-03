@@ -80,12 +80,14 @@
             var expressionTypeParam = Expression.Parameter(exprParam.GetType());
             var objParam = Expression.Parameter(typeof(object));
 
+            var dbParam = Expression.Parameter(typeof(string));
+
             var genericEntity = typeof(Database).GetMethods().FirstOrDefault(x => x.Name == "Entity" && x.GetParameters().FirstOrDefault().ParameterType != typeof(string));
             genericEntity = genericEntity.MakeGenericMethod(t);
 
-            var methodCall = Expression.Call(genericEntity, expressionTypeParam, objParam);
+            var methodCall = Expression.Call(genericEntity, expressionTypeParam, objParam, dbParam);
 
-            var entity = Expression.Lambda(methodCall, expressionTypeParam, objParam).Compile().DynamicInvoke(exprParam, default);
+            var entity = Expression.Lambda(methodCall, expressionTypeParam, objParam, dbParam).Compile().DynamicInvoke(exprParam, default,"Data");
             var @enum = entity.As<IEnumerable>().GetEnumerator();
             @enum.MoveNext();
             return @enum.Current.As<T>();

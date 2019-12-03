@@ -227,6 +227,12 @@ namespace Dungeon12.Bowman.Effects
                 });
                 RequestStop();
             }
+
+            var obstruct = _gameMap.One<Obstruct>(rangeObject);
+            if(obstruct!=default)
+            {
+                RequestStop();
+            }
         }
 
         protected override void OnAnimationStop()

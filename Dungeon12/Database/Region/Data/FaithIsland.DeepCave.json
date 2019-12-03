@@ -27,6 +27,27 @@
       }
     },
     {
+      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Respawn",
+      "Zone": {
+        "Position": {
+          "X": 37,
+          "Y": 18
+        },
+        "Size": {
+          "Width": 15,
+          "Height": 9
+        }
+      },
+      "Respawns": [
+        {
+          "Identify": "Bat",
+          "Icon": "Npc",
+          "Amount": 10
+        }
+      ]
+    },
+    {
       "Icon": null,
       "Region": {
         "X": 448.0,

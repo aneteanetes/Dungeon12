@@ -39,7 +39,7 @@
 
         private void MigrateMapDataToTextures()
         {
-            var data = ResourceLoader.Load("Data/Regions/FaithIsland.json".AsmNameRes());
+            var data = ResourceLoader.Load("Data/Regions/map.json".AsmNameRes());
             var json = data.Stream.AsString();
 
             var settings = Dungeon.Data.Database.GetSaveSerializeSettings();
@@ -48,7 +48,7 @@
             var textures = r.Objects.Where(x => !x.Obstruct).Select(x =>
             {
                 var size = x.Region == default
-                    ? Global.DrawClient.MeasureImage(x.Image.Replace("Rogue.","Dungeon12."))
+                    ? Global.DrawClient.MeasureImage(x.Image.Replace("Rogue.", "Dungeon12."))
                     : new Dungeon.Types.Point(x.Region.Width, x.Region.Height);
                 var projection = new PhysicalObjectProjection()
                 {
@@ -67,7 +67,7 @@
             });
 
             var f = JsonConvert.SerializeObject(textures, settings);
-            File.WriteAllText("FaithIslandTextures.json",f);
+            File.WriteAllText("FaithIsland.DeepCaveTextures.json", f);
             Debugger.Break();
         }
 

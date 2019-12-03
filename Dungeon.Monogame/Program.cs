@@ -12,8 +12,8 @@ namespace Dungeon.Monogame
         {
 #if DEBUG
             ResourceLoader.NotDisposingResources = true;
-            ResourceLoader.CacheImagesAndMasks = false;
-            //Database.Init();
+            ResourceLoader.CacheImagesAndMasks = true;
+            Database.Init();
 #endif      
             Database.LoadAllAssemblies();
 

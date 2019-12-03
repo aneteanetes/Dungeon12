@@ -62,14 +62,19 @@
             return a;
         }
 
+        /// <summary>
+        /// Теперь рассчитыввается правильно
+        /// </summary>
+        /// <param name="by"></param>
+        /// <returns></returns>
         public PhysicalObject Grow(double by)
         {
             var rangeObject = new PhysicalObject
             {
                 Position = new Dungeon.Physics.PhysicalPosition
                 {
-                    X = this.Position.X - ((this.Size.Width * by) / 2),
-                    Y = this.Position.Y - ((this.Size.Height * by) / 2)
+                    X = this.Position.X - ((this.Size.Width * by)- this.Size.Width) / 2,
+                    Y = this.Position.Y - ((this.Size.Height * by)- this.Size.Height) / 2
                 },
                 Size = new PhysicalSize()
                 {
@@ -91,7 +96,7 @@
     }
 
     public abstract class PhysicalObject<T> : PhysicalObject
-        where T : PhysicalObject<T>
+        where T : PhysicalObject<T>, new() 
     {
         [Newtonsoft.Json.JsonIgnore]
         public PhysicalObject<T> Root
@@ -278,5 +283,32 @@
         }
         
         public T this[int index] => Nodes[index];
+
+        /// <summary>
+        /// Теперь рассчитыввается правильно
+        /// </summary>
+        /// <param name="by"></param>
+        /// <returns></returns>
+        public new T Grow(double by)
+        {
+            var rangeObject = new T()
+            {
+                Position = new Dungeon.Physics.PhysicalPosition
+                {
+                    X = this.Position.X - ((this.Size.Width * by) - this.Size.Width) / 2,
+                    Y = this.Position.Y - ((this.Size.Height * by) - this.Size.Height) / 2
+                },
+                Size = new PhysicalSize()
+                {
+                    Height = this.Size.Height,
+                    Width = this.Size.Width
+                }
+            };
+
+            rangeObject.Size.Height *= by;
+            rangeObject.Size.Width *= by;
+
+            return rangeObject;
+        }
     }
 }

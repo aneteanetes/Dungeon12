@@ -20,7 +20,7 @@ namespace Dungeon12.Servant.Abilities
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.DmgHealInstant;
 
-        public override AbilityTargetType TargetType => AbilityTargetType.Target;
+        public override AbilityTargetType TargetType => AbilityTargetType.TargetAndNonTarget;
 
         public override string Name => "Удар веры";
 
@@ -35,20 +35,8 @@ namespace Dungeon12.Servant.Abilities
         protected override double RangeMultipler => 4;
 
         protected override void Use(GameMap gameMap, Avatar avatar, Servant @class)
-        {            
-            var rangeObject = new MapObject
-            {
-                Position = new PhysicalPosition
-                {
-                    X = avatar.Position.X - 32,
-                    Y = avatar.Position.Y - 32
-                },
-                Size = new PhysicalSize()
-                {
-                    Height = 128,
-                    Width = 128
-                }
-            };
+        {
+            var rangeObject = avatar.Grow(4);
 
             var enemy = gameMap.One<NPCMap>(rangeObject,x=>x.IsEnemy);
             if (enemy != default)

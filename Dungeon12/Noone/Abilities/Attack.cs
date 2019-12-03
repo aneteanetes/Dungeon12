@@ -44,18 +44,7 @@
             @class.InParry = true;
             Global.AudioPlayer.Effect("attack".NooneSoundPath());
 
-            var rangeObject = new MapObject
-            {
-                Position = new PhysicalPosition
-                {
-                    X = avatar.Position.X - ((avatar.Size.Width * 2.5) / 2),
-                    Y = avatar.Position.Y - ((avatar.Size.Height * 2.5) / 2)
-                },
-                Size = avatar.Size
-            };
-
-            rangeObject.Size.Height *= 2.5;
-            rangeObject.Size.Width *= 2.5;
+            var rangeObject = avatar.Grow(2.5);
 
             var enemy = gameMap.Enemies(rangeObject).FirstOrDefault();
 

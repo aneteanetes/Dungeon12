@@ -6,6 +6,7 @@ using Dungeon.Map.Infrastructure;
 using Dungeon.Physics;
 using Dungeon.Types;
 using Dungeon12.Database.Respawn;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Dungeon12.Map.Objects
@@ -66,7 +67,7 @@ namespace Dungeon12.Map.Objects
 
             var map = Global.GameState.Map;
 
-            var otherObject = map.MapObject.Query(mob).Nodes.Any(node => node.IntersectsWith(mob));
+            var otherObject = map.MapObject.Query(mob).Nodes.Any(node => node.IntersectsWithOrContains(mob));
             if (otherObject)
                 return false;
 
@@ -75,10 +76,21 @@ namespace Dungeon12.Map.Objects
                 return false;
             }
 
-            if (Gamemap.Textures.Any(x => x.IntersectsWith(mob)))
+            bool underTexture = false;
+
+            // объект попадает на "пол" - какую либо текстуру
+            if (Global.GameState.Map.Textures.Any(t => t.IntersectsWithOrContains(mob)))
             {
-                return false;
+                if(map.MapObject.Query(mob).Nodes.Any(node => node.IntersectsWithOrContains(mob)))
+                {
+                    Debugger.Break();
+                }
+
+                underTexture = true;
             }
+
+            if (!underTexture)
+                return false;
 
             map.MapObject.Add(mob);
             map.Objects.Add(mob);

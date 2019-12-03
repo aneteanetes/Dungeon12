@@ -14,7 +14,7 @@
 
         public override bool CacheAvailable => false;
 
-        public AnimatedSceneObject(PlayerSceneObject playerSceneObject, T @object, string tooltip, Rectangle defaultFramePosition, Func<int, AnimationMap, bool> requestNextFrame = null) : base(playerSceneObject, @object, tooltip)
+        public AnimatedSceneObject(PlayerSceneObject playerSceneObject, T @object, string tooltip, Rectangle defaultFramePosition, Func<int, AnimationMap, bool> requestNextFrame = null, bool bindView = true) : base(playerSceneObject, @object, tooltip, bindView)
         {
             this.FramePosition = defaultFramePosition;
             this.RequestNextFrame = requestNextFrame ?? this.DefaultRequestNextFrame;

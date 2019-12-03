@@ -18,7 +18,7 @@ namespace Dungeon12.Servant.Effects.FaithShot
     {
         protected override bool Loop => false;
 
-        public Smash(Avatar @object) : base(null, @object, "", new Rectangle(0, 0, 32, 32), null)
+        public Smash(Avatar @object) : base(null, @object, "", new Rectangle(0, 0, 32, 32), null,false)
         {
             this.Left = @object.Position.X / 32;
             this.Top = @object.Position.Y / 32;
