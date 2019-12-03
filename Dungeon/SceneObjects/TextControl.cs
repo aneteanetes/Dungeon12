@@ -8,5 +8,7 @@
         {
             Text = component;
         }
+
+        public void SetText(IDrawText text) => Text = text;
     }
 }

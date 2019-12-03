@@ -2,6 +2,8 @@
   "IdentifyName": "FaithIslandTown",
   "Name": "Остров Веры",
   "Playable": true,
+  "DefaultLevel": "Friendly",
+  "DefaultValue": 20,
   "Enemies": [
     "FaithIslandFauna"
   ]

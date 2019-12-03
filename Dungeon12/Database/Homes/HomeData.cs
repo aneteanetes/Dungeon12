@@ -11,5 +11,7 @@
         public int Frames { get; set; }
 
         public bool Merchant { get; set; }
+
+        public string FractionIdentity { get; set; }
     }
 }

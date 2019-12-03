@@ -65,6 +65,11 @@ namespace Dungeon.Entities
             return entity;
         }
 
+        protected void LoadFraction(string id)
+        {
+            Fraction = FractionView.Load(id).ToFraction();
+        }
+
         public static TEntity Load(Expression<Func<TPersist, bool>> filterOne, object cacheObject=default)
         {
             var entity = typeof(TEntity).New<TEntity>();

@@ -60,7 +60,12 @@
         /// <summary>
         /// Удаляет текущую карту из памяти
         /// </summary>
-        public static void RemoveSaveInMemmory() => Database.RemoveSavedGame(Load("@!#$memory$#!@").Id);
+        public static void RemoveSaveInMemmory()
+        {
+            var temp = Load("@!#$memory$#!@");
+            if (temp != default)
+                Database.RemoveSavedGame(Load("@!#$memory$#!@").Id);
+        }
 
         public static SaveModel Load(string id) => Database.Load(id);
 

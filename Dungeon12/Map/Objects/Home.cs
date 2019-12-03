@@ -4,6 +4,7 @@
     using Dungeon.Data.Attributes;
     using Dungeon.Data.Region;
     using Dungeon.Drawing.SceneObjects.Map;
+    using Dungeon.Entities.Fractions;
     using Dungeon.Game;
     using Dungeon.Map;
     using Dungeon.Map.Infrastructure;
@@ -28,6 +29,7 @@
             return new HomeSceneObject(gameState.Player, this, this.Name, gameState.Map);
         }
 
+        public Fraction Fraction { get; set; }
 
         protected override void Load(RegionPart homeData)
         {
@@ -42,6 +44,11 @@
                 Height = 32
             };
             this.Location = homeData.Position;
+
+            if (data.FractionIdentity != default)
+            {
+                Fraction = FractionView.Load(data.FractionIdentity).ToFraction();
+            }
 
             if (data.Merchant)
             {

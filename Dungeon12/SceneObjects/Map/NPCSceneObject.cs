@@ -23,6 +23,7 @@
     using Dungeon12.Map.Objects;
     using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.Abilities.Enums;
+    using Dungeon.Entities.Fractions;
 
     public class NPCSceneObject : MoveableSceneObject<NPCMap>
     {
@@ -140,6 +141,17 @@
                 if (ability.CastAvailableCooldown(avatar))
                 {
                     ability.CastCooldown(location, avatar);
+                }
+            }
+        }
+
+        protected override void BeforeClick()
+        {
+            if (NPC.Fraction != default && NPC.Fraction.Playable)
+            {
+                if (!Global.GameState.Character.Fractions.Any(x => x.IdentifyName == NPC.Fraction.IdentifyName))
+                {
+                    Global.GameState.Character.Fractions.Add(FractionView.Load(NPC.Fraction.IdentifyName).ToFraction());
                 }
             }
         }

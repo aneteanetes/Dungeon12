@@ -5,8 +5,11 @@
     using Dungeon.Control;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
+    using Dungeon.Entities;
+    using Dungeon.Entities.Fractions;
     using Dungeon.Map;
     using System.Collections.Generic;
+    using System.Linq;
 
     public abstract class ClickActionSceneObject<T> : TooltipedSceneObject<T>
         where T : Dungeon.Physics.PhysicalObject
@@ -58,11 +61,15 @@
         /// </summary>
         public virtual bool Clickable => true;
 
+        protected virtual void BeforeClick() { }
+
         public override void Click(PointerArgs args)
         {
+            BeforeClick();
             if (!Clickable)
                 return;
 
+            TryAddFraction();
             SetAbility(args.MouseButton);
 
             if (CheckActionAvailable(args.MouseButton))
@@ -71,6 +78,23 @@
 
                 acting = true;
                 Action(args.MouseButton);
+            }
+        }
+
+        /// <summary>
+        /// При взаимодействии с объектом по клику если фракции нет - она добавляется
+        /// </summary>
+        private void TryAddFraction()
+        {
+            if (this.Component != default && (this.Component is Entity entityComponent))
+            {
+                if (entityComponent.Fraction != default && entityComponent.Fraction.Playable)
+                {
+                    if (!Global.GameState.Character.Fractions.Any(x => x.IdentifyName == entityComponent.Fraction.IdentifyName))
+                    {
+                        Global.GameState.Character.Fractions.Add(FractionView.Load(entityComponent.Fraction.IdentifyName).ToFraction());
+                    }
+                }
             }
         }
 

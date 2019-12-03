@@ -19,6 +19,8 @@
 
         private Character character;
 
+        private FractionsWindow fractionsWindow;
+
         public StatsInfoWindow(Character character)
         {
             this.Image = "Dungeon12.Resources.Images.ui.stats.png";
@@ -28,6 +30,26 @@
             this.character = character;
 
             this.DrawStats(character);
+
+            var closeFract = new OpenFractionButton(() =>
+             {
+                 fractionsWindow.Destroy?.Invoke();
+             }, "Характеристики");
+            this.AddChild(closeFract);
+
+            closeFract.Left = .2;
+            closeFract.Top = 16.2;
+
+            var openFract = new OpenFractionButton(() =>
+            {
+                fractionsWindow = new FractionsWindow(character);
+                this.AddChild(fractionsWindow);
+            }, "Репутация");
+
+            this.AddChild(openFract);
+
+            openFract.Left = 1.2;
+            openFract.Top = 16.2;
         }
 
         public override double Height

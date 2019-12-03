@@ -2,6 +2,7 @@
 {
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
+    using Dungeon.Entities.Fractions;
     using Dungeon.Map;
     using Dungeon.Map.Objects;
     using Dungeon.View.Interfaces;
@@ -9,6 +10,7 @@
     using Dungeon12.Drawing.SceneObjects.Dialogs.Shop;
     using Dungeon12.Map.Objects;
     using Dungeon12.SceneObjects.NPC;
+    using System.Linq;
 
     public class HomeSceneObject : ClickActionSceneObject<Home>
     {
@@ -27,7 +29,17 @@
             Width = 1;
             Height = 1;
         }
-        
+        protected override void BeforeClick()
+        {
+            if (@object.Fraction != default && @object.Fraction.Playable)
+            {
+                if (!Global.GameState.Character.Fractions.Any(x => x.IdentifyName == @object.Fraction.IdentifyName))
+                {
+                    Global.GameState.Character.Fractions.Add(FractionView.Load(@object.Fraction.IdentifyName).ToFraction());
+                }
+            }
+        }
+
         protected override void Action(MouseButton mouseButton)
         {
             playerSceneObject.StopMovings();

@@ -14,6 +14,7 @@
     "Width": 32,
     "Height": 32
   },
+  "FractionIdentify": "FaithIslandTown",
   "MovementSpeed": 0.009,
   "NPC": {
     "MoveRegion": {

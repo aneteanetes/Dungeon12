@@ -15,6 +15,12 @@
 
         private static readonly Dictionary<ValueType, string> DisplayCache = new Dictionary<ValueType, string>();
 
+        /// <summary>
+        /// enum To display
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static string ToDisplay<T>(this T value) where T: struct
         {
             if (DisplayCache.TryGetValue(value, out string display))

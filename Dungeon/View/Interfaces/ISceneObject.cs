@@ -48,6 +48,8 @@
         /// </summary>
         double Scale { get; set; }
 
+        bool ScaleAndResize { get; set; }
+
         /// <summary>
         /// Position with parent
         /// </summary>

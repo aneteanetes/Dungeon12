@@ -14,7 +14,31 @@ namespace Dungeon.Entities.Fractions
 
         public FractionLevel Level { get; set; }
 
-        public void Add(int amount)
+        public int ReputationMax
+        {
+            get
+            {
+                switch (Level)
+                {
+                    case FractionLevel.Hated:
+                    case FractionLevel.Revered:
+                        return 10000;
+
+                    case FractionLevel.Hostile:
+                    case FractionLevel.Honored:
+                        return 1000;
+
+                    case FractionLevel.Unfriendly:
+                    case FractionLevel.Friendly:
+                        return 100;
+
+                    default:
+                        return 0;
+                }
+            }
+        }
+
+    public void Add(int amount)
         {
             Reputation += amount;
 

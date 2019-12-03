@@ -18,6 +18,7 @@
   "Conversations": [
     "ServantOfFaithMain"
   ],
+  "FractionIdentify": "FaithIslandTown",
   "NPC": {
     "MoveRegion": {
       "Size": {

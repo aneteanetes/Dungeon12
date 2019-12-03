@@ -20,15 +20,5 @@ namespace Dungeon12
         public Deck CardDeck { get; } = Deck.Load("Guardian");
 
         public List<IQuest> ActiveQuests { get; set; } = new List<IQuest>();
-
-        private List<Fraction> _fractions;
-
-        public List<Fraction> Fractions
-        {
-            get => _fractions == default
-                ? FractionView.LoadAll(c=>c.Playable).Select(x => x.ToFraction()).ToList()
-                : _fractions;
-            set => _fractions = value;
-        }
     }
 }

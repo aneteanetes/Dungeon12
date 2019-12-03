@@ -470,6 +470,11 @@
 
         public Action<SceneObject<TComponent>> OnUpdate { get; set; }
 
+        /// <summary>
+        /// Хинт для фронта
+        /// </summary>
+        public bool ScaleAndResize { get; set; }
+
         public virtual void Update() => OnUpdate?.Invoke(this);
 
         private object flowContext = null;
