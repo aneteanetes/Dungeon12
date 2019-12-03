@@ -21,16 +21,13 @@ namespace Dungeon.Resources
         /// </summary>
         public static bool CacheImagesAndMasks = true;
 
-        public static Resource Load(string resource, bool caching = false)
+        public static bool Exists(string resource) => LoadStream(resource) != default;
+
+        private static Stream LoadStream(string resource)
         {
-            if(RuntimeCache.ContainsKey(resource))
+            if (RuntimeCache.ContainsKey(resource))
             {
-                return new Resource()
-                {
-                    Dispose = () => { },
-                    Name = resource,
-                    Stream = RuntimeCache[resource]
-                };
+                return RuntimeCache[resource];
             }
 
             var assembly = Assembly.GetExecutingAssembly();
@@ -53,6 +50,13 @@ namespace Dungeon.Resources
                     }
                 }
             }
+
+            return stream;
+        }
+
+        public static Resource Load(string resource, bool caching = false)
+        {
+            var stream = LoadStream(resource);
 
             if (stream == default)
             {

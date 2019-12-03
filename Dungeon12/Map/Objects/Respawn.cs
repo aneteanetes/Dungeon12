@@ -74,7 +74,12 @@ namespace Dungeon12.Map.Objects
             {
                 return false;
             }
-            
+
+            if (Gamemap.Textures.Any(x => x.IntersectsWith(mob)))
+            {
+                return false;
+            }
+
             map.MapObject.Add(mob);
             map.Objects.Add(mob);
 

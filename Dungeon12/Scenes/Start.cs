@@ -2,9 +2,12 @@
 {
     using Dungeon;
     using Dungeon.Control.Keys;
+    using Dungeon.Data.Region;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Map.Objects;
+    using Dungeon.Physics;
+    using Dungeon.Resources;
     using Dungeon.SceneObjects;
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
@@ -15,8 +18,12 @@
     using Dungeon12.SceneObjects;
     using Dungeon12.Scenes.Game;
     using Dungeon12.Scenes.SaveLoad;
+    using Newtonsoft.Json;
     using System;
+    using System.Diagnostics;
+    using System.IO;
     using System.Linq;
+    using System.Resources;
 
     public class Start : StartScene<SoloDuoScene, Game.Main, EditorScene, CardGameScene,Start, SaveLoadScene>
     {
@@ -29,6 +36,40 @@
         public override bool Destroyable => true;
 
         private bool isGame;
+
+        private void MigrateMapDataToTextures()
+        {
+            var data = ResourceLoader.Load("Data/Regions/FaithIsland.json".AsmNameRes());
+            var json = data.Stream.AsString();
+
+            var settings = Dungeon.Data.Database.GetSaveSerializeSettings();
+
+            var r = JsonConvert.DeserializeObject<Region>(json, settings);
+            var textures = r.Objects.Where(x => !x.Obstruct).Select(x =>
+            {
+                var size = x.Region == default
+                    ? Global.DrawClient.MeasureImage(x.Image.Replace("Rogue.","Dungeon12."))
+                    : new Dungeon.Types.Point(x.Region.Width, x.Region.Height);
+                var projection = new PhysicalObjectProjection()
+                {
+                    Size = new Dungeon.Physics.PhysicalSize()
+                    {
+                        Width = size.X,
+                        Height = size.Y
+                    },
+                    Position = new Dungeon.Physics.PhysicalPosition()
+                    {
+                        X = x.Position.X,
+                        Y = x.Position.Y
+                    }
+                };
+                return projection;
+            });
+
+            var f = JsonConvert.SerializeObject(textures, settings);
+            File.WriteAllText("FaithIslandTextures.json",f);
+            Debugger.Break();
+        }
 
         public override void Init()
         {

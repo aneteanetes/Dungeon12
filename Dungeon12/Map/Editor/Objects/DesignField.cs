@@ -5,6 +5,8 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using Dungeon;
+    using Dungeon.Physics;
 
     public class DesignField
     {
@@ -61,6 +63,28 @@
             }
 
             File.WriteAllText("map.json", JsonConvert.SerializeObject(rp));
+
+            var textures = rp.Where(x => !x.Obstruct).Select(x =>
+            {
+                var size = x.Region == default
+                    ? Global.DrawClient.MeasureImage(x.Image.Replace("Rogue.", "Dungeon12."))
+                    : new Dungeon.Types.Point(x.Region.Width, x.Region.Height);
+                var projection = new PhysicalObjectProjection()
+                {
+                    Size = new Dungeon.Physics.PhysicalSize()
+                    {
+                        Width = size.X,
+                        Height = size.Y
+                    },
+                    Position = new Dungeon.Physics.PhysicalPosition()
+                    {
+                        X = x.Position.X,
+                        Y = x.Position.Y
+                    }
+                };
+                return projection;
+            });
+            File.WriteAllText("map_textures.json", JsonConvert.SerializeObject(textures));
 
             var clear = rp.Where(x => x.Obstruct);
             File.WriteAllText("map_publish.json", JsonConvert.SerializeObject(clear));

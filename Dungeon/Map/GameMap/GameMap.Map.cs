@@ -4,8 +4,10 @@
     using Dungeon.Data.Region;
     using Dungeon.Map.Objects;
     using Dungeon.Physics;
+    using Dungeon.Resources;
     using Dungeon.Types;
     using Force.DeepCloner;
+    using Newtonsoft.Json;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -55,10 +57,14 @@
             this.Name = persistRegion.Display;
             this.LoadedRegionData = persistRegion;
 
+            LoadTexturePositions(name);
+
             return persistRegion.Name;
         }
 
         public Region LoadedRegionData { get; set; }
+
+        public List<PhysicalObject> Textures { get; set; } = new List<PhysicalObject>();
 
         /// <summary>
         /// 
@@ -113,7 +119,19 @@
                 this.Objects.Add(saveableObject);
             }
 
+            LoadTexturePositions(MapIdentifyId);
+
             return persistRegion.Name;
+        }
+
+        private void LoadTexturePositions(string identify)
+        {
+            var res = $"{Global.GameAssemblyName}/Resources/Data/Regions/{identify}.json".Embedded();
+            if(ResourceLoader.Exists(res))
+            {
+                var texturesData = ResourceLoader.Load(res).Stream.AsString();
+                this.Textures = JsonConvert.DeserializeObject<PhysicalObjectProjection[]>(texturesData).Select(x=>x.PhysicalObject).ToList();
+            }
         }
 
         public Point RandomizeLocation(Point point, RandomizePositionTry @try =null, int count=0)
