@@ -30,7 +30,7 @@
         {
             throw new System.NotImplementedException();
         }
-        
+
         protected override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -38,11 +38,30 @@
             CalculateCamera();
 
             if (this.scene != default)
-                Draw(this.scene.Objects, gameTime);
+            {
+                try
+                {
+                    Draw(this.scene.Objects, gameTime);
+                }
+                catch (Exception e)
+                {
+                    Global.Logger.Log(e.ToString());
+                }
+            }
 
             DrawDebugInfo();
 
             OnPointerMoved();
+
+            try
+            {
+                spriteBatch.Begin();
+            }
+            catch { }
+            finally
+            {
+                spriteBatch.End();
+            }
         }
 
         private void Draw(ISceneObject[] sceneObjects, Microsoft.Xna.Framework.GameTime gameTime)
@@ -134,29 +153,33 @@
         
         private void DrawDebugInfo()
         {
-            spriteBatch.Begin();
-            var nowTs = _st.Elapsed;
-            var now = DateTime.Now;
-            var fpsTimeDiff = (nowTs - _lastFps).TotalSeconds;
-            if (fpsTimeDiff > 1)
+            try
             {
-                _fps = (_frame - _lastFpsFrame) / fpsTimeDiff;
-                Global.FPS = _fps;
-                _lastFpsFrame = _frame;
-                _lastFps = nowTs;
+                spriteBatch.Begin();
+                var nowTs = _st.Elapsed;
+                var now = DateTime.Now;
+                var fpsTimeDiff = (nowTs - _lastFps).TotalSeconds;
+                if (fpsTimeDiff > 1)
+                {
+                    _fps = (_frame - _lastFpsFrame) / fpsTimeDiff;
+                    Global.FPS = _fps;
+                    _lastFpsFrame = _frame;
+                    _lastFps = nowTs;
+                }
+
+                var text = $"FPS: {_fps}";
+
+                var font = Content.Load<SpriteFont>("Montserrat");
+
+                spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);
+
+                spriteBatch.DrawString(font, Dungeon.Global.Time, new Vector2(1150, 30), Color.Yellow);
+
+                spriteBatch.End();
+
+                _frame++;
             }
-
-            var text = $"FPS: {_fps}";
-
-            var font = Content.Load<SpriteFont>("Montserrat");
-
-            spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);
-
-            spriteBatch.DrawString(font, Dungeon.Global.Time, new Vector2(1150, 30), Color.Yellow);
-
-            spriteBatch.End();
-
-            _frame++;
+            catch { spriteBatch.End(); }
         }
 
         public Dungeon.Types.Point MeasureText(IDrawText drawText, ISceneObject parent=default)

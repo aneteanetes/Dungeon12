@@ -75,7 +75,7 @@ namespace Dungeon.Entities.Fractions
 
             if (wasLevel != Level)
             {
-                MessageBox.Show($"Вы достигли {Level.ToDisplay()} ур. репутации у {FractionName}");
+                Toast.Show($"Вы достигли {Level.ToDisplay()} ур. репутации у {FractionName}");
             }
         }
     }

@@ -67,7 +67,7 @@ namespace Dungeon12.SceneObjects.SaveLoad
                         }
 
                         input.Value = Dungeon.Data.Database.Save(saveGameName: value);
-                        MessageBox.Show($"Игра {value} сохранена!", this.ShowInScene);
+                        Toast.Show($"Игра {value} сохранена!", this.ShowInScene);
                         _saveLoadWindow.ReDraw();
 
                         input.FreeIfFreeze();
@@ -122,7 +122,7 @@ namespace Dungeon12.SceneObjects.SaveLoad
                     OnClick = () =>
                     {
                         var overwrited = Global.Save(Component.Id);
-                        MessageBox.Show($"Игра {component.Name} перезаписана!", this.ShowInScene);
+                        Toast.Show($"Игра {component.Name} перезаписана!", this.ShowInScene);
                         _saveLoadWindow.ReDraw();
                     }
                 });

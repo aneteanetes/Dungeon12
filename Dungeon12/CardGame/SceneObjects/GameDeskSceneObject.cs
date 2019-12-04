@@ -77,7 +77,7 @@ namespace Dungeon12.CardGame.SceneObjects
                 if (_cardGame.Player1.Guards.Count == _cardGame.CurrentArea.Size)
                 {
                     source.Destroy.Invoke();
-                    MessageBox.Show("Поле боя заполнено!", this.ShowInScene);
+                    Toast.Show("Поле боя заполнено!", this.ShowInScene);
                     _cardGame.Player1.HandChanged?.Invoke();
                     return;
                 }

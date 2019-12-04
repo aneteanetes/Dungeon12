@@ -53,7 +53,7 @@ namespace Dungeon.Entities.Alive
             var visual = this.SceneObject.ShowInScene;
             
             var txt = $"Вы достигли {this.Level} уровня!".AsDrawText().InSize(10).Montserrat();
-            MessageBox.Show(txt, visual);
+            Toast.Show(txt, visual);
         }
 
         public int FreeStatPoints { get; set; }

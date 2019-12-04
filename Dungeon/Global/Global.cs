@@ -5,10 +5,13 @@
     using Dungeon.Data;
     using Dungeon.Events;
     using Dungeon.Game;
+    using Dungeon.Logging;
+    using Dungeon.SceneObjects;
     using Dungeon.Scenes.Manager;
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Reflection;
 
     public static class Global
@@ -16,7 +19,12 @@
         static Global()
         {
             TimeTrigger.GlobalTimeSource = () => Time;
+            Logger.InitGlobalHandling();
         }
+
+        public static string Version { get; set; } = "0.0.2";
+
+        public static Logger Logger { get; set; } = new Logger();
 
         public static ICamera Camera { get; set; }
 
@@ -50,7 +58,22 @@
 
         public static GameState GameState { get; set; } = new GameState();
 
-        public static string Save(int id=0) => Database.Save(id);
+        public static void Exception(Exception ex, Action ok=default)
+        {
+            Logger.Log(ex.ToString());
+            try
+            {
+                Save(0, "Автосохранение");
+                MessageBox.Show("Ошибка! Игра сохранена, выйдите и загрузите игру снова!", ok);
+            }
+            catch (Exception ex1)
+            {
+                Logger.Log(ex1.ToString());
+                MessageBox.Show("Ошибка! Игра НЕ СОХРАНЕНА, выйдите и загрузите игру снова!", ok);
+            }
+        }
+
+        public static string Save(int id=0, string name="") => Database.Save(id,name);
 
         /// <summary>
         /// Сохраняет текущий регион в память
@@ -69,6 +92,13 @@
 
         public static SaveModel Load(string id) => Database.Load(id);
 
-        public static Action Exit { get; set; }
+        public static Action Exit { get; set; } = () =>
+        {
+            if(!Directory.Exists("Logs"))
+            {
+                Directory.CreateDirectory("Logs");
+            }
+            Logger.SaveIsNeeded($"Logs\\{DateTime.Now.ToString("dd=MM HH_mm_ss")}");
+        };
     }
 }

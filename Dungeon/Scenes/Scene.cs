@@ -126,7 +126,15 @@
                 var textControl = textControls.ElementAtOrDefault(i);
                 if (textControl != null)
                 {
-                    textControl.TextInput(text);
+                    try
+                    {
+                        textControl.TextInput(text);
+                    }
+                    catch (Exception ex)
+                    {
+                        Global.Exception(ex);
+                        return;
+                    }
                 }
             }
         }
@@ -137,12 +145,28 @@
             var modifier = keyEventArgs.Modifiers;
             
             if (Global.Freezer.World==null && !Global.BlockSceneControls)
-                KeyPress(key, modifier, keyEventArgs.Hold);
+                try
+                {
+                    KeyPress(key, modifier, keyEventArgs.Hold);
+                }
+                catch (Exception ex)
+                {
+                    Global.Exception(ex);
+                    return;
+                }
 
             var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key).ToArray();
             foreach (var sceneObjectHandler in keyControls)
             {
-                sceneObjectHandler.KeyDown(key, modifier, keyEventArgs.Hold);
+                try
+                {
+                    sceneObjectHandler.KeyDown(key, modifier, keyEventArgs.Hold);
+                }
+                catch (Exception ex)
+                {
+                    Global.Exception(ex);
+                    return;
+                }
             }
         }
 
@@ -155,7 +179,15 @@
             var modifier = keyEventArgs.Modifiers;
             
             if (Global.Freezer.World== null && !Global.BlockSceneControls)
-                KeyUp(key, modifier);
+                try
+                {
+                    KeyUp(key, modifier);
+                }
+                catch (Exception ex)
+                {
+                    Global.Exception(ex);
+                    return;
+                }
 
             var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key);
             for (int i = 0; i < keyControls.Count(); i++)
@@ -163,7 +195,15 @@
                 var keyControl = keyControls.ElementAtOrDefault(i);
                 if (keyControl != null)
                 {
-                    keyControl.KeyUp(key, modifier);
+                    try
+                    {
+                        keyControl.KeyUp(key, modifier);
+                    }
+                    catch (Exception ex)
+                    {
+                        Global.Exception(ex);
+                        return;
+                    }
                 }
             }
         }
@@ -219,7 +259,15 @@
                 var wheelControl = wheelControls.ElementAtOrDefault(i);
                 if (wheelControl != null)
                 {
-                    wheelControl.MouseWheel(wheelEnum);
+                    try
+                    {
+                        wheelControl.MouseWheel(wheelEnum);
+                    }
+                    catch (Exception ex)
+                    {
+                        Global.Exception(ex);
+                        return;
+                    }
                 }
             }
         }
@@ -250,7 +298,15 @@
 
                     Global.PointerLocation = args;
 
-                    whichClick(clickedElement, args);
+                    try
+                    {
+                        whichClick(clickedElement, args);
+                    }
+                    catch (Exception ex)
+                    {
+                        Global.Exception(ex);
+                        return;
+                    }
                 }
             }
         }
@@ -290,7 +346,15 @@
 
             foreach (var item in newLostFocused)
             {
-                item.Unfocus();
+                try
+                {
+                    item.Unfocus();
+                }
+                catch (Exception ex)
+                {
+                    Global.Exception(ex);
+                    return;
+                }
                 sceneObjectsInFocuses.Remove(item);
                 //SceneObjectsInFocus.Remove(item);
             }
@@ -299,7 +363,15 @@
             {
                 foreach (var control in newFocused)
                 {
-                    control.Focus();
+                    try
+                    {
+                        control.Focus();
+                    }
+                    catch (Exception ex)
+                    {
+                        Global.Exception(ex);
+                        return;
+                    }
                 }
 
                 sceneObjectsInFocuses.AddRange(newFocused);

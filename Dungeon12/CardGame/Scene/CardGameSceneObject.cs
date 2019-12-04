@@ -103,7 +103,7 @@ namespace Dungeon12.CardGame.Scene
             }
             else
             {
-                MessageBox.Show($"{Component.Player2.Name} пропускает ход", this.ShowInScene);
+                Toast.Show($"{Component.Player2.Name} пропускает ход", this.ShowInScene);
             }
         }
 

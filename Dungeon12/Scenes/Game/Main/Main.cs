@@ -137,7 +137,15 @@
 
             if (!this.Gamemap.Loaded)
             {
-                this.Gamemap.InitRegion("FaithIsland");
+                try
+                {
+                    this.Gamemap.InitRegion("FaithIsland");
+                }
+                catch (Exception ex)
+                {
+                    Global.Exception(ex, () => { this.Switch<Start>(); });                    
+                    return;
+                }
             }
 
             if (this.Gamemap.OnMoving == default)

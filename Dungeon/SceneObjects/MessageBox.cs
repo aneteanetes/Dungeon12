@@ -1,132 +1,65 @@
-﻿using Dungeon.Control;
-using Dungeon.Drawing;
-using Dungeon.Types;
-using Dungeon.View.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
+using Dungeon.Drawing.SceneObjects;
+using Dungeon.SceneObjects.Base;
+using Dungeon.View.Interfaces;
 
 namespace Dungeon.SceneObjects
 {
-    public class MessageBox : EmptyHandleSceneControl
+    public class MessageBox : DarkRectangle
     {
-        public override bool Filtered => false;
-
         public override bool AbsolutePosition => true;
 
         public override bool CacheAvailable => false;
 
-        public int Frames { get; set; } = 400;
-
-        public MessageBox(DrawText component)
+        public MessageBox(string msg, Action ok)
         {
-            this.Width = 11;
-            this.Height = 1;
+            this.Width = 16;
+            this.Height = 7;
+            this.Left = 40d / 2d - 16d / 2d;
+            this.Top = 22.5d / 2d - 7d / 2d;
 
-            this.Left = 40 / 2 - this.Width / 2;
-            this.Top = .5 + (ShowedBoxes * 1.5);
+            var question = this.AddTextCenter(msg.AsDrawText().WithWordWrap().Montserrat().InSize(14), true, true);
+            question.Width = 15;
+            question.Left = 1;
+            question.Top -= 2;
 
-            order = CurrentBoxes.Count;
-
-            var key = component.StringData;
-            if (!CurrentBoxes.ContainsKey(key))
+            var yesBtn = this.AddControlCenter(new OkButton());
+            yesBtn.OnClick = () =>
             {
-                CurrentBoxes.Add(key, this);
-                ShowedBoxes++;
-            }
-
-            this.Image = "Dungeon12.Resources.Images.GUI.msg.png";
-
-            this.AddTextCenter(component);
+                this.Destroy?.Invoke();
+                ok?.Invoke();
+            };
 
             this.Destroy += () =>
             {
-                if (CurrentBoxes.ContainsKey(key))
-                {
-                    CurrentBoxes.Remove(key);
-                    ShowedBoxes--;
-
-                    CurrentBoxes.Where(b => b.Value.order > this.order).ForEach(c =>
-                    {
-                        c.Value.order -= 1;
-                        c.Value.Top -= 1.5;
-                    });
-                }
+                Global.Freezer.World = null;
             };
         }
 
-        private int order = 0;
-
-        private double _opacity = 1;
-
-        public override double Opacity
+        private class OkButton : ButtonControl<EmptySceneObject>
         {
-            get => _opacity;
-            set
+            public OkButton() : base(new EmptySceneObject(), "Ок", 30)
             {
-                _opacity = value;
-                this.Children.ForEach(c => c.Opacity = value);
-            }
-        }
+                this.Width = 3;
+                this.Height = 2;
 
-        private static int ShowedBoxes { get; set; }
-        private static Dictionary<string, MessageBox> CurrentBoxes = new Dictionary<string, MessageBox>();
-
-        public static void Show(string text) => Show(text, Global.SceneManager.CurrentScene.ShowEffectsBinding);
-
-        public static void Show(string text, Action<List<ISceneObject>> publisher) => Show(text.AsDrawText().InSize(10).Montserrat(), publisher);
-
-        public static void Show(DrawText text, Action<List<ISceneObject>> publisher, int frames =400)
-        {
-            if (CurrentBoxes.TryGetValue(text.StringData, out var msgBox))
-            {
-                msgBox.Opacity = 1;
-            }
-            else
-            {
-                publisher?.Invoke(new MessageBox(text)
+                this.AddChild(new DarkRectangle()
                 {
-                    Frames = frames
-                }.InList<ISceneObject>());
+                    Color = ConsoleColor.Gray,
+                    Width = 3,
+                    Height = 2
+                });
             }
         }
 
-        public override void Click(PointerArgs args)
+        public static MessageBox Show(string text, Action ok)
         {
-            Global.Interacting = true;
-            this.Destroy?.Invoke();
-        }
-
-        public override Rectangle Position
-        {
-            get
-            {
-                FrameCounter++;
-
-                DrawLoop();
-
-                return base.Position;
-            }
-
-        }
-
-        private int FrameCounter = 0;        
-        private int _frames = 0;
-
-        protected void DrawLoop()
-        {
-            if (_frames >= Frames)
-            {
-                this.Destroy?.Invoke();
-                return;
-            }
-
-            if (FrameCounter % (60 / 14) == 0)
-            {
-                _frames++;
-                if(_frames>100)
-                this.Opacity -= 0.0008;
-            }
+            var msgBox = new MessageBox(text,ok);
+            Global.Freezer.World = msgBox;
+            Global.SceneManager.CurrentScene.ShowEffectsBinding(msgBox.InList<ISceneObject>());
+            return msgBox;
         }
     }
 }

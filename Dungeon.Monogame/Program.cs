@@ -10,6 +10,7 @@ namespace Dungeon.Monogame
         [STAThread]
         static void Main()
         {
+            Console.WriteLine(Global.Version);
 #if DEBUG
             ResourceLoader.NotDisposingResources = true;
             ResourceLoader.CacheImagesAndMasks = false;

@@ -79,12 +79,12 @@ namespace Dungeon12.CardGame.Entities
             {
                 g.OnDie(enemy, this, areaCard);
                 Guards.Remove(g);
-                MessageBox.Show($"{g.Name} умирает", this.SceneObject.ShowInScene);
+                Toast.Show($"{g.Name} умирает", this.SceneObject.ShowInScene);
             });
 
             enemy.Influence += amount;
 
-            MessageBox.Show($"{this.Name} получает {amount} урона", this.SceneObject.ShowInScene);
+            Toast.Show($"{this.Name} получает {amount} урона", this.SceneObject.ShowInScene);
             this.Hits -= amount;
             if (this.Hits <= 0)
             {

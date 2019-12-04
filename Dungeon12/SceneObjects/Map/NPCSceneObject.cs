@@ -124,7 +124,7 @@
                 }
                 else
                 {
-                    MessageBox.Show(@object.NoInteractText, ShowInScene);
+                    Toast.Show(@object.NoInteractText, ShowInScene);
                 }
             }
         }

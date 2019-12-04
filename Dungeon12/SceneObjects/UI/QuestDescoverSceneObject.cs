@@ -64,7 +64,7 @@ namespace Dungeon12.SceneObjects.UI
             {
                 if (Component.Discover)
                 {
-                    MessageBox.Show("Задание уже отслеживается!", this.ShowInScene);
+                    Toast.Show("Задание уже отслеживается!", this.ShowInScene);
                 }
                 else
                 {
