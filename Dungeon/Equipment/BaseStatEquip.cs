@@ -31,7 +31,7 @@
         }
 
         protected override void CallApply(dynamic obj) => this.Apply(obj);
-        protected override void CallDiscard(dynamic obj)=> this.Discard(obj);
+        protected override void CallDiscard(dynamic obj) => this.Discard(obj);
 
         public virtual bool CanApply(Character character) => true;
 
@@ -40,31 +40,12 @@
 
     public class StatValues
     {
-        public Func<List<long>> Provider { get; set; }
+        /// <summary>
+        /// Сериализация... использовать аксессор!
+        /// </summary>
+        public List<long> Values { get; set; } = new List<long>();
 
-        public List<long> Values => Provider == default ? new List<long>() : Provider();
-
-        public long this[int index]
-        {
-            get => Values.ElementAtOrDefault(index);
-            set
-            {
-                if (Values.Count >= (index + 1))
-                {
-                    Values[index] = value;
-                }
-            }
-        }
-
-        public static StatValues Function(Func<IEnumerable<long>> provider) => new StatValues() { Provider = () => provider().ToList() };
-
-        public static implicit operator StatValues(List<long> values)
-        {
-            return new StatValues()
-            {
-                Provider = () => values
-            };
-        }
+        public long this[int index] => Values.ElementAtOrDefault(index);
 
         public string Template { get; set; }
 
@@ -75,13 +56,10 @@
                 Template = string.Join(" ", Enumerable.Range(0, Values.Count()).Select((x, i) => $"{{{i}}}").ToArray());
             }
 
-            if (Provider != default)
-            {
-                return string.Format(Template, Values.Cast<object>().ToArray());
-            }
-            return "STAT LOADING";
+            return string.Format(Template, Values.Cast<object>().ToArray());
         }
 
-        public static implicit operator string(StatValues statValues)=>statValues.ToString();
+        public static implicit operator StatValues(List<long> values) => new StatValues() { Values = values };
+        public static implicit operator string(StatValues statValues) => statValues.ToString();
     }
 }

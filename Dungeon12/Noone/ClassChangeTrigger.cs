@@ -68,6 +68,8 @@ namespace Dungeon12
                 Character = SceneObject.Avatar.Character
             });
 
+            Global.GameState.Equipment.Reset();
+
             return new DrawText("Класс поменяли");
         }
     }

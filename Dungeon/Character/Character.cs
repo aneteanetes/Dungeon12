@@ -83,29 +83,6 @@
             FreeProxyProperties();
         }
 
-        public ClassStat ClassStat<TClass>(Expression<Func<TClass, long>> accessor, ConsoleColor color, int group=0)
-        {
-            if (!(this is TClass @class))
-            {
-                throw new Exception("Нельзя добавить классовый параметр другому классу!");
-            }
-
-            var classParam = Expression.Parameter(typeof(TClass));
-            var lambda = Expression.Lambda<Func<TClass, long>>(accessor, classParam).Compile();
-            if (accessor.Body is MemberExpression memberExpression)
-            {
-                var member = memberExpression.Member;
-                var propertyName = member.Name;
-
-                Func<IEnumerable<long>> prov = () => lambda(@class).InEnumerable();
-
-                var stat = new ClassStat(member.Value<TitleAttribute, string>(), propertyName, StatValues.Function(prov), color);
-                stat.Group = group;
-            }
-
-            return default;
-        }
-
         public List<Pair<string, object>> Variables = new List<Pair<string, object>>();
 
         public T GetVariable<T>(string name) => Variables.FirstOrDefault(n => n.First == name).Second.As<T>();

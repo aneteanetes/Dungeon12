@@ -286,7 +286,6 @@
 
         private static readonly Dictionary<string, Delegate> ___GetBackginFieldValueExpressionCache = new Dictionary<string, Delegate>();
 
-
         public static TObject SetProperty<TObject, TValue>(this TObject @object, string property, TValue value)
         {
             var accessor = TypeAccessor.Create(@object.GetType(), true);

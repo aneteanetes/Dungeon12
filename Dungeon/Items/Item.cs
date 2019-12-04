@@ -22,7 +22,7 @@
     {
         public virtual bool Stackable { get; set; }
 
-        public bool StackFull => Quantity == QuantitykMax;
+        public bool StackFull => Quantity == QuantityMax;
 
         /// <summary>
         /// [Лимит]
@@ -30,7 +30,7 @@
         [Proxied(typeof(Limit))]
         public virtual int Quantity { get; set; } = 1;
 
-        public virtual int QuantitykMax { get; set; } = 20;
+        public virtual int QuantityMax { get; set; } = 20;
 
         public virtual int QuantityRemove(int quantity)
         {
@@ -51,10 +51,10 @@
 
         public virtual int QuantityAdd(int quantity)
         {
-            var max = (Quantity + quantity) - QuantitykMax;
+            var max = (Quantity + quantity) - QuantityMax;
             if (max > 0)
             {
-                Quantity = QuantitykMax;
+                Quantity = QuantityMax;
                 return max;
             }
             Quantity += quantity;

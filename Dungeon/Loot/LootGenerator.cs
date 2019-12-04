@@ -162,31 +162,7 @@
             protected override void CallDiscard(dynamic obj) => this.Discard(obj);
         }
 
-        public static Weapon GenerateWeapon() => new Weapon()
-        {
-            Tileset = "Dungeon12.Resources.Images.Items.Weapons.OneHand.Swords.TrainerSword.png",
-            TileSetRegion = new Types.Rectangle()
-            {
-                X = 0,
-                Y = 0,
-                Width = 32,
-                Height = 96
-            },
-            Name = "Тренировочный меч",
-            InventorySize = new Types.Point(1, 3),
-            Rare = Rarity.Rare,
-            Cost = 50,
-            BaseStats = new System.Collections.Generic.List<Equipment>()
-            {
-                new BaseStatEquip()
-                {
-                    StatName="Урон",
-                    StatProperties=new System.Collections.Generic.List<string>() { "MinDMG","MaxDMG" },
-                    StatValues=new System.Collections.Generic.List<long>(){ 1,3 },
-                    Color= new DrawColor(System.ConsoleColor.DarkYellow)
-                }
-            }
-        };
+        public static Item GenerateWeapon() => new ItemGenerator().Generate();
 
     }
 }

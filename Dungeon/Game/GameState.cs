@@ -1,5 +1,6 @@
 ﻿using Dungeon.Classes;
 using Dungeon.Drawing.SceneObjects.Map;
+using Dungeon.Items;
 using Dungeon.Map;
 using System;
 using System.Collections.Generic;
@@ -36,5 +37,7 @@ namespace Dungeon.Game
             this.Map = default;
             this.Player = default;
         }
+
+        public EquipmentState Equipment { get; set; } = new EquipmentState();
     }
 }

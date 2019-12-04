@@ -39,33 +39,30 @@
     {
         public string Description { get; set; }
 
-        public ClassStat(string title, IEnumerable<string> properties, StatValues values, IDrawColor color)
-        {
-            //Image = System.Reflection.Assembly.GetCallingAssembly().GetName().Name + "name.png".ImgRes();
+        public ClassStat() { }
 
+        public ClassStat(string title, string id, IEnumerable<string> properties, IDrawColor color)
+        {
+            this.Identify = id;
             this.StatName = title;
             this.StatProperties = properties.ToList();
-            this.StatValues = values;
+            this.StatValues = new List<long>();
             this.Color = color;
         }
 
-        public ClassStat(string title, IEnumerable<string> properties, StatValues values, ConsoleColor color)
+        public ClassStat(string title, IEnumerable<string> properties, ConsoleColor color)
         {
-            //Image = System.Reflection.Assembly.GetCallingAssembly().GetName().Name + "name.png".ImgRes();
-
             this.StatName = title;
             this.StatProperties = properties.ToList();
-            this.StatValues = values;
+            this.StatValues = new List<long>();
             this.Color = new DrawColor(color);
         }
 
-        public ClassStat(string title, string property, StatValues values, ConsoleColor color)
+        public ClassStat(string title, string property, ConsoleColor color)
         {
-            //Image = System.Reflection.Assembly.GetCallingAssembly().GetName().Name + "name.png".ImgRes();
-
             this.StatName = title;
             this.StatProperties = property.InList();
-            this.StatValues = values;
+            this.StatValues = new List<long>();
             this.Color = new DrawColor(color);
         }
 

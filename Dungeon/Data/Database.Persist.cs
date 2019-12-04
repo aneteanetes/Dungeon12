@@ -13,6 +13,7 @@ using Dungeon.Map.Objects;
 using Dungeon.Types;
 using Dungeon.Map;
 using Dungeon.View.Interfaces;
+using Dungeon.Items;
 
 namespace Dungeon.Data
 {
@@ -55,7 +56,8 @@ namespace Dungeon.Data
                     {
                         Name = lvl.MapIdentifyId,
                         Objects = lvl.SaveableObjects
-                    }).ToList()
+                    }).ToList(),
+                    EquipmentState=Global.GameState.Equipment
                 };
 
                 var camera = Global.DrawClient as ICamera;
@@ -190,6 +192,8 @@ namespace Dungeon.Data
         public MapSaveModel Region { get; set; }
 
         public List<MapSaveModel> Underlevels { get; set; }
+
+        public EquipmentState EquipmentState { get; set; }
     }
 
     public class MapSaveModel

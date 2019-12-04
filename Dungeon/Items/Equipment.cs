@@ -19,6 +19,8 @@
     /// </summary>
     public abstract class Equipment : Applicable
     {
+        public string Identify { get; set; }
+
         public virtual string Title { get; set; }
 
         public IDrawColor Color { get; set; }

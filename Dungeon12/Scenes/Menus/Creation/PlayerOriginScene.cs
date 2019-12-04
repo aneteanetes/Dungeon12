@@ -66,6 +66,8 @@
                         PlayerAvatar.ReEntity(to);
                     }
 
+                    Global.GameState.Equipment.Reset();
+
                     PlayerAvatar.Character.Origin = o;
                     this.Switch<PlayerSummaryScene>();
                 }
