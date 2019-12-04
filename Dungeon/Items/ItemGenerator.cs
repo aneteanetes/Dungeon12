@@ -16,7 +16,7 @@ namespace Dungeon.Items
         public override Item Generate()
         {
             var additionalEquipments = Global.GameState.Equipment.AdditionalEquipments;
-            var statEqip = additionalEquipments[RandomDungeon.Range(0, 3)].DeepClone();
+            var statEqip = additionalEquipments[RandomDungeon.Range(0, Global.GameState.Equipment.AdditionalEquipments.Count-1)].DeepClone();
             var values = statEqip.StatValues.Values;
             statEqip.StatProperties.ForEach((x, i) =>
             {

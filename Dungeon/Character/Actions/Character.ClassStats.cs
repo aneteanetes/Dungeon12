@@ -4,6 +4,7 @@
     using Dungeon.Entities.Alive.Enums;
     using Dungeon.Inventory;
     using Dungeon.Items;
+    using Force.DeepCloner;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -27,15 +28,22 @@
             {
                 var first = group.First();
 
-                this.ClassStats.Add(new ClassStat(group.Key,first.Property.Name, group.Select(x => x.Property.Name), first.Attribute.Color)
+                var stat = new ClassStat(group.Key, first.Property.Name, group.Select(x => x.Property.Name), first.Attribute.Color)
                 {
                     Group = first.Attribute.Group,
                     Description = group?.FirstOrDefault(x => x.Attribute.Description != null).Attribute.Description,
                     Image = $"{Global.GameAssemblyName}/{this.GetType().Name}/Resources/Images/Stats/{first.Property.Name}.png".Embedded()
-                });
-            }
+                };
 
-            this.ClassStats.ForEach(Global.GameState.Equipment.AddEquip);
+                Global.GameState.Equipment.AddEquip(stat.DeepClone());
+
+                var @this = Expression.Constant(this);
+                var propertyAccessors = group.Select(x => Expression.Property(@this, x.Property)).ToArray();
+                var func = Expression.Lambda<Func<long[]>>(Expression.NewArrayInit(typeof(long), propertyAccessors)).Compile();
+                stat.StatValues = func().ToList();
+
+                this.ClassStats.Add(stat);
+            }
         }
     }
 }

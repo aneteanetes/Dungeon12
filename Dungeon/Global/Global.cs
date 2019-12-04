@@ -19,7 +19,6 @@
         static Global()
         {
             TimeTrigger.GlobalTimeSource = () => Time;
-            Logger.InitGlobalHandling();
         }
 
         public static string Version { get; set; } = "0.0.2";
@@ -58,8 +57,16 @@
 
         public static GameState GameState { get; set; } = new GameState();
 
+        /// <summary>
+        /// Вместо обработки ошибок - падать
+        /// </summary>
+        public static bool ExceptionRethrow { get; set; } = false;
+
         public static void Exception(Exception ex, Action ok=default)
         {
+            if (ExceptionRethrow)
+                throw ex;
+
             Logger.Log(ex.ToString());
             try
             {
@@ -70,6 +77,22 @@
             {
                 Logger.Log(ex1.ToString());
                 MessageBox.Show($"Ошибка!{Environment.NewLine} Игра НЕ СОХРАНЕНА, выйдите и загрузите игру снова!", ok);
+            }
+        }
+
+        public static void GlobalExceptionHandling()
+        {                
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            currentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalHandler);
+            void GlobalHandler(object sender, UnhandledExceptionEventArgs args)
+            {
+                Exception e = (Exception)args.ExceptionObject;
+                Logger.Log(e.ToString());
+                if (!Directory.Exists("Crashes"))
+                {
+                    Directory.CreateDirectory("Crashes");
+                }
+                Logger.Save($"Crashes\\{DateTime.Now.ToString("dd-MM-yyyy HH_mm")}.txt");
             }
         }
 

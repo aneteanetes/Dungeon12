@@ -69,10 +69,15 @@ namespace Dungeon12.Servant
             }
         }
 
+        public override string MainAbilityDamageText => "Лечение: 10";
+
+        public override IDrawText MainAbilityDamageView => MainAbilityDamageText.AsDrawText().Montserrat().InColor(DrawColor.Yellow);
+
         [ClassStat("Лечение", ConsoleColor.Yellow,"Все исцеляющие заклинания или имеющие компонент исцеления в способности исцеляют больше на величину характеристики.")]
         public long HealPower { get; set; }
 
         [ClassStat("Урон", ConsoleColor.Blue, 1,"К наносимому урону добавляется количество характеристики, а так же, к физическому урону добавляется магический урон равный проценту урона от нанесённого.")]
+
         public long DamagePower { get; set; }
     }
 }

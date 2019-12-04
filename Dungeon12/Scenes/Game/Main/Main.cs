@@ -143,7 +143,8 @@
                 }
                 catch (Exception ex)
                 {
-                    Global.Exception(ex, () => { this.Switch<Start>(); });                    
+                    throw;
+                    //Global.Exception(ex, () => { this.Switch<Start>(); });                    
                     return;
                 }
             }

@@ -29,21 +29,5 @@ namespace Dungeon.Logging
 
             public static implicit operator LogMessage(string msg) => new LogMessage() { Message = msg };
         }
-
-        public void InitGlobalHandling()
-        {
-            AppDomain currentDomain = AppDomain.CurrentDomain;
-            currentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalHandler);
-            void GlobalHandler(object sender, UnhandledExceptionEventArgs args)
-            {
-                Exception e = (Exception)args.ExceptionObject;
-                Log(e.ToString());
-                if (!Directory.Exists("Crashes"))
-                {
-                    Directory.CreateDirectory("Crashes");
-                }
-                Save($"Crashes\\{DateTime.Now.ToString("dd-MM-yyyy HH_mm")}.txt");
-            }
-        }
     }
 }

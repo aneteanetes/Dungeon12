@@ -30,9 +30,11 @@
                     switch (o)
                     {
                         case Dungeon.Entities.Alive.Enums.Origins.Liver:
+                            Global.GameState.Equipment.Reset();
                             anotherClass = new Instance("Bowman").Value<Character>();
                             break;
                         case Dungeon.Entities.Alive.Enums.Origins.Servant:
+                            Global.GameState.Equipment.Reset();
                             anotherClass = new Instance("Servant").Value<Character>();
                             break;
                         default:break;
@@ -65,8 +67,6 @@
                         PlayerAvatar.Character = to;
                         PlayerAvatar.ReEntity(to);
                     }
-
-                    Global.GameState.Equipment.Reset();
 
                     PlayerAvatar.Character.Origin = o;
                     this.Switch<PlayerSummaryScene>();
