@@ -339,19 +339,15 @@
 
         protected override bool CheckActionAvailable(MouseButton mouseButton)
         {
-            if (@object.IsEnemy)
+            if (mouseButton != MouseButton.None)
             {
-                if (mouseButton != MouseButton.None)
-                {
-                    var range = ability.Range;
-                    return @object.IntersectsWith(range);
-                }
-
-                //вот тут ещё отмена Changell навыка будет
-
-                return false;
+                var range = ability.Range;
+                return @object.IntersectsWith(range);
             }
-            return true;
+
+            //вот тут ещё отмена Changell навыка будет
+
+            return false;
         }
 
         protected override bool CheckMoveAvailable(Direction direction)
