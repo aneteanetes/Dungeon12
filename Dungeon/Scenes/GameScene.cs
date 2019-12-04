@@ -6,6 +6,7 @@
     using Dungeon.Scenes.Manager;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public abstract class GameScene : CommandScene
     {
@@ -146,6 +147,10 @@
 
     public abstract class StartScene : GameScene
     {
+        public bool IsFatalException => this.Args?.ElementAtOrDefault(0) == "FATAL";
+
+        public virtual void FatalException() { }
+
         public StartScene(SceneManager sceneManager) : base(sceneManager) { }
     }
 

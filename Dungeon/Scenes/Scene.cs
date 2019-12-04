@@ -519,7 +519,7 @@
 
         public List<Dungeon.Resources.Resource> Resources = new List<Resources.Resource>();
 
-        public void Activate()
+        public virtual void Activate()
         {
             this.sceneManager.DrawClient.SetScene(this);
         }

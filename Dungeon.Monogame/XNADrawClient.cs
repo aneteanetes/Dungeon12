@@ -23,6 +23,8 @@
 
         ResourceContentManager _resources;
 
+        public bool isFatal;
+
         public SceneManager SceneManager { get; set; }
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -129,7 +131,7 @@
 
             GlobalImageFilter = _resources.Load<Effect>("ExtractLight");
 
-            SceneManager.Start();
+            SceneManager.Start(isFatal ? "FATAL" : default);
             Network.Start();
             // TODO: use this.Content to load your game content here
         }

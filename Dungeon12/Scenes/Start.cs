@@ -71,6 +71,11 @@
             Debugger.Break();
         }
 
+        public override void FatalException()
+        {
+            MessageBox.Show("Произошла фатальная ошибка, требуется перезапустить игру.", () => { Global.Exit?.Invoke(); });
+        }
+
         public override void Init()
         {
             isGame = Args?.ElementAtOrDefault(0) != default;

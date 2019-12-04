@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Dungeon.Control.Keys;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects.Base;
+using Dungeon.Scenes;
 using Dungeon.View.Interfaces;
 
 namespace Dungeon.SceneObjects
@@ -13,8 +15,12 @@ namespace Dungeon.SceneObjects
 
         public override bool CacheAvailable => false;
 
+        Action ok;
+
         public MessageBox(string msg, Action ok)
         {
+            this.ok = ok;
+
             this.Width = 16;
             this.Height = 7;
             this.Left = 40d / 2d - 16d / 2d;
@@ -25,7 +31,9 @@ namespace Dungeon.SceneObjects
             question.Left = 1;
             question.Top -= 2;
 
-            var yesBtn = this.AddControlCenter(new OkButton());
+            var yesBtn = this.AddControlCenter(new OkButton(),true);
+            yesBtn.Top = 5.5;
+            yesBtn.Left = 8;
             yesBtn.OnClick = () =>
             {
                 this.Destroy?.Invoke();
@@ -49,9 +57,29 @@ namespace Dungeon.SceneObjects
                 {
                     Color = ConsoleColor.Gray,
                     Width = 3,
-                    Height = 2
+                    Height = 2,
+                    Top=-1,
+                    Left=-1.5
                 });
             }
+        }
+
+        protected override Key[] KeyHandles => new Key[] { Key.Escape };
+
+        public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
+        {
+            if (key == Key.Escape)
+            {
+                if(ok!=default)
+                {
+                    ok();
+                }
+                else
+                {
+                    Global.SceneManager.Start("FATAL");
+                }
+            }
+
         }
 
         public static MessageBox Show(string text, Action ok)

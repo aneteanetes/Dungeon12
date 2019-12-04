@@ -28,7 +28,7 @@
 
         public GameScene CurrentScene { get; set; }
 
-        public void Start()
+        public void Start(params string[] args)
         {
             Type startSceneType = null;
 
@@ -52,9 +52,9 @@
             Global.GameAssemblyName = startSceneType.Assembly.GetName().Name;
             Global.GameAssembly = startSceneType.Assembly;
 
-            if (startSceneType!=null)
+            if (startSceneType != null)
             {
-                Change(startSceneType);
+                Change(startSceneType, args);
             }
         }
 
@@ -119,7 +119,7 @@
 
         public void Change<TScene>(params string[] args) where TScene : GameScene => Switch<TScene>(args);
 
-        public void Change(Type sceneType)
+        public void Change(Type sceneType, params string[] args)
         {
             if (Current?.Destroyable ?? false)
             {
@@ -134,13 +134,22 @@
                 Populate(Current, next);
                 Preapering = next;
                 CurrentScene = Preapering;
+                next.Args = args;
                 next.Init();
+                if (next is StartScene nextStartScene)
+                {
+                    if (nextStartScene.IsFatalException)
+                    {
+                        nextStartScene.FatalException();
+                    }
+                }
             }
 
             Preapering = next;
             CurrentScene = Preapering;
             Current = next;
-            
+
+            Current.Args = args;
             Current.Activate();
             CurrentScene = Current;
         }

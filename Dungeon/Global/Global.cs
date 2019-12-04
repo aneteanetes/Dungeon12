@@ -64,12 +64,12 @@
             try
             {
                 Save(0, "Автосохранение");
-                MessageBox.Show("Ошибка! Игра сохранена, выйдите и загрузите игру снова!", ok);
+                MessageBox.Show($"Ошибка!{Environment.NewLine}Игра сохранена, выйдите и загрузите игру снова!", ok);
             }
             catch (Exception ex1)
             {
                 Logger.Log(ex1.ToString());
-                MessageBox.Show("Ошибка! Игра НЕ СОХРАНЕНА, выйдите и загрузите игру снова!", ok);
+                MessageBox.Show($"Ошибка!{Environment.NewLine} Игра НЕ СОХРАНЕНА, выйдите и загрузите игру снова!", ok);
             }
         }
 

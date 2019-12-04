@@ -18,15 +18,29 @@ namespace Dungeon.Monogame
 #endif      
             Database.LoadAllAssemblies();
 
-            using (var game = new XNADrawClient())
+            Run();
+        }
+
+        static void Run(bool FATAL=false)
+        {
+            try
             {
-                Global.Exit += () =>
-                 {
-                     game.Dispose();
-                     game.Exit();
-                     Environment.Exit(0);
-                 };
-                game.Run();
+                using (var game = new XNADrawClient())
+                {
+                    game.isFatal = FATAL;
+                    Global.Exit += () =>
+                    {
+                        game.Dispose();
+                        game.Exit();
+                        Environment.Exit(0);
+                    };
+                    game.Run();
+                }
+            }
+            catch (Exception ex)
+            {
+                Global.Logger.Log(ex.ToString());
+                Run(true);
             }
         }
     }
