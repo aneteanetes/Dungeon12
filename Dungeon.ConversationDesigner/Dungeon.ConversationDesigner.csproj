@@ -68,6 +68,8 @@
       <Link>Data\Persist.cs</Link>
     </Compile>
     <Compile Include="ApplicationViewModel.cs" />
+    <Compile Include="ViewModels\ReplicaViewModel.cs" />
+    <Compile Include="ViewModels\SubjectViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

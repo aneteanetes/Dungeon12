@@ -1,9 +1,11 @@
-﻿using Dungeon.Conversations;
+﻿using Dungeon.ConversationDesigner.ViewModels;
+using Dungeon.Conversations;
 using Dungeon.Data.Conversations;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace Dungeon.ConversationDesigner
@@ -15,49 +17,22 @@ namespace Dungeon.ConversationDesigner
         public void Load(string path)
         {
             Conversation = JsonConvert.DeserializeObject<ConversationData>(File.ReadAllText(path));
-            Subjects = new ObservableCollection<Subject>(Conversation.Subjects);
-            SubjectVariables = new ObservableCollection<Variable>();
+            Subjects = new ObservableCollection<SubjectViewModel>(Conversation.Subjects.Select(s=>new SubjectViewModel(s)));
         }
 
         public ConversationData Conversation { get; set; }
 
-        private Subject selected;
+        private SubjectViewModel selected;
 
-        public ObservableCollection<Subject> Subjects { get; set; }
+        public ObservableCollection<SubjectViewModel> Subjects { get; set; }
 
-        public Subject Selected
+        public SubjectViewModel Selected
         {
             get { return selected; }
             set
             {
                 selected = value;
                 OnPropertyChanged("Selected");
-            }
-        }
-        
-        public ObservableCollection<Replica> Replics { get; set; }
-        
-        private Replica selectedReplica;
-        public Replica SelectedReplica
-        {
-            get { return selectedReplica; }
-            set
-            {
-                selectedReplica = value;
-                OnPropertyChanged("SelectedReplica");
-            }
-        }
-
-        public ObservableCollection<Variable> SubjectVariables { get; set; }
-
-        private Variable selectedVariable;
-        public Variable SelectedVariable
-        {
-            get { return selectedVariable; }
-            set
-            {
-                selectedVariable = value;
-                OnPropertyChanged("SelectedVariable");
             }
         }
 

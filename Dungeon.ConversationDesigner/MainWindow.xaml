@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dungeon.ConversationDesigner"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="1185.714">
+        Title="MainWindow" Height="533.766" Width="1185.714">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="347*" />
@@ -18,22 +18,30 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5">
-                        <TextBlock FontSize="18" Text="{Binding Path=Name}" />
-                        <TextBlock Text="{Binding Path=Text}" />
+                        <TextBlock FontSize="18" Text="{Binding Path=Value.Name}" />
+                        <TextBlock Text="{Binding Path=Value.Text}" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
         <StackPanel DataContext="{Binding Selected}" Grid.Column="1">
-            <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"  />
+            <TextBlock Text="{Binding Value.Name, UpdateSourceTrigger=PropertyChanged}"  />
             <TextBlock Text="Наименование" />
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Text="{Binding Value.Name, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Текст выбора" />
-            <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="Переменные" />
-            <ListBox ItemsSource="{Binding Variables}"  ScrollViewer.VerticalScrollBarVisibility="Visible"
-                 SelectedItem="{Binding SelectedVariable}" Height="134">
+            <TextBox Text="{Binding Value.Text, UpdateSourceTrigger=PropertyChanged}" />
+
+
+            <TextBlock Text="Видно когда переменная есть:" />
+            <TextBox Text="{Binding Value.Visible.Name, UpdateSourceTrigger=PropertyChanged}" />
+
+            <TextBlock Text="Не видно когда переменная есть:" />
+            <TextBox Text="{Binding Value.Invisible.Name, UpdateSourceTrigger=PropertyChanged}" />
+
+
+            <TextBlock Text="Переменные темы" />
+            <ListBox ItemsSource="{Binding Value.Variables}"  ScrollViewer.VerticalScrollBarVisibility="Visible" Height="134">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5">
@@ -47,24 +55,38 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <TextBlock Text="Реплики" />
-            <ListBox ItemsSource="{Binding Replics}"   ScrollViewer.VerticalScrollBarVisibility="Visible"
-                 SelectedItem="{Binding SelectedReplica}" Height="185">
+            <ListBox ItemsSource="{Binding ReplicsView}"
+                 SelectedItem="{Binding SelectedReplica}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="185">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5">
-                            <TextBlock FontSize="18" Text="{Binding Answer}" />
-                            <TextBlock Text="{Binding Text}" />
+                            <TextBlock FontSize="18" Text="{Binding Value.Answer}" />
+                            <TextBlock Text="{Binding Value.Text}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
 
-        <StackPanel Grid.Column="2" DataContext="{Binding Selected}">
-            <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"  />
+        <StackPanel Grid.Column="2" DataContext="{Binding SelectedReplica}">
+            <TextBlock Text="Переменные реплики" />
+            <ListBox ItemsSource="{Binding Value.Variables}"  ScrollViewer.VerticalScrollBarVisibility="Visible"
+                 SelectedItem="{Binding SelectedVariable}" Height="134">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Наименование" />
+                            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="Значение" />
+                            <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
+                            <CheckBox IsChecked="{Binding Global, UpdateSourceTrigger=PropertyChanged}" Content="Глобальная"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
 
-        <Menu Height="21" VerticalAlignment="Top" Grid.ColumnSpan="3" >
+        <Menu Height="21" VerticalAlignment="Top" Margin="0,0,5,0" >
             <MenuItem Header="File">
                 <MenuItem Header="Open" Click="OpenClick" />
                 <MenuItem Header="Save" Click="SaveClick" />
