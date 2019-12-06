@@ -20,7 +20,7 @@
     }
 
     public abstract class HandleSceneControl<T> : SceneObject<T>, ISceneObjectControl, IHandleSceneControl
-        where T : IGameComponent
+        where T : class, IGameComponent
     {
         public HandleSceneControl(T component, bool bindView = true) : base(component, bindView)
         {

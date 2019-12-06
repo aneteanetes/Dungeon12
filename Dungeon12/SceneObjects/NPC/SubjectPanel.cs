@@ -166,7 +166,10 @@ namespace Dungeon12.SceneObjects.NPC
 
             double x = 7;
 
-            foreach (var subj in conv.Subjects.Where(s => s.Visible == default || !s.Visible.Triggered))
+            var subjects = conv.Subjects
+                .Where(s => s.Visible == default || !s.Visible.Triggered)
+                .Where(s => s.Invisible == default || s.Invisible.Triggered);
+            foreach (var subj in subjects)
             {
                 var subjClick = new SubjectClickable(subj, select);
                 subjClick.Top = x;

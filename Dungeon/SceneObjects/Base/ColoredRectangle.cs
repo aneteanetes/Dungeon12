@@ -9,7 +9,7 @@
     using Dungeon.View.Interfaces;
 
     public class ColoredRectangle<TComponent> : HandleSceneControl<TComponent>
-        where TComponent : IGameComponent
+        where TComponent : class, IGameComponent
     {
         public ConsoleColor Color { get; set; }
 

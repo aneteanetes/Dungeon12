@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Dungeon.Drawing.SceneObjects.Map;
+﻿using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Map;
 using Dungeon.View.Interfaces;
 

@@ -17,7 +17,7 @@ namespace Dungeon
         /// <param name="className"></param>
         /// <returns></returns>
         public static TTrigger Trigger<TTrigger>(this string className)
-            where TTrigger : ITrigger
+            where TTrigger : class, ITrigger
         {
             if (string.IsNullOrWhiteSpace(className))
                 return default;

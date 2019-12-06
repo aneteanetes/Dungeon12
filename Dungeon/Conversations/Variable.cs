@@ -1,9 +1,7 @@
 ﻿namespace Dungeon.Conversations
 {
     using Newtonsoft.Json;
-    using System;
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Переменная в диалоге
@@ -60,7 +58,9 @@
             if (this.Global)
             {
                 var globalName = GlobalName(Conversation.Id, from);
+#if Core
                 Dungeon.Global.GameState.Player.Component.Entity[globalName] = true;
+#endif
             }
 
             Conversation.Variables.ForEach(v =>

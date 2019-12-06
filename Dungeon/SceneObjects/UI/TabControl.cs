@@ -14,6 +14,7 @@
     public abstract class TabControl<TContent, TArgument, TTab> : TooltipedSceneObject<EmptyGameComponent>
         where TContent : ISceneObject
         where TTab : TabControl<TContent, TArgument, TTab>
+        where TArgument : class
     {
         /// <summary>
         /// здесь юзается хак static generics

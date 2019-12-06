@@ -1,11 +1,7 @@
 ﻿namespace Dungeon.Conversations
 {
-    using Dungeon.Data;
-    using Dungeon.Data.Conversations;
-    using Dungeon.Map.Objects;
     using Newtonsoft.Json;
     using System.Collections.Generic;
-    using System.Linq;
 
     /// <summary>
     /// Разговор

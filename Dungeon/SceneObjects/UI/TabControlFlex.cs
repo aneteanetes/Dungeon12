@@ -13,6 +13,7 @@
     public abstract class TabControlFlex<TContent, TArgument, TTab> : TabControl<TContent, TArgument, TTab>
         where TContent : ISceneObject
         where TTab : TabControl<TContent, TArgument, TTab>
+        where TArgument : class
     {
         public string Title { get; set; }
         private float _titleTextSize;

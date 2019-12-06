@@ -17,7 +17,7 @@
     using System.Linq;
 
     public abstract class SceneObject<TComponent> : GameComponent, ISceneObject, IFlowable, IMixinContainer
-        where TComponent : IGameComponent
+        where TComponent : class, IGameComponent
     {
         private readonly Scenes.GameScene owner;
         

@@ -22,7 +22,15 @@
         /// </summary>
         public List<Variable> Variables { get; set; } = new List<Variable>();
 
+        /// <summary>
+        /// По умолчанию ВИДИМОЕ до триггера переменной
+        /// </summary>
         public Variable Visible { get; set; }
+
+        /// <summary>
+        /// По умолчанию НЕ видимое до триггера переменной
+        /// </summary>
+        public Variable Invisible { get; set; }
 
         public Conversation Conversation { get; set; }
 

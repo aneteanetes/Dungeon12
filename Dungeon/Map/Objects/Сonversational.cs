@@ -59,7 +59,7 @@
 
                 foreach (var subject in conversation.Subjects)
                 {
-                    foreach (var variable in subject.Variables.Concat(subject.Visible.InEnumerable()))
+                    foreach (var variable in subject.Variables.Concat(new Variable[] { subject.Visible, subject.Invisible }))
                     {
                         if (variable == default) //это переменная видимости темы разговора
                             continue;
@@ -86,6 +86,11 @@
                     {
                         subject.Visible.Conversation = this.conversation;
                         variables.Add(subject.Visible);
+                    }
+                    if (subject.Invisible != default)
+                    {
+                        subject.Invisible.Conversation = this.conversation;
+                        variables.Add(subject.Invisible);
                     }
                     if (subject.Variables != null)
                     {

@@ -55,11 +55,11 @@
       "Name": "Задание",
       "Text": "Наш почётный староста острова уже давно хочет себе ожерелье из зубов летучих мышей, вот если бы кто ни будь взялся за эту работу...",
       "Visible": {
-        "Name": "QuestCompleted"
+        "Name": "QuestCompletedRatKing"
       },
       "Variables": [
         {
-          "Name": "QuestGet",
+          "Name": "QuestGetRatKing",
           "Value": 44,
           "Global": true
         }
@@ -73,7 +73,7 @@
           "ReplicsTags": [ 7 ],
           "Variables": [
             {
-              "Name": "QuestGet",
+              "Name": "QuestGetRatKing",
               "Value": 44,
               "Global": true
             }

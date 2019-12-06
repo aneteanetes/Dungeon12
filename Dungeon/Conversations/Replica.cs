@@ -69,6 +69,9 @@ namespace Dungeon.Conversations
         /// </summary>
         public string[] TriggerArguments { get => _triggerArguments ?? _triggerClassArguments; set => _triggerArguments = value; }
 
+        /// <summary>
+        /// Выход из диалога до тем разговора
+        /// </summary>
         public bool Escape { get; set; }
     }
 }

@@ -15,7 +15,7 @@
     }
 
     public abstract class TooltipedSceneObject<TComponent> : HandleSceneControl<TComponent>
-        where TComponent : IGameComponent
+        where TComponent : class, IGameComponent
     {
         protected Tooltip aliveTooltip = null;
 

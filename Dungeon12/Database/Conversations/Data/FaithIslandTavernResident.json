@@ -1,0 +1,114 @@
+﻿{
+  "Identify": "FaithIslandTavern",
+  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.InnkeeperF.png",
+  "Name": "Постоялец",
+  "Subjects": [
+    {
+      "Name": "Слухи",
+      "Text": "А вы знали что у служителей веры длинная история?",
+      "Replics": [
+        {
+          "Shown": true,
+          "Tag": 10,
+          "Answer": "Расскажите подробнее",
+          "Text": "Служители веры появились на острове достаточно давно, примерно через десятилетие после подъема острова из пепла бывшего вулкана...",
+          "ReplicsTags": [ ]
+        }
+      ]
+    },
+    {
+      "Name": "Задание",
+      "Text": "Я слышал ты нуждаешься в колоде карт для игры?",
+      "Invisible": {
+        "Name": "CardsQuest"
+      },
+      "Visible": {
+        "Name": "QuestCompletedCardGetting"
+      },
+      "Replics": [
+        {
+          "Shown": true,
+          "Tag": 1,
+          "Answer": "Ты что-то знаешь об этом?",
+          "Text": "Недавно я играл с одним из новоприбывших постояльцев гостинного двора, и я уверен в том что он жульничал! Если ты принесёшь мне доказательства - я могу отдать тебе запасную колоду Стража.",
+          "ReplicsTags": [ 7, 8 ],
+          "Variables": [
+            {
+              "Name": "CardsQuestFromTavern",
+              "Value": 2,
+              "Global": false
+            }
+          ]
+        },
+        {
+          "Shown": false,
+          "Tag": 2,
+          "Answer": "",
+          "Text": "Недавно я играл с одним из новоприбывших постояльцев гостинного двора, и я уверен в том что он жульничал! Если ты принесёшь мне доказательства - я могу отдать тебе запасную колоду Стража.",
+          "ReplicsTags": [ 7, 8 ]
+        },
+        {
+          "Shown": false,
+          "Tag": 7,
+          "Answer": "Я попробую достать доказательства",
+          "Text": "Отлично! Я думаю ты можешь найти их в повозке этого шулера рядом с гостиницей!",
+          "ReplicsTags": [],
+          "Variables": [
+            {
+              "Name": "QuestGetCardGetting",
+              "Value": 44,
+              "Global": true
+            }
+          ],
+          "TriggerClass": "QuestConversationTrigger",
+          "TriggerClassArguments": [
+            "QuestGetCardGetting"
+          ]
+        },
+        {
+          "Shown": false,
+          "Tag": 8,
+          "Answer": "Не думаю что на Остров Веры прибывают обманщики",
+          "Text": "А я думал тебе нужна колода!",
+          "ReplicsTags": []
+        },
+        {
+          "Shown": false,
+          "Tag": 44,
+          "Answer": "",
+          "Text": "Вы достали доказательства?",
+          "ReplicsTags": [ 45, 46 ]
+        },
+        {
+          "Shown": false,
+          "Tag": 45,
+          "Answer": "Да",
+          "Text": "",
+          "ReplicsTags": [ 77 ],
+          "TriggerClass": "QuestRewardTryTrigger",
+          "TriggerArguments": [
+            "QuestGetCardGetting",
+            "QuestCompletedCardGetting",
+            "Возвращайтесь когда всё будет готово!",
+            "Спасибо за помощь, вот ваша награда."
+          ]
+        },
+        {
+          "Shown": false,
+          "Tag": 46,
+          "Answer": "Нет",
+          "Text": "Возвращайтесь когда всё будет готово!",
+          "ReplicsTags": [ 77 ] //go to start
+        },
+        {
+          "Shown": false,
+          "Tag": 77,
+          "Answer": "Назад",
+          "Text": "",
+          "ReplicsTags": [],
+          "Escape": true
+        }
+      ]
+    }
+  ]
+}

@@ -12,60 +12,48 @@
           "Tag": 1,
           "Answer": "Расскажите подробнее",
           "Text": "Служители веры появились на острове достаточно давно, примерно через десятилетие после подъема острова из пепла бывшего вулкана...",
-          "ReplicsTags": [ 2, 3 ]
-        },
-        {
-          "Shown": true,
-          "Tag": 10,
-          "Answer": "Как я могу попасть на материк?",
-          "Text": "Вы можете попасть на материк по морю используя рыбацкий корабль, или, как говорят слухи, через заброшенный храм служителей веры",
-          "ReplicsTags": []
-        },
-        {
-          "Shown": false,
-          "Tag": 2,
-          "Variables": [
-            {
-              "Name": "Already",
-              "Value": 4,
-              "Global": false
-            }
-          ],
-          "Answer": "Продолжайте",
-          "Text": "После подъёма острова на нём начало собираться много рыбаков, но они все начали сходить с ума, поэтому главный архимаг прибыл на остров и совершил обряд жертвоприношения. Самого себя. После этого рыбакам стало на много легче, и был основан целый Орден Служителей Веры. Теперь мы каждый год совершаем ритуальное жертвоприношение для соблюдения мира на острове.",
-          "ReplicsTags": [] //go to start
-        },
-        {
-          "Shown": false,
-          "Tag": 3,
-          "Answer": "Мне не интересно",
-          "Text": "", // play text upper
-          "ReplicsTags": [] //go to start
-        },
-        {
-          "Shown": false,
-          "Tag": 4,
-          "Answer": "",
-          "Text": "Я уже рассказывал вам эту историю", // play text upper
-          "ReplicsTags": [] //go to start
+          "ReplicsTags": [  ]
         }
       ]
     },
     {
       "Name": "Подземелья",
       "Text": "Мы можем сыграть с вами, или я могу рассказать про эту игру если вы ещё о ней не слышали",
+      "Visible": {
+        "Name": "CardsExisted"
+      },
       "Replics": [
         {
           "Shown": true,
           "Tag": 5,
-          "Answer": "Сыграть",
-          "Text": "",
-          "TriggerClass": "Dungeon12.CardGameTrigger",
-          "TriggerClassAsm": "Dungeon12",
-          "TriggerClassArguments": [
-            "Guardian"
+          "Answer": "Начать игру",
+          "Text": "Да у вас же нету своей колоды!",
+          "ReplicsTags": [ 7 ]
+        },
+        {
+          "Shown": false,
+          "Tag": 7,
+          "Variables": [
+            {
+              "Name": "CardsQuest",
+              "Global": true
+            },
+            {
+              "Name": "CardsQuestFromTavern",
+              "Global": true
+            }
           ],
-          "ReplicsTags": []
+          "Answer": "Где я могу достать колоду?",
+          "Text": "Спросите одного из постояльцев нашей таверны, я уверен он сможет вам помочь",
+          "ReplicsTags": [] //go to start
+        },
+        {
+          "Shown": false,
+          "Tag": 8,
+          "Answer": "Хорошо",
+          "Text": "",
+          "Escape": true,
+          "ReplicsTags": [] //go to start
         },
         {
           "Shown": true,
@@ -78,10 +66,31 @@
             "CardGame"
           ],
           "ReplicsTags": []
+        }
+      ]
+    },
+    {
+      "Name": "Подземелья",
+      "Text": "Теперь вы готовы сыграть?",
+      "Invisible": {
+        "Name": "CardsExistsed"
+      },
+      "Replics": [
+        {
+          "Shown": true,
+          "Tag": 50,
+          "Answer": "Да",
+          "Text": "",
+          "TriggerClass": "Dungeon12.CardGameTrigger",
+          "TriggerClassAsm": "Dungeon12",
+          "TriggerClassArguments": [
+            "Guardian"
+          ],
+          "ReplicsTags": []
         },
         {
           "Shown": true,
-          "Tag": 7,
+          "Tag": 70,
           "Answer": "Правила таверны",
           "Text": "Мы используем колоды стандартного размера по 24 карты. \r\nВ нашей таверне игроки начинают с 20 хитами и 1 ресурсом.\r\n Для победы вам потребуется 25 влияния.",
           "ReplicsTags": []
