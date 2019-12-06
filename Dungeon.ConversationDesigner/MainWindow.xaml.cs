@@ -25,18 +25,17 @@ namespace Dungeon.ConversationDesigner
         {
             InitializeComponent();
 
-            DataContext = vm = new ApplicationViewModel(@"C:\Users\a.tretyakov\source\repos\Dungeon-12\Dungeon12\Database\Conversations\Data\FaithIslandTavernResident.json");
+            DataContext = vm=new ApplicationViewModel(@"C:\Users\a.tretyakov\source\repos\Dungeon-12\Dungeon12\Database\Conversations\Data\FaithIslandTavernResident.json");
         }
 
-        private ApplicationViewModel vm;
+        ApplicationViewModel vm;
 
         private void OpenClick(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
-                vm.Load(openFileDialog.FileName);
-                DataContext = vm;
+                DataContext = vm= new ApplicationViewModel(openFileDialog.FileName);
             }
         }
 

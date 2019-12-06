@@ -16,6 +16,7 @@ namespace Dungeon.ConversationDesigner
         {
             Conversation = JsonConvert.DeserializeObject<ConversationData>(File.ReadAllText(path));
             Subjects = new ObservableCollection<Subject>(Conversation.Subjects);
+            SubjectVariables = new ObservableCollection<Variable>();
         }
 
         public ConversationData Conversation { get; set; }
@@ -44,6 +45,19 @@ namespace Dungeon.ConversationDesigner
             {
                 selectedReplica = value;
                 OnPropertyChanged("SelectedReplica");
+            }
+        }
+
+        public ObservableCollection<Variable> SubjectVariables { get; set; }
+
+        private Variable selectedVariable;
+        public Variable SelectedVariable
+        {
+            get { return selectedVariable; }
+            set
+            {
+                selectedVariable = value;
+                OnPropertyChanged("SelectedVariable");
             }
         }
 
