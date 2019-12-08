@@ -3,9 +3,7 @@ using Dungeon.Conversations;
 using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Map;
 using Dungeon.View.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace Dungeon12.Entities.Quests
 {
@@ -18,6 +16,15 @@ namespace Dungeon12.Entities.Quests
             var @class = arg1.Component.Entity.As<Dungeon12Class>();
             var quest = QuestLoader.Load(arg3[0]);
             quest.Bind(@class,arg2);
+
+            if (arg3.ElementAtOrDefault(1) != default)
+            {
+                try
+                {
+                    arg3[1].Trigger<ITrigger<bool, string[]>>().Trigger(arg3);
+                }
+                catch { }
+            }
 
             return default;
         }

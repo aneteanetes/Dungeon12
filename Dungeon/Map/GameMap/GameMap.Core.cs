@@ -168,6 +168,25 @@
             return default;
         }
 
+        public MapObject Range(Point location, Point size)
+        {
+            return new MapObject()
+            {
+                Position = new PhysicalPosition()
+                {
+                    X = location.X * 32,
+                    Y = location.Y * 32
+                },
+                Size = new PhysicalSize()
+                {
+                    Height = size.Y * 32,
+                    Width = size.X * 32
+                }
+            };
+        }
+
+        public MapObject Range(double x, double y, double width, double height) => Range(new Point(x, y), new Point(width, height));
+
         public IEnumerable<Сonversational> Conversations(MapObject @object)
         {
             MapObject rangeObject = PlayerRangeObject(@object);

@@ -94,6 +94,14 @@
             {
                 v.Second = value;
             }
+            else
+            {
+                Variables.Add(new Pair<string, object>()
+                {
+                    First = name,
+                    Second = value
+                });
+            }
             return value;
         }
 

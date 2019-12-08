@@ -18,7 +18,7 @@
     /// //Вес = (УровеньПредмета — КачествоПредмета) * МультипликаторКачества * МультипликаторВидаПредмета;
     /// формирование цен бладжад
     /// </summary>
-    public abstract partial class Item : Drawable, IPersist, ILootable
+    public partial class Item : Drawable, IPersist, ILootable
     {
         public virtual bool Stackable { get; set; }
 
@@ -63,7 +63,7 @@
 
         public string Description { get; set; }
 
-        public abstract Stats AvailableStats { get; }
+        public virtual Stats AvailableStats { get; }
 
         public List<Applicable> Modifiers { get; set; } = new List<Applicable>();
 

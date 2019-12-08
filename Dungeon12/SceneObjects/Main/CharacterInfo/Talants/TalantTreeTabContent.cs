@@ -33,7 +33,13 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 
                 tier.OrderBy(t=>t.Order).ForEach((talant, i) =>
                 {
-                    var img = this.AddControlCenter(new TalantInfoSceneControl(talant, character, index>1), inTier == 1, false);
+                    var blocked = index > 1;
+                    if (character.GetType().Name.Contains("Servant"))
+                    {
+                        blocked = index >= 1;
+                    }
+
+                    var img = this.AddControlCenter(new TalantInfoSceneControl(talant, character, blocked), inTier == 1, false);
                     img.Left -= left;
 
                     if (inTier == 2)

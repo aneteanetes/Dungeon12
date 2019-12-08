@@ -32,6 +32,7 @@
         /// </summary>
         public Variable Invisible { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         public Conversation Conversation { get; set; }
 
         /// <summary>

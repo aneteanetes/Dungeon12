@@ -1,0 +1,12 @@
+﻿{
+  "Level": 1,
+  "IdentifyName": "FaithIslandInking",
+  "Name": "Гостиница",
+  "ScreenImage": "Dungeon12.Resources.Images.NPCs.FaithIsland.home.home (1).png",
+  "Frames": 10,
+  "FractionIdentity": "FaithIslandTown",
+  "Conversations": [
+    "FaithIslandInkKrarn",
+    "FaithIslandInkVeblex"
+  ]
+}

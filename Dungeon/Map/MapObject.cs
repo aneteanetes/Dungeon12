@@ -138,7 +138,10 @@
 
         protected virtual void Load(RegionPart regionPart)
         {
-            this.Location = new Point(regionPart.Position.X, regionPart.Position.Y);
+            if (regionPart.Position != default)
+            {
+                this.Location = new Point(regionPart.Position.X, regionPart.Position.Y);
+            }
 
             if (regionPart.Region == null)
             {

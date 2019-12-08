@@ -74,7 +74,7 @@ namespace Dungeon12.Entities.Quests
                 if (Targets.TryGetValue(itemPickedUpEvent.Item.IdentifyName, out var progress))
                 {
                     progress.Second++;
-                    if (progress.First > progress.Second)
+                    if (progress.First >= progress.Second)
                     {
                         this.Progress++;
                     }

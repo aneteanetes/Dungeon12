@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Dungeon.Conversations
 {
@@ -20,6 +21,7 @@ namespace Dungeon.Conversations
         /// <summary>
         /// Реплики которые могут быть идти после этого
         /// </summary>
+        [Newtonsoft.Json.JsonIgnore]
         public List<Replica> Replics { get; set; }
 
         /// <summary>
@@ -45,6 +47,7 @@ namespace Dungeon.Conversations
         /// <summary>
         /// Экземпляр разговора которому принадлежит эта реплика
         /// </summary>
+        [Newtonsoft.Json.JsonIgnore]
         public Conversation Conversation { get; set; }
 
         /// <summary>
@@ -55,19 +58,46 @@ namespace Dungeon.Conversations
         /// <summary>
         /// Сборка <see cref="IConversationTrigger"/> из которой нужно инстанциировать
         /// </summary>
+        [Newtonsoft.Json.JsonIgnore]
         public string TriggerClassAsm { get; set; }
 
         private string[] _triggerClassArguments;
         /// <summary>
         /// Аргументы для <see cref="IConversationTrigger.Execute(string[])"/>
         /// </summary>
-        public string[] TriggerClassArguments { get => _triggerClassArguments ?? _triggerArguments; set => _triggerClassArguments = value; }
+        [Newtonsoft.Json.JsonIgnore]
+        public string[] TriggerClassArguments
+        {
+            get
+            {
+                if(_triggerClassArguments==default && _triggerArguments!=default)
+                {
+                    _triggerClassArguments = _triggerArguments.ToArray();
+                }
+                return _triggerClassArguments;
+            }
+            set => _triggerClassArguments = value;
+        }
 
-        private string[] _triggerArguments;
+        private List<string> _triggerArguments;
         /// <summary>
         /// Аргументы для <see cref="IConversationTrigger.Execute(string[])"/>
         /// </summary>
-        public string[] TriggerArguments { get => _triggerArguments ?? _triggerClassArguments; set => _triggerArguments = value; }
+        public List<string> TriggerArguments
+        {
+            get
+            {
+                if (_triggerArguments == default && _triggerClassArguments != default)
+                {
+                    _triggerArguments = _triggerClassArguments.ToList();
+                }
+                return _triggerArguments;
+            }
+            set
+            {
+                _triggerArguments = value;
+            }
+        }
 
         /// <summary>
         /// Выход из диалога до тем разговора

@@ -22,6 +22,8 @@ namespace Dungeon.Items.Enums
         Resource = 10,
         Rune = 11,
         [Display(Name = "Предмет задания")]
-        Quest =12
+        Quest =12,
+        //Колода карт
+        Deck=13
     }
 }

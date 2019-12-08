@@ -68,7 +68,7 @@
                         var sourceVar = conversation.Variables.FirstOrDefault(v => v.Name == variable.Name);
                         if (sourceVar != default && variable.Global)
                         {
-                            var globalName = variable.GlobalName(_id, subject.Name);
+                            var globalName = variable.Name;
                             if (Global.GameState.Character[globalName] != default)
                             {
                                 variable.Trigger(sourceVar.Value);
@@ -131,7 +131,7 @@
                         variable.Replica = this.replics.FirstOrDefault(r => r.Tag == variable.Value);
                         if(variable.Global)
                         {
-                            var globalName = variable.GlobalName(_id, replica.Tag);
+                            var globalName = variable.Name;
                             if (Global.GameState.Character[globalName] != default)
                             {
                                 variable.Trigger(variable.Value);

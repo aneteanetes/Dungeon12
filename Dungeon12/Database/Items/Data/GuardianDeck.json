@@ -1,0 +1,9 @@
+﻿{
+  "Name": "Колода 'Страж'",
+  "Tileset": "Dungeon12.Resources.Images.Items.Other.GuardDeck.png",
+  "Kind": "Deck",
+  "InventorySize": {
+    "X": 1,
+    "Y": 1
+  }
+}

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dungeon.ConversationDesigner"
         mc:Ignorable="d"
-        Title="MainWindow" Height="533.766" Width="1185.714">
+        Title="MainWindow" Height="955.453" Width="1373.253">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="347*" />
@@ -18,75 +18,129 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5">
+                        <Button Content="-" Width="20" Height="20" Click="RemoveSubject" HorizontalAlignment="Right" VerticalAlignment="Top"/>
                         <TextBlock FontSize="18" Text="{Binding Path=Value.Name}" />
                         <TextBlock Text="{Binding Path=Value.Text}" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Button Content="+" Width="20" Height="20" Click="AddSubject" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,27,0,0"/>
+        <Button Content="Добавить квест" Width="154" Height="20" Click="AddQuest" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="35,27,0,0"/>
+        <TextBox Text="{Binding QuestIdentify, UpdateSourceTrigger=PropertyChanged}" Margin="194,28,33,876" Height="20" VerticalAlignment="Top"/>
 
         <StackPanel DataContext="{Binding Selected}" Grid.Column="1">
             <TextBlock Text="{Binding Value.Name, UpdateSourceTrigger=PropertyChanged}"  />
             <TextBlock Text="Наименование" />
-            <TextBox Text="{Binding Value.Name, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Text="{Binding Value.Name, UpdateSourceTrigger=PropertyChanged}"  Margin="0 0 0 25"/>
             <TextBlock Text="Текст выбора" />
-            <TextBox Text="{Binding Value.Text, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Height="50" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Value.Text, UpdateSourceTrigger=PropertyChanged}"  Margin="0 0 0 25"/>
 
 
-            <TextBlock Text="Видно когда переменная есть:" />
-            <TextBox Text="{Binding Value.Visible.Name, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Видно ПОКА НЕТУ" />
+            <TextBox Text="{Binding VisibleName, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 0 25" />
 
-            <TextBlock Text="Не видно когда переменная есть:" />
-            <TextBox Text="{Binding Value.Invisible.Name, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="НЕ ВИДНО пока НЕТУ" />
+            <TextBox Text="{Binding InvisibleName, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 0 25" />
 
 
-            <TextBlock Text="Переменные темы" />
-            <ListBox ItemsSource="{Binding Value.Variables}"  ScrollViewer.VerticalScrollBarVisibility="Visible" Height="134">
+            <TextBlock Text="Если переменная есть:" />
+            <Button Content="+" Height="20" Click="AddSubjectVariable" />
+            <ListBox ItemsSource="{Binding VariablesVM, Mode=TwoWay}" Name="subjvariables"  ScrollViewer.VerticalScrollBarVisibility="Visible" Height="143" Margin="0 0 0 25">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5">
                             <TextBlock Text="Наименование" />
-                            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-                            <TextBlock Text="Значение" />
-                            <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
-                            <CheckBox IsChecked="{Binding Global, UpdateSourceTrigger=PropertyChanged}" Content="Глобальная"/>
+                            <TextBox Text="{Binding Value.Name, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="Показать текст реплики:" />
+
+                            <ComboBox ItemsSource="{Binding ReplicsLinks}" 
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding Path=Current}"
+                                      SelectedValuePath="Tag" Width="250"/>
+                            <Button Content="-" Height="20" Click="RemoveReplicaVariable" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
             <TextBlock Text="Реплики" />
+            <Button Content="+" Height="20" Click="AddSubjectReplica" />
             <ListBox ItemsSource="{Binding ReplicsView}"
-                 SelectedItem="{Binding SelectedReplica}" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="185">
+                 SelectedItem="{Binding SelectedReplica}" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Bottom" Height="578">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5">
+                            <CheckBox IsChecked="{Binding Value.Shown, UpdateSourceTrigger=PropertyChanged}" Content="Видна"/>
                             <TextBlock FontSize="18" Text="{Binding Value.Answer}" />
                             <TextBlock Text="{Binding Value.Text}" />
+                            <Button Content="-" Height="20" Click="RemoveSubjectReplica" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
 
-        <StackPanel Grid.Column="2" DataContext="{Binding SelectedReplica}">
-            <TextBlock Text="Переменные реплики" />
-            <ListBox ItemsSource="{Binding Value.Variables}"  ScrollViewer.VerticalScrollBarVisibility="Visible"
-                 SelectedItem="{Binding SelectedVariable}" Height="134">
+        <StackPanel Grid.Column="2" DataContext="{Binding Selected.SelectedReplica}">
+            <CheckBox IsChecked="{Binding Value.Escape, UpdateSourceTrigger=PropertyChanged}" Content="Выйти к темам при выборе реплики" Margin="0 10 0 10"/>
+            <TextBlock Text="Установить переменные при выборе реплики:" />
+            <Button Content="+" Height="20" Click="AddReplicaVariable" />
+            <ListBox ItemsSource="{Binding VariablesVM}" Name="replicavariables"  ScrollViewer.VerticalScrollBarVisibility="Visible" Height="134" Margin="0 0 0 25" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5">
                             <TextBlock Text="Наименование" />
-                            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-                            <TextBlock Text="Значение" />
-                            <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Text="{Binding Value.Name, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="Переход" />
+
+                            <ComboBox ItemsSource="{Binding ReplicsLinks}" 
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding Path=Current}"
+                                      SelectedValuePath="Tag" Width="250"/>
+
                             <CheckBox IsChecked="{Binding Global, UpdateSourceTrigger=PropertyChanged}" Content="Глобальная"/>
+                            <Button Content="-" Height="20" Click="RemoveReplicaVariable" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <TextBlock Text="Ответ персонажа" />
+            <TextBox Text="{Binding Value.Answer, UpdateSourceTrigger=PropertyChanged}" Height="59" Margin="0 0 0 25" />
+            <TextBlock Text="Текст реплики" />
+            <TextBox Height="50" TextWrapping="Wrap" AcceptsReturn="True"  Text="{Binding Value.Text, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock ><Run Text="Ответы"/></TextBlock>
+            <Button Content="+" Height="20" Click="AddReplicaSwitchTag" />
+            <ListBox ItemsSource="{Binding ReplicsTagSwitch, Mode=OneTime}" Name="replicaswitcheslist" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="194" Margin="0 0 0 25">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <ComboBox ItemsSource="{Binding ReplicsLinks}" 
+                                      DisplayMemberPath="Name"
+                                      SelectedValue="{Binding Path=Current}"
+                                        SelectedValuePath="Tag" Width="250"/>
+                            <Button Content="-" Height="20" Click="RemoveReplicaSwitchTag" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <TextBlock Text="Id" />
+            <TextBox Text="{Binding Value.Tag, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 0 25" />
+            <TextBlock Text="Триггер" />
+            <TextBox Text="{Binding Value.TriggerClass, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 0 10" />
+            <TextBlock Text="Аргументы триггера" />
+            <Button Content="+" Height="20" Click="AddTriggerArguments" />
+            <ListBox ItemsSource="{Binding TriggerArguments}"  ScrollViewer.VerticalScrollBarVisibility="Visible" Height="194">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <TextBox Text="{Binding Name}"></TextBox>
+                            <Button Content="-" Height="20" Click="RemoveTriggerArguments" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
 
-        <Menu Height="21" VerticalAlignment="Top" Margin="0,0,5,0" >
+        <Menu Height="21" VerticalAlignment="Top" Margin="0,1,0,0" >
             <MenuItem Header="File">
                 <MenuItem Header="Open" Click="OpenClick" />
                 <MenuItem Header="Save" Click="SaveClick" />

@@ -25,8 +25,8 @@ namespace Dungeon.Monogame
 
         static void Run(bool FATAL=false)
         {
-            //try
-            //{
+            try
+            {
                 using (var game = new XNADrawClient())
                 {
                     game.isFatal = FATAL;
@@ -38,13 +38,12 @@ namespace Dungeon.Monogame
                     };
                     game.Run();
                 }
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    Global.Logger.Log(ex.ToString());
-            //    Run(true);
-            //}
+            }
+            catch (Exception ex)
+            {
+                Global.Logger.Log(ex.ToString());
+                Run(true);
+            }
         }
     }
 }

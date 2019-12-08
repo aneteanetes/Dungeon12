@@ -94,6 +94,7 @@ namespace Dungeon12.Map.Objects
 
             map.MapObject.Add(mob);
             map.Objects.Add(mob);
+            map.PublishObject?.Invoke(mob);
 
             return true;
         }

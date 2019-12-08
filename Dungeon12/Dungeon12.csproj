@@ -30,5 +30,6 @@
     <Folder Include="Resources\Images\Items\Quest\" />
     <Folder Include="Resources\Images\ui\checkbox\" />
     <Folder Include="Resources\Images\ui\journal\" />
+    <Folder Include="Resources\Scenario\" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,59 @@
+{
+  "Identify": "FaithIslandInkVeblex",
+  "Subjects": [
+    {
+      "Name": "Отдых",
+      "Text": "Я могу предоставить вам комнату на несколько часов, и даже сутки. На сколько вы хотите арендовать комнату?",
+      "Variables": [],
+      "Replics": [
+        {
+          "Answer": "2 часа",
+          "Text": "",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 1,
+          "Variables": [],
+          "TriggerClass": "SleepTrigger",
+          "TriggerArguments": [
+            "2"
+          ]
+        },
+        {
+          "Answer": "6 часов",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 2,
+          "Variables": [],
+          "TriggerClass": "SleepTrigger",
+          "TriggerArguments": [
+            "6"
+          ]
+        },
+        {
+          "Answer": "12 часов",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 3,
+          "Variables": [],
+          "TriggerClass": "SleepTrigger",
+          "TriggerArguments": [
+            "12"
+          ]
+        },
+        {
+          "Answer": "Сутки",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 4,
+          "Variables": [],
+          "TriggerClass": "SleepTrigger",
+          "TriggerArguments": [
+            "24"
+          ]
+        }
+      ]
+    }
+  ],
+  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.VeblexF.png",
+  "Name": "Веблекс"
+}

@@ -1,0 +1,5 @@
+﻿{
+  "ItemGeneratorTrigger": "SpecialItemsGenerator",
+  "ItemGeneratorArguments": [ "GuardianDeck" ],
+  "Chance": 100
+}

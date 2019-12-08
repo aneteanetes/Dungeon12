@@ -1,0 +1,6 @@
+﻿{
+  "ItemGeneratorTrigger": "QuestItemsGenerator",
+  "ItemGeneratorArguments": [ "WarlockDeckQuest", "1" ],
+  "Chance": 100,
+  "LootTableIdentify": "WarlockDeckQuest"
+}

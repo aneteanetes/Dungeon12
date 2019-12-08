@@ -3,7 +3,7 @@
     using Dungeon.View.Interfaces;
     using System.Collections.Generic;
 
-    public abstract partial class Item : IDrawable
+    public partial class Item : IDrawable
     {
         public Item()
         {

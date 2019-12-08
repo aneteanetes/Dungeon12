@@ -37,10 +37,6 @@
             {
               "Name": "CardsQuest",
               "Global": true
-            },
-            {
-              "Name": "CardsQuestFromTavern",
-              "Global": true
             }
           ],
           "Answer": "Где я могу достать колоду?",

@@ -88,7 +88,10 @@
                 if (itemWears != null)
                 {
                     var itemWear = itemWears.FirstOrDefault(x => x.ItemKind == this.Item.Kind);
-                    itemWear.WearItem(this);
+                    if (itemWear != default)
+                    {
+                        itemWear.WearItem(this);
+                    }
                 }
             }
             else

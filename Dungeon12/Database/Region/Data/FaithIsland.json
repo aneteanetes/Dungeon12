@@ -76,6 +76,14 @@
     },
     {
       "Icon": "Home",
+      "IdentifyName": "FaithIslandInking",
+      "Position": {
+        "X": 58.5,
+        "Y": 46
+      }
+    },
+    {
+      "Icon": "Home",
       "IdentifyName": "FaithIslandTavern",
       "Position": {
         "X": 33,
