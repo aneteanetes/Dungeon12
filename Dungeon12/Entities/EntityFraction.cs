@@ -53,7 +53,7 @@ namespace Dungeon12.Entities
             if (entity == default)
                 return default;
 
-            var dataClass = Dungeon.Data.Dungeon.Store.Entity<TPersist>(x => x.IdentifyName == id).FirstOrDefault();
+            var dataClass = Store.Entity<TPersist>(x => x.IdentifyName == id).FirstOrDefault();
             if (dataClass != default)
             {
                 entity.Init(dataClass);
@@ -70,7 +70,7 @@ namespace Dungeon12.Entities
         public static TEntity Load(Expression<Func<TPersist, bool>> filterOne, object cacheObject = default)
         {
             var entity = typeof(TEntity).New<TEntity>();
-            var dataClass = Dungeon.Data.Dungeon.Store.Entity(filterOne, cacheObject).FirstOrDefault();
+            var dataClass = Store.Entity(filterOne, cacheObject).FirstOrDefault();
             if (dataClass != default)
             {
                 entity.Init(dataClass);
@@ -83,7 +83,7 @@ namespace Dungeon12.Entities
         {
             List<TEntity> entities = new List<TEntity>();
 
-            var dataClasses = Dungeon.Data.Dungeon.Store.Entity(filter, cacheObject).ToList();
+            var dataClasses = Store.Entity(filter, cacheObject).ToList();
             foreach (var dataClass in dataClasses)
             {
                 var entity = typeof(TEntity).New<TEntity>();

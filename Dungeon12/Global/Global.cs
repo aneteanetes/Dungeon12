@@ -1,18 +1,17 @@
 ﻿using Dungeon;
-using Dungeon12.Classes;
 using Dungeon.Data;
+using Dungeon.SceneObjects;
+using Dungeon.Types;
+using Dungeon.View.Interfaces;
+using Dungeon12.Classes;
 using Dungeon12.Game;
 using Dungeon12.Items;
 using Dungeon12.Map;
-using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
-using Dungeon.Types;
-using Dungeon.View.Interfaces;
 using LiteDB;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using db = Dungeon.Data.Database;
 
 namespace Dungeon12
 {
@@ -58,18 +57,18 @@ namespace Dungeon12
         public static SaveModel Load(string id) => LoadSaveModel(id);
 
 
-        public static string Save(int liteDbId = 0, string saveGameName = null, bool overrideExistedName = false, bool hiddenSave = false)
+        public static string Save(int liteStoreId = 0, string saveGameName = null, bool overrideExistedName = false, bool hiddenSave = false)
         {
-            using (var ldb = new LiteDatabase($@"{db.MainPath}\Saves.db"))
+            using (var lStore = new LiteDatabase($@"{Store.MainPath}\Saves.Store"))
             {
                 var map = Global.GameState.Map;
                 var region = Global.GameState.Region;
                 var avatar = Global.GameState.Player.Avatar;
                 var id = saveGameName ?? $"{DateTime.Now.ToString()}";
 
-                if (liteDbId != 0)
+                if (liteStoreId != 0)
                 {
-                    id = ldb.GetCollection<SaveModel>().FindById(liteDbId).IdentifyName;
+                    id = lStore.GetCollection<SaveModel>().FindById(liteStoreId).IdentifyName;
                 }
 
                 var save = new SavedGame()
@@ -116,26 +115,26 @@ namespace Dungeon12
                     Hidden = hiddenSave
                 };
 
-                if (liteDbId != 0)
+                if (liteStoreId != 0)
                 {
-                    ldb.GetCollection<SaveModel>().Update(liteDbId, saveModel);
+                    lStore.GetCollection<SaveModel>().Update(liteStoreId, saveModel);
 
                 }
                 else if (saveGameName != default && overrideExistedName)
                 {
-                    var getCurrent = db.Entity<SaveModel>(x => x.IdentifyName == saveGameName).FirstOrDefault();
+                    var getCurrent = Store.Entity<SaveModel>(x => x.IdentifyName == saveGameName).FirstOrDefault();
                     if (getCurrent != default)
                     {
-                        ldb.GetCollection<SaveModel>().Update(getCurrent.Id, saveModel);
+                        lStore.GetCollection<SaveModel>().Update(getCurrent.Id, saveModel);
                     }
                     else
                     {
-                        ldb.GetCollection<SaveModel>().Insert(saveModel);
+                        lStore.GetCollection<SaveModel>().Insert(saveModel);
                     }
                 }
                 else
                 {
-                    ldb.GetCollection<SaveModel>().Insert(saveModel);
+                    lStore.GetCollection<SaveModel>().Insert(saveModel);
                 }
 
                 return id;
@@ -154,16 +153,16 @@ namespace Dungeon12
 
         public static SaveModel LoadSaveModel(string id)
         {
-            return db.Entity<SaveModel>(x => x.IdentifyName == id, db: "Saves").FirstOrDefault();
+            return Store.Entity<SaveModel>(x => x.IdentifyName == id, db: "Saves").FirstOrDefault();
         }
 
-        public static IEnumerable<SaveModel> SavedGames() => db.Entity<SaveModel>(db: "Saves").Where(x => !x.Hidden);
+        public static IEnumerable<SaveModel> SavedGames() => Store.Entity<SaveModel>(db: "Saves").Where(x => !x.Hidden);
 
         public static bool RemoveSavedGame(int id)
         {
-            using (var ldb = new LiteDatabase($@"{db.MainPath}\Saves.db"))
+            using (var lStore = new LiteDatabase($@"{Store.MainPath}\Saves.Store"))
             {
-                return ldb.GetCollection<SaveModel>().Delete(id);
+                return lStore.GetCollection<SaveModel>().Delete(id);
             }
         }
 

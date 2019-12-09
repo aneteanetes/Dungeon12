@@ -1,4 +1,5 @@
-﻿using Dungeon.Data;
+﻿using Dungeon;
+using Dungeon.Data;
 using Dungeon.Resources;
 using Dungeon12.Database.QuestsKill;
 using System;
@@ -12,7 +13,7 @@ namespace Dungeon12.Entities.Quests
     {
         public static IQuest Load(string identifyName)
         {
-            var kill = Dungeon.Data.Dungeon.Store.Entity<KillQuest>(x => x.IdentifyName == identifyName).FirstOrDefault();
+            var kill = Store.Entity<KillQuest>(x => x.IdentifyName == identifyName).FirstOrDefault();
             if (kill != default)
                 return kill;
 

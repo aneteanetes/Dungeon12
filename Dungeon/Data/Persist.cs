@@ -30,7 +30,7 @@ namespace Dungeon.Data
 #if Core
         public static IEnumerable<T> Load<T>(Expression<Func<T, bool>> predicate = null, object cacheObject = default)
             where T : IPersist
-            => Database.Entity<T>(predicate, cacheObject);
+            => Store.Entity<T>(predicate, cacheObject);
 #endif
     }
 }

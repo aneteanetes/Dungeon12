@@ -26,7 +26,7 @@ namespace Dungeon12.Entities.Quests
 
             dataClass.LootDropsIdentify.ForEach(x =>
             {
-                var lootDrop = Dungeon.Data.Dungeon.Store.Entity<LootDrop>(drop => drop.IdentifyName == x).FirstOrDefault();
+                var lootDrop = Store.Entity<LootDrop>(drop => drop.IdentifyName == x).FirstOrDefault();
                 LootDrops.Add(lootDrop);
                 LootTable.GetLootTable(lootDrop.LootTableIdentify).LootDrops.Add(lootDrop);
             });
@@ -55,7 +55,7 @@ namespace Dungeon12.Entities.Quests
         {
             var entity = new CollectQuest();
 
-            var dataClass = Dungeon.Data.Dungeon.Store.Entity<QuestCollectData>(x => x.IdentifyName == id, id).FirstOrDefault();
+            var dataClass = Store.Entity<QuestCollectData>(x => x.IdentifyName == id, id).FirstOrDefault();
             if (dataClass != default)
             {
                 entity.Init(dataClass);

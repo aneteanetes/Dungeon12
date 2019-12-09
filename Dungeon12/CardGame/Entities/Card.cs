@@ -62,7 +62,7 @@ namespace Dungeon12.CardGame.Entities
         public new static List<Card> Load(Expression<Func<CardGameCardData, bool>> filterOne, object cacheObject=default)
         {
             List<Card> cards = new List<Card>();
-            var dataClasses = Dungeon.Data.Dungeon.Store.Entity(filterOne);
+            var dataClasses = Store.Entity(filterOne);
 
             foreach (var dataClass in dataClasses)
             {
