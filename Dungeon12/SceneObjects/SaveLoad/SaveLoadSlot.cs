@@ -89,26 +89,25 @@ namespace Dungeon12.SceneObjects.SaveLoad
 
                         var data = JsonConvert.DeserializeObject<SavedGame>(Component.Data, Global.GetSaveSerializeSettings());
 
-#warning загрузка глобального состояния под вопросом
-                        //Global.GameState.Player = new Avatar(data.Character.Character)
-                        //{
-                        //    Location = data.Character.Location,
-                        //    SceenPosition = Component.ScreenPosition
-                        //};
+                        Global.GameState.PlayerAvatar = new Avatar(data.Character.Character)
+                        {
+                            Location = data.Character.Location,
+                            SceenPosition = Component.ScreenPosition
+                        };
 
-                        //Global.GameState.Equipment = data.EquipmentState;
-                        //Global.GameState.Character = SceneManager.Current.PlayerAvatar.Entity;
-                        //Global.GameState.Character.Reload();
+                        Global.GameState.Equipment = data.EquipmentState;
+                        Global.GameState.Character = data.Character.Character;
+                        Global.GameState.Character.Reload();
 
-                        //Global.Camera.SetCamera(Component.CameraOffset.X, component.CameraOffset.Y);
+                        Global.Camera.SetCamera(Component.CameraOffset.X, component.CameraOffset.Y);
 
-                        //Global.GameState.Map = new Dungeon12.Map.GameMap();
-                        //Global.GameState.Map.LoadRegion(data.Map);
+                        Global.GameState.Map = new Dungeon12.Map.GameMap();
+                        Global.GameState.Map.LoadRegion(data.Map);
 
 
-                        //var regionMap = new GameMap();
-                        //regionMap.LoadRegion(data.Region, true);
-                        //Global.GameState.Region = regionMap;
+                        var regionMap = new GameMap();
+                        regionMap.LoadRegion(data.Region, true);
+                        Global.GameState.Region = regionMap;
 
                         switchMain?.Invoke();
                     }

@@ -5,6 +5,7 @@ using Dungeon12.Entities.Fractions;
 using Dungeon12.Map;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -15,9 +16,20 @@ namespace Dungeon12.Entities
     {
         public Fraction Fraction { get; set; }
 
-
+        private MapObject _mapObject;
         [Newtonsoft.Json.JsonIgnore]
-        public MapObject MapObject { get; set; }
+        public MapObject MapObject
+        {
+            get => _mapObject;
+            set
+            {
+                _mapObject = value;
+                if (value == default)
+                {
+                    Debugger.Break();
+                }
+            }
+        }
 
         public bool IsEnemy(EntityFraction another)
         {

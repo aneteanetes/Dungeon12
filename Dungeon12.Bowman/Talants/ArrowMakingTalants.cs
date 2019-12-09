@@ -1,4 +1,4 @@
-﻿using Dungeon.Abilities.Talants;
+﻿using Dungeon12.Abilities.Talants;
 using System;
 using System.Collections.Generic;
 using System.Text;

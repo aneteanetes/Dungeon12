@@ -11,7 +11,7 @@ namespace Dungeon.Monogame
         [STAThread]
         static void Main()
         {
-            new Global();
+            DungeonGlobal.BindGlobal<Global>();
             Console.WriteLine(Global.Version);
 #if DEBUG
             Global.ExceptionRethrow = true;
@@ -44,7 +44,8 @@ namespace Dungeon.Monogame
             catch (Exception ex)
             {
                 Global.Logger.Log(ex.ToString());
-                Run(true);
+                Global.Exit?.Invoke();
+                //Run(true);
             }
         }
     }

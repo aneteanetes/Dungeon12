@@ -37,7 +37,10 @@ namespace Dungeon12.Entities.Quests
                 .Select(x => x.Generator)
                 .ToList();
 
-            this.Perks = Perk.LoadAll(x => dataClass.PerksId.Contains(x.ObjectId)).ToList();
+            if (dataClass.PerksId != default)
+            {
+                this.Perks = Perk.LoadAll(x => dataClass.PerksId.Contains(x.ObjectId)).ToList();
+            }
 
             GiveReward = dataClass.TriggerName.Trigger<IRewardTrigger>();
         }

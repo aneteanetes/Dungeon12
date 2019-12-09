@@ -1,22 +1,24 @@
 ﻿using Dungeon;
 using Dungeon.Drawing.Impl;
-using Dungeon.Map;
-using Dungeon.Map.Objects;
+using Dungeon.Drawing.SceneObjects;
+using Dungeon.Physics;
 using Dungeon.SceneObjects;
 using Dungeon.Transactions;
+using Dungeon.View.Interfaces;
+using Dungeon12.Map;
+using Dungeon12.Map.Objects;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Dungeon12.Servant.Effects.Сonsecration
 {
-    public class СonsecrationCircle : Dungeon.Drawing.SceneObjects.ImageControl
+    public class СonsecrationCircle : ImageControl
     {
         public override bool AbsolutePosition => false;
 
         public override bool CacheAvailable => false;
         
-        public СonsecrationCircle(GameMap gameMap, Dungeon.Physics.PhysicalObject position) : base("Effects/concentration.png".AsmImgRes())
+        public СonsecrationCircle(GameMap gameMap, PhysicalObject position) : base("Effects/concentration.png".AsmImgRes())
         {
             var totem = new ConsecrationCircleTotem(position.Position.X / 32, position.Position.Y / 32);
             gameMap.MapObject.Add(totem);
@@ -39,7 +41,7 @@ namespace Dungeon12.Servant.Effects.Сonsecration
                 Top=0.5
             });
 
-            Dungeon.Global.Time.Timer(Guid.NewGuid().ToString())
+            Dungeon12.Global.Time.Timer(Guid.NewGuid().ToString())
                 .After(millisec)
                 .Do(() => this.Destroy?.Invoke())
                 .Auto();
@@ -54,7 +56,7 @@ namespace Dungeon12.Servant.Effects.Сonsecration
                 this.Width = 3;
                 this.Height = 1.5;
                 
-                this.Effects = new List<Dungeon.View.Interfaces.IEffect>()
+                this.Effects = new List<IEffect>()
                 {
                     new ParticleEffect()
                     {

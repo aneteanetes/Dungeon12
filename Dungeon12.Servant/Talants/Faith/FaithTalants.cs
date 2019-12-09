@@ -1,4 +1,4 @@
-﻿using Dungeon.Abilities.Talants;
+﻿using Dungeon12.Abilities.Talants;
 using Dungeon12.Servant.Talants.Faith;
 using Dungeon12.Servant.Talants.Power;
 using System;

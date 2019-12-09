@@ -17,6 +17,7 @@
     using System.Linq;
     using Rect = Dungeon.Types.Rectangle;
     using System.Text;
+    using Dungeon12;
 
     public partial class XNADrawClient : Game, IDrawClient
     {
@@ -173,7 +174,7 @@
 
                 spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);
 
-                spriteBatch.DrawString(font, Dungeon.Global.Time, new Vector2(1150, 30), Color.Yellow);
+                spriteBatch.DrawString(font, Dungeon12.Global.Time, new Vector2(1150, 30), Color.Yellow);
 
                 spriteBatch.End();
 

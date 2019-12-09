@@ -3,6 +3,7 @@
     using Dungeon.Network;
     using Dungeon.Scenes.Manager;
     using Dungeon.View.Interfaces;
+    using Dungeon12;
     using Dungeon12.Scenes.Menus;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
@@ -79,16 +80,16 @@
 
             penumbra.Lights.Add(SunLight);
 
-            Dungeon.Global.AudioPlayer = this;
-            Dungeon.Global.Time.OnTimeSet += WhenTimeSetted;
-            Dungeon.Global.Time.OnMinute += CalculateSunlight;
+            Dungeon12.Global.AudioPlayer = this;
+            Dungeon12.Global.Time.OnTimeSet += WhenTimeSetted;
+            Dungeon12.Global.Time.OnMinute += CalculateSunlight;
 
             myRenderer= new SpriteBatchRenderer
             {
                 GraphicsDeviceService = graphics
             };
 
-            Dungeon.Global.TransportVariable = GraphicsDevice;
+            Dungeon12.Global.TransportVariable = GraphicsDevice;
         }
 
         protected override void Initialize()
@@ -159,7 +160,7 @@
         {
             if (!loaded)
             {
-                Dungeon.Global.TransportVariable = GraphicsDevice;
+                Dungeon12.Global.TransportVariable = GraphicsDevice;
                 myRenderer.LoadContent(Content);
                 loaded = true;
             }
@@ -220,11 +221,11 @@
 
             if(c.IsKeyDown(Keys.U))
             {
-                Dungeon.Global.Time.Pause();
+                Dungeon12.Global.Time.Pause();
             }
             if (c.IsKeyDown(Keys.Y))
             {
-                Dungeon.Global.Time.Resume();
+                Dungeon12.Global.Time.Resume();
             }
 
             if (c.IsKeyDown(Keys.Left))
@@ -264,12 +265,12 @@
             {
                 float illum = BaseIlluminationUnit;
 
-                if (Dungeon.Global.Time.Hours >= 6 && Dungeon.Global.Time.Hours < 18)
+                if (Dungeon12.Global.Time.Hours >= 6 && Dungeon12.Global.Time.Hours < 18)
                 {
                     illum = BaseIlluminationUnit * 2;
                 }
 
-                if (Dungeon.Global.Time.Hours >= 18)
+                if (Dungeon12.Global.Time.Hours >= 18)
                 {
 
                     illum = BaseIlluminationUnit * 4;

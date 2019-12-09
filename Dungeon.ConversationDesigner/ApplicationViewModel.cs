@@ -1,6 +1,6 @@
 ﻿using Dungeon.ConversationDesigner.ViewModels;
-using Dungeon.Conversations;
-using Dungeon.Data.Conversations;
+using Dungeon12.Conversations;
+using Dungeon12.Data.Conversations;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.ComponentModel;

@@ -1,12 +1,11 @@
 ﻿namespace Dungeon12.Scenes.Menus.Creation
 {
-    using Dungeon;
-    using Dungeon12.Classes;
     using Dungeon.Control.Keys;
     using Dungeon.Data;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
+    using Dungeon12.Classes;
     using Dungeon12.Drawing.SceneObjects.Dialogs;
 
     public class PlayerOriginScene : GameScene<PlayerSummaryScene, PlayerNameScene>
@@ -40,35 +39,36 @@
                         default:break;
                     }
 
-                    //PlayerAvatar.Character.Recalculate();
-                    //if (anotherClass != null)
-                    //{
-                    //    var to = anotherClass;
-                    //    var from = PlayerAvatar.Character;
+                    Global.GameState.Character.Recalculate();
+                    if (anotherClass != null)
+                    {
+                        var to = anotherClass;
+                        var from = Global.GameState.Character;
 
-                    //    to.Backpack = from.Backpack;
-                    //    to.Clothes = from.Clothes;
-                    //    to.EXP = from.EXP;
-                    //    to.Gold = from.Gold;
-                    //    to.HitPoints = from.HitPoints;
-                    //    to.MaxHitPoints = from.MaxHitPoints;
-                    //    to.AbilityPower = from.AbilityPower;
-                    //    to.AttackPower = from.AttackPower;
-                    //    to.Barrier = from.Barrier;
-                    //    to.Defence = from.Defence;
-                    //    to.Idle = from.Idle;
-                    //    to.MinDMG = from.MinDMG;
-                    //    to.MaxDMG = from.MaxDMG;
+                        to.Backpack = from.Backpack;
+                        to.Clothes = from.Clothes;
+                        to.EXP = from.EXP;
+                        to.Gold = from.Gold;
+                        to.HitPoints = from.HitPoints;
+                        to.MaxHitPoints = from.MaxHitPoints;
+                        to.AbilityPower = from.AbilityPower;
+                        to.AttackPower = from.AttackPower;
+                        to.Barrier = from.Barrier;
+                        to.Defence = from.Defence;
+                        to.Idle = from.Idle;
+                        to.MinDMG = from.MinDMG;
+                        to.MaxDMG = from.MaxDMG;
 
-                    //    to.Race = from.Race;
-                    //    to.Name = from.Name;
-                    //    to.Level = from.Level;
+                        to.Race = from.Race;
+                        to.Name = from.Name;
+                        to.Level = from.Level;
 
-                    //    PlayerAvatar.Character = to;
-                    //    PlayerAvatar.ReEntity(to);
-                    //}
+                        Global.GameState.PlayerAvatar.Character = to;
+                        Global.GameState.PlayerAvatar.ReEntity(to);
+                    }
 
-                    //PlayerAvatar.Character.Origin = o;
+                    Global.GameState.PlayerAvatar.Character.Origin = o;
+
                     this.Switch<PlayerSummaryScene>();
                 }
             });

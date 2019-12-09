@@ -1,9 +1,9 @@
 ﻿using Dungeon;
-using Dungeon.Abilities;
-using Dungeon.Abilities.Talants.TalantTrees;
-using Dungeon.Classes;
 using Dungeon.Drawing;
 using Dungeon.View.Interfaces;
+using Dungeon12.Abilities;
+using Dungeon12.Abilities.Talants.TalantTrees;
+using Dungeon12.Classes;
 using Dungeon12.Servant.Abilities;
 using Dungeon12.Servant.Talants;
 using System;

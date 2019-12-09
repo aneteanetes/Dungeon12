@@ -28,12 +28,10 @@
 
         private void Next(string value)
         {
-            //if (this.PlayerAvatar == null)
-            //{
-            //    this.PlayerAvatar = new Avatar(new Dungeon12.Noone.Noone());
-            //}
-
-            //this.PlayerAvatar.Character.Name = value[0].ToString().ToUpper() + value.Substring(1);
+            var character = new Noone.Noone();
+            character.Name = value[0].ToString().ToUpper() + value.Substring(1);
+            Global.GameState.Character = character;
+            Global.GameState.PlayerAvatar = new Avatar(character);
 
             this.Switch<PlayerOriginScene>();
         }

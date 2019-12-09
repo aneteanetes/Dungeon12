@@ -1,5 +1,5 @@
 ﻿using Dungeon.ConversationDesigner.ViewModels;
-using Dungeon.Conversations;
+using Dungeon12.Conversations;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;

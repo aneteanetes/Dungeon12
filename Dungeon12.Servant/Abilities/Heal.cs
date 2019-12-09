@@ -1,13 +1,11 @@
 ﻿using Dungeon;
-using Dungeon.Abilities;
-using Dungeon.Abilities.Enums;
-using Dungeon.Abilities.Scaling;
 using Dungeon.Drawing.Impl;
-using Dungeon.Map;
-using Dungeon.Map.Objects;
 using Dungeon.SceneObjects;
-using Dungeon.Transactions;
-using Dungeon.View.Interfaces;
+using Dungeon12.Abilities;
+using Dungeon12.Abilities.Enums;
+using Dungeon12.Abilities.Scaling;
+using Dungeon12.Map;
+using Dungeon12.Map.Objects;
 using System;
 
 namespace Dungeon12.Servant.Abilities
@@ -24,7 +22,7 @@ namespace Dungeon12.Servant.Abilities
 
         public override string Name => "Исцеление";
 
-        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entities.Enums.Scale.AttackDamage);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AttackDamage);
 
         protected override bool CanUse(Servant @class) => !@class.Serve && @class.FaithPower.Value >= 1;
 
@@ -54,7 +52,7 @@ namespace Dungeon12.Servant.Abilities
                     Scale=0.2
                 });
 
-                Dungeon.Global.Time.Timer(Guid.NewGuid().ToString())
+                Dungeon12.Global.Time.Timer(Guid.NewGuid().ToString())
                     .After(1700)
                     .Do(() => this.Destroy?.Invoke())
                     .Auto();

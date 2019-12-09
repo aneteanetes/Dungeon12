@@ -22,6 +22,7 @@
 
         public static void BindGlobal<T>() where T: DungeonGlobal
         {
+            GlobalExceptionHandling();
             global = typeof(T).NewAs<T>();
         }
 

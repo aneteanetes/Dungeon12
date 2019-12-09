@@ -1,14 +1,11 @@
-﻿using Dungeon.Abilities;
-using Dungeon.Abilities.Enums;
-using Dungeon.Abilities.Scaling;
-using Dungeon12.Bowman.Effects;
-using Dungeon.Map;
-using Dungeon.Map.Objects;
+﻿using Dungeon;
 using Dungeon.View.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Dungeon;
+using Dungeon12.Abilities;
+using Dungeon12.Abilities.Enums;
+using Dungeon12.Abilities.Scaling;
+using Dungeon12.Bowman.Effects;
+using Dungeon12.Map;
+using Dungeon12.Map.Objects;
 
 namespace Dungeon12.Bowman.Abilities
 {
@@ -22,7 +19,7 @@ namespace Dungeon12.Bowman.Abilities
 
         public override string Name => "Быстрый выстрел";
 
-        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entities.Enums.Scale.AttackDamage);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AttackDamage);
 
         private Bowman rangeclass;
         protected override bool CanUse(Bowman @class)

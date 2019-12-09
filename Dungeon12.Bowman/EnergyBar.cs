@@ -1,13 +1,8 @@
-﻿using MoreLinq;
+﻿using Dungeon;
 using Dungeon.Drawing;
-using Dungeon.Drawing.SceneObjects;
-using Dungeon.Drawing.SceneObjects.UI;
 using Dungeon.View.Interfaces;
+using Dungeon12.Drawing.SceneObjects.UI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Dungeon;
 
 namespace Dungeon12.Bowman
 {

@@ -1,15 +1,13 @@
 ﻿using Dungeon;
-using Dungeon.Abilities;
-using Dungeon.Abilities.Enums;
-using Dungeon.Abilities.Scaling;
-using Dungeon.Drawing.SceneObjects.Map;
-using Dungeon.Map;
-using Dungeon.Map.Objects;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
+using Dungeon12.Abilities;
+using Dungeon12.Abilities.Enums;
+using Dungeon12.Abilities.Scaling;
+using Dungeon12.Drawing.SceneObjects.Map;
+using Dungeon12.Map;
+using Dungeon12.Map.Objects;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Dungeon12.Bowman.Abilities
 {
@@ -21,7 +19,7 @@ namespace Dungeon12.Bowman.Abilities
 
         public override string Name => "Увернуться";
 
-        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entities.Enums.Scale.AttackDamage);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AttackDamage);
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.Special;
 
@@ -83,7 +81,7 @@ namespace Dungeon12.Bowman.Abilities
 
             avatar.OnMoveStop += SpeedEffect;
 
-            Dungeon.Global.Time.Timer(nameof(Dodge) + nameof(Use))
+            Global.Time.Timer(nameof(Dodge) + nameof(Use))
                 .After(10 + (plusSpeed * 5))
                 .Do(() => move(true))
                 .Auto();

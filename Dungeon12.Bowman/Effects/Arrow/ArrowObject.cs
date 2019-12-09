@@ -1,13 +1,9 @@
 ﻿using Dungeon;
-using Dungeon12;
 using Dungeon.Entities.Animations;
 using Dungeon.Physics;
 using Dungeon.Types;
-using System;
-using System.Collections.Generic;
+using Dungeon12.Classes;
 using System.Linq;
-using System.Text;
-using Dungeon.Classes;
 
 namespace Dungeon12.Bowman.Effects
 {
@@ -41,8 +37,8 @@ namespace Dungeon12.Bowman.Effects
             }
         }
 
-        public string Image => @"Effects\Arrow.png".AsmImgRes();
-
+        public override string Image => @"Effects\Arrow.png".AsmImgRes();
+        
         private Point GetPoint(int frame)
         {
             Point pos = new Point();

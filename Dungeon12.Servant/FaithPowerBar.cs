@@ -1,6 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Drawing.SceneObjects;
-using Dungeon.Drawing.SceneObjects.UI;
+using Dungeon12.Drawing.SceneObjects;
+using Dungeon12.Drawing.SceneObjects.UI;
 using System.Linq;
 
 namespace Dungeon12.Servant
@@ -32,7 +33,7 @@ namespace Dungeon12.Servant
 
         protected override string BarTile => "";
 
-        private class FaithPowerOrb : Dungeon.Drawing.SceneObjects.ImageControl
+        private class FaithPowerOrb : ImageControl
         {
             private Servant servant;
             int _count;

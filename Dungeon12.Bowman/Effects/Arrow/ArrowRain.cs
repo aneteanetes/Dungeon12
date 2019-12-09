@@ -1,9 +1,9 @@
 ﻿using Dungeon;
 using Dungeon.Drawing.Impl;
-using Dungeon.Entities.Alive;
-using Dungeon.Map;
 using Dungeon.SceneObjects;
 using Dungeon.Types;
+using Dungeon12.Entities.Alive;
+using Dungeon12.Map;
 using Dungeon12.Map.Objects;
 using System.Collections.Generic;
 
@@ -42,7 +42,7 @@ namespace Dungeon12.Bowman.Effects
                     }
                 };
 
-            Dungeon.Global.Time.Timer(nameof(ArrowRain))
+            Global.Time.Timer(nameof(ArrowRain))
                 .After(timeMS)
                 .Do(this.Destroy)
                 .Trigger();
@@ -74,7 +74,7 @@ namespace Dungeon12.Bowman.Effects
                 _gameMap.All<NPCMap>(rangeObj).ForEach(mob =>
                 {
                     long Damage = RandomDungeon.Range(2, 11);
-                    mob.Entity.Damage(_bowman,new Dungeon.Entities.Alive.Damage()
+                    mob.Entity.Damage(_bowman,new Damage()
                     {
                         Amount=Damage,
                         Type=DamageType.Kenetic

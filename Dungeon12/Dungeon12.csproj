@@ -5,8 +5,15 @@
     <LangVersion>Latest</LangVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;Core;</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
+    <Compile Remove="Data\**" />
+    <EmbeddedResource Remove="Data\**" />
     <None Remove="**\Resources\**\*" />
+    <None Remove="Data\**" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="**\Resources\**\*" />
@@ -24,7 +31,6 @@
 
   <ItemGroup>
     <Folder Include="Database\Quests\Data\" />
-    <Folder Include="Data\" />
     <Folder Include="Noone\Resources\Images\Stats\" />
     <Folder Include="Resources\Data\Regions\" />
     <Folder Include="Resources\Images\Cards\Areas\" />

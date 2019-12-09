@@ -15,14 +15,8 @@ using System.Linq;
 
 namespace Dungeon12
 {
-
     public class Global : DungeonGlobal
     {
-        public Global()
-        {
-            BindGlobal<Global>();
-        }
-
         public static GameState GameState { get; set; } = new GameState();
 
         protected override void OnException(Exception ex, Action ok = null)
@@ -55,11 +49,10 @@ namespace Dungeon12
         }
 
         public static SaveModel Load(string id) => LoadSaveModel(id);
-
-
+        
         public static string Save(int liteStoreId = 0, string saveGameName = null, bool overrideExistedName = false, bool hiddenSave = false)
         {
-            using (var lStore = new LiteDatabase($@"{Store.MainPath}\Saves.Store"))
+            using (var lStore = new LiteDatabase($@"{Store.MainPath}\Saves.db"))
             {
                 var map = Global.GameState.Map;
                 var region = Global.GameState.Region;
@@ -160,7 +153,7 @@ namespace Dungeon12
 
         public static bool RemoveSavedGame(int id)
         {
-            using (var lStore = new LiteDatabase($@"{Store.MainPath}\Saves.Store"))
+            using (var lStore = new LiteDatabase($@"{Store.MainPath}\Saves.db"))
             {
                 return lStore.GetCollection<SaveModel>().Delete(id);
             }

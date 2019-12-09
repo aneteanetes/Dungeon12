@@ -1,4 +1,4 @@
-﻿using Dungeon.Abilities.Talants;
+﻿using Dungeon12.Abilities.Talants;
 
 namespace Dungeon12.Servant.Talants.Power
 {

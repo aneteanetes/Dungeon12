@@ -35,6 +35,7 @@
         public override bool Destroyable => false;
 
         private GameMap Gamemap => Global.GameState.Map;
+
         private Avatar PlayerAvatar => Global.GameState.PlayerAvatar;
 
         public override void Init()
@@ -123,6 +124,11 @@
 
         private void InitMap()
         {
+            if (this.Gamemap == default)
+            {
+                Global.GameState.Map = new GameMap();
+            }
+
             if (!this.Gamemap.Loaded)
             {
                 try
@@ -132,7 +138,7 @@
                 catch (Exception ex)
                 {
                     throw;
-                    //Global.Exception(ex, () => { this.Switch<Start>(); });                    
+                    //Global.Exception(ex, () => { this.Switch<Start>(); });
                     return;
                 }
             }

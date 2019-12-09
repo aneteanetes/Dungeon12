@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
-namespace Dungeon12
+namespace Dungeon12.Data
 {
     public class TransporterData : RegionPart
     {

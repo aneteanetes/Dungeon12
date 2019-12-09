@@ -1,16 +1,13 @@
 ﻿using Dungeon;
 using Dungeon.Control.Pointer;
 using Dungeon.Drawing.Impl;
-using Dungeon.Drawing.SceneObjects;
-using Dungeon.Drawing.SceneObjects.Map;
 using Dungeon.Entities.Animations;
-using Dungeon.Map.Objects;
-using Dungeon.Physics;
 using Dungeon.SceneObjects;
 using Dungeon.Types;
-using System;
+using Dungeon.View.Interfaces;
+using Dungeon12.Drawing.SceneObjects;
+using Dungeon12.Map.Objects;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Dungeon12.Servant.Effects.FaithShot
 {
@@ -64,7 +61,7 @@ namespace Dungeon12.Servant.Effects.FaithShot
                 this.Width = 1;
                 this.Height = 1;
 
-                this.Effects = new List<Dungeon.View.Interfaces.IEffect>()
+                this.Effects = new List<IEffect>()
                 {
                     new ParticleEffect()
                     {

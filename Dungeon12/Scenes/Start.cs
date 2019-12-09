@@ -2,20 +2,18 @@
 {
     using Dungeon;
     using Dungeon.Control.Keys;
-    using Dungeon12.Data.Region;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon12.Map.Objects;
     using Dungeon.Physics;
     using Dungeon.Resources;
-    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon.SceneObjects;
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
     using Dungeon12.CardGame.Scene;
+    using Dungeon12.Data.Region;
     using Dungeon12.Drawing.SceneObjects;
     using Dungeon12.Map.Editor;
-    using Dungeon12.Races.Perks;
-    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects;
     using Dungeon12.Scenes.Game;
     using Dungeon12.Scenes.SaveLoad;
     using Newtonsoft.Json;
@@ -23,7 +21,6 @@
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
-    using System.Resources;
 
     public class Start : StartScene<SoloDuoScene, Game.Main, EditorScene, CardGameScene,Start, SaveLoadScene>
     {

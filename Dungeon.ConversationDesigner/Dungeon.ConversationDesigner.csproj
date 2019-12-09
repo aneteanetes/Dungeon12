@@ -58,7 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\Dungeon\Data\Conversations\ConversationData.cs">
+    <Compile Include="..\Dungeon12\Database\Conversations\ConversationData.cs">
       <Link>Data\ConversationData.cs</Link>
     </Compile>
     <Compile Include="..\Dungeon\Data\IPersist.cs">
@@ -74,16 +74,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="..\Dungeon\Conversations\Conversation.cs">
+    <Compile Include="..\Dungeon12\Conversations\Conversation.cs">
       <Link>Data\Conversation.cs</Link>
     </Compile>
-    <Compile Include="..\Dungeon\Conversations\Replica.cs">
+    <Compile Include="..\Dungeon12\Conversations\Replica.cs">
       <Link>Data\Replica.cs</Link>
     </Compile>
-    <Compile Include="..\Dungeon\Conversations\Subject.cs">
+    <Compile Include="..\Dungeon12\Conversations\Subject.cs">
       <Link>Data\Subject.cs</Link>
     </Compile>
-    <Compile Include="..\Dungeon\Conversations\Variable.cs">
+    <Compile Include="..\Dungeon12\Conversations\Variable.cs">
       <Link>Data\Variable.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">

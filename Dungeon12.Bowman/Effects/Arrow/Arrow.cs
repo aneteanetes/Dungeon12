@@ -1,19 +1,14 @@
-﻿using Dungeon;
-using Dungeon.Control.Pointer;
+﻿using Dungeon.Control.Pointer;
 using Dungeon.Drawing.Impl;
-using Dungeon.Drawing.SceneObjects;
-using Dungeon.Drawing.SceneObjects.Map;
-using Dungeon.Entities.Alive;
-using Dungeon.Entities.Animations;
-using Dungeon.Map;
-using Dungeon.Map.Objects;
 using Dungeon.Physics;
 using Dungeon.SceneObjects;
 using Dungeon.Types;
+using Dungeon12.Drawing.SceneObjects;
+using Dungeon12.Entities.Alive;
+using Dungeon12.Map;
 using Dungeon12.Map.Objects;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Dungeon12.Bowman.Effects
 {
