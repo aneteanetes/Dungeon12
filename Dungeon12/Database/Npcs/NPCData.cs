@@ -1,4 +1,4 @@
-﻿using Dungeon.Conversations;
+﻿using Dungeon12.Conversations;
 using Dungeon.Types;
 using Dungeon12.Entities;
 

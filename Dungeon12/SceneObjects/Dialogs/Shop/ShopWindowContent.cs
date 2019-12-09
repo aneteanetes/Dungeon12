@@ -1,8 +1,8 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Dialogs.Shop
 {
     using Dungeon12.Drawing.SceneObjects.Inventories;
-    using Dungeon.Drawing.SceneObjects.Map;
-    using Dungeon.SceneObjects;
+    using Dungeon12.Drawing.SceneObjects.Map;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using Dungeon.Drawing;
 
     public class ShopWindowContent : EmptyHandleSceneControl
@@ -20,7 +20,7 @@
             };
         }
 
-        public ShopWindowContent(string title, Dungeon.Merchants.Merchant merchant, PlayerSceneObject playerSceneObject, Inventory another)
+        public ShopWindowContent(string title, Dungeon12.Merchants.Merchant merchant, PlayerSceneObject playerSceneObject, Inventory another)
         {
             this.Image = "Dungeon12.Resources.Images.ui.vertical_title(17x15).png";
 

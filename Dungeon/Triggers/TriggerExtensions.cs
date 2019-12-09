@@ -22,10 +22,10 @@ namespace Dungeon
             if (string.IsNullOrWhiteSpace(className))
                 return default;
 
-            var type = TryGetFromAssembly(className, Global.GameAssembly);
+            var type = TryGetFromAssembly(className, DungeonGlobal.GameAssembly);
             if (type == default)
             {
-                foreach (var asm in Global.Assemblies)
+                foreach (var asm in DungeonGlobal.Assemblies)
                 {
                     type = TryGetFromAssembly(className, asm);
                     if (type != default)

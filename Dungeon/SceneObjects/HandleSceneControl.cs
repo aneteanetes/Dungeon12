@@ -151,11 +151,11 @@
             InFocus = true;
             if (Cursor != null)
             {
-                Global.DrawClient.SetCursor(("Cursors." + Cursor + ".png").PathImage());
+                DungeonGlobal.DrawClient.SetCursor(("Cursors." + Cursor + ".png").PathImage());
             }
             if (HideCursor)
             {
-                Global.DrawClient.SetCursor("1px.png".AsmImgRes());
+                DungeonGlobal.DrawClient.SetCursor("1px.png".AsmImgRes());
             }
             dynamicEvents[nameof(Focus)]?.DynamicInvoke();
         }
@@ -165,7 +165,7 @@
             InFocus = false;
             if (Cursor != null || HideCursor)
             {
-                Global.DrawClient.SetCursor("Cursors.common.png".PathImage());
+                DungeonGlobal.DrawClient.SetCursor("Cursors.common.png".PathImage());
             }
             dynamicEvents[nameof(Unfocus)]?.DynamicInvoke();
         }

@@ -1,8 +1,8 @@
 ﻿using Dungeon;
-using Dungeon.Conversations;
+using Dungeon12.Conversations;
 using Dungeon.Drawing;
-using Dungeon.Drawing.SceneObjects.Map;
-using Dungeon.Map;
+using Dungeon12.Drawing.SceneObjects.Map;
+using Dungeon12.Map;
 using Dungeon.View.Interfaces;
 using Dungeon12.Entites.Journal;
 using System;

@@ -3,13 +3,14 @@ using Dungeon.Control;
 using Dungeon.Data;
 using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
-using Dungeon.Map;
-using Dungeon.Map.Objects;
-using Dungeon.SceneObjects;
+using Dungeon12.Map;
+using Dungeon12.Map.Objects;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon.Scenes.Manager;
 using Dungeon12.Drawing.SceneObjects;
 using Newtonsoft.Json;
 using System;
+using static Dungeon12.Global;
 
 namespace Dungeon12.SceneObjects.SaveLoad
 {
@@ -66,7 +67,7 @@ namespace Dungeon12.SceneObjects.SaveLoad
                             value = DateTime.Now.ToString();
                         }
 
-                        input.Value = Dungeon.Data.Database.Save(saveGameName: value);
+                        input.Value = Global.Save(saveGameName: value);
                         Toast.Show($"Игра {value} сохранена!", this.ShowInScene);
                         _saveLoadWindow.ReDraw();
 
@@ -86,27 +87,28 @@ namespace Dungeon12.SceneObjects.SaveLoad
                     {
                         SceneManager.Destroy<Scenes.Game.Main>();
 
-                        var data = JsonConvert.DeserializeObject<SavedGame>(Component.Data, Dungeon.Data.Database.GetSaveSerializeSettings());
+                        var data = JsonConvert.DeserializeObject<SavedGame>(Component.Data, Global.GetSaveSerializeSettings());
 
-                        SceneManager.Current.PlayerAvatar = new Avatar(data.Character.Character)
-                        {
-                            Location = data.Character.Location,
-                            SceenPosition = Component.ScreenPosition
-                        };
+#warning загрузка глобального состояния под вопросом
+                        //Global.GameState.Player = new Avatar(data.Character.Character)
+                        //{
+                        //    Location = data.Character.Location,
+                        //    SceenPosition = Component.ScreenPosition
+                        //};
 
-                        Global.GameState.Equipment = data.EquipmentState;
-                        Global.GameState.Character = SceneManager.Current.PlayerAvatar.Entity;
-                        Global.GameState.Character.Reload();
+                        //Global.GameState.Equipment = data.EquipmentState;
+                        //Global.GameState.Character = SceneManager.Current.PlayerAvatar.Entity;
+                        //Global.GameState.Character.Reload();
 
-                        Global.Camera.SetCamera(Component.CameraOffset.X, component.CameraOffset.Y);
+                        //Global.Camera.SetCamera(Component.CameraOffset.X, component.CameraOffset.Y);
 
-                        Global.GameState.Map = new Dungeon.Map.GameMap();
-                        Global.GameState.Map.LoadRegion(data.Map);
+                        //Global.GameState.Map = new Dungeon12.Map.GameMap();
+                        //Global.GameState.Map.LoadRegion(data.Map);
 
 
-                        var regionMap = new GameMap();
-                        regionMap.LoadRegion(data.Region, true);
-                        Global.GameState.Region = regionMap;
+                        //var regionMap = new GameMap();
+                        //regionMap.LoadRegion(data.Region, true);
+                        //Global.GameState.Region = regionMap;
 
                         switchMain?.Invoke();
                     }
@@ -146,7 +148,7 @@ namespace Dungeon12.SceneObjects.SaveLoad
 
         private void Delete()
         {
-            Dungeon.Data.Database.RemoveSavedGame(this.Component.Id);
+            Global.RemoveSavedGame(this.Component.Id);
             this.Destroy?.Invoke();
             _saveLoadWindow.ReDraw();
         }

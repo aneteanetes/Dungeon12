@@ -2,7 +2,7 @@
 {
     using Dungeon.Drawing;
     using Dungeon.Drawing.Impl;
-    using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using System.Collections.Generic;
 
     public class TreeStreetLightSceneObject : EmptySceneObject
@@ -50,7 +50,7 @@
                     }
                 };
 
-                Dungeon.Global.Time
+                Dungeon12.Global.Time
                     .After(18).Do(() => Light.Range = 1)
                     .After(19).Do(() => Light.Range = 1.25f)
                     .After(20).Do(() => Light.Range = 1.5f)

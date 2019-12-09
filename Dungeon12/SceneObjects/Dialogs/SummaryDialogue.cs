@@ -2,8 +2,8 @@
 {
     using Dungeon;
     using Dungeon.Drawing;
-    using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.SceneObjects;
+    using Dungeon12.Drawing.SceneObjects.UI;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using System;
 
     public class SummaryDialogue : VerticalWindow

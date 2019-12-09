@@ -1,6 +1,6 @@
-﻿using Dungeon.Drawing.SceneObjects.Map;
-using Dungeon.Map;
-using Dungeon.Map.Objects;
+﻿using Dungeon12.Drawing.SceneObjects.Map;
+using Dungeon12.Map;
+using Dungeon12.Map.Objects;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using Dungeon12.Drawing.SceneObjects.Effects;
@@ -14,7 +14,7 @@ namespace Dungeon12.SceneObjects
     {
         public Player(Avatar player, Action<ISceneObject> destroyBinding) : base(player, destroyBinding)
         {
-            Dungeon.Global.Time
+            Dungeon12.Global.Time
                 .After(8)
                 .Do(() => RemoveTorchlight())
                 .Auto();
@@ -25,7 +25,7 @@ namespace Dungeon12.SceneObjects
 
         public void Torchlight()
         {
-            if (!torch && (Dungeon.Global.Time.Hours > 17 || Dungeon.Global.Time.Hours < 8))
+            if (!torch && (Dungeon12.Global.Time.Hours > 17 || Dungeon12.Global.Time.Hours < 8))
             {
                 AddTorchlight();
             }

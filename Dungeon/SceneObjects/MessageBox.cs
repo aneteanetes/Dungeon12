@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Dungeon.Control.Keys;
+﻿using Dungeon.Control.Keys;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects.Base;
-using Dungeon.Scenes;
 using Dungeon.View.Interfaces;
+using System;
 
 namespace Dungeon.SceneObjects
 {
@@ -42,7 +39,7 @@ namespace Dungeon.SceneObjects
 
             this.Destroy += () =>
             {
-                Global.Freezer.World = null;
+                DungeonGlobal.Freezer.World = null;
             };
         }
 
@@ -76,7 +73,7 @@ namespace Dungeon.SceneObjects
                 }
                 else
                 {
-                    Global.SceneManager.Start("FATAL");
+                    DungeonGlobal.SceneManager.Start("FATAL");
                 }
             }
 
@@ -85,8 +82,8 @@ namespace Dungeon.SceneObjects
         public static MessageBox Show(string text, Action ok)
         {
             var msgBox = new MessageBox(text,ok);
-            Global.Freezer.World = msgBox;
-            Global.SceneManager.CurrentScene.ShowEffectsBinding(msgBox.InList<ISceneObject>());
+            DungeonGlobal.Freezer.World = msgBox;
+            DungeonGlobal.SceneManager.CurrentScene.ShowEffectsBinding(msgBox.InList<ISceneObject>());
             return msgBox;
         }
     }

@@ -1,15 +1,15 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 {
     using Dungeon;
-    using Dungeon.Abilities;
-    using Dungeon.Classes;
+    using Dungeon12.Abilities;
+    using Dungeon12.Classes;
     using Dungeon.Control;
     using Dungeon.Control.Keys;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Drawing.SceneObjects.Map;
-    using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.SceneObjects;
+    using Dungeon12.Drawing.SceneObjects.Map;
+    using Dungeon12.Drawing.SceneObjects.UI;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
@@ -39,10 +39,10 @@
 
             var abils = playerSceneObject.GetAbilities();
 
-            var left = abils.FirstOrDefault(x => x.AbilityPosition == Dungeon.Abilities.Enums.AbilityPosition.Left);
-            var right = abils.FirstOrDefault(x => x.AbilityPosition == Dungeon.Abilities.Enums.AbilityPosition.Right);
-            var q = abils.FirstOrDefault(x => x.AbilityPosition == Dungeon.Abilities.Enums.AbilityPosition.Q);
-            var e = abils.FirstOrDefault(x => x.AbilityPosition == Dungeon.Abilities.Enums.AbilityPosition.E);
+            var left = abils.FirstOrDefault(x => x.AbilityPosition == Dungeon12.Abilities.Enums.AbilityPosition.Left);
+            var right = abils.FirstOrDefault(x => x.AbilityPosition == Dungeon12.Abilities.Enums.AbilityPosition.Right);
+            var q = abils.FirstOrDefault(x => x.AbilityPosition == Dungeon12.Abilities.Enums.AbilityPosition.Q);
+            var e = abils.FirstOrDefault(x => x.AbilityPosition == Dungeon12.Abilities.Enums.AbilityPosition.E);
 
             this.AddChild(new SkillButton(left, OpenSkillInfo, true));
             this.AddChild(new SkillButton(right, OpenSkillInfo)
@@ -114,7 +114,7 @@
                 this.AddChild(new DarkRectangle() { Color = ConsoleColor.White, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.05, Top = top - 0.25 });
 
                 string cost;
-                if (ability.CastType== Dungeon.Abilities.Enums.AbilityCastType.Passive)
+                if (ability.CastType== Dungeon12.Abilities.Enums.AbilityCastType.Passive)
                 {
                     cost= "-";
                 }

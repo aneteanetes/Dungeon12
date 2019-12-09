@@ -1,10 +1,10 @@
 ﻿namespace Dungeon12.Races.Perks
 {
-    using Dungeon.Classes;
+    using Dungeon12.Classes;
     using Dungeon.Data;
-    using Dungeon.Data.Perks;
+    using Dungeon12.Data.Perks;
     using Dungeon.Drawing;
-    using Dungeon.Entities.Alive;
+    using Dungeon12.Entities.Alive;
     using FastMember;
     using System;
     using System.Collections.Generic;
@@ -26,7 +26,7 @@
 
         public void Apply(Character player)
         {
-            var perk = Database.Entity<ValuePerk>(x => x.Identity == player.Race.ToString())
+            var perk = Dungeon.Store.Entity<ValuePerk>(x => x.Identity == player.Race.ToString())
                 .First();
 
             this._icon = perk.Icon;
@@ -45,7 +45,7 @@
 
         public void Descard(Character player)
         {
-            var perk = Database.Entity<ValuePerk>(x => x.Identity == player.Race.ToString())
+            var perk = Dungeon.Store.Entity<ValuePerk>(x => x.Identity == player.Race.ToString())
                 .First();
 
             this.Modify(player, false, perk.Effects);

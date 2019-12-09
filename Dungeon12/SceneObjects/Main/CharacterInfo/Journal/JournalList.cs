@@ -1,10 +1,10 @@
-﻿using Dungeon.Drawing.SceneObjects.Map;
+﻿using Dungeon12.Drawing.SceneObjects.Map;
 using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants;
 using System.Collections.Generic;
 using Dungeon;
-using Dungeon12.SceneObjects;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using System;
-using Dungeon.SceneObjects;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon.Drawing;
 using Dungeon12.Entities.Quests;
 

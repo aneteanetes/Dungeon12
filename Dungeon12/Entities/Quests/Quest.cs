@@ -1,10 +1,10 @@
 ﻿using Dungeon;
 using Dungeon.Entities;
-using Dungeon.Entities.Alive.Proxies;
-using Dungeon.Game;
-using Dungeon.Map;
+using Dungeon12.Entities.Alive.Proxies;
+using Dungeon12.Game;
+using Dungeon12.Map;
 using Dungeon.Network;
-using Dungeon.SceneObjects;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.Database.Quests;
 using Dungeon12.SceneObjects.UI;
@@ -23,7 +23,7 @@ namespace Dungeon12.Entities.Quests
         /// [Рассчётное через сеть]
         /// </para>
         /// </summary>
-        [Proxied(typeof(NetProxy),typeof(Limit))]
+        [Dungeon.Proxied(typeof(NetProxy),typeof(Limit))]
         public long Progress { get => Get(___Progress, typeof(Quest<>).AssemblyQualifiedName); set => Set(value, typeof(Quest<>).AssemblyQualifiedName); }
         private long ___Progress;
 
@@ -34,7 +34,7 @@ namespace Dungeon12.Entities.Quests
         /// [Рассчётное через сеть]
         /// </para>
         /// </summary>
-        [Proxied(typeof(NetProxy))]
+        [Dungeon.Proxied(typeof(NetProxy))]
         public long MaxProgress { get => Get(___MaxProgress, typeof(Quest<>).AssemblyQualifiedName); set => Set(value, typeof(Quest<>).AssemblyQualifiedName); }
         private long ___MaxProgress;
 
@@ -82,7 +82,7 @@ namespace Dungeon12.Entities.Quests
             }
         }
 
-        public override ISceneObject Visual(GameState gameState)
+        public override ISceneObject Visual()
         {
             return new QuestDescoverSceneObject(this, true);
         }

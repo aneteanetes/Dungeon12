@@ -1,6 +1,6 @@
 ﻿using Dungeon;
-using Dungeon.Items;
-using Dungeon.Loot;
+using Dungeon12.Items;
+using Dungeon12.Loot;
 using Dungeon12.Entities.Items;
 using System.Linq;
 
@@ -10,7 +10,7 @@ namespace Dungeon12.Loot
     {
         public override Item Generate()
         {
-            var questItem = Dungeon.Data.Database.EntitySingle<Item>(typeof(QuestItem).AssemblyQualifiedName, Arguments[0]);
+            var questItem = Dungeon.Store.EntitySingle<Item>(typeof(QuestItem).AssemblyQualifiedName, Arguments[0]);
 
             if (int.TryParse(Arguments.ElementAtOrDefault(1), out var limit))
             {

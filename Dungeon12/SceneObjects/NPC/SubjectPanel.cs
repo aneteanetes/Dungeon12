@@ -4,12 +4,12 @@ namespace Dungeon12.SceneObjects.NPC
 {
     using Dungeon.Control;
     using Dungeon.Control.Keys;
-    using Dungeon.Conversations;
+    using Dungeon12.Conversations;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Map.Objects;
-    using Dungeon.SceneObjects;
-    using Dungeon.SceneObjects.Base;
+    using Dungeon12.Map.Objects;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon.SceneObjects.Base; using Dungeon12.SceneObjects.Base;
     using Dungeon12.Drawing.SceneObjects;
     using System;
     using System.Linq;

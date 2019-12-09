@@ -2,20 +2,20 @@
 {
     using Dungeon;
     using Dungeon.Control.Keys;
-    using Dungeon.Data.Region;
+    using Dungeon12.Data.Region;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Map.Objects;
+    using Dungeon12.Map.Objects;
     using Dungeon.Physics;
     using Dungeon.Resources;
-    using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
     using Dungeon12.CardGame.Scene;
     using Dungeon12.Drawing.SceneObjects;
     using Dungeon12.Map.Editor;
     using Dungeon12.Races.Perks;
-    using Dungeon12.SceneObjects;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using Dungeon12.Scenes.Game;
     using Dungeon12.Scenes.SaveLoad;
     using Newtonsoft.Json;
@@ -42,7 +42,7 @@
             var data = ResourceLoader.Load("Data/Regions/map.json".AsmNameRes());
             var json = data.Stream.AsString();
 
-            var settings = Dungeon.Data.Database.GetSaveSerializeSettings();
+            var settings = Global.GetSaveSerializeSettings();
 
             var r = JsonConvert.DeserializeObject<Region>(json, settings);
             var textures = r.Objects.Where(x => !x.Obstruct).Select(x =>
@@ -114,7 +114,7 @@
                             {
                                 Global.RemoveSaveInMemmory();
                                 this.ClearState();
-                                Global.GameState = new Dungeon.Game.GameState();
+                                Global.GameState = new Dungeon12.Game.GameState();
                                 SceneManager.Destroy<Main>();
                                 this.Switch<Start>();
                             }
@@ -140,7 +140,7 @@
 
                     //this.PlayerAvatar = new Avatar(new Dungeon12.Noone.Noone()
                     //{
-                    //    Origin = Dungeon.Entities.Alive.Enums.Origins.Adventurer
+                    //    Origin = Dungeon12.Entities.Alive.Enums.Origins.Adventurer
                     //});
                     //this.PlayerAvatar.Character.Name = "Ваш персонаж";
 

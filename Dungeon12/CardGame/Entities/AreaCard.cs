@@ -1,6 +1,6 @@
 ﻿using Dungeon;
 using Dungeon.Entities;
-using Dungeon.Map;
+using Dungeon12.Map;
 using Dungeon.Network;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Dungeon12.CardGame.Entities
         /// [Рассчётное через сеть]
         /// </para>
         /// </summary>
-        [Proxied(typeof(NetProxy))]
+        [Dungeon.Proxied(typeof(NetProxy))]
         public int Rounds { get => Get(___Rounds, typeof(AreaCard).AssemblyQualifiedName); set => Set(value, typeof(AreaCard).AssemblyQualifiedName); }
         private int ___Rounds;
 

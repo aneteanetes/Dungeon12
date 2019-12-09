@@ -2,14 +2,14 @@
 {
     using Dungeon.Control.Keys;
     using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo;
-    using Dungeon.Drawing.SceneObjects.Map;
-    using Dungeon.Map;
+    using Dungeon12.Drawing.SceneObjects.Map;
+    using Dungeon12.Map;
     using Dungeon.View.Interfaces;
     using System;
     using Dungeon;
     using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
-    using Dungeon12.SceneObjects;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using Dungeon.Control;
     using Dungeon12.Entities.Quests;
     using Dungeon.Scenes.Manager;

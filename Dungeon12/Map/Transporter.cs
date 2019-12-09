@@ -1,10 +1,10 @@
 ﻿using Dungeon;
 using Dungeon.Data.Attributes;
-using Dungeon.Data.Region;
-using Dungeon.Game;
-using Dungeon.Map;
-using Dungeon.Map.Infrastructure;
-using Dungeon.Map.Objects;
+using Dungeon12.Data.Region;
+using Dungeon12.Game;
+using Dungeon12.Map;
+using Dungeon12.Map.Infrastructure;
+using Dungeon12.Map.Objects;
 using Dungeon.Scenes.Manager;
 using Dungeon.View.Interfaces;
 using Dungeon12.Data;
@@ -30,7 +30,7 @@ namespace Dungeon12.Map
             this.Data = regionPart.As<TransporterData>();
         }
 
-        public override ISceneObject Visual(GameState gameState)
+        public override ISceneObject Visual()
         {
             return new TransporterSceneObject(Global.GameState.Player, this);
         }

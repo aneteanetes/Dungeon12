@@ -1,7 +1,7 @@
 ﻿namespace Dungeon12.Map.Editor.Objects
 {
     using Newtonsoft.Json;
-    using Dungeon.Data.Region;
+    using Dungeon12.Data.Region;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;

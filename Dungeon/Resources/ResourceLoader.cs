@@ -36,12 +36,12 @@ namespace Dungeon.Resources
             var stream = assembly.GetManifestResourceStream(resourceName);
             if (stream == default)
             {
-                stream = Global.GameAssembly.GetManifestResourceStream(resourceName);
+                stream = DungeonGlobal.GameAssembly.GetManifestResourceStream(resourceName);
             }
 
             if (stream == default)
             {
-                foreach (var asm in Global.Assemblies)
+                foreach (var asm in DungeonGlobal.Assemblies)
                 {
                     stream = asm.GetManifestResourceStream(resourceName);
                     if (stream != default)
@@ -100,10 +100,10 @@ namespace Dungeon.Resources
             if (string.IsNullOrWhiteSpace(className))
                 return default;
 
-            var type = TryGetFromAssembly(className, Global.GameAssembly);
+            var type = TryGetFromAssembly(className, DungeonGlobal.GameAssembly);
             if (type == default)
             {
-                foreach (var asm in Global.Assemblies)
+                foreach (var asm in DungeonGlobal.Assemblies)
                 {
                     type = TryGetFromAssembly(className, asm);
                     if (type != default)

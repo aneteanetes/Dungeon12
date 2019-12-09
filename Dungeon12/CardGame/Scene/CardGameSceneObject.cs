@@ -1,6 +1,6 @@
 ﻿using Dungeon;
-using Dungeon.Drawing.SceneObjects.UI;
-using Dungeon.SceneObjects;
+using Dungeon12.Drawing.SceneObjects.UI;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.CardGame.Engine;
 using Dungeon12.CardGame.SceneObjects;

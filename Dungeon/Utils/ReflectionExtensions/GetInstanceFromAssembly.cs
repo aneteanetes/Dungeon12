@@ -138,7 +138,7 @@
         public static object GetType(string typeName)
         {
             Type type = null;
-            foreach (var asm in Global.Assemblies)
+            foreach (var asm in DungeonGlobal.Assemblies)
             {
                 type = asm?.GetTypes().FirstOrDefault(x => x.Name == typeName);
                 if (type != default)

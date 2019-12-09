@@ -1,8 +1,8 @@
 ﻿using Dungeon;
 using Dungeon.Data.Attributes;
-using Dungeon.Data.Region;
-using Dungeon.Map;
-using Dungeon.Map.Infrastructure;
+using Dungeon12.Data.Region;
+using Dungeon12.Map;
+using Dungeon12.Map.Infrastructure;
 using Dungeon.Physics;
 using Dungeon.Types;
 using Dungeon12.Database.Respawn;

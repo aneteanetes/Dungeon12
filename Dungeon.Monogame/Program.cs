@@ -1,5 +1,6 @@
 ﻿using Dungeon.Data;
 using Dungeon.Resources;
+using Dungeon12;
 using System;
 using System.Diagnostics;
 
@@ -10,15 +11,16 @@ namespace Dungeon.Monogame
         [STAThread]
         static void Main()
         {
+            new Global();
             Console.WriteLine(Global.Version);
 #if DEBUG
             Global.ExceptionRethrow = true;
             //Global.GlobalExceptionHandling();
             ResourceLoader.NotDisposingResources = true;
             ResourceLoader.CacheImagesAndMasks = false;
-            Database.Init();
+            Store.Init(Global.GetSaveSerializeSettings());
 #endif      
-            Database.LoadAllAssemblies();
+            Store.LoadAllAssemblies();
 
             Run();
         }

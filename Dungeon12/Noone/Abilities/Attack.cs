@@ -1,18 +1,18 @@
 ﻿namespace Dungeon12.Noone.Abilities
 {
-    using Dungeon.Abilities;
-    using Dungeon.Abilities.Enums;
-    using Dungeon.Abilities.Scaling;
+    using Dungeon12.Abilities;
+    using Dungeon12.Abilities.Enums;
+    using Dungeon12.Abilities.Scaling;
     using Dungeon12.Noone.Talants;
-    using Dungeon.SceneObjects;
-    using Dungeon.Map;
-    using Dungeon.Map.Objects;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon12.Map;
+    using Dungeon12.Map.Objects;
     using Dungeon.Physics;
     using Dungeon.View.Interfaces;
     using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
     using System.Linq;
-    using Dungeon.Entities.Alive;
+    using Dungeon12.Entities.Alive;
     using Dungeon12.Map.Objects;
 
     public class Attack : Ability<Noone,AbsorbingTalants>
@@ -29,7 +29,7 @@
 
         public override Cooldown Cooldown { get; } = new Cooldown(500, AttackCooldown);
 
-        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entities.Enums.Scale.AbilityPower, 0.1);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AbilityPower, 0.1);
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Left;
 
@@ -53,7 +53,7 @@
                 @class.Actions -= 1;
                 var value = (long)this.Value;
 
-                enemy.Entity.Damage(@class, new Dungeon.Entities.Alive.Damage()
+                enemy.Entity.Damage(@class, new Dungeon12.Entities.Alive.Damage()
                 {
                     Amount=value,
                     Type = DamageType.Physical

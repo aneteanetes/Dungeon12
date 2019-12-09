@@ -1,7 +1,7 @@
 ﻿using Dungeon.Control.Keys;
 using Dungeon.Drawing;
-using Dungeon.Drawing.SceneObjects.Map;
-using Dungeon.Drawing.SceneObjects.UI;
+using Dungeon12.Drawing.SceneObjects.Map;
+using Dungeon12.Drawing.SceneObjects.UI;
 using Dungeon.Events;
 using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants;
 using MoreLinq;

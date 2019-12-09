@@ -1,7 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Drawing.SceneObjects;
-using Dungeon.Drawing.SceneObjects.Map;
-using Dungeon.SceneObjects;
+using Dungeon12.Drawing.SceneObjects.Map;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon12.Entities.Quests;
 using System;
 using System.Collections.Generic;

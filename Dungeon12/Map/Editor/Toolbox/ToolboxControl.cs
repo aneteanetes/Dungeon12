@@ -3,8 +3,9 @@
     using Dungeon;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using System;
+    using Dungeon12.Drawing.SceneObjects;
 
     public class ToolboxControl : DarkRectangle
     {

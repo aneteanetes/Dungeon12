@@ -1,11 +1,11 @@
 ﻿namespace Dungeon12.Noone.Abilities
 {
-    using Dungeon.Abilities;
-    using Dungeon.Abilities.Enums;
-    using Dungeon.Abilities.Scaling;
+    using Dungeon12.Abilities;
+    using Dungeon12.Abilities.Enums;
+    using Dungeon12.Abilities.Scaling;
     using Dungeon12.Noone.Talants.Defensible;
-    using Dungeon.Map;
-    using Dungeon.Map.Objects;
+    using Dungeon12.Map;
+    using Dungeon12.Map.Objects;
     using Dungeon.Transactions;
     using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 
@@ -19,7 +19,7 @@
 
         public override string Name => "Защитная стойка";
 
-        public override ScaleRate Scale => ScaleRate.Build(Dungeon.Entities.Enums.Scale.AbilityPower, 0.1);
+        public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AbilityPower, 0.1);
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Right;
 

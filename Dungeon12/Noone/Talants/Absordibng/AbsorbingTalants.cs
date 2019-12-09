@@ -1,4 +1,4 @@
-﻿using Dungeon.Abilities.Talants;
+﻿using Dungeon12.Abilities.Talants;
 using Dungeon12.Noone.Abilities;
 using Dungeon12.Noone.Talants.Absordibng;
 using System;

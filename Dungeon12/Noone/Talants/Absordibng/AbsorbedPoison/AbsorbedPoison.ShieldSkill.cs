@@ -1,9 +1,9 @@
 ﻿using Dungeon;
-using Dungeon.Abilities;
-using Dungeon.Abilities.Talants;
-using Dungeon.Map;
-using Dungeon.Map.Objects;
-using Dungeon.SceneObjects;
+using Dungeon12.Abilities;
+using Dungeon12.Abilities.Talants;
+using Dungeon12.Map;
+using Dungeon12.Map.Objects;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon.Transactions;
 using Dungeon.View.Interfaces;
 using Dungeon12.Map.Objects;
@@ -46,7 +46,7 @@ namespace Dungeon12.Noone.Talants.Absordibng
                 var debuff = new PoisonDebuffPoisonShield(value * 2, elementalShield, Avatar);
                 enemy.AddState(debuff);
 
-                Dungeon.Global.Time
+                Dungeon12.Global.Time
                     .Timer(nameof(PoisonDebuffPoisonShield))
                     .After(value * 1000)
                     .Do(() => enemy.RemoveState(debuff))
@@ -86,7 +86,7 @@ namespace Dungeon12.Noone.Talants.Absordibng
             public void Apply(NPCMap enemy)
             {
                 avatar.Character.Barrier += value;
-                timer = Dungeon.Global.Time
+                timer = Dungeon12.Global.Time
                     .Timer(nameof(PoisonDebuffPoisonShield) + enemy.Uid)
                     .After(1000)
                     .Do(() => DOT(enemy))

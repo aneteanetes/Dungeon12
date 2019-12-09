@@ -1,18 +1,14 @@
-﻿using Dungeon;
-using Dungeon.Drawing.SceneObjects.Dialogs.NPC;
-
-namespace Dungeon12.SceneObjects.NPC
+﻿namespace Dungeon12.SceneObjects.NPC
 {
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Drawing.SceneObjects.Map;
     using Dungeon.Entities.Animations;
-    using Dungeon.GameObjects;
-    using Dungeon.Map;
     using Dungeon.SceneObjects;
-    using Dungeon.SceneObjects.Base;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects;
+    using Dungeon12.Drawing.SceneObjects.Dialogs.NPC;
+    using Dungeon12.Drawing.SceneObjects.Map;
+    using Dungeon12.Map;
     using System;
     using System.Linq;
 
@@ -26,7 +22,7 @@ namespace Dungeon12.SceneObjects.NPC
         private AnswerPanel answerPanel;
         private PlayerSceneObject _playerSceneObject;
 
-        public NPCDialogue(PlayerSceneObject playerSceneObject, Dungeon.Map.Objects.Сonversational conversational, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding, GameMap gameMap, MetallButtonControl customizeExit)
+        public NPCDialogue(PlayerSceneObject playerSceneObject, Dungeon12.Map.Objects.Сonversational conversational, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding, GameMap gameMap, MetallButtonControl customizeExit)
         {
             Global.Freezer.World = this;
 

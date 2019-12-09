@@ -1,5 +1,5 @@
 ﻿using Dungeon;
-using Dungeon.Entities.Alive.Events;
+using Dungeon12.Entities.Alive.Events;
 using Dungeon.Types;
 using Dungeon12.Database.QuestsKill;
 using System.Collections.Generic;

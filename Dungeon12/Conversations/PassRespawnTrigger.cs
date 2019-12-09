@@ -1,5 +1,5 @@
 ﻿using Dungeon;
-using Dungeon.Map;
+using Dungeon12.Map;
 using Dungeon12.Database.Respawn;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace Dungeon12.Conversations
         {
             var respawnId = arg1[2];
 
-            var respData = Dungeon.Data.Database.EntitySingle<RespawnData>(respawnId);
+            var respData = Dungeon.Store.EntitySingle<RespawnData>(respawnId);
 
             var resp = MapObject.Create(respData);
 

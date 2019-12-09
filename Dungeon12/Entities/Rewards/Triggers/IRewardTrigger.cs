@@ -1,5 +1,5 @@
 ﻿using Dungeon;
-using Dungeon.Map;
+using Dungeon12.Map;
 using Dungeon.View.Interfaces;
 using Dungeon12.Entities.Quests;
 using System;

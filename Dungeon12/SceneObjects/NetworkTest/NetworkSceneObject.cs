@@ -1,7 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Drawing;
-using Dungeon.Entities.Alive;
-using Dungeon.SceneObjects;
+using Dungeon12.Entities.Alive;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 
 namespace Dungeon12.Drawing.SceneObjects.NetworkTest

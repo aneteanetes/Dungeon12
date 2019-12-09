@@ -1,8 +1,8 @@
 ﻿using Dungeon;
-using Dungeon.Classes;
-using Dungeon.Inventory;
-using Dungeon.Items;
-using Dungeon.Loot;
+using Dungeon12.Classes;
+using Dungeon12.Inventory;
+using Dungeon12.Items;
+using Dungeon12.Loot;
 using Dungeon.Types;
 using Dungeon12.Database.QuestCollect;
 using System.Collections.Generic;
@@ -26,7 +26,7 @@ namespace Dungeon12.Entities.Quests
 
             dataClass.LootDropsIdentify.ForEach(x =>
             {
-                var lootDrop = Dungeon.Data.Database.Entity<LootDrop>(drop => drop.IdentifyName == x).FirstOrDefault();
+                var lootDrop = Dungeon.Data.Dungeon.Store.Entity<LootDrop>(drop => drop.IdentifyName == x).FirstOrDefault();
                 LootDrops.Add(lootDrop);
                 LootTable.GetLootTable(lootDrop.LootTableIdentify).LootDrops.Add(lootDrop);
             });
@@ -55,7 +55,7 @@ namespace Dungeon12.Entities.Quests
         {
             var entity = new CollectQuest();
 
-            var dataClass = Dungeon.Data.Database.Entity<QuestCollectData>(x => x.IdentifyName == id, id).FirstOrDefault();
+            var dataClass = Dungeon.Data.Dungeon.Store.Entity<QuestCollectData>(x => x.IdentifyName == id, id).FirstOrDefault();
             if (dataClass != default)
             {
                 entity.Init(dataClass);

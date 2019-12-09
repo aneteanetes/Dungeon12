@@ -24,9 +24,9 @@ namespace Dungeon.Network
         {
             Console.WriteLine(instance);
 
-            Global.Events.Subscribe<CreateNetworkServerEvent, Network>(StartSever);
-            Global.Events.Subscribe<ConnectNetworkServerEvent, Network>(StartClient);
-            Global.Events.Subscribe<NetworkSendEvent, Network>(Send);
+            DungeonGlobal.Events.Subscribe<CreateNetworkServerEvent, Network>(StartSever);
+            DungeonGlobal.Events.Subscribe<ConnectNetworkServerEvent, Network>(StartClient);
+            DungeonGlobal.Events.Subscribe<NetworkSendEvent, Network>(Send);
         }
 
         //private readonly MessagePackSerializer serializer = MessagePackSerializer.Get<NetworkMessage>();
@@ -74,7 +74,7 @@ namespace Dungeon.Network
 
         private void Get(NetworkMessage networkMessage)
         {
-            Global.Events.Raise(new NetworkReciveEvent() { Message = networkMessage.Data, Sender = networkMessage.Recipient }, networkMessage.Recipient);
+            DungeonGlobal.Events.Raise(new NetworkReciveEvent() { Message = networkMessage.Data, Sender = networkMessage.Recipient }, networkMessage.Recipient);
         }
 
         private void Send(object data, string[] args)

@@ -1,5 +1,5 @@
 ﻿using Dungeon.Data;
-using Dungeon.Loot;
+using Dungeon12.Loot;
 using Dungeon12.Database.Quests;
 using System;
 using System.Collections.Generic;

@@ -3,7 +3,7 @@
     using Dungeon;
     using Dungeon.Control;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using System;
 
     public class TileSelector : EmptyHandleSceneControl

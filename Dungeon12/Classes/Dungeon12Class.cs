@@ -1,6 +1,6 @@
 ﻿using Dungeon;
-using Dungeon.Classes;
-using Dungeon.Entities.Fractions;
+using Dungeon12.Classes;
+using Dungeon12.Entities.Fractions;
 using Dungeon12.CardGame.Engine;
 using Dungeon12.Entites.Journal;
 using Dungeon12.Entities.Quests;
@@ -13,7 +13,7 @@ namespace Dungeon12
     {
         public virtual int InitialHP => 100;
 
-        public override string Avatar => GetType().Name.AsmImgRes();
+        public override string Avatar => this.GetType().Name.AsmImgRes();
                
         public Journal Journal { get; set; } = new Journal();
 

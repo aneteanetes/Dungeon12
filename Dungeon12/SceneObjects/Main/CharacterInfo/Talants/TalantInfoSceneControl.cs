@@ -1,13 +1,13 @@
 ﻿using Dungeon;
-using Dungeon.Abilities.Talants.NotAPI;
-using Dungeon.Classes;
+using Dungeon12.Abilities.Talants.NotAPI;
+using Dungeon12.Classes;
 using Dungeon.Control;
 using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
-using Dungeon.Drawing.SceneObjects.Map;
+using Dungeon12.Drawing.SceneObjects.Map;
 using Dungeon.Events;
 using Dungeon.GameObjects;
-using Dungeon.SceneObjects;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using System;

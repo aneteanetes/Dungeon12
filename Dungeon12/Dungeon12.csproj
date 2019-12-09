@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Database\Quests\Data\" />
+    <Folder Include="Data\" />
     <Folder Include="Noone\Resources\Images\Stats\" />
     <Folder Include="Resources\Data\Regions\" />
     <Folder Include="Resources\Images\Cards\Areas\" />

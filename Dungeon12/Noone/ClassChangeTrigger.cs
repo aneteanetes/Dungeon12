@@ -1,13 +1,14 @@
 ﻿using Dungeon;
-using Dungeon.Abilities;
-using Dungeon.Classes;
-using Dungeon.Conversations;
+using Dungeon12.Abilities;
+using Dungeon12.Classes;
+using Dungeon12.Conversations;
 using Dungeon.Drawing;
-using Dungeon.Drawing.SceneObjects.Map;
+using Dungeon12.Drawing.SceneObjects.Map;
 using Dungeon.Events;
-using Dungeon.Map;
+using Dungeon12.Map;
 using Dungeon.View.Interfaces;
 using System.Linq;
+using Dungeon12.Events;
 
 namespace Dungeon12
 {
@@ -29,7 +30,7 @@ namespace Dungeon12
 
             //отключаем все пассивные способности
             from.PropertiesOfType<Ability>()
-                .Where(a => a.CastType == Dungeon.Abilities.Enums.AbilityCastType.Passive)
+                .Where(a => a.CastType == Dungeon12.Abilities.Enums.AbilityCastType.Passive)
                 .ToList()
                 .ForEach(a => a.Release(Gamemap, SceneObject.Avatar));
 

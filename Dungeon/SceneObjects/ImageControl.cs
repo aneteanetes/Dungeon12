@@ -1,7 +1,5 @@
-﻿
-namespace Dungeon.Drawing.SceneObjects
+﻿namespace Dungeon.Drawing.SceneObjects
 {
-    using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.SceneObjects;
 
     /// <summary>

@@ -1,16 +1,17 @@
-﻿namespace Dungeon.Drawing.SceneObjects.Map
+﻿namespace Dungeon12.Drawing.SceneObjects.Map
 {
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
-    using Dungeon.Entities.Fractions;
-    using Dungeon.Map;
-    using Dungeon.Map.Objects;
+    using Dungeon12.Entities.Fractions;
+    using Dungeon12.Map;
+    using Dungeon12.Map.Objects;
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects;
     using Dungeon12.Drawing.SceneObjects.Dialogs.Shop;
     using Dungeon12.Map.Objects;
     using Dungeon12.SceneObjects.NPC;
     using System.Linq;
+    using Dungeon;
 
     public class HomeSceneObject : ClickActionSceneObject<Home>
     {

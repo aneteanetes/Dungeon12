@@ -4,7 +4,7 @@
     using Dungeon.Control;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Entities.Alive.Enums;
+    using Dungeon12.Entities.Alive.Enums;
     using Dungeon.GameObjects;
     using System;
 

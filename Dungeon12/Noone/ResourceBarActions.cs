@@ -2,7 +2,7 @@
 {
     using Dungeon;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Drawing.SceneObjects.UI;
+    using Dungeon12.Drawing.SceneObjects.UI;
     using Dungeon12.Noone;
     using System.Linq;
 

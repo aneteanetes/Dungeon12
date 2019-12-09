@@ -1,8 +1,8 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Inventories
 {
-    using Dungeon.SceneObjects;
-    using Dungeon.Items;
-    using Dungeon.Items.Enums;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon12.Items;
+    using Dungeon12.Items.Enums;
     using Dungeon.Types;
     using System.Collections.Generic;
     using System.Linq;

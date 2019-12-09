@@ -2,13 +2,13 @@
 {
     using Dungeon.Data;
     using Dungeon.Data.Attributes;
-    using Dungeon.Data.Region;
-    using Dungeon.Drawing.SceneObjects.Map;
-    using Dungeon.Entities.Fractions;
-    using Dungeon.Game;
-    using Dungeon.Map;
-    using Dungeon.Map.Infrastructure;
-    using Dungeon.Map.Objects;
+    using Dungeon12.Data.Region;
+    using Dungeon12.Drawing.SceneObjects.Map;
+    using Dungeon12.Entities.Fractions;
+    using Dungeon12.Game;
+    using Dungeon12.Map;
+    using Dungeon12.Map.Infrastructure;
+    using Dungeon12.Map.Objects;
     using Dungeon.Physics;
     using Dungeon.View.Interfaces;
     using Dungeon12.Data.Homes;
@@ -24,16 +24,16 @@
 
         public override bool Obstruction => true;
 
-        public override ISceneObject Visual(GameState gameState)
+        public override ISceneObject Visual()
         {
-            return new HomeSceneObject(gameState.Player, this, this.Name, gameState.Map);
+            return new HomeSceneObject(Global.GameState.Player, this, this.Name, Global.GameState.Map);
         }
 
         public Fraction Fraction { get; set; }
 
         protected override void Load(RegionPart homeData)
         {
-            var data = Database.Entity<HomeData>(x => x.IdentifyName == homeData.IdentifyName).FirstOrDefault();
+            var data = Dungeon.Store.Entity<HomeData>(x => x.IdentifyName == homeData.IdentifyName).FirstOrDefault();
 
             this.ScreenImage = data.ScreenImage;
             this.Frames = data.Frames;
@@ -52,7 +52,7 @@
 
             if (data.Merchant)
             {
-                this.Merchant = new Dungeon.Merchants.Merchant();
+                this.Merchant = new Dungeon12.Merchants.Merchant();
                 this.Merchant.FillBackpacks();
             }
             this.BuildConversations(data);

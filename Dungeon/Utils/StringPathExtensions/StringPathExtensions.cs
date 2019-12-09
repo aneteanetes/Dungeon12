@@ -13,13 +13,13 @@ namespace Dungeon
         /// <returns></returns>
         public static string Cache(this string imgPath)
         {
-            Global.DrawClient.CacheImage(imgPath);
+            DungeonGlobal.DrawClient.CacheImage(imgPath);
             return imgPath;
         }
 
         public static string Embedded(this string path) => path.Replace(@"\", ".").Replace(@"/", ".");
 
-        public static string PathImage(this string path) => Global.GameAssemblyName + ".Resources.Images." + path.Embedded();
+        public static string PathImage(this string path) => DungeonGlobal.GameAssemblyName + ".Resources.Images." + path.Embedded();
         
         public static string PathPng(this string path) => path + ".png";
 

@@ -1,17 +1,18 @@
-﻿namespace Dungeon.Drawing.SceneObjects.Dialogs.NPC
+﻿namespace Dungeon12.Drawing.SceneObjects.Dialogs.NPC
 {
     using Dungeon.Control;
     using Dungeon.Control.Keys;
-    using Dungeon.Conversations;
+    using Dungeon12.Conversations;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Drawing.SceneObjects.Map;
+    using Dungeon12.Drawing.SceneObjects.Map;
     using Dungeon.GameObjects;
-    using Dungeon.Map;
-    using Dungeon.SceneObjects;
+    using Dungeon12.Map;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Dungeon;
 
     public class AnswerPanel : EmptyHandleSceneControl
     {

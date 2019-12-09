@@ -1,6 +1,6 @@
-﻿using Dungeon.Classes;
+﻿using Dungeon12.Classes;
 using Dungeon.Data;
-using Dungeon.Map;
+using Dungeon12.Map;
 using Dungeon.View.Interfaces;
 using System;
 using System.Collections.Generic;

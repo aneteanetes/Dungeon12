@@ -26,7 +26,7 @@ namespace Dungeon.Transactions
         {
             if (Events)
             {
-                Global.Events.Subscribe(EventDispatch);
+                DungeonGlobal.Events.Subscribe(EventDispatch);
             }
         }
 
@@ -37,7 +37,7 @@ namespace Dungeon.Transactions
 
         public void UnsubscribeEvents()
         {
-            Global.Events.Unsubscribe(EventDispatch);
+            DungeonGlobal.Events.Unsubscribe(EventDispatch);
         }
 
         public virtual void OnEvent(object @object)

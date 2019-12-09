@@ -1,5 +1,5 @@
 ﻿using Dungeon.Control.Pointer;
-using Dungeon.Drawing.SceneObjects.Map;
+using Dungeon12.Drawing.SceneObjects.Map;
 using Dungeon12.Map.Objects;
 using System;
 using System.Collections.Generic;

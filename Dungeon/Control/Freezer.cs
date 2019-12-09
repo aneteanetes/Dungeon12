@@ -16,13 +16,13 @@ namespace Dungeon.Control
             {
                 if (value == null)
                 {
-                    Global.Time.Resume();
+                    DungeonGlobal.Time.Resume();
                     SceneManager.Current.Freezer = null;
                 }
                 else
                 {
                     SceneManager.Current.Freezer = value;
-                    Global.Time.Pause();
+                    DungeonGlobal.Time.Pause();
                 }
 
                 freezeWorldObject = value;

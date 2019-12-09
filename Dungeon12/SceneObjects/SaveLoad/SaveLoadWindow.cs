@@ -1,6 +1,6 @@
 ﻿using Dungeon;
-using Dungeon.SceneObjects;
-using Dungeon.SceneObjects.Base;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+using Dungeon.SceneObjects.Base; using Dungeon12.SceneObjects.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +52,7 @@ namespace Dungeon12.SceneObjects.SaveLoad
                 this.AddControlCenter(emptySaveSlot, false, false);
             }
 
-            Dungeon.Data.Database.SavedGames().ForEach((savedGame, i) =>
+            Global.SavedGames().ForEach((savedGame, i) =>
             {
                 var slot = new SaveLoadSlot(savedGame, _isSave, _switchMain, this)
                 {

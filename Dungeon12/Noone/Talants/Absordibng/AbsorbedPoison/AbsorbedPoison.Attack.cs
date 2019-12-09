@@ -1,6 +1,6 @@
 ﻿using Dungeon;
-using Dungeon.Abilities.Talants;
-using Dungeon.SceneObjects;
+using Dungeon12.Abilities.Talants;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using Dungeon12.Noone.Abilities;

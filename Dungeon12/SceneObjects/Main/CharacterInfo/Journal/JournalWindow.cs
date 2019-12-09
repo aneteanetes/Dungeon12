@@ -1,11 +1,11 @@
 ﻿using Dungeon;
 using Dungeon.Control.Keys;
-using Dungeon.Drawing.SceneObjects.Map;
-using Dungeon.Drawing.SceneObjects.UI;
+using Dungeon12.Drawing.SceneObjects.Map;
+using Dungeon12.Drawing.SceneObjects.UI;
 using Dungeon.Events;
 using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal;
 using Dungeon12.Entities.Quests;
-using Dungeon12.SceneObjects;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon12.SceneObjects.Main.CharacterInfo.Journal;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo

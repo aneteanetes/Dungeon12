@@ -1,5 +1,4 @@
 ﻿using Dungeon;
-using Dungeon.Control;
 using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;

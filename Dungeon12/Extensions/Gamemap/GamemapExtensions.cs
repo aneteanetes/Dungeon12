@@ -1,11 +1,11 @@
-﻿using Dungeon.Map;
+﻿using Dungeon12.Map;
 using Dungeon12.Map.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Dungeon
+namespace Dungeon12
 {
     public static class GamemapExtensions
     {

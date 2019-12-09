@@ -1,9 +1,9 @@
 ﻿using Dungeon;
-using Dungeon.Classes;
+using Dungeon12.Classes;
 
 namespace Dungeon12
 {
-    public abstract class Talant<TClass> : Dungeon.Abilities.Talants.Talant<TClass>
+    public abstract class Talant<TClass> : Dungeon12.Abilities.Talants.Talant<TClass>
         where TClass : Character
     {
         public Talant(int order) : base(order)

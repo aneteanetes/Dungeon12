@@ -2,10 +2,10 @@
 {
     using Force.DeepCloner;
     using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo;
-    using Dungeon.Drawing.SceneObjects.Map;
-    using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.Map;
-    using Dungeon.Map.Objects;
+    using Dungeon12.Drawing.SceneObjects.Map;
+    using Dungeon12.Drawing.SceneObjects.UI;
+    using Dungeon12.Map;
+    using Dungeon12.Map.Objects;
 
     public class InventoryDropItemMask : DropableControl<InventoryItem>
     {

@@ -5,7 +5,7 @@
     using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.GameObjects;
-    using Dungeon.SceneObjects.Base;
+    using Dungeon.SceneObjects.Base; using Dungeon12.SceneObjects.Base;
     using System;
     public class MetallButtonControl : ButtonControl<EmptyGameComponent>
     {

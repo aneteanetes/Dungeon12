@@ -14,7 +14,7 @@ namespace Dungeon12.CardGame.Entities
         /// [Рассчётное через сеть]
         /// </para>
         /// </summary>
-        [Proxied(typeof(NetProxy))]
+        [Dungeon.Proxied(typeof(NetProxy))]
         public int Shield { get => Get(___Shield, typeof(GuardCard).AssemblyQualifiedName); set => Set(value, typeof(GuardCard).AssemblyQualifiedName); }
         private int ___Shield;
     }

@@ -1,6 +1,6 @@
 ﻿using Dungeon;
-using Dungeon.SceneObjects;
-using Dungeon.SceneObjects.Base;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+using Dungeon.SceneObjects.Base; using Dungeon12.SceneObjects.Base;
 using Dungeon.View.Interfaces;
 using Dungeon12.Entites.Journal;
 using Dungeon12.Entities.Quests;

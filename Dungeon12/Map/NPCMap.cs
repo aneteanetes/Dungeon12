@@ -2,12 +2,12 @@
 {
     using Dungeon.Data;
     using Dungeon.Data.Attributes;
-    using Dungeon.Data.Region;
-    using Dungeon.Entities.Fractions;
-    using Dungeon.Game;
-    using Dungeon.Map;
-    using Dungeon.Map.Infrastructure;
-    using Dungeon.Map.Objects;
+    using Dungeon12.Data.Region;
+    using Dungeon12.Entities.Fractions;
+    using Dungeon12.Game;
+    using Dungeon12.Map;
+    using Dungeon12.Map.Infrastructure;
+    using Dungeon12.Map.Objects;
     using Dungeon.Physics;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
@@ -67,9 +67,9 @@
             set { }
         }
 
-        public override ISceneObject Visual(GameState gameState)
+        public override ISceneObject Visual()
         {
-            return new NPCSceneObject(gameState.Player, gameState.Map, this, this.TileSetRegion);
+            return new NPCSceneObject(Global.GameState.Player, Global.GameState.Map, this, this.TileSetRegion);
         }
 
         public string IdentifyName { get; set; }
@@ -82,7 +82,7 @@
         {
             this.IdentifyName = npcData.IdentifyName;
 
-            var data = Database.Entity<NPCData>(x => x.IdentifyName == npcData.IdentifyName).FirstOrDefault();
+            var data = Dungeon.Store.Entity<NPCData>(x => x.IdentifyName == npcData.IdentifyName).FirstOrDefault();
 
             this.ReEntity(data.NPC.DeepClone());
 
@@ -122,7 +122,7 @@
 
                 if (data.Merchant)
                 {
-                    this.Merchant = new Dungeon.Merchants.Merchant();
+                    this.Merchant = new Dungeon12.Merchants.Merchant();
                     this.Merchant.FillBackpacks();
                 }
                 this.BuildConversations(data);
@@ -141,7 +141,7 @@
 
         public override void Reload()
         {
-            var data = Database.Entity<NPCData>(x => x.IdentifyName == IdentifyName).FirstOrDefault();
+            var data = Dungeon.Store.Entity<NPCData>(x => x.IdentifyName == IdentifyName).FirstOrDefault();
             this.BuildConversations(data);
 
             if (this.Merchant!=default)

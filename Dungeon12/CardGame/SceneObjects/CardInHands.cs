@@ -1,4 +1,4 @@
-﻿using Dungeon.SceneObjects;
+﻿using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon12.CardGame.Entities;
 using System;
 using System.Collections.Generic;

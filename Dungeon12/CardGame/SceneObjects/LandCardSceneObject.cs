@@ -1,8 +1,4 @@
-﻿using Dungeon.Drawing.SceneObjects.Map;
-using Dungeon12.CardGame.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Dungeon12.Drawing.SceneObjects.Map;
 
 namespace Dungeon12.CardGame.SceneObjects
 {

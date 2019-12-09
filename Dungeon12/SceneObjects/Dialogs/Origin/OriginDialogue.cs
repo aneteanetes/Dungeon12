@@ -4,15 +4,16 @@
     using Dungeon.Control;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing;
-    using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.Entities.Alive.Enums;
-    using Dungeon.SceneObjects;
-    using Dungeon.SceneObjects.Base;
+    using Dungeon12.Drawing.SceneObjects.UI;
+    using Dungeon12.Entities.Alive.Enums;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon.SceneObjects.Base; using Dungeon12.SceneObjects.Base;
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Dialogs.Origin;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Dungeon12.SceneObjects.Base;
 
     public class OriginDialogue : EmptyHandleSceneControl
     {

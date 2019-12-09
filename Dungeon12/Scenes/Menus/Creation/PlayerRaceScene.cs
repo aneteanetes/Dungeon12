@@ -4,8 +4,8 @@
     using Dungeon.Control.Keys;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.SceneObjects;
+    using Dungeon12.Drawing.SceneObjects.UI;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
     using Dungeon12.Drawing.SceneObjects;
@@ -48,7 +48,7 @@
                     Top = top,
                     OnClick = () =>
                      {
-                         this.PlayerAvatar.Character.Race = race;
+                         //this.PlayerAvatar.Character.Race = race;
                          this.Switch<PlayerOriginScene>();
                      }
                 });

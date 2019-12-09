@@ -1,15 +1,15 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Inventories
 {
     using Dungeon;
-    using Dungeon.Classes;
+    using Dungeon12.Classes;
     using Dungeon.Control;
     using Dungeon.Control.Keys;
     using Dungeon.Drawing;
     using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects.Map;
-    using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.Inventory;
-    using Dungeon.SceneObjects;
+    using Dungeon12.Drawing.SceneObjects.Map;
+    using Dungeon12.Drawing.SceneObjects.UI;
+    using Dungeon12.Inventory;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Dialogs.Shop;
@@ -37,9 +37,9 @@
 
         private Character @char => playerSceneObject.Avatar.Character;
 
-        private readonly Dungeon.Merchants.Merchant merchant;
+        private readonly Dungeon12.Merchants.Merchant merchant;
 
-        public Inventory(PlayerSceneObject playerSceneObject, Backpack backpack, Dungeon.Merchants.Merchant merchant = null)
+        public Inventory(PlayerSceneObject playerSceneObject, Backpack backpack, Dungeon12.Merchants.Merchant merchant = null)
         {
             this.merchant = merchant;
             this.playerSceneObject = playerSceneObject;

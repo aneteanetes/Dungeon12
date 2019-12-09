@@ -2,14 +2,11 @@
 {
     using Dungeon;
     using Dungeon.Drawing;
-    using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Drawing.SceneObjects.UI;
     using Dungeon.GameObjects;
     using Dungeon.Proxy;
     using Dungeon.SceneObjects.Mixins;
     using Dungeon.Scenes.Manager;
-    using Dungeon.Settings;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using System;
@@ -62,14 +59,6 @@
                     this.UnsubscribeEvents();
                 };
                 ShowInScene += owner.ShowEffectsBinding;
-
-                //ПИЗДЕЦ. Это надо лечить
-                if (this is DraggableControl draggableControl)
-                { }
-                else
-                {
-                    ZIndex = DragAndDropSceneControls.DraggableLayers;
-                }
             }
 
             ProcessSingleton();
@@ -100,7 +89,7 @@
         {
             var textControl = new TextControl(drawText);
 
-            var measure = Global.DrawClient.MeasureText(textControl.Text);
+            var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text);
 
             var width = Width * 32;
             var height = Height * 32;
@@ -187,7 +176,7 @@
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        protected Point MeasureText(IDrawText text, ISceneObject parent = default) => Global.DrawClient.MeasureText(text, parent);
+        protected Point MeasureText(IDrawText text, ISceneObject parent = default) => DungeonGlobal.DrawClient.MeasureText(text, parent);
 
         protected DrawText CutText(DrawText text, double height)
         {
@@ -210,7 +199,7 @@
         /// <returns>relative X/Y</returns>
         protected Point MeasureImage(string img)
         {
-            var m = Global.DrawClient.MeasureImage(img);
+            var m = DungeonGlobal.DrawClient.MeasureImage(img);
 
             return new Point(m.X / 32, m.Y / 32);
         }

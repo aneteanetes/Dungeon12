@@ -1,7 +1,7 @@
 ﻿namespace Dungeon12.Map.Editor.Objects
 {
     using Dungeon.Drawing;
-    using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
 
     public class DesignCell : Dungeon.Drawing.SceneObjects.ImageControl

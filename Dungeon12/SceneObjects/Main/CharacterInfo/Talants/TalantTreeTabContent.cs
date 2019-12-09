@@ -1,9 +1,9 @@
 ﻿using Dungeon;
-using Dungeon.Abilities.Talants.NotAPI;
-using Dungeon.Abilities.Talants.TalantTrees;
-using Dungeon.Classes;
+using Dungeon12.Abilities.Talants.NotAPI;
+using Dungeon12.Abilities.Talants.TalantTrees;
+using Dungeon12.Classes;
 using Dungeon.Drawing.SceneObjects;
-using Dungeon.SceneObjects;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon.Types;
 using System;
 using System.Collections.Generic;

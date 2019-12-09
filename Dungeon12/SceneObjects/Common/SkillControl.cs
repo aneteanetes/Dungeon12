@@ -1,21 +1,21 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Common
 {
     using Dungeon;
-    using Dungeon.Abilities;
-    using Dungeon.Abilities.Enums;
-    using Dungeon.Abilities.Scaling;
+    using Dungeon12.Abilities;
+    using Dungeon12.Abilities.Enums;
+    using Dungeon12.Abilities.Scaling;
     using Dungeon.Control;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Drawing.SceneObjects.Map;
-    using Dungeon.Map;
-    using Dungeon.Map.Objects;
-    using Dungeon.SceneObjects;
+    using Dungeon12.Drawing.SceneObjects.Map;
+    using Dungeon12.Map;
+    using Dungeon12.Map.Objects;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
-    using Dungeon12.SceneObjects;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using System;
     using System.Collections.Generic;
 
@@ -142,8 +142,8 @@
         }
 
         public bool IsBig => false;
-        //this.ability.AbilityPosition == Dungeon.Abilities.Enums.AbilityPosition.Left
-        //    || this.ability.AbilityPosition == Dungeon.Abilities.Enums.AbilityPosition.Right;
+        //this.ability.AbilityPosition == Dungeon12.Abilities.Enums.AbilityPosition.Left
+        //    || this.ability.AbilityPosition == Dungeon12.Abilities.Enums.AbilityPosition.Right;
 
         private string image { get; set; }
 

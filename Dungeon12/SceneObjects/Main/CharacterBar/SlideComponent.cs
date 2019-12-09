@@ -1,4 +1,4 @@
-﻿using Dungeon.Drawing.SceneObjects.Map;
+﻿using Dungeon12.Drawing.SceneObjects.Map;
 using Dungeon.View.Interfaces;
 using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
 using System.Collections.Generic;

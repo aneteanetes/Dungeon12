@@ -2,10 +2,10 @@
 {
     using Dungeon.Control;
     using Dungeon.Control.Pointer;
-    using Dungeon.Data.Region;
+    using Dungeon12.Data.Region;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Resources;
-    using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using Dungeon.Types;
     using Dungeon12.Map.Editor.Objects;
     using Newtonsoft.Json;

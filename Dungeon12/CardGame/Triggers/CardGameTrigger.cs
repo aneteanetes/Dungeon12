@@ -1,15 +1,9 @@
 ﻿using Dungeon;
-using Dungeon.Conversations;
-using Dungeon.Drawing.SceneObjects.Map;
-using Dungeon.Map;
-using Dungeon.Scenes.Manager;
 using Dungeon.View.Interfaces;
-using Dungeon12.CardGame.Engine;
 using Dungeon12.CardGame.Scene;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Dungeon12.Conversations;
+using Dungeon12.Drawing.SceneObjects.Map;
+using Dungeon12.Map;
 
 namespace Dungeon12
 {

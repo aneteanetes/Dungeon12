@@ -16,7 +16,7 @@
             get => StaticDrawClient;
             set
             {
-                Global.DrawClient = value;
+                DungeonGlobal.DrawClient = value;
                 StaticDrawClient = value;
             }
         }
@@ -32,7 +32,7 @@
         {
             Type startSceneType = null;
 
-            Global.Assemblies.FirstOrDefault(asm =>
+            DungeonGlobal.Assemblies.FirstOrDefault(asm =>
             {
                 var type = asm.GetTypes().FirstOrDefault(t => t?.BaseType?.Name?.Contains("StartScene") ?? false);
                 if (type == null)
@@ -49,8 +49,8 @@
                 return false;
             });
 
-            Global.GameAssemblyName = startSceneType.Assembly.GetName().Name;
-            Global.GameAssembly = startSceneType.Assembly;
+            DungeonGlobal.GameAssemblyName = startSceneType.Assembly.GetName().Name;
+            DungeonGlobal.GameAssembly = startSceneType.Assembly;
 
             if (startSceneType != null)
             {
@@ -89,32 +89,32 @@
 
             if (!SceneCache.TryGetValue(sceneType, out GameScene next))
             {
-                next = sceneType.New<TScene>(Global.SceneManager);
+                next = sceneType.New<TScene>(DungeonGlobal.SceneManager);
                 SceneCache.Add(typeof(TScene), next);
 
                 Populate(Current, next, args);
                 Preapering = next;
-                Global.SceneManager.CurrentScene = Preapering;
+                DungeonGlobal.SceneManager.CurrentScene = Preapering;
                 next.Init();
             }
 
             //Если мы переключаем сцену, а она в это время фризит мир - надо освободить мир
             if (Current.Freezer != null)
             {
-                Global.Freezer.World = null;
+                DungeonGlobal.Freezer.World = null;
             }
 
             Preapering = next;
-            Global.SceneManager.CurrentScene = Preapering;
+            DungeonGlobal.SceneManager.CurrentScene = Preapering;
             Current = next;
             //Если мы переключаем сцену, а в следующей есть физер - значит надо восстановить её состояние
             if (next.Freezer != null)
             {
-                Global.Freezer.World = next.Freezer;
+                DungeonGlobal.Freezer.World = next.Freezer;
             }
 
             Current.Activate();
-            Global.SceneManager.CurrentScene = Current;
+            DungeonGlobal.SceneManager.CurrentScene = Current;
         }
 
         public void Change<TScene>(params string[] args) where TScene : GameScene => Switch<TScene>(args);
@@ -159,9 +159,7 @@
             if (previous == null)
                 return;
 
-            next.PlayerAvatar = previous.PlayerAvatar;
             next.Log = previous.Log;
-            next.Gamemap = previous.Gamemap;
             next.Args = args;
         }
     }

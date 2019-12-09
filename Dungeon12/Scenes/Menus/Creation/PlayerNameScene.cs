@@ -2,7 +2,7 @@
 {
     using Dungeon.Control.Keys;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Map.Objects;
+    using Dungeon12.Map.Objects;
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
     using Dungeon12.Drawing.SceneObjects.Dialogs;
@@ -28,12 +28,12 @@
 
         private void Next(string value)
         {
-            if (this.PlayerAvatar == null)
-            {
-                this.PlayerAvatar = new Avatar(new Dungeon12.Noone.Noone());
-            }
+            //if (this.PlayerAvatar == null)
+            //{
+            //    this.PlayerAvatar = new Avatar(new Dungeon12.Noone.Noone());
+            //}
 
-            this.PlayerAvatar.Character.Name = value[0].ToString().ToUpper() + value.Substring(1);
+            //this.PlayerAvatar.Character.Name = value[0].ToString().ToUpper() + value.Substring(1);
 
             this.Switch<PlayerOriginScene>();
         }

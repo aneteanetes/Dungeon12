@@ -1,6 +1,6 @@
-﻿using Dungeon.Conversations;
-using Dungeon.Entities.Alive;
-using Dungeon.Loot;
+﻿using Dungeon12.Conversations;
+using Dungeon12.Entities.Alive;
+using Dungeon12.Loot;
 using Dungeon.Types;
 using LiteDB;
 

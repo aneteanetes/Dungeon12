@@ -1,5 +1,5 @@
 ﻿using Dungeon;
-using Dungeon.Map;
+using Dungeon12.Map;
 using Dungeon.View.Interfaces;
 using Dungeon12.Entities.Quests;
 
@@ -16,7 +16,7 @@ namespace Dungeon12.Entities.Rewards.Triggers
             {
                 foreach (var generator in arg1.ItemGenerators)
                 {
-                    var loot = new Dungeon.Map.Objects.Loot();
+                    var loot = new Dungeon12.Map.Objects.Loot();
                     loot.Location = Global.GameState.Player.Avatar.Location.Copy();
                     loot.Item = generator.Generate();
 

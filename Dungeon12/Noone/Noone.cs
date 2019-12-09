@@ -1,7 +1,7 @@
 ﻿namespace Dungeon12.Noone
 {
-    using Dungeon.Abilities;
-    using Dungeon.Abilities.Talants.TalantTrees;
+    using Dungeon12.Abilities;
+    using Dungeon12.Abilities.Talants.TalantTrees;
     using Dungeon12.Noone.Abilities;
     using Dungeon12.Noone.Talants;
     using Dungeon12.Noone.Talants.Defensible;
@@ -11,12 +11,12 @@
     using Dungeon;
     using Dungeon.Drawing.SceneObjects;
     using System.Collections.Generic;
-    using Dungeon.Classes;
+    using Dungeon12.Classes;
     using Dungeon.Drawing;
     using Dungeon.View.Interfaces;
     using Dungeon12.Noone.Proxies;
-    using Dungeon.Entities.Alive;
-    using Dungeon.SceneObjects;
+    using Dungeon12.Entities.Alive;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 
     public class Noone : Dungeon12Class
     {

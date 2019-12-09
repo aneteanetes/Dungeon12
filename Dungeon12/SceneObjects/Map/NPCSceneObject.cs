@@ -2,10 +2,10 @@
 {
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
-    using Dungeon.Entities.Alive;
+    using Dungeon12.Entities.Alive;
     using Dungeon.Entities.Animations;
-    using Dungeon.Map;
-    using Dungeon.Map.Objects;
+    using Dungeon12.Map;
+    using Dungeon12.Map.Objects;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Dialogs.Shop;
@@ -15,15 +15,15 @@
     using System.Collections.Generic;
     using Dungeon12.Drawing.SceneObjects;
     using Dungeon12.SceneObjects.NPC;
-    using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using System.Linq;
     using Dungeon.Physics;
-    using Dungeon.Drawing.SceneObjects.Map;
+    using Dungeon12.Drawing.SceneObjects.Map;
     using Dungeon12.Entities;
     using Dungeon12.Map.Objects;
-    using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.Abilities.Enums;
-    using Dungeon.Entities.Fractions;
+    using Dungeon12.Drawing.SceneObjects.UI;
+    using Dungeon12.Abilities.Enums;
+    using Dungeon12.Entities.Fractions;
 
     public class NPCSceneObject : MoveableSceneObject<NPCMap>
     {
@@ -65,7 +65,7 @@
 
             if (!mob.IsEnemy)
             {
-                LightTrigger = Dungeon.Global.Time
+                LightTrigger = Dungeon12.Global.Time
                     .After(18).Do(AddTorchlight)
                     .After(8).Do(RemoveTorchlight);
             }

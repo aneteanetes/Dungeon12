@@ -1,7 +1,7 @@
 ﻿using Dungeon;
-using Dungeon.Conversations;
-using Dungeon.Drawing.SceneObjects.Map;
-using Dungeon.Map;
+using Dungeon12.Conversations;
+using Dungeon12.Drawing.SceneObjects.Map;
+using Dungeon12.Map;
 using Dungeon.View.Interfaces;
 using System;
 using System.Linq;

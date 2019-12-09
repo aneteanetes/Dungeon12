@@ -2,8 +2,8 @@
 using Dungeon.Control;
 using Dungeon.Control.Pointer;
 using Dungeon.Drawing;
-using Dungeon.Drawing.SceneObjects.Map;
-using Dungeon.SceneObjects;
+using Dungeon12.Drawing.SceneObjects.Map;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.Entites.Journal;
 using Dungeon12.SceneObjects.Main.CharacterInfo.Stats;
@@ -59,12 +59,12 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
 
             if(journalEntry.Quest!=default)
             {
-                var visualProgress = journalEntry.Quest.Visual(Global.GameState);
+                var visualProgress = journalEntry.Quest.Visual();
                 visualProgress.Left = 2.5;
                 visualProgress.Top = 14;
                 this.AddChild(visualProgress);
 
-                var visualReward = journalEntry.Quest.Reward.Visual(Global.GameState).As<ISceneObjectControl>();
+                var visualReward = journalEntry.Quest.Reward.Visual().As<ISceneObjectControl>();
                 visualReward.Top = 15;
                 this.AddControlCenter(visualReward,false,false);
             }

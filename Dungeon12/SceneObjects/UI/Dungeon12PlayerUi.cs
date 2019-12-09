@@ -1,6 +1,6 @@
 ﻿using Dungeon;
-using Dungeon.Classes;
-using Dungeon.Drawing.SceneObjects.UI;
+using Dungeon12.Classes;
+using Dungeon12.Drawing.SceneObjects.UI;
 using Dungeon12.Entities.Quests;
 using System.Collections.Generic;
 using System.Linq;

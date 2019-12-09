@@ -1,8 +1,8 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Dialogs.Shop
 {
-    using Dungeon.Drawing.SceneObjects.Map;
-    using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.Merchants;
+    using Dungeon12.Drawing.SceneObjects.Map;
+    using Dungeon12.Drawing.SceneObjects.UI;
+    using Dungeon12.Merchants;
     using Dungeon12.Drawing.SceneObjects.Inventories;
     using System.Linq;
 

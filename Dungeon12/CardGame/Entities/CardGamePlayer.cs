@@ -1,7 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Entities;
 using Dungeon.Network;
-using Dungeon.SceneObjects;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon.Types;
 using Dungeon12.CardGame.Engine;
 using Dungeon12.CardGame.Interfaces;
@@ -21,7 +21,7 @@ namespace Dungeon12.CardGame.Entities
         /// [Рассчётное через сеть]
         /// </para>
         /// </summary>
-        [Proxied(typeof(NetProxy))]
+        [Dungeon.Proxied(typeof(NetProxy))]
         public int Influence { get => Get(___Influence, typeof(CardGamePlayer).AssemblyQualifiedName); set => Set(value, typeof(CardGamePlayer).AssemblyQualifiedName); }
         private int ___Influence;
 
@@ -31,7 +31,7 @@ namespace Dungeon12.CardGame.Entities
         /// [Рассчётное через сеть]
         /// </para>
         /// </summary>
-        [Proxied(typeof(NetProxy))]
+        [Dungeon.Proxied(typeof(NetProxy))]
         public int Hits { get => Get(___Hits, typeof(CardGamePlayer).AssemblyQualifiedName); set => Set(value, typeof(CardGamePlayer).AssemblyQualifiedName); }
         private int ___Hits;
 
@@ -41,7 +41,7 @@ namespace Dungeon12.CardGame.Entities
         /// [Рассчётное через сеть]
         /// </para>
         /// </summary>
-        [Proxied(typeof(NetProxy))]
+        [Dungeon.Proxied(typeof(NetProxy))]
         public int Resources { get => Get(___Resources, typeof(CardGamePlayer).AssemblyQualifiedName); set => Set(value, typeof(CardGamePlayer).AssemblyQualifiedName); }
         private int ___Resources;
         
@@ -51,7 +51,7 @@ namespace Dungeon12.CardGame.Entities
         /// [Рассчётное через сеть]
         /// </para>
         /// </summary>
-        [Proxied(typeof(NetProxy))]
+        [Dungeon.Proxied(typeof(NetProxy))]
         public int MaxResources { get => Get(___MaxResources, typeof(CardGamePlayer).AssemblyQualifiedName); set => Set(value, typeof(CardGamePlayer).AssemblyQualifiedName); }
         private int ___MaxResources;
         

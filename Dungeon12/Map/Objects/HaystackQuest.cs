@@ -1,12 +1,12 @@
 ﻿using Dungeon;
-using Dungeon.Conversations;
+using Dungeon12.Conversations;
 using Dungeon.Drawing;
-using Dungeon.Drawing.SceneObjects.Map;
-using Dungeon.Game;
-using Dungeon.Items;
-using Dungeon.Map;
-using Dungeon.Map.Infrastructure;
-using Dungeon.SceneObjects;
+using Dungeon12.Drawing.SceneObjects.Map;
+using Dungeon12.Game;
+using Dungeon12.Items;
+using Dungeon12.Map;
+using Dungeon12.Map.Infrastructure;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.Entities.Items;
 using System;
@@ -15,11 +15,11 @@ using System.Linq;
 namespace Dungeon12.Map.Objects
 {
     [Template("HaystackQuest")]
-    public class HaystackQuest : Dungeon.Map.Objects.Loot
+    public class HaystackQuest : Dungeon12.Map.Objects.Loot
     {
         public HaystackQuest()
         {
-            Item = Dungeon.Data.Database.EntitySingle<Item>(typeof(QuestItem).AssemblyQualifiedName, "WarlockDeckQuest");
+            Item = Dungeon.Store.EntitySingle<Item>(typeof(QuestItem).AssemblyQualifiedName, "WarlockDeckQuest");
         }
 
         public override string TakeTrigger => nameof(HaystackQuestTakeTrigger);
@@ -28,9 +28,9 @@ namespace Dungeon12.Map.Objects
 
         public override IDrawColor CustomLootColor => DrawColor.LightYellow;
 
-        public override ISceneObject Visual(GameState gameState)
+        public override ISceneObject Visual()
         {
-            return new LootSceneObject(gameState.Player, this, "Стог сена");
+            return new LootSceneObject(Global.GameState.Player, this, "Стог сена");
         }
 
         public static void UpdateHaystackQuest(string text)

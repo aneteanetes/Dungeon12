@@ -1,6 +1,6 @@
 ﻿using Dungeon;
 using Dungeon.Drawing;
-using Dungeon.SceneObjects;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.Proxies;
 using System;

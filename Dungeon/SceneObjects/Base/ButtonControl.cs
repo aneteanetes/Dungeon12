@@ -16,7 +16,7 @@ namespace Dungeon.SceneObjects.Base
         {
             textControl = new TextControl(new DrawText(text, ConsoleColor.White) { Size = size }.Triforce());
 
-            var measure = Global.DrawClient.MeasureText(textControl.Text);
+            var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text);
 
             var width = this.Width * 32;
             var height = this.Height * 32;

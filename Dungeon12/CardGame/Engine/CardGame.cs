@@ -1,6 +1,6 @@
 ﻿using Dungeon;
 using Dungeon.GameObjects;
-using Dungeon.SceneObjects;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon.Types;
 using Dungeon12.CardGame.Entities;
 using System;

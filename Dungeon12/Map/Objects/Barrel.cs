@@ -1,12 +1,12 @@
 ﻿using Dungeon;
-using Dungeon.Classes;
+using Dungeon12.Classes;
 using Dungeon.Data.Attributes;
-using Dungeon.Data.Region;
-using Dungeon.Entities.Alive;
-using Dungeon.Game;
-using Dungeon.Map;
-using Dungeon.Map.Infrastructure;
-using Dungeon.SceneObjects;
+using Dungeon12.Data.Region;
+using Dungeon12.Entities.Alive;
+using Dungeon12.Game;
+using Dungeon12.Map;
+using Dungeon12.Map.Infrastructure;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.Database.Barrels;
 using Dungeon12.SceneObjects.Map;
@@ -39,9 +39,9 @@ namespace Dungeon12.Map.Objects
             this.Location = regionPart.Position;
         }
 
-        public override ISceneObject Visual(GameState gameState)
+        public override ISceneObject Visual()
         {
-            return new BarrelSceneObject(gameState.Player, this);
+            return new BarrelSceneObject(Global.GameState.Player, this);
         }
 
         public void Use(Dungeon12Class alive)

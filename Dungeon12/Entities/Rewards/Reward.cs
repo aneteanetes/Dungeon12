@@ -1,10 +1,10 @@
 ﻿using Dungeon;
 using Dungeon.Entities;
-using Dungeon.Entities.Alive;
-using Dungeon.Game;
-using Dungeon.Items;
-using Dungeon.Loot;
-using Dungeon.SceneObjects;
+using Dungeon12.Entities.Alive;
+using Dungeon12.Game;
+using Dungeon12.Items;
+using Dungeon12.Loot;
+using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.Database.Rewards;
 using Dungeon12.Entities.Rewards.Triggers;
@@ -42,7 +42,7 @@ namespace Dungeon12.Entities.Quests
             GiveReward = dataClass.TriggerName.Trigger<IRewardTrigger>();
         }
 
-        public override ISceneObject Visual(GameState gameState)
+        public override ISceneObject Visual()
         {
             return new RewardSceneObject(this);
         }

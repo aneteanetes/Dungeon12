@@ -1,16 +1,16 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 {
     using Dungeon;
-    using Dungeon.Classes;
+    using Dungeon12.Classes;
     using Dungeon.Control;
     using Dungeon.Control.Keys;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Drawing.SceneObjects.Map;
-    using Dungeon.Drawing.SceneObjects.UI;
+    using Dungeon12.Drawing.SceneObjects.Map;
+    using Dungeon12.Drawing.SceneObjects.UI;
     using Dungeon.GameObjects;
-    using Dungeon.Map;
-    using Dungeon.SceneObjects;
+    using Dungeon12.Map;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Inventories;
@@ -251,31 +251,31 @@
 
         private void AddItemWear(Inventory inventory, PlayerSceneObject playerSceneObject)
         {
-            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Dungeon.Items.Enums.ItemKind.Helm)
+            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Dungeon12.Items.Enums.ItemKind.Helm)
             {
                 Top = 2,
                 Left = 5
             });
 
-            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Dungeon.Items.Enums.ItemKind.Armor)
+            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Dungeon12.Items.Enums.ItemKind.Armor)
             {
                 Top = 4.5,
                 Left = 5
             });
 
-            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Dungeon.Items.Enums.ItemKind.Boots)
+            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Dungeon12.Items.Enums.ItemKind.Boots)
             {
                 Top = 7,
                 Left = 5
             });
 
-            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Dungeon.Items.Enums.ItemKind.Weapon)
+            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Dungeon12.Items.Enums.ItemKind.Weapon)
             {
                 Top = 3.5,
                 Left = 2
             });
 
-            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Dungeon.Items.Enums.ItemKind.OffHand)
+            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Dungeon12.Items.Enums.ItemKind.OffHand)
             {
                 Top = 3.5,
                 Left = 8

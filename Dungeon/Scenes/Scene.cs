@@ -132,7 +132,7 @@
                     }
                     catch (Exception ex)
                     {
-                        Global.Exception(ex);
+                        DungeonGlobal.Exception(ex);
                         return;
                     }
                 }
@@ -144,14 +144,14 @@
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
             
-            if (Global.Freezer.World==null && !Global.BlockSceneControls)
+            if (DungeonGlobal.Freezer.World==null && !DungeonGlobal.BlockSceneControls)
                 try
                 {
                     KeyPress(key, modifier, keyEventArgs.Hold);
                 }
                 catch (Exception ex)
                 {
-                    Global.Exception(ex);
+                    DungeonGlobal.Exception(ex);
                     return;
                 }
 
@@ -164,7 +164,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Global.Exception(ex);
+                    DungeonGlobal.Exception(ex);
                     return;
                 }
             }
@@ -178,14 +178,14 @@
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
             
-            if (Global.Freezer.World== null && !Global.BlockSceneControls)
+            if (DungeonGlobal.Freezer.World== null && !DungeonGlobal.BlockSceneControls)
                 try
                 {
                     KeyUp(key, modifier);
                 }
                 catch (Exception ex)
                 {
-                    Global.Exception(ex);
+                    DungeonGlobal.Exception(ex);
                     return;
                 }
 
@@ -201,7 +201,7 @@
                     }
                     catch (Exception ex)
                     {
-                        Global.Exception(ex);
+                        DungeonGlobal.Exception(ex);
                         return;
                     }
                 }
@@ -265,7 +265,7 @@
                     }
                     catch (Exception ex)
                     {
-                        Global.Exception(ex);
+                        DungeonGlobal.Exception(ex);
                         return;
                     }
                 }
@@ -296,7 +296,7 @@
                         args.ProcessedOffset = true;
                     }
 
-                    Global.PointerLocation = args;
+                    DungeonGlobal.PointerLocation = args;
 
                     try
                     {
@@ -304,7 +304,7 @@
                     }
                     catch (Exception ex)
                     {
-                        Global.Exception(ex);
+                        DungeonGlobal.Exception(ex);
                         return;
                     }
                 }
@@ -352,7 +352,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Global.Exception(ex);
+                    DungeonGlobal.Exception(ex);
                     return;
                 }
                 sceneObjectsInFocuses.Remove(item);
@@ -369,7 +369,7 @@
                     }
                     catch (Exception ex)
                     {
-                        Global.Exception(ex);
+                        DungeonGlobal.Exception(ex);
                         return;
                     }
                 }
@@ -412,12 +412,12 @@
             if (destroyed)
                 return Enumerable.Empty<ISceneObjectControl>();
 
-            Global.Freezer.HandleFreezes.TryGetValue(handleEvent, out var freezer);
-            if (Global.Freezer.World != null || freezer != null)
+            DungeonGlobal.Freezer.HandleFreezes.TryGetValue(handleEvent, out var freezer);
+            if (DungeonGlobal.Freezer.World != null || freezer != null)
             {
                 if (freezer == null)
                 {
-                    freezer = Global.Freezer.World;
+                    freezer = DungeonGlobal.Freezer.World;
                 }
                 var chain = FreezedChain(SceneObjectsControllable.FirstOrDefault(x => x == freezer));
                 return WhereHandles(handleEvent, key, chain);
@@ -433,7 +433,7 @@
             var handlers = elements
                 .Distinct()
                 .Where(c => c.Visible)
-                .Where(c=> c.DrawOutOfSight || Global.DrawClient.InCamera(c))
+                .Where(c=> c.DrawOutOfSight || DungeonGlobal.DrawClient.InCamera(c))
                 .Where(x =>
                 {
                     bool handle = x.CanHandle.Contains(handleEvent);

@@ -3,12 +3,7 @@
     using Dungeon;
     using Dungeon.Control.Keys;
     using Dungeon.Drawing;
-    using Dungeon.Drawing.Labirinth;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Drawing.SceneObjects.Map;
-    using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.Map;
-    using Dungeon.Map.Objects;
     using Dungeon.SceneObjects;
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
@@ -16,7 +11,10 @@
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using Dungeon12.CardGame.Scene;
+    using Dungeon12.Drawing.Labirinth;
     using Dungeon12.Drawing.SceneObjects.Main;
+    using Dungeon12.Map;
+    using Dungeon12.Map.Objects;
     using Dungeon12.SceneObjects;
     using Dungeon12.SceneObjects.UI;
     using Dungeon12.Scenes.Menus;
@@ -36,9 +34,12 @@
 
         public override bool Destroyable => false;
 
+        private GameMap Gamemap => Global.GameState.Map;
+        private Avatar PlayerAvatar => Global.GameState.PlayerAvatar;
+
         public override void Init()
         {
-            var player = new Player(this.PlayerAvatar, x => this.RemoveObject(x))
+            var player = new Player(Global.GameState.PlayerAvatar, x => this.RemoveObject(x))
             {
                 Left = this.PlayerAvatar?.Location?.X ??0 ,
                 Top = this.PlayerAvatar?.Location?.Y?? 0
@@ -122,19 +123,6 @@
 
         private void InitMap()
         {
-            if (Global.GameState.Map != default)
-            {
-                this.Gamemap = Global.GameState.Map;
-            }
-
-            if (this.Gamemap == default)
-            {
-                this.Gamemap = new GameMap()
-                {
-                    Biom = ConsoleColor.DarkGray
-                };
-            }
-
             if (!this.Gamemap.Loaded)
             {
                 try

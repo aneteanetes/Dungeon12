@@ -1,7 +1,7 @@
 ﻿using Dungeon.Control.Commands;
 using Dungeon.Control.Keys;
-using Dungeon.Map;
-using Dungeon.Map.Objects;
+using Dungeon12.Map;
+using Dungeon12.Map.Objects;
 using Dungeon.Types;
 using System.Collections.Generic;
 

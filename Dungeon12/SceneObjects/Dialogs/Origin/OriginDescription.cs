@@ -2,12 +2,12 @@
 {
     using Dungeon;
     using Dungeon.Data;
-    using Dungeon.Data.Perks;
+    using Dungeon12.Data.Perks;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon.Entities.Alive.Enums;
+    using Dungeon12.Entities.Alive.Enums;
     using Dungeon.GameObjects;
-    using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using System;
     using System.Linq;
 
@@ -27,7 +27,7 @@
             var title = this.AddTextCenter(new DrawText(origin.ToDisplay()) { Size = 40 }, true, false);
             title.Top = .5;
 
-            var perk = Database.Entity<ValuePerk>(x => x.Identity == origin.ToString()).First();
+            var perk = Dungeon.Store.Entity<ValuePerk>(x => x.Identity == origin.ToString()).First();
 
             var desc = new TextControl(new DrawText(perk.Description,wordWrap:true).Montserrat());
             desc.Left = .5;

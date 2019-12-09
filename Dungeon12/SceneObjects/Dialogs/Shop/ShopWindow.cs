@@ -2,10 +2,10 @@
 {
     using Dungeon;
     using Dungeon.Control.Keys;
-    using Dungeon.Drawing.SceneObjects.Map;
-    using Dungeon.Drawing.SceneObjects.UI;
-    using Dungeon.Map;
-    using Dungeon.Merchants;
+    using Dungeon12.Drawing.SceneObjects.Map;
+    using Dungeon12.Drawing.SceneObjects.UI;
+    using Dungeon12.Map;
+    using Dungeon12.Merchants;
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Inventories;
     using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo;
