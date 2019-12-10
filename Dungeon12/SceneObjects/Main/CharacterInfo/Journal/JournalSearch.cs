@@ -2,7 +2,8 @@
 using Dungeon.Control;
 using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
-using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+using Dungeon12.SceneObjects;
+using Dungeon.SceneObjects;
 using System;
 
 namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal

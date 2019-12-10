@@ -1,11 +1,12 @@
 ﻿namespace Dungeon12.Map.Editor.Toolbox
 {
-    using Dungeon;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects;
+    using Dungeon.SceneObjects;
     using System;
     using Dungeon12.Drawing.SceneObjects;
+    using Dungeon12;
 
     public class ToolboxControl : DarkRectangle
     {

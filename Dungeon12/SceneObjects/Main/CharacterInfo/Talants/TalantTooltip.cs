@@ -1,6 +1,7 @@
 ﻿using Dungeon12.Abilities.Talants.NotAPI;
 using Dungeon12.Classes;
-using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+using Dungeon12.SceneObjects;
+using Dungeon.SceneObjects;
 using Dungeon.Types;
 using System;
 using Dungeon;

@@ -9,6 +9,7 @@
     using Dungeon.SceneObjects;
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
+    using Dungeon12;
     using Dungeon12.CardGame.Scene;
     using Dungeon12.Data.Region;
     using Dungeon12.Drawing.SceneObjects;

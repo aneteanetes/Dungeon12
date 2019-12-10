@@ -2,7 +2,8 @@
 using Dungeon12.Classes;
 using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
-using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+using Dungeon12.SceneObjects;
+using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.SceneObjects.Main.CharacterInfo.Stats;
 using Dungeon12.SceneObjects.UI;

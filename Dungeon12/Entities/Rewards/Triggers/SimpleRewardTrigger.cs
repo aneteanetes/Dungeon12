@@ -2,12 +2,13 @@
 using Dungeon12.Map;
 using Dungeon.View.Interfaces;
 using Dungeon12.Entities.Quests;
+using Dungeon12.Classes;
 
 namespace Dungeon12.Entities.Rewards.Triggers
 {
     public class SimpleRewardTrigger : IRewardTrigger
     {
-        public IDrawText Trigger(Reward arg1, Dungeon12Class arg2, GameMap arg3)
+        public IDrawText Trigger(Reward arg1, Character arg2, GameMap arg3)
         {
             arg2.Exp(arg1.Exp);
             arg2.Gold += arg1.Gold;

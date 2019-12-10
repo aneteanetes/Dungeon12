@@ -1,4 +1,5 @@
 ﻿{
+  "$type": "Dungeon12.Items.Types.DeckItem, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
   "Name": "Колода 'Страж'",
   "Tileset": "Dungeon12.Resources.Images.Items.Other.GuardDeck.png",
   "Kind": "Deck",

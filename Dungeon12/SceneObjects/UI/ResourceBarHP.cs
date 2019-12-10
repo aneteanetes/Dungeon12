@@ -6,7 +6,7 @@
     using Dungeon.View.Interfaces;
     using System;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon;
+    using Dungeon12;
 
     public class ResourceBarHP : ResourceBar
     {

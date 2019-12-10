@@ -251,3 +251,4 @@ paket-files/
 .idea/
 *.sln.iml
 /Rogue.Monogame/Content/Audio
+/Dungeon.Monogame/Content/fonts

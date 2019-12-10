@@ -9,6 +9,7 @@ using Dungeon.View.Interfaces;
 using Dungeon12.Database.Quests;
 using Dungeon12.SceneObjects.UI;
 using System.Linq;
+using Dungeon12.Classes;
 
 namespace Dungeon12.Entities.Quests
 {
@@ -43,7 +44,7 @@ namespace Dungeon12.Entities.Quests
 
         public Reward Reward { get; set; }
 
-        public Dungeon12Class Character => throw new System.NotImplementedException();
+        public Character Character => throw new System.NotImplementedException();
 
         protected override void Init(TQuestData dataClass)
         {
@@ -54,7 +55,7 @@ namespace Dungeon12.Entities.Quests
             this.IdentifyName = dataClass.IdentifyName;
         }
 
-        protected Dungeon12Class _class;
+        protected Character _class;
         protected GameMap _gameMap;
 
         /// <summary>
@@ -62,7 +63,7 @@ namespace Dungeon12.Entities.Quests
         /// </summary>
         protected virtual bool Reactivated => false;
 
-        public void Bind(Dungeon12Class @class, GameMap gameMap)
+        public void Bind(Character @class, GameMap gameMap)
         {
             _gameMap = gameMap;
             if (@class[IdentifyName] == default || Reactivated)

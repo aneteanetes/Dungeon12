@@ -11,7 +11,7 @@ namespace Dungeon12.SceneObjects.UI
     {
         public Dungeon12PlayerUI(Character player) : base(player)
         {
-            player.As<Dungeon12Class>()
+            player.As<Character>()
                 .ActiveQuests
                 .Where(aq => aq.Discover)
                 .ForEach(AddDiscover);

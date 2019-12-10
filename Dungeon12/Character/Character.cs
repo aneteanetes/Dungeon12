@@ -51,8 +51,8 @@
 
         public virtual void AddClassPerk() { }
 
-        public virtual string Avatar => $"{Global.GameAssemblyName}.Resources.Images.{this.GetType().Name}.png";
-         
+        public virtual string Avatar => this.GetType().Name.AsmImgRes();
+
         /// <summary>
         /// это пиздец, выпили это нахуй
         /// <para>

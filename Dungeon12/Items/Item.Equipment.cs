@@ -23,7 +23,7 @@
 
         public List<Equipment> ItemSet { get; set; } = new List<Equipment>();
 
-        public void PutOn(object character)
+        public virtual void PutOn(object character)
         {
             void Apply(Equipment equipment)
             {
@@ -36,7 +36,7 @@
             this.ItemSet.ForEach(Apply);
         }
 
-        public void PutOff(object character)
+        public virtual void PutOff(object character)
         {
             void Discard(Equipment equipment)
             {

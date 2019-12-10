@@ -3,7 +3,8 @@ using Dungeon.Drawing;
 using Dungeon.Network;
 using Dungeon.View.Interfaces;
 using Dungeon12.Entities.Alive.Proxies;
-using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+using Dungeon12.SceneObjects;
+using Dungeon.SceneObjects;
 using System;
 
 namespace Dungeon12.Entities.Alive

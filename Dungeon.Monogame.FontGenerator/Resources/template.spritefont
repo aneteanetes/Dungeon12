@@ -11,13 +11,13 @@ with.
     <!--
     Modify this string to change the font that will be imported.
     -->
-    <FontName>Triforce(RUS BY LYAJKA)</FontName>
+    <FontName>{FontName}</FontName>
 
     <!--
     Size is a float value, measured in points. Modify this value to change
     the size of the font.
     -->
-    <Size>16</Size>
+    <Size>{FontSize}</Size>
 
     <!--
     Spacing is a float value, measured in pixels. Modify this value to change
@@ -58,6 +58,14 @@ with.
       <CharacterRegion>
         <Start>&#1040;</Start>
         <End>&#1112;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#11093;</Start>
+        <End>&#11247;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#9620;</Start>
+        <End>&#9664;</End>
       </CharacterRegion>
     </CharacterRegions>
   </Asset>

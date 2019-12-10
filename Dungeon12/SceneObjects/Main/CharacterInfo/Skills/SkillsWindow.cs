@@ -9,11 +9,13 @@
     using Dungeon.Drawing.SceneObjects;
     using Dungeon12.Drawing.SceneObjects.Map;
     using Dungeon12.Drawing.SceneObjects.UI;
-    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects;
+    using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Dungeon12;
 
     public class SkillsWindow : DraggableControl<SkillsWindow>
     {

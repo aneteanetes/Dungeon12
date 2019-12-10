@@ -3,6 +3,7 @@
     using Dungeon;
     using Dungeon12.Items;
     using Dungeon12.Items.Enums;
+    using Dungeon12.Items.Types;
     using System;
 
     public class Wear
@@ -17,6 +18,8 @@
 
         public Item OffHand { get; set; }
 
+        public DeckItem Deck { get; set; }
+
         public (bool success, Item oldItem) PutOn(Item item)
         {
             bool success = false;
@@ -29,6 +32,7 @@
                 case ItemKind.Armor:
                 case ItemKind.Boots:
                 case ItemKind.OffHand:
+                case ItemKind.Deck:
                     {
                         var kind = item.Kind.ToString();
                         var itm = this.GetProperty<Item>(kind);
@@ -65,6 +69,7 @@
                 case ItemKind.Armor:
                 case ItemKind.Boots:
                 case ItemKind.OffHand:
+                case ItemKind.Deck:
                     {
                         var itm = this.GetProperty<Item>(kind.ToString());
 

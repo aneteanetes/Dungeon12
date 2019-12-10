@@ -1,9 +1,9 @@
 ﻿namespace Dungeon12.Map.Editor
 {
-    using Dungeon;
     using Dungeon.Control;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
+    using Dungeon12;
     using Dungeon12.Map.Editor.Field;
 
     public class SaveBtn : DarkRectangle

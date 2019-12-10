@@ -4,12 +4,13 @@
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.Drawing;
-    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects;
+    using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Dungeon;
+    using Dungeon12;
 
     public abstract class TabControlFlex<TContent, TArgument, TTab> : TabControl<TContent, TArgument, TTab>
         where TContent : ISceneObject

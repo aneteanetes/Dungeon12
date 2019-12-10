@@ -1,6 +1,5 @@
 ﻿namespace Dungeon12.Scenes.Game
 {
-    using Dungeon;
     using Dungeon.Control.Keys;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
@@ -10,6 +9,7 @@
     using Dungeon.Settings;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
+    using Dungeon12;
     using Dungeon12.CardGame.Scene;
     using Dungeon12.Drawing.Labirinth;
     using Dungeon12.Drawing.SceneObjects.Main;

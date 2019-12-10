@@ -18,7 +18,7 @@ namespace Dungeon12.Entities.Quests
             var variableSuccessName = arg3[1];
             var replicaFailure = arg3[2];
             var replicaSuccess = arg3[3];
-            var player = arg1.Component.Entity.As<Dungeon12Class>();
+            var player = arg1.Component.Entity;
 
             var quest = player.ActiveQuests.FirstOrDefault(q => q.IdentifyName == questName);
             if (quest.IsCompleted())

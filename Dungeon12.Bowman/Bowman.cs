@@ -1,6 +1,5 @@
 ﻿using Dungeon12.Abilities;
 using Dungeon12.Abilities.Talants.TalantTrees;
-using Dungeon12;
 using Dungeon12.Bowman.Talants;
 using Dungeon12.Bowman.Abilities;
 using System;
@@ -14,7 +13,7 @@ using Dungeon.Drawing;
 
 namespace Dungeon12.Bowman
 {
-    public class Bowman : Dungeon12Class
+    public class Bowman : Character
     {
         public Energy Energy { get; set; } = new Energy();
 

@@ -14,7 +14,7 @@ namespace Dungeon.SceneObjects.Base
 
         public ButtonControl(TComponent component, string text, float size = 30) : base(component)
         {
-            textControl = new TextControl(new DrawText(text, ConsoleColor.White) { Size = size }.Triforce());
+            textControl = new TextControl(new DrawText(text, ConsoleColor.White) { Size = size }.DefaultFont());
 
             var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text);
 

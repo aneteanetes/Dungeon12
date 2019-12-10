@@ -32,7 +32,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
 
             var tabs = new List<JournalTab>();
 
-            var jcats = playerSceneObject.Avatar.Character.As<Dungeon12Class>().Journal.JournalCategories;
+            var jcats = playerSceneObject.Avatar.Character.Journal.JournalCategories;
 
             foreach (var jcat in jcats)
             {

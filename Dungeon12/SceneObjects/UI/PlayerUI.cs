@@ -5,6 +5,7 @@
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.SceneObjects;
     using Dungeon.Types;
+    using Dungeon12;
     using Dungeon12.Classes;
     using Dungeon12.Events;
     using Dungeon12.SceneObjects;

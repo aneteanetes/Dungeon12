@@ -23,7 +23,7 @@ namespace Dungeon.SceneObjects
             this.Left = 40d / 2d - 16d / 2d;
             this.Top = 22.5d / 2d - 7d / 2d;
 
-            var question = this.AddTextCenter(msg.AsDrawText().WithWordWrap().Montserrat().InSize(14), true, true);
+            var question = this.AddTextCenter(msg.AsDrawText().WithWordWrap().InSize(14), true, true);
             question.Width = 15;
             question.Left = 1;
             question.Top -= 2;

@@ -6,11 +6,13 @@
     using Dungeon.Drawing.SceneObjects;
     using Dungeon12.Drawing.SceneObjects.UI;
     using Dungeon12.Items;
-    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects;
+    using Dungeon.SceneObjects;
     using Dungeon.Types;
     using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo;
     using System;
     using System.Linq;
+    using Dungeon12;
 
     public class InventoryItem : DraggableControl<InventoryItem>
     {

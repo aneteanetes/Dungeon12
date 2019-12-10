@@ -16,9 +16,11 @@
     using Dungeon.View.Interfaces;
     using Dungeon12.Noone.Proxies;
     using Dungeon12.Entities.Alive;
-    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects;
+    using Dungeon.SceneObjects;
+    using Dungeon12;
 
-    public class Noone : Dungeon12Class
+    public class Noone : Character
     {
         public Noone()
         {

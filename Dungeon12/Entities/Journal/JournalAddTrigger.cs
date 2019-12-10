@@ -19,7 +19,7 @@ namespace Dungeon12.Entities.Journal
         {
             var category = arg3[0];
             var filter = arg3[1];
-            var cat = arg1.Avatar.Character.As<Dungeon12Class>().Journal.GetPropertyExpr<List<JournalEntry>>(category);
+            var cat = arg1.Avatar.Character.Journal.GetPropertyExpr<List<JournalEntry>>(category);
             cat.AddRange(JournalEntry.LoadAll(x => x.IdentifyName.Contains(filter)));
 
             return new DrawText("Добавлены записи в журнал").Montserrat();

@@ -75,7 +75,7 @@
         /// <summary>
         /// Редкость вещи
         /// </summary>
-        public Rarity Rare { get; set; }
+        public virtual Rarity Rare { get; set; }
 
         /// <summary>
         /// очередное дохуя спорное решение во имя запускаемости

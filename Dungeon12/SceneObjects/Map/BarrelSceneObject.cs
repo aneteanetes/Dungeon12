@@ -32,7 +32,7 @@ namespace Dungeon12.SceneObjects.Map
         {
             if (!@object.Used)
             {
-                @object.Use(playerSceneObject.Avatar.Character.As<Dungeon12Class>());
+                @object.Use(playerSceneObject.Avatar.Character);
                 @object.Used = true;
                 this.TooltipText = "Пустая бочка";
             }

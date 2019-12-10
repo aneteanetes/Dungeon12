@@ -2,10 +2,11 @@
 {
     using Dungeon.Control;
     using Dungeon.Drawing;
-    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects;
+    using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
     using System;
-    using Dungeon;
+    using Dungeon12;
 
     public class Arrow : EmptyHandleSceneControl
     {

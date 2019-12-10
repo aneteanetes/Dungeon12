@@ -18,9 +18,9 @@ namespace Dungeon12.Entities.Quests
 
         Reward Reward { get; set; }
 
-        Dungeon12Class Character { get; }
+        Character Character { get; }
 
-        void Bind(Dungeon12Class @class, GameMap gameMap);
+        void Bind(Character @class, GameMap gameMap);
 
         bool IsCompleted();
 

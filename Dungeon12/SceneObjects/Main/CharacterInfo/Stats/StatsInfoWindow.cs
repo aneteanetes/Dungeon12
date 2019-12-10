@@ -1,15 +1,16 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo
 {
-    using Dungeon;
     using Dungeon12.Classes;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
-    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects;
+    using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
     using Dungeon12.SceneObjects.Main.CharacterInfo.Stats;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Dungeon12;
 
     public class StatsInfoWindow : EmptyHandleSceneControl
     {

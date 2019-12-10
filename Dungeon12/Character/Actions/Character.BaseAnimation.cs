@@ -1,12 +1,13 @@
 ﻿using Dungeon.Entities.Animations;
 using Dungeon.Types;
+using Dungeon12.Entities.Alive;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Dungeon12.Classes
 {
-    public abstract class BaseCharacterTileset : Character
+    public abstract partial class Character : Moveable
     {
         public override Rectangle TileSetRegion => new Rectangle
         {
@@ -64,7 +65,6 @@ namespace Dungeon12.Classes
             }
         };
     }
-    
 
     public class BaseAnimationMap : AnimationMap
     {

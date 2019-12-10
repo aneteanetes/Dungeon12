@@ -7,9 +7,11 @@
     using Dungeon.Drawing.SceneObjects;
     using Dungeon12.Entities.Alive.Enums;
     using Dungeon.GameObjects;
-    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects;
+    using Dungeon.SceneObjects;
     using System;
     using System.Linq;
+    using Dungeon12;
 
     public class OriginDescription : ColoredRectangle<EmptyGameComponent>
     {

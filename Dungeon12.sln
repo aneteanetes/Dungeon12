@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon", "Dungeon\Dungeon.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dungeon.ConversationDesigner", "Dungeon.ConversationDesigner\Dungeon.ConversationDesigner.csproj", "{92ECAF06-208D-4AFB-976F-9E445C195CFB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dungeon.Monogame.FontGenerator", "Dungeon.Monogame.FontGenerator\Dungeon.Monogame.FontGenerator.csproj", "{6B628192-63FC-4D2C-957E-54B3E4533511}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CompileDatabase|Any CPU = CompileDatabase|Any CPU
@@ -113,6 +115,18 @@ Global
 		{92ECAF06-208D-4AFB-976F-9E445C195CFB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{92ECAF06-208D-4AFB-976F-9E445C195CFB}.Release|x86.ActiveCfg = Release|Any CPU
 		{92ECAF06-208D-4AFB-976F-9E445C195CFB}.Release|x86.Build.0 = Release|Any CPU
+		{6B628192-63FC-4D2C-957E-54B3E4533511}.CompileDatabase|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B628192-63FC-4D2C-957E-54B3E4533511}.CompileDatabase|Any CPU.Build.0 = Debug|Any CPU
+		{6B628192-63FC-4D2C-957E-54B3E4533511}.CompileDatabase|x86.ActiveCfg = Debug|Any CPU
+		{6B628192-63FC-4D2C-957E-54B3E4533511}.CompileDatabase|x86.Build.0 = Debug|Any CPU
+		{6B628192-63FC-4D2C-957E-54B3E4533511}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B628192-63FC-4D2C-957E-54B3E4533511}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B628192-63FC-4D2C-957E-54B3E4533511}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6B628192-63FC-4D2C-957E-54B3E4533511}.Debug|x86.Build.0 = Debug|Any CPU
+		{6B628192-63FC-4D2C-957E-54B3E4533511}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B628192-63FC-4D2C-957E-54B3E4533511}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B628192-63FC-4D2C-957E-54B3E4533511}.Release|x86.ActiveCfg = Release|Any CPU
+		{6B628192-63FC-4D2C-957E-54B3E4533511}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,6 +134,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{7870B6B5-6868-4406-AAD8-94D147A56795} = {5FB1E387-84A2-47BC-8C07-497293307A3C}
 		{92ECAF06-208D-4AFB-976F-9E445C195CFB} = {5FB1E387-84A2-47BC-8C07-497293307A3C}
+		{6B628192-63FC-4D2C-957E-54B3E4533511} = {5FB1E387-84A2-47BC-8C07-497293307A3C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED22073D-6C04-4F62-80B2-5EE0EA19C68D}

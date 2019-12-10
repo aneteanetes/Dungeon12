@@ -34,4 +34,7 @@
     <PackageReference Include="MathNet.Numerics" Version="4.8.0-beta01" />
     <PackageReference Include="morelinq" Version="3.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Fonts\" />
+  </ItemGroup>
 </Project>

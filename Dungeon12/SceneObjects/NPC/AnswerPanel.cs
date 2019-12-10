@@ -8,11 +8,13 @@
     using Dungeon12.Drawing.SceneObjects.Map;
     using Dungeon.GameObjects;
     using Dungeon12.Map;
-    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects;
+    using Dungeon.SceneObjects;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Dungeon;
+    using Dungeon12;
 
     public class AnswerPanel : EmptyHandleSceneControl
     {

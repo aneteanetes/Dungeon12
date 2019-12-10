@@ -1,6 +1,7 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Inventories
 {
-    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects;
+    using Dungeon.SceneObjects;
     using Dungeon12.Items;
     using Dungeon12.Items.Enums;
     using Dungeon.Types;
@@ -8,6 +9,7 @@
     using System.Linq;
     using Dungeon;
     using Dungeon.Drawing;
+    using Dungeon12;
 
     public class ItemTooltip : Tooltip
     {

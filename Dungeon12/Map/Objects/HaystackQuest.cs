@@ -35,7 +35,7 @@ namespace Dungeon12.Map.Objects
 
         public static void UpdateHaystackQuest(string text)
         {
-            var quest = Global.GameState.Character.As<Dungeon12Class>().Journal.Quests.FirstOrDefault(x => x.Quest.IdentifyName == "CardGetting");
+            var quest = Global.GameState.Character.Journal.Quests.FirstOrDefault(x => x.Quest.IdentifyName == "CardGetting");
             quest.Text += Environment.NewLine + Environment.NewLine + text;
             Toast.Show("Журнал обновлён!");
         }

@@ -12,7 +12,17 @@ namespace Dungeon
         {
             if (string.IsNullOrWhiteSpace(value))
                 value = " ";
-            return new DrawText(value);
+
+            return new DrawText(value).DefaultFont();
+        }
+
+        public static DrawText DefaultFont(this DrawText drawText)
+        {
+            drawText.FontName = "FledglingSb-Regular";
+            drawText.FontAssembly = "Dungeon.Resources";
+            drawText.FontPath = "Dungeon.Resources.Fonts.Fledgling.ttf";
+
+            return drawText;
         }
 
         public static DrawText InColor(this DrawText drawText, DrawColor drawColor)

@@ -10,13 +10,15 @@
     using Dungeon12.Map;
     using Dungeon12.Map.Objects;
     using Dungeon.Physics;
-    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects;
+    using Dungeon.SceneObjects;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Dungeon;
+    using Dungeon12;
 
     /// <summary>
     /// тут кто-то явно сэкономил на времени и въебал виртуальные свойства вместо абстрактных

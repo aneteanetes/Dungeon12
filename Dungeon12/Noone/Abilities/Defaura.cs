@@ -5,10 +5,7 @@ using Dungeon12.Entities.Alive;
 using Dungeon12.Map;
 using Dungeon12.Map.Objects;
 using Dungeon12.Noone.Talants.Defensible;
-using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
-using Dungeon12.Data.Npcs;
-using Dungeon12.Map.Objects;
-
+using System;
 namespace Dungeon12.Noone.Abilities
 {
     public class Defaura : Ability<Noone, DefensibleTalants>

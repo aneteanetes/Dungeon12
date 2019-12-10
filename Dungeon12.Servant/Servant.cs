@@ -10,7 +10,7 @@ using System;
 
 namespace Dungeon12.Servant
 {
-    public class Servant : Dungeon12Class
+    public class Servant : Character
     {
         public bool Serve { get; set; }
 

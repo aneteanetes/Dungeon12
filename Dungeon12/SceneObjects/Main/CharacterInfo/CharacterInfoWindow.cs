@@ -10,13 +10,15 @@
     using Dungeon12.Drawing.SceneObjects.UI;
     using Dungeon.GameObjects;
     using Dungeon12.Map;
-    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects;
+    using Dungeon.SceneObjects;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Inventories;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Dungeon12;
 
     public class CharacterInfoWindow : DraggableControl<CharacterInfoWindow>
     {
@@ -279,6 +281,12 @@
             {
                 Top = 3.5,
                 Left = 8
+            });
+
+            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Dungeon12.Items.Enums.ItemKind.OffHand)
+            {
+                Top = 7.7,
+                Left = .5
             });
         }
 

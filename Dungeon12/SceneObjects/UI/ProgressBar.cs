@@ -1,7 +1,8 @@
 ﻿using Dungeon;
 using Dungeon.Drawing;
 using Dungeon.GameObjects;
-using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+using Dungeon12.SceneObjects;
+using Dungeon.SceneObjects;
 using System;
 
 namespace Dungeon12.SceneObjects.UI

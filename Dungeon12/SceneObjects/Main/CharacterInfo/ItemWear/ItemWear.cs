@@ -55,6 +55,12 @@
                 ? 4
                 : 2;
 
+            if (itemKind == ItemKind.Deck) // or another small like charm or ring/key
+            {
+                this.Width = 1;
+                this.Height = 1;
+            }
+
             this.Image = SquareTexture();
 
             this.dressItemControl = new DressedItem(null);
@@ -219,6 +225,12 @@
 
                     this.Height = tall ? 4 : 2;
                     this.Width = 2;
+
+                    if (item.Kind == ItemKind.Deck)
+                    {
+                        this.Height = 1;
+                        this.Width = 1;
+                    }
                 }
             }
 

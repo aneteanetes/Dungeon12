@@ -13,7 +13,7 @@ namespace Dungeon12.Entities.Quests
 
         protected override IDrawText Trigger(PlayerSceneObject arg1, GameMap arg2, string[] arg3)
         {
-            var @class = arg1.Component.Entity.As<Dungeon12Class>();
+            var @class = arg1.Component.Entity;
             var quest = QuestLoader.Load(arg3[0]);
             quest.Bind(@class,arg2);
 

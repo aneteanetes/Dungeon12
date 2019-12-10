@@ -7,6 +7,7 @@
     using Dungeon12.Entities.Alive.Enums;
     using Dungeon.GameObjects;
     using System;
+    using Dungeon12;
 
     public class OriginSelector : ColoredRectangle<EmptyGameComponent>
     {

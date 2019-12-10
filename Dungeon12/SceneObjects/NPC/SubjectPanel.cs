@@ -8,11 +8,14 @@ namespace Dungeon12.SceneObjects.NPC
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon12.Map.Objects;
-    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
-    using Dungeon.SceneObjects.Base; using Dungeon12.SceneObjects.Base;
+    using Dungeon12.SceneObjects;
+    using Dungeon.SceneObjects;
+    using Dungeon.SceneObjects.Base;
+    using Dungeon12.SceneObjects.Base;
     using Dungeon12.Drawing.SceneObjects;
     using System;
     using System.Linq;
+    using Dungeon12;
 
     public class SubjectPanel : EmptyHandleSceneControl
     {
