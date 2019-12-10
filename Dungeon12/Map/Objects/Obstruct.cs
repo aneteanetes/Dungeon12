@@ -1,5 +1,8 @@
 ﻿namespace Dungeon12.Map.Objects
 {
+    using Dungeon.Drawing.SceneObjects;
+    using Dungeon.SceneObjects;
+    using Dungeon.View.Interfaces;
     using Dungeon12.Map.Infrastructure;
     using System;
     using System.Collections.Generic;

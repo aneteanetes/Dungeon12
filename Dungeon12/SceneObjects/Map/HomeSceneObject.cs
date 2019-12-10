@@ -12,6 +12,7 @@
     using Dungeon12.SceneObjects.NPC;
     using System.Linq;
     using Dungeon;
+    using Dungeon.Drawing.SceneObjects;
 
     public class HomeSceneObject : ClickActionSceneObject<Home>
     {
@@ -21,7 +22,7 @@
 
         private readonly GameMap gameMap;
 
-        public HomeSceneObject(PlayerSceneObject playerSceneObject, Home home, string tooltip,GameMap gameMap) 
+        public HomeSceneObject(PlayerSceneObject playerSceneObject, Home home, string tooltip,GameMap gameMap,string tileset=default) 
             : base(playerSceneObject,home, tooltip)
         {
             this.gameMap = gameMap;

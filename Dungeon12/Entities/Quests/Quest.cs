@@ -113,6 +113,8 @@ namespace Dungeon12.Entities.Quests
             _class.Journal.Quests.Remove(q);
             _class.Journal.QuestsDone.Add(q);
             UnsubscribeEvents();
+
+            Toast.Show("Задание выполнено!");
         }
     }
 }

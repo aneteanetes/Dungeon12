@@ -64,7 +64,7 @@
 
     public class DragAndDropSceneControls
     {
-        public static int DraggableLayers = 1;
+        public static int DraggableLayers = 0;
 
         private static Dictionary<DropableControl, List<DraggableControl>> subscribers = new Dictionary<DropableControl, List<DraggableControl>>();
         private static List<DraggableControl> free = new List<DraggableControl>();

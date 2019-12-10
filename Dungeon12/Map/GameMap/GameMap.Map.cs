@@ -51,7 +51,7 @@
                 obj.Destroy += () => { this.MapObject.Remove(obj); };
                 this.MapObject.Add(obj);
 
-                if (!(obj is Empty) && !(obj is Wall))
+                if (!(obj is Wall))
                 {
                     this.Objects.Add(obj);
                 }
@@ -107,7 +107,7 @@
                     obj.Destroy += () => { this.MapObject.Remove(obj); };
                     this.MapObject.Add(obj);
 
-                    if (!(obj is Empty) && !(obj is Wall))
+                    if (!(obj is Wall))
                     {
                         this.Objects.Add(obj);
                     }

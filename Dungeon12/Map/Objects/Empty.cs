@@ -1,33 +1,33 @@
 ﻿namespace Dungeon12.Map.Objects
 {
-    using System;
-    using Dungeon.Data.Attributes;
+    using Dungeon.Drawing.SceneObjects;
+    using Dungeon.SceneObjects;
+    using Dungeon.Types;
+    using Dungeon.View.Interfaces;
     using Dungeon12.Data.Region;
     using Dungeon12.Map.Infrastructure;
-    using Dungeon.Types;
 
     [Template(".")]
     public class Empty : MapObject
     {
-        public Empty()
+        protected override MapObject Self => this;
+
+        public override ISceneObject Visual()
         {
-            var randomX = Dungeon.RandomDungeon.Next(0, 8);
-            this.region = new Rectangle
+            if (this.Image != default)
             {
-                X = 24 * randomX,
-                Y = 0,
-                Height = 24,
-                Width = 24
-            };
+                return new ImageControl(this.Image)
+                {
+                    Left=this.Location.X,
+                    Top=this.Location.Y
+                };
+            }
+            return new EmptySceneObject();
         }
 
-        public override string Icon { get => "."; set { } }
-
-        public override string Tileset => "Dungeon12.Resources.Images.Tiles.dblue.png";
-
-        private readonly Rectangle region;
-        public override Rectangle TileSetRegion => region;
-
-        protected override MapObject Self => throw new NotImplementedException();
+        protected override void Load(RegionPart regionPart)
+        {
+            base.Load(regionPart);
+        }
     }
 }

@@ -75,6 +75,47 @@
       }
     },
     {
+      "Icon": ".",
+      "Image": "Dungeon12.Resources.Images.Objects.bloodcultkeep.png",
+      "Position": {
+        "X": 10,
+        "Y": 7
+      },
+      "Obstruct": true
+    },
+    {
+      "Icon": ".",
+      "Image": "Dungeon12.Resources.Images.Objects.forgefaith.png",
+      "Position": {
+        "X": 47,
+        "Y": 46
+      }
+    },
+    {
+      "Icon": ".",
+      "Position": {
+        "X": 47,
+        "Y": 46
+      },
+      "Region": {
+        "Width": 3,
+        "Height": 7
+      },
+      "Obstruct": true
+    },
+    {
+      "Icon": ".",
+      "Position": {
+        "X": 50,
+        "Y": 49
+      },
+      "Region": {
+        "Width": 3,
+        "Height": 4
+      },
+      "Obstruct": true
+    },
+    {
       "Icon": "Home",
       "IdentifyName": "FaithIslandInking",
       "Position": {
@@ -110,8 +151,8 @@
       "Icon": "Barrel",
       "IdentifyName": "Magenta",
       "Position": {
-        "X": 48,
-        "Y": 50
+        "X": 46,
+        "Y": 48
       }
     },
     {

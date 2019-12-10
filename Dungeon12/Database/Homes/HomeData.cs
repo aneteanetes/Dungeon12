@@ -1,5 +1,7 @@
 ﻿namespace Dungeon12.Data.Homes
 {
+    using Dungeon.Physics;
+    using Dungeon.Types;
     using Dungeon12.Conversations;
 
     public class HomeData : ConversationalDataStore

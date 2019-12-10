@@ -145,10 +145,13 @@
                 this.Location = new Point(regionPart.Position.X, regionPart.Position.Y);
             }
 
+            this.Obstruction = regionPart.Obstruct;
+
             if (regionPart.Region == null)
             {
                 if (regionPart.Image != default)
                 {
+                    this.Image = regionPart.Image;
                     var measure = Global.DrawClient.MeasureImage(regionPart.Image);
                     this.Size = new PhysicalSize
                     {
@@ -156,6 +159,14 @@
                         Height = measure.Y
                     };
                 }
+            }
+            else if (regionPart.Image == default) // на всякий обезопасить
+            {
+                this.Size = new PhysicalSize()
+                {
+                    Height = regionPart.Region.Height*32,
+                    Width = regionPart.Region.Width*32
+                };
             }
         }
 
