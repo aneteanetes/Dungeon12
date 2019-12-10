@@ -1,8 +1,7 @@
 {
   "profiles": {
     "Dungeon.Monogame.FontGenerator": {
-      "commandName": "Project",
-      "commandLineArgs": "C:\\Users\\a.tretyakov\\source\\repos\\Dungeon-12\\Dungeon.Monogame\\Content\\Content.Core.mgcb Fledgling"
+      "commandName": "Project"
     }
   }
 }
