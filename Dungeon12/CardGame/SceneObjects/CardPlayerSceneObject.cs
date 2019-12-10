@@ -10,7 +10,7 @@ using Dungeon12.Drawing.SceneObjects.Map;
 
 namespace Dungeon12.CardGame.SceneObjects
 {
-    public class CardPlayerSceneObject : HandleSceneControl<CardGamePlayer>
+    public class CardPlayerSceneObject : Dungeon12.SceneObjects.HandleSceneControl<CardGamePlayer>
     {
         private TextControl influence;
         private TextControl hits;

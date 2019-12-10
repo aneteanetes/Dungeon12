@@ -148,6 +148,8 @@
             {
                 this.Merchant.FillBackpacks();
             }
+
+            this.ReEntity(this.Entity);
         }
 
         private void Dying()

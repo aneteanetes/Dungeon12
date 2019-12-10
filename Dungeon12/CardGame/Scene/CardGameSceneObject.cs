@@ -8,7 +8,7 @@ using System;
 
 namespace Dungeon12.CardGame.Scene
 {
-    public class CardGameSceneObject : HandleSceneControl<Engine.CardGame>
+    public class CardGameSceneObject : Dungeon12.SceneObjects.HandleSceneControl<Engine.CardGame>
     {
         public CardGameSceneObject(Engine.CardGame component, Deck enemyDeck, Deck playerDeck, CardDropMask cardDropMask) : base(component, true)
         {

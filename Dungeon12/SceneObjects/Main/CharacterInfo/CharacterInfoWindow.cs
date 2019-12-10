@@ -174,7 +174,7 @@
         {
             var character = playerSceneObject.Avatar.Character;
 
-            var txt = this.AddTextCenter(new DrawText(character.Name), true, false);
+            var txt = this.AddTextCenter(new DrawText(character.Name).Triforce().InSize(30), true, false);
             txt.Top += 0.2;
 
             var origin = this.AddTextCenter(new DrawText(character.ClassName, character.ClassColor).Montserrat());
@@ -283,7 +283,7 @@
                 Left = 8
             });
 
-            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Dungeon12.Items.Enums.ItemKind.OffHand)
+            this.AddChild(new ItemWear(inventory, playerSceneObject.Avatar.Character, Dungeon12.Items.Enums.ItemKind.Deck)
             {
                 Top = 7.7,
                 Left = .5

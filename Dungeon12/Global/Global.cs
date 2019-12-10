@@ -17,6 +17,12 @@ namespace Dungeon12
 {
     public class Global : DungeonGlobal
     {
+        public Global()
+        {
+            DefaultFontName = "Triforce(RUS BY LYAJKA)";
+            DefaultFontSize = 30;
+        }
+
         public static GameState GameState { get; set; } = new GameState();
 
         protected override void OnException(Exception ex, Action ok = null)

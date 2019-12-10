@@ -8,7 +8,7 @@ using Dungeon12.SceneObjects.Main.CharacterInfo.Journal;
 
 namespace Dungeon12.SceneObjects.UI
 {
-    public class QuestDescoverSceneObject : HandleSceneControl<IQuest>
+    public class QuestDescoverSceneObject : Dungeon12.SceneObjects.HandleSceneControl<IQuest>
     {
         public override bool CacheAvailable => false;
 

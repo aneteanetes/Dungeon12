@@ -28,7 +28,7 @@
 
             this.Width = 26;
             this.Height = 17;
-            this.AddTextCenter(new DrawText("Происхождение (Предтечи)", new DrawColor(ConsoleColor.White)) { Size = 50 }, true, false)
+            this.AddTextCenter(new DrawText("Происхождение (Предтечи)", new DrawColor(ConsoleColor.White)) { Size = 50 }.Triforce(), true, false)
                 .Top = .5;
 
             AddOrigins();

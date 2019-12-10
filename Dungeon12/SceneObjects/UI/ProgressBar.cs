@@ -7,7 +7,7 @@ using System;
 
 namespace Dungeon12.SceneObjects.UI
 {
-    public class ProgressBar : HandleSceneControl<ProgressBarModel>
+    public class ProgressBar : Dungeon12.SceneObjects.HandleSceneControl<ProgressBarModel>
     {
         public override bool CacheAvailable => false;
 

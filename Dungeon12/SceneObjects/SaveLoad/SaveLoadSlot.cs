@@ -15,7 +15,7 @@ using static Dungeon12.Global;
 
 namespace Dungeon12.SceneObjects.SaveLoad
 {
-    public class SaveLoadSlot : HandleSceneControl<SaveModel>
+    public class SaveLoadSlot : Dungeon12.SceneObjects.HandleSceneControl<SaveModel>
     {
         private SaveLoadWindow _saveLoadWindow;
 

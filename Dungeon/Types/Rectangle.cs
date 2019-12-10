@@ -77,6 +77,8 @@ namespace Dungeon.Types
             }
         }
 
+        public bool IntersectsWithOrContains(Rectangle b) => this.IntersectsWith(b) || this.Contains(b.X, b.Y);
+
         public bool Contains(double x, double y)
         {
             return ((x >= X) && (x < X+Width) &&

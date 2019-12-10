@@ -10,7 +10,7 @@ using Dungeon12.Entities.Quests;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
 {
-    public class JournalList : EmptyHandleSceneControl
+    public class JournalList : Dungeon12.SceneObjects.HandleSceneControl<EmptySceneObject>
     {
         public override bool AbsolutePosition => true;
 
@@ -20,7 +20,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
 
         public Func<bool> CanDestroyParentBinding { get; set; } = () => true;
 
-        public JournalList(Player playerSceneObject, JournalWindow journalWindow, IQuest quest)
+        public JournalList(Player playerSceneObject, JournalWindow journalWindow, IQuest quest):base(new EmptySceneObject())
         {
             this.Image = "Dungeon12.Resources.Images.ui.vertical_title(17x12).png";
 

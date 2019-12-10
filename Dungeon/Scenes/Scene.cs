@@ -468,13 +468,16 @@
                 if (upper == null)
                 {
                     upper = layer;
-                    selected.AddRange(layer);
+                    foreach (var item in layer)
+                    {
+                        selected.Add(item);
+                    }
                     continue;
                 }
 
                 foreach (var item in layer)
                 {
-                    if (!upper.Any(up => ActualRegion(up,offset).IntersectsWith(ActualRegion(item,offset))))
+                    if (!upper.Any(up => ActualRegion(up,offset).IntersectsWithOrContains(ActualRegion(item,offset))))
                     {
                         selected.Add(item);
                     }

@@ -12,9 +12,12 @@ namespace Dungeon.SceneObjects.Base
     {
         protected TextControl textControl;
 
-        public ButtonControl(TComponent component, string text, float size = 30) : base(component)
+        public ButtonControl(TComponent component, string text, float size = 30) : this(component, new DrawText(text, ConsoleColor.White) { Size = size }.DefaultFont()) { }
+
+        public ButtonControl(TComponent component, IDrawText text, float size = 30) : base(component)
         {
-            textControl = new TextControl(new DrawText(text, ConsoleColor.White) { Size = size }.DefaultFont());
+            text.Size = size;
+            textControl = new TextControl(text);
 
             var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text);
 

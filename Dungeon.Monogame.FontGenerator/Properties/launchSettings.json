@@ -1,7 +1,8 @@
 {
   "profiles": {
     "Dungeon.Monogame.FontGenerator": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\Anton\\Source\\Repos\\Rogue\\Dungeon.Monogame\\Content\\Content.Core.mgcb"
     }
   }
 }

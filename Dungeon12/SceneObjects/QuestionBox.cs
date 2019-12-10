@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Dungeon12.SceneObjects
 {
-    public class QuestionBox : HandleSceneControl<QuestionBoxModel>
+    public class QuestionBox : Dungeon12.SceneObjects.HandleSceneControl<QuestionBoxModel>
     {
         public override bool AbsolutePosition => true;
 

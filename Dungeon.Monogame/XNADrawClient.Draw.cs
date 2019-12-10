@@ -170,7 +170,7 @@
 
                 var text = $"FPS: {_fps}";
 
-                var font = Content.Load<SpriteFont>("Montserrat");
+                var font = Content.Load<SpriteFont>("fonts/Montserrat/Montserrat10");
 
                 spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);
 
@@ -188,10 +188,10 @@
             string customFont = null;
             if (drawText.FontName != null)
             {
-                customFont = $"{drawText.FontName}/{drawText.FontName}{drawText.Size}";
+                customFont = $"fonts/{drawText.FontName}/{drawText.FontName}{drawText.Size}";
             }
 
-            var font = Content.Load<SpriteFont>(customFont ?? "Triforce/Triforce30");
+            var font = Content.Load<SpriteFont>(customFont ?? $"fonts/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}");
 
             var data = drawText.StringData;
 
@@ -609,17 +609,17 @@
             SpriteFont spriteFont;
             if (string.IsNullOrEmpty(range.FontName))
             {
-                spriteFont = Content.Load<SpriteFont>("Triforce/Triforce30");
+                spriteFont = Content.Load<SpriteFont>($"fonts/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}");
             }
             else
             {
                 if (string.IsNullOrEmpty(range.FontPath))
                 {
-                    spriteFont = Content.Load<SpriteFont>($"{range.FontName}/{range.FontName}{range.Size}");
+                    spriteFont = Content.Load<SpriteFont>($"fonts/{range.FontName}/{range.FontName}{range.Size}");
                 }
                 else
                 {
-                    spriteFont = Content.Load<SpriteFont>($"{range.FontName}/{range.FontName}{range.Size}");
+                    spriteFont = Content.Load<SpriteFont>($"fonts/{range.FontName}/{range.FontName}{range.Size}");
                 }
             }
 

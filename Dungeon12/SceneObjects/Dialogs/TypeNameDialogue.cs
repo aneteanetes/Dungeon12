@@ -20,7 +20,7 @@
             var enterName = new DrawText(" Введите имя", new DrawColor(ConsoleColor.White))
             {
                 Size = 50
-            };
+            }.Triforce();
 
             var text = this.AddTextCenter(enterName, true,false);
             text.Top += 0.5;

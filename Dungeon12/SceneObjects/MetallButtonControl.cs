@@ -9,7 +9,7 @@
     using System;
     public class MetallButtonControl : ButtonControl<EmptyGameComponent>
     {
-        public MetallButtonControl(string text) : base(EmptyGameComponent.Empty, text, 24)
+        public MetallButtonControl(string text) : base(EmptyGameComponent.Empty, text.AsDrawText().Triforce(), 24)
         {
         }
 

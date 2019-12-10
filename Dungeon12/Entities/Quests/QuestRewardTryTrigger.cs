@@ -24,6 +24,7 @@ namespace Dungeon12.Entities.Quests
             if (quest.IsCompleted())
             {
                 arg4.Conversation.Variables.FirstOrDefault(v => v.Name == variableSuccessName)?.Trigger(arg4.Tag);
+                Dungeon12.Global.GameState.Character[variableSuccessName] = true;
                 quest.Complete();
                 return replicaSuccess.AsDrawText();
             }

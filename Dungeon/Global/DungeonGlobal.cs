@@ -58,6 +58,10 @@
 
         public static Assembly GameAssembly { get; set; }
 
+        public static string DefaultFontName { get; set; } = "FledglingSb";
+
+        public static int DefaultFontSize { get; set; } = 14;
+
         public static SceneManager SceneManager { get; set; }
 
         /// <summary>

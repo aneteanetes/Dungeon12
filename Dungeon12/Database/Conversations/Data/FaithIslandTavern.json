@@ -1,97 +1,109 @@
-﻿{
+{
   "Identify": "FaithIslandTavern",
-  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.InnkeeperF.png",
-  "Name": "Трактирщик",
   "Subjects": [
     {
       "Name": "Отдых",
       "Text": "А вы знали что у служителей веры длинная история?",
+      "Variables": [],
+      "Visible": {},
+      "Invisible": {},
       "Replics": [
         {
-          "Shown": true,
-          "Tag": 1,
           "Answer": "Расскажите подробнее",
           "Text": "Служители веры появились на острове достаточно давно, примерно через десятилетие после подъема острова из пепла бывшего вулкана...",
-          "ReplicsTags": [  ]
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 1,
+          "Variables": []
         }
       ]
     },
     {
       "Name": "Подземелья",
       "Text": "Мы можем сыграть с вами, или я могу рассказать про эту игру если вы ещё о ней не слышали",
+      "Variables": [],
       "Visible": {
         "Name": "CardsExisted"
       },
+      "Invisible": {},
       "Replics": [
         {
-          "Shown": true,
-          "Tag": 5,
           "Answer": "Начать игру",
           "Text": "Да у вас же нету своей колоды!",
-          "ReplicsTags": [ 7 ]
+          "ReplicsTags": [
+            7
+          ],
+          "Shown": true,
+          "Tag": 5,
+          "Variables": []
         },
         {
-          "Shown": false,
+          "Answer": "Где я могу достать колоду?",
+          "Text": "Спросите одного из постояльцев нашей таверны, я уверен он сможет вам помочь",
+          "ReplicsTags": [],
           "Tag": 7,
           "Variables": [
             {
               "Name": "CardsQuest",
               "Global": true
             }
-          ],
-          "Answer": "Где я могу достать колоду?",
-          "Text": "Спросите одного из постояльцев нашей таверны, я уверен он сможет вам помочь",
-          "ReplicsTags": [] //go to start
+          ]
         },
         {
-          "Shown": false,
-          "Tag": 8,
           "Answer": "Хорошо",
           "Text": "",
-          "Escape": true,
-          "ReplicsTags": [] //go to start
+          "ReplicsTags": [],
+          "Tag": 8,
+          "Variables": [],
+          "Escape": true
         },
         {
-          "Shown": true,
-          "Tag": 6,
           "Answer": "Что такое 'подземелья'?",
           "Text": "",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 6,
+          "Variables": [],
           "TriggerClass": "JournalAddTrigger",
-          "TriggerClassArguments": [
+          "TriggerArguments": [
             "World",
             "CardGame"
-          ],
-          "ReplicsTags": []
+          ]
         }
       ]
     },
     {
       "Name": "Подземелья",
       "Text": "Теперь вы готовы сыграть?",
+      "Variables": [],
+      "Visible": {},
       "Invisible": {
-        "Name": "CardsExistsed"
+        "Name": "CardsExisted"
       },
       "Replics": [
         {
-          "Shown": true,
-          "Tag": 50,
           "Answer": "Да",
           "Text": "",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 50,
+          "Variables": [],
           "TriggerClass": "Dungeon12.CardGameTrigger",
-          "TriggerClassAsm": "Dungeon12",
-          "TriggerClassArguments": [
+          "TriggerArguments": [
             "Guardian"
-          ],
-          "ReplicsTags": []
+          ]
         },
         {
-          "Shown": true,
-          "Tag": 70,
           "Answer": "Правила таверны",
           "Text": "Мы используем колоды стандартного размера по 24 карты. \r\nВ нашей таверне игроки начинают с 20 хитами и 1 ресурсом.\r\n Для победы вам потребуется 25 влияния.",
-          "ReplicsTags": []
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 70,
+          "Variables": []
         }
       ]
     }
-  ]
+  ],
+  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.InnkeeperF.png",
+  "Name": "Трактирщик"
 }

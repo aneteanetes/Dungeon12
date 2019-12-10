@@ -26,7 +26,7 @@
             Height = 13.5;
             Width = 13.5;
 
-            var title = this.AddTextCenter(new DrawText(origin.ToDisplay()) { Size = 40 }, true, false);
+            var title = this.AddTextCenter(new DrawText(origin.ToDisplay()) { Size = 40 }.Triforce(), true, false);
             title.Top = .5;
 
             var perk = Dungeon.Store.Entity<ValuePerk>(x => x.Identity == origin.ToString()).First();

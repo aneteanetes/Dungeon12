@@ -17,14 +17,15 @@
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using Dungeon.Control;
+    using Dungeon.Drawing;
 
     public class ItemWear : DropableControl<InventoryItem>
     {
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
-             ControlEventType.ClickRelease,
-             ControlEventType.Click,
-              ControlEventType.Focus
+            ControlEventType.ClickRelease,
+            ControlEventType.Click,
+            ControlEventType.Focus
         };
 
         private string borderImage = string.Empty;
@@ -78,6 +79,7 @@
                 case ItemKind.Armor:
                 case ItemKind.Boots:
                 case ItemKind.OffHand:
+                case ItemKind.Deck:
                     {
                         var cloth = character.Clothes.GetProperty<Item>(itemKind.ToString());
                         if (cloth != null)
@@ -189,11 +191,14 @@
             }
         }
 
-        protected override bool ProvidesTooltip => dressItemControl.item != null;
+        protected override bool ProvidesTooltip => true;
 
         protected override Tooltip ProvideTooltip(Point position)
         {
-            return new ItemTooltip(dressItemControl.item, position);
+            if (dressItemControl.item != default)
+                return new ItemTooltip(dressItemControl.item, position);
+            else
+                return new Tooltip(ItemKind.ToDisplay(), position, DrawColor.WhiteSmoke);
         }
         protected override void CallOnEvent(dynamic obj)
         {

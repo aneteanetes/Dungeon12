@@ -18,9 +18,9 @@ namespace Dungeon
 
         public static DrawText DefaultFont(this DrawText drawText)
         {
-            drawText.FontName = "FledglingSb-Regular";
-            drawText.FontAssembly = "Dungeon.Resources";
-            drawText.FontPath = "Dungeon.Resources.Fonts.Fledgling.ttf";
+            drawText.FontName = DungeonGlobal.DefaultFontName;
+            //drawText.FontAssembly = "Dungeon.Resources";
+            //drawText.FontPath = "Dungeon.Resources.Fonts.Fledgling.ttf";
 
             return drawText;
         }

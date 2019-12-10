@@ -1,5 +1,6 @@
 ﻿namespace Dungeon12.Scenes.Game
 {
+    using Dungeon;
     using Dungeon.Control.Keys;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
@@ -20,6 +21,7 @@
     using Dungeon12.Scenes.Menus;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class Main : GameScene<Start, Main,End, CardGameScene>
     {
@@ -40,6 +42,8 @@
 
         public override void Init()
         {
+            this.AddObject(variableViewer);
+
             var player = new Player(Global.GameState.PlayerAvatar, x => this.RemoveObject(x))
             {
                 Left = this.PlayerAvatar?.Location?.X ??0 ,
@@ -276,6 +280,42 @@
         {
             if (keyPressed == Key.Escape)
                 this.Switch<Start>("main");
+
+            if(keyPressed== Key.V && keyModifiers== KeyModifiers.Control)
+            {
+                variableViewer.Visible = !variableViewer.Visible;
+            }
+        }
+
+        private CharacterVariableViewer variableViewer = new CharacterVariableViewer();
+
+        private class CharacterVariableViewer : DarkRectangle
+        {
+            public override bool AbsolutePosition => true;
+
+            public override bool CacheAvailable => false;
+
+            public CharacterVariableViewer()
+            {
+                this.Width = 7;
+                this.Height = 15;
+
+                this.Left = 32;
+                this.Top = 3;
+
+                this.Text = " ".AsDrawText().Montserrat().InSize(12);
+
+                this.Visible = false;
+            }
+
+            public override void Update()
+            {
+                var vars = Global.GameState.Character?.Variables.Select(x => $"{x.First}: {x.Second}");
+                if (vars != default)
+                {
+                    this.Text.SetText(string.Join(Environment.NewLine, vars));
+                }
+            }
         }
 
         private class Position : TextControl

@@ -23,4 +23,24 @@ namespace Dungeon12.SceneObjects
             }
         }
     }
+
+    public abstract class HandleSceneControl<T> : Dungeon.SceneObjects.HandleSceneControl<T>
+        where T : class, IGameComponent
+    {
+        public HandleSceneControl(T component, bool bindView = true) : base(component, bindView)
+        {
+            // ЭТО ПИЗДЕЦ КОСТЫЛЬ
+            var owner = SceneManager.Preapering;
+
+            if (owner != null)
+            {
+                if (this is DraggableControl draggableControl)
+                { }
+                else
+                {
+                    ZIndex = DragAndDropSceneControls.DraggableLayers;
+                }
+            }
+        }
+    }
 }

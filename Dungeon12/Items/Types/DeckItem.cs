@@ -1,5 +1,6 @@
 ﻿using Dungeon12.CardGame.Engine;
 using Dungeon12.Items.Enums;
+using LiteDB;
 
 namespace Dungeon12.Items.Types
 {
@@ -12,6 +13,8 @@ namespace Dungeon12.Items.Types
         public string DeckIdentity { get; set; }
 
         private Deck _deck;
+
+        [BsonIgnore]
         public Deck Deck
         {
             get

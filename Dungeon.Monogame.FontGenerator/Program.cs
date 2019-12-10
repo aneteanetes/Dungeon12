@@ -17,7 +17,7 @@ namespace Dungeon.Monogame
             int.TryParse(fontsizeMin, out var min);
             int.TryParse(fontsizeMax, out var max);
 
-            var generator = new FontGenerator(contentFilePath, "Montserrat,Triforce(RUS BY LYAJKA),FledglingSb-Regular", min == default ? 8 : min, max == default ? 72 : max);
+            var generator = new FontGenerator(contentFilePath, "FledglingSb", min == default ? 8 : min, max == default ? 72 : max);
             generator.Generate();
         }
     }

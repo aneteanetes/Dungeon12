@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Dungeon12.CardGame.SceneObjects
 {
-    public class CardInHands : HandleSceneControl<CardGamePlayer>
+    public class CardInHands : Dungeon12.SceneObjects.HandleSceneControl<CardGamePlayer>
     {
         public CardInHands(CardGamePlayer component, Action enemyTurn) : base(component, false)
         {
