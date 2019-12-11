@@ -152,7 +152,7 @@ namespace Dungeon.ConversationDesigner
                 TriggerArguments = new System.Collections.Generic.List<string>()
                 {
                     QuestIdentify,
-                    "QuestCompleted",
+                    completedVar,
                     "Текст не выполненного задания",
                     "Текст выполненного задания"
                 }

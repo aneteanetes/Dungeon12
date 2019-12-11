@@ -24,6 +24,12 @@ namespace Dungeon12.Entities.Quests
 
         public int Gold { get; set; }
 
+        public string Varible { get; set; }
+
+        public string[] LootTables { get; set; }
+
+        public string[] LootDrops { get; set; }
+
         public IRewardTrigger GiveReward { get; set; }
 
         protected override void Init(RewardData dataClass)

@@ -3,6 +3,7 @@ using Dungeon12.Map;
 using Dungeon.View.Interfaces;
 using Dungeon12.Entities.Quests;
 using Dungeon12.Classes;
+using Dungeon12.Loot;
 
 namespace Dungeon12.Entities.Rewards.Triggers
 {
@@ -24,6 +25,23 @@ namespace Dungeon12.Entities.Rewards.Triggers
                     Global.GameState.Map.MapObject.Add(loot);
                     Global.GameState.Map.PublishObject(loot);                    
                 }
+            }
+
+            if (arg1.LootDrops != default && arg1.LootTables!=default)
+            {
+                foreach (var lootDrop in arg1.LootDrops)
+                {
+                    foreach (var lootTable in arg1.LootTables)
+                    {
+                        var lt = LootTable.GetLootTable(lootTable);
+                        lt.LootDrops.Add(lootDrop);
+                    }
+                }
+            }
+
+            if (arg1.Varible != default)
+            {
+                Global.GameState.Character[arg1.Varible] = true;
             }
 
             return " ".AsDrawText();

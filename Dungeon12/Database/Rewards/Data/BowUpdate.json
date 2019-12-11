@@ -1,0 +1,20 @@
+﻿{
+  "RewardColor": {
+    "R": 138,
+    "G": 43,
+    "B": 226
+  },
+  "RewardText": "Опыт",
+  "Exp": 25,
+  "Gold": 100,
+  "Varible": "BowUpdated",
+  "TriggerName": "SimpleRewardTrigger",
+  "LootDrops": [
+    "AnimalHide"
+  ],
+  "LootTables": [
+    "Wolf",
+    "Snake",
+    "Rat"
+  ]
+}

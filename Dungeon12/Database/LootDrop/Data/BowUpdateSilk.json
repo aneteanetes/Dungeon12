@@ -1,0 +1,6 @@
+﻿{
+  "ItemGeneratorTrigger": "QuestItemsGenerator",
+  "ItemGeneratorArguments": [ "SilkThread", "3" ],
+  "Chance": 50,
+  "LootTableIdentify": "Vampire"
+}

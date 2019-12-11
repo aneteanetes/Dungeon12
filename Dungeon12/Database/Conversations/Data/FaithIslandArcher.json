@@ -1,73 +1,153 @@
-﻿{
+{
   "Identify": "FaithIslandArcher",
-  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.ArcherF.png",
-  "Name": "Фэрл Сант",
   "Subjects": [
     {
-      "Name": "Охота",
-      "Text": "Я могу рассказать вам всё об искусстве охоты на Острове Веры",
+      "Name": "Скупка шкур",
+      "Text": "Как и договаривались, я буду покупать у вас шкуры по 10 золотых за каждую.",
+      "Variables": [],
+      "Visible": {},
+      "Invisible": {
+        "Name": "BowUpdated"
+      },
       "Replics": [
         {
+          "Answer": "Продать шкуры",
+          "Text": "Отличная сделка!",
+          "ReplicsTags": [],
           "Shown": true,
           "Tag": 1,
-          "Answer": "Как охотиться?",
-          "Text": "Для того что бы охотиться вам надо приобрести одно из двух приспособлений: лук для охоты или ловушку для зверей",
-          "ReplicsTags": []
+          "Variables": [],
+          "TriggerClass": "BuySpecialItemsTrigger",
+          "TriggerArguments": [
+            "AnimalHide",
+            "10"
+          ]
         },
         {
+          "Answer": "Где я могу найти шкуры?",
+          "Text": "Почти все животные на острове веры оставляют шкуры. Единственное что я не буду покупать - это паучий мех.",
+          "ReplicsTags": [],
           "Shown": true,
           "Tag": 2,
-          "Answer": "Какие звери водятся на Острове Веры?",
-          "Text": "На острове веры много хищных птиц и летучих мышей, а в глубинах пещер водятся огромные мотыльки",
-          "ReplicsTags": []
-        }
-      ]
-    },
-    {
-      "Name": "Задание",
-      "Text": "Мой лук для охоты уже старый, и мне бы хотелось сделать новый, я предоставлю вам свой старый лук если вы принесёте мне десять шкурок летучих мышей",
-      "Replics": [
-        {
-          "Shown": true,
-          "Tag": 3,
-          "Answer": "Согласен",
-          "Text": "Добавлено задание",
-          "ReplicsTags": []
-        },
-        {
-          "Shown": true,
-          "Tag": 4,
-          "Answer": "Я пока что занят",
-          "Text": "Ну, может в другой раз",
-          "ReplicsTags": []
+          "Variables": []
         }
       ]
     },
     {
       "Name": "Лучник",
       "Text": "Я могу помочь вам овладеть искусством лука",
+      "Variables": [],
+      "Visible": {},
+      "Invisible": {},
       "Replics": [
         {
-          "Shown": true,
-          "Tag": 5,
           "Answer": "(Сменить класс на: Лучник)",
           "Text": "Смена класса",
-          "TriggerClass": "Dungeon12.ClassChangeTrigger",
-          "TriggerClassAsm": "Dungeon12",
-          "TriggerClassArguments": [
-            "Dungeon12.Bowman.Bowman",
-            "Dungeon12.Bowman"
-          ],
-          "ReplicsTags": []
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 5,
+          "Variables": [],
+          "TriggerClass": "Dungeon12.ClassChangeTrigger"
         },
         {
-          "Shown": true,
-          "Tag": 6,
           "Answer": "Отказаться",
           "Text": "Оке",
-          "ReplicsTags": []
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 6,
+          "Variables": []
+        }
+      ]
+    },
+    {
+      "Name": "Задание",
+      "Text": "Добрый день, вы за шкурами? К сожалению сейчас я не могу продать вам ни одной шкуры. Животные нынче сошли с ума и мутировали. Я уже сообщил об этом Капитану Стражи, и он даже послал отряд в глубокие пещеры, однако отряд не вернулся. И животные всё ещё слишком матёрые. Вот если бы у меня был лук по сильнее..",
+      "Variables": [
+        {
+          "Name": "QuestGetBowUpdate",
+          "Value": 44,
+          "Global": true
+        }
+      ],
+      "Visible": {
+        "Name": "QuestCompleted_BowUpdate"
+      },
+      "Invisible": {},
+      "Replics": [
+        {
+          "Answer": "Я мог бы заняться сбором материалов на новый лук",
+          "Text": "Отлично! Что бы обновить лук мне понадобится древесина, котрую можно собрать в лесу рядом со старым маяком... однако вроде бы культ крови занял это место, надеюсь это не будет проблемой. Так же мне понадобится три шёлковых нити, подойдут любые, возможно, с плащей. Ну и для сильного каркаса надо изготовить пару железных прутьев у местного кузнеца.",
+          "ReplicsTags": [
+            77
+          ],
+          "Tag": 55,
+          "Variables": [
+            {
+              "Name": "QuestGetBowUpdate",
+              "Value": 44,
+              "Global": true
+            }
+          ],
+          "TriggerClass": "QuestConversationTrigger",
+          "TriggerArguments": [
+            "BowUpdate",
+            "PassRespawnTrigger",
+            "WoodBowRespawnQuest"
+          ]
+        },
+        {
+          "Answer": "Зайду позже",
+          "Text": "Будем надеяться наша стража сможет утихомирить эволюцию.",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 66,
+          "Variables": []
+        },
+        {
+          "Answer": "BowUpdate",
+          "Text": "Вы принесли все материалы?",
+          "ReplicsTags": [
+            45,
+            46
+          ],
+          "Tag": 44,
+          "Variables": []
+        },
+        {
+          "Answer": "Да, вот они.",
+          "Text": "",
+          "ReplicsTags": [
+            77
+          ],
+          "Tag": 45,
+          "Variables": [],
+          "TriggerClass": "QuestRewardTryTrigger",
+          "TriggerArguments": [
+            "BowUpdate",
+            "QuestCompleted_BowUpdate",
+            "Возвращайтесь когда всё будет готово!",
+            "Спасибо вам большое, вот ваша награда! В дополнение к этому я могу покупать у вас шкуры животных"
+          ]
+        },
+        {
+          "Answer": "Не совсем все...",
+          "Text": "Возвращайтесь когда всё будет готово!",
+          "ReplicsTags": [
+            77
+          ],
+          "Tag": 46,
+          "Variables": []
+        },
+        {
+          "Answer": "Назад",
+          "ReplicsTags": [],
+          "Tag": 77,
+          "Variables": [],
+          "Escape": true
         }
       ]
     }
-  ]
+  ],
+  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.ArcherF.png",
+  "Name": "Халтрас Сант"
 }

@@ -64,6 +64,11 @@ namespace Dungeon12.Items.Enums
         /// dark cyan
         /// </summary>
         [Color(0, 139, 139)]
-        Deck = 30
+        Deck = 30,
+        /// <summary>
+        /// dark cyan
+        /// </summary>
+        [Color(188, 143, 143)]
+        Resource = 40
     }
 }

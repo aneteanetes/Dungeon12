@@ -1,0 +1,9 @@
+﻿{
+  "$type": "Dungeon12.Items.Types.ResourceItem, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "Name": "Шкура животного",
+  "Tileset": "Dungeon12.Resources.Images.Items.Other.GuardDeck.png",
+  "InventorySize": {
+    "X": 1,
+    "Y": 1
+  }
+}
