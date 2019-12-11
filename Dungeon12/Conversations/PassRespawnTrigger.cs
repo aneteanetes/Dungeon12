@@ -9,7 +9,7 @@ namespace Dungeon12.Conversations
 {
     public class PassRespawnTrigger : ITrigger<bool, string[]>
     {
-        public bool Trigger(string[] arg1)
+        public virtual bool Trigger(string[] arg1)
         {
             var respawnId = arg1[2];
 

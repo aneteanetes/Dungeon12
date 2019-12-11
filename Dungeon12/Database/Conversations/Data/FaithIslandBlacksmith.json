@@ -1,0 +1,143 @@
+{
+  "Identify": "FaithIslandBlacksmith",
+  "Subjects": [
+    {
+      "Name": "Железные прутья",
+      "Text": "Конечно! После того что вы для меня сделали я с радостью изготовлю для вас. У меня по прежнему нету свободной руды, но для вас же это не проблема! Для изготовления однго прута мне понадобится две железных руды.",
+      "Variables": [
+        {
+          "Name": "QuestCompleted_OreFind",
+          "Value": 2
+        }
+      ],
+      "Visible": {
+        "Name": "BowUpdateForged"
+      },
+      "Invisible": {
+        "Name": "QuestCompleted_OreFind"
+      },
+      "Replics": [
+        {
+          "Answer": "Изготовь для меня железный прут",
+          "ReplicsTags": [],
+          "Variables": [],
+          "TriggerClass": "BowForgeIronRodTrigger",
+          "TriggerArguments": [
+            "IronOre",
+            "2",
+            "IronRod",
+            "1"
+          ],
+          "Escape": true
+        },
+        {
+          "Answer": "Выполнено личное задание",
+          "Text": "Конечно! После того что вы для меня сделали я с радостью изготовлю для вас. У меня по прежнему нету свободной руды, но для вас же это не проблема! Для изготовления однго прута мне понадобится две железных руды.",
+          "ReplicsTags": [
+            0
+          ],
+          "Shown": true,
+          "Tag": 2,
+          "Variables": []
+        }
+      ]
+    },
+    {
+      "Name": "Оружие и доспехи",
+      "Text": "Я только изготавливаю, моя жена Ниихаталь занимается обработкой заказов на доспехи и оружие. Однако в связи с недавними событиями в глубоких пещерах, у нас сейчас нет руды для производства.",
+      "Variables": [],
+      "Visible": {},
+      "Invisible": {},
+      "Replics": []
+    },
+    {
+      "Name": "Задание",
+      "Text": "Времена настали не лёгкие, проблемы в глубоких шахтах, нашествие культа крови. Городская стража истратила все мои запасы руды, а новые взять не откуда. Обычной железной руды у меня много, а вот белой и чёрной - больше нет. Без них я не могу сделать сердцевины оружия. Не могли бы вы собрать для меня по две жилы белой и чёрной руды?",
+      "Variables": [
+        {
+          "Name": "QuestGetOreFind",
+          "Value": 44,
+          "Global": true
+        }
+      ],
+      "Visible": {
+        "Name": "QuestCompleted_OreFind"
+      },
+      "Invisible": {},
+      "Replics": [
+        {
+          "Answer": "Собрать руду",
+          "Text": "Великолепно! Белую руду вы можете найти впещерах слева от нашего посёлка. Чёрная руда лежит в самых дальних штольнях глубоких пещер. На вашем месте я бы запасся антидотом, потому что она кишит пауками.",
+          "ReplicsTags": [
+            77
+          ],
+          "Shown": true,
+          "Tag": 55,
+          "Variables": [
+            {
+              "Name": "QuestGetOreFind",
+              "Value": 44,
+              "Global": true
+            }
+          ],
+          "TriggerClass": "QuestConversationTrigger",
+          "TriggerArguments": [
+            "OreFind"
+          ]
+        },
+        {
+          "Answer": "Отказаться",
+          "Text": "Если бы у меня была руда, моя жена могла бы прять у вас пару специальных заказов.",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 66,
+          "Variables": []
+        },
+        {
+          "Answer": "OreFind",
+          "Text": "Вы уже нашли обе руды?",
+          "ReplicsTags": [
+            45,
+            46
+          ],
+          "Tag": 44,
+          "Variables": []
+        },
+        {
+          "Answer": "Да",
+          "Text": "",
+          "ReplicsTags": [
+            77
+          ],
+          "Tag": 45,
+          "Variables": [],
+          "TriggerClass": "QuestRewardTryTrigger",
+          "TriggerArguments": [
+            "OreFind",
+            "QuestCompleted_OreFind",
+            "Возвращайся когда соберёте всю нужную руду.",
+            "Отлично! Если ты хочешь что-то заказать, обратись к Ниихаталь."
+          ]
+        },
+        {
+          "Answer": "Ещё нет",
+          "Text": "Возвращайся когда соберёте всю нужную руду.",
+          "ReplicsTags": [
+            77
+          ],
+          "Tag": 46,
+          "Variables": []
+        },
+        {
+          "Answer": "Назад",
+          "ReplicsTags": [],
+          "Tag": 77,
+          "Variables": [],
+          "Escape": true
+        }
+      ]
+    }
+  ],
+  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.ArcherF.png",
+  "Name": "Кузнец Гормун"
+}

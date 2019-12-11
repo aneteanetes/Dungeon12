@@ -30,6 +30,15 @@ namespace Dungeon12.Map.Objects
         protected override void Load(RegionPart regionPart)
         {
             var data = regionPart.As<RespawnData>();
+
+            if (data.VariableCondition != default)
+            {
+                if (Global.GameState.Character[data.VariableCondition] == default)
+                {
+                    return;
+                }
+            }
+
             SpawnArea = data.Zone;
 
             foreach (var spawnData in data.Respawns)
