@@ -2,6 +2,7 @@
 {
     using Dungeon;
     using Dungeon.Control.Pointer;
+    using Dungeon.Drawing;
     using Dungeon.Drawing.Impl;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.GameObjects;
@@ -12,8 +13,12 @@
         public MetallButtonControl(string text) : base(EmptyGameComponent.Empty, text.AsDrawText().Triforce(), 24)
         {
         }
+        public MetallButtonControl(DrawText text) : base(EmptyGameComponent.Empty, text, text.Size)
+        {
+        }
 
         public override double Width { get => 8.375; set { } }
+
         public override double Height { get => 2.40625; set { } }
 
         public override string Image { get; set; } = "Dungeon12.Resources.Images.ui.button.png";

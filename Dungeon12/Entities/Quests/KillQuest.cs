@@ -30,9 +30,9 @@ namespace Dungeon12.Entities.Quests
             {
                 if (Targets.TryGetValue(aliveKillEvent.Victim.Name, out var progress))
                 {
+                    progress.Second++;
                     if (progress.First < progress.Second)
                     {
-                        progress.Second++;
                         this.Progress++;
                     }
                 }

@@ -20,5 +20,7 @@ namespace Dungeon12.Database.Rewards
         public int Gold { get; set; }
 
         public string TriggerName { get; set; }
+
+        public Dictionary<string,string> PossibleTalants { get; set; }
     }
 }

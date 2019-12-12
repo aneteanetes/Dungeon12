@@ -1,0 +1,14 @@
+﻿{
+  "Name": "Вступление в культ",
+  "Description": "Найдите для Фредерика древний манускрипт в библиотечном крыле часть которого находится в глубоких пещерах должен быть хотя бы один уцелевший.",
+  "RewardIdentify": "BloodCultEntry",
+  "LootDropsIdentify": [
+    "BloodCultEntry"
+  ],
+  "ItemsIdentify": [
+    "ManuscriptOfPower"
+  ],
+  "Amount": [
+    1
+  ]
+}

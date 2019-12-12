@@ -1,0 +1,6 @@
+﻿{
+  "ItemGeneratorTrigger": "QuestItemsGenerator",
+  "ItemGeneratorArguments": [ "CursedPoison", "1" ],
+  "Chance": 20,
+  "LootTableIdentify": "Wolf"
+}

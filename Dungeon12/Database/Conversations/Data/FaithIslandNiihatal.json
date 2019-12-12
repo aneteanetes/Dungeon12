@@ -3,12 +3,121 @@
   "Subjects": [
     {
       "Name": "Заказы",
+      "Text": "Теперь у нас достаточно руды для того что бы делать оружие и доспехи на заказ, но всё ещё не так много что бы поставить изготовление на поток. Я могу принять у вас заказ на одно уникальное оружие из белой (магической) или чёрной руды.",
       "Variables": [],
-      "Visible": {},
+      "Visible": {
+        "Name": "SpecialForgeFaithIsland"
+      },
       "Invisible": {
         "Name": "QuestCompleted_OreFind"
       },
-      "Replics": []
+      "Replics": [
+        {
+          "Answer": "Мне бы хотелось что-то магическое",
+          "ReplicsTags": [
+            3,
+            4,
+            5
+          ],
+          "Shown": true,
+          "Tag": 1,
+          "Variables": []
+        },
+        {
+          "Answer": "Я хочу изделие из твёрдой руды",
+          "ReplicsTags": [
+            12,
+            13
+          ],
+          "Shown": true,
+          "Tag": 2,
+          "Variables": []
+        },
+        {
+          "Answer": "Оружие ближнего боя из белой руды",
+          "ReplicsTags": [],
+          "Tag": 3,
+          "Variables": [
+            {
+              "Name": "SpecialForgeFaithIsland"
+            }
+          ],
+          "TriggerClass": "ItemGenerator",
+          "TriggerArguments": [
+            "Weapon",
+            "Epic"
+          ]
+        },
+        {
+          "Answer": "Оружие дальнего боя из белой руды",
+          "ReplicsTags": [],
+          "Tag": 4,
+          "Variables": [
+            {
+              "Name": "SpecialForgeFaithIsland"
+            }
+          ],
+          "TriggerClass": "ItemGenerator",
+          "TriggerArguments": [
+            "Weapon",
+            "Epic",
+            "Bow"
+          ]
+        },
+        {
+          "Answer": "Доспех из белой руды",
+          "ReplicsTags": [],
+          "Tag": 5,
+          "Variables": [
+            {
+              "Name": "SpecialForgeFaithIsland"
+            }
+          ],
+          "TriggerClass": "ItemGenerator",
+          "TriggerArguments": [
+            "LeftHand",
+            "Epic",
+            "Armor"
+          ]
+        },
+        {
+          "Answer": "Оружие ближнего боя",
+          "ReplicsTags": [],
+          "Tag": 12,
+          "Variables": [
+            {
+              "Name": "SpecialForgeFaithIsland"
+            }
+          ],
+          "TriggerClass": "ItemGenerator",
+          "TriggerArguments": [
+            "Weapon",
+            "Epic"
+          ]
+        },
+        {
+          "Answer": "Щит из укреплённой стали",
+          "ReplicsTags": [],
+          "Tag": 13,
+          "Variables": [
+            {
+              "Name": "SpecialForgeFaithIsland"
+            }
+          ],
+          "TriggerClass": "ItemGenerator",
+          "TriggerArguments": [
+            "LeftHand",
+            "Epic",
+            "Shield"
+          ]
+        },
+        {
+          "Answer": "SpecialForgeFaithIsland",
+          "Text": "Ещё раз спасибо за то что помогли нам. Возможно когда поставки руды наладятся, мы сможем сделать ещё что ни будь для вас.",
+          "ReplicsTags": [],
+          "Variables": []
+        }
+      ]
     },
     {
       "Name": "Ремёсла",
@@ -20,23 +129,40 @@
         {
           "Answer": "Выделка шкур",
           "Text": "Выделкой шкур занимаются охотники, если вас это интересует, обратитесь к Халтрасу.",
-          "ReplicsTags": [],
+          "ReplicsTags": [
+            4
+          ],
           "Shown": true,
           "Variables": []
         },
         {
           "Answer": "Плавка металла",
           "Text": "Плавкой металла мы занимаемся с мужем, однако сейчас есть большие проблемы с сырьём. Обратитесь к нему если хотите изучить кузнечное дело.",
-          "ReplicsTags": [],
+          "ReplicsTags": [
+            4
+          ],
           "Shown": true,
+          "Tag": 2,
           "Variables": []
         },
         {
           "Answer": "Пошив одежды",
           "Text": "Пошив одежды, как и собирательство, на Острове Веры никогда не процветало. Однако раньше у нас жила мастер пошива из паучьего шёлка - Ринара. Кажется, она уплала покорять материк.",
-          "ReplicsTags": [],
+          "ReplicsTags": [
+            4
+          ],
           "Shown": true,
+          "Tag": 1,
           "Variables": []
+        },
+        {
+          "Answer": "Назад",
+          "ReplicsTags": [
+            -1
+          ],
+          "Tag": 4,
+          "Variables": [],
+          "Escape": true
         }
       ]
     }

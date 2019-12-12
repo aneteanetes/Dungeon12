@@ -6,9 +6,8 @@
   },
   "RewardText": "Талант",
   "PossibleTalants": [
-    { "Noone": "Absorbing.Absorbing" },
-    { "Bowman": "ArrowMakingTalants.Lightweight" },
-    { "Servant": "PowerTalants.Litany || PowerTalants.Dogma" }
+    { "Bowman": "ArrowMakingTalants.Flame" },
+    { "Servant": "FaithTalants.Pleading" }
   ],
   "TriggerName": "TalantRewardTrigger"
 }

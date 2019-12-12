@@ -9,9 +9,33 @@ namespace Dungeon.Types
     /// </summary>
     public class Point
     {
+        public bool IsDefault { get; private set; } = true;
+
         public Point()
         {
 
+        }
+
+        public static Point FromString(string xy)
+        {
+            if (xy == default)
+                return new Point();
+
+            if (!xy.Contains("X:") || !!xy.Contains("Y:"))
+                return new Point();
+
+            try
+            {
+                var splitted = xy.Split(",", StringSplitOptions.RemoveEmptyEntries);
+                double.TryParse(splitted[0].Replace("X:", ""), out var x);
+                double.TryParse(splitted[1].Replace("Y:", ""), out var y);
+
+                return new Point(x, y);
+            }
+            catch
+            {
+                return new Point();
+            }
         }
 
         public Point(Point fromCopy)
@@ -32,14 +56,31 @@ namespace Dungeon.Types
             this.Y = y;
         }
 
-        public double X { get; set; }
+        private double x { get; set; }
+        public double X
+        {
+            get => x;
+            set
+            {
+                x = value;
+                IsDefault = false;
+            }
+        }
 
-        public double Y { get; set; }
+        private double y { get; set; }
+        public double Y
+        {
+            get => y;
+            set
+            {
+                y = value;
+                IsDefault = false;
+            }
+        }
 
         public float Xf => (float)X;
 
         public float Yf => (float)Y;
-
 
         const double Rad2Deg = 180.0 / Math.PI;
         const double Deg2Rad = Math.PI / 180.0;
@@ -49,8 +90,27 @@ namespace Dungeon.Types
             return Math.Atan2(this.Y - end.Y, end.X - this.X);
         }
 
-        public VectorDir VectorX { get; set; }
-        public VectorDir VectorY { get; set; }
+        private VectorDir vectorX { get; set; }
+        public VectorDir VectorX
+        {
+            get => vectorX;
+            set
+            {
+                vectorX = value;
+                IsDefault = false;
+            }
+        }
+
+        private VectorDir vectorY { get; set; }
+        public VectorDir VectorY
+        {
+            get => vectorY;
+            set
+            {
+                vectorY = value;
+                IsDefault = false;
+            }
+        }
 
         public Point Add(double x=0,double y=0)
         {
@@ -128,7 +188,7 @@ namespace Dungeon.Types
             return last;
         }
 
-        public override string ToString() => $"X: {X}, Y:{Y}";
+        public override string ToString() => $"X:{X}, Y:{Y}";
 
         public Point Copy() => new Point(this);
 

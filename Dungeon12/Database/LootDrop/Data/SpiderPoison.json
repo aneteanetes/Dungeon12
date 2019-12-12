@@ -1,0 +1,6 @@
+﻿{
+  "ItemGeneratorTrigger": "QuestItemsGenerator",
+  "ItemGeneratorArguments": [ "SpiderPoison", "1" ],
+  "Chance": 20,
+  "LootTableIdentify": "Spider"
+}

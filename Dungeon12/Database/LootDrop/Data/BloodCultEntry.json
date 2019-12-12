@@ -1,0 +1,6 @@
+﻿{
+  "ItemGeneratorTrigger": "QuestItemsGenerator",
+  "ItemGeneratorArguments": [ "ManuscriptOfPower", "1" ],
+  "Chance": 70,
+  "LootTableIdentify": "BloodNovice"
+}

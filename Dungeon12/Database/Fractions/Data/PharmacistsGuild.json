@@ -1,0 +1,7 @@
+﻿{
+  "IdentifyName": "PharmacistsGuild",
+  "Name": "Гильдия аптекарей",
+  "Playable": true,
+  "DefaultLevel": "Neutral",
+  "DefaultValue": 0
+}

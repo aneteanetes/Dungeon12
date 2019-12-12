@@ -1,0 +1,20 @@
+﻿{
+  "Name": "Три яда",
+  "Description": "Достаньте сильнодействующий яд из свежей слюны летучей мыши, ноги паука и сердца проклятого создания.",
+  "RewardIdentify": "ThreePoisons",
+  "LootDropsIdentify": [
+    "BatPoison",
+    "SpiderPoison",
+    "CursedPoison"
+  ],
+  "ItemsIdentify": [
+    "BatPoison",
+    "SpiderPoison",
+    "CursedPoison"
+  ],
+  "Amount": [
+    1,
+    1,
+    1
+  ]
+}

@@ -1,0 +1,11 @@
+﻿{
+  "Name": "Крысиный король",
+  "Description": "Уничтожьте всех крыс на заднем дворе",
+  "RewardIdentify": "RatKing",
+  "MobIdentify": [
+    "Rat"
+  ],
+  "Amount": [
+    5
+  ]
+}

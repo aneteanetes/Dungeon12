@@ -4,6 +4,7 @@ using Dungeon.View.Interfaces;
 using Dungeon12.Entities.Quests;
 using Dungeon12.Classes;
 using Dungeon12.Loot;
+using System.Linq;
 
 namespace Dungeon12.Entities.Rewards.Triggers
 {
@@ -33,8 +34,10 @@ namespace Dungeon12.Entities.Rewards.Triggers
                 {
                     foreach (var lootTable in arg1.LootTables)
                     {
-                        var lt = LootTable.GetLootTable(lootTable);
-                        lt.LootDrops.Add(lootDrop);
+                        var _lootTable = LootTable.GetLootTable(lootTable);
+                        var _lootDrop = Store.Entity<LootDrop>(drop => drop.IdentifyName == lootDrop).FirstOrDefault();
+
+                        _lootTable.LootDrops.Add(_lootDrop);
                     }
                 }
             }

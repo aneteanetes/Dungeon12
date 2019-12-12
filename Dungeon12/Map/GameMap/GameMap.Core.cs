@@ -242,7 +242,7 @@
             }
         }
 
-        public void SetPlayerLocation(Point playerPos=default)
+        public void SetPlayerLocation(Point playerPos = default)
         {
             playerPos = playerPos.Copy();
             playerPos = playerPos ?? new Point { X = 42, Y = 45 };

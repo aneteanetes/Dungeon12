@@ -6,6 +6,7 @@ using Dungeon.View.Interfaces;
 using Dungeon12.Drawing.SceneObjects;
 using System;
 using System.Collections.Generic;
+using Dungeon.SceneObjects.Base;
 
 namespace Dungeon12.SceneObjects
 {
@@ -28,29 +29,69 @@ namespace Dungeon12.SceneObjects
             question.Left = 1;
             question.Top -= 2;
 
-            var yesBtn = this.AddControlCenter(new SmallMetallButtonControl("Да".AsDrawText().InSize(14).Montserrat()));
+            var yesText = component.YesText.AsDrawText().InSize(14).Montserrat();
+            var noText = component.NoText.AsDrawText().InSize(14).Montserrat();
+
+            ISceneObjectControl yes = default;
+            if (yesText.Length <= 3)
+            {
+                var smallBtn = new SmallMetallButtonControl(yesText);
+                smallBtn.OnClick = () =>
+                {
+                    this.Destroy?.Invoke();
+                    component.Yes?.Invoke();
+                };
+                yes = smallBtn;
+            }
+            else
+            {
+                var bigBtn = new MetallButtonControl(yesText);
+                bigBtn.OnClick = () =>
+                {
+                    this.Destroy?.Invoke();
+                    component.Yes?.Invoke();
+                };
+                yes = bigBtn;
+            }
+
+
+            var yesBtn = this.AddControlCenter(yes);
             yesBtn.Top = 4;
             yesBtn.Left = 2;
-            yesBtn.OnClick = () =>
-            {
-                this.Destroy?.Invoke();
-                component.Yes?.Invoke();
-            };
 
-            var noBtn = this.AddControlCenter(new SmallMetallButtonControl("Нет".AsDrawText().InSize(14).Montserrat()));
+            ISceneObjectControl no = default;
+            if (noText.Length <= 3)
+            {
+                var smallBtn = new SmallMetallButtonControl(noText);
+                smallBtn.OnClick = () =>
+                {
+                    this.Destroy?.Invoke();
+                    component.No?.Invoke();
+                };
+                no = smallBtn;
+            }
+            else
+            {
+                var bigBtn = new MetallButtonControl(noText);
+                bigBtn.OnClick = () =>
+                {
+                    this.Destroy?.Invoke();
+                    component.No?.Invoke();
+                };
+                no = bigBtn;
+            }
+
+            var noBtn = this.AddControlCenter(no);
             noBtn.Top = 4;
             noBtn.Left = 9;
-            noBtn.OnClick = () =>
-            {
-                this.Destroy?.Invoke();
-                component.No?.Invoke();
-            };
 
             this.Destroy += () =>
             {
                 Global.Freezer.World = null;
             };
         }
+
+        public static QuestionBox Show(QuestionBoxModel model) => Show(model, Global.SceneManager.CurrentScene.ShowEffectsBinding);
 
         public static QuestionBox Show(QuestionBoxModel model, Action<List<ISceneObject>> publisher)
         {
@@ -64,6 +105,10 @@ namespace Dungeon12.SceneObjects
     public class QuestionBoxModel : GameComponent
     {
         public string Text { get; set; }
+
+        public string YesText { get; set; } = "Да";
+
+        public string NoText { get; set; } = "Нет";
 
         public Action Yes { get; set; }
 
