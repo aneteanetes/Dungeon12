@@ -1,0 +1,111 @@
+{
+  "Identify": "FaithIslandScientist",
+  "Subjects": [
+    {
+      "Name": "Травничество",
+      "Text": "Я давно увлекаюсь сбором трав. Из некоторых можно делать прекрасные земли, другие подходят для изготовления ядов. Некоторые травы могут использоваться при производстве оружия и доспехов.",
+      "Variables": [],
+      "Visible": {},
+      "Invisible": {},
+      "Replics": [
+        {
+          "Answer": "Обучение травничеству",
+          "Text": "К сожалению на данный момент я не беру учеников",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Variables": [],
+          "Escape": true
+        }
+      ]
+    },
+    {
+      "Name": "Задание",
+      "Text": "Я вижу вы вполне боеспособны? Наша стража сейчас занимается проблемами в глубоких пещерах, а Орден Веры погряз в склоках с новым культом. Не могли бы вы мне помочь?",
+      "Variables": [
+        {
+          "Name": "QuestGetKillBees",
+          "Value": 44,
+          "Global": true
+        }
+      ],
+      "Visible": {
+        "Name": "QuestCompleted_KillBees"
+      },
+      "Invisible": {},
+      "Replics": [
+        {
+          "Answer": "В чем заключается помощь?",
+          "Text": "Северный выход из деревни с недавних пор стал очень опасным. А я всегда собирал там травы. Я прошу вас, очистите северный выход с деревни.",
+          "ReplicsTags": [
+            77
+          ],
+          "Shown": true,
+          "Tag": 55,
+          "Variables": [
+            {
+              "Name": "QuestGetKillBees",
+              "Value": 44,
+              "Global": true
+            }
+          ],
+          "TriggerClass": "QuestConversationTrigger",
+          "TriggerArguments": [
+            "KillBees"
+          ]
+        },
+        {
+          "Answer": "Отказаться",
+          "Text": "Эти травы могут спасти жизни",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 66,
+          "Variables": []
+        },
+        {
+          "Answer": "KillBees",
+          "Text": "Вы очистили северный выход?",
+          "ReplicsTags": [
+            45,
+            46
+          ],
+          "Tag": 44,
+          "Variables": []
+        },
+        {
+          "Answer": "Северный выход безопасен",
+          "Text": "Благодарю вас, теперь я смогу собрать все нужные в такое время травы.",
+          "ReplicsTags": [
+            77
+          ],
+          "Tag": 45,
+          "Variables": [],
+          "TriggerClass": "QuestRewardTryTrigger",
+          "TriggerArguments": [
+            "KillBees",
+            "QuestCompleted_KillBees",
+            "Текст не выполненного задания",
+            "Благодарю вас, теперь я смогу собрать все нужные в такое время травы."
+          ]
+        },
+        {
+          "Answer": "Ещё нет",
+          "Text": "Прошу вас, эти травы могут спасти много жизней",
+          "ReplicsTags": [
+            77
+          ],
+          "Tag": 46,
+          "Variables": []
+        },
+        {
+          "Answer": "Назад",
+          "ReplicsTags": [],
+          "Tag": 77,
+          "Variables": [],
+          "Escape": true
+        }
+      ]
+    }
+  ],
+  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.MayorF.png",
+  "Name": "Травник Перлин"
+}

@@ -1,0 +1,55 @@
+{
+  "Identify": "FaithIslandSelinth",
+  "Subjects": [
+    {
+      "Name": "Болезнь",
+      "Text": "Что? Я не думаю что это можно излечить. Я больше никогда не выйду из этой пещеры!",
+      "Variables": [],
+      "Visible": {},
+      "Invisible": {
+        "Name": "QuestCompleted_ThreePoisons"
+      },
+      "Replics": [
+        {
+          "Answer": "Дать противоядие",
+          "Text": "Это невозможно! Я чувствую что больше не нуждаюсь в крови. Не смотря на это, я не хочу возвращаться в город. Сейчас пещера стала безопасной, и я проведу здесь как можно больше времени до следующего судна. Передайте моему отцу это ожерелье как доказательство моей смерти.",
+          "ReplicsTags": [],
+          "Variables": [],
+          "TriggerClass": "AddIQuestItemTrigger",
+          "TriggerArguments": [
+            "VampireDaughterNecklace"
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Поиски",
+      "Text": "",
+      "Variables": [
+        {
+          "Name": "QuestGetVampireDaughter",
+          "Value": 1
+        }
+      ],
+      "Visible": {
+        "Name": "QuestCompleted_ThreePoisons"
+      },
+      "Invisible": {},
+      "Replics": [
+        {
+          "Answer": "Нападение",
+          "Text": "Я выпью всю твою кровь, смертный!",
+          "ReplicsTags": [],
+          "Tag": 1,
+          "Variables": [],
+          "TriggerClass": "ReplaceRespawnTrigger",
+          "TriggerArguments": [
+            "SelinthRespawn"
+          ]
+        }
+      ]
+    }
+  ],
+  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.ArcherF.png",
+  "Name": "Селинт"
+}

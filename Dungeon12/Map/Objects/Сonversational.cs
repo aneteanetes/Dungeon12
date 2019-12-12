@@ -21,7 +21,8 @@
             if (data.Conversations == null)
                 return;
 
-            var conversations = Dungeon.Store.Entity<ConversationData>(x => data.Conversations.Contains(x.Identify));
+            var conversations = Dungeon.Store.Entity<ConversationData>(x => data.Conversations.Contains(x.Identify)).ToList()
+                .Where(x => Global.GameState.Character[x + "DELETED"] == default);
 
             this.Conversations = conversations.Select(c => new Conversation()
             {

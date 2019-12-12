@@ -31,6 +31,8 @@ namespace Dungeon12.Items.Enums
         [Display(Name = "Предмет задания")]
         Quest =12,
         [Display(Name = "Колода карт")]
-        Deck =13
+        Deck =13,
+        [Display(Name = "Активируемый")]
+        Activable = 14,
     }
 }

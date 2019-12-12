@@ -1,0 +1,8 @@
+﻿{
+  "$type": "Dungeon12.Items.Types.Key, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "Name": "Ключ от библиотеки",
+  "InventorySize": {
+    "X": 1,
+    "Y": 1
+  }
+}

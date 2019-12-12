@@ -1,55 +1,133 @@
-﻿{
+{
   "Identify": "FaithIslandMayor",
-  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.MayorF.png",
-  "Name": "Мэр острова",
   "Subjects": [
     {
       "Name": "Остров веры",
       "Text": "А вы знали что у служителей веры длинная история?",
+      "Variables": [],
+      "Visible": {},
+      "Invisible": {},
       "Replics": [
         {
-          "Shown": true,
-          "Tag": 1,
           "Answer": "Расскажите подробнее",
           "Text": "Служители веры появились на острове достаточно давно, примерно через десятилетие после подъема острова из пепла бывшего вулкана...",
-          "ReplicsTags": [ 2, 3 ]
+          "ReplicsTags": [
+            2,
+            3
+          ],
+          "Shown": true,
+          "Tag": 1,
+          "Variables": []
         },
         {
-          "Shown": true,
-          "Tag": 10,
           "Answer": "Как я могу попасть на материк?",
           "Text": "Вы можете попасть на материк по морю используя рыбацкий корабль, или, как говорят слухи, через заброшенный храм служителей веры",
-          "ReplicsTags": []
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 10,
+          "Variables": []
         },
         {
-          "Shown": false,
+          "Answer": "Продолжайте",
+          "Text": "После подъёма острова на нём начало собираться много рыбаков, но они все начали сходить с ума, поэтому главный архимаг прибыл на остров и совершил обряд жертвоприношения. Самого себя. После этого рыбакам стало на много легче, и был основан целый Орден Служителей Веры. Теперь мы каждый год совершаем ритуальное жертвоприношение для соблюдения мира на острове.",
+          "ReplicsTags": [],
           "Tag": 2,
           "Variables": [
             {
               "Name": "Already",
-              "Value": 4,
-              "Global": false
+              "Value": 4
+            }
+          ]
+        },
+        {
+          "Answer": "Мне не интересно",
+          "Text": "",
+          "ReplicsTags": [],
+          "Tag": 3,
+          "Variables": []
+        },
+        {
+          "Answer": "",
+          "Text": "Я уже рассказывал вам эту историю",
+          "ReplicsTags": [],
+          "Tag": 4,
+          "Variables": []
+        }
+      ]
+    },
+    {
+      "Name": "Задание",
+      "Text": "После всего что мы узнали, мне кажется что в нашей деревни есть вербовщик культа крови. Прошу вас, найдите и сдайте его страже",
+      "Variables": [
+        {
+          "Name": "QuestGetFaithSpy",
+          "Value": 44,
+          "Global": true
+        }
+      ],
+      "Visible": {
+        "Name": "QuestCompleted_FaithSpy"
+      },
+      "Invisible": {
+        "Name": "FaithIslandPt3"
+      },
+      "Replics": [
+        {
+          "Answer": "Найти вербовщика",
+          "Text": "Отлично, я верю в вас",
+          "ReplicsTags": [
+            77
+          ],
+          "Shown": true,
+          "Tag": 55,
+          "Variables": [
+            {
+              "Name": "QuestGetFaithSpy",
+              "Value": 44,
+              "Global": true
             }
           ],
-          "Answer": "Продолжайте",
-          "Text": "После подъёма острова на нём начало собираться много рыбаков, но они все начали сходить с ума, поэтому главный архимаг прибыл на остров и совершил обряд жертвоприношения. Самого себя. После этого рыбакам стало на много легче, и был основан целый Орден Служителей Веры. Теперь мы каждый год совершаем ритуальное жертвоприношение для соблюдения мира на острове.",
-          "ReplicsTags": [] //go to start
+          "TriggerClass": "QuestConversationTrigger",
+          "TriggerArguments": [
+            "FaithSpy"
+          ]
         },
         {
-          "Shown": false,
-          "Tag": 3,
-          "Answer": "Мне не интересно",
-          "Text": "", // play text upper
-          "ReplicsTags": [] //go to start
+          "Answer": "Отказаться",
+          "Text": "Но так мы никогда не разберёмся в том что происходит на острове!",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 66,
+          "Variables": []
         },
         {
-          "Shown": false,
-          "Tag": 4,
-          "Answer": "",
-          "Text": "Я уже рассказывал вам эту историю", // play text upper
-          "ReplicsTags": [] //go to start
+          "Answer": "FaithSpy",
+          "Text": "Вы нашли вербовщика Культа Крови?",
+          "ReplicsTags": [
+            46
+          ],
+          "Tag": 44,
+          "Variables": []
+        },
+        {
+          "Answer": "Я всё ещё в поисках",
+          "Text": "Найдите и сдайте его страже!",
+          "ReplicsTags": [
+            77
+          ],
+          "Tag": 46,
+          "Variables": []
+        },
+        {
+          "Answer": "Назад",
+          "ReplicsTags": [],
+          "Tag": 77,
+          "Variables": [],
+          "Escape": true
         }
       ]
     }
-  ]
+  ],
+  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.MayorF.png",
+  "Name": "Мэр острова"
 }

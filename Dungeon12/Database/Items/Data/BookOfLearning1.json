@@ -1,0 +1,12 @@
+﻿{
+  "$type": "Dungeon12.Items.Types.TalantItem, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "Name": "Книга обучения",
+  "InventorySize": {
+    "X": 1,
+    "Y": 1
+  },
+  "TalantMap": [
+    { "Bowman": "ArrowMaking.Sharp || ArrowMaking.Elements" },
+    { "Servant": "FaithTalants.Holy" }
+  ]
+}

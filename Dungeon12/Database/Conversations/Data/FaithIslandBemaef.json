@@ -1,0 +1,110 @@
+{
+  "Identify": "FaithIslandBemaef",
+  "Subjects": [
+    {
+      "Name": "Орден Веры",
+      "Text": "Хоть я недавно в ордене, могу рассказать вам несколько интересных противоречивых историй.",
+      "Variables": [],
+      "Visible": {
+        "Name": "QuestGetSpy"
+      },
+      "Invisible": {},
+      "Replics": [
+        {
+          "Answer": "Место паломничества",
+          "Text": "Вы никогда не задумывались почему остров называется Островом Веры? До прихода ордена он назывался Сердцем Вулкана. Потому что ранее часть острова занимал большой вулкан, а так же местные жители утверждали что иногда он извергается с кровью. После того как орден прибыл на остров - они сровняли вулкан с землёй, поставив на нём полезный маяк и провозгласив остров в свою честь.",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 1,
+          "Variables": [],
+          "TriggerClass": "JournalAddTrigger",
+          "TriggerArguments": [
+            "Details",
+            "FaithIslandEnviders"
+          ]
+        },
+        {
+          "Answer": "Служители веры",
+          "Text": "Всех служителей веры после вступления в орден заставляют пройти один интересный ритуал... Вы должны окропить кровью святой молот оставшийся от какого-то бога. Не кажется ли вам что это так похоже на то что делает культ крови?",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 2,
+          "Variables": [],
+          "TriggerClass": "JournalAddTrigger",
+          "TriggerArguments": [
+            "Details",
+            "FaithOrderBlood"
+          ]
+        },
+        {
+          "Answer": "Культ крови",
+          "Text": "Лично я не вижу никакой разницы между Орденом Веры и Культом Крови. У них похожие ритуалы, они забирают территорию силой, кажется много общего, да? Но я бы сказал что Культ Крови на много лучше - он хотя бы не стремится захватить всю политическую власть на острове!",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 3,
+          "Variables": [],
+          "TriggerClass": "JournalAddTrigger",
+          "TriggerArguments": [
+            "Details",
+            "FaithOrderBemaeth"
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "Напасть",
+      "Text": "Не знаю почему вы хотите моей смерти, но я не дам вам просто так убить меня!",
+      "Variables": [],
+      "Visible": {},
+      "Invisible": {
+        "Name": "QuestGetFaithSpy"
+      },
+      "Replics": [
+        {
+          "Answer": "Атаковать",
+          "Text": "Прошу прощения, но у вас ничего не получится!\r\n* Бемаэль использует дымовую завесу и исчезает *",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 1,
+          "Variables": [],
+          "TriggerClass": "QuestRewardTryTrigger",
+          "TriggerArguments": [
+            "FaithSpy",
+            "QuestCompleted_FaithSpy",
+            "\" \"",
+            "\" \""
+          ],
+          "Escape": true
+        }
+      ]
+    },
+    {
+      "Name": "Обезвредить",
+      "Text": "Вы что, пришли меня арестовать?",
+      "Variables": [],
+      "Visible": {},
+      "Invisible": {
+        "Name": "QuestGetFaithSpy"
+      },
+      "Replics": [
+        {
+          "Answer": "Схватить",
+          "Text": "Не в этот раз, мой кровавый бог поможет мне избежать любого наказания.\r\n* Бемаэль использует дымовую завесу и исчезает *",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Variables": [],
+          "TriggerClass": "QuestRewardTryTrigger",
+          "TriggerArguments": [
+            "FaithSpy",
+            "QuestCompleted_FaithSpy",
+            "\" \"",
+            "\" \""
+          ],
+          "Escape": true
+        }
+      ]
+    }
+  ],
+  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.MayorF.png",
+  "Name": "Служитель Бемаэф"
+}

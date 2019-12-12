@@ -94,7 +94,7 @@ namespace Dungeon12.Entities.Quests
 
         public int ObjectId { get; set; }
 
-        public bool IsCompleted() => Progress == MaxProgress;
+        public virtual bool IsCompleted() => Progress == MaxProgress;
 
         /// <summary>
         /// костыль потому что при выполнении какой-то непонятный прогресс показывает

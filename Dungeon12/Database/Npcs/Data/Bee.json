@@ -1,0 +1,164 @@
+﻿{
+  "Level": 1,
+  "Name": "Летучая мышь",
+  "IsEnemy": true,
+  "VisionMultiples": {
+    "X": 6,
+    "Y": 6
+  },
+  "AttackRangeMultiples": {
+    "X": 1.5,
+    "Y": 1.5
+  },
+  "Size": {
+    "X": 1,
+    "Y": 1
+  },
+  "Tileset": "Dungeon12.Resources.Images.Enemies.enemies.png",
+  "TileSetRegion": {
+    "X": 64,
+    "Y": 0,
+    "Width": 32,
+    "Height": 32
+  },
+  "FractionIdentify": "FaithIslandFauna",
+  "MovementSpeed": 0.01,
+  "NPC": {
+    "ChasingPlayers": true,
+    "WaitTime": 10,
+    "WalkChance": 90,
+    "WalkDistance": {
+      "From": 100,
+      "To": 300
+    },
+    "LootTableName": "Bat",
+    "Aggressive": true,
+    "Idle": {
+      "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
+      "Size": {
+        "X": 32,
+        "Y": 32
+      },
+      "Frames": [
+        {
+          "X": 0,
+          "Y": 0
+        },
+        {
+          "X": 32,
+          "Y": 0
+        },
+        {
+          "X": 64,
+          "Y": 0
+        }
+      ],
+      "Direction": 0,
+      "FramesPerSecond": 1.5
+    },
+    "MoveUp": {
+      "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
+      "Size": {
+        "X": 32,
+        "Y": 32
+      },
+      "Frames": [
+        {
+          "X": 0,
+          "Y": 96
+        },
+        {
+          "X": 32,
+          "Y": 96
+        },
+        {
+          "X": 64,
+          "Y": 96
+        }
+      ],
+      "Direction": 1
+    },
+    "MoveDown": {
+      "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
+      "Size": {
+        "X": 32,
+        "Y": 32
+      },
+      "Frames": [
+        {
+          "X": 0,
+          "Y": 0
+        },
+        {
+          "X": 32,
+          "Y": 0
+        },
+        {
+          "X": 64,
+          "Y": 0
+        }
+      ],
+      "Direction": 2
+    },
+    "MoveLeft": {
+      "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
+      "Size": {
+        "X": 32,
+        "Y": 32
+      },
+      "Frames": [
+        {
+          "X": 0,
+          "Y": 32
+        },
+        {
+          "X": 32,
+          "Y": 32
+        },
+        {
+          "X": 64,
+          "Y": 32
+        }
+      ],
+      "Direction": 3
+    },
+    "MoveRight": {
+      "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
+      "Size": {
+        "X": 32,
+        "Y": 32
+      },
+      "Frames": [
+        {
+          "X": 0,
+          "Y": 64
+        },
+        {
+          "X": 32,
+          "Y": 64
+        },
+        {
+          "X": 64,
+          "Y": 64
+        }
+      ],
+      "Direction": 4
+    },
+    "DieImage": "Dungeon12.Resources.Images.Enemies.enemies.png",
+    "DieImagePosition": {
+      "X": 32,
+      "Y": 0,
+      "Width": 32,
+      "Height": 16
+    },
+    "MinDMG": 5,
+    "MaxDMG": 15,
+    "HitPoints": 100,
+    "MaxHitPoints": 100
+  }
+}
+
+
+        //public string DieImage { get; set; }
+
+        //public Rectangle DieImagePosition { get; set; }

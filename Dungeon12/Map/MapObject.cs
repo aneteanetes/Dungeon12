@@ -110,14 +110,14 @@
             {
                 var type = typeof(MapObject).AllAssignedFrom().FirstOrDefault(x =>
                     {
-                        var attr = (TemplateAttribute)Attribute.GetCustomAttribute(x, typeof(TemplateAttribute));
+                        var attr = (TemplateAttribute)Attribute.GetCustomAttribute(x, typeof(TemplateAttribute),true);
                         if (attr == null)
                             return false;
 
                         return attr.Template == regionPart.Icon;
                     });
 
-                var dataClassAttr = (DataClassAttribute)Attribute.GetCustomAttribute(type, typeof(DataClassAttribute));
+                var dataClassAttr = (DataClassAttribute)Attribute.GetCustomAttribute(type, typeof(DataClassAttribute), true);
 
                 @class = (type, dataClassAttr.DataType);
 

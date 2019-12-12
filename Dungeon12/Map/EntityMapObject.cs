@@ -66,7 +66,7 @@ namespace Dungeon12.Map
             timer.Trigger();
         }
 
-        public virtual void OnEvent(object @object)
+        public override void OnEvent(object @object)
         {
             CallOnEvent(@object as dynamic);
         }
@@ -75,7 +75,7 @@ namespace Dungeon12.Map
         /// Method must call this.Discard(obj); for runtime dynamic binding 
         /// </summary>
         /// <param name="obj"></param>
-        protected virtual void CallOnEvent(dynamic obj) => OnEvent(obj);
+        protected override void CallOnEvent(dynamic obj) => OnEvent(obj);
 
         private readonly Dictionary<string, bool> TotemEnableState = new Dictionary<string, bool>();
 

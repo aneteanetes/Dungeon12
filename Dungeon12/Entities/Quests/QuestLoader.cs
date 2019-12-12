@@ -20,6 +20,10 @@ namespace Dungeon12.Entities.Quests
             var collect = CollectQuest.Load(identifyName);
             if (collect != default)
                 return collect;
+            
+            var achive = AchiveQuest.Load(identifyName);
+            if (achive != default)
+                return achive;
 
             return default;
         }

@@ -1,0 +1,14 @@
+﻿{
+  "Name": "Поиск Селинт",
+  "Description": "Купец Алмар просит разыскать его дочь. По его мнению вампиры украли её и держат в старом доме на западе от деревни. Слуга купца проверяет дом только днём...",
+  "RewardIdentify": "VampireDaughter",
+  "LootDropsIdentify": [
+    "VampireDaughter"
+  ],
+  "ItemsIdentify": [
+    "VampireDaughterNecklace"
+  ],
+  "Amount": [
+    1
+  ]
+}

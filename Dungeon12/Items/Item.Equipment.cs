@@ -23,6 +23,8 @@
 
         public List<Equipment> ItemSet { get; set; } = new List<Equipment>();
 
+        public virtual void Activate() { }
+
         public virtual void PutOn(object character)
         {
             void Apply(Equipment equipment)
