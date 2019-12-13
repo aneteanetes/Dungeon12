@@ -15,7 +15,7 @@ namespace Dungeon12.Entities.Quests
     {
         public List<LootGenerator> ItemGenerators { get; set; } = new List<LootGenerator>();
 
-        public Dictionary<string, string> TalantMap { get; set} = new Dictionary<string, string>();
+        public Dictionary<string, string> TalantMap { get; set; } = new Dictionary<string, string>();
 
         public List<Perk> Perks { get; set; } = new List<Perk>();
 

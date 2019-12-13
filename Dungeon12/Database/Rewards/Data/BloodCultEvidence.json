@@ -6,9 +6,9 @@
   },
   "RewardText": "Талант",
   "Variable": "FaithIslandPt4",
-  "PossibleTalants": [
-    { "Bowman": "ArrowMakingTalants.Incendiary" },
-    { "Noone": "Absorbing.Metall" }
-  ],
+  "PossibleTalants": {
+    "Bowman": "ArrowMakingTalants.Incendiary",
+    "Noone": "Absorbing.Metall"
+  },
   "TriggerName": "TalantRewardTrigger"
 }

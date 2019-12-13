@@ -5,8 +5,8 @@
     "X": 1,
     "Y": 1
   },
-  "TalantMap": [
-    { "Bowman": "ArrowMaking.Sharp || ArrowMaking.Elements" },
-    { "Servant": "FaithTalants.Holy" }
-  ]
+  "TalantMap": {
+    "Bowman": "ArrowMaking.Sharp || ArrowMaking.Elements",
+    "Servant": "FaithTalants.Holy"
+  }
 }

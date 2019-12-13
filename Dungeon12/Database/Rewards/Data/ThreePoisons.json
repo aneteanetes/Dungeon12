@@ -5,9 +5,9 @@
     "B": 226
   },
   "RewardText": "Талант",
-  "PossibleTalants": [
-    { "Noone": "Absorbing.Poison" },
-    { "Servant": "PowerTalants.Healing" }
-  ],
+  "PossibleTalants": {
+    "Noone": "Absorbing.Poison",
+    "Servant": "PowerTalants.Healing"
+  },
   "TriggerName": "TalantRewardTrigger"
 }

@@ -5,10 +5,10 @@
     "B": 226
   },
   "RewardText": "Талант",
-  "PossibleTalants": [
-    { "Noone": "Absorbing.Absorbing" },
-    { "Bowman": "ArrowMakingTalants.Lightweight" },
-    { "Servant": "PowerTalants.Litany || PowerTalants.Dogma" }
-  ],
+  "PossibleTalants": {
+    "Noone": "Absorbing.Absorbing",
+    "Bowman": "ArrowMakingTalants.Lightweight",
+    "Servant": "PowerTalants.Litany || PowerTalants.Dogma"
+  },
   "TriggerName": "TalantRewardTrigger"
 }

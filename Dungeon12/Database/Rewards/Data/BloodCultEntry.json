@@ -5,9 +5,9 @@
     "B": 226
   },
   "RewardText": "Талант",
-  "PossibleTalants": [
-    { "Bowman": "ArrowMakingTalants.Flame" },
-    { "Servant": "FaithTalants.Pleading" }
-  ],
+  "PossibleTalants": {
+    "Bowman": "ArrowMakingTalants.Flame",
+    "Servant": "FaithTalants.Pleading"
+  },
   "TriggerName": "TalantRewardTrigger"
 }
