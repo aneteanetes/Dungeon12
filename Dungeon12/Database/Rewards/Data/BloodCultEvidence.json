@@ -1,0 +1,14 @@
+﻿{
+  "RewardColor": {
+    "R": 138,
+    "G": 43,
+    "B": 226
+  },
+  "RewardText": "Талант",
+  "Variable": "FaithIslandPt4",
+  "PossibleTalants": [
+    { "Bowman": "ArrowMakingTalants.Incendiary" },
+    { "Noone": "Absorbing.Metall" }
+  ],
+  "TriggerName": "TalantRewardTrigger"
+}

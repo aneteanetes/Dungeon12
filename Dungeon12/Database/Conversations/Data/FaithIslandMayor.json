@@ -126,6 +126,78 @@
           "Escape": true
         }
       ]
+    },
+    {
+      "Name": "Задание",
+      "Text": "Как и говорил капитан, у нас есть детальный план атаки на форт Культа крови. Вы готовы выслушать?",
+      "Variables": [
+        {
+          "Name": "QuestGetStripping",
+          "Value": 44,
+          "Global": true
+        }
+      ],
+      "Visible": {
+        "Name": "QuestCompleted_Stripping"
+      },
+      "Invisible": {
+        "Name": "FaithIslandPt4"
+      },
+      "Replics": [
+        {
+          "Answer": "Да",
+          "Text": "Итак, на данный момент капитан подозревает что в городе есть ещё один шпион который контроллирует действия культа. Сейчас они заполнят все необходимые бумаги и арестуют его. В это время вы должны прорваться в форт культа и взять в плен их предводителя. Эти два важных свидетеля понадобятся нам для того что бы убедить посла Трёх Островов в полной зачистке острова от культа.",
+          "ReplicsTags": [
+            77
+          ],
+          "Shown": true,
+          "Tag": 55,
+          "Variables": [
+            {
+              "Name": "QuestGetStripping",
+              "Value": 44,
+              "Global": true
+            }
+          ],
+          "TriggerClass": "QuestConversationTrigger",
+          "TriggerArguments": [
+            "Stripping"
+          ]
+        },
+        {
+          "Answer": "Отказаться",
+          "Text": "У меня есть интересные подробности об этом деле, не уходите!",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 66,
+          "Variables": []
+        },
+        {
+          "Answer": "Stripping",
+          "Text": "Вы схватили предводителя культа?",
+          "ReplicsTags": [
+            46
+          ],
+          "Tag": 44,
+          "Variables": []
+        },
+        {
+          "Answer": "Нет",
+          "Text": "Возвращайтесь только с живым свидетелем!",
+          "ReplicsTags": [
+            77
+          ],
+          "Tag": 46,
+          "Variables": []
+        },
+        {
+          "Answer": "Назад",
+          "ReplicsTags": [],
+          "Tag": 77,
+          "Variables": [],
+          "Escape": true
+        }
+      ]
     }
   ],
   "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.MayorF.png",

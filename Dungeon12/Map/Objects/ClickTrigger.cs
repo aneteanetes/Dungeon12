@@ -14,7 +14,7 @@ namespace Dungeon12.Map.Objects
     {
         public override bool Saveable => true;
 
-        private ITrigger Trigger;
+        private UnknownITrigger Trigger;
         private object[] Arguments;
 
         protected override void Load(RegionPart regionPart)

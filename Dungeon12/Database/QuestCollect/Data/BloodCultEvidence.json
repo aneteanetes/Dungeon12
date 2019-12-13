@@ -1,0 +1,20 @@
+﻿{
+  "Name": "Кровавые доказательства",
+  "Description": "Для того что бы решить проблемы на острове и не развязать войну Капитан Стражи просит вас достать три доказательства вины Культа Крови во всех бедах которые случились на острве за последнее время. Ему требуется доказательства того что культ крови настроен враждебно, они состоят в сговоре с вампирами, и уничтожают остров в глубоких пещерах.",
+  "RewardIdentify": "BloodCultEvidence",
+  "LootDropsIdentify": [
+    "BloodCultEvidenceOrders",
+    "BloodCultEvidenceContract",
+    "BloodCultEvidenceOrb"
+  ],
+  "ItemsIdentify": [
+    "CultOrders",
+    "ContractWithVampires",
+    "BloodOrb"
+  ],
+  "Amount": [
+    1,
+    1,
+    1
+  ]
+}

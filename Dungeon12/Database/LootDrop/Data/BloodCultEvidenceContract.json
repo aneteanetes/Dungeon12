@@ -1,0 +1,6 @@
+﻿{
+  "ItemGeneratorTrigger": "QuestItemsGenerator",
+  "ItemGeneratorArguments": [ "ContractWithVampires", "1" ],
+  "Chance": 50,
+  "LootTableIdentify": "GreatVampire"
+}

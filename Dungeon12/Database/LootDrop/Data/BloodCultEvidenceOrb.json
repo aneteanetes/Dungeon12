@@ -1,0 +1,6 @@
+﻿{
+  "ItemGeneratorTrigger": "QuestItemsGenerator",
+  "ItemGeneratorArguments": [ "BloodOrb", "1" ],
+  "Chance": 20,
+  "LootTableIdentify": "Spider"
+}

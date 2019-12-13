@@ -1,0 +1,6 @@
+﻿{
+  "ItemGeneratorTrigger": "QuestItemsGenerator",
+  "ItemGeneratorArguments": [ "CultOrders", "1" ],
+  "Chance": 30,
+  "LootTableIdentify": "CultFanatic"
+}

@@ -31,5 +31,9 @@ namespace Dungeon12.Entities.Quests
 
             return replicaFailure.AsDrawText();
         }
+
+        public void Unkown(params object[] args)
+        {
+        }
     }
 }
