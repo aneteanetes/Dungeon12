@@ -1,6 +1,13 @@
 ﻿namespace Dungeon
 {
-    public interface ITrigger { }
+    public interface ITrigger
+    {
+        /// <summary>
+        /// Анонимный вызов триггера
+        /// </summary>
+        /// <param name="args"></param>
+        void Unkown(params object[] args);
+    }
 
     public interface ITrigger<TResult> : ITrigger
     {

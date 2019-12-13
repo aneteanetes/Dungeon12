@@ -1,0 +1,11 @@
+﻿{
+  "RewardColor": {
+    "R": 138,
+    "G": 43,
+    "B": 226
+  },
+  "RewardText": "Опыт",
+  "Exp": 50,
+  "Variable": "FaithIslandPt3",
+  "TriggerName": "SimpleRewardTrigger"
+}

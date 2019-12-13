@@ -59,5 +59,26 @@ namespace Dungeon
 
             return type;
         }
+
+        public static ITrigger Trigger(this string className)
+        {
+            var triggerType = ResourceLoader.LoadType(className);
+            return new RuntimeTrigger(triggerType);
+        }
+
+        private class RuntimeTrigger : ITrigger
+        {
+            private object _trigger;
+
+            public RuntimeTrigger(Type type)
+            {
+                _trigger = type.New();
+            }
+
+            public void Unkown(params object[] args)
+            {
+                _trigger.Call("Trigger", args);
+            }
+        }
     }
 }

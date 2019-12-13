@@ -1,0 +1,10 @@
+﻿{
+  "Name": "Труп командира отряда",
+  "TriggerName": "QuestRewardTryTrigger",
+  "TriggerArguments": [
+    "DeepCaveQuest",
+    "QuestCompleted_DeepCaveQuest",
+    "",
+    ""
+  ]
+}

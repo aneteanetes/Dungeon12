@@ -81,7 +81,7 @@
             var methodInfo = @object.GetType().GetMethods().FirstOrDefault(m => m.Name == method);
             if (methodInfo != default)
             {
-                Expression.Lambda(Expression.Call(Expression.Constant(@object), methodInfo)).Compile().DynamicInvoke();
+                Expression.Lambda(Expression.Call(Expression.Constant(@object), methodInfo)).Compile().DynamicInvoke(argsObj);
             }
         }
 

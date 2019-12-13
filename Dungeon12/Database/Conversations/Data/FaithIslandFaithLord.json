@@ -1,53 +1,145 @@
-﻿{
+{
   "Identify": "FaithIslandFaithLord",
-  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.FaithLordF.png",
-  "Name": "Лорд Веры",
   "Subjects": [
     {
       "Name": "Приход",
-      "Text": "Я могу рассказать вам всё об искусстве охоты на Острове Веры",
+      "Text": "В этом приходе мы предлагаем различные услуги:\r\nИсцеление: 10 золотых",
+      "Variables": [],
+      "Visible": {},
+      "Invisible": {},
       "Replics": [
         {
+          "Answer": "Исцеление",
+          "Text": "Ступайте с верой.",
+          "ReplicsTags": [],
           "Shown": true,
           "Tag": 1,
-          "Answer": "Как охотиться?",
-          "Text": "Для того что бы охотиться вам надо приобрести одно из двух приспособлений: лук для охоты или ловушку для зверей",
-          "ReplicsTags": []
-        },
-        {
-          "Shown": true,
-          "Tag": 2,
-          "Answer": "Какие звери водятся на Острове Веры?",
-          "Text": "На острове веры много хищных птиц и летучих мышей, а в глубинах пещер водятся огромные мотыльки",
-          "ReplicsTags": []
+          "Variables": [],
+          "TriggerClass": "HealingTrigger",
+          "TriggerArguments": [
+            "10"
+          ]
         }
       ]
     },
     {
       "Name": "Служение",
       "Text": "Я могу принять вас в служителей веры, однако вы не сможете покинуть остров веры до исполнения пророчества.",
+      "Variables": [],
+      "Visible": {},
+      "Invisible": {
+        "Name": ""
+      },
       "Replics": [
         {
-          "Shown": true,
-          "Tag": 5,
           "Answer": "(Сменить класс на: Служитель веры)",
           "Text": "Смена класса",
-          "TriggerClass": "Dungeon12.ClassChangeTrigger",
-          "TriggerClassAsm": "Dungeon12",
-          "TriggerClassArguments": [
-            "Dungeon12.Servant.Servant",
-            "Dungeon12.Servant"
-          ],
-          "ReplicsTags": []
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 5,
+          "Variables": [],
+          "TriggerClass": "Dungeon12.ClassChangeTrigger"
         },
         {
-          "Shown": true,
-          "Tag": 6,
           "Answer": "Отказаться",
           "Text": "Оке",
-          "ReplicsTags": []
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 6,
+          "Variables": []
+        }
+      ]
+    },
+    {
+      "Name": "Задание",
+      "Text": "Наш регент сообщила мне что вы разобрались с глубокими пещерами. Не могли бы вы теперь выполнить и мою просьбу?",
+      "Variables": [
+        {
+          "Name": "QuestGetKillFanatics",
+          "Value": 44,
+          "Global": true
+        }
+      ],
+      "Visible": {
+        "Name": "QuestCompleted_KillFanatics"
+      },
+      "Invisible": {
+        "Name": "FaithIslandPt2"
+      },
+      "Replics": [
+        {
+          "Answer": "Да, конечно",
+          "Text": "Регент передала мне что в хаосе творящимся в глубоких пещерах замешан Культ Крови. Если вы не знали - это мы установили маяк на острове, и мне очень не нравится что Культ Крови поставил свой форт прямо рядом с ним. Это может затруднять работу охраняющих нас кораблей. Мы не можем просто так уничтожить их форт, но мы можем их проучить. Как Лорд Веры я прошу вас разобраться с этим культом и убить их полевого генерала - мага крови.",
+          "ReplicsTags": [
+            77
+          ],
+          "Shown": true,
+          "Tag": 55,
+          "Variables": [
+            {
+              "Name": "QuestGetKillFanatics",
+              "Value": 44,
+              "Global": true
+            }
+          ],
+          "TriggerClass": "QuestConversationTrigger",
+          "TriggerArguments": [
+            "KillFanatics"
+          ]
+        },
+        {
+          "Answer": "Отказаться",
+          "Text": "Благополучие острова может зависить именно от вас.",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 66,
+          "Variables": []
+        },
+        {
+          "Answer": "KillFanatics",
+          "Text": "Вы разобрались с магом крови?",
+          "ReplicsTags": [
+            45,
+            46
+          ],
+          "Tag": 44,
+          "Variables": []
+        },
+        {
+          "Answer": "Он мёртв",
+          "Text": "Отлично. Я надеюсь это ослабит Культ Крови и поможет нам всем справиться с ними раз и навсегда.",
+          "ReplicsTags": [
+            77
+          ],
+          "Tag": 45,
+          "Variables": [],
+          "TriggerClass": "QuestRewardTryTrigger",
+          "TriggerArguments": [
+            "KillFanatics",
+            "QuestCompleted_KillFanatics",
+            "Возвращайтесь с доказательствами.",
+            "Текст выполненного задания"
+          ]
+        },
+        {
+          "Answer": "Ещё нет",
+          "Text": "Возвращайтесь с доказательствами.",
+          "ReplicsTags": [
+            77
+          ],
+          "Tag": 46,
+          "Variables": []
+        },
+        {
+          "Answer": "Назад",
+          "ReplicsTags": [],
+          "Tag": 77,
+          "Variables": [],
+          "Escape": true
         }
       ]
     }
-  ]
+  ],
+  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.FaithLordF.png",
+  "Name": "Лорд Веры"
 }

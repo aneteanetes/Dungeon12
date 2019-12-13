@@ -1,16 +1,15 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Map
 {
-    using Dungeon12.Abilities;
-    using Dungeon12.Abilities.Enums;
     using Dungeon.Control;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
-    using Dungeon.Entities;
+    using Dungeon12.Abilities;
+    using Dungeon12.Abilities.Enums;
+    using Dungeon12.Entities;
     using Dungeon12.Entities.Fractions;
     using Dungeon12.Map;
     using System.Collections.Generic;
     using System.Linq;
-    using Dungeon12.Entities;
 
     public abstract class ClickActionSceneObject<T> : TooltipedSceneObject<T>
         where T : Dungeon.Physics.PhysicalObject
