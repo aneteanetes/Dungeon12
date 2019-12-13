@@ -31,6 +31,21 @@
 
         private ImageControl current;
 
+        public void Cancel()
+        {
+            var dcell = this.Children.FirstOrDefault(a =>
+            {
+                if (a is DesignCell designCell)
+                {
+                    return designCell.Left == xs && designCell.Top == ys && designCell.Layer == lvls;
+                }
+                return false;
+            });
+
+            this.RemoveChild(dcell);
+            Field[lvls][(int)xs][(int)ys] = null;
+        }
+
         public void Selecting(ImageControl imageControl) => current = imageControl;
 
         public void SetLevel(int lvl) => this.lvl = lvl;
@@ -89,6 +104,10 @@
                     height = measure.Y;
                 }
 
+                lvls = lvl;
+                xs = x;
+                ys = y;
+
                 Field[lvl][x][y] = new DesignCell(current.Image,this.obstruct)
                 {
                     ImageRegion = current.ImageRegion,
@@ -101,6 +120,10 @@
                 this.AddChild(Field[lvl][x][y]);
             }
         }
+
+        private int lvls;
+        private double xs;
+            private double ys;
 
         public void Save(string save, bool measure = true)
         {

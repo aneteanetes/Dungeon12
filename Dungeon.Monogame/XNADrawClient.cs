@@ -167,12 +167,12 @@
 
             KeyboardState c = Keyboard.GetState();
 
-            if (c.IsKeyDown(Keys.K))
+            if (c.IsKeyDown(Keys.B))
             {
                 penumbra.Visible = false;
             }
 
-            if (c.IsKeyDown(Keys.L))
+            if (c.IsKeyDown(Keys.Y))
             {
                 penumbra.Visible = true;
             }

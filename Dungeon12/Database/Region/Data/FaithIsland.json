@@ -15,14 +15,54 @@
       "Icon": "Teleport",
       "Name": "Глубокие пещеры",
       "Position": {
-        "X": 42,
-        "Y": 40
+        "X": 63,
+        "Y": 13
       },
       "UnderlevelIdentify": "FaithIsland.DeepCave",
       "Destination": {
         "X": 75.5,
         "Y": 19
       }
+    },
+    {
+      "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Teleport",
+      "Name": "Старый дом",
+      "Position": {
+        "X": 20,
+        "Y": 44
+      },
+      "UnderlevelIdentify": "FaithIsland.OldHouse",
+      "Destination": {
+        "X": 27.5,
+        "Y": 50
+      }
+    },
+    {
+      "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Teleport",
+      "Name": "Западаная пещера",
+      "Position": {
+        "X": 11,
+        "Y": 31
+      },
+      "UnderlevelIdentify": "FaithIsland.OldHouse",
+      "Destination": {
+        "X": 80,
+        "Y": 8.5
+      }
+    },
+    {
+      "Icon": ".",
+      "Position": {
+        "X": 62,
+        "Y": 6
+      },
+      "Region": {
+        "Width": 3,
+        "Height": 7
+      },
+      "Obstruct": true
     },
     {
       "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",

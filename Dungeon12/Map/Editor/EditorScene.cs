@@ -27,6 +27,8 @@
 
         private SaveBtn saveBtn;
 
+        private EditedGameField field;
+
         public override void Init()
         {
             Global.DrawClient.SetCameraSpeed(5);
@@ -44,12 +46,12 @@
                 Height = 100.5
             });
 
-            var field = new EditedGameField
+            field = new EditedGameField
             {
                 Left = 20
             };
             this.AddObject(field);
-            this.AddObject(new ToolboxControl(field.Selecting,field.SetLevel,field.SetObstruct,field.SetFullTile));
+            this.AddObject(new ToolboxControl(field.Selecting, field.SetLevel, field.SetObstruct, field.SetFullTile));
 
             saveBtn = new SaveBtn(field)
             {
@@ -81,15 +83,19 @@
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
-            if(!hold)
+            if (!hold)
             {
-                if(keyPressed== Key.S && keyModifiers== KeyModifiers.Control)
+                if (keyPressed == Key.S && keyModifiers == KeyModifiers.Control)
                 {
                     saveBtn.Click(null);
                 }
+                if (keyPressed == Key.Z && keyModifiers == KeyModifiers.Control)
+                {
+                    field.Cancel();
+                }
             }
 
-            if(keyPressed== Key.Escape)
+            if (keyPressed == Key.Escape)
             {
                 Switch<Start>();
             }
