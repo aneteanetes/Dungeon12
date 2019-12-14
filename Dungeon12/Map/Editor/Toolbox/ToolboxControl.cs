@@ -20,7 +20,7 @@
             this.Height = 23;
             this.Width = 19;
 
-            textInputControl = new TextInputControl(new DrawText("", new DrawColor(ConsoleColor.White)) { Size = 10 }.Montserrat(), 20,false,false)
+            textInputControl = new TextInputControl(new DrawText("", new DrawColor(ConsoleColor.White)) { Size = 10 }.Montserrat(), 30,false,false)
             {
                 OnEnter = s => LoadTileset()
             };
@@ -52,10 +52,11 @@
 
                     return false;
                 },
-                Left = textInputControl.Width + 1
+                Left = 6.5
             };
+            levelControl.Top = 1;
             this.AddChild(levelControl);
-            this.AddChild(new TextControl(new DrawText("Уровень") { Size = 15 }.Montserrat()) { Left = 7.5, Top = 0.25 });
+            this.AddChild(new TextControl(new DrawText("Уровень") { Size = 15 }.Montserrat()) { Left = 7.5, Top = 1.25 });
 
             this.AddChild(new CheckBox(new DrawText("Препятствие") { Size=20}.Montserrat())
             {

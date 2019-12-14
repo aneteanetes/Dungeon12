@@ -199,7 +199,7 @@
 
             var innerText = typingText.Text;
 
-            if (innerText.Length >= limit)
+            if (innerText.Length >= limit && text!= "\b")
                 return;
 
             if (innerText.StringData.Length == 0 && capitalize)

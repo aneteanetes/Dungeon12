@@ -95,7 +95,7 @@
                 mb = MouseButton.Left;
 
             if (mouseState.RightButton == ButtonState.Pressed)
-                mb = MouseButton.Left;
+                mb = MouseButton.Right;
 
             if (mouseState.MiddleButton == ButtonState.Pressed)
                 mb = MouseButton.Middle;

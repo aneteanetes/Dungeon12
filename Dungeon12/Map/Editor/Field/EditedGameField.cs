@@ -26,25 +26,15 @@
             this.Width = 100;
             this.Height = 100;
 
+            History = new GameFieldHistory(this);
             LoadFile();
         }
 
         private ImageControl current;
 
-        public void Cancel()
-        {
-            var dcell = this.Children.FirstOrDefault(a =>
-            {
-                if (a is DesignCell designCell)
-                {
-                    return designCell.Left == xs && designCell.Top == ys && designCell.Layer == lvls;
-                }
-                return false;
-            });
+        private GameFieldHistory History;
 
-            this.RemoveChild(dcell);
-            Field[lvls][(int)xs][(int)ys] = null;
-        }
+        public void Cancel() => History.Back();
 
         public void Selecting(ImageControl imageControl) => current = imageControl;
 
@@ -55,6 +45,8 @@
         public void SetFullTile(bool fulltile) => this.fulltile = fulltile;
 
         public readonly DesignField Field = new DesignField();
+
+        private bool deletion = false;
 
         public override void Click(PointerArgs args)
         {
@@ -70,9 +62,11 @@
 
             if (args.MouseButton == MouseButton.Right)
             {
+                deletion = true;
                 var exists = Field[lvl][x][y];
                 if (exists != null)
                 {
+                    History.Remove(exists);
                     this.RemoveChild(exists);
                     Field[lvl][x][y] = null;
                 }
@@ -86,6 +80,7 @@
                 canPut = Field[lvl][x][y].ImageRegion != current.ImageRegion;
                 if (canPut)
                 {
+                    History.Remove(Field[lvl][x][y]);
                     this.RemoveChild(Field[lvl][x][y]);
                     Field[lvl][x][y] = null;
                 }
@@ -103,11 +98,7 @@
                     width = measure.X;
                     height = measure.Y;
                 }
-
-                lvls = lvl;
-                xs = x;
-                ys = y;
-
+                
                 Field[lvl][x][y] = new DesignCell(current.Image,this.obstruct)
                 {
                     ImageRegion = current.ImageRegion,
@@ -118,12 +109,9 @@
                     Layer = lvl
                 };
                 this.AddChild(Field[lvl][x][y]);
+                History.Add(Field[lvl][x][y]);
             }
         }
-
-        private int lvls;
-        private double xs;
-            private double ys;
 
         public void Save(string save, bool measure = true)
         {
@@ -194,23 +182,28 @@
             hold = false;
         }
 
-        public override void MouseMove(PointerArgs args) => Click(args);
+        public override void ClickRelease(PointerArgs args)
+        {
+            hold = false;
+        }
+
+        public override void MouseMove(PointerArgs args)
+        {
+            if (hold)
+                Click(args);
+        }
 
         bool hold = false;
 
-        private ControlEventType[] FreeHandles => new ControlEventType[]
-        {
-            ControlEventType.Click,
-            ControlEventType.GlobalClickRelease
-        };
 
         private ControlEventType[] HoldHandles => new ControlEventType[]
         {
+            ControlEventType.ClickRelease,
             ControlEventType.Click,
             ControlEventType.GlobalClickRelease,
                 ControlEventType.MouseMove
         };
 
-        protected override ControlEventType[] Handles => hold ? HoldHandles : FreeHandles;
+        protected override ControlEventType[] Handles => HoldHandles;
     }
 }
