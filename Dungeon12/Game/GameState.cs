@@ -11,7 +11,16 @@ namespace Dungeon12.Game
     {
         public Avatar PlayerAvatar { get; set; }
 
-        public GameMap Map { get; set; }
+        private GameMap _map;
+        public GameMap Map
+        {
+            get => _map;
+            set
+            {
+                _map = value;
+                Global.DrawClient.Clear();
+            }
+        }
 
         public GameMap Region { get; set; }
 

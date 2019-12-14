@@ -19,6 +19,7 @@
     using System.Linq;
     using Dungeon;
     using Dungeon12;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// тут кто-то явно сэкономил на времени и въебал виртуальные свойства вместо абстрактных
@@ -248,6 +249,7 @@
 
         public abstract AbilityTargetType TargetType { get; }
 
+        [JsonIgnore]
         public Capable Target { get; set; }
 
         public virtual double Spend { get; set; }

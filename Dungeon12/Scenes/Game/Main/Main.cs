@@ -168,6 +168,11 @@
                 }
                 this.AddObject(back);
             }
+            else
+            {
+                var back = new ImageControl("Regions/_back.png".AsmImgRes());
+                this.AddObject(back);
+            }
 
             this.AddObject(new ImageControl(persistRegion.Tile));
 

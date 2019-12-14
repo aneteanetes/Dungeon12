@@ -1,13 +1,41 @@
-{
+﻿{
   "Tile": "Dungeon12.Resources.Images.Regions.FaithIsland.BloodFort2.png",
   "TileBack": null,
   "TileBackOffset": null,
   "SafeZones": [],
   "Name": "FaithIsland.BloodFort2",
-  "Display": "���� ������ ����� 2",
+  "Display": "‘орт  ульта  рови 2",
   "IsUnderLevel": true,
   "IdentifyName": "FaithIsland.BloodFort2",
   "Objects": [
+    {
+      "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Teleport",
+      "Name": "Спуститься",
+      "Position": {
+        "X": 19,
+        "Y": 4.5
+      },
+      "UnderlevelIdentify": "FaithIsland.BloodFort1",
+      "Destination": {
+        "X": 17.5,
+        "Y": 4
+      }
+    },
+    {
+      "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Teleport",
+      "Name": "Маяк",
+      "Position": {
+        "X": 39.5,
+        "Y": 4.5
+      },
+      "UnderlevelIdentify": "FaithIsland.Beacon1",
+      "Destination": {
+        "X": 11,
+        "Y": 10
+      }
+    },
     {
       "Icon": null,
       "Region": {

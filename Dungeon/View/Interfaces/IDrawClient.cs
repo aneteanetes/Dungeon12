@@ -21,6 +21,8 @@
 
         void Drop();
 
+        void Clear(IDrawColor drawColor=default);
+
         void SetCursor(string texture);
 
         /// <summary>

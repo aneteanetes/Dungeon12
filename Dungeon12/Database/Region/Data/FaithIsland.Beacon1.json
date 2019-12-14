@@ -1,13 +1,41 @@
-{
+﻿{
   "Tile": "Dungeon12.Resources.Images.Regions.FaithIsland.Beacon1.png",
   "TileBack": null,
   "TileBackOffset": null,
   "SafeZones": [],
   "Name": "FaithIsland.Beacon1",
-  "Display": "���� 1",
+  "Display": "Маяк 1",
   "IsUnderLevel": true,
   "IdentifyName": "FaithIsland.Beacon1",
   "Objects": [
+    {
+      "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Teleport",
+      "Name": "Вниз",
+      "Position": {
+        "X": 16,
+        "Y": 7
+      },
+      "UnderlevelIdentify": "FaithIsland.Beacon2",
+      "Destination": {
+        "X": 15,
+        "Y": 7
+      }
+    },
+    {
+      "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Teleport",
+      "Name": "Форт Культа Крови",
+      "Position": {
+        "X": 11,
+        "Y": 11.5
+      },
+      "UnderlevelIdentify": "FaithIsland.BloodFort2",
+      "Destination": {
+        "X": 39.5,
+        "Y": 5.5
+      }
+    },
     {
       "Icon": null,
       "Region": {

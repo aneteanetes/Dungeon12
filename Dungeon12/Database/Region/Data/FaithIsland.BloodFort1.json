@@ -1,13 +1,41 @@
-{
+﻿{
   "Tile": "Dungeon12.Resources.Images.Regions.FaithIsland.BloodFort1.png",
   "TileBack": null,
   "TileBackOffset": null,
   "SafeZones": [],
   "Name": "FaithIsland.BloodFort1",
-  "Display": "���� ������ ����� 1",
+  "Display": "Форт Культа Крови 1",
   "IsUnderLevel": true,
   "IdentifyName": "FaithIsland.BloodFort1",
   "Objects": [
+    {
+      "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Teleport",
+      "Name": "Остров веры",
+      "Position": {
+        "X": 14.5,
+        "Y": 23
+      },
+      "RegionIdentify": "FaithIsland",
+      "Destination": {
+        "X": 11.5,
+        "Y": 18
+      }
+    },
+    {
+      "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Teleport",
+      "Name": "Подняться",
+      "Position": {
+        "X": 17.5,
+        "Y": 3
+      },
+      "UnderlevelIdentify": "FaithIsland.BloodFort2",
+      "Destination": {
+        "X": 18,
+        "Y": 5.5
+      }
+    },    
     {
       "Icon": null,
       "Region": {

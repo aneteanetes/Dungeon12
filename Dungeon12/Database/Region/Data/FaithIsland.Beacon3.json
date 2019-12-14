@@ -1,13 +1,41 @@
-{
+﻿{
   "Tile": "Dungeon12.Resources.Images.Regions.FaithIsland.Beacon3.png",
   "TileBack": null,
   "TileBackOffset": null,
   "SafeZones": [],
   "Name": "FaithIsland.Beacon3",
-  "Display": "���� 3",
+  "Display": "Маяк 3",
   "IsUnderLevel": true,
   "IdentifyName": "FaithIsland.Beacon3",
   "Objects": [
+    {
+      "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Teleport",
+      "Name": "Первое Святилище",
+      "Position": {
+        "X": 11.5,
+        "Y": 11.5
+      },
+      "UnderlevelIdentify": "FaithIsland.Sanctuary",
+      "Destination": {
+        "X": 19,
+        "Y": 3
+      }
+    },
+    {
+      "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Teleport",
+      "Name": "Наверх",
+      "Position": {
+        "X": 7,
+        "Y": 7
+      },
+      "UnderlevelIdentify": "FaithIsland.Beacon2",
+      "Destination": {
+        "X": 7,
+        "Y": 8
+      }
+    },
     {
       "Icon": null,
       "Region": {

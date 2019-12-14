@@ -1,13 +1,41 @@
-{
+﻿{
   "Tile": "Dungeon12.Resources.Images.Regions.FaithIsland.Beacon2.png",
   "TileBack": null,
   "TileBackOffset": null,
   "SafeZones": [],
   "Name": "FaithIsland.Beacon2",
-  "Display": "���� 2",
+  "Display": "Маяк 2",
   "IsUnderLevel": true,
   "IdentifyName": "FaithIsland.Beacon2",
   "Objects": [
+    {
+      "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Teleport",
+      "Name": "Наверх",
+      "Position": {
+        "X": 16,
+        "Y": 7
+      },
+      "UnderlevelIdentify": "FaithIsland.Beacon1",
+      "Destination": {
+        "X": 15,
+        "Y": 7
+      }
+    },
+    {
+      "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Teleport",
+      "Name": "Вниз",
+      "Position": {
+        "X": 7,
+        "Y": 7
+      },
+      "UnderlevelIdentify": "FaithIsland.Beacon3",
+      "Destination": {
+        "X": 8,
+        "Y": 7
+      }
+    },
     {
       "Icon": null,
       "Region": {

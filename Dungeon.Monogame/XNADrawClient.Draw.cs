@@ -987,5 +987,15 @@
 
             }
         }
+
+        public void Clear(IDrawColor drawColor = null)
+        {
+            var xnacolor = Color.Black;
+            if(drawColor!=default)
+            {
+                xnacolor = new Color(drawColor.R, drawColor.G, drawColor.B, drawColor.A);
+            }
+            GraphicsDevice.Clear(xnacolor);
+        }
     }
 }

@@ -41,6 +41,20 @@
     {
       "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
       "Icon": "Teleport",
+      "Name": "Форт Культа Крови",
+      "Position": {
+        "X": 11.5,
+        "Y": 17.2
+      },
+      "UnderlevelIdentify": "FaithIsland.BloodFort1",
+      "Destination": {
+        "X": 14.5,
+        "Y": 22
+      }
+    },
+    {
+      "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Teleport",
       "Name": "Западаная пещера",
       "Position": {
         "X": 11,

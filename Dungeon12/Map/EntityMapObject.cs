@@ -32,6 +32,10 @@ namespace Dungeon12.Map
             {
                 entity.MapObject = this;
                 Entity = entity;
+
+                if (Entity.SceneObject == default)
+                    Entity.SceneObject = this.SceneObject;
+
                 if(entity is Alive aliveEntity)
                 {
                     aliveEntity.OnDie += this.Die;
