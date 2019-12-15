@@ -6,6 +6,15 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    public abstract class LoadingScene : GameScene
+    {
+        public LoadingScene() : base(null) { }
+
+        public override bool Destroyable => false;
+
+        public override bool AbsolutePositionScene => true;
+    }
+
     public abstract class GameScene : CommandScene
     {
         public object Freezer;
@@ -22,6 +31,10 @@
         {
             Args = default;
         }
+
+        public virtual bool Loadable => false;
+
+        public virtual bool LoadingScreen => false;
 
         public GameScene(SceneManager sceneManager) : base(sceneManager)
         {

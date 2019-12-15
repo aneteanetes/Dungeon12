@@ -1,0 +1,29 @@
+﻿{
+  "Name": "Деревянный сундук",
+  "LootTable": "WoodenChest",
+  "Animation": {
+    "TileSet": "Dungeon12.Resources.Images.Objects.chests.png",
+    "Size": {
+      "X": 32,
+      "Y": 48
+    },
+    "Frames": [
+      {
+        "X": 0,
+        "Y": 0
+      },
+      {
+        "X": 0,
+        "Y": 48
+      },
+      {
+        "X": 0,
+        "Y": 96
+      },
+      {
+        "X": 0,
+        "Y": 144
+      }
+    ]
+  }
+}

@@ -26,9 +26,13 @@
         {
 #warning выключен звук
             return;
-            var sound = LoadSound(effect).CreateInstance();
-            sound.Volume = (float)(audioOptions?.Volume ?? .1);
-            sound.Play();
+            try
+            {
+                var sound = LoadSound(effect).CreateInstance();
+                sound.Volume = (float)(audioOptions?.Volume ?? .5);
+                sound.Play();
+            }
+            catch { }
         }
 
         private readonly Dictionary<string, SoundEffect> soundEffectsCache = new Dictionary<string, SoundEffect>();

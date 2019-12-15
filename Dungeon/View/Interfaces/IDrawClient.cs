@@ -1,13 +1,19 @@
 ﻿namespace Dungeon.View.Interfaces
 {
     using Dungeon.Types;
+    using System;
     using System.Collections.Generic;
 
     public interface IDrawClient : ICamera
     {
         void Draw(IEnumerable<IDrawSession> drawSessions);
 
-        void SetScene(IScene scene);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="scene"></param>
+        /// <returns>After 1 draw circle</returns>
+        Callback SetScene(IScene scene);
 
         Point MeasureText(IDrawText drawText,ISceneObject parent=default);
 

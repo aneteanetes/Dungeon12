@@ -2,6 +2,7 @@
 {
     using Dungeon.Network;
     using Dungeon.Scenes.Manager;
+    using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using Dungeon12;
     using Dungeon12.Scenes.Menus;
@@ -141,17 +142,29 @@
 
 
         private Microsoft.Xna.Framework.GameTime gameTime;
-        
+
+        private bool drawCicled = false;
+
         protected override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
+            if (this.сallback != default && !skipCallback && drawCicled)
+            {
+                this.сallback.Call();
+                this.сallback = default;
+            }
+
             this.gameTime = gameTime;
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed/* || Keyboard.GetState().IsKeyDown(Keys.Escape)*/)
                 Exit();
 
+            drawCicled = false;
+            skipCallback = false;
+
             // TODO: Add your update logic here
             DebugUpdate();
             UpdateLoop();
+
 
             base.Update(gameTime);
         }
@@ -254,7 +267,24 @@
 
         private IScene scene;
 
-        public void SetScene(IScene scene) => this.scene = scene;
+        private Callback сallback;
+
+        private bool skipCallback = false;
+        public Callback SetScene(IScene scene)
+        {
+            this.scene = scene;
+            сallback = new Callback(()=>
+            {
+                scene.Destroy();
+            });
+
+            if (drawCicled)
+            {
+                skipCallback = true;
+            }
+
+            return сallback;
+        }
 
         private const float Seconds = 1320;
         private float RotationUnit = (1.5708f - 0.8707998f) / Seconds * 2;

@@ -1,6 +1,7 @@
 ﻿namespace Dungeon.Entities.Animations
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Dungeon.Types;
 
     public class AnimationMap
@@ -18,5 +19,21 @@
         public double FramesPerSecond { get; set; }
 
         public string[] FullFrames { get; set; }
+
+        public Rectangle DefaultFramePosition => new Rectangle()
+        {
+            Height = Size.Y,
+            Width = Size.X,
+            X = Frames?.FirstOrDefault()?.X ?? 0,
+            Y = Frames?.FirstOrDefault()?.Y ?? 0
+        };
+
+        public Rectangle LastFramePosition => new Rectangle()
+        {
+            Height = Size.Y,
+            Width = Size.X,
+            X = Frames?.LastOrDefault()?.X ?? 0,
+            Y = Frames?.LastOrDefault()?.Y ?? 0
+        };
     }
 }

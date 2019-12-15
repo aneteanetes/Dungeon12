@@ -31,6 +31,10 @@ namespace Dungeon.Data
         public static IEnumerable<T> Load<T>(Expression<Func<T, bool>> predicate = null, object cacheObject = default)
             where T : IPersist
             => Store.Entity<T>(predicate, cacheObject);
+
+        public static T LoadById<T>(string id, object cacheObject = default)
+            where T : IPersist
+            => Store.EntitySingle<T>(id, cacheObject);
 #endif
     }
 }

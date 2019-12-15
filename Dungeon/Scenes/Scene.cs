@@ -541,7 +541,7 @@
         }
 
         private bool destroyed = false;
-        public void Destroy()
+        public virtual void Destroy()
         {
             var sceneObjsForRemove = new List<ISceneObject>(SceneObjects);
             sceneObjsForRemove.ForEach(x => x.Destroy?.Invoke());

@@ -41,79 +41,85 @@ namespace Dungeon12.Map
         {
             Global.GameState.Player.StopMovings();
 
-            // уничтожаем что у нас там есть сейчас в игре
-            SceneManager.Destroy<Scenes.Game.Main>();
+            SceneManager.LoadingScreen.Then(cb => {
+                
+                // уничтожаем что у нас там есть сейчас в игре
+                SceneManager.Destroy<Scenes.Game.Main>();
 
-            // замораживаем рисование пресонажа
-            Global.GameState.Player.FreezeDrawLoop = true;
+                // замораживаем рисование пресонажа
+                Global.GameState.Player.FreezeDrawLoop = true;
 
-            //удаляем нахой персонажа с карты
-            Global.GameState.Map.MapObject.Remove(player);
+                //удаляем нахой персонажа с карты
+                Global.GameState.Map.MapObject.Remove(player);
 
-            // разъёбываем нахуй всё что бы сцена точно удалилась
-            Global.DrawClient.SetScene(default);
-            
-            // объекты не на текущей карте должны перестать "двигаться"
-            // замораживаем движение на текущей карте
-            Global.GameState.Map.Disabled = true;
+                // разъёбываем нахуй всё что бы сцена точно удалилась
+                Global.DrawClient.SetScene(default);
 
-            var isUnderLevel = Data.UnderlevelIdentify != default;
-            if (isUnderLevel)
-            {
-                if (!Global.GameState.Map.IsUnderLevel)
+                // объекты не на текущей карте должны перестать "двигаться"
+                // замораживаем движение на текущей карте
+                Global.GameState.Map.Disabled = true;
+
+                var isUnderLevel = Data.UnderlevelIdentify != default;
+                if (isUnderLevel)
                 {
-                    // если мы сейчас не в под-уровне сохраняем карту региона в память
-                    Global.GameState.Region = Global.GameState.Map;
-                }
+                    if (!Global.GameState.Map.IsUnderLevel)
+                    {
+                        // если мы сейчас не в под-уровне сохраняем карту региона в память
+                        Global.GameState.Region = Global.GameState.Map;
+                    }
 
-                // сохраняем текущее состояние в памяти
-                Global.SaveInMemmory();
+                    // сохраняем текущее состояние в памяти
+                    Global.SaveInMemmory();
 
-                var inMemmoryUnderlevel = Global.GameState.Underlevels.FirstOrDefault(x => x.MapIdentifyId == Data.UnderlevelIdentify);
-                if (inMemmoryUnderlevel != default)
-                {
-                    // загружаем под уровень из памяти если он там есть
-                    Global.GameState.Map = inMemmoryUnderlevel;
-                }
-                else // если под уровня в памяти нет
-                {
-                    Global.GameState.Map = new GameMap();
-                    Global.GameState.Map.InitRegion(Data.UnderlevelIdentify);
+                    var inMemmoryUnderlevel = Global.GameState.Underlevels.FirstOrDefault(x => x.MapIdentifyId == Data.UnderlevelIdentify);
+                    if (inMemmoryUnderlevel != default)
+                    {
+                        // загружаем под уровень из памяти если он там есть
+                        Global.GameState.Map = inMemmoryUnderlevel;
+                    }
+                    else // если под уровня в памяти нет
+                    {
+                        Global.GameState.Map = new GameMap();
+                        Global.GameState.Map.InitRegion(Data.UnderlevelIdentify);
 
-                    // добавляем под уровень в текущую память
-                    Global.GameState.Underlevels.Add(Global.GameState.Map);
-                }
-            }
-            else
-            {
-                var region = Data.RegionIdentify;
-                if (Global.GameState.Region.MapIdentifyId == region)
-                {
-                    // если мы входим в текущий регион, значит мы выходим из под-уровня
-                    // соответственно можем просто восстановить карту
-                    Global.GameState.Map = Global.GameState.Region;
-
-                    // под-уровень не сохраняем, т.к. он есть в коллекции под-уровней
+                        // добавляем под уровень в текущую память
+                        Global.GameState.Underlevels.Add(Global.GameState.Map);
+                    }
                 }
                 else
                 {
+                    var region = Data.RegionIdentify;
+                    if (Global.GameState.Region.MapIdentifyId == region)
+                    {
+                        // если мы входим в текущий регион, значит мы выходим из под-уровня
+                        // соответственно можем просто восстановить карту
+                        Global.GameState.Map = Global.GameState.Region;
+
+                        // под-уровень не сохраняем, т.к. он есть в коллекции под-уровней
+                    }
+                    else
+                    {
 #warning TODO: реализовать когда появятся другие регионы
+                    }
                 }
-            }
 
-            // восстанавливаем движение на именно текущей карте
-            Global.GameState.Map.Disabled = false;
+                // восстанавливаем движение на именно текущей карте
+                Global.GameState.Map.Disabled = false;
 
-            // указываем что карта загружена что бы она не инициализировалась "по-умолчанию"
-            Global.GameState.Map.Loaded = true;
+                // указываем что карта загружена что бы она не инициализировалась "по-умолчанию"
+                Global.GameState.Map.Loaded = true;
 
-            // устанавливаем персонажа
-            // внутри установится и камера
-            Global.GameState.Map.SetPlayerLocation(Data.Destination);
+                // устанавливаем персонажа
+                // внутри установится и камера
+                Global.GameState.Map.SetPlayerLocation(Data.Destination);
 
-            Global.DrawClient.SetCursor("Cursors.common.png".PathImage());
-            // переключаемся на главную сцену
-            SceneManager.Switch<Main>();
+                Global.DrawClient.SetCursor("Cursors.common.png".PathImage());
+
+                // переключаемся на главную сцену
+                SceneManager.Switch<Main>();
+
+                cb.Dispose();
+            });
         }
 
         protected override void CallInteract(dynamic obj) => this.Interact(obj);

@@ -39,7 +39,7 @@
         {
             //Console.WriteLine(isTop);
 
-            SceneManager.Current.OnMouseWheel(isTop ? Dungeon.Control.Pointer.MouseWheelEnum.Up : Dungeon.Control.Pointer.MouseWheelEnum.Down);
+            SceneManager.Current?.OnMouseWheel(isTop ? Dungeon.Control.Pointer.MouseWheelEnum.Up : Dungeon.Control.Pointer.MouseWheelEnum.Down);
         }
 
         private delegate ConditionalDelegate ConditionalDelegate(Func<MouseButton, ButtonState, bool> func, MouseButton arg, ButtonState arg2);
@@ -88,27 +88,30 @@
         private void OnPointerMoved()
         {
             var currentScene = SceneManager.Current;
-            
-            MouseButton mb = MouseButton.None;
-
-            if (mouseState.LeftButton == ButtonState.Pressed)
-                mb = MouseButton.Left;
-
-            if (mouseState.RightButton == ButtonState.Pressed)
-                mb = MouseButton.Right;
-
-            if (mouseState.MiddleButton == ButtonState.Pressed)
-                mb = MouseButton.Middle;
-
-            this.light.Position = new Microsoft.Xna.Framework.Vector2(mousePosition.X, mousePosition.Y);
-
-            currentScene.OnMouseMove(new PointerArgs
+            if (currentScene != default)
             {
-                ClickCount = 0,
-                MouseButton = (Dungeon.Control.Pointer.MouseButton)mb,
-                X = mousePosition.X,
-                Y = mousePosition.Y
-            }, new Dungeon.Types.Point(CameraOffsetX, CameraOffsetY));
+
+                MouseButton mb = MouseButton.None;
+
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                    mb = MouseButton.Left;
+
+                if (mouseState.RightButton == ButtonState.Pressed)
+                    mb = MouseButton.Right;
+
+                if (mouseState.MiddleButton == ButtonState.Pressed)
+                    mb = MouseButton.Middle;
+
+                this.light.Position = new Microsoft.Xna.Framework.Vector2(mousePosition.X, mousePosition.Y);
+
+                currentScene.OnMouseMove(new PointerArgs
+                {
+                    ClickCount = 0,
+                    MouseButton = (Dungeon.Control.Pointer.MouseButton)mb,
+                    X = mousePosition.X,
+                    Y = mousePosition.Y
+                }, new Dungeon.Types.Point(CameraOffsetX, CameraOffsetY));
+            }
         }
 
         private readonly Dictionary<MouseButton, ButtonState> buttonPressings = new Dictionary<MouseButton, ButtonState>()
@@ -123,7 +126,7 @@
             var pos = mousePosition;
             var offset = new Dungeon.Types.Point(CameraOffsetX, CameraOffsetY);
 
-            SceneManager.Current.OnMousePress(new PointerArgs
+            SceneManager.Current?.OnMousePress(new PointerArgs
             {
                 ClickCount = 1,
                 MouseButton = mouseButton,
@@ -138,7 +141,7 @@
             var pos = mousePosition;
             var offset = new Types.Point(CameraOffsetX, CameraOffsetY);
 
-            SceneManager.Current.OnMouseRelease(new PointerArgs
+            SceneManager.Current?.OnMouseRelease(new PointerArgs
             {
                 ClickCount = 1,
                 MouseButton = mouseButton,

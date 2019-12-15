@@ -135,13 +135,13 @@
                     if(!Loop)
                     {
                         AnimationPlayed = true;
-                        OnAnimationStop();
+                        RequestStop();
                     }
                 }
             }
         }
 
-        protected virtual bool Loop => true;
+        protected virtual bool Loop { get; set; } = true;
         
         protected virtual void AnimationLoop()
         {

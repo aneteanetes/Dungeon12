@@ -29,7 +29,7 @@
 
         //public override bool CameraAffect => true;
         public override bool AbsolutePositionScene => false;
-
+        
         public Main(SceneManager sceneManager) : base(sceneManager)
         {
         }
@@ -321,6 +321,11 @@
                     this.Text.SetText(string.Join(Environment.NewLine, vars));
                 }
             }
+        }
+
+        public override void Destroy()
+        {
+            base.Destroy();
         }
 
         private class Position : TextControl

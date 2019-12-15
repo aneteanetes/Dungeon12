@@ -18,6 +18,9 @@
     using System.Linq;
     using Dungeon;
     using Dungeon12.Entities;
+    using Dungeon12.Loot;
+    using Dungeon12.Map.Objects;
+    using Force.DeepCloner;
 
     [DataClass(typeof(RegionPart))]
     public class MapObject : PhysicalObject<MapObject>, IGameComponent
@@ -47,7 +50,7 @@
 
         public bool Animated => this.Animation != null;
 
-        public virtual AnimationMap Animation { get; }
+        public virtual AnimationMap Animation { get; set; }
 
         public Point Location { get; set; }
 
@@ -218,6 +221,38 @@
             buff.Discard(this);
             States.Remove(buff);
             StateRemoved?.Invoke(buff);
+        }
+
+        public void DropLoot(LootTable lootTable)
+        {
+            List<MapObject> publishObjects = new List<MapObject>();
+
+            var loot = lootTable.Generate();
+
+            if (loot.Gold > 0)
+            {
+                var money = new Money() { Amount = loot.Gold };
+                money.Location = Gamemap.RandomizeLocation(this.Location.DeepClone());
+                money.Destroy += () => Gamemap.MapObject.Remove(money);
+                Gamemap.MapObject.Add(money);
+
+                publishObjects.Add(money);
+            }
+
+            foreach (var item in loot.Items)
+            {
+                var lootItem = new Loot()
+                {
+                    Item = item
+                };
+
+                lootItem.Location = Gamemap.RandomizeLocation(Location.DeepClone());
+                lootItem.Destroy += () => Gamemap.MapObject.Remove(lootItem);
+
+                publishObjects.Add(lootItem);
+            }
+
+            publishObjects.ForEach(Gamemap.PublishObject);
         }
     }
 }

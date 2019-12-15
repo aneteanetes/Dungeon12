@@ -1,29 +1,24 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Map
 {
+    using Dungeon;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
-    using Dungeon12.Entities.Alive;
-    using Dungeon.Entities.Animations;
-    using Dungeon12.Map;
-    using Dungeon12.Map.Objects;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
+    using Dungeon12.Abilities.Enums;
+    using Dungeon12.Drawing.SceneObjects;
     using Dungeon12.Drawing.SceneObjects.Dialogs.Shop;
     using Dungeon12.Drawing.SceneObjects.Effects;
-    using System;
-    using Dungeon;
-    using System.Collections.Generic;
-    using Dungeon12.Drawing.SceneObjects;
-    using Dungeon12.SceneObjects.NPC;
-    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
-    using System.Linq;
-    using Dungeon.Physics;
-    using Dungeon12.Drawing.SceneObjects.Map;
-    using Dungeon12.Entities;
-    using Dungeon12.Map.Objects;
     using Dungeon12.Drawing.SceneObjects.UI;
-    using Dungeon12.Abilities.Enums;
+    using Dungeon12.Entities;
+    using Dungeon12.Entities.Alive;
     using Dungeon12.Entities.Fractions;
+    using Dungeon12.Map;
+    using Dungeon12.Map.Objects;
+    using Dungeon12.SceneObjects;
+    using Dungeon12.SceneObjects.NPC;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class NPCSceneObject : MoveableSceneObject<NPCMap>
     {

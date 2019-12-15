@@ -1,5 +1,6 @@
 ﻿namespace Dungeon12.Scenes.Menus.Creation
 {
+    using Dungeon;
     using Dungeon.Control.Keys;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
@@ -10,11 +11,13 @@
     using Dungeon12.Scenes.Game;
     using System;
 
-    public class PlayerSummaryScene : GameScene<Main,PlayerOriginScene>
+    public class PlayerSummaryScene : GameScene<Main, PlayerOriginScene>
     {
         public PlayerSummaryScene(SceneManager sceneManager) : base(sceneManager)
         {
         }
+
+        public override bool Loadable => true;
 
         public override bool Destroyable => true;
 
@@ -29,7 +32,7 @@
 
             public override bool CacheAvailable => false;
 
-            public Prologue():base(EmptyGameComponent.Empty)
+            public Prologue() : base(EmptyGameComponent.Empty)
             {
                 this.Width = 40;
                 this.Height = 22.5;

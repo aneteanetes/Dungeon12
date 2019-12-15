@@ -1,13 +1,9 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects
 {
     using Dungeon;
-    using Dungeon.Control.Pointer;
     using Dungeon.Drawing;
-    using Dungeon.Drawing.Impl;
-    using Dungeon.Drawing.SceneObjects;
     using Dungeon.GameObjects;
-    using Dungeon.SceneObjects.Base; using Dungeon12.SceneObjects.Base;
-    using System;
+    using Dungeon.SceneObjects.Base;
     public class MetallButtonControl : ButtonControl<EmptyGameComponent>
     {
         public MetallButtonControl(string text) : base(EmptyGameComponent.Empty, text.AsDrawText().Triforce(), 24)
@@ -25,7 +21,7 @@
 
         public override void Focus()
         {
-            Global.AudioPlayer.Effect("focus");
+            //Global.AudioPlayer.Effect("focus.wav".AsmSoundRes());
             this.Image = "Dungeon12.Resources.Images.ui.button_f.png";
             //this.textControl.Text.Paint(ActiveColor, true);
         }

@@ -1,0 +1,29 @@
+﻿{
+  "Name": "Сундук Культистов",
+  "LootTable": "RedChest",
+  "Animation": {
+    "TileSet": "Dungeon12.Resources.Images.Objects.chests.png",
+    "Size": {
+      "X": 32,
+      "Y": 48
+    },
+    "Frames": [
+      {
+        "X": 64,
+        "Y": 0
+      },
+      {
+        "X": 64,
+        "Y": 48
+      },
+      {
+        "X": 64,
+        "Y": 96
+      },
+      {
+        "X": 64,
+        "Y": 144
+      }
+    ]
+  }
+}

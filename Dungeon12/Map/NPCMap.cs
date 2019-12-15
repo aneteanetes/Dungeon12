@@ -154,32 +154,7 @@
 
         private void Dying()
         {
-            List<MapObject> publishObjects = new List<MapObject>();
-
-            var loot = this.Entity.LootTable.Generate();
-
-            if (loot.Gold > 0)
-            {
-                var money = new Money() { Amount = loot.Gold };
-                money.Location = Gamemap.RandomizeLocation(this.Location.DeepClone());
-                money.Destroy += () => Gamemap.MapObject.Remove(money);
-                Gamemap.MapObject.Add(money);
-
-                publishObjects.Add(money);
-            }
-
-            foreach (var item in loot.Items)
-            {
-                var lootItem = new Loot()
-                {
-                    Item = item
-                };
-
-                lootItem.Location = Gamemap.RandomizeLocation(Location.DeepClone());
-                lootItem.Destroy += () => Gamemap.MapObject.Remove(lootItem);
-
-                publishObjects.Add(lootItem);
-            }
+            DropLoot(this.Entity.LootTable);
 
             if (!Gamemap.MapObject.Remove(this))
             {
@@ -187,8 +162,6 @@
             }
 
             Gamemap.Objects.Remove(this);
-
-            publishObjects.ForEach(Gamemap.PublishObject);
         }
 
         public string DamageSound { get; set; }

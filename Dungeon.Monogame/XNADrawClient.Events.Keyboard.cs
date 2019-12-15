@@ -53,7 +53,7 @@
 #if Core
         private void OnTextInput(object sender, TextInputEventArgs e)
         {
-            SceneManager.Current.OnText(e.Character.ToString());
+            SceneManager.Current?.OnText(e.Character.ToString());
         }
 #endif
 
@@ -61,7 +61,7 @@
         {
             var hold = keysHolds.Contains(key);
 
-            SceneManager.Current.OnKeyDown(new Dungeon.Control.Keys.KeyArgs
+            SceneManager.Current?.OnKeyDown(new Dungeon.Control.Keys.KeyArgs
             {
                 Key = (Key)key,
                 Modifiers = GetModifier(),
@@ -73,7 +73,7 @@
         {
             keysHolds.Remove(key);
 
-            SceneManager.Current.OnKeyUp(new Dungeon.Control.Keys.KeyArgs
+            SceneManager.Current?.OnKeyUp(new Dungeon.Control.Keys.KeyArgs
             {
                 Key = (Key)key,
                 Modifiers = GetModifier()

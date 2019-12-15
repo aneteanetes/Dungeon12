@@ -53,6 +53,14 @@
       }
     },
     {
+      "Icon": "Chest",
+      "IdentifyName": "RedChest",
+      "Position": {
+        "X": 44,
+        "Y": 44
+      }
+    },
+    {
       "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
       "Icon": "Teleport",
       "Name": "Западаная пещера",

@@ -1,6 +1,7 @@
 ﻿namespace Dungeon.Scenes.Manager
 {
     using Dungeon.Settings;
+    using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
@@ -28,6 +29,8 @@
 
         public GameScene CurrentScene { get; set; }
 
+        public static Type LoadingScreenType { get; set; }
+
         public void Start(params string[] args)
         {
             Type startSceneType = null;
@@ -52,6 +55,24 @@
             DungeonGlobal.GameAssemblyName = startSceneType.Assembly.GetName().Name;
             DungeonGlobal.GameAssembly = startSceneType.Assembly;
 
+            DungeonGlobal.Assemblies.FirstOrDefault((Func<Assembly, bool>)(asm =>
+            {
+                var type = asm.GetTypes().FirstOrDefault(t => t?.BaseType?.Name?.Contains("LoadingScene") ?? false);
+                if (type == null)
+                {
+                    return false;
+                }
+
+                if (!type.IsGenericType)
+                {
+                    SceneManager.LoadingScreenType = type;
+                    type.New();
+                    return true;
+                }
+
+                return false;
+            }));
+
             if (startSceneType != null)
             {
                 Change(startSceneType, args);
@@ -70,10 +91,38 @@
             {
                 SceneCache.Remove(sceneType);
                 existedScene.Destroy();
+                if(existedScene.Loadable)
+                {
+                    LoadingScreen.Then(c => c.Dispose());
+                }
             }
         }
 
         public static void Switch<TScene>(params string[] args) where TScene : GameScene
+        {
+            if (Current?.Loadable ?? false)
+                LoadingScreen.Then(cb =>
+                {
+                    SwitchImplementation<TScene>(args);
+                    cb.Dispose();
+                });
+            else
+                SwitchImplementation<TScene>(args);
+        }
+
+        public Callback Loading => LoadingScreen;
+
+        public static Callback LoadingScreen
+        {
+            get
+            {
+                var loading = LoadingScreenType.NewAs<LoadingScene>();
+                loading.Init();
+                return DungeonGlobal.DrawClient.SetScene(loading);
+            }
+        }
+
+        private static void SwitchImplementation<TScene>(string[] args) where TScene : GameScene
         {
             // вначале уничтожаем сцену, потому что если мы
             // хотим переключить на ту же самую сцену,
@@ -120,6 +169,18 @@
         public void Change<TScene>(params string[] args) where TScene : GameScene => Switch<TScene>(args);
 
         public void Change(Type sceneType, params string[] args)
+        {
+            if (Current?.Loadable ?? false)
+                LoadingScreen.Then(cb =>
+                {
+                    ChangeImplementation(sceneType, args);
+                    cb.Dispose();
+                });
+            else
+                ChangeImplementation(sceneType, args);
+        }
+
+        private void ChangeImplementation(Type sceneType, string[] args)
         {
             if (Current?.Destroyable ?? false)
             {

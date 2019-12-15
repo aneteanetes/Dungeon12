@@ -78,7 +78,7 @@ namespace Dungeon.Resources
             bool addToScene = !caching;
             if (NotDisposingResources)
             {
-                addToScene = !SceneManager.Preapering.Resources.Any(r => r.Name == res.Name);
+                addToScene = !SceneManager.Preapering?.Resources.Any(r => r.Name == res.Name) ?? false;
             }
 
             if (addToScene)
