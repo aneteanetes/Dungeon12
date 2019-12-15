@@ -1,6 +1,6 @@
 ﻿{
   "Level": 1,
-  "Name": "Пчела",
+  "Name": "Кобра",
   "IsEnemy": true,
   "VisionMultiples": {
     "X": 6,
@@ -14,12 +14,12 @@
     "X": 1,
     "Y": 1
   },
-  "Tileset": "Dungeon12.Resources.Images.Enemies.enemies.png",
+  "Tileset": "Dungeon12.Resources.Images.Enemies.snakes.png",
   "TileSetRegion": {
-    "X": 64,
+    "X": 0,
     "Y": 0,
-    "Width": 32,
-    "Height": 32
+    "Width": 48,
+    "Height": 48
   },
   "FractionIdentify": "FaithIslandFauna",
   "MovementSpeed": 0.01,
@@ -34,22 +34,22 @@
     "LootTableName": "Bat",
     "Aggressive": true,
     "Idle": {
-      "Tileset": "Rgoue.Resource.Images.Enemies.bats.png",
+      "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
       "Size": {
-        "X": 32,
-        "Y": 32
+        "X": 48,
+        "Y": 48
       },
       "Frames": [
         {
-          "X": 192,
+          "X": 0,
           "Y": 0
         },
         {
-          "X": 224,
+          "X": 48,
           "Y": 0
         },
         {
-          "X": 256,
+          "X": 96,
           "Y": 0
         }
       ],
@@ -57,94 +57,94 @@
       "FramesPerSecond": 1.5
     },
     "MoveUp": {
-      "Tileset": "Rgoue.Resource.Images.Enemies.bats.png",
+      "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
       "Size": {
         "X": 32,
         "Y": 32
       },
       "Frames": [
         {
-          "X": 192,
-          "Y": 96
+          "X": 0,
+          "Y": 144
         },
         {
-          "X": 224,
-          "Y": 96
+          "X": 48,
+          "Y": 144
         },
         {
-          "X": 256,
-          "Y": 96
+          "X": 96,
+          "Y": 144
         }
       ],
       "Direction": 1
     },
     "MoveDown": {
-      "Tileset": "Rgoue.Resource.Images.Enemies.bats.png",
+      "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
       "Size": {
-        "X": 32,
-        "Y": 32
+        "X": 48,
+        "Y": 48
       },
       "Frames": [
         {
-          "X": 192,
+          "X": 0,
           "Y": 0
         },
         {
-          "X": 224,
+          "X": 48,
           "Y": 0
         },
         {
-          "X": 256,
+          "X": 96,
           "Y": 0
         }
       ],
       "Direction": 2
     },
     "MoveLeft": {
-      "Tileset": "Rgoue.Resource.Images.Enemies.bats.png",
+      "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
       "Size": {
         "X": 32,
         "Y": 32
       },
       "Frames": [
         {
-          "X": 192,
-          "Y": 32
+          "X": 0,
+          "Y": 48
         },
         {
-          "X": 224,
-          "Y": 32
+          "X": 48,
+          "Y": 48
         },
         {
-          "X": 256,
-          "Y": 32
+          "X": 96,
+          "Y": 48
         }
       ],
       "Direction": 3
     },
     "MoveRight": {
-      "Tileset": "Rgoue.Resource.Images.Enemies.bats.png",
+      "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
       "Size": {
         "X": 32,
         "Y": 32
       },
       "Frames": [
         {
-          "X": 192,
-          "Y": 64
+          "X": 0,
+          "Y": 96
         },
         {
-          "X": 224,
-          "Y": 64
+          "X": 48,
+          "Y": 96
         },
         {
-          "X": 256,
-          "Y": 64
+          "X": 96,
+          "Y": 96
         }
       ],
       "Direction": 4
     },
-    "DieImage": "Dungeon12.Resources.Images.Enemies.bats.png",
+    "DieImage": "Dungeon12.Resources.Images.Enemies.enemies.png",
     "DieImagePosition": {
       "X": 32,
       "Y": 0,

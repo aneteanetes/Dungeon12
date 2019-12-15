@@ -93,7 +93,7 @@
       },
       "Respawns": [
         {
-          "Identify": "Bat",
+          "Identify": "Wolf",
           "Icon": "Npc",
           "Amount": 5
         }
@@ -114,7 +114,7 @@
       },
       "Respawns": [
         {
-          "Identify": "Bat",
+          "Identify": "Spider",
           "Icon": "Npc",
           "Amount": 5
         }

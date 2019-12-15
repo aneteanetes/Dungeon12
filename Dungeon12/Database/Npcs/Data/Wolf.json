@@ -1,6 +1,6 @@
 ﻿{
   "Level": 1,
-  "Name": "Пчела",
+  "Name": "Волк",
   "IsEnemy": true,
   "VisionMultiples": {
     "X": 6,
@@ -14,14 +14,14 @@
     "X": 1,
     "Y": 1
   },
-  "Tileset": "Dungeon12.Resources.Images.Enemies.enemies.png",
+  "Tileset": "Dungeon12.Resources.Images.Enemies.wolfs.png",
   "TileSetRegion": {
     "X": 64,
     "Y": 0,
     "Width": 32,
     "Height": 32
   },
-  "FractionIdentify": "FaithIslandFauna",
+  "FractionIdentify": "CultOfBlood",
   "MovementSpeed": 0.01,
   "NPC": {
     "ChasingPlayers": true,
@@ -31,7 +31,7 @@
       "From": 100,
       "To": 300
     },
-    "LootTableName": "Bat",
+    "LootTableName": "BloodNovice",
     "Aggressive": true,
     "Idle": {
       "Tileset": "Rgoue.Resource.Images.Enemies.bats.png",

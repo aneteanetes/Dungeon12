@@ -1,6 +1,6 @@
 ﻿{
   "Level": 1,
-  "Name": "Пчела",
+  "Name": "Лорд Вампир",
   "IsEnemy": true,
   "VisionMultiples": {
     "X": 6,
@@ -14,7 +14,7 @@
     "X": 1,
     "Y": 1
   },
-  "Tileset": "Dungeon12.Resources.Images.Enemies.enemies.png",
+  "Tileset": "Dungeon12.Resources.Images.Enemies.vampires1.png",
   "TileSetRegion": {
     "X": 64,
     "Y": 0,
@@ -31,7 +31,7 @@
       "From": 100,
       "To": 300
     },
-    "LootTableName": "Bat",
+    "LootTableName": "GreatVampire",
     "Aggressive": true,
     "Idle": {
       "Tileset": "Rgoue.Resource.Images.Enemies.bats.png",
