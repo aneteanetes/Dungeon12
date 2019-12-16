@@ -19,7 +19,7 @@ namespace Dungeon12.Items.Enums
         Armor = 5,
         [Display(Name = "Обувь")]
         Boots = 6,
-        [Display(Name = "Левая рука")]        
+        [Display(Name = "Щит")]        
         OffHand = 7,
         [Display(Name = "Свиток")]
         Scroll = 8,

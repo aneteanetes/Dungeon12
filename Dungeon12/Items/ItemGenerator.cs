@@ -26,7 +26,9 @@ namespace Dungeon12.Items
             var item = generationOpts.ItemType.NewAs<Item>();
             item.Rare = rarityopts.Rarity;
 
-            var statopts = generationOpts.AvailableStats.Concat(rarityopts.AvailableStats).Distinct()
+            var available = generationOpts.AvailableStats.Where(x => rarityopts.AvailableStats.Contains(x));
+
+            var statopts = available
                 .Select(x =>
                 {
                     var attr = x.ToValue<GenerationAttribute>();
@@ -55,7 +57,7 @@ namespace Dungeon12.Items
                                 StatName = "Здоровье",
                                 StatProperties = new List<string>() { "MaxHitPoints" },
                                 StatValues = new List<long>() { CalculateStat(statopt.GenerationMultipler, rarityopts.GenerationMultipler) },
-                                Color = rarityopts.Rarity.Color()
+                                Color = statopt.Stat.Color()
                             });
                             break;
                         case Stats.Resource:
@@ -69,7 +71,7 @@ namespace Dungeon12.Items
                                 StatName = statopt.Stat.ToDisplay(),
                                 StatProperties = new List<string>() { statopt.Stat.ToString() },
                                 StatValues = new List<long>() { CalculateStat(statopt.GenerationMultipler, rarityopts.GenerationMultipler) },
-                                Color = rarityopts.Rarity.Color()
+                                Color = statopt.Stat.Color()
                             });
                             break;
                         case Stats.Class:
@@ -87,9 +89,21 @@ namespace Dungeon12.Items
                 }
             }
 
+            if (stats.Count == 0)
+            {
+                var hp = Stats.Health;
+                stats.Add(new BaseStatEquip()
+                {
+                    StatName = "Здоровье",
+                    StatProperties = new List<string>() { "MaxHitPoints" },
+                    StatValues = new List<long>() { CalculateStat(1, rarityopts.GenerationMultipler) },
+                    Color = hp.Color()
+                });
+            }
+
             item.BaseStats = stats;
             item.Name = $"{item.Rare.ToDisplay()} {item.Kind.ToDisplay()}";
-            item.Tileset = $"Items/{item.Kind.ToString()}.png".AsmImgRes();
+            item.Tileset = $"Items/{item.Kind.ToString()}s/{RandomDungeon.Range(1, 3)}.gif".AsmImgRes();
 
             return item;
         }
@@ -134,14 +148,14 @@ namespace Dungeon12.Items
             }
 
             return ___GetGeneratorsFromRarytyCache
-                .Where(x => x.MinimumLevel >= Global.GameState.Character.Level)
+                .Where(x => Global.GameState.Character.Level >= x.MinimumLevel)
                 .ToList();
         }
 
         private static List<GenerationAttribute> ___GetGeneratorsFromRarytyCache = new List<GenerationAttribute>();
 
         private GenerationAttribute GenerateType() => GetGeneratorsFromItems().Random();
-        
+
         /// <summary>
         /// 
         /// <para>

@@ -52,7 +52,7 @@
                         to.HitPoints = from.HitPoints;
                         to.MaxHitPoints = from.MaxHitPoints;
                         to.AbilityPower = from.AbilityPower;
-                        to.AttackPower = from.AttackPower;
+                        to.AttackDamage = from.AttackDamage;
                         to.Barrier = from.Barrier;
                         to.Defence = from.Defence;
                         to.Idle = from.Idle;
@@ -62,6 +62,9 @@
                         to.Race = from.Race;
                         to.Name = from.Name;
                         to.Level = from.Level;
+
+                        from.Destroy();
+                        to.Reload();
 
                         Global.GameState.PlayerAvatar.Character = to;
                         Global.GameState.PlayerAvatar.ReEntity(to);

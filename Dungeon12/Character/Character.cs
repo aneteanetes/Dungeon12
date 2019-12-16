@@ -25,8 +25,14 @@
 
         public void Reload()
         {
-            this.Clothes.OnPutOn += PutOnItem;
-            this.Clothes.OnPutOff += PutOffItem;
+            this.Clothes.OnPutOn = PutOnItem;
+            this.Clothes.OnPutOff = PutOffItem;
+        }
+
+        public void Destroy()
+        {
+            this.Clothes.OnPutOn = default;
+            this.Clothes.OnPutOff = default;
         }
 
         public override bool ExpGainer => true;

@@ -293,6 +293,29 @@
             return @object;
         }
 
+        public static void SetPropertyExpr<T>(this object @object,string propName, T propValue)
+        {
+            var key = new CompositeTypeKey<string>()
+            {
+                Owner = @object.GetType(),
+                Value = propName
+            };
+
+            if (!___SetBackingFieldValueExpressionCache.TryGetValue(key, out var value))
+            {
+                var pType = Expression.Parameter(@object.GetType());
+                var p = Expression.Parameter(typeof(T));
+
+                value = Expression.Lambda(Expression.Assign(Expression.Property(pType, propName), p), pType, p).Compile();
+
+                ___SetBackingFieldValueExpressionCache.Add(key, value);
+            }
+
+            value.DynamicInvoke(@object, propValue);
+        }
+        private static readonly Dictionary<CompositeTypeKey<string>, Delegate> ___SetBackingFieldValueExpressionCache = new Dictionary<CompositeTypeKey<string>, Delegate>();
+
+
         public static void SetProperty<TValue>(this object @object, string property, TValue value)
         {
             var accessor = TypeAccessor.Create(@object.GetType(), true);

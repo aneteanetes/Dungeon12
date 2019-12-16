@@ -11,6 +11,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Dungeon12;
+    using Dungeon;
 
     public class StatsInfoWindow : EmptyHandleSceneControl
     {
@@ -167,11 +168,12 @@
             {
                 foreach (var cs in group)
                 {
-                    var txt = this.AddTextCenter(new DrawText(cs.Title, cs.Color).Montserrat());
+                    var title = $"{cs.StatName}: {@char.GetPropertyExpr<long>(cs.StatProperties.FirstOrDefault())}";
+                    var txt = this.AddTextCenter(new DrawText(title, cs.Color).Montserrat());
                     txt.Left = 0.5;
                     txt.Top = top;
 
-                    statsText.Add(txt, c => cs.Title);
+                    statsText.Add(txt, c => $"{cs.StatName}: {@char.GetPropertyExpr<long>(cs.StatProperties.FirstOrDefault())}");
 
                     top += MeasureText(txt.Text).Y / 32;
                 }
@@ -188,7 +190,7 @@
 
             new StatDrawData(c=>c.MainAbilityDamageView,c=>c.MainAbilityDamageText,true),
 
-            new StatDrawData(c=>"Сила атаки",c=>$"{c.AttackPower}",c=>ConsoleColor.Cyan,false,true,c=>{ c.AttackPower++; c.FreeStatPoints--; }),
+            new StatDrawData(c=>"Сила атаки",c=>$"{c.AttackDamage}",c=>ConsoleColor.Cyan,false,true,c=>{ c.AttackDamage++; c.FreeStatPoints--; }),
 
             new StatDrawData(c=>"Сила магии",c=>$"{c.AbilityPower}",c=>ConsoleColor.Magenta,true,true,c=>{ c.AbilityPower++; c.FreeStatPoints--; }),
 

@@ -56,7 +56,7 @@ namespace Dungeon12.Map.Objects
                     text = "+1 Защита";
                     break;
                 case ConsoleColor.Cyan:
-                    alive.AttackPower++;
+                    alive.AttackDamage++;
                     text = "+1 Сила атаки";
                     break;
                 case ConsoleColor.DarkMagenta:

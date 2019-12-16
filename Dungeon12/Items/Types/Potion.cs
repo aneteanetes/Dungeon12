@@ -2,7 +2,7 @@
 {
     using Dungeon12.Items.Enums;
 
-    [Generation(2, 5, Stats.Health)]
+    //[Generation(2, 5, Stats.Health)]
     public class Potion : Item
     {
     }
