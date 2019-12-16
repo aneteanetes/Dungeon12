@@ -4,6 +4,5 @@
 
     public class Rune : Item
     {
-        public override Stats AvailableStats => Stats.None;
     }
 }

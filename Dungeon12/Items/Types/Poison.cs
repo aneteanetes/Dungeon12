@@ -19,6 +19,5 @@
         //    if (Dungeon.RAM.Player.CMP > Dungeon.RAM.Player.MMP)
         //    { Thread.Sleep(500); DrawEngine.InfoWindow.Custom("Вы несёте с собой слишком много бутылочек с ядом, ваши движения замедленны!"); }
         //}
-        public override Stats AvailableStats => Stats.None;
     }
 }

@@ -4,6 +4,5 @@
 
     public class Scroll : Item
     {
-        public override Stats AvailableStats => Stats.None;
     }
 }

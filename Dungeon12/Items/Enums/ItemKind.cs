@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Dungeon;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dungeon12.Items.Enums
 {

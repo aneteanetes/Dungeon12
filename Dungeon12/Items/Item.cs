@@ -12,6 +12,9 @@
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using LiteDB;
+    using Dungeon;
+    using System;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// вещи могут быть сетами -не забыть
@@ -63,8 +66,6 @@
 
         public string Description { get; set; }
 
-        public virtual Stats AvailableStats { get; }
-
         public List<Applicable> Modifiers { get; set; } = new List<Applicable>();
 
         /// <summary>
@@ -84,11 +85,19 @@
 
         public virtual ItemKind Kind { get; set; }
 
-        public int Cost { get; set; }
+        [BsonIgnore]
+        public int Cost
+        {
+            get
+            {
+                var lvl = Global.GameState.Character.Level;
+                return (int)Math.Round((int)this.Rare * 1.25 + (int)this.Kind * 2.37 + (RandomDungeon.Range(lvl, lvl + 10) * 1.89));
+            }
+        }
 
         public Point InventoryPosition { get; set; }
 
-        public virtual Point InventorySize { get; set; }
+        public virtual Point InventorySize => new Point(1, 1);
 
         public string LootTableName { get; set; }
 
@@ -102,7 +111,6 @@
 
         private class EmptyItem : Item
         {
-            public override Stats AvailableStats => Stats.None;
         }
     }
 }
