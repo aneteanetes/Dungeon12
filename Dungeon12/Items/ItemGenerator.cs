@@ -89,7 +89,8 @@ namespace Dungeon12.Items
 
             item.BaseStats = stats;
             item.Name = $"{item.Rare.ToDisplay()} {item.Kind.ToDisplay()}";
-            item.Tileset = $"Items/{item.Kind.ToString()}.png".AsmImgRes();
+            item.Tileset = "Items/Weapons/OneHand/Swords/TrainerSword.png".AsmImgRes();
+                //$"Items/{item.Kind.ToString()}.png".AsmImgRes();
 
             return item;
         }

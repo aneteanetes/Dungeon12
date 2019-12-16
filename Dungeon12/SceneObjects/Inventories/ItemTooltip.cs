@@ -10,6 +10,7 @@
     using Dungeon;
     using Dungeon.Drawing;
     using Dungeon12;
+    using Dungeon.Drawing.SceneObjects;
 
     public class ItemTooltip : Tooltip
     {
@@ -33,6 +34,26 @@
             textPosTop = 0; //мы измерили размер, но нам всё равно это нужно для того что бы определять где рисовать следующую надпись
 
             Stats.ForEach(AddLine);
+
+            var goldImg = "Dungeon12.Resources.Images.ui.stats.gold.png";
+            var goldMeasure = this.MeasureImage(goldImg);
+
+            var goldLeft = this.Width / 2 - ((goldMeasure.X * 0.8) / 32 / 2);
+            this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.stats.gold.png")
+            {
+                Height = 0.85,
+                Width = 0.85,
+                Top = textPosTop,
+                Left = goldLeft - 0.85,
+                AbsolutePosition = true,
+                CacheAvailable = false
+            });
+
+            var gold = this.AddTextCenter(new DrawText($"{item.Cost}", new DrawColor(255, 243, 119, 255)).Montserrat());
+            gold.Left = goldLeft + 0.3;
+            gold.Top = textPosTop;
+
+            this.Height += 1;
         }
 
         private IEnumerable<DrawText> Stats

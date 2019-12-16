@@ -16,6 +16,7 @@
     using Dungeon12.Drawing.SceneObjects.Main.CharacterInfo;
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
 
     /// <summary>
     /// Чёт я проебал почему так, поэтому если надо выбрасывать на землю, после <see cref="Inventory"/> обязательно добавлять <see cref="InventoryDropItemMask"/>

@@ -15,6 +15,7 @@
     using Dungeon;
     using System;
     using Newtonsoft.Json;
+    using System.Linq;
 
     /// <summary>
     /// вещи могут быть сетами -не забыть
@@ -91,7 +92,8 @@
             get
             {
                 var lvl = Global.GameState.Character.Level;
-                return (int)Math.Round((int)this.Rare * 1.25 + (int)this.Kind * 2.37 + (RandomDungeon.Range(lvl, lvl + 10) * 1.89));
+                var baseMultipler = (int)this.Rare * 1.25 + (int)this.Kind * 2.37 + (RandomDungeon.Range(lvl, lvl + 10) * 1.89);
+                return (int)Math.Round(this.BaseStats.Sum(s => baseMultipler));
             }
         }
 
