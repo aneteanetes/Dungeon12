@@ -60,7 +60,7 @@ namespace Dungeon.Drawing
         public static DrawColor Navy = new DrawColor(0, 0, 128);
         public static DrawColor DarkKhaki = new DrawColor(189, 183, 107);
         public static DrawColor OldLace = new DrawColor(253, 245, 230);
-        public static DrawColor DarkMagena = new DrawColor(139, 0, 139);
+        public static DrawColor DarkMagenta = new DrawColor(139, 0, 139);
         public static DrawColor Olive = new DrawColor(128, 128, 0);
         public static DrawColor DarkOliveGreen = new DrawColor(85, 107, 47);
         public static DrawColor OliveDrab = new DrawColor(107, 142, 45);

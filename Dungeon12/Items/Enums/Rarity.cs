@@ -9,7 +9,7 @@ namespace Dungeon12.Items.Enums
         /// magenta
         /// </summary>
         [Color(255, 0, 255)]
-        Quest = 0,
+        Quest =1,
 
         /// <summary>
         /// Gray
@@ -17,7 +17,7 @@ namespace Dungeon12.Items.Enums
         [Color(169,169,169)]
         [Generation(1,1,Stats.AttackDamage,Stats.Health,Stats.AbilityPower)]
         [Display(Name = "Бесполезный")]
-        Poor = 1,
+        Poor = 0,
         /// <summary>
         /// White
         /// </summary>

@@ -128,7 +128,8 @@
 
             public override void Update()
             {
-                _textControl.Text.SetText(_classStat.StatValues);
+                var v = Global.GameState.Character.GetPropertyExpr<long>(_classStat.StatProperties.FirstOrDefault());
+                _textControl.Text.SetText(v.ToString());
             }
 
             protected override bool ProvidesTooltip => true;

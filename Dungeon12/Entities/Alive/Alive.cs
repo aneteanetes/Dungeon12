@@ -32,7 +32,7 @@ namespace Dungeon12.Entities.Alive
             EXP += amount;
 
             var text = $"{amount} опыта!".AsDrawText()
-                .InColor(DrawColor.DarkMagena)
+                .InColor(DrawColor.DarkMagenta)
                 .InSize(12);
 
             var popup = new PopupString(text, this.MapObject?.Location, 25, 0.06).InList<ISceneObject>();

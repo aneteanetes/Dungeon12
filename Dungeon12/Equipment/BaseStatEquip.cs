@@ -27,7 +27,8 @@
             {
                 var indx = StatProperties.IndexOf(stat);
                 var now = character.GetProperty<long>(stat);
-                character.SetProperty(stat, operation(now, StatValues[indx]));
+                var set = operation(now, StatValues[indx]);
+                character.SetPropertyExpr(stat, set);
             }
         }
 

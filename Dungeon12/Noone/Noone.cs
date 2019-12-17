@@ -93,7 +93,7 @@
 
         public Defaura Defaura { get; set; } = new Defaura();
 
-        public override string MainAbilityDamageText => $"Атака: {1 * (this.AttackPower==0 ? 1 : this.AttackPower * 0.25)}-{3 * (this.AttackPower == 0 ? 1 : this.AttackPower * 0.25)}";
+        public override string MainAbilityDamageText => $"Атака: {1 * (this.AttackDamage==0 ? 1 : this.AttackDamage * 0.25)}-{3 * (this.AttackDamage == 0 ? 1 : this.AttackDamage * 0.25)}";
 
         public override IDrawText MainAbilityDamageView => MainAbilityDamageText.AsDrawText().Montserrat().InColor(DrawColor.SandyBrown);
 
