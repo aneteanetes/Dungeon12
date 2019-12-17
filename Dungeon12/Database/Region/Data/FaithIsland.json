@@ -53,14 +53,6 @@
       }
     },
     {
-      "Icon": "Chest",
-      "IdentifyName": "RedChest",
-      "Position": {
-        "X": 44,
-        "Y": 44
-      }
-    },
-    {
       "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
       "Icon": "Teleport",
       "Name": "Западаная пещера",
@@ -91,27 +83,6 @@
       "Icon": "Respawn",
       "Zone": {
         "Position": {
-          "X": 38,
-          "Y": 35
-        },
-        "Size": {
-          "Width": 5,
-          "Height": 3
-        }
-      },
-      "Respawns": [
-        {
-          "Identify": "Wolf",
-          "Icon": "Npc",
-          "Amount": 5
-        }
-      ]
-    },
-    {
-      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
-      "Icon": "Respawn",
-      "Zone": {
-        "Position": {
           "X": 20,
           "Y": 45
         },
@@ -120,11 +91,12 @@
           "Height": 6
         }
       },
+      "RespawnSeconds": 2,
       "Respawns": [
         {
-          "Identify": "Spider",
+          "Identify": "Bat",
           "Icon": "Npc",
-          "Amount": 5
+          "Amount": 3
         }
       ]
     },
@@ -183,6 +155,62 @@
       "Position": {
         "X": 58.5,
         "Y": 46
+      }
+    },
+    {
+      "Icon": "Home",
+      "IdentifyName": "FaithIslandAlvertos",
+      "Position": {
+        "X": 39,
+        "Y": 40
+      }
+    },
+    {
+      "Icon": "Home",
+      "IdentifyName": "FaithIslandApotecary",
+      "Position": {
+        "X": 42,
+        "Y": 40
+      }
+    },
+    {
+      "Icon": "Home",
+      "IdentifyName": "FaithIslandNishe",
+      "Position": {
+        "X": 46,
+        "Y": 40
+      }
+    },
+    {
+      "Icon": "Home",
+      "IdentifyName": "FaithIslandRich",
+      "Position": {
+        "X": 51,
+        "Y": 43
+      }
+    },
+    {
+      "Icon": "Home",
+      "IdentifyName": "FaithIslandForge",
+      "Position": {
+        "X": 52,
+        "Y": 52
+      }
+    },
+    {
+      "Icon": "Home",
+      "IdentifyName": "FaithIslandGuards",
+      "Position": {
+        "X": 57,
+        "Y": 53
+      }
+    },
+    {
+      "Icon": "Home",
+      "IdentifyName": "FaithIslandParish",
+      "Position": {
+        "X": 45,
+        "Y": 56
       }
     },
     {
@@ -251,7 +279,7 @@
     },
     {
       "Icon": "Home",
-      "IdentifyName": "FaithIslandParish",
+      "IdentifyName": "FaithIslandRamshackleHouse",
       "Position": {
         "X": 36,
         "Y": 56

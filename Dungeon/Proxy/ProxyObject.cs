@@ -265,7 +265,7 @@ namespace Dungeon.Proxy
 
         #region Drawable
 
-        public string Uid { get; } = Guid.NewGuid().ToString();
+        public string Uid { get; set; } = Guid.NewGuid().ToString();
 
         public virtual string Icon { get; set; }
 

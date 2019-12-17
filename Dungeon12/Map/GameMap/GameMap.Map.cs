@@ -120,6 +120,7 @@
             foreach (var saveableObject in mapSaveModel.Objects)
             {
                 saveableObject.Reload();
+                saveableObject.Reload(mapSaveModel.Objects);
                 this.MapObject.Add(saveableObject);
                 this.Objects.Add(saveableObject);
             }

@@ -2,6 +2,7 @@
 using Dungeon12.Data.Region;
 using Dungeon.Physics;
 using System.Collections.Generic;
+using Dungeon;
 
 namespace Dungeon12.Database.Respawn
 {
@@ -12,6 +13,8 @@ namespace Dungeon12.Database.Respawn
         public RespawnPointData[] Respawns { get; set; }
 
         public PhysicalObject Zone { get; set; }
+
+        public int RespawnSeconds { get; set; }
     }
 
     public class RespawnPointData

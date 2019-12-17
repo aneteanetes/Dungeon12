@@ -1,4 +1,8 @@
-﻿namespace Dungeon
+﻿using Force.DeepCloner;
+using System;
+using System.Diagnostics;
+
+namespace Dungeon
 {
     public class Time
     {
@@ -14,12 +18,19 @@
 
         public static Time GameStart { get; } = new Time(12, 0, 150, 600);
 
+        public Time() { }
+
         internal Time(int hours = 0, int minutes = 0, int days = 0, int years = 0)
         {
             Hours = hours;
             Minutes = minutes;
             Days = days;
             Years = years;
+        }
+
+        public Time Clone()
+        {
+            return this.DeepClone();
         }
 
         public void AddMinute()

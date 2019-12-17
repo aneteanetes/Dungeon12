@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dungeon.Scenes;
+using System;
 using System.Collections.Generic;
 
 namespace Dungeon
@@ -13,8 +14,11 @@ namespace Dungeon
 
         private static readonly HashSet<string> aliveTimers = new HashSet<string>();
 
+        private Scene ActiveScene;
+
         internal TimerTrigger(string name)
         {
+            ActiveScene = DungeonGlobal.SceneManager.CurrentScene;
             this.name = name;
         }
 
@@ -47,6 +51,13 @@ namespace Dungeon
         {
             timer.Elapsed += (s, e) =>
             {
+                if(ActiveScene?.Destroyed ?? false)
+                {
+                    this.Dispose();
+                    ActiveScene = default;
+                    return;
+                }
+
                 action?.Invoke();
                 if (!timer.AutoReset && !this.recoverable)
                 {

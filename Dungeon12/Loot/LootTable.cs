@@ -35,7 +35,7 @@ namespace Dungeon12.Loot
 
             var container = new LootContainer()
             {
-                Gold = RandomDungeon.Range(lvl, lvl * 100)
+                Gold = RandomDungeon.Range(lvl, lvl * 10)
             };
 
             foreach (var lootDrop in LootDrops)

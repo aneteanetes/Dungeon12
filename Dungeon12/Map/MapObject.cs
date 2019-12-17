@@ -30,6 +30,11 @@
         /// </summary>
         public virtual void Reload() { }
 
+        /// <summary>
+        /// Метод перезагрузки сущности, как правило для сохраняемых
+        /// </summary>
+        public virtual void Reload(HashSet<MapObject> objects) { }
+
         public virtual EntityFraction BindedEntity => default;
 
         /// <summary>

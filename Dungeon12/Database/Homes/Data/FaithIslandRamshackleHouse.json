@@ -1,12 +1,10 @@
 ﻿{
   "Level": 1,
-  "IdentifyName": "FaithIslandRamshackleHouse",
   "Name": "Ветхий дом",
   "ScreenImage": "Dungeon12.Resources.Images.NPCs.FaithIsland.home.home (1).png",
   "Frames": 10,
   "FractionIdentity": "FaithIslandTown",
   "Conversations": [
-    "FaithIslandNiihatal",
-    "FaithIslandBlacksmith"
+    "FaithIslandFrederick"
   ]
 }

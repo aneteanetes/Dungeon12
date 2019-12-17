@@ -116,7 +116,7 @@
 
         public void OnText(string text)
         {
-            if (destroyed)
+            if (Destroyed)
                 return;
 
             var textControls = ControlsByHandle(ControlEventType.Text);
@@ -172,7 +172,7 @@
 
         public void OnKeyUp(KeyArgs keyEventArgs)
         {
-            if (destroyed)
+            if (Destroyed)
                 return;
 
             var key = keyEventArgs.Key;
@@ -210,7 +210,7 @@
 
         public void OnMousePress(PointerArgs pointerPressedEventArgs, Point offset)
         {
-            if (destroyed)
+            if (Destroyed)
                 return;
 
             var keyControls = ControlsByHandle(ControlEventType.Click);
@@ -230,7 +230,7 @@
 
         public void OnMouseRelease(PointerArgs pointerPressedEventArgs, Point offset)
         {
-            if (destroyed)
+            if (Destroyed)
                 return;
 
             var keyControls = ControlsByHandle(ControlEventType.ClickRelease);
@@ -249,7 +249,7 @@
 
         public void OnMouseWheel(MouseWheelEnum wheelEnum)
         {
-            if (destroyed)
+            if (Destroyed)
                 return;
 
             var wheelControls = ControlsByHandle(ControlEventType.MouseWheel);
@@ -409,7 +409,7 @@
 
         private IEnumerable<ISceneObjectControl> ControlsByHandle(ControlEventType handleEvent, Key key = Key.None)
         {
-            if (destroyed)
+            if (Destroyed)
                 return Enumerable.Empty<ISceneObjectControl>();
 
             DungeonGlobal.Freezer.HandleFreezes.TryGetValue(handleEvent, out var freezer);
@@ -540,7 +540,7 @@
             
         }
 
-        private bool destroyed = false;
+        public bool Destroyed { get; private set; } = false;
         public virtual void Destroy()
         {
             var sceneObjsForRemove = new List<ISceneObject>(SceneObjects);
@@ -557,7 +557,7 @@
                 Resources.Clear();
                 GC.Collect();
             }
-            destroyed = true;
+            Destroyed = true;
         }
 
         #endregion
