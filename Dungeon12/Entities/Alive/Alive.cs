@@ -58,6 +58,14 @@ namespace Dungeon12.Entities.Alive
             Toast.Show(txt, visual);
         }
 
+        public void RecalculateLevelHP()
+        {
+            for (int i = 1; i < this.Level; i++)
+            {
+                this.MaxHitPoints += (int)Math.Ceiling(((this.MaxHitPoints * HitPointsPercentPlus) / 100));
+            }
+        }
+
         public int FreeStatPoints { get; set; }
 
         public override string ProxyId => this.Uid;

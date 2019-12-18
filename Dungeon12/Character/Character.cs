@@ -88,6 +88,7 @@
         public void Recalculate()
         {
             FreeProxyProperties();
+            this.RecalculateLevelHP();
         }
 
         public List<Pair<string, object>> Variables = new List<Pair<string, object>>();

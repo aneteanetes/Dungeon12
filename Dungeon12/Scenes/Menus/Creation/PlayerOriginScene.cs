@@ -49,8 +49,6 @@
                         to.Clothes = from.Clothes;
                         to.EXP = from.EXP;
                         to.Gold = from.Gold;
-                        to.HitPoints = from.HitPoints;
-                        to.MaxHitPoints = from.MaxHitPoints;
                         to.AbilityPower = from.AbilityPower;
                         to.AttackDamage = from.AttackDamage;
                         to.Barrier = from.Barrier;
