@@ -27,20 +27,12 @@
             {
                 RequestStop();
             }
-            else
-            {
-                var moveTimer = Global.Time.Timer()
-                    .After(200)
-                    .Repeat()
-                    .Do(CalculateMove)
-                    .Auto();
-
-                this.Destroy += () => moveTimer.Dispose();
-            }
         }
 
         protected int moveDistance = 0;
         protected Direction move;
+
+        private bool inQueue = false;
 
         protected override void DrawLoop()
         {
@@ -56,6 +48,16 @@
             {
                 moveDistance++;
             }
+
+            if (moveDistance == 0 && !inQueue)
+            {
+                inQueue = true;
+                #warning ещё обдумать логику передвижения мобов что бы не влияло на fps
+                Global.Time.Timer()
+                        .After(100)
+                        .Do(CalculateMove)
+                        .Trigger();
+            }
         }
 
         /// <summary>
@@ -68,11 +70,14 @@
 
         private void CalculateMove()
         {
-            if(!OnLogic())
+            if (!OnLogic())
+            {
+                inQueue = false;
                 return;
+            }
 
-            if (moveDistance != 0)
-                return;
+            //if (moveDistance != 0)
+            //    return;
 
             if (RandomDungeon.Chance(moveable.WalkChance))
             {
@@ -87,6 +92,7 @@
 
                 moveDistance = moveable.WalkDistance.Random();
             }
+            inQueue = false;
         }
 
         protected override void AnimationLoop()

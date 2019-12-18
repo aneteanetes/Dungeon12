@@ -1,5 +1,5 @@
 ﻿{
-  "Level": 1,
+  "Level": 6,
   "Name": "Лорд Вампир",
   "IsEnemy": true,
   "VisionMultiples": {
@@ -151,14 +151,8 @@
       "Width": 32,
       "Height": 16
     },
-    "MinDMG": 5,
-    "MaxDMG": 15,
-    "HitPoints": 100,
-    "MaxHitPoints": 100
+    "MinDMG": 6,
+    "MaxDMG": 12,
+    "HitPoints": 30
   }
 }
-
-
-        //public string DieImage { get; set; }
-
-        //public Rectangle DieImagePosition { get; set; }

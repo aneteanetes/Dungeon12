@@ -116,9 +116,9 @@
                 this.AddChild(new DarkRectangle() { Color = ConsoleColor.White, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.05, Top = top - 0.25 });
 
                 string cost;
-                if (ability.CastType== Dungeon12.Abilities.Enums.AbilityCastType.Passive)
+                if (ability.CastType == Dungeon12.Abilities.Enums.AbilityCastType.Passive)
                 {
-                    cost= "-";
+                    cost = "-";
                 }
                 else
                 {
@@ -147,12 +147,35 @@
 
                 this.AddChild(new DarkRectangle() { Color = ConsoleColor.White, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.05, Top = top - 0.25 });
 
+                var ratesText = new DrawText("").Montserrat();
+                foreach (var rate in ability.Rates)
+                {
+                    var delimiter = ratesText.StringData == ""
+                        ? ""
+                        : " | ";
+                    ratesText.Append($"{delimiter}{rate.Name}: {rate.Ratio}".AsDrawText().InColor(rate.Color));
+                }
+
+                var Scales = this.AddTextCenter(ratesText, true);
+                location.Top = top;
+
+                top += MeasureText(Scales.Text).Y / 32 + 0.5;
+
+                this.AddChild(new DarkRectangle() { Color = ConsoleColor.White, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.05, Top = top - 0.25 });
+
+                var currentValue = this.AddTextCenter($"Текущее значение: {ability.ScaledValue()}".AsDrawText().Montserrat(), true);
+                location.Top = top;
+
+                top += MeasureText(currentValue.Text).Y / 32 + 0.5;
+
+                this.AddChild(new DarkRectangle() { Color = ConsoleColor.White, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.05, Top = top - 0.25 });
+
                 var border = this.AddChildImageCenter(new ImageControl("Dungeon12.Resources.Images.ui.squareB.png") { CacheAvailable=false });
-                border.Top = 10;
+                border.Top = 12;
 
                 var img = this.AddChildImageCenter(new ImageControl(ability.Image_B) { CacheAvailable = false, }, true, false);
 
-                img.Top = 10;
+                img.Top = 12;
             }
         }
 

@@ -1,5 +1,5 @@
 ﻿{
-  "Level": 1,
+  "Level": 5,
   "Name": "Культист Крови",
   "IsEnemy": true,
   "VisionMultiples": {
@@ -151,10 +151,9 @@
       "Width": 32,
       "Height": 16
     },
-    "MinDMG": 5,
-    "MaxDMG": 15,
-    "HitPoints": 100,
-    "MaxHitPoints": 100
+    "MinDMG": 4,
+    "MaxDMG": 8,
+    "HitPoints": 50
   }
 }
 

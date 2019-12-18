@@ -36,6 +36,8 @@
             this.Actions = 5;
         }
 
+        public override double HitPointsPercentPlus => 10;
+
         public override string Avatar => "Images/noone.png".NoonePath();
 
         public override string ClassName { get => "Страж"; }
@@ -93,7 +95,7 @@
 
         public Defaura Defaura { get; set; } = new Defaura();
 
-        public override string MainAbilityDamageText => $"Атака: {1 * (this.AttackDamage==0 ? 1 : this.AttackDamage * 0.25)}-{3 * (this.AttackDamage == 0 ? 1 : this.AttackDamage * 0.25)}";
+        public override string MainAbilityDamageText => $"Атака: {Attack.ScaledValue(this, Attack.Value)}";
 
         public override IDrawText MainAbilityDamageView => MainAbilityDamageText.AsDrawText().Montserrat().InColor(DrawColor.SandyBrown);
 

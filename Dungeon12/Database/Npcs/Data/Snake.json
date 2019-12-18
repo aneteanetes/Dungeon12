@@ -1,5 +1,5 @@
 ﻿{
-  "Level": 1,
+  "Level": 5,
   "Name": "Кобра",
   "IsEnemy": true,
   "VisionMultiples": {
@@ -151,10 +151,9 @@
       "Width": 32,
       "Height": 16
     },
-    "MinDMG": 5,
-    "MaxDMG": 15,
-    "HitPoints": 100,
-    "MaxHitPoints": 100
+    "MinDMG": 6,
+    "MaxDMG": 11,
+    "HitPoints": 20
   }
 }
 

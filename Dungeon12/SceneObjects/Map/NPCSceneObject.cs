@@ -24,6 +24,8 @@
     {
         protected override bool SilentTooltip => true;
 
+        protected override Key AlternativeTooltipKey => Key.LeftControl;
+
         private NPC NPC => @object.Entity;
 
         public override string Cursor
@@ -159,7 +161,7 @@
         {
         }
 
-        protected override Key[] KeyHandles => new Key[] { Key.LeftShift };
+        protected override Key[] KeyHandles => new Key[] { Key.LeftShift, AlternativeTooltipKey };
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
@@ -305,7 +307,7 @@
         {
             var target = mapTarget.BindedEntity.As<Interactable>();
 
-            var value = (long)RandomDungeon.Next(NPC.MinDMG, NPC.MaxDMG);
+            var value = (long)RandomDungeon.Next(NPC.MinDMG*NPC.Level, NPC.MaxDMG*NPC.Level);
 
             target.Damage(NPC, new Damage()
             {

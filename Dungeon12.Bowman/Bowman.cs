@@ -17,6 +17,8 @@ namespace Dungeon12.Bowman
     {
         public Energy Energy { get; set; } = new Energy();
 
+        public override double HitPointsPercentPlus => 5;
+
         public override int InitialHP => 50;
 
         public override string Avatar => "archer.png".AsmImgRes();

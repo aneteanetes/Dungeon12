@@ -40,6 +40,8 @@
     {
         public string Description { get; set; }
 
+        public string HostedPropertyName { get; set; }
+
         public ClassStat() { }
 
         public ClassStat(string title, string id, IEnumerable<string> properties, IDrawColor color)

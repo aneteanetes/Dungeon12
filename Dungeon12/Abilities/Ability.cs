@@ -71,15 +71,15 @@
         /// </summary>
         public virtual string Description { get; }
 
+        public virtual IEnumerable<ScaleRateInfo> Rates => Enumerable.Empty<ScaleRateInfo>();
+
+
+        public virtual long ScaledValue() => Value;
+
         /// <summary>
         /// Наименование навыка
         /// </summary>
         public abstract string Name { get; }
-
-        /// <summary>
-        /// Скалирование навыка от характеристики
-        /// </summary>
-        public abstract ScaleRate Scale { get; }
 
         public virtual string Icon { get; set; }
 
@@ -163,7 +163,7 @@
         /// </summary>
         public int COE => 0;
 
-        public virtual double Value => 0;
+        public virtual long Value => 0;
 
         public int Level { get; set; } = 1;
 
@@ -254,8 +254,6 @@
 
         public virtual double Spend { get; set; }
 
-        public List<(string, string)> Scales { get; set; }
-
         public virtual Cooldown Cooldown { get; }
     }
 
@@ -268,6 +266,15 @@
         where TClass: Character
         where TTalants : TalantTree<TClass>, new()
     {
+        public Ability()
+        {
+            scale = this.Scale.Build();
+        }
+
+        private ScaleRateBuilded<TClass> scale;
+
+        public override IEnumerable<ScaleRateInfo> Rates => scale.Scales;
+
         protected override bool CastAvailable(Avatar avatar)
         {
             if (avatar.Character is TClass @class)
@@ -280,6 +287,17 @@
 
             return false;
         }
+
+        public long ScaledValue(TClass @class, long value) => scale.Scale(@class, value);
+
+        public long ScaledValue(TClass @class) => scale.Scale(@class, Value);
+
+        public override long ScaledValue() => ScaledValue(Global.GameState.Character as TClass);
+
+        /// <summary>
+        /// Скалирование навыка от характеристик
+        /// </summary>
+        public abstract ScaleRate<TClass> Scale { get; }
 
         protected override void Cast(GameMap map, Avatar avatar)
         {

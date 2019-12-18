@@ -16,11 +16,11 @@ namespace Dungeon12.Entities.Alive
 
         public List<Perk> Modifiers = new List<Perk>();
 
-        public void Add<T>() where T: Perk
+        public void Add<T>(params object[] ctorArgs) where T: Perk
         {
             if (!Cache.TryGetValue(typeof(T), out var perk))
             {
-                perk = typeof(T).New<T>();
+                perk = typeof(T).New<T>(ctorArgs);
                 Cache.Add(typeof(T), perk);
             }
 

@@ -14,6 +14,8 @@ namespace Dungeon12.Servant
     {
         public bool Serve { get; set; }
 
+        public override double HitPointsPercentPlus => 8;
+
         public FaithPower FaithPower { get; set; } = new FaithPower();
 
         public override string Avatar => "servant.png".AsmImgRes();

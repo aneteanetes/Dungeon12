@@ -151,14 +151,8 @@
       "Width": 32,
       "Height": 16
     },
-    "MinDMG": 5,
-    "MaxDMG": 15,
-    "HitPoints": 100,
-    "MaxHitPoints": 100
+    "MinDMG": 2,
+    "MaxDMG": 8,
+    "HitPoints": 20
   }
 }
-
-
-        //public string DieImage { get; set; }
-
-        //public Rectangle DieImagePosition { get; set; }

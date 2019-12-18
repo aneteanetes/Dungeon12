@@ -1,5 +1,5 @@
 ﻿{
-  "Level": 1,
+  "Level": 5,
   "Name": "Вампир",
   "IsEnemy": true,
   "VisionMultiples": {
@@ -151,14 +151,8 @@
       "Width": 32,
       "Height": 16
     },
-    "MinDMG": 5,
-    "MaxDMG": 15,
-    "HitPoints": 100,
-    "MaxHitPoints": 100
+    "MinDMG": 2,
+    "MaxDMG": 9,
+    "HitPoints": 22
   }
 }
-
-
-        //public string DieImage { get; set; }
-
-        //public Rectangle DieImagePosition { get; set; }

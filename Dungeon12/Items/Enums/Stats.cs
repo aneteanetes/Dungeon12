@@ -14,6 +14,11 @@ namespace Dungeon12.Items.Enums
         [Color(205, 92, 92)]
         Health = 1,
 
+        [Display(Name = "Уровень")]
+        [Generation(statValueMultipler: 10, Chance = 90)]
+        [Color(205, 92, 92)]
+        Level = 10,
+
         [Display(Name = "Ресурс")]
         [Generation(statValueMultipler: 1, Chance = 20)]
         Resource = 2,

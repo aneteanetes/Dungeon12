@@ -1,5 +1,5 @@
 ﻿{
-  "Level": 1,
+  "Level": 2,
   "Name": "Летучая мышь",
   "IsEnemy": true,
   "VisionMultiples": {
@@ -153,12 +153,6 @@
     },
     "MinDMG": 5,
     "MaxDMG": 15,
-    "HitPoints": 100,
-    "MaxHitPoints": 100
+    "HitPoints": 31
   }
 }
-
-
-        //public string DieImage { get; set; }
-
-        //public Rectangle DieImagePosition { get; set; }

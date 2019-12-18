@@ -1,21 +1,18 @@
 ﻿namespace Dungeon12.Map.Objects
 {
-    using Dungeon.Data;
+    using Dungeon;
     using Dungeon.Data.Attributes;
-    using Dungeon12.Data.Region;
-    using Dungeon12.Entities.Fractions;
-    using Dungeon12.Game;
-    using Dungeon12.Map;
-    using Dungeon12.Map.Infrastructure;
-    using Dungeon12.Map.Objects;
     using Dungeon.Physics;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using Dungeon12.Data.Npcs;
+    using Dungeon12.Data.Region;
     using Dungeon12.Drawing.SceneObjects.Map;
     using Dungeon12.Entities;
+    using Dungeon12.Entities.Fractions;
+    using Dungeon12.Map;
+    using Dungeon12.Map.Infrastructure;
     using Force.DeepCloner;
-    using System.Collections.Generic;
     using System.Linq;
 
     [Template("Npc")]
@@ -85,6 +82,21 @@
             var data = Dungeon.Store.Entity<NPCData>(x => x.IdentifyName == npcData.IdentifyName).FirstOrDefault();
 
             this.ReEntity(data.NPC.DeepClone());
+
+            if (data.NPC.Level > 2)
+            {
+                if (RandomDungeon.Chance(25))
+                {
+                    data.NPC.Level--;
+                }
+                if (RandomDungeon.Chance(40))
+                {
+                    data.NPC.Level++;
+                }
+            }
+
+            this.Entity.MaxHitPoints = data.NPC.HitPoints * data.NPC.Level;
+            this.Entity.HitPoints = this.Entity.MaxHitPoints;
 
             if (data.VisionMultiples != default)
             {

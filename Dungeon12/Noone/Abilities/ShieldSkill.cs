@@ -16,17 +16,12 @@ namespace Dungeon12.Noone.Abilities
         public override double Spend => 3;
 
         public override int Position => 1;
-
-        public ShieldSkill()
-        {
-            Level = 1;
-        }
-
-        public override double Value => 10;
+        
+        public override long Value => 1;
 
         public override string Name => "Навык щита";
 
-        public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.None, 0.1);
+        public override ScaleRate<Noone> Scale => new ScaleRate<Noone>(x => x.Armor * 2.5d);
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Q;
 
@@ -41,7 +36,7 @@ namespace Dungeon12.Noone.Abilities
         protected override void Use(GameMap gameMap, Avatar avatar, Noone @class)
         {
             @class.Actions -= 2;
-            var barrierBuff = new BarrierBuff(this.Level);
+            var barrierBuff = new BarrierBuff(ScaledValue(@class));
             avatar.AddState(barrierBuff);
 
             Dungeon12.Global.Time
@@ -56,9 +51,9 @@ namespace Dungeon12.Noone.Abilities
         /// </summary>
         private class BarrierBuff : Applicable
         {
-            private readonly int value;
+            private readonly long value;
 
-            public BarrierBuff(int value) => this.value = value;
+            public BarrierBuff(long value) => this.value = value;
 
             public override string Image => "Images.Abilities.ShieldSkill.buf.png".NoonePath();
 

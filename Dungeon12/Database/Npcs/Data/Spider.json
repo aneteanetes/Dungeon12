@@ -1,5 +1,5 @@
 ﻿{
-  "Level": 1,
+  "Level": 5,
   "Name": "Паук",
   "IsEnemy": true,
   "VisionMultiples": {
@@ -151,14 +151,8 @@
       "Width": 32,
       "Height": 16
     },
-    "MinDMG": 5,
-    "MaxDMG": 15,
-    "HitPoints": 100,
-    "MaxHitPoints": 100
+    "MinDMG": 3,
+    "MaxDMG": 9,
+    "HitPoints": 19
   }
 }
-
-
-        //public string DieImage { get; set; }
-
-        //public Rectangle DieImagePosition { get; set; }

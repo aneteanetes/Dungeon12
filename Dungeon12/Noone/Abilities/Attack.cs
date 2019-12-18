@@ -3,17 +3,15 @@
     using Dungeon12.Abilities;
     using Dungeon12.Abilities.Enums;
     using Dungeon12.Abilities.Scaling;
-    using Dungeon12.Noone.Talants;
-    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon12.Entities.Alive;
     using Dungeon12.Map;
     using Dungeon12.Map.Objects;
-    using Dungeon.Physics;
-    using Dungeon.View.Interfaces;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using Dungeon12.Noone.Talants;
+    using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using Dungeon12.Entities.Alive;
-    using Dungeon12.Map.Objects;
+    using System.Linq.Expressions;
 
     public class Attack : Ability<Noone,AbsorbingTalants>
     {
@@ -29,7 +27,7 @@
 
         public override Cooldown Cooldown { get; } = new Cooldown(500, AttackCooldown);
 
-        public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AbilityPower, 0.1);
+        public override ScaleRate<Noone> Scale => new ScaleRate<Noone>(x => x.AttackDamage * 1.2);
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Left;
 
@@ -51,11 +49,11 @@
             if (enemy != null)
             {
                 @class.Actions -= 1;
-                var value = (long)this.Value;
+                var value = this.ScaledValue(@class, Value);
 
                 enemy.Entity.Damage(@class, new Dungeon12.Entities.Alive.Damage()
                 {
-                    Amount=value,
+                    Amount = value,
                     Type = DamageType.Physical
                 });
                 
@@ -66,7 +64,7 @@
 
         protected override void Dispose(GameMap gameMap, Avatar avatar, Noone @class) { }
 
-        public override double Value => Dungeon.RandomDungeon.Next(10,30);
+        public override long Value => 10;
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.EffectInstant;
 

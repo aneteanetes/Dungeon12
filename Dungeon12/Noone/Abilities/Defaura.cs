@@ -16,13 +16,13 @@ namespace Dungeon12.Noone.Abilities
 
         public override string Name => "Аура защитника";
 
-        public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AbilityPower, 0.1);
+        public override ScaleRate<Noone> Scale => new ScaleRate<Noone>(x => x.Armor * 1.1, x => x.Defence * 0.5, x => x.Barrier * 0.25);
 
         public override AbilityPosition AbilityPosition => AbilityPosition.E;
 
         protected override bool CanUse(Noone @class) => true;
 
-        private DefauraBuf auraBuf = new DefauraBuf();
+        private DefauraBuf auraBuf;
 
         private bool enabled = false;
 
@@ -38,6 +38,8 @@ namespace Dungeon12.Noone.Abilities
         GameMap gameMap;
         Avatar avatar;
         Noone @class;
+
+        public override long Value => 1 * Global.GameState.Character.Level;
 
         private void AuraEffect()
         {
@@ -56,11 +58,13 @@ namespace Dungeon12.Noone.Abilities
 
             var enemyNear = gameMap.Any<NPCMap>(rangeObject,n=>n.IsEnemy);
             this.PassiveWorking = enemyNear;
+            var value = ScaledValue(@class, Value);
+            auraBuf = new DefauraBuf(value);
             if (enemyNear != enabled)
             {
                 if (enemyNear)
                 {
-                    @class.Add<DefauraBuf>();
+                    @class.Add<DefauraBuf>(value);
                     avatar.AddState(auraBuf);
                 }
                 else
@@ -86,27 +90,30 @@ namespace Dungeon12.Noone.Abilities
 
             public override bool ClassDependent => true;
 
+            private long value;
+            public DefauraBuf(long value) => this.value = value;
+
             public void Apply(Avatar avatar)
             {
-                avatar.Character.Defence += 2;
-                avatar.Character.Barrier += 2;
+                avatar.Character.Defence += value;
+                avatar.Character.Barrier += value;
             }
 
             public void Discard(Avatar avatar)
             {
-                avatar.Character.Defence -= 2;
-                avatar.Character.Barrier -= 2;
+                avatar.Character.Defence -= value;
+                avatar.Character.Barrier -= value;
             }
             public void Apply(Noone @class)
             {
-                @class.Block += 10;
-                @class.Parry += 10;
+                @class.Block += value;
+                @class.Parry += value;
             }
 
             public void Discard(Noone @class)
             {
-                @class.Block -= 10;
-                @class.Parry -= 10;
+                @class.Block -= value;
+                @class.Parry -= value;
             }
 
             protected override void CallApply(dynamic obj)

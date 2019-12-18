@@ -19,7 +19,7 @@
 
         public override string Name => "Защитная стойка";
 
-        public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AbilityPower, 0.1);
+        public override ScaleRate<Noone> Scale => new ScaleRate<Noone>(x => x.Block * 1.5, x => x.Armor * 0.5, x => x.Defence * 1);
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Right;
 
@@ -30,7 +30,8 @@
         protected override void Use(GameMap gameMap, Avatar avatar, Noone @class)
         {
             @class.Actions -= 2;
-            holdedBuf = new ArmorBuf();
+            var v = ScaledValue(@class);
+            holdedBuf = new ArmorBuf(v);
             avatar.AddState(holdedBuf);
         }
 
@@ -43,6 +44,8 @@
             }
         }
 
+        public override long Value => 2 * Global.GameState.Character.Level;
+
         /// <summary>
         /// так то бафы должны действовать и на аватар тоже
         /// </summary>
@@ -50,15 +53,18 @@
         {
             public override string Image => "Images.Abilities.Defstand.buf.png".NoonePath();
 
+            private long value;
+            public ArmorBuf(long value) => this.value = value;
+
             public void Apply(Avatar avatar)
             {
-                avatar.Character.Defence += 5;
+                avatar.Character.Defence += value;
                 avatar.MovementSpeed -= 0.03;
             }
 
             public void Discard(Avatar avatar)
             {
-                avatar.Character.Defence -= 5;
+                avatar.Character.Defence -= value;
                 avatar.MovementSpeed += 0.03;
             }
 

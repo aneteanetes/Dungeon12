@@ -48,7 +48,9 @@ namespace Dungeon12.Entities.Alive
         {
             this.MaxExp = Level * 100 + EXP;
             this.Level++;
-            FreeStatPoints++;
+            FreeStatPoints += 5;
+
+            this.MaxHitPoints += (int)Math.Ceiling(((this.MaxHitPoints * HitPointsPercentPlus) / 100));
 
             var visual = this.SceneObject.ShowInScene;
             
@@ -59,6 +61,11 @@ namespace Dungeon12.Entities.Alive
         public int FreeStatPoints { get; set; }
 
         public override string ProxyId => this.Uid;
+
+        /// <summary>
+        /// Процент на который увеличивается HP с уровнем
+        /// </summary>
+        public virtual double HitPointsPercentPlus => 2;
 
         /// <summary>
         /// 

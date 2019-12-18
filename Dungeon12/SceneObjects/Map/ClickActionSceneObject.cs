@@ -40,6 +40,8 @@
 
         protected virtual bool SilentTooltip => false;
 
+        protected virtual Key AlternativeTooltipKey { get; set; } = Key.None;
+
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
             ControlEventType.Focus,
@@ -52,6 +54,8 @@
             Key.Q,
             Key.E,
             Key.LeftShift,
+            Key.LeftControl,
+            AlternativeTooltipKey
         };
 
         private bool acting = false;
@@ -137,6 +141,12 @@
                 }
             }
 
+            if (key == AlternativeTooltipKey && !hold)
+            {
+                this.ShowTooltip();
+                DisableTooltipAction = true;
+            }
+
             if (key == Key.Q || key == Key.E)
             {
                 this.SetAbility(key);
@@ -150,6 +160,12 @@
         public override void KeyUp(Key key, KeyModifiers modifier)
         {
             if (key == Key.LeftShift)
+            {
+                DisableTooltipAction = false;
+                this.HideTooltip();
+            }
+
+            if (key == AlternativeTooltipKey)
             {
                 DisableTooltipAction = false;
                 this.HideTooltip();

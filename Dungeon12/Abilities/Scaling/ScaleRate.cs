@@ -1,76 +1,101 @@
 ﻿namespace Dungeon12.Abilities.Scaling
 {
+    using Dungeon;
+    using Dungeon.View.Interfaces;
+    using Dungeon12.Classes;
+    using Dungeon12.Entities.Enums;
+    using Dungeon12.Items.Enums;
     using System;
     using System.Collections.Generic;
-    using Dungeon12.Entities.Enums;
+    using System.Linq;
+    using System.Linq.Expressions;
 
-    public class ScaleRate
+    public class ScaleRate<TClass> where TClass : Character
     {
-        private ScaleRate(Scale scale)
+        private Expression<Func<TClass, double>>[] scalingParams;
+
+        public ScaleRate(params Expression<Func<TClass, double>>[] scaling)
         {
-            this.Scale = scale;
+            scalingParams = scaling;
         }
 
-        /// <summary>
-        /// Я это в бреду писал?
-        /// </summary>
-        /// <param name="scale"></param>
-        /// <returns></returns>
-        public static ScaleRate Build(Scale scale)
+        public ScaleRateBuilded<TClass> Build()
         {
-            return new ScaleRate(scale);
-        }
+            var infoes = new List<ScaleRateInfo>();
 
-        public static ScaleRate Build(Scale scale, double value)
-        {
-            var rate = Build(scale);
-
-            return new Dictionary<Scale, Func<double, ScaleRate>>()
+            foreach (var scale in scalingParams)
             {
-                {Scale.None,rate.Ability },
-                {Scale.AbilityPower,rate.Ability },
-                {Scale.AttackDamage,rate.Attack },
-                {Scale.True,rate.True },
-                {Scale.Both,rate.Both}
-            }[scale](value);
+                var info = new ScaleRateInfo();
+
+                if (scale.Body is BinaryExpression binaryBody)
+                {
+                    if (binaryBody.Right is ConstantExpression constant)
+                    {
+                        info.Ratio = (double)constant.Value;
+                    }
+
+                    if (binaryBody.Left is UnaryExpression unary)
+                    {
+                        if (unary.Operand is MemberExpression member)
+                        {
+                            info.Property = member.Member.Name;
+                        }
+                    }
+
+                    var classStat = Global.GameState.Equipment.AdditionalEquipments.FirstOrDefault(aq => aq.HostedPropertyName == info.Property);
+                    if (classStat != default)
+                    {
+                        info.Name = classStat.StatName;
+                        info.Color = classStat.Color;
+                    }
+                    else
+                    {
+                        var baseStat = typeof(Stats).All<Stats>().FirstOrDefault(x => x.ToString() == info.Property);
+                        if (baseStat != default)
+                        {
+                            info.Name = baseStat.ToDisplay();
+                            info.Color = baseStat.Color();
+                        }
+                    }
+                }
+
+                infoes.Add(info);
+            }
+
+            return new ScaleRateBuilded<TClass>(infoes);
         }
+    }
 
-        public Scale Scale { get; }
+    public class ScaleRateBuilded<TClass> where TClass : Character
+    {
+        public List<ScaleRateInfo> Scales { get; set; } = new List<ScaleRateInfo>();
 
-        public double AttackRate { get; set; }
-
-        public double AbilityRate { get; set; }
-
-        public double TrueRate { get; set; }
-
-        public ScaleRate Attack(double value)
+        public ScaleRateBuilded(List<ScaleRateInfo> scales)
         {
-            this.AttackRate = value;
-            return this;
+            Scales = scales;
         }
 
-        public ScaleRate None(double value)
+        public long Scale(TClass @class, long value)
         {
-            return this;
-        }
+            double result = 0;
+            foreach (var scale in Scales)
+            {
+                result += value * @class.GetPropertyExpr<double>(scale.Property);
+            }
 
-        public ScaleRate Ability(double value)
-        {
-            this.AbilityRate = value;
-            return this;
+            return (long)Math.Ceiling(result);
         }
+    }
 
-        public ScaleRate True(double value)
-        {
-            this.TrueRate = value;
-            return this;
-        }
 
-        public ScaleRate Both(double value)
-        {
-            this.Attack(value);
-            this.Ability(value);
-            return this;
-        }
+    public class ScaleRateInfo
+    {
+        public string Property { get; set; }
+
+        public double Ratio { get; set; }
+
+        public string Name { get; set; }
+
+        public IDrawColor Color { get; set; }
     }
 }

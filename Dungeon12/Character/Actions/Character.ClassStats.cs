@@ -33,7 +33,8 @@
                 {
                     Group = first.Attribute.Group,
                     Description = group?.FirstOrDefault(x => x.Attribute.Description != null).Attribute.Description,
-                    Image = $"{Global.GameAssemblyName}/{this.GetType().Name}/Resources/Images/Stats/{first.Property.Name}.png".Embedded()
+                    Image = $"{Global.GameAssemblyName}/{this.GetType().Name}/Resources/Images/Stats/{first.Property.Name}.png".Embedded(),
+                    HostedPropertyName = first.Property.Name
                 };
 
                 Global.GameState.Equipment.AddEquip(stat.DeepClone());
