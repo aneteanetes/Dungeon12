@@ -19,7 +19,7 @@
 
         public override string Name => "Защитная стойка";
 
-        public override ScaleRate<Noone> Scale => new ScaleRate<Noone>(x => x.Block * 1.5, x => x.Armor * 0.5, x => x.Defence * 1);
+        public override ScaleRate<Noone> Scale => new ScaleRate<Noone>(x => x.Block * 1.5, x => x.Armor * 0.5, x => x.Defence * 1d);
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Right;
 

@@ -7,14 +7,16 @@
     using Dungeon.Scenes.Manager;
     using Dungeon12.Classes;
     using Dungeon12.Drawing.SceneObjects.Dialogs;
+    using Dungeon12.Scenes.Game;
 
-    public class PlayerOriginScene : GameScene<PlayerSummaryScene, PlayerNameScene>
+    public class PlayerOriginScene : GameScene<PlayerSummaryScene, PlayerNameScene,Main>
     {
         public PlayerOriginScene(SceneManager sceneManager) : base(sceneManager)
         {
         }
 
         public override bool Destroyable => true;
+        public override bool Loadable => true;
 
         public override void Init()
         {
@@ -70,7 +72,7 @@
 
                     Global.GameState.PlayerAvatar.Character.Origin = o;
 
-                    this.Switch<PlayerSummaryScene>();
+                    this.Switch<Main>();
                 }
             });
         }

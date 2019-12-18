@@ -387,7 +387,7 @@
                         }
                         else
                         {
-                            textX += range.Length * range.LetterSpacing;
+                            textX += this.MeasureText(range, sceneObject).X;// range.Length * range.LetterSpacing;
                         }
 
                         prev = range;

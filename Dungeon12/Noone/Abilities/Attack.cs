@@ -64,7 +64,7 @@
 
         protected override void Dispose(GameMap gameMap, Avatar avatar, Noone @class) { }
 
-        public override long Value => 10;
+        public override long Value => 2;
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.EffectInstant;
 

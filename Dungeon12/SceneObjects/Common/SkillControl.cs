@@ -362,8 +362,6 @@
 
             public override string Name => "";
 
-            public override ScaleRate Scale => null;
-
             protected override bool CastAvailable(Avatar avatar) => false;
 
             public override AbilityPosition AbilityPosition { get; }

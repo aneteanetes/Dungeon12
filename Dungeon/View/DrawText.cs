@@ -81,10 +81,11 @@ namespace Dungeon.Drawing
                     return new IDrawText[] { this };
                 }
 
-                var current = this.DeepClone();
-                current.InnerText.Clear();
+                //var current = this.DeepClone();
+                //current.InnerText.Clear();
 
-                return new IDrawText[] { current }.Concat(InnerText);
+                //return new IDrawText[] { this }.Concat(InnerText);
+                return InnerText;
             }
         }
 

@@ -22,7 +22,7 @@ namespace Dungeon12.Servant.Abilities
 
         public override string Name => "Исцеление";
 
-        public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AttackDamage);
+        //public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AttackDamage);
 
         protected override bool CanUse(Servant @class) => !@class.Serve && @class.FaithPower.Value >= 1;
 

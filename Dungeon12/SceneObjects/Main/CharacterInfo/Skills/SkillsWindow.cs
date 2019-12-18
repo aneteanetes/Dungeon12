@@ -150,32 +150,33 @@
                 var ratesText = new DrawText("").Montserrat();
                 foreach (var rate in ability.Rates)
                 {
-                    var delimiter = ratesText.StringData == ""
-                        ? ""
-                        : " | ";
-                    ratesText.Append($"{delimiter}{rate.Name}: {rate.Ratio}".AsDrawText().InColor(rate.Color));
+                    if (ratesText.StringData != "")
+                    {
+                        ratesText.Append(" | ".AsDrawText().Montserrat());
+                    }
+                    ratesText.Append($"{rate.Name}: {rate.Ratio}".Replace(",", ".").AsDrawText().InColor(rate.Color));
                 }
 
-                var Scales = this.AddTextCenter(ratesText, true);
-                location.Top = top;
+                var scales = this.AddTextCenter(ratesText, true);
+                scales.Top = top;
 
-                top += MeasureText(Scales.Text).Y / 32 + 0.5;
+                top += MeasureText(scales.Text).Y / 32 + 0.5;
 
                 this.AddChild(new DarkRectangle() { Color = ConsoleColor.White, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.05, Top = top - 0.25 });
 
                 var currentValue = this.AddTextCenter($"Текущее значение: {ability.ScaledValue()}".AsDrawText().Montserrat(), true);
-                location.Top = top;
+                currentValue.Top = top;
 
                 top += MeasureText(currentValue.Text).Y / 32 + 0.5;
 
                 this.AddChild(new DarkRectangle() { Color = ConsoleColor.White, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.05, Top = top - 0.25 });
 
                 var border = this.AddChildImageCenter(new ImageControl("Dungeon12.Resources.Images.ui.squareB.png") { CacheAvailable=false });
-                border.Top = 12;
+                border.Top = 11.5;
 
                 var img = this.AddChildImageCenter(new ImageControl(ability.Image_B) { CacheAvailable = false, }, true, false);
 
-                img.Top = 12;
+                img.Top = 11.5;
             }
         }
 

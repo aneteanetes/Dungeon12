@@ -1,6 +1,7 @@
 ﻿namespace Dungeon12.Classes
 {
     using Dungeon;
+    using Dungeon12.Abilities;
     using Dungeon12.Entities.Alive;
     using Dungeon12.Entities.Alive.Enums;
     using Dungeon12.Inventory;
@@ -46,6 +47,8 @@
 
                 this.ClassStats.Add(stat);
             }
+
+            this.PropertiesOfType<Ability>().ForEach(a => a.BuildScales());
         }
     }
 }

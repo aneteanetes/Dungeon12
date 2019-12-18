@@ -33,6 +33,8 @@
             this.Image_B = DefaultPath(true).Cache();
         }
 
+        public virtual void BuildScales() { }
+
         /// <summary>
         /// Навык доступен в защищённой зоне
         /// </summary>
@@ -267,6 +269,11 @@
         where TTalants : TalantTree<TClass>, new()
     {
         public Ability()
+        {
+            scale = this.Scale.Build();
+        }
+
+        public override void BuildScales()
         {
             scale = this.Scale.Build();
         }

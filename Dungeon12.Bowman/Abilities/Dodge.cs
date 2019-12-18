@@ -19,7 +19,7 @@ namespace Dungeon12.Bowman.Abilities
 
         public override string Name => "Увернуться";
 
-        public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AttackDamage);
+        //public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AttackDamage);
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.Special;
 

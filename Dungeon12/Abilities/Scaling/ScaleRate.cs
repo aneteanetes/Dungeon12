@@ -47,6 +47,7 @@
                     {
                         info.Name = classStat.StatName;
                         info.Color = classStat.Color;
+                        info.Class = true;
                     }
                     else
                     {
@@ -80,7 +81,12 @@
             double result = 0;
             foreach (var scale in Scales)
             {
-                result += value * @class.GetPropertyExpr<double>(scale.Property);
+                var propValue = @class.GetPropertyExpr<long>(scale.Property);
+                if (propValue == 0 && !scale.Class)
+                {
+                    propValue = 1;
+                }
+                result += value + (propValue * scale.Ratio);
             }
 
             return (long)Math.Ceiling(result);
@@ -97,5 +103,7 @@
         public string Name { get; set; }
 
         public IDrawColor Color { get; set; }
+
+        public bool Class { get; set; }
     }
 }
