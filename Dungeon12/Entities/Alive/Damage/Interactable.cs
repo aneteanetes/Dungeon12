@@ -40,7 +40,7 @@ namespace Dungeon12.Entities.Alive
             this.HitPoints -= amount;
 
             var popup = new PopupString(amount.ToString(), dmg.Type.Color.GetColor(), this.MapObject.Location).InList<ISceneObject>();
-            this.MapObject.SceneObject.ShowInScene(popup);
+            this.MapObject?.SceneObject.ShowInScene(popup);
 
             if (this.HitPoints == 0)
             {

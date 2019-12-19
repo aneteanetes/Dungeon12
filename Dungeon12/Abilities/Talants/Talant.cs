@@ -8,7 +8,8 @@
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using System;
-
+    using Newtonsoft.Json;
+    using LiteDB;
 
     public abstract class Talant<TClass> : TalantBase
          where TClass : Character
@@ -33,10 +34,16 @@
             this.Avatar = avatar;
         }
 
+        [JsonIgnore]
+        [BsonIgnore]
         public TClass Class { get; set; }
 
+        [JsonIgnore]
+        [BsonIgnore]
         public Avatar Avatar { get; set; }
 
+        [JsonIgnore]
+        [BsonIgnore]
         public GameMap GameMap { get; set; }
 
         public virtual bool CanUse(object @object)

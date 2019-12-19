@@ -42,24 +42,24 @@ namespace Dungeon.Events
         public void Subscribe<TEvent>(Action<TEvent> action, bool autoUnsubscribe = true, params string[] args) where TEvent : IEvent
         {
             var ev = Get<TEvent>(args);
+            string eventName = EventTypeName<TEvent>();
             if (autoUnsubscribe)
             {
                 void subs(TEvent @event)
                 {
                     action?.Invoke(@event);
-                    ev -= subs;
+                    events[eventName] = ev -= subs;
                 }
 
-                ev += subs;
+                events[eventName] = ev += subs;
             }
             else
             {
-                string @event = EventTypeName<TEvent>();
                 if (args != default)
                 {
-                    @event += string.Join("`", args);
+                    eventName += string.Join("`", args);
                 }
-                events[@event] = ev += action;
+                events[eventName] = ev += action;
             }
         }
 

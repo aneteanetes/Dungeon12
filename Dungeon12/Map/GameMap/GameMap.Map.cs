@@ -12,6 +12,7 @@
     using System.Linq;
     using static Dungeon12.Global;
     using Dungeon;
+    using Dungeon12.Map.Events;
 
     public partial class GameMap
     {
@@ -59,6 +60,8 @@
 
             this.Name = persistRegion.Display;
             this.LoadedRegionData = persistRegion;
+
+            Global.Events.Raise(new GameMapLoadedEvent() { GameMap = this });
 
             return persistRegion.Name;
         }
@@ -124,6 +127,8 @@
                 this.MapObject.Add(saveableObject);
                 this.Objects.Add(saveableObject);
             }
+
+            Global.Events.Raise(new GameMapLoadedEvent() { GameMap = this });
 
             return persistRegion.Name;
         }

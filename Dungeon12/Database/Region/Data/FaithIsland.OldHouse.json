@@ -37,6 +37,182 @@
       }
     },
     {
+      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Respawn",
+      "Zone": {
+        "Position": {
+          "X": 1,
+          "Y": 33
+        },
+        "Size": {
+          "Width": 30,
+          "Height": 17
+        }
+      },
+      "RespawnSeconds": 1500,
+      "Respawns": [
+        {
+          "Identify": "Bat",
+          "Icon": "Npc",
+          "Amount": 15
+        }
+      ]
+    },
+    {
+      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Respawn",
+      "Zone": {
+        "Position": {
+          "X": 1,
+          "Y": 33
+        },
+        "Size": {
+          "Width": 30,
+          "Height": 17
+        }
+      },
+      "RespawnSeconds": 1500,
+      "Respawns": [
+        {
+          "Identify": "Vampire",
+          "Icon": "Npc",
+          "Amount": 10
+        }
+      ]
+    },
+    {
+      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Respawn",
+      "Zone": {
+        "Position": {
+          "X": 29,
+          "Y": 29
+        },
+        "Size": {
+          "Width": 10,
+          "Height": 4
+        }
+      },
+      "RespawnSeconds": 1500,
+      "Respawns": [
+        {
+          "Identify": "VampireLord",
+          "Icon": "Npc",
+          "Amount": 5
+        }
+      ]
+    },
+    {
+      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Respawn",
+      "Zone": {
+        "Position": {
+          "X": 10,
+          "Y": 3
+        },
+        "Size": {
+          "Width": 10,
+          "Height": 17
+        }
+      },
+      "RespawnSeconds": 1500,
+      "Respawns": [
+        {
+          "Identify": "Bat",
+          "Icon": "Npc",
+          "Amount": 5
+        }
+      ]
+    },
+    {
+      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Respawn",
+      "Zone": {
+        "Position": {
+          "X": 10,
+          "Y": 3
+        },
+        "Size": {
+          "Width": 10,
+          "Height": 17
+        }
+      },
+      "RespawnSeconds": 1500,
+      "Respawns": [
+        {
+          "Identify": "Rat",
+          "Icon": "Npc",
+          "Amount": 5
+        }
+      ]
+    },
+    {
+      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Respawn",
+      "Zone": {
+        "Position": {
+          "X": 20,
+          "Y": 3
+        },
+        "Size": {
+          "Width": 52,
+          "Height": 17
+        }
+      },
+      "RespawnSeconds": 1500,
+      "Respawns": [
+        {
+          "Identify": "Rat",
+          "Icon": "Npc",
+          "Amount": 10
+        }
+      ]
+    },
+    {
+      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Respawn",
+      "Zone": {
+        "Position": {
+          "X": 20,
+          "Y": 3
+        },
+        "Size": {
+          "Width": 52,
+          "Height": 17
+        }
+      },
+      "RespawnSeconds": 1500,
+      "Respawns": [
+        {
+          "Identify": "Spider",
+          "Icon": "Npc",
+          "Amount": 15
+        }
+      ]
+    },
+    {
+      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Respawn",
+      "Zone": {
+        "Position": {
+          "X": 40,
+          "Y": 16
+        },
+        "Size": {
+          "Width": 32,
+          "Height": 16
+        }
+      },
+      "RespawnSeconds": 1500,
+      "Respawns": [
+        {
+          "Identify": "Bee",
+          "Icon": "Npc",
+          "Amount": 20
+        }
+      ]
+    },
+    {
       "Icon": null,
       "Region": {
         "X": 32.0,

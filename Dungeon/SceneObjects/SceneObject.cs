@@ -27,13 +27,7 @@
         {
             if (bindView && component != default)
             {
-                component.SetView(this);
-
-                this.Destroy += () =>
-                {
-                    Component = default;
-                    component.SetView(default);
-                };
+                BindComponent(component);
             }
             else if (component != default)
             {
@@ -62,6 +56,17 @@
             }
 
             ProcessSingleton();
+        }
+
+        public void BindComponent(TComponent component)
+        {
+            component.SetView(this);
+
+            this.Destroy += () =>
+            {
+                Component = default;
+                component.SetView(default);
+            };
         }
 
         private static Dictionary<string, ISceneObject> singletonInstances = new Dictionary<string, ISceneObject>();

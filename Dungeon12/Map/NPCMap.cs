@@ -83,6 +83,7 @@
 
             this.ReEntity(data.NPC.DeepClone());
 
+            data.NPC.Level = data.Level;
             if (data.NPC.Level > 2)
             {
                 if (RandomDungeon.Chance(25))

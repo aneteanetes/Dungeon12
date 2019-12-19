@@ -33,7 +33,16 @@
 
         protected override bool SilentTooltip => true;
 
-        public Avatar Avatar { get; set; }
+        private Avatar _avatar;
+        public Avatar Avatar
+        {
+            get => _avatar;
+            set
+            {
+                _avatar = value;
+                BindComponent(_avatar);
+            }
+        }
 
         public override int Layer => 1;
 
@@ -85,6 +94,8 @@
             player.StateAdded += s => RedrawStates(s);
             player.StateRemoved += s => RedrawStates(s, true);
             AddBuffs();
+
+            player.SceneObject = this;
 
             this.OnMove += () => this.Avatar.OnMove?.Invoke();
         }

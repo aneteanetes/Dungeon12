@@ -12,6 +12,7 @@ using Dungeon.View.Interfaces;
 using Dungeon12.SceneObjects.Map;
 using System.Collections.Generic;
 using System;
+using Dungeon12.Map.Events;
 
 namespace Dungeon12.Map.Objects
 {
@@ -56,9 +57,14 @@ namespace Dungeon12.Map.Objects
             SpawnArea = data.Zone;
             PointData = data.Respawns;
 
+            Global.Events.Subscribe<GameMapLoadedEvent>(MapLoaded);
+        }
+
+        private void  MapLoaded(GameMapLoadedEvent @event)
+        {
             Spawn();
         }
-        
+
         private void Spawn()
         {
             foreach (var spawnData in PointData)
@@ -144,6 +150,10 @@ namespace Dungeon12.Map.Objects
             }
 
             if (!underTexture)
+                return false;
+
+            otherObject = map.MapObject.Query(mob).Nodes.Any(node => node.IntersectsWithOrContains(mob));
+            if (otherObject)
                 return false;
 
             map.MapObject.Add(mob);

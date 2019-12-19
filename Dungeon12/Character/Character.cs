@@ -19,6 +19,8 @@
     {
         public Character()
         {
+            this.HitPoints = this.MaxHitPoints = this.InitialHP;
+            this.Level = 1;
             this.BindClassStats();
             Reload();
         }
