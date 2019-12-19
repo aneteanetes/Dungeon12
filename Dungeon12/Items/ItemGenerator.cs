@@ -21,6 +21,9 @@ namespace Dungeon12.Items
             var additionalEquipments = Global.GameState.Equipment.AdditionalEquipments;
 
             var generationOpts = GenerateType();
+            if (generationOpts == default)
+                return default;
+
             var rarityopts = GenerateRarity();
 
             var item = generationOpts.ItemType.NewAs<Item>();
@@ -181,7 +184,7 @@ namespace Dungeon12.Items
             }
 
             return ___GetGeneratorsFromItemsCache
-                .Where(x => x.MinimumLevel >= Global.GameState.Character.Level)
+                .Where(x => Global.GameState.Character.Level >= x.MinimumLevel)
                 .ToList();
         }
 

@@ -25,6 +25,6 @@ namespace Dungeon12.Entities
         public bool ChasingEnemies { get; set; }
 
         [BsonIgnore]
-        public LootTable LootTable => LootTable.GetLootTable(this.LootTableName ?? this.IdentifyName ?? this.Name);
+        public LootTable LootTable => LootTable.GetLootTable(this.IdentifyName ?? this.LootTableName);
     }
 }

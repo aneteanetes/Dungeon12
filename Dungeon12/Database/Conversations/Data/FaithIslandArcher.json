@@ -81,6 +81,7 @@
             77
           ],
           "Tag": 55,
+          "Shown": true,
           "Variables": [
             {
               "Name": "QuestGetBowUpdate",

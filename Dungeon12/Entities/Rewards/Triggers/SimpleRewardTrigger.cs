@@ -23,8 +23,11 @@ namespace Dungeon12.Entities.Rewards.Triggers
                     loot.Location = Global.GameState.Player.Avatar.Location.Copy();
                     loot.Item = generator.Generate();
 
-                    Global.GameState.Map.MapObject.Add(loot);
-                    Global.GameState.Map.PublishObject(loot);                    
+                    if (loot.Item != default)
+                    {
+                        Global.GameState.Map.MapObject.Add(loot);
+                        Global.GameState.Map.PublishObject(loot);
+                    }
                 }
             }
 

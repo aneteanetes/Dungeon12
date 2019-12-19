@@ -19,7 +19,9 @@
     [DataClass(typeof(NPCData))]
     public class NPCMap : EntityMapObject<NPC>
     {
-        public NPCMap() : this(default) { }
+        public NPCMap() : this(default)
+        {
+        }
 
         public NPCMap(NPC entity) : base(entity)
         {
@@ -66,7 +68,9 @@
 
         public override ISceneObject Visual()
         {
-            return new NPCSceneObject(Global.GameState.Player, Global.GameState.Map, this, this.TileSetRegion);
+            var so = new NPCSceneObject(Global.GameState.Player, Global.GameState.Map, this, this.TileSetRegion);
+            this.SceneObject = so;
+            return so;
         }
 
         public string IdentifyName { get; set; }
@@ -83,6 +87,7 @@
 
             this.ReEntity(data.NPC.DeepClone());
 
+            this.Entity.IdentifyName = data.IdentifyName;
             data.NPC.Level = data.Level;
             if (data.NPC.Level > 2)
             {
@@ -163,6 +168,7 @@
             }
 
             this.ReEntity(this.Entity);
+            this.Destroy += Dying;
         }
 
         private void Dying()

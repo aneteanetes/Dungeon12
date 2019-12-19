@@ -5,6 +5,7 @@ using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using System;
 using Dungeon;
+using Dungeon12.Entities.Alive.Events;
 
 namespace Dungeon12.Entities.Alive
 {
@@ -45,6 +46,11 @@ namespace Dungeon12.Entities.Alive
             if (this.HitPoints == 0)
             {
                 attacker.Exp(this.ExpGain);
+                Global.Events.Raise(new AliveKillEvent()
+                {
+                    Killer = attacker,
+                    Victim = this
+                });
                 this.Die();
             }
         }

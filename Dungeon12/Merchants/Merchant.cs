@@ -25,7 +25,9 @@
 
                 foreach (var item in Enumerable.Range(0, 10))
                 {
-                    category.Goods[0].Add(LootGenerator.GenerateWeapon());
+                    var i = LootGenerator.GenerateWeapon();
+                    if (i != default)
+                        category.Goods[0].Add(i);
                 }
             }
         }

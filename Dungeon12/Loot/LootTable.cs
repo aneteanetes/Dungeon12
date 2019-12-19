@@ -43,7 +43,10 @@ namespace Dungeon12.Loot
                 if (RandomDungeon.Chance(lootDrop.Chance))
                 {
                     var loot = lootDrop.Generator.Generate();
-                    container.Items.Add(loot);
+                    if (loot != default)
+                    {
+                        container.Items.Add(loot);
+                    }
                 }
             }
 

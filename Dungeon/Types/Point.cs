@@ -21,7 +21,7 @@ namespace Dungeon.Types
             if (xy == default)
                 return new Point();
 
-            if (!xy.Contains("X:") || !!xy.Contains("Y:"))
+            if (!xy.Contains("X:") || !xy.Contains("Y:"))
                 return new Point();
 
             try

@@ -13,12 +13,13 @@ namespace Dungeon12.Entities.Quests
 
         protected override void Init(QuestKillData dataClass)
         {
+            base.Init(dataClass);
             dataClass.MobIdentify.ForEach((id, i) =>
             {
                 Targets.Add(id, new Pair<int, int>(dataClass.Amount[i], 0));
             });
 
-            dataClass.MaxProgress = Targets.Sum(a => a.Value.First);
+            MaxProgress = Targets.Sum(a => a.Value.First);
         }
 
         public void OnEvent(AliveKillEvent aliveKillEvent)
@@ -28,15 +29,31 @@ namespace Dungeon12.Entities.Quests
 
             if (aliveKillEvent.Killer == _class)
             {
-                if (Targets.TryGetValue(aliveKillEvent.Victim.Name, out var progress))
+                if (Targets.TryGetValue(aliveKillEvent.Victim.IdentifyName, out var progress))
                 {
                     progress.Second++;
-                    if (progress.First < progress.Second)
+                    if (progress.First >= progress.Second)
                     {
                         this.Progress++;
                     }
                 }
             }
+        }
+
+        protected override void CallOnEvent(dynamic obj) => OnEvent(obj);
+
+        public new static KillQuest Load(string id)
+        {
+            var entity = new KillQuest();
+
+            var dataClass = Store.Entity<QuestKillData>(x => x.IdentifyName == id).FirstOrDefault();
+            if (dataClass != default)
+            {
+                entity.Init(dataClass);
+                return entity;
+            }
+
+            return default;
         }
     }
 }

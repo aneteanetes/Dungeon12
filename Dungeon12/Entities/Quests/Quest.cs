@@ -55,8 +55,8 @@ namespace Dungeon12.Entities.Quests
             this.IdentifyName = dataClass.IdentifyName;
         }
 
-        protected Character _class;
-        protected GameMap _gameMap;
+        protected Character _class => Global.GameState.Character;
+        protected GameMap _gameMap => Global.GameState.Map;
 
         /// <summary>
         /// Можно выполнять несколько раз
@@ -65,10 +65,8 @@ namespace Dungeon12.Entities.Quests
 
         public void Bind(Character @class, GameMap gameMap)
         {
-            _gameMap = gameMap;
             if (@class[IdentifyName] == default || Reactivated)
             {
-                _class = @class;
                 _class.Journal.Quests.Add(new Entites.Journal.JournalEntry()
                 {
                     IdentifyName = this.IdentifyName,

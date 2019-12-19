@@ -65,7 +65,7 @@ namespace Dungeon12.Map.Objects
             Spawn();
         }
 
-        private void Spawn()
+        public void Spawn()
         {
             foreach (var spawnData in PointData)
             {

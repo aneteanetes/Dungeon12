@@ -14,6 +14,8 @@ namespace Dungeon12.Entities.Quests
     {
         private List<LootDrop> LootDrops = new List<LootDrop>();
 
+        public string[] LootDropsIdentify { get; set; }
+
         public Dictionary<string, Pair<int, int>> Targets { get; set; } = new Dictionary<string, Pair<int, int>>();
 
         protected override void Init(QuestCollectData dataClass)
@@ -24,14 +26,20 @@ namespace Dungeon12.Entities.Quests
                 Targets.Add(id, new Pair<int, int>(dataClass.Amount[i], 0));
             });
 
-            dataClass.LootDropsIdentify.ForEach(x =>
+            this.LootDropsIdentify = dataClass.LootDropsIdentify;
+            ReloadQuestLootDrops();
+
+            MaxProgress = Targets.Sum(a => a.Value.First);
+        }
+
+        public void ReloadQuestLootDrops()
+        {
+            LootDropsIdentify.ForEach(x =>
             {
                 var lootDrop = Store.Entity<LootDrop>(drop => drop.IdentifyName == x).FirstOrDefault();
                 LootDrops.Add(lootDrop);
                 LootTable.GetLootTable(lootDrop.LootTableIdentify).LootDrops.Add(lootDrop);
             });
-
-            MaxProgress = Targets.Sum(a => a.Value.First);
         }
 
         public override void Complete()
@@ -55,13 +63,14 @@ namespace Dungeon12.Entities.Quests
         {
             var entity = new CollectQuest();
 
-            var dataClass = Store.Entity<QuestCollectData>(x => x.IdentifyName == id, id).FirstOrDefault();
+            var dataClass = Store.Entity<QuestCollectData>(x => x.IdentifyName == id).FirstOrDefault();
             if (dataClass != default)
             {
                 entity.Init(dataClass);
-            }
+                return entity;
+            }            
 
-            return entity;
+            return default;
         }
 
         public void OnEvent(ItemPickedUpEvent itemPickedUpEvent)
@@ -71,6 +80,9 @@ namespace Dungeon12.Entities.Quests
 
             if (itemPickedUpEvent.Owner == _class)
             {
+                if (itemPickedUpEvent.Item.IdentifyName == default)
+                    return;
+
                 if (Targets.TryGetValue(itemPickedUpEvent.Item.IdentifyName, out var progress))
                 {
                     progress.Second++;
@@ -89,6 +101,9 @@ namespace Dungeon12.Entities.Quests
 
             if (itemDropOffEvent.Owner == _class)
             {
+                if (itemDropOffEvent.Item.IdentifyName == default)
+                    return;
+
                 if (Targets.TryGetValue(itemDropOffEvent.Item.IdentifyName, out var progress))
                 {
                     progress.Second--;

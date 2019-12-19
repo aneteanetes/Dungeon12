@@ -3,11 +3,11 @@
   "Icon": "Respawn",
   "Zone": {
     "Position": {
-      "X": 60,
-      "Y": 46
+      "X": 40,
+      "Y": 7
     },
     "Size": {
-      "Width": 10,
+      "Width": 11,
       "Height": 10
     }
   },

@@ -35,13 +35,14 @@ namespace Dungeon12.Entities.Quests
         {
             var entity = new AchiveQuest();
 
-            var dataClass = Store.Entity<QuestAchiveData>(x => x.IdentifyName == id, id).FirstOrDefault();
+            var dataClass = Store.Entity<QuestAchiveData>(x => x.IdentifyName == id).FirstOrDefault();
             if (dataClass != default)
             {
                 entity.Init(dataClass);
+                return entity;
             }
 
-            return entity;
+            return default;
         }
     }
 }

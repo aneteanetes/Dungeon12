@@ -13,7 +13,7 @@ namespace Dungeon12.Entities.Quests
     {
         public static IQuest Load(string identifyName)
         {
-            var kill = Store.Entity<KillQuest>(x => x.IdentifyName == identifyName).FirstOrDefault();
+            var kill = KillQuest.Load(identifyName);
             if (kill != default)
                 return kill;
 

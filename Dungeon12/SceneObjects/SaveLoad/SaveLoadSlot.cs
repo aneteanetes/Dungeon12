@@ -12,6 +12,7 @@ using Dungeon12.Drawing.SceneObjects;
 using Newtonsoft.Json;
 using System;
 using static Dungeon12.Global;
+using Dungeon12.Events.Events;
 
 namespace Dungeon12.SceneObjects.SaveLoad
 {
@@ -86,31 +87,38 @@ namespace Dungeon12.SceneObjects.SaveLoad
                     AbsolutePosition = true,
                     OnClick = () =>
                     {
-                        SceneManager.Destroy<Scenes.Game.Main>();
-
-                        var data = JsonConvert.DeserializeObject<SavedGame>(Component.Data, Global.GetSaveSerializeSettings());
-
-                        Global.GameState.PlayerAvatar = new Avatar(data.Character.Character)
+                        SceneManager.LoadingScreenCustom("FaithIsland").Then(cb =>
                         {
-                            Location = data.Character.Location,
-                            SceenPosition = Component.ScreenPosition
-                        };
+                            SceneManager.Destroy<Scenes.Game.Main>();
 
-                        Global.GameState.Equipment = data.EquipmentState;
-                        Global.GameState.Character = data.Character.Character;
-                        Global.GameState.Character.Reload();
+                            var data = JsonConvert.DeserializeObject<SavedGame>(Component.Data, Global.GetSaveSerializeSettings());
 
-                        Global.Camera.SetCamera(Component.CameraOffset.X, component.CameraOffset.Y);
+                            Global.GameState.PlayerAvatar = new Avatar(data.Character.Character)
+                            {
+                                Location = data.Character.Location,
+                                SceenPosition = Component.ScreenPosition
+                            };
 
-                        Global.GameState.Map = new Dungeon12.Map.GameMap();
-                        Global.GameState.Map.LoadRegion(data.Map);
+                            Global.GameState.Equipment = data.EquipmentState;
+                            Global.GameState.Character = data.Character.Character;
+                            Global.GameState.Character.Reload();
+
+                            Global.Camera.SetCamera(Component.CameraOffset.X, component.CameraOffset.Y);
+
+                            Global.GameState.Map = new Dungeon12.Map.GameMap();
+                            Global.GameState.Map.LoadRegion(data.Map);
 
 
-                        var regionMap = new GameMap();
-                        regionMap.LoadRegion(data.Region, true);
-                        Global.GameState.Region = regionMap;
+                            var regionMap = new GameMap();
+                            regionMap.LoadRegion(data.Region, true);
+                            Global.GameState.Region = regionMap;
 
-                        switchMain?.Invoke();
+                            Global.Events.Raise(new GameLoadedEvent());
+
+                            switchMain?.Invoke();
+
+                            cb.Dispose();
+                        });
                     }
                 });
             }

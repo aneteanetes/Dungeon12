@@ -8,7 +8,7 @@ namespace Dungeon12.Map.Triggers
     {
         public bool Trigger(string[] arg1)
         {
-            var pos = arg1.ElementAtOrDefault(0) ?? arg1.ElementAtOrDefault(2);
+            var pos = arg1.ElementAtOrDefault(2) ?? arg1.ElementAtOrDefault(0);
 
             var destination = Point.FromString(pos);
             if (!destination.IsDefault)

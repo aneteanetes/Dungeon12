@@ -1,0 +1,18 @@
+﻿{
+  "Name": "Поиск руды",
+  "Description": "Соберите древесину (6) рядом с фортом культа крови. Найдите три шёлковых нити, и закажите у Кузнеца пару железных прутьев",
+  "RewardIdentify": "BowUpdate",
+  "LootDropsIdentify": [
+    "BowUpdateSilk"
+  ],
+  "ItemsIdentify": [
+    "WoodBowQuest",
+    "SilkThread",
+    "IronRod"
+  ],
+  "Amount": [
+    6,
+    3,
+    2
+  ]
+}

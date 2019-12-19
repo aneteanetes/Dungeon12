@@ -11,6 +11,8 @@
     using System.Linq;
     using System.Linq.Expressions;
     using Dungeon;
+    using Dungeon12.Events.Events;
+    using Dungeon12.Entities.Quests;
 
     /// <summary>
     /// Абстрактный класс персонажа
@@ -23,6 +25,19 @@
             this.Level = 1;
             this.BindClassStats();
             Reload();
+
+            Global.Events.Subscribe<GameLoadedEvent>(ReloadCollectQuests);
+        }
+
+        private void ReloadCollectQuests(GameLoadedEvent @event)
+        {
+            this.Journal.Quests.ForEach(q =>
+            {
+                if(q.Quest is CollectQuest quest)
+                {
+                    quest.ReloadQuestLootDrops();
+                }
+            });
         }
 
         public void Reload()

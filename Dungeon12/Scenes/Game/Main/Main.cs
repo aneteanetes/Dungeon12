@@ -290,6 +290,11 @@
             {
                 variableViewer.Visible = !variableViewer.Visible;
             }
+
+            if (keyPressed == Key.L && keyModifiers == KeyModifiers.Control)
+            {
+                Global.GameState.Character.Exp(70);
+            }
         }
 
         private CharacterVariableViewer variableViewer = new CharacterVariableViewer();
