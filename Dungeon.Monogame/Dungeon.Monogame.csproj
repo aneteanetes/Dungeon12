@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <ApplicationIcon />
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
     <OutputType>WinExe</OutputType>
     <StartupObject />
     <Configurations>Debug;Release;CompileDatabase</Configurations>
@@ -26,10 +26,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Content\Content.Android.mgcb" />
+    <None Remove="Icon.bmp" />
+    <None Remove="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MonoGame.Content.Builder" Version="3.7.0.4" />
     <PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="3.7.0.9" />
+    <PackageReference Include="NSubsys" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="YAXLib" Version="2.15.0" />
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +59,11 @@
     <EmbeddedResource Remove="Content\Audio\**" />
     <MonoGameContentReference Remove="Content\Audio\**" />
     <None Remove="Content\Audio\**" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="Icon.bmp" />
+    <EmbeddedResource Include="Icon.ico" />
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Copy SourceFiles="@(MySourceFiles)" DestinationFiles="@(MySourceFiles->'c:\wtf\%(RecursiveDir)%(Filename)%(Extension)')" />

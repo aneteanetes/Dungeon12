@@ -16,6 +16,7 @@
         "X": 27.5,
         "Y": 51
       },
+      "LoadingScreenName": "FaithIsland",
       "RegionIdentify": "FaithIsland",
       "Destination": {
         "X": 20,
@@ -30,6 +31,7 @@
         "X": 81.2,
         "Y": 8.5
       },
+      "LoadingScreenName": "FaithIsland",
       "RegionIdentify": "FaithIsland",
       "Destination": {
         "X": 11,

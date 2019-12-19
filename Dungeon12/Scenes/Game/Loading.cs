@@ -2,24 +2,26 @@
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.Scenes;
+using System.Linq;
 
 namespace Dungeon12.Scenes.Game
 {
     public class Loading : LoadingScene
     {
-        public Loading()
+        public Loading() : this(default)
         {
-            for (int i = 1; i < 6; i++)
-            {
-                Global.DrawClient.CacheImage($"Loading/{i}.png".AsmImgRes());
-            }
+
+        }
+
+        private string loadingscreen;
+        public Loading(string loadingscreen)
+        {
+            this.loadingscreen = loadingscreen;
         }
 
         public override void Init()
         {
-            var r = RandomDungeon.Range(1, 5);
-
-            this.AddObject(new ImageControl($"Loading/{r}.png".AsmImgRes()));
+            this.AddObject(new ImageControl($"Loading/{loadingscreen}.png".AsmImgRes()));
 
             var endText = new TextControl("ЗАГРУЗКА".AsDrawText().InSize(70).Triforce());
             endText.Left = 12;

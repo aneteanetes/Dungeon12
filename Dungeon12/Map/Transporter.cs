@@ -41,7 +41,7 @@ namespace Dungeon12.Map
         {
             Global.GameState.Player.StopMovings();
 
-            SceneManager.LoadingScreen.Then(cb => {
+            SceneManager.LoadingScreenCustom(Data.LoadingScreenName ?? "FaithIsland").Then(cb => {
                 
                 // уничтожаем что у нас там есть сейчас в игре
                 SceneManager.Destroy<Scenes.Game.Main>();

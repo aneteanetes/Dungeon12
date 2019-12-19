@@ -101,7 +101,7 @@
         public static void Switch<TScene>(params string[] args) where TScene : GameScene
         {
             if (Current?.Loadable ?? false)
-                LoadingScreen.Then(cb =>
+                LoadingScreenCustom(Current.LoadArguments).Then(cb =>
                 {
                     SwitchImplementation<TScene>(args);
                     cb.Dispose();
@@ -120,6 +120,13 @@
                 loading.Init();
                 return DungeonGlobal.DrawClient.SetScene(loading);
             }
+        }
+
+        public static Callback LoadingScreenCustom(params object[] args)
+        {
+            var loading = LoadingScreenType.NewAs<LoadingScene>(2, args);
+            loading.Init();
+            return DungeonGlobal.DrawClient.SetScene(loading);
         }
 
         private static void SwitchImplementation<TScene>(string[] args) where TScene : GameScene
@@ -171,7 +178,7 @@
         public void Change(Type sceneType, params string[] args)
         {
             if (Current?.Loadable ?? false)
-                LoadingScreen.Then(cb =>
+                LoadingScreenCustom(Current.LoadArguments).Then(cb =>
                 {
                     ChangeImplementation(sceneType, args);
                     cb.Dispose();

@@ -16,6 +16,7 @@
         "X": 16,
         "Y": 7
       },
+      "LoadingScreenName": "Beacon",
       "UnderlevelIdentify": "FaithIsland.Beacon2",
       "Destination": {
         "X": 15,
@@ -30,6 +31,7 @@
         "X": 11,
         "Y": 11.5
       },
+      "LoadingScreenName": "BloodFort2",
       "UnderlevelIdentify": "FaithIsland.BloodFort2",
       "Destination": {
         "X": 39.5,

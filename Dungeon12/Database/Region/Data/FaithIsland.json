@@ -18,6 +18,7 @@
         "X": 63,
         "Y": 13
       },
+      "LoadingScreenName": "DeepCave",
       "UnderlevelIdentify": "FaithIsland.DeepCave",
       "Destination": {
         "X": 75.5,
@@ -32,6 +33,7 @@
         "X": 20,
         "Y": 44
       },
+      "LoadingScreenName": "OldHouse",
       "UnderlevelIdentify": "FaithIsland.OldHouse",
       "Destination": {
         "X": 27.5,
@@ -46,6 +48,7 @@
         "X": 11.5,
         "Y": 17.2
       },
+      "LoadingScreenName": "BloodFort1",
       "UnderlevelIdentify": "FaithIsland.BloodFort1",
       "Destination": {
         "X": 14.5,
@@ -60,6 +63,7 @@
         "X": 11,
         "Y": 31
       },
+      "LoadingScreenName": "EastCave",
       "UnderlevelIdentify": "FaithIsland.OldHouse",
       "Destination": {
         "X": 80,

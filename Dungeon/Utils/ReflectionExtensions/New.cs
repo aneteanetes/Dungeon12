@@ -65,6 +65,37 @@
 
             return func(argsObj);
         }
+        
+        /// <summary>
+         /// Instantiate new object through expression tree
+         /// </summary>
+         /// <typeparam name="T"></typeparam>
+         /// <param name="type"></param>
+         /// <param name="ctor"></param>
+         /// <param name="argsObj"></param>
+         /// <returns></returns>
+        public static T NewAs<T>(this Type type, int ctorCount, params object[] argsObj)
+        {
+            ConstructorInfo ctor = type.GetConstructors().ElementAtOrDefault(ctorCount-1);
+
+            if (ctor == default)
+                return default;
+
+            ParameterInfo[] par = ctor.GetParameters();
+            Expression[] args = new Expression[par.Length];
+            ParameterExpression param = Expression.Parameter(typeof(object[]));
+            for (int i = 0; i != par.Length; ++i)
+            {
+                args[i] = Expression.Convert(Expression.ArrayIndex(param, Expression.Constant(i)), par[i].ParameterType);
+            }
+            var expression = Expression.Lambda<Func<object[], T>>(
+                Expression.New(ctor, args), param
+            );
+
+            var func = expression.Compile();
+
+            return func.Invoke(argsObj).As<T>();
+        }
 
         /// <summary>
         /// Инстанциирует объект как object, а затем приводит к T

@@ -8,7 +8,7 @@
 
     public abstract class LoadingScene : GameScene
     {
-        public LoadingScene() : base(null) { }
+        public LoadingScene():base(default) { }
 
         public override bool Destroyable => false;
 
@@ -33,6 +33,8 @@
         }
 
         public virtual bool Loadable => false;
+
+        public virtual object[] LoadArguments => default;
 
         public virtual bool LoadingScreen => false;
 

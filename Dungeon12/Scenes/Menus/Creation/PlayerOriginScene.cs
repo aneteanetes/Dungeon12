@@ -16,7 +16,10 @@
         }
 
         public override bool Destroyable => true;
+
         public override bool Loadable => true;
+
+        public override object[] LoadArguments => new object[] { "FaithIsland" };
 
         public override void Init()
         {

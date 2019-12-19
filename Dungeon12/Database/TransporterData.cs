@@ -16,5 +16,7 @@ namespace Dungeon12.Data
         public string RegionIdentify { get; set; }
 
         public Point Destination { get; set; }
+
+        public string LoadingScreenName { get; set; }
     }
 }

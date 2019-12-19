@@ -16,6 +16,7 @@
         "X": 14.5,
         "Y": 23
       },
+      "LoadingScreenName": "FaithIsland",
       "RegionIdentify": "FaithIsland",
       "Destination": {
         "X": 11.5,
@@ -30,6 +31,7 @@
         "X": 17.5,
         "Y": 3
       },
+      "LoadingScreenName": "BloodFort2",
       "UnderlevelIdentify": "FaithIsland.BloodFort2",
       "Destination": {
         "X": 18,

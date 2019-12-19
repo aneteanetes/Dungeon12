@@ -6,16 +6,18 @@ using System.Linq.Expressions;
 
 namespace Dungeon.Entities
 {
-    public class Entity : VisualObject
+    public class Entity : VisualObject, IPersist
     {
         public string IdentifyName { get; set; }
 
         public string Assembly { get; set; }
+        public int Id { get; set; }
+        public int ObjectId { get; set; }
     }
 
     public class DataEntity<TEntity,TPersist> : Entity
         where TEntity : DataEntity<TEntity, TPersist>
-        where TPersist : Persist
+        where TPersist : Persist, IPersist
     {
         protected virtual void Init(TPersist dataClass)
         {
