@@ -19,7 +19,7 @@ namespace Dungeon12.Bowman.Abilities
 
         public override string Name => "Быстрый выстрел";
 
-        //public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AttackDamage);
+        public override ScaleRate<Bowman> Scale => new ScaleRate<Bowman>(x => x.AttackDamage * 1.6);
 
         private Bowman rangeclass;
         protected override bool CanUse(Bowman @class)
@@ -33,6 +33,8 @@ namespace Dungeon12.Bowman.Abilities
         protected override void Dispose(GameMap gameMap, Avatar avatar, Bowman @class)
         {
         }
+
+        public override long Value => 5;
 
         protected override void Use(GameMap gameMap, Avatar avatar, Bowman @class)
         {
@@ -48,7 +50,9 @@ namespace Dungeon12.Bowman.Abilities
 
             var range = @class.Range / 15;
 
-            var arrow = new ArrowObject(avatar.VisionDirection, 4 + range, 15, speed);
+            var dmg = ScaledValue(@class);
+
+            var arrow = new ArrowObject(avatar.VisionDirection, 4 + range, dmg, speed);
 
             this.UseEffects(new Arrow(@class,gameMap, arrow, avatar.VisionDirection,new Dungeon.Types.Point(avatar.Position.X / 32, avatar.Position.Y / 32)).InList<ISceneObject>());
         }

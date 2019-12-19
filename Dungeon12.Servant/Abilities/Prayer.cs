@@ -21,8 +21,8 @@ namespace Dungeon12.Servant.Abilities
         public override AbilityTargetType TargetType => AbilityTargetType.SelfTarget;
 
         public override string Name => "Молитва";
-        
-        //public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AttackDamage);
+
+        public override ScaleRate<Servant> Scale => new ScaleRate<Servant>(x => x.Level * 1);
 
         protected override bool CanUse(Servant @class) => true;
 

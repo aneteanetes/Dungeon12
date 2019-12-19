@@ -268,19 +268,6 @@
         where TClass: Character
         where TTalants : TalantTree<TClass>, new()
     {
-        public Ability()
-        {
-            scale = this.Scale.Build();
-        }
-
-        public override void BuildScales()
-        {
-            scale = this.Scale.Build();
-        }
-
-        private ScaleRateBuilded<TClass> scale;
-
-        public override IEnumerable<ScaleRateInfo> Rates => scale.Scales;
 
         protected override bool CastAvailable(Avatar avatar)
         {
@@ -294,17 +281,6 @@
 
             return false;
         }
-
-        public long ScaledValue(TClass @class, long value) => scale.Scale(@class, value);
-
-        public long ScaledValue(TClass @class) => scale.Scale(@class, Value);
-
-        public override long ScaledValue() => ScaledValue(Global.GameState.Character as TClass);
-
-        /// <summary>
-        /// Скалирование навыка от характеристик
-        /// </summary>
-        public abstract ScaleRate<TClass> Scale { get; }
 
         protected override void Cast(GameMap map, Avatar avatar)
         {
@@ -333,6 +309,32 @@
     public abstract class Ability<TClass> : Ability
         where TClass : Character
     {
+
+        private ScaleRateBuilded<TClass> scale;
+
+        public Ability()
+        {
+            scale = this.Scale.Build();
+        }
+
+        public override void BuildScales()
+        {
+            scale = this.Scale.Build();
+        }
+
+        public long ScaledValue(TClass @class, long value) => scale.Scale(@class, value);
+
+        public long ScaledValue(TClass @class) => scale.Scale(@class, Value);
+
+        public override long ScaledValue() => ScaledValue(Global.GameState.Character as TClass);
+
+        public override IEnumerable<ScaleRateInfo> Rates => scale.Scales;
+
+        /// <summary>
+        /// Скалирование навыка от характеристик
+        /// </summary>
+        public abstract ScaleRate<TClass> Scale { get; }
+
         protected abstract bool CanUse(TClass @class);
 
         protected override bool CastAvailable(Avatar avatar)

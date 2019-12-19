@@ -42,8 +42,8 @@ namespace Dungeon12.Bowman
         public RainOfArrows RainOfArrows { get; set; } = new RainOfArrows();
 
         public Dodge Dodge { get; set; } = new Dodge();
-        
-        public override string MainAbilityDamageText => $"Выстрел: 15";
+
+        public override string MainAbilityDamageText => $"Выстрел: {this.SpeedShot.ScaledValue(this)}";
 
         public override IDrawText MainAbilityDamageView => MainAbilityDamageText.AsDrawText().Montserrat().InColor(DrawColor.SandyBrown);
 

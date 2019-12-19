@@ -15,9 +15,9 @@ namespace Dungeon12.Bowman.Effects
 
         public int CountPerSec { get; set; }
 
-        public int MinDmg { get; set; }
+        public long MinDmg { get; set; }
 
-        public int MaxDmg { get; set; }
+        public long MaxDmg { get; set; }
 
         public int TimeMs { get; set; }
 
@@ -73,7 +73,7 @@ namespace Dungeon12.Bowman.Effects
 
                 _gameMap.All<NPCMap>(rangeObj).ForEach(mob =>
                 {
-                    long Damage = RandomDungeon.Range(2, 11);
+                    long Damage = RandomDungeon.Range(MinDmg, MaxDmg);
                     mob.Entity.Damage(_bowman,new Damage()
                     {
                         Amount=Damage,

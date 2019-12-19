@@ -17,7 +17,7 @@ namespace Dungeon12.Bowman.Abilities
 
         public override string Name => "Ливень стрел";
 
-        //public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AbilityPower);
+        public override ScaleRate<Bowman> Scale => new ScaleRate<Bowman>(x => x.AttackDamage * 0.6, x => x.AttackSpeed * 0.8);
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.DmgHealInstant;
 
@@ -34,6 +34,8 @@ namespace Dungeon12.Bowman.Abilities
         {
         }
 
+        public override long Value => Global.GameState.Character.Level * 2;
+
         protected override void Use(GameMap gameMap, Avatar avatar, Bowman @class)
         {
             @class.Energy.LeftHand -= 35;
@@ -43,7 +45,14 @@ namespace Dungeon12.Bowman.Abilities
 
             var destination = avatar.Location.CalculatePath(PointerLocation.GameCoordinates, range, 0.5);
 
-            this.UseEffects(new ArrowRain(@class, 3000, destination, gameMap).InList<ISceneObject>());
+            var minDamage = ScaledValue(@class);
+            var maxDamage = minDamage * 5;
+
+            this.UseEffects(new ArrowRain(@class, 3000, destination, gameMap)
+            {
+                MinDmg=minDamage,
+                MaxDmg=maxDamage
+            }.InList<ISceneObject>());
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Dungeon12.Bowman.Abilities
 
         public override string Name => "Увернуться";
 
-        //public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AttackDamage);
+        public override ScaleRate<Bowman> Scale => new ScaleRate<Bowman>(x => x.AttackSpeed * 0.001);
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.Special;
 
@@ -31,6 +31,8 @@ namespace Dungeon12.Bowman.Abilities
         {
         }
 
+        public override long Value => 5;
+
         protected override void Use(GameMap gameMap, Avatar avatar, Bowman @class)
         {
             var direction = avatar.VisionDirection.Opposite();
@@ -38,7 +40,7 @@ namespace Dungeon12.Bowman.Abilities
 
             move(false);
 
-            var plusSpeed = 0.5;
+            var plusSpeed = ScaledValue(@class,Value/10);
             avatar.MovementSpeed += plusSpeed;
 
             var posX = avatar.Position.X;

@@ -17,7 +17,7 @@ namespace Dungeon12.Servant.Abilities
 
         public override string Name => "Освящение";
 
-        //public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AbilityPower);
+        public override ScaleRate<Servant> Scale => new ScaleRate<Servant>(x => x.Defence * 1.17, x => x.Barrier * 2.12);
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.DmgHealInstant;
 
@@ -29,14 +29,16 @@ namespace Dungeon12.Servant.Abilities
         {
         }
 
+        public override long Value => 1;
+
         protected override void Use(GameMap gameMap, Avatar avatar, Servant @class)
         {
             @class.FaithPower.Value -= 3;
 
-            this.UseEffects(new СonsecrationCircle(gameMap, avatar)
+            this.UseEffects(new СonsecrationCircle(gameMap, avatar, ScaledValue(@class))
             {
                 Left = (avatar.Position.X / 32) - 1.25,
-                Top = (avatar.Position.Y / 32)-0.25
+                Top = (avatar.Position.Y / 32) - 0.25
             }.Init(5000).InList<ISceneObject>());
         }
     }

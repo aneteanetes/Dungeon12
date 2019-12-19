@@ -18,9 +18,9 @@ namespace Dungeon12.Servant.Effects.Сonsecration
 
         public override bool CacheAvailable => false;
         
-        public СonsecrationCircle(GameMap gameMap, PhysicalObject position) : base("Effects/concentration.png".AsmImgRes())
+        public СonsecrationCircle(GameMap gameMap, PhysicalObject position, long buffValue) : base("Effects/concentration.png".AsmImgRes())
         {
-            var totem = new ConsecrationCircleTotem(position.Position.X / 32, position.Position.Y / 32);
+            var totem = new ConsecrationCircleTotem(position.Position.X / 32, position.Position.Y / 32, buffValue);
             gameMap.MapObject.Add(totem);
 
             this.Width = 3;
@@ -70,7 +70,7 @@ namespace Dungeon12.Servant.Effects.Сonsecration
 
     public class ConsecrationCircleTotem : Totem
     {
-        public ConsecrationCircleTotem(double x, double y)
+        public ConsecrationCircleTotem(double x, double y,long buffValue)
         {
             this.Location = new Dungeon.Types.Point(x, y);
             this.Location.X -= 1.5;
@@ -81,25 +81,35 @@ namespace Dungeon12.Servant.Effects.Сonsecration
                 Height = 1.5 * 32,
                 Width = 3 * 32
             };
+
+            buff = new Lazy<Buff>(() => new Buff(buffValue));
         }
 
-        public override Applicable ApplicableEffect { get; } = new Buff();
+        private Lazy<Buff> buff;
+
+        public override Applicable ApplicableEffect => buff.Value;
 
         public override bool CanAffect(MapObject @object) => @object is Avatar;
 
         private class Buff : Applicable
         {
+            private long _buffValue;
+            public Buff(long buffValue)
+            {
+                _buffValue = buffValue;
+            }
+
             public void Apply(Avatar @object)
             {
-                @object.Character.Defence += 10;
-                @object.Character.Barrier += 10;
+                @object.Character.Defence += _buffValue;
+                @object.Character.Barrier += _buffValue;
                 base.Apply(@object);
             }
 
             public void Discard(Avatar @object)
             {
-                @object.Character.Defence -= 10;
-                @object.Character.Barrier -= 10;
+                @object.Character.Defence -= _buffValue;
+                @object.Character.Barrier -= _buffValue;
                 base.Discard(@object);
             }
 

@@ -22,16 +22,17 @@ namespace Dungeon12.Servant.Abilities
 
         public override string Name => "Исцеление";
 
-        //public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AttackDamage);
+        public override ScaleRate<Servant> Scale => new ScaleRate<Servant>(x => x.AbilityPower * 1.2);
 
         protected override bool CanUse(Servant @class) => !@class.Serve && @class.FaithPower.Value >= 1;
+
+        public override long Value => 5 * Global.GameState.Character.Level;
 
         protected override void Use(GameMap gameMap, Avatar avatar, Servant @class)
         {
             @class.FaithPower.Value--;
 
-            long val = 10;
-            Target.HitPoints += val;
+            Target.HitPoints += ScaledValue(@class) + @class.HealPower;
             Global.AudioPlayer.Effect(@"Audio\Sound\heal.wav".AsmNameRes());
             Target.MapObject.SceneObject.AddEffects(new HealEffect());
         }

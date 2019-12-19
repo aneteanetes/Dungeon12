@@ -21,7 +21,7 @@ namespace Dungeon12.Bowman.Abilities
 
         public override string Name => "Сильный выстрел";
 
-        //public override ScaleRate Scale => ScaleRate.Build(Dungeon12.Entities.Enums.Scale.AttackDamage);
+        public override ScaleRate<Bowman> Scale => new ScaleRate<Bowman>(x => x.AttackDamage * 0.9);
 
         private Bowman rangeclass;
         protected override bool CanUse(Bowman @class)
@@ -36,6 +36,8 @@ namespace Dungeon12.Bowman.Abilities
         {
         }
 
+        public override long Value => 10;
+
         protected override void Use(GameMap gameMap, Avatar avatar, Bowman @class)
         {
             @class.Energy.RightHand -= 15;
@@ -49,7 +51,9 @@ namespace Dungeon12.Bowman.Abilities
             }
             var range = @class.Range / 15;
 
-            var arrow = new ArrowObject(avatar.VisionDirection, 4 + range, 27, speed);
+            var dmg = ScaledValue(@class);
+
+            var arrow = new ArrowObject(avatar.VisionDirection, 4 + range, dmg, speed);
 
             this.UseEffects(new Arrow(@class, gameMap, arrow, avatar.VisionDirection, new Dungeon.Types.Point(avatar.Position.X / 32, avatar.Position.Y / 32), true).InList<ISceneObject>());
         }
