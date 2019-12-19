@@ -58,7 +58,7 @@
         }
 
         public int Actions { get; set; } = 5;
-        
+
         public override string Tileset => "Images/sprite.png".NoonePath();
 
         [ClassStat("Блок", ConsoleColor.DarkGreen, 1, "При получении урона есть шанс равный блоку уменьшить урон на процентное соотношение равное блоку.")]
@@ -82,7 +82,7 @@
 
         public AbsorbingTalants Absorbing { get; set; } = new AbsorbingTalants();
 
-        public DefensibleTalants Defensible { get; set; } = new DefensibleTalants();
+        public DamageTalants DamageTalants { get; set; } = new DamageTalants();
 
         public Attack Attack { get; set; } = new Attack();
 
@@ -101,7 +101,7 @@
             switch (typeof(T))
             {
                 case Type abs when abs == typeof(AbsorbingTalants): return Absorbing as T;
-                case Type abs when abs == typeof(DefensibleTalants): return Defensible as T;
+                case Type abs when abs == typeof(DamageTalants): return DamageTalants as T;
                 default: return default;
             }
         }
@@ -122,7 +122,7 @@
                     return new T[]
 {
                         Absorbing as T,
-                        Defensible as T
+                        DamageTalants as T
 };
                 default: return default;
             }
