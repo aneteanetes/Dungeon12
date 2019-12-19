@@ -192,7 +192,7 @@ namespace Dungeon12.Noone.Talants
         {
         }
 
-        public TalantInfo TalantInfo(ShieldSkill shieldSkill)
+        public TalantInfo TalantInfo(ShockWave shieldSkill)
         {
             return new TalantInfo()
             {

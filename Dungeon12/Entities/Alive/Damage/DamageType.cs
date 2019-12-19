@@ -79,38 +79,4 @@ namespace Dungeon12.Entities.Alive
         public static DamageType Light = Make(nameof(Light));
         public static DamageType Death = Make(nameof(Death));
     }
-
-    //public enum DamageElement
-    //{
-    //    [Title( Name = "Физический урон" })]
-    //    Physical = 0,
-    //    [Title("Кинетический урон")]
-    //    Kenetic = 2,
-
-    //    [Title("Огонь")]
-    //    Fire = 10,
-    //    [Title("Холод")]
-    //    Cold = 20,
-
-    //    [Title("Магический урон")]
-    //    Magical = 100,
-    //    [Title("Светлая магия")]
-    //    HolyMagic = 200,
-    //    [Title("Тёмная магия")]
-    //    DarkMagic = 300,
-    //    [Title("Магия огня")]
-    //    FireMagic = 400,
-    //    [Title("Магия льда")]
-    //    FrostMagic = 500,
-
-
-    //    [Title("Стихийный урон")]
-    //    Elemental = 1000,
-    //    [Title("Природа")]
-    //    Nature = 2000,
-    //    [Title("Свет")]
-    //    Light = 3000,
-    //    [Title("Смерть")]
-    //    Death = 4000,
-    //}
 }

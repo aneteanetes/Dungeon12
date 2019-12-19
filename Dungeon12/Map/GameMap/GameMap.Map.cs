@@ -13,6 +13,7 @@
     using static Dungeon12.Global;
     using Dungeon;
     using Dungeon12.Map.Events;
+    using System.Diagnostics;
 
     public partial class GameMap
     {
@@ -193,6 +194,53 @@
             var val = offset * awayRange * dir;
 
             return val;
+        }
+
+        public void AddMapObject(MapObject mapObject, int tries=20)
+        {
+            for (int i = 0; i < tries; i++)
+            {
+                if (TryAdd(mapObject))
+                {
+                    break;
+                }
+            }
+        }
+
+        private bool TryAdd(MapObject mapObject)
+        {
+            var map = this;
+
+            var otherObject = map.MapObject.Query(mapObject).Nodes.Any(node => node.IntersectsWithOrContains(mapObject));
+            if (otherObject)
+                return false;
+
+            if (InSafe(mapObject))
+            {
+                return false;
+            }
+
+            bool underTexture = false;
+
+            // объект попадает на "пол" - какую либо текстуру
+            if (Global.GameState.Map.Textures.Any(t => t.IntersectsWithOrContains(mapObject)))
+            {
+                if (map.MapObject.Query(mapObject).Nodes.Any(node => node.IntersectsWithOrContains(mapObject)))
+                {
+                    Debugger.Break();
+                }
+
+                underTexture = true;
+            }
+
+            if (!underTexture)
+                return false;
+
+            map.MapObject.Add(mapObject);
+            map.Objects.Add(mapObject);
+            map.PublishObject?.Invoke(mapObject);
+
+            return true;
         }
 
         public class RandomizePositionTry

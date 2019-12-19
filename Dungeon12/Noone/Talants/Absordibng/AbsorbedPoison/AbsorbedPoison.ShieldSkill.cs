@@ -14,11 +14,11 @@ namespace Dungeon12.Noone.Talants.Absordibng
 {
     public partial class AbsorbedPoison : Talant<Noone>
     {
-        public void Discard(ShieldSkill elementalShield) { }
+        public void Discard(ShockWave elementalShield) { }
 
-        public bool CanUse(ShieldSkill elementalShield) => Class.Actions >= 4;
+        public bool CanUse(ShockWave elementalShield) => Class.Actions >= 4;
         
-        public void Apply(ShieldSkill elementalShield)
+        public void Apply(ShockWave elementalShield)
         {
             Class.Actions -= 1;
 
@@ -54,7 +54,7 @@ namespace Dungeon12.Noone.Talants.Absordibng
             }
         }
 
-        public TalantInfo TalantInfo(ShieldSkill elementalShield)
+        public TalantInfo TalantInfo(ShockWave elementalShield)
         {
             return new TalantInfo()
             {

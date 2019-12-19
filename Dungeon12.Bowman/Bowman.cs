@@ -23,7 +23,7 @@ namespace Dungeon12.Bowman
 
         public override string Avatar => "archer.png".AsmImgRes();
 
-        public override string ClassName => "Лучник";
+        public override string ClassName => "Охотник";
 
         public override IDrawColor ClassColor => DrawColor.ForestGreen;
 
@@ -41,7 +41,7 @@ namespace Dungeon12.Bowman
 
         public RainOfArrows RainOfArrows { get; set; } = new RainOfArrows();
 
-        public Dodge Dodge { get; set; } = new Dodge();
+        public Trap Trap { get; set; } = new Trap();
 
         public override string MainAbilityDamageText => $"Выстрел: {this.SpeedShot.ScaledValue(this)}";
 
@@ -59,7 +59,7 @@ namespace Dungeon12.Bowman
                         SpeedShot as T,
                         MightShot as T,
                         RainOfArrows as T,
-                        Dodge as T
+                        Trap as T
                     };
                 case Type t when t.IsAssignableFrom(typeof(TalantTree)):
                     return new T[] { ArrowMakingTalants as T };

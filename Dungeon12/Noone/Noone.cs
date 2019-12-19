@@ -58,7 +58,7 @@
         }
 
         public int Actions { get; set; } = 5;
-
+        
         public override string Tileset => "Images/sprite.png".NoonePath();
 
         [ClassStat("Блок", ConsoleColor.DarkGreen, 1, "При получении урона есть шанс равный блоку уменьшить урон на процентное соотношение равное блоку.")]
@@ -88,7 +88,7 @@
 
         public Defstand Defstand { get; set; } = new Defstand();
 
-        public ShieldSkill ShieldSkill { get; set; } = new ShieldSkill();
+        public ShockWave ShockWave { get; set; } = new ShockWave();
 
         public Defaura Defaura { get; set; } = new Defaura();
 
@@ -110,18 +110,20 @@
         {
             switch (typeof(T))
             {
-                case Type t when t.IsAssignableFrom(typeof(Ability)): return new T[]
-                    {
+                case Type t when t.IsAssignableFrom(typeof(Ability)):
+                    return new T[]
+{
                         Attack as T,
                         Defstand as T,
-                        ShieldSkill as T,
+                        ShockWave as T,
                         Defaura as T
-                    };
-                case Type t when t.IsAssignableFrom(typeof(TalantTree)): return new T[]
-                    {
+};
+                case Type t when t.IsAssignableFrom(typeof(TalantTree)):
+                    return new T[]
+{
                         Absorbing as T,
                         Defensible as T
-                    };
+};
                 default: return default;
             }
         }
@@ -153,8 +155,14 @@
             return amount;
         }
 
+        public bool InDefstand { get; set; }
+
         protected long DamagePhysical(Damage dmg)
         {
+            if (!InDefstand)
+            {
+                RestoreActions(default, default);
+            }
             return dmg.Amount - this.Armor / 2;
         }
     }

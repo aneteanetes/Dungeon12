@@ -48,7 +48,7 @@
 
             if (enemy != null)
             {
-                @class.Actions -= 1;
+                @class.Actions -= 2;
                 var value = this.ScaledValue(@class, Value);
 
                 enemy.Entity.Damage(@class, new Dungeon12.Entities.Alive.Damage()

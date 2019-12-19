@@ -192,6 +192,8 @@ namespace Dungeon.Types
 
         public Point Copy() => new Point(this);
 
+        public Point Clone() => Copy();
+
         public bool EqualTo(double x, double y)
         {
             return this.X == x && this.Y == y;

@@ -29,10 +29,11 @@
 
         protected override void Use(GameMap gameMap, Avatar avatar, Noone @class)
         {
-            @class.Actions -= 2;
+            @class.Actions -= 2;            
             var v = ScaledValue(@class);
             holdedBuf = new ArmorBuf(v);
             avatar.AddState(holdedBuf);
+            @class.InDefstand = true;
         }
 
         protected override void Dispose(GameMap gameMap, Avatar avatar, Noone @class)
@@ -41,6 +42,7 @@
             {
                 avatar.RemoveState(holdedBuf);
                 holdedBuf = null;
+                @class.InDefstand = false;
             }
         }
 
