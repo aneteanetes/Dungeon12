@@ -1,6 +1,6 @@
 ﻿{
-  "Level": 3,
-  "Name": "Культист Крови",
+  "Level": 6,
+  "Name": "Летучая мышь",
   "IsEnemy": true,
   "VisionMultiples": {
     "X": 6,
@@ -14,14 +14,14 @@
     "X": 1,
     "Y": 1
   },
-  "Tileset": "Dungeon12.Resources.Images.Enemies.cultists.png",
+  "Tileset": "Dungeon12.Resources.Images.Enemies.enemies.png",
   "TileSetRegion": {
     "X": 64,
     "Y": 0,
     "Width": 32,
     "Height": 32
   },
-  "FractionIdentify": "CultOfBlood",
+  "FractionIdentify": "FaithIslandFauna",
   "MovementSpeed": 0.01,
   "NPC": {
     "ChasingPlayers": true,
@@ -31,25 +31,25 @@
       "From": 100,
       "To": 300
     },
-    "LootTableName": "BloodNovice",
+    "LootTableName": "Bat",
     "Aggressive": true,
     "Idle": {
-      "Tileset": "Rgoue.Resource.Images.Enemies.bats.png",
+      "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
       "Size": {
         "X": 32,
         "Y": 32
       },
       "Frames": [
         {
-          "X": 192,
+          "X": 0,
           "Y": 0
         },
         {
-          "X": 224,
+          "X": 32,
           "Y": 0
         },
         {
-          "X": 256,
+          "X": 64,
           "Y": 0
         }
       ],
@@ -57,103 +57,103 @@
       "FramesPerSecond": 1.5
     },
     "MoveUp": {
-      "Tileset": "Rgoue.Resource.Images.Enemies.bats.png",
+      "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
       "Size": {
         "X": 32,
         "Y": 32
       },
       "Frames": [
         {
-          "X": 192,
+          "X": 0,
           "Y": 96
         },
         {
-          "X": 224,
+          "X": 32,
           "Y": 96
         },
         {
-          "X": 256,
+          "X": 64,
           "Y": 96
         }
       ],
       "Direction": 1
     },
     "MoveDown": {
-      "Tileset": "Rgoue.Resource.Images.Enemies.bats.png",
+      "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
       "Size": {
         "X": 32,
         "Y": 32
       },
       "Frames": [
         {
-          "X": 192,
+          "X": 0,
           "Y": 0
         },
         {
-          "X": 224,
+          "X": 32,
           "Y": 0
         },
         {
-          "X": 256,
+          "X": 64,
           "Y": 0
         }
       ],
       "Direction": 2
     },
     "MoveLeft": {
-      "Tileset": "Rgoue.Resource.Images.Enemies.bats.png",
+      "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
       "Size": {
         "X": 32,
         "Y": 32
       },
       "Frames": [
         {
-          "X": 192,
+          "X": 0,
           "Y": 32
         },
         {
-          "X": 224,
+          "X": 32,
           "Y": 32
         },
         {
-          "X": 256,
+          "X": 64,
           "Y": 32
         }
       ],
       "Direction": 3
     },
     "MoveRight": {
-      "Tileset": "Rgoue.Resource.Images.Enemies.bats.png",
+      "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
       "Size": {
         "X": 32,
         "Y": 32
       },
       "Frames": [
         {
-          "X": 192,
+          "X": 0,
           "Y": 64
         },
         {
-          "X": 224,
+          "X": 32,
           "Y": 64
         },
         {
-          "X": 256,
+          "X": 64,
           "Y": 64
         }
       ],
       "Direction": 4
     },
-    "DieImage": "Dungeon12.Resources.Images.Enemies.bats.png",
+    "DieImage": "Dungeon12.Resources.Images.Enemies.enemies.png",
     "DieImagePosition": {
       "X": 32,
       "Y": 0,
       "Width": 32,
       "Height": 16
     },
-    "MinDMG": 4,
-    "MaxDMG": 8,
-    "HitPoints": 50
+    "MinDMG": 5,
+    "MaxDMG": 5,
+    "HitPoints": 35
   }
 }
 

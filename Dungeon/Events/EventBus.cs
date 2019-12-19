@@ -45,13 +45,14 @@ namespace Dungeon.Events
             string eventName = EventTypeName<TEvent>();
             if (autoUnsubscribe)
             {
-                void subs(TEvent @event)
+                Action<TEvent> subs = null;
+                subs = (@event)=>
                 {
                     action?.Invoke(@event);
-                    events[eventName] = ev -= subs;
-                }
+                    events[eventName] = Delegate.Remove(events[eventName], subs);
+                };
 
-                events[eventName] = ev += subs;
+                events[eventName] = Delegate.Combine(events[eventName], subs);
             }
             else
             {

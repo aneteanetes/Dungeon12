@@ -37,6 +37,69 @@
       }
     },
     {
+      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Respawn",
+      "Zone": {
+        "Position": {
+          "X": 6,
+          "Y": 7
+        },
+        "Size": {
+          "Width": 13,
+          "Height": 16
+        }
+      },
+      "Respawns": [
+        {
+          "Identify": "CultFanatic",
+          "Icon": "Npc",
+          "Amount": 10
+        }
+      ]
+    },
+    {
+      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Respawn",
+      "Zone": {
+        "Position": {
+          "X": 30,
+          "Y": 4.5
+        },
+        "Size": {
+          "Width": 11,
+          "Height": 18.5
+        }
+      },
+      "Respawns": [
+        {
+          "Identify": "CultFanatic",
+          "Icon": "Npc",
+          "Amount": 10
+        }
+      ]
+    },
+    {
+      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Respawn",
+      "Zone": {
+        "Position": {
+          "X": 6,
+          "Y": 6
+        },
+        "Size": {
+          "Width": 8,
+          "Height": 10
+        }
+      },
+      "Respawns": [
+        {
+          "Identify": "CultBloodMage",
+          "Icon": "Npc",
+          "Amount": 10
+        }
+      ]
+    },
+    {
       "Icon": null,
       "Region": {
         "X": 32.0,

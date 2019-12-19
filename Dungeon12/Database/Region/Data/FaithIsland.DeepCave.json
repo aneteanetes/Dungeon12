@@ -31,19 +31,82 @@
       "Icon": "Respawn",
       "Zone": {
         "Position": {
-          "X": 37,
-          "Y": 18
+          "X": 36,
+          "Y": 4
         },
         "Size": {
-          "Width": 15,
-          "Height": 9
+          "Width": 32,
+          "Height": 37
         }
       },
       "Respawns": [
         {
-          "Identify": "Bat",
+          "Identify": "Wolf",
           "Icon": "Npc",
-          "Amount": 10
+          "Amount": 25
+        }
+      ]
+    },
+    {
+      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Respawn",
+      "Zone": {
+        "Position": {
+          "X": 29,
+          "Y": 5
+        },
+        "Size": {
+          "Width": 4,
+          "Height": 4.5
+        }
+      },
+      "Respawns": [
+        {
+          "Identify": "GuardLeft",
+          "Icon": "Npc",
+          "Amount": 5
+        }
+      ]
+    },
+    {
+      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Respawn",
+      "Zone": {
+        "Position": {
+          "X": 6,
+          "Y": 6
+        },
+        "Size": {
+          "Width": 19,
+          "Height": 18
+        }
+      },
+      "Respawns": [
+        {
+          "Identify": "Spider",
+          "Icon": "Npc",
+          "Amount": 15
+        }
+      ]
+    },
+    {
+      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Respawn",
+      "Zone": {
+        "Position": {
+          "X": 17.5,
+          "Y": 54
+        },
+        "Size": {
+          "Width": 10,
+          "Height": 8
+        }
+      },
+      "Respawns": [
+        {
+          "Identify": "BloodNovice",
+          "Icon": "Npc",
+          "Amount": 6
         }
       ]
     },

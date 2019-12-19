@@ -9,6 +9,48 @@
   "IdentifyName": "FaithIsland.Sanctuary",
   "Objects": [
     {
+      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Respawn",
+      "Zone": {
+        "Position": {
+          "X": 24,
+          "Y": 35
+        },
+        "Size": {
+          "Width": 1,
+          "Height": 1
+        }
+      },
+      "Respawns": [
+        {
+          "Identify": "Boss",
+          "Icon": "Npc",
+          "Amount": 1
+        }
+      ]
+    },
+    {
+      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Respawn",
+      "Zone": {
+        "Position": {
+          "X": 7,
+          "Y": 22
+        },
+        "Size": {
+          "Width": 13,
+          "Height": 19
+        }
+      },
+      "Respawns": [
+        {
+          "Identify": "CultBloodMage",
+          "Icon": "Npc",
+          "Amount": 5
+        }
+      ]
+    },
+    {
       "Icon": null,
       "Region": {
         "X": 32.0,

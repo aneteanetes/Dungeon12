@@ -37,6 +37,27 @@
       }
     },
     {
+      "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Icon": "Respawn",
+      "Zone": {
+        "Position": {
+          "X": 8,
+          "Y": 4
+        },
+        "Size": {
+          "Width": 7,
+          "Height": 6
+        }
+      },
+      "Respawns": [
+        {
+          "Identify": "MiniBoss3",
+          "Icon": "Npc",
+          "Amount": 1
+        }
+      ]
+    },
+    {
       "Icon": null,
       "Region": {
         "X": 32.0,
