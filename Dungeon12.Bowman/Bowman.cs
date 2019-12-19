@@ -1,15 +1,12 @@
-﻿using Dungeon12.Abilities;
-using Dungeon12.Abilities.Talants.TalantTrees;
-using Dungeon12.Bowman.Talants;
-using Dungeon12.Bowman.Abilities;
-using System;
-using System.Collections.Generic;
-using Dungeon12.Bowman;
-using Dungeon12.Classes;
-using Dungeon;
-using Dungeon12.Drawing;
-using Dungeon.View.Interfaces;
+﻿using Dungeon;
 using Dungeon.Drawing;
+using Dungeon.View.Interfaces;
+using Dungeon12.Abilities;
+using Dungeon12.Abilities.Talants.TalantTrees;
+using Dungeon12.Bowman.Abilities;
+using Dungeon12.Bowman.Talants;
+using Dungeon12.Classes;
+using System;
 
 namespace Dungeon12.Bowman
 {

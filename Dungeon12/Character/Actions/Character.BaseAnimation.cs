@@ -68,12 +68,12 @@ namespace Dungeon12.Classes
 
     public class BaseAnimationMap : AnimationMap
     {
-        public BaseAnimationMap(string tileSet)
+        public BaseAnimationMap(string tileSet,int x=32, int y=32)
         {
             this.Size = new Point
             {
-                X = 32,
-                Y = 32
+                X = x,
+                Y = y
             };
 
             this.TileSet = tileSet;
