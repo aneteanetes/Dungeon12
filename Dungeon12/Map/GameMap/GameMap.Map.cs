@@ -14,6 +14,7 @@
     using Dungeon;
     using Dungeon12.Map.Events;
     using System.Diagnostics;
+    using MoreLinq;
 
     public partial class GameMap
     {
@@ -43,20 +44,28 @@
 
             foreach (var regionObject in persistRegion.Objects)
             {
-                if(regionObject.Obstruct && persistRegion.Offset!=default)
+                if (regionObject.Obstruct && persistRegion.Offset != default)
                 {
                     regionObject.Position.X += persistRegion.Offset.X;
                     regionObject.Position.Y += persistRegion.Offset.Y;
                 }
 
-                var obj = Map.MapObject.Create(regionObject);
-                obj.Destroy += () => { this.MapObject.Remove(obj); };
-                this.MapObject.Add(obj);
+                AddMapObjectIniting(regionObject);
+            }
 
-                if (!(obj is Wall))
+            var left = persistRegion.Objects.Min(o => o.Position.X);
+            var right = persistRegion.Objects.Max(o => o.Position.X);
+            var top = persistRegion.Objects.Min(o => o.Position.Y);
+            var down = persistRegion.Objects.Max(o => o.Position.Y);
+
+            foreach (var randomRespawn in persistRegion.RandomObjects)
+            {
+                randomRespawn.Zone = new PhysicalObject()
                 {
-                    this.Objects.Add(obj);
-                }
+                    Position = new PhysicalPosition() { X = left, Y = top },
+                    Size = new PhysicalSize() { Height = down - top, Width = right - left }
+                };
+                AddMapObjectIniting(randomRespawn);
             }
 
             this.Name = persistRegion.Display;
@@ -66,6 +75,18 @@
             ProcessLoad();
 
             return persistRegion.Name;
+        }
+
+        private void AddMapObjectIniting(RegionPart regionObject)
+        {
+            var obj = Map.MapObject.Create(regionObject);
+            obj.Destroy += () => { this.MapObject.Remove(obj); };
+            this.MapObject.Add(obj);
+
+            if (!(obj is Wall))
+            {
+                this.Objects.Add(obj);
+            }
         }
 
         public Region LoadedRegionData { get; set; }

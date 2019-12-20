@@ -7,6 +7,23 @@
   "Display": "Глубокие пещеры",
   "IsUnderLevel": true,
   "IdentifyName": "FaithIsland.DeepCave",
+  "RandomObjects": [
+    {
+      "Icon": "Respawn",
+      "Respawns": [
+        {
+          "Identify": "WoodenChest",
+          "Icon": "Chest",
+          "Amount": 3
+        },
+        {
+          "Identify": "Chest",
+          "Icon": "Chest",
+          "Amount": 6
+        }
+      ]
+    }
+  ],
   "Offset": {
     "X": -6.5,
     "Y": -1

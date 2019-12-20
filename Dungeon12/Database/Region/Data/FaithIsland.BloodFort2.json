@@ -7,6 +7,18 @@
   "Display": "‘орт  ульта  рови 2",
   "IsUnderLevel": true,
   "IdentifyName": "FaithIsland.BloodFort2",
+  "RandomObjects": [
+    {
+      "Icon": "Respawn",
+      "Respawns": [
+        {
+          "Identify": "RedChest",
+          "Icon": "Chest",
+          "Amount": 3
+        }
+      ]
+    }
+  ],
   "Objects": [
     {
       "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",

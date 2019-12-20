@@ -7,6 +7,18 @@
     "VectorX": 0,
     "VectorY": 0
   },
+  "RandomObjects": [
+    {
+      "Icon": "Respawn",
+      "Respawns": [
+        {
+          "Identify": "WoodenChest",
+          "Icon": "Chest",
+          "Amount": 6
+        }
+      ]
+    }
+  ],
   "Name": "FaithIsland",
   "Display": "Остров Веры",
   "Objects": [

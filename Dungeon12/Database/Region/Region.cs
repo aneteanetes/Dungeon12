@@ -4,6 +4,7 @@
     using Dungeon.Types;
     using Dungeon.Data;
     using System.Collections.Generic;
+    using Dungeon12.Database.Respawn;
 
     public class Region : Persist
     {
@@ -18,6 +19,8 @@
         public List<RegionPart> Objects { get; set; }
 
         public List<PhysicalObject> SafeZones { get; set; }
+
+        public List<RespawnData> RandomObjects { get; set; } = new List<RespawnData>();
 
         public string Name { get; set; }
 

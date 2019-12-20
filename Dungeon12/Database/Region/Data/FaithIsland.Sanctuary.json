@@ -7,6 +7,18 @@
   "Display": "Святилище",
   "IsUnderLevel": true,
   "IdentifyName": "FaithIsland.Sanctuary",
+  "RandomObjects": [
+    {
+      "Icon": "Respawn",
+      "Respawns": [
+        {
+          "Identify": "RedChest",
+          "Icon": "Chest",
+          "Amount": 1
+        }
+      ]
+    }
+  ],
   "Objects": [
     {
       "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",

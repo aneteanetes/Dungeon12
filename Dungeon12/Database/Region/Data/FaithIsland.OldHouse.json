@@ -7,6 +7,23 @@
   "Display": "Западная пещера",
   "IsUnderLevel": true,
   "IdentifyName": "FaithIsland.OldHouse",
+  "RandomObjects": [
+    {
+      "Icon": "Respawn",
+      "Respawns": [
+        {
+          "Identify": "WoodenChest",
+          "Icon": "Chest",
+          "Amount": 6
+        },
+        {
+          "Identify": "Chest",
+          "Icon": "Chest",
+          "Amount": 6
+        }
+      ]
+    }
+  ],
   "Objects": [
     {
       "$type": "Dungeon12.Data.TransporterData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
