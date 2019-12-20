@@ -53,10 +53,10 @@
                 AddMapObjectIniting(regionObject);
             }
 
-            var left = persistRegion.Objects.Min(o => o.Position.X);
-            var right = persistRegion.Objects.Max(o => o.Position.X);
-            var top = persistRegion.Objects.Min(o => o.Position.Y);
-            var down = persistRegion.Objects.Max(o => o.Position.Y);
+            var left = persistRegion.Objects.Min(o => o.Position?.X??0);
+            var right = persistRegion.Objects.Max(o => o.Position?.X??0);
+            var top = persistRegion.Objects.Min(o => o.Position?.Y??0);
+            var down = persistRegion.Objects.Max(o => o.Position?.Y??0);
 
             foreach (var randomRespawn in persistRegion.RandomObjects)
             {

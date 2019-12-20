@@ -1,6 +1,8 @@
 ﻿namespace Dungeon12.Items.Types
 {
+    using Dungeon;
     using Dungeon12.Items.Enums;
+    using Dungeon12.SceneObjects;
     using System.Collections.Generic;
 
     public class Potion : Item
@@ -9,6 +11,8 @@
 
         public Potion(int hitpoints)
         {
+            Name = "Зелье";
+            Tileset = $"Items/Potions/1.gif".AsmImgRes();
             _healing = hitpoints;
             this.BaseStats.Add(new BaseStatEquip()
             {
@@ -27,11 +31,14 @@
 
         public override int QuantityMax => 20;
 
-        public override void PutOn(object character)
+
+        public override void Use()
         {
-            var @char= Global.GameState.Character;
+            var @char = Global.GameState.Character;
             @char.HitPoints += _healing;
             @char.Backpack.Remove(this, @char);
+
+            Toast.Show($"Исцелено: {_healing}");
         }
     }
 }

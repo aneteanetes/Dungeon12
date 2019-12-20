@@ -54,12 +54,12 @@ namespace Dungeon12.Items.Enums
         /// <summary>
         /// Cyan
         /// </summary>
-        [Color(32, 178, 170)]
+        [Color(255, 140, 0)]
         Legendary = 12,
         /// <summary>
         /// DarkYellow
         /// </summary>
-        [Color(255, 165, 0)]
+        [Color(255, 140, 0)]
         Artefact = 15,
         /// <summary>
         /// Red

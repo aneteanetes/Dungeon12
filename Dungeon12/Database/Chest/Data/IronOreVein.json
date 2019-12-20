@@ -1,5 +1,5 @@
 ﻿{
-  "Name": "Сундук",
+  "Name": "Железная жила",
   "LootTable": "IronOreVein",
   "Animation": {
     "TileSet": "Dungeon12.Resources.Images.Objects.chests.png",

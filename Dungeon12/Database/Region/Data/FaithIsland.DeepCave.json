@@ -20,6 +20,11 @@
           "Identify": "Chest",
           "Icon": "Chest",
           "Amount": 6
+        },
+        {
+          "Identify": "Chest",
+          "Icon": "IronOreVein",
+          "Amount": 6
         }
       ]
     }

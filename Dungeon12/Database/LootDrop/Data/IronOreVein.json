@@ -1,0 +1,5 @@
+﻿{
+  "ItemGeneratorTrigger": "SpecialItemsGenerator",
+  "ItemGeneratorArguments": [ "IronOre" ],
+  "Chance": 100
+}

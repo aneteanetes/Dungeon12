@@ -22,8 +22,11 @@
 
         private ItemWear[] itemWears;
 
-        public InventoryItem(ItemWear[] itemWears, Item item)
+        private Inventory _inventory;
+
+        public InventoryItem(ItemWear[] itemWears, Item item, Inventory inventory)
         {
+            _inventory = inventory;
             this.itemWears = itemWears;
             this.Item = item;
             this.Image = item.Tileset;
@@ -93,6 +96,11 @@
                     if (itemWear != default)
                     {
                         itemWear.WearItem(this);
+                    }
+                    else
+                    {
+                        this.Item.Use();
+                        _inventory.Refresh();
                     }
                 }
             }

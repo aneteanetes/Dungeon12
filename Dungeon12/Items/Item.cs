@@ -106,6 +106,8 @@
         [BsonIgnore]
         public LootTable LootTable => LootTable.GetLootTable(this.LootTableName ?? this.IdentifyName);
 
+        public virtual void Use() { }
+
         public int Id { get; set; }
         public int ObjectId { get; set; }
         public string IdentifyName { get; set; }

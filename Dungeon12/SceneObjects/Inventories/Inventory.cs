@@ -76,7 +76,7 @@
 
             foreach (var item in backpack.GetItems())
             {
-                var invItem = new InventoryItem(this.ItemWears, item);
+                var invItem = new InventoryItem(this.ItemWears, item,this);
                 this.AddChild(invItem);
                 this.inventoryItems.Add(invItem);
 
