@@ -1,6 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Data;
 using Dungeon.Types;
+using Dungeon12.Items.Types;
 using LiteDB;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +49,11 @@ namespace Dungeon12.Loot
                         container.Items.Add(loot);
                     }
                 }
+            }
+
+            if(RandomDungeon.Chance(20))
+            {
+                container.Items.Add(new Potion(RandomDungeon.Range(Global.GameState.Character.Level * 5, Global.GameState.Character.Level * 10)));
             }
 
             return container;

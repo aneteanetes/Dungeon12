@@ -59,7 +59,7 @@ namespace Dungeon12.Items.Enums
         /// <summary>
         /// DarkYellow
         /// </summary>
-        [Color(255, 215, 0)]
+        [Color(255, 165, 0)]
         Artefact = 15,
         /// <summary>
         /// Red
