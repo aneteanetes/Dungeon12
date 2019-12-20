@@ -63,6 +63,7 @@
             this.LoadedRegionData = persistRegion;
 
             Global.Events.Raise(new GameMapLoadedEvent() { GameMap = this });
+            ProcessLoad();
 
             return persistRegion.Name;
         }
@@ -129,7 +130,8 @@
                 this.Objects.Add(saveableObject);
             }
 
-            Global.Events.Raise(new GameMapLoadedEvent() { GameMap = this });
+            Global.Events.Raise(new GameMapLoadedEvent() { GameMap = this }); 
+            ProcessLoad();
 
             return persistRegion.Name;
         }
@@ -207,6 +209,25 @@
             }
         }
 
+        public void AddMapObjectDeffered(MapDeferredOptions options) => DeferredMapObjects.Add(options);
+
+        public static List<MapDeferredOptions> DeferredMapObjects = new List<MapDeferredOptions>();
+
+        private void ProcessLoad()
+        {
+            var forDelelete = new List<MapDeferredOptions>();
+            foreach (var deferred in DeferredMapObjects)
+            {
+                if (deferred.MapIdentity == this.MapIdentifyId)
+                {
+                    forDelelete.Add(deferred);
+                    this.AddMapObject(deferred.Object, deferred.Attempts);
+                }
+            }
+
+            forDelelete.ForEach(x => DeferredMapObjects.Remove(x));
+        }
+
         private bool TryAdd(MapObject mapObject)
         {
             var map = this;
@@ -251,5 +272,14 @@
                 ? 1
                 : ((Existed.Count - 1) % 8) + 1;
         }
+    }
+
+    public class MapDeferredOptions
+    {
+        public string MapIdentity { get; set; }
+
+        public MapObject Object { get; set; }
+
+        public int Attempts { get; set; }
     }
 }

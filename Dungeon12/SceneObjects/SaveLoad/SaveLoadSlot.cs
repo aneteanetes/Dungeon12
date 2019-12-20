@@ -93,6 +93,8 @@ namespace Dungeon12.SceneObjects.SaveLoad
 
                             var data = JsonConvert.DeserializeObject<SavedGame>(Component.Data, Global.GetSaveSerializeSettings());
 
+                            GameMap.DeferredMapObjects = data.MapDeferredOptions;
+
                             Global.GameState.PlayerAvatar = new Avatar(data.Character.Character)
                             {
                                 Location = data.Character.Location,

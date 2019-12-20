@@ -29,7 +29,7 @@ namespace Dungeon12
         {
             try
             {
-                Save(0, "Автосохранение");
+                Save(0, "Автосохранение",true);
                 MessageBox.Show($"Ошибка!{Environment.NewLine}Игра сохранена, выйдите и загрузите игру снова!", ok);
             }
             catch (Exception ex1)
@@ -94,7 +94,8 @@ namespace Dungeon12
                         Name = lvl.MapIdentifyId,
                         Objects = lvl.SaveableObjects
                     }).ToList(),
-                    EquipmentState = Global.GameState.Equipment
+                    EquipmentState = Global.GameState.Equipment,
+                    MapDeferredOptions = GameMap.DeferredMapObjects
                 };
 
                 var camera = Global.DrawClient as ICamera;
@@ -230,6 +231,8 @@ namespace Dungeon12
             public List<MapSaveModel> Underlevels { get; set; }
 
             public EquipmentState EquipmentState { get; set; }
+
+            public List<MapDeferredOptions> MapDeferredOptions { get; set; }
         }
 
         public class MapSaveModel
