@@ -29,15 +29,16 @@ namespace Dungeon12.SceneObjects.UI
 
         public void AddDiscover(IQuest quest)
         {
-            this.AddChildCenter(new QuestDescoverSceneObject(quest)
-            {
-                Top = currentTop,
-                Left = .25
-            }, false, false).Destroy += () =>
-              {
-                  currentTop -= space;
-                  Recalculate();
-              };
+            var discover = quest.VisualDescover(false);
+            discover.Top = currentTop;
+            discover.Left = .25;
+            discover.Destroy += () =>
+             {
+                 currentTop -= space;
+                 Recalculate();
+             };
+
+            this.AddChildCenter(discover, false, false);
 
             currentTop += space;
         }

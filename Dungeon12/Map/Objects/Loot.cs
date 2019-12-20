@@ -23,6 +23,8 @@
 
         public virtual string[] TakeTriggerArguments { get; set; }
 
+        public virtual void PickUp() { }
+
         public override ISceneObject Visual()
         {
             return new LootSceneObject(Global.GameState.Player, this, this.Item.Name);

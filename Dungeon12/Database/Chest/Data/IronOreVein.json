@@ -2,27 +2,15 @@
   "Name": "Железная жила",
   "LootTable": "IronOreVein",
   "Animation": {
-    "TileSet": "Dungeon12.Resources.Images.Objects.chests.png",
+    "TileSet": "Dungeon12.Resources.Images.Objects.ironvein.png",
     "Size": {
       "X": 32,
-      "Y": 48
+      "Y": 32
     },
     "Frames": [
       {
-        "X": 32,
+        "X": 0,
         "Y": 0
-      },
-      {
-        "X": 32,
-        "Y": 48
-      },
-      {
-        "X": 32,
-        "Y": 96
-      },
-      {
-        "X": 32,
-        "Y": 144
       }
     ]
   }

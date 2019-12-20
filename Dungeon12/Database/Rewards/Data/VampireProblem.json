@@ -6,5 +6,6 @@
   },
   "RewardText": "Опыт",
   "Exp": 50,
-  "TriggerName": "SimpleRewardTrigger"
+  "TriggerName": "SimpleRewardTrigger",
+  "Variable": "FaithIslandPt2"
 }

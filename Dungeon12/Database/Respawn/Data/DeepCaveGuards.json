@@ -1,0 +1,21 @@
+﻿{
+  "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "Icon": "Respawn",
+  "Zone": {
+    "Position": {
+      "X": 29,
+      "Y": 5
+    },
+    "Size": {
+      "Width": 4,
+      "Height": 4.5
+    }
+  },
+  "LocationIdentify": "FaithIsland.DeepCave",
+  "Respawns": [
+    {
+      "Icon": "DeadGuard",
+      "Amount": 5
+    }
+  ]
+}

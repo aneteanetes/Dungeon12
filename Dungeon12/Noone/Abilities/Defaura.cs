@@ -4,11 +4,11 @@ using Dungeon12.Abilities.Scaling;
 using Dungeon12.Entities.Alive;
 using Dungeon12.Map;
 using Dungeon12.Map.Objects;
-using Dungeon12.Noone.Talants.Defensible;
+using Dungeon12.Noone.Talants;
 using System;
 namespace Dungeon12.Noone.Abilities
 {
-    public class Defaura : Ability<Noone, DefensibleTalants>
+    public class Defaura : Ability<Noone, AbsorbingTalants>
     {
         public override double Spend => 0;
 

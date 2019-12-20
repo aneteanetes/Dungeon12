@@ -33,7 +33,9 @@
           ],
           "TriggerClass": "QuestConversationTrigger",
           "TriggerArguments": [
-            "DeepCaveQuest"
+            "DeepCaveQuest",
+            "PassRespawnTrigger",
+            "DeepCaveGuards"
           ]
         },
         {

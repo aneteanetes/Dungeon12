@@ -45,13 +45,17 @@
 
         private void AddItemBackpack()
         {
-            playerSceneObject.Avatar.Character.Backpack.Add(this.@object.Item,owner:playerSceneObject.Component.Entity);
-            this.ShowInScene(new PopupString($"Вы нашли {@object.Item.Name}!", this.TooltipTextColor, new Dungeon.Types.Point(this.Left, this.Top), 25, 12, 0.06)
-                .InList<ISceneObject>());
+            this.@object.PickUp();
+            if (this.@object.Item != default)
+            {
+                playerSceneObject.Avatar.Character.Backpack.Add(this.@object.Item, owner: playerSceneObject.Component.Entity);
+                this.ShowInScene(new PopupString($"Вы нашли {@object.Item.Name}!", this.TooltipTextColor, new Dungeon.Types.Point(this.Left, this.Top), 25, 12, 0.06)
+                    .InList<ISceneObject>());
 
-            this.Destroy?.Invoke();
-            this.@object.Destroy?.Invoke();
-            this.@object.TakeTrigger?.Trigger<ITrigger<bool, string[]>>().Trigger(this.@object.TakeTriggerArguments);
+                this.Destroy?.Invoke();
+                this.@object.Destroy?.Invoke();
+                this.@object.TakeTrigger?.Trigger<ITrigger<bool, string[]>>().Trigger(this.@object.TakeTriggerArguments);
+            }
         }
 
         protected override void OnTooltipClick() => AddItemBackpack();

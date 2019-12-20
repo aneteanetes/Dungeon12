@@ -48,6 +48,7 @@ namespace Dungeon12.Entities.Quests
             }
 
             GiveReward = dataClass.TriggerName.Trigger<IRewardTrigger>();
+            Varible = dataClass.Variable;
         }
 
         public override ISceneObject Visual()

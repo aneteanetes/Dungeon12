@@ -3,11 +3,11 @@
   "Description": "Лорд Веры просит вас уничтожить 10 фанатиков культа крови, и их полевого генерала - мага крови.",
   "RewardIdentify": "KillFanatics",
   "MobIdentify": [
-    "CultFanatic",
+    "BloodNovice",
     "CultBloodMage"
   ],
   "Amount": [
-    10,
+    5,
     1
   ]
 }

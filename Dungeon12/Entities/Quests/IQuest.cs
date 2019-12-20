@@ -5,6 +5,7 @@ using Dungeon.View.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Dungeon12.SceneObjects.UI;
 
 namespace Dungeon12.Entities.Quests
 {
@@ -30,5 +31,7 @@ namespace Dungeon12.Entities.Quests
         /// Флаг отслеживания задания
         /// </summary>
         bool Discover { get; set; }
+
+        QuestDescoverSceneObject VisualDescover(bool questBook = true);
     }
 }

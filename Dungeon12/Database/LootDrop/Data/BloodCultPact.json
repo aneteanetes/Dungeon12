@@ -2,5 +2,5 @@
   "ItemGeneratorTrigger": "QuestItemsGenerator",
   "ItemGeneratorArguments": [ "BloodCultPact", "1" ],
   "Chance": 100,
-  "LootTableIdentify": "GreatVampire"
+  "LootTableIdentify": "VampireLord"
 }

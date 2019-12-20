@@ -81,16 +81,18 @@ namespace Dungeon12.Entities.Quests
             }
         }
 
-        public override ISceneObject Visual()
+        private QuestDescoverSceneObject _descover;
+
+        public override ISceneObject Visual() => VisualDescover();
+
+        public QuestDescoverSceneObject VisualDescover(bool questBook=true)
         {
-            return new QuestDescoverSceneObject(this, true);
+            _descover = new QuestDescoverSceneObject(this, questBook);
+            _descover.Destroy += () => _descover = null;
+            return _descover;
         }
 
         private string ProgressText => Done ? "Выполнено" : $"Прогресс: {Progress}/{MaxProgress}";
-
-        public int Id { get; set; }
-
-        public int ObjectId { get; set; }
 
         public virtual bool IsCompleted() => Progress == MaxProgress;
 
@@ -111,6 +113,8 @@ namespace Dungeon12.Entities.Quests
             _class.Journal.Quests.Remove(q);
             _class.Journal.QuestsDone.Add(q);
             UnsubscribeEvents();
+
+            _descover?.Destroy?.Invoke();
 
             Toast.Show("Задание выполнено!");
         }

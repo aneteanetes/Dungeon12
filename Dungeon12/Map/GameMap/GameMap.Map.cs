@@ -26,12 +26,18 @@
 
         public bool IsUnderLevel { get; set; }
 
+        public Point Offset { get; set; }
+
         public string InitRegion(string name)
         {
             Global.GameState.Map = this;
             MapIdentifyId = name;
 
             var persistRegion = Dungeon.Store.Entity<Region>(e => e.Name == name).First();
+            if (persistRegion.Offset != default)
+            {
+                Offset = persistRegion.Offset;
+            }
             LoadTexturePositions(name);
 
             this.IsUnderLevel = persistRegion.IsUnderLevel;
@@ -46,6 +52,7 @@
             {
                 if (regionObject.Obstruct && persistRegion.Offset != default)
                 {
+                    Offset = persistRegion.Offset;
                     regionObject.Position.X += persistRegion.Offset.X;
                     regionObject.Position.Y += persistRegion.Offset.Y;
                 }
@@ -53,10 +60,10 @@
                 AddMapObjectIniting(regionObject);
             }
 
-            var left = persistRegion.Objects.Min(o => o.Position?.X??0);
-            var right = persistRegion.Objects.Max(o => o.Position?.X??0);
-            var top = persistRegion.Objects.Min(o => o.Position?.Y??0);
-            var down = persistRegion.Objects.Max(o => o.Position?.Y??0);
+            var left = persistRegion.Objects.Min(o => o.Position?.X ?? 0);
+            var right = persistRegion.Objects.Max(o => o.Position?.X ?? 0);
+            var top = persistRegion.Objects.Min(o => o.Position?.Y ?? 0);
+            var down = persistRegion.Objects.Max(o => o.Position?.Y ?? 0);
 
             foreach (var randomRespawn in persistRegion.RandomObjects)
             {
@@ -168,8 +175,8 @@
                     var po = x.PhysicalObject;
                     po.Position = new PhysicalPosition()
                     {
-                        X = po.Position.X * 32,
-                        Y = po.Position.Y * 32
+                        X = (po.Position.X + (Offset==default ? 0 : Offset.X)) * 32,
+                        Y = (po.Position.Y+ (Offset == default ? 0 : Offset.Y)) * 32
                     };
                     return po;
                 }).ToList();
@@ -301,6 +308,6 @@
 
         public MapObject Object { get; set; }
 
-        public int Attempts { get; set; }
+        public int Attempts { get; set; } = 30;
     }
 }

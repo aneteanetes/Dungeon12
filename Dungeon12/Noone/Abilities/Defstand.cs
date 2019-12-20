@@ -1,15 +1,15 @@
 ﻿namespace Dungeon12.Noone.Abilities
 {
+    using Dungeon.Transactions;
     using Dungeon12.Abilities;
     using Dungeon12.Abilities.Enums;
     using Dungeon12.Abilities.Scaling;
-    using Dungeon12.Noone.Talants.Defensible;
     using Dungeon12.Map;
     using Dungeon12.Map.Objects;
-    using Dungeon.Transactions;
-    using System;using Dungeon;using Dungeon.Drawing.SceneObjects;
+    using Dungeon12.Noone.Talants;
+    using System;
 
-    public class Defstand : Ability<Noone, DefensibleTalants>
+    public class Defstand : Ability<Noone, AbsorbingTalants>
     {
         public override bool Hold => true;
 

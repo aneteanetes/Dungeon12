@@ -31,7 +31,7 @@
       "From": 100,
       "To": 300
     },
-    "LootTableName": "GreatVampire",
+    "LootTableName": "VampireLord",
     "Aggressive": true,
     "Idle": {
       "Tileset": "Rgoue.Resource.Images.Enemies.bats.png",

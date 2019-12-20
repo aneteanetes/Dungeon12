@@ -1,24 +1,18 @@
 ﻿namespace Dungeon12.Noone
 {
-    using Dungeon12.Abilities;
-    using Dungeon12.Abilities.Talants.TalantTrees;
-    using Dungeon12.Noone.Abilities;
-    using Dungeon12.Noone.Talants;
-    using Dungeon12.Noone.Talants.Defensible;
-    using Dungeon.Entities.Animations;
-    using Dungeon.Types;
-    using System;
     using Dungeon;
-    using Dungeon.Drawing.SceneObjects;
-    using System.Collections.Generic;
-    using Dungeon12.Classes;
     using Dungeon.Drawing;
     using Dungeon.View.Interfaces;
-    using Dungeon12.Noone.Proxies;
-    using Dungeon12.Entities.Alive;
-    using Dungeon12.SceneObjects;
-    using Dungeon.SceneObjects;
     using Dungeon12;
+    using Dungeon12.Abilities;
+    using Dungeon12.Abilities.Talants.TalantTrees;
+    using Dungeon12.Classes;
+    using Dungeon12.Entities.Alive;
+    using Dungeon12.Noone.Abilities;
+    using Dungeon12.Noone.Proxies;
+    using Dungeon12.Noone.Talants;
+    using Dungeon12.SceneObjects;
+    using System;
 
     public class Noone : Character
     {

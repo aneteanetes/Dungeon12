@@ -78,7 +78,7 @@ namespace Dungeon12.Map.Objects
                     });
                     mapObject.Uid = this.Uid + i;
                     BindDestory(mapObject);
-                    SetLocation(20, mapObject);
+                    SetLocation(100, mapObject);
                 }
             }
         }

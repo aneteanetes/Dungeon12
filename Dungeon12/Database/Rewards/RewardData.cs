@@ -21,6 +21,8 @@ namespace Dungeon12.Database.Rewards
 
         public string TriggerName { get; set; }
 
+        public string Variable { get; set; }
+
         public Dictionary<string,string> PossibleTalants { get; set; }
     }
 }

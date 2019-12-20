@@ -14,7 +14,8 @@ namespace Dungeon12.Loot
 
             if (int.TryParse(Arguments.ElementAtOrDefault(1), out var limit))
             {
-                var now = Global.GameState.Player.Component.Entity[questItem.IdentifyName].As<int>();
+                var nowObj = Global.GameState.Player.Component.Entity[questItem.IdentifyName] ?? 0;
+                int.TryParse(nowObj.ToString(), out var now);
 
                 if (now == limit)
                 {
