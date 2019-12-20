@@ -1,0 +1,21 @@
+﻿{
+  "$type": "Dungeon12.Database.Respawn.RespawnData, Dungeon12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "Icon": "Respawn",
+  "Zone": {
+    "Position": {
+      "X": 60,
+      "Y": 46
+    },
+    "Size": {
+      "Width": 1,
+      "Height": 1
+    }
+  },
+  "LocationIdentify": "FaithIsland.OldHouse",
+  "Respawns": [
+    {
+      "Icon": "WhiteOreQuest",
+      "Amount": 2
+    }
+  ]
+}

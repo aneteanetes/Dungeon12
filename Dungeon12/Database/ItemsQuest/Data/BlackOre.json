@@ -1,6 +1,6 @@
 ﻿{
-  "Name": "Зуб летучей мыши",
+  "Name": "Чёрная руда",
   "Tileset": "Dungeon12.Resources.Images.Items.Quest.tooth.png",
   "Stackable": true,
-  "QuantityMax": 5
+  "QuantityMax": 2
 }

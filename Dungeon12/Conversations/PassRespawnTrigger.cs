@@ -14,12 +14,38 @@ namespace Dungeon12.Conversations
         {
             var respawnId = arg1[2];
 
-            var respData = Dungeon.Store.EntitySingle<RespawnData>(respawnId);
-
-            var resp = MapObject.Create(respData);
-            (resp as Respawn).Spawn();
+            if (respawnId.Contains(","))
+            {
+                foreach (var respawnIdIn in respawnId.Split(",",StringSplitOptions.RemoveEmptyEntries))
+                {
+                    PassRespawn(respawnIdIn);
+                }
+            }
+            else
+            {
+                PassRespawn(respawnId);
+            }
 
             return true;
+        }
+
+        private static void PassRespawn(string respawnId)
+        {
+            var respData = Dungeon.Store.EntitySingle<RespawnData>(respawnId);
+
+            if (respData.LocationIdentify != default)
+            {
+                GameMap.AddMapObjectDeffered(new MapDeferredOptions()
+                {
+                    MapIdentity = respData.LocationIdentify,
+                    Object = MapObject.Create(respData)
+                });
+            }
+            else
+            {
+                var resp = MapObject.Create(respData);
+                (resp as Respawn).Spawn();
+            }
         }
     }
 }

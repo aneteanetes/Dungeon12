@@ -71,8 +71,8 @@
             this.Name = persistRegion.Display;
             this.LoadedRegionData = persistRegion;
 
-            Global.Events.Raise(new GameMapLoadedEvent() { GameMap = this });
             ProcessLoad();
+            Global.Events.Raise(new GameMapLoadedEvent() { GameMap = this });
 
             return persistRegion.Name;
         }
@@ -151,8 +151,8 @@
                 this.Objects.Add(saveableObject);
             }
 
-            Global.Events.Raise(new GameMapLoadedEvent() { GameMap = this }); 
             ProcessLoad();
+            Global.Events.Raise(new GameMapLoadedEvent() { GameMap = this });
 
             return persistRegion.Name;
         }
@@ -230,7 +230,7 @@
             }
         }
 
-        public void AddMapObjectDeffered(MapDeferredOptions options) => DeferredMapObjects.Add(options);
+        public static void AddMapObjectDeffered(MapDeferredOptions options) => DeferredMapObjects.Add(options);
 
         public static List<MapDeferredOptions> DeferredMapObjects = new List<MapDeferredOptions>();
 

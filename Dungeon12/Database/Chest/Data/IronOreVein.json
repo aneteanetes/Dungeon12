@@ -1,0 +1,29 @@
+﻿{
+  "Name": "Сундук",
+  "LootTable": "IronOreVein",
+  "Animation": {
+    "TileSet": "Dungeon12.Resources.Images.Objects.chests.png",
+    "Size": {
+      "X": 32,
+      "Y": 48
+    },
+    "Frames": [
+      {
+        "X": 32,
+        "Y": 0
+      },
+      {
+        "X": 32,
+        "Y": 48
+      },
+      {
+        "X": 32,
+        "Y": 96
+      },
+      {
+        "X": 32,
+        "Y": 144
+      }
+    ]
+  }
+}

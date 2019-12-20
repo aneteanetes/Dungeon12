@@ -1,0 +1,6 @@
+﻿{
+  "Name": "Белая руда",
+  "Tileset": "Dungeon12.Resources.Images.Items.Quest.tooth.png",
+  "Stackable": true,
+  "QuantityMax": 2
+}

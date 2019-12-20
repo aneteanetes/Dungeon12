@@ -15,6 +15,8 @@ namespace Dungeon12.Database.Respawn
         public PhysicalObject Zone { get; set; }
 
         public int RespawnSeconds { get; set; }
+
+        public string LocationIdentify { get; set; }
     }
 
     public class RespawnPointData
