@@ -12,7 +12,7 @@ namespace Dungeon12.Entities.Rewards.Triggers
     {
         public IDrawText Trigger(Reward arg1, Character arg2, GameMap arg3)
         {
-            arg2.Exp(arg1.Exp);
+            arg2.Exp(arg1.Exp*2);
             arg2.Gold += arg1.Gold;
 
             if (arg1.ItemGenerators != default)
