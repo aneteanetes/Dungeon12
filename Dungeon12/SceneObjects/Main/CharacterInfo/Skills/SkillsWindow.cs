@@ -100,7 +100,7 @@
                 var title = this.AddTextCenter(new DrawText(ability.Name), true, false);
                 var top = MeasureText(title.Text).Y / 32 + 0.5;
 
-                var descr = this.AddTextCenter(new DrawText(ability?.Description ?? " ").Montserrat());
+                var descr = this.AddTextCenter(new DrawText(ability?.Description ?? " ").Montserrat().WithWordWrap());
                 descr.Top = top;
                 descr.Left = 0.5;
 

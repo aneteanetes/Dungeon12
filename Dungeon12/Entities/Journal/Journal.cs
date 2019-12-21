@@ -12,59 +12,10 @@ namespace Dungeon12.Entites.Journal
         [Value("Задания")]
         [Icon("quests")]
         public List<JournalEntry> Quests { get; set; } = new List<JournalEntry>();
-        //{
-        //    new JournalEntry()
-        //    {
-        //        Display="Аномальная погода",
-        //        Group="Остров веры",
-        //        Text=
-        //        "Собор послал вас узнать почему на Острове Веры такая аномальная погода. Возможно, это связанно с недавними событиями на забытом маяке, а так же и с налётами диких крысолюдей на поселение."
-        //         +Environment.NewLine+
-        //        "Послушники советуют обратиться к местному мэру, что бы узнать детали событий которые произошли прошлой ночью и двумя неделями ранее."
-        //    },
-        //    new JournalEntry()
-        //    {
-        //        Display="Поиск символа веры",
-        //        Group="Остров веры",
-        //        Text="example"
-        //    },
-        //    new JournalEntry()
-        //    {
-        //        Display="Старый дом",
-        //        Group="Остров веры",
-        //        Text="example"
-        //    }
-        //};
 
         [Value("Детали")]
         [Icon("details")]
-        public List<JournalEntry> Details { get; set; } = new List<JournalEntry>()
-        {
-            new JournalEntry()
-            {
-                Display="Магические жидкости",
-                Group="Объекты",
-                Text="example"
-            },
-            new JournalEntry()
-            {
-                Display="Алтари",
-                Group="Объекты",
-                Text="example"
-            },
-            new JournalEntry()
-            {
-                Display="Пещеры",
-                Group="Регионы",
-                Text="example"
-            },
-            new JournalEntry()
-            {
-                Display="Маяки",
-                Group="Регионы",
-                Text="example"
-            }
-        };
+        public List<JournalEntry> Details { get; set; } = new List<JournalEntry>();
 
         [Value("Мир")]
         [Icon("world")]

@@ -1,12 +1,12 @@
 ﻿{
   "Level": 1,
-  "IdentifyName": "ServantOfFaith",
+  "IdentifyName": "FaithLord",
   "Name": "Лорд Веры",
   "Size": {
     "X": 1,
     "Y": 1
   },
-  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.ServantF.png",
+  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.FaithLordEndF.png",
   "Tileset": "Dungeon12.Resources.Images.NPCs.FaithIsland.Lord.png",
   "TileSetRegion": {
     "X": 64,
@@ -16,7 +16,7 @@
   },
   "MovementSpeed": 0.01,
   "Conversations": [
-    "FaithIslandFaithLord"
+    "FaithLordEnd"
   ],
   "FractionIdentify": "FaithIslandTown",
   "NPC": {
@@ -58,72 +58,6 @@
       ],
       "Direction": 0,
       "FramesPerSecond": 1.5
-    },
-    "MoveUp": {
-      "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
-      "Size": {
-        "X": 32,
-        "Y": 32
-      },
-      "Frames": [
-        {
-          "X": 0,
-          "Y": 96
-        },
-        {
-          "X": 32,
-          "Y": 96
-        },
-        {
-          "X": 64,
-          "Y": 96
-        }
-      ],
-      "Direction": 1
-    },
-    "MoveDown": {
-      "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
-      "Size": {
-        "X": 32,
-        "Y": 32
-      },
-      "Frames": [
-        {
-          "X": 0,
-          "Y": 0
-        },
-        {
-          "X": 32,
-          "Y": 0
-        },
-        {
-          "X": 64,
-          "Y": 0
-        }
-      ],
-      "Direction": 2
-    },
-    "MoveLeft": {
-      "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
-      "Size": {
-        "X": 32,
-        "Y": 32
-      },
-      "Frames": [
-        {
-          "X": 0,
-          "Y": 32
-        },
-        {
-          "X": 32,
-          "Y": 32
-        },
-        {
-          "X": 64,
-          "Y": 32
-        }
-      ],
-      "Direction": 3
     },
     "MoveRight": {
       "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",

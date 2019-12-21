@@ -1,11 +1,15 @@
 ﻿using Dungeon;
+using Dungeon.Drawing;
 using Dungeon.Drawing.Impl;
 using Dungeon.SceneObjects;
+using Dungeon.Scenes.Manager;
+using Dungeon.View.Interfaces;
 using Dungeon12.Abilities;
 using Dungeon12.Abilities.Enums;
 using Dungeon12.Abilities.Scaling;
 using Dungeon12.Map;
 using Dungeon12.Map.Objects;
+using Dungeon12.SceneObjects;
 using System;
 
 namespace Dungeon12.Servant.Abilities
@@ -32,9 +36,12 @@ namespace Dungeon12.Servant.Abilities
         {
             @class.FaithPower.Value--;
 
-            Target.HitPoints += ScaledValue(@class) + @class.HealPower;
+            var value = ScaledValue(@class) + @class.HealPower;
+            Target.HitPoints += value;
             Global.AudioPlayer.Effect(@"Audio\Sound\heal.wav".AsmNameRes());
             Target.MapObject.SceneObject.AddEffects(new HealEffect());
+
+            SceneManager.Current.ShowEffectsBinding(new PopupString($"{value}".AsDrawText().InSize(12).InColor(DrawColor.LawnGreen), avatar.Location).InList<ISceneObject>());
         }
 
         private class HealEffect : EmptySceneObject

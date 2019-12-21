@@ -75,7 +75,7 @@
 
                     Global.GameState.PlayerAvatar.Character.Origin = o;
 
-                    this.Switch<Main>();
+                    this.Switch<Main>("true");
                 }
             });
         }

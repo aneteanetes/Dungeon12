@@ -5,6 +5,8 @@
     using Dungeon.Physics;
     using Dungeon.Types;
     using System;
+    using Dungeon.Scenes.Manager;
+    using Dungeon12.Scenes.Menus;
 
     [Template("@")]
     public class Avatar : EntityMapObject<Character>
@@ -32,6 +34,11 @@
             {
                 R = 255,
                 A = 255
+            };
+
+            this.Die += () =>
+            {
+                SceneManager.Switch<End>();
             };
         }
 

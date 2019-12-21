@@ -101,6 +101,8 @@ namespace Dungeon12.SceneObjects.SaveLoad
                                 SceenPosition = Component.ScreenPosition
                             };
 
+                            Global.Time.Set(data.Time);
+
                             Global.GameState.Equipment = data.EquipmentState;
                             Global.GameState.Character = data.Character.Character;
                             Global.GameState.Character.Reload();

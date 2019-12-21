@@ -16,6 +16,12 @@ namespace Dungeon12.Bowman.Effects.Trap
             this.hostes = hostes;
             damage = dmg;
 
+            this.Destroy = () =>
+            {
+                Global.GameState.Map.MapObject.Remove(this);
+                this.SceneObject?.Destroy?.Invoke();
+            };
+
             Global.Time.Timer()
                 .After(TimeSpan.FromSeconds(secondsAlive).TotalMilliseconds)
                 .Do(() => this.Destroy?.Invoke())

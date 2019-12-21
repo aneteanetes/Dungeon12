@@ -7,7 +7,10 @@
     using Dungeon12.Drawing.SceneObjects;
     using Dungeon12.Scenes.Menus.Creation;
     using System;
-    public class End : GameScene<PlayerNameScene, Game.Main>
+    using Dungeon12.Scenes.Game;
+    using Dungeon;
+
+    public class End : GameScene<Start, Game.Main>
     {
         public End(SceneManager sceneManager) : base(sceneManager)
         {
@@ -17,9 +20,8 @@
         
         public override void Init()
         {
-            var endText = new TextControl(new DrawText("ВАС ОТПИЗДИЛИ", ConsoleColor.Red));
-            endText.Text.Size = 72;
-            endText.Left = 8;
+            var endText = new TextControl("Вы проиграли".AsDrawText().InSize(70).Triforce());
+            endText.Left = 12;
             endText.Top = 9;
             this.AddObject(endText);
 
@@ -29,7 +31,8 @@
                 Top = 17,
                 OnClick = () =>
                 {
-                    Environment.Exit(0);
+                    SceneManager.Destroy<Main>();
+                    this.Switch<Start>();
                 }
             });
         }

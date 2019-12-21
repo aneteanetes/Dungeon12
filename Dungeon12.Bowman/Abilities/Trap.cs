@@ -71,7 +71,7 @@ namespace Dungeon12.Bowman.Abilities
                     break;
             }
 
-            gameMap.AddMapObject(trap);
+            gameMap.AddMapObject(trap,50,true);
         }
     }
 }

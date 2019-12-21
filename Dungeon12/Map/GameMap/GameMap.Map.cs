@@ -226,11 +226,11 @@
             return val;
         }
 
-        public void AddMapObject(MapObject mapObject, int tries=20)
+        public void AddMapObject(MapObject mapObject, int tries=20, bool ignorePhysics=false)
         {
             for (int i = 0; i < tries; i++)
             {
-                if (TryAdd(mapObject))
+                if (TryAdd(mapObject, ignorePhysics))
                 {
                     break;
                 }
@@ -256,13 +256,16 @@
             forDelelete.ForEach(x => DeferredMapObjects.Remove(x));
         }
 
-        private bool TryAdd(MapObject mapObject)
+        private bool TryAdd(MapObject mapObject, bool ignorePhysics=false)
         {
             var map = this;
 
-            var otherObject = map.MapObject.Query(mapObject).Nodes.Any(node => node.IntersectsWithOrContains(mapObject));
-            if (otherObject)
-                return false;
+            if (!ignorePhysics)
+            {
+                var otherObject = map.MapObject.Query(mapObject).Nodes.Any(node => node.IntersectsWithOrContains(mapObject));
+                if (otherObject)
+                    return false;
+            }
 
             if (InSafe(mapObject))
             {

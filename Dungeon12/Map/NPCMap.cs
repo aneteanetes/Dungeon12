@@ -101,6 +101,8 @@
                 }
             }
 
+            this.Entity.Level = data.NPC.Level;
+
             this.Entity.MaxHitPoints = data.NPC.HitPoints * data.NPC.Level;
             this.Entity.HitPoints = this.Entity.MaxHitPoints;
 

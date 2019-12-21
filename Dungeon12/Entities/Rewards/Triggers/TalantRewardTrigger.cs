@@ -18,35 +18,37 @@ namespace Dungeon12.Entities.Rewards.Triggers
 
             var updateTalantArg2 = UpdateTalant(arg2);
 
-            if (talantMap.TryGetValue(arg2.GetType().Name, out var talantsExpr))
-            {
-                if (talantsExpr.Contains("&&"))
-                {
-                    foreach (var item in new string[] { })
-                    {
-                        updateTalantArg2(item);
-                    }
+            Toast.Show($"Вы получили талант!");
 
-                    talantsExpr.Split("&&", StringSplitOptions.RemoveEmptyEntries)
-                        .ForEach(updateTalantArg2);
-                }
-                else if (talantsExpr.Contains("||"))
-                {
-                    var talants = talantsExpr.Split("||", StringSplitOptions.RemoveEmptyEntries);
-                    var talant1 = ParseTalant(arg2, talants.First());
-                    var talant2 = ParseTalant(arg2, talants.Last());
+            //if (talantMap.TryGetValue(arg2.GetType().Name, out var talantsExpr))
+            //{
+            //    if (talantsExpr.Contains("&&"))
+            //    {
+            //        foreach (var item in new string[] { })
+            //        {
+            //            updateTalantArg2(item);
+            //        }
 
-                    QuestionBox.Show(new QuestionBoxModel()
-                    {
-                        Text = "Выберите какой талант хотите получить:",
-                        YesText = talant1.Name,
-                        NoText = talant2.Name,
-                        Yes = () => UpdateTalant(talant1),
-                        No = () => UpdateTalant(talant2),
-                    });
-                }
-                else updateTalantArg2(talantsExpr);
-            }
+            //        talantsExpr.Split("&&", StringSplitOptions.RemoveEmptyEntries)
+            //            .ForEach(updateTalantArg2);
+            //    }
+            //    else if (talantsExpr.Contains("||"))
+            //    {
+            //        var talants = talantsExpr.Split("||", StringSplitOptions.RemoveEmptyEntries);
+            //        var talant1 = ParseTalant(arg2, talants.First());
+            //        var talant2 = ParseTalant(arg2, talants.Last());
+
+            //        QuestionBox.Show(new QuestionBoxModel()
+            //        {
+            //            Text = "Выберите какой талант хотите получить:",
+            //            YesText = talant1.Name,
+            //            NoText = talant2.Name,
+            //            Yes = () => UpdateTalant(talant1),
+            //            No = () => UpdateTalant(talant2),
+            //        });
+            //    }
+            //    else updateTalantArg2(talantsExpr);
+            //}
 
             return default;
         }

@@ -35,7 +35,7 @@
       },
       "Respawns": [
         {
-          "Identify": "Boss",
+          "Identify": "FaithLord",
           "Icon": "Npc",
           "Amount": 1
         }

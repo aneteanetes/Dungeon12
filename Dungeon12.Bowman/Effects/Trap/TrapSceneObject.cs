@@ -1,4 +1,5 @@
-﻿using Dungeon12.Drawing.SceneObjects.Map;
+﻿using Dungeon;
+using Dungeon12.Drawing.SceneObjects.Map;
 
 namespace Dungeon12.Bowman.Effects.Trap
 {
@@ -9,7 +10,7 @@ namespace Dungeon12.Bowman.Effects.Trap
             this.Width = 1;
             this.Height = 1;
 
-            this.Image = "trapimage";
+            this.Image = "trap.png".AsmImgRes();
 
             this.Left = component.Location.X;
             this.Top = component.Location.Y;
