@@ -1,6 +1,6 @@
 ﻿{
-  "Level": 6,
-  "Name": "Летучая мышь",
+  "Level": 7,
+  "Name": "Пожиратель",
   "IsEnemy": true,
   "VisionMultiples": {
     "X": 6,
@@ -14,14 +14,14 @@
     "X": 1,
     "Y": 1
   },
-  "Tileset": "Dungeon12.Resources.Images.Enemies.enemies.png",
+  "Tileset": "Dungeon12.Resources.Images.Enemies.cultists.png",
   "TileSetRegion": {
     "X": 64,
     "Y": 0,
     "Width": 32,
     "Height": 32
   },
-  "FractionIdentify": "FaithIslandFauna",
+  "FractionIdentify": "CultOfBlood",
   "MovementSpeed": 0.01,
   "NPC": {
     "ChasingPlayers": true,
@@ -42,15 +42,15 @@
       "Frames": [
         {
           "X": 0,
-          "Y": 0
+          "Y": 160
         },
         {
           "X": 32,
-          "Y": 0
+          "Y": 160
         },
         {
           "X": 64,
-          "Y": 0
+          "Y": 160
         }
       ],
       "Direction": 0,
@@ -65,15 +65,15 @@
       "Frames": [
         {
           "X": 0,
-          "Y": 96
+          "Y": 256
         },
         {
           "X": 32,
-          "Y": 96
+          "Y": 256
         },
         {
           "X": 64,
-          "Y": 96
+          "Y": 256
         }
       ],
       "Direction": 1
@@ -87,15 +87,15 @@
       "Frames": [
         {
           "X": 0,
-          "Y": 0
+          "Y": 160
         },
         {
           "X": 32,
-          "Y": 0
+          "Y": 160
         },
         {
           "X": 64,
-          "Y": 0
+          "Y": 160
         }
       ],
       "Direction": 2
@@ -109,15 +109,15 @@
       "Frames": [
         {
           "X": 0,
-          "Y": 32
+          "Y": 192
         },
         {
           "X": 32,
-          "Y": 32
+          "Y": 192
         },
         {
           "X": 64,
-          "Y": 32
+          "Y": 192
         }
       ],
       "Direction": 3
@@ -131,15 +131,15 @@
       "Frames": [
         {
           "X": 0,
-          "Y": 64
+          "Y": 224
         },
         {
           "X": 32,
-          "Y": 64
+          "Y": 224
         },
         {
           "X": 64,
-          "Y": 64
+          "Y": 224
         }
       ],
       "Direction": 4
@@ -152,12 +152,7 @@
       "Height": 16
     },
     "MinDMG": 5,
-    "MaxDMG": 5,
-    "HitPoints": 35
+    "MaxDMG": 15,
+    "HitPoints": 30
   }
 }
-
-
-        //public string DieImage { get; set; }
-
-        //public Rectangle DieImagePosition { get; set; }

@@ -21,9 +21,15 @@
     {
         public Character()
         {
-            if (this.HitPoints == 0)
-                this.HitPoints = this.MaxHitPoints = this.InitialHP;
-            this.Level = 1;
+            this.BindClassStats();
+            Reload();
+
+            Global.Events.Subscribe<GameLoadedEvent>(ReloadCollectQuests);
+        }
+
+        public Character(bool @new)
+        {
+            this.HitPoints = this.MaxHitPoints = this.InitialHP;
             this.BindClassStats();
             Reload();
 

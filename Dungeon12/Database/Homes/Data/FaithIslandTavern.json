@@ -5,6 +5,7 @@
   "Frames": 10,
   "FractionIdentity": "FaithIslandTown",
   "Conversations": [
-    "FaithIslandTavern"
+    "FaithIslandTavern",
+    "FaithIslandTavernResident"
   ]
 }

@@ -6,6 +6,7 @@ using Dungeon12.Entities.Alive.Proxies;
 using Dungeon12.SceneObjects;
 using Dungeon.SceneObjects;
 using System;
+using Newtonsoft.Json;
 
 namespace Dungeon12.Entities.Alive
 {
@@ -50,7 +51,7 @@ namespace Dungeon12.Entities.Alive
             this.Level++;
             FreeStatPoints += 5;
 
-            this.MaxHitPoints += (int)Math.Ceiling(((this.MaxHitPoints * HitPointsPercentPlus) / 100));
+            this.MaxHitPoints += (int)Math.Ceiling(((this.InitialHP * HitPointsPercentPlus) / 100));
 
             var visual = this.SceneObject.ShowInScene;
             
@@ -75,6 +76,9 @@ namespace Dungeon12.Entities.Alive
         /// </summary>
         public virtual double HitPointsPercentPlus => 2;
 
+
+        public virtual int InitialHP => 100;
+
         /// <summary>
         /// 
         /// <para>
@@ -95,6 +99,7 @@ namespace Dungeon12.Entities.Alive
         /// </para>
         /// </summary>
         [Dungeon.Proxied(typeof(NetProxy))]
+        [JsonProperty(Order = -2)]
         public long MaxHitPoints { get => Get(___MaxHitPoints, typeof(Alive).AssemblyQualifiedName); set => Set(value, typeof(Alive).AssemblyQualifiedName); }
         private long ___MaxHitPoints;
 

@@ -61,7 +61,7 @@
       "Variables": [
         {
           "Name": "QuestGetFaithSpy",
-          "Value": 44,
+          "Value": 444,
           "Global": true
         }
       ],
@@ -76,14 +76,14 @@
           "Answer": "Найти вербовщика",
           "Text": "Отлично, я верю в вас",
           "ReplicsTags": [
-            77
+            777
           ],
           "Shown": true,
-          "Tag": 55,
+          "Tag": 555,
           "Variables": [
             {
               "Name": "QuestGetFaithSpy",
-              "Value": 44,
+              "Value": 444,
               "Global": true
             }
           ],
@@ -97,31 +97,31 @@
           "Text": "Но так мы никогда не разберёмся в том что происходит на острове!",
           "ReplicsTags": [],
           "Shown": true,
-          "Tag": 66,
+          "Tag": 666,
           "Variables": []
         },
         {
           "Answer": "FaithSpy",
           "Text": "Вы нашли вербовщика Культа Крови?",
           "ReplicsTags": [
-            46
+            466
           ],
-          "Tag": 44,
+          "Tag": 444,
           "Variables": []
         },
         {
           "Answer": "Я всё ещё в поисках",
           "Text": "Найдите и сдайте его страже!",
           "ReplicsTags": [
-            77
+            777
           ],
-          "Tag": 46,
+          "Tag": 466,
           "Variables": []
         },
         {
           "Answer": "Назад",
           "ReplicsTags": [],
-          "Tag": 77,
+          "Tag": 777,
           "Variables": [],
           "Escape": true
         }
@@ -141,7 +141,7 @@
         "Name": "QuestCompleted_Stripping"
       },
       "Invisible": {
-        "Name": "FaithIslandPt4"
+        "Name": "QuestCompleted_FaithSpy"
       },
       "Replics": [
         {

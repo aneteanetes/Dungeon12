@@ -99,6 +99,7 @@ namespace Dungeon12.SceneObjects.NPC
 
             conversactionClickable?.Destroy?.Invoke();
             this.RemoveChild(conversactionClickable);
+
             conversactionClickable = new ConversactionClickable(conv, x =>
             {
                 conversactionClickable?.Destroy.Invoke();
@@ -235,7 +236,7 @@ namespace Dungeon12.SceneObjects.NPC
                 double top = 2;
                 this.Width = 9;
 
-                foreach (var con in conv.Conversations)
+                foreach (var con in conv.Conversations.Where(x => Global.GameState.Character[x.Id + "DELETED"] == default))
                 {
                     var face = new FaceClickControl(con.Face, con.Name, () => select(con));
                     face.AbsolutePosition = true;

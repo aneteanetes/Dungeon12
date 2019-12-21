@@ -21,9 +21,10 @@
         private SubjectPanel subjectPanel;
         private AnswerPanel answerPanel;
         private PlayerSceneObject _playerSceneObject;
-
+        
         public NPCDialogue(PlayerSceneObject playerSceneObject, Dungeon12.Map.Objects.Сonversational conversational, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding, GameMap gameMap, MetallButtonControl customizeExit)
         {
+            current = this;
             Global.Freezer.World = this;
 
             _playerSceneObject = playerSceneObject;
@@ -68,6 +69,12 @@
 
             Height = 22.5;
             Width = 40;
+        }
+
+        private static NPCDialogue current;
+        public static void ForceExit()
+        {
+            current?.ExitDialogue();
         }
 
         private void ExitDialogue()

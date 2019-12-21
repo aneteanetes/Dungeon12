@@ -16,6 +16,8 @@
 
     public class Noone : Character
     {
+        public Noone(bool @new) : base(true) { }
+
         public Noone()
         {
             var timer = new System.Timers.Timer(3000);

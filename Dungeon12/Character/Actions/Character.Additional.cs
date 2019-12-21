@@ -10,8 +10,6 @@ namespace Dungeon12.Classes
 {
     public abstract partial class Character
     {
-        public virtual int InitialHP => 100;
-
         public Journal Journal { get; set; } = new Journal();
 
         public List<IQuest> ActiveQuests { get; set; } = new List<IQuest>();

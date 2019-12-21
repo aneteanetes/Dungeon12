@@ -12,6 +12,9 @@ namespace Dungeon12.Servant
 {
     public class Servant : Character
     {
+        public Servant(bool @new) : base(true) { }
+        public Servant() { }
+
         public bool Serve { get; set; }
 
         public override double HitPointsPercentPlus => 8;

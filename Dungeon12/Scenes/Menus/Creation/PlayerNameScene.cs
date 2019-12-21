@@ -28,7 +28,7 @@
 
         private void Next(string value)
         {
-            var character = new Noone.Noone();
+            var character = new Noone.Noone(true);
             character.Name = value[0].ToString().ToUpper() + value.Substring(1);
             Global.GameState.Character = character;
             Global.GameState.PlayerAvatar = new Avatar(character);

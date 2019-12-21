@@ -59,12 +59,13 @@ namespace Dungeon12.Noone.Abilities
             var enemyNear = gameMap.Any<NPCMap>(rangeObject,n=>n.IsEnemy);
             this.PassiveWorking = enemyNear;
             var value = ScaledValue(@class, Value);
-            auraBuf = new DefauraBuf(value);
+            auraBuf = new DefauraBuf();
             if (enemyNear != enabled)
             {
                 if (enemyNear)
                 {
-                    @class.Add<DefauraBuf>(value);
+                    DefauraBuf.value = value;
+                    @class.Add<DefauraBuf>();
                     avatar.AddState(auraBuf);
                 }
                 else
@@ -90,8 +91,7 @@ namespace Dungeon12.Noone.Abilities
 
             public override bool ClassDependent => true;
 
-            private long value;
-            public DefauraBuf(long value) => this.value = value;
+            public static long value;
 
             public void Apply(Avatar avatar)
             {

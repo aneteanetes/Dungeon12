@@ -22,7 +22,8 @@ namespace Dungeon12.Map.Objects
     [DataClass(typeof(ChestData))]
     public class Chest : MapObject
     {
-        public override bool Saveable => true;
+        private bool _saveable = true;
+        public override bool Saveable => _saveable;
 
         public override bool Obstruction => true;
         
@@ -49,6 +50,10 @@ namespace Dungeon12.Map.Objects
             return new ChestSceneObject(Global.GameState.Player, this);
         }
 
-        public void Use(Character alive) => DropLoot(this.LootTable);
+        public void Use(Character alive)
+        {
+            DropLoot(this.LootTable);
+            _saveable = false;
+        }
     }
 }

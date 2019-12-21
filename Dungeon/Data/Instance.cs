@@ -11,8 +11,8 @@ namespace Dungeon.Data
             value = GetInstanceFromAssemblyExtensions.GetType(typeName);
         }
 
-        private readonly object value;
+        private readonly Type value;
 
-        public T Value<T>() => value.As<T>();
+        public T Value<T>(params object[] args) => value.NewAs<T>(args);
     }
 }

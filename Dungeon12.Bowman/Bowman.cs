@@ -12,6 +12,9 @@ namespace Dungeon12.Bowman
 {
     public class Bowman : Character
     {
+        public Bowman(bool @new) : base(true) { }
+        public Bowman() { }
+
         public Energy Energy { get; set; } = new Energy();
 
         public override double HitPointsPercentPlus => 5;

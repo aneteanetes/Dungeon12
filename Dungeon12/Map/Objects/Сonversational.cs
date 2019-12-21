@@ -1,6 +1,6 @@
 ﻿namespace Dungeon12.Map.Objects
 {
-    using Dungeon.Data;
+    using Dungeon;
     using Dungeon12.Conversations;
     using Dungeon12.Data.Conversations;
     using System.Collections.Generic;
@@ -28,7 +28,7 @@
             {
                 Id=c.Identify,
                 Subjects = c.Subjects,
-                Face = c.Face,
+                Face = $"NPCs/FaithIsland/avatars/{c.Identify}.png".AsmImgRes(),
                 Name = c.Name
             }).ToList();
 

@@ -135,7 +135,7 @@
             return types.Select(x => (T)x.New()).ToArray();
         }
 
-        public static object GetType(string typeName)
+        public static Type GetType(string typeName)
         {
             Type type = null;
             foreach (var asm in DungeonGlobal.Assemblies)
@@ -147,7 +147,7 @@
                 }
             }
 
-            return type?.New();
+            return type;
         }
     }
 }

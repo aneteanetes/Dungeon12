@@ -1,38 +1,41 @@
 ﻿{
-  "Level": 7,
-  "Name": "Советник",
-  "IsEnemy": true,
-  "VisionMultiples": {
-    "X": 6,
-    "Y": 6
-  },
-  "AttackRangeMultiples": {
-    "X": 1.5,
-    "Y": 1.5
-  },
+  "Level": 1,
+  "IdentifyName": "ServantOfFaith",
+  "Name": "Лорд Веры",
   "Size": {
     "X": 1,
     "Y": 1
   },
-  "Tileset": "Dungeon12.Resources.Images.Enemies.cultists.png",
+  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.ServantF.png",
+  "Tileset": "Dungeon12.Resources.Images.NPCs.FaithIsland.Lord.png",
   "TileSetRegion": {
     "X": 64,
     "Y": 0,
     "Width": 32,
     "Height": 32
   },
-  "FractionIdentify": "CultOfBlood",
   "MovementSpeed": 0.01,
+  "Conversations": [
+    "FaithIslandFaithLord"
+  ],
+  "FractionIdentify": "FaithIslandTown",
   "NPC": {
-    "ChasingPlayers": true,
-    "WaitTime": 10,
-    "WalkChance": 90,
-    "WalkDistance": {
-      "From": 100,
-      "To": 300
+    "MoveRegion": {
+      "Size": {
+        "Width": 29,
+        "Height": 19
+      },
+      "Position": {
+        "X": 30,
+        "Y": 38
+      }
     },
-    "LootTableName": "Bat",
-    "Aggressive": true,
+    "WaitTime": 500,
+    "WalkChance": 50,
+    "WalkDistance": {
+      "From": 1000,
+      "To": 3000
+    },
     "Idle": {
       "Tileset": "Rgoue.Resource.Images.Enemies.enemies.png",
       "Size": {
@@ -144,15 +147,9 @@
       ],
       "Direction": 4
     },
-    "DieImage": "Dungeon12.Resources.Images.Enemies.enemies.png",
-    "DieImagePosition": {
-      "X": 32,
-      "Y": 0,
-      "Width": 32,
-      "Height": 16
-    },
-    "MinDMG": 5,
-    "MaxDMG": 15,
-    "HitPoints": 30
+    "MinDMG": 1,
+    "MaxDMG": 3,
+    "HitPoints": 100,
+    "MaxHitPoints": 100
   }
 }

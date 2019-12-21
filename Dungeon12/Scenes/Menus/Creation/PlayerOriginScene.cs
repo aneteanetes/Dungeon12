@@ -35,11 +35,11 @@
                     {
                         case Dungeon12.Entities.Alive.Enums.Origins.Liver:
                             Global.GameState.Equipment.Reset();
-                            anotherClass = new Instance("Bowman").Value<Character>();
+                            anotherClass = new Instance("Bowman").Value<Character>(true);
                             break;
                         case Dungeon12.Entities.Alive.Enums.Origins.Servant:
                             Global.GameState.Equipment.Reset();
-                            anotherClass = new Instance("Servant").Value<Character>();
+                            anotherClass = new Instance("Servant").Value<Character>(true);
                             break;
                         default:break;
                     }

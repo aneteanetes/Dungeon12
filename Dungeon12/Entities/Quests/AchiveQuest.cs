@@ -6,8 +6,10 @@ namespace Dungeon12.Entities.Quests
 {
     public class AchiveQuest : Quest<QuestAchiveData>
     {
-        private ITrigger<bool, string[]> Trigger;
+        private ITrigger<bool, string[]> Trigger => TriggerName == default ? default : TriggerName.Trigger<ITrigger<bool, string[]>>();
         private string[] Arguments;
+
+        public string TriggerName { get; set; }
 
         protected override void Init(QuestAchiveData dataClass)
         {
@@ -16,7 +18,7 @@ namespace Dungeon12.Entities.Quests
 
             if (dataClass.TriggerName != default)
             {
-                Trigger = dataClass.TriggerName.Trigger<ITrigger<bool, string[]>>();
+                TriggerName = dataClass.TriggerName;
                 Arguments = dataClass.TriggerArguments;
             }
         }
@@ -24,7 +26,7 @@ namespace Dungeon12.Entities.Quests
         public override bool IsCompleted()
         {
             Progress = 1;
-            if(Trigger!=default)
+            if (Trigger != default)
             {
                 Trigger.Trigger(Arguments);
             }

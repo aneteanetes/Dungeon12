@@ -121,6 +121,7 @@
 
             if (replica.Escape)
             {
+                FireTrigger(replica);
                 currentAnswers.ForEach(a =>
                 {
                     dialogText.Text.SetText("");
