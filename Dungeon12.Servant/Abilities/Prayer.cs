@@ -22,7 +22,7 @@ namespace Dungeon12.Servant.Abilities
 
         public override string Name => "Молитва";
 
-        public override ScaleRate<Servant> Scale => new ScaleRate<Servant>(x => x.Level * 1);
+        public override ScaleRate<Servant> Scale => new ScaleRate<Servant>(x => x.AbilityPower * 0.001);
 
         protected override bool CanUse(Servant @class) => true;
 
@@ -111,6 +111,6 @@ namespace Dungeon12.Servant.Abilities
 
         public override Location CastLocation => Location.Combat;
 
-        public override string Description => $"Накапливает силу веры раз в секунду";
+        public override string Description => $"Накапливает одну Печать раз в три секунды. Во время молитвы можно передвигаться.";
     }
 }

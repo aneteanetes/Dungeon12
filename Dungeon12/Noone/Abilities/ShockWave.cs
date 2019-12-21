@@ -103,7 +103,7 @@ namespace Dungeon12.Noone.Abilities
 
         public override AbilityTargetType TargetType => AbilityTargetType.SelfTarget;
 
-        public override string Description => $"Выпускает ударную волну которая наносит урон всем собой на три шага.";
+        public override string Description => $"Выпускает ударную волну которая наносит урон всем перед собой на три шага.";
 
     }
 }

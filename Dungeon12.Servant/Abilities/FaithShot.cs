@@ -20,6 +20,8 @@ namespace Dungeon12.Servant.Abilities
 
         public override AbilityTargetType TargetType => AbilityTargetType.TargetAndNonTarget;
 
+        public override string Description => "Наносит урон святой магией ближайшему врагу. Навык имеет длительное время восстановления. При ударе добавляет одну Печать.";
+
         public override string Name => "Удар веры";
 
         public override ScaleRate<Servant> Scale => new ScaleRate<Servant>(x => x.AbilityPower * 2.17);

@@ -93,8 +93,7 @@
         protected TextControl AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical = true)
         {
             var textControl = new TextControl(drawText);
-
-            var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text);
+            var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text,this);
 
             var width = Width * 32;
             var height = Height * 32;

@@ -15,6 +15,8 @@ namespace Dungeon12.Bowman.Abilities
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Q;
 
+        public override string Description => "Обрушает на головы врагов ливень стрел. Навык имеет большой разброс урона. Использует натяжение обоих рук.";
+
         public override string Name => "Ливень стрел";
 
         public override ScaleRate<Bowman> Scale => new ScaleRate<Bowman>(x => x.AttackDamage * 0.6, x => x.AttackSpeed * 0.8);

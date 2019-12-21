@@ -19,6 +19,8 @@ namespace Dungeon12.Bowman.Abilities
 
         public override Cooldown Cooldown { get; } = Cooldown.Make(5000, nameof(Trap));
 
+        public override string Description => "Устанавливает ловушку в направлении взгляда персонажа. Ловушка исчезает через (2 + скорость атаки*1.2) секунд. Либо при наступлении врага на неё.";
+
         public override string Name => "Ловушка";
 
         public override ScaleRate<Bowman> Scale => new ScaleRate<Bowman>(x => x.AttackDamage * 1.2, x => x.ArmorPenetration * 3.4);

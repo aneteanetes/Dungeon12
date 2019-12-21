@@ -24,6 +24,8 @@ namespace Dungeon12.Servant.Abilities
 
         public override AbilityTargetType TargetType => AbilityTargetType.TargetFrendly;
 
+        public override string Description => "Исцеляет персонажа. Действует бонус силы лечения. Тратит одну Печать.";
+
         public override string Name => "Исцеление";
 
         public override ScaleRate<Servant> Scale => new ScaleRate<Servant>(x => x.AbilityPower * 1.2);

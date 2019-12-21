@@ -57,7 +57,7 @@
         private void OnYes()
         {
             var value = textInput.Value;
-            if (!string.IsNullOrWhiteSpace(value))
+            if (!string.IsNullOrWhiteSpace(value) && value.Length>=5)
             {
                 yes?.Invoke(value);
             }

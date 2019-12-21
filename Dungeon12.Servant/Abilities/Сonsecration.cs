@@ -14,8 +14,10 @@ namespace Dungeon12.Servant.Abilities
         public override Cooldown Cooldown { get; } = BaseCooldown.Chain(2000, nameof(Servant)).Build();
 
         public override AbilityPosition AbilityPosition => AbilityPosition.E;
-
+        
         public override string Name => "Освящение";
+
+        public override string Description => "Освещает область под персонажем. Тратит 3 Печати. Освященная область существует 5 секунд и увеличивает физическую и магическую защиту внутри области.";
 
         public override ScaleRate<Servant> Scale => new ScaleRate<Servant>(x => x.Defence * 1.17, x => x.Barrier * 2.12);
 

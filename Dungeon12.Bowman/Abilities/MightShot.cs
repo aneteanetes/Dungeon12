@@ -19,9 +19,11 @@ namespace Dungeon12.Bowman.Abilities
 
         public override AbilityTargetType TargetType => AbilityTargetType.TargetAndNonTarget;
 
+        public override string Description => "Выпускает стрелу с большим натяжением в направлении врага. У навыка большой срок восстановления но сильный урон. На навык влияет скорость атаки и радиус. Использует натяжение правой руки.";
+
         public override string Name => "Сильный выстрел";
 
-        public override ScaleRate<Bowman> Scale => new ScaleRate<Bowman>(x => x.AttackDamage * 0.9);
+        public override ScaleRate<Bowman> Scale => new ScaleRate<Bowman>(x => x.AttackDamage * 1.7);
 
         private Bowman rangeclass;
         protected override bool CanUse(Bowman @class)

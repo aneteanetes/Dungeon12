@@ -103,8 +103,9 @@
                 var descr = this.AddTextCenter(new DrawText(ability?.Description ?? " ").Montserrat().WithWordWrap());
                 descr.Top = top;
                 descr.Left = 0.5;
+                descr.Width = 12;
 
-                top += MeasureText(descr.Text).Y/32 + 0.5;
+                top += MeasureText(descr.Text, descr).Y/32 + 0.5;
 
                 this.AddChild(new DarkRectangle() { Color = ConsoleColor.White, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.05, Top = top - 0.25 });                
 
@@ -140,12 +141,12 @@
                 
                 //ВОТ ТУТ СКЕЙЛЫ
 
-                var location = this.AddTextCenter(new DrawText($"Где используется: {ability.CastLocation.ToDisplay()}", new DrawColor(ConsoleColor.Cyan)).Montserrat(), true);
-                location.Top = top;
+                //var location = this.AddTextCenter(new DrawText($"Где используется: {ability.CastLocation.ToDisplay()}", new DrawColor(ConsoleColor.Cyan)).Montserrat(), true);
+                //location.Top = top;
 
-                top += MeasureText(location.Text).Y / 32 + 0.5;
+                //top += MeasureText(location.Text).Y / 32 + 0.5;
 
-                this.AddChild(new DarkRectangle() { Color = ConsoleColor.White, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.05, Top = top - 0.25 });
+                //this.AddChild(new DarkRectangle() { Color = ConsoleColor.White, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.05, Top = top - 0.25 });
 
                 var ratesText = new DrawText("").Montserrat();
                 foreach (var rate in ability.Rates)
