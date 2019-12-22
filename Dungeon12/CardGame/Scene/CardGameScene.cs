@@ -15,6 +15,8 @@
     using System;
     using System.Linq;
     using Dungeon12;
+    using Dungeon.Drawing.SceneObjects;
+    using Dungeon;
 
     public class CardGameScene : GameScene<Main,Start>
     {
@@ -42,19 +44,28 @@
             var cardgameSceneObject = new CardGameSceneObject(game, enemyDeck, Deck.Load("Guardian"), dropMask);
             this.AddObject(cardgameSceneObject);
             this.AddObject(dropMask);
-            
+
             game.OnWin += winner =>
             {
+                Global.Freezer.World = default;
                 dropMask.Destroy?.Invoke();
                 cardgameSceneObject.Destroy?.Invoke();
 
-                this.AddObject(new Background());
+                this.AddObject(new ImageControl("Loading/CardGameEnd.png".AsmImgRes()));
 
-                var endText = new TextControl(new DrawText($"Выйграл {winner.Name}", ConsoleColor.Blue).Triforce());
+                var endText = new TextControl(new DrawText(winner.Name == "Персонаж" ? "Вы выйграли" : $"Выйграл трактирщик", ConsoleColor.White).Triforce());
                 endText.Text.Size = 72;
                 endText.Left = 8;
                 endText.Top = 9;
                 this.AddObject(endText);
+
+                var @char = Global.GameState.Character;
+                if (winner.Name == "Персонаж")
+                {
+                    var exp = @char.Level * 10;
+                    @char.Exp(exp);
+                    Toast.Show($"Вы получаете {exp} опыта!");
+                }
 
                 this.AddObject(new MetallButtonControl("Ок")
                 {
@@ -62,16 +73,9 @@
                     Top = 17,
                     OnClick = () =>
                     {
-                        Environment.Exit(0);
+                        this.Switch<Main>();
                     }
                 });
-
-                Global.Time.Timer(Guid.NewGuid().ToString())
-                    .After(1000)
-                    .Do(() =>
-                    {
-                        this.Switch<Main>();
-                    }).Auto();
             };
         }
 
