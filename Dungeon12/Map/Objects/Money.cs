@@ -16,6 +16,7 @@
 
         public override ISceneObject Visual()
         {
+            Global.AudioPlayer.Effect("golddrop.wav".AsmSoundRes());
             return new MoneySceneObject(Global.GameState.Player, this, $"Золото ({this.Amount})");
         }
     }

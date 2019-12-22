@@ -40,6 +40,7 @@ namespace Dungeon12.Bowman.Abilities
 
         protected override void Use(GameMap gameMap, Avatar avatar, Bowman @class)
         {
+            Global.AudioPlayer.Effect("arrow.wav".AsmSoundRes());
             @class.Energy.LeftHand -= 15;
 
             var baseSpeed = 0.045;

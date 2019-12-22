@@ -56,6 +56,7 @@ namespace Dungeon12.Entities.Alive
             var visual = this.SceneObject.ShowInScene;
             
             var txt = $"Вы достигли {this.Level} уровня!".AsDrawText().InSize(10).Montserrat();
+            Global.AudioPlayer.Effect("level.wav".AsmSoundRes());
             Toast.Show(txt, visual);
         }
 

@@ -27,5 +27,7 @@
         public string Display { get; set; }
 
         public bool IsUnderLevel { get; set; }
+
+        public string RegionMusic { get; set; }
     }
 }

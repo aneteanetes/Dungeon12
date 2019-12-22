@@ -33,6 +33,7 @@ namespace Dungeon12.Servant.Abilities
             @class.Serve = true;
             holdedBuf = new PrayerBuff(@class);
             avatar.AddState(holdedBuf);
+            Global.AudioPlayer.Effect("pray.wav".AsmSoundRes());
         }
 
         protected override void Dispose(GameMap gameMap, Avatar avatar, Servant @class)
@@ -81,7 +82,7 @@ namespace Dungeon12.Servant.Abilities
             {
                 effect = new PrayerEffect();
 
-                avatar.SceneObject.ShowInScene(effect.InList<ISceneObject>());
+                avatar.SceneObject.AddEffects(effect);
 
                 bufTick = Dungeon12.Global.Time.Timer(nameof(PrayerBuff) + avatar.Name)
                     .After(3000)

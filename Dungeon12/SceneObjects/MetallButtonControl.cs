@@ -21,7 +21,7 @@
 
         public override void Focus()
         {
-            //Global.AudioPlayer.Effect("focus.wav".AsmSoundRes());
+            Global.AudioPlayer.Effect("focus.wav".AsmSoundRes());
             this.Image = "Dungeon12.Resources.Images.ui.button_f.png";
             //this.textControl.Text.Paint(ActiveColor, true);
         }

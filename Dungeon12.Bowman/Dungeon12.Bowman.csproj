@@ -9,5 +9,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Dungeon12\Dungeon12.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Audio\Sounds\" />
+  </ItemGroup>
   <Import Project="$(SolutionDir)\Symbols.props" />
 </Project>

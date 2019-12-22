@@ -42,6 +42,7 @@ namespace Dungeon12.Servant.Abilities
                 Left = (avatar.Position.X / 32) - 1.25,
                 Top = (avatar.Position.Y / 32) - 0.25
             }.Init(5000).InList<ISceneObject>());
+            Global.AudioPlayer.Effect("concentration.wav".AsmSoundRes());
         }
     }
 }

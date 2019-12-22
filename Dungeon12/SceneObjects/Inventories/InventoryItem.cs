@@ -66,6 +66,7 @@
 
         private void PreDrag()
         {
+            Global.AudioPlayer.Effect("invent.wav".AsmSoundRes());
             showTooltip = false;
         }
 

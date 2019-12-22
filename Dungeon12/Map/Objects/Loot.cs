@@ -27,6 +27,7 @@
 
         public override ISceneObject Visual()
         {
+            Global.AudioPlayer.Effect("itemdrop1.wav".AsmSoundRes());
             return new LootSceneObject(Global.GameState.Player, this, this.Item.Name);
         }
     }

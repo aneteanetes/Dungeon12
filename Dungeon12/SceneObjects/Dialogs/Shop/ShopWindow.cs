@@ -21,6 +21,8 @@
 
         public ShopWindow(string title, PlayerSceneObject playerSceneObject, Merchant shop, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding, GameMap gameMap)
         {
+            shop.FillBackpacks();
+
             Global.Freezer.World = this;
 
             this.Top = 2;

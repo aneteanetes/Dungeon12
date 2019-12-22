@@ -34,7 +34,7 @@ namespace Dungeon12.Noone.Abilities
             var value = this.ScaledValue(@class, Value);
 
             @class.InParry = true;
-            Global.AudioPlayer.Effect("attack".NooneSoundPath());
+            Global.AudioPlayer.Effect("earthshake.wav".AsmSoundRes());
 
             var rangeObject = new MapObject()
             {

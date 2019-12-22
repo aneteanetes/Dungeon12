@@ -1,5 +1,6 @@
 {
   "Tile": "Dungeon12.Resources.Images.Regions.FaithIsland.OldHouse.png",
+  "RegionMusic": "FaithIsland.OldHouse",
   "TileBack": null,
   "TileBackOffset": null,
   "SafeZones": [],

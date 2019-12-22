@@ -64,6 +64,7 @@ namespace Dungeon12.Noone.Abilities
             {
                 if (enemyNear)
                 {
+                    Global.AudioPlayer.Effect("defaura.wav".AsmSoundRes());
                     DefauraBuf.value = value;
                     @class.Add<DefauraBuf>();
                     avatar.AddState(auraBuf);

@@ -14,7 +14,7 @@ namespace Dungeon.Monogame
             DungeonGlobal.BindGlobal<Global>();
             Console.WriteLine(Global.Version);
 #if DEBUG
-            Global.ExceptionRethrow = true;
+            //Global.ExceptionRethrow = true;
             //Global.GlobalExceptionHandling();
             ResourceLoader.NotDisposingResources = true;
             ResourceLoader.CacheImagesAndMasks = false;

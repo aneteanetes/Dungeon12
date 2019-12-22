@@ -79,6 +79,7 @@
             this.LoadedRegionData = persistRegion;
 
             ProcessLoad();
+            Global.AudioPlayer.Music($"Locations/{persistRegion.RegionMusic}.ogg".AsmMusicRes());
             Global.Events.Raise(new GameMapLoadedEvent() { GameMap = this });
 
             return persistRegion.Name;
@@ -160,6 +161,8 @@
 
             ProcessLoad();
             Global.Events.Raise(new GameMapLoadedEvent() { GameMap = this });
+
+            Global.AudioPlayer.Music($"Locations/{persistRegion.RegionMusic}.ogg".AsmMusicRes());
 
             return persistRegion.Name;
         }

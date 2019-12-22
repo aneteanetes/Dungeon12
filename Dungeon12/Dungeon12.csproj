@@ -32,6 +32,7 @@
   <ItemGroup>
     <Folder Include="Database\Quests\Data\" />
     <Folder Include="Noone\Resources\Images\Stats\" />
+    <Folder Include="Resources\Audio\Music\Locations\" />
     <Folder Include="Resources\Images\Cards\Areas\" />
     <Folder Include="Resources\Images\Items\Quest\" />
     <Folder Include="Resources\Images\Objects\deadguards\" />

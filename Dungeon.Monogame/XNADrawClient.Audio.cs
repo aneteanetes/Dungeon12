@@ -13,23 +13,19 @@
     {
         public void Music(string name, AudioOptions audioOptions = null)
         {
-#warning выключен звук
-            return;
             var song = LoadSong(name);
             MediaPlayer.Stop();
             MediaPlayer.Play(song);
-            MediaPlayer.IsRepeating = audioOptions?.Repeat ?? false;
-            MediaPlayer.Volume = (float)(audioOptions?.Volume ?? .5);
+            MediaPlayer.IsRepeating = true;// audioOptions?.Repeat ?? false;
+            MediaPlayer.Volume = 0.3f;// (float)(audioOptions?.Volume ?? .3);
         }
 
         public void Effect(string effect, AudioOptions audioOptions = null)
         {
-#warning выключен звук
-            return;
             try
             {
                 var sound = LoadSound(effect).CreateInstance();
-                sound.Volume = (float)(audioOptions?.Volume ?? .5);
+                sound.Volume = 0.2f;//(float)(audioOptions?.Volume ?? .1);
                 sound.Play();
             }
             catch { }
@@ -41,29 +37,29 @@
         {
             if (!soundEffectsCache.TryGetValue(name, out var sound))
             {
-                try
+                //try
+                //{
+                //    sound = Content.Load<SoundEffect>($@"Audio\Sound\{name}");
+                //    soundEffectsCache[name] = sound;
+                //}
+                //catch (Exception ex)
+                //{
+                //    try
+                //    {
+                var res = ResourceLoader.Load(name);
+                sound = SoundEffect.FromStream(res.Stream);
+                soundEffectsCache[name] = sound;
+                res.Dispose += () =>
                 {
-                    sound = Content.Load<SoundEffect>($@"Audio\Sound\{name}");
-                    soundEffectsCache[name] = sound;
-                }
-                catch (Exception ex)
-                {
-                    try
-                    {
-                        var res = ResourceLoader.Load(name);
-                        sound = SoundEffect.FromStream(res.Stream);
-                        soundEffectsCache[name] = sound;
-                        res.Dispose += () =>
-                        {
-                            sound.Dispose();
-                            soundEffectsCache.Remove(name);
-                        };
-                    }
-                    catch
-                    {
-                        throw ex;
-                    }
-                }
+                    sound.Dispose();
+                    soundEffectsCache.Remove(name);
+                };
+                //    }
+                //    catch
+                //    {
+                //        throw ex;
+                //    }
+                //}
             }
 
             return sound;

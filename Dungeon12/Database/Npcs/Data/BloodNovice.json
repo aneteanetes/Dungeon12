@@ -24,6 +24,7 @@
   "FractionIdentify": "CultOfBlood",
   "MovementSpeed": 0.01,
   "NPC": {
+    "DamageSound": "red",
     "ChasingPlayers": true,
     "WaitTime": 10,
     "WalkChance": 90,

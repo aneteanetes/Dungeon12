@@ -40,7 +40,7 @@ namespace Dungeon12.Servant.Abilities
 
             var value = ScaledValue(@class) + @class.HealPower;
             Target.HitPoints += value;
-            Global.AudioPlayer.Effect(@"Audio\Sound\heal.wav".AsmNameRes());
+            Global.AudioPlayer.Effect(@"heal.wav".AsmSoundRes());
             Target.MapObject.SceneObject.AddEffects(new HealEffect());
 
             SceneManager.Current.ShowEffectsBinding(new PopupString($"{value}".AsDrawText().InSize(12).InColor(DrawColor.LawnGreen), avatar.Location).InList<ISceneObject>());

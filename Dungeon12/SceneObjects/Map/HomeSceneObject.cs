@@ -46,6 +46,10 @@
         {
             playerSceneObject.StopMovings();
             var actionObject = Act();
+            if(@object.Merchant==null)
+            {
+                Global.AudioPlayer.Effect("door.wav".AsmSoundRes());
+            }
             ShowInScene?.Invoke(actionObject.InList());
         }
 

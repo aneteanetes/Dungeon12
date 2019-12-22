@@ -79,12 +79,15 @@
             isGame = Args?.ElementAtOrDefault(0) != default;
 
             Global.DrawClient.SetCursor("Cursors.common.png".PathImage());
-            
-            Global.AudioPlayer.Music("Audio/Music/maintheme.ogg".AsmNameRes(), new Dungeon.Audio.AudioOptions()
+
+            if (!isGame)
             {
-                Repeat = true,
-                Volume = 0.3
-            });
+                Global.AudioPlayer.Music("Audio/Music/maintheme.ogg".AsmNameRes(), new Dungeon.Audio.AudioOptions()
+                {
+                    Repeat = true,
+                    Volume = 0.3
+                });
+            }
             
             this.AddObject(new Background(true)
             {

@@ -24,7 +24,15 @@ namespace Dungeon12.Entities
 
         public bool ChasingEnemies { get; set; }
 
+        public string DamageSound { get; set; }
+
         [BsonIgnore]
         public LootTable LootTable => LootTable.GetLootTable(this.IdentifyName ?? this.LootTableName);
+
+        protected override long DamageProcess(Damage dmg, long amount)
+        {
+            Global.AudioPlayer.Effect($"{DamageSound}.wav".AsmSoundRes());
+            return base.DamageProcess(dmg, amount);
+        }
     }
 }

@@ -45,6 +45,7 @@ namespace Dungeon12.Entities.Alive
 
             if (this.HitPoints == 0)
             {
+                Global.AudioPlayer.Effect("mobdead.wav".AsmSoundRes());
                 attacker.Exp(this.ExpGain);
                 Global.Events.Raise(new AliveKillEvent()
                 {

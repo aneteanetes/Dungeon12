@@ -40,7 +40,7 @@
         protected override void Use(GameMap gameMap, Avatar avatar, Noone @class)
         {
             @class.InParry = true;
-            Global.AudioPlayer.Effect("attack".NooneSoundPath());
+            Global.AudioPlayer.Effect("attack3.wav".AsmSoundRes());
 
             var rangeObject = avatar.Grow(2.5);
 

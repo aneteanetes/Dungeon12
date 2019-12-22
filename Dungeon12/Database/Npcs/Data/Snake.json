@@ -24,6 +24,7 @@
   "FractionIdentify": "FaithIslandFauna",
   "MovementSpeed": 0.01,
   "NPC": {
+    "DamageSound": "snake",
     "ChasingPlayers": true,
     "WaitTime": 10,
     "WalkChance": 90,

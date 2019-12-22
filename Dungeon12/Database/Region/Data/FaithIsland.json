@@ -1,6 +1,7 @@
 ﻿{
   "Tile": "Dungeon12.Resources.Images.Regions.FaithIsland.png",
   "TileBack": "Dungeon12.Resources.Images.Regions.FaithIsland_back.png",
+  "RegionMusic": "FaithIsland",
   "TileBackOffset": {
     "X": -15.0,
     "Y": -15.0,

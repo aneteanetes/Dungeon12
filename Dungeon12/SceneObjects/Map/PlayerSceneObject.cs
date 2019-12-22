@@ -261,7 +261,7 @@
 
         protected override void AnimationLoop()
         {
-            Global.AudioPlayer.Effect("step_g", new Dungeon.Audio.AudioOptions()
+            Global.AudioPlayer.Effect("step.wav".AsmSoundRes(), new Dungeon.Audio.AudioOptions()
             {
                 Volume = 0.05
             });

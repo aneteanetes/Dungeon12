@@ -73,6 +73,7 @@ namespace Dungeon12.Bowman.Abilities
                     break;
             }
 
+            Global.AudioPlayer.Effect("trap.wav".AsmSoundRes());
             gameMap.AddMapObject(trap,50,true);
         }
     }

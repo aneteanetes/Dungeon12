@@ -1,5 +1,6 @@
 {
   "Tile": "Dungeon12.Resources.Images.Regions.FaithIsland.Sanctuary.png",
+  "RegionMusic": "Sanctuary",
   "TileBack": null,
   "TileBackOffset": null,
   "SafeZones": [],

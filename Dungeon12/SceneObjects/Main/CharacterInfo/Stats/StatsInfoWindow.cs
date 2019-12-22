@@ -110,7 +110,17 @@
                 TextControl txt = null;
                 if (MeasureText(text).X / 32 > this.Width)
                 {
-                    var statTitle = new DrawText($"{stat.Title(@char)}:", new DrawColor(stat.Color(@char))).Montserrat();
+                    DrawText t;
+                    if(stat.Title!=default)
+                    {
+                        t = new DrawText($"{stat.Title(@char)}:", new DrawColor(stat.Color(@char))).Montserrat();
+                    }
+                    else
+                    {
+                        t = new DrawText($"{stat.Text(@char)}:", new DrawColor(stat.Color(@char))).Montserrat();
+                    }
+
+                    var statTitle = t;
                     var statTxt = this.AddTextCenter(statTitle);
                     statTxt.Left = 0.5;
                     statTxt.Top = top;
@@ -188,7 +198,7 @@
 
             new StatDrawData(c=>c.ResourceName,c=>c.Resource,c=>c.ResourceColor,true),
 
-            new StatDrawData(c=>c.MainAbilityDamageView,c=>c.MainAbilityDamageText,true),
+            new StatDrawData(c=>c.MainAbilityDamageView,c=>c.MainAbilityDamageText,c=>c.ResourceColor,true),
 
             new StatDrawData(c=>"Сила атаки",c=>$"{c.AttackDamage}",c=>ConsoleColor.Cyan,false,true,c=>{ c.AttackDamage++; c.FreeStatPoints--; }),
 
@@ -201,7 +211,7 @@
 
         public class StatDrawData
         {
-            public StatDrawData(Func<Character,IDrawText> text, Func<Character, string> formula, bool group, bool levlUped = false, Action<Character> up = default)
+            public StatDrawData(Func<Character,IDrawText> text, Func<Character, string> formula, Func<Character,ConsoleColor> color, bool group, bool levlUped = false, Action<Character> up = default)
             {
                 EndGroup = group;
                 Value = formula;
@@ -209,6 +219,7 @@
                 Up = up;
                 ContainsFullText = true;
                 Text = text;
+                this.Color = color;
             }
 
             public StatDrawData(Func<Character, string> title, Func<Character, string> formula, Func<Character, ConsoleColor> color, bool group, bool levlUped=false,Action<Character> up=default)

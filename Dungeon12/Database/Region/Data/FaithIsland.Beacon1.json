@@ -1,5 +1,6 @@
 ﻿{
   "Tile": "Dungeon12.Resources.Images.Regions.FaithIsland.Beacon1.png",
+  "RegionMusic": "FaithIsland.Beacon",
   "TileBack": null,
   "TileBackOffset": null,
   "SafeZones": [],

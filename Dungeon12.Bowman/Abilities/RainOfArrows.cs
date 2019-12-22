@@ -40,6 +40,8 @@ namespace Dungeon12.Bowman.Abilities
 
         protected override void Use(GameMap gameMap, Avatar avatar, Bowman @class)
         {
+            Global.AudioPlayer.Effect("arrowrain.wav".AsmSoundRes());
+
             @class.Energy.LeftHand -= 35;
             @class.Energy.RightHand -= 35;
 

@@ -39,6 +39,7 @@ namespace Dungeon12.Servant.Abilities
         protected override void Use(GameMap gameMap, Avatar avatar, Servant @class)
         {
             var rangeObject = avatar.Grow(4);
+            Global.AudioPlayer.Effect("faithshot.wav".AsmSoundRes());
 
             var enemy = gameMap.One<NPCMap>(rangeObject, x => x.IsEnemy);
             if (enemy != default)

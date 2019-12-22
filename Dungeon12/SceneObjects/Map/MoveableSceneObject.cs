@@ -34,6 +34,8 @@
 
         private bool inQueue = false;
 
+        private DateTime lastQueue = DateTime.Now;
+
         protected override void DrawLoop()
         {
             if (moveable.Static)
@@ -49,8 +51,14 @@
                 moveDistance++;
             }
 
+            if ((lastQueue - DateTime.Now).TotalSeconds > 3)
+            {
+                inQueue = false;
+            }
+
             if (moveDistance == 0 && !inQueue)
             {
+                lastQueue = DateTime.Now;
                 inQueue = true;
                 #warning ещё обдумать логику передвижения мобов что бы не влияло на fps
                 Global.Time.Timer()

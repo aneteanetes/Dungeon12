@@ -40,6 +40,7 @@
             this.Height = 0.5;
             this.Width = 0.5;
 
+
             this.Left = @object.Location.X;
             this.Top = @object.Location.Y;
         }

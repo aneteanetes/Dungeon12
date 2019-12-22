@@ -34,6 +34,7 @@
             holdedBuf = new ArmorBuf(v);
             avatar.AddState(holdedBuf);
             @class.InDefstand = true;
+            Global.AudioPlayer.Effect("buf.wav".AsmSoundRes());
         }
 
         protected override void Dispose(GameMap gameMap, Avatar avatar, Noone @class)

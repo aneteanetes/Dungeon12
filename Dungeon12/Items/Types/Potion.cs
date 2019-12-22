@@ -37,6 +37,7 @@
             var @char = Global.GameState.Character;
             @char.HitPoints += _healing;
             @char.Backpack.Remove(this, @char);
+            Global.AudioPlayer.Effect("potion.wav".AsmSoundRes());
 
             Toast.Show($"Исцелено: {_healing}");
         }

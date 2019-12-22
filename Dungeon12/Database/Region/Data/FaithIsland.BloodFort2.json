@@ -1,5 +1,6 @@
 ﻿{
   "Tile": "Dungeon12.Resources.Images.Regions.FaithIsland.BloodFort2.png",
+  "RegionMusic": "FaithIsland.BloodFort",
   "TileBack": null,
   "TileBackOffset": null,
   "SafeZones": [],

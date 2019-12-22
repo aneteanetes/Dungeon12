@@ -46,7 +46,7 @@ namespace Dungeon12.SceneObjects.Map
         {
             if (!@object.Used)
             {
-                Global.AudioPlayer.Effect("Objects/opendoorchest.wav".AsmSoundRes());
+                Global.AudioPlayer.Effect("opendoorchest.wav".AsmSoundRes());
                 this.RequestResume();
             }
         }
