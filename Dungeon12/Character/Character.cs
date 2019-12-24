@@ -53,7 +53,7 @@
             this.Clothes.OnPutOff = PutOffItem;
         }
 
-        public void Destroy()
+        public virtual void Destroy()
         {
             this.Clothes.OnPutOn = default;
             this.Clothes.OnPutOff = default;

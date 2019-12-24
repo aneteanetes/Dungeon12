@@ -73,51 +73,37 @@
         /// </summary>
         public Song LoadSong(string name)
         {
-            if (!___LoadSongCache.TryGetValue(name, out var value))
-            {
-                value = default;
-                try
+            //if (!___LoadSongCache.TryGetValue(name, out var value))
+            //{
+            Song value = default;
+
+                var song = ResourceLoader.Load(name);
+
+                var tempPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "temp");
+                var tempFilePath = Path.Combine(tempPath, name);
+
+                if (!Directory.Exists(tempPath))
                 {
-                    value = Content.Load<Song>($@"Audio\Music\{name}");
+                    Directory.CreateDirectory(tempPath);
                 }
-                catch (Exception ex)
+
+                if (!File.Exists(tempFilePath))
                 {
-                    try
+                    using (var fileStream = File.Create(tempFilePath))
                     {
-                        var song = ResourceLoader.Load(name);
-
-                        var tempPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "temp");
-                        var tempFilePath = Path.Combine(tempPath, name);
-
-                        if(!Directory.Exists(tempPath))
-                        {
-                            Directory.CreateDirectory(tempPath);
-                        }
-
-                        if (!File.Exists(tempFilePath))
-                        {
-                            using (var fileStream = File.Create(tempFilePath))
-                            {
-                                song.Stream.CopyTo(fileStream);
-                            }
-                        }
-
-                        value = Song.FromUri(name, new Uri(tempFilePath));
-
-                        song.Dispose += () =>
-                        {
-                            value.Dispose();
-                        };
-                    }
-                    catch 
-                    {
-                        throw ex;
+                        song.Stream.CopyTo(fileStream);
                     }
                 }
 
+                value = Song.FromUri(name, new Uri(tempFilePath));
 
-                ___LoadSongCache.Add(name, value);
-            }
+                song.Dispose += () =>
+                {
+                    value.Dispose();
+                };
+
+                //___LoadSongCache.Add(name, value);
+            //}
 
             return value;
         }

@@ -16,13 +16,37 @@
 
     public class Noone : Character
     {
-        public Noone(bool @new) : base(true) { }
+        TimerTrigger acttimer;
+
+        public Noone(bool @new) : base(true)
+        {
+            acttimer = Global.Time.Timer("NooneActions")
+                .After(2500)
+                .Do(RestoreActions)
+                .Repeat()
+                .SceneFree()
+                .Auto();
+
+            this.MinDMG = 1;
+            this.MaxDMG = 2;
+
+            this.Actions = 5;
+        }
+
+        public override void Destroy()
+        {
+            acttimer?.Dispose();
+            base.Destroy();
+        }
 
         public Noone()
         {
-            var timer = new System.Timers.Timer(3000);
-            timer.Elapsed += RestoreActions;
-            timer.Start();
+            Global.Time.Timer("NooneActions")
+                .After(2500)
+                .Do(RestoreActions)
+                .Repeat()
+                .Auto();
+
             this.MinDMG = 1;
             this.MaxDMG = 2;
 
@@ -43,7 +67,7 @@
 
         public override ConsoleColor ResourceColor => ConsoleColor.White;
 
-        private void RestoreActions(object sender, System.Timers.ElapsedEventArgs e)
+        private void RestoreActions()
         {
             if (Actions >= 5)
             {
@@ -53,7 +77,19 @@
             Actions++;
         }
 
-        public int Actions { get; set; } = 5;
+        private int _actions = 5;
+        public int Actions
+        {
+            get => _actions;
+            set
+            {
+                _actions = value;
+                if (_actions < 0)
+                {
+                    _actions = 0;
+                }
+            }
+        }
 
         public override string Tileset => "Images/sprite.png".NoonePath();
 
@@ -157,7 +193,7 @@
         {
             if (!InDefstand)
             {
-                RestoreActions(default, default);
+                RestoreActions();
             }
             return dmg.Amount - this.Armor / 2;
         }

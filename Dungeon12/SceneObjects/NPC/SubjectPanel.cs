@@ -25,9 +25,11 @@ namespace Dungeon12.SceneObjects.NPC
         private Сonversational conv;
         private Action<Subject> select;
         private Action exit;
+        private Action _answerPanelClear;
 
-        public SubjectPanel(Сonversational conv, Action<Subject> select, Action exit, MetallButtonControl btn)
+        public SubjectPanel(Сonversational conv, Action<Subject> select, Action exit, MetallButtonControl btn, Action answerPanelClear)
         {
+            this._answerPanelClear = answerPanelClear;
             this.select = select;
             this.conv = conv;
             this.exit = exit;
@@ -108,6 +110,7 @@ namespace Dungeon12.SceneObjects.NPC
             });
 
             this.AddChild(conversactionClickable);
+            _answerPanelClear?.Invoke();
         }
 
         private void SetConversation(Conversation conv, Action<Subject> select, bool alone = false)

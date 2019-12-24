@@ -4,6 +4,7 @@ using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 using Dungeon12.CardGame.Entities;
 using System;
 using System.Linq;
+using Dungeon.Drawing.SceneObjects;
 
 namespace Dungeon12.CardGame.SceneObjects
 {
@@ -17,7 +18,14 @@ namespace Dungeon12.CardGame.SceneObjects
             _cardGame = cardGame;
 
             this.Width = 35;
-            this.Height = 3.5 * 1.5;
+            this.Height = 5.25;
+
+            this.AddChild(new DarkRectangle()
+            {
+                Width = 31.5,
+                Height = 8,
+                Top=-1.8
+            });
 
             double left = 0;
             for (int i = 0; i < 8; i++)

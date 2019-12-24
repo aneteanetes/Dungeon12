@@ -48,6 +48,16 @@
             dialogText.Height = 4;
         }
 
+        public void ClearReplics()
+        {
+            dialogText.Text.SetText("");
+            currentAnswers.ForEach(a =>
+            {
+                this.RemoveChild(a);
+                a.Destroy?.Invoke();
+            });
+        }
+
         private TextControl dialogText;
 
         private double space;

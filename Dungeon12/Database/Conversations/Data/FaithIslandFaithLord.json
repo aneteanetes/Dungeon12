@@ -2,14 +2,14 @@
   "Identify": "FaithIslandFaithLord",
   "Subjects": [
     {
-      "Name": "Приход",
-      "Text": "В этом приходе мы предлагаем различные услуги:\r\nИсцеление: 10 золотых",
+      "Name": "Исцеление",
+      "Text": "В этом приходе мы предлагаем различные услуги",
       "Variables": [],
       "Visible": {},
       "Invisible": {},
       "Replics": [
         {
-          "Answer": "Исцеление",
+          "Answer": "Полностью вылечить (25 монет)",
           "Text": "Ступайте с верой.",
           "ReplicsTags": [],
           "Shown": true,
@@ -17,7 +17,7 @@
           "Variables": [],
           "TriggerClass": "HealingTrigger",
           "TriggerArguments": [
-            "10"
+            "25"
           ]
         }
       ]

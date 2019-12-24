@@ -13,6 +13,7 @@
     using Dungeon12.CardGame.Scene;
     using Dungeon12.Data.Region;
     using Dungeon12.Drawing.SceneObjects;
+    using Dungeon12.Drawing.SceneObjects.UI;
     using Dungeon12.Map.Editor;
     using Dungeon12.SceneObjects;
     using Dungeon12.Scenes.Game;
@@ -76,6 +77,8 @@
 
         public override void Init()
         {
+#warning подорожник на все проблемы со слоями
+            DragAndDropSceneControls.DraggableLayers = 0;
             isGame = Args?.ElementAtOrDefault(0) != default;
 
             Global.DrawClient.SetCursor("Cursors.common.png".PathImage());

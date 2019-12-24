@@ -336,6 +336,11 @@
 
         protected override bool CheckActionAvailable(MouseButton mouseButton)
         {
+            if(@object.IsEnemy==false)
+            {
+                return base.CheckActionAvailable(mouseButton);
+            }
+
             if (mouseButton != MouseButton.None)
             {
                 var range = ability.Range;

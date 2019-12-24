@@ -51,7 +51,7 @@
                 moveDistance++;
             }
 
-            if ((lastQueue - DateTime.Now).TotalSeconds > 3)
+            if (Math.Abs((lastQueue - DateTime.Now).TotalSeconds) >= 3)
             {
                 inQueue = false;
             }
@@ -62,7 +62,7 @@
                 inQueue = true;
                 #warning ещё обдумать логику передвижения мобов что бы не влияло на fps
                 Global.Time.Timer()
-                        .After(100)
+                        .After(700)
                         .Do(CalculateMove)
                         .Trigger();
             }

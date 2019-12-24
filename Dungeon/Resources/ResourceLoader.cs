@@ -72,7 +72,13 @@ namespace Dungeon.Resources
             {
                 Name = resource,
                 Stream = stream,
-                Dispose = () => stream?.Dispose()
+                Dispose = () =>
+                {
+                    if (!resource.Contains("ogg") && !resource.Contains("wav"))
+                    {
+                        stream?.Dispose();
+                    }
+                }
             };
 
             bool addToScene = !caching;
