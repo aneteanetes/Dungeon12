@@ -30,7 +30,7 @@
             _playerSceneObject = playerSceneObject;
 
             answerPanel = new AnswerPanel(gameMap, playerSceneObject) { DestroyBinding = destroyBinding, ControlBinding = controlBinding };
-            subjectPanel = new SubjectPanel(conversational, answerPanel.Select, ExitDialogue, customizeExit);
+            subjectPanel = new SubjectPanel(conversational, answerPanel.Select, ExitDialogue, customizeExit, answerPanel.ClearReplics);
             answerPanel.BackAction = subjectPanel.ButtonClick;
 
             if (conversational.ScreenImage != null)

@@ -98,6 +98,13 @@
             player.SceneObject = this;
 
             this.OnMove += () => this.Avatar.OnMove?.Invoke();
+
+            this.AddChild(new ImageControl("ui/radius.png".AsmImgRes())
+            {
+                CacheAvailable=false,
+                Left=-1,
+                Top=-1
+            });
         }
 
         protected override void CallOnEvent(dynamic obj)
@@ -261,10 +268,10 @@
 
         protected override void AnimationLoop()
         {
-            Global.AudioPlayer.Effect("step.wav".AsmSoundRes(), new Dungeon.Audio.AudioOptions()
-            {
-                Volume = 0.05
-            });
+            //Global.AudioPlayer.Effect("step.wav".AsmSoundRes(), new Dungeon.Audio.AudioOptions()
+            //{
+            //    Volume = 0.05
+            //});
         }
 
         private bool CheckMoveAvailable(Direction direction)

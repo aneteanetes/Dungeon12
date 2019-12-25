@@ -33,13 +33,13 @@ namespace Dungeon12.Bowman.Effects
         })
         {
             this.bowman = bowman;
-            arrow.Size = new PhysicalSize() { Height = 16, Width = 16 };
+            arrow.Size = new PhysicalSize() { Height = 6, Width = 6 };
             _gameMap = gameMap;
             destination = Global.PointerLocation.GameCoordinates;
 
             destinationArea = new MapObject()
             {
-                Location = new Point(destination),
+                Location = new Point(destination.X,destination.Y),
                 Size = new PhysicalSize() { Height = 32, Width = 32 }
             };
 
@@ -243,12 +243,12 @@ namespace Dungeon12.Bowman.Effects
                 return;
             }
 
-            if (destinationArea.IntersectsWithOrContains(thisArea))
-            {
-                Trajectory.Clear();
-                RequestStop();
-                return;
-            }
+            //if (destinationArea.IntersectsWithOrContains(thisArea))
+            //{
+            //    Trajectory.Clear();
+            //    RequestStop();
+            //    return;
+            //}
 
             var step = Trajectory.Dequeue();
 

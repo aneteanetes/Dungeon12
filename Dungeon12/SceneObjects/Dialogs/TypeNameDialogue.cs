@@ -34,14 +34,14 @@
             textInput.Top = this.Height / 2 - textInput.Height / 2;
             textInput.Left += 0.75;
            
-            var yesBtn = new SmallMetallButtonControl(new DrawText("◀") { Size = 40 }.Montserrat());
-            yesBtn.Top = this.Top+this.Height - 3;
-            yesBtn.Left = 1;
+            var yesBtn = new MetallButtonControl("Далее");
+            yesBtn.Top = this.Top+this.Height - 1.5;
+            yesBtn.Left -= yesBtn.Width/4;
             yesBtn.OnClick = OnYes;
 
-            var noBtn = new SmallMetallButtonControl(new DrawText("▶") { Size = 40 }.Montserrat());
-            noBtn.Top = this.Top + this.Height - 3;
-            noBtn.Left = this.Left+this.Width-1-noBtn.Width;
+            var noBtn = new MetallButtonControl("Назад");
+            noBtn.Top = this.Top + this.Height - 1.5;
+            noBtn.Left = this.Width / 2;
             noBtn.OnClick = no;
 
             this.AddChild(yesBtn);

@@ -14,7 +14,10 @@
     using Penumbra;
     using ProjectMercury.Renderers;
     using System;
+    using System.Collections;
     using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
     using System.Resources;
 
     public partial class XNADrawClient : Game, IDrawClient
@@ -72,9 +75,26 @@
             this.IsFixedTimeStep = true;//false;
             this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d); //60);
 
-            _resources = new ResourceContentManager(this.Services,
-                new ResourceManager("Dungeon.Monogame.Resources", typeof(XNADrawClient).Assembly)
-            );
+            var manager = new ResourceManager("Dungeon.Monogame.Resources", typeof(XNADrawClient).Assembly);
+            var data = manager.GetResourceSet(CultureInfo.InvariantCulture, true, true).Cast<DictionaryEntry>()
+                                    .ToDictionary(r => r.Key.ToString(),
+                                                  r => r.Value.ToString());
+            foreach (var item in data)
+            {
+                Console.WriteLine(item.Key);
+                Console.WriteLine(item.Value);
+                try
+                {
+                    Console.WriteLine(manager.GetObject(item.Key));
+                }
+                catch
+                {
+                    Console.WriteLine(manager.GetObject(item.Key));
+                    //throw;
+                }
+            }
+
+            _resources = new ResourceContentManager(this.Services,manager);
 
             penumbra = new PenumbraComponent(this, _resources);
             Components.Add(penumbra);

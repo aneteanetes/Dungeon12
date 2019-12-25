@@ -154,7 +154,7 @@
         {
             overflow = 0;
             var stackableItem = Container.Nodes
-                .FirstOrDefault(n => n.Item.IdentifyName == itemSource.IdentifyName
+                .FirstOrDefault(n => n.Item.Name == itemSource.Name
                 && !n.Item.StackFull);
 
             if (stackableItem == default)

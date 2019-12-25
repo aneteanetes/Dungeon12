@@ -32,6 +32,19 @@
       "Invisible": {},
       "Replics": [
         {
+          "Answer": "Как играть?",
+          "Text": "",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 6,
+          "Variables": [],
+          "TriggerClass": "JournalAddTrigger",
+          "TriggerArguments": [
+            "World",
+            "CardGame"
+          ]
+        },
+        {
           "Answer": "Начать игру",
           "Text": "Да у вас же нету своей колоды!",
           "ReplicsTags": [
@@ -60,19 +73,6 @@
           "Tag": 8,
           "Variables": [],
           "Escape": true
-        },
-        {
-          "Answer": "Что такое 'подземелья'?",
-          "Text": "",
-          "ReplicsTags": [],
-          "Shown": true,
-          "Tag": 6,
-          "Variables": [],
-          "TriggerClass": "JournalAddTrigger",
-          "TriggerArguments": [
-            "World",
-            "CardGame"
-          ]
         }
       ]
     },
@@ -85,6 +85,19 @@
         "Name": "CardsExisted"
       },
       "Replics": [
+        {
+          "Answer": "Как играть?",
+          "Text": "",
+          "ReplicsTags": [],
+          "Shown": true,
+          "Tag": 6,
+          "Variables": [],
+          "TriggerClass": "JournalAddTrigger",
+          "TriggerArguments": [
+            "World",
+            "CardGame"
+          ]
+        },
         {
           "Answer": "Да",
           "Text": "",

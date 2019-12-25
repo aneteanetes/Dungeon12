@@ -51,11 +51,14 @@ namespace Dungeon
         {
             timer.Elapsed += (s, e) =>
             {
-                if(ActiveScene?.Destroyed ?? false)
+                if (!sceneIndependent)
                 {
-                    this.Dispose();
-                    ActiveScene = default;
-                    return;
+                    if (ActiveScene?.Destroyed ?? false)
+                    {
+                        this.Dispose();
+                        ActiveScene = default;
+                        return;
+                    }
                 }
 
                 action?.Invoke();
@@ -65,6 +68,18 @@ namespace Dungeon
                 }
             };
 
+            return this;
+        }
+
+        private bool sceneIndependent = false;
+
+        /// <summary>
+        /// таймер не будет уничтожен после уничтожения сцены
+        /// </summary>
+        /// <returns></returns>
+        public TimerTrigger SceneFree()
+        {
+            sceneIndependent = true;
             return this;
         }
 

@@ -68,6 +68,7 @@ namespace Dungeon12.CardGame.SceneObjects
 
             if (args.MouseButton == Dungeon.Control.Pointer.MouseButton.Right)
             {
+                Toast.Show("Вы сбросили карту!");
                 Player.Discard(this.Card);
             }
             else

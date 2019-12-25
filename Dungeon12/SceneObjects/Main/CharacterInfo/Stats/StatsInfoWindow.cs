@@ -85,11 +85,19 @@
             }
         }
 
+        private TextControl common;
+
+        public override void Update()
+        {
+            var @char = Global.GameState.Character;
+            common.Text.SetText(@char.FreeStatPoints > 0 ? $"Свободно: {@char.FreeStatPoints}" : "Основные");
+        }
+
         private void DrawStats(Character @char)
         {
             double top = 0.2;
 
-            var common = this.AddTextCenter(new DrawText("Основные"), true, false);
+            common = this.AddTextCenter(new DrawText(@char.FreeStatPoints>0 ? $"Свободно: {@char.FreeStatPoints}" : "Основные"), true, false);
             common.Top += top;
             top += MeasureText(common.Text).Y/32+0.5;
 

@@ -209,7 +209,7 @@
 
                 if (ability != null)
                 {
-                    this.AddTextCenter(new DrawText(ability.AbilityPosition.ToString()));
+                    this.AddTextCenter(new DrawText(ability.AbilityPosition.ToDisplay()));
                 }
 
                 this.Image = SquareTexture(false);

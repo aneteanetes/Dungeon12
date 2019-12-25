@@ -377,7 +377,7 @@
             this.Width = 40;
             this.Height = 22.5;
             
-            var t = this.AddTextCenter($"Все остальные подсказки и ответы на вопросы вы можете найти{Environment.NewLine}в журнале на последней вкладке в категории 'Обучение'.".AsDrawText().InSize(14).Montserrat(), true, false);
+            var t = this.AddTextCenter($"[TAB] - Закрыть/Открыть эту подсказку.{Environment.NewLine}Все остальные подсказки и ответы на вопросы вы можете найти{Environment.NewLine}в журнале на последней вкладке в категории 'Обучение'.".AsDrawText().InSize(14).Montserrat(), true, false);
             t.Top = 2.5;
 
             AddWASD();
@@ -491,7 +491,7 @@
 
         private void AddTab()
         {
-            var t = this.AddTextCenter("[Tab] - открыть этот экран".AsDrawText().Montserrat(), false, false);
+            var t = this.AddTextCenter("[Tab] - открыть/закрыть этот экран".AsDrawText().Montserrat(), false, false);
             t.Left = 4;
             t.Top = 10;
 
