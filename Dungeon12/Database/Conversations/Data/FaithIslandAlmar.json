@@ -39,7 +39,7 @@
       "Visible": {
         "Name": "QuestCompleted_VampireDaughter"
       },
-      "Invisible": {},
+      "Invisible": { "Name": "demo" },
       "Replics": [
         {
           "Answer": "Отправиться на поиски Селинт",

@@ -51,7 +51,7 @@
       "Visible": {
         "Name": "QuestCompleted_BloodCultEntry"
       },
-      "Invisible": {},
+      "Invisible": { "Name": "demo"},
       "Replics": [
         {
           "Answer": "У меня никогда не было проблем с магией крови",
