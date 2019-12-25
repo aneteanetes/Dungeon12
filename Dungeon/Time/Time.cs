@@ -39,6 +39,14 @@ namespace Dungeon
             if (this.Minutes > 59)
             {
                 this.Minutes = 0;
+                AddHourse(1);
+            }
+        }
+
+        public void AddHourse(int h)
+        {
+            for (int i = 0; i < h; i++)
+            {
                 this.Hours += 1;
                 if (Hours > 23)
                 {

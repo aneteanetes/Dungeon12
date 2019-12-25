@@ -499,7 +499,7 @@
     },
     {
       "Icon": "Npc",
-      "IdentifyName": "ServantOfFaith",
+      "IdentifyName": "WalkMerchantFromAlmar",
       "Position": {
         "X": 57,
         "Y": 48
@@ -507,7 +507,7 @@
     },
     {
       "Icon": "Npc",
-      "IdentifyName": "ServantOfFaith",
+      "IdentifyName": "Rithierel",
       "Position": {
         "X": 38,
         "Y": 45

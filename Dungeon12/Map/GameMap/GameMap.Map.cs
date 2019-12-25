@@ -50,6 +50,12 @@
 
             foreach (var regionObject in persistRegion.Objects)
             {
+                if (regionObject.Obstruct && name == "FaithIsland" && regionObject.Region.Width == 32 && regionObject.Region.Height == 32)
+                {
+                    //стараемся убрать непроходимые кусты
+                    regionObject.Obstruct = false;
+                }
+
                 if (regionObject.Obstruct && persistRegion.Offset != default)
                 {
                     Offset = persistRegion.Offset;
@@ -130,6 +136,12 @@
 
             foreach (var regionObject in persistRegion.Objects)
             {
+                if (regionObject.Obstruct && MapIdentifyId == "FaithIsland" && regionObject.Region.Width == 32 && regionObject.Region.Height == 32)
+                {
+                    //стараемся убрать непроходимые кусты
+                    regionObject.Obstruct = false;
+                }
+
                 if (regionObject.Obstruct && persistRegion.Offset != default)
                 {
                     regionObject.Position.X += persistRegion.Offset.X;
