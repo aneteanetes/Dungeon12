@@ -23,15 +23,7 @@ namespace Dungeon12.Entites.Journal
 
         [Value("Выполнено")]
         [Icon("qdone")]
-        public List<JournalEntry> QuestsDone { get; set; } = new List<JournalEntry>()
-        {
-            new JournalEntry()
-            {
-                Display="Таланты",
-                Group="Обучение",
-                Text="example"
-            }
-        };
+        public List<JournalEntry> QuestsDone { get; set; } = new List<JournalEntry>();
 
         public Journal()
         {

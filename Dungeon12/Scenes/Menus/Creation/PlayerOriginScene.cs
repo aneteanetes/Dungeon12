@@ -1,5 +1,6 @@
 ﻿namespace Dungeon12.Scenes.Menus.Creation
 {
+    using Dungeon;
     using Dungeon.Control.Keys;
     using Dungeon.Data;
     using Dungeon.Drawing.SceneObjects;
@@ -7,7 +8,9 @@
     using Dungeon.Scenes.Manager;
     using Dungeon12.Classes;
     using Dungeon12.Drawing.SceneObjects.Dialogs;
+    using Dungeon12.Entites.Journal;
     using Dungeon12.Scenes.Game;
+    using System.Collections.Generic;
 
     public class PlayerOriginScene : GameScene<PlayerSummaryScene, PlayerNameScene,Main>
     {
@@ -74,6 +77,9 @@
                     }
 
                     Global.GameState.PlayerAvatar.Character.Origin = o;
+
+                    var cat = Global.GameState.Character.Journal.Details;
+                    cat.AddRange(JournalEntry.LoadAll(x => x.IdentifyName.Contains("Info")));
 
                     this.Switch<Main>("true");
                 }
