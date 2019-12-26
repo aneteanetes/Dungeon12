@@ -31,7 +31,10 @@ namespace Dungeon12.Entities
 
         protected override long DamageProcess(Damage dmg, long amount)
         {
-            Global.AudioPlayer.Effect($"{DamageSound}.wav".AsmSoundRes());
+            if (DamageSound != default)
+            {
+                Global.AudioPlayer.Effect($"{DamageSound}.wav".AsmSoundRes());
+            }
             return base.DamageProcess(dmg, amount);
         }
     }

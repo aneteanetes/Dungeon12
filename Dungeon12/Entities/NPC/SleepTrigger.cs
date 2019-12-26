@@ -15,7 +15,7 @@ namespace Dungeon12.Entities
 
             var t = Global.Time.Clone();
             t.AddHourse(hours);
-            Global.Time.Set(t)
+            Global.Time.Set(t);
 
             var @char = Global.GameState.Character;
 

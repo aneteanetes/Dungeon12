@@ -6,7 +6,6 @@
     "X": 1,
     "Y": 1
   },
-  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.ServantF.png",
   "Tileset": "Dungeon12.Resources.Images.NPCs.FaithIsland.inquis.png",
   "TileSetRegion": {
     "X": 64,
@@ -16,7 +15,7 @@
   },
   "MovementSpeed": 0.01,
   "Conversations": [
-    "FaithIsland.Inquisitor"
+    "FaithIslandInquisitor"
   ],
   "FractionIdentify": "FaithIslandTown",
   "NPC": {

@@ -1,6 +1,5 @@
 ﻿{
-  "Identify": "ServantOfFaithMain",
-  "Face": "Dungeon12.Resources.Images.NPCs.FaithIsland.ServantF.png",
+  "Identify": "FaithIslandInquisitor",
   "Subjects": [
     {
       "Name": "Посещение Острова",

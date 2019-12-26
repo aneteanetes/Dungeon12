@@ -50,13 +50,6 @@
 
             foreach (var regionObject in persistRegion.Objects)
             {
-                if (regionObject.Obstruct && name == "FaithIsland" && regionObject.Region.Width == 32 && regionObject.Region.Height == 32 && 
-                    (regionObject.Image== "Dungeon12.Resources.Images.Tiles.wall.png" || regionObject.Image== "Dungeon12.Resources.Images.Tiles.misc1.png" || regionObject.Image == "Dungeon12.Resources.Images.Tiles.misc2.png"))
-                {
-                    //стараемся убрать непроходимые кусты
-                    regionObject.Obstruct = false;
-                }
-
                 if (regionObject.Obstruct && persistRegion.Offset != default)
                 {
                     Offset = persistRegion.Offset;
@@ -137,13 +130,6 @@
 
             foreach (var regionObject in persistRegion.Objects)
             {
-                if (regionObject.Obstruct && MapIdentifyId == "FaithIsland" && regionObject.Region.Width == 32 && regionObject.Region.Height == 32 &&
-                    (regionObject.Image == "Dungeon12.Resources.Images.Tiles.wall.png" || regionObject.Image == "Dungeon12.Resources.Images.Tiles.misc1.png" || regionObject.Image == "Dungeon12.Resources.Images.Tiles.misc2.png"))
-                {
-                    //стараемся убрать непроходимые кусты
-                    regionObject.Obstruct = false;
-                }
-
                 if (regionObject.Obstruct && persistRegion.Offset != default)
                 {
                     regionObject.Position.X += persistRegion.Offset.X;

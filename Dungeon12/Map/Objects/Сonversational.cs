@@ -123,7 +123,7 @@
                 {
                     replica.Conversation = this.conversation;
                     replica.Replics = replics
-                        .Where(x => replica.ReplicsTags.Contains(x.Tag))
+                        .Where(x => replica.ReplicsTags?.Contains(x.Tag) ?? false)
                         .ToList();
 
                     foreach (var variable in replica.Variables)
