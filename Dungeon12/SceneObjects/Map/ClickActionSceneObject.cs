@@ -105,7 +105,13 @@
         protected Ability ability;
 
         private readonly Dictionary<MouseButton, AbilityPosition> mouseAbiityMap = new Dictionary<MouseButton, AbilityPosition>() { { MouseButton.Left, AbilityPosition.Left }, { MouseButton.Right, AbilityPosition.Right } };
-        private void SetAbility(MouseButton mouseButton) => ability = playerSceneObject.GetAbility(mouseAbiityMap[mouseButton]);
+        private void SetAbility(MouseButton mouseButton)
+        {
+            if (mouseButton == MouseButton.Left || mouseButton == MouseButton.Right)
+            {
+                ability = playerSceneObject?.GetAbility(mouseAbiityMap[mouseButton]);
+            }
+        }
 
         private void CheckStopAction()
         {

@@ -16,6 +16,7 @@ namespace Dungeon.SceneObjects
 
         public MessageBox(string msg, Action ok)
         {
+            this.ZIndex = int.MaxValue - 5;
             this.ok = ok;
 
             this.Width = 16;

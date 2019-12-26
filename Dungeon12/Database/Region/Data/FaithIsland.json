@@ -218,6 +218,7 @@
           "Height": 3
         }
       },
+      "RespawnSeconds": 30,
       "Respawns": [
         {
           "Identify": "Rat",

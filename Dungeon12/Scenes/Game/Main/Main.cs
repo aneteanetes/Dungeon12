@@ -66,9 +66,6 @@
 
             this.InitMap();
 
-            Global.Time.Set(Dungeon.Time.GameStart);
-            Global.Time.Start();
-
             List<ISceneObject> temp = new List<ISceneObject>();
 
             var mapSceneObect = new GameMapSceneObject(this.Gamemap, player)
@@ -114,11 +111,6 @@
                 Top = 18.45 + 0.5 + 2,
                 Left = 9 + 2.9 
             });
-
-            this.PlayerAvatar.Die += () =>
-            {
-                this.Switch<End>();
-            };
 
             this.AddObject(player);
             this.Gamemap.MapObject.Add(this.PlayerAvatar);
@@ -301,12 +293,12 @@
             if (keyPressed == Key.Escape)
                 this.Switch<Start>("main");
 
-            if(keyPressed== Key.V && keyModifiers== KeyModifiers.Control)
+            if(keyPressed== Key.N && keyModifiers== KeyModifiers.Control)
             {
                 variableViewer.Visible = !variableViewer.Visible;
             }
 
-            if (keyPressed == Key.L && keyModifiers == KeyModifiers.Control)
+            if (keyPressed == Key.K && keyModifiers == KeyModifiers.Control)
             {
                 Global.GameState.Character.Exp(70);
             }
@@ -377,7 +369,7 @@
             this.Width = 40;
             this.Height = 22.5;
             
-            var t = this.AddTextCenter($"[TAB] - Закрыть/Открыть эту подсказку.{Environment.NewLine}Все остальные подсказки и ответы на вопросы вы можете найти{Environment.NewLine}в журнале на последней вкладке в категории 'Обучение'.".AsDrawText().InSize(14).Montserrat(), true, false);
+            var t = this.AddTextCenter($"[TAB] - Закрыть/Открыть эту подсказку.{Environment.NewLine}Все остальные подсказки и ответы на вопросы вы можете найти{Environment.NewLine}в журнале [L] на вкладке 'Детали' в категории 'Справка'.".AsDrawText().InSize(14).Montserrat(), true, false);
             t.Top = 2.5;
 
             AddWASD();

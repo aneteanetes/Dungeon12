@@ -11,15 +11,25 @@ namespace Dungeon12.SceneObjects.UI
     {
         public Dungeon12PlayerUI(Character player) : base(player)
         {
+            AddAllDiscoverers(player);
+        }
+
+        private void AddAllDiscoverers(Character player)
+        {
             player.As<Character>()
-                .ActiveQuests
-                .Where(aq => aq.Discover)
-                .ForEach(AddDiscover);
+                            .ActiveQuests
+                            .Where(aq => aq.Discover)
+                            .ForEach(AddDiscover);
         }
 
         public void OnEvent(QuestDiscoverEvent questGetEvent)
         {
             AddDiscover(questGetEvent.Quest);
+        }
+
+        public void OnEvent(QuestDiscoverFlushedEvent questDiscoverFlushedEvent)
+        {
+            AddAllDiscoverers(Global.GameState.Character);
         }
 
         protected override void CallOnEvent(dynamic obj) => this.OnEvent(obj);

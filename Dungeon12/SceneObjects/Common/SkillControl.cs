@@ -96,8 +96,12 @@
             public override bool AbsolutePosition => true;
             public override bool CacheAvailable => false;
 
+            private TextControl text;
+            private Ability _ability;
+
             public CooldownMask(Ability ability) : base(@"ui\square_transparent_mask.png".PathImage())
             {
+                _ability = ability;
                 this.Mask = Dungeon.Drawing.SceneObjects.ImageMask.Radial()
                     .BindAmount(() => ability.Cooldown?.Percent ?? 0f)
                     .BindVisible(() => ability.Cooldown?.IsActive ?? false);
@@ -105,7 +109,36 @@
                 this.Mask.Color = new DrawColor(ConsoleColor.Black);
                 this.Mask.Opacity = 0.5f;
 
+                text = this.AddTextCenter("0".AsDrawText().InSize(20).Montserrat());
+                text.Visible = false;
+
                 Global.DrawClient.CacheObject(this);
+            }
+
+            public override void Update()
+            {
+                if (_ability.Cooldown?.IsActive ?? false)
+                {
+                    var sec = TimeSpan.FromMilliseconds(_ability.Cooldown.Milliseconds).TotalSeconds;
+                    text.Text.SetText(sec.ToString());
+                    if (sec > 5)
+                    {
+                        text.Text.ForegroundColor = DrawColor.White;
+                    }
+                    else if (sec < 5 && sec > 2)
+                    {
+                        text.Text.ForegroundColor = DrawColor.Yellow;
+                    }
+                    else
+                    {
+                        text.Text.ForegroundColor = DrawColor.Red;
+                    }
+                }
+                else
+                {
+                    text.Visible = false;
+                }
+                base.Update();
             }
         }
 

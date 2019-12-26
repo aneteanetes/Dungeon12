@@ -87,6 +87,10 @@ namespace Dungeon12.Entities.Quests
 
         public QuestDescoverSceneObject VisualDescover(bool questBook=true)
         {
+            if (_descover != default)
+            {
+                _descover.Destroy?.Invoke();
+            }
             _descover = new QuestDescoverSceneObject(this, questBook);
             _descover.Destroy += () => _descover = null;
             return _descover;
@@ -115,6 +119,7 @@ namespace Dungeon12.Entities.Quests
             UnsubscribeEvents();
 
             _descover?.Destroy?.Invoke();
+            Global.Events.Raise(new QuestDiscoverFlushedEvent(this));
 
             Toast.Show("Задание выполнено!");
         }

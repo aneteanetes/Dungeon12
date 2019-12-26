@@ -35,11 +35,6 @@
                 R = 255,
                 A = 255
             };
-
-            this.Die += () =>
-            {
-                SceneManager.Switch<End>();
-            };
         }
 
         public override PhysicalSize Size

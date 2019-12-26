@@ -190,7 +190,7 @@
                     if (this.Notifying)
                     {
                         var txt = "Способность восстанавливается".AsDrawText().InSize(10).Montserrat();
-                        Toast.Show(txt, avatar.SceneObject.ShowInScene);
+                        Toast.Show(txt);
                     }
                     return false;
                 }
@@ -203,7 +203,7 @@
                 if (this.Notifying)
                 {
                     var txt = "Невозможно использовать способность!".AsDrawText().InSize(10).Montserrat();
-                    Toast.Show(txt, avatar.SceneObject.ShowInScene);
+                    Toast.Show(txt);
                 }
             }
 

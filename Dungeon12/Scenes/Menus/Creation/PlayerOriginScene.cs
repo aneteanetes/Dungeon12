@@ -81,6 +81,10 @@
                     var cat = Global.GameState.Character.Journal.Details;
                     cat.AddRange(JournalEntry.LoadAll(x => x.IdentifyName.Contains("Info")));
 
+
+                    Global.Time.Set(Dungeon.Time.GameStart);
+                    Global.Time.Start();
+
                     this.Switch<Main>("true");
                 }
             });
