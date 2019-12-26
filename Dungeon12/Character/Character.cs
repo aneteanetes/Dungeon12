@@ -27,11 +27,6 @@
             Reload();
 
             Global.Events.Subscribe<GameLoadedEvent>(ReloadCollectQuests);
-
-            this.OnDie += () =>
-              {
-                  SceneManager.Switch<End>();
-              };
         }
 
         public Character(bool @new)
@@ -58,6 +53,11 @@
         {
             this.Clothes.OnPutOn = PutOnItem;
             this.Clothes.OnPutOff = PutOffItem;
+
+            this.OnDie += () =>
+            {
+                SceneManager.Switch<End>();
+            };
         }
 
         public virtual void Destroy()

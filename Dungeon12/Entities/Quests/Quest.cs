@@ -85,8 +85,13 @@ namespace Dungeon12.Entities.Quests
 
         public override ISceneObject Visual() => VisualDescover();
 
-        public QuestDescoverSceneObject VisualDescover(bool questBook=true)
+        public QuestDescoverSceneObject VisualDescover(bool questBook = true)
         {
+            if (questBook)
+            {
+                return new QuestDescoverSceneObject(this, true);
+            }
+
             if (_descover != default)
             {
                 _descover.Destroy?.Invoke();

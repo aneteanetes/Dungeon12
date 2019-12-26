@@ -191,7 +191,7 @@
                 var storeName = replica.TriggerClass + string.Join("`%", replica.TriggerClassArguments ?? new string[0]);
                 if (trigger.Storable)
                 {
-                    fire = playerSceneObject.Component.Entity[storeName] != default;
+                    fire = !playerSceneObject.Component.Entity[storeName].As(true);
                 }
                 if (fire)
                 {

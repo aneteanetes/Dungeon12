@@ -86,6 +86,7 @@ namespace Dungeon12.Map.Objects
         public override void Reload(HashSet<MapObject> objects)
         {
             objects.Where(x => x.Uid.Contains(this.Uid) && x != this).ForEach(BindDestory);
+            StartReespawnTimer();
         }
 
         private void BindDestory(MapObject mapObject)
@@ -93,14 +94,19 @@ namespace Dungeon12.Map.Objects
             mapObject.Destroy += () =>
             {
                 MobsAlive.Remove(mapObject.Uid);
-                if (this.MobsAlive.Count == 0 && RespawnSeconds > 0)
-                {
-                    Global.Time.Timer()
-                    .After(TimeSpan.FromSeconds(RespawnSeconds).TotalMilliseconds)
-                    .Do(() => Spawn())
-                    .Trigger();
-                }
+                StartReespawnTimer();
             };
+        }
+
+        private void StartReespawnTimer()
+        {
+            if (this.MobsAlive.Count == 0 && RespawnSeconds > 0)
+            {
+                Global.Time.Timer()
+                .After(TimeSpan.FromSeconds(RespawnSeconds).TotalMilliseconds)
+                .Do(() => Spawn())
+                .Trigger();
+            }
         }
 
         private void SetLocation(int tries, MapObject mob)

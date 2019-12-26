@@ -72,6 +72,7 @@
                         from.Destroy();
                         to.Reload();
 
+                        Global.GameState.Character = to;
                         Global.GameState.PlayerAvatar.Character = to;
                         Global.GameState.PlayerAvatar.ReEntity(to);
                     }

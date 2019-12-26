@@ -30,6 +30,21 @@
             throw new System.Exception("Property had wrong type!");
         }
 
+        public static T As<T>(this object obj, T @defaultIfExists)
+        {
+            if (obj == default)
+            {
+                return default;
+            }
+
+            if (obj is T tObj)
+            {
+                return tObj;
+            }
+
+            return @defaultIfExists;
+        }
+
         public static bool Is<T>(this object obj)
         {
             if (obj is T )

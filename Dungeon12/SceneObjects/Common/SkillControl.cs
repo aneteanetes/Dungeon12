@@ -110,6 +110,8 @@
                 this.Mask.Opacity = 0.5f;
 
                 text = this.AddTextCenter("0".AsDrawText().InSize(20).Montserrat());
+                text.Left+=.7;
+                text.Top += 1;
                 text.Visible = false;
 
                 Global.DrawClient.CacheObject(this);
@@ -119,8 +121,9 @@
             {
                 if (_ability.Cooldown?.IsActive ?? false)
                 {
-                    var sec = TimeSpan.FromMilliseconds(_ability.Cooldown.Milliseconds).TotalSeconds;
-                    text.Text.SetText(sec.ToString());
+                    text.Visible=true;
+                    var sec = Math.Round(_ability.Cooldown.ElapsedSeconds, 1);
+                    text.Text.SetText(sec.ToString().Replace(",","."));
                     if (sec > 5)
                     {
                         text.Text.ForegroundColor = DrawColor.White;

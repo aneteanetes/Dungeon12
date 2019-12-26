@@ -50,6 +50,20 @@ namespace Dungeon12.Abilities
 
         public float Percent => GetPercent(this);
 
+        public double ElapsedSeconds
+        {
+            get
+            {
+                var plus = 0d;
+                if (Next != null)
+                {
+                    plus = Next.ElapsedSeconds;
+                }
+
+                return plus+(Milliseconds - cooldowns[Name].Watch.ElapsedMilliseconds) / 1000;
+            }
+        }
+
         private float GetPercent(Cooldown cooldown)
         {
             if (cooldown.Next != null)

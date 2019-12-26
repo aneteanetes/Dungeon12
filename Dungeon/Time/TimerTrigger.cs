@@ -113,7 +113,11 @@ namespace Dungeon
         {
             lock (aliveTimeslock)
                 aliveTimers.Add(name);
-            timer.Start(); //обдумать ещё
+
+            if (!disposed)
+            {
+                timer.Start(); //обдумать ещё
+            }
             return this;
         }
 
@@ -128,12 +132,15 @@ namespace Dungeon
         /// </summary>
         public void Trigger() => Auto();
 
+        protected bool disposed = false;
+
         /// <summary>
         /// Остановить, уничтожить, и освободить таймер
         /// </summary>
         public void Dispose()
         {
             timer?.Dispose();
+            disposed = true;
             lock (aliveTimeslock)
                 aliveTimers.Remove(this.name);
         }
