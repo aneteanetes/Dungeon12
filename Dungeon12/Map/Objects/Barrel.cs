@@ -72,6 +72,14 @@ namespace Dungeon12.Map.Objects
                     alive.HitPoints+=5;
                     text = "+5 Максимального здоровья";
                     break;
+                case ConsoleColor.Black:
+                    alive.HitPoints -= 10;
+                    if(alive.HitPoints<=0)
+                    {
+                        alive.HitPoints = 1;
+                    }
+                    text = "-10 Здоровья";
+                    break;
                 default:
                     break;
             }

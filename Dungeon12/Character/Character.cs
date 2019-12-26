@@ -13,6 +13,8 @@
     using Dungeon;
     using Dungeon12.Events.Events;
     using Dungeon12.Entities.Quests;
+    using Dungeon.Scenes.Manager;
+    using Dungeon12.Scenes.Menus;
 
     /// <summary>
     /// Абстрактный класс персонажа
@@ -25,6 +27,11 @@
             Reload();
 
             Global.Events.Subscribe<GameLoadedEvent>(ReloadCollectQuests);
+
+            this.OnDie += () =>
+              {
+                  SceneManager.Switch<End>();
+              };
         }
 
         public Character(bool @new)

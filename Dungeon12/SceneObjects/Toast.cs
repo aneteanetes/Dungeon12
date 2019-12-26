@@ -76,6 +76,8 @@ namespace Dungeon12.SceneObjects
 
         public static void Show(string text) => Show(text, Global.SceneManager.CurrentScene.ShowEffectsBinding);
 
+        public static void Show(DrawText text) => Show(text, Global.SceneManager.CurrentScene.ShowEffectsBinding);
+
         public static void Show(string text, Action<List<ISceneObject>> publisher) => Show(text.AsDrawText().InSize(10).Montserrat(), publisher);
 
         public static void Show(DrawText text, Action<List<ISceneObject>> publisher, int frames =400)

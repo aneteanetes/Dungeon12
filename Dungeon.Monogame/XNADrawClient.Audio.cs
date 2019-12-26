@@ -37,15 +37,6 @@
         {
             if (!soundEffectsCache.TryGetValue(name, out var sound))
             {
-                //try
-                //{
-                //    sound = Content.Load<SoundEffect>($@"Audio\Sound\{name}");
-                //    soundEffectsCache[name] = sound;
-                //}
-                //catch (Exception ex)
-                //{
-                //    try
-                //    {
                 var res = ResourceLoader.Load(name);
                 sound = SoundEffect.FromStream(res.Stream);
                 soundEffectsCache[name] = sound;
@@ -54,12 +45,6 @@
                     sound.Dispose();
                     soundEffectsCache.Remove(name);
                 };
-                //    }
-                //    catch
-                //    {
-                //        throw ex;
-                //    }
-                //}
             }
 
             return sound;
@@ -73,40 +58,34 @@
         /// </summary>
         public Song LoadSong(string name)
         {
-            //if (!___LoadSongCache.TryGetValue(name, out var value))
-            //{
             Song value = default;
 
-                var song = ResourceLoader.Load(name);
+            var song = ResourceLoader.Load(name);
 
-                var tempPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "temp");
-                var tempFilePath = Path.Combine(tempPath, name);
+            var tempPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "temp");
+            var tempFilePath = Path.Combine(tempPath, name);
 
-                if (!Directory.Exists(tempPath))
+            if (!Directory.Exists(tempPath))
+            {
+                Directory.CreateDirectory(tempPath);
+            }
+
+            if (!File.Exists(tempFilePath))
+            {
+                using (var fileStream = File.Create(tempFilePath))
                 {
-                    Directory.CreateDirectory(tempPath);
+                    song.Stream.CopyTo(fileStream);
                 }
+            }
 
-                if (!File.Exists(tempFilePath))
-                {
-                    using (var fileStream = File.Create(tempFilePath))
-                    {
-                        song.Stream.CopyTo(fileStream);
-                    }
-                }
+            value = Song.FromUri(name, new Uri(tempFilePath));
 
-                value = Song.FromUri(name, new Uri(tempFilePath));
-
-                song.Dispose += () =>
-                {
-                    value.Dispose();
-                };
-
-                //___LoadSongCache.Add(name, value);
-            //}
+            //song.Dispose += () =>
+            //{
+            //    value.Dispose();
+            //};
 
             return value;
         }
-        private readonly Dictionary<string, Song> ___LoadSongCache = new Dictionary<string, Song>();
     }
 }

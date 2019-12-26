@@ -74,10 +74,7 @@ namespace Dungeon.Resources
                 Stream = stream,
                 Dispose = () =>
                 {
-                    if (!resource.Contains("ogg") && !resource.Contains("wav"))
-                    {
-                        stream?.Dispose();
-                    }
+                    stream?.Dispose();
                 }
             };
 
