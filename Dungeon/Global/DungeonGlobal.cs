@@ -26,7 +26,7 @@
             global = typeof(T).NewAs<T>();
         }
 
-        public static string Version { get; set; } = "0.0.2";
+        public static string Version { get; set; } = "0.0.3";
 
         public static Logger Logger { get; set; } = new Logger();
 

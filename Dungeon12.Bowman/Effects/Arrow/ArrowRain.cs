@@ -28,8 +28,8 @@ namespace Dungeon12.Bowman.Effects
             _bowman = bowman;
             _gameMap = gameMap;
 
-            this.Left = pos.X;
-            this.Top = pos.Y - .2;
+            this.Left = pos.X-.5;
+            this.Top = pos.Y - .5;
             this.Width = 3;
             this.Height = 3;
 
