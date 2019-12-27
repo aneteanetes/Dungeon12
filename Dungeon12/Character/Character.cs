@@ -15,6 +15,8 @@
     using Dungeon12.Entities.Quests;
     using Dungeon.Scenes.Manager;
     using Dungeon12.Scenes.Menus;
+    using Dungeon12.Abilities;
+    using Dungeon12.Conversations;
 
     /// <summary>
     /// Абстрактный класс персонажа
@@ -26,7 +28,7 @@
             this.BindClassStats();
             Reload();
 
-            Global.Events.Subscribe<GameLoadedEvent>(ReloadCollectQuests);
+            Global.Events.Subscribe<GameLoadedEvent>(ReloadQuestsData);
         }
 
         public Character(bool @new)
@@ -35,10 +37,10 @@
             this.BindClassStats();
             Reload();
 
-            Global.Events.Subscribe<GameLoadedEvent>(ReloadCollectQuests);
+            Global.Events.Subscribe<GameLoadedEvent>(ReloadQuestsData);
         }
 
-        private void ReloadCollectQuests(GameLoadedEvent @event)
+        private void ReloadQuestsData(GameLoadedEvent @event)
         {
             this.Journal.Quests.ForEach(q =>
             {
@@ -47,10 +49,16 @@
                     quest.ReloadQuestLootDrops();
                 }
             });
+
+            Global.GameState.RestorableRespawns.ForEach(x =>
+            {
+                PassRespawnTrigger.PassRespawn(x);
+            });
         }
 
         public void Reload()
         {
+            Cooldown.ResetAll();
             this.Clothes.OnPutOn = PutOnItem;
             this.Clothes.OnPutOff = PutOffItem;
 

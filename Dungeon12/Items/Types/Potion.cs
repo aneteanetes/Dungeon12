@@ -7,13 +7,13 @@
 
     public class Potion : Item
     {
-        private int _healing;
+        public int HealingValue { get; set; }
 
         public Potion(int hitpoints)
         {
             Name = "Зелье";
             Tileset = $"Items/Potions/1.gif".AsmImgRes();
-            _healing = hitpoints;
+            HealingValue = hitpoints;
             this.BaseStats.Add(new BaseStatEquip()
             {
                 StatName = "Исцеление",
@@ -35,11 +35,11 @@
         public override void Use()
         {
             var @char = Global.GameState.Character;
-            @char.HitPoints += _healing;
+            @char.HitPoints += HealingValue;
             @char.Backpack.Remove(this, @char);
             Global.AudioPlayer.Effect("potion.wav".AsmSoundRes());
 
-            Toast.Show($"Исцелено: {_healing}");
+            Toast.Show($"Исцелено: {HealingValue}");
         }
     }
 }

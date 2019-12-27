@@ -210,7 +210,7 @@ namespace Dungeon12.CardGame.Engine
                 case Interfaces.CardType.Guardian:
                     {
                         player.Resources--;
-                        player.Influence += 5;
+                        player.Influence += 3;
                         if (player.Guards.Count < 5)
                         {
                             player.Guards.Add(card.As<GuardCard>());
@@ -224,7 +224,7 @@ namespace Dungeon12.CardGame.Engine
                             OnTurnCards.Add((card, player));
                         }
                         player.Resources = 0;
-                        player.Influence += 1;
+                        player.Influence += 2;
                         break;
                     }
                 default:

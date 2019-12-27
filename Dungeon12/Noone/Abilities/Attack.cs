@@ -1,5 +1,6 @@
 ﻿namespace Dungeon12.Noone.Abilities
 {
+    using Dungeon;
     using Dungeon12.Abilities;
     using Dungeon12.Abilities.Enums;
     using Dungeon12.Abilities.Scaling;
@@ -27,7 +28,7 @@
 
         public override Cooldown Cooldown { get; } = new Cooldown(500, AttackCooldown);
 
-        public override ScaleRate<Noone> Scale => new ScaleRate<Noone>(x => x.AttackDamage * 1.2);
+        public override ScaleRate<Noone> Scale => new ScaleRate<Noone>(x => x.AttackDamage * 1.1);
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Left;
 
@@ -59,7 +60,11 @@
                 
                 AttackedEnemy = enemy;
             }
-            @class.InParry = false;
+
+            Global.Time.Timer("nooneparry")
+                .After(500)
+                .Do(() => Global.GameState.Character.As<Noone>().InParry = false)
+                .Trigger();
         }
 
         protected override void Dispose(GameMap gameMap, Avatar avatar, Noone @class) { }

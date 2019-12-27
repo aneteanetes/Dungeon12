@@ -51,6 +51,14 @@ namespace Dungeon12.SceneObjects.Map
             }
         }
 
+        public override void Update()
+        {
+            if (@object.Used)
+            {
+                this.Destroy?.Invoke();
+            }
+        }
+
         protected override void OnAnimationStop()
         {
             if (inited)

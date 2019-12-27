@@ -112,7 +112,8 @@ namespace Dungeon12
                     Name = id,
                     CameraOffset = new Point(camera.CameraOffsetX, camera.CameraOffsetY),
                     Data = JsonConvert.SerializeObject(save, GetSaveSerializeSettings()),
-                    Hidden = hiddenSave
+                    Hidden = hiddenSave,
+                    RestorableRespawns = Global.GameState.RestorableRespawns
                 };
 
                 if (liteStoreId != 0)
@@ -216,6 +217,8 @@ namespace Dungeon12
             public string Data { get; set; }
 
             public bool Hidden { get; set; }
+
+            public List<string> RestorableRespawns { get; set; }
         }
 
         public class SavedGame : Persist

@@ -23,7 +23,7 @@ namespace Dungeon12.Bowman.Abilities
 
         public override string Name => "Ловушка";
 
-        public override ScaleRate<Bowman> Scale => new ScaleRate<Bowman>(x => x.AttackDamage * 1.2, x => x.ArmorPenetration * 3.4);
+        public override ScaleRate<Bowman> Scale => new ScaleRate<Bowman>(x => x.AttackDamage * .7, x => x.ArmorPenetration * 3.4);
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.Special;
 

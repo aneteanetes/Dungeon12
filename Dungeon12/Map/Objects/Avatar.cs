@@ -41,8 +41,8 @@
         {
             get => new PhysicalSize
             {
-                Height = 16,
-                Width = 16
+                Height = 8,
+                Width = 8
             };
             set { }
         }
@@ -51,8 +51,8 @@
         {
             get => new PhysicalPosition
             {
-                X = base.Position.X + 8,
-                Y = base.Position.Y + 14
+                X = base.Position.X + 4,
+                Y = base.Position.Y + 20
             };
             set { }
         }

@@ -103,6 +103,7 @@ namespace Dungeon12.Map
                     }
                 }
 
+                Global.AudioPlayer.Music($"Locations/{Global.GameState.Map.RegionMusic}.ogg".AsmMusicRes());
                 // восстанавливаем движение на именно текущей карте
                 Global.GameState.Map.Disabled = false;
 

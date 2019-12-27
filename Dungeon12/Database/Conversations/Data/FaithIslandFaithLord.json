@@ -9,6 +9,7 @@
       "Invisible": {},
       "Replics": [
         {
+          "Escape": true,
           "Answer": "Полностью вылечить (25 монет)",
           "Text": "Ступайте с верой.",
           "ReplicsTags": [],

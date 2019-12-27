@@ -45,7 +45,7 @@ namespace Dungeon12.Items
 
             long CalculateStat(int generationMultiplerStat, int generationMultiplerRare)
             {
-                return (generationMultiplerStat * lvl) + (generationMultiplerRare * lvl);
+                return (generationMultiplerStat * (lvl/2)) + (generationMultiplerRare * lvl);
             }
 
             foreach (var statopt in statopts)

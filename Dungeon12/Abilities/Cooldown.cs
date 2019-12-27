@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dungeon.Scenes.Manager;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
@@ -25,6 +26,11 @@ namespace Dungeon12.Abilities
         }
 
         public void Reset() => Done(this.Name);
+
+        public static void ResetAll()
+        {
+            cooldowns.Clear();
+        }
 
         /// <summary>
         /// Сбросить куллдаун до нуля

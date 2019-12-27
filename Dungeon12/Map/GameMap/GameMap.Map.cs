@@ -26,6 +26,8 @@
 
         public bool IsUnderLevel { get; set; }
 
+        public string RegionMusic { get; set; }
+
         public Point Offset { get; set; }
 
         public string InitRegion(string name)
@@ -79,6 +81,7 @@
             this.LoadedRegionData = persistRegion;
 
             ProcessLoad();
+            RegionMusic = persistRegion.RegionMusic;
             Global.AudioPlayer.Music($"Locations/{persistRegion.RegionMusic}.ogg".AsmMusicRes());
             Global.Events.Raise(new GameMapLoadedEvent() { GameMap = this });
 
@@ -162,6 +165,7 @@
             ProcessLoad();
             Global.Events.Raise(new GameMapLoadedEvent() { GameMap = this });
 
+            RegionMusic = persistRegion.RegionMusic;
             Global.AudioPlayer.Music($"Locations/{persistRegion.RegionMusic}.ogg".AsmMusicRes());
 
             return persistRegion.Name;

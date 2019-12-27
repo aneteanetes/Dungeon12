@@ -29,6 +29,8 @@ namespace Dungeon12.Entities
             @char.Gold -= gold;
             @char.HitPoints = @char.MaxHitPoints;
 
+            Global.AudioPlayer.Effect("Dungeon12.Servant.Resources.Audio.Sounds.heal.wav");
+
             return "Приходите ещё!".AsDrawText();
         }
     }

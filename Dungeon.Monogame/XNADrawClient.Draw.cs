@@ -44,6 +44,19 @@
                 try
                 {
                     Draw(this.scene.Objects, gameTime);
+                    List<string> lightsfordelete = new List<string>();
+                    foreach (var light in Lights)
+                    {
+                        var sceneObj= this.scene.Objects.FirstOrDefault(o => light.Key == o.Uid);
+                        if(!this.InCamera(sceneObj))
+                        {
+                            lightsfordelete.Add(light.Key);
+                        }
+                    }
+                    foreach (var lightDelete in lightsfordelete)
+                    {
+                        Lights.Remove(lightDelete);
+                    }
                 }
                 catch (Exception e)
                 {

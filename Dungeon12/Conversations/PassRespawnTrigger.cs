@@ -18,18 +18,20 @@ namespace Dungeon12.Conversations
             {
                 foreach (var respawnIdIn in respawnId.Split(",",StringSplitOptions.RemoveEmptyEntries))
                 {
+                    Global.GameState.RestorableRespawns.Add(respawnIdIn);
                     PassRespawn(respawnIdIn);
                 }
             }
             else
             {
+                Global.GameState.RestorableRespawns.Add(respawnId);
                 PassRespawn(respawnId);
             }
 
             return true;
         }
 
-        private static void PassRespawn(string respawnId)
+        public static void PassRespawn(string respawnId)
         {
             var respData = Dungeon.Store.EntitySingle<RespawnData>(respawnId);
 

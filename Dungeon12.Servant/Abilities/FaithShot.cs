@@ -24,7 +24,7 @@ namespace Dungeon12.Servant.Abilities
 
         public override string Name => "Удар веры";
 
-        public override ScaleRate<Servant> Scale => new ScaleRate<Servant>(x => x.AbilityPower * 2.17);
+        public override ScaleRate<Servant> Scale => new ScaleRate<Servant>(x => x.AbilityPower * 1.1);
 
         protected override bool CanUse(Servant @class) => !@class.Serve;
 
@@ -34,7 +34,7 @@ namespace Dungeon12.Servant.Abilities
 
         protected override double RangeMultipler => 4;
 
-        public override long Value => 20 + Global.GameState.Character.As<Servant>().DamagePower;
+        public override long Value => 10 + Global.GameState.Character.As<Servant>().DamagePower;
 
         protected override void Use(GameMap gameMap, Avatar avatar, Servant @class)
         {

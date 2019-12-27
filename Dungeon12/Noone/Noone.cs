@@ -96,7 +96,7 @@
         [ClassStat("Блок", ConsoleColor.DarkGreen, 1, "При получении урона есть шанс равный блоку уменьшить урон на процентное соотношение равное блоку.")]
         public long Block { get; set; } = 0;
 
-        [ClassStat("Паррирование", ConsoleColor.Yellow, 1, "При атаке полученные удары в ближнем бою станут скользящими - будут наносить только половину урона, а время восстановления атаки сбросится.")]
+        [ClassStat("Парирование", ConsoleColor.Yellow, 1, "При атаке полученные удары в ближнем бою станут скользящими - будут наносить только половину урона, а время восстановления атаки сбросится.")]
         public long Parry { get; set; } = 0;
 
         public bool InParry { get; set; }
@@ -166,7 +166,7 @@
             {
                 amount /= 2;
 
-                var text = $"Паррировано: {amount}!".AsDrawText().InColor(DrawColor.Red).Montserrat();
+                var text = $"Парировано: {amount}!".AsDrawText().InColor(DrawColor.GhostWhite).Montserrat();
 
                 this.SceneObject.ShowInScene(new PopupString(text, this.MapObject.Location).InList<ISceneObject>());
 
@@ -177,7 +177,7 @@
             {
                 var block = (long)Math.Floor(amount * (this.Block / 100d));
 
-                var text = $"Блок: {block}!".AsDrawText().InColor(DrawColor.Red).Montserrat();
+                var text = $"Блок: {block}!".AsDrawText().InColor(DrawColor.DarkSlateGray).Montserrat();
 
                 this.SceneObject.ShowInScene(new PopupString(text, this.MapObject.Location).InList<ISceneObject>());
 

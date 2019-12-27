@@ -22,6 +22,8 @@ namespace Dungeon12.Game
             }
         }
 
+        public List<string> RestorableRespawns { get; set; } = new List<string>();
+
         public GameMap Region { get; set; }
 
         public List<GameMap> Underlevels { get; set; } = new List<GameMap>();

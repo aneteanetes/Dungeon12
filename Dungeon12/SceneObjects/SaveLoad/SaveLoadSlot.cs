@@ -92,8 +92,8 @@ namespace Dungeon12.SceneObjects.SaveLoad
                             SceneManager.Destroy<Scenes.Game.Main>();
 
                             var data = JsonConvert.DeserializeObject<SavedGame>(Component.Data, Global.GetSaveSerializeSettings());
-
                             GameMap.DeferredMapObjects = data.MapDeferredOptions;
+                            Global.GameState.RestorableRespawns = Component.RestorableRespawns;
 
                             Global.GameState.PlayerAvatar = new Avatar(data.Character.Character)
                             {

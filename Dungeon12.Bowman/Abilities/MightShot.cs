@@ -23,7 +23,7 @@ namespace Dungeon12.Bowman.Abilities
 
         public override string Name => "Сильный выстрел";
 
-        public override ScaleRate<Bowman> Scale => new ScaleRate<Bowman>(x => x.AttackDamage * 1.7);
+        public override ScaleRate<Bowman> Scale => new ScaleRate<Bowman>(x => x.AttackDamage * 1.1);
 
         private Bowman rangeclass;
         protected override bool CanUse(Bowman @class)

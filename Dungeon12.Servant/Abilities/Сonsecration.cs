@@ -19,7 +19,7 @@ namespace Dungeon12.Servant.Abilities
 
         public override string Description => "Освещает область под персонажем. Тратит 3 Печати. Освященная область существует 5 секунд и увеличивает физическую и магическую защиту внутри области.";
 
-        public override ScaleRate<Servant> Scale => new ScaleRate<Servant>(x => x.Defence * 1.17, x => x.Barrier * 2.12);
+        public override ScaleRate<Servant> Scale => new ScaleRate<Servant>(x => x.Defence * 3.17, x => x.Barrier * 3.12);
 
         public override AbilityActionAttribute ActionType => AbilityActionAttribute.DmgHealInstant;
 

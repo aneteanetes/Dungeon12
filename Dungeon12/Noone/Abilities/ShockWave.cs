@@ -1,4 +1,5 @@
-﻿using Dungeon.Physics;
+﻿using Dungeon;
+using Dungeon.Physics;
 using Dungeon.Types;
 using Dungeon12.Abilities;
 using Dungeon12.Abilities.Enums;
@@ -22,7 +23,7 @@ namespace Dungeon12.Noone.Abilities
 
         public override string Name => "Ударная волна";
 
-        public override ScaleRate<Noone> Scale => new ScaleRate<Noone>(x => x.AttackDamage * 2.5d, x => x.Stamina * 1.7);
+        public override ScaleRate<Noone> Scale => new ScaleRate<Noone>(x => x.AttackDamage * 0.9d, x => x.Stamina * 1.2);
 
         public override AbilityPosition AbilityPosition => AbilityPosition.Q;
 
@@ -86,8 +87,11 @@ namespace Dungeon12.Noone.Abilities
                     Type = DamageType.Physical
                 });
             };
-
-            @class.InParry = false;
+            
+            Global.Time.Timer("nooneparry")
+                .After(500)
+                .Do(() => Global.GameState.Character.As<Noone>().InParry = false)
+                .Trigger();
         }
 
         protected override void Dispose(GameMap gameMap, Avatar avatar, Noone @class)
