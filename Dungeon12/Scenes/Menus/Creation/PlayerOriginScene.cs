@@ -44,7 +44,7 @@
                             Global.GameState.Equipment.Reset();
                             anotherClass = new Instance("Servant").Value<Character>(true);
                             break;
-                        default:break;
+                        default: break;
                     }
 
                     Global.GameState.Character.Recalculate();

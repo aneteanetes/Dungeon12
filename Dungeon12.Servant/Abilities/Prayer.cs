@@ -36,6 +36,8 @@ namespace Dungeon12.Servant.Abilities
             Global.AudioPlayer.Effect("pray.wav".AsmSoundRes());
         }
 
+        public override string Spend => "Восстанавливает печати";
+
         protected override void Dispose(GameMap gameMap, Avatar avatar, Servant @class)
         {
             if (holdedBuf != null)

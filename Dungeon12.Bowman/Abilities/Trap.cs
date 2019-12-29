@@ -35,7 +35,9 @@ namespace Dungeon12.Bowman.Abilities
         {
         }
 
-        public override long Value => 20;
+        public override long Value => 15;
+
+        public override string Spend => "Использует: 20 Натяжения обоих рук";
 
         protected override void Use(GameMap gameMap, Avatar avatar, Bowman @class)
         {

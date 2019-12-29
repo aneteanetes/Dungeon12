@@ -15,7 +15,7 @@ namespace Dungeon12.Noone.Abilities
     {
         public override bool Hold => false;
 
-        public override double Spend => 3;
+        public override string Spend => "Использует: 3 очка действий";
 
         public override int Position => 1;
         

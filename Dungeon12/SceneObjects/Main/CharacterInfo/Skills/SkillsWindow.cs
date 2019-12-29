@@ -123,7 +123,7 @@
                 }
                 else
                 {
-                    cost = $"{c.ResourceName}: {ability.Spend}";
+                    cost = $"{ability.Spend}";
                 }
                 var resource = this.AddTextCenter(new DrawText(cost, new DrawColor(c.ResourceColor)).Montserrat(), true);
                 resource.Top = top;

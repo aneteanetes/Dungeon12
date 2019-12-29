@@ -28,11 +28,13 @@ namespace Dungeon12.Servant.Abilities
 
         public override string Name => "Исцеление";
 
-        public override ScaleRate<Servant> Scale => new ScaleRate<Servant>(x => x.AbilityPower * 1.2);
+        public override ScaleRate<Servant> Scale => new ScaleRate<Servant>(x => x.AbilityPower * 0.6);
 
         protected override bool CanUse(Servant @class) => !@class.Serve && @class.FaithPower.Value >= 1;
 
         public override long Value => 5 * Global.GameState.Character.Level;
+
+        public override string Spend => "Использует: 1 Печать";
 
         protected override void Use(GameMap gameMap, Avatar avatar, Servant @class)
         {

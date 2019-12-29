@@ -122,7 +122,7 @@
             Global.GameState.Player.FreezeDrawLoop = false;
 
 #if DEBUG
-            this.AddObject(new Position(this.PlayerAvatar));
+            //this.AddObject(new Position(this.PlayerAvatar));
 #endif
 
             this.AddObject(controlOverlay);
@@ -295,12 +295,12 @@
 
             if(keyPressed== Key.N && keyModifiers== KeyModifiers.Control)
             {
-                variableViewer.Visible = !variableViewer.Visible;
+                //variableViewer.Visible = !variableViewer.Visible;
             }
 
             if (keyPressed == Key.K && keyModifiers == KeyModifiers.Control)
             {
-                Global.GameState.Character.Exp(70);
+                //Global.GameState.Character.Exp(70);
             }
         }
 

@@ -64,7 +64,7 @@
                 }
             }
 
-            DrawDebugInfo();
+            //DrawDebugInfo();
 
             OnPointerMoved();
 

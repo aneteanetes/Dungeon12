@@ -13,7 +13,7 @@
     {
         public override bool Hold => true;
 
-        public override double Spend => 2;
+        public override string Spend => "Использует: 2 очка действий";
 
         public override int Position => 0;
 

@@ -6,6 +6,7 @@
     using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
     using Dungeon12.Drawing.SceneObjects.Dialogs;
+    using Dungeon12.Abilities;
 
     public class PlayerNameScene : GameScene<PlayerOriginScene, SoloDuoScene>
     {
@@ -28,6 +29,7 @@
 
         private void Next(string value)
         {
+            Cooldown.ResetAll();
             var character = new Noone.Noone(true);
             character.Name = value[0].ToString().ToUpper() + value.Substring(1);
             Global.GameState.Character = character;

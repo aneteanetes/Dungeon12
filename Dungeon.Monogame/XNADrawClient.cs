@@ -68,6 +68,9 @@
                 SynchronizeWithVerticalRetrace = true,
             };
 
+            Window.AllowUserResizing = false;
+            Window.IsBorderless = true;
+
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 

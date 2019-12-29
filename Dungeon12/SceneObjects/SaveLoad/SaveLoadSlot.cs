@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using System;
 using static Dungeon12.Global;
 using Dungeon12.Events.Events;
+using Dungeon12.Abilities;
 
 namespace Dungeon12.SceneObjects.SaveLoad
 {
@@ -91,6 +92,7 @@ namespace Dungeon12.SceneObjects.SaveLoad
                         {
                             SceneManager.Destroy<Scenes.Game.Main>();
 
+                            Cooldown.ResetAll();
                             var data = JsonConvert.DeserializeObject<SavedGame>(Component.Data, Global.GetSaveSerializeSettings());
                             GameMap.DeferredMapObjects = data.MapDeferredOptions;
                             Global.GameState.RestorableRespawns = Component.RestorableRespawns;
