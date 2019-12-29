@@ -24,7 +24,7 @@ namespace Dungeon12.Servant.Abilities
 
         public override string Name => "Удар веры";
 
-        public override ScaleRate<Servant> Scale => new ScaleRate<Servant>(x => x.AbilityPower * 0.7);
+        public override ScaleRate<Servant> Scale => new ScaleRate<Servant>(x => x.AbilityPower * 1.9);
 
         protected override bool CanUse(Servant @class) => !@class.Serve;
 
