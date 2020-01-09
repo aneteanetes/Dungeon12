@@ -19,6 +19,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Resources;
+    using System.Runtime.InteropServices;
 
     public partial class XNADrawClient : Game, IDrawClient
     {
@@ -69,7 +70,7 @@
             };
 
             Window.AllowUserResizing = false;
-            Window.IsBorderless = true;
+            //Window.IsBorderless = true;
 
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
