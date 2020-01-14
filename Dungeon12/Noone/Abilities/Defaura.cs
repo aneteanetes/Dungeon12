@@ -10,7 +10,7 @@ namespace Dungeon12.Noone.Abilities
 {
     public class Defaura : Ability<Noone, AbsorbingTalants>
     {
-        public override double Spend => 0;
+        public override string Spend => "Пассивно";
 
         public override int Position => 0;
 

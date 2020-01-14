@@ -103,11 +103,16 @@ namespace Dungeon12.Abilities
         /// <returns></returns>
         public bool Check()
         {
-            var cooldownResult = cooldowns[Name].Available;
+            bool cooldownResult = true;
+
+            if (cooldowns.TryGetValue(Name, out var cd))
+            {
+                cooldownResult = cd.Available;
+            }
 
             if (Next != default)
             {
-                return cooldownResult && cooldowns[Next.Name].Check();
+                return cooldownResult && Next.Check();
             }
 
             return cooldownResult;

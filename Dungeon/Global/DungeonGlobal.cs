@@ -28,7 +28,7 @@
 
         public static string Platform { get; set; } = "win";
 
-        public static string Version { get; set; } = "0.0.3";
+        public static string Version { get; set; } = "0.0.4a";
 
         public static Logger Logger { get; set; } = new Logger();
 

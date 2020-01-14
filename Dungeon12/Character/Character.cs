@@ -58,7 +58,6 @@
 
         public void Reload()
         {
-            Cooldown.ResetAll();
             this.Clothes.OnPutOn = PutOnItem;
             this.Clothes.OnPutOff = PutOffItem;
 

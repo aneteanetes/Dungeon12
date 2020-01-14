@@ -19,7 +19,8 @@ namespace Dungeon12.Entities
 
             var @char = Global.GameState.Character;
 
-            var restore = (@char.MaxHitPoints / 10) * hours;
+            var hits = @char.MaxHitPoints;
+            var restore = (hits / 10) * hours;
             @char.HitPoints += restore;
 
             return "Как вам спалось?".AsDrawText();

@@ -17,8 +17,8 @@ namespace Dungeon.Monogame
             //Global.ExceptionRethrow = true;
             //Global.GlobalExceptionHandling();
             //ResourceLoader.NotDisposingResources = true;
-            ResourceLoader.CacheImagesAndMasks = false;
-            Store.Init(Global.GetSaveSerializeSettings());
+            //ResourceLoader.CacheImagesAndMasks = false;
+            //Store.Init(Global.GetSaveSerializeSettings());
 #endif      
             Store.LoadAllAssemblies();
 

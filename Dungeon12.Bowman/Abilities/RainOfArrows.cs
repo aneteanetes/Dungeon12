@@ -35,6 +35,7 @@ namespace Dungeon12.Bowman.Abilities
         protected override void Dispose(GameMap gameMap, Avatar avatar, Bowman @class)
         {
         }
+        public override string Spend => "Использует: 35 Натяжения обоих рук";
 
         public override long Value => Global.GameState.Character.Level * 2;
 

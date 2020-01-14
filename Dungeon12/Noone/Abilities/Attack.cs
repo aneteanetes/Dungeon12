@@ -19,8 +19,7 @@
         public const string AttackCooldown = nameof(Noone) + nameof(Attack);
 
         public override int Position => 0;
-
-        public override double Spend => 1;
+        public override string Spend => "Использует: 2 очка действий";
 
         public override string Name => "Атака";
 

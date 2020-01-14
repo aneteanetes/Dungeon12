@@ -104,7 +104,7 @@
 
             this.Entity.Level = data.NPC.Level;
 
-            this.Entity.MaxHitPoints = (long)Math.Round(data.NPC.HitPoints * (data.NPC.Level / 2.5));
+            this.Entity.MaxHitPoints = data.NPC.HitPoints * data.NPC.Level;
             this.Entity.HitPoints = this.Entity.MaxHitPoints;
 
             if (data.VisionMultiples != default)

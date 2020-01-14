@@ -30,7 +30,7 @@ namespace Dungeon
 
         public Time Clone()
         {
-            return this.DeepClone();
+            return new Time(this.Hours,this.Minutes,this.Days,this.Years);
         }
 
         public void AddMinute()

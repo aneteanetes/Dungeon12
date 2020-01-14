@@ -154,16 +154,16 @@
                 }
             });
 
-            this.AddObject(new SmallMetallButtonControl(new DrawText("#") { Size = 40 }.Montserrat())
-            {
-                Left = 24,
-                Top = 11,
-                AbsolutePosition = true,
-                OnClick = () =>
-                {
-                    this.Switch<EditorScene>();
-                }
-            });
+            //this.AddObject(new SmallMetallButtonControl(new DrawText("#") { Size = 40 }.Montserrat())
+            //{
+            //    Left = 24,
+            //    Top = 11,
+            //    AbsolutePosition = true,
+            //    OnClick = () =>
+            //    {
+            //        this.Switch<EditorScene>();
+            //    }
+            //});
 
             this.AddObject(new MetallButtonControl(isGame ? "Сохранить" : "Создатели")
             {
@@ -172,16 +172,14 @@
                 AbsolutePosition = true,
                 OnClick = () =>
                 {
-                    this.Switch<SaveLoadScene>("game","saving");
-                    //if (isGame)
-                    //{
-                    //    var saveName =  Dungeon.Data.Database.Save();
-                    //    MessageBox.Show($"Игра сохранена: {saveName}", this.ShowEffectsBinding);
-                    //}
-                    //else
-                    //{
-                    //    //
-                    //}
+                    if (isGame)
+                    {
+                        this.Switch<SaveLoadScene>("game", "saving");
+                    }
+                    else
+                    {
+                        Toast.Show("Вы знаете кто");
+                    }
                 }
             });
 

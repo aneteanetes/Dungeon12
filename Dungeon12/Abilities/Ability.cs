@@ -254,7 +254,10 @@
         [JsonIgnore]
         public Capable Target { get; set; }
 
-        public virtual double Spend { get; set; }
+        /// <summary>
+        /// Стоимость навыка
+        /// </summary>
+        public virtual string Spend { get; set; }
 
         public virtual Cooldown Cooldown { get; }
     }

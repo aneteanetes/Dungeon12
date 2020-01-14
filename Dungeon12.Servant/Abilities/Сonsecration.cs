@@ -33,6 +33,8 @@ namespace Dungeon12.Servant.Abilities
 
         public override long Value => 1;
 
+        public override string Spend => "Использует: 3 Печати";
+
         protected override void Use(GameMap gameMap, Avatar avatar, Servant @class)
         {
             @class.FaithPower.Value -= 3;

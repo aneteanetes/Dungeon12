@@ -19,6 +19,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Resources;
+    using System.Runtime.InteropServices;
 
     public partial class XNADrawClient : Game, IDrawClient
     {
@@ -67,6 +68,9 @@
                 PreferredBackBufferHeight = 720,
                 SynchronizeWithVerticalRetrace = true,
             };
+
+            Window.AllowUserResizing = false;
+            //Window.IsBorderless = true;
 
             Content.RootDirectory = "Content";
             IsMouseVisible = true;

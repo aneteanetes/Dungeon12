@@ -47,11 +47,12 @@
                     List<string> lightsfordelete = new List<string>();
                     foreach (var light in Lights)
                     {
-                        var sceneObj= this.scene.Objects.FirstOrDefault(o => light.Key == o.Uid);
-                        if(!this.InCamera(sceneObj))
-                        {
-                            lightsfordelete.Add(light.Key);
-                        }
+                        var sceneObj = this.scene.Objects.FirstOrDefault(o => light.Key == o.Uid);
+                        if (sceneObj != default)
+                            if (!this.InCamera(sceneObj))
+                            {
+                                lightsfordelete.Add(light.Key);
+                            }
                     }
                     foreach (var lightDelete in lightsfordelete)
                     {
@@ -64,7 +65,7 @@
                 }
             }
 
-            DrawDebugInfo();
+            //DrawDebugInfo();
 
             OnPointerMoved();
 
@@ -483,12 +484,12 @@
 
             SpriteEffects spriteEffects = SpriteEffects.None;
 
-            if (sceneObject.ImageMask != default && sceneObject.ImageMask.Visible)
-            {
-                var maskResult = ApplyImageMask(image, sceneObject);
-                image = maskResult.image;
-                spriteEffects = maskResult.effects;
-            }
+            //if (sceneObject.ImageMask != default && sceneObject.ImageMask.Visible)
+            //{
+            //    var maskResult = ApplyImageMask(image, sceneObject);
+            //    image = maskResult.image;
+            //    spriteEffects = maskResult.effects;
+            //}
 
             Rectangle source = new Rectangle(tileRegion.Xi, tileRegion.Yi, tileRegion.Widthi, tileRegion.Heighti);
 
@@ -978,28 +979,28 @@
 
         private void CacheImageMask(Texture2D image, ISceneObject sceneObject)
         {
-            var uid = sceneObject.Image;
-            var mask = sceneObject.ImageMask;
+            //var uid = sceneObject.Image;
+            //var mask = sceneObject.ImageMask;
 
-            if (!MaskCache.ContainsKey(uid))
-            {
-                MaskCache.Add(uid, new Dictionary<float, Texture2D>());
-            }
-            else
-            {
-                return;
-            }
+            //if (!MaskCache.ContainsKey(uid))
+            //{
+            //    MaskCache.Add(uid, new Dictionary<float, Texture2D>());
+            //}
+            //else
+            //{
+            //    return;
+            //}
 
-            var cache = MaskCache[uid];
-            for (float i = 0f; i < 1; i += 0.01f)
-            {
-                var v = (float)Math.Round(i,2);
-                if (!cache.ContainsKey(v))
-                {
-                    cache.Add(v, MakeMask(image, v, mask.Color.Convert(), mask.Opacity));
-                }
+            //var cache = MaskCache[uid];
+            //for (float i = 0f; i < 1; i += 0.01f)
+            //{
+            //    var v = (float)Math.Round(i,2);
+            //    if (!cache.ContainsKey(v))
+            //    {
+            //        cache.Add(v, MakeMask(image, v, mask.Color.Convert(), mask.Opacity));
+            //    }
 
-            }
+            //}
         }
 
         public void Clear(IDrawColor drawColor = null)

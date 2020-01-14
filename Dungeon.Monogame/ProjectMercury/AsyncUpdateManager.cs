@@ -55,23 +55,15 @@ namespace ProjectMercury
 
         /// <summary>
         /// Initialises a new instance of the AsyncUpdateManager class.
-        /// </summary>
-#if WINDOWS
+
         public AsyncUpdateManager()
-#elif XBOX
-        public AsyncUpdateManager(int processorAffinity)
-#endif
+
         {
             this.WorkerThread = new Thread(new ThreadStart(this.WorkerThread_Body))
             {
                 Name = "AsyncUpdateManager",
                 IsBackground = true
             };
-#if XBOX
-            Guard.ArgumentOutOfRange("processorAffinity", processorAffinity, 3, 5);
-
-            this.WorkerThread.SetProcessorAffinity(new int[] { processorAffinity });
-#endif
             this.WorkAvailable = new ResetEvent(false);
             this.WorkDone = new ResetEvent(true);
             this.WorkQueue = new Queue<ParticleEffect>();
