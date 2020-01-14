@@ -10,15 +10,17 @@ namespace Dungeon.UpdateServer.Controllers
     public class UpdateController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get(string platform, string version)
+        public IActionResult Get(string platform, string fromVersion, string toVersion)
         {
+            var name = $"{fromVersion + "_" + toVersion}.zip";
+
             var pathToFile = PlatformServices.Default.Application.ApplicationBasePath
                + Path.DirectorySeparatorChar.ToString()
                + "files"
                + Path.DirectorySeparatorChar.ToString()
                + platform
                + Path.DirectorySeparatorChar.ToString()
-               + $"{version}.zip";
+               + name;
 
             return PhysicalFile(pathToFile, "application/octet-stream", $"{version}.zip");
         }

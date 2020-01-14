@@ -7,24 +7,25 @@ namespace Dungeon.Update
 {
     public class UpdateManager
     {
-        public static string LastVersion()
+        public static void GetLastVersion(Action<string> onDownload)
         {
             try
             {
                 using (var wc = new WebClient())
                 {
-                    return wc.DownloadString("http://213.226.127.77/version");
+                    wc.DownloadStringCompleted += (_, e) => onDownload?.Invoke(e.Result);
+                    wc.DownloadStringAsync(new Uri("http://213.226.127.77/version"));                    
                 }
             }
             catch
             {
-                return default;
+                onDownload?.Invoke(default);
             }
         }
 
         public static bool CheckUpdate(string currentVersion, out string lastVersion)
         {
-            lastVersion = LastVersion();
+            lastVersion = "";//LastVersion();
             var next = Semver.SemVersion.Parse(lastVersion);
             var now = Semver.SemVersion.Parse(currentVersion);
 
@@ -35,10 +36,8 @@ namespace Dungeon.Update
         {
             try
             {
-                using (var wc = new WebClient())
-                {
-                    return wc.DownloadString($"http://213.226.127.77/notes?platform={platform}&version={version}");
-                }
+                using var wc = new WebClient();
+                return wc.DownloadString($"http://213.226.127.77/notes?platform={platform}&version={version}");
             }
             catch
             {
@@ -54,7 +53,7 @@ namespace Dungeon.Update
                 wc.DownloadProgressChanged += (_, e) =>
                 {
                     updatedPercentage?.Invoke(e.ProgressPercentage);
-                };
+                }; ;
 
                 if (!Directory.Exists("patch"))
                 {
@@ -71,12 +70,12 @@ namespace Dungeon.Update
         public static void Update(string version)
         {
             var updater = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Dungeon.Updater.exe");
-            var versionPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Patch", $"{version}.zip");
+            var versionPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "patch", $"{version}.zip");
 
             using (var process = new Process())
             {
                 process.StartInfo.FileName = updater; // relative path. absolute path works too.
-                process.StartInfo.Arguments = $"unpack {versionPath}";
+                process.StartInfo.Arguments = $"{versionPath}";
 
                 process.StartInfo.UseShellExecute = false;
                

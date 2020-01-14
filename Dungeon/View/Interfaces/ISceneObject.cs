@@ -147,6 +147,8 @@
         /// </summary>
         void Update();
 
+        bool Updatable { get; }
+
         void RemoveChild(ISceneObject sceneObject);
     }
 }

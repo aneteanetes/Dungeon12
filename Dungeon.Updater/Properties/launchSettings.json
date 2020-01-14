@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Dungeon.Updater": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\Anton\\Source\\Repos\\Rogue\\Dungeon.Monogame\\bin\\Debug\\netcoreapp2.1\\Patch\\0.0.5.zip"
+    }
+  }
+}

@@ -213,6 +213,17 @@
             if (Destroyed)
                 return;
 
+            if (DungeonGlobal.Freezer.World == null && !DungeonGlobal.BlockSceneControls)
+                try
+                {
+                    MousePress(pointerPressedEventArgs);
+                }
+                catch (Exception ex)
+                {
+                    DungeonGlobal.Exception(ex);
+                    return;
+                }
+
             var keyControls = ControlsByHandle(ControlEventType.Click);
             var globalKeyHandlers = ControlsByHandle(ControlEventType.GlobalClick);
             
@@ -404,6 +415,8 @@
         }
 
         protected virtual void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold) { }
+
+        protected virtual void MousePress(PointerArgs pointerArgs) { }
 
         protected virtual void KeyUp(Key keyPressed, KeyModifiers keyModifiers) { }
 

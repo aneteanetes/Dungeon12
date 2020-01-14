@@ -10,15 +10,11 @@ namespace Dungeon.Updater
     {
         static void Main(string[] args)
         {
-            var command = args?.ElementAtOrDefault(0);
+            var zippath = args?.ElementAtOrDefault(0);
 
-            if (command == "pack")
+            if (zippath != default)
             {
-                Pack.Run(args[1], args[2], args[3]);
-            }
-            else if (command == "unpack")
-            {
-                Unpack.Run(args[1]);
+                Unpack.Run(args[0]);
             }
         }
     }

@@ -284,8 +284,16 @@
         public virtual IDrawText Text { get; protected set; }
 
         public virtual IDrawablePath Path { get; }
-
+        
         public ICollection<ISceneObject> Children { get; } = new List<ISceneObject>();
+
+        /// <summary>
+        /// Здесь обрабатываются всевозможные события например пересчёт уровней
+        /// </summary>
+        protected virtual void AfterAddChild()
+        {
+
+        }
 
         public void AddChild(ISceneObject sceneObject)
         {
@@ -429,6 +437,7 @@
 
         public virtual double Scale { get; set; }
 
+
         public SceneObject<TComponent> ScaleTo(double value)
         {
             foreach (var child in Children)
@@ -468,7 +477,12 @@
         /// </summary>
         public bool ScaleAndResize { get; set; }
 
-        public virtual void Update() => OnUpdate?.Invoke(this);
+        public virtual void Update()
+        {
+            OnUpdate?.Invoke(this);
+        }
+
+        public virtual bool Updatable=>false;
 
         private object flowContext = null;
 

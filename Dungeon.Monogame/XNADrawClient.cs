@@ -189,7 +189,6 @@
             DebugUpdate();
             UpdateLoop();
 
-
             base.Update(gameTime);
         }
 

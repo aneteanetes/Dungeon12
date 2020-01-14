@@ -51,8 +51,6 @@ namespace Dungeon.Updater
             return files;
         }
 
-
-
         private class GameFile
         {
             public string FullPath { get; set; }
