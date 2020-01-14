@@ -33,6 +33,7 @@
     <PackageReference Include="MsgPack.Cli" Version="1.0.1" />
     <PackageReference Include="MathNet.Numerics" Version="4.8.0-beta01" />
     <PackageReference Include="morelinq" Version="3.0.0" />
+    <PackageReference Include="Semver" Version="2.0.6" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Fonts\" />

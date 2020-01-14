@@ -24,7 +24,7 @@
     using System.IO;
     using System.Linq;
 
-    public class Start : StartScene<SoloDuoScene, Game.Main, EditorScene, CardGameScene,Start, SaveLoadScene>
+    public class Start : GameScene<SoloDuoScene, Game.Main, EditorScene, CardGameScene,Start, SaveLoadScene>
     {
         public override bool AbsolutePositionScene => true;
 
@@ -70,13 +70,9 @@
             Debugger.Break();
         }
 
-        public override void FatalException()
-        {
-            MessageBox.Show("Произошла фатальная ошибка, требуется перезапустить игру.", () => { Global.Exit?.Invoke(); });
-        }
-
         public override void Init()
         {
+
 #warning подорожник на все проблемы со слоями
             DragAndDropSceneControls.DraggableLayers = 0;
             isGame = Args?.ElementAtOrDefault(0) != default;
