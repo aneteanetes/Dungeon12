@@ -182,12 +182,12 @@
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed/* || Keyboard.GetState().IsKeyDown(Keys.Escape)*/)
                 Exit();
 
-            drawCicled = false;
-            skipCallback = false;
-
             // TODO: Add your update logic here
             DebugUpdate();
             UpdateLoop();
+
+            drawCicled = false;
+            skipCallback = false;
 
             base.Update(gameTime);
         }

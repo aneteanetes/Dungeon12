@@ -80,6 +80,8 @@
             }
         }
 
+        private bool frameEnd;
+
         private void Draw(ISceneObject[] sceneObjects, Microsoft.Xna.Framework.GameTime gameTime)
         {
             InterfaceObjects.Clear();
@@ -183,13 +185,15 @@
                     _lastFps = nowTs;
                 }
 
+                frameEnd = Global.FPS >= 55;
+
                 var text = $"Версия: {DungeonGlobal.Version}";
 
                 var font = Content.Load<SpriteFont>("fonts/Montserrat/Montserrat10");
 
                 spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);
 
-                //spriteBatch.DrawString(font, Dungeon12.Global.Time, new Vector2(1150, 30), Color.Yellow);
+                spriteBatch.DrawString(font, Global.FPS.ToString(), new Vector2(1150, 30), Color.Yellow);
 
                 spriteBatch.End();
 
@@ -323,7 +327,7 @@
             if (force && sceneObject.ForceInvisible)
                 return;
 
-            sceneObject.Update();
+            sceneObject.Drawed = true;
 
             var y = sceneObject.Position.Y * cell + yParent;
             var x = sceneObject.Position.X * cell + xParent;

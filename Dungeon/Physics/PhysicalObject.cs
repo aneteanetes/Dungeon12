@@ -196,6 +196,33 @@
             return nodes;
         }
 
+        public List<T> QueryIntersects(T physicalObject)
+        {
+            List<T> nodes = new List<T>();
+
+            if (this.IntersectsWith(physicalObject))
+            {
+                if (this.Nodes.Count == 0 || !this.Nodes.Any(x => x.Containable))
+                {
+                    nodes.Add(Self);
+                }
+                else
+                {
+                    var copyNodes = new List<T>(Nodes);
+                    foreach (var node in copyNodes)
+                    {
+                        var queryDeepNode = node.QueryIntersects(physicalObject);
+                        if (queryDeepNode.Count > 0)
+                        {
+                            nodes.AddRange(queryDeepNode);
+                        }
+                    }
+                }
+            }
+
+            return nodes;
+        }
+
         public List<T> QueryReference(T physicalObject)
         {
             List<T> nodes = new List<T>();
@@ -235,7 +262,7 @@
 
             bool end = false;
 
-            foreach (var node in this.Query(physicalObject, true))
+            foreach (var node in this.QueryIntersects(physicalObject))
             {
                 if (node == this)
                 {

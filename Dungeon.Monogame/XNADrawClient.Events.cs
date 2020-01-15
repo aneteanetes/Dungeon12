@@ -13,21 +13,24 @@ namespace Dungeon.Monogame
             for (int i = 0; i < scene.Objects.Length; i++)
             {
                 var obj = scene.Objects[i];
-                if (obj.Updatable)
+                if (obj.Updatable && InCamera(obj))
                     UpdateComponent(obj);
             }
         }
 
         private void UpdateComponent(ISceneObject sceneObject)
         {
-            sceneObject.Update();
+            if(frameEnd)
+            {
+                sceneObject.Update();
+            }
 
             for (int i = 0; i < sceneObject.Children.Count; i++)
             {
                 var child = sceneObject.Children.ElementAtOrDefault(i);
                 if (child != null)
                 {
-                    if (child.Updatable)
+                    if (child.Updatable && InCamera(child))
                         UpdateComponent(child);
                 }
             }

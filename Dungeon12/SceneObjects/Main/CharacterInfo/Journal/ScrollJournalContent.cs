@@ -107,7 +107,7 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
 
         public override void MouseWheel(MouseWheelEnum mouseWheelEnum)
         {
-            if(mouseWheelEnum== MouseWheelEnum.Down)
+            if(mouseWheelEnum== MouseWheelEnum.Up)
             {
                 PageBack();
             }

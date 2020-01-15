@@ -73,11 +73,19 @@
 
         public override PhysicalSize Size
         {
-            get => _Size ?? new PhysicalSize
+            get
             {
-                Height = 32,
-                Width = 32
-            };
+                if (_Size == default)
+                {
+                    _Size = new PhysicalSize
+                    {
+                        Height = 32,
+                        Width = 32
+                    };
+                }
+
+                return _Size;
+            }
 
             set => _Size = value;
         }
@@ -86,12 +94,24 @@
 
         public override PhysicalPosition Position
         {
-            get => _Position ?? new PhysicalPosition
+            get
             {
-                X = (this.Location?.X ?? 0) * 32,
-                Y = (this.Location?.Y ?? 0) * 32
+                if(_Position==default)
+                {
+                    _Position = new PhysicalPosition
+                    {
+                        X = (this.Location?.X ?? 0) * 32,
+                        Y = (this.Location?.Y ?? 0) * 32
+                    };
+                }
+                else if (this.Location!=default)
+                {
+                    _Position.X = (this.Location?.X ?? 0) * 32;
+                    _Position.Y = (this.Location?.Y ?? 0) * 32;
+                }
+
+                return _Position;
             }
-;
 
             set => _Position = value;
         }

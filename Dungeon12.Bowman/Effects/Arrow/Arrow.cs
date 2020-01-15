@@ -46,8 +46,8 @@ namespace Dungeon12.Bowman.Effects
             this.Width = 1;
             this.Height = 1;
 
-            this.Left = from.X;
-            this.Top = from.Y;
+            this.Left = from.X+.1;
+            this.Top = from.Y-.1;
 
             thisArea = new MapObject()
             {
@@ -178,6 +178,8 @@ namespace Dungeon12.Bowman.Effects
                 xStepSpeed *= moreDiff;
             }
 
+            distance = @object.Range;
+
             for (double i = 0; i < distance; i += @object.Speed)
             {
                 Trajectory.Enqueue(new Point(xStepSpeed, yStepSpeed)
@@ -202,13 +204,13 @@ namespace Dungeon12.Bowman.Effects
             {
                 Position = new Dungeon.Physics.PhysicalPosition
                 {
-                    X = (this.Left * 32) + 10,
-                    Y = (this.Top * 32) + 10
+                    X = (this.Left * 32) /*+ 10*/,
+                    Y = (this.Top * 32) /*+ 10*/
                 },
                 Size = new PhysicalSize()
                 {
-                    Height = 16,
-                    Width = 16
+                    Height = 10,
+                    Width = 10
                 }
             };
 

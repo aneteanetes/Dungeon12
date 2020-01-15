@@ -484,6 +484,8 @@
 
         public virtual bool Updatable=>false;
 
+        public bool Drawed { get; set; }
+
         private object flowContext = null;
 
         public T GetFlowProperty<T>(string property, T @default = default) => flowContext.GetProperty<T>(property);

@@ -40,6 +40,22 @@
         {
             if (moveable.Static)
                 return;
+        }
+
+        /// <summary>
+        /// Метод выполняющийся когда в фоновом потоке таймер выполняет рассчёт перемещения
+        /// </summary>
+        /// <returns>Флаг рассчёта движения или нет</returns>
+        protected virtual bool OnLogic() => true;
+        
+        private Direction _dir = Direction.Idle;
+
+        public override bool Updatable => true;
+
+        public override void Update()
+        {
+            if (!Drawed)
+                return;
 
             if (moveDistance > 0)
             {
@@ -51,30 +67,38 @@
                 moveDistance++;
             }
 
-            if (Math.Abs((lastQueue - DateTime.Now).TotalSeconds) >= 3)
+            if (Math.Abs((lastQueue - DateTime.Now).TotalMilliseconds) >= 300)
             {
                 inQueue = false;
             }
 
             if (moveDistance == 0 && !inQueue)
             {
-                lastQueue = DateTime.Now;
-                inQueue = true;
-                #warning ещё обдумать логику передвижения мобов что бы не влияло на fps
-                Global.Time.Timer()
-                        .After(700)
-                        .Do(CalculateMove)
-                        .Trigger();
+                if (!OnLogic())
+                {
+                    inQueue = false;
+                    return;
+                }
+
+                if (moveDistance != 0)
+                    return;
+
+                if (RandomDungeon.Chance(moveable.WalkChance))
+                {
+                    move = Direction.Idle;
+
+                    var direction = _dir.Rangom();
+
+                    if (direction == lastClosedDirection)
+                        return;
+
+                    move = direction;
+
+                    moveDistance = moveable.WalkDistance.Random();
+                }
+                inQueue = false;
             }
         }
-
-        /// <summary>
-        /// Метод выполняющийся когда в фоновом потоке таймер выполняет рассчёт перемещения
-        /// </summary>
-        /// <returns>Флаг рассчёта движения или нет</returns>
-        protected virtual bool OnLogic() => true;
-        
-        private Direction _dir = Direction.Idle;
 
         private void CalculateMove()
         {

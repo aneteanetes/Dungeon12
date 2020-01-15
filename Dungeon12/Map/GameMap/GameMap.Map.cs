@@ -90,6 +90,9 @@
 
         private void AddMapObjectIniting(RegionPart regionObject)
         {
+            if (regionObject.Icon == ".")
+                return;
+
             var obj = Map.MapObject.Create(regionObject);
             obj.Destroy += () => { this.MapObject.Remove(obj); };
             this.MapObject.Add(obj);

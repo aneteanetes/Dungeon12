@@ -47,23 +47,47 @@
 
         public bool IsChasing { get; set; }
 
+        private PhysicalSize _size;
+
         public override PhysicalSize Size
         {
-            get => new PhysicalSize
+            get
             {
-                Height = 24,
-                Width = 24
-            };
+                if (_size == default)
+                {
+                    _size = new PhysicalSize
+                    {
+                        Height = 24,
+                        Width = 24
+                    };
+                }
+                return _size;
+            }
+                
             set { }
         }
 
+        private PhysicalPosition _position;
+
         public override PhysicalPosition Position
         {
-            get => new PhysicalPosition
+            get
             {
-                X = base.Position.X + 4,
-                Y = base.Position.Y + 4
-            };
+                if (_position == default)
+                {
+                    _position = new PhysicalPosition
+                    {
+                        X = base.Position.X + 4,
+                        Y = base.Position.Y + 4
+                    };
+                }
+                else
+                {
+                    _position.X = base.Position.X + 4;
+                    _position.Y = base.Position.Y + 4;
+                }
+                return _position;
+            }
             set { }
         }
 
@@ -140,7 +164,7 @@
 
             if (!IsEnemy)
             {
-
+                this._size = new PhysicalSize() { Height = .1, Width = .1 };
                 if (data.Merchant)
                 {
                     this.Merchant = new Dungeon12.Merchants.Merchant();

@@ -34,15 +34,15 @@
             textInput.Top = this.Height / 2 - textInput.Height / 2;
             textInput.Left += 0.75;
            
-            var yesBtn = new MetallButtonControl("Далее");
+            var yesBtn = new MetallButtonControl("Назад");
             yesBtn.Top = this.Top+this.Height - 1.5;
             yesBtn.Left -= yesBtn.Width/4;
-            yesBtn.OnClick = OnYes;
+            yesBtn.OnClick = no;
 
-            var noBtn = new MetallButtonControl("Назад");
+            var noBtn = new MetallButtonControl("Далее");
             noBtn.Top = this.Top + this.Height - 1.5;
             noBtn.Left = this.Width / 2;
-            noBtn.OnClick = no;
+            noBtn.OnClick = OnYes; 
 
             this.AddChild(yesBtn);
             this.AddChild(noBtn);

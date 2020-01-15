@@ -51,26 +51,24 @@
 
             var moveAvailable = true;
 
-            var moveAreas = MapObject.Query(@object,true);
+            var moveAreas = MapObject.QueryIntersects(@object);
             if (moveAreas.Count > 0)
             {
                 try
                 {
-                    foreach (var moveArea in moveAreas)
+#warning TODO: вот здесь надо вглубь
+                    foreach (var node in moveAreas)
                     {
-                        foreach (var node in moveArea.Nodes)
+                        if (node != @object)
                         {
-                            if (node != @object && node.IntersectsWith(@object))
+                            if (node.Interactable)
                             {
-                                if (node.Interactable)
-                                {
-                                    node.Dispatch((x, y) => x.Interact(y), @object);
-                                }
-                                if (node.Obstruction)
-                                {
-                                    moveAvailable = false;
-                                    goto moveDetected;
-                                }
+                                node.Dispatch((x, y) => x.Interact(y), @object);
+                            }
+                            if (node.Obstruction)
+                            {
+                                moveAvailable = false;
+                                goto moveDetected;
                             }
                         }
                     }
@@ -301,19 +299,20 @@
             {
                 for (int j = 0; j < 2; j++)
                 {
-                    Nodes.Add(new GameMapContainerObject()
+                    var node = new GameMapContainerObject()
                     {
                         Size = new PhysicalSize
                         {
                             Width = 1600,
                             Height = 1600
                         },
-                        Position = new PhysicalPosition
-                        {
-                            X = i * 1600,
-                            Y = j * 1600
-                        }
-                    });
+                    };
+                    node.Position = new PhysicalPosition
+                    {
+                        X = i * 1600,
+                        Y = j * 1600
+                    };
+                    Nodes.Add(node);
                 }
             }
 
