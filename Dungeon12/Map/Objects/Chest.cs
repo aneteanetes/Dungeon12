@@ -43,6 +43,16 @@ namespace Dungeon12.Map.Objects
             this.Name = data.Name;
             this.IdentifyName = regionPart.IdentifyName;
             this.Location = regionPart.Position;
+
+            this.Destroy += () =>
+            {
+                if (!Gamemap.MapObject.Remove(this))
+                {
+                    throw new System.Exception("Объект не удаляется!");
+                }
+
+                Gamemap.Objects.Remove(this);
+            };
         }
 
         public override ISceneObject Visual()

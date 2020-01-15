@@ -55,6 +55,7 @@ namespace Dungeon12.SceneObjects.Map
         {
             if (@object.Used)
             {
+                this.@object.Destroy?.Invoke();
                 this.Destroy?.Invoke();
             }
         }
