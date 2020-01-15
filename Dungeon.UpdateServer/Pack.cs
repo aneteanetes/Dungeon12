@@ -5,11 +5,11 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 
-namespace Dungeon.Updater
+namespace Dungeon.UpdateServer
 {
     public static class Pack
     {
-        public static void Run(string fromVersionFolder, string nextVersionFolder, string version)
+        public static void Run(string fromVersionFolder, string nextVersionFolder, string name, string destination, string temp)
         {
             var prev = FilesHash(fromVersionFolder);
             var next = FilesHash(nextVersionFolder);
@@ -27,13 +27,13 @@ namespace Dungeon.Updater
                 }
             });
 
-            var update = Directory.CreateDirectory(version);
+            var update = Directory.CreateDirectory(temp);
             foreach (var diffFile in diff)
             {
                 File.Copy(diffFile.FullPath, Path.Combine(update.FullName, Path.GetFileName(diffFile.FullPath)));
             }
 
-            ZipFile.CreateFromDirectory(update.FullName, $"{version}.zip");
+            ZipFile.CreateFromDirectory(update.FullName, destination);
         }
 
         private static List<GameFile> FilesHash(string path)

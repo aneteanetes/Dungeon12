@@ -14,15 +14,23 @@ namespace Dungeon.UpdateServer.Controllers
         {
             var name = $"{fromVersion + "_" + toVersion}.zip";
 
-            var pathToFile = PlatformServices.Default.Application.ApplicationBasePath
-               + Path.DirectorySeparatorChar.ToString()
-               + "files"
-               + Path.DirectorySeparatorChar.ToString()
-               + platform
-               + Path.DirectorySeparatorChar.ToString()
-               + name;
+            var pathToFile = $"{root}files{sep}{platform}{sep}{name}";
 
-            return PhysicalFile(pathToFile, "application/octet-stream", $"{version}.zip");
+            if (!System.IO.File.Exists(pathToFile))
+            {
+                Pack.Run(
+                    $"{root}clients{sep}{platform}{sep}{fromVersion}",
+                    $"{root}clients{sep}{platform}{sep}{toVersion}",
+                    name,
+                    pathToFile,
+                    $"{root}temp{sep}{name}".Replace(".zip",""));
+            }
+
+            return PhysicalFile(pathToFile, "application/octet-stream", $"{toVersion}.patch");
         }
+
+        private static string sep => Path.DirectorySeparatorChar.ToString();
+
+        private static string root => PlatformServices.Default.Application.ApplicationBasePath;
     }
 }

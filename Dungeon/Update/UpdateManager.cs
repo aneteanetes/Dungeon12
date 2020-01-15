@@ -37,7 +37,7 @@ namespace Dungeon.Update
             try
             {
                 using var wc = new WebClient();
-                return wc.DownloadString($"http://213.226.127.77/notes?platform={platform}&version={version}");
+                return wc.DownloadString($"http://213.226.127.77/notes?platform={platform}&fromVersion={version}");
             }
             catch
             {
@@ -45,7 +45,7 @@ namespace Dungeon.Update
             }
         }
 
-        public static void Download(string platform, string version, Action<int> updatedPercentage)
+        public static void Download(string platform, string fromVersion, string toVersion, Action<int> updatedPercentage)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace Dungeon.Update
                     Directory.CreateDirectory("patch");
                 }
 
-                wc.DownloadFileAsync(new System.Uri($"http://213.226.127.77/update?platform={platform}&version={version}"), $"patch\\{version}.zip");
+                wc.DownloadFileAsync(new System.Uri($"http://213.226.127.77/update?platform={platform}&fromVersion={fromVersion}&toVersion={toVersion}"), $"patch\\{toVersion}.patch");
             }
             catch
             {
@@ -70,7 +70,7 @@ namespace Dungeon.Update
         public static void Update(string version)
         {
             var updater = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Dungeon.Updater.exe");
-            var versionPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "patch", $"{version}.zip");
+            var versionPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "patch", $"{version}.patch");
 
             using (var process = new Process())
             {
@@ -78,8 +78,12 @@ namespace Dungeon.Update
                 process.StartInfo.Arguments = $"{versionPath}";
 
                 process.StartInfo.UseShellExecute = false;
-               
-                process.Start();
+
+                process.StartInfo.RedirectStandardOutput = true;
+
+
+                process.Start(); 
+                
                 DungeonGlobal.Exit();
             }
         }

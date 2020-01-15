@@ -14,7 +14,15 @@ namespace Dungeon.Updater
 
             if (zippath != default)
             {
-                Unpack.Run(args[0]);
+                try
+                {
+                    Unpack.Run(args[0]);
+                }
+                catch (Exception ex)
+                {
+                    File.WriteAllText("D:\\updaterlog.txt", ex.ToString());
+                    throw;
+                }
             }
         }
     }
