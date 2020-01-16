@@ -7,8 +7,11 @@ namespace Dungeon.Monogame
     {
         private void UpdateLoop()
         {
-            UpdateMouseEvents();
-            UpdateKeyboardEvents();
+            if (!blockControls)
+            {
+                UpdateMouseEvents();
+                UpdateKeyboardEvents();
+            }
 
             for (int i = 0; i < scene.Objects.Length; i++)
             {

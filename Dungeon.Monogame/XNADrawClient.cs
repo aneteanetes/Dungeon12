@@ -53,6 +53,9 @@
 
         Matrix screenScale = Matrix.Identity;
 
+        private bool blockControls = false;
+        private float audioVolume = 0;
+
         public XNADrawClient()
         {
             graphics = new GraphicsDeviceManager(this)
@@ -67,6 +70,19 @@
                 PreferredBackBufferWidth = 1280,
                 PreferredBackBufferHeight = 720,
                 SynchronizeWithVerticalRetrace = true,
+            };
+
+            this.Activated += (_, __) =>
+            {
+                blockControls = false;
+                MediaPlayer.Volume = audioVolume;
+            };
+
+            this.Deactivated += (_, __) =>
+            {
+                blockControls = true;
+                audioVolume = MediaPlayer.Volume;
+                MediaPlayer.Volume = 0;
             };
 
             Window.AllowUserResizing = false;
