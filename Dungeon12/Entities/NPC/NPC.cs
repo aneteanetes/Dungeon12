@@ -5,6 +5,7 @@ using Dungeon.Types;
 using LiteDB;
 using Dungeon.Audio;
 using System;
+using Dungeon12.Drawing.SceneObjects.Map;
 
 namespace Dungeon12.Entities
 {
@@ -33,6 +34,12 @@ namespace Dungeon12.Entities
 
         protected override long DamageProcess(Damage dmg, long amount)
         {
+            if (this.ChasingPlayers)
+                if (this?.MapObject?.SceneObject is NPCSceneObject npcSceneObject)
+                {
+                    npcSceneObject.Chasing(Global.GameState.PlayerAvatar);
+                }
+
             if (DamageSound != default)
             {
                 var pos = this.MapObject;
@@ -60,6 +67,7 @@ namespace Dungeon12.Entities
 
                 Global.AudioPlayer.Effect($"{DamageSound}.wav".AsmSoundRes(), opts);
             }
+
             return base.DamageProcess(dmg, amount);
         }
     }

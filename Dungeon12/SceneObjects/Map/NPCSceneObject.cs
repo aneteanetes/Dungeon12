@@ -193,6 +193,7 @@
 
             if (moveDistance == 0)
             {
+                @object.MovementSpeed = 0.01;
                 isChasing = false;
             }
 
@@ -259,6 +260,7 @@
             }
             else if (isChasing)
             {
+                @object.MovementSpeed = 0.01;
                 isChasing = false;
                 moveDistance = 0;
             }
@@ -266,9 +268,11 @@
             return true;
         }
 
-        private void Chasing(MapObject target)
+        public void Chasing(MapObject target)
         {
             isChasing = true;
+
+            @object.MovementSpeed = 0.03;
 
             var playerPos = target.Position;
             var thisPos = @object.Position;
@@ -297,7 +301,7 @@
 
             move = (Direction)((int)dirX + (int)dirY);
 
-            moveDistance = 60;
+            moveDistance = 120;
         }
 
         private static bool IsMapObjAvatar(MapObject x) => typeof(Avatar).IsAssignableFrom(x.GetType());

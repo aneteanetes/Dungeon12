@@ -51,6 +51,8 @@ namespace Dungeon12.SceneObjects.Map
             }
         }
 
+        public override bool Updatable => true;
+
         public override void Update()
         {
             if (@object.Used)
