@@ -120,7 +120,6 @@
         protected override void Initialize()
         {
             this.Window.Title = "Dungeon 12";
-            Window.AllowUserResizing = true;
 #if Android
             GraphicsDevice.PresentationParameters.IsFullScreen = true;
             var r = GraphicsDevice.Viewport.Bounds;
