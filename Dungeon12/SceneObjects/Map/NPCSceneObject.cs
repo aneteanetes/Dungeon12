@@ -18,6 +18,7 @@
     using Dungeon12.Map.Objects;
     using Dungeon12.SceneObjects;
     using Dungeon12.SceneObjects.NPC;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -191,6 +192,11 @@
             if (!this.@object.Entity.Aggressive)
                 return true;
 
+            if (attackAnimationDir != Direction.Idle)
+            {
+                ProcessAttackAnimation();
+            }
+
             if (moveDistance == 0)
             {
                 @object.MovementSpeed = 0.01;
@@ -242,9 +248,8 @@
                 {
                     if (attackAvailable)
                     {
-                        Attack(target);
                         attackAvailable = false;
-                        attackTimer.Trigger();
+                        RunAttackAnimation(target);
                         return false;
                     }
                 }
@@ -268,12 +273,57 @@
             return true;
         }
 
+        private Action AttackBind;
+
+        private Direction attackAnimationDir = Direction.Idle;
+
+        private double animationDistance = 0;
+
+        private void ProcessAttackAnimation()
+        {
+            if (animationDistance < 0.4)
+            {
+                MoveByDirection(attackAnimationDir.Opposite(), this.Position, 0.2);
+                animationDistance += 0.2;
+            }
+            else if(animationDistance<0.8)
+            {
+                MoveByDirection(attackAnimationDir, this.Position, 0.2);
+                animationDistance += 0.2;
+            }
+            else if (animationDistance < 1)
+            {
+                MoveByDirection(attackAnimationDir.Opposite(), this.Position, 0.2);
+                animationDistance = 0;
+                attackAnimationDir = Direction.Idle;
+                AttackBind?.Invoke();
+            }
+        }
+
+        private void RunAttackAnimation(MapObject target)
+        {
+            attackAnimationDir = DetectDirection(target);
+
+            AttackBind = () =>
+            {
+                Attack(target);
+                attackTimer.Trigger();
+            };
+        }
+
         public void Chasing(MapObject target)
         {
             isChasing = true;
 
             @object.MovementSpeed = 0.03;
 
+            move = DetectDirection(target);
+
+            moveDistance = 120;
+        }
+
+        private Direction DetectDirection(MapObject target)
+        {
             var playerPos = target.Position;
             var thisPos = @object.Position;
 
@@ -299,9 +349,7 @@
                 dirY = Direction.Up;
             }
 
-            move = (Direction)((int)dirX + (int)dirY);
-
-            moveDistance = 120;
+            return (Direction)((int)dirX + (int)dirY);
         }
 
         private static bool IsMapObjAvatar(MapObject x) => typeof(Avatar).IsAssignableFrom(x.GetType());

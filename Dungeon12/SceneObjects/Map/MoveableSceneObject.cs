@@ -136,42 +136,7 @@
         protected void Move(Direction dir)
         {
             var anim = MovementMap[dir];
-
-            switch (dir)
-            {
-                case Direction.Idle:
-                    break;
-                case Direction.Up:
-                    mapObj.Location.Y -= mapObj.MovementSpeed;
-                    break;
-                case Direction.Down:
-                    mapObj.Location.Y += mapObj.MovementSpeed;
-                    break;
-                case Direction.Left:
-                    mapObj.Location.X -= mapObj.MovementSpeed;
-                    break;
-                case Direction.Right:
-                    mapObj.Location.X += mapObj.MovementSpeed;
-                    break;
-                case Direction.UpLeft:
-                    mapObj.Location.Y -= mapObj.MovementSpeed;
-                    mapObj.Location.X -= mapObj.MovementSpeed;
-                    break;
-                case Direction.UpRight:
-                    mapObj.Location.Y -= mapObj.MovementSpeed;
-                    mapObj.Location.X += mapObj.MovementSpeed;
-                    break;
-                case Direction.DownLeft:
-                    mapObj.Location.Y += mapObj.MovementSpeed;
-                    mapObj.Location.X -= mapObj.MovementSpeed;
-                    break;
-                case Direction.DownRight:
-                    mapObj.Location.Y += mapObj.MovementSpeed;
-                    mapObj.Location.X += mapObj.MovementSpeed;
-                    break;
-                default:
-                    break;
-            }
+            MoveByDirection(dir, mapObj.Location,mapObj.MovementSpeed);
 
             SetAnimation(anim(moveable));
 
@@ -184,6 +149,84 @@
             {
                 this.aliveTooltip.Left = this.Position.X;
                 this.aliveTooltip.Top = this.Position.Y - 0.8;
+            }
+        }
+
+        protected void MoveByDirection(Direction dir, Point p, double step)
+        {
+            switch (dir)
+            {
+                case Direction.Idle:
+                    break;
+                case Direction.Up:
+                    p.Y -= step;
+                    break;
+                case Direction.Down:
+                    p.Y += step;
+                    break;
+                case Direction.Left:
+                    p.X -= step;
+                    break;
+                case Direction.Right:
+                    p.X += step;
+                    break;
+                case Direction.UpLeft:
+                    p.Y -= step;
+                    p.X -= step;
+                    break;
+                case Direction.UpRight:
+                    p.Y -= step;
+                    p.X += step;
+                    break;
+                case Direction.DownLeft:
+                    p.Y += step;
+                    p.X -= step;
+                    break;
+                case Direction.DownRight:
+                    p.Y += step;
+                    p.X += step;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        protected void MoveByDirection(Direction dir, Rectangle p, double step)
+        {
+            switch (dir)
+            {
+                case Direction.Idle:
+                    break;
+                case Direction.Up:
+                    p.Y -= step;
+                    break;
+                case Direction.Down:
+                    p.Y += step;
+                    break;
+                case Direction.Left:
+                    p.X -= step;
+                    break;
+                case Direction.Right:
+                    p.X += step;
+                    break;
+                case Direction.UpLeft:
+                    p.Y -= step;
+                    p.X -= step;
+                    break;
+                case Direction.UpRight:
+                    p.Y -= step;
+                    p.X += step;
+                    break;
+                case Direction.DownLeft:
+                    p.Y += step;
+                    p.X -= step;
+                    break;
+                case Direction.DownRight:
+                    p.Y += step;
+                    p.X += step;
+                    break;
+                default:
+                    break;
             }
         }
 
