@@ -13,20 +13,18 @@ namespace Dungeon12
         {
             IEnumerable<NPCMap> mobs = Enumerable.Empty<NPCMap>();
 
-            var moveArea = gamemap.MapObject.Query(@object);
-            if (moveArea != null)
+            var moveAreas = gamemap.MapObject.QueryContainer(@object).SelectMany(x => x.Nodes);
+
+            mobs = moveAreas.Where(node =>
             {
-                mobs = moveArea.Nodes.Where(node =>
+                if (node is NPCMap nPCMap)
                 {
-                    if (node is NPCMap nPCMap)
-                    {
-                        return nPCMap.IsEnemy;
-                    }
-                    return false;
-                }).Select(node => node as NPCMap)
-                    .Where(node => @object.IntersectsWith(node))
-                    .ToArray();
-            }
+                    return nPCMap.IsEnemy;
+                }
+                return false;
+            }).Select(node => node as NPCMap)
+                .Where(node => @object.IntersectsWith(node))
+                .ToArray();
 
             return mobs.ToArray();
         }

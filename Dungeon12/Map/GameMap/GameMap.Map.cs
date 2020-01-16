@@ -272,7 +272,7 @@
 
             if (!ignorePhysics)
             {
-                var otherObject = map.MapObject.Query(mapObject).Nodes.Any(node => node.IntersectsWithOrContains(mapObject));
+                var otherObject = map.MapObject.Query(mapObject) != default;
                 if (otherObject)
                     return false;
             }
@@ -287,11 +287,6 @@
             // объект попадает на "пол" - какую либо текстуру
             if (Global.GameState.Map.Textures.Any(t => t.IntersectsWithOrContains(mapObject)))
             {
-                if (map.MapObject.Query(mapObject).Nodes.Any(node => node.IntersectsWithOrContains(mapObject)))
-                {
-                    Debugger.Break();
-                }
-
                 underTexture = true;
             }
 

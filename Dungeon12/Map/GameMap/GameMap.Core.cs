@@ -51,7 +51,7 @@
 
             var moveAvailable = true;
 
-            var moveAreas = MapObject.QueryIntersects(@object);
+            var moveAreas = MapObject.QueryContainer(@object);
             if (moveAreas.Count > 0)
             {
                 try
@@ -110,15 +110,9 @@
         public bool Any<T>(MapObject @object, Func<T,bool> filter=default)
             where T : PhysicalObject
         {
-            var moveArea = MapObject.Query(@object);
-            if (moveArea != null)
-            {
-                return moveArea.Nodes.Where(node => node is T)
+            return MapObject.QueryContainer(@object).SelectMany(x=>x.Nodes).Where(node => node is T)
                    .Select(node => node as T)
                    .Any(node => @object.IntersectsWith(node) && (filter?.Invoke(node) ?? true));
-            }
-
-            return false;
         }
 
         /// <summary>
@@ -130,18 +124,10 @@
         public IEnumerable<T> All<T>(MapObject @object, Func<T, bool> filter = default)
             where T : MapObject
         {
-            IEnumerable<T> all = Enumerable.Empty<T>();
-
-            var moveArea = MapObject.Query(@object);
-            if (moveArea != null)
-            {
-                all = moveArea.Nodes.Where(node => node is T)
+            return MapObject.QueryContainer(@object).SelectMany(x => x.Nodes).Where(node => node is T)
                     .Select(node => node as T)
                     .Where(node => @object.IntersectsWith(node) && (filter?.Invoke(node) ?? true))
                     .ToArray();
-            }
-
-            return all;
         }
 
         /// <summary>
@@ -153,20 +139,14 @@
         public T One<T>(MapObject @object, Func<T, bool> filter = default)
             where T : MapObject
         {
-            var moveArea = MapObject.Query(@object);
-            if (moveArea != null)
-            {
-                return moveArea.Nodes.FirstOrDefault(node =>
-                {
-                    if (node is T nodeT)
-                    {
-                        return nodeT.IntersectsWith(@object) && (filter?.Invoke(nodeT) ?? true);
-                    }
-                    return false;
-                }) as T;
-            }
-
-            return default;
+            return MapObject.QueryContainer(@object).SelectMany(x => x.Nodes).FirstOrDefault(node =>
+                  {
+                      if (node is T nodeT)
+                      {
+                          return nodeT.IntersectsWith(@object) && (filter?.Invoke(nodeT) ?? true);
+                      }
+                      return false;
+                  }) as T;        
         }
 
         public MapObject Range(Point location, Point size)
@@ -187,46 +167,7 @@
         }
 
         public MapObject Range(double x, double y, double width, double height) => Range(new Point(x, y), new Point(width, height));
-
-        public IEnumerable<Сonversational> Conversations(MapObject @object)
-        {
-            MapObject rangeObject = PlayerRangeObject(@object);
-
-            IEnumerable<Сonversational> npcs = Enumerable.Empty<Сonversational>();
-
-            var moveArea = MapObject.Query(rangeObject);
-            if (moveArea != null)
-            {
-                npcs = moveArea.Nodes.Where(node => node is Сonversational)
-                    .Select(node => node as Сonversational)
-                    .Where(node => rangeObject.IntersectsWith(node))
-                    .ToArray();
-            }
-
-            return npcs;
-        }
-
-        private static MapObject PlayerRangeObject(MapObject @object)
-        {
-            var rangeObject = new MapObject
-            {
-                Position = new Dungeon.Physics.PhysicalPosition
-                {
-                    X = @object.Position.X - ((@object.Size.Width * 2.5) / 2),
-                    Y = @object.Position.Y - ((@object.Size.Height * 2.5) / 2)
-                },
-                Size = new PhysicalSize()
-                {
-                    Height = @object.Size.Height,
-                    Width = @object.Size.Width
-                }
-            };
-
-            rangeObject.Size.Height *= 2.5;
-            rangeObject.Size.Width *= 2.5;
-            return rangeObject;
-        }
-
+        
         private bool needReloadCache = false;
 
         public bool ReloadCache

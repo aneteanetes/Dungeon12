@@ -133,7 +133,7 @@ namespace Dungeon12.Map.Objects
 
             var map = Global.GameState.Map;
 
-            var otherObject = map.MapObject.Query(mob).Nodes.Any(node => node.IntersectsWithOrContains(mob));
+            var otherObject = map.MapObject.Query(mob) != null;
             if (otherObject)
                 return false;
 
@@ -147,19 +147,10 @@ namespace Dungeon12.Map.Objects
             // объект попадает на "пол" - какую либо текстуру
             if (Global.GameState.Map.Textures.Any(t => t.IntersectsWithOrContains(mob)))
             {
-                if(map.MapObject.Query(mob).Nodes.Any(node => node.IntersectsWithOrContains(mob)))
-                {
-                    Debugger.Break();
-                }
-
                 underTexture = true;
             }
 
             if (!underTexture)
-                return false;
-
-            otherObject = map.MapObject.Query(mob).Nodes.Any(node => node.IntersectsWithOrContains(mob));
-            if (otherObject)
                 return false;
 
             map.MapObject.Add(mob);

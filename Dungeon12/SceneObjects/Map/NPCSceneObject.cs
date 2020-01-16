@@ -3,6 +3,7 @@
     using Dungeon;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
+    using Dungeon.Physics;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using Dungeon12.Abilities.Enums;
@@ -200,7 +201,7 @@
 
             List<MapObject> targets = new List<MapObject>();
 
-            var query = location.MapObject.Query(this.mapObj.Vision, true);
+            var query = location.MapObject.QueryContainer(this.mapObj.Vision);
             var areaCounts = query.Count;
 
             for (int i = 0; i < areaCounts; i++)
@@ -338,7 +339,7 @@
         {
             if(@object.IsEnemy==false)
             {
-                return base.CheckActionAvailable(mouseButton);
+                return playerSceneObject.Avatar.IntersectsWith(FakeGrow(3));
             }
 
             if (mouseButton != MouseButton.None)
@@ -350,6 +351,28 @@
             //вот тут ещё отмена Changell навыка будет
 
             return false;
+        }
+
+        private PhysicalObject FakeGrow(double by)
+        {
+            var rangeObject = new PhysicalObject()
+            {
+                Position = new Dungeon.Physics.PhysicalPosition
+                {
+                    X = @object.Position.X - ((24 * by) - 24) / 2,
+                    Y = @object.Position.Y - ((24 * by) - 24) / 2
+                },
+                Size = new PhysicalSize()
+                {
+                    Height = 24,
+                    Width = 24
+                }
+            };
+
+            rangeObject.Size.Height *= by;
+            rangeObject.Size.Width *= by;
+
+            return rangeObject;
         }
 
         protected override bool CheckMoveAvailable(Direction direction)

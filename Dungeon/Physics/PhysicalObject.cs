@@ -112,9 +112,14 @@
 
         protected virtual bool Containable => false;
 
-        public T Query(T physicalObject)
+        /// <summary>
+        /// Находит конечную ноду
+        /// </summary>
+        /// <param name="physicalObject"></param>
+        /// <returns></returns>
+        public T Query(T physicalObject, bool contains=false)
         {
-            if (this.IntersectsWith(physicalObject))
+            if (contains ? this.IntersectsWithOrContains(physicalObject) : this.IntersectsWith(physicalObject))
             {
                 if (this.Nodes.Count == 0)
                 {
@@ -122,24 +127,15 @@
                 }
                 else
                 {
-                    T queryNode = Self;
-
-                    for (int i = 0; i < Nodes.Count; i++)
+                    var copyNodes = new List<T>(Nodes);
+                    foreach (var node in copyNodes)
                     {
-                        var node = Nodes.ElementAtOrDefault(i);
-                        if (!node.Containable)
-                        {
-                            continue;
-                        }
-
                         var queryDeepNode = node.Query(physicalObject);
                         if (queryDeepNode != null)
                         {
-                            return queryDeepNode;
+                            return queryDeepNode.Query(physicalObject);
                         }
                     }
-
-                    return queryNode;
                 }
             }
 
@@ -150,7 +146,7 @@
         {
             try
             {
-                return Query(physicalObject).Nodes.Any(node => node.IntersectsWith(physicalObject));
+                return Query(physicalObject) != default;
             }
             catch (InvalidOperationException)
             {
@@ -158,45 +154,12 @@
             }
         }
 
-        public List<T> Query(T physicalObject, bool multiple)
-        {
-            List<T> nodes = new List<T>();
-
-            if (this.IntersectsWith(physicalObject))
-            {
-                if (this.Nodes.Count == 0)
-                {
-                    nodes.Add(Self);
-                }
-                else
-                {
-                    var copyNodes = new List<T>(Nodes);
-                    foreach (var node in copyNodes)
-                    {
-                        if (!node.Containable)
-                        {
-                            continue;
-                        }
-
-                        var queryDeepNode = node.Query(physicalObject, true);
-                        if (queryDeepNode.Count > 0)
-                        {
-                            nodes.AddRange(queryDeepNode);
-                        }
-                    }
-                }
-
-                //this is backward direction
-                if (nodes.Count == 0)
-                {
-                    nodes.Add(Self);
-                }
-            }
-
-            return nodes;
-        }
-
-        public List<T> QueryIntersects(T physicalObject)
+        /// <summary>
+        /// Находит последнюю ноду-контейнер
+        /// </summary>
+        /// <param name="physicalObject"></param>
+        /// <returns></returns>
+        public List<T> QueryContainer(T physicalObject)
         {
             List<T> nodes = new List<T>();
 
@@ -211,7 +174,7 @@
                     var copyNodes = new List<T>(Nodes);
                     foreach (var node in copyNodes)
                     {
-                        var queryDeepNode = node.QueryIntersects(physicalObject);
+                        var queryDeepNode = node.QueryContainer(physicalObject);
                         if (queryDeepNode.Count > 0)
                         {
                             nodes.AddRange(queryDeepNode);
@@ -262,7 +225,7 @@
 
             bool end = false;
 
-            foreach (var node in this.QueryIntersects(physicalObject))
+            foreach (var node in this.QueryContainer(physicalObject))
             {
                 if (node == this)
                 {
@@ -295,7 +258,7 @@
 
             if(!removed)
             {
-                areas = this.Query(physicalObject, true);
+                areas = this.QueryContainer(physicalObject);
                 foreach (var area in areas)
                 {
                     if (area.Contains(physicalObject))
