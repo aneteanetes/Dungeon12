@@ -56,19 +56,21 @@
             {
                 try
                 {
-#warning TODO: вот здесь надо вглубь
-                    foreach (var node in moveAreas)
+                    foreach (var area in moveAreas)
                     {
-                        if (node != @object)
+                        foreach (var node in area.Nodes)
                         {
-                            if (node.Interactable)
+                            if (node != @object && node.IntersectsWith(@object))
                             {
-                                node.Dispatch((x, y) => x.Interact(y), @object);
-                            }
-                            if (node.Obstruction)
-                            {
-                                moveAvailable = false;
-                                goto moveDetected;
+                                if (node.Interactable)
+                                {
+                                    node.Dispatch((x, y) => x.Interact(y), @object);
+                                }
+                                if (node.Obstruction)
+                                {
+                                    moveAvailable = false;
+                                    goto moveDetected;
+                                }
                             }
                         }
                     }
@@ -322,7 +324,7 @@
                 {
                     for (int j = 0; j < 2; j++)
                     {
-                        item.Nodes.Add(new GameMapContainerObject()
+                        var n800 = new GameMapContainerObject()
                         {
                             Size = new PhysicalSize
                             {
@@ -334,7 +336,29 @@
                                 X = item.Position.X + i * 800,
                                 Y = item.Position.Y + j * 800
                             }
-                        });
+                        };
+
+                        for (int ii = 0; ii < 5; ii++)
+                        {
+                            for (int jj = 0; jj < 5; jj++)
+                            {
+                                n800.Nodes.Add(new GameMapContainerObject()
+                                {
+                                    Size = new PhysicalSize
+                                    {
+                                        Width = 160,
+                                        Height = 160
+                                    },
+                                    Position = new PhysicalPosition
+                                    {
+                                        X = n800.Position.X + ii * 160,
+                                        Y = n800.Position.Y + jj * 160
+                                    }
+                                });
+                            }
+                        }
+
+                        item.Nodes.Add(n800);
                     }
                 }
             }
