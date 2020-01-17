@@ -147,7 +147,7 @@
         /// </summary>
         void Update();
 
-        public bool Drawed { get; set; }
+        bool Drawed { get; set; }
 
         bool Updatable { get; }
 

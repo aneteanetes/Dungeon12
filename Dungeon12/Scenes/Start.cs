@@ -87,7 +87,9 @@
                     Volume = 0.3
                 });
             }
-            
+
+            Global.GameState?.Player?.StopMovings();
+
             this.AddObject(new Background(true)
             {
                 AbsolutePosition = true,

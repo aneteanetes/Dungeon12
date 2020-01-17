@@ -39,7 +39,15 @@ namespace Dungeon12.SceneObjects.UI
             splashText.AbsolutePosition = true;
             splashText.Opacity = 0.2;
 
-            UpdateManager.GetLastVersion(VersionCheck);
+            try
+            {
+                UpdateManager.GetLastVersion(VersionCheck);
+            }
+            catch (Exception ex)
+            {
+                Global.Logger.Log(ex.ToString());
+                Global.Logger.Save("CRUSH.txt");
+            }
         }
 
         private void VersionCheck(string version)

@@ -36,8 +36,10 @@ namespace Dungeon.Update
         {
             try
             {
-                using var wc = new WebClient();
-                return wc.DownloadString($"http://213.226.127.77/notes?platform={platform}&fromVersion={version}");
+                using (var wc = new WebClient())
+                {
+                    return wc.DownloadString($"http://213.226.127.77/notes?platform={platform}&fromVersion={version}");
+                }
             }
             catch
             {
@@ -49,18 +51,20 @@ namespace Dungeon.Update
         {
             try
             {
-                using var wc = new WebClient();
-                wc.DownloadProgressChanged += (_, e) =>
+                using (var wc = new WebClient())
                 {
-                    updatedPercentage?.Invoke(e.ProgressPercentage);
-                }; ;
+                    wc.DownloadProgressChanged += (_, e) =>
+                    {
+                        updatedPercentage?.Invoke(e.ProgressPercentage);
+                    }; ;
 
-                if (!Directory.Exists("patch"))
-                {
-                    Directory.CreateDirectory("patch");
+                    if (!Directory.Exists("patch"))
+                    {
+                        Directory.CreateDirectory("patch");
+                    }
+
+                    wc.DownloadFileAsync(new System.Uri($"http://213.226.127.77/update?platform={platform}&fromVersion={fromVersion}&toVersion={toVersion}"), $"patch\\{toVersion}.patch");
                 }
-
-                wc.DownloadFileAsync(new System.Uri($"http://213.226.127.77/update?platform={platform}&fromVersion={fromVersion}&toVersion={toVersion}"), $"patch\\{toVersion}.patch");
             }
             catch
             {

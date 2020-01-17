@@ -118,8 +118,8 @@
 
         public static IEnumerable<T> EntityQuery<T>(Expression<Func<T, bool>> predicate = null, string dbName = "Data")
         {
-            if (!Directory.Exists(MainPath))
-                Directory.CreateDirectory(MainPath);
+            //if (!Directory.Exists(MainPath))
+            //    Directory.CreateDirectory(MainPath);
 
             using (var db = new LiteDatabase($@"{MainPath}\{dbName}.db"))
             {

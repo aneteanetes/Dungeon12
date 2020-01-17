@@ -71,7 +71,7 @@ namespace Dungeon
                     foreach (var item in data.JsonFiles)
                     {
                         var obj = JsonConvert.DeserializeObject(File.ReadAllText(item, Encoding.UTF8), data.Type, _jsonSerializerSettings);
-                        if(obj is IPersist persist)
+                        if (obj is IPersist persist)
                         {
                             persist.Assembly = data.Assembly;
                             if (persist.IdentifyName == default)
@@ -108,7 +108,7 @@ namespace Dungeon
         {
             RogueDataAssembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Dungeon.Data.dll"));
         }
-        
+
         private static object GetGenericLiteCollection(Type type, LiteDatabase db)
         {
             return GetCollectionMethod.MakeGenericMethod(type).Invoke(db, new object[0]);
@@ -125,7 +125,20 @@ namespace Dungeon
 
         private static MethodInfo GetCollectionMethod => typeof(LiteDatabase).GetMethods().Where(x => x.IsGenericMethod && x.Name == "GetCollection").Last();
 
-        private static readonly string ProjectDirectory = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.Parent.ToString();
+        private static string ProjectDirectory
+        {
+            get
+            {
+                try
+                {
+                    return Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.Parent.ToString();
+                }
+                catch (Exception)
+                {
+                    return "";
+                }
+            }
+        }
 
         private static IEnumerable<DataInfo> JsonFiles()
         {
