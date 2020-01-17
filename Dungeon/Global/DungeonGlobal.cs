@@ -38,6 +38,8 @@
 
         public static Freezer Freezer { get; set; } = new Freezer();
 
+        public static AudioOptions AudioOptions { get; set; } = new AudioOptions();
+
         public static IAudioPlayer AudioPlayer { get; set; }
 
         public static bool BlockSceneControls { get; set; }

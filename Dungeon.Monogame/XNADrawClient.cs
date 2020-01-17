@@ -72,6 +72,9 @@
                 SynchronizeWithVerticalRetrace = true,
             };
 
+            audioVolume = (float)DungeonGlobal.AudioOptions.Volume;
+            MediaPlayer.Volume = audioVolume;
+
             this.Activated += (_, __) =>
             {
                 blockControls = false;

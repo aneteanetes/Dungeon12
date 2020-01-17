@@ -2,7 +2,9 @@
 {
     using Dungeon;
     using Dungeon.Entities.Animations;
+    using Dungeon.SceneObjects;
     using Dungeon.Types;
+    using Dungeon.View.Interfaces;
     using Dungeon12.Entities.Alive;
     using Dungeon12.Map;
     using System;
@@ -224,6 +226,45 @@
                 case Direction.DownRight:
                     p.Y += step;
                     p.X += step;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        protected void MoveByDirection(Direction dir, ISceneObject p, double step)
+        {
+            switch (dir)
+            {
+                case Direction.Idle:
+                    break;
+                case Direction.Up:
+                    p.Top -= step;
+                    break;
+                case Direction.Down:
+                    p.Top += step;
+                    break;
+                case Direction.Left:
+                    p.Left -= step;
+                    break;
+                case Direction.Right:
+                    p.Left += step;
+                    break;
+                case Direction.UpLeft:
+                    p.Top -= step;
+                    p.Left -= step;
+                    break;
+                case Direction.UpRight:
+                    p.Top -= step;
+                    p.Left += step;
+                    break;
+                case Direction.DownLeft:
+                    p.Top += step;
+                    p.Left -= step;
+                    break;
+                case Direction.DownRight:
+                    p.Top += step;
+                    p.Left += step;
                     break;
                 default:
                     break;

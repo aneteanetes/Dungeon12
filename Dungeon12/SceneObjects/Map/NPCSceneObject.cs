@@ -284,17 +284,17 @@
         {
             if (animationDistance < 0.4)
             {
-                MoveByDirection(attackAnimationDir.Opposite(), this.Position, 0.2);
+                MoveByDirection(attackAnimationDir.Opposite(), this, 0.05);
                 animationDistance += 0.2;
             }
             else if(animationDistance<0.8)
             {
-                MoveByDirection(attackAnimationDir, this.Position, 0.2);
+                MoveByDirection(attackAnimationDir, this, 0.05);
                 animationDistance += 0.2;
             }
             else if (animationDistance < 1)
             {
-                MoveByDirection(attackAnimationDir.Opposite(), this.Position, 0.2);
+                MoveByDirection(attackAnimationDir.Opposite(), this, 0.05);
                 animationDistance = 0;
                 attackAnimationDir = Direction.Idle;
                 AttackBind?.Invoke();

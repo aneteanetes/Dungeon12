@@ -17,7 +17,7 @@
             MediaPlayer.Stop();
             MediaPlayer.Play(song);
             MediaPlayer.IsRepeating = true;// audioOptions?.Repeat ?? false;
-            MediaPlayer.Volume = (float)(audioOptions?.Volume ?? .3);
+            //MediaPlayer.Volume = (float)(audioOptions?.Volume ?? .3);
         }
 
         public void Effect(string effect, AudioOptions audioOptions = null)
@@ -25,7 +25,7 @@
             try
             {
                 var sound = LoadSound(effect).CreateInstance();
-                sound.Volume = (float)(audioOptions?.Volume ?? .2);
+                sound.Volume = MediaPlayer.Volume - .2f;// (float)(audioOptions?.Volume ?? .2);
                 sound.Play();
             }
             catch { }
