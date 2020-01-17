@@ -36,10 +36,9 @@ namespace Dungeon12.SceneObjects.Splash
                 this.Destroy?.Invoke();
             };
 
-
-            var installBtn = new MetallButtonControl("Установить");
+            var installBtn = this.AddChildCenter(new MetallButtonControl("Установить"), vertical: false);
             installBtn.Top = this.Top + this.Height - 1.5;
-            installBtn.Left -= this.Width/2-cancelBtn.Width/2;
+            //installBtn.Left -= this.Width/2- installBtn.Width/2;
             installBtn.OnClick = () =>
             {
                 installBtn.Visible = false;
