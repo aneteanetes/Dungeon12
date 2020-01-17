@@ -54,6 +54,8 @@
 
         public override bool Updatable => true;
 
+        protected bool AutoMove => true;
+
         public override void Update()
         {
             if (!Drawed)
@@ -144,14 +146,19 @@
 
             if (!CheckMoveAvailable(dir))
             {
-                moveDistance = -moveable.WaitTime;
-                SetAnimation(moveable.Idle);
+                WhenMoveNotAvailable();
             }
             else if (this.aliveTooltip != null)
             {
                 this.aliveTooltip.Left = this.Position.X;
                 this.aliveTooltip.Top = this.Position.Y - 0.8;
             }
+        }
+
+        protected virtual void WhenMoveNotAvailable()
+        {
+            moveDistance = -moveable.WaitTime;
+            SetAnimation(moveable.Idle);
         }
 
         protected void MoveByDirection(Direction dir, Point p, double step)

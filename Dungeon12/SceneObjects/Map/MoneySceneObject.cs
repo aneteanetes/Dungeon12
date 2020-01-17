@@ -58,6 +58,16 @@
             this.@object.Destroy?.Invoke();
         }
 
+        protected override bool CheckActionAvailable(MouseButton mouseButton)
+        {
+            var @base = base.CheckActionAvailable(mouseButton);
+            if (!@base)
+            {
+                Global.GameState.Player.BindMovePointAction(this.@object, TakeMoney);
+            }
+            return @base;
+        }
+
         protected override void OnTooltipClick() => TakeMoney();
 
         protected override void StopAction() { }

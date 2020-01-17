@@ -25,6 +25,11 @@
     [DataClass(typeof(RegionPart))]
     public class MapObject : PhysicalObject<MapObject>, IGameComponent
     {
+        public MapObject()
+        {
+            this.Destroy += () => Destroyed = true;
+        }
+
         /// <summary>
         /// Метод перезагрузки сущности, как правило для сохраняемых
         /// </summary>
@@ -50,6 +55,8 @@
         public Action Die;
 
         public Action Destroy { get; set; }
+
+        public bool Destroyed { get; set; }
 
         public virtual bool Obstruction { get; set; }
 

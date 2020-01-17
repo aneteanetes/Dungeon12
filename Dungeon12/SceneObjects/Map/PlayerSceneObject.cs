@@ -23,7 +23,7 @@
     using Dungeon;
     using Dungeon.Drawing.SceneObjects;
 
-    public class PlayerSceneObject : AnimatedSceneObject<Avatar>
+    public class PlayerSceneObject : MoveableSceneObject<Avatar>
     {
         public override Avatar Component => Avatar;
 
@@ -69,9 +69,9 @@
 
         public Action OnStart;
         private Action<ISceneObject> destroyBinding;
-        
+
         public PlayerSceneObject(Avatar player, Action<ISceneObject> destroyBinding)
-            : base(null,player, player.Character.Name,new Rectangle
+            : base(default, player, Global.GameState.Map,player,player.Entity,new Rectangle
             {
                 X = 32,
                 Y = 0,
@@ -178,6 +178,48 @@
         /// </summary>
         public bool FreezeDrawLoop { get; set; }
 
+        private Action _movePointAction;
+        private MapObject _movePointTarget;
+
+        public void BindMovePointAction(MapObject target, Action action)
+        {
+            _movePointAction = action;
+        }
+
+        public override void Update()
+        {
+            if (_movePointTarget.Destroyed)
+            {
+                moveDistance = 0;
+                _movePointAction = default;
+                _movePointTarget = default;
+            }
+            if (_movePointTarget.IntersectsWithOrContains(this.Avatar))
+            {
+                moveDistance = 0;
+                _movePointAction?.Invoke();
+                _movePointAction = default;
+                _movePointTarget = default;
+            }
+
+            if (moveDistance > 0)
+            {
+                moveDistance--;
+                Move(move);
+            }
+            else if (moveDistance < 0)
+            {
+                moveDistance++;
+            }
+        }
+
+        protected override void WhenMoveNotAvailable()
+        {
+            moveDistance = 0;
+            Toast.Show("Невозможно пройти");
+        }
+
+
         protected override void DrawLoop()
         {
             if (FreezeDrawLoop)
@@ -192,7 +234,7 @@
                 OnMoveRegistered(Direction.Up);
 
                 this.Avatar.Location.Y -= Speed;
-                if (!DontChangeVisionDirection)                
+                if (!DontChangeVisionDirection)
                     SetAnimation(this.Player.MoveUp);
                 if (!CheckMoveAvailable(Direction.Up))
                 {

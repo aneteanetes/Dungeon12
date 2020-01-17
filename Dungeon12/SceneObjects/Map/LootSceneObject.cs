@@ -58,6 +58,16 @@
             }
         }
 
+        protected override bool CheckActionAvailable(MouseButton mouseButton)
+        {
+            var @base = base.CheckActionAvailable(mouseButton);
+            if(!@base)
+            {
+                Global.GameState.Player.BindMovePointAction(this.@object, AddItemBackpack);
+            }
+            return @base;
+        }
+
         protected override void OnTooltipClick() => AddItemBackpack();
 
         protected override void StopAction() { }
