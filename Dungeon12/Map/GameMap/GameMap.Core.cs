@@ -75,7 +75,7 @@
                         }
                     }
                 }
-                catch (InvalidOperationException)
+                catch (InvalidOperationException)               
                 {
                     return false; // поправили блядь карту
                 }

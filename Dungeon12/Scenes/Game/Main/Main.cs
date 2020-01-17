@@ -246,43 +246,71 @@
                 }
                 var pos = obj.SceenPosition;
 
-                switch (dir)
-                {
-                    case Direction.Up when (pos.Y > -5):
-                        obj.SceenPosition.Y -= obj.MovementSpeed;
-                        break;
-                    case Direction.Down when pos.Y < 5:
-                        obj.SceenPosition.Y += obj.MovementSpeed;
-                        break;
-                    case Direction.Left when pos.X > -9:
-                        obj.SceenPosition.X -= obj.MovementSpeed;
-                        break;
-                    case Direction.Right when pos.X < 9:
-                        obj.SceenPosition.X += obj.MovementSpeed;
-                        break;
-                    default:
-                        break;
-                }
+                MoveCameraAndScreenPosByDirection(obj, dir, pos);
 
-                if (dir == Direction.Right && pos.X > 9)
+                if(dir== Direction.UpLeft)
                 {
-                    drawClient.MoveCamera(Direction.Right);
+                    MoveCameraAndScreenPosByDirection(obj, Direction.Up, pos);
+                    MoveCameraAndScreenPosByDirection(obj, Direction.Left, pos);
                 }
-                if (dir == Direction.Left && pos.X < -9)
+                if (dir == Direction.UpRight)
                 {
-                    drawClient.MoveCamera(Direction.Left);
+                    MoveCameraAndScreenPosByDirection(obj, Direction.Up, pos);
+                    MoveCameraAndScreenPosByDirection(obj, Direction.Right, pos);
                 }
-                if (dir == Direction.Down && pos.Y > 5)
+                if (dir == Direction.DownLeft)
                 {
-                    drawClient.MoveCamera(Direction.Down);
+                    MoveCameraAndScreenPosByDirection(obj, Direction.Down, pos);
+                    MoveCameraAndScreenPosByDirection(obj, Direction.Left, pos);
                 }
-                if (dir == Direction.Up && pos.Y < -5)
+                if (dir == Direction.DownRight)
                 {
-                    drawClient.MoveCamera(Direction.Up);
+                    MoveCameraAndScreenPosByDirection(obj, Direction.Down, pos);
+                    MoveCameraAndScreenPosByDirection(obj, Direction.Right, pos);
                 }
             }
         }
-        
+
+        private static void MoveCameraAndScreenPosByDirection(MapObject obj, Direction dir, Point pos)
+        {
+            var drawClient = SceneManager.StaticDrawClient;
+            switch (dir)
+            {
+                case Direction.Up when (pos.Y > -5):
+                    obj.SceenPosition.Y -= obj.MovementSpeed;
+                    break;
+                case Direction.Down when pos.Y < 5:
+                    obj.SceenPosition.Y += obj.MovementSpeed;
+                    break;
+                case Direction.Left when pos.X > -9:
+                    obj.SceenPosition.X -= obj.MovementSpeed;
+                    break;
+                case Direction.Right when pos.X < 9:
+                    obj.SceenPosition.X += obj.MovementSpeed;
+                    break;
+
+                default:
+                    break;
+            }
+
+            if (dir == Direction.Right && pos.X > 9)
+            {
+                drawClient.MoveCamera(Direction.Right);
+            }
+            if (dir == Direction.Left && pos.X < -9)
+            {
+                drawClient.MoveCamera(Direction.Left);
+            }
+            if (dir == Direction.Down && pos.Y > 5)
+            {
+                drawClient.MoveCamera(Direction.Down);
+            }
+            if (dir == Direction.Up && pos.Y < -5)
+            {
+                drawClient.MoveCamera(Direction.Up);
+            }
+        }
+
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
             if(keyPressed== Key.Tab)

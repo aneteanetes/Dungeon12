@@ -25,7 +25,11 @@
             try
             {
                 var sound = LoadSound(effect).CreateInstance();
-                sound.Volume = MediaPlayer.Volume - .2f;// (float)(audioOptions?.Volume ?? .2);
+                var v= MediaPlayer.Volume - .2f;
+
+                if (v < 0) v = 0;
+
+                sound.Volume = v;// (float)(audioOptions?.Volume ?? .2);
                 sound.Play();
             }
             catch { }

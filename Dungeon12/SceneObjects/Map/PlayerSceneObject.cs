@@ -22,6 +22,8 @@
     using Dungeon12.Events;
     using Dungeon;
     using Dungeon.Drawing.SceneObjects;
+    using Dungeon.Physics;
+    using Dungeon.Drawing;
 
     public class PlayerSceneObject : MoveableSceneObject<Avatar>
     {
@@ -179,46 +181,91 @@
         public bool FreezeDrawLoop { get; set; }
 
         private Action _movePointAction;
-        private MapObject _movePointTarget;
+        private PhysicalObject _movePointTarget;
 
-        public void BindMovePointAction(MapObject target, Action action)
+        public void BindMovePointAction(PhysicalObject target, Action action)
         {
+            var text = new DrawText("Слишком далеко!", ConsoleColor.White) { Size = 10 };
+            var left = this.Left + (this.MeasureText(text).X / 32) / 2;
+            this.ShowInScene?.Invoke(new PopupString(text, new Point(left, this.Top),speed:0.05).InList<ISceneObject>());            
+#warning отключено взаимодействие мышкой потому что появляется проблема с камерой
+            return;
             _movePointAction = action;
+            _movePointTarget = target;
+            move = DetectDirection(target);
         }
 
         public override void Update()
         {
-            if (_movePointTarget.Destroyed)
+            if (_movePointTarget == default)
+                return;
+
+            if (_movePointTarget?.IntersectsWithOrContains(this.Avatar) ?? false)
             {
-                moveDistance = 0;
-                _movePointAction = default;
-                _movePointTarget = default;
-            }
-            if (_movePointTarget.IntersectsWithOrContains(this.Avatar))
-            {
-                moveDistance = 0;
                 _movePointAction?.Invoke();
                 _movePointAction = default;
                 _movePointTarget = default;
             }
 
-            if (moveDistance > 0)
+            Move(move);
+        }
+
+        protected override bool CheckMoveAvailable(Direction direction)
+        {
+            if (this.Location.Move(Avatar, direction))
             {
-                moveDistance--;
-                Move(move);
+                this.Left = Avatar.Location.X;
+                this.Top = Avatar.Location.Y;
+
+                this.OnMove?.Invoke();
+
+                return true;
             }
-            else if (moveDistance < 0)
+            else
             {
-                moveDistance++;
+                Avatar.Location.X = this.Left;
+                Avatar.Location.Y = this.Top;
+
+                return false;
             }
         }
 
-        protected override void WhenMoveNotAvailable()
+        protected override void WhenMoveNotAvailable(Direction dir)
         {
-            moveDistance = 0;
+            StopAutoMove();
+
+            if (dir == Direction.UpLeft)
+            {
+                OnStopFlow(Direction.Up);
+                OnStopFlow(Direction.Left);
+            }
+            else if (dir == Direction.UpRight)
+            {
+                OnStopFlow(Direction.Up);
+                OnStopFlow(Direction.Right);
+            }
+            else if (dir == Direction.DownLeft)
+            {
+                OnStopFlow(Direction.Down);
+                OnStopFlow(Direction.Left);
+            }
+            else if (dir == Direction.DownRight)
+            {
+                OnStopFlow(Direction.Down);
+                OnStopFlow(Direction.Right);
+            }
+            else OnStopFlow(dir);
+
+
             Toast.Show("Невозможно пройти");
         }
-
+        
+        private void StopAutoMove()
+        {
+            move = Direction.Idle;
+            _movePointTarget = default;
+            _movePointAction = default;
+        }
 
         protected override void DrawLoop()
         {
@@ -316,26 +363,6 @@
             //});
         }
 
-        private bool CheckMoveAvailable(Direction direction)
-        {
-            if (this.Location.Move(Avatar, direction))
-            {
-                this.Left = Avatar.Location.X;
-                this.Top = Avatar.Location.Y;
-
-                this.OnMove?.Invoke();
-
-                return true;
-            }
-            else
-            {
-                Avatar.Location.X = this.Left;
-                Avatar.Location.Y = this.Top;
-
-                return false;
-            }
-        }
-
         public Action OnMove;
 
         private readonly HashSet<Direction> NowMoving = new HashSet<Direction>();
@@ -385,6 +412,8 @@
                 return;
 
             base.KeyDown(key, modifier, hold);
+
+            StopAutoMove();
 
             switch (key)
             {

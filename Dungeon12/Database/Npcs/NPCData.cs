@@ -34,7 +34,7 @@ namespace Dungeon12.Data.Npcs
 
         public int Level { get; set; }
 
-        public Point VisionMultiples { get; set; }
+        public Point VisionMultiples /*{ get; set; }*/ => new Point(12, 12);
 
         public Point AttackRangeMultiples { get; set; }
     }

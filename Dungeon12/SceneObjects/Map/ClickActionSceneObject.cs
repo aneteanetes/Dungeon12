@@ -83,6 +83,10 @@
                 acting = true;
                 Action(args.MouseButton);
             }
+            else
+            {
+                Global.GameState.Player.BindMovePointAction(this.@object, () => Action(args.MouseButton));
+            }
         }
 
         /// <summary>

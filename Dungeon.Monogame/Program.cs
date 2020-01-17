@@ -12,7 +12,6 @@ namespace Dungeon.Monogame
         static void Main()
         {
             DungeonGlobal.BindGlobal<Global>();
-            DungeonGlobal.AudioOptions.Volume = 0;
             Console.WriteLine(Global.Version);
 #if DEBUG
             //Global.ExceptionRethrow = true;

@@ -204,9 +204,6 @@
                 isChasing = false;
             }
 
-            if (isChasing)
-                return false;
-
             List<MapObject> targets = new List<MapObject>();
 
             var query = location.MapObject.QueryContainer(this.mapObj.Vision);
@@ -249,6 +246,13 @@
                 {
                     if (attackAvailable)
                     {
+                        if (isChasing)
+                        {
+                            @object.MovementSpeed = 0.01;
+                            isChasing = false;
+                            moveDistance = 0;
+                        }
+
                         attackAvailable = false;
                         RunAttackAnimation(target);
                         return false;
@@ -263,12 +267,6 @@
 
                     return false;
                 }
-            }
-            else if (isChasing)
-            {
-                @object.MovementSpeed = 0.01;
-                isChasing = false;
-                moveDistance = 0;
             }
 
             return true;
@@ -285,12 +283,12 @@
             if (animationDistance < 0.4)
             {
                 MoveByDirection(attackAnimationDir.Opposite(), this, 0.05);
-                animationDistance += 0.2;
+                animationDistance += 0.1;
             }
             else if(animationDistance<0.8)
             {
                 MoveByDirection(attackAnimationDir, this, 0.05);
-                animationDistance += 0.2;
+                animationDistance += 0.1;
             }
             else if (animationDistance < 1)
             {
@@ -321,36 +319,6 @@
             move = DetectDirection(target);
 
             moveDistance = 120;
-        }
-
-        private Direction DetectDirection(MapObject target)
-        {
-            var playerPos = target.Position;
-            var thisPos = @object.Position;
-
-            Direction dirX = Direction.Idle;
-            Direction dirY = Direction.Idle;
-
-            if (playerPos.X <= thisPos.X)
-            {
-                dirX = Direction.Left;
-            }
-            if (playerPos.X >= thisPos.X)
-            {
-                dirX = Direction.Right;
-            }
-
-            if (playerPos.Y >= thisPos.Y)
-            {
-                dirY = Direction.Down;
-            }
-
-            if (playerPos.Y <= thisPos.Y)
-            {
-                dirY = Direction.Up;
-            }
-
-            return (Direction)((int)dirX + (int)dirY);
         }
 
         private static bool IsMapObjAvatar(MapObject x) => typeof(Avatar).IsAssignableFrom(x.GetType());

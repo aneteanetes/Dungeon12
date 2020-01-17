@@ -2,6 +2,7 @@
 {
     using Dungeon;
     using Dungeon.Entities.Animations;
+    using Dungeon.Physics;
     using Dungeon.SceneObjects;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
@@ -104,6 +105,36 @@
             }
         }
 
+        protected Direction DetectDirection(PhysicalObject target)
+        {
+            var playerPos = target.Position;
+            var thisPos = @object.Position;
+
+            Direction dirX = Direction.Idle;
+            Direction dirY = Direction.Idle;
+
+            if (playerPos.X <= thisPos.X)
+            {
+                dirX = Direction.Left;
+            }
+            if (playerPos.X >= thisPos.X)
+            {
+                dirX = Direction.Right;
+            }
+
+            if (playerPos.Y >= thisPos.Y)
+            {
+                dirY = Direction.Down;
+            }
+
+            if (playerPos.Y <= thisPos.Y)
+            {
+                dirY = Direction.Up;
+            }
+
+            return (Direction)((int)dirX + (int)dirY);
+        }
+
         private void CalculateMove()
         {
             if (!OnLogic())
@@ -146,7 +177,7 @@
 
             if (!CheckMoveAvailable(dir))
             {
-                WhenMoveNotAvailable();
+                WhenMoveNotAvailable(dir);
             }
             else if (this.aliveTooltip != null)
             {
@@ -155,7 +186,7 @@
             }
         }
 
-        protected virtual void WhenMoveNotAvailable()
+        protected virtual void WhenMoveNotAvailable(Direction dir)
         {
             moveDistance = -moveable.WaitTime;
             SetAnimation(moveable.Idle);
