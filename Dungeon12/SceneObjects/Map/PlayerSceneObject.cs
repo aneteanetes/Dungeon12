@@ -186,7 +186,7 @@
         public void BindMovePointAction(PhysicalObject target, Action action)
         {
             var text = new DrawText("Слишком далеко!", ConsoleColor.White) { Size = 10 };
-            var left = this.Left + (this.MeasureText(text).X / 32) / 2;
+            var left = this.Left - ((this.MeasureText(text).X / 32) / 5.5);
             this.ShowInScene?.Invoke(new PopupString(text, new Point(left, this.Top),speed:0.05).InList<ISceneObject>());            
 #warning отключено взаимодействие мышкой потому что появляется проблема с камерой
             return;
