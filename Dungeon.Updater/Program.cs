@@ -20,7 +20,7 @@ namespace Dungeon.Updater
                 }
                 catch (Exception ex)
                 {
-                    File.WriteAllText("D:\\updaterlog.txt", ex.ToString());
+                    File.WriteAllText("updaterlog.txt", ex.ToString());
                     throw;
                 }
             }
