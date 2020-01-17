@@ -195,6 +195,7 @@
             if (attackAnimationDir != Direction.Idle)
             {
                 ProcessAttackAnimation();
+                return false;
             }
 
             if (moveDistance == 0)
