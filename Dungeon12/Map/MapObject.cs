@@ -257,6 +257,9 @@
 
         public void DropLoot(LootTable lootTable)
         {
+            if (lootTable == default)
+                return;
+
             List<MapObject> publishObjects = new List<MapObject>();
 
             var loot = lootTable.Generate();
