@@ -79,7 +79,7 @@ namespace Dungeon.Update
             using (var process = new Process())
             {
                 process.StartInfo.FileName = updater; // relative path. absolute path works too.
-                process.StartInfo.Arguments = $"{versionPath}";
+                process.StartInfo.Arguments = $"\"{versionPath}\"";
 
                 process.StartInfo.UseShellExecute = false;
 
