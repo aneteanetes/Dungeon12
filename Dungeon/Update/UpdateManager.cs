@@ -13,7 +13,16 @@ namespace Dungeon.Update
             {
                 using (var wc = new WebClient())
                 {
-                    wc.DownloadStringCompleted += (_, e) => onDownload?.Invoke(e.Result);
+                    wc.DownloadStringCompleted += (_, e) =>
+                    {
+                        string result = default;
+                        try
+                        {
+                            result = e.Result;
+                        }
+                        catch { }
+                        onDownload?.Invoke(result);
+                    };
                     wc.DownloadStringAsync(new Uri("http://213.226.127.77/version"));                    
                 }
             }
