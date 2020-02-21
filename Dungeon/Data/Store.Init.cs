@@ -39,6 +39,51 @@ namespace Dungeon
             CompileDatabase();
         }
 
+        public static void CompileResources()
+        {
+            IEnumerable<string> resDirectories = Directory.GetDirectories(ProjectDirectory, "Resources", SearchOption.AllDirectories);
+            foreach (var resDir in resDirectories)
+            {
+                var dir = new DirectoryInfo(resDir);
+
+                var projectName = dir.Parent.Name;
+
+                using (var litedb = new LiteDatabase($@"{MainPath}\Data\{projectName}.dtr"))
+                {
+                    var db = litedb.GetCollection<DatabaseResource>();
+
+                    foreach (var file in Directory.GetFiles(dir.FullName, "*.*", SearchOption.AllDirectories))
+                    {
+                        var res = new DatabaseResource()
+                        {
+                            Path = file.Substring(file.IndexOf(projectName+"\\")).Replace("\\", "."),
+                            Size = new FileInfo(file).Length
+                        };
+
+                        var dataResource = db.Find(x => x.Path == res.Path).FirstOrDefault();
+                        if (dataResource == default)
+                        {
+                            res.Data = File.ReadAllBytes(file);
+                            db.Insert(res);
+                        }
+                        else if (dataResource.Size!=res.Size)
+                        {
+                            res.Data = File.ReadAllBytes(file);
+                            db.Update(res);
+                        }
+                    }
+                }
+            }
+        }
+
+        private class DatabaseResource : Persist
+        {
+            public string Path { get; set; }
+
+            public byte[] Data { get; set; }
+
+            public long Size { get; set; }
+        }
 
         public static void LoadAllAssemblies()
         {

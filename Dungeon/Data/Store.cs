@@ -95,7 +95,6 @@
             return @enum.Current.As<T>();
         }
 
-
         /// <summary>
         /// 
         /// <para>

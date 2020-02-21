@@ -14,6 +14,12 @@ namespace Dungeon.Monogame
             DungeonGlobal.BindGlobal<Global>();
             Console.WriteLine(Global.Version);
 #if DEBUG
+            var sw = new Stopwatch();
+            sw.Start();
+            Store.CompileResources();
+            Console.WriteLine(sw.ElapsedMilliseconds/1000);
+            Console.ReadLine();
+
             //Global.ExceptionRethrow = true;
             //Global.GlobalExceptionHandling();
             //ResourceLoader.NotDisposingResources = true;

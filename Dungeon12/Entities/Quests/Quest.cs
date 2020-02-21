@@ -39,7 +39,6 @@ namespace Dungeon12.Entities.Quests
         public long MaxProgress { get => Get(___MaxProgress, typeof(Quest<>).AssemblyQualifiedName); set => Set(value, typeof(Quest<>).AssemblyQualifiedName); }
         private long ___MaxProgress;
 
-
         public string Description { get; set; }
 
         public Reward Reward { get; set; }

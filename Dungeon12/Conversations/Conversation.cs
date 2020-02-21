@@ -23,6 +23,6 @@
         /// <summary>
         /// Переменные в разговоре
         /// </summary>
-        public List<Variable> Variables { get; set; }        
+        public List<Variable> Variables { get; set; }
     }
 }
