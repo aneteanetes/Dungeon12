@@ -140,7 +140,7 @@
             Type type = null;
             foreach (var asm in DungeonGlobal.Assemblies)
             {
-                type = asm?.GetTypes().FirstOrDefault(x => x.Name == typeName);
+                type = asm?.GetTypes().FirstOrDefault(x => x.Name == typeName || x.FullName==typeName);
                 if (type != default)
                 {
                     break;

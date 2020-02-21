@@ -9,6 +9,8 @@ using Dungeon12.Map;
 using Dungeon.View.Interfaces;
 using System.Linq;
 using Dungeon12.Events;
+using Dungeon.Resources;
+using Dungeon.Data;
 
 namespace Dungeon12
 {
@@ -26,7 +28,7 @@ namespace Dungeon12
             var newClassAssembly = args[1];
 
             // создаём новый экземпляр класса
-            var to = newClass.GetInstanceFromAssembly<Character>(newClassAssembly);
+            var to = new Instance(newClass).Value<Character>(true);
 
             //отключаем все пассивные способности
             from.PropertiesOfType<Ability>()
