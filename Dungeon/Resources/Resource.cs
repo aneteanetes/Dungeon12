@@ -1,16 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Dungeon.Data;
+using LiteDB;
+using System;
 using System.IO;
-using System.Text;
 
 namespace Dungeon.Resources
 {
-    public class Resource
+    public class Resource : Persist
     {
-        public string Name { get; set; }
+        public string Path { get; set; }
 
-        public Stream Stream { get; set; }
+        public byte[] Data { get; set; }
 
+        public DateTime LastWriteTime { get; set; }
+
+        [BsonIgnore]
+        public Stream Stream => new MemoryStream(Data);
+
+        [BsonIgnore]
         public Action Dispose { get; set; }
     }
 }

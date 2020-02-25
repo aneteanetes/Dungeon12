@@ -70,8 +70,7 @@ namespace Dungeon.Resources
 
             var res = new Resource()
             {
-                Name = resource,
-                Stream = stream,
+                Path = resource,
                 Dispose = () =>
                 {
                     stream?.Dispose();
@@ -81,7 +80,7 @@ namespace Dungeon.Resources
             bool addToScene = !caching;
             if (NotDisposingResources)
             {
-                addToScene = !SceneManager.Preapering?.Resources.Any(r => r.Name == res.Name) ?? false;
+                addToScene = !SceneManager.Preapering?.Resources.Any(r => r.Path == res.Path) ?? false;
             }
 
             if (addToScene)

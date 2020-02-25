@@ -16,8 +16,11 @@ namespace Dungeon.Monogame
 #if DEBUG
             var sw = new Stopwatch();
             sw.Start();
-            Store.CompileResources();
-            Console.WriteLine(sw.ElapsedMilliseconds/1000);
+
+            var resCompiler = new ResourceCompiler();
+            resCompiler.Compile();
+
+            Console.WriteLine(sw.ElapsedMilliseconds);
             Console.ReadLine();
 
             //Global.ExceptionRethrow = true;
