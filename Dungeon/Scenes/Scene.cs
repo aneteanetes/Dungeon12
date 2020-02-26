@@ -566,7 +566,7 @@
 
             if (!ResourceLoader.NotDisposingResources)
             {
-                Resources.ForEach(r => r.Dispose?.Invoke());
+                Resources.ForEach(r => r.Dispose());
                 Resources.Clear();
                 GC.Collect();
             }

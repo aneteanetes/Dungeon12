@@ -427,7 +427,7 @@ namespace ProjectMercury.Emitters
                 bitmap = Texture2D.FromStream(Dungeon12.Global.TransportVariable as GraphicsDevice, res.Stream);
                 tilesetsCache.TryAdd(tilesetName, bitmap);
 
-                res.Dispose += () =>
+                res.OnDispose += () =>
                 {
                     bitmap.Dispose();
                     tilesetsCache.Remove(tilesetName);

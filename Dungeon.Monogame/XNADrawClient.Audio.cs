@@ -44,7 +44,7 @@
                 var res = ResourceLoader.Load(name);
                 sound = SoundEffect.FromStream(res.Stream);
                 soundEffectsCache[name] = sound;
-                res.Dispose += () =>
+                res.OnDispose += () =>
                 {
                     sound.Dispose();
                     soundEffectsCache.Remove(name);

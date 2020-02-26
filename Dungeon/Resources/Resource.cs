@@ -14,9 +14,30 @@ namespace Dungeon.Resources
         public DateTime LastWriteTime { get; set; }
 
         [BsonIgnore]
-        public Stream Stream => new MemoryStream(Data);
+        private MemoryStream stream;
 
         [BsonIgnore]
-        public Action Dispose { get; set; }
+        public Stream Stream
+        {
+            get
+            {
+                if (stream == default)
+                {
+                    stream = new MemoryStream(Data);
+                }
+
+                return stream;
+            }
+        }
+        
+        [BsonIgnore]
+        public void Dispose()
+        {
+            OnDispose?.Invoke();
+            stream?.Dispose();
+        }
+
+        [BsonIgnore]
+        public Action OnDispose { get; set; }
     }
 }

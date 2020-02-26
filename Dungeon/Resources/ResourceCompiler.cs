@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace Dungeon.Resources
 {
@@ -18,9 +19,23 @@ namespace Dungeon.Resources
             CurrentBuild = new ResourceManifest();
         }
 
+        private LiteCollection<Resource> db;
+
         public void Compile(bool rebuild=false)
         {
             IEnumerable<string> resDirectories = Directory.GetDirectories(Store.ProjectDirectory, "Resources", SearchOption.AllDirectories);
+
+            var path = $@"{MainPath}\Data\{Assembly.GetExecutingAssembly().GetName().Name}.dtr";
+            if (rebuild && File.Exists(path))
+            {
+                File.Delete(path);
+            }
+
+            using var litedb = new LiteDatabase(path);
+            
+            db = litedb.GetCollection<Resource>();
+            db.EnsureIndex("Path");
+
             foreach (var resDir in resDirectories)
             {
                 ProcessProject(resDir, rebuild);
@@ -42,26 +57,13 @@ namespace Dungeon.Resources
         private void ProcessProject(string projectResDirectory, bool rebuild)
         {
             var dir = new DirectoryInfo(projectResDirectory);
-
-            var projectName = dir.Parent.Name;
-
-            var dtrPath = $@"{MainPath}\Data\{projectName}.dtr";
-
-            if (rebuild)
-            {
-                File.Delete(dtrPath);
-            }
-
-            using var litedb = new LiteDatabase(dtrPath);
-            var db = litedb.GetCollection<Resource>();
-
             foreach (var file in Directory.GetFiles(dir.FullName, "*.*", SearchOption.AllDirectories))
             {
-                ProcessFile(file,projectName, db);
+                ProcessFile(file, dir.Parent.Name);
             }
         }
 
-        private void ProcessFile(string file, string projectName, LiteCollection<Resource> db)
+        private void ProcessFile(string file, string projectName)
         {
             var lastTime = File.GetLastWriteTime(file);
             var res = LastBuild.Resources.FirstOrDefault(x => x.Path == file);
@@ -105,7 +107,9 @@ namespace Dungeon.Resources
             db.Insert(newResource);
         }
 
-        private static string MainPath => Store.MainPath;
+        public static string MainPath => Store.MainPath;
+
+        public static string CompilePath => $@"{MainPath}\Data\{Assembly.GetExecutingAssembly().GetName().Name}.dtr";
 
         private ResourceManifest GetLastResourceManifestBuild()
         {

@@ -301,7 +301,7 @@
 
                 tilesetsCache.TryAdd(tilesetName, bitmap);
 
-                res.Dispose += () =>
+                res.OnDispose += () =>
                  {
                      tilesetsCache.Remove(tilesetName);
                      bitmap.Dispose();

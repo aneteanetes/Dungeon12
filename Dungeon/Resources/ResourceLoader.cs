@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Runtime.Loader;
 using System.Linq;
 using Dungeon.Scenes.Manager;
+using LiteDB;
 
 namespace Dungeon.Resources
 {
@@ -21,61 +22,57 @@ namespace Dungeon.Resources
         /// </summary>
         public static bool CacheImagesAndMasks = true;
 
-        public static bool Exists(string resource) => LoadStream(resource) != default;
+        public static bool Exists(string resource) => LoadResource(resource) != default;
 
-        private static Stream LoadStream(string resource)
+        private static Lazy<LiteDatabase> LiteDatabase;
+
+        static ResourceLoader()
+        {
+            LiteDatabase = new Lazy<LiteDatabase>(() =>
+            {
+                var litedb = new LiteDatabase(ResourceCompiler.CompilePath);
+                DungeonGlobal.Exit += () => litedb.Dispose();
+
+                return litedb;
+            });
+        }
+
+        private static Resource LoadResource(string resource)
         {
             if (RuntimeCache.ContainsKey(resource))
             {
-                return RuntimeCache[resource];
-            }
-
-            var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = resource;
-
-            var stream = assembly.GetManifestResourceStream(resourceName);
-            if (stream == default)
-            {
-                stream = DungeonGlobal.GameAssembly.GetManifestResourceStream(resourceName);
-            }
-
-            if (stream == default)
-            {
-                foreach (var asm in DungeonGlobal.Assemblies)
+                return new Resource()
                 {
-                    stream = asm.GetManifestResourceStream(resourceName);
-                    if (stream != default)
-                    {
-                        break;
-                    }
-                }
+                    Path = resource,
+                    Data = RuntimeCache[resource]
+                };
             }
 
-            return stream;
+            var db = LiteDatabase.Value.GetCollection<Resource>();
+
+            var res = db.Find(x => x.Path == resource).FirstOrDefault();
+
+            if (res != default)
+            {
+                var bytes = new byte[res.Data.Length];
+
+                var mem = new Memory<byte>(bytes);
+                res.Data.CopyTo(mem);
+
+                RuntimeCache.Add(resource, mem.Span.ToArray());
+            }
+
+            return res;
         }
 
         public static Resource Load(string resource, bool caching = false)
         {
-            var stream = LoadStream(resource);
+            var res = LoadResource(resource);
 
-            if (stream == default)
+            if (res == default)
             {
                 throw new KeyNotFoundException($"Ресурс {resource} не найден!");
             }
-
-            if (stream.CanSeek)
-            {
-                stream.Seek(0, SeekOrigin.Begin);
-            }
-
-            var res = new Resource()
-            {
-                Path = resource,
-                Dispose = () =>
-                {
-                    stream?.Dispose();
-                }
-            };
 
             bool addToScene = !caching;
             if (NotDisposingResources)
@@ -91,10 +88,10 @@ namespace Dungeon.Resources
             return res;
         }
 
-        private static Dictionary<string, Stream> RuntimeCache = new Dictionary<string, Stream>();
-        public static void SaveStream(Stream stream, string image)
+        private static Dictionary<string, byte[]> RuntimeCache = new Dictionary<string, byte[]>();
+        public static void SaveStream(byte[] bytes, string image)
         {
-            RuntimeCache[image] = stream;
+            RuntimeCache[image] = bytes;
         }
 
         public static Type LoadType(string className)

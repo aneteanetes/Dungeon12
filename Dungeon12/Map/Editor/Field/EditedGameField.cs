@@ -165,7 +165,7 @@
              
 
             var ms = new MemoryStream(File.ReadAllBytes("map.png"));
-            ResourceLoader.SaveStream(ms, "map");
+            ResourceLoader.SaveStream(ms.ToArray(), "map");
             this.Save($"map",false);
         }
 
