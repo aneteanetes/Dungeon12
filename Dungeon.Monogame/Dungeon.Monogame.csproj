@@ -22,16 +22,11 @@
     <MonoGameContentReference Include="**\*.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <MonoGameContentReference Remove="Content\Content.Android.mgcb" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Content\Content.Android.mgcb" />
     <None Remove="Icon.bmp" />
     <None Remove="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MonoGame.Content.Builder" Version="3.7.0.4" />
-    <PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="3.7.0.9" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="1.0.0" />
     <PackageReference Include="NSubsys" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -52,13 +47,6 @@
   
   <ItemGroup>
     <MySourceFiles Include="$(SolutionDir)\**\**\Resources\*.*" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Compile Remove="Content\Audio\**" />
-    <EmbeddedResource Remove="Content\Audio\**" />
-    <MonoGameContentReference Remove="Content\Audio\**" />
-    <None Remove="Content\Audio\**" />
   </ItemGroup>
   
   <ItemGroup>

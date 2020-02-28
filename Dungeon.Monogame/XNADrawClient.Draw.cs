@@ -529,7 +529,8 @@
                 {
                     if (sceneObject.ScaleAndResize)
                     {
-                        spriteBatch.Draw(image, destinationRectangle: dest, sourceRectangle: source, origin: origin, rotation: angle, scale: new Vector2((float)sceneObject.Scale), color: color, effects: spriteEffects, layerDepth: 0);
+                        //spriteBatch.Draw(image, destinationRectangle: dest, sourceRectangle: source, origin: origin, rotation: angle, scale: new Vector2((float)sceneObject.Scale), color: color, effects: spriteEffects, layerDepth: 0);
+                        spriteBatch.Draw(image, new Vector2((float)pos.Xi, (float)pos.Yi), source, color, angle, origin, new Vector2((float)sceneObject.Scale), spriteEffects, 0);
                     }
                     else
                     {
