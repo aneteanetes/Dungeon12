@@ -59,8 +59,23 @@ namespace Dungeon.Resources
             var dir = new DirectoryInfo(projectResDirectory);
             foreach (var file in Directory.GetFiles(dir.FullName, "*.*", SearchOption.AllDirectories))
             {
-                ProcessFile(file, dir.Parent.Name);
+                ProcessFile(file, GetProjectName(dir)?.Replace(".csproj",""));
             }
+        }
+
+        private string GetProjectName(DirectoryInfo directory)
+        {
+            var proj = directory.GetFiles("*.csproj").FirstOrDefault();
+            if (proj != default)
+            {
+                return proj.Name;
+            }
+            else if (directory.Parent != default)
+            {
+                return GetProjectName(directory.Parent);
+            }
+
+            return null;
         }
 
         private void ProcessFile(string file, string projectName)
