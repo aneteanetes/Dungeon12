@@ -189,7 +189,12 @@
 
                 var text = $"Версия: {DungeonGlobal.Version}";
 
-                var font = Content.Load<SpriteFont>("fonts/Montserrat/Montserrat10");
+                var pathfont = "Dungeon12.Resources.Fonts.xnb.Montserrat.Montserrat10.xnb";
+
+                var montserrat10Res = ResourceLoader.Load(pathfont);
+
+
+                var font = Content.Load<SpriteFont>(pathfont,montserrat10Res.Stream);
 
                 spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);
 
@@ -204,13 +209,20 @@
 
         public Dungeon.Types.Point MeasureText(IDrawText drawText, ISceneObject parent=default)
         {
-            string customFont = null;
+            string customFontName = null;
             if (drawText.FontName != null)
             {
-                customFont = $"fonts/{drawText.FontName}/{drawText.FontName}{drawText.Size}";
+                customFontName = $"Dungeon12.Resources.Fonts.xnb.{drawText.FontName}/{drawText.FontName}{drawText.Size}.xnb".Embedded();
             }
 
-            var font = Content.Load<SpriteFont>(customFont ?? $"fonts/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}");
+            if(customFontName==default)
+            {
+                customFontName = $"Dungeon12.Resources.Fonts/xnb/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}.xnb".Embedded();
+            }
+
+            var resFont = ResourceLoader.Load(customFontName);
+
+            var font = Content.Load<SpriteFont>(customFontName, resFont.Stream);
 
             var data = drawText.StringData;
 
@@ -629,8 +641,7 @@
             SpriteFont spriteFont;
             if (string.IsNullOrEmpty(range.FontName))
             {
-                var font = $"fonts/xnb/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}"
-                    .AsmRes();
+                var font = $"Dungeon12.Resources.Fonts.xnb/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}.xnb".Embedded();
 
                 var resFont = ResourceLoader.Load(font);
 
@@ -638,8 +649,7 @@
             }
             else
             {
-                var font = $"fonts/xnb/{range.FontName}/{range.FontName}{range.Size}"
-                    .AsmRes();
+                var font = $"Dungeon12.Resources.Fonts.xnb/{range.FontName}/{range.FontName}{range.Size}.xnb".Embedded();
 
                 var resFont = ResourceLoader.Load(font)
                     .Stream;

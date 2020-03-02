@@ -1,6 +1,7 @@
 ﻿namespace Dungeon.Monogame
 {
     using Dungeon.Network;
+    using Dungeon.Resources;
     using Dungeon.Scenes.Manager;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
@@ -26,8 +27,6 @@
         private PenumbraComponent penumbra;
 
         Renderer myRenderer;
-
-        ResourceContentManager _resources;
 
         public bool isFatal;
 
@@ -98,31 +97,6 @@
             this.IsFixedTimeStep = true;//false;
             this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d); //60);
 
-            var manager = new ResourceManager("Dungeon.Monogame.Resources", typeof(XNADrawClient).Assembly);
-            var data = manager.GetResourceSet(CultureInfo.InvariantCulture, true, true).Cast<DictionaryEntry>()
-                                    .ToDictionary(r => r.Key.ToString(),
-                                                  r => r.Value.ToString());
-            foreach (var item in data)
-            {
-                Console.WriteLine(item.Key);
-                Console.WriteLine(item.Value);
-                try
-                {
-                    Console.WriteLine(manager.GetObject(item.Key));
-                }
-                catch
-                {
-                    Console.WriteLine(manager.GetObject(item.Key));
-                    //throw;
-                }
-            }
-
-            _resources = new ResourceContentManager(this.Services,manager);
-
-            penumbra = new PenumbraComponent(this, _resources);
-            Components.Add(penumbra);
-
-            penumbra.Lights.Add(SunLight);
 
             Dungeon12.Global.AudioPlayer = this;
             Dungeon12.Global.Time.OnTimeSet += WhenTimeSetted;
@@ -171,9 +145,37 @@
             Global.Camera = this;
 
 
+
+            var penumbraShaders = new Dictionary<string, Effect>();
+            var penumbraShaderPaths = new (string path, string key)[]
+            {
+                ( "Dungeon12.Resources.Shaders.PenumbraHull.xnb" ,"PenumbraHull"),
+                ( "Dungeon12.Resources.Shaders.PenumbraLight.xnb" ,"PenumbraLight"),
+                ( "Dungeon12.Resources.Shaders.PenumbraShadow.xnb" ,"PenumbraShadow"),
+                ( "Dungeon12.Resources.Shaders.PenumbraTexture.xnb" ,"PenumbraTexture")
+            };
+
+            foreach (var (path, key) in penumbraShaderPaths)
+            {
+                var res = ResourceLoader.Load(path);
+                penumbraShaders.Add(key, Content.Load<Effect>(path, res.Stream));
+            }
+
+            penumbra = new PenumbraComponent(this, penumbraShaders);
+            penumbra.Initialize();
+            Components.Add(penumbra);
+
+            penumbra.Lights.Add(SunLight);
+
+
+
             Global.SceneManager = this.SceneManager;
 
-            GlobalImageFilter = _resources.Load<Effect>("ExtractLight");
+            var pathShader = "Dungeon12.Resources.Shaders.ExtractLight.xnb";
+
+            var extractLight = ResourceLoader.Load(pathShader);
+
+            GlobalImageFilter = Content.Load<Effect>(pathShader, extractLight.Stream);
 
             SceneManager.Start(isFatal ? "FATAL" : default);
             Network.Start();

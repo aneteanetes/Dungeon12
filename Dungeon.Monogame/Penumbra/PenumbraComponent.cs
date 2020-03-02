@@ -4,6 +4,9 @@ using System.Resources;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using System.Collections.Generic;
+using Dungeon.Resources;
+using System.IO;
 
 namespace Penumbra
 {
@@ -20,21 +23,21 @@ namespace Penumbra
     public class PenumbraComponent : DrawableGameComponent
     {
         private readonly PenumbraEngine _engine = new PenumbraEngine();
+        private readonly Dictionary<string, Effect> PenumbraShaders;
 
         private bool _initialized;
         private bool _beginDrawCalled;
-        private ResourceContentManager _resContent;
 
         /// <summary>
         /// Constructs a new instance of <see cref="PenumbraComponent"/>.
         /// </summary>
         /// <param name="game">Game object to associate the engine with.</param>
-        public PenumbraComponent(Game game, ResourceContentManager content)
+        public PenumbraComponent(Game game, Dictionary<string,Effect> shaders)
             : base(game)
         {
-            _resContent = content;
             // We only need to draw this component.
             Enabled = false;
+            PenumbraShaders = shaders;
         }
 
         /// <summary>
@@ -99,20 +102,20 @@ namespace Penumbra
         /// Explicitly initializes the engine. This should only be called if the
         /// component was not added to the game's components list through <c>Components.Add</c>.
         /// </summary>
-
         public override void Initialize()
         {
             if (_initialized) return;
 
             base.Initialize();
+            
             var deviceManager = (GraphicsDeviceManager)Game.Services.GetService<IGraphicsDeviceManager>();
-#if Core
+
             _engine.Load(GraphicsDevice, deviceManager, Game.Window,
-                _resContent.Load<Effect>("PenumbraHull"),
-                _resContent.Load<Effect>("PenumbraLight"),
-                _resContent.Load<Effect>("PenumbraShadow"),
-                _resContent.Load<Effect>("PenumbraTexture"));
-#endif
+                PenumbraShaders["PenumbraHull"],
+                PenumbraShaders["PenumbraLight"],
+                PenumbraShaders["PenumbraShadow"],
+                PenumbraShaders["PenumbraTexture"]);
+
             _initialized = true;
         }
 
@@ -154,7 +157,11 @@ namespace Penumbra
         protected override void UnloadContent()
         {
             _engine.Dispose();
-            _resContent?.Dispose();
+
+            foreach (var item in PenumbraShaders)
+            {
+                item.Value.Dispose();
+            }
         }
 
         /// <inheritdoc />

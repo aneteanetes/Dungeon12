@@ -82,7 +82,7 @@ namespace Dungeon.Resources
 
             if (addToScene)
             {
-                SceneManager.Preapering.Resources.Add(res);
+                SceneManager.Preapering?.Resources.Add(res);
             }
 
             return res;

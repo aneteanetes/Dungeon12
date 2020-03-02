@@ -1,4 +1,6 @@
-﻿using Dungeon.Data;
+﻿#define TRACE
+
+using Dungeon.Data;
 using Dungeon.Resources;
 using Dungeon12;
 using System;

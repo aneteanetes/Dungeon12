@@ -38,6 +38,7 @@
     <Folder Include="Resources\Images\Objects\deadguards\" />
     <Folder Include="Resources\Images\ui\checkbox\" />
     <Folder Include="Resources\Images\ui\journal\" />
+    <Folder Include="Resources\Shaders\" />
     <Folder Include="Resources\Scenario\" />
   </ItemGroup>
 </Project>
