@@ -1,6 +1,5 @@
 ﻿using Lidgren.Network;
-//using MsgPack.Serialization;
-using MessagePack;
+//using MessagePack;
 using Dungeon.Events.Network;
 using System;
 using System.Collections.Generic;
@@ -35,19 +34,22 @@ namespace Dungeon.Network
         {
             //return (NetworkMessage)serializer.Unpack(new MemoryStream(data));
 
-            var msg = MessagePackSerializer.Deserialize<NetworkMessage>(data, MessagePack.Resolvers.ContractlessStandardResolver.Instance);
+#warning MessagePack в данный момент потенциально опасен, а сеть не работает, поэтому пусть так
+            return default;
 
-            var dataType = Type.GetType(msg.DataType);
-            if (IsSimple(dataType))
-            {
-                msg.Data = Convert.ChangeType(msg.Data, dataType);
-            }
-            else
-            {
-                msg.Data = msg.DataType.CreateAndFill(msg.Data as IDictionary<object, object>);
-            }
+            //var msg = MessagePackSerializer.Deserialize<NetworkMessage>(data, MessagePack.Resolvers.ContractlessStandardResolver.Instance);
 
-            return msg;
+            //var dataType = Type.GetType(msg.DataType);
+            //if (IsSimple(dataType))
+            //{
+            //    msg.Data = Convert.ChangeType(msg.Data, dataType);
+            //}
+            //else
+            //{
+            //    msg.Data = msg.DataType.CreateAndFill(msg.Data as IDictionary<object, object>);
+            //}
+
+            //return msg;
         }
 
         bool IsSimple(Type type)
@@ -66,10 +68,10 @@ namespace Dungeon.Network
 
         private byte[] Serialize(NetworkMessage msg)
         {
-            //var ms = new MemoryStream();
-            //serializer.Pack(ms, msg);
-            //return ms.ToArray();
-            return MessagePackSerializer.Serialize(msg, MessagePack.Resolvers.ContractlessStandardResolver.Instance);
+
+#warning MessagePack в данный момент потенциально опасен, а сеть не работает, поэтому пусть так
+            return default;
+            //return MessagePackSerializer.Serialize(msg, MessagePack.Resolvers.ContractlessStandardResolver.Instance);
         }
 
         private void Get(NetworkMessage networkMessage)

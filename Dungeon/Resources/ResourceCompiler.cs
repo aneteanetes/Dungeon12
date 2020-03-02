@@ -25,7 +25,13 @@ namespace Dungeon.Resources
         {
             IEnumerable<string> resDirectories = Directory.GetDirectories(Store.ProjectDirectory, "Resources", SearchOption.AllDirectories);
 
-            var path = $@"{MainPath}\Data\{Assembly.GetExecutingAssembly().GetName().Name}.dtr";
+            var dir = $@"{MainPath}\Data";
+            if(!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+
+            var path = $@"{dir}\{Assembly.GetExecutingAssembly().GetName().Name}.dtr";
             if (rebuild && File.Exists(path))
             {
                 File.Delete(path);

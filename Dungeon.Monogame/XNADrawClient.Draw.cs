@@ -629,17 +629,28 @@
             SpriteFont spriteFont;
             if (string.IsNullOrEmpty(range.FontName))
             {
-                spriteFont = Content.Load<SpriteFont>($"fonts/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}");
+                var font = $"fonts/xnb/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}"
+                    .AsmRes();
+
+                var resFont = ResourceLoader.Load(font);
+
+                spriteFont = Content.Load<SpriteFont>(font, resFont.Stream);
             }
             else
             {
+                var font = $"fonts/xnb/{range.FontName}/{range.FontName}{range.Size}"
+                    .AsmRes();
+
+                var resFont = ResourceLoader.Load(font)
+                    .Stream;
+
                 if (string.IsNullOrEmpty(range.FontPath))
                 {
-                    spriteFont = Content.Load<SpriteFont>($"fonts/{range.FontName}/{range.FontName}{range.Size}");
+                    spriteFont = Content.Load<SpriteFont>(font, resFont);
                 }
                 else
                 {
-                    spriteFont = Content.Load<SpriteFont>($"fonts/{range.FontName}/{range.FontName}{range.Size}");
+                    spriteFont = Content.Load<SpriteFont>(font, resFont);
                 }
             }
 

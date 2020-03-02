@@ -61,6 +61,8 @@ namespace Dungeon
         /// <returns></returns>
         public static string AsmImgRes(this string img, string between = "") => Assembly.GetCallingAssembly().GetName().Name + ".Resources.Images." + between.Embedded() + img.Embedded();
 
+        public static string AsmRes(this string res)=> Assembly.GetCallingAssembly().GetName().Name + ".Resources." + res.Embedded();
+
         public static string ImgRes(this string img) => ".Resources.Images." + img.Embedded();
 
         public static string AudioPathMusic(this string img, string between = "") => Assembly.GetCallingAssembly().GetName().Name + ".Resources.Audio.Music." + between.Embedded() + img.Embedded();

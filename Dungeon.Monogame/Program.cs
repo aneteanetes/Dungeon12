@@ -46,7 +46,8 @@ namespace Dungeon.Monogame
             }
             catch (Exception ex)
             {
-                Global.Logger.Log(ex.ToString());
+                throw;
+                //Global.Logger.Log(ex.ToString());
                 Run(true);
             }
         }
