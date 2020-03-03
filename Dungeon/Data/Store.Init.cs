@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.Loader;
 using Dungeon.Resources;
 using Dungeon.Data;
+using System.Linq.Expressions;
 
 namespace Dungeon
 {
@@ -26,15 +27,11 @@ namespace Dungeon
             _jsonSerializerSettings = jsonSerializerSettings;
             LoadAllAssemblies();
 
-            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-            var dataFile = Path.Combine(path, "Data.db");
-
             if (!Directory.Exists(MainPath))
                 Directory.CreateDirectory(MainPath);
-
-            if (File.Exists(Path.Combine(MainPath, "Data.db")))
-                File.Delete(Path.Combine(MainPath, "Data.db"));
+            
+            LastBuild = GetLastDataManifestBuild();
+            CurrentBuild = new ResourceManifest();
 
             CompileDatabase();
         }
@@ -58,31 +55,58 @@ namespace Dungeon
 
         private static void CompileDatabase()
         {
-            foreach (var data in JsonFiles())
+            using (var db = new LiteDatabase($@"{MainPath}\Data.db"))
             {
-                Console.WriteLine($"Compiling:{data.Type.Name}");
-                using (var db = new LiteDatabase($@"{MainPath}\Data.db"))
+                foreach (var data in JsonFiles())
                 {
                     var collection = GetGenericLiteCollection(data.Type, db);
+                    EnsureIndex(collection);
 
                     var list = GenericList(data.Type);
 
                     foreach (var item in data.JsonFiles)
                     {
-                        var obj = JsonConvert.DeserializeObject(File.ReadAllText(item, Encoding.UTF8), data.Type, _jsonSerializerSettings);
-                        if (obj is IPersist persist)
-                        {
-                            persist.Assembly = data.Assembly;
-                            if (persist.IdentifyName == default)
-                            {
-                                persist.IdentifyName = Path.GetFileNameWithoutExtension(item);
-                            }
-                        }
-                        AddToGenericList(list, obj);
-                    }
+                        var res = LastBuild.Resources.FirstOrDefault(x => x.Path == item.path);
 
-                    Insert(collection, list);
+                        CurrentBuild.Resources.Add(new Resource()
+                        {
+                            Path = item.path,
+                            LastWriteTime = item.modifydate
+                        });
+
+                        if (res == default)
+                        {
+                            StoreData(data, collection, item.path);
+                        }
+                        else if (res.LastWriteTime.ToString() != File.GetLastWriteTime(item.path).ToString())
+                        {
+                            StoreData(data, collection, item.path);
+                            LastBuild.Resources.Remove(res);
+                        }
+                    }
                 }
+            }
+
+            using (var buildDb = new LiteDatabase($@"{MainPath}\DataManifest.dtr"))
+            {
+                buildDb
+                  .GetCollection<ResourceManifest>()
+                  .Insert(CurrentBuild);
+            }
+        }
+
+        private static void StoreData(DataInfo data, object collection, string path)
+        {
+            var obj = JsonConvert.DeserializeObject(File.ReadAllText(path, Encoding.UTF8), data.Type, _jsonSerializerSettings);
+            if (obj is IPersist persist)
+            {
+                var id = Path.GetFileNameWithoutExtension(path);
+                persist.Assembly = data.Assembly;
+                if (persist.IdentifyName == default)
+                {
+                    persist.IdentifyName = id;
+                }
+                Insert(collection, id, obj);
             }
         }
 
@@ -113,14 +137,37 @@ namespace Dungeon
             return GetCollectionMethod.MakeGenericMethod(type).Invoke(db, new object[0]);
         }
 
-        private static void Insert(object collection, object obj)
+        private static void EnsureIndex(object collection)
         {
-            InsertMethod(collection)
-                .Invoke(collection, new object[] { obj });
+            EnsureIndexMethod(collection)
+                .Invoke(collection, new object[] { "IdentifyIndex", false });
         }
 
-        //int Insert(IEnumerable<T> docs)
-        private static MethodInfo InsertMethod(object collection) => collection.GetType().GetMethods().Where(x => x.Name == "Insert" && x.ReturnType == typeof(int)).First();
+        private static void Insert(object collection,string identify, object obj)
+        {
+            var existed = FindMethod(collection)
+                .Invoke(collection, new object[] { Query.EQ(nameof(IPersist.IdentifyName), identify) });
+
+            if (existed == default) {
+                InsertMethod(collection)
+                    .Invoke(collection, new object[] { obj });
+            }
+            else if (existed is IPersist persistExisted)
+            {
+                var updMethod = UpdateMethod(collection);
+
+                var r = updMethod.Invoke(collection, new object[] { new BsonValue(persistExisted.Id), obj });
+                Console.WriteLine(r);
+            }
+        }
+
+        private static MethodInfo FindMethod(object collection) => collection.GetType().GetMethods().Where(x => x.Name == "FindOne" && (x.GetParameters().FirstOrDefault()?.Name == "query")).First();
+
+        private static MethodInfo InsertMethod(object collection) => collection.GetType().GetMethods().Where(x => x.Name == "Insert" && x.ReturnType == typeof(BsonValue)).First();
+
+        private static MethodInfo UpdateMethod(object collection) => collection.GetType().GetMethods().Where(x => x.Name == "Update" && x.GetParameters().Length == 2).First();
+
+        private static MethodInfo EnsureIndexMethod(object collection) => collection.GetType().GetMethods().Where(x => x.Name == "EnsureIndex" && !x.IsGenericMethod && x.GetParameters().Length == 2).First();
 
         private static MethodInfo GetCollectionMethod => typeof(LiteDatabase).GetMethods().Where(x => x.IsGenericMethod && x.Name == "GetCollection").Last();
 
@@ -176,10 +223,33 @@ namespace Dungeon
                     {
                         Assembly=asm,
                         Type = type,
-                        JsonFiles = Directory.GetFiles(dataPath, "*.json", SearchOption.AllDirectories)
+                        JsonFiles = Directory.GetFiles(dataPath, "*.json", SearchOption.AllDirectories).Select(x=> (x,File.GetLastWriteTime(x)))
                     };
                 });
             }).Where(v => v != null);
+        }
+
+        private static ResourceManifest LastBuild { get; set; }
+
+        private static ResourceManifest CurrentBuild { get; set; }
+
+        private static ResourceManifest GetLastDataManifestBuild()
+        {
+            ResourceManifest lastBuild = new ResourceManifest();
+
+            using (var buildDb = new LiteDatabase($@"{MainPath}\DataManifest.dtr"))
+            {
+                lastBuild = buildDb
+                    .GetCollection<ResourceManifest>()
+                    .FindOne(Query.All(1));
+            }
+
+            if (lastBuild == default)
+            {
+                lastBuild = new ResourceManifest();
+            }
+
+            return lastBuild;
         }
     }
 
@@ -189,6 +259,6 @@ namespace Dungeon
 
         public Type Type { get; set; }
 
-        public IEnumerable<string> JsonFiles { get; set; }
+        public IEnumerable<(string path,DateTime modifydate)> JsonFiles { get; set; }
     }
 }
