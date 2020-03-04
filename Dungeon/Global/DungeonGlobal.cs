@@ -26,6 +26,11 @@
             global = typeof(T).NewAs<T>();
         }
 
+        /// <summary>
+        /// Если установлено true тогда <see cref="ISceneObject.Update(GameTimeLoop)"/> будет работать только на компонентах у которых включён <see cref="ISceneObject.Updatable"/> и в зависимости от дерева композиции
+        /// </summary>
+        public static bool ComponentUpdateCompatibility { get; set; }
+
         public static string Platform { get; set; } = "win";
 
         public static string Version { get; set; } = "0.0.7";

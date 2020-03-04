@@ -5,19 +5,45 @@ namespace Dungeon.Monogame
 {
     public partial class XNADrawClient
     {
-        private void UpdateLoop()
+        private void UpdateLoop(Microsoft.Xna.Framework.GameTime gameTime)
         {
+            var gameTimeLoop = new GameTimeLoop(gameTime.TotalGameTime, gameTime.ElapsedGameTime, gameTime.IsRunningSlowly);
+
             if (!blockControls)
             {
                 UpdateMouseEvents();
                 UpdateKeyboardEvents();
             }
 
-            for (int i = 0; i < scene.Objects.Length; i++)
+            if (scene != default)
             {
-                var obj = scene.Objects[i];
-                if (obj.Updatable && InCamera(obj))
-                    UpdateComponent(obj);
+                for (int i = 0; i < scene.Objects.Length; i++)
+                {
+                    var obj = scene.Objects[i];
+                    if (DungeonGlobal.ComponentUpdateCompatibility)
+                    {
+                        if (obj.Updatable && InCamera(obj))
+                            UpdateComponent(obj);
+                    }
+                    else
+                    {
+                        UpdateComponent(obj, gameTimeLoop);
+                    }
+                }
+            }
+        }
+
+        private void UpdateComponent(ISceneObject sceneObject, GameTimeLoop gameTimeLoop)
+        {
+            sceneObject.Update(gameTimeLoop);
+
+            for (int i = 0; i < sceneObject.Children.Count; i++)
+            {
+                var child = sceneObject.Children.ElementAtOrDefault(i);
+                if (child != null)
+                {
+                    UpdateComponent(child, gameTimeLoop);
+                }
             }
         }
 

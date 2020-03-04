@@ -21,9 +21,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dungeon.ConversationDesigne
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon.Monogame.FontGenerator", "Dungeon.Monogame.FontGenerator\Dungeon.Monogame.FontGenerator.csproj", "{6B628192-63FC-4D2C-957E-54B3E4533511}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dungeon.UpdateServer", "Dungeon.UpdateServer\Dungeon.UpdateServer.csproj", "{4991152F-E65A-486F-8737-E5F91BF3C2C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon.UpdateServer", "Dungeon.UpdateServer\Dungeon.UpdateServer.csproj", "{4991152F-E65A-486F-8737-E5F91BF3C2C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dungeon.Updater", "Dungeon.Updater\Dungeon.Updater.csproj", "{38981A86-BFDE-4AC7-8DA8-1ACB6416E08B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon.Updater", "Dungeon.Updater\Dungeon.Updater.csproj", "{38981A86-BFDE-4AC7-8DA8-1ACB6416E08B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VegaPQ", "VegaPQ\VegaPQ.csproj", "{C2CDEE9F-6BDD-4E06-AEDB-9BD121113BC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -155,6 +157,18 @@ Global
 		{38981A86-BFDE-4AC7-8DA8-1ACB6416E08B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{38981A86-BFDE-4AC7-8DA8-1ACB6416E08B}.Release|x86.ActiveCfg = Release|Any CPU
 		{38981A86-BFDE-4AC7-8DA8-1ACB6416E08B}.Release|x86.Build.0 = Release|Any CPU
+		{C2CDEE9F-6BDD-4E06-AEDB-9BD121113BC1}.CompileDatabase|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2CDEE9F-6BDD-4E06-AEDB-9BD121113BC1}.CompileDatabase|Any CPU.Build.0 = Debug|Any CPU
+		{C2CDEE9F-6BDD-4E06-AEDB-9BD121113BC1}.CompileDatabase|x86.ActiveCfg = Debug|Any CPU
+		{C2CDEE9F-6BDD-4E06-AEDB-9BD121113BC1}.CompileDatabase|x86.Build.0 = Debug|Any CPU
+		{C2CDEE9F-6BDD-4E06-AEDB-9BD121113BC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2CDEE9F-6BDD-4E06-AEDB-9BD121113BC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2CDEE9F-6BDD-4E06-AEDB-9BD121113BC1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C2CDEE9F-6BDD-4E06-AEDB-9BD121113BC1}.Debug|x86.Build.0 = Debug|Any CPU
+		{C2CDEE9F-6BDD-4E06-AEDB-9BD121113BC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2CDEE9F-6BDD-4E06-AEDB-9BD121113BC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2CDEE9F-6BDD-4E06-AEDB-9BD121113BC1}.Release|x86.ActiveCfg = Release|Any CPU
+		{C2CDEE9F-6BDD-4E06-AEDB-9BD121113BC1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

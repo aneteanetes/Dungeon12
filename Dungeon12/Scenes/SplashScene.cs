@@ -12,7 +12,7 @@ using System.Text;
 
 namespace Dungeon12.Scenes
 {
-    public class SplashScene : StartScene<Start>
+    public class SplashScene : GameScene<Start>
     {
         public SplashScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -20,10 +20,10 @@ namespace Dungeon12.Scenes
 
         public override bool Destroyable => true;
 
-        public override void FatalException()
-        {
-            MessageBox.Show("Произошла фатальная ошибка, требуется перезапустить игру.", () => { Global.Exit?.Invoke(); });
-        }
+        //public override void FatalException()
+        //{
+        //    MessageBox.Show("Произошла фатальная ошибка, требуется перезапустить игру.", () => { Global.Exit?.Invoke(); });
+        //}
 
         AnimatedSplash Splash;
 

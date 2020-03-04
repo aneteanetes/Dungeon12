@@ -17,7 +17,7 @@
         where TComponent : class, IGameComponent
     {
         private readonly Scenes.GameScene owner;
-        
+
         public virtual TComponent Component { get; private set; }
 
         /// <summary>
@@ -93,7 +93,7 @@
         protected TextControl AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical = true)
         {
             var textControl = new TextControl(drawText);
-            var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text,this);
+            var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text, this);
 
             var width = Width * 32;
             var height = Height * 32;
@@ -215,7 +215,7 @@
         /// </summary>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        public void AutoSizeImage(double width=1,double height=1)
+        public void AutoSizeImage(double width = 1, double height = 1)
         {
             if (this.Image != default)
             {
@@ -284,7 +284,7 @@
         public virtual IDrawText Text { get; protected set; }
 
         public virtual IDrawablePath Path { get; }
-        
+
         public ICollection<ISceneObject> Children { get; } = new List<ISceneObject>();
 
         /// <summary>
@@ -437,7 +437,6 @@
 
         public virtual double Scale { get; set; }
 
-
         public SceneObject<TComponent> ScaleTo(double value)
         {
             foreach (var child in Children)
@@ -448,7 +447,7 @@
             }
             Scale = value;
             return this;
-        }    
+        }
 
         public override string ToString()
         {
@@ -482,7 +481,12 @@
             OnUpdate?.Invoke(this);
         }
 
-        public virtual bool Updatable=>false;
+        public virtual void Update(GameTimeLoop gameTime)
+        {
+            Update();
+        }
+
+        public virtual bool Updatable => false;
 
         public bool Drawed { get; set; }
 

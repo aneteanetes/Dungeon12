@@ -187,7 +187,7 @@
 
                 frameEnd = Global.FPS >= 55;
 
-                var text = $"Версия: {DungeonGlobal.Version}";
+                //var text = $"Версия: {DungeonGlobal.Version}";
 
                 var pathfont = "Dungeon12.Resources.Fonts.xnb.Montserrat.Montserrat10.xnb";
 
@@ -196,9 +196,11 @@
 
                 var font = Content.Load<SpriteFont>(pathfont,montserrat10Res.Stream);
 
-                spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);
+                var m = (float)this.MeasureText(Global.FPS.ToString().AsDrawText().Montserrat().InSize(10)).X;
 
-                spriteBatch.DrawString(font, Global.FPS.ToString(), new Vector2(1150, 30), Color.Yellow);
+                //spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);
+
+                spriteBatch.DrawString(font, Global.FPS.ToString(), new Vector2(this.Window.ClientBounds.Width- m, 15), Color.Yellow);
 
                 spriteBatch.End();
 

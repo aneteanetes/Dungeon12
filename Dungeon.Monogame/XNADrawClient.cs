@@ -31,7 +31,7 @@
         public bool isFatal;
 
         public SceneManager SceneManager { get; set; }
-        GraphicsDeviceManager graphics;
+        protected GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         readonly Light SunLight = new PointLight
         {
@@ -55,7 +55,7 @@
         private bool blockControls = false;
         private float audioVolume = 0;
 
-        public XNADrawClient()
+        protected virtual void GraphicsDeviceManagerInitialization()
         {
             graphics = new GraphicsDeviceManager(this)
             {
@@ -70,6 +70,11 @@
                 PreferredBackBufferHeight = 720,
                 SynchronizeWithVerticalRetrace = true,
             };
+        }
+
+        public XNADrawClient()
+        {
+            GraphicsDeviceManagerInitialization();
 
             audioVolume = (float)DungeonGlobal.AudioOptions.Volume;
             MediaPlayer.Volume = audioVolume;
@@ -112,7 +117,7 @@
 
         protected override void Initialize()
         {
-            this.Window.Title = "Dungeon 12";
+            this.Window.Title = GameTitle;
 #if Android
             GraphicsDevice.PresentationParameters.IsFullScreen = true;
             var r = GraphicsDevice.Viewport.Bounds;
@@ -126,6 +131,8 @@
 #endif
             base.Initialize();
         }
+
+        protected virtual string GameTitle => "Dungeon 12";
 
         private Effect GlobalImageFilter;
 
@@ -204,7 +211,7 @@
 
             // TODO: Add your update logic here
             DebugUpdate();
-            UpdateLoop();
+            UpdateLoop(gameTime);
 
             drawCicled = false;
             skipCallback = false;
