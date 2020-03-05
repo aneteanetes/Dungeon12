@@ -24,42 +24,34 @@ namespace Dungeon.Resources
 
         public static bool Exists(string resource) => LoadResource(resource) != default;
 
-        private static Lazy<LiteDatabase> LiteDatabase;
-
-        static ResourceLoader()
+        private static LiteDatabase liteDatabase;
+        private static LiteDatabase LiteDatabase
         {
-            LiteDatabase = new Lazy<LiteDatabase>(() =>
+            get
             {
-                var litedb = new LiteDatabase(ResourceCompiler.CompilePath);
-                DungeonGlobal.Exit += () => litedb.Dispose();
-
-                return litedb;
-            });
+                if (liteDatabase == default)
+                {
+                    liteDatabase = new LiteDatabase(ResourceCompiler.CompilePath);
+                    DungeonGlobal.Exit += () => liteDatabase.Dispose();
+                }
+                return liteDatabase;
+            }
         }
 
         private static Resource LoadResource(string resource)
         {
             if (RuntimeCache.ContainsKey(resource))
             {
-                return new Resource()
-                {
-                    Path = resource,
-                    Data = RuntimeCache[resource]
-                };
+                return RuntimeCache[resource];
             }
 
-            var db = LiteDatabase.Value.GetCollection<Resource>();
+            var db = LiteDatabase.GetCollection<Resource>();
 
             var res = db.Find(x => x.Path == resource).FirstOrDefault();
 
             if (res != default)
             {
-                var bytes = new byte[res.Data.Length];
-
-                var mem = new Memory<byte>(bytes);
-                res.Data.CopyTo(mem);
-
-                RuntimeCache.Add(resource, mem.Span.ToArray());
+                RuntimeCache.Add(resource, res);
             }
 
             return res;
@@ -88,10 +80,11 @@ namespace Dungeon.Resources
             return res;
         }
 
-        private static Dictionary<string, byte[]> RuntimeCache = new Dictionary<string, byte[]>();
+        private static Dictionary<string, Resource> RuntimeCache = new Dictionary<string, Resource>();
         public static void SaveStream(byte[] bytes, string image)
         {
-            RuntimeCache[image] = bytes;
+            throw new NotImplementedException("А нефиг оставлять TODOшки");
+            //RuntimeCache[image] = bytes;
         }
 
         public static Type LoadType(string className)

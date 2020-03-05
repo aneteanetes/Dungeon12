@@ -12,7 +12,7 @@ namespace VegaPQ.SceneObjects
             this.Width = 16.875;
             this.Height = 30;
 
-            var field = new GameField();
+            var field = new GameField(8,8);
             field.Top = this.Height - field.Height - 1;
 
             this.AddChildCenter(field,vertical:false);

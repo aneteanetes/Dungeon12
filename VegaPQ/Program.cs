@@ -12,12 +12,12 @@ namespace VegaPQ
         {
             DungeonGlobal.BindGlobal<VegaGlobal>();
 #if DEBUG
-            var resCompiler = new ResourceCompiler();
-            resCompiler.Compile();
 
             Global.ExceptionRethrow = true;
             Global.GlobalExceptionHandling();
-            Store.Init(Global.GetSaveSerializeSettings());
+            //var resCompiler = new ResourceCompiler();
+            //resCompiler.Compile();
+            //Store.Init(Global.GetSaveSerializeSettings());
 #endif      
             Store.LoadAllAssemblies();
 

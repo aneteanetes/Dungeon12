@@ -3,6 +3,7 @@ using Dungeon.Control;
 using Dungeon.SceneObjects;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
+using Dungeon12;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,15 +23,27 @@ namespace VegaPQ.SceneObjects
         {
             this.gameField = gameField;
 
-            this.Image = $"shards/{(int)component.Type}.png".AsmImgRes();
             this.Width = 2;
             this.Height = 2;
+
+            this.AddTextCenter($"{component.X},{component.Y}".AsDrawText().Montserrat().InSize(20).InColor(ConsoleColor.Cyan));
         }
+
+        public void AsDestory()
+        {
+            this.AddTextCenter($"X".AsDrawText().Montserrat().InSize(40).InColor(ConsoleColor.Red));
+        }
+
+        public override string Image => $"shards/{(int)Component.Type}.png".AsmImgRes();
 
         private double originLeft;
         private double originTop;
 
         private Direction direction = Direction.Idle;
+
+        public bool CanSwitchPosition { get; set; }
+
+        public bool CanMatch { get; set; }
 
         public void Gleam(Direction direction)
         {
@@ -57,32 +70,66 @@ namespace VegaPQ.SceneObjects
                 return;
             }
 
-            if (gameTime.TotalGameTime.TotalMilliseconds > (last.TotalMilliseconds + 12))
+            if (gameTime.TotalGameTime.TotalMilliseconds > (last.TotalMilliseconds + 3))
             {
                 last = gameTime.TotalGameTime;
             }
             else return;
 
-            if (range <= 0 && backward)
+            if (!CanSwitchPosition)
             {
-                gameField.Gleaming = false;
-                backward = false;
-                direction = Direction.Idle;
+                if (range <= 0 && backward)
+                {
+                    gameField.Gleaming = false;
+                    backward = false;
+                    direction = Direction.Idle;
 
-                this.Left = originLeft;
-                this.Top = originTop;
+                    this.Left = originLeft;
+                    this.Top = originTop;
+                }
+
+                if (direction != Direction.Idle)
+                {
+                    MoveByDirection(direction, this, 0.1);
+                    range += 0.1 * (backward ? (-1) : 1);
+                }
+
+                if (range >= 1.5)
+                {
+                    direction = direction.Opposite();
+                    backward = true;
+                }
             }
-
-            if (direction != Direction.Idle)
+            else if (Math.Abs(this.Left - originLeft) < 2 && Math.Abs(this.Top - originTop) < 2)
             {
                 MoveByDirection(direction, this, 0.1);
-                range += 0.1 * (backward ? (-1) : 1);
             }
-
-            if (range >= 1.5)
+            else if (CanMatch)
             {
-                direction = direction.Opposite();
-                backward = true;
+                this.AsDestory();
+                //this.Destroy?.Invoke();
+                gameField.Gleaming = false;
+            }
+            else
+            {
+                gameField.Gleaming = false;
+                switch (direction)
+                {
+                    case Direction.Up:
+                        this.Top = originTop - 2;
+                        break;
+                    case Direction.Down:
+                        this.Top = originTop + 2;
+                        break;
+                    case Direction.Left:
+                        this.Left = originLeft - 2;
+                        break;
+                    case Direction.Right:
+                        this.Left = originLeft + 2;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 

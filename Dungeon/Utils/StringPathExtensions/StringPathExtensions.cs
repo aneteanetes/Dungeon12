@@ -17,7 +17,7 @@ namespace Dungeon
             return imgPath;
         }
 
-        public static string Embedded(this string path) => path.Replace(@"\", ".").Replace(@"/", ".");
+        public static string Embedded(this string path) => string.Intern(path.Replace(@"\", ".").Replace(@"/", "."));
 
         public static string PathImage(this string path) => DungeonGlobal.GameAssemblyName + ".Resources.Images." + path.Embedded();
         

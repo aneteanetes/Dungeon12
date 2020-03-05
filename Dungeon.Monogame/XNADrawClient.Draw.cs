@@ -99,7 +99,7 @@
                 .OrderBy(x => x.Layer).ToArray();
 
 #if Core
-            penumbra.BeginDraw();
+            //penumbra.BeginDraw();
 #endif
 
             SetSpriteBatch();
@@ -111,7 +111,7 @@
             spriteBatch.End();
 
 #if Core
-            penumbra.Draw(gameTime);
+            //penumbra.Draw(gameTime);
 #endif
             SetSpriteBatch();
 

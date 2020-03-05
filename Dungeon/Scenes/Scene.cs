@@ -315,6 +315,7 @@
                     }
                     catch (Exception ex)
                     {
+                        throw;
                         DungeonGlobal.Exception(ex);
                         return;
                     }

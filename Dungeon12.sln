@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon.UpdateServer", "Dun
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon.Updater", "Dungeon.Updater\Dungeon.Updater.csproj", "{38981A86-BFDE-4AC7-8DA8-1ACB6416E08B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VegaPQ", "VegaPQ\VegaPQ.csproj", "{C2CDEE9F-6BDD-4E06-AEDB-9BD121113BC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VegaPQ", "VegaPQ\VegaPQ.csproj", "{C2CDEE9F-6BDD-4E06-AEDB-9BD121113BC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

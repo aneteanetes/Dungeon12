@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Dungeon.Resources
 {
-    public class Resource : Persist
+    public class Resource : Persist, IDisposable
     {
         public string Path { get; set; }
 
@@ -14,7 +14,7 @@ namespace Dungeon.Resources
         public DateTime LastWriteTime { get; set; }
 
         [BsonIgnore]
-        private MemoryStream stream;
+        private Stream stream;
 
         [BsonIgnore]
         public Stream Stream
@@ -28,6 +28,8 @@ namespace Dungeon.Resources
 
                 return stream;
             }
+
+            set => stream = value;
         }
         
         [BsonIgnore]
@@ -35,9 +37,10 @@ namespace Dungeon.Resources
         {
             OnDispose?.Invoke();
             stream?.Dispose();
+            Data = null;
         }
 
         [BsonIgnore]
-        public Action OnDispose { get; set; }
+        public Action OnDispose { get; set; }        
     }
 }
