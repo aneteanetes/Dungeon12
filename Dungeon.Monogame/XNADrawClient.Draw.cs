@@ -194,7 +194,7 @@
                 var montserrat10Res = ResourceLoader.Load(pathfont);
 
 
-                var font = Content.Load<SpriteFont>(pathfont,montserrat10Res.Stream);
+                var font = Content.Load<SpriteFont>(pathfont, montserrat10Res.Stream);
 
                 var m = (float)this.MeasureText(Global.FPS.ToString().AsDrawText().Montserrat().InSize(10)).X;
 
@@ -217,7 +217,7 @@
                 customFontName = $"Dungeon12.Resources.Fonts.xnb.{drawText.FontName}/{drawText.FontName}{drawText.Size}.xnb".Embedded();
             }
 
-            if(customFontName==default)
+            if (customFontName == default)
             {
                 customFontName = $"Dungeon12.Resources.Fonts/xnb/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}.xnb".Embedded();
             }
@@ -641,9 +641,14 @@
             bool fontWeight = range.Bold;
 
             SpriteFont spriteFont;
+
             if (string.IsNullOrEmpty(range.FontName))
             {
-                var font = $"Dungeon12.Resources.Fonts.xnb/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}.xnb".Embedded();
+                if(range.CompiledFontName==default)
+                {
+                    range.CompiledFontName= $"Dungeon12.Resources.Fonts.xnb/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}.xnb".Embedded();
+                }
+                var font = range.CompiledFontName;
 
                 var resFont = ResourceLoader.Load(font);
 
@@ -651,7 +656,11 @@
             }
             else
             {
-                var font = $"Dungeon12.Resources.Fonts.xnb/{range.FontName}/{range.FontName}{range.Size}.xnb".Embedded();
+                if (range.CompiledFontName == default)
+                {
+                    range.CompiledFontName = $"Dungeon12.Resources.Fonts.xnb/{range.FontName}/{range.FontName}{range.Size}.xnb".Embedded();
+                }
+                var font = range.CompiledFontName;
 
                 var resFont = ResourceLoader.Load(font)
                     .Stream;
@@ -676,8 +685,8 @@
 
             var color = new Color(range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B, range.ForegroundColor.A);
 
-            spriteBatch.End();
-            SpriteBatchRestore?.Invoke(true, sceneObject.Filtered);
+            //spriteBatch.End();
+            //SpriteBatchRestore?.Invoke(true, sceneObject.Filtered);
 
             if (sceneObject.Scale > 0)
             {
@@ -688,8 +697,8 @@
                 spriteBatch.DrawString(spriteFont, txt, new Vector2((int)x, (int)y), color);
             }
 
-            spriteBatch.End();
-            SpriteBatchRestore?.Invoke(false, sceneObject.Filtered);
+            //spriteBatch.End();
+            //SpriteBatchRestore?.Invoke(false, sceneObject.Filtered);
         }
 
         private static string WrapText(SpriteFont font, string text, double maxLineWidth,int counter=0,string original=default)

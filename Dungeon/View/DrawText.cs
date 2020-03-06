@@ -136,6 +136,8 @@ namespace Dungeon.Drawing
 
         public bool WordWrap { get; set; }
 
+        public string CompiledFontName { get; set; }
+
         public void Append(IDrawText drawText) => Append(drawText, true);
 
         public void Append(IDrawText drawText, bool inherit = true)

@@ -67,11 +67,10 @@ namespace VegaPQ.SceneObjects
                 for (int x = 0; x < sizeY; x++)
                 {
                     var invalidation = InvalidateField(field[x, y].Component);
-                    var count = invalidation.Count();
-                    if (count > 0)
+                    if (!invalidation.Empty)
                     {
                         sum++;
-                        foreach (var invalid in invalidation)
+                        foreach (var invalid in invalidation.Horizontal.Concat(invalidation.Vertical))
                         {
                             var intType = (int)invalid.Component.Type;
                             intType += RandomDungeon.Range(1,3);
@@ -115,7 +114,7 @@ namespace VegaPQ.SceneObjects
                 while (Shuffle() != 0) ;
         }
 
-        public Direction MoveDirection { get; private set; }
+        public Direction MoveDirection { get; set; }
 
         private GameShard _currentShard;
         public GameShard Shard
@@ -131,7 +130,23 @@ namespace VegaPQ.SceneObjects
             }
         }
 
-        public bool Gleaming { get; set; }
+        private int counter = 0;
+        public bool Gleaming
+        {
+            get => counter > 0;
+            set
+            {
+                if(value)
+                {
+                    counter++;
+                }
+                else
+                {
+                    counter--;
+                }
+                
+            }
+        }
 
         PointerArgs prev;
         public override void GlobalMouseMove(PointerArgs args)
@@ -168,7 +183,7 @@ namespace VegaPQ.SceneObjects
 
             if (MoveDirection != moveDirection)
             {
-                var target = GetTargetShard(Shard.Component, MoveDirection);
+                var target = GetTargetShard(Shard.Component, moveDirection);
 
                 if (target == default)
                 {
@@ -176,9 +191,9 @@ namespace VegaPQ.SceneObjects
                     return;
                 }
 
-                RequestChange(Shard, target, MoveDirection);
-                Shard.Gleam(MoveDirection);
-                target.Gleam(MoveDirection.Opposite());
+                RequestChange(Shard, target, moveDirection);
+                Shard.Gleam(moveDirection);
+                target.Gleam(moveDirection.Opposite());
             }
 
             prev = args;
@@ -219,45 +234,59 @@ namespace VegaPQ.SceneObjects
         /// Получаем все камни которые совпадают начиная от поиска
         /// </summary>
         /// <param name="fromPoint">Место откуда мы начинаем искать совпадения рядом</param>
-        private IEnumerable<GameShard> InvalidateField(Cell fromPoint)
+        private FieldInvalidationResult InvalidateField(Cell fromPoint)
         {
+            var result = new FieldInvalidationResult();
+
             if (fromPoint == default)
-                return Enumerable.Empty<GameShard>();
+                return FieldInvalidationResult.EmptyResult;
 
             var x = fromPoint.X;
             var y = fromPoint.Y;
             var searchType = fromPoint.Type;
 
-            var nearest = new List<GameShard>();
+            var horizontal = new List<GameShard>();
             var vertical = new List<GameShard>();
 
             //check bounds
-            if(x<0 || x>=sizeX || y<0 || y>=sizeY)
-                return Enumerable.Empty<GameShard>();
+            if (x < 0 || x >= sizeX || y < 0 || y >= sizeY)
+                return FieldInvalidationResult.EmptyResult;
 
-            HorizontalSearch(x, y, searchType, nearest, vertical);
+            HorizontalSearch(x, y, searchType, horizontal, vertical);
             
-            if (nearest.Distinct().Count() < 3)
+            if (horizontal.Distinct().Count() < 3)
             {
-                nearest = new List<GameShard>();
+                horizontal = new List<GameShard>();
             }
             if (vertical.Distinct().Count() < 3)
             {
                 vertical = new List<GameShard>();
             }
 
-            return nearest.Concat(vertical).Distinct();
+            return new FieldInvalidationResult()
+            {
+                Empty = vertical.Count == 0 && horizontal.Count == 0,
+                Horizontal = horizontal,
+                Vertical = vertical
+            };
         }
 
-        private void HorizontalSearch(int x, int y, CellType searchType, List<GameShard> nearest, List<GameShard> verical)
+        private void HorizontalSearch(int x, int y, CellType searchType, List<GameShard> horizontal, List<GameShard> vertical)
         {
             //ищем вправо 
             for (int ix = x; ix < sizeX && x >= 0; ix++)
             {
                 if (GetShard(ix, y, searchType, out var next))
                 {
-                    nearest.Add(next);
-                    VerticalSearch(y, searchType, verical, ix);
+                    horizontal.Add(next);
+
+                    var v = new List<GameShard>();
+                    VerticalSearch(y, searchType, v, ix);
+
+                    if (v.Distinct().Count() > 2)
+                    {
+                        vertical.AddRange(v);
+                    }
                 }
                 else break;
             }
@@ -266,8 +295,15 @@ namespace VegaPQ.SceneObjects
             {
                 if (GetShard(ix, y, searchType, out var next))
                 {
-                    nearest.Add(next);
-                    VerticalSearch(y, searchType, verical, ix);
+                    horizontal.Add(next);
+
+                    var v = new List<GameShard>();
+                    VerticalSearch(y, searchType, v, ix);
+
+                    if (v.Distinct().Count() > 2)
+                    {
+                        vertical.AddRange(v);
+                    }
                 }
                 else break;
             }
@@ -275,7 +311,7 @@ namespace VegaPQ.SceneObjects
 
         private void VerticalSearch(int y, CellType searchType, List<GameShard> verical, int i)
         {
-            //ищем наверх
+            //ищем вниз
             for (int iy = y; iy < sizeY && iy>=0; iy++)
             {
                 if (GetShard(i, iy, searchType, out var nextY))
@@ -285,7 +321,7 @@ namespace VegaPQ.SceneObjects
                 else break;
             }
 
-            //ищем вниз
+            //ищем наверх
             for (int iy = y; iy >= 0 && iy < sizeY; iy--)
             {
                 if (GetShard(i, iy, searchType, out var nextY))
@@ -324,19 +360,8 @@ namespace VegaPQ.SceneObjects
             var fromTarget = InvalidateField(target.Component);
             var fromMoved = InvalidateField(moved.Component);
 
-            var targetMatch = fromTarget.Count() > 0;
-            var movedMatch = fromMoved.Count() > 0;
-
-            if (targetMatch || movedMatch)
+            if (fromTarget.CanMatch || fromMoved.CanMatch)
             {
-                if (targetMatch)
-                {
-                    target.CanMatch = true;
-                }
-                if (movedMatch)
-                {
-                    moved.CanMatch = true;
-                }
                 target.CanSwitchPosition = true;
                 moved.CanSwitchPosition = true;
 
@@ -355,14 +380,26 @@ namespace VegaPQ.SceneObjects
             field[target.Component.X, target.Component.Y] = moved;
             field[moved.Component.X, moved.Component.Y] = target;
 
-            var fromX = moved.Component.X;
-            var fromY = moved.Component.Y;
+            var movedX = moved.Component.X;
+            var movedY = moved.Component.Y;
 
             moved.Component.X = target.Component.X;
             moved.Component.Y = target.Component.Y;
 
-            target.Component.Y = fromY;
-            target.Component.X = fromX;
+            target.Component.Y = movedY;
+            target.Component.X = movedX;
+        }
+
+        private static void SwitchXYComponent(GameShard moved, GameShard target)
+        {
+            var movedX = moved.Component.X;
+            var movedY = moved.Component.Y;
+
+            moved.Component.X = target.Component.X;
+            moved.Component.Y = target.Component.Y;
+
+            target.Component.Y = movedY;
+            target.Component.X = movedX;
         }
 
         private void CalculateChanges()
@@ -374,10 +411,16 @@ namespace VegaPQ.SceneObjects
                 for (int y = 0; y < sizeY; y++)
                 {
                     var invalidation = InvalidateField(field[x, y].Component);
-                    var count = invalidation.Count();
-                    if (count > 0)
+                    if (!invalidation.Empty)
                     {
-                        fordelete.AddRange(invalidation);
+                        if(invalidation.HorizontalCanMatch)
+                        {
+                            fordelete.AddRange(invalidation.Horizontal);
+                        }
+                        if (invalidation.VerticalCanMatch)
+                        {
+                            fordelete.AddRange(invalidation.Vertical);
+                        }
                     }
                 }
             }

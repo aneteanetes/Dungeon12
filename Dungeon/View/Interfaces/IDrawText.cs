@@ -32,6 +32,8 @@
 
         string FontName { get; set; }
 
+        string CompiledFontName { get; set; }
+
         string FontPath { get; set; }
 
         string FontAssembly { get; set; }
