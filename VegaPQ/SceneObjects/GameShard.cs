@@ -7,6 +7,7 @@ using Dungeon12;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using VegaPQ.Entities;
 
 namespace VegaPQ.SceneObjects
@@ -29,149 +30,113 @@ namespace VegaPQ.SceneObjects
             this.AddTextCenter($"{component.X},{component.Y}".AsDrawText().Montserrat().InSize(20).InColor(ConsoleColor.Cyan));
         }
 
-        private bool DestroyReady = false;
-        public void AsDestory()
-        {
-            DestroyReady = true;
-            if (!_animationAlive)
-            {
-                this.Destroy?.Invoke();
-            }
-            //this.AddTextCenter($"X".AsDrawText().Montserrat().InSize(40).InColor(ConsoleColor.Red));
-        }
-
         public override string Image => $"shards/{(int)Component.Type}.png".AsmImgRes();
 
-        private double originLeft;
-        private double originTop;
+        private ShardAnimationSettings animationSettings;
 
-        private Direction _direction = Direction.Idle;
-        private Direction direction
+        private TaskCompletionSource<bool> gleamSource;
+
+        public Task<bool> GleamAsync(Direction dir, bool back = true)
         {
-            get => _direction;
-            set
+            gleamSource = new TaskCompletionSource<bool>();
+
+            animationSettings = new ShardAnimationSettings()
             {
-                _direction = value;
+                OriginLeft = this.Left,
+                OriginTop = this.Top,
+                Direction = dir,
+                Backward = back,
+                MaxRange = back
+                ? 1.5
+                : 2
+            };
 
-                //если idle то мы завершили движение и больше не можем двигаться
-                if (value == Direction.Idle)
-                {
-                    CanSwitchPosition = false;
-                }
-            }
+            return gleamSource.Task;
         }
-
-        private bool _animationAlive = false;
-
-        private bool AnimationAlive
-        {
-            get => _animationAlive;
-            set
-            {
-                _animationAlive = value;
-                if (!_animationAlive && DestroyReady)
-                {
-                    this.Destroy?.Invoke();
-                }
-            }
-        }
-
-        public bool CanSwitchPosition { get; set; }
-
-        public void Gleam(Direction direction)
-        {
-            AnimationAlive = true;
-            originLeft = this.Left;
-            originTop = this.Top;
-
-            this.direction = direction;
-            gameField.Shard = default;
-            gameField.Gleaming = true;
-        }
-
-        private double range = 0;
-        private bool backward = false;
 
         public override bool Updatable => true;
-
-        private TimeSpan last;
-
+        
         public override void Update(GameTimeLoop gameTime)
         {
-            if (!AnimationAlive)
+            //если не анимируемся
+            if (animationSettings==default)
                 return;
 
             //если анимация только началась - устанавливаем предыдущее значение
-            if (last == default)
+            if (animationSettings.LastUpdate == default)
             {
-                last = gameTime.TotalGameTime;
+                animationSettings.LastUpdate = gameTime.TotalGameTime;
                 return;
             }
 
             //проверяем что прошло время на смену фрейма
-            if (gameTime.TotalGameTime.TotalMilliseconds > (last.TotalMilliseconds + 3))
+            if (gameTime.TotalGameTime.TotalMilliseconds > (animationSettings.LastUpdate.TotalMilliseconds + 3))
             {
-                last = gameTime.TotalGameTime;
+                animationSettings.LastUpdate = gameTime.TotalGameTime;
             }
             else return;
 
-            // если нельзя менять позицию - делаем анимацию что нельзя
-            if (!CanSwitchPosition)
+            // если не можем изменить позицию и надо "отскочить"
+            if (animationSettings.Backward)
             {
-                // если пришли в изначальную позицию или около того
-                if (range <= 0 && backward)
+                // если пришли в изначальную позицию после того как отскакивали назад
+                if (animationSettings.Range <= 0 && animationSettings.BackwardPlayed)
                 {
-                    gameField.Gleaming = false;
-                    backward = false;
-                    direction = Direction.Idle;
-                    AnimationAlive = false;
+                    // рисуемся в оригинальном месте
+                    this.Left = animationSettings.OriginLeft;
+                    this.Top = animationSettings.OriginTop;
 
-                    this.Left = originLeft;
-                    this.Top = originTop;
-                }
+                    // уничтожаем анимацию
+                    animationSettings = default;
 
-                // если надо двигаться
-                if (direction != Direction.Idle)
-                {
-                    MoveByDirection(direction, this, 0.1);
-                    range += 0.1 * (backward ? (-1) : 1);
+                    //await'имся
+                    gleamSource.SetResult(true);
+                    return;
                 }
 
                 // если дошли до лимита и надо "повернуть назад"
-                if (range >= 1.5)
+                if (animationSettings.Range >= animationSettings.MaxRange && !animationSettings.BackwardPlayed)
                 {
-                    direction = direction.Opposite();
-                    backward = true;
+                    animationSettings.BackwardPlayed = true;
+                    animationSettings.Direction = animationSettings.Direction.Opposite();
+                }
+                else // если надо двигаться
+                {
+                    MoveByDirection(animationSettings.Direction, this, 0.1);
+                    animationSettings.Range += 0.1 * (animationSettings.BackwardPlayed ? (-1) : 1);
                 }
             }
             // если можно менять позицию и мы не на месте - двигаемся
-            else if (Math.Abs(this.Left - originLeft) < 2 && Math.Abs(this.Top - originTop) < 2)
+            else if (Math.Abs(this.Left - animationSettings.OriginLeft) < 2 && Math.Abs(this.Top - animationSettings.OriginTop) < 2)
             {
-                MoveByDirection(direction, this, 0.1);
+                MoveByDirection(animationSettings.Direction, this, 0.1);
             }
             else
             {
                 // если мы дошли до края то устанавливаем свою позицию
-                gameField.Gleaming = false;
-                direction = Direction.Idle;
-                AnimationAlive = false;
-                switch (direction)
+                switch (animationSettings.Direction)
                 {
                     case Direction.Up:
-                        this.Top = originTop - 2;
+                        this.Top = animationSettings.OriginTop - animationSettings.MaxRange;
                         break;
                     case Direction.Down:
-                        this.Top = originTop + 2;
+                        this.Top = animationSettings.OriginTop + animationSettings.MaxRange;
                         break;
                     case Direction.Left:
-                        this.Left = originLeft - 2;
+                        this.Left = animationSettings.OriginLeft - animationSettings.MaxRange;
                         break;
                     case Direction.Right:
-                        this.Left = originLeft + 2;
+                        this.Left = animationSettings.OriginLeft + animationSettings.MaxRange;
                         break;
                     default:
                         break;
                 }
+
+                // уничтожаем анимацию
+                animationSettings = default;
+
+                //await'имся
+                gleamSource.SetResult(true);
             }
         }
 
@@ -222,18 +187,36 @@ namespace VegaPQ.SceneObjects
 
         public override void Click(PointerArgs args)
         {
-            if (gameField.Gleaming)
-                return;
-
             gameField.Shard = this;
             base.Click(args);
         }
 
         public override void GlobalClickRelease(PointerArgs args)
         {
-            gameField.Shard = default;
-            gameField.MoveDirection = Direction.Idle;
+            if(gameField.Shard==this)
+            {
+                gameField.Shard = default;
+            }
             base.GlobalClickRelease(args);
         }
-    }
+
+        private class ShardAnimationSettings
+        {
+            public double MaxRange { get; set; }
+
+            public double Range { get; set; }
+
+            public bool Backward { get; set; }
+
+            public Direction Direction { get; set; }
+
+            public double OriginLeft { get; set; }
+
+            public double OriginTop { get; set; }
+
+            public TimeSpan LastUpdate { get; set; }
+
+            public bool BackwardPlayed { get; set; }
+        }
+    }    
 }

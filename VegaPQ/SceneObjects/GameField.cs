@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using VegaPQ.Entities;
 
 namespace VegaPQ.SceneObjects
@@ -130,28 +131,12 @@ namespace VegaPQ.SceneObjects
             }
         }
 
-        private int counter = 0;
-        public bool Gleaming
-        {
-            get => counter > 0;
-            set
-            {
-                if(value)
-                {
-                    counter++;
-                }
-                else
-                {
-                    counter--;
-                }
-                
-            }
-        }
+        private bool Busy = false;
 
         PointerArgs prev;
         public override void GlobalMouseMove(PointerArgs args)
         {
-            if (Gleaming || Shard==default)
+            if (Busy || Shard == default)
                 return;
 
             if (prev == default)
@@ -161,9 +146,9 @@ namespace VegaPQ.SceneObjects
             }
 
             if (Math.Abs(args.X - prev.X) < .10 && Math.Abs(args.Y - prev.Y) < .10)
+            {
                 return;
-
-            Direction moveDirection = MoveDirection;
+            }
 
             var x = Math.Abs(args.X - prev.X);
             var y = Math.Abs(args.Y - prev.Y);
@@ -181,9 +166,9 @@ namespace VegaPQ.SceneObjects
                     : Direction.Up;
             }
 
-            if (MoveDirection != moveDirection)
+            //if (MoveDirection != moveDirection)
             {
-                var target = GetTargetShard(Shard.Component, moveDirection);
+                var target = GetTargetShard(Shard.Component, MoveDirection);
 
                 if (target == default)
                 {
@@ -191,9 +176,25 @@ namespace VegaPQ.SceneObjects
                     return;
                 }
 
-                RequestChange(Shard, target, moveDirection);
-                Shard.Gleam(moveDirection);
-                target.Gleam(moveDirection.Opposite());
+                Busy = true;
+
+                var canChange = RequestChange(Shard, target, MoveDirection);
+
+                Task.Run(async () =>
+                {
+                    await Task.WhenAll(
+                        Shard.GleamAsync(MoveDirection, !canChange),
+                        target.GleamAsync(MoveDirection.Opposite(), !canChange)
+                    );
+
+                    // рассчитываем изменения и удаляем
+                    CalculateChanges();
+                    MoveDirection = default;
+
+                    Busy = false;
+                })
+
+                ;
             }
 
             prev = args;
@@ -362,17 +363,14 @@ namespace VegaPQ.SceneObjects
 
             if (fromTarget.CanMatch || fromMoved.CanMatch)
             {
-                target.CanSwitchPosition = true;
-                moved.CanSwitchPosition = true;
-
-                CalculateChanges();
+                return true;
             }
             else
             {
                 SwitchCoords(target, moved);
             }
 
-            return default;
+            return false;
         }
 
         private void SwitchCoords(GameShard moved, GameShard target)
@@ -389,19 +387,7 @@ namespace VegaPQ.SceneObjects
             target.Component.Y = movedY;
             target.Component.X = movedX;
         }
-
-        private static void SwitchXYComponent(GameShard moved, GameShard target)
-        {
-            var movedX = moved.Component.X;
-            var movedY = moved.Component.Y;
-
-            moved.Component.X = target.Component.X;
-            moved.Component.Y = target.Component.Y;
-
-            target.Component.Y = movedY;
-            target.Component.X = movedX;
-        }
-
+        
         private void CalculateChanges()
         {
             List<GameShard> fordelete = new List<GameShard>();
@@ -427,8 +413,7 @@ namespace VegaPQ.SceneObjects
 
             foreach (var delet in fordelete)
             {
-                //delet.Destroy?.Invoke();
-                delet.AsDestory();
+                delet.Destroy?.Invoke();
             }
 
             // производим все вычисления:
