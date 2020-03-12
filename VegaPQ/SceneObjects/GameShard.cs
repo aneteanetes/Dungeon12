@@ -28,6 +28,18 @@ namespace VegaPQ.SceneObjects
             this.Height = 2;
 
             this.AddTextCenter($"{component.X},{component.Y}".AsDrawText().Montserrat().InSize(20).InColor(ConsoleColor.Cyan));
+
+            this.Destroy += () =>
+            {
+                if (gameField.field[this.Component.X, this.Component.Y] == this)
+                {
+                    gameField.field[this.Component.X, this.Component.Y] = default;
+                }
+                else
+                {
+                    throw new InvalidOperationException("Каким образом по координатам этого шара у нас оказался другой?");
+                }
+            };
         }
 
         public override string Image => $"shards/{(int)Component.Type}.png".AsmImgRes();
@@ -55,11 +67,11 @@ namespace VegaPQ.SceneObjects
         }
 
         public override bool Updatable => true;
-        
+
         public override void Update(GameTimeLoop gameTime)
         {
             //если не анимируемся
-            if (animationSettings==default)
+            if (animationSettings == default)
                 return;
 
             //если анимация только началась - устанавливаем предыдущее значение
@@ -193,7 +205,7 @@ namespace VegaPQ.SceneObjects
 
         public override void GlobalClickRelease(PointerArgs args)
         {
-            if(gameField.Shard==this)
+            if (gameField.Shard == this)
             {
                 gameField.Shard = default;
             }
@@ -218,5 +230,5 @@ namespace VegaPQ.SceneObjects
 
             public bool BackwardPlayed { get; set; }
         }
-    }    
+    }
 }

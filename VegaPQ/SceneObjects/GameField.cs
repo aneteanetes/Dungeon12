@@ -93,7 +93,7 @@ namespace VegaPQ.SceneObjects
             return sum;
         }
 
-        private GameShard[,] field;
+        public GameShard[,] field;
 
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
@@ -188,7 +188,8 @@ namespace VegaPQ.SceneObjects
                     );
 
                     // рассчитываем изменения и удаляем
-                    CalculateChanges();
+                    await CalculateChanges();
+
                     MoveDirection = default;
 
                     Busy = false;
@@ -388,7 +389,7 @@ namespace VegaPQ.SceneObjects
             target.Component.X = movedX;
         }
         
-        private void CalculateChanges()
+        private Task CalculateChanges()
         {
             List<GameShard> fordelete = new List<GameShard>();
             
@@ -411,24 +412,96 @@ namespace VegaPQ.SceneObjects
                 }
             }
 
+            var deletedCoords = fordelete.Select(x => (x.Component.X, x.Component.Y));
+
             foreach (var delet in fordelete)
             {
                 delet.Destroy?.Invoke();
             }
 
-            // производим все вычисления:
-            // удаляем совпадающие камни
-            // заполняем сзади цвет
-            // кароч вся игровая логика
+            return FillField(deletedCoords);
         }
 
-        private void FillField()
+        private async Task FillField(IEnumerable<(int X, int Y)> deletedCoords)
         {
+            var lines = deletedCoords.GroupBy(x => x.X);
+            //.OrderByDescending(x => x.Min(z => z.Y));
+
+            foreach (var line in lines)
+            {
+
+            }
+
+            foreach (var x in xes)
+            {
+                for (int y = 0; y < sizeY; y++)
+                {
+                    var bottom = y + 1; ;
+                    if (sizeY <= bottom)
+
+                        if (field[x, y + 1] == default)
+                        {
+
+                        }
+
+                    var invalidation = InvalidateField(field[x, y].Component);
+                    if (!invalidation.Empty)
+                    {
+                        if (invalidation.HorizontalCanMatch)
+                        {
+                            fordelete.AddRange(invalidation.Horizontal);
+                        }
+                        if (invalidation.VerticalCanMatch)
+                        {
+                            fordelete.AddRange(invalidation.Vertical);
+                        }
+                    }
+                }
+            }
+
+            for (int x = 0; x < sizeX; x++)
+            {
+                for (int y = 0; y < sizeY; y++)
+                {
+                    var bottom = y + 1; ;
+                    if(sizeY<= bottom)
+
+                    if (field[x, y + 1] == default)
+                    {
+
+                    }
+
+                    var invalidation = InvalidateField(field[x, y].Component);
+                    if (!invalidation.Empty)
+                    {
+                        if (invalidation.HorizontalCanMatch)
+                        {
+                            fordelete.AddRange(invalidation.Horizontal);
+                        }
+                        if (invalidation.VerticalCanMatch)
+                        {
+                            fordelete.AddRange(invalidation.Vertical);
+                        }
+                    }
+                }
+            }
+
             // если мы переместили таки камни, теперь надо заполнить поле
             // находим пустоты
             // удаляем старые
             // сверху кидаем новые камни
             // запускаем адовую анимацию сверху вниз
+
+            await Task.CompletedTask;
+        }
+
+        private class ChangeRequest
+        {
+            public int NewX { get; set; }
+
+            public int NewY { get; set; }
+
+            public GameShard Shard { get; set; }
         }
     }
 }
