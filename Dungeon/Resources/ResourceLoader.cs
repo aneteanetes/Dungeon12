@@ -49,6 +49,8 @@ namespace Dungeon.Resources
 
             var res = db.Find(x => x.Path == resource).FirstOrDefault();
 
+            var x = db.Find(x => x.Path.ToLowerInvariant().Contains("shader")).ToArray();
+
             if (res != default)
             {
                 RuntimeCache.Add(resource, res);

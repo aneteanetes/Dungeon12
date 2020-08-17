@@ -1,6 +1,7 @@
 ﻿using LiteDB;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -65,7 +66,15 @@ namespace Dungeon.Resources
             var dir = new DirectoryInfo(projectResDirectory);
             foreach (var file in Directory.GetFiles(dir.FullName, "*.*", SearchOption.AllDirectories))
             {
-                ProcessFile(file, GetProjectName(dir)?.Replace(".csproj",""));
+                try
+                {
+                    ProcessFile(file, GetProjectName(dir)?.Replace(".csproj", ""));
+                }
+                catch (Exception ex)
+                {
+                    Debugger.Break();
+                    throw;
+                }
             }
         }
 
@@ -86,6 +95,8 @@ namespace Dungeon.Resources
 
         private void ProcessFile(string file, string projectName)
         {
+            Console.WriteLine($"Compile file: {file}");
+
             var lastTime = File.GetLastWriteTime(file);
             var res = LastBuild.Resources.FirstOrDefault(x => x.Path == file);
 
@@ -121,11 +132,28 @@ namespace Dungeon.Resources
         {
             var newResource = new Resource()
             {
-                Path = file.Substring(file.IndexOf(projectName + "\\")).Replace("\\", "."),
+                Path = GetPathUntillProjectName(file, projectName),// file.Substring(file.IndexOf(projectName + "\\")).Replace("\\", "."),
                 LastWriteTime = lastTime,
                 Data = File.ReadAllBytes(file)
             };
             db.Insert(newResource);
+        }
+
+        private static string GetPathUntillProjectName(string path, string projName)
+        {
+            var parts = path.Split("\\", StringSplitOptions.RemoveEmptyEntries).Reverse();
+            var partsEnum = parts.GetEnumerator();
+            partsEnum.MoveNext();
+            string currentPart = partsEnum.Current;
+            string newPath = default;
+            while(currentPart!=projName)
+            {
+                newPath = currentPart + (newPath == default ? "" : ".") + newPath;
+                partsEnum.MoveNext();
+                currentPart = partsEnum.Current;
+            }
+
+            return $"{projName}.{newPath}";
         }
 
         public static string MainPath => Store.MainPath;

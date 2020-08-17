@@ -432,59 +432,59 @@ namespace VegaPQ.SceneObjects
 
             }
 
-            foreach (var x in xes)
-            {
-                for (int y = 0; y < sizeY; y++)
-                {
-                    var bottom = y + 1; ;
-                    if (sizeY <= bottom)
+            //foreach (var x in xes)
+            //{
+            //    for (int y = 0; y < sizeY; y++)
+            //    {
+            //        var bottom = y + 1; ;
+            //        if (sizeY <= bottom)
 
-                        if (field[x, y + 1] == default)
-                        {
+            //            if (field[x, y + 1] == default)
+            //            {
 
-                        }
+            //            }
 
-                    var invalidation = InvalidateField(field[x, y].Component);
-                    if (!invalidation.Empty)
-                    {
-                        if (invalidation.HorizontalCanMatch)
-                        {
-                            fordelete.AddRange(invalidation.Horizontal);
-                        }
-                        if (invalidation.VerticalCanMatch)
-                        {
-                            fordelete.AddRange(invalidation.Vertical);
-                        }
-                    }
-                }
-            }
+            //        var invalidation = InvalidateField(field[x, y].Component);
+            //        if (!invalidation.Empty)
+            //        {
+            //            if (invalidation.HorizontalCanMatch)
+            //            {
+            //                fordelete.AddRange(invalidation.Horizontal);
+            //            }
+            //            if (invalidation.VerticalCanMatch)
+            //            {
+            //                fordelete.AddRange(invalidation.Vertical);
+            //            }
+            //        }
+            //    }
+            //}
 
-            for (int x = 0; x < sizeX; x++)
-            {
-                for (int y = 0; y < sizeY; y++)
-                {
-                    var bottom = y + 1; ;
-                    if(sizeY<= bottom)
+            //for (int x = 0; x < sizeX; x++)
+            //{
+            //    for (int y = 0; y < sizeY; y++)
+            //    {
+            //        var bottom = y + 1; ;
+            //        if(sizeY<= bottom)
 
-                    if (field[x, y + 1] == default)
-                    {
+            //        if (field[x, y + 1] == default)
+            //        {
 
-                    }
+            //        }
 
-                    var invalidation = InvalidateField(field[x, y].Component);
-                    if (!invalidation.Empty)
-                    {
-                        if (invalidation.HorizontalCanMatch)
-                        {
-                            fordelete.AddRange(invalidation.Horizontal);
-                        }
-                        if (invalidation.VerticalCanMatch)
-                        {
-                            fordelete.AddRange(invalidation.Vertical);
-                        }
-                    }
-                }
-            }
+            //        var invalidation = InvalidateField(field[x, y].Component);
+            //        if (!invalidation.Empty)
+            //        {
+            //            if (invalidation.HorizontalCanMatch)
+            //            {
+            //                fordelete.AddRange(invalidation.Horizontal);
+            //            }
+            //            if (invalidation.VerticalCanMatch)
+            //            {
+            //                fordelete.AddRange(invalidation.Vertical);
+            //            }
+            //        }
+            //    }
+            //}
 
             // если мы переместили таки камни, теперь надо заполнить поле
             // находим пустоты

@@ -15,10 +15,12 @@ namespace VegaPQ
 
             Global.ExceptionRethrow = true;
             Global.GlobalExceptionHandling();
-            //var resCompiler = new ResourceCompiler();
-            //resCompiler.Compile();
+
+            var resCompiler = new ResourceCompiler();
+            resCompiler.Compile();
+
             //Store.Init(Global.GetSaveSerializeSettings());
-#endif      
+#endif
             Store.LoadAllAssemblies();
 
             Run();

@@ -12,7 +12,7 @@ using System.Text;
 
 namespace Dungeon12.Scenes
 {
-    public class SplashScene : GameScene<Start>
+    public class SplashScene : StartScene<Start>
     {
         public SplashScene(SceneManager sceneManager) : base(sceneManager)
         {
