@@ -1,0 +1,197 @@
+﻿<Window x:Class="Dungeon.Engine.Forms.ProjectForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Dungeon.Engine.Forms"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" 
+        xmlns:projects="clr-namespace:Dungeon.Engine.Projects"
+        mc:Ignorable="d" 
+        Foreground="WhiteSmoke"
+        Background="#3F3F46"
+        WindowStyle="None"
+        BorderBrush="Black"
+        ResizeMode="NoResize"
+        BorderThickness="1"
+        Height="153" Width="391">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="projects:DungeonEngineProjectType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <Style x:Key="TitleBarButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+					x:Name="border"
+					Background="Transparent"
+					BorderThickness="0"
+					SnapsToDevicePixels="true">
+                            <ContentPresenter
+						x:Name="contentPresenter"
+						Margin="0"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						Focusable="False"
+						RecognizesAccessKey="True" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="Background" Value="{DynamicResource MouseOverOverlayBackgroundBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="border" Property="Background" Value="{DynamicResource PressedOverlayBackgroundBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TitleBarCloseButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+					x:Name="border"
+					Background="Transparent"
+					BorderThickness="0"
+					SnapsToDevicePixels="true">
+                            <ContentPresenter
+						x:Name="contentPresenter"
+						Margin="0"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						Focusable="False"
+						RecognizesAccessKey="True" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="Background" Value="{DynamicResource MouseOverWindowCloseButtonBackgroundBrush}" />
+                                <Setter Property="Foreground" Value="{DynamicResource MouseOverWindowCloseButtonForegroundBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="border" Property="Background" Value="{DynamicResource PressedWindowCloseButtonBackgroundBrush}" />
+                                <Setter Property="Foreground" Value="{DynamicResource MouseOverWindowCloseButtonForegroundBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="32" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+    </WindowChrome.WindowChrome>
+    <DockPanel>
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Image
+		Grid.Column="0"
+		Width="22"
+		Height="22"
+		Margin="4"
+                Panel.ZIndex="9999"
+		Source="pack://siteoforigin:,,,/Icons/edit.png" />
+            <TextBlock
+		Grid.Column="1"
+		Margin="4 0 0 0"
+		VerticalAlignment="Center"
+		FontSize="14"
+		Text="Проект">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
+                                <Setter Property="Foreground" Value="{DynamicResource WindowTitleBarInactiveText}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <TextBlock
+		Grid.Column="1"
+		Margin="53,0,0,0"
+		VerticalAlignment="Center"
+		FontSize="14"
+		Text="{Binding Path=Project.Name}">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
+                                <Setter Property="Foreground" Value="{DynamicResource WindowTitleBarInactiveText}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <Button
+		Grid.Column="4"
+		Click="OnCloseButtonClick"
+		Style="{StaticResource TitleBarCloseButtonStyle}">
+                <Path
+			Width="46"
+			Height="32"
+			Data="M 18,11 27,20 M 18,20 27,11"
+			Stroke="{Binding Path=Foreground,
+							 RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+			StrokeThickness="1" />
+            </Button>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="28"></RowDefinition>
+                <RowDefinition Height="28"></RowDefinition>
+                <RowDefinition Height="28"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Foreground="WhiteSmoke" Grid.Row="0" Grid.Column="0" BorderBrush="Gray" BorderThickness="1 1 1 1" >Наименование</Label>
+            <Border BorderBrush="Gray" BorderThickness="0 1 1 1" Grid.Row="0" Grid.Column="1">
+                <TextBox BorderBrush="Gray" BorderThickness="1" Text="{Binding Path=Project.Name}" ></TextBox>
+            </Border>
+            <Label Foreground="WhiteSmoke" Grid.Row="1" Grid.Column="0" BorderBrush="Gray" BorderThickness="1 0 1 1" >Физический путь</Label>
+            <Border BorderBrush="Gray" BorderThickness="0 0 1 1" Grid.Row="1" Grid.Column="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="8*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" BorderBrush="Gray" BorderThickness="1" Name="PhysicalPath" Text="{Binding Path=Project.Path}" ></TextBox>
+                    <Button Grid.Column="1" Click="SelectPathButton">
+                        <Image		
+                            Width="22"
+                            Height="22"
+		Margin="4"
+		Source="pack://siteoforigin:,,,/Icons/path.png" />
+                    </Button>
+                </Grid>
+            </Border>
+            <Label Foreground="WhiteSmoke" Grid.Row="2" Grid.Column="0" BorderBrush="Gray" BorderThickness="1 0 1 1" >Тип проекта</Label>
+            <Border BorderBrush="Gray" BorderThickness="0 0 1 1" Grid.Row="2" Grid.Column="1">
+                <ComboBox ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
+                          SelectedItem="{Binding Path=Project.Type}"/>
+            </Border>
+            <Button Grid.Row="3" Grid.Column="0" Click="CreateNewProject" >Создать</Button>
+            <Button Grid.Row="3" Grid.Column="1" Click="Cancel" >Отмена</Button>
+        </Grid>
+    </DockPanel>
+</Window>

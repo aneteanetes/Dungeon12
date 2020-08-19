@@ -1,14 +1,9 @@
 ﻿using Dungeon.Control;
 using Dungeon.Control.Keys;
-using Dungeon.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
-using Dungeon.Update;
 using Dungeon12.SceneObjects.UI;
 using Dungeon12.Scenes.Menus;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Dungeon12.Scenes
 {

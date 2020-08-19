@@ -330,7 +330,6 @@
         }
         private static readonly Dictionary<CompositeTypeKey<string>, Delegate> ___SetBackingFieldValueExpressionCache = new Dictionary<CompositeTypeKey<string>, Delegate>();
 
-
         public static void SetProperty<TValue>(this object @object, string property, TValue value)
         {
             var accessor = TypeAccessor.Create(@object.GetType(), true);
