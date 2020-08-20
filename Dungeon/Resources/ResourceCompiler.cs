@@ -10,6 +10,10 @@ namespace Dungeon.Resources
 {
     public class ResourceCompiler
     {
+        public bool PreCompiled { get; set; }
+
+        public string PreCompiledPath { get; set; }
+
         public ResourceManifest LastBuild { get; private set; }
 
         public ResourceManifest CurrentBuild { get; private set; }
@@ -22,10 +26,13 @@ namespace Dungeon.Resources
 
         private LiteCollection<Resource> db;
 
+        private void CopyPreCompiled(string path)
+        {
+            File.Copy(PreCompiledPath, path);
+        }
+
         public void Compile(bool rebuild=false)
         {
-            IEnumerable<string> resDirectories = Directory.GetDirectories(Store.ProjectDirectory, "Resources", SearchOption.AllDirectories);
-
             var dir = $@"{MainPath}\Data";
             if(!Directory.Exists(dir))
             {
@@ -38,11 +45,18 @@ namespace Dungeon.Resources
                 File.Delete(path);
             }
 
+            if (PreCompiled)
+            {
+                CopyPreCompiled(path);
+                return;
+            }
+
             using var litedb = new LiteDatabase(path);
             
             db = litedb.GetCollection<Resource>();
             db.EnsureIndex("Path");
 
+            IEnumerable<string> resDirectories = Directory.GetDirectories(Store.ProjectDirectory, "Resources", SearchOption.AllDirectories);
             foreach (var resDir in resDirectories)
             {
                 ProcessProject(resDir, rebuild);

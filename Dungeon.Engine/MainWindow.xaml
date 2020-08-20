@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:system="clr-namespace:System;assembly=mscorlib" xmlns:controls="clr-namespace:Dungeon.Engine.Controls"
         mc:Ignorable="d"
         Foreground="WhiteSmoke"
         Background="#3F3F46"
@@ -84,7 +84,7 @@
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="32" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
     </WindowChrome.WindowChrome>
-    <DockPanel>
+    <DockPanel x:Name="MainContainer">
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -105,6 +105,7 @@
 		Margin="4 0 0 0"
 		VerticalAlignment="Center"
 		FontSize="14"
+                Name="WindowTitle"
 		Text="Dungeon Engine">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
@@ -169,38 +170,40 @@
 			StrokeThickness="1" />
             </Button>
         </Grid>
-        <Menu DockPanel.Dock="Top" SnapsToDevicePixels="True" Height="23" ItemsSource="{Binding MenuItems}" Margin="2,0,0,0">
+        <Menu x:Name="MainMenu" DockPanel.Dock="Top" SnapsToDevicePixels="True" Height="23" ItemsSource="{Binding MenuItems}" Margin="2,0,0,0">
         </Menu>
         <Grid Margin="3 0 3 3">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"></RowDefinition>
-                <RowDefinition  Height="2*" ></RowDefinition>
+                <RowDefinition Height="4*"></RowDefinition>
+                <RowDefinition Height="8*" ></RowDefinition>
+                <RowDefinition Height="0.5*" ></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*" MinWidth="180"></ColumnDefinition>
                 <ColumnDefinition Width="9*" MinWidth="500"></ColumnDefinition>
                 <ColumnDefinition Width="4*" MinWidth="250"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Margin="0 0 6 6" Padding="10 5 0 0" >Сцены</Label>            
-            <ListBox BorderBrush="Gray" BorderThickness="1" Grid.Row="0" Grid.Column="0" Foreground="WhiteSmoke" Margin="0 30 6 6" HorizontalAlignment="Stretch">
-                <ListBoxItem>
-                    gsda
-                </ListBoxItem>
+            <Label Grid.Row="0" Grid.Column="0" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Margin="0 0 6 6" Padding="10 5 0 0" >Сцены</Label>
+            <Button Click="AddScene" Grid.Row="0" Grid.Column="0" Margin="0 3 37 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >+</Button>
+            <Button Click="RemoveScene" Grid.Row="0" Grid.Column="0" Margin="0 3 9 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >-</Button>
+            <ListBox SelectionChanged="ScenesView_SelectionChanged" x:Name="ScenesView" ItemsSource="{Binding Path=Scenes}" BorderBrush="Gray" BorderThickness="1" Grid.Row="0" Grid.Column="0" Foreground="WhiteSmoke" Margin="0 30 6 6" HorizontalAlignment="Stretch">               
             </ListBox>
             <GridSplitter VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Column="0" Background="Gray" Foreground="Gray" Grid.Row="0" ShowsPreview="False" Height="3" />
             <Label Grid.Row="1" Grid.Column="0" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Margin="0 3 6 0" Padding="10 5 0 0" >Объекты</Label>
-            <ListBox BorderBrush="Gray" BorderThickness="1" Grid.Row="1" Grid.Column="0" Foreground="WhiteSmoke" Margin="0 30 6 0" HorizontalAlignment="Stretch">
-                <ListBoxItem>
-                    gsda
-                </ListBoxItem>
+            <Button Click="AddObject" Grid.Row="1" Grid.Column="0" Margin="0 5 37 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >+</Button>
+            <Button Click="RemoveObject" Grid.Row="1" Grid.Column="0" Margin="0 5 9 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >-</Button>
+            <ListBox SelectionChanged="ObjectsView_SelectionChanged" x:Name="ObjectsView" BorderBrush="Gray" ItemsSource="{Binding Path=Objects}" BorderThickness="1" Grid.Row="1" Grid.Column="0" Foreground="WhiteSmoke" Margin="0 30 6 0" HorizontalAlignment="Stretch">               
             </ListBox>
             <GridSplitter Grid.Column="0" Background="Gray" Foreground="Gray" Grid.Row="0" Grid.RowSpan="2" ShowsPreview="False" Width="3" />
             <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Margin="3 0 6 0" Padding="10 5 0 0" >Сцена</Label>
+            <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Foreground="WhiteSmoke" Margin="40 0 6 0" Padding="10 7 0 0" >(1000x200)</Label>
+            <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Foreground="WhiteSmoke" Margin="140 0 6 0" Padding="10 7 0 0" Name="SceneCoordinatesView" >[X:0 Y:0]</Label>
             <Border BorderBrush="Gray" BorderThickness="1" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="3 30 6 0">
                 <Canvas Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"/>
             </Border>
             <GridSplitter Grid.Column="1" Background="Gray" Foreground="Gray" Grid.Row="0" Grid.RowSpan="2" ShowsPreview="False" Width="3"/>
             <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Padding="10 5 0 0" Margin="3 0 0 0">Свойства</Label>
+            <Button x:Name="PropGridSaveBtn" IsEnabled="False" Click="SavePropGrid" Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 5 10 0">Сохранить</Button>
             <Border BorderBrush="Gray" 
                     BorderThickness="1" 
                      Margin="3 30 0 0" 
@@ -217,13 +220,20 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="28"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Foreground="WhiteSmoke" Grid.Row="0" Grid.Column="0" BorderBrush="Gray" BorderThickness="0 0 1 1" >Property</Label>
+                    <Label Foreground="WhiteSmoke" Grid.Row="0" Grid.Column="0" BorderBrush="Gray" BorderThickness="0 0 1 1" ></Label>
                     <Border BorderBrush="Gray" BorderThickness="0 0 0 1" Grid.Row="0" Grid.Column="1">
-                        <TextBox BorderBrush="Gray" BorderThickness="1" >Value</TextBox>
                     </Border>
                 </Grid>
             </Border>
-            
-        </Grid>
+
+            <StatusBar  Grid.Row="2" Grid.ColumnSpan="3"  DockPanel.Dock="Bottom" BorderBrush="Gray" Margin="0 2 0 0" BorderThickness="1" Background="#007ACC">
+                <StatusBarItem>
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock x:Name="StatusText" Foreground="White"></TextBlock>
+                    </StackPanel>
+                </StatusBarItem>
+            </StatusBar>
+            <controls:Loader x:Name="LoaderFreeze" Grid.RowSpan="2" Grid.ColumnSpan="3" Visibility="Hidden"/>
+        </Grid>        
     </DockPanel>
 </Window>

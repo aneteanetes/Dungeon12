@@ -10,6 +10,8 @@ namespace Dungeon.Engine.Menus
 
         public string Tag { get; }
 
+        public int Weight { get; }
+
         public Action Click { get;  }
     }
 }

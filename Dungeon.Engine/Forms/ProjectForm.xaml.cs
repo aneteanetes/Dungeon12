@@ -1,4 +1,7 @@
-﻿using Dungeon.Engine.Projects;
+﻿using Dungeon.Engine.Events;
+using Dungeon.Engine.Projects;
+using LiteDB;
+using System.IO;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -30,6 +33,20 @@ namespace Dungeon.Engine.Forms
 
         private void CreateNewProject(object sender, RoutedEventArgs e)
         {
+            var path = Path.Combine(Project.Path, Project.Name);
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path, true);
+            }
+            Directory.CreateDirectory(path);
+
+            using var db = new LiteDatabase($@"{path}\Data.dtr");
+            db.GetCollection<DungeonEngineProject>().Insert(Project);            
+
+            Directory.CreateDirectory(Path.Combine(path, "Scenes"));
+
+            DungeonGlobal.Events.Raise(new ProjectInitializeEvent(Project));
+
             this.Close();
         }
 

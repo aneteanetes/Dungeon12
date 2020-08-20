@@ -22,6 +22,7 @@
 
         public static void BindGlobal<T>() where T: DungeonGlobal
         {
+            Store.LoadAllAssemblies();
             GlobalExceptionHandling();
             global = typeof(T).NewAs<T>();
         }
@@ -114,5 +115,20 @@
             }
             Logger.SaveIsNeeded($"Logs\\{DateTime.Now.ToString("dd=MM HH_mm_ss")}");
         };
+
+        public static DrawClientRunDelegate ClientRun;
+
+        public static void Run(bool FATAL = false)
+        {
+            try
+            {
+                ClientRun(FATAL);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString());
+                Run(true);
+            }
+        }
     }
 }

@@ -308,7 +308,25 @@
             return @object;
         }
 
-        public static void SetPropertyExpr<T>(this object @object,string propName, T propValue)
+        public static bool SetPropertyExprConverted(this object @object, string propName, object propValue)
+        {
+            var propType = @object.GetType().GetProperty(propName).PropertyType;
+            try
+            {
+                var newValue = Convert.ChangeType(propValue, propType);
+                SetPropertyExprType(@object, propName, newValue, propType);
+            }
+            catch 
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public static void SetPropertyExpr<T>(this object @object, string propName, T propValue)
+            => SetPropertyExprType(@object, propName, propValue, typeof(T));
+
+        private static void SetPropertyExprType(object @object, string propName, object propValue, Type valueType)
         {
             var key = new CompositeTypeKey<string>()
             {
@@ -319,7 +337,7 @@
             if (!___SetBackingFieldValueExpressionCache.TryGetValue(key, out var value))
             {
                 var pType = Expression.Parameter(@object.GetType());
-                var p = Expression.Parameter(typeof(T));
+                var p = Expression.Parameter(valueType);
 
                 value = Expression.Lambda(Expression.Assign(Expression.Property(pType, propName), p), pType, p).Compile();
 
@@ -328,6 +346,7 @@
 
             value.DynamicInvoke(@object, propValue);
         }
+
         private static readonly Dictionary<CompositeTypeKey<string>, Delegate> ___SetBackingFieldValueExpressionCache = new Dictionary<CompositeTypeKey<string>, Delegate>();
 
         public static void SetProperty<TValue>(this object @object, string property, TValue value)

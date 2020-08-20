@@ -8,7 +8,7 @@ namespace Dungeon.Engine.Menus.File
 {
     public class NewProject : IEngineMenuItem
     {
-        public string Text => "Новый проект";
+        public string Text => "Новый";
 
         public string Tag => nameof(FileMenu);
 
@@ -16,5 +16,6 @@ namespace Dungeon.Engine.Menus.File
         {
             new ProjectForm().Show();
         };
+        public int Weight => 0;
     }
 }

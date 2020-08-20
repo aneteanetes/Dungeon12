@@ -13,7 +13,9 @@ namespace Dungeon.Engine.Utils
 
         public IServiceProvider ServiceProvider { get; set; }
 
-        public Container()
+        public Container() => Reset();
+
+        public void Reset()
         {
             ServiceCollection = new ServiceCollection();
             ServiceProvider = ServiceCollection.BuildServiceProvider();
@@ -38,7 +40,7 @@ namespace Dungeon.Engine.Utils
             ServiceProvider = ServiceCollection.BuildServiceProvider();
         }
 
-            public void Register<T, TImpl>(ContainerLifeStyle containerLifeStyle)
+            public void Register<T, TImpl>(ContainerLifeStyle containerLifeStyle, TImpl implSingleton = default)
             where T : class
             where TImpl : class, T
         {
@@ -48,8 +50,14 @@ namespace Dungeon.Engine.Utils
                         ServiceCollection.AddTransient<T, TImpl>();
                     break;
                 case ContainerLifeStyle.Singleton:
+                    if (implSingleton != default)
+                    {
+                        ServiceCollection.AddSingleton<T, TImpl>(x => implSingleton);
+                    }
+                    else
+                    {
                         ServiceCollection.AddSingleton<T, TImpl>();
-
+                    }
                     break;
                 case ContainerLifeStyle.Scope:
                         ServiceCollection.AddScoped<T, TImpl>();

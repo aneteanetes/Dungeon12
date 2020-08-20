@@ -8,12 +8,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\book.png" />
     <None Remove="Icons\castle.png" />
     <None Remove="Icons\edit.png" />
     <None Remove="Icons\path.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <None Remove="**\Resources\**\*" />
+    <None Remove="Data\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="**\Resources\**\*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Resources\Templates\Classes\Global.cs" />
+    <Compile Remove="Resources\Templates\Classes\Program.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\book.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Icons\path.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -36,6 +54,10 @@
 
   <ItemGroup>
     <Folder Include="Styles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\Templates\Projects\PCProject.csproj" />
   </ItemGroup>
 
   <ItemGroup>

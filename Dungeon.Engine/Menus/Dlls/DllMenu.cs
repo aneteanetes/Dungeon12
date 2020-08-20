@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dungeon.Engine.Menus.File
+namespace Dungeon.Engine.Menus.Dlls
 {
-    public class FileMenu : IEngineMenuItem
+    public class DllMenu : IEngineMenuItem
     {
-        public string Text => "Файл";
+        public string Text => "Библиотеки";
 
         public string Tag => default;
 
         public Action Click => default;
 
-        public int Weight => 0;
+        public int Weight => 1;
     }
 }

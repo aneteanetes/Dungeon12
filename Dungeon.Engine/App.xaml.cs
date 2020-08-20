@@ -1,4 +1,5 @@
 ﻿using Dungeon.Engine.Utils;
+using Dungeon.Resources;
 using System.Windows;
 
 namespace Dungeon.Engine
@@ -12,6 +13,9 @@ namespace Dungeon.Engine
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            var resCompiler = new ResourceCompiler();
+            resCompiler.Compile();
+
             Store.LoadAllAssemblies();
             Container = new Container();
         }
