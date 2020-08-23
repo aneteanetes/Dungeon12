@@ -49,10 +49,10 @@ namespace Dungeon.Monogame
 
         private void UpdateComponent(ISceneObject sceneObject)
         {
-            if(frameEnd)
-            {
+            //if(frameEnd)
+            //{
                 sceneObject.Update();
-            }
+            //}
 
             for (int i = 0; i < sceneObject.Children.Count; i++)
             {

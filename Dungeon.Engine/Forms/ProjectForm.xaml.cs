@@ -40,8 +40,8 @@ namespace Dungeon.Engine.Forms
             }
             Directory.CreateDirectory(path);
 
-            using var db = new LiteDatabase($@"{path}\Data.dtr");
-            db.GetCollection<DungeonEngineProject>().Insert(Project);            
+            using var db = new LiteDatabase($@"{path}\{Project.Name}.deproj");
+            db.GetCollection<DungeonEngineProject>().Insert(Project);
 
             Directory.CreateDirectory(Path.Combine(path, "Scenes"));
 

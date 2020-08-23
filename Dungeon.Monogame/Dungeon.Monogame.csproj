@@ -4,12 +4,12 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <StartupObject />
     <Configurations>Debug;Release;CompileDatabase</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;Core;WINDOWS</DefineConstants>
+    <DefineConstants>TRACE;Core;WINDOWS;DisableSound;</DefineConstants>
     <Optimize>false</Optimize>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
@@ -39,9 +39,6 @@
     <PackageReference Include="YAXLib" Version="2.15.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dungeon12.Bowman\Dungeon12.Bowman.csproj" />
-    <ProjectReference Include="..\Dungeon12.Servant\Dungeon12.Servant.csproj" />
-    <ProjectReference Include="..\Dungeon12\Dungeon12.csproj" />
     <ProjectReference Include="..\Dungeon\Dungeon.csproj" />
   </ItemGroup>
   <ItemGroup>

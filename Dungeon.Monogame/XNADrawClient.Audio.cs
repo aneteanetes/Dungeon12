@@ -13,6 +13,9 @@
     {
         public void Music(string name, AudioOptions audioOptions = null)
         {
+#if DisableSound
+            return;
+#endif
             var song = LoadSong(name);
             MediaPlayer.Stop();
             MediaPlayer.Play(song);
@@ -22,6 +25,9 @@
 
         public void Effect(string effect, AudioOptions audioOptions = null)
         {
+#if DisableSound
+            return;
+#endif
             try
             {
                 var sound = LoadSound(effect).CreateInstance();

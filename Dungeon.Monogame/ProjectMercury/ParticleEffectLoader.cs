@@ -24,6 +24,11 @@
 
         public ParticleEffectLoader(Stream stream, string assembly)
         {
+            if(stream.CanSeek)
+            {
+                stream.Seek(0, SeekOrigin.Begin);
+            }
+
             xDocument = XDocument.Load(stream);
             asm = assembly;
         }

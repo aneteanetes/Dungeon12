@@ -22,7 +22,7 @@ namespace Dungeon.Engine.Menus.File
                 return;
             }
 
-            DungeonGlobal.Events.Raise(new FreezeAllEvent(5));
+            DungeonGlobal.Events.Raise(new FreezeAllEvent());
 
 
             var res = ResourceLoader.Load($"Templates.Projects.{proj.Type}Project.csproj".AsmRes());
@@ -30,7 +30,9 @@ namespace Dungeon.Engine.Menus.File
 
             System.IO.File.WriteAllText(Path.Combine(proj.Path, proj.Name, $"{proj.Name}.csproj"), projFile);
 
+
             DungeonGlobal.Events.Raise(new StatusChangeEvent("Построение завершилось успешно"));
+            DungeonGlobal.Events.Raise(new UnfreezeAllEvent());
         };
 
         public int Weight => 1;

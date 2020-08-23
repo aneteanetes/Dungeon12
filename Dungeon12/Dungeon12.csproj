@@ -1,12 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>Latest</LangVersion>
+    <OutputType>WinExe</OutputType>
+    <ApplicationIcon>d12icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;Core;</DefineConstants>
+    <DefineConstants>TRACE;Core;DisableSound;</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Dungeon.Monogame\Dungeon.Monogame.csproj" />
     <ProjectReference Include="..\Dungeon\Dungeon.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
-﻿using Dungeon.Control;
+﻿using Dungeon;
+using Dungeon.Control;
 using Dungeon.Control.Keys;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
@@ -24,6 +25,8 @@ namespace Dungeon12.Scenes
 
         public override void Init()
         {
+            Global.DrawClient.SetCursor("Cursors.common.png".PathImage());
+
             Splash = new AnimatedSplash();
             this.AddObject(Splash);
 

@@ -5,22 +5,33 @@
     using Dungeon.Scenes.Manager;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
-    using Dungeon12;
-    using Dungeon12.Scenes.Menus;
     using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
     using Microsoft.Xna.Framework.Media;
     using Penumbra;
     using ProjectMercury.Renderers;
     using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Resources;
-    using System.Runtime.InteropServices;
+
+    public class SpiteBatchKnowed : SpriteBatch
+    {
+        public bool Opened { get; private set; }
+
+        public SpiteBatchKnowed(GraphicsDevice graphicsDevice) : base(graphicsDevice) { }
+
+        public new void Begin(SpriteSortMode sortMode = SpriteSortMode.Deferred, BlendState blendState = null, SamplerState samplerState = null, DepthStencilState depthStencilState = null, RasterizerState rasterizerState = null, Effect effect = null, Matrix? transformMatrix = null)
+        {
+            Opened = true;
+            base.Begin(sortMode, blendState, samplerState, depthStencilState, rasterizerState, effect, transformMatrix);
+        }
+
+        public new void End()
+        {
+            Opened = false;
+            base.End();
+        }
+    }
 
     public partial class XNADrawClient : Game, IDrawClient
     {
@@ -32,7 +43,7 @@
 
         public SceneManager SceneManager { get; set; }
         protected GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        SpiteBatchKnowed spriteBatch;
         readonly Light SunLight = new PointLight
         {
             Scale = new Vector2(3700f),
@@ -103,16 +114,16 @@
             this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d); //60);
 
 
-            Dungeon12.Global.AudioPlayer = this;
-            Dungeon12.Global.Time.OnTimeSet += WhenTimeSetted;
-            Dungeon12.Global.Time.OnMinute += CalculateSunlight;
+            DungeonGlobal.AudioPlayer = this;
+            DungeonGlobal.Time.OnTimeSet += WhenTimeSetted;
+            DungeonGlobal.Time.OnMinute += CalculateSunlight;
 
             myRenderer= new SpriteBatchRenderer
             {
                 GraphicsDeviceService = graphics
             };
 
-            Dungeon12.Global.TransportVariable = GraphicsDevice;
+            DungeonGlobal.TransportVariable = GraphicsDevice;
         }
 
         protected override void Initialize()
@@ -139,7 +150,7 @@
         protected override void LoadContent()
         {
             GraphicsDevice.PresentationParameters.RenderTargetUsage = RenderTargetUsage.PreserveContents;
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteBatch = new SpiteBatchKnowed(GraphicsDevice);
 
 
             IntPtr winHandle = Window.Handle;            
@@ -149,7 +160,7 @@
                 DrawClient = this
             };
 
-            Global.Camera = this;
+            DungeonGlobal.Camera = this;
 
 
 
@@ -176,7 +187,7 @@
 
 
 
-            Global.SceneManager = this.SceneManager;
+            DungeonGlobal.SceneManager = this.SceneManager;
 
             var pathShader = "Dungeon12.Resources.Shaders.ExtractLight.xnb";
 
@@ -223,7 +234,7 @@
         {
             if (!loaded)
             {
-                Dungeon12.Global.TransportVariable = GraphicsDevice;
+                DungeonGlobal.TransportVariable = GraphicsDevice;
                 myRenderer.LoadContent(Content);
                 loaded = true;
             }
@@ -284,11 +295,11 @@
 
             if(c.IsKeyDown(Keys.U))
             {
-                Dungeon12.Global.Time.Pause();
+                DungeonGlobal.Time.Pause();
             }
             if (c.IsKeyDown(Keys.Y))
             {
-                Dungeon12.Global.Time.Resume();
+                DungeonGlobal.Time.Resume();
             }
 
             if (c.IsKeyDown(Keys.Left))
@@ -345,12 +356,12 @@
             {
                 float illum = BaseIlluminationUnit;
 
-                if (Dungeon12.Global.Time.Hours >= 6 && Dungeon12.Global.Time.Hours < 18)
+                if (DungeonGlobal.Time.Hours >= 6 && DungeonGlobal.Time.Hours < 18)
                 {
                     illum = BaseIlluminationUnit * 2;
                 }
 
-                if (Dungeon12.Global.Time.Hours >= 18)
+                if (DungeonGlobal.Time.Hours >= 18)
                 {
 
                     illum = BaseIlluminationUnit * 4;
@@ -364,7 +375,7 @@
 
         private void CalculateSunlight()
         {
-            var time = Global.Time;
+            var time = DungeonGlobal.Time;
             AddSunLight(1, time);
         }
 

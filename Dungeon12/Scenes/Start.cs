@@ -77,8 +77,6 @@
             DragAndDropSceneControls.DraggableLayers = 0;
             isGame = Args?.ElementAtOrDefault(0) != default;
 
-            Global.DrawClient.SetCursor("Cursors.common.png".PathImage());
-
             if (!isGame)
             {
                 Global.AudioPlayer.Music("Audio/Music/maintheme.ogg".AsmNameRes(), new Dungeon.Audio.AudioOptions()

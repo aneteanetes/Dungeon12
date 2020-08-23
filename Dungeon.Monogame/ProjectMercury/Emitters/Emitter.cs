@@ -8,17 +8,15 @@
 
 namespace ProjectMercury.Emitters
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
+    using Dungeon;
+    using Dungeon.Resources;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
     using ProjectMercury.Modifiers;
-    using Dungeon;
-    using Dungeon.Resources;
-    using Dungeon.Scenes.Manager;
-    using Dungeon12;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
 
 #if MPE_RAISEEVENTS
     /// <summary>
@@ -396,7 +394,7 @@ namespace ProjectMercury.Emitters
                     if (this.ParticleTexture == null)
                     {
                         //дефолтный путь для Dungeon
-                        var path = $"{Global.GameAssemblyName}.Resources.Images.Particles.{this.ParticleTextureAssetName}.png";
+                        var path = $"{DungeonGlobal.GameAssemblyName}.Resources.Images.Particles.{this.ParticleTextureAssetName}.png";
 
                         if (!string.IsNullOrWhiteSpace(FromAssemblyName))
                         {
@@ -424,7 +422,7 @@ namespace ProjectMercury.Emitters
             if (!tilesetsCache.TryGetValue(tilesetName, out var bitmap))
             {
                 var res = ResourceLoader.Load(tilesetName);
-                bitmap = Texture2D.FromStream(Dungeon12.Global.TransportVariable as GraphicsDevice, res.Stream);
+                bitmap = Texture2D.FromStream(DungeonGlobal.TransportVariable as GraphicsDevice, res.Stream);
                 tilesetsCache.TryAdd(tilesetName, bitmap);
 
                 res.OnDispose += () =>

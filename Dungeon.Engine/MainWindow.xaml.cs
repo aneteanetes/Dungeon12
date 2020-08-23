@@ -33,20 +33,28 @@ namespace Dungeon.Engine
             DungeonGlobal.Events.Subscribe<PropGridFillEvent>(FillPropGrid, false);
             DungeonGlobal.Events.Subscribe<ProjectInitializeEvent>(InitializeProject, false);
             DungeonGlobal.Events.Subscribe<FreezeAllEvent>(FreezeEventHandler, false);
+            DungeonGlobal.Events.Subscribe<UnfreezeAllEvent>(UnreezeEventHandler, false);
             DungeonGlobal.Events.Subscribe<StatusChangeEvent>(ChangeStatusHandler, false);
+        }
+        private void UnreezeEventHandler(UnfreezeAllEvent @event)
+        {
+            LoaderFreeze.Visibility = Visibility.Hidden;
         }
 
         private void FreezeEventHandler(FreezeAllEvent @event)
         {
             LoaderFreeze.Visibility = Visibility.Visible;
 
-            var dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Tick += (s, e) =>
+            if (@event.Seconds != default)
             {
-                LoaderFreeze.Visibility = Visibility.Hidden;
-            };
-            dispatcherTimer.Interval = new TimeSpan(0, 0,0,0, (int)(@event.Seconds*1000));
-            dispatcherTimer.Start();
+                var dispatcherTimer = new DispatcherTimer();
+                dispatcherTimer.Tick += (s, e) =>
+                {
+                    LoaderFreeze.Visibility = Visibility.Hidden;
+                };
+                dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, (int)(@event.Seconds * 1000));
+                dispatcherTimer.Start();
+            }
         }
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
@@ -58,6 +66,7 @@ namespace Dungeon.Engine
         {
             var proj = @event.Project;
 
+
             App.Container.Reset();
             if (proj != default)
             {
@@ -66,6 +75,8 @@ namespace Dungeon.Engine
                 this.Project = proj;
                 ChangeStatus($"Загружен проект '{Project.Name}'");
                 WindowTitle.Text = $"Dungeon Engine - {Project.Name}";
+
+                ScenesView.ItemsSource = Project.Scenes;
             }
             else
             {
@@ -74,13 +85,13 @@ namespace Dungeon.Engine
             }
         }
 
-        private bool Available => App.Container.Resolve<DungeonEngineProject>() != default;
+        private bool Available => Project != default;
 
         private void InitializeMenu()
         {
             var menus = App.Container.ResolveAll<IEngineMenuItem>();
             var groups = menus.GroupBy(x => x.Tag);
-            foreach (var menuRoot in groups.FirstOrDefault(g => g.Key == default).OrderBy(x=>x.Weight))
+            foreach (var menuRoot in groups.FirstOrDefault(g => g.Key == default).OrderBy(x => x.Weight))
             {
                 var menuRootItem = new MenuItem()
                 {
@@ -88,7 +99,7 @@ namespace Dungeon.Engine
                 };
 
                 var taggedGroup = groups.FirstOrDefault(g => g.Key == menuRoot.GetType().Name);
-                foreach (var innerItem in taggedGroup.OrderBy(x=>x.Weight))
+                foreach (var innerItem in taggedGroup.OrderBy(x => x.Weight))
                 {
                     var innerMenuItem = new MenuItem() { Header = innerItem.Text };
                     innerMenuItem.Click += (s, e) => innerItem.Click?.Invoke();
@@ -144,11 +155,16 @@ namespace Dungeon.Engine
         {
             if (!Available)
                 return;
+
+            Project.Scenes.Add(new DungeonEngineScene());
+
+            ScenesView.SelectedIndex = ScenesView.Items.Count - 1;
         }
 
         private void RemoveScene(object sender, RoutedEventArgs e)
         {
-
+            Project.Scenes.Remove(ScenesView.SelectedItem as DungeonEngineScene);
+            ScenesView.SelectedIndex = ScenesView.Items.Count - 1;
         }
 
         private void AddObject(object sender, RoutedEventArgs e)
@@ -163,7 +179,10 @@ namespace Dungeon.Engine
 
         private void ScenesView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            foreach (var item in e.AddedItems)
+            {
+                FillPropGrid(new PropGridFillEvent(item));
+            }
         }
 
         private void ObjectsView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -178,7 +197,7 @@ namespace Dungeon.Engine
         {
             PropGridSaveBtn.IsEnabled = false;
             PropGrid.Children.Clear();
-            PropGrid.RowDefinitions.Clear();            
+            PropGrid.RowDefinitions.Clear();
         }
 
         public void FillPropGrid(PropGridFillEvent @event)
@@ -227,14 +246,18 @@ namespace Dungeon.Engine
                     comboBoxEditor.SelectedIndex = Obj.GetPropertyExpr<bool>(prop.Name) ? 0 : 1;
                     editor.Child = comboBoxEditor;
                     PropGridBinding.Add(prop.Name, () => comboBoxEditor.Text);
+
+                    if(displ!=default)
                     comboBoxEditor.ToolTip = displ.Description;
                 }
                 else
                 {
                     var textEditor = new TextBox() { Text = prop.GetValue(Obj)?.ToString() };
                     editor.Child = textEditor;
-                    PropGridBinding.Add(prop.Name, ()=>textEditor.Text);
-                    textEditor.ToolTip = displ.Description;
+                    PropGridBinding.Add(prop.Name, () => textEditor.Text);
+
+                    if (displ != default)
+                        textEditor.ToolTip = displ.Description;
                 }
 
                 PropGrid.Children.Add(label);
@@ -259,7 +282,7 @@ namespace Dungeon.Engine
 
             foreach (var propBind in PropGridBinding)
             {
-                if(!PropGridObject.SetPropertyExprConverted(propBind.Key, propBind.Value()))
+                if (!PropGridObject.SetPropertyExprConverted(propBind.Key, propBind.Value()))
                 {
                     failedProps.Add(propBind.Key);
                 }
@@ -267,9 +290,9 @@ namespace Dungeon.Engine
 
             var status = "Cохранено.";
 
-            if (failedProps.Count!=0)
+            if (failedProps.Count != 0)
             {
-                status+= "Не удалось сохранить свойства:" + string.Join(" | ", failedProps);
+                status += " Не удалось сохранить свойства: " + string.Join(" | ", failedProps);
             }
 
             ChangeStatus(status);
@@ -278,18 +301,22 @@ namespace Dungeon.Engine
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.S && e.KeyboardDevice.Modifiers == ModifierKeys.Control)
-            {
-                SavePropGrid(default, default);
-                Project.Save();
-            }
+                Save();
 
             base.OnKeyDown(e);
+        }
+
+        private void Save()
+        {
+            SavePropGrid(default, default);
+            Project.Save();
+            ScenesView.Items.Refresh();
         }
 
         private void ChangeStatusHandler(StatusChangeEvent @event)
             => ChangeStatus(@event.Status);
 
-        private void ChangeStatus(string status=default)
+        private void ChangeStatus(string status = default)
         {
             if (status != default)
             {

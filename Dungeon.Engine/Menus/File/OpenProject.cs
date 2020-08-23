@@ -19,17 +19,18 @@ namespace Dungeon.Engine.Menus.File
 
         public Action Click => () =>
         {
-            using var dialog = new FolderBrowserDialog();
+            using var dialog = new OpenFileDialog();
+            dialog.Filter = "Dungeon Engine Project (.deproj)|*.deproj";
             var result = dialog.ShowDialog();
 
-            var path = dialog.SelectedPath;
+            var path = dialog.FileName;
             if(string.IsNullOrEmpty(path))
             {
                 return;
             }
 
-            using var db = new LiteDatabase(Path.Combine(path, "Data.dtr"));
-            var dirName = new DirectoryInfo(path).Name;
+            using var db = new LiteDatabase(path);
+            var dirName = Path.GetFileNameWithoutExtension(path);
             var proj = db.GetCollection<DungeonEngineProject>().FindOne(x => x.Name == dirName);
 
             if (proj == default)

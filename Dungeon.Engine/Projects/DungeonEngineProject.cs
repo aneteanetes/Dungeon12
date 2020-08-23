@@ -1,8 +1,11 @@
 ﻿using Dungeon.Data;
 using LiteDB;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows.Controls;
 
 namespace Dungeon.Engine.Projects
 {
@@ -16,11 +19,13 @@ namespace Dungeon.Engine.Projects
 
         public List<string> References { get; set; }
 
+        public ObservableCollection<DungeonEngineScene> Scenes { get; set; } = new ObservableCollection<DungeonEngineScene>();
+
         public DungeonEngineProjectSettings CompileSettings { get; set; }
 
         public bool DataBaseExists => File.Exists(DbFilePath);
 
-        private string DbFilePath => System.IO.Path.Combine(Path,Name, "Data.dtr");
+        private string DbFilePath => System.IO.Path.Combine(Path,Name, $"{Name}.deproj");
 
         public void Save()
         {

@@ -1,23 +1,23 @@
 ﻿namespace Dungeon.Monogame
 {
-    using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Graphics;
-    using Microsoft.Xna.Framework.Input;
-    using Penumbra;
     using Dungeon;
-    using ProjectMercury;
-    using Dungeon.Monogame;
     using Dungeon.Resources;
+    using Dungeon.Types;
     using Dungeon.View.Enums;
     using Dungeon.View.Interfaces;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    using Penumbra;
+    using ProjectMercury;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
-    using Rect = Dungeon.Types.Rectangle;
+    using System.Reflection;
     using System.Text;
-    using Dungeon12;
+    using Rect = Dungeon.Types.Rectangle;
+    using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
     public partial class XNADrawClient : Game, IDrawClient
     {
@@ -41,27 +41,22 @@
 
             if (this.scene != default)
             {
-                try
+                Draw(this.scene.Objects, gameTime);
+
+                //draw lights
+                List<string> lightsfordelete = new List<string>();
+                foreach (var light in Lights)
                 {
-                    Draw(this.scene.Objects, gameTime);
-                    List<string> lightsfordelete = new List<string>();
-                    foreach (var light in Lights)
-                    {
-                        var sceneObj = this.scene.Objects.FirstOrDefault(o => light.Key == o.Uid);
-                        if (sceneObj != default)
-                            if (!this.InCamera(sceneObj))
-                            {
-                                lightsfordelete.Add(light.Key);
-                            }
-                    }
-                    foreach (var lightDelete in lightsfordelete)
-                    {
-                        Lights.Remove(lightDelete);
-                    }
+                    var sceneObj = this.scene.Objects.FirstOrDefault(o => light.Key == o.Uid);
+                    if (sceneObj != default)
+                        if (!this.InCamera(sceneObj))
+                        {
+                            lightsfordelete.Add(light.Key);
+                        }
                 }
-                catch (Exception e)
+                foreach (var lightDelete in lightsfordelete)
                 {
-                    Global.Logger.Log(e.ToString());
+                    Lights.Remove(lightDelete);
                 }
             }
 
@@ -173,19 +168,24 @@
         {
             try
             {
-                spriteBatch.Begin();
+                bool neeedClose = false;
+                if (!spriteBatch.Opened)
+                {
+                    neeedClose = true;
+                    spriteBatch.Begin();
+                }
                 var nowTs = _st.Elapsed;
                 var now = DateTime.Now;
                 var fpsTimeDiff = (nowTs - _lastFps).TotalSeconds;
                 if (fpsTimeDiff > 1)
                 {
                     _fps = (_frame - _lastFpsFrame) / fpsTimeDiff;
-                    Global.FPS = _fps;
+                    DungeonGlobal.FPS = _fps;
                     _lastFpsFrame = _frame;
                     _lastFps = nowTs;
                 }
 
-                frameEnd = Global.FPS >= 55;
+                frameEnd = DungeonGlobal.FPS >= 55;
 
                 //var text = $"Версия: {DungeonGlobal.Version}";
 
@@ -196,13 +196,16 @@
 
                 var font = Content.Load<SpriteFont>(pathfont, montserrat10Res.Stream);
 
-                var m = (float)this.MeasureText(Global.FPS.ToString().AsDrawText().Montserrat().InSize(10)).X;
+                var m = (float)this.MeasureText(DungeonGlobal.FPS.ToString().AsDrawText().InSize(10)).X;
 
                 //spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);
 
-                spriteBatch.DrawString(font, Global.FPS.ToString(), new Vector2(this.Window.ClientBounds.Width- m, 15), Color.Yellow);
+                spriteBatch.DrawString(font, DungeonGlobal.FPS.ToString(), new Vector2(this.Window.ClientBounds.Width- m, 15), Color.Yellow);
 
-                spriteBatch.End();
+                if (neeedClose)
+                {
+                    spriteBatch.End();
+                }
 
                 _frame++;
             }
@@ -953,7 +956,7 @@
         private static readonly Dictionary<string, ParticleEffect> ParticleEffects = new Dictionary<string, ParticleEffect>();
 
         private void DrawEffects(ISceneObject sceneObject, double x, double y)
-        {
+        {            
             if (sceneObject.Effects.Count == 0)
                 return;
 
@@ -962,39 +965,45 @@
 
             foreach (var effect in sceneObject.Effects)
             {
-                if (!ParticleEffects.TryGetValue(sceneObject.Uid, out var particleEffect))
+                var path = $"{effect.Assembly}.Resources.Particles.{effect.Name}.xml";
+
+                void DrawEffect()
                 {
-                    var path = $"{effect.Assembly}.Resources.Particles.{effect.Name}.xml";
-                    var particleRes = ResourceLoader.Load(path);
-                    var loader = new ParticleEffectLoader(particleRes.Stream, effect.Assembly);
+                    if (!ParticleEffects.TryGetValue(sceneObject.Uid, out var particleEffect))
+                    {
+                        var particleRes = ResourceLoader.Load(path);
+                        var loader = new ParticleEffectLoader(particleRes.Stream, effect.Assembly);
 
-                    particleEffect = loader.Load();
-                    particleEffect.Scale = (float)effect.Scale;
-                    particleEffect.LoadContent(this.Content);
-                    particleEffect.Initialise();
+                        particleEffect = loader.Load();
+                        particleEffect.Scale = (float)effect.Scale;
+                        particleEffect.LoadContent(this.Content);
+                        particleEffect.Initialise();
 
-                    ParticleEffects.Add(sceneObject.Uid, particleEffect);
+                        ParticleEffects.Add(sceneObject.Uid, particleEffect);
 
-                    sceneObject.Destroy += () => ParticleEffects.Remove(sceneObject.Uid);
+                        sceneObject.Destroy += () => ParticleEffects.Remove(sceneObject.Uid);
 
-                    myRenderer.LoadContent(Content);
+                        myRenderer.LoadContent(Content);
+                    }
+
+                    var pos = new Vector2((float)x, (float)y);
+                    particleEffect.Trigger(pos);
+                    var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    particleEffect.Update(deltaTime);
+
+                    spriteBatch.End();
+
+                    var v = Matrix.CreateTranslation(-(float)x, -(float)y, 0)
+                        * Matrix.CreateScale((float)effect.Scale)
+                        * Matrix.CreateTranslation((float)x, (float)y, 0)
+                        * Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0);
+
+                    myRenderer.RenderEffect(particleEffect, ref v);
+
+                    SpriteBatchRestore.Invoke(false, sceneObject.Filtered);
                 }
 
-                var pos = new Vector2((float)x, (float)y);
-                particleEffect.Trigger(pos);
-                var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                particleEffect.Update(deltaTime);
-
-                spriteBatch.End();
-                
-                var v = Matrix.CreateTranslation(-(float)x, -(float)y, 0) 
-                    * Matrix.CreateScale((float)effect.Scale) 
-                    * Matrix.CreateTranslation((float)x, (float)y, 0)
-                    * Matrix.CreateTranslation((float)CameraOffsetX, (float)CameraOffsetY, 0);
-
-                myRenderer.RenderEffect(particleEffect, ref v);
-
-                SpriteBatchRestore.Invoke(false, sceneObject.Filtered);
+                Once.Call(DrawEffect, nameof(XNADrawClient) + nameof(Draw) + nameof(DrawEffect) + path);
             }
         }
 

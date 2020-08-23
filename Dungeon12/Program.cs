@@ -1,10 +1,9 @@
-﻿#define TRACE
-
+﻿using Dungeon;
+using Dungeon.Monogame;
 using Dungeon.Resources;
-using Dungeon12;
 using System;
 
-namespace Dungeon.Monogame
+namespace Dungeon12
 {
     public static class Program
     {
@@ -13,7 +12,7 @@ namespace Dungeon.Monogame
         {
             DungeonGlobal.BindGlobal<Global>();
             DungeonGlobal.ComponentUpdateCompatibility = true;
-            Console.WriteLine(Global.Version);
+            Console.WriteLine(DungeonGlobal.Version);
 #if DEBUG
             var resCompiler = new ResourceCompiler();
             resCompiler.Compile();

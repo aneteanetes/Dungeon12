@@ -6,10 +6,7 @@ using System.Text;
 
 namespace Dungeon.Engine.Events
 {
-    public class FreezeAllEvent : IEvent
+    public class UnfreezeAllEvent : IEvent
     {
-        public double Seconds { get; set; }
-
-        public FreezeAllEvent(double seconds=default) => Seconds = seconds;
     }
 }
