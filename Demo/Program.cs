@@ -1,12 +1,36 @@
-﻿using System;
+﻿using Dungeon;
+using Dungeon.Monogame;
+using Dungeon.Resources;
+using System;
 
 namespace Demo
 {
-    class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        [STAThread]
+        static void Main()
         {
-            Console.WriteLine("Hello World!");
+            DungeonGlobal.BindGlobal<Global>();
+            DungeonGlobal.ComponentUpdateCompatibility = true;
+            Console.WriteLine(DungeonGlobal.Version);
+#if DEBUG
+            var resCompiler = new ResourceCompiler();
+            resCompiler.Compile();
+
+            DungeonGlobal.ExceptionRethrow = true;
+            DungeonGlobal.GlobalExceptionHandling();
+            //ResourceLoader.NotDisposingResources = true;
+            //ResourceLoader.CacheImagesAndMasks = false;
+#endif      
+            var client = new MonogameClient(new MonogameClientSettings()
+            {
+                WidthPixel=1280,
+                HeightPixel=720,
+                IsFullScreen=false,
+                Add2DLighting=false
+            });
+            DungeonGlobal.ClientRun = client.Run;
+            DungeonGlobal.Run();
         }
     }
 }
