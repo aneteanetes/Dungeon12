@@ -68,6 +68,21 @@
 
         public static Assembly GameAssembly { get; set; }
 
+        private static string _gameTitle;
+        public static string GameTitle
+        {
+            get
+            {
+                if(_gameTitle==default)
+                {
+                    return GameAssemblyName;
+                }
+
+                return _gameTitle;
+            }
+            set => _gameTitle = value;
+        }
+
         public static string DefaultFontName { get; set; } = "FledglingSb";
 
         public static int DefaultFontSize { get; set; } = 14;
@@ -127,6 +142,7 @@
             catch (Exception ex)
             {
                 Logger.Log(ex.ToString());
+                throw;
                 Run(true);
             }
         }
