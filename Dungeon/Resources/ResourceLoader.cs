@@ -58,13 +58,17 @@ namespace Dungeon.Resources
             return res;
         }
 
-        public static Resource Load(string resource, bool caching = false)
+        public static Resource Load(string resource, bool caching = false, bool @throw=true)
         {
             var res = LoadResource(resource);
 
             if (res == default)
             {
-                throw new KeyNotFoundException($"Ресурс {resource} не найден!");
+                if (@throw)
+                {
+                    throw new KeyNotFoundException($"Ресурс {resource} не найден!");
+                }
+                else return default;
             }
 
             bool addToScene = !caching;
