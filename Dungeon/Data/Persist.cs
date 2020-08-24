@@ -1,5 +1,6 @@
 ﻿#if Core
 using Dungeon.GameObjects;
+using Dungeon.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -16,6 +17,9 @@ namespace Dungeon.Data
         /// <summary>
         /// Внутреннее свойство для LiteDb
         /// </summary>
+#if Core
+        [Hidden]
+#endif
         public int Id { get; set; }
 
         /// <summary>

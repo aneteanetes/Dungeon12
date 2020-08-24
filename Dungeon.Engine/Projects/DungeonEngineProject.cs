@@ -21,11 +21,13 @@ namespace Dungeon.Engine.Projects
 
         public ObservableCollection<DungeonEngineScene> Scenes { get; set; } = new ObservableCollection<DungeonEngineScene>();
 
+        public ObservableCollection<DungeonEngineResourcesGraph> Resources { get; set; }
+
         public DungeonEngineProjectSettings CompileSettings { get; set; }
 
         public bool DataBaseExists => File.Exists(DbFilePath);
 
-        private string DbFilePath => System.IO.Path.Combine(Path,Name, $"{Name}.deproj");
+        public string DbFilePath => System.IO.Path.Combine(Path,Name, $"{Name}.deproj");
 
         public void Save()
         {

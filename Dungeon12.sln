@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon.Engine", "Dungeon.E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Demo\Demo.csproj", "{17BDB40C-4026-492A-98BA-27C300BAF78F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dungeon.Monogame.ContentImporter", "Dungeon.Monogame.ContentImporter\Dungeon.Monogame.ContentImporter.csproj", "{DD471816-2E57-49A0-AA32-E4FFA5F8B4A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon.Monogame.ContentImporter", "Dungeon.Monogame.ContentImporter\Dungeon.Monogame.ContentImporter.csproj", "{DD471816-2E57-49A0-AA32-E4FFA5F8B4A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

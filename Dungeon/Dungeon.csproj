@@ -22,6 +22,7 @@
   <ItemGroup>
     <EmbeddedResource Remove="Resources\Resource.cs" />
     <EmbeddedResource Remove="Resources\ResourceCompiler.cs" />
+    <EmbeddedResource Remove="Resources\ResourceDatabaseResolver.cs" />
     <EmbeddedResource Remove="Resources\ResourceManifest.cs" />
   </ItemGroup>
   <ItemGroup>

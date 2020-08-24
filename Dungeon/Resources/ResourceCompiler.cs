@@ -153,7 +153,7 @@ namespace Dungeon.Resources
             db.Insert(newResource);
         }
 
-        private static string GetPathUntillProjectName(string path, string projName)
+        public static string GetPathUntillProjectName(string path, string projName)
         {
             var parts = path.Split("\\", StringSplitOptions.RemoveEmptyEntries).Reverse();
             var partsEnum = parts.GetEnumerator();

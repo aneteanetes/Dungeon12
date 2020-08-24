@@ -7,11 +7,13 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>TRACE;Core;WINDOWS;</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
-    <None Remove="Icons\book.png" />
-    <None Remove="Icons\castle.png" />
-    <None Remove="Icons\edit.png" />
-    <None Remove="Icons\path.png" />
+    <None Remove="Icons\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,37 +24,39 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="**\Resources\**\*" />
+    <EmbeddedResource Include="**\Icons\**\*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Resources\Templates\Classes\Global.cs" />
     <Compile Remove="Resources\Templates\Classes\Program.cs" />
   </ItemGroup>
-
+  
   <ItemGroup>
-    <EmbeddedResource Include="Icons\book.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Icons\path.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-
+    <Compile Include="..\Dungeon.Monogame\Penumbra\**\*.*">
+        <Link>Penumbra\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Compile>
+    <Compile Include="..\Dungeon.Monogame\ProjectMercury\**\*.*">
+      <Link>ProjectMercury\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Compile>
+</ItemGroup>
+  
   <ItemGroup>
-    <EmbeddedResource Include="Icons\castle.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Icons\edit.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <Compile Include="..\Dungeon.Monogame\MonogameExtensions.cs" Link="Host\MonogameExtensions.cs" />
+    <Compile Include="..\Dungeon.Monogame\XNADrawClient.Implementation.cs" Link="Host\XNADrawClient.Implementation.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.7" />
+    <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.0.8.11" />
     <PackageReference Include="Selen.Wpf" Version="1.0.0" />
+    <PackageReference Include="YAXLib" Version="2.15.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Build\" />
     <Folder Include="Styles\" />
   </ItemGroup>
 
@@ -62,6 +66,18 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dungeon\Dungeon.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Forms\AddResourceForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Forms\AddResourceForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>

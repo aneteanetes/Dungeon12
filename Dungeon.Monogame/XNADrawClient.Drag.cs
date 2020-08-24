@@ -11,7 +11,7 @@
         public void Drag(ISceneObject @object, ISceneObject area = null)
         {
             dragging = true;
-            var texture = TileSetByName(@object.Image);
+            var texture = XNADrawClientImplementation.TileSetByName(@object.Image);
             if (texture == default)
                 return;
 #if Core
@@ -32,7 +32,7 @@
 #endif
         public void SetCursor(string textureSrc)
         {
-            var texture = TileSetByName(textureSrc);
+            var texture = XNADrawClientImplementation.TileSetByName(textureSrc);
             if (texture == default)
                 return;
             #if Core

@@ -4,14 +4,47 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:system="clr-namespace:System;assembly=mscorlib" xmlns:controls="clr-namespace:Dungeon.Engine.Controls"
+        xmlns:system="clr-namespace:System;assembly=mscorlib" 
+        xmlns:controls="clr-namespace:Dungeon.Engine.Controls" 
+        xmlns:host="clr-namespace:Dungeon.Engine.Host" 
+        xmlns:engine="clr-namespace:Dungeon.Engine"
         mc:Ignorable="d"
         Foreground="WhiteSmoke"
         Background="#3F3F46"
-        Title="Enterprise Commander" Height="700" Width="1024" WindowStartupLocation="CenterScreen"
+        Title="Enterprise Commander"  Width="1600" Height="900" WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip" WindowStyle="None">
-    <!--https://www.iconfinder.com/iconsets/fantasy-and-role-play-game-adventure-quest-->    
+    <!--https://www.iconfinder.com/iconsets/fantasy-and-role-play-game-adventure-quest-->
     <Window.Resources>
+        <engine:TreeViewLineConverter x:Key="LineConverter"/>        
+        <ContextMenu Background="#3F3F46" x:Key="ResourceContextMenu" Style="{DynamicResource ContextMenuStyle1}">
+            <MenuItem Foreground="WhiteSmoke" Header="Добавить" Click="AddResourceCtxClick"/>
+            <!--<MenuItem Header="Удалить"/>-->
+            <ContextMenu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Background="#3F3F46"></StackPanel>
+                </ItemsPanelTemplate>
+            </ContextMenu.ItemsPanel>
+            <ContextMenu.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="-20,0,-40,0">
+                        <!--this part is important-->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1" Text="{Binding Description}"/>
+                    </Grid>
+                </DataTemplate>
+            </ContextMenu.ItemTemplate>
+        </ContextMenu>
+        <Style x:Key="ConditionStar" TargetType="Image">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding StartScene}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="TitleBarButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
             <Setter Property="Padding" Value="0" />
@@ -79,6 +112,146 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+        <SolidColorBrush x:Key="ListBorder" Color="#828790"/>
+        <Style x:Key="TreeViewStyle1" TargetType="{x:Type TreeView}">
+            <Setter Property="Background" Value="#3F3F46"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ListBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TreeView}">
+                        <Border x:Name="Bd" BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
+                            <ScrollViewer x:Name="_tv_scrollviewer_" Background="{TemplateBinding Background}" CanContentScroll="false" Focusable="false" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                                <ItemsPresenter/>
+                            </ScrollViewer>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="VirtualizingPanel.IsVirtualizing" Value="true">
+                                <Setter Property="CanContentScroll" TargetName="_tv_scrollviewer_" Value="true"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="VirtualizingPanel.IsVirtualizing" Value="true">
+                    <Setter Property="ItemsPanel">
+                        <Setter.Value>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Stroke" Color="#FF818181"/>
+        <SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Fill" Color="#FFFFFFFF"/>
+        <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Stroke" Color="#FF27C7F7"/>
+        <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Fill" Color="#FFCCEEFB"/>
+        <SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Stroke" Color="#FF262626"/>
+        <SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Fill" Color="#FF595959"/>
+        <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Stroke" Color="#FF1CC4F7"/>
+        <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Fill" Color="#FF82DFFB"/>
+        <PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>
+        <Style x:Key="ExpandCollapseToggleStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Background="Transparent" Height="16" Width="16">
+                            <Image x:Name="ExpandPath" Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/FolderClosed_16x.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="ExpandPath" Property="Source" Value="pack://siteoforigin:,,,/Icons/FolderOpened_16x.png"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ExpandPath" Property="Source" Value="pack://siteoforigin:,,,/Icons/FolderOpened_16x.png"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsChecked" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="ExpandPath" Property="Source" Value="pack://siteoforigin:,,,/Icons/FolderClosed_16x.png"/>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="{x:Type TreeViewItem}" TargetType="{x:Type TreeViewItem}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="Padding" Value="1,0,0,0"/>
+            <Setter Property="ContextMenu" Value="{StaticResource ResourceContextMenu}"/>
+            <Setter Property="Template">
+            <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition MinWidth="24" Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Rectangle x:Name="HorLn" Margin="-12,1,5,0" Height="1" Stroke="#DCDCDC" SnapsToDevicePixels="True"/>
+                            <Rectangle x:Name="VerLn" Width="1" Stroke="#DCDCDC" Margin="0,17,1,0" Grid.RowSpan="2" SnapsToDevicePixels="true" Fill="White"/>
+
+                            <ToggleButton x:Name="Expander" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ExpandCollapseToggleStyle}"/>
+                            <Image x:Name="ItemInside" Source="pack://siteoforigin:,,,/Icons/file16x.png" />
+                            <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="Gray" Grid.Column="1" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                <ContentPresenter  x:Name="PART_Header" ContentSource="Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Border>
+                            <ItemsPresenter x:Name="ItemsHost" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="True">
+                                <Setter Property="Visibility" TargetName="ItemInside" Value="Hidden"/>
+                            </Trigger>
+                            <Trigger Property="IsExpanded" Value="false">
+                                <Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true"/>
+                                    <Condition Property="IsSelectionActive" Value="false"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="Bd" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="Gray"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+             </Setter>
         </Style>
     </Window.Resources>
     <WindowChrome.WindowChrome>
@@ -175,7 +348,8 @@
         <Grid Margin="3 0 3 3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="4*"></RowDefinition>
-                <RowDefinition Height="8*" ></RowDefinition>
+                <RowDefinition Height="4*" ></RowDefinition>
+                <RowDefinition Height="4*" ></RowDefinition>
                 <RowDefinition Height="0.5*" ></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -183,30 +357,60 @@
                 <ColumnDefinition Width="9*" MinWidth="500"></ColumnDefinition>
                 <ColumnDefinition Width="4*" MinWidth="250"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Margin="0 0 6 6" Padding="10 5 0 0" >Сцены</Label>
-            <Button Click="AddScene" Grid.Row="0" Grid.Column="0" Margin="0 3 37 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >+</Button>
-            <Button Click="RemoveScene" Grid.Row="0" Grid.Column="0" Margin="0 3 9 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >-</Button>
-            <ListBox SelectionChanged="ScenesView_SelectionChanged" x:Name="ScenesView" ItemsSource="{Binding Path=Project.Scenes}" BorderBrush="Gray" BorderThickness="1" Grid.Row="0" Grid.Column="0" Foreground="WhiteSmoke" Margin="0 30 6 6" HorizontalAlignment="Stretch">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Label Height="24" Foreground="WhiteSmoke" Content="{Binding Name}"></Label>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <Grid >
+                <Label Grid.Row="0" Grid.Column="0" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Margin="0 0 6 6" Padding="10 5 0 0" >Сцены</Label>
+                <Button x:Name="AddSceneBtn" IsEnabled="False" Click="AddScene" Grid.Row="0" Grid.Column="0" Margin="0 3 37 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >+</Button>
+                <Button x:Name="RemoveSceneBtn" IsEnabled="False"  Click="RemoveScene" Grid.Row="0" Grid.Column="0" Margin="0 3 9 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >-</Button>
+                <ListBox SelectionChanged="ScenesView_SelectionChanged" x:Name="ScenesView" ItemsSource="{Binding Path=Project.Scenes}" BorderBrush="Gray" BorderThickness="1" Grid.Row="0" Grid.Column="0" Foreground="WhiteSmoke" Margin="0 30 6 6" HorizontalAlignment="Stretch">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Label Height="24" Foreground="WhiteSmoke" Content="{Binding Name}" HorizontalAlignment="Left" ></Label>
+                                <Image Style="{StaticResource ConditionStar}"  Width="16" Height="16" HorizontalAlignment="Right" Source="pack://siteoforigin:,,,/Icons/star16.png" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
             <GridSplitter VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Column="0" Background="Gray" Foreground="Gray" Grid.Row="0" ShowsPreview="False" Height="3" />
             <Label Grid.Row="1" Grid.Column="0" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Margin="0 3 6 0" Padding="10 5 0 0" >Объекты</Label>
-            <Button Click="AddObject" Grid.Row="1" Grid.Column="0" Margin="0 5 37 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >+</Button>
-            <Button Click="RemoveObject" Grid.Row="1" Grid.Column="0" Margin="0 5 9 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >-</Button>
-            <ListBox SelectionChanged="ObjectsView_SelectionChanged" x:Name="ObjectsView" BorderBrush="Gray" ItemsSource="{Binding Path=Objects}" BorderThickness="1" Grid.Row="1" Grid.Column="0" Foreground="WhiteSmoke" Margin="0 30 6 0" HorizontalAlignment="Stretch">               
+            <Button x:Name="AddObjectBtn" IsEnabled="False" Click="AddObject" Grid.Row="1" Grid.Column="0" Margin="0 5 37 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >+</Button>
+            <Button x:Name="RemoveObjectBtn" IsEnabled="False" Click="RemoveObject" Grid.Row="1" Grid.Column="0" Margin="0 5 9 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >-</Button>
+            <ListBox SelectionChanged="ObjectsView_SelectionChanged" x:Name="ObjectsView" BorderBrush="Gray" ItemsSource="{Binding Path=Objects}" BorderThickness="1" Grid.Row="1" Grid.Column="0" Foreground="WhiteSmoke" Margin="0 30 6 0" HorizontalAlignment="Stretch">
             </ListBox>
-            <GridSplitter Grid.Column="0" Background="Gray" Foreground="Gray" Grid.Row="0" Grid.RowSpan="2" ShowsPreview="False" Width="3" />
-            <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Margin="3 0 6 0" Padding="10 5 0 0" >Сцена</Label>
-            <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Foreground="WhiteSmoke" Margin="40 0 6 0" Padding="10 7 0 0" >(1000x200)</Label>
-            <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Foreground="WhiteSmoke" Margin="140 0 6 0" Padding="10 7 0 0" Name="SceneCoordinatesView" >[X:0 Y:0]</Label>
-            <Border BorderBrush="Gray" BorderThickness="1" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="3 30 6 0">
-                <Canvas Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"/>
+
+
+
+
+
+            <Label Grid.Row="2" Grid.Column="0" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Margin="0 3 6 0" Padding="10 5 0 0" >Ресурсы</Label>
+            <Button  IsEnabled="False" Click="AddObject" Grid.Row="2" Grid.Column="0" Margin="0 5 37 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >+</Button>
+            <Button IsEnabled="False" Click="RemoveObject" Grid.Row="2" Grid.Column="0" Margin="0 5 9 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >-</Button>
+            <TreeView x:Name="ResourcesView" Margin="0 30 6 0" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Foreground="WhiteSmoke" BorderBrush="Gray" Style="{DynamicResource TreeViewStyle1}">               
+                <!--<TreeViewItem Template="{DynamicResource TreeViewItemTemplate1}" Foreground="WhiteSmoke" Header="Resources" FontSize="14" IsExpanded="True" Margin="0 3 5 5">
+                    <TreeViewItem Template="{DynamicResource TreeViewItemTemplate1}"  Header="Image.png" Foreground="WhiteSmoke" FontSize="14" Margin="0 3 5 5"/>
+                    <TreeViewItem Template="{DynamicResource TreeViewItemTemplate1}"  Header="Desingage.fbx" Foreground="WhiteSmoke" FontSize="14" Margin="0 3 5 5"/>
+                </TreeViewItem>-->
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Nodes}">
+                        <TextBlock Text="{Binding Name}" />
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+
+                <GridSplitter Grid.Column="0" Background="Gray" Foreground="Gray" Grid.Row="0" Grid.RowSpan="3" ShowsPreview="False" Width="3" />
+            <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" >
+                <Grid>
+                    <Label Height="32" VerticalAlignment="Top" MouseLeftButtonDown="Label_MouseLeftButtonDown" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Margin="3 0 6 0" Padding="10 5 0 0" >Сцена</Label>
+                    <Label Height="32" VerticalAlignment="Top" MouseLeftButtonDown="Label_MouseLeftButtonDown" Foreground="WhiteSmoke" Margin="40 0 6 0" Padding="10 7 0 0" >(1000x200)</Label>
+                    <Label Height="32" VerticalAlignment="Top" MouseLeftButtonDown="Label_MouseLeftButtonDown" Foreground="WhiteSmoke" Margin="140 0 6 0" Padding="10 7 0 0" Name="SceneCoordinatesView" >[X:0 Y:0]</Label>
+                </Grid>
             </Border>
-            <GridSplitter Grid.Column="1" Background="Gray" Foreground="Gray" Grid.Row="0" Grid.RowSpan="2" ShowsPreview="False" Width="3"/>
+            <Border BorderBrush="Gray" BorderThickness="1" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Margin="3 30 6 0">
+                <!--<Canvas Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"/>-->
+                <host:D3D11Host x:Name="XnaHost" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" SnapsToDevicePixels="True" Stretch="Fill" />
+            </Border>
+            <GridSplitter Grid.Column="1" Background="Gray" Foreground="Gray" Grid.Row="0" Grid.RowSpan="3" ShowsPreview="False" Width="3"/>
             <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Padding="10 5 0 0" Margin="3 0 0 0">Свойства</Label>
             <Button x:Name="PropGridSaveBtn" IsEnabled="False" Click="SavePropGrid" Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 5 10 0">Сохранить</Button>
             <Border BorderBrush="Gray" 
@@ -214,7 +418,7 @@
                      Margin="3 30 0 0" 
                     Grid.Row="0" 
                 Grid.Column="3" 
-                Grid.RowSpan="2">
+                Grid.RowSpan="3">
                 <Grid  x:Name="PropGrid"
                 Background="#3F3F46"                
                HorizontalAlignment="Stretch">
@@ -231,7 +435,7 @@
                 </Grid>
             </Border>
 
-            <StatusBar  Grid.Row="2" Grid.ColumnSpan="3"  DockPanel.Dock="Bottom" BorderBrush="Gray" Margin="0 2 0 0" BorderThickness="1" Background="#007ACC">
+            <StatusBar  Grid.Row="3" Grid.ColumnSpan="3"  DockPanel.Dock="Bottom" BorderBrush="Gray" Margin="0 2 0 0" BorderThickness="1" Background="#007ACC">
                 <StatusBarItem>
                     <StackPanel Orientation="Horizontal" >
                         <TextBlock x:Name="StatusText" Foreground="White"></TextBlock>
@@ -239,6 +443,6 @@
                 </StatusBarItem>
             </StatusBar>
             <controls:Loader x:Name="LoaderFreeze" Grid.RowSpan="2" Grid.ColumnSpan="3" Visibility="Hidden"/>
-        </Grid>        
+        </Grid>
     </DockPanel>
 </Window>

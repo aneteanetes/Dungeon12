@@ -45,6 +45,11 @@ namespace Dungeon.Engine.Forms
 
             Directory.CreateDirectory(Path.Combine(path, "Scenes"));
 
+            Project.Scenes.Add(new DungeonEngineScene()
+            {
+                StartScene=true
+            });
+
             DungeonGlobal.Events.Raise(new ProjectInitializeEvent(Project));
 
             this.Close();

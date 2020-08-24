@@ -22,6 +22,8 @@ namespace Dungeon.Resources
         /// </summary>
         public static bool CacheImagesAndMasks = true;
 
+        public static ResourceDatabaseResolver ResourceDatabaseResolver { get; set; } = default;
+
         public static bool Exists(string resource) => LoadResource(resource) != default;
 
         private static LiteDatabase liteDatabase;
@@ -31,7 +33,14 @@ namespace Dungeon.Resources
             {
                 if (liteDatabase == default)
                 {
-                    liteDatabase = new LiteDatabase(ResourceCompiler.CompilePath);
+                    if (ResourceDatabaseResolver == default)
+                    {
+                        liteDatabase = new LiteDatabase(ResourceCompiler.CompilePath);
+                    }
+                    else
+                    {
+                        liteDatabase = ResourceDatabaseResolver.Resolve();
+                    }
                     DungeonGlobal.Exit += () => liteDatabase.Dispose();
                 }
                 return liteDatabase;

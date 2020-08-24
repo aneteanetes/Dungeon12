@@ -1,16 +1,27 @@
 ﻿using Dungeon.Control;
+using Dungeon.Engine.Engine;
 using Dungeon.Engine.Events;
+using Dungeon.Engine.Forms;
+using Dungeon.Engine.Host;
 using Dungeon.Engine.Menus;
 using Dungeon.Engine.Projects;
+using Dungeon.Engine.Utils;
 using Dungeon.Entities;
+using Dungeon.Resources;
+using Dungeon.Scenes.Manager;
+using Dungeon.Utils;
+using LiteDB;
+using MathNet.Numerics.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -18,11 +29,28 @@ using Xceed.Wpf.Toolkit.PropertyGrid;
 
 namespace Dungeon.Engine
 {
+    class TreeViewLineConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            TreeViewItem item = (TreeViewItem)value;
+            ItemsControl ic = ItemsControl.ItemsControlFromItemContainer(item);
+            return ic.ItemContainerGenerator.IndexFromContainer(item) == ic.Items.Count - 1;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return false;
+        }
+    }
+
     public partial class MainWindow : Window
     {
         public ObservableCollection<MenuItem> MenuItems { get; set; } = new ObservableCollection<MenuItem>();
 
         public DungeonEngineProject Project { get; set; }
+
+        public SceneManager SceneManager { get; set; }
 
         public MainWindow()
         {
@@ -35,6 +63,7 @@ namespace Dungeon.Engine
             DungeonGlobal.Events.Subscribe<FreezeAllEvent>(FreezeEventHandler, false);
             DungeonGlobal.Events.Subscribe<UnfreezeAllEvent>(UnreezeEventHandler, false);
             DungeonGlobal.Events.Subscribe<StatusChangeEvent>(ChangeStatusHandler, false);
+            DungeonGlobal.Events.Subscribe<ResourceAddEvent>(AddedNewResourceEvent, false);
         }
         private void UnreezeEventHandler(UnfreezeAllEvent @event)
         {
@@ -66,6 +95,7 @@ namespace Dungeon.Engine
         {
             var proj = @event.Project;
 
+            AddObjectBtn.IsEnabled = RemoveObjectBtn.IsEnabled = AddSceneBtn.IsEnabled = RemoveSceneBtn.IsEnabled = proj != default;
 
             App.Container.Reset();
             if (proj != default)
@@ -77,9 +107,43 @@ namespace Dungeon.Engine
                 WindowTitle.Text = $"Dungeon Engine - {Project.Name}";
 
                 ScenesView.ItemsSource = Project.Scenes;
+
+                if (Project.Resources == default)
+                {
+                    Project.Resources = new ObservableCollection<DungeonEngineResourcesGraph>
+                    {
+                        new DungeonEngineResourcesGraph()
+                        {
+                            Nodes = new ObservableCollection<DungeonEngineResourcesGraph>()
+                            {
+                                new DungeonEngineResourcesGraph(){ Path="./DungeonEngine.meta"}
+                            }
+                        }
+                    };
+                }
+
+                ResourcesView.ItemsSource = Project.Resources;
+
+                ResourceLoader.ResourceDatabaseResolver = new DungeonEngineResourceDatabaseResolver(Project.DbFilePath);
+
+                var sceneManager = new SceneManager()
+                {
+                    DrawClient = XnaHost
+                };
+                DungeonGlobal.SceneManager = sceneManager;
+
+                sceneManager.Start();
+                sceneManager.Change<EasyScene>();
             }
             else
             {
+                if (Project != default)
+                {
+                    Project.Scenes.Clear();
+                    Project.Resources.Clear();
+                }
+                Project = default;
+                ClearPropGrid();
                 WindowTitle.Text = $"Dungeon Engine";
                 ChangeStatus();
             }
@@ -156,15 +220,24 @@ namespace Dungeon.Engine
             if (!Available)
                 return;
 
-            Project.Scenes.Add(new DungeonEngineScene());
+            Project.Scenes.Add(new DungeonEngineScene() { Name = "Scene" });
 
             ScenesView.SelectedIndex = ScenesView.Items.Count - 1;
         }
 
         private void RemoveScene(object sender, RoutedEventArgs e)
         {
-            Project.Scenes.Remove(ScenesView.SelectedItem as DungeonEngineScene);
-            ScenesView.SelectedIndex = ScenesView.Items.Count - 1;
+            if(ScenesView.SelectedItem is DungeonEngineScene des)
+            {
+                if (des.StartScene)
+                {
+                    MessageBox.Show("Невозможно удалить Стартовую сцену");
+                    return;
+                }
+
+                Project.Scenes.Remove(des);
+                ScenesView.SelectedIndex = ScenesView.Items.Count - 1;
+            }
         }
 
         private void AddObject(object sender, RoutedEventArgs e)
@@ -214,6 +287,15 @@ namespace Dungeon.Engine
 
             foreach (var prop in Obj.GetType().GetProperties())
             {
+
+                var hidden = Attribute.GetCustomAttributes(prop)
+                    .FirstOrDefault(x => x.GetType() == typeof(HiddenAttribute)) != default;
+                if (hidden)
+                    continue;
+
+                if (!prop.CanWrite)
+                    continue;
+
                 PropGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(28) });
 
                 var displ = (DisplayAttribute)Attribute
@@ -278,6 +360,9 @@ namespace Dungeon.Engine
 
         private void SavePropGrid(object sender, RoutedEventArgs e)
         {
+            if (PropGridBinding == default)
+                return;
+
             List<string> failedProps = new List<string>();
 
             foreach (var propBind in PropGridBinding)
@@ -325,6 +410,31 @@ namespace Dungeon.Engine
             }
 
             StatusText.Text = "";
+        }
+
+        private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void AddedNewResourceEvent(ResourceAddEvent @event)
+        {
+            @event.ParentResource.Nodes.Add(@event.Resource);
+            new LiteDatabase(Project.DbFilePath).GetCollection<Resource>()
+                .Insert(new Resource()
+            {
+                Path = Path.GetFileName(@event.Resource.Path),
+                Data = File.ReadAllBytes(@event.Resource.Path)
+            });
+            Save();
+        }
+
+        private void AddResourceCtxClick(object sender, RoutedEventArgs e)
+        {
+            if (ResourcesView.SelectedItem is DungeonEngineResourcesGraph resGraph)
+            {
+                new AddResourceForm(resGraph).Show();
+            }
         }
     }
 }

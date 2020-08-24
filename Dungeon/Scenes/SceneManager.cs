@@ -55,23 +55,27 @@
             DungeonGlobal.GameAssemblyName = startSceneType.Assembly.GetName().Name;
             DungeonGlobal.GameAssembly = startSceneType.Assembly;
 
-            DungeonGlobal.Assemblies.FirstOrDefault((Func<Assembly, bool>)(asm =>
+            DungeonGlobal.Assemblies.FirstOrDefault(asm =>
             {
-                var type = asm.GetTypes().FirstOrDefault(t => t?.BaseType?.Name?.Contains("LoadingScene") ?? false);
-                if (type == null)
+                try
                 {
-                    return false;
-                }
+                    var type = asm.GetTypes().FirstOrDefault(t => t?.BaseType?.Name?.Contains("LoadingScene") ?? false);
+                    if (type == null)
+                    {
+                        return false;
+                    }
 
-                if (!type.IsGenericType)
-                {
-                    SceneManager.LoadingScreenType = type;
-                    type.New();
-                    return true;
-                }
+                    if (!type.IsGenericType)
+                    {
+                        SceneManager.LoadingScreenType = type;
+                        type.New();
+                        return true;
+                    }
 
+                }
+                catch { }
                 return false;
-            }));
+            });
 
             if (startSceneType != null)
             {

@@ -17,5 +17,7 @@ namespace Dungeon.Monogame
         public bool VerticalSync { get; set; } = true;
 
         public bool Add2DLighting { get; set; } = true;
+
+        public bool Embedded { get; set; } = false;
     }
 }

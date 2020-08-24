@@ -17,24 +17,6 @@
     using System.IO;
     using System.Reflection;
 
-    public class SpiteBatchKnowed : SpriteBatch
-    {
-        public bool Opened { get; private set; }
-
-        public SpiteBatchKnowed(GraphicsDevice graphicsDevice) : base(graphicsDevice) { }
-
-        public new void Begin(SpriteSortMode sortMode = SpriteSortMode.Deferred, BlendState blendState = null, SamplerState samplerState = null, DepthStencilState depthStencilState = null, RasterizerState rasterizerState = null, Effect effect = null, Matrix? transformMatrix = null)
-        {
-            Opened = true;
-            base.Begin(sortMode, blendState, samplerState, depthStencilState, rasterizerState, effect, transformMatrix);
-        }
-
-        public new void End()
-        {
-            Opened = false;
-            base.End();
-        }
-    }
 
     public partial class XNADrawClient : Game, IDrawClient
     {
@@ -139,6 +121,9 @@
         // new code:
         BasicEffect effect;
 
+
+        XNADrawClientImplementation XNADrawClientImplementation;
+
         protected override void Initialize()
         {
             this.Window.Title = DungeonGlobal.GameTitle;
@@ -173,7 +158,6 @@
             DungeonGlobal.Camera = this;
 
 
-
             var penumbraShaders = new Dictionary<string, Effect>();            
             var penumbraShaderPaths = new (string path, string key)[]
             {
@@ -205,12 +189,9 @@
 
             penumbra.Lights.Add(SunLight);
 
-
-
             DungeonGlobal.SceneManager = this.SceneManager;
 
             var pathShader = "Dungeon.Monogame.Resources.Shaders.ExtractLight.xnb";
-
             using (Stream stream = asm.GetManifestResourceStream(pathShader))
             {
                 if (stream.CanSeek)
@@ -220,6 +201,8 @@
 
                 GlobalImageFilter = Content.Load<Effect>(pathShader, stream);
             }
+
+            XNADrawClientImplementation = new XNADrawClientImplementation(GraphicsDevice, penumbra, spriteBatch, 32, GlobalImageFilter, Content, this, myRenderer);
 
             SceneManager.Start(isFatal ? "FATAL" : default);
             Network.Start();
@@ -359,6 +342,7 @@
         private bool skipCallback = false;
         public Callback SetScene(IScene scene)
         {
+            XNADrawClientImplementation.scene = scene;
             this.scene = scene;
             сallback = new Callback(()=>
             {

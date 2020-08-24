@@ -1,4 +1,5 @@
 ﻿using Dungeon.Network;
+using Dungeon.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,6 +21,7 @@ namespace Dungeon.Transactions
         /// <summary>
         /// Флаг указывающий что этот объект обрабатывает любые события шины через диспатч
         /// </summary>
+        [Hidden]
         public virtual bool Events => false;
 
         public Applicable()
