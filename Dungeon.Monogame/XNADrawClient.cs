@@ -153,27 +153,6 @@
             Window.TextInput += OnTextInput;
             // TODO: Add your initialization logic here
 #endif
-            viewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, 6), new Vector3(0, 0, 0), Vector3.Up);
-
-            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4,
-                (float)Window.ClientBounds.Width / (float)Window.ClientBounds.Height,
-                1, 100);
-
-            worldMatrix = Matrix.CreateWorld(new Vector3(0f, 0f, 0f), new Vector3(0, 0, -1), Vector3.Up);
-
-
-            floorVerts = new VertexPositionTexture[6];
-
-            floorVerts[0].Position = new Vector3(-20, -20, 0);
-            floorVerts[1].Position = new Vector3(-20, 20, 0);
-            floorVerts[2].Position = new Vector3(20, -20, 0);
-
-            floorVerts[3].Position = floorVerts[1].Position;
-            floorVerts[4].Position = new Vector3(20, 20, 0);
-            floorVerts[5].Position = floorVerts[2].Position;
-            // new code:
-            effect = new BasicEffect(graphics.GraphicsDevice);
-
             base.Initialize();
         }
 
@@ -246,8 +225,6 @@
             Network.Start();
             // TODO: use this.Content to load your game content here
         }
-
-        private Model model;
 
         private bool loaded = false;
 
