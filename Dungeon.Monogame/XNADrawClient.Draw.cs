@@ -32,6 +32,104 @@
             throw new System.NotImplementedException();
         }
 
+        void DrawGround()
+        {
+            // The assignment of effect.View and effect.Projection
+            // are nearly identical to the code in the Model drawing code.
+            var cameraPosition = new Vector3(0, 40, 20);
+            var cameraLookAtVector = Vector3.Zero;
+            var cameraUpVector = Vector3.UnitZ;
+
+            effect.View = Matrix.CreateLookAt(
+                cameraPosition, cameraLookAtVector, cameraUpVector);
+
+            float aspectRatio =
+                graphics.PreferredBackBufferWidth / (float)graphics.PreferredBackBufferHeight;
+            float fieldOfView = Microsoft.Xna.Framework.MathHelper.PiOver4;
+            float nearClipPlane = 1;
+            float farClipPlane = 200;
+
+            effect.Projection = Matrix.CreatePerspectiveFieldOfView(
+                fieldOfView, aspectRatio, nearClipPlane, farClipPlane);
+
+            foreach (var pass in effect.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+
+                graphics.GraphicsDevice.DrawUserPrimitives(
+                    // We’ll be rendering two trinalges
+                    PrimitiveType.TriangleList,
+                    // The array of verts that we want to render
+                    floorVerts,
+                    // The offset, which is 0 since we want to start
+                    // at the beginning of the floorVerts array
+                    0,
+                    // The number of triangles to draw
+                    2);
+            }
+        }
+
+        void DrawModel()
+        {
+            foreach (var mesh in model.Meshes)
+            {
+                // "Effect" refers to a shader. Each mesh may
+                // have multiple shaders applied to it for more
+                // advanced visuals. 
+                foreach (BasicEffect effect in mesh.Effects)
+                {
+                    // We could set up custom lights, but this
+                    // is the quickest way to get somethign on screen:
+                    //effect.EnableDefaultLighting();
+                    // This makes lighting look more realistic on
+                    // round surfaces, but at a slight performance cost:
+                    effect.PreferPerPixelLighting = true;
+
+                    // The world matrix can be used to position, rotate
+                    // or resize (scale) the model. Identity means that
+                    // the model is unrotated, drawn at the origin, and
+                    // its size is unchanged from the loaded content file.
+                    effect.World = Matrix.Identity;
+
+                    // Move the camera 8 units away from the origin:
+                    var cameraPosition = new Vector3(0, 8, 0);
+                    // Tell the camera to look at the origin:
+                    var cameraLookAtVector = Vector3.Zero;
+                    // Tell the camera that positive Z is up
+                    var cameraUpVector = Vector3.UnitZ;
+
+                    effect.View = Matrix.CreateLookAt(
+                        cameraPosition, cameraLookAtVector, cameraUpVector);
+
+                    // We want the aspect ratio of our display to match
+                    // the entire screen's aspect ratio:
+                    float aspectRatio =
+                        graphics.PreferredBackBufferWidth / (float)graphics.PreferredBackBufferHeight;
+                    // Field of view measures how wide of a view our camera has.
+                    // Increasing this value means it has a wider view, making everything
+                    // on screen smaller. This is conceptually the same as "zooming out".
+                    // It also 
+                    float fieldOfView = Microsoft.Xna.Framework.MathHelper.PiOver4;
+                    // Anything closer than this will not be drawn (will be clipped)
+                    float nearClipPlane = 1;
+                    // Anything further than this will not be drawn (will be clipped)
+                    float farClipPlane = 200;
+
+                    effect.Projection = Matrix.CreatePerspectiveFieldOfView(
+                        fieldOfView, aspectRatio, nearClipPlane, farClipPlane);
+
+                }
+
+                // Now that we've assigned our properties on the effects we can
+                // draw the entire mesh
+                mesh.Draw();
+            }
+        }
+
+        Matrix projectionMatrix;
+        Matrix viewMatrix;
+        Matrix worldMatrix;
+
         protected override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
             drawCicled = true;
@@ -73,6 +171,9 @@
             {
                 spriteBatch.End();
             }
+
+            if (!clientSettings.Add2DLighting)
+                base.Draw(gameTime);
         }
 
         private bool frameEnd;
@@ -94,7 +195,7 @@
                 .OrderBy(x => x.Layer).ToArray();
 
 #if Core
-            //penumbra.BeginDraw();
+            penumbra.BeginDraw();
 #endif
 
             SetSpriteBatch();
@@ -106,7 +207,7 @@
             spriteBatch.End();
 
 #if Core
-            //penumbra.Draw(gameTime);
+            penumbra.Draw(gameTime);
 #endif
             SetSpriteBatch();
 
@@ -189,18 +290,22 @@
 
                 //var text = $"Версия: {DungeonGlobal.Version}";
 
-                var pathfont = "Dungeon12.Resources.Fonts.xnb.Montserrat.Montserrat10.xnb";
 
-                var montserrat10Res = ResourceLoader.Load(pathfont);
+                using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(DefaultFontXnbExistedFile))
+                {
+                    if (stream.CanSeek)
+                    {
+                        stream.Seek(0, SeekOrigin.Begin);
+                    }
 
+                    var font = Content.Load<SpriteFont>(DefaultFontXnbExistedFile, stream);
 
-                var font = Content.Load<SpriteFont>(pathfont, montserrat10Res.Stream);
+                    var m = (float)this.MeasureText(DungeonGlobal.FPS.ToString().AsDrawText().InSize(10)).X;
 
-                var m = (float)this.MeasureText(DungeonGlobal.FPS.ToString().AsDrawText().InSize(10)).X;
+                    //spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);
 
-                //spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);
-
-                spriteBatch.DrawString(font, DungeonGlobal.FPS.ToString(), new Vector2(this.Window.ClientBounds.Width- m, 15), Color.Yellow);
+                    spriteBatch.DrawString(font, DungeonGlobal.FPS.ToString(), new Vector2(this.Window.ClientBounds.Width - m, 15), Color.Yellow);
+                }
 
                 if (neeedClose)
                 {
@@ -212,22 +317,40 @@
             catch { spriteBatch.End(); }
         }
 
+        private const string DefaultFontXnbExistedFile = "Dungeon.Monogame.Resources.Fonts.xnb.Montserrat.Montserrat10.xnb";
+
         public Dungeon.Types.Point MeasureText(IDrawText drawText, ISceneObject parent=default)
         {
             string customFontName = null;
             if (drawText.FontName != null)
             {
-                customFontName = $"Dungeon12.Resources.Fonts.xnb.{drawText.FontName}/{drawText.FontName}{drawText.Size}.xnb".Embedded();
+                customFontName = $"{DungeonGlobal.GameAssemblyName}.Resources.Fonts.xnb.{drawText.FontName}/{drawText.FontName}{drawText.Size}.xnb".Embedded();
             }
 
             if (customFontName == default)
             {
-                customFontName = $"Dungeon12.Resources.Fonts/xnb/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}.xnb".Embedded();
+                customFontName = $"{DungeonGlobal.GameAssemblyName}.Resources.Fonts/xnb/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}.xnb".Embedded();
             }
 
-            var resFont = ResourceLoader.Load(customFontName);
+            SpriteFont font = default;
+            var resFont = ResourceLoader.Load(customFontName,false,false);
 
-            var font = Content.Load<SpriteFont>(customFontName, resFont.Stream);
+            if (resFont != default)
+            {
+                font = Content.Load<SpriteFont>(customFontName, resFont.Stream);
+            }
+            else
+            {
+                using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(DefaultFontXnbExistedFile))
+                {
+                    if (stream.CanSeek)
+                    {
+                        stream.Seek(0, SeekOrigin.Begin);
+                    }
+
+                    font = Content.Load<SpriteFont>(DefaultFontXnbExistedFile, stream);
+                }
+            }
 
             var data = drawText.StringData;
 

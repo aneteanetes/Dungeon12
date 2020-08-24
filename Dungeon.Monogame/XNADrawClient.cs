@@ -6,6 +6,7 @@
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
     using Microsoft.Xna.Framework.Media;
@@ -13,6 +14,8 @@
     using ProjectMercury.Renderers;
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Reflection;
 
     public class SpiteBatchKnowed : SpriteBatch
     {
@@ -66,26 +69,32 @@
         private bool blockControls = false;
         private float audioVolume = 0;
 
-        protected virtual void GraphicsDeviceManagerInitialization()
+        protected virtual void GraphicsDeviceManagerInitialization(MonogameClientSettings settings)
         {
             graphics = new GraphicsDeviceManager(this)
             {
-                IsFullScreen =
-#if Android
-                true,
-#endif
-#if Core
-                false,
-#endif
-                PreferredBackBufferWidth = 1280,
-                PreferredBackBufferHeight = 720,
-                SynchronizeWithVerticalRetrace = true,
+                IsFullScreen = settings.IsFullScreen,
+                PreferredBackBufferWidth = settings.WidthPixel,
+                PreferredBackBufferHeight = settings.HeightPixel,
+                SynchronizeWithVerticalRetrace = settings.VerticalSync,
             };
+
+            if (settings.IsWindowedFullScreen)
+            {
+                graphics.HardwareModeSwitch = false;
+            }
         }
 
-        public XNADrawClient()
+        ContentResolver contentResolver;
+
+        private MonogameClientSettings clientSettings;
+
+        public XNADrawClient(MonogameClientSettings settings)
         {
-            GraphicsDeviceManagerInitialization();
+            clientSettings = settings;
+            GraphicsDeviceManagerInitialization(settings);
+
+            contentResolver = new EmbeddedContentResolver();
 
             audioVolume = (float)DungeonGlobal.AudioOptions.Volume;
             MediaPlayer.Volume = audioVolume;
@@ -126,9 +135,13 @@
             DungeonGlobal.TransportVariable = GraphicsDevice;
         }
 
+        VertexPositionTexture[] floorVerts;
+        // new code:
+        BasicEffect effect;
+
         protected override void Initialize()
         {
-            this.Window.Title = GameTitle;
+            this.Window.Title = DungeonGlobal.GameTitle;
 #if Android
             GraphicsDevice.PresentationParameters.IsFullScreen = true;
             var r = GraphicsDevice.Viewport.Bounds;
@@ -140,6 +153,27 @@
             Window.TextInput += OnTextInput;
             // TODO: Add your initialization logic here
 #endif
+            viewMatrix = Matrix.CreateLookAt(new Vector3(0, 0, 6), new Vector3(0, 0, 0), Vector3.Up);
+
+            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4,
+                (float)Window.ClientBounds.Width / (float)Window.ClientBounds.Height,
+                1, 100);
+
+            worldMatrix = Matrix.CreateWorld(new Vector3(0f, 0f, 0f), new Vector3(0, 0, -1), Vector3.Up);
+
+
+            floorVerts = new VertexPositionTexture[6];
+
+            floorVerts[0].Position = new Vector3(-20, -20, 0);
+            floorVerts[1].Position = new Vector3(-20, 20, 0);
+            floorVerts[2].Position = new Vector3(20, -20, 0);
+
+            floorVerts[3].Position = floorVerts[1].Position;
+            floorVerts[4].Position = new Vector3(20, 20, 0);
+            floorVerts[5].Position = floorVerts[2].Position;
+            // new code:
+            effect = new BasicEffect(graphics.GraphicsDevice);
+
             base.Initialize();
         }
 
@@ -152,9 +186,6 @@
             GraphicsDevice.PresentationParameters.RenderTargetUsage = RenderTargetUsage.PreserveContents;
             spriteBatch = new SpiteBatchKnowed(GraphicsDevice);
 
-
-            IntPtr winHandle = Window.Handle;            
-
             SceneManager = new SceneManager
             {
                 DrawClient = this
@@ -164,24 +195,34 @@
 
 
 
-            var penumbraShaders = new Dictionary<string, Effect>();
+            var penumbraShaders = new Dictionary<string, Effect>();            
             var penumbraShaderPaths = new (string path, string key)[]
             {
-                ( "Dungeon12.Resources.Shaders.PenumbraHull.xnb" ,"PenumbraHull"),
-                ( "Dungeon12.Resources.Shaders.PenumbraLight.xnb" ,"PenumbraLight"),
-                ( "Dungeon12.Resources.Shaders.PenumbraShadow.xnb" ,"PenumbraShadow"),
-                ( "Dungeon12.Resources.Shaders.PenumbraTexture.xnb" ,"PenumbraTexture")
+                ( $"Dungeon.Monogame.Resources.Shaders.PenumbraHull.xnb" ,"PenumbraHull"),
+                ( $"Dungeon.Monogame.Resources.Shaders.PenumbraLight.xnb" ,"PenumbraLight"),
+                ( $"Dungeon.Monogame.Resources.Shaders.PenumbraShadow.xnb" ,"PenumbraShadow"),
+                ( $"Dungeon.Monogame.Resources.Shaders.PenumbraTexture.xnb" ,"PenumbraTexture")
             };
+
+
+            var asm = Assembly.GetExecutingAssembly();
 
             foreach (var (path, key) in penumbraShaderPaths)
             {
-                var res = ResourceLoader.Load(path);
-                penumbraShaders.Add(key, Content.Load<Effect>(path, res.Stream));
+                using (Stream stream = asm.GetManifestResourceStream(path))
+                {
+                    if(stream.CanSeek)
+                    {
+                        stream.Seek(0, SeekOrigin.Begin);
+                    }
+                    penumbraShaders.Add(key, Content.Load<Effect>(path, stream));
+                }
             }
 
             penumbra = new PenumbraComponent(this, penumbraShaders);
             penumbra.Initialize();
-            Components.Add(penumbra);
+            if (clientSettings.Add2DLighting)
+                Components.Add(penumbra);
 
             penumbra.Lights.Add(SunLight);
 
@@ -189,16 +230,24 @@
 
             DungeonGlobal.SceneManager = this.SceneManager;
 
-            var pathShader = "Dungeon12.Resources.Shaders.ExtractLight.xnb";
+            var pathShader = "Dungeon.Monogame.Resources.Shaders.ExtractLight.xnb";
 
-            var extractLight = ResourceLoader.Load(pathShader);
+            using (Stream stream = asm.GetManifestResourceStream(pathShader))
+            {
+                if (stream.CanSeek)
+                {
+                    stream.Seek(0, SeekOrigin.Begin);
+                }
 
-            GlobalImageFilter = Content.Load<Effect>(pathShader, extractLight.Stream);
+                GlobalImageFilter = Content.Load<Effect>(pathShader, stream);
+            }
 
             SceneManager.Start(isFatal ? "FATAL" : default);
             Network.Start();
             // TODO: use this.Content to load your game content here
         }
+
+        private Model model;
 
         private bool loaded = false;
 

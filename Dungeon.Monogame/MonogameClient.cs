@@ -4,11 +4,15 @@ using System.Text;
 
 namespace Dungeon.Monogame
 {
-    public static class MonogameClient
+    public class MonogameClient
     {
-        public static void Run(bool FATAL = false)
+        MonogameClientSettings _settings;
+
+        public MonogameClient(MonogameClientSettings settings) => _settings = settings;
+
+        public void Run(bool FATAL = false)
         {
-            using (var game = new XNADrawClient())
+            using (var game = new XNADrawClient(_settings))
             {
                 game.isFatal = FATAL;
                 DungeonGlobal.Exit += () =>

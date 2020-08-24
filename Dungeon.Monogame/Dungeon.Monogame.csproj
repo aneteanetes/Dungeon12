@@ -19,6 +19,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="**\Resources\**\*" />
     <None Remove="Icon.bmp" />
     <None Remove="Icon.ico" />
   </ItemGroup>
@@ -31,7 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MonoGame.Content.Builder" Version="3.7.0.4" />
-    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.0.8.7" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.0.8.11" />
     <PackageReference Include="NSubsys" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -46,19 +47,11 @@
   </ItemGroup>
   <Import Project="$(SolutionDir)\NuGet.Common.props" />
   <Import Project="$(SolutionDir)\Symbols.props" />
-  
-  <ItemGroup>
-    <MySourceFiles Include="$(SolutionDir)\**\**\Resources\*.*" />
-  </ItemGroup>
-  
+    
   <ItemGroup>
     <Compile Remove="Content\**" />
     <EmbeddedResource Remove="Content\**" />
+    <EmbeddedResource Include="**\Resources\**\*" />
     <None Remove="Content\**" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <EmbeddedResource Include="Icon.bmp" />
-    <EmbeddedResource Include="Icon.ico" />
   </ItemGroup>
 </Project>
