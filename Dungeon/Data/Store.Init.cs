@@ -177,7 +177,7 @@ namespace Dungeon
             {
                 try
                 {
-                    return Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.Parent.ToString();
+                    return Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.ToString();
                 }
                 catch (Exception)
                 {
