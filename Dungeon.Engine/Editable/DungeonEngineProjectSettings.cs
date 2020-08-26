@@ -1,10 +1,11 @@
 ﻿using Dungeon.Data;
+using Dungeon.Monogame;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dungeon.Engine.Projects
 {
-    public class DungeonEngineProjectSettings
-    {
+    public class DungeonEngineProjectSettings : MonogameClientSettings
+    {        
         [Display(Name ="Проброс исключений", Description ="Вместо обработок ошибок приложение будет выбрасывать исключение")]
         public bool ExceptionRethrow { get; set; } = false;
 

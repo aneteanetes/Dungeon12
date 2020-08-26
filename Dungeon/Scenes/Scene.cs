@@ -38,7 +38,7 @@
         private List<ISceneObjectControl> sceneObjectsInFocuses = new List<ISceneObjectControl>();
         private List<ISceneObjectControl> SceneObjectsInFocus=> new List<ISceneObjectControl>(sceneObjectsInFocuses);
         
-        protected void AddObject(ISceneObject sceneObject)
+        public void AddObject(ISceneObject sceneObject)
         {
             if (sceneObject.ControlBinding == null)
             {

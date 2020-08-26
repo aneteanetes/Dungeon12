@@ -47,7 +47,9 @@ namespace Dungeon.Engine.Forms
 
             Project.Scenes.Add(new DungeonEngineScene()
             {
-                StartScene=true
+                StartScene = true,
+                Width = Project.CompileSettings.WidthPixel,
+                Height = Project.CompileSettings.HeightPixel
             });
 
             DungeonGlobal.Events.Raise(new ProjectInitializeEvent(Project));

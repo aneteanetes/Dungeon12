@@ -23,7 +23,7 @@ namespace Dungeon.Engine.Projects
 
         public ObservableCollection<DungeonEngineResourcesGraph> Resources { get; set; }
 
-        public DungeonEngineProjectSettings CompileSettings { get; set; }
+        public DungeonEngineProjectSettings CompileSettings { get; set; } = new DungeonEngineProjectSettings();
 
         public bool DataBaseExists => File.Exists(DbFilePath);
 
@@ -33,6 +33,17 @@ namespace Dungeon.Engine.Projects
         {
             using var db = new LiteDatabase(DbFilePath);
             var updated = db.GetCollection<DungeonEngineProject>().Update(new BsonValue(this.Id),this);
+        }
+
+        public void Load()
+        {
+            foreach (var scene in Scenes)
+            {
+                foreach (var obj in scene.SceneObjects)
+                {
+                    obj.InitTable();
+                }
+            }
         }
     }
 }

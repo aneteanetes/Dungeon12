@@ -6,8 +6,10 @@
     using Dungeon.GameObjects;
     using Dungeon.SceneObjects;
     using Dungeon.Settings;
+    using Dungeon.Utils;
     using Dungeon.View.Interfaces;
 
+    [Hidden]
     public class ColoredRectangle<TComponent> : HandleSceneControl<TComponent>
         where TComponent : class, IGameComponent
     {

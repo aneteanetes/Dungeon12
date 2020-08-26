@@ -5,6 +5,7 @@
     using Dungeon.Control.Pointer;
     using Dungeon.Proxy;
     using Dungeon.Types;
+    using Dungeon.Utils;
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
@@ -19,6 +20,7 @@
         void RemoveHandle(ControlEventType controlEventType);
     }
 
+    [Hidden]
     public abstract class HandleSceneControl<T> : SceneObject<T>, ISceneObjectControl, IHandleSceneControl
         where T : class, IGameComponent
     {

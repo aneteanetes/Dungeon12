@@ -22,7 +22,7 @@
                 return tObj;
             }
 
-            if(obj is null)
+            if (obj is null)
             {
                 throw new System.ArgumentNullException("Property is null!");
             }
@@ -326,7 +326,7 @@
         public static void SetPropertyExpr<T>(this object @object, string propName, T propValue)
             => SetPropertyExprType(@object, propName, propValue, typeof(T));
 
-        private static void SetPropertyExprType(object @object, string propName, object propValue, Type valueType)
+        public static void SetPropertyExprType(this object @object, string propName, object propValue, Type valueType)
         {
             var key = new CompositeTypeKey<string>()
             {
@@ -336,15 +336,19 @@
 
             if (!___SetBackingFieldValueExpressionCache.TryGetValue(key, out var value))
             {
-                var pType = Expression.Parameter(@object.GetType());
-                var p = Expression.Parameter(valueType);
+                try
+                {
+                    var pType = Expression.Parameter(@object.GetType());
+                    var p = Expression.Parameter(valueType);
 
-                value = Expression.Lambda(Expression.Assign(Expression.Property(pType, propName), p), pType, p).Compile();
+                    value = Expression.Lambda(Expression.Assign(Expression.Property(pType, propName), p), pType, p).Compile();
+                }
+                catch { }
 
                 ___SetBackingFieldValueExpressionCache.Add(key, value);
             }
 
-            value.DynamicInvoke(@object, propValue);
+            value?.DynamicInvoke(@object, propValue);
         }
 
         private static readonly Dictionary<CompositeTypeKey<string>, Delegate> ___SetBackingFieldValueExpressionCache = new Dictionary<CompositeTypeKey<string>, Delegate>();

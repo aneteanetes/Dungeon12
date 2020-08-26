@@ -15,7 +15,6 @@ namespace Dungeon.Engine.Host
 
         public override void Init()
         {
-            this.AddObject(new ImageControl("book.png"));
             base.Init();
         }
     }

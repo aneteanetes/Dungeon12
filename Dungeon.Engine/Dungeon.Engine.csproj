@@ -43,6 +43,7 @@
 </ItemGroup>
   
   <ItemGroup>
+    <Compile Include="..\Dungeon.Monogame\MonogameClientSettings.cs" Link="Host\MonogameClientSettings.cs" />
     <Compile Include="..\Dungeon.Monogame\MonogameExtensions.cs" Link="Host\MonogameExtensions.cs" />
     <Compile Include="..\Dungeon.Monogame\XNADrawClient.Implementation.cs" Link="Host\XNADrawClient.Implementation.cs" />
   </ItemGroup>
@@ -69,12 +70,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Forms\AddSceneObjectForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Forms\AddResourceForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Forms\AddSceneObjectForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Forms\AddResourceForm.xaml">
       <SubType>Designer</SubType>
     </Page>

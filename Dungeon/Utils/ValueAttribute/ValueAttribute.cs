@@ -78,7 +78,7 @@
             return GetAttribute<T>(Attribute.GetCustomAttributes(m as MemberInfo, typeof(T)));
         }
 
-        private static object GetAttribute<T>(Attribute[] attributes) where T : ValueAttribute => (attributes.FirstOrDefault(x => x is T) as T).Value;
+        private static object GetAttribute<T>(Attribute[] attributes) where T : ValueAttribute => attributes.FirstOrDefault(x => x is T).As<T>()?.Value;
 
         public static object ValueAttribute(this Assembly asm) => asm.ValueAttribute<ValueAttribute>();
 

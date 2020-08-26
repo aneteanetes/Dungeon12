@@ -3,8 +3,10 @@
     using Dungeon.Control;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
+    using Dungeon.Utils;
     using System;
 
+    [Hidden]
     public interface ISceneObjectControl : ISceneObject
     {
         void KeyDown(Key key, KeyModifiers modifier, bool hold);

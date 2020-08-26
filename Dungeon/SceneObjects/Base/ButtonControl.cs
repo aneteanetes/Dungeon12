@@ -1,5 +1,6 @@
 ﻿using Dungeon.Control;
 using Dungeon.Drawing;
+using Dungeon.Utils;
 using Dungeon.View.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Text;
 
 namespace Dungeon.SceneObjects.Base
 {
+    [Hidden]
     public class ButtonControl<TComponent> : HandleSceneControl<TComponent>
         where TComponent : class, IGameComponent
     {

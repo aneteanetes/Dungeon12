@@ -1,9 +1,11 @@
 ﻿namespace Dungeon.View.Interfaces
 {
     using Dungeon.Types;
+    using Dungeon.Utils;
     using System;
     using System.Collections.Generic;
 
+    [Hidden]
     public interface ISceneObject : IGameComponent
     {
         bool Shadow { get; set; }
@@ -78,12 +80,19 @@
 
         IImageMask ImageMask { get; }
 
+        [Hidden]
         ISceneObject Parent { get; set; }
 
+        [Hidden]
         Action<ISceneObject> DestroyBinding { get; set; }
 
+        [Hidden]
         Action<ISceneObjectControl> ControlBinding { get; set; }
 
+        /// <summary>
+        /// Невидимый в режиме отрисовки `Force`
+        /// </summary>
+        [Hidden]
         bool ForceInvisible { get; }
 
         bool Visible { get; }
@@ -123,11 +132,13 @@
         /// <summary>
         /// Вызвать уничтожение объекта. КОМУ НАДО ТОТ УНИЧТОЖИТ ЁПТА
         /// </summary>
+        [Hidden]
         Action Destroy { get; set; }
 
         /// <summary>
         /// Посылание эффектов в сцену
         /// </summary>
+        [Hidden]
         Action<List<ISceneObject>> ShowInScene { get; set; }
 
         int ZIndex { get; set; }

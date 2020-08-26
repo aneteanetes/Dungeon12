@@ -920,7 +920,7 @@ namespace Dungeon.Monogame
 
         private void DrawEffects(ISceneObject sceneObject, double x, double y)
         {
-            if (sceneObject.Effects.Count == 0)
+            if (sceneObject.Effects==default || sceneObject.Effects.Count == 0)
                 return;
 
             x = (int)x;

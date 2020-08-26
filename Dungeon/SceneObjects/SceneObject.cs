@@ -8,11 +8,13 @@
     using Dungeon.SceneObjects.Mixins;
     using Dungeon.Scenes.Manager;
     using Dungeon.Types;
+    using Dungeon.Utils;
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
+    [Hidden]
     public abstract class SceneObject<TComponent> : GameComponent, ISceneObject, IFlowable, IMixinContainer
         where TComponent : class, IGameComponent
     {
@@ -208,6 +210,7 @@
             return new Point(m.X / 32, m.Y / 32);
         }
 
+        [Default(1)]
         public virtual double Opacity { get; set; } = 1;
 
         /// <summary>
@@ -369,6 +372,7 @@
             }
         }
 
+        [Hidden]
         public ISceneObject Parent { get; set; }
 
         public virtual bool CacheAvailable { get; set; } = true;
@@ -382,12 +386,16 @@
         /// </summary>
         public virtual bool AbsolutePosition { get; set; } = false;
 
+        [Hidden]
         public Action Destroy { get; set; }
 
+        [Hidden]
         public Action<List<ISceneObject>> ShowInScene { get; set; }
 
+        [Hidden]
         public Action<ISceneObject> DestroyBinding { get; set; }
 
+        [Hidden]
         public Action<ISceneObjectControl> ControlBinding { get; set; }
 
         public virtual Rectangle CropPosition => new Rectangle
@@ -400,10 +408,12 @@
 
         public virtual int Layer { get; set; }
 
+        [Hidden]        
         public bool ForceInvisible { get; set; }
 
         private bool visible = true;
 
+        [Default(true)]
         public virtual bool Visible
         {
             get => visible && (Parent?.Visible ?? true);
@@ -469,6 +479,7 @@
             return false;
         }
 
+        [Hidden]
         public Action<SceneObject<TComponent>> OnUpdate { get; set; }
 
         /// <summary>

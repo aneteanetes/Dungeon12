@@ -6,6 +6,10 @@ using System.Runtime.Loader;
 using System.Linq;
 using Dungeon.Scenes.Manager;
 using LiteDB;
+using System.Runtime.CompilerServices;
+using MoreLinq;
+
+#pragma warning disable CS0618 // Type or member is obsolete
 
 namespace Dungeon.Resources
 {
@@ -101,6 +105,10 @@ namespace Dungeon.Resources
             //RuntimeCache[image] = bytes;
         }
 
+        public static IEnumerable<Type> LoadTypes<TAssignableFrom>()
+            => DungeonGlobal.Assemblies.Concat(DungeonGlobal.GameAssembly)
+                .SelectMany(x => x.GetTypesSafe().Where(t => typeof(TAssignableFrom).IsAssignableFrom(t)));
+
         public static Type LoadType(string className)
         {
             if (string.IsNullOrWhiteSpace(className))
@@ -140,10 +148,12 @@ namespace Dungeon.Resources
             var type = assembly.GetType(className);
             if (type == default)
             {
-                type = assembly.GetTypes().FirstOrDefault(x => x.Name == className);
+                type = assembly.GetTypesSafe().FirstOrDefault(x => x.Name == className);
             }
 
             return type;
         }
     }
 }
+
+#pragma warning restore CS0618 // Type or member is obsolete

@@ -1,23 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Dungeon.Monogame
 {
     public class MonogameClientSettings
     {
+        [Display(Name ="Во весь экран")]
         public bool IsFullScreen { get; set; } = true;
 
+        [Display(Name = "Во весь экран (в окне)")]
         public bool IsWindowedFullScreen { get; set; } = true;
 
+        [Display(Name = "Ширина в px")]
         public int WidthPixel { get; set; } = 1280;
 
+        [Display(Name = "Высота в px")]
         public int HeightPixel { get; set; } = 720;
 
+        [Display(Name = "V-sync")]
         public bool VerticalSync { get; set; } = true;
 
+        [Display(Name = "2D свет")]
         public bool Add2DLighting { get; set; } = true;
-
-        public bool Embedded { get; set; } = false;
     }
 }

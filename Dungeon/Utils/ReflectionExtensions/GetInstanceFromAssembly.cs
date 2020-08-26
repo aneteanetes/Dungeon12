@@ -49,6 +49,18 @@
                 .Where(x => typeof(T).IsAssignableFrom(x))
                 .ToArray();
 
+        public static IEnumerable<Type> GetTypesSafe(this Assembly assembly)
+        {
+            try
+            {
+                return assembly.GetTypes();
+            }
+            catch (ReflectionTypeLoadException e)
+            {
+                return e.Types.Where(t => t != null);
+            }
+        }
+
         public static Type GetTypeFromAssembly<T>(this object assemblyType)
             => assemblyType.GetType()
                 .Assembly
