@@ -23,16 +23,16 @@ namespace Dungeon.SceneObjects.Base
 
             var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text);
 
-            var width = this.Width * 32;
-            var height = this.Height * 32;
+            var width = this.Width * Settings.DrawingSize.CellF;
+            var height = this.Height * Settings.DrawingSize.CellF;
 
             var left = width / 2 - measure.X / 2;
             var top = height / 2 - measure.Y / 2;
 
             //left /= 1.8f;
 
-            textControl.Left = left / 32;
-            textControl.Top = top / 32;
+            textControl.Left = left / Settings.DrawingSize.CellF;
+            textControl.Top = top / Settings.DrawingSize.CellF;
 
             this.Children.Add(textControl);
         }

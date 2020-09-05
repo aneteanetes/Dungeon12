@@ -12,7 +12,7 @@
         BorderBrush="Black"
         ResizeMode="NoResize"
         BorderThickness="1"
-        Height="130" Width="391">
+        Height="130" Width="391" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
@@ -173,8 +173,7 @@
                     <Button Grid.Column="1" Click="SelectPathButton">
                         <Image		
                             Width="22"
-                            Height="22"
-		Margin="4"
+                            Height="24"
 		Source="pack://siteoforigin:,,,/Icons/path.png" />
                     </Button>
                 </Grid>

@@ -97,19 +97,19 @@
             var textControl = new TextControl(drawText);
             var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text, this);
 
-            var width = Width * 32;
-            var height = Height * 32;
+            var width = Width * Settings.DrawingSize.CellF;
+            var height = Height * Settings.DrawingSize.CellF;
 
             if (horizontal)
             {
                 var left = width / 2 - measure.X / 2;
-                textControl.Left = left / 32;
+                textControl.Left = left / Settings.DrawingSize.CellF;
             }
 
             if (vertical)
             {
                 var top = height / 2 - measure.Y / 2;
-                textControl.Top = top / 32;
+                textControl.Top = top / Settings.DrawingSize.CellF;
             }
 
             Children.Add(textControl);
@@ -121,22 +121,22 @@
             where T : ISceneObject
         {
             var measure = MeasureImage(control.Image);
-            measure.X = measure.X * 32;
-            measure.Y = measure.Y * 32;
+            measure.X = measure.X * Settings.DrawingSize.CellF;
+            measure.Y = measure.Y * Settings.DrawingSize.CellF;
 
-            var width = Width * 32;
-            var height = Height * 32;
+            var width = Width * Settings.DrawingSize.CellF;
+            var height = Height * Settings.DrawingSize.CellF;
 
             if (horizontal)
             {
                 var left = width / 2 - measure.X / 2;
-                control.Left = left / 32;
+                control.Left = left / Settings.DrawingSize.CellF;
             }
 
             if (vertical)
             {
                 var top = height / 2 - measure.Y / 2;
-                control.Top = top / 32;
+                control.Top = top / Settings.DrawingSize.CellF;
             }
             AddChild(control);
 
@@ -186,7 +186,7 @@
 
         protected DrawText CutText(DrawText text, double height)
         {
-            var y = this.MeasureText(text, this).Y / 32;
+            var y = this.MeasureText(text, this).Y / Settings.DrawingSize.CellF;
             if (y > height)
             {
                 text.SetText(text.StringData.Remove(text.StringData.LastIndexOf(" ")));
@@ -207,7 +207,7 @@
         {
             var m = DungeonGlobal.DrawClient.MeasureImage(img);
 
-            return new Point(m.X / 32, m.Y / 32);
+            return new Point(m.X / Settings.DrawingSize.CellF, m.Y / Settings.DrawingSize.CellF);
         }
 
         [Default(1)]
@@ -500,6 +500,8 @@
         public virtual bool Updatable => false;
 
         public bool Drawed { get; set; }
+
+        public string Tag { get; set; }
 
         private object flowContext = null;
 

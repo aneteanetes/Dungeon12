@@ -198,5 +198,32 @@ namespace Dungeon.Types
         {
             return this.X == x && this.Y == y;
         }
+        
+        public Direction DetectDirection(Point another)
+        {
+            Direction dirX = Direction.Idle;
+            Direction dirY = Direction.Idle;
+
+            if (another.X <= this.X)
+            {
+                dirX = Direction.Left;
+            }
+            if (another.X >= this.X)
+            {
+                dirX = Direction.Right;
+            }
+
+            if (another.Y >= this.Y)
+            {
+                dirY = Direction.Down;
+            }
+
+            if (another.Y <= this.Y)
+            {
+                dirY = Direction.Up;
+            }
+
+            return (Direction)((int)dirX + (int)dirY);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Dungeon.Engine.Forms;
+using Dungeon.Engine.Projects;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +14,8 @@ namespace Dungeon.Engine.Menus.Dlls
 
         public Action Click => () =>
         {
-            new DllManagerForm().Show();
+            var proj = App.Container.Resolve<DungeonEngineProject>();
+            new DllManagerForm(proj).Show();
         }; 
 
         public int Weight => 0;

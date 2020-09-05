@@ -70,6 +70,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Forms\Message.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Forms\LiteDbEditorForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Forms\AddProjRefForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Forms\AddSceneObjectForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -79,6 +88,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Forms\Message.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Forms\LiteDbEditorForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Forms\AddProjRefForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Forms\AddSceneObjectForm.xaml">
       <SubType>Designer</SubType>
     </Page>

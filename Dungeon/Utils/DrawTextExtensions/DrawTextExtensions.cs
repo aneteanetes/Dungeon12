@@ -2,6 +2,7 @@
 using Dungeon.View.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace Dungeon
@@ -13,7 +14,7 @@ namespace Dungeon
             if (string.IsNullOrWhiteSpace(value))
                 value = " ";
 
-            return new DrawText(value).DefaultFont();
+            return new DrawText(value,fontAsm: Assembly.GetCallingAssembly().GetName().Name).DefaultFont();
         }
 
         public static DrawText DefaultFont(this DrawText drawText)

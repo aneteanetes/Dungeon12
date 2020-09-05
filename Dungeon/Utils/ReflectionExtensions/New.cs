@@ -107,13 +107,35 @@
         public static T NewAs<T>(this Type type, params object[] argsObj)
             => (T)New<object>(type, type.GetConstructors().FirstOrDefault(), argsObj);
 
-        public static void Call(this object @object, string method, params object[] argsObj)
+        public static object Call(this object @object, string method, params object[] argsObj)
         {
             var methodInfo = @object.GetType().GetMethods().FirstOrDefault(m => m.Name == method);
             if (methodInfo != default)
             {
-                Expression.Lambda(Expression.Call(Expression.Constant(@object), methodInfo)).Compile().DynamicInvoke(argsObj);
+                if (methodInfo.ReturnType != typeof(void))
+                {
+                    return Expression.Lambda(Expression.Call(Expression.Constant(@object), methodInfo)).Compile().DynamicInvoke(argsObj);
+                }
+                else
+                {
+                    Expression.Lambda(Expression.Call(Expression.Constant(@object), methodInfo)).Compile().DynamicInvoke(argsObj);
+                }
             }
+
+            return default;
+        }
+
+        public static object CallGeneric(this object @object, string method, Type[] generics, params object[] argsObj)
+        {
+            var methodInfo = @object.GetType().GetMethods().LastOrDefault(m => m.Name == method && m.IsGenericMethod);
+            if (methodInfo != default)
+            {
+                methodInfo = methodInfo.MakeGenericMethod(generics);
+
+                return Expression.Lambda(Expression.Call(Expression.Constant(@object), methodInfo)).Compile().DynamicInvoke(argsObj);
+            }
+
+            return default;
         }
 
         public static TResult Call<TResult>(this object @object, string method, TResult @default, params object[] argsObj)

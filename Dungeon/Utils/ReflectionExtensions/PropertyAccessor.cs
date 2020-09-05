@@ -283,7 +283,7 @@
             }
         }
 
-        public static TValue GetPropertyExpr<TValue>(this object @object, string propName)
+        public static object GetPropertyExprRaw(this object @object, string propName)
         {
             var type = @object.GetType();
             var key = propName + type.AssemblyQualifiedName;
@@ -296,8 +296,11 @@
                 ___GetBackginFieldValueExpressionCache.Add(key, value);
             }
 
-            return value.DynamicInvoke(@object).As<TValue>();
+            return value.DynamicInvoke(@object);
         }
+
+        public static TValue GetPropertyExpr<TValue>(this object @object, string propName)
+            => GetPropertyExprRaw(@object,propName).As<TValue>();
 
         private static readonly Dictionary<string, Delegate> ___GetBackginFieldValueExpressionCache = new Dictionary<string, Delegate>();
 

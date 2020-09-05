@@ -18,6 +18,6 @@ namespace Dungeon.Settings
 
         public static int Cell { get; set; } = 32;
 
-        public static float CellF { get; set; } = 32;
+        public static float CellF => (float)Cell;
     }
 }

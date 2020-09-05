@@ -11,7 +11,7 @@
         BorderBrush="Black"
         ResizeMode="NoResize"
         BorderThickness="1"
-        Height="249" Width="391">
+        Height="249" Width="391" WindowStartupLocation="CenterScreen">
     <Window.Resources>       
         <Style x:Key="TitleBarButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
@@ -130,8 +130,9 @@
 			StrokeThickness="1" />
             </Button>
         </Grid>
-        <ListBox DockPanel.Dock="Top" ScrollViewer.HorizontalScrollBarVisibility="Disabled">            
-            <ListBoxItem>                
+        <ListBox x:Name="RefListView" DockPanel.Dock="Top" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="9*"></ColumnDefinition>
@@ -141,14 +142,18 @@
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Foreground="{StaticResource Foreground}" FontSize="16">Dungeon.dll</TextBlock>
-                    <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Auto">
-                        <TextBlock  Foreground="{StaticResource Foreground}" FontSize="10">Embedded</TextBlock>
-                    </ScrollViewer>
-                    <Button Click="RemoveDllReference" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Right" Width="32">X</Button>
-                    </Grid>                
-            </ListBoxItem>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Foreground="{StaticResource Foreground}" FontSize="16">
+                            <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/lib.png" Margin="0 0 5 0"/>
+                            <TextBlock Text="{Binding Path=Title}"></TextBlock>
+                        </TextBlock>
+                        <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Auto">
+                            <TextBlock Foreground="{StaticResource Foreground}" FontSize="10" Text="{Binding Path=Path}"></TextBlock>
+                        </ScrollViewer>
+                        <Button Click="RemoveDllReference" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Right" Width="32">X</Button>
+                    </Grid>
+                </DataTemplate>                
+            </ListBox.ItemTemplate>
         </ListBox>
-        <Button VerticalAlignment="Bottom" Height="32">Добавить</Button>
+        <Button Click="AddNewRef" VerticalAlignment="Bottom" Height="32">Добавить</Button>
     </DockPanel>
 </Window>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dungeon.Resources;
+using System;
 using System.Linq;
 
 namespace Dungeon.Monogame
@@ -8,7 +9,7 @@ namespace Dungeon.Monogame
         static void Main(string[] args)
         {
             DungeonGlobal.GameAssembly = typeof(Program).Assembly;
-            Store.LoadAllAssemblies();
+            ResourceLoader.LoadAllAssembliesInFolder();
             var contentFilePath = args.ElementAtOrDefault(0);
             var fontNames = args.ElementAtOrDefault(1);
             var fontsizeMin = args.ElementAtOrDefault(2);

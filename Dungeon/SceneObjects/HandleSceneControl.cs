@@ -116,27 +116,27 @@
 
             Point measure = string.IsNullOrWhiteSpace(control.Image) && !forceNotImage
                 ? new Point(control.Width, control.Height)
-                : new Point(MeasureImage(control.Image).X * 32, MeasureImage(control.Image).Y * 32);
+                : new Point(MeasureImage(control.Image).X * Settings.DrawingSize.CellF, MeasureImage(control.Image).Y * Settings.DrawingSize.CellF);
 
             double width = this.Width;
             double height = this.Height;
 
             if (!string.IsNullOrWhiteSpace(control.Image) && !forceNotImage)
             {
-                width = Width * 32;
-                height = Height * 32;
+                width = Width * Settings.DrawingSize.CellF;
+                height = Height * Settings.DrawingSize.CellF;
             }
 
             if (horizontal)
             {
                 var left = width / 2 - measure.X / 2;
-                control.Left = left / 32;
+                control.Left = left / Settings.DrawingSize.CellF;
             }
 
             if (vertical)
             {
                 var top = height / 2 - measure.Y / 2;
-                control.Top = top / 32;
+                control.Top = top / Settings.DrawingSize.CellF;
             }
 
             AddChild(control);

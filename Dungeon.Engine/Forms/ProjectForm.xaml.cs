@@ -1,6 +1,8 @@
-﻿using Dungeon.Engine.Events;
+﻿using Dungeon.Engine.Editable;
+using Dungeon.Engine.Events;
 using Dungeon.Engine.Projects;
 using LiteDB;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Forms;
@@ -39,6 +41,16 @@ namespace Dungeon.Engine.Forms
                 Directory.Delete(path, true);
             }
             Directory.CreateDirectory(path);
+
+            Project.References = new List<DungeonEngineReference>
+            {
+                new DungeonEngineReference()
+                {
+                    Kind = DungeonEngineReferenceKind.Embedded,
+                    Title = "Dungeon",
+                    Path = "Embedded"
+                }
+            };
 
             using var db = new LiteDatabase($@"{path}\{Project.Name}.deproj");
             db.GetCollection<DungeonEngineProject>().Insert(Project);

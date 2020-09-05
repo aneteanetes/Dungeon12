@@ -35,7 +35,7 @@ namespace Dungeon.Engine.Menus.File
 
             if (proj == default)
             {
-                System.Windows.MessageBox.Show("Directory does not contains DungeonEngine project!");
+                Forms.Message.Show("Directory does not contains DungeonEngine project!");
                 return;
             }
 

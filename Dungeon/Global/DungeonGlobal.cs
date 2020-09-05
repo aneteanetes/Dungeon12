@@ -3,12 +3,16 @@
     using Dungeon.Audio;
     using Dungeon.Control;
     using Dungeon.Events;
+    using Dungeon.Global;
     using Dungeon.Logging;
+    using Dungeon.Resources;
     using Dungeon.Scenes.Manager;
     using Dungeon.View.Interfaces;
+    using MoreLinq;
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
 
     public class DungeonGlobal
@@ -22,7 +26,7 @@
 
         public static void BindGlobal<T>() where T: DungeonGlobal
         {
-            Store.LoadAllAssemblies();
+            ResourceLoader.LoadAllAssembliesInFolder();
             GlobalExceptionHandling();
             global = typeof(T).NewAs<T>();
         }
@@ -62,7 +66,11 @@
 
         public static bool Interacting { get; set; }
 
-        public static IEnumerable<Assembly> Assemblies { get; set; }
+        public static DungeonAssemblyContext DungeonAssemblyContext { get; set; }
+
+        internal static List<Assembly> StaticAssemblies = new List<Assembly>();
+
+        public static IEnumerable<Assembly> Assemblies => StaticAssemblies.Concat(DungeonAssemblyContext?.Assemblies ?? new Assembly[0]);
 
         public static string GameAssemblyName { get; set; }
 

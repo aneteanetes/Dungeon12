@@ -41,7 +41,7 @@ namespace Dungeon.Engine.Forms
                     ClassName = x.FullName,
                     ClassType = x
                 }));
-            SelectSceneObjectTypeView.ItemsSource = AvailableSceneObjects;
+            SelectSceneObjectTypeView.ItemsSource = AvailableSceneObjects.OrderBy(x => x.Name);
         }
 
         private void OnCloseButtonClick(object sender, RoutedEventArgs e)

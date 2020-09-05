@@ -17,5 +17,8 @@ namespace Dungeon.Engine.Projects
 
         [Display(Name = "Кэш масок", Description = "Кэширование масок изображений, влияет на производительность")]
         public bool CacheImagesAndMasks { get; set; } = true;
+
+        [Display(Name = "Размер клетки", Description = "Размер клетки для позиционирования элементов, по умолчанию 1=32")]
+        public int CellSize { get; set; } = 32;        
     }
 }

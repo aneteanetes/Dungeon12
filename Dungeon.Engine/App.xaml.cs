@@ -16,7 +16,7 @@ namespace Dungeon.Engine
             var resCompiler = new ResourceCompiler();
             resCompiler.Compile();
 
-            Store.LoadAllAssemblies();
+            ResourceLoader.LoadAllAssembliesInFolder();
             Container = new Container();
         }
     }

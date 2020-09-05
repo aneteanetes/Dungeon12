@@ -25,7 +25,7 @@ namespace Dungeon
         public static void Init(JsonSerializerSettings jsonSerializerSettings)
         {
             _jsonSerializerSettings = jsonSerializerSettings;
-            LoadAllAssemblies();
+            ResourceLoader.LoadAllAssembliesInFolder();
 
             if (!Directory.Exists(MainPath))
                 Directory.CreateDirectory(MainPath);
@@ -34,23 +34,6 @@ namespace Dungeon
             CurrentBuild = new ResourceManifest();
 
             CompileDatabase();
-        }
-
-        public static void LoadAllAssemblies()
-        {
-            var assemblies = new List<Assembly>();
-            var asms = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll");
-            foreach (var asm in asms)
-            {
-                try
-                {
-                    assemblies.Add(AssemblyLoadContext.Default.LoadFromAssemblyPath(asm));
-                }
-                catch
-                {
-                }
-            }
-            DungeonGlobal.Assemblies = assemblies;
         }
 
         private static void CompileDatabase()

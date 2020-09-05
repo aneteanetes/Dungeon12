@@ -31,6 +31,16 @@ namespace Dungeon.Engine.Editable.PropertyTable
             row.Type = type;
         }
 
+        public void Set(string key, object value, Type type, int index)
+        {
+            var row = PropertyTable.ElementAtOrDefault(index);
+            if (row != default)
+            {
+                row.Value = value;
+                row.Type = type;
+            }
+        }
+
         protected abstract List<PropertyTableRow> InitializePropertyTable();
 
         public virtual void Commit()

@@ -1,4 +1,5 @@
 ﻿using Dungeon.Control;
+using Dungeon.Drawing.SceneObjects;
 using Dungeon.Engine.Controls;
 using Dungeon.Engine.Editable;
 using Dungeon.Engine.Editable.PropertyTable;
@@ -12,15 +13,18 @@ using Dungeon.Engine.Utils;
 using Dungeon.Entities;
 using Dungeon.Resources;
 using Dungeon.Scenes.Manager;
+using Dungeon.Types;
 using Dungeon.Utils;
 using Dungeon.Utils.ReflectionExtensions;
 using Dungeon.View.Interfaces;
 using LiteDB;
 using MathNet.Numerics.Properties;
+using MoreLinq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -65,6 +69,8 @@ namespace Dungeon.Engine
             InitializeComponent();
             InitializeMenu();
 
+            DungeonGlobal.AudioPlayer = new AudioPlayerImpl();
+
             DungeonGlobal.Events.Subscribe<ProjectInitializeEvent>(InitializeProject, false);
             DungeonGlobal.Events.Subscribe<PropGridFillEvent>(FillPropGrid, false);
             DungeonGlobal.Events.Subscribe<FreezeAllEvent>(FreezeEventHandler, false);
@@ -74,6 +80,12 @@ namespace Dungeon.Engine
             DungeonGlobal.Events.Subscribe<AddSceneObjectEvent>(AddedNewSceneObject, false);
             DungeonGlobal.Events.Subscribe<SceneObjectInObjectTreeSelectedEvent>(SelectedSceneObjectEvent, false);
             DungeonGlobal.Events.Subscribe<SceneResolutionChangedEvent>(ChangedResolutionEvent, false);
+
+            this.KeyDown += D3D11Host.OnKeyDown;
+            this.KeyUp += D3D11Host.OnKeyUp;
+            XnaHost.MouseDown += XnaHost_MouseDown;
+            this.MouseUp += XnaHost_MouseUp;
+            this.MouseMove += XnaHost_MouseMove;
         }
 
         private void UnreezeEventHandler(UnfreezeAllEvent @event)
@@ -140,8 +152,15 @@ namespace Dungeon.Engine
                 ResourcesView.ItemsSource = Project.Resources;
 
                 Project.Load();
+                this.XnaHost.ChangeCell(Project.CompileSettings.CellSize);
 
-                ResourceLoader.ResourceDatabaseResolver = new DungeonEngineResourceDatabaseResolver(Project.DbFilePath);
+                ResourceLoader.Settings = new ResourceLoaderSettings()
+                {
+                    ThrowIfNotFound = false,
+                    NotFoundAction = r => ChangeStatus("Не найден ресурс: "+r)
+                };
+                ResourceLoader.ResourceDatabaseResolvers.Add(new DungeonEngineResourceDatabaseResolver(Project.DbFilePath));
+                ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver());
 
                 SceneManager = new SceneManager()
                 {
@@ -158,6 +177,7 @@ namespace Dungeon.Engine
                 {
                     Project.Scenes.Clear();
                     Project.Resources.Clear();
+                    Project.Close();
                 }
 
                 SelectedScene = default;
@@ -253,7 +273,7 @@ namespace Dungeon.Engine
             {
                 if (des.StartScene)
                 {
-                    MessageBox.Show("Невозможно удалить Стартовую сцену");
+                    Message.Show("Невозможно удалить Стартовую сцену");
                     return;
                 }
 
@@ -292,7 +312,6 @@ namespace Dungeon.Engine
                 SelectedScene = (DungeonEngineScene)item;
                 SelectScene((DungeonEngineScene)item);
 
-
                 SceneManager.Change<EasyScene>();
                 foreach (var obj in SelectedScene.SceneObjects)
                 {
@@ -307,51 +326,88 @@ namespace Dungeon.Engine
 
         private void PublishSceneObject_Click(object sender, RoutedEventArgs e)
         {
-            PushSceneObjectToScene(SelectedSceneObject);
+            bool notYet = SelectedSceneObject.Published;
+            PushSceneObjectToScene(SelectedSceneObject, !SelectedSceneObject.Published);
+            if (!notYet && SelectedSceneObject.Published)
+            {
+                FillPropGrid(SelectedSceneObject, SelectedSceneObject.GetType().Name);
+            }
         }
 
-        private void PushSceneObjectToScene(DungeonEngineSceneObject obj)
+        private void PushSceneObjectToScene(DungeonEngineSceneObject obj, bool initial=false)
         {
-            ISceneObject instance = default;
+            try
+            {
+                ISceneObject instance = default;
 
-            var ctors = obj.Properties.Where(x => x.Name.Contains("Constructor")).ToList();
-            if (ctors.Count == 0)
-            {
-                instance = obj.ClassType.NewAs<ISceneObject>();
-            }
-            else
-            {
-                var activeCtor = ctors.FirstOrDefault(row => row.Value.As<bool>() == true);
-                if (activeCtor == default)
+                var properties = obj.Properties.ToList();
+
+                var ctors = properties.Where(x => x.Name.Contains("Constructor")).ToList();
+                if (ctors.Count == 0)
                 {
-                    PublishSceneObject.Visibility = Visibility.Visible;
-                    ChangeStatus("Для текущего объекта не выбран используемый конструктор!");
-                    return;
+                    instance = obj.ClassType.NewAs<ISceneObject>();
+                }
+                else
+                {
+                    var activeCtor = ctors.FirstOrDefault(row => row.Value.As<bool>() == true);
+                    if (activeCtor == default)
+                    {
+                        PublishSceneObject.Visibility = Visibility.Visible;
+                        ChangeStatus("Для текущего объекта не выбран используемый конструктор!");
+                        return;
+                    }
+
+                    //всё что относится к конструктору мы не должны пытаться установить
+                    //var firstCtorProp = properties.FirstOrDefault(x => x.Name.ToLowerInvariant().Contains("Constructor"));
+                    //ctors.AddRange(properties.Skip(properties.IndexOf(firstCtorProp) + 1));
+                    //ниже идёт Except(ctors)
+
+                    var activeCtorIndex = int.Parse(activeCtor.Name.Replace("Constructor ", ""));
+                    var activeCtorInstance = obj.ClassType.GetConstructors().ElementAtOrDefault(activeCtorIndex);
+
+                    if (activeCtorInstance != default)
+                    {
+                        var @params = activeCtorInstance.GetParameters()
+                            .Select(param => properties.FirstOrDefault(p => p.Name == param.Name).Value)
+                            .ToArray();
+
+                        instance = obj.ClassType.New<object>(activeCtorInstance, @params).As<ISceneObject>();
+                    }
                 }
 
-                var activeCtorIndex = int.Parse(activeCtor.Name.Replace("Constructor ", ""));
-                var activeCtorInstance = obj.ClassType.GetConstructors().ElementAtOrDefault(activeCtorIndex);
-
-                if (activeCtorInstance != default)
+                var props = properties.Except(ctors);
+                foreach (var p in props)
                 {
-                    var @params = activeCtorInstance.GetParameters()
-                        .Select(param => obj.Properties.FirstOrDefault(p => p.Name == param.Name).Value)
-                        .ToArray();
+                    try
+                    {
+                        var nowValue = instance.GetPropertyExprRaw(p.Name);
+                        if (initial && nowValue != default)
+                        {
+                            if (string.IsNullOrWhiteSpace(p.Value?.ToString()))
+                            {
+                                obj.Set(p.Name, nowValue, nowValue.GetType());
+                            }
+                            continue;
+                        }
+                        instance.SetPropertyExprType(p.Name, p.Value, p.Type);
+                    }
+                    catch
+                    {
+                        //ну кароч, свойства из конструктора пытаются установиться. 
+                    }
+                }
 
-                    instance = obj.ClassType.New<object>(activeCtorInstance, @params).As<ISceneObject>();
+                obj.Instance = instance;
+                SceneManager.Current.AddObject(instance);
+                obj.Published=true;
+                if (PublishSceneObject.Visibility == Visibility.Visible)
+                {
+                    PublishSceneObject.Visibility = Visibility.Hidden;
                 }
             }
-
-            var props = obj.Properties.Except(ctors);
-            foreach (var p in props)
+            catch (Exception ex)
             {
-                instance.SetPropertyExprType(p.Name, p.Value, p.Type);
-            }
-            obj.Instance = instance;
-            SceneManager.Current.AddObject(instance);
-            if(PublishSceneObject.Visibility== Visibility.Visible)
-            {
-                PublishSceneObject.Visibility = Visibility.Hidden;
+                ChangeStatus($"Ошибка публикации: {ex}");
             }
         }
 
@@ -367,7 +423,7 @@ namespace Dungeon.Engine
 
         private object PropGridObject;
         private IPropertyTable PropGridTable;
-        private Dictionary<string, Func<string>> PropGridBinding;
+        private List<(string Key, Func<string> Value, int index)> PropGridBinding;
 
         private void ClearPropGrid()
         {
@@ -387,11 +443,11 @@ namespace Dungeon.Engine
             var Obj = @event.Target;
 
             ClearPropGrid();
-            PropGridBinding = new Dictionary<string, Func<string>>();
+            PropGridBinding = new List<(string Key, Func<string> Value, int index)>();
             PropGridObject = Obj;
 
             int i = 0;
-            CreatePropGridCategory("Основные", true, i++);
+            CreatePropGridCategory(Obj.GetType().Name, true, i++);
 
             var grayBrush = new SolidColorBrush(Color.FromRgb(128, 128, 128));
 
@@ -416,23 +472,23 @@ namespace Dungeon.Engine
             PropGridSaveBtn.IsEnabled = true;
         }
 
-        public void FillPropGrid(IPropertyTable propertyTable)
+        public void FillPropGrid(IPropertyTable propertyTable, string commonTitle="Основные")
         {
-            PropGridBinding = new Dictionary<string, Func<string>>();
+            PropGridBinding = new List<(string Key, Func<string> Value, int index)>();
 
             ClearPropGrid();
             PropGridTable = propertyTable;
 
             int i = 0;
 
-            CreatePropGridCategory("Основные", true, i++);
+            CreatePropGridCategory(commonTitle, true, i++);
 
             foreach (var prop in propertyTable.Properties)
             {
                 if (prop.Name.Contains("Constructor"))
                 {
                     CreatePropGridCategory("Конструктор", true, i++);
-                    CreatePropGridCell("Использовать", false, typeof(bool), i, prop.Name);
+                    CreatePropGridCell("Использовать", prop.Value, typeof(bool), i, prop.Name);
                 }
                 else
                 {
@@ -507,7 +563,7 @@ namespace Dungeon.Engine
                 comboBoxEditor.Items.Add("False");
                 comboBoxEditor.SelectedIndex = value.As<bool>() ? 0 : 1;
                 editor.Child = comboBoxEditor;
-                PropGridBinding.Add(nameBinding ?? name, () => comboBoxEditor.Text);
+                PropGridBinding.Add((nameBinding ?? name, () => comboBoxEditor.Text, rowNum-1));
 
                 if (description != default)
                 {
@@ -518,7 +574,7 @@ namespace Dungeon.Engine
             {
                 var textEditor = new TextBox() { Text = value?.ToString() ?? "" };
                 editor.Child = textEditor;
-                PropGridBinding.Add(nameBinding ?? name, () => textEditor.Text);
+                PropGridBinding.Add((nameBinding ?? name, () => textEditor.Text, rowNum - 1));
 
                 if (description != default)
                 {
@@ -562,7 +618,7 @@ namespace Dungeon.Engine
                         failedProps.Add(propBind.Key);
                     }
 
-                    PropGridTable.Set(propBind.Key, data, type);
+                    PropGridTable.Set(propBind.Key, data, type, PropGridBinding.IndexOf(propBind));
                 }
             }
 
@@ -597,13 +653,14 @@ namespace Dungeon.Engine
         {
             SavePropGrid(default, default);
             Project.Save();
+            this.XnaHost.ChangeCell(Project.CompileSettings.CellSize);
             ScenesView.Items.Refresh();
         }
 
         private void ChangeStatusHandler(StatusChangeEvent @event)
             => ChangeStatus(@event.Status);
 
-        private void ChangeStatus(string status = default)
+        public void ChangeStatus(string status = default)
         {
             if (status != default)
             {
@@ -638,7 +695,7 @@ namespace Dungeon.Engine
                 this.SelectedScene.SceneObjects.Add(@event.SceneObject);
             }
 
-            PushSceneObjectToScene(@event.SceneObject);
+            PushSceneObjectToScene(@event.SceneObject,true);
         }
 
         private DungeonEngineSceneObject SelectedSceneObject;
@@ -647,7 +704,12 @@ namespace Dungeon.Engine
         {
             if (@event.SceneObject != default)
             {
-                FillPropGrid(@event.SceneObject);
+                if (!@event.SceneObject.Published)
+                {
+                    PublishSceneObject.Visibility = Visibility.Visible;
+                }
+
+                FillPropGrid(@event.SceneObject, @event.SceneObject.ClassName);
             }
             SelectedSceneObject = @event.SceneObject;
         }
@@ -667,6 +729,8 @@ namespace Dungeon.Engine
 
         private void SceneDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (SelectedScene == default)
+                return;
             SelectScene(ScenesView.SelectedItem.As<DungeonEngineScene>());
         }
 
@@ -675,6 +739,119 @@ namespace Dungeon.Engine
             var resolution = @event.Size;
             XnaHost.Width = resolution.X;
             XnaHost.Height = resolution.Y;
+        }
+
+        private void ExpandStatusBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(StatusText.Text))
+            {
+                Message.Show(StatusText.Text);
+            }
+        }
+
+        private void XnaHost_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                moveMode = false;
+                stopwatch.Stop();
+                stopwatch.Reset();
+            }
+        }
+
+        public static Stopwatch stopwatch = new Stopwatch();
+
+        private void XnaHost_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                stopwatch.Start();
+                moveMode = true;
+                var posWPF = Mouse.GetPosition(XnaHost);
+                prev = new Types.Point(0, 0);
+            }
+        }
+
+        private void ToolsMovingBtn(object sender, RoutedEventArgs e)
+        {
+            this.Cursor = Cursors.SizeAll;
+        }
+
+        bool moveMode = false;
+
+        Types.Point prev;
+
+        private void XnaHost_MouseMove(object sender, MouseEventArgs e)
+        {            
+            if (!moveMode || SelectedSceneObject==default)
+                return;
+
+            void set(bool? plus=false, double x =0, double y =0, bool plusX=false, bool plusY=true)
+            {
+                x = 1;
+                y = 1;
+
+                var X = SelectedSceneObject.Get("Left").Value.As<double>();
+                var Y = SelectedSceneObject.Get("Top").Value.As<double>();
+
+                if (x != default)
+                {
+                    if (plus != default)
+                    {
+                        X += x * (plus.Value ? 1 : -1);
+                    }
+                    else
+                    {
+                        X += x * (plusX ? 1 : -1);
+                    }
+
+                    SelectedSceneObject.Set("Left", X, typeof(double));
+                    SelectedSceneObject.Instance.Left = X;
+                }
+                if (y != default)
+                {
+                    if (plus != default)
+                    {
+                        Y += y * (plus.Value ? 1 : -1);
+                    }
+                    else
+                    {
+                        Y += y * (plusY ? 1 : -1);
+                    }
+                    SelectedSceneObject.Set("Top", Y, typeof(double));
+                    SelectedSceneObject.Instance.Top = Y;
+                }
+            }
+
+            var posWPF = Mouse.GetPosition(XnaHost);
+            var pos = new Types.Point(posWPF.X, posWPF.Y);
+
+            var valX = Math.Abs(pos.X - prev.X);
+            var valY = Math.Abs(pos.Y - prev.Y);
+
+            switch (prev.DetectDirection(pos))
+            {
+                case Direction.Up: set(false, y: valY); break;
+                case Direction.Down: set(true, y: valY); break;
+                case Direction.Left: set(false, x: valX); break;
+                case Direction.Right: set(true, x: valX); break;
+                case Direction.UpLeft: set(x: valX, y: valY, plus: false); break;
+                case Direction.UpRight: set(x: valX, y: valY, plusY: false, plusX: true); break;
+                case Direction.DownLeft: set(x: valX, y: valY, plusY: true, plusX: false); break;
+                case Direction.DownRight: set(x: valX, y: valY, plus: true); break;
+                default: break;
+            }
+
+            FillPropGrid(SelectedSceneObject, SelectedSceneObject.ClassName);
+
+            prev = pos;
+        }
+
+        private void ToolsUsualBtn(object sender, RoutedEventArgs e)
+        {
+            this.Cursor = Cursors.Arrow;
+            moveMode = true;
+            prev = default;
         }
     }
 }

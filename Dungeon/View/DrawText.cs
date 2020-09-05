@@ -7,6 +7,7 @@ using Dungeon.Settings;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using Dungeon.GameObjects;
+using System.Reflection;
 
 namespace Dungeon.Drawing
 {
@@ -17,39 +18,20 @@ namespace Dungeon.Drawing
         /// </summary>
         private readonly List<IDrawText> InnerText = new List<IDrawText>();
 
-        public DrawText(string value, float size = 12, bool wordWrap = false)
+        public DrawText(string value, float size = 12, bool wordWrap = false, string fontAsm=default)
         {
             WordWrap = wordWrap;
             Size = size;
             stringData = value;
+            FontAssembly = fontAsm;
         }
 
-        public DrawText(string value, DrawColor foregroundColor,bool wordWrap=false) : this(value,wordWrap:wordWrap)
+        public DrawText(string value, DrawColor foregroundColor,bool wordWrap=false) : this(value,wordWrap:wordWrap, fontAsm:Assembly.GetCallingAssembly().GetName().Name)
         {
             ForegroundColor = foregroundColor;
         }
 
-        //public DrawText(string value, DrawColor foregroundColor, /*float x = 0, float y = 0,*/ bool wordWrap = false) : this(value, wordWrap: wordWrap)
-        //{
-        //    ForegroundColor = foregroundColor;
-        //    //Region = new Rectangle
-        //    //{
-        //    //    X = x,
-        //    //    Y = y
-        //    //};
-        //}
-
-        //public DrawText(string value, DrawColor foregroundColor, double x = 0, double y = 0, bool wordWrap = false) : this(value, wordWrap: wordWrap)
-        //{
-        //    ForegroundColor = foregroundColor;
-        //    Region = new Rectangle
-        //    {
-        //        X = x,
-        //        Y = y
-        //    };
-        //}
-
-        public DrawText(string value, IDrawColor foregroundColor, IDrawColor backgroundColor = null, bool wordWrap = false) : this(value, wordWrap: wordWrap)
+        public DrawText(string value, IDrawColor foregroundColor, IDrawColor backgroundColor = null, bool wordWrap = false) : this(value, wordWrap: wordWrap, fontAsm: Assembly.GetCallingAssembly().GetName().Name)
         {
             BackgroundColor = backgroundColor;
             ForegroundColor = foregroundColor;

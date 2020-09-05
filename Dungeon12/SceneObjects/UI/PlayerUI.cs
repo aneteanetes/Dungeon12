@@ -62,7 +62,7 @@
         {
             private Character player;
 
-            public AvatarSceneObject(Character player) : base(player.Avatar)
+            public AvatarSceneObject(Character player) : base(player?.Avatar)
             {
                 this.player = player;
             }
@@ -108,7 +108,7 @@
             public LevelSceneObject(Character player)
             {
                 this.player = player;
-                this.Text = new DrawText(player.Level.ToString(), ConsoleColor.White)
+                this.Text = new DrawText(player?.Level.ToString() ?? "X", ConsoleColor.White)
                 {
                     Size = 11
                 }.Montserrat();

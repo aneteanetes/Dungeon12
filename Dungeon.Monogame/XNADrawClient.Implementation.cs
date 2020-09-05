@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text;
 using Rect = Dungeon.Types.Rectangle;
@@ -154,19 +155,19 @@ namespace Dungeon.Monogame
 
         #endregion
 
-        private const string DefaultFontXnbExistedFile = "Dungeon.Monogame.Resources.Fonts.xnb.Montserrat.Montserrat10.xnb";
+        private static string DefaultFontXnbExistedFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.Resources.Fonts.xnb.Montserrat.Montserrat10.xnb";
 
-        public Dungeon.Types.Point MeasureText(IDrawText drawText, ISceneObject parent = default)
+        public Types.Point MeasureText(IDrawText drawText, ISceneObject parent = default)
         {
             string customFontName = null;
             if (drawText.FontName != null)
             {
-                customFontName = $"{DungeonGlobal.GameAssemblyName}.Resources.Fonts.xnb.{drawText.FontName}/{drawText.FontName}{drawText.Size}.xnb".Embedded();
+                customFontName = $"{drawText.FontAssembly}.Resources.Fonts.xnb.{drawText.FontName}/{drawText.FontName}{drawText.Size}.xnb".Embedded();
             }
 
             if (customFontName == default)
             {
-                customFontName = $"{DungeonGlobal.GameAssemblyName}.Resources.Fonts/xnb/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}.xnb".Embedded();
+                customFontName = $"{drawText.FontAssembly}.Resources.Fonts/xnb/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}.xnb".Embedded();
             }
 
             SpriteFont font = default;
@@ -196,7 +197,7 @@ namespace Dungeon.Monogame
                 var parentWidth = parent.Position.Width;
                 if (parentWidth > 0)
                 {
-                    data = WrapText(font, data, parentWidth * 32);
+                    data = WrapText(font, data, parentWidth * cell);
                 }
             }
 
@@ -220,8 +221,8 @@ namespace Dungeon.Monogame
 
         public void SaveObject(ISceneObject sceneObject, string path, Dungeon.Types.Point offset, string runtimeCacheName = null)
         {
-            int w = (int)sceneObject.Width * 32;
-            int h = (int)sceneObject.Height * 32;
+            int w = (int)sceneObject.Width * cell;
+            int h = (int)sceneObject.Height * cell;
 
             var bitmap = new RenderTarget2D(GraphicsDevice, w, h, false, GraphicsDevice.PresentationParameters.BackBufferFormat, DepthFormat.Depth24);
 
@@ -407,8 +408,8 @@ namespace Dungeon.Monogame
             var image = TileSetByName(sceneObject.Image);
             if (image == default)
             {
-                Debugger.Break();
-                Console.WriteLine("dfs");
+                DungeonGlobal.Logger.Log("Медленный рендер из-за отсутствия картинки!");
+                //Debugger.Break();
                 return;
             }
 
@@ -614,6 +615,8 @@ namespace Dungeon.Monogame
                 var font = range.CompiledFontName;
 
                 var resFont = ResourceLoader.Load(font);
+                if (resFont == default)
+                    return;
 
                 spriteFont = Content.Load<SpriteFont>(font, resFont.Stream);
             }
@@ -625,16 +628,17 @@ namespace Dungeon.Monogame
                 }
                 var font = range.CompiledFontName;
 
-                var resFont = ResourceLoader.Load(font)
-                    .Stream;
+                var resFont = ResourceLoader.Load(font);
+                if (resFont == default)
+                    return;
 
                 if (string.IsNullOrEmpty(range.FontPath))
                 {
-                    spriteFont = Content.Load<SpriteFont>(font, resFont);
+                    spriteFont = Content.Load<SpriteFont>(font, resFont.Stream);
                 }
                 else
                 {
-                    spriteFont = Content.Load<SpriteFont>(font, resFont);
+                    spriteFont = Content.Load<SpriteFont>(font, resFont.Stream);
                 }
             }
 
@@ -643,7 +647,7 @@ namespace Dungeon.Monogame
             var componentWidth = sceneObject.Position.Width;
             if (range.WordWrap && componentWidth > 0)
             {
-                txt = WrapText(spriteFont, txt, componentWidth * 32);
+                txt = WrapText(spriteFont, txt, componentWidth * cell);
             }
 
             var color = new Color(range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B, range.ForegroundColor.A);
@@ -735,7 +739,12 @@ namespace Dungeon.Monogame
                 }
                 else
                 {
-                    DrawBorder(rect, 1, drawColor);
+                    var depth = (int)Math.Round(drawablePath.Depth);
+                    if(depth==0)
+                    {
+                        depth = 1;
+                    }
+                    DrawBorder(rect, depth, drawColor);
                 }
             }
 
@@ -749,14 +758,14 @@ namespace Dungeon.Monogame
                 }
 
                 var from = new Dungeon.Types.Point(drawablePath.Path.First());
-                from.X *= 32;
-                from.Y *= 32;
+                from.X *= cell;
+                from.Y *= cell;
                 from.X += x;
                 from.Y += y;
 
                 var to = new Dungeon.Types.Point(drawablePath.Path.Last());
-                to.X *= 32;
-                to.Y *= 32;
+                to.X *= cell;
+                to.Y *= cell;
                 to.X += x;
                 to.Y += y;
 
@@ -894,9 +903,9 @@ namespace Dungeon.Monogame
                 {
                     light = new PointLight()
                     {
-                        Scale = new Vector2(objLight.Range * 32),
+                        Scale = new Vector2(objLight.Range * cell),
                         ShadowType = ShadowType.Occluded,
-                        Radius = sceneObject.Light.Range * 32,
+                        Radius = sceneObject.Light.Range * cell,
                         Position = pos,
                         Color = color
                     };
@@ -938,6 +947,9 @@ namespace Dungeon.Monogame
                     if (!ParticleEffects.TryGetValue(sceneObject.Uid, out var particleEffect))
                     {
                         var particleRes = ResourceLoader.Load(path);
+                        if (particleRes==default)
+                            return;
+
                         var loader = new ParticleEffectLoader(particleRes.Stream, effect.Assembly);
 
                         particleEffect = loader.Load();

@@ -50,6 +50,11 @@
         /// </summary>
         double Scale { get; set; }
 
+        /// <summary>
+        /// Тэг для поиска в visual tree
+        /// </summary>
+        public string Tag { get; set; }
+
         bool ScaleAndResize { get; set; }
 
         /// <summary>

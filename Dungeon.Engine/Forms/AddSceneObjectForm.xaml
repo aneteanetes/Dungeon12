@@ -12,7 +12,7 @@
         BorderBrush="Black"
         ResizeMode="NoResize"
         BorderThickness="1"
-        Height="130" Width="391">
+        Height="130" Width="391" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="TitleBarButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
@@ -152,7 +152,7 @@
             </Border>
             <Label Foreground="WhiteSmoke" Grid.Row="1" Grid.Column="0" BorderBrush="Gray" BorderThickness="1 0 1 1" >Тип объекта</Label>
             <Border BorderBrush="Gray" BorderThickness="0 0 1 1" Grid.Row="1" Grid.Column="1">
-                <ComboBox Name="SelectSceneObjectTypeView" ItemsSource="{Binding Path=AvailableSceneObjects}">
+                <ComboBox IsTextSearchEnabled="True" TextSearch.TextPath="Name" IsTextSearchCaseSensitive="False" Name="SelectSceneObjectTypeView" ItemsSource="{Binding Path=AvailableSceneObjects}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">

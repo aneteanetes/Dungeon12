@@ -4,8 +4,10 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Dungeon.Engine.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Color = Microsoft.Xna.Framework.Color;
 using Matrix = Microsoft.Xna.Framework.Matrix;
 
@@ -262,7 +264,8 @@ namespace Dungeon.Engine.Host
         // Initialize(), Unitialize(), and Render() protected virtual or call an 
         // external "renderer".
         private void Initialize()
-        {            
+        {
+            InitEvents();
             InitImpl();
         }
 
@@ -273,6 +276,7 @@ namespace Dungeon.Engine.Host
 
         private void Render(TimeSpan time)
         {
+            this.UpdateLoop(new Microsoft.Xna.Framework.GameTime());
             this.Draw();
         }
         #endregion

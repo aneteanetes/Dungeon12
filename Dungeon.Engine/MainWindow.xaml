@@ -345,7 +345,17 @@
         </Grid>
         <Menu x:Name="MainMenu" DockPanel.Dock="Top" SnapsToDevicePixels="True" Height="23" ItemsSource="{Binding MenuItems}" Margin="2,0,0,0">
         </Menu>
-        <Grid Margin="3 0 3 3">
+        <Grid Height="39" DockPanel.Dock="Top">
+            <StackPanel Orientation="Horizontal">
+                <Button Click="ToolsUsualBtn" Width="26" Height="26" BorderBrush="Gray" Margin="3" BorderThickness="1">
+                    <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/pointer.png" Margin="3" />
+                </Button>
+                <Button Click="ToolsMovingBtn" Width="26" Height="26" BorderBrush="Gray" Margin="3" BorderThickness="1">
+                    <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/MoveGlyph_16x.png" Margin="3" />
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid DockPanel.Dock="Bottom" Margin="3 0 3 3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="4*"></RowDefinition>
                 <RowDefinition Height="4*" ></RowDefinition>
@@ -434,10 +444,17 @@
             </Border>
 
             <StatusBar  Grid.Row="3" Grid.ColumnSpan="3"  DockPanel.Dock="Bottom" BorderBrush="Gray" Margin="0 2 0 0" BorderThickness="1" Background="#007ACC">
-                <StatusBarItem>
-                    <StackPanel Orientation="Horizontal" >
-                        <TextBlock x:Name="StatusText" Foreground="White"></TextBlock>
-                    </StackPanel>
+                <StatusBarItem HorizontalAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                            <ColumnDefinition Width="9*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Name="ExpandStatusBtn" Click="ExpandStatusBtn_Click">
+                            <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/Resize_16x.png" />
+                        </Button>
+                        <TextBlock Margin="5 0 0 0" Grid.Column="1" x:Name="StatusText" Foreground="White" Text=""></TextBlock>                        
+                    </Grid>
                 </StatusBarItem>
             </StatusBar>
             <controls:Loader x:Name="LoaderFreeze" Grid.RowSpan="2" Grid.ColumnSpan="3" Visibility="Hidden"/>

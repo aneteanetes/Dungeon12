@@ -49,8 +49,8 @@ namespace Dungeon.Control
                     }
                 }
 
-                gamecoordinates.X /= 32;
-                gamecoordinates.Y /= 32;
+                gamecoordinates.X /= Settings.DrawingSize.CellF;
+                gamecoordinates.Y /= Settings.DrawingSize.CellF;
 
                 return gamecoordinates;
             }
@@ -61,6 +61,6 @@ namespace Dungeon.Control
         /// <summary>
         /// Относительные координаты по игровой сетке
         /// </summary>
-        public Point Relative => new Point(X / 32, Y / 32);
+        public Point Relative => new Point(X / Settings.DrawingSize.CellF, Y / Settings.DrawingSize.CellF);
     }
 }

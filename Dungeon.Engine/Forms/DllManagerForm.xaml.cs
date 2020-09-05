@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Dungeon.Engine.Editable;
+using Dungeon.Engine.Projects;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Dungeon.Engine.Forms
 {
@@ -17,18 +9,31 @@ namespace Dungeon.Engine.Forms
     /// </summary>
     public partial class DllManagerForm : Window
     {
-        public DllManagerForm()
+        public DungeonEngineProject Project { get; set; }
+
+        public DllManagerForm(DungeonEngineProject project)
         {
+            this.Project = project;
             InitializeComponent();
+            RefListView.ItemsSource = project.References;
         }
 
         private void RemoveDllReference(object sender, RoutedEventArgs e)
         {
-
+            Project.References.Remove(RefListView.SelectedItem.As<DungeonEngineReference>());
+            RefListView.ItemsSource = Project.References;
         }
+
+
         private void OnCloseButtonClick(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void AddNewRef(object sender, RoutedEventArgs e)
+        {
+            new AddProjRefForm(Project).ShowDialog();
+            RefListView.ItemsSource = Project.References;
         }
     }
 }

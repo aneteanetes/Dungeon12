@@ -1,4 +1,5 @@
 ﻿using Dungeon.Engine.Events;
+using Dungeon.Engine.Forms;
 using Dungeon.Engine.Projects;
 using System;
 using System.Windows;
@@ -16,7 +17,7 @@ namespace Dungeon.Engine.Menus.File
             var proj = App.Container.Resolve<DungeonEngineProject>();
             if (proj == default)
             {
-                MessageBox.Show("Project is not loaded!");
+                Message.Show("Project is not loaded!");
                 return;
             }
 

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>Latest</LangVersion>
     <Configurations>Debug;Release;CompileDatabase</Configurations>
   </PropertyGroup>
@@ -23,7 +23,9 @@
     <EmbeddedResource Remove="Resources\Resource.cs" />
     <EmbeddedResource Remove="Resources\ResourceCompiler.cs" />
     <EmbeddedResource Remove="Resources\ResourceDatabaseResolver.cs" />
+    <EmbeddedResource Remove="Resources\ResourceLoaderSettings.cs" />
     <EmbeddedResource Remove="Resources\ResourceManifest.cs" />
+    <EmbeddedResource Remove="Resources\ResourceResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="LiteDB" Version="4.1.4" />

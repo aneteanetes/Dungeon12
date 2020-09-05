@@ -2,6 +2,7 @@
 using Dungeon.Resources;
 using Dungeon.Utils;
 using Dungeon.Utils.ReflectionExtensions;
+using Dungeon.View.Interfaces;
 using LiteDB;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace Dungeon.Engine.Projects
         public string Name { get; set; }
 
         public string ClassName { get; set; }
+
+        public bool Published { get; set; }
 
         [BsonIgnore]
         private Type _classType;
@@ -38,7 +41,7 @@ namespace Dungeon.Engine.Projects
         }
 
         [BsonIgnore]
-        public object Instance { get; set; }
+        public ISceneObject Instance { get; set; }
 
         public override void Commit()
         {

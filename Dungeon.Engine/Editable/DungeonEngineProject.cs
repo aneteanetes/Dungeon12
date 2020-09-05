@@ -1,10 +1,14 @@
 ﻿using Dungeon.Data;
+using Dungeon.Engine.Editable;
+using Dungeon.Engine.Engine;
+using Dungeon.Resources;
 using LiteDB;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Loader;
 using System.Windows.Controls;
 
 namespace Dungeon.Engine.Projects
@@ -17,7 +21,7 @@ namespace Dungeon.Engine.Projects
 
         public DungeonEngineProjectType Type { get; set; }
 
-        public List<string> References { get; set; }
+        public List<DungeonEngineReference> References { get; set; }
 
         public ObservableCollection<DungeonEngineScene> Scenes { get; set; } = new ObservableCollection<DungeonEngineScene>();
 
@@ -37,6 +41,31 @@ namespace Dungeon.Engine.Projects
 
         public void Load()
         {
+            if (References == default)
+            {
+                References = new List<DungeonEngineReference>
+                {
+                    new DungeonEngineReference()
+                    {
+                        Kind = DungeonEngineReferenceKind.Embedded,
+                        Title = "Dungeon",
+                        Path = "Embedded"
+                    }
+                };
+            }
+
+            foreach (var refasm in References)
+            {
+                if (refasm.Kind != DungeonEngineReferenceKind.Embedded)
+                {
+                    ResourceLoader.LoadAssemblyUnloadable(refasm.Path);
+                    if (!string.IsNullOrWhiteSpace(refasm.DbPath))
+                    {
+                        ResourceLoader.ResourceDatabaseResolvers.Add(new DungeonEngineResourceDatabaseResolver(refasm.DbPath));
+                    }
+                }
+            }
+
             foreach (var scene in Scenes)
             {
                 foreach (var obj in scene.SceneObjects)
@@ -44,6 +73,11 @@ namespace Dungeon.Engine.Projects
                     obj.InitTable();
                 }
             }
+        }
+
+        public void Close()
+        {
+            ResourceLoader.UnloadAssemblies().GetAwaiter().GetResult();
         }
     }
 }

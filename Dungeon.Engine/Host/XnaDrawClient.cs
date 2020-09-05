@@ -5,13 +5,16 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Dungeon.Engine.Projects;
 using Dungeon.Monogame;
 using Dungeon.Scenes;
+using Dungeon.Settings;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using ProjectMercury.Renderers;
 using Color = Microsoft.Xna.Framework.Color;
 using Matrix = Microsoft.Xna.Framework.Matrix;
 
@@ -37,9 +40,24 @@ namespace Dungeon.Engine.Host
         public void InitImpl()
         {
             var _services = new GameServiceContainer();
+            var graphicsService = new DefaultGraphicsDeviceManager(GraphicsDevice);
+            _services.AddService(typeof(IGraphicsDeviceService), graphicsService);
             var _content = new ContentManager(_services);
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            XNADrawClientImplementation = new XNADrawClientImplementation(GraphicsDevice, default, spriteBatch, 32, default, _content, Camera, default);
+            DungeonGlobal.TransportVariable = GraphicsDevice;
+
+            var cellSize = App.Container.Resolve<DungeonEngineProject>()?.CompileSettings.CellSize ?? 32;
+
+            XNADrawClientImplementation = new XNADrawClientImplementation(GraphicsDevice, default, spriteBatch, cellSize, default, _content, Camera,new SpriteBatchRenderer
+            {
+                GraphicsDeviceService = graphicsService
+            });
+        }
+
+        public void ChangeCell(int newCellSize)
+        {
+            DrawingSize.Cell = newCellSize;
+            XNADrawClientImplementation.cell = newCellSize;
         }
 
         public void Draw()
