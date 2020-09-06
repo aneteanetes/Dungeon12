@@ -16,9 +16,13 @@
     <!--https://www.iconfinder.com/iconsets/fantasy-and-role-play-game-adventure-quest-->
     <Window.Resources>
         <engine:TreeViewLineConverter x:Key="LineConverter"/>        
-        <ContextMenu Background="#3F3F46" x:Key="ResourceContextMenu" Style="{DynamicResource ContextMenuStyle1}">
-            <MenuItem Foreground="WhiteSmoke" Header="Добавить" Click="AddResourceCtxClick"/>
-            <!--<MenuItem Header="Удалить"/>-->
+        <ContextMenu Background="#3F3F46" x:Key="ResourceContextMenu">
+            <MenuItem Foreground="WhiteSmoke" Header="Добавить">
+                <MenuItem Foreground="WhiteSmoke" Header="Папку" Click="AddResourceFolderCtxClick"/>
+                <MenuItem Foreground="WhiteSmoke" Header="Ресурс" Click="AddResourceCtxClick" />
+            </MenuItem>
+            <MenuItem Foreground="WhiteSmoke" Header="Переименовать" Click="RenameResourceCtxClick"/>
+            <MenuItem Foreground="WhiteSmoke" Header="Удалить" Click="RemoveResourceCtxClick"/>
             <ContextMenu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Background="#3F3F46"></StackPanel>
@@ -393,7 +397,7 @@
             <TreeView x:Name="ResourcesView" Margin="0 30 6 0" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Foreground="WhiteSmoke" BorderBrush="Gray" Style="{DynamicResource TreeViewStyle1}">               
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Path=Nodes}">
-                        <TextBlock Text="{Binding Name}" />
+                        <TextBlock Text="{Binding Display}" />
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>
@@ -443,7 +447,7 @@
                 </ScrollViewer>
             </Border>
 
-            <StatusBar  Grid.Row="3" Grid.ColumnSpan="3"  DockPanel.Dock="Bottom" BorderBrush="Gray" Margin="0 2 0 0" BorderThickness="1" Background="#007ACC">
+            <StatusBar x:Name="StatusBar"  Grid.Row="3" Grid.ColumnSpan="3"  DockPanel.Dock="Bottom" BorderBrush="Gray" Margin="0 2 0 0" BorderThickness="1" Background="#007ACC">
                 <StatusBarItem HorizontalAlignment="Stretch">
                     <Grid>
                         <Grid.ColumnDefinitions>

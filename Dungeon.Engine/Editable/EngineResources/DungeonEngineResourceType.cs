@@ -7,6 +7,10 @@ namespace Dungeon.Engine.Projects
 {
     public enum DungeonEngineResourceType
     {
+        [Value("Файл")]
+        File,
+        [Value("Встроенный")]
+        Embedded,
         [Value("Изображение")]
         Image,
         [Value("Шрифт")]
@@ -20,6 +24,8 @@ namespace Dungeon.Engine.Projects
         [Value("Частицы")]
         Particle,
         [Value("Шейдер")]
-        Shader
+        Shader,
+        [Value("Папка")]
+        Folder,
     }
 }

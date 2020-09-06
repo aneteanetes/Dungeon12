@@ -5,13 +5,13 @@ namespace Dungeon.Engine.Events
 {
     public class ResourceAddEvent : IEvent
     {
-        public DungeonEngineResourcesGraph Resource { get; set; }
+        public string ResourceFilePath { get; set; }
 
         public DungeonEngineResourcesGraph ParentResource { get; set; }
 
-        public ResourceAddEvent(DungeonEngineResourcesGraph res, DungeonEngineResourcesGraph parent)
+        public ResourceAddEvent(string res, DungeonEngineResourcesGraph parent)
         {
-            Resource = res;
+            ResourceFilePath = res;
             ParentResource = parent;
         }
     }

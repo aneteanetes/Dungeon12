@@ -12,13 +12,13 @@ namespace Dungeon.Engine.Forms
     /// </summary>
     public partial class AddResourceForm : Window
     {
-        public DungeonEngineResourcesGraph Resource { get; set; } = new DungeonEngineResourcesGraph();
+        string resPath;
 
-        private DungeonEngineResourcesGraph Parent { get; set; } 
+        private DungeonEngineResourcesGraph ParentRes { get; set; } 
 
         public AddResourceForm(DungeonEngineResourcesGraph parent)
         {
-            Parent = parent;
+            ParentRes = parent;
             InitializeComponent();
             DataContext = this;
         }
@@ -31,12 +31,12 @@ namespace Dungeon.Engine.Forms
         {
             using var dialog = new OpenFileDialog();
             var result = dialog.ShowDialog();
-            PhysicalPath.Content = Resource.Path = dialog.FileName;
+            PhysicalPath.Content = resPath = dialog.FileName;
         }
 
         private void AddResProcess(object sender, RoutedEventArgs e)
         {
-            DungeonGlobal.Events.Raise(new ResourceAddEvent(Resource,Parent));
+            DungeonGlobal.Events.Raise(new ResourceAddEvent(resPath,ParentRes));
             this.Close();
         }
 

@@ -85,6 +85,9 @@
     <Compile Update="Forms\AddResourceForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Forms\AddNamedForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -101,6 +104,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Forms\AddResourceForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Forms\AddNamedForm.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

@@ -130,14 +130,12 @@ namespace Dungeon.Engine
                 {
                     Project.Resources = new ObservableCollection<DungeonEngineResourcesGraph>
                     {
-                        new DungeonEngineResourcesGraph()
-                        {
-                            Nodes = new ObservableCollection<DungeonEngineResourcesGraph>()
-                            {
-                                new DungeonEngineResourcesGraph(){ Path="./DungeonEngine.meta"}
-                            }
-                        }
+                        new DungeonEngineResourcesGraph() //root
                     };
+                    var meta = new DungeonEngineResourcesGraph() { Name = "DungeonEngine.meta", Type = DungeonEngineResourceType.Embedded };
+                    var root = Project.Resources.FirstOrDefault();
+                    meta.Parent = root;
+                    root.Nodes.Add(meta);
                 }
 
                 ResourcesView.ItemsSource = Project.Resources;
@@ -651,10 +649,19 @@ namespace Dungeon.Engine
         private void ChangeStatusHandler(StatusChangeEvent @event)
             => ChangeStatus(@event.Status);
 
-        public void ChangeStatus(string status = default)
+        public void ChangeStatus(string status = default, bool error=false)
         {
             if (status != default)
             {
+                if(error)
+                {
+                    StatusBar.Background = Brushes.Red;
+                }
+                else
+                {
+                    StatusBar.Background = new SolidColorBrush(Color.FromRgb(0, 122, 204));
+                }
+
                 StatusText.Text = $"{DateTime.Now:HH:mm} | {status}";
                 return;
             }
@@ -669,13 +676,21 @@ namespace Dungeon.Engine
 
         private void AddedNewResourceEvent(ResourceAddEvent @event)
         {
-            @event.ParentResource.Nodes.Add(@event.Resource);
+            var newRes = new DungeonEngineResourcesGraph
+            {
+                Type = DungeonEngineResourceType.File,
+                Parent = @event.ParentResource
+            };
+            @event.ParentResource.Nodes.Add(newRes);
+            newRes.Name = Path.GetFileName(@event.ResourceFilePath);
+
             new LiteDatabase(Project.DbFilePath).GetCollection<Resource>()
                 .Insert(new Resource()
                 {
-                    Path = Path.GetFileName(@event.Resource.Path),
-                    Data = File.ReadAllBytes(@event.Resource.Path)
+                    Path = newRes.GetFullPath(),
+                    Data = File.ReadAllBytes(@event.ResourceFilePath)
                 });
+
             Save();
         }
 
@@ -709,7 +724,104 @@ namespace Dungeon.Engine
         {
             if (ResourcesView.SelectedItem is DungeonEngineResourcesGraph resGraph)
             {
-                new AddResourceForm(resGraph).Show();
+                if (resGraph.Type == DungeonEngineResourceType.Folder || resGraph.Display == "Resources")
+                {
+                    new AddResourceForm(resGraph).Show();
+                }
+                else
+                {
+                    ChangeStatus("Ресурс можно добавить только в папку или корень проекта!");
+                }
+            }
+        }
+
+        private void RemoveResourceCtxClick(object sender, RoutedEventArgs e)
+        {
+            if (ResourcesView.SelectedItem is DungeonEngineResourcesGraph resGraph)
+            {
+                if (resGraph.Type == DungeonEngineResourceType.Embedded || resGraph.Display == "Resources")
+                    return;
+
+                if (RemoveResImpl(resGraph))
+                {
+                    resGraph.Parent.Nodes.Remove(resGraph);
+                }
+                else
+                {
+                    ChangeStatus($"Не удалось удалить ресурс: {resGraph.GetFullPath()}");
+                }
+            }
+        }
+
+        private bool RemoveResImpl(DungeonEngineResourcesGraph resGraph)
+        {
+            if (resGraph.Type != DungeonEngineResourceType.Folder)
+            {
+                var db = new LiteDatabase(Project.DbFilePath);
+                var store = db.GetCollection<Resource>();
+                var stored = store.FindOne(r => r.Path == resGraph.GetFullPath());
+                if (stored != default)
+                {
+                    return store.Delete(stored.Id);
+                }
+                return false;
+            }
+            else
+            {
+                List<DungeonEngineResourcesGraph> remove = new List<DungeonEngineResourcesGraph>();
+
+                foreach (var resInside in resGraph.Nodes)
+                {
+                    RemoveResImpl(resInside);
+                    remove.Add(resInside);
+                }
+
+                remove.ForEach(r => resGraph.Nodes.Remove(r));
+                return true;
+            }
+        }
+
+        private void RenameResourceCtxClick(object sender, RoutedEventArgs e)
+        {
+            if (ResourcesView.SelectedItem is DungeonEngineResourcesGraph resGraph)
+            {
+                var nmform = new AddNamedForm("Переименовать ресурс");
+                nmform.ShowDialog();
+
+                using var db = new LiteDatabase(Project.DbFilePath);
+                var store = db.GetCollection<Resource>();
+
+                var fullPath = resGraph.GetFullPath();
+                var stored = store.FindOne(r => r.Path == fullPath);
+
+                if (stored != default)
+                {
+                    resGraph.Name = nmform.Text;
+                    stored.Path = resGraph.GetFullPath();
+                    store.Update(stored);
+                }
+                else
+                {
+                    ChangeStatus($"Неудалось переименовать ресурс: {resGraph.Display}!", error: true);
+                }
+            }
+        }
+
+        private void AddResourceFolderCtxClick(object sender, RoutedEventArgs e)
+        {
+            if (ResourcesView.SelectedItem is DungeonEngineResourcesGraph resGraph)
+            {
+                if (resGraph.Type == DungeonEngineResourceType.Folder || resGraph.Display == "Resources")
+                {
+                    var nmform = new AddNamedForm("Добавить папку");
+                    nmform.ShowDialog();
+                    resGraph.Nodes.Add(new DungeonEngineResourcesGraph()
+                    {
+                        Name = nmform.Text,
+                        Type = DungeonEngineResourceType.Folder,
+                        Parent = resGraph
+                    });
+                }
             }
         }
 

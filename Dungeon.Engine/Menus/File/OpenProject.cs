@@ -20,6 +20,7 @@ namespace Dungeon.Engine.Menus.File
         public Action Click => () =>
         {
             using var dialog = new OpenFileDialog();
+            dialog.InitialDirectory = @"%UserProfile%\Documents\";
             dialog.Filter = "Dungeon Engine Project (.deproj)|*.deproj";
             var result = dialog.ShowDialog();
 

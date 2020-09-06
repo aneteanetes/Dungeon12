@@ -41,6 +41,11 @@ namespace Dungeon.Engine.Projects
 
         public void Load()
         {
+            foreach (var res in Resources)
+            {
+                res.Load();
+            }
+
             if (References == default)
             {
                 References = new List<DungeonEngineReference>

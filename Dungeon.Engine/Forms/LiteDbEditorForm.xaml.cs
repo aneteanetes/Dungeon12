@@ -41,7 +41,7 @@ namespace Dungeon.Engine.Forms
         {
             using var dialog = new OpenFileDialog
             {
-                Filter = "Dungeon resources (.dtr)|*.dtr"
+                Filter = "Dungeon resources (.dtr)|*.dtr;*.deproj"
             };
             var result = dialog.ShowDialog();
 
@@ -62,6 +62,7 @@ namespace Dungeon.Engine.Forms
 
         private void Collections_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
+            CollectionDataView.ItemsSource = new List<string>();
             foreach (var item in e.AddedItems)
             {
                 if (item is string itm)
