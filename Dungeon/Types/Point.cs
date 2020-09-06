@@ -198,32 +198,51 @@ namespace Dungeon.Types
         {
             return this.X == x && this.Y == y;
         }
-        
-        public Direction DetectDirection(Point another)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="another"></param>
+        /// <param name="accuracy">amount of sensitivity</param>
+        /// <returns></returns>
+        public Direction DetectDirection(Point another, double accuracy = 0)
         {
             Direction dirX = Direction.Idle;
             Direction dirY = Direction.Idle;
 
-            if (another.X <= this.X)
+            if (Compare(true,another.x,this.x,accuracy))
             {
                 dirX = Direction.Left;
             }
-            if (another.X >= this.X)
+
+            if (Compare(false, another.x, this.x, accuracy))
             {
                 dirX = Direction.Right;
             }
 
-            if (another.Y >= this.Y)
+            if (Compare(false, another.y, this.y, accuracy))
             {
                 dirY = Direction.Down;
             }
 
-            if (another.Y <= this.Y)
+            if (Compare(true, another.y, this.y, accuracy))
             {
                 dirY = Direction.Up;
             }
 
             return (Direction)((int)dirX + (int)dirY);
+        }
+
+        private bool Compare(bool isLess, double a, double b, double accuracy)
+        {
+            var diff = Math.Abs(a - b);
+            if (diff < accuracy)
+                return false;
+
+            static bool less(double x1, double x2) => x1 < x2;
+            static bool more(double x1, double x2) => x1 > x2;
+
+            return isLess ? less(a, b) : more(a, b);
         }
     }
 }

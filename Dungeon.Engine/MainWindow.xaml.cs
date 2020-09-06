@@ -1,7 +1,4 @@
-﻿using Dungeon.Control;
-using Dungeon.Drawing.SceneObjects;
-using Dungeon.Engine.Controls;
-using Dungeon.Engine.Editable;
+﻿using Dungeon.Engine.Editable;
 using Dungeon.Engine.Editable.PropertyTable;
 using Dungeon.Engine.Engine;
 using Dungeon.Engine.Events;
@@ -9,8 +6,6 @@ using Dungeon.Engine.Forms;
 using Dungeon.Engine.Host;
 using Dungeon.Engine.Menus;
 using Dungeon.Engine.Projects;
-using Dungeon.Engine.Utils;
-using Dungeon.Entities;
 using Dungeon.Resources;
 using Dungeon.Scenes.Manager;
 using Dungeon.Types;
@@ -18,23 +13,19 @@ using Dungeon.Utils;
 using Dungeon.Utils.ReflectionExtensions;
 using Dungeon.View.Interfaces;
 using LiteDB;
-using MathNet.Numerics.Properties;
 using MoreLinq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using Xceed.Wpf.Toolkit.PropertyGrid;
 
 namespace Dungeon.Engine
 {
@@ -751,46 +742,57 @@ namespace Dungeon.Engine
 
         private void XnaHost_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            if (!moveTool)
+                return;
+
             if (e.ChangedButton == MouseButton.Left)
             {
                 moveMode = false;
-                stopwatch.Stop();
-                stopwatch.Reset();
             }
         }
-
-        public static Stopwatch stopwatch = new Stopwatch();
 
         private void XnaHost_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (SelectedSceneObject == default || !moveTool)
+                return;
+
             if (e.ChangedButton == MouseButton.Left)
             {
-                stopwatch.Start();
-                moveMode = true;
                 var posWPF = Mouse.GetPosition(XnaHost);
-                prev = new Types.Point(0, 0);
+
+                var mouse = new Types.Rectangle(posWPF.X, posWPF.Y, 1, 1);
+                var obj = new Rectangle(
+                    SelectedSceneObject.Instance.ComputedPosition.X,
+                    SelectedSceneObject.Instance.ComputedPosition.Y,
+                    SelectedSceneObject.Instance.Width,
+                    SelectedSceneObject.Instance.Height);
+
+                if (obj.Width == 0 && obj.Height == 0 && !string.IsNullOrWhiteSpace(SelectedSceneObject.Instance.Image))
+                {
+                    var size = DungeonGlobal.DrawClient.MeasureImage(SelectedSceneObject.Instance.Image);
+                    obj.Width = size.X;
+                    obj.Height = size.Y;
+                }
+
+                if (obj.IntersectsWithOrContains(mouse))
+                {
+                    moveMode = true;
+                    prev = new Types.Point(mouse.X, mouse.Y);
+                }
             }
         }
-
-        private void ToolsMovingBtn(object sender, RoutedEventArgs e)
-        {
-            this.Cursor = Cursors.SizeAll;
-        }
-
+        bool moveTool = false;
         bool moveMode = false;
 
         Types.Point prev;
 
         private void XnaHost_MouseMove(object sender, MouseEventArgs e)
         {            
-            if (!moveMode || SelectedSceneObject==default)
+            if (!moveMode || !moveTool || SelectedSceneObject==default)
                 return;
 
-            void set(bool? plus=false, double x =0, double y =0, bool plusX=false, bool plusY=true)
+            void set(bool? plus=null, double x =0, double y =0, bool plusX=false, bool plusY=true)
             {
-                x = 1;
-                y = 1;
-
                 var X = SelectedSceneObject.Get("Left").Value.As<double>();
                 var Y = SelectedSceneObject.Get("Top").Value.As<double>();
 
@@ -829,7 +831,10 @@ namespace Dungeon.Engine
             var valX = Math.Abs(pos.X - prev.X);
             var valY = Math.Abs(pos.Y - prev.Y);
 
-            switch (prev.DetectDirection(pos))
+            //valX += SelectedSceneObject.Instance.Left - pos.X;
+            //valY += SelectedSceneObject.Instance.Top - pos.Y;
+
+            switch (prev.DetectDirection(pos, 0))
             {
                 case Direction.Up: set(false, y: valY); break;
                 case Direction.Down: set(true, y: valY); break;
@@ -844,14 +849,41 @@ namespace Dungeon.Engine
 
             FillPropGrid(SelectedSceneObject, SelectedSceneObject.ClassName);
 
-            prev = pos;
+            prev = new Types.Point(pos.X, pos.Y);
         }
 
-        private void ToolsUsualBtn(object sender, RoutedEventArgs e)
+
+        private void ToolsMovingBtn(object sender, RoutedEventArgs e) => ToolButton(sender.As<Button>(), Cursors.SizeAll,
+            () => moveTool = true,
+            () => moveTool = false);
+
+        private void ToolsUsualBtn(object sender, RoutedEventArgs e) => ToolButton(sender.As<Button>(), Cursors.Arrow);
+
+        private Dictionary<Button, bool> ToolboxButtons = new Dictionary<Button, bool>();
+
+        private void ToolButton(Button btn, Cursor cursor, Action enable=default, Action disable=default)
         {
-            this.Cursor = Cursors.Arrow;
-            moveMode = true;
-            prev = default;
+            this.toolMove.Background = Brushes.Transparent;
+            this.toolDefault.Background = Brushes.Transparent;
+
+            if (!ToolboxButtons.ContainsKey(btn))
+            {
+                ToolboxButtons.Add(btn, false);
+            }
+
+            if (ToolboxButtons[btn]) // disabled
+            {
+                XnaHost.Cursor = Cursors.Arrow;
+                disable?.Invoke();
+                ToolboxButtons[btn] = false;
+            }
+            else // enabled
+            {
+                btn.Background = Brushes.Gray;
+                XnaHost.Cursor = cursor;
+                enable?.Invoke();
+                ToolboxButtons[btn] = true;
+            }            
         }
     }
 }

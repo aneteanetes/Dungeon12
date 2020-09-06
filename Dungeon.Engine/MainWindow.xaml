@@ -347,10 +347,10 @@
         </Menu>
         <Grid Height="39" DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal">
-                <Button Click="ToolsUsualBtn" Width="26" Height="26" BorderBrush="Gray" Margin="3" BorderThickness="1">
+                <Button x:Name="toolDefault" Click="ToolsUsualBtn" Width="26" Height="26" BorderBrush="Gray" Margin="3" BorderThickness="1">
                     <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/pointer.png" Margin="3" />
                 </Button>
-                <Button Click="ToolsMovingBtn" Width="26" Height="26" BorderBrush="Gray" Margin="3" BorderThickness="1">
+                <Button x:Name="toolMove" Click="ToolsMovingBtn" Width="26" Height="26" BorderBrush="Gray" Margin="3" BorderThickness="1">
                     <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/MoveGlyph_16x.png" Margin="3" />
                 </Button>
             </StackPanel>
