@@ -154,16 +154,16 @@
                 }
             });
 
-            //this.AddObject(new SmallMetallButtonControl(new DrawText("#") { Size = 40 }.Montserrat())
-            //{
-            //    Left = 24,
-            //    Top = 11,
-            //    AbsolutePosition = true,
-            //    OnClick = () =>
-            //    {
-            //        this.Switch<EditorScene>();
-            //    }
-            //});
+            this.AddObject(new SmallMetallButtonControl(new DrawText("#") { Size = 40 }.Montserrat())
+            {
+                Left = 24,
+                Top = 11,
+                AbsolutePosition = true,
+                OnClick = () =>
+                {
+                    this.Switch<EditorScene>();
+                }
+            });
 
             this.AddObject(new MetallButtonControl(isGame ? "Сохранить" : "Создатели")
             {

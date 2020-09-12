@@ -16,9 +16,18 @@
 
         double CameraOffsetY { get; }
 
+        /// <summary>
+        /// 0 - invisible
+        /// 0.5 - half
+        /// 2 - double size
+        /// </summary>
+        double CameraOffsetZ { get; }
+
         double CameraOffsetLimitX { get; }
 
         double CameraOffsetLimitY { get; }
+
+        double CameraOffsetLimitZ { get; }
 
         void SetCameraSpeed(double speed);
 

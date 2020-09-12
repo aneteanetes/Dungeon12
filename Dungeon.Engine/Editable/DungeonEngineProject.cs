@@ -75,6 +75,7 @@ namespace Dungeon.Engine.Projects
             {
                 foreach (var obj in scene.SceneObjects)
                 {
+                    obj.Load();
                     obj.InitTable();
                 }
             }

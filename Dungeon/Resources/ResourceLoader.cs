@@ -220,7 +220,27 @@ namespace Dungeon.Resources
             => DungeonGlobal.Assemblies.Concat(DungeonGlobal.GameAssembly)
                 .SelectMany(x => x.GetTypesSafe().Where(t => typeof(TAssignableFrom).IsAssignableFrom(t)));
 
-        public static Type LoadType(string className)
+
+        /// <summary>
+        /// 
+        /// <para>
+        /// [Кэшируемый]
+        /// </para>
+        /// </summary>
+        public static Type LoadType(string className, bool force = false)
+        {
+            if (!___LoadTypeCache.TryGetValue(className, out var value) && !force)
+            {
+                value = LoadTypeImpl(className);
+                ___LoadTypeCache.Add(className, value);
+            }
+
+            return value;
+        }
+        private static readonly Dictionary<string, Type> ___LoadTypeCache = new Dictionary<string, Type>();
+
+
+        private static Type LoadTypeImpl(string className)
         {
             if (string.IsNullOrWhiteSpace(className))
                 return default;

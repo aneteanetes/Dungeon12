@@ -8,7 +8,7 @@ namespace Dungeon.Utils.ReflectionExtensions
     public static class DefaultExtensions
     {
         /// <summary>
-        /// Provide default(Type)
+        /// Provide default(Type) through expressions
         /// </summary>
         /// <param name="type"></param>
         /// <returns>default(Type)</returns>

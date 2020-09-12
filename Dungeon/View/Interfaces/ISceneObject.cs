@@ -172,6 +172,8 @@
 
         bool Updatable { get; }
 
+        void AddChild(ISceneObject sceneObject);
+
         void RemoveChild(ISceneObject sceneObject);
     }
 }

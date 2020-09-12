@@ -12,6 +12,7 @@
         <engine:TreeViewLineConverter x:Key="LineConverter"/>
         <ContextMenu Background="#3F3F46" x:Key="ResourceContextMenu" Style="{DynamicResource ContextMenuStyle1}">
             <MenuItem Foreground="WhiteSmoke" Header="Добавить" Click="AddSceneObject"/>
+            <MenuItem Foreground="WhiteSmoke" Header="Копировать" Click="CopySceneObject"/>
             <MenuItem Foreground="WhiteSmoke" Header="Удалить" Click="RemoveSceneObject"/>
             <!--<MenuItem Header="Удалить"/>-->
             <ContextMenu.ItemsPanel>
@@ -173,10 +174,11 @@
         </Style>
     </UserControl.Resources>
     <Grid>        
-        <TreeView x:Name="SceneObjectsView" SelectedItemChanged="SceneObjectsView_SelectedItemChanged" ItemsSource="{Binding Path=ItemSource}" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Foreground="WhiteSmoke" BorderBrush="Gray" Style="{DynamicResource TreeViewStyle1}">            
+        <TreeView MouseDown="SceneObjectsView_MouseDown" MouseMove="SceneObjectsView_MouseMove" AllowDrop="True" Drop="SceneObjectsView_Drop"
+                  x:Name="SceneObjectsView" SelectedItemChanged="SceneObjectsView_SelectedItemChanged" ItemsSource="{Binding Path=ItemSource}" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Foreground="WhiteSmoke" BorderBrush="Gray" Style="{DynamicResource TreeViewStyle1}">            
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Nodes}">
-                    <TextBlock Text="{Binding Name}" />
+                    <TextBlock AllowDrop="True" Text="{Binding Name}" />
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>

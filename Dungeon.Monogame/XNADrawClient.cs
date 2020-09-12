@@ -204,6 +204,8 @@
 
             XNADrawClientImplementation = new XNADrawClientImplementation(GraphicsDevice, penumbra, spriteBatch, 32, GlobalImageFilter, Content, this, myRenderer);
 
+            Load3D();
+
             SceneManager.Start(isFatal ? "FATAL" : default);
             Network.Start();
             // TODO: use this.Content to load your game content here

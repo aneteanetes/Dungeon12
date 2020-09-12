@@ -118,8 +118,24 @@ namespace Dungeon.Monogame
             }
         }
 
+
+        void f()
+        {
+        }
+
         private void SetSpriteBatch(bool absolute = false, bool @interface = false)
         {
+            var scaleMatrix = Matrix.Identity;
+            if (Camera.CameraOffsetZ != 0)
+            {
+                float x = (float)Camera.CameraOffsetX;
+                float y = (float)Camera.CameraOffsetY;
+
+                var scaleVal = 1 + (Camera.CameraOffsetZ * 0.1);
+
+                scaleMatrix = Matrix.CreateScale((float)scaleVal);
+            }
+
             if (!absolute)
             {
                 SpriteBatchRestore = (smooth, filter) => spriteBatch.Begin(
@@ -127,16 +143,19 @@ namespace Dungeon.Monogame
 #if Android
                     screenScale*
 #endif
-                    Matrix.CreateTranslation((float)Camera.CameraOffsetX, (float)Camera.CameraOffsetY, 0),
+                    Matrix.CreateTranslation((float)Camera.CameraOffsetX, (float)Camera.CameraOffsetY,0) * scaleMatrix,
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
-                    blendState: BlendState.NonPremultiplied, effect: filter ? GlobalImageFilter : null);
+                    blendState: BlendState.NonPremultiplied, effect: filter ? GlobalImageFilter : null
+                    );
             }
             else
             {
                 SpriteBatchRestore = (smooth, filter) => spriteBatch.Begin(
+                    transformMatrix:
 #if Android
-                    transformMatrix: screenScale,
+                    screenScale*,
 #endif
+                    scaleMatrix,
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
                     blendState: BlendState.NonPremultiplied/*, effect: @interface ? null : GlobalImageFilter*/);
             }
@@ -145,17 +164,7 @@ namespace Dungeon.Monogame
 
         private Action<bool, bool> SpriteBatchRestore = null;
 
-        #region frameSettings
-
-        private int _frame;
-        private TimeSpan _lastFps;
-        private int _lastFpsFrame;
-        private double _fps;
-        Stopwatch _st = Stopwatch.StartNew();
-
-        #endregion
-
-        private static string DefaultFontXnbExistedFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.Resources.Fonts.xnb.Montserrat.Montserrat10.xnb";
+        private static readonly string DefaultFontXnbExistedFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.Resources.Fonts.xnb.Montserrat.Montserrat10.xnb";
 
         public Types.Point MeasureText(IDrawText drawText, ISceneObject parent = default)
         {

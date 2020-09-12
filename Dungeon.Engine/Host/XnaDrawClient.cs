@@ -24,15 +24,19 @@ namespace Dungeon.Engine.Host
     {
         public IScene scene { get; set; }
 
-        public ICamera Camera { get; set; } = new DungeonEngineCamera();
+        public DungeonEngineCamera Camera { get; set; } = new DungeonEngineCamera();
 
         public double CameraOffsetX => Camera.CameraOffsetX;
 
         public double CameraOffsetY => Camera.CameraOffsetY;
 
+        public double CameraOffsetZ => Camera.CameraOffsetZ;
+
         public double CameraOffsetLimitX => Camera.CameraOffsetLimitX;
 
         public double CameraOffsetLimitY => Camera.CameraOffsetLimitY;
+
+        public double CameraOffsetLimitZ => Camera.CameraOffsetLimitZ;
 
         SpriteBatch spriteBatch;
         XNADrawClientImplementation XNADrawClientImplementation;

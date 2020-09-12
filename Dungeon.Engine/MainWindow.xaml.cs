@@ -71,6 +71,7 @@ namespace Dungeon.Engine
             DungeonGlobal.Events.Subscribe<AddSceneObjectEvent>(AddedNewSceneObject, false);
             DungeonGlobal.Events.Subscribe<SceneObjectInObjectTreeSelectedEvent>(SelectedSceneObjectEvent, false);
             DungeonGlobal.Events.Subscribe<SceneResolutionChangedEvent>(ChangedResolutionEvent, false);
+            DungeonGlobal.Events.Subscribe<RemoveSceneObjectFromSceneEvent>(RemovingSceneObjectFromSceneEvent,false);
 
             this.KeyDown += D3D11Host.OnKeyDown;
             this.KeyUp += D3D11Host.OnKeyUp;
@@ -176,7 +177,11 @@ namespace Dungeon.Engine
                 Project = default;
                 ClearPropGrid();
                 WindowTitle.Text = $"Dungeon Engine";
-                ChangeStatus();
+                if (SceneManager != default)
+                {
+                    SceneManager.Change<EasyScene>();
+                    ChangeStatus();
+                }
             }
         }
 
@@ -281,8 +286,17 @@ namespace Dungeon.Engine
             var cmp = ObjectsView.TreeView;
             if (cmp.SelectedItem is DungeonEngineSceneObject obj)
             {
+                RemovingSceneObjectFromSceneEvent(new RemoveSceneObjectFromSceneEvent(obj));
+            }
+        }
+
+        private void RemovingSceneObjectFromSceneEvent(RemoveSceneObjectFromSceneEvent @event)
+        {
+            var obj = @event.RootedObject;
+            if (obj.Parent == default)
+            {
                 SelectedScene.SceneObjects.Remove(obj);
-                if(obj.Instance!=default)
+                if (obj.Instance != default)
                 {
                     SceneManager.Current.RemoveObject(obj.Instance.As<ISceneObject>());
                 }
@@ -323,7 +337,7 @@ namespace Dungeon.Engine
             }
         }
 
-        private void PushSceneObjectToScene(DungeonEngineSceneObject obj, bool initial=false)
+        private void PushSceneObjectToScene(DungeonEngineSceneObject obj, bool initial=false, DungeonEngineSceneObject parent=default)
         {
             try
             {
@@ -387,6 +401,21 @@ namespace Dungeon.Engine
                 }
 
                 obj.Instance = instance;
+
+                if (obj.Nodes?.Count > 0)
+                {
+                    foreach (var n in obj.Nodes)
+                    {
+                        PushSceneObjectToScene(n, initial, obj);
+                    }
+                }
+
+                if (parent != default)
+                {
+                    parent.Instance.AddChild(instance);
+                    return;
+                }
+
                 SceneManager.Current.AddObject(instance);
                 obj.Published=true;
                 if (PublishSceneObject.Visibility == Visibility.Visible)
@@ -995,7 +1024,37 @@ namespace Dungeon.Engine
                 XnaHost.Cursor = cursor;
                 enable?.Invoke();
                 ToolboxButtons[btn] = true;
-            }            
+            }
+        }
+
+        private void refreshSceneBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SceneManager.Change<EasyScene>();
+            if (SelectedScene == default)
+                return;
+
+            foreach (var obj in SelectedScene.SceneObjects)
+            {
+                PushSceneObjectToScene(obj);
+            }
+        }
+
+        private void resetScaleBtn(object sender, RoutedEventArgs e)
+        {
+            XnaHost.Camera.CameraOffsetZ = 0;
+        }
+
+        private void tileEditorBtn(object sender, RoutedEventArgs e)
+        {
+            if (this.Project == default)
+            {
+                Message.Show("Нет проекта!");
+                return;
+            }
+            else
+            {
+                new TileEditorForm(this.Project).Show();
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,6 +8,13 @@
   <ItemGroup>
     <ProjectReference Include="..\Dungeon.Monogame\Dungeon.Monogame.csproj" />
     <ProjectReference Include="..\Dungeon\Dungeon.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="**\Resources\**\*" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="**\Resources\**\*" />
   </ItemGroup>
 
 </Project>

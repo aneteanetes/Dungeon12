@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using Dungeon.Engine.Forms;
 using Microsoft.Xna.Framework;
@@ -67,6 +68,16 @@ namespace Dungeon.Engine.Host
         }
         #endregion
 
+
+        protected override void OnMouseWheel(MouseWheelEventArgs e)
+        {
+            if (System.Windows.Input.Keyboard.IsKeyDown(Key.LeftCtrl))
+            {
+                Camera.CameraOffsetZ += 0.3 * (e.Delta < 0 ? -1 : 1);
+            }
+
+            base.OnMouseWheel(e);
+        }
 
         #region Constructors
         /// <summary>

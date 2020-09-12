@@ -1,5 +1,6 @@
 ﻿using Dungeon.Engine.Editable.PropertyTable;
 using Dungeon.Resources;
+using Dungeon.Scenes.Manager;
 using Dungeon.Utils;
 using Dungeon.Utils.ReflectionExtensions;
 using Dungeon.View.Interfaces;
@@ -58,6 +59,18 @@ namespace Dungeon.Engine.Projects
             base.Commit();
         }
 
+        [BsonIgnore]
+        public DungeonEngineSceneObject Parent { get; set; }
+
+        public void Load()
+        {
+            foreach (var node in Nodes)
+            {
+                node.Parent = this;
+                node.Load();
+            }
+        }
+
         public ObservableCollection<DungeonEngineSceneObject> Nodes { get; set; } = new ObservableCollection<DungeonEngineSceneObject>();
 
         protected override List<PropertyTableRow> InitializePropertyTable()
@@ -86,6 +99,31 @@ namespace Dungeon.Engine.Projects
             }
 
             return bodyProps;
+        }
+
+        public DungeonEngineSceneObject Clone()
+        {
+            var obj = new DungeonEngineSceneObject()
+            {
+                Name = Name,
+                ClassName = ClassName,
+                Published = false,
+                Parent = Parent,
+            };
+            obj.InitTable();
+
+            for (int i = 0; i < this.PropertyTable.Count; i++)
+            {
+                var row = this.PropertyTable[i];
+                obj.PropertyTable[i] = new PropertyTableRow()
+                {
+                    Name= row.Name,
+                    TypeName = row.TypeName,
+                    Value=row.Value
+                };
+            }
+
+            return obj;
         }
     }
 }

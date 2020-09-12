@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         Foreground="WhiteSmoke"
         Background="#3F3F46"
-        Title="Enterprise Commander"  Width="1600" Height="900" WindowStartupLocation="CenterScreen"
+        Title="Dungeon Engine"  Width="1600" Height="900" WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip" WindowStyle="None">
     <!--https://www.iconfinder.com/iconsets/fantasy-and-role-play-game-adventure-quest-->
     <Window.Resources>
@@ -403,10 +403,19 @@
             </TreeView>
                 <GridSplitter Grid.Column="0" Background="Gray" Foreground="Gray" Grid.Row="0" Grid.RowSpan="3" ShowsPreview="False" Width="3" />
             <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" >
-                <Grid>
+                <Grid>                    
                     <Label Height="32" VerticalAlignment="Top" MouseLeftButtonDown="Label_MouseLeftButtonDown" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Margin="3 0 6 0" Padding="10 5 0 0" >Сцена</Label>
                     <Label x:Name="SceneResolution" Height="32" VerticalAlignment="Top" MouseLeftButtonDown="Label_MouseLeftButtonDown" Foreground="WhiteSmoke" Margin="40 0 6 0" Padding="10 7 0 0" >(1000x200)</Label>
                     <Label Height="32" VerticalAlignment="Top" MouseLeftButtonDown="Label_MouseLeftButtonDown" Foreground="WhiteSmoke" Margin="140 0 6 0" Padding="10 7 0 0" Name="SceneCoordinatesView" ></Label>
+                    <Button VerticalAlignment="top" HorizontalAlignment="Right" x:Name="refreshSceneBtn" Click="refreshSceneBtn_Click" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 10 0" BorderThickness="1">
+                        <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/Refresh_grey_16x.png" Margin="3" />
+                    </Button>
+                    <Button VerticalAlignment="top" HorizontalAlignment="Right" Click="resetScaleBtn" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 40 0" BorderThickness="1">
+                        <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/Scale_16x.png" Margin="3" />
+                    </Button>
+                    <Button VerticalAlignment="top" HorizontalAlignment="Right" Click="tileEditorBtn" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 70 0" BorderThickness="1">
+                        <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/Table_16x.png" Margin="3" />
+                    </Button>
                 </Grid>
             </Border>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" BorderBrush="Gray" BorderThickness="1" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Margin="3 30 6 0">

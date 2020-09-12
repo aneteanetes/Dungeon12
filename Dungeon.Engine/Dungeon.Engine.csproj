@@ -70,6 +70,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Controls\EngineCollectionEditor.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Forms\Message.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -91,6 +94,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Controls\EngineCollectionEditor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Forms\Message.xaml">
       <SubType>Designer</SubType>
     </Page>

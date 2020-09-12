@@ -25,6 +25,7 @@
 
         protected override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
+
             drawCicled = true;
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
@@ -48,6 +49,9 @@
             {
                 spriteBatch.End();
             }
+
+
+            Draw3D();
 
             if (!clientSettings.Add2DLighting)
                 base.Draw(gameTime);

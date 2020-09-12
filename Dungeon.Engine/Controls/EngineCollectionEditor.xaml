@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="Dungeon.Engine.Controls.EngineCollectionEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Dungeon.Engine.Controls" 
+             xmlns:engine="clr-namespace:Dungeon.Engine"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid >
+        <Label x:Name="CollectionName" Grid.Row="0" Grid.Column="0" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Margin="0 0 6 6" Padding="10 5 0 0" ></Label>
+        <Button x:Name="AddSceneBtn" IsEnabled="False" Click="Add" Grid.Row="0" Grid.Column="0" Margin="0 3 37 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >+</Button>
+        <Button x:Name="RemoveSceneBtn" IsEnabled="False"  Click="Remove" Grid.Row="0" Grid.Column="0" Margin="0 3 9 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >-</Button>
+        <ListBox SelectionChanged="Selected" x:Name="CollectionView" ItemsSource="{Binding Path=Project.Scenes}" BorderBrush="Gray" BorderThickness="1" Grid.Row="0" Grid.Column="0" Foreground="WhiteSmoke" Margin="0 30 6 6" HorizontalAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid MouseDown="SelectDoubleClick">
+                        <Label MouseDoubleClick="SelectDoubleClick" Height="24" Foreground="WhiteSmoke" Content="{Binding Name}" HorizontalAlignment="Left" ></Label>                        
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>

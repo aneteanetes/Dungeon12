@@ -42,10 +42,14 @@
 
         public double CameraOffsetY { get; set; }
 
+        public double CameraOffsetZ { get; set; }
+
         public double CameraOffsetLimitX { get; set; } = 3200000;
 
-        public double CameraOffsetLimitY { get; set; } = 3200000;       
-               
+        public double CameraOffsetLimitY { get; set; } = 3200000;
+
+        public double CameraOffsetLimitZ { get; set; } = 3200000;
+
         private bool IsStop(double number, double limit) => Math.Abs(number) >= limit;
 
         private void CalculateCamera()

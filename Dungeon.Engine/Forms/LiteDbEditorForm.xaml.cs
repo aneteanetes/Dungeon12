@@ -62,7 +62,6 @@ namespace Dungeon.Engine.Forms
 
         private void Collections_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            CollectionDataView.ItemsSource = new List<string>();
             foreach (var item in e.AddedItems)
             {
                 if (item is string itm)
