@@ -205,14 +205,14 @@
                     yOffset += playerPos.Y - 11.25;
                 }
 
-                SceneManager.StaticDrawClient.SetCamera(xOffset * 32, yOffset * 32);
+                DungeonGlobal.DrawClient.SetCamera(xOffset * 32, yOffset * 32);
 
                 Global.GameState.Player.Left = this.PlayerAvatar.Location.X;
                 Global.GameState.Player.Top = this.PlayerAvatar.Location.Y;
             }
 
 
-            var drawClient = SceneManager.StaticDrawClient;
+            var drawClient = DungeonGlobal.DrawClient;
             //drawClient.off
 
             this.PlayerAvatar.Region = new Rectangle
@@ -229,7 +229,7 @@
         {
             if (obj.CameraAffect)
             {
-                var drawClient = SceneManager.StaticDrawClient;
+                var drawClient = DungeonGlobal.DrawClient;
 
                 if (!availabe)
                 {
@@ -273,7 +273,7 @@
 
         private static void MoveCameraAndScreenPosByDirection(MapObject obj, Direction dir, Point pos)
         {
-            var drawClient = SceneManager.StaticDrawClient;
+            var drawClient = DungeonGlobal.DrawClient;
             switch (dir)
             {
                 case Direction.Up when (pos.Y > -5):

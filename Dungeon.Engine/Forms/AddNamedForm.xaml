@@ -147,9 +147,18 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Label Foreground="WhiteSmoke" Grid.Row="0" Grid.Column="0" BorderBrush="Gray" BorderThickness="1 1 1 1" >Наименование:</Label>
-            <Border BorderBrush="Gray" BorderThickness="0 1 1 1" Grid.Row="0" Grid.Column="1">
-                <TextBox BorderBrush="Gray" BorderThickness="1" x:Name="nametxt" ></TextBox>
+            <Border x:Name="TextField" BorderBrush="Gray" BorderThickness="0 1 1 1" Grid.Row="0" Grid.Column="1">
+                <TextBox BorderBrush="Gray" BorderThickness="1" x:Name="nametxt" ></TextBox>                
             </Border>
+            <Grid Visibility="Hidden" x:Name="FileField" Grid.Row="0" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>                
+                <Button Grid.Column="1" Click="SelectPathButton">
+                    <Image Width="22" Height="29" Source="pack://siteoforigin:,,,/Icons/path.png" />
+                </Button>
+            </Grid>
            
             <Button Margin="0 10 0 0" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0" Click="AddResProcess" >Добавить</Button>
         </Grid>

@@ -31,7 +31,7 @@
                 Top = 17,
                 OnClick = () =>
                 {
-                    SceneManager.Destroy<Main>();
+                    Global.SceneManager.Destroy<Main>();
                     this.Switch<Start>();
                 }
             });

@@ -12,9 +12,16 @@ namespace Dungeon.Engine.Engine
 
         public DungeonEngineResourceDatabaseResolver(string pathToDb) => PathToDb = pathToDb;
 
+        private LiteDatabase db;
+
         public override LiteDatabase Resolve()
         {
-            return new LiteDatabase(PathToDb);
+            if (db == default)
+            {
+                db = new LiteDatabase(PathToDb);
+            }
+
+            return db;
         }
     }
 }

@@ -298,6 +298,7 @@
                 }
 
                 private DrawablePath drawablePath;
+
                 public override IDrawablePath Path
                 {
                     get

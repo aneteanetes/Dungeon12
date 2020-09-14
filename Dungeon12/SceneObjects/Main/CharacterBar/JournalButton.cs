@@ -78,7 +78,7 @@
                 jWindow = new JournalWindow(Global.GameState.Player.As<Player>(),quest);
                 jWindow.Destroy += () => jWindow = null;
 
-                SceneManager.Current.ShowEffectsBinding(jWindow.InList<ISceneObject>());
+                DungeonGlobal.SceneManager.Current.ShowEffectsBinding(jWindow.InList<ISceneObject>());
             }
         }
 

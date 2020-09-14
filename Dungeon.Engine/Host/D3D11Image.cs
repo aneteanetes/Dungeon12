@@ -18,9 +18,9 @@ namespace Dungeon.Engine.Host
         #region Fields
         // Use a Direct3D 9 device for interoperability. The device is shared by 
         // all D3D11Images.
-        private static D3D9 _d3D9;
-        private static int _referenceCount;
-        private static readonly object _d3d9Lock = new object();
+        private D3D9 _d3D9;
+        private int _referenceCount;
+        private readonly object _d3d9Lock = new object();
 
         private bool _disposed;
         private Texture _backBuffer;
@@ -100,7 +100,7 @@ namespace Dungeon.Engine.Host
         /// <summary>
         /// Initializes the Direct3D 9 device.
         /// </summary>
-        private static void InitializeD3D9()
+        private void InitializeD3D9()
         {
             lock (_d3d9Lock)
             {
@@ -114,7 +114,7 @@ namespace Dungeon.Engine.Host
         /// <summary>
         /// Un-initializes the Direct3D 9 device, if no longer needed.
         /// </summary>
-        private static void UninitializeD3D9()
+        private void UninitializeD3D9()
         {
             lock (_d3d9Lock)
             {

@@ -50,6 +50,11 @@ namespace Dungeon.Types
             this.Y = y;
         }
 
+        /// <summary>
+        /// Static reference to zero point
+        /// </summary>
+        public static Point Zero { get; } = new Point(0, 0);
+
         public Point(double x, double y)
         {
             this.X = x;

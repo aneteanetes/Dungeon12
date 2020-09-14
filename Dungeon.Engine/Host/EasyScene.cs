@@ -11,6 +11,8 @@ namespace Dungeon.Engine.Host
     {
         public override bool Destroyable => true;
 
+        public override bool AbsolutePositionScene => false;
+
         public EasyScene(SceneManager sceneManager) : base(sceneManager) { }
 
         public override void Init()

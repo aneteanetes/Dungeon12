@@ -19,6 +19,13 @@
         private readonly SceneManager sceneManager;
         public abstract bool Destroyable { get; }
 
+        public string Uid { get; } = Guid.NewGuid().ToString();
+
+        public override string ToString()
+        {
+            return base.ToString() + $" [{Uid}]";
+        }
+
         public Scene(SceneManager sceneManager)
         {
             this.sceneManager = sceneManager;
@@ -325,7 +332,7 @@
 
         public void OnMouseMove(PointerArgs pointerPressedEventArgs, Point offset)
         {
-            if (SceneManager.Current != this)
+            if (sceneManager.Current != this)
                 return;
 
             var globalMouseMoves = ControlsByHandle(ControlEventType.GlobalMouseMove);
@@ -442,12 +449,12 @@
             }
         }
 
-        private static IEnumerable<ISceneObjectControl> WhereHandles(ControlEventType handleEvent, Key key, IEnumerable<ISceneObjectControl> elements)
+        private IEnumerable<ISceneObjectControl> WhereHandles(ControlEventType handleEvent, Key key, IEnumerable<ISceneObjectControl> elements)
         {
             var handlers = elements
                 .Distinct()
                 .Where(c => c.Visible)
-                .Where(c=> c.DrawOutOfSight || DungeonGlobal.DrawClient.InCamera(c))
+                .Where(c=> c.DrawOutOfSight || sceneManager.DrawClient.InCamera(c))
                 .Where(x =>
                 {
                     bool handle = x.CanHandle.Contains(handleEvent);

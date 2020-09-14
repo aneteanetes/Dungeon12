@@ -10,7 +10,7 @@ namespace Dungeon12.SceneObjects
         public SceneObject(TComponent component, bool bindView = true) : base(component, bindView)
         {
             // ЭТО ПИЗДЕЦ КОСТЫЛЬ
-            var owner = SceneManager.Preapering;
+            var owner = Global.SceneManager.Preapering;
 
             if (owner != null)
             {
@@ -30,7 +30,7 @@ namespace Dungeon12.SceneObjects
         public HandleSceneControl(T component, bool bindView = true) : base(component, bindView)
         {
             // ЭТО ПИЗДЕЦ КОСТЫЛЬ
-            var owner = SceneManager.Preapering;
+            var owner = Global.SceneManager.Preapering;
 
             if (owner != null)
             {

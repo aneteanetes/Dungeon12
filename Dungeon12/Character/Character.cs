@@ -63,7 +63,7 @@
 
             this.OnDie += () =>
             {
-                SceneManager.Switch<End>();
+                DungeonGlobal.SceneManager.Switch<End>();
             };
         }
 

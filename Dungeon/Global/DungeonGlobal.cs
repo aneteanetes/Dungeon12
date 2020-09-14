@@ -46,7 +46,7 @@
 
         public static IDrawClient DrawClient { get; set; }
 
-        public static Freezer Freezer { get; set; } = new Freezer();
+        public static Freezer Freezer { get; set; } = new Freezer(SceneManager);
 
         public static AudioOptions AudioOptions { get; set; } = new AudioOptions();
 

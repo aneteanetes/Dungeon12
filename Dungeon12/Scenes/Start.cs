@@ -115,7 +115,7 @@
                                 Global.RemoveSaveInMemmory();
                                 this.ClearState();
                                 Global.GameState = new Dungeon12.Game.GameState();
-                                SceneManager.Destroy<Main>();
+                                Global.SceneManager.Destroy<Main>();
                                 this.Switch<Start>();
                             }
                         }, this.ShowEffectsBinding);

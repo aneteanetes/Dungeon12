@@ -170,22 +170,40 @@
             <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Height="32" VerticalAlignment="Top" >
                 <Grid>
                     <Label x:Name="TileMapName" Height="32" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Margin="3 0 6 0" Padding="10 5 0 0" >Карта</Label>
-                    <Label x:Name="TimeMapSize" Height="32" Foreground="WhiteSmoke" Margin="40 0 6 0" Padding="10 7 0 0" >(1000x200)</Label>
+                    <Label x:Name="TileMapSize" Height="32" Foreground="WhiteSmoke" Margin="40,0,369,0" Padding="10 7 0 0" >(1000x1000)</Label>
+                    <Label x:Name="ModeName" Height="32" Foreground="WhiteSmoke" Margin="110,0,0,0" Padding="10 7 0 0" >[Редактирование]</Label>                    
+                    <Button VerticalAlignment="top" HorizontalAlignment="Right" x:Name="refreshSceneBtn" ToolTip="Редактирование" Click="EditMode" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 10 0" BorderThickness="1">
+                        <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/Edit_grey_16x.png" Margin="3" />
+                    </Button>
+                    <Button VerticalAlignment="top" HorizontalAlignment="Right" ToolTip="Границы" Click="BorderMode" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 40 0" BorderThickness="1">
+                        <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/MoveGlyph_16x.png" Margin="3" />
+                    </Button>
                 </Grid>
             </Border>
             <ScrollViewer Margin="0 32 0 0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" BorderBrush="Gray" BorderThickness="1" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1">
-                <host:D3D11Host x:Name="XnaHost" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" SnapsToDevicePixels="True" Stretch="Fill" />
+                <host:D3D11Host x:Name="XnaHost" Width="1000" Height="1000" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" SnapsToDevicePixels="True" Stretch="Fill" />
             </ScrollViewer>
             <GridSplitter Grid.Column="1" Background="Gray" Foreground="Gray" Grid.Row="0" Grid.RowSpan="3" ShowsPreview="False" Width="3"/>
             <GridSplitter Grid.Column="0" Background="Gray" Margin="0 0 1.5 0" Foreground="Gray" Grid.Row="0" Grid.RowSpan="3" ShowsPreview="False" Width="3"/>
-            <Label Grid.Row="0" Height="28" VerticalAlignment="Top" Grid.RowSpan="2" Grid.Column="3" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Padding="10 5 0 0" Margin="3 0 0 0">Тайлы</Label>
+            <Label Grid.Row="0" Height="28" VerticalAlignment="Top" Grid.RowSpan="2" Grid.Column="3" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Padding="10 5 0 0" Margin="3 0 0 0">Тайлы</Label>            
             <Border BorderBrush="Gray" BorderThickness="1" Margin="3 30 0 0" Grid.Row="0" Grid.Column="3" Grid.RowSpan="2">
                 <ScrollViewer x:Name="TileViewer" BorderBrush="Gray" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <Image MouseDown="TiledMapImageCellsClick" x:Name="TiledMapImageCells" />
                 </ScrollViewer>
             </Border>
-            <Border  Grid.Column="3" Grid.Row="2">
-                <controls:PropertyGrid/>
-            </Border>
+            <Grid Grid.Column="3" Grid.Row="2">
+                <Border>
+                    <controls:PropertyGrid x:Name="PropGrid"/>
+                </Border>
+                <Grid x:Name="TilePreview" Visibility="Hidden">
+                    <Border Background="#3F3F46" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="3 0 0 0">
+                        <Image x:Name="TilePeviewImage" VerticalAlignment="Center" HorizontalAlignment="Center" Width="64" Height="64" Source="pack://siteoforigin:,,,/Icons/Edit_grey_16x.png"/>
+                    </Border>
+                    <Button VerticalAlignment="top" HorizontalAlignment="Right" ToolTip="Границы" Click="HideTilePreview" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 3 0" BorderThickness="1">
+                        X
+                    </Button>
+                </Grid>
+            </Grid>
         </Grid>
     </DockPanel>
 </Window>

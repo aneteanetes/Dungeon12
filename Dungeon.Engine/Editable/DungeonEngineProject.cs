@@ -1,5 +1,6 @@
 ﻿using Dungeon.Data;
 using Dungeon.Engine.Editable;
+using Dungeon.Engine.Editable.TileMap;
 using Dungeon.Engine.Engine;
 using Dungeon.Resources;
 using LiteDB;
@@ -24,6 +25,8 @@ namespace Dungeon.Engine.Projects
         public List<DungeonEngineReference> References { get; set; }
 
         public ObservableCollection<DungeonEngineScene> Scenes { get; set; } = new ObservableCollection<DungeonEngineScene>();
+
+        public ObservableCollection<DungeonEngineTilemap> Maps { get; set; } = new ObservableCollection<DungeonEngineTilemap>();
 
         public ObservableCollection<DungeonEngineResourcesGraph> Resources { get; set; }
 

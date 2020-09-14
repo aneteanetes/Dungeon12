@@ -14,4 +14,13 @@
 
         public bool PerPixel { get; set; }
     }
+
+    public enum DungeonEgineTilemapTileBoundsType
+    { 
+        Left,
+        Top,
+        Right,
+        Bottom,
+        Full
+    }
 }

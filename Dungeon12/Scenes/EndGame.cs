@@ -26,7 +26,7 @@
         {
             if (keyPressed == Key.Escape && !hold)
             {
-                SceneManager.Destroy<Main>();
+                Global.SceneManager.Destroy<Main>();
                 this.Switch<Start>();
             }
         }

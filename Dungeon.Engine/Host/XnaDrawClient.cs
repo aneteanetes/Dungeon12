@@ -64,9 +64,11 @@ namespace Dungeon.Engine.Host
             XNADrawClientImplementation.cell = newCellSize;
         }
 
+        public Microsoft.Xna.Framework.Color ClearColor { get; set; } = Color.CornflowerBlue;
+
         public void Draw()
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(ClearColor);
             GraphicsDevice.RasterizerState = RasterizerState.CullNone;
 
             if (scene != default)
@@ -83,6 +85,9 @@ namespace Dungeon.Engine.Host
         private Callback сallback;
 
         private bool skipCallback = false;
+
+        public string Uid { get; } = Guid.NewGuid().ToString();
+
         public Callback SetScene(IScene scene)
         {
             XNADrawClientImplementation.scene = scene;

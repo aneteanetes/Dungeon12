@@ -88,9 +88,9 @@ namespace Dungeon12.SceneObjects.SaveLoad
                     AbsolutePosition = true,
                     OnClick = () =>
                     {
-                        SceneManager.LoadingScreenCustom("FaithIsland").Then(cb =>
+                        Global.SceneManager.LoadingScreenCustom("FaithIsland").Then(cb =>
                         {
-                            SceneManager.Destroy<Scenes.Game.Main>();
+                            Global.SceneManager.Destroy<Scenes.Game.Main>();
 
                             Cooldown.ResetAll();
                             var data = JsonConvert.DeserializeObject<SavedGame>(Component.Data, Global.GetSaveSerializeSettings());

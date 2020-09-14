@@ -407,13 +407,16 @@
                     <Label Height="32" VerticalAlignment="Top" MouseLeftButtonDown="Label_MouseLeftButtonDown" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Margin="3 0 6 0" Padding="10 5 0 0" >Сцена</Label>
                     <Label x:Name="SceneResolution" Height="32" VerticalAlignment="Top" MouseLeftButtonDown="Label_MouseLeftButtonDown" Foreground="WhiteSmoke" Margin="40 0 6 0" Padding="10 7 0 0" >(1000x200)</Label>
                     <Label Height="32" VerticalAlignment="Top" MouseLeftButtonDown="Label_MouseLeftButtonDown" Foreground="WhiteSmoke" Margin="140 0 6 0" Padding="10 7 0 0" Name="SceneCoordinatesView" ></Label>
-                    <Button VerticalAlignment="top" HorizontalAlignment="Right" x:Name="refreshSceneBtn" Click="refreshSceneBtn_Click" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 10 0" BorderThickness="1">
+                    <Button ToolTip="Опубликовать объект" VerticalAlignment="top" HorizontalAlignment="Right" Click="PublishSceneObject_Click" x:Name="PublishSceneObject" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 10 0" BorderThickness="1">
+                        <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/DeploymentFileStatusBar5_16x.png" Margin="3" />
+                    </Button>
+                    <Button ToolTip="Обновить сцену" VerticalAlignment="top" HorizontalAlignment="Right" x:Name="refreshSceneBtn" Click="refreshSceneBtn_Click" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 40 0" BorderThickness="1">
                         <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/Refresh_grey_16x.png" Margin="3" />
                     </Button>
-                    <Button VerticalAlignment="top" HorizontalAlignment="Right" Click="resetScaleBtn" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 40 0" BorderThickness="1">
+                    <Button ToolTip="Сбросить zoom" VerticalAlignment="top" HorizontalAlignment="Right" Click="resetScaleBtn" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 70 0" BorderThickness="1">
                         <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/Scale_16x.png" Margin="3" />
                     </Button>
-                    <Button VerticalAlignment="top" HorizontalAlignment="Right" Click="tileEditorBtn" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 70 0" BorderThickness="1">
+                    <Button ToolTip="Редактор карт" VerticalAlignment="top" HorizontalAlignment="Right" Click="tileEditorBtn" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 100 0" BorderThickness="1">
                         <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/Table_16x.png" Margin="3" />
                     </Button>
                 </Grid>
@@ -422,40 +425,7 @@
                 <host:D3D11Host x:Name="XnaHost" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" SnapsToDevicePixels="True" Stretch="Fill" />
             </ScrollViewer>
             <GridSplitter Grid.Column="1" Background="Gray" Foreground="Gray" Grid.Row="0" Grid.RowSpan="3" ShowsPreview="False" Width="3"/>
-            <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Padding="10 5 0 0" Margin="3 0 0 0">Свойства</Label>
-            <Button x:Name="PropGridSaveBtn" IsEnabled="False" Click="SavePropGrid" Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 5 30 0">Сохранить</Button>
-            <Button Click="PublishSceneObject_Click" Visibility="Hidden" x:Name="PublishSceneObject" Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 5 100 0">Опубликовать</Button>
-            <Button Click="ClearPropGridManually" Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 5 10 0">[X]</Button>
-            <Border BorderBrush="Gray" 
-                    BorderThickness="1" 
-                     Margin="3 30 0 0" 
-                    Grid.Row="0" 
-                Grid.Column="3" 
-                Grid.RowSpan="3">
-                <ScrollViewer BorderBrush="Gray">
-                    <Grid
-                        x:Name="PropGrid"
-                    Background="#3F3F46"                
-                   HorizontalAlignment="Stretch">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="28"></RowDefinition>
-                            <RowDefinition Height="28"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Label Foreground="WhiteSmoke" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" BorderThickness="0 0 1 1" BorderBrush="Gray" FontWeight="Bold" >
-                            <TextBlock Margin="10 0 0 0" Text="Категория"></TextBlock>
-                        </Label>
-                        <Label Margin="10 0 0 0" Background="#333337" Foreground="WhiteSmoke" Grid.Row="1" Grid.Column="0" BorderBrush="Gray" BorderThickness="1 0 1 1" ></Label>
-                        <Border BorderBrush="Gray" BorderThickness="0 0 1 1" Grid.Row="1" Grid.Column="1">
-                            <TextBox></TextBox>
-                        </Border>
-                    </Grid>
-                </ScrollViewer>
-            </Border>
-
+            <controls:PropertyGrid x:Name="PropGrid" Grid.Row="0" Grid.RowSpan="3" Grid.Column="3"/>
             <StatusBar x:Name="StatusBar"  Grid.Row="3" Grid.ColumnSpan="3"  DockPanel.Dock="Bottom" BorderBrush="Gray" Margin="0 2 0 0" BorderThickness="1" Background="#007ACC">
                 <StatusBarItem HorizontalAlignment="Stretch">
                     <Grid>

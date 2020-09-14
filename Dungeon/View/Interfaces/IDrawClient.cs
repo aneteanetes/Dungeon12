@@ -19,7 +19,7 @@
 
         Point MeasureImage(string image);
 
-        void SaveObject(ISceneObject sceneObject, string path, Point offset, string runtimeCacheName=null);
+        void SaveObject(ISceneObject sceneObject, string path = default, Point offset = default, string runtimeCacheName = null);
 
         void Animate(IAnimationSession animationSession);
 

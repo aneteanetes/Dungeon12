@@ -83,7 +83,7 @@ namespace Dungeon.Engine.Host
             //SceneManager.Current?.OnText(e.Character.ToString());
         }
 
-        public static void OnKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        public void OnKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (!Enum.TryParse(typeof(Control.Keys.Key), e.Key.ToString(), true, out var key))
             {
@@ -91,7 +91,7 @@ namespace Dungeon.Engine.Host
                 key = Control.Keys.Key.None;
             }
 
-            SceneManager.Current?.OnKeyDown(new Dungeon.Control.Keys.KeyArgs
+            sceneManager.Current?.OnKeyDown(new Dungeon.Control.Keys.KeyArgs
             {
                 Key = key.As<Control.Keys.Key>(),
                 Modifiers = GetModifier()
@@ -124,7 +124,7 @@ namespace Dungeon.Engine.Host
             return KeyModifiers.None;
         }
 
-        public static void OnKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        public void OnKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (!Enum.TryParse(typeof(Control.Keys.Key), e.Key.ToString(), true, out var key))
             {
@@ -132,7 +132,7 @@ namespace Dungeon.Engine.Host
                 key = Control.Keys.Key.None;
             }
 
-            SceneManager.Current?.OnKeyUp(new Dungeon.Control.Keys.KeyArgs
+            sceneManager.Current?.OnKeyUp(new Dungeon.Control.Keys.KeyArgs
             {
                 Key = key.As<Control.Keys.Key>(),
                 Modifiers = GetModifier()
@@ -173,7 +173,7 @@ namespace Dungeon.Engine.Host
 
         private void OnPointerWheelChanged(bool isTop)
         {
-            SceneManager.Current?.OnMouseWheel(isTop ? Dungeon.Control.Pointer.MouseWheelEnum.Up : Dungeon.Control.Pointer.MouseWheelEnum.Down);
+            sceneManager.Current?.OnMouseWheel(isTop ? Dungeon.Control.Pointer.MouseWheelEnum.Up : Dungeon.Control.Pointer.MouseWheelEnum.Down);
         }
 
         private delegate ConditionalDelegate ConditionalDelegate(Func<MouseButton, MouseButtonState, bool> func, MouseButton arg, MouseButtonState arg2);
@@ -221,7 +221,7 @@ namespace Dungeon.Engine.Host
 
         private void OnPointerMoved()
         {
-            var currentScene = SceneManager.Current;
+            var currentScene = sceneManager.Current;
             if (currentScene != default)
             {
 
@@ -260,7 +260,7 @@ namespace Dungeon.Engine.Host
             var pos = mousePosition;
             var offset = new Dungeon.Types.Point(CameraOffsetX, CameraOffsetY);
 
-            SceneManager.Current?.OnMousePress(new PointerArgs
+            sceneManager.Current?.OnMousePress(new PointerArgs
             {
                 ClickCount = 1,
                 MouseButton = (Dungeon.Control.Pointer.MouseButton)Enum.Parse(typeof(Control.Pointer.MouseButton), mouseButton.ToString()),
@@ -275,7 +275,7 @@ namespace Dungeon.Engine.Host
             var pos = mousePosition;
             var offset = new Types.Point(CameraOffsetX, CameraOffsetY);
 
-            SceneManager.Current?.OnMouseRelease(new PointerArgs
+            sceneManager.Current?.OnMouseRelease(new PointerArgs
             {
                 ClickCount = 1,
                 MouseButton = (Dungeon.Control.Pointer.MouseButton)Enum.Parse(typeof(Control.Pointer.MouseButton), mouseButton.ToString()),

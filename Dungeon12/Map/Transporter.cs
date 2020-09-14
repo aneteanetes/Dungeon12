@@ -41,10 +41,10 @@ namespace Dungeon12.Map
         {
             Global.GameState.Player.StopMovings();
 
-            SceneManager.LoadingScreenCustom(Data.LoadingScreenName ?? "FaithIsland").Then(cb => {
-                
+            Global.SceneManager.LoadingScreenCustom(Data.LoadingScreenName ?? "FaithIsland").Then(cb => {
+
                 // уничтожаем что у нас там есть сейчас в игре
-                SceneManager.Destroy<Scenes.Game.Main>();
+                Global.SceneManager.Destroy<Scenes.Game.Main>();
 
                 // замораживаем рисование пресонажа
                 Global.GameState.Player.FreezeDrawLoop = true;
@@ -117,7 +117,7 @@ namespace Dungeon12.Map
                 Global.DrawClient.SetCursor("Cursors.common.png".PathImage());
 
                 // переключаемся на главную сцену
-                SceneManager.Switch<Main>();
+                Global.SceneManager.Switch<Main>();
 
                 cb.Dispose();
             });

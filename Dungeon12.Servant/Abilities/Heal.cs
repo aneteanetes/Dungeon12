@@ -45,7 +45,7 @@ namespace Dungeon12.Servant.Abilities
             Global.AudioPlayer.Effect(@"heal.wav".AsmSoundRes());
             Target.MapObject.SceneObject.AddEffects(new HealEffect());
 
-            SceneManager.Current.ShowEffectsBinding(new PopupString($"{value}".AsDrawText().InSize(12).InColor(DrawColor.LawnGreen), avatar.Location).InList<ISceneObject>());
+            Global.SceneManager.Current.ShowEffectsBinding(new PopupString($"{value}".AsDrawText().InSize(12).InColor(DrawColor.LawnGreen), avatar.Location).InList<ISceneObject>());
         }
 
         private class HealEffect : EmptySceneObject

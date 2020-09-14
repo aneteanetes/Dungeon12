@@ -42,7 +42,7 @@
             Component = component;
 
             // ЭТО ПИЗДЕЦ КОСТЫЛЬ
-            owner = SceneManager.Preapering;
+            owner = DungeonGlobal.SceneManager.Preapering;
 
             if (owner != null)
             {

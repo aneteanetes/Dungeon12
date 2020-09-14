@@ -13,7 +13,7 @@ namespace Dungeon12.Map.Triggers
         {
             NPCDialogue.ForceExit();
 
-            SceneManager.Switch<EndGame>();
+            Global.SceneManager.Switch<EndGame>();
 
             return default;
         }

@@ -11,7 +11,7 @@
         <Label x:Name="CollectionName" Grid.Row="0" Grid.Column="0" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Margin="0 0 6 6" Padding="10 5 0 0" ></Label>
         <Button x:Name="AddSceneBtn" IsEnabled="False" Click="Add" Grid.Row="0" Grid.Column="0" Margin="0 3 37 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >+</Button>
         <Button x:Name="RemoveSceneBtn" IsEnabled="False"  Click="Remove" Grid.Row="0" Grid.Column="0" Margin="0 3 9 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >-</Button>
-        <ListBox SelectionChanged="Selected" x:Name="CollectionView" ItemsSource="{Binding Path=Project.Scenes}" BorderBrush="Gray" BorderThickness="1" Grid.Row="0" Grid.Column="0" Foreground="WhiteSmoke" Margin="0 30 6 6" HorizontalAlignment="Stretch">
+        <ListBox SelectionChanged="SelectedChanged" x:Name="CollectionView" ItemsSource="{Binding Path=Project.Scenes}" BorderBrush="Gray" BorderThickness="1" Grid.Row="0" Grid.Column="0" Foreground="WhiteSmoke" Margin="0 30 6 6" HorizontalAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid MouseDown="SelectDoubleClick">

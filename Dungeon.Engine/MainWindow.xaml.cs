@@ -63,7 +63,7 @@ namespace Dungeon.Engine
             DungeonGlobal.AudioPlayer = new AudioPlayerImpl();
 
             DungeonGlobal.Events.Subscribe<ProjectInitializeEvent>(InitializeProject, false);
-            DungeonGlobal.Events.Subscribe<PropGridFillEvent>(FillPropGrid, false);
+            DungeonGlobal.Events.Subscribe<PropGridFillEvent>(PropGrid.FillPropGrid, false);
             DungeonGlobal.Events.Subscribe<FreezeAllEvent>(FreezeEventHandler, false);
             DungeonGlobal.Events.Subscribe<UnfreezeAllEvent>(UnreezeEventHandler, false);
             DungeonGlobal.Events.Subscribe<StatusChangeEvent>(ChangeStatusHandler, false);
@@ -73,8 +73,17 @@ namespace Dungeon.Engine
             DungeonGlobal.Events.Subscribe<SceneResolutionChangedEvent>(ChangedResolutionEvent, false);
             DungeonGlobal.Events.Subscribe<RemoveSceneObjectFromSceneEvent>(RemovingSceneObjectFromSceneEvent,false);
 
-            this.KeyDown += D3D11Host.OnKeyDown;
-            this.KeyUp += D3D11Host.OnKeyUp;
+            XnaHost.ClearColor = Microsoft.Xna.Framework.Color.Black;
+            SceneManager = new SceneManager()
+            {
+                DrawClient = XnaHost
+            };
+            DungeonGlobal.SceneManager = SceneManager;
+            XnaHost.BindSceneManager(SceneManager);
+
+            this.KeyDown += XnaHost.OnKeyDown;
+            this.KeyUp += XnaHost.OnKeyUp;
+
             XnaHost.MouseDown += XnaHost_MouseDown;
             this.MouseUp += XnaHost_MouseUp;
             this.MouseMove += XnaHost_MouseMove;
@@ -120,7 +129,7 @@ namespace Dungeon.Engine
             if (proj != default)
             {
                 App.Container.Register<DungeonEngineProject, DungeonEngineProject>(Utils.ContainerLifeStyle.Singleton, @event.Project);
-                ClearPropGrid();
+                PropGrid.Clear();
                 this.Project = proj;
                 ChangeStatus($"Загружен проект '{Project.Name}'");
                 WindowTitle.Text = $"Dungeon Engine - {Project.Name}";
@@ -151,12 +160,14 @@ namespace Dungeon.Engine
                 };
                 ResourceLoader.ResourceDatabaseResolvers.Add(new DungeonEngineResourceDatabaseResolver(Project.DbFilePath));
                 ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver());
+                ResourceLoader.ResourceResolvers.Add(new PhysicalFileResourceResolver());
 
                 SceneManager = new SceneManager()
                 {
                     DrawClient = XnaHost
                 };
                 DungeonGlobal.SceneManager = SceneManager;
+                XnaHost.BindSceneManager(SceneManager);
 
                 SceneManager.Start();
                 SceneManager.Change<EasyScene>();
@@ -175,7 +186,7 @@ namespace Dungeon.Engine
                 AddObjectBtn.IsEnabled = RemoveObjectBtn.IsEnabled = false;
 
                 Project = default;
-                ClearPropGrid();
+                PropGrid.Clear();
                 WindowTitle.Text = $"Dungeon Engine";
                 if (SceneManager != default)
                 {
@@ -329,11 +340,14 @@ namespace Dungeon.Engine
 
         private void PublishSceneObject_Click(object sender, RoutedEventArgs e)
         {
+            if (SelectedSceneObject == default)
+                return;
+
             bool notYet = SelectedSceneObject.Published;
             PushSceneObjectToScene(SelectedSceneObject, !SelectedSceneObject.Published);
             if (!notYet && SelectedSceneObject.Published)
             {
-                FillPropGrid(SelectedSceneObject, SelectedSceneObject.GetType().Name);
+                PropGrid.FillPropGrid(SelectedSceneObject, SelectedSceneObject.GetType().Name);
             }
         }
 
@@ -355,7 +369,6 @@ namespace Dungeon.Engine
                     var activeCtor = ctors.FirstOrDefault(row => row.Value.As<bool>() == true);
                     if (activeCtor == default)
                     {
-                        PublishSceneObject.Visibility = Visibility.Visible;
                         ChangeStatus("Для текущего объекта не выбран используемый конструктор!");
                         return;
                     }
@@ -418,10 +431,6 @@ namespace Dungeon.Engine
 
                 SceneManager.Current.AddObject(instance);
                 obj.Published=true;
-                if (PublishSceneObject.Visibility == Visibility.Visible)
-                {
-                    PublishSceneObject.Visibility = Visibility.Hidden;
-                }
             }
             catch (Exception ex)
             {
@@ -432,231 +441,11 @@ namespace Dungeon.Engine
         private void SelectScene(DungeonEngineScene item)
         {
             ObjectsView.ItemsSource = SelectedScene.SceneObjects;
-            FillPropGrid(new PropGridFillEvent(item));
+            PropGrid.FillPropGrid(new PropGridFillEvent(item));
             XnaHost.Width = SelectedScene.Width;
             XnaHost.Height = SelectedScene.Height;
             SceneResolution.Content = $"{XnaHost.Width}x{XnaHost.Height}";
             AddObjectBtn.IsEnabled = RemoveObjectBtn.IsEnabled = true;
-        }
-
-        private object PropGridObject;
-        private IPropertyTable PropGridTable;
-        private List<(string Key, Func<string> Value, int index)> PropGridBinding;
-
-        private void ClearPropGrid()
-        {
-            PropGridSaveBtn.IsEnabled = false;
-            PropGrid.Children.Clear();
-            PropGrid.RowDefinitions.Clear();
-            PropGridObject = default;
-            PropGridTable = default;
-        }
-
-
-        private static SolidColorBrush grayBrush = new SolidColorBrush(Color.FromRgb(128, 128, 128));
-        private static SolidColorBrush darkGrayBrush = new SolidColorBrush(Color.FromRgb(51, 51, 55));
-
-        public void FillPropGrid(PropGridFillEvent @event)
-        {
-            var Obj = @event.Target;
-
-            ClearPropGrid();
-            PropGridBinding = new List<(string Key, Func<string> Value, int index)>();
-            PropGridObject = Obj;
-
-            int i = 0;
-            CreatePropGridCategory(Obj.GetType().Name, true, i++);
-
-            var grayBrush = new SolidColorBrush(Color.FromRgb(128, 128, 128));
-
-            foreach (var prop in Obj.GetType().GetProperties())
-            {
-                var hidden = Attribute.GetCustomAttributes(prop)
-                    .FirstOrDefault(x => x.GetType() == typeof(HiddenAttribute)) != default;
-                if (hidden)
-                    continue;
-
-                if (!prop.CanWrite)
-                    continue;
-
-                var displ = Attribute.GetCustomAttributes(prop)
-                    .FirstOrDefault(x => x.GetType() == typeof(DisplayAttribute)).As<DisplayAttribute>();
-
-                CreatePropGridCell(prop.Name, prop.GetValue(Obj), prop.PropertyType, i, default, displ?.Name, displ?.Description);
-
-                i++;
-            }
-
-            PropGridSaveBtn.IsEnabled = true;
-        }
-
-        public void FillPropGrid(IPropertyTable propertyTable, string commonTitle="Основные")
-        {
-            PropGridBinding = new List<(string Key, Func<string> Value, int index)>();
-
-            ClearPropGrid();
-            PropGridTable = propertyTable;
-
-            int i = 0;
-
-            CreatePropGridCategory(commonTitle, true, i++);
-
-            foreach (var prop in propertyTable.Properties)
-            {
-                if (prop.Name.Contains("Constructor"))
-                {
-                    CreatePropGridCategory("Конструктор", true, i++);
-                    CreatePropGridCell("Использовать", prop.Value, typeof(bool), i, prop.Name);
-                }
-                else
-                {
-                    CreatePropGridCell(prop.Name, prop.Value, prop.Type, i);
-                }
-                i++;
-            }
-
-            PropGridSaveBtn.IsEnabled = true;
-        }
-
-        private void CreatePropGridCategory(string name, bool first, int rowNum)
-        {
-            PropGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(28) });
-
-            var label = new Label()
-            {
-                Foreground = new SolidColorBrush(Color.FromRgb(245, 245, 245)),
-                BorderBrush = grayBrush,
-                BorderThickness = new Thickness(0, (first ? 0 : 1), 1, 1),
-                FontWeight = FontWeights.Bold
-            };
-
-            var textBlock = new TextBlock()
-            {
-                Text = name,
-                Margin = new Thickness(10, 0, 0, 0)
-            };
-
-            label.Content = textBlock;
-
-            Grid.SetRow(label, rowNum);
-            Grid.SetColumn(label, 0);
-            Grid.SetColumnSpan(label, 2);
-
-            PropGrid.Children.Add(label);
-        }
-
-        private void CreatePropGridCell(string name, object value, Type type, int rowNum, string nameBinding = default, string display = default, string description = default)
-        {
-            PropGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(28) });
-
-            var label = new Label()
-            {
-                Content = display ?? name,
-                Foreground = new SolidColorBrush(Color.FromRgb(245, 245, 245)),
-                BorderBrush = grayBrush,
-                Background = darkGrayBrush,
-                BorderThickness = new Thickness(1, 0, 1, 1),
-                Margin = new Thickness(10, 0, 0, 0)
-            };
-            Grid.SetRow(label, rowNum);
-            Grid.SetColumn(label, 0);
-
-            if (description != default)
-            {
-                label.ToolTip = description;
-            }
-
-            var editor = new Border()
-            {
-                BorderBrush = grayBrush,
-                BorderThickness = new Thickness(0, 0, 0, 1)
-            };
-            Grid.SetRow(editor, rowNum);
-            Grid.SetColumn(editor, 1);
-
-            if (type == typeof(bool))
-            {
-                var comboBoxEditor = new ComboBox();
-                comboBoxEditor.Items.Add("True");
-                comboBoxEditor.Items.Add("False");
-                comboBoxEditor.SelectedIndex = value.As<bool>() ? 0 : 1;
-                editor.Child = comboBoxEditor;
-                PropGridBinding.Add((nameBinding ?? name, () => comboBoxEditor.Text, rowNum-1));
-
-                if (description != default)
-                {
-                    comboBoxEditor.ToolTip = description;
-                }
-            }
-            else
-            {
-                var textEditor = new TextBox() { Text = value?.ToString() ?? "" };
-                editor.Child = textEditor;
-                PropGridBinding.Add((nameBinding ?? name, () => textEditor.Text, rowNum - 1));
-
-                if (description != default)
-                {
-                    textEditor.ToolTip = description;
-                }
-            }
-
-            PropGrid.Children.Add(label);
-            PropGrid.Children.Add(editor);
-        }
-
-        private void SavePropGrid(object sender, RoutedEventArgs e)
-        {
-            if (PropGridObject == default && PropGridTable == default)
-                return;
-
-            List<string> failedProps = new List<string>();
-
-            foreach (var propBind in PropGridBinding)
-            {
-                if (PropGridObject != default)
-                {
-                    if (!PropGridObject.SetPropertyExprConverted(propBind.Key, propBind.Value()))
-                    {
-                        failedProps.Add(propBind.Key);
-                    }
-                }
-                else
-                {
-                    var type = PropGridTable.Get(propBind.Key).Type;
-                    if (type == default)
-                        continue;
-                    object data = default;
-                    try
-                    {
-                        data = Convert.ChangeType(propBind.Value(), type);
-                    }
-                    catch (Exception)
-                    {
-                        data = type.GetDefault();
-                        failedProps.Add(propBind.Key);
-                    }
-
-                    PropGridTable.Set(propBind.Key, data, type, PropGridBinding.IndexOf(propBind));
-                }
-            }
-
-            var status = "Cохранено.";
-
-            if (failedProps.Count != 0)
-            {
-                status += " Не удалось сохранить свойства: " + string.Join(" | ", failedProps);
-            }
-
-            if (PropGridObject is IEditable editable)
-            {
-                editable.Commit();
-            }
-            if (PropGridTable != default)
-            {
-                PropGridTable.Commit();
-            }
-
-            ChangeStatus(status);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -669,7 +458,7 @@ namespace Dungeon.Engine
 
         private void Save()
         {
-            SavePropGrid(default, default);
+            PropGrid.Save();
             Project.Save();
             this.XnaHost.ChangeCell(Project.CompileSettings.CellSize);
             ScenesView.Items.Refresh();
@@ -739,12 +528,7 @@ namespace Dungeon.Engine
         {
             if (@event.SceneObject != default)
             {
-                if (!@event.SceneObject.Published)
-                {
-                    PublishSceneObject.Visibility = Visibility.Visible;
-                }
-
-                FillPropGrid(@event.SceneObject, @event.SceneObject.ClassName);
+                PropGrid.FillPropGrid(@event.SceneObject, @event.SceneObject.ClassName);
             }
             SelectedSceneObject = @event.SceneObject;
         }
@@ -854,11 +638,6 @@ namespace Dungeon.Engine
             }
         }
 
-        private void ClearPropGridManually(object sender, RoutedEventArgs e)
-        {
-            ClearPropGrid();
-        }
-
         private void SceneDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (SelectedScene == default)
@@ -922,6 +701,7 @@ namespace Dungeon.Engine
                 }
             }
         }
+
         bool moveTool = false;
         bool moveMode = false;
 
@@ -988,7 +768,7 @@ namespace Dungeon.Engine
                 default: break;
             }
 
-            FillPropGrid(SelectedSceneObject, SelectedSceneObject.ClassName);
+            PropGrid.FillPropGrid(SelectedSceneObject, SelectedSceneObject.ClassName);
 
             prev = new Types.Point(pos.X, pos.Y);
         }

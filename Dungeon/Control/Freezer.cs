@@ -7,6 +7,13 @@ namespace Dungeon.Control
 {
     public class Freezer
     {
+        private SceneManager sceneManager;
+
+        public Freezer(SceneManager sceneManager)
+        {
+            this.sceneManager = sceneManager;
+        }
+
         private object freezeWorldObject;
 
         public object World
@@ -17,11 +24,11 @@ namespace Dungeon.Control
                 if (value == null)
                 {
                     DungeonGlobal.Time.Resume();
-                    SceneManager.Current.Freezer = null;
+                    sceneManager.Current.Freezer = null;
                 }
                 else
                 {
-                    SceneManager.Current.Freezer = value;
+                    sceneManager.Current.Freezer = value;
                     DungeonGlobal.Time.Pause();
                 }
 

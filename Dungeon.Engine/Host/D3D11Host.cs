@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Dungeon.Engine.Forms;
+using Dungeon.Scenes.Manager;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -22,9 +23,9 @@ namespace Dungeon.Engine.Host
     {
         #region Fields
         // The Direct3D 11 device (shared by all D3D11Host elements):
-        private static GraphicsDevice _graphicsDevice;
-        private static int _referenceCount;
-        private static readonly object _graphicsDeviceLock = new object();
+        private  GraphicsDevice _graphicsDevice;
+        private  int _referenceCount;
+        private  readonly object _graphicsDeviceLock = new object();
 
         // Image source:
         private RenderTarget2D _renderTarget;
@@ -45,7 +46,7 @@ namespace Dungeon.Engine.Host
         /// <see langword="true" /> if controls run in design mode; otherwise, 
         /// <see langword="false" />.
         /// </value>
-        public static bool IsInDesignMode
+        public  bool IsInDesignMode
         {
             get
             {
@@ -55,7 +56,7 @@ namespace Dungeon.Engine.Host
                 return _isInDesignMode.Value;
             }
         }
-        private static bool? _isInDesignMode;
+        private  bool? _isInDesignMode;
 
 
         /// <summary>
@@ -117,7 +118,7 @@ namespace Dungeon.Engine.Host
         }
 
 
-        private static void InitializeGraphicsDevice()
+        private void InitializeGraphicsDevice()
         {
             lock (_graphicsDeviceLock)
             {
@@ -136,7 +137,7 @@ namespace Dungeon.Engine.Host
         }
 
 
-        private static void UninitializeGraphicsDevice()
+        private void UninitializeGraphicsDevice()
         {
             lock (_graphicsDeviceLock)
             {
@@ -278,6 +279,13 @@ namespace Dungeon.Engine.Host
         {
             InitEvents();
             InitImpl();
+        }
+
+        SceneManager sceneManager;
+
+        public void BindSceneManager(SceneManager sceneManager)
+        {
+            this.sceneManager = sceneManager;
         }
 
 

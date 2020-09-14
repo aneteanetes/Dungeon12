@@ -10,6 +10,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Color = System.Windows.Media.Color;
 
 namespace Dungeon.Engine.Controls
 {
@@ -33,7 +34,7 @@ namespace Dungeon.Engine.Controls
         private IPropertyTable PropGridTable;
         private List<(string Key, Func<string> Value, int index)> PropGridBinding;
 
-        private void ClearPropGrid()
+        public void Clear()
         {
             PropGridSaveBtn.IsEnabled = false;
             PropGrid.Children.Clear();
@@ -46,14 +47,12 @@ namespace Dungeon.Engine.Controls
         {
             var Obj = @event.Target;
 
-            ClearPropGrid();
+            Clear();
             PropGridBinding = new List<(string Key, Func<string> Value, int index)>();
             PropGridObject = Obj;
 
             int i = 0;
             CreatePropGridCategory(Obj.GetType().Name, true, i++);
-
-            var grayBrush = new SolidColorBrush(Color.FromRgb(128, 128, 128));
 
             foreach (var prop in Obj.GetType().GetProperties())
             {
@@ -80,7 +79,7 @@ namespace Dungeon.Engine.Controls
         {
             PropGridBinding = new List<(string Key, Func<string> Value, int index)>();
 
-            ClearPropGrid();
+            Clear();
             PropGridTable = propertyTable;
 
             int i = 0;
@@ -131,6 +130,8 @@ namespace Dungeon.Engine.Controls
             PropGrid.Children.Add(label);
         }
 
+        private static readonly SolidColorBrush BrushesDarkGray = new SolidColorBrush(Color.FromRgb(51, 51, 55));
+
         private void CreatePropGridCell(string name, object value, Type type, int rowNum, string nameBinding = default, string display = default, string description = default)
         {
             PropGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(28) });
@@ -140,7 +141,7 @@ namespace Dungeon.Engine.Controls
                 Content = display ?? name,
                 Foreground = new SolidColorBrush(Color.FromRgb(245, 245, 245)),
                 BorderBrush = Brushes.Gray,
-                Background = Brushes.DarkGray,
+                Background = BrushesDarkGray,
                 BorderThickness = new Thickness(1, 0, 1, 1),
                 Margin = new Thickness(10, 0, 0, 0)
             };
@@ -247,7 +248,9 @@ namespace Dungeon.Engine.Controls
 
         private void ClearPropGridManually(object sender, RoutedEventArgs e)
         {
-            ClearPropGrid();
+            Clear();
         }
+
+        public void Save() => SavePropGrid(default, default);
     }
 }

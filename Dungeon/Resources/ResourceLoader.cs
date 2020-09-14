@@ -91,10 +91,15 @@ namespace Dungeon.Resources
                 RuntimeCache.Add(resource, res);
             }
 
+            if (res == default)
+            {
+                RuntimeCache.Add(resource, null);
+            }
+
             return res;
         }
 
-        public static Resource Load(string resource, bool caching = false, bool @throw=true)
+        public static Resource Load(string resource, bool caching = false, bool @throw=true, SceneManager sceneManager=default)
         {
             var res = LoadResource(resource);
 
@@ -111,12 +116,12 @@ namespace Dungeon.Resources
             bool addToScene = !caching;
             if (NotDisposingResources)
             {
-                addToScene = !SceneManager.Preapering?.Resources.Any(r => r.Path == res.Path) ?? false;
+                addToScene = !(sceneManager ?? DungeonGlobal.SceneManager).Preapering?.Resources.Any(r => r.Path == res.Path) ?? false;
             }
 
             if (addToScene)
             {
-                SceneManager.Preapering?.Resources.Add(res);
+                (sceneManager ?? DungeonGlobal.SceneManager).Preapering?.Resources.Add(res);
             }
 
             return res;

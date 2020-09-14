@@ -228,8 +228,18 @@ namespace Dungeon.Monogame
             };
         }
 
-        public void SaveObject(ISceneObject sceneObject, string path, Dungeon.Types.Point offset, string runtimeCacheName = null)
+        public void SaveObject(ISceneObject sceneObject, string path=default, Dungeon.Types.Point offset=default, string runtimeCacheName = null)
         {
+            if (path == default && runtimeCacheName == default)
+            {
+                throw new ArgumentException($"At least one parameter must be setted: {nameof(path)} or {nameof(runtimeCacheName)}");
+            }
+
+            if (offset == default)
+            {
+                offset = Types.Point.Zero;
+            }
+
             int w = (int)sceneObject.Width * cell;
             int h = (int)sceneObject.Height * cell;
 
@@ -255,7 +265,10 @@ namespace Dungeon.Monogame
                 bitmap.SaveAsPng(f, w, h);
             }
 
-            tilesetsCache.Add(runtimeCacheName, bitmap);
+            if (runtimeCacheName != default)
+            {
+                tilesetsCache.Add(runtimeCacheName, bitmap);
+            }
         }
 
         public void Animate(IAnimationSession animationSession)

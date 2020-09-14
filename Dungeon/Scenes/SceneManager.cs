@@ -10,26 +10,33 @@
 
     public class SceneManager
     {
-        public static IDrawClient StaticDrawClient { get; set; }
+        public string Uid { get; } = Guid.NewGuid().ToString();
+
+        public override string ToString()
+        {
+            return this.GetType() + $" [{Uid}]";
+        }
+
+        public IDrawClient StaticDrawClient { get; set; }
 
         public IDrawClient DrawClient
         {
             get => StaticDrawClient;
             set
             {
-                DungeonGlobal.DrawClient = value;
+                //DungeonGlobal.DrawClient = value;
                 StaticDrawClient = value;
             }
         }
 
-        private static readonly Dictionary<Type, GameScene> SceneCache = new Dictionary<Type, GameScene>();
+        private readonly Dictionary<Type, GameScene> SceneCache = new Dictionary<Type, GameScene>();
 
-        public static GameScene Current = null;
-        public static GameScene Preapering = null;
+        public GameScene Current { get; set; }
+        public GameScene Preapering = null;
 
         public GameScene CurrentScene { get; set; }
 
-        public static Type LoadingScreenType { get; set; }
+        public Type LoadingScreenType { get; set; }
 
         public void Start(params string[] args)
         {
@@ -67,7 +74,7 @@
 
                     if (!type.IsGenericType)
                     {
-                        SceneManager.LoadingScreenType = type;
+                        LoadingScreenType = type;
                         type.New();
                         return true;
                     }
@@ -87,7 +94,7 @@
         /// Возможность явно уничтожать сцены, полезно для сцен которые не <see cref="Scene.Destroyable"/>
         /// </summary>
         /// <typeparam name="TScene"></typeparam>
-        public static void Destroy<TScene>() where TScene : GameScene
+        public void Destroy<TScene>() where TScene : GameScene
         {
             var sceneType = typeof(TScene);
 
@@ -102,7 +109,7 @@
             }
         }
 
-        public static void Switch<TScene>(params string[] args) where TScene : GameScene
+        public void Switch<TScene>(params string[] args) where TScene : GameScene
         {
             if (Current?.Loadable ?? false)
                 LoadingScreenCustom(Current.LoadArguments).Then(cb =>
@@ -116,24 +123,24 @@
 
         public Callback Loading => LoadingScreen;
 
-        public static Callback LoadingScreen
+        public Callback LoadingScreen
         {
             get
             {
                 var loading = LoadingScreenType.NewAs<LoadingScene>();
                 loading.Init();
-                return DungeonGlobal.DrawClient.SetScene(loading);
+                return DrawClient.SetScene(loading);
             }
         }
 
-        public static Callback LoadingScreenCustom(params object[] args)
+        public Callback LoadingScreenCustom(params object[] args)
         {
             var loading = LoadingScreenType.NewAs<LoadingScene>(2, args);
             loading.Init();
-            return DungeonGlobal.DrawClient.SetScene(loading);
+            return DrawClient.SetScene(loading);
         }
 
-        private static void SwitchImplementation<TScene>(string[] args) where TScene : GameScene
+        private void SwitchImplementation<TScene>(string[] args) where TScene : GameScene
         {
             // вначале уничтожаем сцену, потому что если мы
             // хотим переключить на ту же самую сцену,
@@ -149,12 +156,12 @@
 
             if (!SceneCache.TryGetValue(sceneType, out GameScene next))
             {
-                next = sceneType.New<TScene>(DungeonGlobal.SceneManager);
+                next = sceneType.New<TScene>(this);
                 SceneCache.Add(typeof(TScene), next);
 
                 Populate(Current, next, args);
                 Preapering = next;
-                DungeonGlobal.SceneManager.CurrentScene = Preapering;
+                CurrentScene = Preapering;
                 next.Init();
             }
 
@@ -165,7 +172,7 @@
             }
 
             Preapering = next;
-            DungeonGlobal.SceneManager.CurrentScene = Preapering;
+            CurrentScene = Preapering;
             Current = next;
             //Если мы переключаем сцену, а в следующей есть физер - значит надо восстановить её состояние
             if (next.Freezer != null)
@@ -174,7 +181,7 @@
             }
 
             Current.Activate();
-            DungeonGlobal.SceneManager.CurrentScene = Current;
+            CurrentScene = Current;
         }
 
         public void Change<TScene>(params string[] args) where TScene : GameScene => Switch<TScene>(args);
