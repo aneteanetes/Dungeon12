@@ -6,8 +6,6 @@
 
     public interface IDrawClient : ICamera
     {
-        void Draw(IEnumerable<IDrawSession> drawSessions);
-
         /// <summary>
         /// 
         /// </summary>

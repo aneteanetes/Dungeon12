@@ -6,7 +6,7 @@
     using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using System;
 
-    public class TileSelector : EmptyHandleSceneControl
+    public class TileSelector : EmptyControlSceneObject
     {
         public override bool CacheAvailable => false;
 

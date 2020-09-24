@@ -15,7 +15,7 @@
     using System.Linq;
     using Dungeon12.SceneObjects.Base;
 
-    public class OriginDialogue : EmptyHandleSceneControl
+    public class OriginDialogue : EmptyControlSceneObject
     {
         private Action<ISceneObjectControl> destroy;
         private Action<ISceneObjectControl> add;

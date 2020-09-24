@@ -2,22 +2,36 @@
 {
     public enum Direction
     {
-        Idle=0,
+        Idle = 0,
 
-        Up=1,
-        Down=20,
-        Left=300,
-        Right=4000,
+        Up = 1,
+        Down = 20,
+        Left = 300,
+        Right = 4000,
 
-        UpLeft=301,
+        UpLeft = 301,
         UpRight = 4001,
         DownLeft = 320,
-        DownRight =4020,
+        DownRight = 4020,
 
         LeftUp = 301,
         RightUp = 4001,
         LeftDown = 320,
         RightDown = 4020,
+    }
+
+    public enum SimpleDirection
+    {
+        Up = 1,
+        Down = 20,
+        Left = 300,
+        Right = 4000,
+    }
+
+    public enum Binary
+    {
+        Zero = 0,
+        One = 1
     }
 }
 

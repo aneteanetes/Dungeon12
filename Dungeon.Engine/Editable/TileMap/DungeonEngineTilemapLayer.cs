@@ -1,10 +1,12 @@
 ﻿using Dungeon.Utils;
+using Dungeon.View.Interfaces;
+using LiteDB;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dungeon.Engine.Editable.TileMap
 {
-    public class DungeonEngineTilemapLayer
+    public class DungeonEngineTilemapLayer : IGameComponent
     {
         public string Name { get; set; }
 
@@ -16,5 +18,18 @@ namespace Dungeon.Engine.Editable.TileMap
 
         [Hidden]
         public byte[] Batched { get; set; }
+
+        [Hidden]
+        [BsonIgnore]
+        public bool BorderMode { get; set; }
+
+        [BsonIgnore]
+        [Hidden]
+        public ISceneObject SceneObject { get; set; }
+
+        public void SetView(ISceneObject sceneObject)
+        {
+            SceneObject = sceneObject;
+        }
     }
 }

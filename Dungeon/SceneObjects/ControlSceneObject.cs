@@ -21,10 +21,10 @@
     }
 
     [Hidden]
-    public abstract class HandleSceneControl<T> : SceneObject<T>, ISceneObjectControl, IHandleSceneControl
+    public abstract class ControlSceneObject<T> : SceneObject<T>, ISceneObjectControl, IHandleSceneControl
         where T : class, IGameComponent
     {
-        public HandleSceneControl(T component, bool bindView = true) : base(component, bindView)
+        public ControlSceneObject(T component, bool bindView = true) : base(component, bindView)
         {
             //dynamic binding
             new string[] {

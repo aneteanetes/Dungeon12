@@ -23,7 +23,7 @@
         /// <summary>
         /// is this object need to re cached
         /// </summary>
-        bool Expired { get; }
+        bool Expired { get; set; }
 
         /// <summary>
         /// Флаг указывающий что на объект действуют глобальные фильтры

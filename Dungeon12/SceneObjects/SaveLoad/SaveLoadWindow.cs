@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Dungeon12.SceneObjects.SaveLoad
 {
-    public class SaveLoadWindow : EmptyHandleSceneControl
+    public class SaveLoadWindow : EmptyControlSceneObject
     {
         private bool _isSave;
         private Action _switchMain;

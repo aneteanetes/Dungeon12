@@ -3,6 +3,7 @@
     using Dungeon.Network;
     using Dungeon.Resources;
     using Dungeon.Scenes.Manager;
+    using Dungeon.Settings;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using Microsoft.Xna.Framework;
@@ -74,6 +75,7 @@
         public XNADrawClient(MonogameClientSettings settings)
         {
             clientSettings = settings;
+            DrawingSize.Cell = settings.CellSize;
             GraphicsDeviceManagerInitialization(settings);
 
             contentResolver = new EmbeddedContentResolver();
@@ -202,7 +204,7 @@
                 GlobalImageFilter = Content.Load<Effect>(pathShader, stream);
             }
 
-            XNADrawClientImplementation = new XNADrawClientImplementation(GraphicsDevice, penumbra, spriteBatch, 32, GlobalImageFilter, Content, this, myRenderer);
+            XNADrawClientImplementation = new XNADrawClientImplementation(GraphicsDevice, clientSettings.Add2DLighting ? penumbra : null, spriteBatch, clientSettings.CellSize, GlobalImageFilter, Content, this, myRenderer);
 
             Load3D();
 

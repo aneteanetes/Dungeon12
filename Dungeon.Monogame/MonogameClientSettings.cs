@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Dungeon.Utils;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dungeon.Monogame
 {
@@ -21,5 +22,8 @@ namespace Dungeon.Monogame
 
         [Display(Name = "2D свет")]
         public bool Add2DLighting { get; set; } = true;
+
+        [Hidden]
+        public int CellSize { get; set; }
     }
 }

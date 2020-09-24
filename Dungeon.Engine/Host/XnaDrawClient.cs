@@ -5,8 +5,10 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Dungeon.Drawing;
 using Dungeon.Engine.Projects;
 using Dungeon.Monogame;
+using Dungeon.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Settings;
 using Dungeon.Types;
@@ -75,6 +77,37 @@ namespace Dungeon.Engine.Host
             {
                 XNADrawClientImplementation.Draw(scene.Objects, new Microsoft.Xna.Framework.GameTime());
             }
+
+            DrawDebugInfo();
+        }
+
+        #region frameSettings
+
+        private bool frameEnd;
+        private int _frame;
+        private TimeSpan _lastFps;
+        private int _lastFpsFrame;
+        private double _fps;
+        Stopwatch _st = Stopwatch.StartNew();
+
+        public double FPS => _fps;
+
+        #endregion
+
+        private void DrawDebugInfo()
+        {
+            var nowTs = _st.Elapsed;
+            var now = DateTime.Now;
+            var fpsTimeDiff = (nowTs - _lastFps).TotalSeconds;
+            if (fpsTimeDiff > 1)
+            {
+                _fps = (_frame - _lastFpsFrame) / fpsTimeDiff;
+                DungeonGlobal.FPS = _fps;
+                _lastFpsFrame = _frame;
+                _lastFps = nowTs;
+            }
+
+            _frame++;
         }
 
         public void Draw(IEnumerable<IDrawSession> drawSessions)

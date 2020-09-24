@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
 {
-    internal class ScrollJournalContent : EmptyHandleSceneControl
+    internal class ScrollJournalContent : EmptyControlSceneObject
     {
         public override bool AbsolutePosition => true;
 

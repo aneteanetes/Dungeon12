@@ -9,7 +9,6 @@ using Dungeon.Scenes.Manager;
 using System;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -28,7 +27,7 @@ namespace Dungeon.Engine.Forms
             InitializeComponent();
 
             this.MapCollection.CollectionName.Content = "Карты";
-            this.MapCollection.Init<DungeonEngineTilemap>(new EngineCollectionEditorSettings<DungeonEngineTilemap>(Project.Maps,OnMapSelect,OnMapRemove, OnMapAdd,"Карты"));
+            this.MapCollection.Init<DungeonEngineTilemap>(new EngineCollectionEditorSettings<DungeonEngineTilemap>(Project.Maps, OnMapSelect, OnMapRemove, OnMapAdd, "Карты"));
             this.LayerCollection.CollectionName.Content = "Слои";
             this.ImageCollection.CollectionName.Content = "Тайлсеты";
 
@@ -46,6 +45,8 @@ namespace Dungeon.Engine.Forms
                 SceneManager.Start();
                 ResetScene();
             };
+
+            CompositionTarget.Rendering += (x, y) => this.FPSView.Content = $"FPS:{XnaHost.FPS}";
         }
 
         private void HostRelease(object sender, MouseButtonEventArgs e)
@@ -81,31 +82,43 @@ namespace Dungeon.Engine.Forms
 
         private void HostMoving(object sender, MouseEventArgs e)
         {
-            if (draw && SelectedLayer != default)
+            if (draw && SelectedLayer != default && !SelectedLayer.BorderMode)
             {
                 var mPos = Mouse.GetPosition(XnaHost);
                 var pos = new Point(Math.Floor(mPos.X / 32), Math.Floor(mPos.Y / 32));
+                var cellSize = SelectedTiliemap.CellSize;
+                var offsetX = (int)tilePos.X * cellSize;
+                var offsetY = (int)tilePos.Y * cellSize;
 
-                var existedTile = SceneManager.Current.Objects.FirstOrDefault(x => x.Left == pos.X && x.Top == pos.Y && x.IsNot<EngineTileMap>());
-                if (existedTile != default)
+                var existedTile = SelectedLayer.SceneObject.Children.FirstOrDefault(x => x.Left == pos.X && x.Top == pos.Y);
+                var tileSource = new Types.Rectangle()
+                {
+                    Width = cellSize,
+                    Height = cellSize,
+                    X = offsetX,
+                    Y = offsetY
+                };
+
+                if (existedTile != default && existedTile.Image != SelectedSourceImage.Name && !existedTile.ImageRegion.Equals(tileSource))
                 {
                     SelectedLayer.Tiles.Remove(existedTile.As<TilemapCell>().Component);
                     existedTile.Destroy();
+                    SelectedLayer.SceneObject.Expired = true;
                 }
 
                 if (!clearing && tilePos != default)
                 {
-                    var cellSize = SelectedTiliemap.CellSize;
                     var tile = new DungeonEngineTilemapTile()
                     {
                         SourceImage = SelectedSourceImage.Name,
-                        OffsetX = (int)tilePos.X* cellSize,
-                        OffsetY = (int)tilePos.Y* cellSize,
+                        OffsetX = offsetX,
+                        OffsetY = offsetY,
                         XPos = (int)pos.X,
                         YPos = (int)pos.Y
                     };
                     SelectedLayer.Tiles.Add(tile);
-                    SceneManager.Current.AddObject(new TilemapCell(tile, cellSize));
+                    SelectedLayer.SceneObject.AddChild(new TilemapCell(tile, cellSize,SelectedLayer));
+                    SelectedLayer.SceneObject.Expired = true;
                 }
             }
         }
@@ -153,6 +166,7 @@ namespace Dungeon.Engine.Forms
                 XnaHost.Height = SelectedTiliemap.Height;
             }
             ResetScene();
+            PublishLayers(SelectedTiliemap);
 
             TileMapSize.Content = $"{SelectedTiliemap.Width}x{SelectedTiliemap.Height}";
             this.MapCollection.CollectionView.Items.Refresh();
@@ -162,11 +176,30 @@ namespace Dungeon.Engine.Forms
 
         private void OnMapSelect(DungeonEngineTilemap map)
         {
+            XnaHost.Width = map.Width;
+            XnaHost.Height = map.Height;
             cellSize = map.CellSize;
             PropGrid.FillPropGrid(new Events.PropGridFillEvent(map));
             ResetScene();
             this.LayerCollection.Init<DungeonEngineTilemapLayer>(new EngineCollectionEditorSettings<DungeonEngineTilemapLayer>(map.Layers, OnLayerSelect, OnLayerRemove, OnLayerAdd));
             this.ImageCollection.Init<DungeonEngineTilemapSourceImage>(new EngineCollectionEditorSettings<DungeonEngineTilemapSourceImage>(map.Sources, OnImageSourceSelect, add: OnImageSourceAdd));
+            PublishLayers(map);
+        }
+
+        private void PublishLayers(DungeonEngineTilemap map)
+        {
+            foreach (var layer in map.Layers)
+            {
+                if (layer.SceneObject == default)
+                {
+                    layer.SceneObject = new TilemapLayer(layer, SelectedTiliemap);
+                    SceneManager.Current.AddObject(layer.SceneObject);
+                    foreach (var tile in layer.Tiles)
+                    {
+                        layer.SceneObject.AddChild(new TilemapCell(tile, cellSize, layer));
+                    }
+                }
+            }
         }
 
         private void OnMapRemove(DungeonEngineTilemap map)
@@ -215,7 +248,13 @@ namespace Dungeon.Engine.Forms
 
         private void OnLayerSelect(DungeonEngineTilemapLayer layer)
         {
+            DisableBorderModeOnPreviouslyLayer?.Invoke();
             PropGrid.FillPropGrid(new Events.PropGridFillEvent(layer));
+            if (layer.SceneObject == default)
+            {
+                layer.SceneObject = new TilemapLayer(layer, SelectedTiliemap);
+                SceneManager.Current.AddObject(layer.SceneObject);
+            }
         }
 
         private void OnLayerAdd(DungeonEngineTilemapLayer layer)
@@ -228,6 +267,7 @@ namespace Dungeon.Engine.Forms
         private void OnLayerRemove(DungeonEngineTilemapLayer layer)
         {
             SelectedTiliemap.Layers.Remove(layer);
+            layer.SceneObject?.Destroy?.Invoke();
         }
 
         private void OnMaximizeRestoreButtonClick(object sender, RoutedEventArgs e)
@@ -247,18 +287,25 @@ namespace Dungeon.Engine.Forms
             this.Close();
         }
 
-        static bool editMode = false;
-
         private void EditMode(object sender, RoutedEventArgs e)
         {
+            if (SelectedLayer == default)
+                return;
+
             ModeName.Content = "[Редактирование]";
-            editMode = false;
+            SelectedLayer.BorderMode = false;
         }
 
+        private Action DisableBorderModeOnPreviouslyLayer;
         private void BorderMode(object sender, RoutedEventArgs e)
         {
+            if (SelectedLayer == default)
+                return;
+
             ModeName.Content = "[Границы]";
-            editMode = true;
+            SelectedLayer.BorderMode = true;
+            var link = SelectedLayer;
+            DisableBorderModeOnPreviouslyLayer = () => link.BorderMode = false;
         }
 
         Point tilePos;
@@ -284,12 +331,21 @@ namespace Dungeon.Engine.Forms
             tilePos = default;
         }
 
+        private static bool ShowCells = true;
 
+        private void HideShowCells(object sender, RoutedEventArgs e)
+        {
+            ShowCells = !ShowCells;
+        }
 
         private class TilemapCell : SceneObject<DungeonEngineTilemapTile>
         {
-            public TilemapCell(DungeonEngineTilemapTile component, int fieldCellSize) : base(component, false)
+            private DungeonEngineTilemapLayer layer;
+
+            public TilemapCell(DungeonEngineTilemapTile component, int fieldCellSize, DungeonEngineTilemapLayer layer) : base(component, false)
             {
+                this.layer = layer;
+
                 this.Width = fieldCellSize;
                 this.Height = fieldCellSize;
 
@@ -304,34 +360,41 @@ namespace Dungeon.Engine.Forms
                 this.Top = component.YPos * fieldCellSize;
                 this.Left = component.XPos * fieldCellSize;
 
-                this.AddChild(new BorderInfo(component, DungeonEgineTilemapTileBoundsType.Left)
+                this.AddChild(new BorderInfo(component, DungeonEgineTilemapTileBoundsType.Left, layer)
                 {
                     Top = 13
                 });
 
-                this.AddChild(new BorderInfo(component, DungeonEgineTilemapTileBoundsType.Full)
+                this.AddChild(new BorderInfo(component, DungeonEgineTilemapTileBoundsType.Full, layer)
                 {
                     Top = 13,
                     Left = 13
                 });
 
-                this.AddChild(new BorderInfo(component, DungeonEgineTilemapTileBoundsType.Right)
+                this.AddChild(new BorderInfo(component, DungeonEgineTilemapTileBoundsType.Right, layer)
                 {
                     Left = 22
                 });
 
-                this.AddChild(new BorderInfo(component, DungeonEgineTilemapTileBoundsType.Bottom)
+                this.AddChild(new BorderInfo(component, DungeonEgineTilemapTileBoundsType.Bottom, layer)
                 {
                     Top = 22
                 });
+
+                this.AddChild(new BorderInfo(component, DungeonEgineTilemapTileBoundsType.Top, layer)
+                {
+                    Left = 13
+                });
             }
 
-            private class BorderInfo : HandleSceneControl<DungeonEngineTilemapTile>
+            private class BorderInfo : ControlSceneObject<DungeonEngineTilemapTile>
             {
                 private DungeonEgineTilemapTileBoundsType boundsType;
+                private DungeonEngineTilemapLayer layer;
 
-                public BorderInfo(DungeonEngineTilemapTile tile, DungeonEgineTilemapTileBoundsType boundsType) : base(tile, false)
+                public BorderInfo(DungeonEngineTilemapTile tile, DungeonEgineTilemapTileBoundsType boundsType, DungeonEngineTilemapLayer layer) : base(tile, false)
                 {
+                    this.layer = layer;
                     this.boundsType = boundsType;
                 }
 
@@ -353,7 +416,7 @@ namespace Dungeon.Engine.Forms
 
                 public override string Image => $"Icons\\{(boundsType == DungeonEgineTilemapTileBoundsType.Full ? "circle" : "triangle")}{(!Moveable ? "" : "black")}10.png";
 
-                public override bool Visible => editMode;
+                public override bool Visible => layer.BorderMode;
 
                 public override void Click(PointerArgs args)
                 {
@@ -361,6 +424,24 @@ namespace Dungeon.Engine.Forms
                     Component.SetPropertyExpr<bool>(boundsType.ToString(), Moveable);
                 }
             }
+        }
+
+        private class TilemapLayer : SceneObject<DungeonEngineTilemapLayer>
+        {
+            private readonly DungeonEngineTilemap map;
+
+            public override bool IsBatch => true;
+
+            public override bool CacheAvailable => false;
+
+            public TilemapLayer(DungeonEngineTilemapLayer component, DungeonEngineTilemap map) : base(component, true)
+            {
+                this.map = map;
+            }
+
+            public override double Width => map.Width;
+
+            public override double Height => map.Height;
         }
 
         private class EngineTileMap : EmptySceneObject
@@ -393,6 +474,8 @@ namespace Dungeon.Engine.Forms
                     });
                 }
             }
+
+            public override bool Visible => ShowCells;
         }
     }
 }

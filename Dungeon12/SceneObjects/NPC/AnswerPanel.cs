@@ -16,7 +16,7 @@
     using Dungeon;
     using Dungeon12;
 
-    public class AnswerPanel : EmptyHandleSceneControl
+    public class AnswerPanel : EmptyControlSceneObject
     {
         public override bool CacheAvailable => false;
 
@@ -215,7 +215,7 @@
             return false;
         }
 
-        private class AnswerClickable : EmptyHandleSceneControl
+        private class AnswerClickable : EmptyControlSceneObject
         {
             public override bool AbsolutePosition => true;
 

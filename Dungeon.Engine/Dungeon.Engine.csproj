@@ -13,13 +13,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Icons\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Data\**" />
     <EmbeddedResource Remove="Data\**" />
     <None Remove="**\Resources\**\*" />
+    <None Remove="**\Icons\**\*" />
     <None Remove="Data\**" />
   </ItemGroup>
   <ItemGroup>

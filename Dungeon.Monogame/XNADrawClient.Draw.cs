@@ -12,20 +12,8 @@
 
     public partial class XNADrawClient : Game, IDrawClient
     {
-        private static float cell = 32;
-
-        /// <summary>
-        /// DEAD END
-        /// </summary>
-        /// <param name="drawSessions"></param>
-        public void Draw(IEnumerable<IDrawSession> drawSessions)
-        {
-            throw new System.NotImplementedException();
-        }
-
         protected override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
-
             drawCicled = true;
             GraphicsDevice.Clear(Color.CornflowerBlue);
 

@@ -4,15 +4,32 @@
     {
         public Range() { }
 
-        public Range(int from, int to)
+        public Range(int from, int to, int value = 0)
         {
             this.From = from;
             this.To = to;
+            this.Value = value;
         }
 
         public int From { get; set; }
 
         public int To { get; set; }
+
+        private int _value;
+
+        public int Value
+        {
+            get => _value;
+            set
+            {
+                var v = value;
+                if (v > To)
+                    v = To;
+                if (v < From)
+                    v = From;
+                _value = v;
+            }
+        }
 
         public int Random() => RandomDungeon.Next(From, To);
 

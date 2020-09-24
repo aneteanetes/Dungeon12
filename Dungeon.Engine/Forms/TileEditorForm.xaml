@@ -171,12 +171,16 @@
                 <Grid>
                     <Label x:Name="TileMapName" Height="32" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Margin="3 0 6 0" Padding="10 5 0 0" >Карта</Label>
                     <Label x:Name="TileMapSize" Height="32" Foreground="WhiteSmoke" Margin="40,0,369,0" Padding="10 7 0 0" >(1000x1000)</Label>
-                    <Label x:Name="ModeName" Height="32" Foreground="WhiteSmoke" Margin="110,0,0,0" Padding="10 7 0 0" >[Редактирование]</Label>                    
+                    <Label x:Name="ModeName" Height="32" Foreground="WhiteSmoke" Margin="110,0,267,0" Padding="10 7 0 0" >[Редактирование]</Label>
+                    <Label x:Name="FPSView" Height="32" Foreground="WhiteSmoke" Margin="210,0,0,0" Padding="10 7 0 0" >FPS:60</Label>
                     <Button VerticalAlignment="top" HorizontalAlignment="Right" x:Name="refreshSceneBtn" ToolTip="Редактирование" Click="EditMode" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 10 0" BorderThickness="1">
                         <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/Edit_grey_16x.png" Margin="3" />
                     </Button>
                     <Button VerticalAlignment="top" HorizontalAlignment="Right" ToolTip="Границы" Click="BorderMode" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 40 0" BorderThickness="1">
                         <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/MoveGlyph_16x.png" Margin="3" />
+                    </Button>
+                    <Button VerticalAlignment="top" HorizontalAlignment="Right" ToolTip="Сетка" Click="HideShowCells" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 70 0" BorderThickness="1">
+                        <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/Table_16x.png" Margin="3" />
                     </Button>
                 </Grid>
             </Border>

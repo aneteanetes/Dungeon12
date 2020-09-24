@@ -379,7 +379,7 @@
 
         public virtual bool IsBatch => false;
 
-        public virtual bool Expired => false;
+        public virtual bool Expired { get; set; }
 
         /// <summary>
         /// Абсолютная позиция НЕ НАСЛЕДУЕТСЯ в целях ПРОИЗВОДИТЕЛЬНОСТИ

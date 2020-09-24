@@ -107,7 +107,7 @@ namespace Dungeon12.CardGame.Scene
             }
         }
 
-        private class LockSceneObject : EmptyHandleSceneControl
+        private class LockSceneObject : EmptyControlSceneObject
         { }
 
         private void AfterCardFlushed(GameDeskSceneObject gameDeskSceneObject, Entities.Card card, CardSceneObject c)

@@ -99,5 +99,11 @@ namespace Dungeon.Types
 
             return false;
         }
+
+        public bool Equals(Rectangle obj)
+            => obj.Width == this.Width
+            && obj.Height == this.Height
+            && obj.X == this.X
+            && obj.Y == this.Y;
     }
 }

@@ -14,7 +14,7 @@
     using System.Linq;
     using Dungeon12.Events;
 
-    public class SkillBar : EmptyHandleSceneControl
+    public class SkillBar : EmptyControlSceneObject
     {
         public override bool Events => true;
 

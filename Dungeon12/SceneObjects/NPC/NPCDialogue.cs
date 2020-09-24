@@ -12,7 +12,7 @@
     using System;
     using System.Linq;
 
-    public class NPCDialogue : EmptyHandleSceneControl
+    public class NPCDialogue : EmptyControlSceneObject
     {
         public override int Layer => 50;
 

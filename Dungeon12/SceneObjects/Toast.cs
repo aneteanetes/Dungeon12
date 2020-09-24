@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace Dungeon12.SceneObjects
 {
-    public class Toast : EmptyHandleSceneControl
+    public class Toast : EmptyControlSceneObject
     {
         public override bool Filtered => false;
 

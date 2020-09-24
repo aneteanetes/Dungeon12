@@ -60,12 +60,14 @@ namespace Dungeon.Monogame
                 .Where(x => x.Visible && (x.DrawOutOfSight || (!x.DrawOutOfSight && Camera.InCamera(x))))
                 .ToArray();
 
+            var isAbsoluteScene = scene?.AbsolutePositionScene ?? false;
+
             var absolute = all
-                .Where(x => x.AbsolutePosition || scene.AbsolutePositionScene)
+                .Where(x => x.AbsolutePosition || isAbsoluteScene)
                 .OrderBy(x => x.Layer).ToArray();
 
             var offsetted = all
-                .Where(x => !scene.AbsolutePositionScene && !x.AbsolutePosition)
+                .Where(x => !isAbsoluteScene && !x.AbsolutePosition)
                 .OrderBy(x => x.Layer).ToArray();
 
 #if Core
@@ -105,7 +107,7 @@ namespace Dungeon.Monogame
             List<string> lightsfordelete = new List<string>();
             foreach (var light in Lights)
             {
-                var sceneObj = this.scene.Objects.FirstOrDefault(o => light.Key == o.Uid);
+                var sceneObj = this.scene?.Objects?.FirstOrDefault(o => light.Key == o.Uid);
                 if (sceneObj != default)
                     if (!Camera.InCamera(sceneObj))
                     {
@@ -118,22 +120,19 @@ namespace Dungeon.Monogame
             }
         }
 
-
-        void f()
-        {
-        }
-
-        private void SetSpriteBatch(bool absolute = false, bool @interface = false)
+        private void SetSpriteBatch(bool absolute = false, bool @interface = false, double scale=0)
         {
             var scaleMatrix = Matrix.Identity;
             if (Camera.CameraOffsetZ != 0)
             {
-                float x = (float)Camera.CameraOffsetX;
-                float y = (float)Camera.CameraOffsetY;
-
                 var scaleVal = 1 + (Camera.CameraOffsetZ * 0.1);
 
                 scaleMatrix = Matrix.CreateScale((float)scaleVal);
+            }
+
+            if (scale != 0)
+            {
+                scaleMatrix = Matrix.CreateScale((float)scale);
             }
 
             if (!absolute)
@@ -159,9 +158,13 @@ namespace Dungeon.Monogame
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
                     blendState: BlendState.NonPremultiplied/*, effect: @interface ? null : GlobalImageFilter*/);
             }
+            currentAbsolute = absolute;
+            currentAbsolute=@interface;
             SpriteBatchRestore.Invoke(false, true);
         }
 
+        private bool currentAbsolute = false;
+        private bool currentInterface = false;
         private Action<bool, bool> SpriteBatchRestore = null;
 
         private static readonly string DefaultFontXnbExistedFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.Resources.Fonts.xnb.Montserrat.Montserrat10.xnb";
@@ -327,6 +330,13 @@ namespace Dungeon.Monogame
             if (force && sceneObject.ForceInvisible)
                 return;
 
+            var localSpriteBatchRestore = SpriteBatchRestore;
+            if (sceneObject.Scale != 0)
+            {
+                spriteBatch.End();
+                SetSpriteBatch(currentAbsolute, currentInterface, sceneObject.Scale);
+            }
+
             sceneObject.Drawed = true;
 
             var y = sceneObject.Position.Y * cell + yParent;
@@ -423,6 +433,8 @@ namespace Dungeon.Monogame
                     }
                 }
             }
+
+            SpriteBatchRestore = localSpriteBatchRestore;
         }
 
         private void DrawSceneImage(ISceneObject sceneObject, double y, double x, bool force)
@@ -504,7 +516,6 @@ namespace Dungeon.Monogame
                    : sceneObject.Opacity;
 
             var drawColor = new Color(color.R, color.G, color.B, (float)alpha);
-
 
             if (sceneObject.Blur)
             {

@@ -153,6 +153,7 @@ namespace Dungeon.Engine
                 Project.Load();
                 this.XnaHost.ChangeCell(Project.CompileSettings.CellSize);
 
+                ResourceLoader.NotDisposingResources = true;
                 ResourceLoader.Settings = new ResourceLoaderSettings()
                 {
                     ThrowIfNotFound = false,

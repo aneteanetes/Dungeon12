@@ -33,13 +33,14 @@ namespace Dungeon.Resources
 
         public void Compile(bool rebuild=false)
         {
+            var caller = Assembly.GetCallingAssembly().GetName().Name;
             var dir = $@"{MainPath}\Data";
             if(!Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
             }
 
-            var path = $@"{dir}\{Assembly.GetExecutingAssembly().GetName().Name}.dtr";
+            var path = $@"{dir}\{caller}.dtr";
             if (rebuild && File.Exists(path))
             {
                 File.Delete(path);
@@ -172,7 +173,7 @@ namespace Dungeon.Resources
 
         public static string MainPath => Store.MainPath;
 
-        public static string CompilePath => $@"{MainPath}\Data\{Assembly.GetExecutingAssembly().GetName().Name}.dtr";
+        public static string CompilePath => $@"{MainPath}\Data\{DungeonGlobal.GameAssembly.GetName().Name}.dtr";
 
         private ResourceManifest GetLastResourceManifestBuild()
         {

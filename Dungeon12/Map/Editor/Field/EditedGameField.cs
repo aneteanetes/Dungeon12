@@ -14,7 +14,7 @@
     using System.IO;
     using System.Linq;
 
-    public class EditedGameField : EmptyHandleSceneControl
+    public class EditedGameField : EmptyControlSceneObject
     {
         public override bool CacheAvailable => false;
         private int lvl = 1;
