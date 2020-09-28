@@ -7,6 +7,7 @@
     <OutputType>Library</OutputType>
     <StartupObject />
     <Configurations>Debug;Release;CompileDatabase</Configurations>
+    <RestoreFallbackFolders>clear</RestoreFallbackFolders>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE;Core;WINDOWS;DisableSound;monogameRuntime;</DefineConstants>
@@ -32,7 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MonoGame.Content.Builder" Version="3.7.0.4" />
-    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.0.8.11" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1700" />
     <PackageReference Include="NSubsys" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

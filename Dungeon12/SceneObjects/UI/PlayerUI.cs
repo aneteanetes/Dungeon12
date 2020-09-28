@@ -114,12 +114,12 @@
                 }.Montserrat();
             }
             
-            public override Rectangle Position
+            public override Rectangle BoundPosition
             {
                 get
                 {
                     this.Text.SetText(player.Level.ToString());
-                    var basePos = base.Position;
+                    var basePos = base.BoundPosition;
 
                     if (player.Level >= 10)
                     {

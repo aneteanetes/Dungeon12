@@ -181,8 +181,8 @@
             }
             else if (this.aliveTooltip != null)
             {
-                this.aliveTooltip.Left = this.Position.X;
-                this.aliveTooltip.Top = this.Position.Y - 0.8;
+                this.aliveTooltip.Left = this.BoundPosition.X;
+                this.aliveTooltip.Top = this.BoundPosition.Y - 0.8;
             }
         }
 

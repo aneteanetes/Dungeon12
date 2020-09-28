@@ -11,5 +11,9 @@
         float Range { get; set; }
 
         bool Updated { get; set; }
+
+        LightType Type { get; set; }
+
+        string Image { get; set; }
     }
 }

@@ -101,7 +101,7 @@ namespace Dungeon12.SceneObjects
             this.Destroy?.Invoke();
         }
 
-        public override Rectangle Position
+        public override Rectangle BoundPosition
         {
             get
             {
@@ -109,7 +109,7 @@ namespace Dungeon12.SceneObjects
 
                 DrawLoop();
 
-                return base.Position;
+                return base.BoundPosition;
             }
 
         }

@@ -50,8 +50,12 @@ namespace Dungeon.Monogame
             this.myRenderer = myRenderer;
         }
 
-        public void Draw(ISceneObject[] sceneObjects, Microsoft.Xna.Framework.GameTime gameTime)
+        public RenderTarget2D target;
+
+        public void Draw(ISceneObject[] sceneObjects, Microsoft.Xna.Framework.GameTime gameTime, RenderTarget2D target = default)
         {
+            this.target = target;
+
             this.gameTime = gameTime;
 
             InterfaceObjects.Clear();
@@ -73,6 +77,7 @@ namespace Dungeon.Monogame
 #if Core
             penumbra?.BeginDraw();
 #endif
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             SetSpriteBatch();
 
@@ -109,7 +114,7 @@ namespace Dungeon.Monogame
             {
                 var sceneObj = this.scene?.Objects?.FirstOrDefault(o => light.Key == o.Uid);
                 if (sceneObj != default)
-                    if (!Camera.InCamera(sceneObj))
+                    if (!Camera.InCamera(sceneObj) || !sceneObj.Visible)
                     {
                         lightsfordelete.Add(light.Key);
                     }
@@ -206,7 +211,7 @@ namespace Dungeon.Monogame
 
             if (drawText.WordWrap && parent != default)
             {
-                var parentWidth = parent.Position.Width;
+                var parentWidth = parent.BoundPosition.Width;
                 if (parentWidth > 0)
                 {
                     data = WrapText(font, data, parentWidth * cell);
@@ -261,7 +266,7 @@ namespace Dungeon.Monogame
             DrawSceneObject(sceneObject, offset.X, offset.Y, true, true, true);
 
             spriteBatch.End();
-            GraphicsDevice.SetRenderTarget(null);
+            GraphicsDevice.SetRenderTarget(target ?? null);
 
             using (var f = File.Create(path))
             {
@@ -331,24 +336,24 @@ namespace Dungeon.Monogame
                 return;
 
             var localSpriteBatchRestore = SpriteBatchRestore;
-            if (sceneObject.Scale != 0)
-            {
-                spriteBatch.End();
-                SetSpriteBatch(currentAbsolute, currentInterface, sceneObject.Scale);
-            }
+            //if (sceneObject.Scale != 0)
+            //{
+            //    spriteBatch.End();
+            //    SetSpriteBatch(currentAbsolute, currentInterface, sceneObject.Scale);
+            //}
 
             sceneObject.Drawed = true;
 
-            var y = sceneObject.Position.Y * cell + yParent;
-            var x = sceneObject.Position.X * cell + xParent;
+            var y = sceneObject.BoundPosition.Y * cell + yParent;
+            var x = sceneObject.BoundPosition.X * cell + xParent;
 
             DrawLight(sceneObject, x, y);
             DrawEffects(sceneObject, x, y);
 
             if (sceneObject.IsBatch && !batching)
             {
-                int width = (int)Math.Round(sceneObject.Position.Width * cell);
-                int height = (int)Math.Round(sceneObject.Position.Height * cell);
+                int width = (int)Math.Round(sceneObject.BoundPosition.Width * cell);
+                int height = (int)Math.Round(sceneObject.BoundPosition.Height * cell);
 
                 if (sceneObject.Expired || !BatchCache.TryGetValue(sceneObject.Uid, out var bitmap))
                 {
@@ -369,7 +374,7 @@ namespace Dungeon.Monogame
 
 
                     spriteBatch.End();
-                    GraphicsDevice.SetRenderTarget(null);
+                    GraphicsDevice.SetRenderTarget(target);
 
                     SpriteBatchRestore.Invoke(false, sceneObject.Filtered);
                 }
@@ -467,8 +472,8 @@ namespace Dungeon.Monogame
 
             if (force || !PosCahce.TryGetValue(sceneObject.Uid, out Rect pos))
             {
-                double width = sceneObject.Position.Width;
-                double height = sceneObject.Position.Height;
+                double width = sceneObject.BoundPosition.Width;
+                double height = sceneObject.BoundPosition.Height;
 
                 if (width == 0 && height == 0)
                 {
@@ -677,7 +682,7 @@ namespace Dungeon.Monogame
 
             var txt = range.StringData;
 
-            var componentWidth = sceneObject.Position.Width;
+            var componentWidth = sceneObject.BoundPosition.Width;
             if (range.WordWrap && componentWidth > 0)
             {
                 txt = WrapText(spriteFont, txt, componentWidth * cell);
@@ -902,7 +907,7 @@ namespace Dungeon.Monogame
             return pixel;
         }
 
-        private static readonly Dictionary<string, PointLight> Lights = new Dictionary<string, PointLight>();
+        private static readonly Dictionary<string, Light> Lights = new Dictionary<string, Light>();
 
         private void DrawLight(ISceneObject sceneObject, double x, double y)
         {
@@ -915,8 +920,8 @@ namespace Dungeon.Monogame
             var xf = x + Camera.CameraOffsetX;
             var yf = y + Camera.CameraOffsetY;
 
-            xf += sceneObject.Position.Width / 2 * cell;
-            yf += sceneObject.Position.Height * cell;
+            xf += sceneObject.BoundPosition.Width / 2 * cell;
+            yf += sceneObject.BoundPosition.Height / 2 * cell;
 
             var pos = new Vector2((float)xf, (float)yf);
 
@@ -934,14 +939,43 @@ namespace Dungeon.Monogame
 
                 if (!Lights.TryGetValue(sceneObject.Uid, out var light))
                 {
-                    light = new PointLight()
+                    switch (objLight.Type)
                     {
-                        Scale = new Vector2(objLight.Range * cell),
-                        ShadowType = ShadowType.Occluded,
-                        Radius = sceneObject.Light.Range * cell,
-                        Position = pos,
-                        Color = color
-                    };
+                        case LightType.Point:
+                            light = new PointLight()
+                            {
+                                Scale = new Vector2(objLight.Range * cell),
+                                ShadowType = ShadowType.Illuminated,
+                                Radius = sceneObject.Light.Range * cell,
+                                Position = pos,
+                                Color = color
+                            };
+                            break;
+                        case LightType.Spot:
+
+                            light = new Spotlight()
+                            {
+                                Scale = new Vector2(objLight.Range * cell),
+                                ShadowType = ShadowType.Illuminated,
+                                Radius = sceneObject.Light.Range * cell,
+                                Position = pos,
+                                Color = color
+                            };
+                            break;
+                        case LightType.Texture:
+
+                            light = new TexturedLight(TileSetByName(objLight.Image))
+                            {
+                                Scale = new Vector2(objLight.Range * cell),
+                                ShadowType = ShadowType.Illuminated,
+                                Radius = sceneObject.Light.Range * cell,
+                                Position = pos,
+                                Color = color
+                            };
+                            break;
+                        default:
+                            break;
+                    }
 
                     penumbra.Lights.Add(light);
                     Lights[sceneObject.Uid] = light;

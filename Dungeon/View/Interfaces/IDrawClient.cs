@@ -1,8 +1,6 @@
 ﻿namespace Dungeon.View.Interfaces
 {
     using Dungeon.Types;
-    using System;
-    using System.Collections.Generic;
 
     public interface IDrawClient : ICamera
     {

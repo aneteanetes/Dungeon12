@@ -261,7 +261,7 @@
         /// <summary>
         /// Relative position
         /// </summary>
-        public virtual Rectangle Position
+        public virtual Rectangle BoundPosition
         {
             get
             {
@@ -274,6 +274,14 @@
                         Width = (float)Width,
                         Height = (float)Height
                     };
+
+                    if (Scale != default)
+                    {
+                        pos.X *= Scale;
+                        pos.Y *= Scale;
+                        pos.Width *= Scale;
+                        pos.Height *= Scale;
+                    }
                 }
 
                 return pos;
@@ -361,10 +369,12 @@
                     var parentX = Parent?.ComputedPosition?.X ?? 0f;
                     var parentY = Parent?.ComputedPosition?.Y ?? 0f;
 
+                    var scale_ = Scale == default ? 1 : Scale;
+
                     _computedPosition = new Rectangle
                     {
-                        X = parentX + (float)Left,
-                        Y = parentY + (float)Top
+                        X = parentX + (float)Left*scale_,
+                        Y = parentY + (float)Top*scale_
                     };
                 }
 
@@ -400,10 +410,10 @@
 
         public virtual Rectangle CropPosition => new Rectangle
         {
-            X = Position.X,
-            Y = Position.Y,
-            Height = Children.Max(c => c.Position.Y + c.Position.Height),
-            Width = Children.Max(c => c.Position.X + c.Position.Width)
+            X = BoundPosition.X,
+            Y = BoundPosition.Y,
+            Height = Children.Max(c => c.BoundPosition.Y + c.BoundPosition.Height),
+            Width = Children.Max(c => c.BoundPosition.X + c.BoundPosition.Width)
         };
 
         public virtual int Layer { get; set; }
@@ -445,7 +455,23 @@
 
         public virtual bool Filtered { get; set; } = true;
 
-        public virtual double Scale { get; set; }
+        private double _scale;
+        public virtual double Scale// { get; set; }
+        {
+            get
+            {
+                if (_scale != default)
+                    return _scale;
+
+                if (Parent != default)
+                {
+                    return Parent.Scale;
+                }
+
+                return default;
+            }
+            set => _scale = value;
+        }
 
         public SceneObject<TComponent> ScaleTo(double value)
         {
@@ -467,9 +493,9 @@
         public bool IntersectsWith(ISceneObject another)
         {
             var xsum1 = Math.Max(ComputedPosition.X, another.ComputedPosition.X);
-            var xsum2 = Math.Min(ComputedPosition.X + Width, another.ComputedPosition.X + another.Position.Width);
+            var xsum2 = Math.Min(ComputedPosition.X + Width, another.ComputedPosition.X + another.BoundPosition.Width);
             var ysum1 = Math.Max(ComputedPosition.Y, another.ComputedPosition.Y);
-            var ysum2 = Math.Min(ComputedPosition.Y + Height, another.ComputedPosition.Y + another.Position.Height);
+            var ysum2 = Math.Min(ComputedPosition.Y + Height, another.ComputedPosition.Y + another.BoundPosition.Height);
 
             if (xsum2 >= xsum1 && ysum2 >= ysum1)
             {

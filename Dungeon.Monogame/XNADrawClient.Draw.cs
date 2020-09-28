@@ -1,6 +1,7 @@
 ﻿namespace Dungeon.Monogame
 {
     using Dungeon;
+    using Dungeon.Monogame.Effects;
     using Dungeon.View.Interfaces;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -8,21 +9,59 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
 
     public partial class XNADrawClient : Game, IDrawClient
     {
+        private void ProcessMonogameEffect(IMonogameEffect monogameEffect)
+        {
+            if (!monogameEffect.Loaded)
+            {
+                monogameEffect.Load(this);
+                monogameEffect.Loaded = true;
+            }
+
+            var processed = monogameEffect.Draw(backBuffer);
+            spriteBatch.Begin();
+            spriteBatch.Draw(processed, Vector2.Zero, Color.White);
+            spriteBatch.End();
+        }
+
         protected override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
             drawCicled = true;
-            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             CalculateCamera();
 
             if (this.scene != default)
             {
-                XNADrawClientImplementation.Draw(this.scene.Objects, gameTime);
+                foreach (var preEffect in this.scene.SceneGlobalEffects.Where(e=>e.When== EffectTime.PreProcess))
+                {
+                    if (preEffect.Is<IMonogameEffect>())
+                    {
+                        ProcessMonogameEffect(preEffect.As<IMonogameEffect>());
+                    }
+                }
+
+                XNADrawClientImplementation.Draw(this.scene.Objects, gameTime, backBuffer);
+
+                foreach (var postEffect in this.scene.SceneGlobalEffects.Where(e => e.When == EffectTime.PostProcess))
+                {
+                    if (postEffect.Is<IMonogameEffect>())
+                    {
+                        ProcessMonogameEffect(postEffect.As<IMonogameEffect>());
+                    }
+                }
             }
+
+            if (spriteBatch.IsOpened)
+                spriteBatch.End();
+
+            GraphicsDevice.SetRenderTarget(null);
+            spriteBatch.Begin();
+            spriteBatch.Draw(backBuffer, Vector2.Zero, Color.White);
+            spriteBatch.End();
 
             DrawDebugInfo();
 
@@ -61,7 +100,7 @@
             try
             {
                 bool neeedClose = false;
-                if (!spriteBatch.Opened)
+                if (!spriteBatch.IsOpened)
                 {
                     neeedClose = true;
                     spriteBatch.Begin();

@@ -110,8 +110,6 @@ namespace Dungeon.Resources
 
         private void ProcessFile(string file, string projectName)
         {
-            Console.WriteLine($"Compile file: {file}");
-
             var lastTime = File.GetLastWriteTime(file);
             var res = LastBuild.Resources.FirstOrDefault(x => x.Path == file);
 
@@ -132,6 +130,7 @@ namespace Dungeon.Resources
         {
             if (res.LastWriteTime.ToString() != lastTime.ToString())
             {
+                Console.WriteLine($"Compile file: {file}");
                 CompileExistedResource(file, db, res);
             }
         }
@@ -183,7 +182,7 @@ namespace Dungeon.Resources
             {
                 lastBuild = buildDb
                     .GetCollection<ResourceManifest>()
-                    .FindOne(Query.All(1));
+                    .FindAll().FirstOrDefault();
             }
 
             if (lastBuild == default)

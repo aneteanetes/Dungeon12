@@ -1,4 +1,5 @@
 ﻿using Dungeon;
+using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using InTheWood.Entities.MapScreen;

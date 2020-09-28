@@ -32,5 +32,9 @@
         }
 
         public bool Updated { get; set; }
+
+        public virtual LightType Type { get; set; } = LightType.Point;
+
+        public virtual string Image { get; set; }
     }
 }

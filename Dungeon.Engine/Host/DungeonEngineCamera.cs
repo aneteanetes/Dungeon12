@@ -8,7 +8,7 @@ namespace Dungeon.Engine.Host
     public class DungeonEngineCamera : ICamera
     {
         private readonly HashSet<Direction> CameraMovings = new HashSet<Direction>();
-        public void MoveCamera(Direction direction, bool stop = false)
+        public void MoveCamera(Direction direction, bool stop = false, bool once = false)
         {
             if (!stop)
             {

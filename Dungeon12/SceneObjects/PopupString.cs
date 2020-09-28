@@ -57,7 +57,7 @@
             this.Height = 1;
         }
 
-        public override Rectangle Position
+        public override Rectangle BoundPosition
         {
             get
             {
@@ -65,7 +65,7 @@
 
                 DrawLoop();
 
-                return base.Position;
+                return base.BoundPosition;
             }
             
         }

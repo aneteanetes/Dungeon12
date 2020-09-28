@@ -14,5 +14,7 @@
         public double Scale { get; set; }
 
         public string Assembly { get; }
+
+        public EffectTime When => EffectTime.InProcess;
     }
 }

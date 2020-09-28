@@ -66,9 +66,12 @@
             {
                 graphics.HardwareModeSwitch = false;
             }
+
+            graphics.SynchronizeWithVerticalRetrace = true;
+            graphics.GraphicsProfile = GraphicsProfile.HiDef;
         }
 
-        ContentResolver contentResolver;
+        public ContentResolver contentResolver;
 
         private MonogameClientSettings clientSettings;
 
@@ -147,9 +150,14 @@
 
         private Effect GlobalImageFilter;
 
+        RenderTarget2D backBuffer;
+
         protected override void LoadContent()
         {
             GraphicsDevice.PresentationParameters.RenderTargetUsage = RenderTargetUsage.PreserveContents;
+
+            backBuffer = new RenderTarget2D(GraphicsDevice, GraphicsDevice.PresentationParameters.BackBufferWidth, GraphicsDevice.PresentationParameters.BackBufferHeight, false, GraphicsDevice.PresentationParameters.BackBufferFormat, DepthFormat.Depth24);
+
             spriteBatch = new SpiteBatchKnowed(GraphicsDevice);
 
             SceneManager = new SceneManager
@@ -189,20 +197,20 @@
             if (clientSettings.Add2DLighting)
                 Components.Add(penumbra);
 
-            penumbra.Lights.Add(SunLight);
+            //penumbra.Lights.Add(SunLight);
 
             DungeonGlobal.SceneManager = this.SceneManager;
 
-            var pathShader = "Dungeon.Monogame.Resources.Shaders.ExtractLight.xnb";
-            using (Stream stream = asm.GetManifestResourceStream(pathShader))
-            {
-                if (stream.CanSeek)
-                {
-                    stream.Seek(0, SeekOrigin.Begin);
-                }
+            //var pathShader = "Dungeon.Monogame.Resources.Shaders.ExtractLight.xnb";
+            //using (Stream stream = asm.GetManifestResourceStream(pathShader))
+            //{
+            //    if (stream.CanSeek)
+            //    {
+            //        stream.Seek(0, SeekOrigin.Begin);
+            //    }
 
-                GlobalImageFilter = Content.Load<Effect>(pathShader, stream);
-            }
+            //    GlobalImageFilter = Content.Load<Effect>(pathShader, stream);
+            //}
 
             XNADrawClientImplementation = new XNADrawClientImplementation(GraphicsDevice, clientSettings.Add2DLighting ? penumbra : null, spriteBatch, clientSettings.CellSize, GlobalImageFilter, Content, this, myRenderer);
 

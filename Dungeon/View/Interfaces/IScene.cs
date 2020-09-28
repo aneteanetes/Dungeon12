@@ -8,6 +8,8 @@ namespace Dungeon.View.Interfaces
     {
         ISceneObject[] Objects { get; }
 
+        IEffect[] SceneGlobalEffects { get; }
+
         bool AbsolutePositionScene { get; }
 
         void Destroy();

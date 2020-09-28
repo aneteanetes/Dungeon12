@@ -33,7 +33,7 @@
         /// <summary>
         /// Must exists
         /// </summary>
-        Rectangle Position { get; }
+        Rectangle BoundPosition { get; }
 
         /// <summary>
         /// Must exists
@@ -58,7 +58,7 @@
         bool ScaleAndResize { get; set; }
 
         /// <summary>
-        /// Position with parent
+        /// Position with parent and scale
         /// </summary>
         Rectangle ComputedPosition { get; }
 

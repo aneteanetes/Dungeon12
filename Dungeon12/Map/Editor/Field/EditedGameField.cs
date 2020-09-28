@@ -171,10 +171,10 @@
 
         public override Rectangle CropPosition => new Rectangle
         {
-            X = this.Position.X,
-            Y = this.Position.Y,
-            Height = this.Children.Skip(1).Max(c => c.Position.Y + c.Position.Height),
-            Width = this.Children.Skip(1).Max(c => c.Position.X + c.Position.Width)
+            X = this.BoundPosition.X,
+            Y = this.BoundPosition.Y,
+            Height = this.Children.Skip(1).Max(c => c.BoundPosition.Y + c.BoundPosition.Height),
+            Width = this.Children.Skip(1).Max(c => c.BoundPosition.X + c.BoundPosition.Width)
         };
 
         public override void GlobalClickRelease(PointerArgs args)

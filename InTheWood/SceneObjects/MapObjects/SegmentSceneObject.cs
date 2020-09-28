@@ -1,5 +1,6 @@
 ﻿using Dungeon;
 using Dungeon.Control;
+using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.Types;
@@ -14,6 +15,7 @@ namespace InTheWood.SceneObjects.MapObjects
         public const double TileHeight = 140;
 
         ImageControl mask;
+        LightObject light;
 
         public SegmentSceneObject(Segment component) : base(component, true)
         {
@@ -23,10 +25,33 @@ namespace InTheWood.SceneObjects.MapObjects
             mask.Visible = false;
             this.AddChild(new ImageControl("Sprites/bordersegment.png".AsmRes()));
             this.AddChild(mask);
+
+            this.light = new LightObject();
+            this.light.Visible = false;
+            this.AddChild(light);
         }
+
+        private class LightObject : EmptySceneObject
+        {
+            public LightObject()
+            {
+                this.Width = TileWidth;
+                this.Height = TileHeight;
+
+                this.Light = new Light()
+                {
+                    Color = DrawColor.WhiteSmoke,
+                    Range = 100,
+                    //Type= Dungeon.View.Interfaces.LightType.Texture,
+                    //Image="Sprites/customlight.png".AsmRes()
+                };
+            }
+        }
+
 
         public override void Click(PointerArgs args)
         {
+            this.light.Visible = !this.light.Visible;
             base.Click(args);
         }
 

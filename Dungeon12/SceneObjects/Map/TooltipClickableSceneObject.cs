@@ -197,8 +197,8 @@
             {
                 Position = new Dungeon.Physics.PhysicalPosition()
                 {
-                    X = ClickableTooltip.Position.X * 32,
-                    Y = ClickableTooltip.Position.Y * 32
+                    X = ClickableTooltip.BoundPosition.X * 32,
+                    Y = ClickableTooltip.BoundPosition.Y * 32
                 },
                 Size = new Dungeon.Physics.PhysicalSize()
                 {

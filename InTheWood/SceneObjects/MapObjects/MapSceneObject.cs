@@ -23,7 +23,7 @@ namespace InTheWood.SceneObjects.MapObjects
                 AddConnectedSectors(sector);
             }
 
-            this.Scale = .5;
+            //this.Scale = .5;
         }
 
         private void AddConnectedSectors(Sector sector)

@@ -2,10 +2,19 @@
 {
     public interface IEffect
     {
-        string Name { get; set; }
+        string Name { get; }
 
-        double Scale { get; set; }
+        double Scale { get; }
 
         string Assembly { get; }
+
+        public EffectTime When { get; }
+    }
+
+    public enum EffectTime
+    {
+        InProcess = 0,
+        PostProcess = 1,
+        PreProcess = 2
     }
 }

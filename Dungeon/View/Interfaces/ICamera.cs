@@ -4,7 +4,7 @@
 
     public interface ICamera
     {
-        void MoveCamera(Direction direction, bool stop = false);
+        void MoveCamera(Direction direction, bool stop = false, bool once = false);
 
         void StopMoveCamera();
 

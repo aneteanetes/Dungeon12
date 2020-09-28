@@ -9,8 +9,17 @@
     public partial class XNADrawClient : Game, IDrawClient
     {
         private readonly HashSet<Direction> CameraMovings = new HashSet<Direction>();
-        public void MoveCamera(Direction direction, bool stop = false)
+
+        private readonly HashSet<Direction> OnceCameraMovings = new HashSet<Direction>();
+
+        public void MoveCamera(Direction direction, bool stop = false, bool once = false)
         {
+            if (once)
+            {
+                OnceCameraMovings.Add(direction);
+                return;
+            }
+
             if (!stop)
             {
                 CameraMovings.Add(direction);
@@ -60,6 +69,7 @@
                     ? Direction.Right
                     : Direction.Left;
                 CameraMovings.Remove(direction);
+                OnceCameraMovings.Remove(direction);
             }
 
             if (IsStop(CameraOffsetY, CameraOffsetLimitY))
@@ -68,6 +78,7 @@
                     ? Direction.Down
                     : Direction.Up;
                 CameraMovings.Remove(direction);
+                OnceCameraMovings.Remove(direction);
             }
 
             if (CameraMovings.Contains(Direction.Right))
@@ -85,6 +96,27 @@
             if (CameraMovings.Contains(Direction.Up))
             {
                 CameraOffsetY += cameraSpeed;
+            }
+
+            if (OnceCameraMovings.Contains(Direction.Right))
+            {
+                CameraOffsetX -= cameraSpeed;
+                OnceCameraMovings.Remove(Direction.Right);
+            }
+            if (OnceCameraMovings.Contains(Direction.Down))
+            {
+                CameraOffsetY -= cameraSpeed;
+                OnceCameraMovings.Remove(Direction.Down);
+            }
+            if (OnceCameraMovings.Contains(Direction.Left))
+            {
+                CameraOffsetX += cameraSpeed;
+                OnceCameraMovings.Remove(Direction.Left);
+            }
+            if (OnceCameraMovings.Contains(Direction.Up))
+            {
+                CameraOffsetY += cameraSpeed;
+                OnceCameraMovings.Remove(Direction.Up);
             }
         }
 

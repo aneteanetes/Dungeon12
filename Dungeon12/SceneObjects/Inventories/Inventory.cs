@@ -280,7 +280,7 @@
                             BackgroundColor = color,
                             Depth = 1,
                             PathPredefined = Dungeon.View.Enums.PathPredefined.Rectangle,
-                            Region = this.Position,
+                            Region = this.BoundPosition,
                             Radius = 5f
                         };
                     }
@@ -317,7 +317,7 @@
                                 BackgroundColor = color,
                                 Depth = 1,
                                 PathPredefined = Dungeon.View.Enums.PathPredefined.Rectangle,
-                                Region = this.Position,
+                                Region = this.BoundPosition,
                                 Radius = 5f
                             };
                         }

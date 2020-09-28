@@ -289,8 +289,8 @@
                 }
                 else if (this.aliveTooltip != null)
                 {
-                    this.aliveTooltip.Left = this.Position.X;
-                    this.aliveTooltip.Top = this.Position.Y - 0.8;
+                    this.aliveTooltip.Left = this.BoundPosition.X;
+                    this.aliveTooltip.Top = this.BoundPosition.Y - 0.8;
 
                     if (!DontChangeVisionDirection)                    
                         Avatar.VisionDirection = Direction.Up;                    
@@ -309,8 +309,8 @@
                 }
                 else if (this.aliveTooltip != null)
                 {
-                    this.aliveTooltip.Left = this.Position.X;
-                    this.aliveTooltip.Top = this.Position.Y - 0.8;
+                    this.aliveTooltip.Left = this.BoundPosition.X;
+                    this.aliveTooltip.Top = this.BoundPosition.Y - 0.8;
                     if (!DontChangeVisionDirection)
                         Avatar.VisionDirection = Direction.Down;
                 }
@@ -328,8 +328,8 @@
                 }
                 else if (this.aliveTooltip != null)
                 {
-                    this.aliveTooltip.Left = this.Position.X;
-                    this.aliveTooltip.Top = this.Position.Y - 0.8;
+                    this.aliveTooltip.Left = this.BoundPosition.X;
+                    this.aliveTooltip.Top = this.BoundPosition.Y - 0.8;
                     if (!DontChangeVisionDirection)
                         Avatar.VisionDirection = Direction.Left;
                 }
@@ -347,8 +347,8 @@
                 }
                 else if (this.aliveTooltip != null)
                 {
-                    this.aliveTooltip.Left = this.Position.X;
-                    this.aliveTooltip.Top = this.Position.Y - 0.8;
+                    this.aliveTooltip.Left = this.BoundPosition.X;
+                    this.aliveTooltip.Top = this.BoundPosition.Y - 0.8;
                     if (!DontChangeVisionDirection)
                         Avatar.VisionDirection = Direction.Right;
                 }

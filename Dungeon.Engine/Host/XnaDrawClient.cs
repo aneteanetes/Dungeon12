@@ -170,7 +170,7 @@ namespace Dungeon.Engine.Host
         public void CacheImage(string image)
             => XNADrawClientImplementation.CacheImage(image);
 
-        public void MoveCamera(Direction direction, bool stop = false)
+        public void MoveCamera(Direction direction, bool stop = false, bool once = false)
             => Camera.MoveCamera(direction, stop);
 
         public void StopMoveCamera() 

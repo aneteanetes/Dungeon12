@@ -61,7 +61,7 @@
                         BackgroundColor = color,
                         Depth = this.Depth,
                         PathPredefined = View.Enums.PathPredefined.Rectangle,
-                        Region = this.Position,
+                        Region = this.BoundPosition,
                         Radius = (float)this.Round
                     };
                 }

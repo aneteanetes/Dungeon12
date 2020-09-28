@@ -251,6 +251,17 @@
             if (Destroyed)
                 return;
 
+            if (DungeonGlobal.Freezer.World == null && !DungeonGlobal.BlockSceneControls)
+                try
+                {
+                    MouseRelease(pointerPressedEventArgs);
+                }
+                catch (Exception ex)
+                {
+                    DungeonGlobal.Exception(ex);
+                    return;
+                }
+
             var keyControls = ControlsByHandle(ControlEventType.ClickRelease);
             var globalKeyHandlers = ControlsByHandle(ControlEventType.GlobalClickRelease);
 
@@ -335,6 +346,17 @@
             if (sceneManager.Current != this)
                 return;
 
+            if (DungeonGlobal.Freezer.World == null && !DungeonGlobal.BlockSceneControls)
+                try
+                {
+                    MouseMove(pointerPressedEventArgs);
+                }
+                catch (Exception ex)
+                {
+                    DungeonGlobal.Exception(ex);
+                    return;
+                }
+
             var globalMouseMoves = ControlsByHandle(ControlEventType.GlobalMouseMove);
             DoClicks(pointerPressedEventArgs, offset, globalMouseMoves, (c, a) => c.GlobalMouseMove(a));
 
@@ -409,8 +431,8 @@
             {
                 X = sceneObjControl.ComputedPosition.X * DrawingSize.CellF,
                 Y = sceneObjControl.ComputedPosition.Y * DrawingSize.CellF,
-                Height = sceneObjControl.Position.Height * DrawingSize.CellF,
-                Width = sceneObjControl.Position.Width * DrawingSize.CellF
+                Height = sceneObjControl.BoundPosition.Height * DrawingSize.CellF,
+                Width = sceneObjControl.BoundPosition.Width * DrawingSize.CellF
             };
 
             if (!this.AbsolutePositionScene && !sceneObjControl.AbsolutePosition)
@@ -425,6 +447,10 @@
         protected virtual void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold) { }
 
         protected virtual void MousePress(PointerArgs pointerArgs) { }
+
+        protected virtual void MouseRelease(PointerArgs pointerArgs) { }
+
+        protected virtual void MouseMove(PointerArgs pointerArgs) { }
 
         protected virtual void KeyUp(Key keyPressed, KeyModifiers keyModifiers) { }
 
@@ -562,6 +588,23 @@
         }
 
         public bool Destroyed { get; private set; } = false;
+
+        private List<IEffect> GlobalEffectsList = new List<IEffect>();
+
+        public IEffect[] SceneGlobalEffects { get; private set; } = new IEffect[0];
+
+        public void AddGlobalEffect(IEffect effect)
+        {
+            GlobalEffectsList.Add(effect);
+            SceneGlobalEffects = GlobalEffectsList.ToArray();
+        }
+
+        public void RemoveGlobalEffect(IEffect effect)
+        {
+            GlobalEffectsList.Add(effect);
+            SceneGlobalEffects = GlobalEffectsList.ToArray();
+        }
+
         public virtual void Destroy()
         {
             var sceneObjsForRemove = new List<ISceneObject>(SceneObjects);

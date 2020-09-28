@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
@@ -12,4 +12,6 @@
     <PackageReference Include="MonoGame.Content.Builder" Version="3.7.0.4" />
   </ItemGroup>
 
+  <Import Project="C:\Users\anete\.nuget\packages\monogame.content.builder\3.7.0.4\build\MonoGame.Content.Builder.targets" />
+  
 </Project>

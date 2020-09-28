@@ -10,6 +10,9 @@ namespace InTheWood
         [STAThread]
         static void Main()
         {
+            Console.WriteLine("stopped");
+            Console.ReadLine();
+
             DungeonGlobal.BindGlobal<Global>();
             DungeonGlobal.ComponentUpdateCompatibility = true;
             Console.WriteLine(DungeonGlobal.Version);
@@ -28,7 +31,7 @@ namespace InTheWood
                 HeightPixel = 720,
                 IsFullScreen = false,
                 Add2DLighting = false,
-                CellSize=1
+                CellSize = 1
             });
             DungeonGlobal.ClientRun = client.Run;
             DungeonGlobal.Run();
