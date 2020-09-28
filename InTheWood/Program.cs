@@ -10,9 +10,6 @@ namespace InTheWood
         [STAThread]
         static void Main()
         {
-            Console.WriteLine("stopped");
-            Console.ReadLine();
-
             DungeonGlobal.BindGlobal<Global>();
             DungeonGlobal.ComponentUpdateCompatibility = true;
             Console.WriteLine(DungeonGlobal.Version);

@@ -19,6 +19,12 @@
 /processorParam:DebugMode=Auto
 /build:Bloom.fx
 
+#begin BloomCrossPlatform.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:BloomCrossPlatform.fx
+
 #begin PenumbraHull.fx
 /importer:EffectImporter
 /processor:EffectProcessor

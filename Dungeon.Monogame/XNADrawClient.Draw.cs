@@ -14,6 +14,8 @@
 
     public partial class XNADrawClient : Game, IDrawClient
     {
+        private List<Texture2D> PostProcessed = new List<Texture2D>();
+
         private void ProcessMonogameEffect(IMonogameEffect monogameEffect)
         {
             if (!monogameEffect.Loaded)
@@ -23,13 +25,12 @@
             }
 
             var processed = monogameEffect.Draw(backBuffer);
-            spriteBatch.Begin();
-            spriteBatch.Draw(processed, Vector2.Zero, Color.White);
-            spriteBatch.End();
+            PostProcessed.Add(processed);
         }
 
         protected override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
+            GraphicsDevice.Clear(Color.Black);
             drawCicled = true;
 
             CalculateCamera();
@@ -46,6 +47,7 @@
 
                 XNADrawClientImplementation.Draw(this.scene.Objects, gameTime, backBuffer);
 
+                PostProcessed.Clear();
                 foreach (var postEffect in this.scene.SceneGlobalEffects.Where(e => e.When == EffectTime.PostProcess))
                 {
                     if (postEffect.Is<IMonogameEffect>())
@@ -59,8 +61,12 @@
                 spriteBatch.End();
 
             GraphicsDevice.SetRenderTarget(null);
-            spriteBatch.Begin();
-            spriteBatch.Draw(backBuffer, Vector2.Zero, Color.White);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
+            //spriteBatch.Draw(backBuffer, Vector2.Zero, Color.White);
+            foreach (var processed in PostProcessed)
+            {
+                spriteBatch.Draw(processed, Vector2.Zero, Color.White);
+            }
             spriteBatch.End();
 
             DrawDebugInfo();

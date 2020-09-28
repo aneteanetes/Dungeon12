@@ -22,6 +22,13 @@ namespace InTheWood.Scenes
 
         public override void Init()
         {
+            this.AddObject(new ImageControl("Sprites/sample.png".AsmRes()));
+            var bloomFilter1 = new BloomFilter
+            {
+                AfterLoad = bf => bf.BloomPreset = BloomFilter.BloomPresets.SuperWide
+            };
+            this.AddGlobalEffect(bloomFilter1);
+            return;
             var map = new Map();
             var centerSector = new Sector();
             map.AddSector(centerSector);

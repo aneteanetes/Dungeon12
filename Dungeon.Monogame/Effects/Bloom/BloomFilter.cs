@@ -226,7 +226,7 @@ namespace InTheWood.Shaders.Bloom
 
             var asm = System.Reflection.Assembly.GetExecutingAssembly();
 
-            using (Stream stream = asm.GetManifestResourceStream("Shaders/Bloom.xnb".AsmRes()))
+            using (Stream stream = asm.GetManifestResourceStream("Shaders/BloomCrossPlatform.xnb".AsmRes()))
             {
                 if (stream.CanSeek)
                 {
@@ -393,6 +393,7 @@ namespace InTheWood.Shaders.Bloom
         {
             int width = client.GraphicsDevice.Viewport.Width;
             int height = client.GraphicsDevice.Viewport.Height;
+
             //Check if we are initialized
             if (_graphicsDevice == null)
                 throw new Exception("Module not yet Loaded / Initialized. Use Load() first");
