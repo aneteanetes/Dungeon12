@@ -31,8 +31,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Demo\Demo.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon.Monogame.ContentImporter", "Dungeon.Monogame.ContentImporter\Dungeon.Monogame.ContentImporter.csproj", "{DD471816-2E57-49A0-AA32-E4FFA5F8B4A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InTheWood", "InTheWood\InTheWood.csproj", "{44F40169-BE03-4360-9CBB-76214AE684F6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CompileDatabase|Any CPU = CompileDatabase|Any CPU
@@ -199,18 +197,6 @@ Global
 		{DD471816-2E57-49A0-AA32-E4FFA5F8B4A4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DD471816-2E57-49A0-AA32-E4FFA5F8B4A4}.Release|x86.ActiveCfg = Release|Any CPU
 		{DD471816-2E57-49A0-AA32-E4FFA5F8B4A4}.Release|x86.Build.0 = Release|Any CPU
-		{44F40169-BE03-4360-9CBB-76214AE684F6}.CompileDatabase|Any CPU.ActiveCfg = Release|Any CPU
-		{44F40169-BE03-4360-9CBB-76214AE684F6}.CompileDatabase|Any CPU.Build.0 = Release|Any CPU
-		{44F40169-BE03-4360-9CBB-76214AE684F6}.CompileDatabase|x86.ActiveCfg = Release|Any CPU
-		{44F40169-BE03-4360-9CBB-76214AE684F6}.CompileDatabase|x86.Build.0 = Release|Any CPU
-		{44F40169-BE03-4360-9CBB-76214AE684F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44F40169-BE03-4360-9CBB-76214AE684F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44F40169-BE03-4360-9CBB-76214AE684F6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{44F40169-BE03-4360-9CBB-76214AE684F6}.Debug|x86.Build.0 = Debug|Any CPU
-		{44F40169-BE03-4360-9CBB-76214AE684F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44F40169-BE03-4360-9CBB-76214AE684F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44F40169-BE03-4360-9CBB-76214AE684F6}.Release|x86.ActiveCfg = Release|Any CPU
-		{44F40169-BE03-4360-9CBB-76214AE684F6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
