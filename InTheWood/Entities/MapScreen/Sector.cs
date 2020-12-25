@@ -1,12 +1,16 @@
 ﻿using Dungeon;
 using Dungeon.GameObjects;
 using InTheWood.Entities.Abilities;
+using InTheWood.SceneObjects.MapObjects;
 using System.Linq;
 
 namespace InTheWood.Entities.MapScreen
 {
     public class Sector : GameComponent
     {
+        public MapSceneObject Map { get; set; }
+
+
         public Sector()
         {
             this.Segments = Enumerable.Range(0, 7).Select(_ => new Segment()).ToArray();

@@ -1,6 +1,8 @@
 ﻿using Dungeon;
 using Dungeon.Monogame;
 using Dungeon.Resources;
+using Dungeon.Settings;
+using Microsoft.Xna.Framework;
 using System;
 
 namespace InTheWood
@@ -22,12 +24,17 @@ namespace InTheWood
             //ResourceLoader.NotDisposingResources = true;
             //ResourceLoader.CacheImagesAndMasks = false;
 #endif      
+
+            DungeonGlobal.Sizes.Width = 1280;
+            DungeonGlobal.Sizes.Height = 720;
+
             var client = new MonogameClient(new MonogameClientSettings()
             {
                 WidthPixel = 1280,
                 HeightPixel = 720,
                 IsFullScreen = false,
-                Add2DLighting = false,
+                Add2DLighting = true,
+                AmbientColor2DLight= Color.Black,
                 CellSize = 1
             });
             DungeonGlobal.ClientRun = client.Run;

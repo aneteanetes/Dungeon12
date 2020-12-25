@@ -1,4 +1,5 @@
 ﻿using Dungeon;
+using Dungeon.Control.Pointer;
 using Dungeon.SceneObjects;
 using InTheWood.Entities.MapScreen;
 using System.Linq;
@@ -13,17 +14,45 @@ namespace InTheWood.SceneObjects.MapObjects
             this.Height = SegmentSceneObject.TileHeight * 3 * component.Sectors.Count;
 
             var first = component.Sectors.FirstOrDefault();
-            if (first == default)
-                return;
-
-            this.AddChild(new SectorSceneObject(first));
-
-            foreach (var sector in component.Sectors)
+            if (first != default)
             {
-                AddConnectedSectors(sector);
-            }
+                this.AddChild(new SectorSceneObject(first));
 
-            //this.Scale = .5;
+                foreach (var sector in component.Sectors)
+                {
+                    AddConnectedSectors(sector);
+                }
+            }
+            else
+            {
+                component.Segments.ForEach((segm, i) =>
+                {
+                    var segmentObj = new SegmentSceneObject(segm,this)
+                    {
+                        Left = segm.X * SegmentSceneObject.TileWidth + (segm.Y % 2 == 0 ? SegmentSceneObject.TileWidth / 2 : 0),
+                        Top = segm.Y * SegmentSceneObject.TileHeight * 0.75
+                    };
+                    segmentObj.Left += segm.X * 4;
+                    segmentObj.Top += segm.Y * 4;
+
+                    if (segm.Y % 2 != 0)
+                    {
+                        segmentObj.Left -= 2.7;
+                    }
+
+                    this.AddChild(segmentObj);
+                });
+            }
+        }
+
+        public override double Scale
+        {
+            get => base.Scale;
+            set
+            {
+                base.Scale = value;
+                this.RecalculateComputedAndBounds();
+            }
         }
 
         private void AddConnectedSectors(Sector sector)
@@ -57,6 +86,9 @@ namespace InTheWood.SceneObjects.MapObjects
             //базовое расположение
             var x = (toLeft ? -1 : 1) * to.Width; //to.width будет равен размеру нового сектора
             var y = 0d;
+
+            x += to.Left;
+            y += to.Top;
 
             //расположение на основе позиции
             switch (connection.Position)

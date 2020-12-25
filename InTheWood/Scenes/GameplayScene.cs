@@ -1,14 +1,15 @@
 ﻿using Dungeon;
 using Dungeon.Control;
 using Dungeon.Control.Keys;
+using Dungeon.Control.Pointer;
 using Dungeon.Drawing.SceneObjects;
+using Dungeon.Monogame.Effects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
-using Force.DeepCloner;
 using InTheWood.Entities.MapScreen;
 using InTheWood.SceneObjects.MapObjects;
-using InTheWood.Shaders.Bloom;
 using System;
+using System.Runtime.InteropServices;
 
 namespace InTheWood.Scenes
 {
@@ -20,50 +21,39 @@ namespace InTheWood.Scenes
 
         public GameplayScene(SceneManager sceneManager) : base(sceneManager) { }
 
+        MapSceneObject mapObj;
+
+        SceneLayer mapLayer;
+        SceneLayer backLayer;
+
         public override void Init()
         {
-            this.AddObject(new ImageControl("Sprites/sample.png".AsmRes()));
-            var bloomFilter1 = new BloomFilter
+            backLayer = this.AddLayer(nameof(backLayer));
+            backLayer.AddObject(new DarkRectangle()
             {
-                AfterLoad = bf => bf.BloomPreset = BloomFilter.BloomPresets.SuperWide
-            };
-            this.AddGlobalEffect(bloomFilter1);
-            return;
+                Opacity = 1,
+                Height = 720,
+                Width = 1280,
+                Color = ConsoleColor.Yellow
+            });
+            backLayer.AddObject(new ImageControl("Images/Levels/1.png".AsmRes())
+            {
+                Width = 1280,
+                Height = 720
+            });
+
+            mapLayer = this.AddLayer(nameof(mapLayer));
+            mapLayer.AddGlobalEffect(new Light2D());
+            mapLayer.Top = 50;
+            mapLayer.Left = 300;
+
             var map = new Map();
-            var centerSector = new Sector();
-            map.AddSector(centerSector);
+            map.SetMap(9, 7);
 
-            var leftSector = new Sector();
-            leftSector.Status = MapStatus.Friendly;
-            map.AddSector(leftSector, new SectorConnection(centerSector, leftSector)
-            {
-                ConnectDirection = Dungeon.Types.SimpleDirection.Left,
-                Position = 2,
-                Offset = 1
-            });
+            mapObj = new MapSceneObject(map);
+            mapObj.Scale = .8;
 
-            var rightSector = new Sector();
-            rightSector.Status = MapStatus.Hostile;
-            map.AddSector(rightSector, new SectorConnection(centerSector, rightSector)
-            {
-                ConnectDirection = Dungeon.Types.SimpleDirection.Right,
-                Position = 2,
-                Offset = 1
-            });
-
-            var mapObj = new MapSceneObject(map)
-            {
-                Left = 450,
-                Top = 100,
-            };
-            mapObj.Scale = .5;
-
-            this.AddObject(mapObj);
-            var bloomFilter = new BloomFilter
-            {
-                AfterLoad = bf => bf.BloomPreset = BloomFilter.BloomPresets.SuperWide
-            };
-            this.AddGlobalEffect(bloomFilter);
+            mapLayer.AddObject(mapObj);
         }
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
@@ -94,17 +84,34 @@ namespace InTheWood.Scenes
             }
         }
 
+        protected override void MouseWheel(MouseWheelEnum mouseWheel)
+        {
+            return;
+            if (mouseWheel == MouseWheelEnum.Down)
+            {
+                mapObj.Scale -= 0.1;
+            }
+            else
+            {
+                mapObj.Scale += 0.1;
+            }
+
+
+            base.MouseWheel(mouseWheel);
+        }
+
         private double prevX;
         private double prevY;
 
-        public double MouseSensitivity { get; set; } = 5;
+        public double MouseSensitivity { get; set; } = 3;
 
         protected override void MouseMove(PointerArgs pointerArgs)
         {
+            return;
             var camera = DungeonGlobal.Camera;
             if (moveCamera)
             {
-                camera.SetCameraSpeed(3.5);
+                camera.SetCameraSpeed(5.5);
 
                 var xSensitivity = Math.Abs(pointerArgs.X - prevX) >= MouseSensitivity;
                 var ySensitivity = Math.Abs(pointerArgs.Y - prevY) >= MouseSensitivity;

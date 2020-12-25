@@ -1,5 +1,4 @@
 ﻿using Dungeon;
-using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using InTheWood.Entities.MapScreen;
@@ -41,8 +40,8 @@ namespace InTheWood.SceneObjects.MapObjects
 
             this.AddChild(new SegmentSceneObject(Component.Segments[3])
             {
-                Left = SegmentSceneObject.TileWidth *2,
-                Top= oneHeightPosition
+                Left = SegmentSceneObject.TileWidth * 2,
+                Top = oneHeightPosition
             });
 
             this.AddChild(new SegmentSceneObject(Component.Segments[4])
