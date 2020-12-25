@@ -301,49 +301,5 @@
 
             return rangeObject;
         }
-
-
-
-        public class c
-        {
-            public Guid AccountId { get; set; }
-        }
-
-        public static IEnumerable<T2> GetEntities<T, T2>(this IEnumerable<T> enumerable, IQueryable<T2> queryable)
-            where T : c
-            where T2 : c
-        {
-            var arr = enumerable.Select(x => x.AccountId.ToString()).ToArray();
-
-            var arrConst = Expression.Constant(arr);
-
-            var where = typeof(Queryable).GetMethods().FirstOrDefault(x => x.Name == "Where");
-
-            var genericWhere = where.MakeGenericMethod(typeof(T2));
-
-            var p = Expression.Parameter(typeof(T2));
-
-            var pProp = Expression.PropertyOrField(p, "AccountId");
-
-            var toStringMethod = typeof(object).GetMethods().FirstOrDefault(x => x.Name == "ToString");
-
-            var toStringExpr = Expression.Call(toStringMethod, pProp);
-
-            var contains = typeof(Enumerable).GetMethods().FirstOrDefault(x => x.Name == "Any");
-
-            var genericContains = contains.MakeGenericMethod(typeof(string));
-
-            var callContains = Expression.Call(genericContains, arrConst, pProp);
-
-            var expr = Expression.Lambda(callContains, p);
-
-            var call = Expression.Call(genericWhere, queryable.Expression, expr);
-
-            var q = queryable.Provider.CreateQuery(call);
-
-            var asQ = q as IQueryable<T2>;
-
-            return default;
-        }
     }
 }
