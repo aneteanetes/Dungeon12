@@ -29,19 +29,20 @@ namespace Dungeon.Engine.Host
 
             if (scene != default)
             {
-                for (int i = 0; i < scene.Objects.Length; i++)
-                {
-                    var obj = scene.Objects[i];
-                    if (DungeonGlobal.ComponentUpdateCompatibility)
-                    {
-                        if (obj.Updatable && InCamera(obj))
-                            UpdateComponent(obj);
-                    }
-                    else
-                    {
-                        UpdateComponent(obj, gameTimeLoop);
-                    }
-                }
+#warning layers migration need
+                //for (int i = 0; i < scene.Objects.Length; i++)
+                //{
+                //    var obj = scene.Objects[i];
+                //    if (DungeonGlobal.ComponentUpdateCompatibility)
+                //    {
+                //        if (obj.Updatable && InCamera(obj))
+                //            UpdateComponent(obj);
+                //    }
+                //    else
+                //    {
+                //        UpdateComponent(obj, gameTimeLoop);
+                //    }
+                //}
             }
         }
 

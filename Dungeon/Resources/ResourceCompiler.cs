@@ -110,10 +110,11 @@ namespace Dungeon.Resources
 
         private void ProcessFile(string file, string projectName)
         {
+            var path = GetPathUntillProjectName(file, projectName);
             var lastTime = File.GetLastWriteTime(file);
-            var res = LastBuild.Resources.FirstOrDefault(x => x.Path == file);
+            var res = LastBuild.Resources.FirstOrDefault(x => x.Path == path);
 
-            CurrentBuild.Resources.Add(new Resource() { Path = file, LastWriteTime = lastTime });
+            CurrentBuild.Resources.Add(new Resource() { Path = path, LastWriteTime = lastTime });
 
             if (res == default)
             {

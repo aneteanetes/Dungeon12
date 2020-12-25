@@ -10,13 +10,12 @@
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
-    using System.Linq.Expressions;
 
     public abstract class Scene : IScene
     {
-        private readonly SceneManager sceneManager;
+        public readonly SceneManager sceneManager;
+
         public abstract bool Destroyable { get; }
 
         public string Uid { get; } = Guid.NewGuid().ToString();
@@ -26,132 +25,105 @@
             return base.ToString() + $" [{Uid}]";
         }
 
+        SceneLayerGraph SceneLayerGraph;
+
         public Scene(SceneManager sceneManager)
         {
             this.sceneManager = sceneManager;
+            SceneLayerGraph = new SceneLayerGraph()
+            {
+                Size = new Physics.PhysicalSize()
+                {
+                    Width = DungeonGlobal.Sizes.Width,
+                    Height = DungeonGlobal.Sizes.Height,
+                },
+                Position = new Physics.PhysicalPosition(0, 0)
+            };
         }
-
-        #region scene object collection
-
-        public ISceneObject[] Objects => SceneObjects.ToArray();
 
         public virtual bool AbsolutePositionScene => true;
 
-        private List<ISceneObject> SceneObjects = new List<ISceneObject>();
-
-        private List<ISceneObjectControl> sceneObjectControls = new List<ISceneObjectControl>();        
-        private List<ISceneObjectControl> SceneObjectsControllable=> new List<ISceneObjectControl>(sceneObjectControls);
-        
-        private List<ISceneObjectControl> sceneObjectsInFocuses = new List<ISceneObjectControl>();
-        private List<ISceneObjectControl> SceneObjectsInFocus=> new List<ISceneObjectControl>(sceneObjectsInFocuses);
-        
-        public void AddObject(ISceneObject sceneObject)
+        private SceneLayer _activeLayer;
+        public SceneLayer ActiveLayer
         {
-            if (sceneObject.ControlBinding == null)
+            get
             {
-                sceneObject.ControlBinding += this.RemoveControl;
-                sceneObject.DestroyBinding += this.RemoveObject;
-                sceneObject.ShowInScene += ShowEffectsBinding;
+                if (_activeLayer == default)
+                    DungeonGlobal.Logger.Log("All layers on Scene is inactive!");
+                return _activeLayer;
             }
-
-            AddControlRecursive(sceneObject);
-
-            SceneObjects.Add(sceneObject);
-        }
-
-        public void ShowEffectsBinding(List<ISceneObject> e)
-        {
-            e.ForEach(effect =>
+            set
             {
-                if (effect.ShowInScene == null)
-                {
-                    effect.ShowInScene = ShowEffectsBinding;
-                }
-                if (effect.ControlBinding==null)
-                {
-                    effect.ControlBinding = this.AddControl;
-                }
-
-                effect.Destroy += () =>
-                {
-                    this.RemoveObject(effect);
-                };
-                this.AddObject(effect);
-            });
-        }
-
-        public void AddControl(ISceneObjectControl sceneObjectControl)
-        {
-            if(!sceneObjectControls.Contains(sceneObjectControl))
-            {
-                sceneObjectControls.Add(sceneObjectControl);
-                sceneObjectControl.Destroy += () => { RemoveControl(sceneObjectControl); };
+                if (_activeLayer == default)
+                    DungeonGlobal.Logger.Log("All layers on Scene now setted as inactive!");
+                _activeLayer = value;
             }
         }
 
-        public void RemoveControl(ISceneObjectControl sceneObjectControl)
+        public SceneLayer AddLayer(string name)
         {
-            sceneObjectControls.Remove(sceneObjectControl);
+            var newLayer = new SceneLayer(this) { Name = name };
+            newLayer.Width = DungeonGlobal.Sizes.Width;
+            newLayer.Height = DungeonGlobal.Sizes.Height;
+            LayerList.Add(newLayer);
+            LayerMap.Add(name, () => LayerList.IndexOf(newLayer));
+
+            SceneLayerGraph.Add(new SceneLayerGraph(newLayer));
+
+            return newLayer;
         }
 
-        public void RemoveObject(ISceneObject sceneObject)
+        public SceneLayer RemoveLayer(string name)
         {
-            if (sceneObject is ISceneObjectControl sceneObjectControl)
-            {
-                RemoveControl(sceneObjectControl);
-            }
-
-            SceneObjects.Remove(sceneObject);
+            var layer = GetLayer(name);
+            layer.Destroyed = true;
+            LayerMap.Remove(name);
+            LayerList.Remove(layer);
+            layer.Destroy();
+            return layer;
         }
 
-        private void AddControlRecursive(ISceneObject sceneObject)
+        public SceneLayer GetLayer(string name)=> LayerList[LayerMap[name]()];
+
+        public void ResetActiveLayer() => ActiveLayer = null;
+
+        protected void CallLayer(Action<SceneLayer> layerAction, PointerArgs mouse = default)
         {
-            if (sceneObject is ISceneObjectControl sceneObjectControl)
+            void invoke(SceneLayer l)
             {
-                AddControl(sceneObjectControl);
+                if (l != default)
+                    layerAction?.Invoke(l);
             }
 
-            foreach (var childSceneObject in sceneObject.Children)
+            if (mouse != default && ActiveLayer != default)
             {
-                AddControlRecursive(childSceneObject);
+                invoke(ActiveLayer);
+            }
+            else if (ActiveLayer == default && mouse != default)
+            {
+                var layers = SceneLayerGraph.QueryContainer(new SceneLayerGraph(mouse));
+                layers.ForEach(l => invoke(l.SceneLayer));
+            }
+            else if (mouse == default)
+            {
+                LayerList.ForEach(l => invoke(l));
             }
         }
-
-        #endregion
-
-        #region scene contollable
 
         public void OnText(string text)
         {
             if (Destroyed)
                 return;
 
-            var textControls = ControlsByHandle(ControlEventType.Text);
-
-            for (int i = 0; i < textControls.Count(); i++)
-            {
-                var textControl = textControls.ElementAtOrDefault(i);
-                if (textControl != null)
-                {
-                    try
-                    {
-                        textControl.TextInput(text);
-                    }
-                    catch (Exception ex)
-                    {
-                        DungeonGlobal.Exception(ex);
-                        return;
-                    }
-                }
-            }
+            CallLayer(l => l.OnText(text));
         }
 
         public void OnKeyDown(KeyArgs keyEventArgs)
         {
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
-            
-            if (DungeonGlobal.Freezer.World==null && !DungeonGlobal.BlockSceneControls)
+
+            if (DungeonGlobal.Freezer.World == null && !DungeonGlobal.BlockSceneControls)
                 try
                 {
                     KeyPress(key, modifier, keyEventArgs.Hold);
@@ -162,19 +134,7 @@
                     return;
                 }
 
-            var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key).ToArray();
-            foreach (var sceneObjectHandler in keyControls)
-            {
-                try
-                {
-                    sceneObjectHandler.KeyDown(key, modifier, keyEventArgs.Hold);
-                }
-                catch (Exception ex)
-                {
-                    DungeonGlobal.Exception(ex);
-                    return;
-                }
-            }
+            CallLayer(l => l.OnKeyDown(keyEventArgs));
         }
 
         public void OnKeyUp(KeyArgs keyEventArgs)
@@ -196,23 +156,7 @@
                     return;
                 }
 
-            var keyControls = ControlsByHandle(ControlEventType.Key, keyEventArgs.Key);
-            for (int i = 0; i < keyControls.Count(); i++)
-            {
-                var keyControl = keyControls.ElementAtOrDefault(i);
-                if (keyControl != null)
-                {
-                    try
-                    {
-                        keyControl.KeyUp(key, modifier);
-                    }
-                    catch (Exception ex)
-                    {
-                        DungeonGlobal.Exception(ex);
-                        return;
-                    }
-                }
-            }
+            CallLayer(l => l.OnKeyUp(keyEventArgs));
         }
 
         public void OnMousePress(PointerArgs pointerPressedEventArgs, Point offset)
@@ -231,19 +175,7 @@
                     return;
                 }
 
-            var keyControls = ControlsByHandle(ControlEventType.Click);
-            var globalKeyHandlers = ControlsByHandle(ControlEventType.GlobalClick);
-            
-            var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs, offset));
-            clickedElements = WhereLayeredHandlers(clickedElements, pointerPressedEventArgs, offset);
-
-            DoClicks(pointerPressedEventArgs, offset, clickedElements, (c, a) => c.Click(a));
-
-            /// глобальный клик позже потому что он в никуда, да и отмекнять его придётся чаще
-            if (globalKeyHandlers.Count() != 0)
-            {
-                DoClicks(pointerPressedEventArgs, offset, globalKeyHandlers, (c, a) => c.GlobalClick(a));
-            }
+            CallLayer(l => l.OnMousePress(pointerPressedEventArgs,offset), pointerPressedEventArgs);
         }
 
         public void OnMouseRelease(PointerArgs pointerPressedEventArgs, Point offset)
@@ -262,18 +194,7 @@
                     return;
                 }
 
-            var keyControls = ControlsByHandle(ControlEventType.ClickRelease);
-            var globalKeyHandlers = ControlsByHandle(ControlEventType.GlobalClickRelease);
-
-            var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs, offset));
-            clickedElements = WhereLayeredHandlers(clickedElements, pointerPressedEventArgs, offset);
-            DoClicks(pointerPressedEventArgs, offset, clickedElements, (c, a) => c.ClickRelease(a));
-
-            /// глобальный клик позже потому что он в никуда, да и отмекнять его придётся чаще
-            if (globalKeyHandlers.Count() != 0)
-            {
-                DoClicks(pointerPressedEventArgs, offset, globalKeyHandlers, (c, a) => c.GlobalClickRelease(a));
-            }
+            CallLayer(l => l.OnMouseRelease(pointerPressedEventArgs, offset), pointerPressedEventArgs);
         }
 
         public void OnMouseWheel(MouseWheelEnum wheelEnum)
@@ -281,64 +202,18 @@
             if (Destroyed)
                 return;
 
-            var wheelControls = ControlsByHandle(ControlEventType.MouseWheel);
-
-            for (int i = 0; i < wheelControls.Count(); i++)
-            {
-                var wheelControl = wheelControls.ElementAtOrDefault(i);
-                if (wheelControl != null)
+            if (DungeonGlobal.Freezer.World == null && !DungeonGlobal.BlockSceneControls)
+                try
                 {
-                    try
-                    {
-                        wheelControl.MouseWheel(wheelEnum);
-                    }
-                    catch (Exception ex)
-                    {
-                        DungeonGlobal.Exception(ex);
-                        return;
-                    }
+                    MouseWheel(wheelEnum);
                 }
-            }
-        }
-
-        private void DoClicks(PointerArgs pointerPressedEventArgs, Point offset, IEnumerable<ISceneObjectControl> clickedElements,
-            Action<ISceneObjectControl,PointerArgs> whichClick)
-        {
-            for (int i = 0; i < clickedElements.Count(); i++)
-            {
-                var clickedElement = clickedElements.ElementAtOrDefault(i);
-                if (clickedElement != null)
+                catch (Exception ex)
                 {
-                    var args = new PointerArgs
-                    {
-                        ClickCount = pointerPressedEventArgs.ClickCount,
-                        MouseButton = pointerPressedEventArgs.MouseButton,
-                        X = pointerPressedEventArgs.X,
-                        Y = pointerPressedEventArgs.Y,
-                        Offset=offset
-                    };
-
-                    if (!this.AbsolutePositionScene && !clickedElement.AbsolutePosition)
-                    {
-                        args.X += offset.X;
-                        args.Y += offset.Y;
-                        args.ProcessedOffset = true;
-                    }
-
-                    DungeonGlobal.PointerLocation = args;
-
-                    try
-                    {
-                        whichClick(clickedElement, args);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw;
-                        DungeonGlobal.Exception(ex);
-                        return;
-                    }
+                    DungeonGlobal.Exception(ex);
+                    return;
                 }
-            }
+
+            CallLayer(l => l.OnMouseWheel(wheelEnum));
         }
 
         public void OnMouseMove(PointerArgs pointerPressedEventArgs, Point offset)
@@ -357,91 +232,7 @@
                     return;
                 }
 
-            var globalMouseMoves = ControlsByHandle(ControlEventType.GlobalMouseMove);
-            DoClicks(pointerPressedEventArgs, offset, globalMouseMoves, (c, a) => c.GlobalMouseMove(a));
-
-            OnMouseMoveOnFocus(pointerPressedEventArgs, offset);
-
-            var moveControls = ControlsByHandle(ControlEventType.MouseMove)
-                .Where(so => RegionContains(so, pointerPressedEventArgs, offset));
-
-            var layered = WhereLayeredHandlers(moveControls, pointerPressedEventArgs, offset);
-
-            DoClicks(pointerPressedEventArgs, offset, moveControls, (c, a) => c.MouseMove(a));
-        }
-
-        private void OnMouseMoveOnFocus(PointerArgs pointerPressedEventArgs, Point offset)
-        {
-            var controls = ControlsByHandle(ControlEventType.Focus);
-
-            var nFocused = controls.Where(handler => RegionContains(handler, pointerPressedEventArgs, offset));
-
-            var newFocused = WhereLayeredHandlers(nFocused, pointerPressedEventArgs,offset);
-
-            var inFocus = SceneObjectsInFocus;
-
-            newFocused = newFocused
-                .Where(x => !inFocus.Contains(x));
-
-            var newLostFocused = inFocus.Where(x => !RegionContains(x, pointerPressedEventArgs, offset));
-
-            foreach (var item in newLostFocused)
-            {
-                try
-                {
-                    item.Unfocus();
-                }
-                catch (Exception ex)
-                {
-                    DungeonGlobal.Exception(ex);
-                    return;
-                }
-                sceneObjectsInFocuses.Remove(item);
-                //SceneObjectsInFocus.Remove(item);
-            }
-
-            if (newFocused.Count() > 0)
-            {
-                foreach (var control in newFocused)
-                {
-                    try
-                    {
-                        control.Focus();
-                    }
-                    catch (Exception ex)
-                    {
-                        DungeonGlobal.Exception(ex);
-                        return;
-                    }
-                }
-
-                sceneObjectsInFocuses.AddRange(newFocused);
-            }
-        }
-
-        private bool RegionContains(ISceneObjectControl sceneObjControl, PointerArgs pos, Point offset)
-        {
-            Rectangle newRegion = ActualRegion(sceneObjControl, offset);
-            return newRegion.Contains(pos.X, pos.Y);
-        }
-
-        private Rectangle ActualRegion(ISceneObjectControl sceneObjControl, Point offset)
-        {
-            var newRegion = new Rectangle
-            {
-                X = sceneObjControl.ComputedPosition.X * DrawingSize.CellF,
-                Y = sceneObjControl.ComputedPosition.Y * DrawingSize.CellF,
-                Height = sceneObjControl.BoundPosition.Height * DrawingSize.CellF,
-                Width = sceneObjControl.BoundPosition.Width * DrawingSize.CellF
-            };
-
-            if (!this.AbsolutePositionScene && !sceneObjControl.AbsolutePosition)
-            {
-                newRegion.X += offset.X;
-                newRegion.Y += offset.Y;
-            }
-
-            return newRegion;
+            CallLayer(l => l.OnMouseMove(pointerPressedEventArgs, offset), pointerPressedEventArgs);
         }
 
         protected virtual void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold) { }
@@ -450,170 +241,39 @@
 
         protected virtual void MouseRelease(PointerArgs pointerArgs) { }
 
+        protected virtual void MouseWheel(MouseWheelEnum mouseWheel) { }
+
         protected virtual void MouseMove(PointerArgs pointerArgs) { }
 
         protected virtual void KeyUp(Key keyPressed, KeyModifiers keyModifiers) { }
 
-        private IEnumerable<ISceneObjectControl> ControlsByHandle(ControlEventType handleEvent, Key key = Key.None)
-        {
-            if (Destroyed)
-                return Enumerable.Empty<ISceneObjectControl>();
-
-            DungeonGlobal.Freezer.HandleFreezes.TryGetValue(handleEvent, out var freezer);
-            if (DungeonGlobal.Freezer.World != null || freezer != null)
-            {
-                if (freezer == null)
-                {
-                    freezer = DungeonGlobal.Freezer.World;
-                }
-                var chain = FreezedChain(SceneObjectsControllable.FirstOrDefault(x => x == freezer));
-                return WhereHandles(handleEvent, key, chain);
-            }
-            else
-            {
-                return WhereHandles(handleEvent, key, SceneObjectsControllable);
-            }
-        }
-
-        private IEnumerable<ISceneObjectControl> WhereHandles(ControlEventType handleEvent, Key key, IEnumerable<ISceneObjectControl> elements)
-        {
-            var handlers = elements
-                .Distinct()
-                .Where(c => c.Visible)
-                .Where(c=> c.DrawOutOfSight || sceneManager.DrawClient.InCamera(c))
-                .Where(x =>
-                {
-                    bool handle = x.CanHandle.Contains(handleEvent);
-
-                    if (handleEvent == ControlEventType.Key)
-                    {
-                        handle = x.AllKeysHandle || x.KeysHandle.Contains(key);
-                    }
-
-                    return handle;
-                });
-
-            return handlers;
-        }
-
-        private IEnumerable<ISceneObjectControl> WhereLayeredHandlers(IEnumerable<ISceneObjectControl> elements, PointerArgs pointerPressedEventArgs, Point offset)
-        {
-            List<ISceneObjectControl> selected = new List<ISceneObjectControl>();
-
-            var layered = elements.GroupBy(x => x.ZIndex)
-                .OrderByDescending(x => x.Key);
-
-            //if(elements.Any(x=>x.ZIndex>0))
-            //{
-            //    Debugger.Break();
-            //}
-
-            IGrouping<int, ISceneObjectControl> upper = null;
-
-            foreach (var layer in layered)
-            {
-                if (upper == null)
-                {
-                    upper = layer;
-                    foreach (var item in layer)
-                    {
-                        selected.Add(item);
-                    }
-                    continue;
-                }
-
-                foreach (var item in layer)
-                {
-                    if (!upper.Any(up => ActualRegion(up,offset).IntersectsWithOrContains(ActualRegion(item,offset))))
-                    {
-                        selected.Add(item);
-                    }
-                }
-
-                upper = layer;
-            }
-
-            return selected;
-        }
-
-        private IEnumerable<ISceneObjectControl> FreezedChain(ISceneObject freezing)
-        {
-            if(freezing==null)
-            {
-                //такая ситуация может быть когда мы зафризили сцену, но компонент удалили
-                return Enumerable.Empty<ISceneObjectControl>();
-            }
-
-            List<ISceneObjectControl> freezingChain = new List<ISceneObjectControl>();
-            freezingChain.Add(freezing as ISceneObjectControl);
-
-            var childControls = freezing.Children.Where(x => SceneObjectsControllable.Contains(x))
-                .Cast<ISceneObjectControl>();
-
-            freezingChain.AddRange(childControls);
-
-            foreach (var child in childControls)
-            {
-                freezingChain.AddRange(FreezedChain(child));
-            }
-
-            return freezingChain;
-        }
-
-        #endregion
-
-        [Obsolete("Старый метод, как только подсистема перепишется - выпили его к хуям пожалуйста")]
-        public virtual void Draw() { }
-
         public virtual void Init() { }
 
-        public List<Dungeon.Resources.Resource> Resources = new List<Resources.Resource>();
+        public List<Resource> Resources = new List<Resource>();
 
         public virtual void Activate()
         {
             this.sceneManager.DrawClient.SetScene(this);
         }
-
-        #region protected utils
-        
+                
         protected virtual void Switch<T>(params string[] args) where T : GameScene
         {
             this.sceneManager.Change<T>(args);
         }
 
-        protected void Switch(string sceneClassName)
-        {
-
-            
-        }
-
         public bool Destroyed { get; private set; } = false;
 
-        private List<IEffect> GlobalEffectsList = new List<IEffect>();
+        public Dictionary<string, Func<int>> LayerMap = new Dictionary<string, Func<int>>();
+        private readonly List<SceneLayer> LayerList = new List<SceneLayer>();
 
-        public IEffect[] SceneGlobalEffects { get; private set; } = new IEffect[0];
-
-        public void AddGlobalEffect(IEffect effect)
-        {
-            GlobalEffectsList.Add(effect);
-            SceneGlobalEffects = GlobalEffectsList.ToArray();
-        }
-
-        public void RemoveGlobalEffect(IEffect effect)
-        {
-            GlobalEffectsList.Add(effect);
-            SceneGlobalEffects = GlobalEffectsList.ToArray();
-        }
+        public ISceneLayer[] Layers => LayerList.ToArray();
 
         public virtual void Destroy()
         {
-            var sceneObjsForRemove = new List<ISceneObject>(SceneObjects);
-            sceneObjsForRemove.ForEach(x => x.Destroy?.Invoke());
-            sceneObjsForRemove.Clear();
-
-            sceneObjsForRemove = new List<ISceneObject>(sceneObjectControls);
-            sceneObjsForRemove.ForEach(x => x.Destroy?.Invoke());
-            sceneObjsForRemove.Clear();
+            foreach (var l in LayerList)
+            {
+                l.Destroy();
+            }
 
             if (!ResourceLoader.NotDisposingResources)
             {
@@ -624,7 +284,55 @@
             Destroyed = true;
         }
 
-        #endregion
+        [Obsolete("Use layers instead")]
+        public void ShowEffectsBinding(List<ISceneObject> e)
+        {
+            e.ForEach(effect =>
+            {
+                //if (effect.ShowInScene == null)
+                //{
+                //    effect.ShowInScene = ShowEffectsBinding;
+                //}
+                //if (effect.ControlBinding == null)
+                //{
+                //    effect.ControlBinding = this.AddControl;
+                //}
 
+                //effect.Destroy += () =>
+                //{
+                //    this.RemoveObject(effect);
+                //};
+                this.AddObject(effect);
+            });
+        }
+
+        [Obsolete("Use layers instead")]
+        public void RemoveObject(ISceneObject sceneObject)=>this.LayerList.ForEach(ll => ll.RemoveObject(sceneObject));
+
+        [Obsolete("Use Layer.AddObject instead")]
+        public void AddObject(ISceneObject sceneObject)
+        {
+            CheckLayerExists();
+            ActiveLayer?.AddObject(sceneObject);
+        }
+
+        private void CheckLayerExists()
+        {
+            if (this.LayerList.Count == 0)
+            {
+                var l = AddLayer("Main");
+                l.IsActive = true;
+            }
+        }
+
+        [Obsolete("Use Layer.AddObject instead")]
+        public void AddControl(ISceneObjectControl sceneObjectControl)
+        {
+            CheckLayerExists();
+            ActiveLayer?.AddControl(sceneObjectControl);
+        }
+
+        [Obsolete("Use layers instead")]
+        public void RemoveControl(ISceneObjectControl sceneObjectControl) => this.LayerList.ForEach(ll => ll.RemoveControl(sceneObjectControl));
     }
 }

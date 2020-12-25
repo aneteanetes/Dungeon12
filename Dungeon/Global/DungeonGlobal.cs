@@ -7,6 +7,7 @@
     using Dungeon.Logging;
     using Dungeon.Resources;
     using Dungeon.Scenes.Manager;
+    using Dungeon.Settings;
     using Dungeon.View.Interfaces;
     using MoreLinq;
     using System;
@@ -140,6 +141,8 @@
         };
 
         public static DrawClientRunDelegate ClientRun;
+
+        public static DrawingSize Sizes { get; set; } = new DrawingSize();
 
         public static void Run(bool FATAL = false)
         {

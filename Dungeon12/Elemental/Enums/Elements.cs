@@ -1,4 +1,7 @@
-﻿namespace Dungeon12.Elemental.Enums
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
+
+namespace Dungeon12.Elemental.Enums
 {
     public enum Elements
     {

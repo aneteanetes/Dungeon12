@@ -2,9 +2,17 @@
 {
     public class PhysicalSize
     {
-        public double Height { get; set; }
+        public PhysicalSize() { }
 
-        public double Width { get; set; }
+        public PhysicalSize(double width, double height)
+        {
+            this.Width = width;
+            this.Height = height;
+        }
+
+        public virtual double Height { get; set; }
+
+        public virtual double Width { get; set; }
 
         public PhysicalSize Copy() => new PhysicalSize()
         {

@@ -4,6 +4,7 @@ using Dungeon.View.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Runtime.CompilerServices;
 
 namespace Dungeon.Monogame
 {
@@ -24,6 +25,26 @@ namespace Dungeon.Monogame
             Color[] color = new Color[1];
             texture2D.GetData(0, r, color, 0, 1);
             return color[0];
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="a">0-255</param>
+        /// <returns></returns>
+        public static Color AddOpacity(this Color c, float a)
+            => SetOpacity(c, c.A + a);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="a">0-255</param>
+        /// <returns></returns>
+        public static Color SetOpacity(this Color c, float a)
+        {
+            return new Color(c.R, c.G, c.B, a);
         }
 
         private static readonly Dictionary<float, Color> ColorCache = new Dictionary<float, Color>();

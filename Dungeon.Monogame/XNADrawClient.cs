@@ -195,7 +195,13 @@
             penumbra = new PenumbraComponent(this, penumbraShaders);
             penumbra.Initialize();
             if (clientSettings.Add2DLighting)
+            {
+                if (clientSettings.Add2DLighting != default)
+                {
+                    penumbra.AmbientColor = clientSettings.AmbientColor2DLight;
+                }
                 Components.Add(penumbra);
+            }
 
             //penumbra.Lights.Add(SunLight);
 
@@ -244,6 +250,7 @@
             // TODO: Add your update logic here
             DebugUpdate();
             UpdateLoop(gameTime);
+            UpdateLayers(gameTime);
 
             drawCicled = false;
             skipCallback = false;

@@ -11,6 +11,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Dungeon;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Penumbra.Geometry;
@@ -94,8 +95,9 @@ namespace Penumbra
             // Store currently active render targets so we can reset them once we are done blending the lightmap.
             Device.GetRenderTargets(Textures.GetOriginalRenderTargetBindingsForQuery());
 
-            // Switch render target to a diffuse map. This is where users will render content to be lit.
+            // Switch render target to a diffuse map. This is where users will render content to be lit.            
             Device.SetRenderTargets(Textures.DiffuseMapBindings);
+            Device.Clear(Color.Black);
         }
 
         public void Render()

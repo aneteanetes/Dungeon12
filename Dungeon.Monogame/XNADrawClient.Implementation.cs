@@ -34,6 +34,8 @@ namespace Dungeon.Monogame
         Renderer myRenderer;
         private Microsoft.Xna.Framework.GameTime gameTime;
 
+        public ISceneLayer layer { get; set; }
+
         public IScene scene { get; set; }
 
         public ICamera Camera;
@@ -52,8 +54,11 @@ namespace Dungeon.Monogame
 
         public RenderTarget2D target;
 
-        public void Draw(ISceneObject[] sceneObjects, Microsoft.Xna.Framework.GameTime gameTime, RenderTarget2D target = default)
+        private bool useLight;
+
+        public void Draw(ISceneObject[] sceneObjects, Microsoft.Xna.Framework.GameTime gameTime, RenderTarget2D target = default, bool useLight = false)
         {
+            this.useLight = useLight;
             this.target = target;
 
             this.gameTime = gameTime;
@@ -74,11 +79,13 @@ namespace Dungeon.Monogame
                 .Where(x => !isAbsoluteScene && !x.AbsolutePosition)
                 .OrderBy(x => x.Layer).ToArray();
 
-#if Core
-            penumbra?.BeginDraw();
-#endif
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.SetRenderTarget(target);
+            GraphicsDevice.Clear(Color.Transparent);
 
+#if Core
+            if (useLight)
+                penumbra?.BeginDraw();
+#endif
             SetSpriteBatch();
 
             foreach (var offsetSceneObject in offsetted)
@@ -88,7 +95,8 @@ namespace Dungeon.Monogame
             spriteBatch.End();
 
 #if Core
-            penumbra?.Draw(gameTime);
+            if (useLight)
+                penumbra?.Draw(gameTime);
 #endif
             SetSpriteBatch();
 
@@ -112,7 +120,7 @@ namespace Dungeon.Monogame
             List<string> lightsfordelete = new List<string>();
             foreach (var light in Lights)
             {
-                var sceneObj = this.scene?.Objects?.FirstOrDefault(o => light.Key == o.Uid);
+                var sceneObj = this.layer?.Objects?.FirstOrDefault(o => light.Key == o.Uid);
                 if (sceneObj != default)
                     if (!Camera.InCamera(sceneObj) || !sceneObj.Visible)
                     {
@@ -149,7 +157,7 @@ namespace Dungeon.Monogame
 #endif
                     Matrix.CreateTranslation((float)Camera.CameraOffsetX, (float)Camera.CameraOffsetY,0) * scaleMatrix,
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
-                    blendState: BlendState.NonPremultiplied, effect: filter ? GlobalImageFilter : null
+                    blendState: useLight ? BlendState.AlphaBlend : BlendState.NonPremultiplied, effect: filter ? GlobalImageFilter : null
                     );
             }
             else
@@ -161,7 +169,7 @@ namespace Dungeon.Monogame
 #endif
                     scaleMatrix,
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
-                    blendState: BlendState.NonPremultiplied/*, effect: @interface ? null : GlobalImageFilter*/);
+                    blendState: useLight ? BlendState.AlphaBlend : BlendState.NonPremultiplied/*, effect: @interface ? null : GlobalImageFilter*/);
             }
             currentAbsolute = absolute;
             currentAbsolute=@interface;
@@ -286,7 +294,7 @@ namespace Dungeon.Monogame
 
         private readonly Dictionary<string, RenderTarget2D> BatchCache = new Dictionary<string, RenderTarget2D>();
         private Dictionary<string, Rect> TileSetCache = new Dictionary<string, Rect>();
-        private Dictionary<string, Rect> PosCahce = new Dictionary<string, Rect>();
+        private Dictionary<string, Rect> PosCache = new Dictionary<string, Rect>();
         private static readonly Dictionary<string, Texture2D> tilesetsCache = new Dictionary<string, Texture2D>();
 
         /// <summary>
@@ -344,8 +352,8 @@ namespace Dungeon.Monogame
 
             sceneObject.Drawed = true;
 
-            var y = sceneObject.BoundPosition.Y * cell + yParent;
-            var x = sceneObject.BoundPosition.X * cell + xParent;
+            var y = sceneObject.ComputedPosition.Y * cell;// + yParent;
+            var x = sceneObject.ComputedPosition.X * cell;// + xParent;
 
             DrawLight(sceneObject, x, y);
             DrawEffects(sceneObject, x, y);
@@ -368,7 +376,7 @@ namespace Dungeon.Monogame
                     DrawSceneObject(sceneObject, 0, 0, true);
 
                     TileSetCache[sceneObject.Uid] = new Rect(0, 0, width, height);
-                    PosCahce[sceneObject.Uid] = new Rect(x, y, width, height);
+                    PosCache[sceneObject.Uid] = new Rect(x, y, width, height);
 
                     BatchCache[sceneObject.Uid] = bitmap;
 
@@ -380,7 +388,7 @@ namespace Dungeon.Monogame
                 }
 
                 TileSetCache.TryGetValue(sceneObject.Uid, out var tilesetPos);
-                PosCahce.TryGetValue(sceneObject.Uid, out var sceneObjPos);
+                PosCache.TryGetValue(sceneObject.Uid, out var sceneObjPos);
 
                 if (!sceneObject.CacheAvailable)
                 {
@@ -470,8 +478,13 @@ namespace Dungeon.Monogame
                 }
             }
 
-            if (force || !PosCahce.TryGetValue(sceneObject.Uid, out Rect pos))
+            if (force || !PosCache.TryGetValue(sceneObject.Uid, out Rect pos) || sceneObject.Expired)
             {
+                if (PosCache.ContainsKey(sceneObject.Uid))
+                {
+                    PosCache.Remove(sceneObject.Uid);
+                }
+
                 double width = sceneObject.BoundPosition.Width;
                 double height = sceneObject.BoundPosition.Height;
 
@@ -490,7 +503,8 @@ namespace Dungeon.Monogame
 
                 if (!force && sceneObject.CacheAvailable)
                 {
-                    PosCahce.Add(sceneObject.Uid, pos);
+                    PosCache.Add(sceneObject.Uid, pos);
+                    sceneObject.Expired = false;
                 }
             }
 

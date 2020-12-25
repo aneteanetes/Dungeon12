@@ -416,6 +416,7 @@ namespace InTheWood.Shaders.Bloom
             //EXTRACT  //Note: Is setRenderTargets(binding better?)
             //We extract the bright values which are above the Threshold and save them to Mip0
             _graphicsDevice.SetRenderTarget(_bloomRenderTarget2DMip0);
+            _graphicsDevice.Clear(Color.Transparent);
 
             BloomScreenTexture = inputTexture;
             BloomInverseResolution = new Vector2(1.0f / _width, 1.0f / _height);
@@ -429,6 +430,7 @@ namespace InTheWood.Shaders.Bloom
             {
                 //DOWNSAMPLE TO MIP1
                 _graphicsDevice.SetRenderTarget(_bloomRenderTarget2DMip1);
+                _graphicsDevice.Clear(Color.Transparent);
 
                 BloomScreenTexture = _bloomRenderTarget2DMip0;
                 //Pass
@@ -442,6 +444,7 @@ namespace InTheWood.Shaders.Bloom
 
                     //DOWNSAMPLE TO MIP2
                     _graphicsDevice.SetRenderTarget(_bloomRenderTarget2DMip2);
+                    _graphicsDevice.Clear(Color.Transparent);
 
                     BloomScreenTexture = _bloomRenderTarget2DMip1;
                     //Pass
@@ -454,6 +457,7 @@ namespace InTheWood.Shaders.Bloom
 
                         //DOWNSAMPLE TO MIP3
                         _graphicsDevice.SetRenderTarget(_bloomRenderTarget2DMip3);
+                        _graphicsDevice.Clear(Color.Transparent);
 
                         BloomScreenTexture = _bloomRenderTarget2DMip2;
                         //Pass
@@ -466,6 +470,7 @@ namespace InTheWood.Shaders.Bloom
 
                             //DOWNSAMPLE TO MIP4
                             _graphicsDevice.SetRenderTarget(_bloomRenderTarget2DMip4);
+                            _graphicsDevice.Clear(Color.Transparent);
 
                             BloomScreenTexture = _bloomRenderTarget2DMip3;
                             //Pass
@@ -478,6 +483,7 @@ namespace InTheWood.Shaders.Bloom
 
                                 //DOWNSAMPLE TO MIP5
                                 _graphicsDevice.SetRenderTarget(_bloomRenderTarget2DMip5);
+                                _graphicsDevice.Clear(Color.Transparent);
 
                                 BloomScreenTexture = _bloomRenderTarget2DMip4;
                                 //Pass
@@ -488,6 +494,7 @@ namespace InTheWood.Shaders.Bloom
 
                                 //UPSAMPLE TO MIP4
                                 _graphicsDevice.SetRenderTarget(_bloomRenderTarget2DMip4);
+                                _graphicsDevice.Clear(Color.Transparent);
                                 BloomScreenTexture = _bloomRenderTarget2DMip5;
 
                                 BloomStrength = _bloomStrength5;
@@ -503,6 +510,7 @@ namespace InTheWood.Shaders.Bloom
 
                             //UPSAMPLE TO MIP3
                             _graphicsDevice.SetRenderTarget(_bloomRenderTarget2DMip3);
+                            _graphicsDevice.Clear(Color.Transparent);
                             BloomScreenTexture = _bloomRenderTarget2DMip4;
 
                             BloomStrength = _bloomStrength4;
@@ -519,6 +527,7 @@ namespace InTheWood.Shaders.Bloom
 
                         //UPSAMPLE TO MIP2
                         _graphicsDevice.SetRenderTarget(_bloomRenderTarget2DMip2);
+                        _graphicsDevice.Clear(Color.Transparent);
                         BloomScreenTexture = _bloomRenderTarget2DMip3;
 
                         BloomStrength = _bloomStrength3;
@@ -535,6 +544,7 @@ namespace InTheWood.Shaders.Bloom
 
                     //UPSAMPLE TO MIP1
                     _graphicsDevice.SetRenderTarget(_bloomRenderTarget2DMip1);
+                    _graphicsDevice.Clear(Color.Transparent);
                     BloomScreenTexture = _bloomRenderTarget2DMip2;
 
                     BloomStrength = _bloomStrength2;
@@ -550,6 +560,7 @@ namespace InTheWood.Shaders.Bloom
 
                 //UPSAMPLE TO MIP0
                 _graphicsDevice.SetRenderTarget(_bloomRenderTarget2DMip0);
+                _graphicsDevice.Clear(Color.Transparent);
                 BloomScreenTexture = _bloomRenderTarget2DMip1;
 
                 BloomStrength = _bloomStrength1;

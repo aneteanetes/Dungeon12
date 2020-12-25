@@ -3,8 +3,10 @@
     using Dungeon;
     using Dungeon.Monogame.Effects;
     using Dungeon.View.Interfaces;
+    using InTheWood.Shaders.Bloom;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -14,45 +16,96 @@
 
     public partial class XNADrawClient : Game, IDrawClient
     {
-        private List<Texture2D> PostProcessed = new List<Texture2D>();
+        private Dictionary<ISceneLayer, List<Texture2D>> PostProcessed = new Dictionary<ISceneLayer, List<Texture2D>>();
 
-        private void ProcessMonogameEffect(IMonogameEffect monogameEffect)
+        private Dictionary<ISceneLayer, List<Texture2D>> PreProcessed = new Dictionary<ISceneLayer, List<Texture2D>>();
+
+        private void ProcessMonogameEffect(IMonogameEffect monogameEffect, ISceneLayer layer, RenderTarget2D buffer)
         {
             if (!monogameEffect.Loaded)
             {
                 monogameEffect.Load(this);
                 monogameEffect.Loaded = true;
             }
+            GraphicsDevice.SetRenderTarget(null);
+            GraphicsDevice.Clear(Color.Transparent);
+            var processed = monogameEffect.Draw(buffer);
+            if (!PostProcessed.ContainsKey(layer))
+            {
+                PostProcessed.Add(layer, new List<Texture2D>());
+            }
+            else
+            {
+                PostProcessed[layer].Clear();
+            }
+            PostProcessed[layer].Add(processed);
+        }
 
-            var processed = monogameEffect.Draw(backBuffer);
-            PostProcessed.Add(processed);
+        private readonly Dictionary<ISceneLayer, RenderTarget2D> SceneLayers = new Dictionary<ISceneLayer, RenderTarget2D>();
+
+        private void UpdateLayers(Microsoft.Xna.Framework.GameTime gameTime)
+        {
+            if (this.scene != default)
+            {
+                foreach (var layer in this.scene.Layers)
+                {
+                    if (SceneLayers.ContainsKey(layer))
+                    {
+                        if (layer.Destroyed)
+                        {
+                            SceneLayers.Remove(layer);
+                        }
+                    }
+                    else
+                    {
+                        var pp = GraphicsDevice.PresentationParameters;
+                        SceneLayers.Add(layer, new RenderTarget2D(GraphicsDevice, (int)layer.Width, (int)layer.Height, false,
+                            pp.BackBufferFormat, pp.DepthStencilFormat, pp.MultiSampleCount, pp.RenderTargetUsage));
+                    }
+                }
+            }
         }
 
         protected override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.SetRenderTarget(null);
+            GraphicsDevice.Clear(Color.Transparent);
             drawCicled = true;
 
             CalculateCamera();
 
             if (this.scene != default)
             {
-                foreach (var preEffect in this.scene.SceneGlobalEffects.Where(e=>e.When== EffectTime.PreProcess))
+                foreach (var layer in this.scene.Layers)
                 {
-                    if (preEffect.Is<IMonogameEffect>())
+                    var buffer = SceneLayers[layer];
+
+                    bool light = false;
+
+                    PreProcessed.Clear();
+                    foreach (var preEffect in layer.SceneGlobalEffects.Where(e => e.When == EffectTime.PreProcess))
                     {
-                        ProcessMonogameEffect(preEffect.As<IMonogameEffect>());
+                        if (preEffect.Is<Light2D>())
+                        {
+                            light = true;
+                            continue;
+                        }
+
+                        if (preEffect.Is<IMonogameEffect>())
+                        {
+                            ProcessMonogameEffect(preEffect.As<IMonogameEffect>(), layer, buffer);
+                        }
                     }
-                }
 
-                XNADrawClientImplementation.Draw(this.scene.Objects, gameTime, backBuffer);
+                    XNADrawClientImplementation.Draw(layer.Objects, gameTime, buffer, light);
 
-                PostProcessed.Clear();
-                foreach (var postEffect in this.scene.SceneGlobalEffects.Where(e => e.When == EffectTime.PostProcess))
-                {
-                    if (postEffect.Is<IMonogameEffect>())
+                    PostProcessed.Clear();
+                    foreach (var postEffect in layer.SceneGlobalEffects.Where(e => e.When == EffectTime.PostProcess))
                     {
-                        ProcessMonogameEffect(postEffect.As<IMonogameEffect>());
+                        if (postEffect.Is<IMonogameEffect>())
+                        {
+                            ProcessMonogameEffect(postEffect.As<IMonogameEffect>(), layer, buffer);
+                        }
                     }
                 }
             }
@@ -61,11 +114,20 @@
                 spriteBatch.End();
 
             GraphicsDevice.SetRenderTarget(null);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
-            //spriteBatch.Draw(backBuffer, Vector2.Zero, Color.White);
-            foreach (var processed in PostProcessed)
+            GraphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin();// (SpriteSortMode.Deferred, BlendState.AlphaBlend);
+
+            if (this.scene != default)
             {
-                spriteBatch.Draw(processed, Vector2.Zero, Color.White);
+                foreach (var layerInfo in SceneLayers)
+                {
+                    spriteBatch.Draw(layerInfo.Value, new Vector2((float)layerInfo.Key.Left, (float)layerInfo.Key.Top), Color.White);
+                    if (PostProcessed.ContainsKey(layerInfo.Key))
+                        foreach (var processed in PostProcessed[layerInfo.Key])
+                        {
+                            spriteBatch.Draw(processed, Vector2.Zero, Color.White);
+                        }
+                }
             }
             spriteBatch.End();
 
@@ -86,8 +148,7 @@
 
             Draw3D();
 
-            if (!clientSettings.Add2DLighting)
-                base.Draw(gameTime);
+            base.Draw(gameTime);
         }
 
         #region frameSettings

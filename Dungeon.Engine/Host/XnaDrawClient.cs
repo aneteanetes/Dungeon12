@@ -75,7 +75,8 @@ namespace Dungeon.Engine.Host
 
             if (scene != default)
             {
-                XNADrawClientImplementation.Draw(scene.Objects, new Microsoft.Xna.Framework.GameTime());
+#warning layers migration need
+                //XNADrawClientImplementation.Draw(scene.Objects, new Microsoft.Xna.Framework.GameTime());
             }
 
             DrawDebugInfo();

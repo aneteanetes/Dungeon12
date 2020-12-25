@@ -1,4 +1,5 @@
 ﻿using Dungeon.Utils;
+using Microsoft.Xna.Framework;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dungeon.Monogame
@@ -22,6 +23,9 @@ namespace Dungeon.Monogame
 
         [Display(Name = "2D свет")]
         public bool Add2DLighting { get; set; } = true;
+
+        [Display(Name = "2D свет - цвет")]
+        public Color AmbientColor2DLight { get; set; }
 
         [Hidden]
         public int CellSize { get; set; }

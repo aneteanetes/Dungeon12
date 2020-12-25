@@ -68,6 +68,8 @@
              ControlEventType.Key
         };
 
+        public bool MousePerPixel { get; set; }
+
         public virtual string Cursor { get; set; } = null;
 
         protected virtual ControlEventType[] Handles { get; } = null;

@@ -1,12 +1,13 @@
 ﻿namespace Dungeon
 {
-    using FastMember;
-    using System.Linq.Expressions;
-    using System;
-    using System.Linq;
+    using Dungeon.Entities;
     using Dungeon.Types;
-    using System.Reflection;
+    using FastMember;
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.Reflection;
 
     public static class PropertyAccessor
     {

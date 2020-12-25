@@ -41,21 +41,10 @@
 
             Component = component;
 
-            // ЭТО ПИЗДЕЦ КОСТЫЛЬ
-            owner = DungeonGlobal.SceneManager.Preapering;
-
-            if (owner != null)
+            Destroy += () =>
             {
-                // ВСЕ ЭТИ МЕТОДЫ ПУБЛИЧНЫЕ ТОЛЬКО ПОТОМУ ЧТО НУЖНЫ ЗДЕСЬ
-                ControlBinding += owner.AddControl;
-                DestroyBinding += owner.RemoveObject;
-                Destroy += () =>
-                {
-                    owner.RemoveObject(this);
-                    this.UnsubscribeEvents();
-                };
-                ShowInScene += owner.ShowEffectsBinding;
-            }
+                this.UnsubscribeEvents();
+            };
 
             ProcessSingleton();
         }
@@ -359,6 +348,21 @@
             }
         }
 
+        /// <summary>
+        /// Обнуляет внутренние значения <see cref="ComputedPosition"/> и <see cref="BoundPosition"/>
+        /// </summary>
+        public void RecalculateComputedAndBounds()
+        {
+            this.Expired = true;
+            _computedPosition = null;
+            pos = null;
+
+            foreach (var child in this.Children)
+            {
+                child.Call(nameof(RecalculateComputedAndBounds));
+            }
+        }
+
         private Rectangle _computedPosition;
         public Rectangle ComputedPosition
         {
@@ -456,7 +460,7 @@
         public virtual bool Filtered { get; set; } = true;
 
         private double _scale;
-        public virtual double Scale// { get; set; }
+        public virtual double Scale
         {
             get
             {
@@ -470,7 +474,10 @@
 
                 return default;
             }
-            set => _scale = value;
+            set
+            {
+                _scale = value;
+            }
         }
 
         public SceneObject<TComponent> ScaleTo(double value)
@@ -487,7 +494,7 @@
 
         public override string ToString()
         {
-            return $"{owner.GetType().Name}#{Uid} : {base.ToString()}";
+            return $"{this.GetType().Name}#{Uid}#{owner.GetType().Name} :base {base.ToString()}";
         }
 
         public bool IntersectsWith(ISceneObject another)

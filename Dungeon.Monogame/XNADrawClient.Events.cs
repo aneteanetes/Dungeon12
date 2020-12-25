@@ -17,19 +17,22 @@ namespace Dungeon.Monogame
 
             if (scene != default)
             {
-                for (int i = 0; i < scene.Objects.Length; i++)
+                foreach (var layer in scene.Layers)
                 {
-                    var obj = scene.Objects[i];
-                    if (DungeonGlobal.ComponentUpdateCompatibility)
+                    for (int i = 0; i < layer.Objects.Length; i++)
                     {
-                        if (obj.Updatable && InCamera(obj))
-                            UpdateComponent(obj);
+                        var obj = layer.Objects[i];
+                        if (DungeonGlobal.ComponentUpdateCompatibility)
+                        {
+                            if (obj.Updatable && InCamera(obj))
+                                UpdateComponent(obj);
+                        }
+                        else
+                        {
+                            UpdateComponent(obj, gameTimeLoop);
+                        }
                     }
-                    else
-                    {
-                        UpdateComponent(obj, gameTimeLoop);
-                    }
-                }
+                }                
             }
         }
 

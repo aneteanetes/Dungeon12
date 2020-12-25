@@ -132,8 +132,11 @@ namespace Penumbra
 
                 _engine.PreRender();
                 _beginDrawCalled = true;
+                _drawing = true;
             }
         }
+
+        bool _drawing = false;
 
         /// <summary>
         /// Generates the lightmap, blends it with whatever was drawn to the scene between the
@@ -142,6 +145,9 @@ namespace Penumbra
         /// <param name="gameTime">Time passed since the last call to Draw.</param>
         public override void Draw(GameTime gameTime)
         {
+            if (!_drawing)
+                return;
+
             if (Visible)
             {
                 if (!_beginDrawCalled)
@@ -150,6 +156,7 @@ namespace Penumbra
 
                 _engine.Render();
                 _beginDrawCalled = false;
+                _drawing = false;
             }
         }
 

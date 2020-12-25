@@ -3,6 +3,7 @@ using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects.Base;
 using Dungeon.View.Interfaces;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Dungeon.SceneObjects
 {
@@ -83,7 +84,7 @@ namespace Dungeon.SceneObjects
         public static MessageBox Show(string text, Action ok)
         {
             var msgBox = new MessageBox(text,ok);
-            DungeonGlobal.Freezer.World = msgBox;
+            DungeonGlobal.Freezer.World = msgBox;            
             DungeonGlobal.SceneManager.CurrentScene.ShowEffectsBinding(msgBox.InList<ISceneObject>());
             return msgBox;
         }
