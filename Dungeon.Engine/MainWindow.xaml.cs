@@ -293,6 +293,11 @@ namespace Dungeon.Engine
             new AddSceneObjectForm(default).Show();
         }
 
+        private void AddLayer(object sender, RoutedEventArgs e)
+        {
+            //
+        }
+
         private void RemoveObject(object sender, RoutedEventArgs e)
         {
             var cmp = ObjectsView.TreeView;

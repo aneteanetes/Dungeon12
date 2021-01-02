@@ -123,9 +123,9 @@
                     <ControlTemplate TargetType="{x:Type TreeViewItem}">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition MinWidth="24" Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition MinWidth="24" Width="auto"/>
                                 <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="1"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -137,9 +137,12 @@
 
                             <ToggleButton x:Name="Expander" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ExpandCollapseToggleStyle}"/>
                             <Image x:Name="ItemInside" Source="pack://siteoforigin:,,,/Icons/FrameSelect_16x.png" />
-                            <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="Gray" Grid.Column="1" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-                                <ContentPresenter  x:Name="PART_Header" ContentSource="Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                            </Border>
+                            <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="Gray" Grid.Column="1" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" HorizontalAlignment="Stretch">
+                                <Grid>                                    
+                                    <ContentPresenter  x:Name="PART_Header" ContentSource="Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                    <Image Margin="0 0 0 0" HorizontalAlignment="Right" Source="pack://siteoforigin:,,,/Icons/Trash_16x.png" />
+                                </Grid>
+                            </Border>                            
                             <ItemsPresenter x:Name="ItemsHost" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1"/>
                         </Grid>
                         <ControlTemplate.Triggers>
@@ -178,7 +181,7 @@
                   x:Name="SceneObjectsView" SelectedItemChanged="SceneObjectsView_SelectedItemChanged" ItemsSource="{Binding Path=ItemSource}" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Foreground="WhiteSmoke" BorderBrush="Gray" Style="{DynamicResource TreeViewStyle1}">            
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Nodes}">
-                    <TextBlock AllowDrop="True" Text="{Binding Name}" />
+                    <TextBlock AllowDrop="True" Text="{Binding Name}"/>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>

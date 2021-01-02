@@ -124,7 +124,7 @@ namespace Dungeon.Engine.Controls
                                     MoveItem(draggedItem, _target);
                                 }
                             }
-                            else
+                            else if (draggedItem.Parent != default)
                             {
                                 var diff = (int)(Math.Abs(currentPosition.Y - _lastMouseDown.Y) % 10);
 
@@ -147,7 +147,7 @@ namespace Dungeon.Engine.Controls
 
                                 }
                                 //но ниже
-                                else
+                                else if (draggedItem.Parent != default)
                                 {
                                     var initIndex = draggedItem.Parent.Nodes.IndexOf(draggedItem);
                                     var newIndex = initIndex + diff;
@@ -156,7 +156,7 @@ namespace Dungeon.Engine.Controls
                                     {
                                         newIndex = draggedItem.Parent.Nodes.Count - 1;
                                     }
-                                    if(newIndex<0)
+                                    if (newIndex < 0)
                                     {
                                         newIndex = 0;
                                     }

@@ -16,13 +16,13 @@
   <ItemGroup>
     <Compile Remove="Data\**" />
     <EmbeddedResource Remove="Data\**" />
-    <None Remove="**\Resources\**\*" />
-    <None Remove="**\Icons\**\*" />
+    <None Remove="Resources\**\*" />
+    <None Remove="Icons\**\*" />
     <None Remove="Data\**" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="**\Resources\**\*" />
-    <EmbeddedResource Include="**\Icons\**\*">
+    <EmbeddedResource Include="Resources\**\*" />
+    <EmbeddedResource Include="Icons\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
@@ -39,7 +39,6 @@
       <Link>ProjectMercury\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
 </ItemGroup>
-  
   <ItemGroup>
     <Compile Include="..\Dungeon.Monogame\MonogameClientSettings.cs" Link="Host\MonogameClientSettings.cs" />
     <Compile Include="..\Dungeon.Monogame\XNADrawClient.Draw.cs" Link="Host\XNADrawClient.Draw.cs" />
@@ -49,7 +48,6 @@
     <Compile Include="..\Dungeon.Monogame\MonogameExtensions.cs" Link="Host\MonogameExtensions.cs" />
     <Compile Include="..\Dungeon.Monogame\XNADrawClient.Implementation.cs" Link="Host\XNADrawClient.Implementation.cs" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.7" />
@@ -75,6 +73,9 @@
     <Compile Update="Controls\EngineCollectionEditor.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Forms\AddSelectObject.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Forms\Message.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -97,6 +98,10 @@
 
   <ItemGroup>
     <Page Update="Controls\EngineCollectionEditor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Forms\AddSelectObject.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Forms\Message.xaml">

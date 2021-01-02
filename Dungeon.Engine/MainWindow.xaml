@@ -389,6 +389,11 @@
             <GridSplitter VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Column="0" Background="Gray" Foreground="Gray" Grid.Row="0" ShowsPreview="False" Height="3" />
             <Label Grid.Row="1" Grid.Column="0" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Margin="0 3 6 0" Padding="10 5 0 0" >Объекты</Label>
             <Button x:Name="AddObjectBtn" IsEnabled="False" Click="AddObject" Grid.Row="1" Grid.Column="0" Margin="0 5 37 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >+</Button>
+
+            <Button x:Name="AddLayerBtn" IsEnabled="False" Click="AddLayer" Grid.Row="1" Grid.Column="0" Margin="0 5 67 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >
+                <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/LayerFillSlider_16x.png" Margin="3" />
+            </Button>
+            
             <Button x:Name="RemoveObjectBtn" IsEnabled="False" Click="RemoveObject" Grid.Row="1" Grid.Column="0" Margin="0 5 9 0" HorizontalAlignment="Right" Height="24" Width="24" VerticalAlignment="Top" >-</Button>
 
             <controls:SceneObjectsTreeList x:Name="ObjectsView" BorderBrush="Gray" ItemsSource="{Binding Path=SelectedScene.SceneObjects}" BorderThickness="1" Grid.Row="1" Grid.Column="0" Foreground="WhiteSmoke" Margin="0 30 6 0" HorizontalAlignment="Stretch"/>
