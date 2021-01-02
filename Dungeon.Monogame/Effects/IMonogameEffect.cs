@@ -7,7 +7,9 @@ namespace Dungeon.Monogame.Effects
     {
         public bool Loaded { get; set; }
 
+#if !Engine
         void Load(XNADrawClient client);
+#endif
 
         Texture2D Draw(Texture2D input);
     }

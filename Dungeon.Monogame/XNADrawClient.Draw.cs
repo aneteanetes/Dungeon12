@@ -1,9 +1,12 @@
-﻿namespace Dungeon.Monogame
+﻿#if !Engine
+namespace Dungeon.Monogame
+#elif Engine
+namespace Dungeon.Engine.Host
+#endif
 {
     using Dungeon;
     using Dungeon.Monogame.Effects;
     using Dungeon.View.Interfaces;
-    using InTheWood.Shaders.Bloom;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
@@ -14,7 +17,12 @@
     using System.Linq;
     using System.Reflection;
 
+#if !Engine
+
     public partial class XNADrawClient : Game, IDrawClient
+#elif Engine
+    public partial class D3D11Host
+#endif
     {
         private Dictionary<ISceneLayer, List<Texture2D>> PostProcessed = new Dictionary<ISceneLayer, List<Texture2D>>();
 
@@ -24,8 +32,10 @@
         {
             if (!monogameEffect.Loaded)
             {
+#if !Engine
                 monogameEffect.Load(this);
                 monogameEffect.Loaded = true;
+#endif
             }
             GraphicsDevice.SetRenderTarget(null);
             GraphicsDevice.Clear(Color.Transparent);
@@ -66,13 +76,25 @@
             }
         }
 
-        protected override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
+        protected
+#if !Engine
+        override 
+#endif
+        void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            GraphicsDevice.SetRenderTarget(null);
+            GraphicsDevice.SetRenderTarget(
+//#if Engine
+//                _renderTarget
+//#else
+                null
+//#endif
+                );
             GraphicsDevice.Clear(Color.Transparent);
-            drawCicled = true;
 
+#if !Engine
+            drawCicled = true;
             CalculateCamera();
+#endif
 
             if (this.scene != default)
             {
@@ -113,9 +135,15 @@
             if (spriteBatch.IsOpened)
                 spriteBatch.End();
 
-            GraphicsDevice.SetRenderTarget(null);
+            GraphicsDevice.SetRenderTarget(
+#if Engine
+                _renderTarget
+#else
+                null
+#endif
+                );
             GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin();// (SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            spriteBatch.Begin();
 
             if (this.scene != default)
             {
@@ -131,9 +159,10 @@
             }
             spriteBatch.End();
 
+#if !Engine
             DrawDebugInfo();
-
             OnPointerMoved();
+#endif
 
             try
             {
@@ -145,13 +174,17 @@
                 spriteBatch.End();
             }
 
-
+#if !Engine
             Draw3D();
-
             base.Draw(gameTime);
+#endif
         }
 
-        #region frameSettings
+#if Engine
+
+    }
+#elif !Engine
+#region frameSettings
 
         private bool frameEnd;
         private int _frame;
@@ -160,7 +193,7 @@
         private double _fps;
         Stopwatch _st = Stopwatch.StartNew();
 
-        #endregion
+#endregion
 
         private void DrawDebugInfo()
         {
@@ -246,4 +279,5 @@
             XNADrawClientImplementation.CacheImage(image);
         }
     }
-}
+#endif
+    }

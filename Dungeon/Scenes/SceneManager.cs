@@ -24,7 +24,7 @@
             get => StaticDrawClient;
             set
             {
-                //DungeonGlobal.DrawClient = value;
+                DungeonGlobal.DrawClient = value;
                 StaticDrawClient = value;
             }
         }

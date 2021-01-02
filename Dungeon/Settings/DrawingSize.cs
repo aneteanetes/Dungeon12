@@ -11,7 +11,7 @@ namespace Dungeon.Settings
         public int WindowLines { get; set; } = 29;
 
         public int WindowChars { get; set; } = 48;
-        
+
         public int MapChars { get; set; } = 35;
 
         public int MapLines { get; set; } = 19;
@@ -20,8 +20,26 @@ namespace Dungeon.Settings
 
         public static float CellF => (float)Cell;
 
-        public double Width { get; set; }
+        private double width;
+        public double Width
+        {
+            get => width;
+            set
+            {
+                if (value != default)
+                    width = value;
+            }
+        }
 
-        public double Height { get; set; }
+        private double height;
+        public double Height
+        {
+            get => height;
+            set
+            {
+                if (value != default)
+                    height = value;
+            }
+        }
     }
 }

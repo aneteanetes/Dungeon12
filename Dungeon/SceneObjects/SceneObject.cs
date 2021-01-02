@@ -300,7 +300,7 @@
             sceneObject.Destroy += () =>
             {
                 RemoveChild(sceneObject);
-                DestroyBinding(sceneObject);
+                DestroyBinding?.Invoke(sceneObject);
             };
 
             Destroy += () => sceneObject.Destroy?.Invoke();

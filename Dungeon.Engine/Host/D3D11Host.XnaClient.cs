@@ -40,7 +40,7 @@ namespace Dungeon.Engine.Host
 
         public double CameraOffsetLimitZ => Camera.CameraOffsetLimitZ;
 
-        SpriteBatch spriteBatch;
+        SpriteBatchKnowed spriteBatch;
         XNADrawClientImplementation XNADrawClientImplementation;
 
         public void InitImpl()
@@ -49,7 +49,7 @@ namespace Dungeon.Engine.Host
             var graphicsService = new DefaultGraphicsDeviceManager(GraphicsDevice);
             _services.AddService(typeof(IGraphicsDeviceService), graphicsService);
             var _content = new ContentManager(_services);
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteBatch = new SpriteBatchKnowed(GraphicsDevice);
             DungeonGlobal.TransportVariable = GraphicsDevice;
 
             var cellSize = App.Container.Resolve<DungeonEngineProject>()?.CompileSettings.CellSize ?? 32;
@@ -68,19 +68,6 @@ namespace Dungeon.Engine.Host
 
         public Microsoft.Xna.Framework.Color ClearColor { get; set; } = Color.CornflowerBlue;
 
-        public void Draw()
-        {
-            GraphicsDevice.Clear(ClearColor);
-            GraphicsDevice.RasterizerState = RasterizerState.CullNone;
-
-            if (scene != default)
-            {
-#warning layers migration need
-                //XNADrawClientImplementation.Draw(scene.Objects, new Microsoft.Xna.Framework.GameTime());
-            }
-
-            DrawDebugInfo();
-        }
 
         #region frameSettings
 

@@ -26,9 +26,11 @@ namespace Dungeon.Monogame.Effects
             throw new NotImplementedException();
         }
 
+#if !Engine
         public void Load(XNADrawClient client)
         {
             throw new NotImplementedException();
         }
+#endif
     }
 }

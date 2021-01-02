@@ -10,7 +10,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DefineConstants>TRACE;Core;WINDOWS;</DefineConstants>
+    <DefineConstants>TRACE;Core;WINDOWS;Engine;</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -42,6 +42,10 @@
   
   <ItemGroup>
     <Compile Include="..\Dungeon.Monogame\MonogameClientSettings.cs" Link="Host\MonogameClientSettings.cs" />
+    <Compile Include="..\Dungeon.Monogame\XNADrawClient.Draw.cs" Link="Host\XNADrawClient.Draw.cs" />
+    <Compile Include="..\Dungeon.Monogame\SpriteBatchKnowed.cs" Link="Host\SpriteBatchKnowed.cs" />    
+    <Compile Include="..\Dungeon.Monogame\Effects\IMonogameEffect.cs" Link="Host\IMonogameEffect.cs" />
+    <Compile Include="..\Dungeon.Monogame\Effects\Light2D.cs" Link="Host\Light2D.cs" />
     <Compile Include="..\Dungeon.Monogame\MonogameExtensions.cs" Link="Host\MonogameExtensions.cs" />
     <Compile Include="..\Dungeon.Monogame\XNADrawClient.Implementation.cs" Link="Host\XNADrawClient.Implementation.cs" />
   </ItemGroup>

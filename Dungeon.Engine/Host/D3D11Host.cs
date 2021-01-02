@@ -189,6 +189,10 @@ namespace Dungeon.Engine.Host
 
             int width = Math.Max((int)ActualWidth, 1);
             int height = Math.Max((int)ActualHeight, 1);
+
+            DungeonGlobal.Sizes.Width = width;
+            DungeonGlobal.Sizes.Height = height;
+
             _renderTarget = new RenderTarget2D(_graphicsDevice, width, height, false, SurfaceFormat.Bgr32, DepthFormat.Depth24Stencil8, 0, RenderTargetUsage.DiscardContents, true);
             _d3D11Image.SetBackBuffer(_renderTarget);
         }
@@ -295,8 +299,9 @@ namespace Dungeon.Engine.Host
 
         private void Render(TimeSpan time)
         {
-            this.UpdateLoop(new Microsoft.Xna.Framework.GameTime());
-            this.Draw();
+            var gameTime = new Microsoft.Xna.Framework.GameTime(DateTime.Now.TimeOfDay, time, true);
+            this.UpdateLoop(gameTime);
+            this.Draw(gameTime);
         }
         #endregion
         

@@ -3,6 +3,7 @@ using Dungeon.Control.Keys;
 using Dungeon.Scenes.Manager;
 using Dungeon.View.Interfaces;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,15 +22,13 @@ namespace Dungeon.Engine.Host
         private void UpdateLoop(Microsoft.Xna.Framework.GameTime gameTime)
         {
             var gameTimeLoop = new GameTimeLoop(gameTime.TotalGameTime, gameTime.ElapsedGameTime, gameTime.IsRunningSlowly);
-
+            
             if (!blockControls)
             {
                 UpdateMouseEvents();
             }
-
-            if (scene != default)
+            if (this.scene != default)
             {
-#warning layers migration need
                 //for (int i = 0; i < scene.Objects.Length; i++)
                 //{
                 //    var obj = scene.Objects[i];
@@ -44,7 +43,11 @@ namespace Dungeon.Engine.Host
                 //    }
                 //}
             }
+            UpdateLayers(gameTime);
         }
+
+
+      
 
         private void UpdateComponent(ISceneObject sceneObject, GameTimeLoop gameTimeLoop)
         {

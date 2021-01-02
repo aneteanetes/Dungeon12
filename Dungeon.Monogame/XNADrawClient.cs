@@ -29,7 +29,7 @@
 
         public SceneManager SceneManager { get; set; }
         protected GraphicsDeviceManager graphics;
-        SpiteBatchKnowed spriteBatch;
+        SpriteBatchKnowed spriteBatch;
         readonly Light SunLight = new PointLight
         {
             Scale = new Vector2(3700f),
@@ -158,7 +158,7 @@
 
             backBuffer = new RenderTarget2D(GraphicsDevice, GraphicsDevice.PresentationParameters.BackBufferWidth, GraphicsDevice.PresentationParameters.BackBufferHeight, false, GraphicsDevice.PresentationParameters.BackBufferFormat, DepthFormat.Depth24);
 
-            spriteBatch = new SpiteBatchKnowed(GraphicsDevice);
+            spriteBatch = new SpriteBatchKnowed(GraphicsDevice);
 
             SceneManager = new SceneManager
             {

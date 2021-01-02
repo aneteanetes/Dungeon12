@@ -8,7 +8,13 @@ namespace Dungeon.Monogame
     {
         MonogameClientSettings _settings;
 
-        public MonogameClient(MonogameClientSettings settings) => _settings = settings;
+        public MonogameClient(MonogameClientSettings settings)
+        {
+            _settings = settings;
+
+            DungeonGlobal.Sizes.Width = settings.WidthPixel;
+            DungeonGlobal.Sizes.Height = settings.HeightPixel;
+        }
 
         public void Run(bool FATAL = false)
         {
