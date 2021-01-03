@@ -1,5 +1,7 @@
 ﻿using Dungeon.Engine.Editable;
+using Dungeon.Engine.Editable.ObjectTreeList;
 using Dungeon.Engine.Editable.PropertyTable;
+using Dungeon.Engine.Editable.Structures;
 using Dungeon.Engine.Engine;
 using Dungeon.Engine.Events;
 using Dungeon.Engine.Forms;
@@ -48,9 +50,9 @@ namespace Dungeon.Engine
     {
         public ObservableCollection<MenuItem> MenuItems { get; set; } = new ObservableCollection<MenuItem>();
 
-        public DungeonEngineProject Project { get; set; }
+        public EngineProject Project { get; set; }
 
-        public DungeonEngineScene SelectedScene { get; set; }
+        public Scene SelectedScene { get; set; }
 
         public SceneManager SceneManager { get; set; }
 
@@ -72,6 +74,8 @@ namespace Dungeon.Engine
             DungeonGlobal.Events.Subscribe<SceneObjectInObjectTreeSelectedEvent>(SelectedSceneObjectEvent, false);
             DungeonGlobal.Events.Subscribe<SceneResolutionChangedEvent>(ChangedResolutionEvent, false);
             DungeonGlobal.Events.Subscribe<RemoveSceneObjectFromSceneEvent>(RemovingSceneObjectFromSceneEvent,false);
+            DungeonGlobal.Events.Subscribe<AddStructObjectEvent>(AddStructObjectEvent, false);
+            
 
             XnaHost.ClearColor = Microsoft.Xna.Framework.Color.Black;
             SceneManager = new SceneManager()
@@ -87,6 +91,8 @@ namespace Dungeon.Engine
             XnaHost.MouseDown += XnaHost_MouseDown;
             this.MouseUp += XnaHost_MouseUp;
             this.MouseMove += XnaHost_MouseMove;
+
+            StructsView.AddObjectBinding += (e, r) => AddStruct(e, r);
         }
 
         private void UnreezeEventHandler(UnfreezeAllEvent @event)
@@ -128,7 +134,7 @@ namespace Dungeon.Engine
             App.Container.Reset();
             if (proj != default)
             {
-                App.Container.Register<DungeonEngineProject, DungeonEngineProject>(Utils.ContainerLifeStyle.Singleton, @event.Project);
+                App.Container.Register<EngineProject, EngineProject>(Utils.ContainerLifeStyle.Singleton, @event.Project);
                 PropGrid.Clear();
                 this.Project = proj;
                 ChangeStatus($"Загружен проект '{Project.Name}'");
@@ -138,17 +144,16 @@ namespace Dungeon.Engine
 
                 if (Project.Resources == default)
                 {
-                    Project.Resources = new ObservableCollection<DungeonEngineResourcesGraph>
+                    Project.Resources = new ObservableCollection<ResourcesGraph>
                     {
-                        new DungeonEngineResourcesGraph() //root
+                        new ResourcesGraph() //root
                     };
-                    var meta = new DungeonEngineResourcesGraph() { Name = "DungeonEngine.meta", Type = DungeonEngineResourceType.Embedded };
+                    var meta = new ResourcesGraph() { Name = "DungeonEngine.meta", Type = ResourceType.Embedded };
                     var root = Project.Resources.FirstOrDefault();
                     meta.Parent = root;
                     root.Nodes.Add(meta);
                 }
 
-                ResourcesView.ItemsSource = Project.Resources;
 
                 Project.Load();
                 this.XnaHost.ChangeCell(Project.CompileSettings.CellSize);
@@ -159,7 +164,7 @@ namespace Dungeon.Engine
                     ThrowIfNotFound = false,
                     NotFoundAction = r => ChangeStatus("Не найден ресурс: "+r)
                 };
-                ResourceLoader.ResourceDatabaseResolvers.Add(new DungeonEngineResourceDatabaseResolver(Project.DbFilePath));
+                ResourceLoader.ResourceDatabaseResolvers.Add(new EngineResourceDatabaseResolver(Project.DbFilePath));
                 ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver());
                 ResourceLoader.ResourceResolvers.Add(new PhysicalFileResourceResolver());
 
@@ -183,7 +188,7 @@ namespace Dungeon.Engine
                 }
 
                 SelectedScene = default;
-                ObjectsView.ItemsSource = default;
+                StructsView.ItemsSource = default;
 #warning diabling btns
                 //AddObjectBtn.IsEnabled = RemoveObjectBtn.IsEnabled = false;
 
@@ -269,14 +274,14 @@ namespace Dungeon.Engine
             if (!Available)
                 return;
 
-            Project.Scenes.Add(new DungeonEngineScene() { Name = "Scene", Width = Project.CompileSettings.WidthPixel, Height = Project.CompileSettings.HeightPixel });
+            Project.Scenes.Add(new Scene() { Name = "Scene", Width = Project.CompileSettings.WidthPixel, Height = Project.CompileSettings.HeightPixel });
 
             ScenesView.SelectedIndex = ScenesView.Items.Count - 1;
         }
 
         private void RemoveScene(object sender, RoutedEventArgs e)
         {
-            if (ScenesView.SelectedItem is DungeonEngineScene des)
+            if (ScenesView.SelectedItem is Scene des)
             {
                 if (des.StartScene)
                 {
@@ -294,18 +299,36 @@ namespace Dungeon.Engine
             new AddSceneObjectForm(default).Show();
         }
 
-        private void AddLayer(object sender, RoutedEventArgs e)
+        private void AddStruct(object sender, RoutedEventArgs e)
         {
-            new AddSctructureObject(default).ShowDialog();
+            if (SelectedScene != default)
+            {
+                ObjectTreeListItem parent = default;
+
+                var frameworkElement = e.Source.As<FrameworkElement>();
+                if(frameworkElement.DataContext is ObjectTreeListItem @struct)
+                {
+                    parent = @struct;
+                }
+
+                new AddSctructureObject(parent)
+                    .ShowDialog();
+            }
         }
 
         private void RemoveObject(object sender, RoutedEventArgs e)
         {
-            var cmp = ObjectsView.TreeView;
-            if (cmp.SelectedItem is DungeonEngineSceneObject obj)
+            var cmp = StructsView.TreeView;
+            if (cmp.SelectedItem is SceneObject obj)
             {
                 RemovingSceneObjectFromSceneEvent(new RemoveSceneObjectFromSceneEvent(obj));
             }
+        }
+
+        private void AddStructObjectEvent(AddStructObjectEvent @event)
+        {
+            SelectedScene.StructObjects.Add(@event.StructureObject);            
+            StructsView.UpdateLayout();
         }
 
         private void RemovingSceneObjectFromSceneEvent(RemoveSceneObjectFromSceneEvent @event)
@@ -313,10 +336,11 @@ namespace Dungeon.Engine
             var obj = @event.RootedObject;
             if (obj.Parent == default)
             {
-                SelectedScene.SceneObjects.Remove(obj);
+                obj.RemoveFromHost();
                 if (obj.Instance != default)
                 {
-                    SceneManager.Current.RemoveObject(obj.Instance.As<ISceneObject>());
+                    obj.Instance.Layer.RemoveObject(obj.Instance);
+                    
                 }
             }
         }
@@ -330,20 +354,44 @@ namespace Dungeon.Engine
         {
             foreach (var item in e.AddedItems)
             {
-                SelectedScene = (DungeonEngineScene)item;
-                SelectScene((DungeonEngineScene)item);
+                SelectedScene = (Scene)item;
+                SelectScene((Scene)item);
 
                 SceneManager.Change<EasyScene>();
-                foreach (var obj in SelectedScene.SceneObjects)
-                {
-                    PushSceneObjectToScene(obj);
-                }
+                PublishCurrentScene();
 
                 return;
             }
 #warning diabling btns
             //AddObjectBtn.IsEnabled = RemoveObjectBtn.IsEnabled = false;
 
+        }
+
+        private void PublishCurrentScene()
+        {
+            foreach (var @struct in SelectedScene.StructObjects)
+            {
+                if (@struct is StructureTilemap structureTilemap)
+                {
+                    var compiled = new SceneObject()
+                    {
+                        ClassName = "Dungeon.Drawing.SceneObjects.ImageControl",
+                    };
+                    compiled.Set("Name", structureTilemap.CompiledImage, typeof(string));
+                    PushSceneObjectToScene(compiled);
+                }
+
+                if (@struct is StructureLayer structureLayer)
+                {
+                    foreach (var obj in structureLayer.Nodes)
+                    {
+                        if (obj is StructureSceneObject structSceneObject && structSceneObject.SceneObject != default)
+                        {
+                            PushSceneObjectToScene(structSceneObject.SceneObject);
+                        }
+                    }
+                }
+            }
         }
 
         private void PublishSceneObject_Click(object sender, RoutedEventArgs e)
@@ -359,7 +407,7 @@ namespace Dungeon.Engine
             }
         }
 
-        private void PushSceneObjectToScene(DungeonEngineSceneObject obj, bool initial=false, DungeonEngineSceneObject parent=default)
+        private void PushSceneObjectToScene(SceneObject obj, bool initial=false, SceneObject parent=default)
         {
             try
             {
@@ -446,15 +494,13 @@ namespace Dungeon.Engine
             }
         }
 
-        private void SelectScene(DungeonEngineScene item)
+        private void SelectScene(Scene item)
         {
-            ObjectsView.ItemsSource = SelectedScene.SceneObjects;
+            StructsView.ItemsSource = SelectedScene.StructObjects;
             PropGrid.FillPropGrid(new PropGridFillEvent(item));
             XnaHost.Width = SelectedScene.Width;
             XnaHost.Height = SelectedScene.Height;
             SceneResolution.Content = $"{XnaHost.Width}x{XnaHost.Height}";
-#warning diabling btns
-            //AddObjectBtn.IsEnabled = RemoveObjectBtn.IsEnabled = true;
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -503,9 +549,9 @@ namespace Dungeon.Engine
 
         private void AddedNewResourceEvent(ResourceAddEvent @event)
         {
-            var newRes = new DungeonEngineResourcesGraph
+            var newRes = new ResourcesGraph
             {
-                Type = DungeonEngineResourceType.File,
+                Type = ResourceType.File,
                 Parent = @event.ParentResource
             };
             @event.ParentResource.Nodes.Add(newRes);
@@ -525,13 +571,13 @@ namespace Dungeon.Engine
         {
             if (@event.Root)
             {
-                this.SelectedScene.SceneObjects.Add(@event.SceneObject);
+                //this.SelectedScene.StructObjects.Add(@event.SceneObject);
             }
 
             PushSceneObjectToScene(@event.SceneObject,true);
         }
 
-        private DungeonEngineSceneObject SelectedSceneObject;
+        private SceneObject SelectedSceneObject;
 
         private void SelectedSceneObjectEvent(SceneObjectInObjectTreeSelectedEvent @event)
         {
@@ -544,40 +590,40 @@ namespace Dungeon.Engine
 
         private void AddResourceCtxClick(object sender, RoutedEventArgs e)
         {
-            if (ResourcesView.SelectedItem is DungeonEngineResourcesGraph resGraph)
-            {
-                if (resGraph.Type == DungeonEngineResourceType.Folder || resGraph.Display == "Resources")
-                {
-                    new AddResourceForm(resGraph).Show();
-                }
-                else
-                {
-                    ChangeStatus("Ресурс можно добавить только в папку или корень проекта!");
-                }
-            }
+            //if (ResourcesView.SelectedItem is DungeonEngineResourcesGraph resGraph)
+            //{
+            //    if (resGraph.Type == DungeonEngineResourceType.Folder || resGraph.Display == "Resources")
+            //    {
+            //        new AddResourceForm(resGraph).Show();
+            //    }
+            //    else
+            //    {
+            //        ChangeStatus("Ресурс можно добавить только в папку или корень проекта!");
+            //    }
+            //}
         }
 
         private void RemoveResourceCtxClick(object sender, RoutedEventArgs e)
         {
-            if (ResourcesView.SelectedItem is DungeonEngineResourcesGraph resGraph)
-            {
-                if (resGraph.Type == DungeonEngineResourceType.Embedded || resGraph.Display == "Resources")
-                    return;
+            //if (ResourcesView.SelectedItem is DungeonEngineResourcesGraph resGraph)
+            //{
+            //    if (resGraph.Type == DungeonEngineResourceType.Embedded || resGraph.Display == "Resources")
+            //        return;
 
-                if (RemoveResImpl(resGraph))
-                {
-                    resGraph.Parent.Nodes.Remove(resGraph);
-                }
-                else
-                {
-                    ChangeStatus($"Не удалось удалить ресурс: {resGraph.GetFullPath()}");
-                }
-            }
+            //    if (RemoveResImpl(resGraph))
+            //    {
+            //        resGraph.Parent.Nodes.Remove(resGraph);
+            //    }
+            //    else
+            //    {
+            //        ChangeStatus($"Не удалось удалить ресурс: {resGraph.GetFullPath()}");
+            //    }
+            //}
         }
 
-        private bool RemoveResImpl(DungeonEngineResourcesGraph resGraph)
+        private bool RemoveResImpl(ResourcesGraph resGraph)
         {
-            if (resGraph.Type != DungeonEngineResourceType.Folder)
+            if (resGraph.Type != ResourceType.Folder)
             {
                 var db = new LiteDatabase(Project.DbFilePath);
                 var store = db.GetCollection<Resource>();
@@ -590,7 +636,7 @@ namespace Dungeon.Engine
             }
             else
             {
-                List<DungeonEngineResourcesGraph> remove = new List<DungeonEngineResourcesGraph>();
+                List<ResourcesGraph> remove = new List<ResourcesGraph>();
 
                 foreach (var resInside in resGraph.Nodes)
                 {
@@ -605,53 +651,53 @@ namespace Dungeon.Engine
 
         private void RenameResourceCtxClick(object sender, RoutedEventArgs e)
         {
-            if (ResourcesView.SelectedItem is DungeonEngineResourcesGraph resGraph)
-            {
-                var nmform = new AddNamedForm("Переименовать ресурс");
-                nmform.ShowDialog();
+            //if (ResourcesView.SelectedItem is DungeonEngineResourcesGraph resGraph)
+            //{
+            //    var nmform = new AddNamedForm("Переименовать ресурс");
+            //    nmform.ShowDialog();
 
-                using var db = new LiteDatabase(Project.DbFilePath);
-                var store = db.GetCollection<Resource>();
+            //    using var db = new LiteDatabase(Project.DbFilePath);
+            //    var store = db.GetCollection<Resource>();
 
-                var fullPath = resGraph.GetFullPath();
-                var stored = store.FindOne(r => r.Path == fullPath);
+            //    var fullPath = resGraph.GetFullPath();
+            //    var stored = store.FindOne(r => r.Path == fullPath);
 
-                if (stored != default)
-                {
-                    resGraph.Name = nmform.Text;
-                    stored.Path = resGraph.GetFullPath();
-                    store.Update(stored);
-                }
-                else
-                {
-                    ChangeStatus($"Неудалось переименовать ресурс: {resGraph.Display}!", error: true);
-                }
-            }
+            //    if (stored != default)
+            //    {
+            //        resGraph.Name = nmform.Text;
+            //        stored.Path = resGraph.GetFullPath();
+            //        store.Update(stored);
+            //    }
+            //    else
+            //    {
+            //        ChangeStatus($"Неудалось переименовать ресурс: {resGraph.Display}!", error: true);
+            //    }
+            //}
         }
 
         private void AddResourceFolderCtxClick(object sender, RoutedEventArgs e)
         {
-            if (ResourcesView.SelectedItem is DungeonEngineResourcesGraph resGraph)
-            {
-                if (resGraph.Type == DungeonEngineResourceType.Folder || resGraph.Display == "Resources")
-                {
-                    var nmform = new AddNamedForm("Добавить папку");
-                    nmform.ShowDialog();
-                    resGraph.Nodes.Add(new DungeonEngineResourcesGraph()
-                    {
-                        Name = nmform.Text,
-                        Type = DungeonEngineResourceType.Folder,
-                        Parent = resGraph
-                    });
-                }
-            }
+            //if (ResourcesView.SelectedItem is DungeonEngineResourcesGraph resGraph)
+            //{
+            //    if (resGraph.Type == DungeonEngineResourceType.Folder || resGraph.Display == "Resources")
+            //    {
+            //        var nmform = new AddNamedForm("Добавить папку");
+            //        nmform.ShowDialog();
+            //        resGraph.Nodes.Add(new DungeonEngineResourcesGraph()
+            //        {
+            //            Name = nmform.Text,
+            //            Type = DungeonEngineResourceType.Folder,
+            //            Parent = resGraph
+            //        });
+            //    }
+            //}
         }
 
         private void SceneDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (SelectedScene == default)
                 return;
-            SelectScene(ScenesView.SelectedItem.As<DungeonEngineScene>());
+            SelectScene(ScenesView.SelectedItem.As<Scene>());
         }
 
         private void ChangedResolutionEvent(SceneResolutionChangedEvent @event)
@@ -822,10 +868,7 @@ namespace Dungeon.Engine
             if (SelectedScene == default)
                 return;
 
-            foreach (var obj in SelectedScene.SceneObjects)
-            {
-                PushSceneObjectToScene(obj);
-            }
+            PublishCurrentScene();
         }
 
         private void resetScaleBtn(object sender, RoutedEventArgs e)

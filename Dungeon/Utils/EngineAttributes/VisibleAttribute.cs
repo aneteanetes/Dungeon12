@@ -3,5 +3,5 @@
 namespace Dungeon.Utils
 {
     [System.AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = false)]
-    public sealed class VisibleAttribute : Attribute { }
+    public sealed class HiddenAttribute : Attribute { }
 }

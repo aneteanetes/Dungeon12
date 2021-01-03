@@ -1,6 +1,6 @@
 ﻿namespace Dungeon.Engine.Editable
 {
-    public class DungeonEngineReference
+    public class Reference
     {
         public string Title { get; set; }
 
@@ -8,10 +8,10 @@
 
         public string DbPath { get; set; }
 
-        public DungeonEngineReferenceKind Kind { get; set; }
+        public ReferenceKind Kind { get; set; }
     }
 
-    public enum DungeonEngineReferenceKind
+    public enum ReferenceKind
     {
         Embedded = 0,
         Loadable = 1

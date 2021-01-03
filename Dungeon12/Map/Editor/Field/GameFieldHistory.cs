@@ -20,7 +20,7 @@ namespace Dungeon12.Map.Editor.Field
             var dcell = History.Pop();
             if (dcell != default)
             {
-                int lvl = dcell.Layer;
+                int lvl = dcell.LayerLevel;
                 int x = (int)dcell.Left;
                 int y = (int)dcell.Top;
 

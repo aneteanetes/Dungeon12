@@ -91,7 +91,7 @@ namespace Dungeon.Engine.Host
         {
             if (!Enum.TryParse(typeof(Control.Keys.Key), e.Key.ToString(), true, out var key))
             {
-                sender.As<MainWindow>().ChangeStatus($"{e.Key} not found in Dungeon!");
+                //sender.As<MainWindow>().ChangeStatus($"{e.Key} not found in Dungeon!");
                 key = Control.Keys.Key.None;
             }
 
@@ -132,7 +132,7 @@ namespace Dungeon.Engine.Host
         {
             if (!Enum.TryParse(typeof(Control.Keys.Key), e.Key.ToString(), true, out var key))
             {
-                sender.As<MainWindow>().ChangeStatus($"{e.Key} not found in Dungeon!");
+                //sender.As<MainWindow>().ChangeStatus($"{e.Key} not found in Dungeon!");
                 key = Control.Keys.Key.None;
             }
 

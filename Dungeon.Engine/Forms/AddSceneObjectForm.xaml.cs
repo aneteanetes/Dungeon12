@@ -16,13 +16,13 @@ namespace Dungeon.Engine.Forms
 {
     public partial class AddSceneObjectForm : Window
     {
-        public ObservableCollection<DungeonEngineSceneObjectClass> AvailableSceneObjects = new ObservableCollection<DungeonEngineSceneObjectClass>();
+        public ObservableCollection<SceneObjectClass> AvailableSceneObjects = new ObservableCollection<SceneObjectClass>();
 
-        public DungeonEngineSceneObject SceneObject { get; set; } = new DungeonEngineSceneObject();
+        public SceneObject SceneObject { get; set; } = new SceneObject();
 
-        public DungeonEngineSceneObject ParentSceneObject { get; set; }
+        public SceneObject ParentSceneObject { get; set; }
 
-        public AddSceneObjectForm(DungeonEngineSceneObject parent)
+        public AddSceneObjectForm(SceneObject parent)
         {
             ParentSceneObject = parent;
             InitializeComponent();
@@ -32,10 +32,10 @@ namespace Dungeon.Engine.Forms
 
         private void Init()
         {
-            AvailableSceneObjects = new ObservableCollection<DungeonEngineSceneObjectClass>(
+            AvailableSceneObjects = new ObservableCollection<SceneObjectClass>(
                 ResourceLoader.LoadTypes<ISceneObject>()
                 .Where(x => x.IsClass && !x.IsAbstract && Attribute.GetCustomAttribute(x, typeof(HiddenAttribute)) == default)
-                .Select(x => new DungeonEngineSceneObjectClass()
+                .Select(x => new SceneObjectClass()
                 {
                     Name = (Attribute.GetCustomAttribute(x, typeof(DisplayNameAttribute)) as DisplayNameAttribute)?.DisplayName ?? x.Name,
                     ClassName = x.FullName,
@@ -51,7 +51,7 @@ namespace Dungeon.Engine.Forms
 
         private void AddResProcess(object sender, RoutedEventArgs e)
         {
-            if (SelectSceneObjectTypeView.SelectedItem is DungeonEngineSceneObjectClass selectedType)
+            if (SelectSceneObjectTypeView.SelectedItem is SceneObjectClass selectedType)
             {
                 SceneObject.ClassName = selectedType.ClassName;
                 SceneObject.ClassType = selectedType.ClassType;

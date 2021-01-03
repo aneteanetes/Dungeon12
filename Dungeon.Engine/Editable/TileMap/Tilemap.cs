@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Dungeon.Engine.Editable.TileMap
 {
-    public class DungeonEngineTilemap
+    public class Tilemap
     {
         public string Name { get; set; }
 
@@ -17,13 +17,13 @@ namespace Dungeon.Engine.Editable.TileMap
         public int CellSize { get; set; } = 32;
 
         [Hidden]
-        public ObservableCollection<DungeonEngineTilemapLayer> Layers { get; set; } = new ObservableCollection<DungeonEngineTilemapLayer>();
+        public ObservableCollection<TilemapLayer> Layers { get; set; } = new ObservableCollection<TilemapLayer>();
 
         [Hidden]
-        public ObservableCollection<DungeonEngineTilemapSourceImage> Sources { get; set; } = new ObservableCollection<DungeonEngineTilemapSourceImage>();
+        public ObservableCollection<TilemapSourceImage> Sources { get; set; } = new ObservableCollection<TilemapSourceImage>();
     }
 
-    public class DungeonEngineTilemapSourceImage
+    public class TilemapSourceImage
     {
         public string Name { get; set; }
 

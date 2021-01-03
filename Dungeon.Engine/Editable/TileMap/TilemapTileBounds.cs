@@ -1,6 +1,6 @@
 ﻿namespace Dungeon.Engine.Editable.TileMap
 {
-    public class DungeonEngineTilemapTileBounds
+    public class TilemapTileBounds
     {
         public bool Left { get; set; }
 

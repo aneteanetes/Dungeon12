@@ -5,6 +5,6 @@ namespace Dungeon.Engine.Events
 {
     public class SceneObjectInObjectTreeSelectedEvent : IEvent
     {
-        public DungeonEngineSceneObject SceneObject { get; set; }
+        public SceneObject SceneObject { get; set; }
     }
 }

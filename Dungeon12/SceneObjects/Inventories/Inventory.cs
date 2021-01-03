@@ -150,7 +150,7 @@
                 var pos = new Point(inventoryItem.ComputedPosition.X, inventoryItem.ComputedPosition.Y);
                 var msg = new PopupString(res.Value.AsDrawText().InColor(DrawColor.Yellow), pos)
                 {
-                    Layer = 2000,
+                    LayerLevel = 2000,
                     AbsolutePosition = true
                 };
                 this.ShowInScene(msg.InList<ISceneObject>());

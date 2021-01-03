@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dungeon.Engine.Projects
 {
-    public class DungeonEngineProjectSettings : MonogameClientSettings
+    public class ProjectSettings : MonogameClientSettings
     {        
         [Display(Name ="Проброс исключений", Description ="Вместо обработок ошибок приложение будет выбрасывать исключение")]
         public bool ExceptionRethrow { get; set; } = false;

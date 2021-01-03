@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dungeon.Engine.Projects
 {
-    public enum DungeonEngineResourceType
+    public enum ResourceType
     {
         [Value("Файл")]
         File,

@@ -14,7 +14,7 @@ namespace Dungeon.Engine.Forms
     /// </summary>
     public partial class ProjectForm : Window
     {
-        public DungeonEngineProject Project { get; set; } = new DungeonEngineProject();
+        public EngineProject Project { get; set; } = new EngineProject();
 
         public ProjectForm()
         {
@@ -42,22 +42,22 @@ namespace Dungeon.Engine.Forms
             }
             Directory.CreateDirectory(path);
 
-            Project.References = new List<DungeonEngineReference>
+            Project.References = new List<Reference>
             {
-                new DungeonEngineReference()
+                new Reference()
                 {
-                    Kind = DungeonEngineReferenceKind.Embedded,
+                    Kind = ReferenceKind.Embedded,
                     Title = "Dungeon",
                     Path = "Embedded"
                 }
             };
 
             using var db = new LiteDatabase($@"{path}\{Project.Name}.deproj");
-            db.GetCollection<DungeonEngineProject>().Insert(Project);
+            db.GetCollection<EngineProject>().Insert(Project);
 
             Directory.CreateDirectory(Path.Combine(path, "Scenes"));
 
-            Project.Scenes.Add(new DungeonEngineScene()
+            Project.Scenes.Add(new Scene()
             {
                 StartScene = true,
                 Width = Project.CompileSettings.WidthPixel,

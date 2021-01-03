@@ -5,9 +5,9 @@ namespace Dungeon.Engine.Events
 {
     public class AddStructObjectEvent : IEvent
     {
-        public DungeonEngineStructureObject StructureObject { get; set; }
+        public StructureObject StructureObject { get; set; }
 
-        public AddStructObjectEvent(DungeonEngineStructureObject structureObject)
+        public AddStructObjectEvent(StructureObject structureObject)
         {
             StructureObject = structureObject;
         }

@@ -8,8 +8,6 @@ namespace Dungeon.Engine.Editable.ObjectTreeList
 
     {
         [BsonIgnore]
-        public T Parent { get; set; }
-
-        public ObservableCollection<T> Nodes { get; set; } = new ObservableCollection<T>();
+        public T ParentT { get; set; }
     }
 }

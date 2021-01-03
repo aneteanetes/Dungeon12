@@ -6,8 +6,8 @@ namespace Dungeon.Engine.Events
 {
     public class RemoveSceneObjectFromSceneEvent : IEvent
     {
-        public DungeonEngineSceneObject RootedObject { get; set; }
+        public SceneObject RootedObject { get; set; }
 
-        public RemoveSceneObjectFromSceneEvent(DungeonEngineSceneObject rootedObj) => RootedObject = rootedObj;
+        public RemoveSceneObjectFromSceneEvent(SceneObject rootedObj) => RootedObject = rootedObj;
     }
 }

@@ -8,6 +8,11 @@
     [Hidden]
     public interface ISceneObject : IGameComponent
     {
+        /// <summary>
+        /// Host layer
+        /// </summary>
+        ISceneLayer Layer { get; set; }
+
         bool Shadow { get; set; }
 
         /// <summary>
@@ -66,7 +71,7 @@
 
         Rectangle ImageRegion { get; set; }
 
-        int Layer { get; set; }
+        int LayerLevel { get; set; }
 
         IDrawText Text { get; }
 

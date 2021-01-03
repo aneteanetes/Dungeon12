@@ -420,7 +420,7 @@
             Width = Children.Max(c => c.BoundPosition.X + c.BoundPosition.Width)
         };
 
-        public virtual int Layer { get; set; }
+        public virtual int LayerLevel { get; set; }
 
         [Hidden]        
         public bool ForceInvisible { get; set; }
@@ -535,6 +535,8 @@
         public bool Drawed { get; set; }
 
         public string Tag { get; set; }
+
+        public ISceneLayer Layer { get; set; }
 
         private object flowContext = null;
 

@@ -34,7 +34,7 @@
 
         public virtual bool TextureDragging { get; set; } = false;
 
-        public override int Layer { get; set; } = 50;
+        public override int LayerLevel { get; set; } = 50;
 
         public override bool CacheAvailable => false;
 
@@ -195,14 +195,14 @@
 
         private void UpLayer()
         {
-            this.Layer = 1000;
+            this.LayerLevel = 1000;
             SetChainLayer(this, 1000);
         }
 
         private Action OnDownLayer;
         private void DownLayer()
         {
-            this.Layer = 50;
+            this.LayerLevel = 50;
             OnDownLayer?.Invoke();
             OnDownLayer = null;
         }
@@ -211,9 +211,9 @@
         {
             if (@object.Parent != null)
             {
-                var currentLayer = @object.Parent.Layer;
-                OnDownLayer += () => @object.Parent.Layer = currentLayer;
-                @object.Parent.Layer = value;
+                var currentLayer = @object.Parent.LayerLevel;
+                OnDownLayer += () => @object.Parent.LayerLevel = currentLayer;
+                @object.Parent.LayerLevel = value;
                 SetChainLayer(@object.Parent, value);
             }
         }

@@ -52,7 +52,7 @@
                 {
                     CacheAvailable = false,
                     AbsolutePosition = this.AbsolutePosition,
-                    Layer = 1000,
+                    LayerLevel = 1000,
                     Cursor = ClickableTooltipCursor
                 };
 

@@ -32,7 +32,7 @@ namespace Dungeon.Engine.Menus.File
 
             using var db = new LiteDatabase(path);
             var dirName = Path.GetFileNameWithoutExtension(path);
-            var proj = db.GetCollection<DungeonEngineProject>().FindOne(x => x.Name == dirName);
+            var proj = db.GetCollection<EngineProject>().FindOne(x => x.Name == dirName);
 
             if (proj == default)
             {

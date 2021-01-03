@@ -106,7 +106,7 @@
                     Top = y,
                     Height = height,
                     Width = width,
-                    Layer = lvl
+                    LayerLevel = lvl
                 };
                 this.AddChild(Field[lvl][x][y]);
                 History.Add(Field[lvl][x][y]);
@@ -154,7 +154,7 @@
                         Top = y,
                         Height = item?.Region.Height ??0,
                         Width = item?.Region.Width??0,
-                        Layer = lvl
+                        LayerLevel = lvl
                     };
                 }
                 catch

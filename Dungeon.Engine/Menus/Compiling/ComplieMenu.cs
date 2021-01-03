@@ -16,7 +16,7 @@ namespace Dungeon.Engine.Menus.File
 
         public Action Click => () =>
         {
-            var proj = App.Container.Resolve<DungeonEngineProject>();
+            var proj = App.Container.Resolve<EngineProject>();
             if (proj == default)
             {
                 Message.Show("Project is not loaded!");

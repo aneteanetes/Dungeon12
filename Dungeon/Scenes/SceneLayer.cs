@@ -62,6 +62,7 @@ namespace Dungeon.Scenes
                 sceneObject.ShowInScene += ShowEffectsBinding;
                 sceneObject.Destroy += () => this.RemoveObject(sceneObject);
                 sceneObject.ShowInScene += this.ShowEffectsBinding;
+                sceneObject.Layer = this;
             }
             this.SceneObjects.Add(sceneObject);
 
@@ -103,6 +104,7 @@ namespace Dungeon.Scenes
         {
             if (!sceneObjectControls.Contains(sceneObjectControl))
             {
+                sceneObjectControl.Layer = this;
                 sceneObjectControls.Add(sceneObjectControl);
                 sceneObjectControl.Destroy += () => { RemoveControl(sceneObjectControl); };
             }

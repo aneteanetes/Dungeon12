@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dungeon.Engine.Projects
 {
-    public enum DungeonEngineProjectType
+    public enum ProjectType
     {
         PC = 0,
         Android = 1

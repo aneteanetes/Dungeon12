@@ -14,7 +14,7 @@ namespace Dungeon.Engine.Menus.Dlls
 
         public Action Click => () =>
         {
-            var proj = App.Container.Resolve<DungeonEngineProject>();
+            var proj = App.Container.Resolve<EngineProject>();
             new DllManagerForm(proj).Show();
         }; 
 

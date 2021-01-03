@@ -16,7 +16,7 @@
     <Window.Resources>
         <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="editable:DungeonEngineStructureObjectType"/>
+                <x:Type TypeName="editable:StructureObjectType"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
         <Style x:Key="TitleBarButtonStyle" TargetType="Button">
@@ -159,7 +159,7 @@
                 <ComboBox x:Name="SelectedObjectTypeView" ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
                           SelectedItem="{Binding Path=Project.Type}"/>            
             </Border>
-            <Button Margin="0 10 0 0" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0" Click="AddResProcess" >Добавить</Button>
+            <Button Margin="0 10 0 0" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0" Click="AddStruct" >Добавить</Button>
         </Grid>
     </DockPanel>
 </Window>

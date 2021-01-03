@@ -73,11 +73,11 @@ namespace Dungeon.Monogame
 
             var absolute = all
                 .Where(x => x.AbsolutePosition || isAbsoluteScene)
-                .OrderBy(x => x.Layer).ToArray();
+                .OrderBy(x => x.LayerLevel).ToArray();
 
             var offsetted = all
                 .Where(x => !isAbsoluteScene && !x.AbsolutePosition)
-                .OrderBy(x => x.Layer).ToArray();
+                .OrderBy(x => x.LayerLevel).ToArray();
 
             GraphicsDevice.SetRenderTarget(target);
             GraphicsDevice.Clear(Color.Transparent);
@@ -435,7 +435,7 @@ namespace Dungeon.Monogame
                     }
                 }
 
-                var childrens = sceneObject.Children.OrderBy(c => c.Layer).ToArray();
+                var childrens = sceneObject.Children.OrderBy(c => c.LayerLevel).ToArray();
 
                 for (int i = 0; i < childrens.Length; i++)
                 {

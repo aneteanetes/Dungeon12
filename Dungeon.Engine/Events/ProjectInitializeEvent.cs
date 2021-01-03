@@ -8,8 +8,8 @@ namespace Dungeon.Engine.Events
 {
     public class ProjectInitializeEvent : IEvent
     {
-        public DungeonEngineProject Project { get; set; }
+        public EngineProject Project { get; set; }
 
-        public ProjectInitializeEvent(DungeonEngineProject project) => Project = project;
+        public ProjectInitializeEvent(EngineProject project) => Project = project;
     }
 }

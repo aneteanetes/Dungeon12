@@ -14,7 +14,7 @@
 
     public class NPCDialogue : EmptyControlSceneObject
     {
-        public override int Layer => 50;
+        public override int LayerLevel => 50;
 
         public override bool AbsolutePosition => true;
 

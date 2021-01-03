@@ -17,7 +17,7 @@
 
         public override bool Interface => true;
 
-        public override int Layer { get; set; } = 20;
+        public override int LayerLevel { get; set; } = 20;
 
         private int maxFrames = 0;
         private int frames = 0;

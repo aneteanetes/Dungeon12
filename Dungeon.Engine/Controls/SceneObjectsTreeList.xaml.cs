@@ -1,4 +1,6 @@
-﻿using Dungeon.Engine.Events;
+﻿using Dungeon.Engine.Editable;
+using Dungeon.Engine.Editable.ObjectTreeList;
+using Dungeon.Engine.Events;
 using Dungeon.Engine.Forms;
 using Dungeon.Engine.Projects;
 using Force.DeepCloner;
@@ -19,10 +21,10 @@ namespace Dungeon.Engine.Controls
     public partial class SceneObjectsTreeList : UserControl
     {
 
-        private ObservableCollection<DungeonEngineSceneObject> items = new ObservableCollection<DungeonEngineSceneObject>();
+        private ObservableCollection<ObjectTreeListItem> items = new ObservableCollection<ObjectTreeListItem>();
 
         [Bindable(true)]
-        public ObservableCollection<DungeonEngineSceneObject> ItemsSource
+        public ObservableCollection<ObjectTreeListItem> ItemsSource
         {
             get => items;
             set
@@ -34,9 +36,9 @@ namespace Dungeon.Engine.Controls
 
         public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register(
         "ItemsSource",
-        typeof(ObservableCollection<DungeonEngineSceneObject>),
+        typeof(ObservableCollection<ObjectTreeListItem>),
         typeof(SceneObjectsTreeList),
-        new PropertyMetadata(default(ObservableCollection<DungeonEngineSceneObject>), PropertyChangedCallback));
+        new PropertyMetadata(default(ObservableCollection<ObjectTreeListItem>), PropertyChangedCallback));
 
         public static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -51,26 +53,13 @@ namespace Dungeon.Engine.Controls
             this.SceneObjectsView.ItemsSource = this.ItemsSource;
         }
 
-        private void AddSceneObject(object sender, System.Windows.RoutedEventArgs e)
-        {
-            new AddSceneObjectForm(Selected).Show();
-        }
+        public Action<object, RoutedEventArgs> AddObjectBinding;
 
-        private void CopySceneObject(object sender, System.Windows.RoutedEventArgs e)
+        private void AddObject(object sender, RoutedEventArgs e) => AddObjectBinding?.Invoke(sender, e);
+
+        private void CopyObject(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (Selected.Parent != default)
-            {
-                var cloned = Selected.Clone();
-                Selected.Parent.Nodes.Add(cloned);
-                DungeonGlobal.Events.Raise(new AddSceneObjectEvent(false) { SceneObject = cloned });
-            }
-            else
-            {
-                DungeonGlobal.Events.Raise(new AddSceneObjectEvent()
-                {
-                    SceneObject = Selected.Clone()
-                });
-            }
+            Selected.CopyInParent();
         }
 
         private void RemoveSceneObject(object sender, System.Windows.RoutedEventArgs e)
@@ -81,23 +70,25 @@ namespace Dungeon.Engine.Controls
             }
             else
             {
-                DungeonGlobal.Events.Raise(new RemoveSceneObjectFromSceneEvent(Selected));
+#warning raise RemoveSceneObjectFromSceneEvent
+                //DungeonGlobal.Events.Raise(new RemoveSceneObjectFromSceneEvent(Selected));
             }
         }
 
-        private DungeonEngineSceneObject Selected => TreeView.SelectedItem.As<DungeonEngineSceneObject>();
+        public ObjectTreeListItem Selected => TreeView.SelectedItem.As<ObjectTreeListItem>();
 
         private void SceneObjectsView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            _lastMouseDown = Mouse.GetPosition(SceneObjectsView);
-            DungeonGlobal.Events.Raise(new SceneObjectInObjectTreeSelectedEvent()
-            {
-                SceneObject = e.NewValue.As<DungeonEngineSceneObject>()
-            });
+#warning selecteditem sceneview BLAD BLAD BLAD
+            //_lastMouseDown = Mouse.GetPosition(SceneObjectsView);
+            //DungeonGlobal.Events.Raise(new SceneObjectInObjectTreeSelectedEvent()
+            //{
+            //    ObjectTreeListItem = e.NewValue.As<ObjectTreeListItem>()
+            //});
         }
 
         Point _lastMouseDown;
-        DungeonEngineSceneObject draggedItem, _target;
+        ObjectTreeListItem draggedItem, _target;
 
         private void SceneObjectsView_MouseMove(object sender, MouseEventArgs e)
         {
@@ -108,7 +99,7 @@ namespace Dungeon.Engine.Controls
                 if ((Math.Abs(currentPosition.X - _lastMouseDown.X) > 10.0) ||
                     (Math.Abs(currentPosition.Y - _lastMouseDown.Y) > 10.0))
                 {
-                    draggedItem = SceneObjectsView.SelectedItem.As<DungeonEngineSceneObject>();
+                    draggedItem = SceneObjectsView.SelectedItem.As<ObjectTreeListItem>();
                     if (draggedItem != null)
                     {
                         DragDropEffects finalDropEffect = DragDrop.DoDragDrop(SceneObjectsView, SceneObjectsView.SelectedValue,
@@ -194,7 +185,7 @@ namespace Dungeon.Engine.Controls
             }
         }
 
-        private DungeonEngineSceneObject GetNearestContainer(UIElement element)
+        private ObjectTreeListItem GetNearestContainer(UIElement element)
         {
             // Walk up the element tree to the nearest tree view item.
             TreeViewItem container = element as TreeViewItem;
@@ -205,7 +196,7 @@ namespace Dungeon.Engine.Controls
             }
             if (container != default)
             {
-                return container.DataContext.As<DungeonEngineSceneObject>();
+                return container.DataContext.As<ObjectTreeListItem>();
             }
             else
             {
@@ -213,7 +204,15 @@ namespace Dungeon.Engine.Controls
             }
         }
 
-        private void MoveItem(DungeonEngineSceneObject _sourceItem, DungeonEngineSceneObject _targetItem)
+        private void CallItemRemove(object sender, RoutedEventArgs e)
+        {
+            e.Source.As<FrameworkElement>()
+                ?.DataContext.As<ObjectTreeListItem>()
+                ?.Remove();
+        }
+
+
+        private void MoveItem(ObjectTreeListItem _sourceItem, ObjectTreeListItem _targetItem)
         {
             //adding dragged TreeViewItem in target TreeViewItem
             _targetItem.Nodes.Add(_sourceItem);

@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace Dungeon.Engine.Projects
 {
-    public class DungeonEngineSceneObject : SimplePropertyTable
+    public class SceneObject : SimplePropertyTable
     {
         public string ClassName { get; set; }
 
@@ -59,7 +59,7 @@ namespace Dungeon.Engine.Projects
         }
 
         [BsonIgnore]
-        public DungeonEngineSceneObject Parent { get; set; }
+        public SceneObject Parent { get; set; }
 
         public void Load()
         {
@@ -70,7 +70,7 @@ namespace Dungeon.Engine.Projects
             }
         }
 
-        public ObservableCollection<DungeonEngineSceneObject> Nodes { get; set; } = new ObservableCollection<DungeonEngineSceneObject>();
+        public ObservableCollection<SceneObject> Nodes { get; set; } = new ObservableCollection<SceneObject>();
 
         protected override List<PropertyTableRow> InitializePropertyTable()
         {
@@ -100,9 +100,9 @@ namespace Dungeon.Engine.Projects
             return bodyProps;
         }
 
-        public DungeonEngineSceneObject Clone()
+        public new SceneObject Clone()
         {
-            var obj = new DungeonEngineSceneObject()
+            var obj = new SceneObject()
             {
                 Name = Name,
                 ClassName = ClassName,
@@ -123,6 +123,11 @@ namespace Dungeon.Engine.Projects
             }
 
             return obj;
+        }
+
+        public void RemoveFromHost()
+        {
+
         }
     }
 }

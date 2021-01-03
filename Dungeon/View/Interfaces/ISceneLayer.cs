@@ -15,5 +15,10 @@
         double Top { get; }
 
         bool Destroyed { get; }
+
+        void AddObject(ISceneObject sceneObject);
+
+        void RemoveObject(ISceneObject sceneObject);
+
     }
 }

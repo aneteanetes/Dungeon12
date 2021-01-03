@@ -9,9 +9,9 @@ namespace Dungeon.Engine.Forms
     /// </summary>
     public partial class DllManagerForm : Window
     {
-        public DungeonEngineProject Project { get; set; }
+        public EngineProject Project { get; set; }
 
-        public DllManagerForm(DungeonEngineProject project)
+        public DllManagerForm(EngineProject project)
         {
             this.Project = project;
             InitializeComponent();
@@ -20,7 +20,7 @@ namespace Dungeon.Engine.Forms
 
         private void RemoveDllReference(object sender, RoutedEventArgs e)
         {
-            Project.References.Remove(RefListView.SelectedItem.As<DungeonEngineReference>());
+            Project.References.Remove(RefListView.SelectedItem.As<Reference>());
             RefListView.ItemsSource = Project.References;
         }
 

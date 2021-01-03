@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dungeon.Engine.Editable.TileMap
 {
-    public class DungeonEngineTilemapLayer : IGameComponent
+    public class TilemapLayer : IGameComponent
     {
         public string Name { get; set; }
 
@@ -14,7 +14,7 @@ namespace Dungeon.Engine.Editable.TileMap
         public bool PlayerLevel { get; set; }
 
         [Hidden]
-        public List<DungeonEngineTilemapTile> Tiles { get; set; } = new List<DungeonEngineTilemapTile>();
+        public List<TilemapTile> Tiles { get; set; } = new List<TilemapTile>();
 
         [Hidden]
         public byte[] Batched { get; set; }

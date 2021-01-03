@@ -1,5 +1,6 @@
 ﻿using Dungeon.Data;
 using Dungeon.Engine.Editable;
+using Dungeon.Engine.Editable.Structures;
 using Dungeon.Engine.Editable.TileMap;
 using Dungeon.Engine.Engine;
 using Dungeon.Resources;
@@ -14,23 +15,23 @@ using System.Windows.Controls;
 
 namespace Dungeon.Engine.Projects
 {
-    public class DungeonEngineProject : Persist
+    public class EngineProject : Persist
     {
         public string Name { get; set; }
 
         public string Path { get; set; }
 
-        public DungeonEngineProjectType Type { get; set; }
+        public ProjectType Type { get; set; }
 
-        public List<DungeonEngineReference> References { get; set; }
+        public List<Reference> References { get; set; }
 
-        public ObservableCollection<DungeonEngineScene> Scenes { get; set; } = new ObservableCollection<DungeonEngineScene>();
+        public ObservableCollection<Scene> Scenes { get; set; } = new ObservableCollection<Scene>();
 
-        public ObservableCollection<DungeonEngineTilemap> Maps { get; set; } = new ObservableCollection<DungeonEngineTilemap>();
+        public ObservableCollection<Tilemap> Maps { get; set; } = new ObservableCollection<Tilemap>();
 
-        public ObservableCollection<DungeonEngineResourcesGraph> Resources { get; set; }
+        public ObservableCollection<ResourcesGraph> Resources { get; set; }
 
-        public DungeonEngineProjectSettings CompileSettings { get; set; } = new DungeonEngineProjectSettings();
+        public ProjectSettings CompileSettings { get; set; } = new ProjectSettings();
 
         public bool DataBaseExists => File.Exists(DbFilePath);
 
@@ -39,7 +40,7 @@ namespace Dungeon.Engine.Projects
         public void Save()
         {
             using var db = new LiteDatabase(DbFilePath);
-            var updated = db.GetCollection<DungeonEngineProject>().Update(new BsonValue(this.Id),this);
+            var updated = db.GetCollection<EngineProject>().Update(new BsonValue(this.Id),this);
         }
 
         public void Load()
@@ -51,11 +52,11 @@ namespace Dungeon.Engine.Projects
 
             if (References == default)
             {
-                References = new List<DungeonEngineReference>
+                References = new List<Reference>
                 {
-                    new DungeonEngineReference()
+                    new Reference()
                     {
-                        Kind = DungeonEngineReferenceKind.Embedded,
+                        Kind = ReferenceKind.Embedded,
                         Title = "Dungeon",
                         Path = "Embedded"
                     }
@@ -64,22 +65,26 @@ namespace Dungeon.Engine.Projects
 
             foreach (var refasm in References)
             {
-                if (refasm.Kind != DungeonEngineReferenceKind.Embedded)
+                if (refasm.Kind != ReferenceKind.Embedded)
                 {
                     ResourceLoader.LoadAssemblyUnloadable(refasm.Path);
                     if (!string.IsNullOrWhiteSpace(refasm.DbPath))
                     {
-                        ResourceLoader.ResourceDatabaseResolvers.Add(new DungeonEngineResourceDatabaseResolver(refasm.DbPath));
+                        ResourceLoader.ResourceDatabaseResolvers.Add(new EngineResourceDatabaseResolver(refasm.DbPath));
                     }
                 }
             }
 
             foreach (var scene in Scenes)
             {
-                foreach (var obj in scene.SceneObjects)
+                scene.Load();
+                foreach (var layer in scene.StructObjects)
                 {
-                    obj.Load();
-                    obj.InitTable();
+                    if (layer is StructureSceneObject structSceneObj)
+                    {
+                        structSceneObj?.SceneObject?.Load();
+                        structSceneObj?.SceneObject?.InitTable();
+                    }
                 }
             }
         }

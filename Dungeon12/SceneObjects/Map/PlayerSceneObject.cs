@@ -46,7 +46,7 @@
             }
         }
 
-        public override int Layer => 1;
+        public override int LayerLevel => 1;
 
         protected override ControlEventType[] Handles => new ControlEventType[]
         {

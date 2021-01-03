@@ -15,14 +15,14 @@ namespace Dungeon.Engine.Forms
     /// </summary>
     public partial class AddProjRefForm : Window
     {
-        public DungeonEngineProject Project { get; set; }
+        public EngineProject Project { get; set; }
 
-        public DungeonEngineReference Reference { get; set; } = new DungeonEngineReference()
+        public Reference Reference { get; set; } = new Reference()
         {
-            Kind = DungeonEngineReferenceKind.Loadable
+            Kind = ReferenceKind.Loadable
         };
 
-        public AddProjRefForm(DungeonEngineProject proj)
+        public AddProjRefForm(EngineProject proj)
         {
             Project = proj;
             InitializeComponent();
@@ -72,7 +72,7 @@ namespace Dungeon.Engine.Forms
 
                 Project.References.Add(Reference);
                 ResourceLoader.LoadAssemblyUnloadable(Reference.Path);
-                ResourceLoader.ResourceDatabaseResolvers.Add(new DungeonEngineResourceDatabaseResolver(Reference.DbPath));
+                ResourceLoader.ResourceDatabaseResolvers.Add(new EngineResourceDatabaseResolver(Reference.DbPath));
 
                 DungeonGlobal.Events.Raise(new AddProjRefEvent(Reference));
             }

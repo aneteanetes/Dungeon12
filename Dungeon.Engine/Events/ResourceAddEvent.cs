@@ -7,9 +7,9 @@ namespace Dungeon.Engine.Events
     {
         public string ResourceFilePath { get; set; }
 
-        public DungeonEngineResourcesGraph ParentResource { get; set; }
+        public ResourcesGraph ParentResource { get; set; }
 
-        public ResourceAddEvent(string res, DungeonEngineResourcesGraph parent)
+        public ResourceAddEvent(string res, ResourcesGraph parent)
         {
             ResourceFilePath = res;
             ParentResource = parent;

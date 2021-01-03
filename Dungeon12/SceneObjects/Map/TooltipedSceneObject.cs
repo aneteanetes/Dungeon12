@@ -66,7 +66,7 @@
                 aliveTooltip = ProvideTooltip(tooltipPosition) ?? new Tooltip(TooltipDrawText, tooltipPosition);
                 aliveTooltip.CacheAvailable = false;
                 aliveTooltip.AbsolutePosition = this.AbsolutePosition;
-                aliveTooltip.Layer = 100;
+                aliveTooltip.LayerLevel = 100;
 
                 this.Destroy += () => aliveTooltip?.Destroy?.Invoke();
                 this.ShowInScene(new List<ISceneObject>() { aliveTooltip });

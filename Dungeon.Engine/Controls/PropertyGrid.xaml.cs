@@ -24,6 +24,36 @@ namespace Dungeon.Engine.Controls
             InitializeComponent();
         }
 
+        public string Filter
+        {
+            get { return (string)GetValue(FilterProperty); }
+            set { SetValue(FilterProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Filter.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FilterProperty =
+            DependencyProperty.Register("Filter", typeof(string), typeof(PropertyGrid), new PropertyMetadata(null));
+
+        public string FilterExclude
+        {
+            get { return (string)GetValue(FilterExcludeProperty); }
+            set { SetValue(FilterExcludeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FilterExclude.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FilterExcludeProperty =
+            DependencyProperty.Register("FilterExclude", typeof(string), typeof(PropertyGrid), new PropertyMetadata(null));
+
+        public string FilterInclude
+        {
+            get { return (string)GetValue(FilterIncludeProperty); }
+            set { SetValue(FilterIncludeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FilterInclude.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FilterIncludeProperty =
+            DependencyProperty.Register("FilterInclude", typeof(string), typeof(PropertyGrid), new PropertyMetadata(null));
+
         public void Init(Action<string> report)
         {
             Report = report;

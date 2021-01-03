@@ -52,7 +52,7 @@ namespace Dungeon.Engine.Host
             spriteBatch = new SpriteBatchKnowed(GraphicsDevice);
             DungeonGlobal.TransportVariable = GraphicsDevice;
 
-            var cellSize = App.Container.Resolve<DungeonEngineProject>()?.CompileSettings.CellSize ?? 32;
+            var cellSize = App.Container.Resolve<EngineProject>()?.CompileSettings.CellSize ?? 32;
 
             XNADrawClientImplementation = new XNADrawClientImplementation(GraphicsDevice, default, spriteBatch, cellSize, default, _content, Camera,new SpriteBatchRenderer
             {

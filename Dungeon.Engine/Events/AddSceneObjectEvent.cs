@@ -5,7 +5,7 @@ namespace Dungeon.Engine.Events
 {
     public class AddSceneObjectEvent : IEvent
     {
-        public DungeonEngineSceneObject SceneObject { get; set; }
+        public SceneObject SceneObject { get; set; }
 
         public bool Root { get; set; }
 

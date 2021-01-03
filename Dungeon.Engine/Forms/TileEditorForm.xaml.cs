@@ -17,17 +17,17 @@ namespace Dungeon.Engine.Forms
 {
     public partial class TileEditorForm : Window
     {
-        private DungeonEngineProject Project;
+        private EngineProject Project;
         private SceneManager SceneManager;
 
-        public TileEditorForm(DungeonEngineProject dungeonEngineProject)
+        public TileEditorForm(EngineProject dungeonEngineProject)
         {
             Project = dungeonEngineProject;
 
             InitializeComponent();
 
             this.MapCollection.CollectionName.Content = "Карты";
-            this.MapCollection.Init<DungeonEngineTilemap>(new EngineCollectionEditorSettings<DungeonEngineTilemap>(Project.Maps, OnMapSelect, OnMapRemove, OnMapAdd, "Карты"));
+            this.MapCollection.Init<Tilemap>(new EngineCollectionEditorSettings<Tilemap>(Project.Maps, OnMapSelect, OnMapRemove, OnMapAdd, "Карты"));
             this.LayerCollection.CollectionName.Content = "Слои";
             this.ImageCollection.CollectionName.Content = "Тайлсеты";
 
@@ -108,7 +108,7 @@ namespace Dungeon.Engine.Forms
 
                 if (!clearing && tilePos != default)
                 {
-                    var tile = new DungeonEngineTilemapTile()
+                    var tile = new TilemapTile()
                     {
                         SourceImage = SelectedSourceImage.Name,
                         OffsetX = offsetX,
@@ -155,7 +155,7 @@ namespace Dungeon.Engine.Forms
                 {
                     if (ImageCollection.Selected != default)
                     {
-                        TiledMapImageCells.Source = ToImage(ImageCollection.Selected.As<DungeonEngineTilemapSourceImage>().GetData(SelectedTiliemap.CellSize));
+                        TiledMapImageCells.Source = ToImage(ImageCollection.Selected.As<TilemapSourceImage>().GetData(SelectedTiliemap.CellSize));
                     }
                 }
             }
@@ -174,19 +174,19 @@ namespace Dungeon.Engine.Forms
             this.ImageCollection.CollectionView.Items.Refresh();
         }
 
-        private void OnMapSelect(DungeonEngineTilemap map)
+        private void OnMapSelect(Tilemap map)
         {
             XnaHost.Width = map.Width;
             XnaHost.Height = map.Height;
             cellSize = map.CellSize;
             PropGrid.FillPropGrid(new Events.PropGridFillEvent(map));
             ResetScene();
-            this.LayerCollection.Init<DungeonEngineTilemapLayer>(new EngineCollectionEditorSettings<DungeonEngineTilemapLayer>(map.Layers, OnLayerSelect, OnLayerRemove, OnLayerAdd));
-            this.ImageCollection.Init<DungeonEngineTilemapSourceImage>(new EngineCollectionEditorSettings<DungeonEngineTilemapSourceImage>(map.Sources, OnImageSourceSelect, add: OnImageSourceAdd));
+            this.LayerCollection.Init<Editable.TileMap.TilemapLayer>(new EngineCollectionEditorSettings<Editable.TileMap.TilemapLayer>(map.Layers, this.OnLayerSelect, this.OnLayerRemove, this.OnLayerAdd));
+            this.ImageCollection.Init<TilemapSourceImage>(new EngineCollectionEditorSettings<TilemapSourceImage>(map.Sources, OnImageSourceSelect, add: OnImageSourceAdd));
             PublishLayers(map);
         }
 
-        private void PublishLayers(DungeonEngineTilemap map)
+        private void PublishLayers(Tilemap map)
         {
             foreach (var layer in map.Layers)
             {
@@ -202,25 +202,25 @@ namespace Dungeon.Engine.Forms
             }
         }
 
-        private void OnMapRemove(DungeonEngineTilemap map)
+        private void OnMapRemove(Tilemap map)
         {
             Project.Maps.Remove(map);
         }
 
-        private void OnMapAdd(DungeonEngineTilemap map)
+        private void OnMapAdd(Tilemap map)
         {
-            map = new DungeonEngineTilemap();
+            map = new Tilemap();
             Project.Maps.Add(map);
             OnMapSelect(map);
         }
 
-        private DungeonEngineTilemap SelectedTiliemap => MapCollection.Selected.As<DungeonEngineTilemap>();
+        private Tilemap SelectedTiliemap => MapCollection.Selected.As<Tilemap>();
 
-        private DungeonEngineTilemapLayer SelectedLayer => LayerCollection.Selected.As<DungeonEngineTilemapLayer>();
+        private Editable.TileMap.TilemapLayer SelectedLayer => LayerCollection.Selected.As<Editable.TileMap.TilemapLayer>();
 
-        private DungeonEngineTilemapSourceImage SelectedSourceImage => ImageCollection.Selected.As<DungeonEngineTilemapSourceImage>();
+        private TilemapSourceImage SelectedSourceImage => ImageCollection.Selected.As<TilemapSourceImage>();
 
-        private void OnImageSourceSelect(DungeonEngineTilemapSourceImage source)
+        private void OnImageSourceSelect(TilemapSourceImage source)
         {
             TiledMapImageCells.Source = ToImage(source.GetData(SelectedTiliemap.CellSize));
         }
@@ -236,17 +236,17 @@ namespace Dungeon.Engine.Forms
             return image;
         }
 
-        private void OnImageSourceAdd(DungeonEngineTilemapSourceImage source)
+        private void OnImageSourceAdd(TilemapSourceImage source)
         {
             var input = new AddNamedForm("Добавить тайлсет", true);
             input.ShowDialog();
             if (!string.IsNullOrWhiteSpace(input.Text))
             {
-                SelectedTiliemap.Sources.Add(new DungeonEngineTilemapSourceImage() { Name = input.Text });
+                SelectedTiliemap.Sources.Add(new TilemapSourceImage() { Name = input.Text });
             }
         }
 
-        private void OnLayerSelect(DungeonEngineTilemapLayer layer)
+        private void OnLayerSelect(Editable.TileMap.TilemapLayer layer)
         {
             DisableBorderModeOnPreviouslyLayer?.Invoke();
             PropGrid.FillPropGrid(new Events.PropGridFillEvent(layer));
@@ -257,14 +257,14 @@ namespace Dungeon.Engine.Forms
             }
         }
 
-        private void OnLayerAdd(DungeonEngineTilemapLayer layer)
+        private void OnLayerAdd(Editable.TileMap.TilemapLayer layer)
         {
-            layer = new DungeonEngineTilemapLayer();
+            layer = new Editable.TileMap.TilemapLayer();
             SelectedTiliemap.Layers.Add(layer);
             OnLayerSelect(layer);
         }
 
-        private void OnLayerRemove(DungeonEngineTilemapLayer layer)
+        private void OnLayerRemove(Editable.TileMap.TilemapLayer layer)
         {
             SelectedTiliemap.Layers.Remove(layer);
             layer.SceneObject?.Destroy?.Invoke();
@@ -318,7 +318,7 @@ namespace Dungeon.Engine.Forms
                 {
                     var pos = Mouse.GetPosition(TiledMapImageCells);
                     this.tilePos = new Point(Math.Floor(pos.X / 32), Math.Floor(pos.Y / 32));
-                    TilePeviewImage.Source = new CroppedBitmap(new BitmapImage(new Uri(ImageCollection.Selected.As<DungeonEngineTilemapSourceImage>().Name)),
+                    TilePeviewImage.Source = new CroppedBitmap(new BitmapImage(new Uri(ImageCollection.Selected.As<TilemapSourceImage>().Name)),
                         new Int32Rect((int)this.tilePos.X * cellSize, (int)this.tilePos.Y * cellSize, SelectedTiliemap.CellSize, SelectedTiliemap.CellSize));
                     TilePreview.Visibility = Visibility.Visible;
                 }
@@ -338,11 +338,11 @@ namespace Dungeon.Engine.Forms
             ShowCells = !ShowCells;
         }
 
-        private class TilemapCell : SceneObject<DungeonEngineTilemapTile>
+        private class TilemapCell : SceneObject<TilemapTile>
         {
-            private DungeonEngineTilemapLayer layer;
+            private Editable.TileMap.TilemapLayer layer;
 
-            public TilemapCell(DungeonEngineTilemapTile component, int fieldCellSize, DungeonEngineTilemapLayer layer) : base(component, false)
+            public TilemapCell(TilemapTile component, int fieldCellSize, Editable.TileMap.TilemapLayer layer) : base(component, false)
             {
                 this.layer = layer;
 
@@ -387,12 +387,12 @@ namespace Dungeon.Engine.Forms
                 });
             }
 
-            private class BorderInfo : ControlSceneObject<DungeonEngineTilemapTile>
+            private class BorderInfo : ControlSceneObject<TilemapTile>
             {
                 private DungeonEgineTilemapTileBoundsType boundsType;
-                private DungeonEngineTilemapLayer layer;
+                private Editable.TileMap.TilemapLayer layer;
 
-                public BorderInfo(DungeonEngineTilemapTile tile, DungeonEgineTilemapTileBoundsType boundsType, DungeonEngineTilemapLayer layer) : base(tile, false)
+                public BorderInfo(TilemapTile tile, DungeonEgineTilemapTileBoundsType boundsType, Editable.TileMap.TilemapLayer layer) : base(tile, false)
                 {
                     this.layer = layer;
                     this.boundsType = boundsType;
@@ -426,15 +426,15 @@ namespace Dungeon.Engine.Forms
             }
         }
 
-        private class TilemapLayer : SceneObject<DungeonEngineTilemapLayer>
+        private class TilemapLayer : SceneObject<Editable.TileMap.TilemapLayer>
         {
-            private readonly DungeonEngineTilemap map;
+            private readonly Tilemap map;
 
             public override bool IsBatch => true;
 
             public override bool CacheAvailable => false;
 
-            public TilemapLayer(DungeonEngineTilemapLayer component, DungeonEngineTilemap map) : base(component, true)
+            public TilemapLayer(Editable.TileMap.TilemapLayer component, Tilemap map) : base(component, true)
             {
                 this.map = map;
             }

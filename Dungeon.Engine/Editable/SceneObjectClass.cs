@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace Dungeon.Engine.Projects
 {
-    public class DungeonEngineSceneObjectClass
+    public class SceneObjectClass
     {
         public string Name { get; set; }
 

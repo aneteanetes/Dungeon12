@@ -16,7 +16,7 @@
     <Window.Resources>
         <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="projects:DungeonEngineProjectType"/>
+                <x:Type TypeName="projects:ProjectType"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
         <Style x:Key="TitleBarButtonStyle" TargetType="Button">

@@ -14,9 +14,9 @@ namespace Dungeon.Engine.Forms
     {
         string resPath;
 
-        private DungeonEngineResourcesGraph ParentRes { get; set; } 
+        private ResourcesGraph ParentRes { get; set; } 
 
-        public AddResourceForm(DungeonEngineResourcesGraph parent)
+        public AddResourceForm(ResourcesGraph parent)
         {
             ParentRes = parent;
             InitializeComponent();

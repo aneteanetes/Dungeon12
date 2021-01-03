@@ -3,7 +3,7 @@ using Dungeon.View.Interfaces;
 
 namespace Dungeon.Engine.Editable.TileMap
 {
-    public class DungeonEngineTilemapTile : IGameComponent
+    public class TilemapTile : IGameComponent
     {
         [Hidden]
         public string SourceImage { get; set; }
@@ -21,9 +21,9 @@ namespace Dungeon.Engine.Editable.TileMap
         public int OffsetY { get; set; }
 
         [Hidden]
-        public DungeonEngineTilemapTileBounds Bounds { get; set; } = new DungeonEngineTilemapTileBounds();
+        public TilemapTileBounds Bounds { get; set; } = new TilemapTileBounds();
 
-        public DungeonEngineMapObject Object { get; set; }
+        public MapObject Object { get; set; }
 
         [Hidden]
         public ISceneObject SceneObject { get; set; }

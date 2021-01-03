@@ -166,7 +166,7 @@
             }
 
             //Если мы переключаем сцену, а она в это время фризит мир - надо освободить мир
-            if (Current.Freezer != null)
+            if (Current?.Freezer != null)
             {
                 DungeonGlobal.Freezer.World = null;
             }

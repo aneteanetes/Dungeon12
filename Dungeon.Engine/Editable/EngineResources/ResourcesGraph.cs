@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Dungeon.Engine.Projects
 {
-    public class DungeonEngineResourcesGraph
+    public class ResourcesGraph
     {
         public string Display
         {
@@ -42,14 +42,14 @@ namespace Dungeon.Engine.Projects
             return Parent.GetFullPath() + "." + Name;
         }
 
-        public DungeonEngineResourceType Type { get; set; }
+        public ResourceType Type { get; set; }
 
         [BsonIgnore]
-        public DungeonEngineResourcesGraph Parent { get; set; }
+        public ResourcesGraph Parent { get; set; }
 
         public void Load()
         {
-            if (this.Type != DungeonEngineResourceType.Folder && this.Display != "Resources")
+            if (this.Type != ResourceType.Folder && this.Display != "Resources")
                 return;
 
             foreach (var node in Nodes)
@@ -59,6 +59,6 @@ namespace Dungeon.Engine.Projects
             }
         }
 
-        public ObservableCollection<DungeonEngineResourcesGraph> Nodes { get; set; } = new ObservableCollection<DungeonEngineResourcesGraph>();
+        public ObservableCollection<ResourcesGraph> Nodes { get; set; } = new ObservableCollection<ResourcesGraph>();
     }
 }

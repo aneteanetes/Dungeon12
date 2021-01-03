@@ -5,8 +5,8 @@ namespace Dungeon.Engine.Events
 {
     public class AddProjRefEvent : IEvent
     {
-        public DungeonEngineReference Reference { get; set; }
+        public Reference Reference { get; set; }
 
-        public AddProjRefEvent(DungeonEngineReference @ref) => Reference = @ref;
+        public AddProjRefEvent(Reference @ref) => Reference = @ref;
     }
 }

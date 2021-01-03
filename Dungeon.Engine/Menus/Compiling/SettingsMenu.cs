@@ -14,7 +14,7 @@ namespace Dungeon.Engine.Menus.File
 
         public Action Click => () =>
         {
-            var proj = App.Container.Resolve<DungeonEngineProject>();
+            var proj = App.Container.Resolve<EngineProject>();
             if (proj == default)
             {
                 Message.Show("Project is not loaded!");
@@ -23,7 +23,7 @@ namespace Dungeon.Engine.Menus.File
 
             if (proj.CompileSettings == default)
             {
-                proj.CompileSettings = new DungeonEngineProjectSettings();
+                proj.CompileSettings = new ProjectSettings();
             }
 
             DungeonGlobal.Events.Raise(new PropGridFillEvent(proj.CompileSettings));

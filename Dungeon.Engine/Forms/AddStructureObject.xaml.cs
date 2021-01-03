@@ -1,4 +1,6 @@
 ﻿using Dungeon.Engine.Editable;
+using Dungeon.Engine.Editable.ObjectTreeList;
+using Dungeon.Engine.Editable.Structures;
 using Dungeon.Engine.Events;
 using System.Windows;
 
@@ -6,9 +8,9 @@ namespace Dungeon.Engine.Forms
 {
     public partial class AddSctructureObject : Window
     {
-        public DungeonEngineStructureObject ParentStruct { get; set; }
+        public ObjectTreeListItem ParentStruct { get; set; }
 
-        public AddSctructureObject(DungeonEngineStructureObject parent)
+        public AddSctructureObject(ObjectTreeListItem parent)
         {
             ParentStruct = parent;
             InitializeComponent();
@@ -20,30 +22,47 @@ namespace Dungeon.Engine.Forms
             this.Close();
         }
 
-        private void AddResProcess(object sender, RoutedEventArgs e)
+        private void AddStruct(object sender, RoutedEventArgs e)
         {
-            if (SelectedObjectTypeView.SelectedItem is DungeonEngineStructureObjectType selectedType)
+            if (SelectedObjectTypeView.SelectedItem is StructureObjectType selectedType)
             {
-                var newStruct = new DungeonEngineStructureObject
-                {
-                    Name = SceneObjectNameView.Text,
-                    StructureType = selectedType
-                };
+                StructureObject newStruct = default;
 
+                switch (selectedType)
+                {
+                    case StructureObjectType.Layer:
+                        newStruct = new StructureLayer();
+                        break;
+                    case StructureObjectType.Object:
+                        newStruct = new StructureSceneObject();
+                        break;
+                    case StructureObjectType.TileMap:
+                        newStruct = new StructureTilemap();
+                        break;
+                    default:
+                        break;
+                }
+
+                newStruct.SetPropertyExpr(nameof(StructureObject.Name), SceneObjectNameView.Text);
 
                 if (ParentStruct != default)
                 {
-                    if (!ParentStruct.StructureType.CanContains(selectedType))
+                    var parent = ParentStruct.As<StructureObject>();
+                    if (!parent.StructureType.CanContains(selectedType))
                     {
-                        Message.Show($"{ParentStruct.StructureType} can't contains {selectedType}!");
+                        Message.Show($"{parent.StructureType} can't contains {selectedType}!");
                         return;
                     }
 
                     newStruct.Parent = ParentStruct;
+                    ParentStruct.Nodes.Add(newStruct);
+                    this.Close();
+                    return;
                 }
                 else if (!selectedType.CanInRoot())
                 {
                     Message.Show($"{selectedType} can't be root structure! Put it in layer");
+                    return;
                 }
 
                 DungeonGlobal.Events.Raise(new AddStructObjectEvent(newStruct));

@@ -1,14 +1,16 @@
 ﻿using Dungeon.Data;
 using Dungeon.Engine.Editable;
+using Dungeon.Engine.Editable.ObjectTreeList;
 using Dungeon.Engine.Events;
 using Dungeon.Utils;
 using LiteDB;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Dungeon.Engine.Projects
 {
-    public class DungeonEngineScene : Persist, IEditable
+    public class Scene : Persist, IEditable
     {
         public string Name { get; set; }
 
@@ -16,7 +18,7 @@ namespace Dungeon.Engine.Projects
         public string Text => Name;
 
         [Hidden]
-        public ObservableCollection<DungeonEngineSceneObject> SceneObjects { get; set; } = new ObservableCollection<DungeonEngineSceneObject>();
+        public ObservableCollection<ObjectTreeListItem> StructObjects { get; set; } = new ObservableCollection<ObjectTreeListItem>();
 
         public bool StartScene { get; set; }
 
@@ -29,6 +31,23 @@ namespace Dungeon.Engine.Projects
         public void Commit()
         {
             DungeonGlobal.Events.Raise(new SceneResolutionChangedEvent(this.Width, this.Height));
+        }
+
+        public void Load()
+        {
+            foreach (var @struct in StructObjects)
+            {
+                RecursiveLoad(@struct);
+            }
+        }
+
+        private void RecursiveLoad(ObjectTreeListItem obj)
+        {
+            foreach (var child in obj.Nodes)
+            {
+                child.Parent = obj;
+                RecursiveLoad(child);
+            }
         }
     }
 }
