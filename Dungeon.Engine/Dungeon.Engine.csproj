@@ -73,7 +73,7 @@
     <Compile Update="Controls\EngineCollectionEditor.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Forms\AddSelectObject.xaml.cs">
+    <Compile Update="Forms\AddStructureObject.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Forms\Message.xaml.cs">
@@ -100,7 +100,7 @@
     <Page Update="Controls\EngineCollectionEditor.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Forms\AddSelectObject.xaml">
+    <Page Update="Forms\AddStructureObject.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

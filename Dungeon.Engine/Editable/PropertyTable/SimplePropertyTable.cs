@@ -1,4 +1,5 @@
-﻿using Dungeon.Types;
+﻿using Dungeon.Engine.Editable.ObjectTreeList;
+using Dungeon.Types;
 using LiteDB;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace Dungeon.Engine.Editable.PropertyTable
 {
-    public abstract class SimplePropertyTable : IPropertyTable
+    public abstract class SimplePropertyTable : ObjectTreeListItem, IPropertyTable
     {
         public List<PropertyTableRow> PropertyTable { get; set; } = new List<PropertyTableRow>();
 

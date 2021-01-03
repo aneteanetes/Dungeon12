@@ -14,11 +14,10 @@ namespace Dungeon.Engine.Projects
 {
     public class DungeonEngineSceneObject : SimplePropertyTable
     {
-        public string Name { get; set; }
-
         public string ClassName { get; set; }
 
         public bool Published { get; set; }
+             
 
         [BsonIgnore]
         private Type _classType;
@@ -117,9 +116,9 @@ namespace Dungeon.Engine.Projects
                 var row = this.PropertyTable[i];
                 obj.PropertyTable[i] = new PropertyTableRow()
                 {
-                    Name= row.Name,
+                    Name = row.Name,
                     TypeName = row.TypeName,
-                    Value=row.Value
+                    Value = row.Value
                 };
             }
 

@@ -184,7 +184,8 @@ namespace Dungeon.Engine
 
                 SelectedScene = default;
                 ObjectsView.ItemsSource = default;
-                AddObjectBtn.IsEnabled = RemoveObjectBtn.IsEnabled = false;
+#warning diabling btns
+                //AddObjectBtn.IsEnabled = RemoveObjectBtn.IsEnabled = false;
 
                 Project = default;
                 PropGrid.Clear();
@@ -295,7 +296,7 @@ namespace Dungeon.Engine
 
         private void AddLayer(object sender, RoutedEventArgs e)
         {
-            //
+            new AddSctructureObject(default).ShowDialog();
         }
 
         private void RemoveObject(object sender, RoutedEventArgs e)
@@ -340,7 +341,8 @@ namespace Dungeon.Engine
 
                 return;
             }
-            AddObjectBtn.IsEnabled = RemoveObjectBtn.IsEnabled = false;
+#warning diabling btns
+            //AddObjectBtn.IsEnabled = RemoveObjectBtn.IsEnabled = false;
 
         }
 
@@ -451,7 +453,8 @@ namespace Dungeon.Engine
             XnaHost.Width = SelectedScene.Width;
             XnaHost.Height = SelectedScene.Height;
             SceneResolution.Content = $"{XnaHost.Width}x{XnaHost.Height}";
-            AddObjectBtn.IsEnabled = RemoveObjectBtn.IsEnabled = true;
+#warning diabling btns
+            //AddObjectBtn.IsEnabled = RemoveObjectBtn.IsEnabled = true;
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

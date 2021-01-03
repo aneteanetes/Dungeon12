@@ -135,8 +135,7 @@
                             <Rectangle x:Name="HorLn" Margin="-12,1,5,0" Height="1" Stroke="#DCDCDC" SnapsToDevicePixels="True"/>
                             <Rectangle x:Name="VerLn" Width="1" Stroke="#DCDCDC" Margin="0,17,1,0" Grid.RowSpan="2" SnapsToDevicePixels="true" Fill="White"/>
 
-                            <ToggleButton x:Name="Expander" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ExpandCollapseToggleStyle}"/>
-                            <Image x:Name="ItemInside" Source="pack://siteoforigin:,,,/Icons/FrameSelect_16x.png" />
+                            <ToggleButton x:Name="Expander" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ExpandCollapseToggleStyle}"/>                            
                             <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="Gray" Grid.Column="1" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" HorizontalAlignment="Stretch">
                                 <Grid>                                    
                                     <ContentPresenter  x:Name="PART_Header" ContentSource="Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
@@ -146,9 +145,6 @@
                             <ItemsPresenter x:Name="ItemsHost" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1"/>
                         </Grid>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="HasItems" Value="True">
-                                <Setter Property="Visibility" TargetName="ItemInside" Value="Hidden"/>
-                            </Trigger>
                             <Trigger Property="IsExpanded" Value="false">
                                 <Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed"/>
                             </Trigger>
@@ -181,7 +177,10 @@
                   x:Name="SceneObjectsView" SelectedItemChanged="SceneObjectsView_SelectedItemChanged" ItemsSource="{Binding Path=ItemSource}" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Foreground="WhiteSmoke" BorderBrush="Gray" Style="{DynamicResource TreeViewStyle1}">            
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Nodes}">
-                    <TextBlock AllowDrop="True" Text="{Binding Name}"/>
+                    <Grid>
+                        <Image HorizontalAlignment="Left" Margin="-20 0 0 0" Source="{Binding Image}" />
+                        <TextBlock AllowDrop="True" Text="{Binding Name}"/>
+                    </Grid>                    
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
