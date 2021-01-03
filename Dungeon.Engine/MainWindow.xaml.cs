@@ -1,6 +1,4 @@
-﻿using Dungeon.Engine.Editable;
-using Dungeon.Engine.Editable.ObjectTreeList;
-using Dungeon.Engine.Editable.PropertyTable;
+﻿using Dungeon.Engine.Editable.ObjectTreeList;
 using Dungeon.Engine.Editable.Structures;
 using Dungeon.Engine.Engine;
 using Dungeon.Engine.Events;
@@ -11,15 +9,12 @@ using Dungeon.Engine.Projects;
 using Dungeon.Resources;
 using Dungeon.Scenes.Manager;
 using Dungeon.Types;
-using Dungeon.Utils;
-using Dungeon.Utils.ReflectionExtensions;
 using Dungeon.View.Interfaces;
 using LiteDB;
 using MoreLinq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -549,22 +544,7 @@ namespace Dungeon.Engine
 
         private void AddedNewResourceEvent(ResourceAddEvent @event)
         {
-            var newRes = new ResourcesGraph
-            {
-                Type = ResourceType.File,
-                Parent = @event.ParentResource
-            };
-            @event.ParentResource.Nodes.Add(newRes);
-            newRes.Name = Path.GetFileName(@event.ResourceFilePath);
-
-            new LiteDatabase(Project.DbFilePath).GetCollection<Resource>()
-                .Insert(new Resource()
-                {
-                    Path = newRes.GetFullPath(),
-                    Data = File.ReadAllBytes(@event.ResourceFilePath)
-                });
-
-            Save();
+            
         }
 
         private void AddedNewSceneObject(AddSceneObjectEvent @event)

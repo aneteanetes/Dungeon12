@@ -47,6 +47,8 @@ namespace Dungeon.Engine.Projects
         [BsonIgnore]
         public ResourcesGraph Parent { get; set; }
 
+        public BsonValue ResourceId { get; set; }
+
         public void Load()
         {
             if (this.Type != ResourceType.Folder && this.Display != "Resources")

@@ -24,6 +24,8 @@ namespace Dungeon.Resources
 
         public string Path { get; set; }
 
+        public string CustomInfo { get; set; }
+
         public byte[] Data { get; set; }
 
         public DateTime LastWriteTime { get; set; }

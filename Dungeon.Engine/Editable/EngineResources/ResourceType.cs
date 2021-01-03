@@ -1,31 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-
-namespace Dungeon.Engine.Projects
+﻿namespace Dungeon.Engine.Projects
 {
     public enum ResourceType
     {
         [Value("Файл")]
-        File,
-        [Value("Встроенный")]
-        Embedded,
+        File = 9,
+
+        [Value("Системное")]
+        Embedded = 8,
+
         [Value("Изображение")]
-        Image,
+        Image = 1,
+
         [Value("Шрифт")]
-        Font,
+        Font = 2,
+
         [Value("3D Модель")]
-        Model3D,
+        Model3D = 7,
+
         [Value("Музыка")]
-        Music,
+        Music = 3,
+
         [Value("Звук")]
-        Audio,
+        Audio = 4,
+
         [Value("Частицы")]
-        Particle,
+        Particle = 5,
+
         [Value("Шейдер")]
-        Shader,
+        Shader = 6,
+
         [Value("Папка")]
-        Folder,
+        Folder = 0,
     }
 }

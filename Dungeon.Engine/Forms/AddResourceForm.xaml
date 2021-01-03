@@ -20,6 +20,7 @@
                 <x:Type TypeName="projects:ResourceType"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        
         <Style x:Key="TitleBarButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="{DynamicResource WindowTextBrush}" />
             <Setter Property="Padding" Value="0" />
@@ -130,6 +131,118 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+
+        <Style x:Key="ExpandCollapseToggleStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Background="Transparent" Height="16" Width="16">
+                            <Image x:Name="ExpandPath" Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/FolderClosed_16x.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="ExpandPath" Property="Source" Value="pack://siteoforigin:,,,/Icons/FolderOpened_16x.png"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ExpandPath" Property="Source" Value="pack://siteoforigin:,,,/Icons/FolderOpened_16x.png"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsChecked" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="ExpandPath" Property="Source" Value="pack://siteoforigin:,,,/Icons/FolderClosed_16x.png"/>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ContextMenu Background="#3F3F46" x:Key="ResourceContextMenu">
+            <MenuItem Foreground="WhiteSmoke" Header="Копировать путь" Click="CopyResPath"/>
+            <ContextMenu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Background="#3F3F46"></StackPanel>
+                </ItemsPanelTemplate>
+            </ContextMenu.ItemsPanel>
+            <ContextMenu.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="-20,0,-40,0">
+                        <!--this part is important-->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1" Text="{Binding Description}"/>
+                    </Grid>
+                </DataTemplate>
+            </ContextMenu.ItemTemplate>
+        </ContextMenu>
+
+        <Style x:Key="{x:Type TreeViewItem}" TargetType="{x:Type TreeViewItem}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="Padding" Value="1,0,0,0"/>
+            <Setter Property="ContextMenu" Value="{StaticResource ResourceContextMenu}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition MinWidth="24" Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Rectangle x:Name="HorLn" Margin="-12,1,5,0" Height="1" Stroke="#DCDCDC" SnapsToDevicePixels="True"/>
+                            <Rectangle x:Name="VerLn" Width="1" Stroke="#DCDCDC" Margin="0,17,1,0" Grid.RowSpan="2" SnapsToDevicePixels="true" Fill="White"/>
+
+                            <ToggleButton x:Name="Expander" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ExpandCollapseToggleStyle}"/>
+                            <Image x:Name="ItemInside" Source="pack://siteoforigin:,,,/Icons/file16x.png" />
+                            <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="Gray" Grid.Column="1" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                <ContentPresenter  x:Name="PART_Header" ContentSource="Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Border>
+                            <ItemsPresenter x:Name="ItemsHost" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="True">
+                                <Setter Property="Visibility" TargetName="ItemInside" Value="Hidden"/>
+                            </Trigger>
+                            <Trigger Property="IsExpanded" Value="false">
+                                <Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true"/>
+                                    <Condition Property="IsSelectionActive" Value="false"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="Bd" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="Gray"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="32" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
@@ -203,6 +316,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="28"></RowDefinition>
                 <RowDefinition Height="28"></RowDefinition>
+                <RowDefinition Height="28"></RowDefinition>
+                <RowDefinition Height="28"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Label Foreground="WhiteSmoke" Grid.Row="0" Grid.Column="0" BorderBrush="Gray" BorderThickness="1 1 1 1" >Физический путь</Label>
@@ -221,14 +336,43 @@
                     </Button>
                 </Grid>
             </Border>
-            <!--<Label Foreground="WhiteSmoke" Grid.Row="1" Grid.Column="0" BorderBrush="Gray" BorderThickness="1 0 1 1" >Тип ресурса</Label>
-            <Border BorderBrush="Gray" BorderThickness="0 0 1 1" Grid.Row="1" Grid.Column="1">
-                <ComboBox ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
-                          SelectedItem="{Binding Path=Resource.Type}"/>
-            </Border>-->
-            <Button Margin="0 8 1 0" Grid.Row="1" Grid.Column="0" Click="AddResProcess" >Добавить</Button>
-            <Button Margin="1 8 0 0" Grid.Row="1" Grid.Column="1" Click="AddResProcess" >Удалить</Button>
-            <TreeView x:Name="ResourcesView" Margin="0 6 0 0" HorizontalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" Foreground="WhiteSmoke" BorderBrush="Gray" Style="{DynamicResource TreeViewStyle1}">
+
+            <Label Foreground="WhiteSmoke" Grid.Row="1" Grid.Column="0" BorderBrush="Gray" BorderThickness="1 1 1 1" >Наименование:</Label>
+            <Border x:Name="TextField" BorderBrush="Gray" BorderThickness="0 1 1 1" Grid.Row="1" Grid.Column="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="8*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox BorderBrush="Gray" BorderThickness="1" x:Name="nametxt" ></TextBox>
+                    <Button Grid.Column="1" Click="RenameBtn">
+                        <Image		
+                            Width="22"
+                            Height="24"
+		Source="pack://siteoforigin:,,,/Icons/potion.png" />
+                    </Button>
+                </Grid>
+            </Border>
+
+            <Label Foreground="WhiteSmoke" Grid.Row="2" Grid.Column="0" BorderBrush="Gray" BorderThickness="1 0 1 1" >Тип объекта</Label>
+            <Border BorderBrush="Gray" BorderThickness="0 0 1 1" Grid.Row="2" Grid.Column="1">
+                <ComboBox x:Name="SelectedObjectTypeView" ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
+                          SelectedItem="{Binding Path=Project.Type}"/>
+            </Border>
+
+
+            <Button Margin="0 8 1 0" Grid.Row="3" Grid.Column="0" Click="AddResProcess" >Добавить</Button>
+            <Button Margin="1 8 0 0" Grid.Row="3" Grid.Column="1" Click="DelResProcess" >Удалить</Button>
+            <TreeView x:Name="ResourcesView" 
+                      Margin="0 6 0 0" 
+                      HorizontalAlignment="Stretch" 
+                      Grid.Row="4" 
+                      Grid.ColumnSpan="2" 
+                      Grid.Column="0" 
+                      Foreground="WhiteSmoke" 
+                      BorderBrush="Gray" 
+                      Style="{DynamicResource TreeViewStyle1}"
+                      SelectedItemChanged="ResourcesView_SelectedItemChanged">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Path=Nodes}">
                         <TextBlock Text="{Binding Display}" />
