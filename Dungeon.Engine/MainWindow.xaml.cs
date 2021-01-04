@@ -1,4 +1,5 @@
-﻿using Dungeon.Engine.Editable.ObjectTreeList;
+﻿using Dungeon.Engine.Editable;
+using Dungeon.Engine.Editable.ObjectTreeList;
 using Dungeon.Engine.Editable.Structures;
 using Dungeon.Engine.Engine;
 using Dungeon.Engine.Events;
@@ -60,7 +61,7 @@ namespace Dungeon.Engine
             DungeonGlobal.AudioPlayer = new AudioPlayerImpl();
 
             DungeonGlobal.Events.Subscribe<ProjectInitializeEvent>(InitializeProject, false);
-            DungeonGlobal.Events.Subscribe<PropGridFillEvent>(PropGrid.FillPropGrid, false);
+            DungeonGlobal.Events.Subscribe<PropGridFillEvent>(PropGrid.Fill, false);
             DungeonGlobal.Events.Subscribe<FreezeAllEvent>(FreezeEventHandler, false);
             DungeonGlobal.Events.Subscribe<UnfreezeAllEvent>(UnreezeEventHandler, false);
             DungeonGlobal.Events.Subscribe<StatusChangeEvent>(ChangeStatusHandler, false);
@@ -88,6 +89,18 @@ namespace Dungeon.Engine
             this.MouseMove += XnaHost_MouseMove;
 
             StructsView.AddObjectBinding += (e, r) => AddStruct(e, r);
+            StructsView.TreeView.SelectedItemChanged += StructSelect;            
+        }
+
+        private void StructSelect(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var @struct = e.NewValue.As<StructureObject>();
+            if (@struct == default)
+                return;
+            if (!@struct.IsInitialized)
+                @struct.InitTable();
+
+            StructProps.Fill(@struct);
         }
 
         private void UnreezeEventHandler(UnfreezeAllEvent @event)
@@ -398,7 +411,7 @@ namespace Dungeon.Engine
             PushSceneObjectToScene(SelectedSceneObject, !SelectedSceneObject.Published);
             if (!notYet && SelectedSceneObject.Published)
             {
-                PropGrid.FillPropGrid(SelectedSceneObject, SelectedSceneObject.GetType().Name);
+                PropGrid.Fill(SelectedSceneObject, SelectedSceneObject.GetType().Name);
             }
         }
 
@@ -492,7 +505,7 @@ namespace Dungeon.Engine
         private void SelectScene(Scene item)
         {
             StructsView.ItemsSource = SelectedScene.StructObjects;
-            PropGrid.FillPropGrid(new PropGridFillEvent(item));
+            PropGrid.Fill(new PropGridFillEvent(item));
             XnaHost.Width = SelectedScene.Width;
             XnaHost.Height = SelectedScene.Height;
             SceneResolution.Content = $"{XnaHost.Width}x{XnaHost.Height}";
@@ -508,10 +521,12 @@ namespace Dungeon.Engine
 
         private void Save()
         {
+            StructProps.Save();
             PropGrid.Save();
             Project.Save();
             this.XnaHost.ChangeCell(Project.CompileSettings.CellSize);
             ScenesView.Items.Refresh();
+            StructsView.TreeView.Items.Refresh();
         }
 
         private void ChangeStatusHandler(StatusChangeEvent @event)
@@ -563,7 +578,7 @@ namespace Dungeon.Engine
         {
             if (@event.SceneObject != default)
             {
-                PropGrid.FillPropGrid(@event.SceneObject, @event.SceneObject.ClassName);
+                PropGrid.Fill(@event.SceneObject, @event.SceneObject.ClassName);
             }
             SelectedSceneObject = @event.SceneObject;
         }
@@ -803,7 +818,7 @@ namespace Dungeon.Engine
                 default: break;
             }
 
-            PropGrid.FillPropGrid(SelectedSceneObject, SelectedSceneObject.ClassName);
+            PropGrid.Fill(SelectedSceneObject, SelectedSceneObject.ClassName);
 
             prev = new Types.Point(pos.X, pos.Y);
         }

@@ -20,7 +20,6 @@ namespace Dungeon.Engine.Editable.Structures
 
         [Visible]
         [Title("Редактировать")]
-        [PropertyFilter("Settings")]
         public void Edit()
         {
 

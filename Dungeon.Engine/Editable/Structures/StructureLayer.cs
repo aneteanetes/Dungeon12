@@ -1,5 +1,7 @@
 ﻿using Dungeon.Engine.Editable.ObjectTreeList;
+using Dungeon.Engine.Engine;
 using Dungeon.Engine.Projects;
+using Dungeon.Utils;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -24,11 +26,7 @@ namespace Dungeon.Engine.Editable.Structures
 
         public override void CopyInParent()
         {
-            var scene = App.Container.Resolve<EngineProject>()
-                .Scenes
-                .FirstOrDefault(s => s?.StructObjects?.Contains(this) ?? false);
-
-            scene?.StructObjects.Add(this.Clone());
+            HostScene?.StructObjects.Add(this.Clone());
         }
 
         public override ObjectTreeListItem Clone()
@@ -39,5 +37,45 @@ namespace Dungeon.Engine.Editable.Structures
         }
 
         public override ObservableCollection<ObjectTreeListItem> CloneNodes() => new ObservableCollection<ObjectTreeListItem>();
+
+        private Scene _hostScene;
+        private Scene HostScene
+        {
+            get
+            {
+                if(_hostScene==default)
+                {
+                    _hostScene = App.Container.Resolve<EngineProject>()
+                        .Scenes
+                        .FirstOrDefault(s => s?.StructObjects?.Contains(this) ?? false);
+                }
+
+                return _hostScene;
+            }
+        }
+
+        [Title("Переместить выше")]
+        [Visible]
+        public void Up()
+        {
+            var thisIndx = HostScene.StructObjects.IndexOf(this);
+            if (thisIndx == 0)
+                return;
+
+            HostScene.StructObjects.Remove(this);
+            HostScene.StructObjects.Insert(thisIndx - 1, this);
+        }
+
+        [Title("Переместить ниже")]
+        [Visible]
+        public void Down()
+        {
+            var thisIndx = HostScene.StructObjects.IndexOf(this);
+            if (thisIndx == HostScene.StructObjects.Count-1)
+                return;
+
+            HostScene.StructObjects.Remove(this);
+            HostScene.StructObjects.Insert(thisIndx + 1, this);
+        }
     }
 }

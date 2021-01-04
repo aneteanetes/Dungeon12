@@ -242,7 +242,7 @@
 
             <controls:SceneObjectsTreeList x:Name="StructsView" BorderBrush="Gray" ItemsSource="{Binding Path=SelectedScene.StructObjects}" BorderThickness="1" Grid.Row="1" Grid.Column="0" Foreground="WhiteSmoke" Margin="0 30 6 0" HorizontalAlignment="Stretch"/>
             
-            <controls:PropertyGrid Filter="Settings" x:Name="StructProps" BorderBrush="Gray" BorderThickness="1" Grid.Row="2" Grid.Column="0" Foreground="WhiteSmoke" Margin="0 0 6 0" HorizontalAlignment="Stretch"/>
+            <controls:PropertyGrid x:Name="StructProps" BorderBrush="Gray" BorderThickness="1" Grid.Row="2" Grid.Column="0" Foreground="WhiteSmoke" Margin="0 0 6 0" HorizontalAlignment="Stretch"/>
             
                 <GridSplitter Grid.Column="0" Background="Gray" Foreground="Gray" Grid.Row="0" Grid.RowSpan="3" ShowsPreview="False" Width="3" />
             <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" >
@@ -268,7 +268,7 @@
                 <host:D3D11Host x:Name="XnaHost" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" SnapsToDevicePixels="True" Stretch="Fill" />
             </ScrollViewer>
             <GridSplitter Grid.Column="1" Background="Gray" Foreground="Gray" Grid.Row="0" Grid.RowSpan="3" ShowsPreview="False" Width="3"/>
-            <controls:PropertyGrid FilterExclude="Settings" x:Name="PropGrid" Grid.Row="0" Grid.RowSpan="3" Grid.Column="3"/>
+            <controls:PropertyGrid x:Name="PropGrid" Grid.Row="0" Grid.RowSpan="3" Grid.Column="3"/>
             <StatusBar x:Name="StatusBar"  Grid.Row="3" Grid.ColumnSpan="3"  DockPanel.Dock="Bottom" BorderBrush="Gray" Margin="0 2 0 0" BorderThickness="1" Background="#007ACC">
                 <StatusBarItem HorizontalAlignment="Stretch">
                     <Grid>

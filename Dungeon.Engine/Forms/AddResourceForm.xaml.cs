@@ -83,6 +83,7 @@ namespace Dungeon.Engine.Forms
             }
 
             nametxt.Text = "";
+            project.Save();
         }
 
         private void AddFolder(ResourcesGraph parent)
@@ -123,8 +124,6 @@ namespace Dungeon.Engine.Forms
                     Data = File.ReadAllBytes(resPath),
                     CustomInfo = resType.ToString()
                 });
-
-            project.Save();
         }
 
         private void Cancel(object sender, RoutedEventArgs e) => OnCloseButtonClick(sender, e);
@@ -155,6 +154,8 @@ namespace Dungeon.Engine.Forms
                     var res = db.FindById(resGraph.ResourceId);
                     res.Path = resGraph.GetFullPath();
                     db.Update(resGraph.ResourceId, res);
+
+                    project.Save();
                 }
             }
         }
@@ -180,6 +181,8 @@ namespace Dungeon.Engine.Forms
                 var db = new LiteDatabase(project.DbFilePath).GetCollection<Resource>();
                 db.Delete(x => x.Path == item.GetFullPath());
             }
+
+            project.Save();
         }
     }
 }

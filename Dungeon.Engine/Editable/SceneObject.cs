@@ -1,4 +1,5 @@
-﻿using Dungeon.Engine.Editable.PropertyTable;
+﻿using Dungeon.Engine.Editable.ObjectTreeList;
+using Dungeon.Engine.Editable.PropertyTable;
 using Dungeon.Resources;
 using Dungeon.Scenes.Manager;
 using Dungeon.Utils;
@@ -12,7 +13,7 @@ using System.Linq;
 
 namespace Dungeon.Engine.Projects
 {
-    public class SceneObject : SimplePropertyTable
+    public class SceneObject : ObjectTreeListItem
     {
         public string ClassName { get; set; }
 

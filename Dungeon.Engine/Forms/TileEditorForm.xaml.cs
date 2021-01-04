@@ -179,7 +179,7 @@ namespace Dungeon.Engine.Forms
             XnaHost.Width = map.Width;
             XnaHost.Height = map.Height;
             cellSize = map.CellSize;
-            PropGrid.FillPropGrid(new Events.PropGridFillEvent(map));
+            PropGrid.Fill(new Events.PropGridFillEvent(map));
             ResetScene();
             this.LayerCollection.Init<Editable.TileMap.TilemapLayer>(new EngineCollectionEditorSettings<Editable.TileMap.TilemapLayer>(map.Layers, this.OnLayerSelect, this.OnLayerRemove, this.OnLayerAdd));
             this.ImageCollection.Init<TilemapSourceImage>(new EngineCollectionEditorSettings<TilemapSourceImage>(map.Sources, OnImageSourceSelect, add: OnImageSourceAdd));
@@ -249,7 +249,7 @@ namespace Dungeon.Engine.Forms
         private void OnLayerSelect(Editable.TileMap.TilemapLayer layer)
         {
             DisableBorderModeOnPreviouslyLayer?.Invoke();
-            PropGrid.FillPropGrid(new Events.PropGridFillEvent(layer));
+            PropGrid.Fill(new Events.PropGridFillEvent(layer));
             if (layer.SceneObject == default)
             {
                 layer.SceneObject = new TilemapLayer(layer, SelectedTiliemap);

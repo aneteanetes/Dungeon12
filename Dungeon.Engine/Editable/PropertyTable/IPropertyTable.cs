@@ -14,5 +14,7 @@ namespace Dungeon.Engine.Editable.PropertyTable
         void Set(string key, object value, Type type, int index);
 
         IEnumerable<PropertyTableRow> Properties { get; }
+
+        public bool IsInitialized { get; set; }
     }
 }

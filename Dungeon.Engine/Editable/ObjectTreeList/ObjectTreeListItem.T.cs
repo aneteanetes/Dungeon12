@@ -1,4 +1,5 @@
-﻿using LiteDB;
+﻿using Dungeon.Utils;
+using LiteDB;
 using System.Collections.ObjectModel;
 
 namespace Dungeon.Engine.Editable.ObjectTreeList
@@ -8,6 +9,7 @@ namespace Dungeon.Engine.Editable.ObjectTreeList
 
     {
         [BsonIgnore]
+        [Hidden]
         public T ParentT { get; set; }
     }
 }

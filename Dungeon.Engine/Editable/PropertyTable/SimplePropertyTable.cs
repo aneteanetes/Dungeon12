@@ -1,5 +1,6 @@
 ﻿using Dungeon.Engine.Editable.ObjectTreeList;
 using Dungeon.Types;
+using Dungeon.Utils;
 using LiteDB;
 using System;
 using System.Collections.Generic;
@@ -8,20 +9,25 @@ using System.Text;
 
 namespace Dungeon.Engine.Editable.PropertyTable
 {
-    public abstract class SimplePropertyTable : ObjectTreeListItem, IPropertyTable
+    public abstract class SimplePropertyTable : IPropertyTable
     {
+        [Hidden]
         public List<PropertyTableRow> PropertyTable { get; set; } = new List<PropertyTableRow>();
 
         public void InitTable()
         {
-            if (PropertyTable == default || PropertyTable.Count==0)
+            if (PropertyTable == default || PropertyTable.Count == 0)
             {
                 PropertyTable = InitializePropertyTable();
+                IsInitialized = true;
             }
         }
 
         [BsonIgnore]
         public IEnumerable<PropertyTableRow> Properties => PropertyTable;
+
+        [Hidden]
+        public bool IsInitialized { get; set; }
 
         public PropertyTableRow Get(string key) => PropertyTable.FirstOrDefault(x => x.Name == key);
 
