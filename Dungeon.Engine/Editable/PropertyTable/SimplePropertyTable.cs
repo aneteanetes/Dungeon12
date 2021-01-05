@@ -1,8 +1,10 @@
 ﻿using Dungeon.Engine.Editable.ObjectTreeList;
 using Dungeon.Types;
 using Dungeon.Utils;
+using Dungeon.Utils.ReflectionExtensions;
 using LiteDB;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +31,9 @@ namespace Dungeon.Engine.Editable.PropertyTable
         [Hidden]
         public bool IsInitialized { get; set; }
 
+        [Hidden]
+        public Action<IEnumerable, object> CollectionValueChanged { get; set; }
+
         public PropertyTableRow Get(string key) => PropertyTable.FirstOrDefault(x => x.Name == key);
 
         public void Set(string key, object value, Type type)
@@ -48,11 +53,38 @@ namespace Dungeon.Engine.Editable.PropertyTable
             }
         }
 
-        protected abstract List<PropertyTableRow> InitializePropertyTable();
-
-        public virtual void Commit()
+        protected virtual List<PropertyTableRow> InitializePropertyTable()
         {
-            
+            var type = this.GetType();
+            var bodyProps = type.GetProperties().Where(prop =>
+            {
+                var hidden = Attribute.GetCustomAttributes(prop)
+                       .FirstOrDefault(x => x.GetType() == typeof(HiddenAttribute)) != default;
+                if (hidden)
+                    return false;
+
+                if (!prop.CanWrite)
+                    return false;
+
+                return true;
+            })
+            .Select(x => {
+                var row = new PropertyTableRow(x.Name, this.GetPropertyExprRaw(x.Name), x.PropertyType);
+
+                if (typeof(System.Collections.IEnumerable).IsAssignableFrom(x.PropertyType) && x.PropertyType != typeof(string))
+                {
+                    row.Value = null;
+                }
+
+                return row;
+            })
+            .ToList();
+
+            return bodyProps;
         }
+
+        public virtual void Commit() { }
+
+        public virtual void InitRuntime() { }
     }
 }

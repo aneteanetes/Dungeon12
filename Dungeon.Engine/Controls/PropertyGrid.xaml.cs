@@ -2,6 +2,7 @@
 using Dungeon.Engine.Editable.PropertyTable;
 using Dungeon.Engine.Events;
 using Dungeon.Utils;
+using Dungeon.Utils.EnumerableExtensions;
 using Dungeon.Utils.ReflectionExtensions;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 using Color = System.Windows.Media.Color;
 
@@ -33,7 +35,7 @@ namespace Dungeon.Engine.Controls
         private Action<string> Report;
         private object PropGridObject;
         private IPropertyTable PropGridTable;
-        private List<(string Key, Func<string> Value, int index)> PropGridBinding;
+        private List<(string Key, Func<object> Value, int index)> PropGridBinding;
 
         public void Clear()
         {
@@ -49,7 +51,7 @@ namespace Dungeon.Engine.Controls
             var Obj = @event.Target;
 
             Clear();
-            PropGridBinding = new List<(string Key, Func<string> Value, int index)>();
+            PropGridBinding = new List<(string Key, Func<object> Value, int index)>();
             PropGridObject = Obj;
 
             int rowNum = 0;
@@ -62,8 +64,10 @@ namespace Dungeon.Engine.Controls
                 if (hidden)
                     continue;
 
-                if (!prop.CanWrite)
+                if (!prop.CanWrite && !typeof(System.Collections.IEnumerable).IsAssignableFrom(prop.PropertyType))
+                {
                     continue;
+                }
 
                 var displ = Attribute.GetCustomAttributes(prop)
                     .FirstOrDefault(x => x.GetType() == typeof(DisplayAttribute)).As<DisplayAttribute>();
@@ -79,7 +83,8 @@ namespace Dungeon.Engine.Controls
 
         public void Fill(IPropertyTable propertyTable, string commonTitle = "Основные")
         {
-            PropGridBinding = new List<(string Key, Func<string> Value, int index)>();
+            propertyTable.InitRuntime();
+            PropGridBinding = new List<(string Key, Func<object> Value, int index)>();
 
             Clear();
             PropGridTable = propertyTable;
@@ -97,7 +102,7 @@ namespace Dungeon.Engine.Controls
                 }
                 else
                 {
-                    CreatePropGridCell(prop.Name, prop.Value, prop.Type, rowNum);
+                    CreatePropGridCell(prop.Name, prop.Value, prop.Type, rowNum, propertyTable: propertyTable);
                 }
                 rowNum++;
             }
@@ -181,7 +186,9 @@ namespace Dungeon.Engine.Controls
             PropGrid.Children.Add(btn);
         }
 
-        private void CreatePropGridCell(string name, object value, Type type, int rowNum, string nameBinding = default, string display = default, string description = default)
+        private void CreatePropGridCell(string name, object value, Type type, int rowNum, string nameBinding = default, string display = default,
+            string description = default,
+            IPropertyTable propertyTable=default)
         {
             PropGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(28) });
 
@@ -224,6 +231,25 @@ namespace Dungeon.Engine.Controls
                     comboBoxEditor.ToolTip = description;
                 }
             }
+            else if (typeof(System.Collections.IEnumerable).IsAssignableFrom(type) && propertyTable!=default && type!=typeof(string))
+            {
+                var collection = propertyTable.GetPropertyExprRaw(name).As<System.Collections.IEnumerable>();
+
+                var comboBoxEditor = new ComboBox
+                {
+                    ItemsSource = collection,
+                    SelectedIndex = value == default ? 0 : collection.IndexOf(value),
+                    DisplayMemberPath="Name"
+                };
+
+                editor.Child = comboBoxEditor;
+                PropGridBinding.Add((nameBinding ?? name, () => comboBoxEditor.SelectedItem, rowNum - 1));
+
+                if (description != default)
+                {
+                    comboBoxEditor.ToolTip = description;
+                }
+            }
             else
             {
                 var textEditor = new TextBox() { Text = value?.ToString() ?? "" };
@@ -239,6 +265,7 @@ namespace Dungeon.Engine.Controls
             PropGrid.Children.Add(label);
             PropGrid.Children.Add(editor);
         }
+
 
         private void SavePropGrid(object sender, RoutedEventArgs e)
         {
@@ -262,14 +289,21 @@ namespace Dungeon.Engine.Controls
                     if (type == default)
                         continue;
                     object data = default;
-                    try
+                    if (!type.IsEnumerable())
                     {
-                        data = Convert.ChangeType(propBind.Value(), type);
+                        try
+                        {
+                            data = Convert.ChangeType(propBind.Value(), type);
+                        }
+                        catch (Exception)
+                        {
+                            data = type.GetDefault();
+                            failedProps.Add(propBind.Key);
+                        }
                     }
-                    catch (Exception)
+                    else
                     {
-                        data = type.GetDefault();
-                        failedProps.Add(propBind.Key);
+                        data = propBind.Value();
                     }
 
                     PropGridTable.Set(propBind.Key, data, type, PropGridBinding.IndexOf(propBind));

@@ -1,7 +1,5 @@
-﻿using Dungeon.Types;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+using System.Collections;
 
 namespace Dungeon.Engine.Editable.PropertyTable
 {
@@ -13,8 +11,12 @@ namespace Dungeon.Engine.Editable.PropertyTable
 
         void Set(string key, object value, Type type, int index);
 
-        IEnumerable<PropertyTableRow> Properties { get; }
+        System.Collections.Generic.IEnumerable<PropertyTableRow> Properties { get; }
 
         public bool IsInitialized { get; set; }
+
+        Action<IEnumerable, object> CollectionValueChanged { get; set; }
+
+        void InitRuntime();
     }
 }

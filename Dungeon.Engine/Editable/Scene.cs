@@ -15,6 +15,7 @@ namespace Dungeon.Engine.Projects
         public string Name { get; set; }
 
         [BsonIgnore]
+        [Hidden]
         public string Text => Name;
 
         [Hidden]

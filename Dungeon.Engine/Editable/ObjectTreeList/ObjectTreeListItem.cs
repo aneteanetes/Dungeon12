@@ -69,27 +69,6 @@ namespace Dungeon.Engine.Editable.ObjectTreeList
             _image = template.Replace("@", name.Replace(".png", ""));
         }
 
-        protected override List<PropertyTableRow> InitializePropertyTable()
-        {
-            var type = this.GetType();
-            var bodyProps = type.GetProperties().Where(prop =>
-            {
-                var hidden = Attribute.GetCustomAttributes(prop)
-                       .FirstOrDefault(x => x.GetType() == typeof(HiddenAttribute)) != default;
-                if (hidden)
-                    return false;
-
-                if (!prop.CanWrite)
-                    return false;
-
-                return true;
-            })
-            .Select(x => new PropertyTableRow(x.Name,this.GetPropertyExprRaw(x.Name), x.PropertyType))
-            .ToList();
-
-            return bodyProps;
-        }
-
         public override void Commit()
         {
             if (!this.IsInitialized)
@@ -97,7 +76,10 @@ namespace Dungeon.Engine.Editable.ObjectTreeList
 
             this.PropertyTable.ForEach(row =>
             {
-                this.SetPropertyExprType(row.Name, row.Value, row.Type);
+                if (!row.Type.IsEnumerable())
+                {
+                    this.SetPropertyExprType(row.Name, row.Value, row.Type);
+                }
             });
         }
     }
