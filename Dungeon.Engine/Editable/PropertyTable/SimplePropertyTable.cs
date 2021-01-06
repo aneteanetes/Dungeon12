@@ -6,6 +6,7 @@ using LiteDB;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -32,6 +33,7 @@ namespace Dungeon.Engine.Editable.PropertyTable
         public bool IsInitialized { get; set; }
 
         [Hidden]
+        [BsonIgnore]
         public Action<IEnumerable, object> CollectionValueChanged { get; set; }
 
         public PropertyTableRow Get(string key) => PropertyTable.FirstOrDefault(x => x.Name == key);
@@ -70,6 +72,8 @@ namespace Dungeon.Engine.Editable.PropertyTable
             })
             .Select(x => {
                 var row = new PropertyTableRow(x.Name, this.GetPropertyExprRaw(x.Name), x.PropertyType);
+
+                row.Display = x.Value<TitleAttribute, string>() ?? x.Display();
 
                 if (typeof(System.Collections.IEnumerable).IsAssignableFrom(x.PropertyType) && x.PropertyType != typeof(string))
                 {

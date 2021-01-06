@@ -40,6 +40,7 @@ namespace Dungeon.Engine.Projects
         public void Save()
         {
             using var db = new LiteDatabase(DbFilePath);
+            
             var updated = db.GetCollection<EngineProject>().Update(new BsonValue(this.Id),this);
         }
 
@@ -82,8 +83,9 @@ namespace Dungeon.Engine.Projects
                 {
                     if (layer is StructureSceneObject structSceneObj)
                     {
-                        structSceneObj?.SceneObject?.Load();
-                        structSceneObj?.SceneObject?.InitTable();
+#warning loading issue
+                        //structSceneObj?.SceneObject?.Load();
+                        //structSceneObj?.SceneObject?.InitTable();
                     }
                 }
             }

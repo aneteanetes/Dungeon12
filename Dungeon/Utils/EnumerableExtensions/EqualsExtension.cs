@@ -27,6 +27,9 @@ namespace Dungeon.Utils.EnumerableExtensions
             var xProps = GetEqualityProps(x);
             var yProps = GetEqualityProps(y);
 
+            if (xProps.Length == 0 && yProps.Length == 0)
+                return false;
+
             if (xProps.Length != yProps.Length)
                 return false;
 

@@ -250,17 +250,11 @@
                     <Label Height="32" VerticalAlignment="Top" MouseLeftButtonDown="Label_MouseLeftButtonDown" Foreground="WhiteSmoke" BorderThickness="1" BorderBrush="gray" Margin="3 0 6 0" Padding="10 5 0 0" >Сцена</Label>
                     <Label x:Name="SceneResolution" Height="32" VerticalAlignment="Top" MouseLeftButtonDown="Label_MouseLeftButtonDown" Foreground="WhiteSmoke" Margin="40 0 6 0" Padding="10 7 0 0" >(1000x200)</Label>
                     <Label Height="32" VerticalAlignment="Top" MouseLeftButtonDown="Label_MouseLeftButtonDown" Foreground="WhiteSmoke" Margin="140 0 6 0" Padding="10 7 0 0" Name="SceneCoordinatesView" ></Label>
-                    <Button ToolTip="Опубликовать объект" VerticalAlignment="top" HorizontalAlignment="Right" Click="PublishSceneObject_Click" x:Name="PublishSceneObject" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 10 0" BorderThickness="1">
-                        <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/DeploymentFileStatusBar5_16x.png" Margin="3" />
-                    </Button>
-                    <Button ToolTip="Обновить сцену" VerticalAlignment="top" HorizontalAlignment="Right" x:Name="refreshSceneBtn" Click="refreshSceneBtn_Click" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 40 0" BorderThickness="1">
+                    <Button ToolTip="Обновить сцену" VerticalAlignment="top" HorizontalAlignment="Right" x:Name="refreshSceneBtn" Click="refreshSceneBtn_Click" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 10 0" BorderThickness="1">
                         <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/Refresh_grey_16x.png" Margin="3" />
                     </Button>
-                    <Button ToolTip="Сбросить zoom" VerticalAlignment="top" HorizontalAlignment="Right" Click="resetScaleBtn" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 70 0" BorderThickness="1">
+                    <Button ToolTip="Сбросить zoom" VerticalAlignment="top" HorizontalAlignment="Right" Click="resetScaleBtn" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 40 0" BorderThickness="1">
                         <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/Scale_16x.png" Margin="3" />
-                    </Button>
-                    <Button ToolTip="Редактор карт" VerticalAlignment="top" HorizontalAlignment="Right" Click="tileEditorBtn" Width="26" Height="26" BorderBrush="Gray" Margin="0 3 100 0" BorderThickness="1">
-                        <Image Width="16" Height="16" Source="pack://siteoforigin:,,,/Icons/Table_16x.png" Margin="3" />
                     </Button>
                 </Grid>
             </Border>

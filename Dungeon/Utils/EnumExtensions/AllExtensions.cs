@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Diagnostics;
     using System.Linq;
+    using System.Reflection;
     using System.Text;
 
     public static class AllExtensions
@@ -28,6 +29,15 @@
                 return display;
 
             return AddToDisplayCache(value);
+        }
+
+        public static string Display(this MemberInfo member)
+        {
+            var attrs = member.GetCustomAttributes(typeof(DisplayAttribute), false);
+            if (attrs.Length == 0)
+                return default;
+
+            return attrs.FirstOrDefault().As<DisplayAttribute>().Name;
         }
 
         private static string AddToDisplayCache<T>(this T value) where T : struct

@@ -16,7 +16,6 @@ using MoreLinq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -101,6 +100,18 @@ namespace Dungeon.Engine
                 @struct.InitTable();
 
             StructProps.Fill(@struct);
+
+            if (@struct is StructureSceneObject structSceneObject)
+            {
+                var sceneObjMeta = structSceneObject.SceneObject;
+                if (sceneObjMeta != default)
+                {
+                    if (!sceneObjMeta.IsInitialized)
+                        sceneObjMeta.InitTable();
+
+                    PropGrid.Fill(sceneObjMeta, structSceneObject.SceneObjectTypeSelected?.Name);
+                }
+            }
         }
 
         private void UnreezeEventHandler(UnfreezeAllEvent @event)
@@ -366,7 +377,7 @@ namespace Dungeon.Engine
                 SelectScene((Scene)item);
 
                 SceneManager.Change<EasyScene>();
-                PublishCurrentScene();
+                //PublishCurrentScene();
 
                 return;
             }
@@ -385,7 +396,7 @@ namespace Dungeon.Engine
                     {
                         ClassName = "Dungeon.Drawing.SceneObjects.ImageControl",
                     };
-                    compiled.Set("Name", structureTilemap.CompiledImage, typeof(string));
+                    compiled.Set("Name", structureTilemap.CompiledImagePath, typeof(string));
                     PushSceneObjectToScene(compiled);
                 }
 
@@ -399,19 +410,6 @@ namespace Dungeon.Engine
                         }
                     }
                 }
-            }
-        }
-
-        private void PublishSceneObject_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedSceneObject == default)
-                return;
-
-            bool notYet = SelectedSceneObject.Published;
-            PushSceneObjectToScene(SelectedSceneObject, !SelectedSceneObject.Published);
-            if (!notYet && SelectedSceneObject.Published)
-            {
-                PropGrid.Fill(SelectedSceneObject, SelectedSceneObject.GetType().Name);
             }
         }
 
@@ -483,7 +481,7 @@ namespace Dungeon.Engine
                 {
                     foreach (var n in obj.Nodes)
                     {
-                        PushSceneObjectToScene(n, initial, obj);
+                        //PushSceneObjectToScene(n, initial, obj);
                     }
                 }
 
@@ -869,19 +867,6 @@ namespace Dungeon.Engine
         private void resetScaleBtn(object sender, RoutedEventArgs e)
         {
             XnaHost.Camera.CameraOffsetZ = 0;
-        }
-
-        private void tileEditorBtn(object sender, RoutedEventArgs e)
-        {
-            if (this.Project == default)
-            {
-                Message.Show("Нет проекта!");
-                return;
-            }
-            else
-            {
-                new TileEditorForm(this.Project).Show();
-            }
         }
     }
 }

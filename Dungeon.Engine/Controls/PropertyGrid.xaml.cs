@@ -46,10 +46,10 @@ namespace Dungeon.Engine.Controls
             PropGridTable = default;
         }
 
-        public void Fill(PropGridFillEvent @event)
-        {
-            var Obj = @event.Target;
+        public void Fill(PropGridFillEvent @event) => Fill(@event.Target);
 
+        public void Fill(object Obj)
+        {
             Clear();
             PropGridBinding = new List<(string Key, Func<object> Value, int index)>();
             PropGridObject = Obj;
@@ -102,7 +102,7 @@ namespace Dungeon.Engine.Controls
                 }
                 else
                 {
-                    CreatePropGridCell(prop.Name, prop.Value, prop.Type, rowNum, propertyTable: propertyTable);
+                    CreatePropGridCell(prop.Name, prop.Value, prop.Type, rowNum,display:prop.Display, propertyTable: propertyTable);
                 }
                 rowNum++;
             }
@@ -233,13 +233,17 @@ namespace Dungeon.Engine.Controls
             }
             else if (typeof(System.Collections.IEnumerable).IsAssignableFrom(type) && propertyTable!=default && type!=typeof(string))
             {
-                var collection = propertyTable.GetPropertyExprRaw(name).As<System.Collections.IEnumerable>();
+                var collection = propertyTable.GetPropertyExprRaw(name,false).As<System.Collections.IEnumerable>();
 
                 var comboBoxEditor = new ComboBox
                 {
                     ItemsSource = collection,
-                    SelectedIndex = value == default ? 0 : collection.IndexOf(value),
+                    SelectedIndex = value == default ? 0 : collection?.IndexOf(value) ?? 0,
                     DisplayMemberPath="Name"
+                };
+                comboBoxEditor.SelectionChanged += (s, e) =>
+                {
+                    propertyTable.CollectionValueChanged.Invoke(collection, comboBoxEditor.SelectedItem);
                 };
 
                 editor.Child = comboBoxEditor;

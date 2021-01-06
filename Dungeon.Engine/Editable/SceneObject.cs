@@ -59,19 +59,14 @@ namespace Dungeon.Engine.Projects
             base.Commit();
         }
 
-        [BsonIgnore]
-        public SceneObject Parent { get; set; }
-
-        public void Load()
-        {
-            foreach (var node in Nodes)
-            {
-                node.Parent = this;
-                node.Load();
-            }
-        }
-
-        public ObservableCollection<SceneObject> Nodes { get; set; } = new ObservableCollection<SceneObject>();
+        //public void Load()
+        //{
+        //    foreach (var node in Nodes)
+        //    {
+        //        node.Parent = this;
+        //        node.Load();
+        //    }
+        //}
 
         protected override List<PropertyTableRow> InitializePropertyTable()
         {

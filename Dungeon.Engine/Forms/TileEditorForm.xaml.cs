@@ -1,6 +1,7 @@
 ﻿using Dungeon.Control;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Engine.Controls;
+using Dungeon.Engine.Editable.Structures;
 using Dungeon.Engine.Editable.TileMap;
 using Dungeon.Engine.Host;
 using Dungeon.Engine.Projects;
@@ -20,9 +21,10 @@ namespace Dungeon.Engine.Forms
         private EngineProject Project;
         private SceneManager SceneManager;
 
-        public TileEditorForm(EngineProject dungeonEngineProject)
+        public TileEditorForm(StructureTilemap dungeonEngineProject)
         {
-            Project = dungeonEngineProject;
+#warning wrong type assignment
+            Project = App.Container.Resolve<EngineProject>();
 
             InitializeComponent();
 

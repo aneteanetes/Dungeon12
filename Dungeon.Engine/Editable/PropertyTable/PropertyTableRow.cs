@@ -17,6 +17,8 @@ namespace Dungeon.Engine.Editable.PropertyTable
 
         public string Name { get; set; }
 
+        public string Display { get; set; }
+
         public object Value { get; set; }        
 
         public string TypeName { get; set; }

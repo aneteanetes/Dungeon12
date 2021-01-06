@@ -4,7 +4,9 @@ using Dungeon.Engine.Projects;
 using Dungeon.Resources;
 using Dungeon.Utils;
 using Dungeon.View.Interfaces;
+using LiteDB;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -14,18 +16,35 @@ namespace Dungeon.Engine.Editable.Structures
 {
     public class StructureSceneObject : StructureObject
     {
+        [BsonIgnore]
         public override StructureObjectType StructureType => StructureObjectType.Object;
 
         public StructureSceneObject()
         {
             this.BindEmbeddedIcon("DeploymentFileStatusBar5_16x");
+            this.CollectionValueChanged += SceneObjectTypeChanged;
         }
 
         [Hidden]
         public SceneObject SceneObject { get; set; }
 
+        [Hidden]
+        [BsonIgnore]
+        public SceneObjectClass SceneObjectTypeSelected => this.Get(nameof(SceneObjectType))?.Value?.As<SceneObjectClass>();
+
         [Title("Тип объекта")]
+        [BsonIgnore]
         public ObservableCollection<SceneObjectClass> SceneObjectType { get; set; }
+
+        private void SceneObjectTypeChanged(IEnumerable @enum, object obj)
+        {
+            var objType = obj.As<SceneObjectClass>();
+            SceneObject = new SceneObject()
+            {
+                ClassName = objType.ClassName,
+                Name = this.Name,
+            };
+        }
 
         protected override List<PropertyTableRow> InitializePropertyTable()
         {
@@ -51,6 +70,13 @@ namespace Dungeon.Engine.Editable.Structures
         public void RefreshTypes()
         {
             InitializeObjectClasses();
+        }
+
+        [Title("Опубликовать")]        
+        [Visible]
+        public void Publish()
+        {
+            // event raise publish this.SceneObject
         }
 
         public override void InitRuntime()

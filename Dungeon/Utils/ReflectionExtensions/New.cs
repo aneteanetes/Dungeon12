@@ -38,6 +38,22 @@
         public static object New(this Type type, params object[] argsObj)
             => New<object>(type, type.GetConstructors().FirstOrDefault(), argsObj);
 
+        public static object New(this Type type, bool onlyParameterLess, params object[] argsObj)
+        {
+            var ctors = type.GetConstructors();
+            ConstructorInfo ctor = default;
+            if (onlyParameterLess)
+            {
+                ctor = ctors.FirstOrDefault(c => c.GetParameters().Length == 0);
+            }
+            else
+            {
+                ctor = ctors.FirstOrDefault();
+            }
+
+            return New<object>(type, ctor, argsObj);
+        }
+
         /// <summary>
         /// Instantiate new object through expression tree
         /// </summary>

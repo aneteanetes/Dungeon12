@@ -214,6 +214,9 @@ namespace Dungeon.Engine.Controls
 
         private void MoveItem(ObjectTreeListItem _sourceItem, ObjectTreeListItem _targetItem)
         {
+            if (_sourceItem.Parent == default)
+                return;
+
             //adding dragged TreeViewItem in target TreeViewItem
             _targetItem.Nodes.Add(_sourceItem);
 

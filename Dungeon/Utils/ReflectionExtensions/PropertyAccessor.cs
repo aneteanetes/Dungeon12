@@ -284,7 +284,7 @@
             }
         }
 
-        public static object GetPropertyExprRaw(this object @object, string propName)
+        public static object GetPropertyExprRaw(this object @object, string propName, bool trowIfPropNotExists=true)
         {
             var type = @object.GetType();
             var key = propName + type.AssemblyQualifiedName;
@@ -292,9 +292,19 @@
             if (!___GetBackginFieldValueExpressionCache.TryGetValue(key, out var value))
             {
                 var p = Expression.Parameter(type);
-                value = Expression.Lambda(Expression.PropertyOrField(p, propName), p).Compile();
+                try
+                {
+                    value = Expression.Lambda(Expression.PropertyOrField(p, propName), p).Compile();
 
-                ___GetBackginFieldValueExpressionCache.Add(key, value);
+                    ___GetBackginFieldValueExpressionCache.Add(key, value);
+                }
+                catch
+                {
+                    if (trowIfPropNotExists)
+                        throw;
+
+                    return null;
+                }
             }
 
             return value.DynamicInvoke(@object);
