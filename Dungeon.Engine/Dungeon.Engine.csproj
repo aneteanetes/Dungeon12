@@ -74,6 +74,9 @@
     <Compile Update="Controls\EngineCollectionEditor.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Forms\CollectionView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Forms\NestedPropertyGrid.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -102,6 +105,10 @@
 
   <ItemGroup>
     <Page Update="Controls\EngineCollectionEditor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Forms\CollectionView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Forms\NestedPropertyGrid.xaml">

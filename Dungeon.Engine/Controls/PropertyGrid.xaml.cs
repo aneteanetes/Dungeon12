@@ -12,9 +12,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using CollectionView = Dungeon.Engine.Forms.CollectionView;
 using Color = System.Windows.Media.Color;
 
 namespace Dungeon.Engine.Controls
@@ -248,23 +248,32 @@ namespace Dungeon.Engine.Controls
             {
                 var collection = propertyTable.GetPropertyExprRaw(name, false).As<System.Collections.IEnumerable>();
 
-                var comboBoxEditor = new ComboBox
+                // если это выбор из вариантов
+                if (collection != default)
                 {
-                    ItemsSource = collection,
-                    SelectedIndex = value == default ? 0 : collection?.IndexOf(value) ?? 0,
-                    DisplayMemberPath = "Name"
-                };
-                comboBoxEditor.SelectionChanged += (s, e) =>
-                {
-                    propertyTable.CollectionValueChanged.Invoke(collection, comboBoxEditor.SelectedItem);
-                };
+                    var comboBoxEditor = new ComboBox
+                    {
+                        ItemsSource = collection,
+                        SelectedIndex = value == default ? 0 : collection?.IndexOf(value) ?? 0,
+                        DisplayMemberPath = "Name"
+                    };
+                    comboBoxEditor.SelectionChanged += (s, e) =>
+                    {
+                        propertyTable.CollectionValueChanged.Invoke(collection, comboBoxEditor.SelectedItem);
+                    };
 
-                editor.Child = comboBoxEditor;
-                PropGridBinding.Add((nameBinding ?? name, () => comboBoxEditor.SelectedItem, rowNum - 1));
+                    editor.Child = comboBoxEditor;
+                    PropGridBinding.Add((nameBinding ?? name, () => comboBoxEditor.SelectedItem, rowNum - 1));
 
-                if (description != default)
+                    if (description != default)
+                    {
+                        comboBoxEditor.ToolTip = description;
+                    }
+                }
+                // если это коллекция внутри объекта
+                else
                 {
-                    comboBoxEditor.ToolTip = description;
+                    CollectionViewButton(name, value, type, rowNum, nameBinding, editor,propertyTable);
                 }
             }
             else if (type.IsPrimitive || type == typeof(string))
@@ -353,6 +362,60 @@ namespace Dungeon.Engine.Controls
 
             PropGrid.Children.Add(label);
             PropGrid.Children.Add(editor);
+        }
+
+        private void CollectionViewButton(string name, object value, Type type, int rowNum, string nameBinding, Border editor, IPropertyTable propertyTable)
+        {
+            if (!(propertyTable is SceneObject sceneObjectprop))
+                return;
+
+            sceneObjectprop.NestedCollections.TryGetValue(name, out var valueCollection);
+
+            SceneObjectClass collectionClass = default;
+            if (value == default)
+            {
+                value = type.New();
+            }
+            else
+            {
+                var element = value.As<List<SceneObject>>().FirstOrDefault();
+                if (element != default)
+                {
+                    collectionClass = element.AsClass();
+                }
+            }
+
+            if (collectionClass == default)
+            {
+                var collectionType = type.ExtractGenericCollectionItem();
+                collectionClass = new SceneObjectClass()
+                {
+                    ClassName = collectionType.FullName,
+                    Name = collectionType.Name
+                };
+            }
+
+            if (valueCollection == default)
+            {
+                valueCollection = new List<SceneObject>();
+                sceneObjectprop.NestedCollections.Add(name, valueCollection);
+            }
+
+            var collectionBtn = new Button()
+            {
+                Content = "Коллекция",
+                Foreground = new SolidColorBrush(Color.FromRgb(245, 245, 245)),
+                Background = BrushesDarkGray,
+            };
+            collectionBtn.Click += (s, e) =>
+            {
+                new CollectionView(name, new List<string>(Context) { name }, collectionClass, valueCollection)
+                    .ShowDialog();
+            };
+
+            editor.Child = collectionBtn;
+
+            PropGridBinding.Add((nameBinding ?? name, () => null, rowNum - 1));
         }
 
         private List<string> Context = new List<string>();

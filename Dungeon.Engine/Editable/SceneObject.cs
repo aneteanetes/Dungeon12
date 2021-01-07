@@ -15,6 +15,25 @@ namespace Dungeon.Engine.Projects
 {
     public class SceneObject : ObjectTreeListItem
     {
+        public SceneObject()
+        {
+
+        }
+
+        public SceneObject(SceneObjectClass @class)
+        {
+            this.ClassName = @class.ClassName;
+            this.ClassType = @class.ClassType;
+            this.Name = @class.Name;
+        }
+
+        public SceneObjectClass AsClass() => new SceneObjectClass()
+        {
+            ClassName = this.ClassName,
+            ClassType = this.ClassType,
+            Name = this.Name
+        };
+
         public string ClassName { get; set; }
 
         public bool Published { get; set; }
@@ -69,6 +88,9 @@ namespace Dungeon.Engine.Projects
         //}
         [Hidden]
         public Dictionary<string, SceneObject> NestedProperties { get; set; } = new Dictionary<string, SceneObject>();
+
+        [Hidden]
+        public Dictionary<string, List<SceneObject>> NestedCollections { get; set; } = new Dictionary<string, List<SceneObject>>();
 
         protected override List<PropertyTableRow> InitializePropertyTable()
         {
