@@ -65,7 +65,7 @@ namespace Dungeon.Engine
             DungeonGlobal.Events.Subscribe<UnfreezeAllEvent>(UnreezeEventHandler, false);
             DungeonGlobal.Events.Subscribe<StatusChangeEvent>(ChangeStatusHandler, false);
             DungeonGlobal.Events.Subscribe<ResourceAddEvent>(AddedNewResourceEvent, false);
-            DungeonGlobal.Events.Subscribe<AddSceneObjectEvent>(AddedNewSceneObject, false);
+            DungeonGlobal.Events.Subscribe<PublishSceneObjectEvent>(PublishSceneObject, false);
             DungeonGlobal.Events.Subscribe<SceneObjectInObjectTreeSelectedEvent>(SelectedSceneObjectEvent, false);
             DungeonGlobal.Events.Subscribe<SceneResolutionChangedEvent>(ChangedResolutionEvent, false);
             DungeonGlobal.Events.Subscribe<RemoveSceneObjectFromSceneEvent>(RemovingSceneObjectFromSceneEvent,false);
@@ -196,6 +196,7 @@ namespace Dungeon.Engine
 
                 SceneManager.Start();
                 SceneManager.Change<EasyScene>();
+                PublishCurrentScene();
             }
             else
             {
@@ -208,8 +209,6 @@ namespace Dungeon.Engine
 
                 SelectedScene = default;
                 StructsView.ItemsSource = default;
-#warning diabling btns
-                //AddObjectBtn.IsEnabled = RemoveObjectBtn.IsEnabled = false;
 
                 Project = default;
                 PropGrid.Clear();
@@ -313,11 +312,6 @@ namespace Dungeon.Engine
             }
         }
 
-        private void AddObject(object sender, RoutedEventArgs e)
-        {
-            new AddSceneObjectForm(default).Show();
-        }
-
         private void AddStruct(object sender, RoutedEventArgs e)
         {
             if (SelectedScene != default)
@@ -378,7 +372,7 @@ namespace Dungeon.Engine
                 SelectScene((Scene)item);
 
                 SceneManager.Change<EasyScene>();
-                //PublishCurrentScene();
+                PublishCurrentScene();
 
                 return;
             }
@@ -389,6 +383,11 @@ namespace Dungeon.Engine
 
         private void PublishCurrentScene()
         {
+            if (SelectedScene == default)
+                return;
+
+            SceneManager.Change<Scenes.Sys_Clear_Screen>();
+            SceneManager.Change<EasyScene>();
             foreach (var @struct in SelectedScene.StructObjects)
             {
                 if (@struct is StructureTilemap structureTilemap)
@@ -397,8 +396,11 @@ namespace Dungeon.Engine
                     {
                         ClassName = "Dungeon.Drawing.SceneObjects.ImageControl",
                     };
-                    compiled.Set("Name", structureTilemap.CompiledImagePath, typeof(string));
-                    PushSceneObjectToScene(compiled);
+                    if (structureTilemap.CompiledImagePath.IsNotEmpty())
+                    {
+                        compiled.Set("Name", structureTilemap.CompiledImagePath, typeof(string));
+                        PushSceneObjectToScene(compiled);
+                    }
                 }
 
                 if (@struct is StructureLayer structureLayer)
@@ -562,15 +564,7 @@ namespace Dungeon.Engine
             
         }
 
-        private void AddedNewSceneObject(AddSceneObjectEvent @event)
-        {
-            if (@event.Root)
-            {
-                //this.SelectedScene.StructObjects.Add(@event.SceneObject);
-            }
-
-            PushSceneObjectToScene(@event.SceneObject,true);
-        }
+        private void PublishSceneObject(PublishSceneObjectEvent @event)=> PushSceneObjectToScene(@event.SceneObject, true);
 
         private SceneObject SelectedSceneObject;
 

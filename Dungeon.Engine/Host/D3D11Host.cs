@@ -302,6 +302,11 @@ namespace Dungeon.Engine.Host
             var gameTime = new Microsoft.Xna.Framework.GameTime(DateTime.Now.TimeOfDay, time, true);
             this.UpdateLoop(gameTime);
             this.Draw(gameTime);
+            drawed = true;
+            if(callback!=default)
+            {
+                callback.Call();
+            }
         }
         #endregion
         

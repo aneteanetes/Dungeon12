@@ -3,15 +3,13 @@ using Dungeon.Events;
 
 namespace Dungeon.Engine.Events
 {
-    public class AddSceneObjectEvent : IEvent
+    public class PublishSceneObjectEvent : IEvent
     {
         public SceneObject SceneObject { get; set; }
 
-        public bool Root { get; set; }
-
-        public AddSceneObjectEvent(bool root=true)
+        public PublishSceneObjectEvent(SceneObject sceneObject)
         {
-            this.Root = root;
+            this.SceneObject = sceneObject;
         }
     }
 }

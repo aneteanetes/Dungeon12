@@ -24,7 +24,20 @@ namespace Dungeon.Engine.Host
 {
     public partial class D3D11Host : IDrawClient
     {
-        public IScene scene { get; set; }
+        private IScene _scene { get; set; }
+        public IScene scene
+        {
+            get => _scene;
+            set
+            {
+                SceneLayers = new Dictionary<ISceneLayer, RenderTarget2D>();
+                if(value.Is<Scenes.Sys_Clear_Screen>())
+                {
+                    GraphicsDevice.Clear(Color.Black);
+                }
+                _scene = value;
+            }
+        }
 
         public DungeonEngineCamera Camera { get; set; } = new DungeonEngineCamera();
 
@@ -103,7 +116,8 @@ namespace Dungeon.Engine.Host
             throw new NotImplementedException();
         }
 
-        private Callback сallback;
+        private Callback callback;
+        private bool drawed = false;
 
         private bool skipCallback = false;
 
@@ -111,14 +125,15 @@ namespace Dungeon.Engine.Host
 
         public Callback SetScene(IScene scene)
         {
+            drawed = false;
             XNADrawClientImplementation.scene = scene;
             this.scene = scene;
-            сallback = new Callback(() =>
+            callback = new Callback(() =>
             {
                 scene.Destroy();
             });
 
-            return сallback;
+            return callback;
         }
 
         public Types.Point MeasureText(IDrawText drawText, ISceneObject parent = null)

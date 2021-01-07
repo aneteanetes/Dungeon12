@@ -56,7 +56,7 @@ namespace Dungeon.Monogame
 
         private bool useLight;
 
-        public void Draw(ISceneObject[] sceneObjects, Microsoft.Xna.Framework.GameTime gameTime, RenderTarget2D target = default, bool useLight = false)
+        public void Draw(ISceneObject[] sceneObjects, Microsoft.Xna.Framework.GameTime gameTime, RenderTarget2D target = default, bool useLight = false,bool clear=false)
         {
             this.useLight = useLight;
             this.target = target;
@@ -80,7 +80,7 @@ namespace Dungeon.Monogame
                 .OrderBy(x => x.LayerLevel).ToArray();
 
             GraphicsDevice.SetRenderTarget(target);
-            GraphicsDevice.Clear(Color.Transparent);
+            GraphicsDevice.Clear(clear ? Color.Black : Color.Transparent);
 
 #if Core
             if (useLight)

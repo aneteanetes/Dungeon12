@@ -6,6 +6,7 @@ namespace Dungeon.Engine.Host
 {
     using Dungeon;
     using Dungeon.Monogame.Effects;
+    using Dungeon.Scenes;
     using Dungeon.View.Interfaces;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -51,7 +52,7 @@ namespace Dungeon.Engine.Host
             PostProcessed[layer].Add(processed);
         }
 
-        private readonly Dictionary<ISceneLayer, RenderTarget2D> SceneLayers = new Dictionary<ISceneLayer, RenderTarget2D>();
+        private Dictionary<ISceneLayer, RenderTarget2D> SceneLayers = new Dictionary<ISceneLayer, RenderTarget2D>();
 
         private void UpdateLayers(Microsoft.Xna.Framework.GameTime gameTime)
         {
@@ -89,7 +90,7 @@ namespace Dungeon.Engine.Host
                 null
 //#endif
                 );
-            GraphicsDevice.Clear(Color.Transparent);
+            GraphicsDevice.Clear(this.scene.Is<@Sys_Clear_Screen>() ? Color.Black : Color.Transparent);
 
 #if !Engine
             drawCicled = true;
@@ -98,38 +99,41 @@ namespace Dungeon.Engine.Host
 
             if (this.scene != default)
             {
-                foreach (var layer in this.scene.Layers)
+                if (this.scene.Is<Sys_Clear_Screen>())
                 {
-                    var buffer = SceneLayers[layer];
-
-                    bool light = false;
-
-                    PreProcessed.Clear();
-                    foreach (var preEffect in layer.SceneGlobalEffects.Where(e => e.When == EffectTime.PreProcess))
-                    {
-                        if (preEffect.Is<Light2D>())
-                        {
-                            light = true;
-                            continue;
-                        }
-
-                        if (preEffect.Is<IMonogameEffect>())
-                        {
-                            ProcessMonogameEffect(preEffect.As<IMonogameEffect>(), layer, buffer);
-                        }
-                    }
-
-                    XNADrawClientImplementation.Draw(layer.Objects, gameTime, buffer, light);
-
-                    PostProcessed.Clear();
-                    foreach (var postEffect in layer.SceneGlobalEffects.Where(e => e.When == EffectTime.PostProcess))
-                    {
-                        if (postEffect.Is<IMonogameEffect>())
-                        {
-                            ProcessMonogameEffect(postEffect.As<IMonogameEffect>(), layer, buffer);
-                        }
-                    }
                 }
+                else foreach (var layer in this.scene.Layers)
+                    {
+                        var buffer = SceneLayers[layer];
+
+                        bool light = false;
+
+                        PreProcessed.Clear();
+                        foreach (var preEffect in layer.SceneGlobalEffects.Where(e => e.When == EffectTime.PreProcess))
+                        {
+                            if (preEffect.Is<Light2D>())
+                            {
+                                light = true;
+                                continue;
+                            }
+
+                            if (preEffect.Is<IMonogameEffect>())
+                            {
+                                ProcessMonogameEffect(preEffect.As<IMonogameEffect>(), layer, buffer);
+                            }
+                        }
+
+                        XNADrawClientImplementation.Draw(layer.Objects, gameTime, buffer, light, clear: this.scene.Is<@Sys_Clear_Screen>());
+
+                        PostProcessed.Clear();
+                        foreach (var postEffect in layer.SceneGlobalEffects.Where(e => e.When == EffectTime.PostProcess))
+                        {
+                            if (postEffect.Is<IMonogameEffect>())
+                            {
+                                ProcessMonogameEffect(postEffect.As<IMonogameEffect>(), layer, buffer);
+                            }
+                        }
+                    }
             }
 
             if (spriteBatch.IsOpened)
@@ -142,20 +146,23 @@ namespace Dungeon.Engine.Host
                 null
 #endif
                 );
-            GraphicsDevice.Clear(Color.Transparent);
+            GraphicsDevice.Clear(this.scene.Is<@Sys_Clear_Screen>() ? Color.Black : Color.Transparent);
             spriteBatch.Begin();
 
             if (this.scene != default)
             {
-                foreach (var layerInfo in SceneLayers)
+                if (this.scene.Is<Sys_Clear_Screen>())
                 {
-                    spriteBatch.Draw(layerInfo.Value, new Vector2((float)layerInfo.Key.Left, (float)layerInfo.Key.Top), Color.White);
-                    if (PostProcessed.ContainsKey(layerInfo.Key))
-                        foreach (var processed in PostProcessed[layerInfo.Key])
-                        {
-                            spriteBatch.Draw(processed, Vector2.Zero, Color.White);
-                        }
                 }
+                else foreach (var layerInfo in SceneLayers)
+                    {
+                        spriteBatch.Draw(layerInfo.Value, new Vector2((float)layerInfo.Key.Left, (float)layerInfo.Key.Top), Color.White);
+                        if (PostProcessed.ContainsKey(layerInfo.Key))
+                            foreach (var processed in PostProcessed[layerInfo.Key])
+                            {
+                                spriteBatch.Draw(processed, Vector2.Zero, Color.White);
+                            }
+                    }
             }
             spriteBatch.End();
 

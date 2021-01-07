@@ -354,7 +354,20 @@
             //}
         }
 
-        private IScene scene;
+        private IScene _scene { get; set; }
+        public IScene scene
+        {
+            get => _scene;
+            set
+            {
+                SceneLayers = new Dictionary<ISceneLayer, RenderTarget2D>();
+                if (value.Is<Scenes.Sys_Clear_Screen>())
+                {
+                    GraphicsDevice.Clear(Color.Black);
+                }
+                _scene = value;
+            }
+        }
 
         private Callback сallback;
 

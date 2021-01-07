@@ -1,5 +1,6 @@
 ﻿using Dungeon.Engine.Editable.ObjectTreeList;
 using Dungeon.Engine.Editable.PropertyTable;
+using Dungeon.Engine.Events;
 using Dungeon.Engine.Projects;
 using Dungeon.Resources;
 using Dungeon.Utils;
@@ -72,11 +73,12 @@ namespace Dungeon.Engine.Editable.Structures
             InitializeObjectClasses();
         }
 
-        [Title("Опубликовать")]        
+        [Title("Опубликовать")]
         [Visible]
         public void Publish()
         {
-            // event raise publish this.SceneObject
+            if (this.SceneObject != default)
+                DungeonGlobal.Events.Raise(new PublishSceneObjectEvent(this.SceneObject));
         }
 
         public override void InitRuntime()
