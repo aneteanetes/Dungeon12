@@ -358,7 +358,8 @@ namespace Dungeon.Engine
                 obj.RemoveFromHost();
                 if (obj.Instance != default)
                 {
-                    obj.Instance.Layer.RemoveObject(obj.Instance);
+                    var instance = obj.Instance.As<ISceneObject>();
+                    instance.Layer.RemoveObject(instance);
                     
                 }
             }
@@ -487,7 +488,8 @@ namespace Dungeon.Engine
 
                 if (parent != default)
                 {
-                    parent.Instance.AddChild(instance);
+                    var instance1 = parent.Instance.As<ISceneObject>();
+                    instance1.AddChild(instance);
                     return;
                 }
 
@@ -730,14 +732,14 @@ namespace Dungeon.Engine
 
                 var mouse = new Types.Rectangle(posWPF.X, posWPF.Y, 1, 1);
                 var obj = new Rectangle(
-                    SelectedSceneObject.Instance.ComputedPosition.X,
-                    SelectedSceneObject.Instance.ComputedPosition.Y,
-                    SelectedSceneObject.Instance.Width,
-                    SelectedSceneObject.Instance.Height);
+                    SelectedSceneObject.Instance.As<ISceneObject>().ComputedPosition.X,
+                    SelectedSceneObject.Instance.As<ISceneObject>().ComputedPosition.Y,
+                    SelectedSceneObject.Instance.As<ISceneObject>().Width,
+                    SelectedSceneObject.Instance.As<ISceneObject>().Height);
 
-                if (obj.Width == 0 && obj.Height == 0 && !string.IsNullOrWhiteSpace(SelectedSceneObject.Instance.Image))
+                if (obj.Width == 0 && obj.Height == 0 && !string.IsNullOrWhiteSpace(SelectedSceneObject.Instance.As<ISceneObject>().Image))
                 {
-                    var size = DungeonGlobal.DrawClient.MeasureImage(SelectedSceneObject.Instance.Image);
+                    var size = DungeonGlobal.DrawClient.MeasureImage(SelectedSceneObject.Instance.As<ISceneObject>().Image);
                     obj.Width = size.X;
                     obj.Height = size.Y;
                 }
@@ -777,7 +779,7 @@ namespace Dungeon.Engine
                     }
 
                     SelectedSceneObject.Set("Left", X, typeof(double));
-                    SelectedSceneObject.Instance.Left = X;
+                    SelectedSceneObject.Instance.As<ISceneObject>().Left = X;
                 }
                 if (y != default)
                 {
@@ -790,7 +792,7 @@ namespace Dungeon.Engine
                         Y += y * (plusY ? 1 : -1);
                     }
                     SelectedSceneObject.Set("Top", Y, typeof(double));
-                    SelectedSceneObject.Instance.Top = Y;
+                    SelectedSceneObject.Instance.As<ISceneObject>().Top = Y;
                 }
             }
 

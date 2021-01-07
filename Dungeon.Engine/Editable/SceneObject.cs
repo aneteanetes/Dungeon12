@@ -42,7 +42,7 @@ namespace Dungeon.Engine.Projects
         }
 
         [BsonIgnore]
-        public ISceneObject Instance { get; set; }
+        public object Instance { get; set; }
 
         public override void Commit()
         {
@@ -67,6 +67,8 @@ namespace Dungeon.Engine.Projects
         //        node.Load();
         //    }
         //}
+        [Hidden]
+        public Dictionary<string, SceneObject> NestedProperties { get; set; } = new Dictionary<string, SceneObject>();
 
         protected override List<PropertyTableRow> InitializePropertyTable()
         {

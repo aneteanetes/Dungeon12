@@ -1,6 +1,8 @@
 ﻿using Dungeon.Engine.Editable;
 using Dungeon.Engine.Editable.PropertyTable;
 using Dungeon.Engine.Events;
+using Dungeon.Engine.Forms;
+using Dungeon.Engine.Projects;
 using Dungeon.Utils;
 using Dungeon.Utils.EnumerableExtensions;
 using Dungeon.Utils.ReflectionExtensions;
@@ -12,6 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Color = System.Windows.Media.Color;
 
 namespace Dungeon.Engine.Controls
@@ -35,6 +38,7 @@ namespace Dungeon.Engine.Controls
         private Action<string> Report;
         private object PropGridObject;
         private IPropertyTable PropGridTable;
+        private string initCommonTitle;
         private List<(string Key, Func<object> Value, int index)> PropGridBinding;
 
         public void Clear()
@@ -50,6 +54,12 @@ namespace Dungeon.Engine.Controls
 
         public void Fill(object Obj)
         {
+            if(Obj.Is<IPropertyTable>())
+            {
+                Fill(Obj.As<IPropertyTable>());
+                return;
+            }
+
             Clear();
             PropGridBinding = new List<(string Key, Func<object> Value, int index)>();
             PropGridObject = Obj;
@@ -88,6 +98,7 @@ namespace Dungeon.Engine.Controls
 
             Clear();
             PropGridTable = propertyTable;
+            initCommonTitle = commonTitle;
 
             int rowNum = 0;
 
@@ -110,6 +121,8 @@ namespace Dungeon.Engine.Controls
             FillVoids(propertyTable,rowNum);
             PropGridSaveBtn.IsEnabled = true;
         }
+
+        public void Refill() => Fill(PropGridTable, initCommonTitle);
 
         private void FillVoids(object obj, int rowNum)
         {
@@ -231,15 +244,15 @@ namespace Dungeon.Engine.Controls
                     comboBoxEditor.ToolTip = description;
                 }
             }
-            else if (typeof(System.Collections.IEnumerable).IsAssignableFrom(type) && propertyTable!=default && type!=typeof(string))
+            else if (typeof(System.Collections.IEnumerable).IsAssignableFrom(type) && propertyTable != default && type != typeof(string))
             {
-                var collection = propertyTable.GetPropertyExprRaw(name,false).As<System.Collections.IEnumerable>();
+                var collection = propertyTable.GetPropertyExprRaw(name, false).As<System.Collections.IEnumerable>();
 
                 var comboBoxEditor = new ComboBox
                 {
                     ItemsSource = collection,
                     SelectedIndex = value == default ? 0 : collection?.IndexOf(value) ?? 0,
-                    DisplayMemberPath="Name"
+                    DisplayMemberPath = "Name"
                 };
                 comboBoxEditor.SelectionChanged += (s, e) =>
                 {
@@ -254,7 +267,7 @@ namespace Dungeon.Engine.Controls
                     comboBoxEditor.ToolTip = description;
                 }
             }
-            else
+            else if (type.IsPrimitive || type == typeof(string))
             {
                 var textEditor = new TextBox() { Text = value?.ToString() ?? "" };
                 editor.Child = textEditor;
@@ -265,14 +278,88 @@ namespace Dungeon.Engine.Controls
                     textEditor.ToolTip = description;
                 }
             }
+            else if (propertyTable is SceneObject sceneObjectprop)
+            {
+                sceneObjectprop.NestedProperties.TryGetValue(name, out var tvalue);
+
+                var grid = new Grid();
+                grid.ColumnDefinitions.Add(new ColumnDefinition
+                {
+                    Width = new GridLength(8, GridUnitType.Star)
+                });
+                grid.ColumnDefinitions.Add(new ColumnDefinition
+                {
+                    Width = new GridLength(2, GridUnitType.Star)
+                });
+
+
+                var mainEditBtn = new Button()
+                {
+                    Content = tvalue == null ? "Создать" : "Редактировать",
+                    Foreground = new SolidColorBrush(Color.FromRgb(245, 245, 245)),
+                    Background = BrushesDarkGray,
+                };
+                mainEditBtn.Click += (s, e) =>
+                {
+                    if (tvalue == default)
+                    {
+                        tvalue = new SceneObject()
+                        {
+                            ClassName = type.FullName
+                        };
+                        tvalue.InitTable();
+                        sceneObjectprop.NestedProperties.Add(name, tvalue);
+                        value = tvalue;
+                        this.Save();
+                        this.Refill();
+                    }
+
+                    var ctx = new List<string>(Context)
+                    {
+                        name
+                    };
+                    var nested = new NestedPropertyGrid(type.Name, tvalue, ctx);
+                    nested.PropGrid.Context = ctx;
+                    nested.ShowDialog();
+                };
+                Grid.SetColumn(mainEditBtn, 0);
+                grid.Children.Add(mainEditBtn);
+
+                if (tvalue != null)
+                {
+                    var removeBtn = new Button()
+                    {
+                        Content = new Image() { Width=16, Height=16, Source = new BitmapImage(new Uri("pack://siteoforigin:,,,/Icons/Trash_16x.png")) },
+                        Foreground = new SolidColorBrush(Color.FromRgb(245, 245, 245)),
+                        Background = BrushesDarkGray,
+                    };
+                    removeBtn.Click += (s, e) =>
+                    {
+                        sceneObjectprop.NestedProperties.Remove(name);
+                        this.Save();
+                        this.Refill();
+                    };
+                    Grid.SetColumn(removeBtn, 1);
+                    grid.Children.Add(removeBtn);
+                }
+                else
+                {
+                    Grid.SetColumnSpan(mainEditBtn, 2);
+                }
+
+                editor.Child = grid;
+                PropGridBinding.Add((nameBinding ?? name, () => null, rowNum - 1));
+            }
 
             PropGrid.Children.Add(label);
             PropGrid.Children.Add(editor);
         }
 
+        private List<string> Context = new List<string>();
 
         private void SavePropGrid(object sender, RoutedEventArgs e)
         {
+            this.PropGrid.IsEnabled = false;
             if (PropGridObject == default && PropGridTable == default)
                 return;
 
@@ -297,7 +384,20 @@ namespace Dungeon.Engine.Controls
                     {
                         try
                         {
-                            data = Convert.ChangeType(propBind.Value(), type);
+                            var value = propBind.Value();
+                            if (type == typeof(float) || type == typeof(double))
+                            {
+                                value = value.ToString().Replace(".", ",");
+                                data = Convert.ChangeType(value, type);
+                            }
+                            else if (type == typeof(SceneObject))
+                            {
+                                data = value;
+                            }
+                            else
+                            {
+                                data = Convert.ChangeType(value, type);
+                            }
                         }
                         catch (Exception)
                         {
@@ -308,6 +408,7 @@ namespace Dungeon.Engine.Controls
                     else
                     {
                         data = propBind.Value();
+
                     }
 
                     PropGridTable.Set(propBind.Key, data, type, PropGridBinding.IndexOf(propBind));
@@ -331,6 +432,7 @@ namespace Dungeon.Engine.Controls
             }
 
             Report?.Invoke(status);
+            this.PropGrid.IsEnabled = true;
         }
 
         private void ClearPropGridManually(object sender, RoutedEventArgs e)
