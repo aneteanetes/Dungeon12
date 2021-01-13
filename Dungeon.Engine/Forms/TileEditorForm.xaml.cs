@@ -1,4 +1,5 @@
 ﻿using Dungeon.Control;
+using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Engine.Controls;
 using Dungeon.Engine.Editable.Structures;
@@ -7,6 +8,7 @@ using Dungeon.Engine.Host;
 using Dungeon.Engine.Projects;
 using Dungeon.SceneObjects;
 using Dungeon.Scenes.Manager;
+using Dungeon.View.Interfaces;
 using System;
 using System.Linq;
 using System.Windows;
@@ -20,22 +22,15 @@ namespace Dungeon.Engine.Forms
     {
         private EngineProject Project;
         private SceneManager SceneManager;
+        private StructureTilemap structureTilemap;
 
-        public TileEditorForm(StructureTilemap dungeonEngineProject)
+        public TileEditorForm()
         {
-#warning wrong type assignment
-            Project = App.Container.Resolve<EngineProject>();
-
             InitializeComponent();
 
-            this.MapCollection.CollectionName.Content = "Карты";
-            this.MapCollection.Init<Tilemap>(new EngineCollectionEditorSettings<Tilemap>(Project.Maps, OnMapSelect, OnMapRemove, OnMapAdd, "Карты"));
-            this.LayerCollection.CollectionName.Content = "Слои";
-            this.ImageCollection.CollectionName.Content = "Тайлсеты";
-
-            XnaHost.MouseUp += HostRelease;
             XnaHost.MouseDown += HostPressed;
-            XnaHost.MouseMove += HostMoving;
+            XnaHost.MouseUp += HostRelease;
+            //XnaHost.MouseMove += HostMoving;
             XnaHost.Loaded += (x, y) =>
             {
                 SceneManager = new SceneManager()
@@ -49,6 +44,37 @@ namespace Dungeon.Engine.Forms
             };
 
             CompositionTarget.Rendering += (x, y) => this.FPSView.Content = $"FPS:{XnaHost.FPS}";
+        }
+
+        private void InitStructure(StructureTilemap structure)
+        {
+            if (structure == default)
+                return;
+
+            this.LayerCollection.CollectionName.Content = "Слои";
+            this.LayerCollection.Init<Editable.TileMap.TilemapLayer>(new EngineCollectionEditorSettings<Editable.TileMap.TilemapLayer>(structure.Layers, this.OnLayerSelect, this.OnLayerRemove, this.OnLayerAdd));
+
+            this.ImageCollection.CollectionName.Content = "Тайлсеты";
+        }
+
+        public new void Show(StructureTilemap structure)
+        {
+            Project = App.Container.Resolve<EngineProject>();
+            this.structureTilemap = structure;
+
+            if (structureTilemap.Height <= 0 || structureTilemap.Width <= 0)
+            {
+                Message.Show("Must set map height & width!");
+                return;
+            }
+
+            InitStructure(structure);
+            if (XnaHost.IsLoaded)
+            {
+                ResetScene();
+            }
+
+            base.Show();
         }
 
         private void HostRelease(object sender, MouseButtonEventArgs e)
@@ -82,57 +108,68 @@ namespace Dungeon.Engine.Forms
             }
         }
 
-        private void HostMoving(object sender, MouseEventArgs e)
-        {
-            if (draw && SelectedLayer != default && !SelectedLayer.BorderMode)
-            {
-                var mPos = Mouse.GetPosition(XnaHost);
-                var pos = new Point(Math.Floor(mPos.X / 32), Math.Floor(mPos.Y / 32));
-                var cellSize = SelectedTiliemap.CellSize;
-                var offsetX = (int)tilePos.X * cellSize;
-                var offsetY = (int)tilePos.Y * cellSize;
+#warning host moving
+        //private void HostMoving(object sender, MouseEventArgs e)
+        //{
+        //    if (draw && SelectedLayer != default && !SelectedLayer.BorderMode)
+        //    {
+        //        var mPos = Mouse.GetPosition(XnaHost);
+        //        var pos = new Point(Math.Floor(mPos.X / 32), Math.Floor(mPos.Y / 32));
+        //        var cellSize = structureTilemap.CellSize;
+        //        var offsetX = (int)tilePos.X * cellSize;
+        //        var offsetY = (int)tilePos.Y * cellSize;
 
-                var existedTile = SelectedLayer.SceneObject.Children.FirstOrDefault(x => x.Left == pos.X && x.Top == pos.Y);
-                var tileSource = new Types.Rectangle()
-                {
-                    Width = cellSize,
-                    Height = cellSize,
-                    X = offsetX,
-                    Y = offsetY
-                };
+        //        var existedTile = SelectedLayer.SceneObject.Children.FirstOrDefault(x => x.Left == pos.X && x.Top == pos.Y);
+        //        var tileSource = new Types.Rectangle()
+        //        {
+        //            Width = cellSize,
+        //            Height = cellSize,
+        //            X = offsetX,
+        //            Y = offsetY
+        //        };
 
-                if (existedTile != default && existedTile.Image != SelectedSourceImage.Name && !existedTile.ImageRegion.Equals(tileSource))
-                {
-                    SelectedLayer.Tiles.Remove(existedTile.As<TilemapCell>().Component);
-                    existedTile.Destroy();
-                    SelectedLayer.SceneObject.Expired = true;
-                }
+        //        if (existedTile != default && existedTile.Image != SelectedSourceImage.Name && !existedTile.ImageRegion.Equals(tileSource))
+        //        {
+        //            SelectedLayer.Tiles.Remove(existedTile.As<TilemapCell>().Component);
+        //            existedTile.Destroy();
+        //            SelectedLayer.SceneObject.Expired = true;
+        //        }
 
-                if (!clearing && tilePos != default)
-                {
-                    var tile = new TilemapTile()
-                    {
-                        SourceImage = SelectedSourceImage.Name,
-                        OffsetX = offsetX,
-                        OffsetY = offsetY,
-                        XPos = (int)pos.X,
-                        YPos = (int)pos.Y
-                    };
-                    SelectedLayer.Tiles.Add(tile);
-                    SelectedLayer.SceneObject.AddChild(new TilemapCell(tile, cellSize,SelectedLayer));
-                    SelectedLayer.SceneObject.Expired = true;
-                }
-            }
-        }
+        //        if (!clearing && tilePos != default)
+        //        {
+        //            var tile = new TilemapTile()
+        //            {
+        //                SourceImage = SelectedSourceImage.Name,
+        //                OffsetX = offsetX,
+        //                OffsetY = offsetY,
+        //                XPos = (int)pos.X,
+        //                YPos = (int)pos.Y
+        //            };
+        //            SelectedLayer.Tiles.Add(tile);
+        //            SelectedLayer.SceneObject.AddChild(new TilemapCell(tile, cellSize,SelectedLayer));
+        //            SelectedLayer.SceneObject.Expired = true;
+        //        }
+        //    }
+        //}
+
+        private bool first = false;
 
         private void ResetScene()
         {
-            var cellSize = SelectedTiliemap?.CellSize ?? 64;
             var width = XnaHost.Width;
             var height = XnaHost.Height;
 
             SceneManager.Change<EasyScene>();
-            SceneManager.Current.AddObject(new EngineTileMap((int)width, (int)height, cellSize));
+            var layer = SceneManager.Current.AddLayer("Main");
+            layer.Width = 1920;
+            layer.Height = 1080;
+            if (first)
+                layer.AddObject(new EngineTileMap(structureTilemap.Width, structureTilemap.Height, structureTilemap.CellWidth, structureTilemap.CellHeight));
+            else
+                layer.AddObject(new ImageControl("Images.frst.jpg".AsmRes()));
+
+            if (!first)
+                first = true;
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -150,51 +187,38 @@ namespace Dungeon.Engine.Forms
             Project.Save();
             PropGrid.Save();
 
-            if (cellSize != SelectedTiliemap.CellSize)
-            {
-                cellSize = SelectedTiliemap.CellSize;
-                if (TiledMapImageCells.Source != default)
-                {
-                    if (ImageCollection.Selected != default)
-                    {
-                        TiledMapImageCells.Source = ToImage(ImageCollection.Selected.As<TilemapSourceImage>().GetData(SelectedTiliemap.CellSize));
-                    }
-                }
-            }
+            //if (cellSize != structureTilemap.CellSize)
+            //{
+            //    cellSize = structureTilemap.CellSize;
+            //    if (TiledMapImageCells.Source != default)
+            //    {
+            //        if (ImageCollection.Selected != default)
+            //        {
+            //            TiledMapImageCells.Source = ToImage(ImageCollection.Selected.As<TilemapSourceImage>().GetData(structureTilemap.CellSize));
+            //        }
+            //    }
+            //}
 
-            if (SelectedTiliemap.Width != XnaHost.Width || SelectedTiliemap.Height != XnaHost.Height)
+            if (structureTilemap.Width != XnaHost.Width || structureTilemap.Height != XnaHost.Height)
             {
-                XnaHost.Width = SelectedTiliemap.Width;
-                XnaHost.Height = SelectedTiliemap.Height;
+                XnaHost.Width = structureTilemap.Width;
+                XnaHost.Height = structureTilemap.Height;
             }
             ResetScene();
-            PublishLayers(SelectedTiliemap);
+            PublishLayers();
 
-            TileMapSize.Content = $"{SelectedTiliemap.Width}x{SelectedTiliemap.Height}";
-            this.MapCollection.CollectionView.Items.Refresh();
+            TileMapSize.Content = $"{structureTilemap.Width}x{structureTilemap.Height}";
             this.LayerCollection.CollectionView.Items.Refresh();
             this.ImageCollection.CollectionView.Items.Refresh();
         }
 
-        private void OnMapSelect(Tilemap map)
+        private void PublishLayers()
         {
-            XnaHost.Width = map.Width;
-            XnaHost.Height = map.Height;
-            cellSize = map.CellSize;
-            PropGrid.Fill(new Events.PropGridFillEvent(map));
-            ResetScene();
-            this.LayerCollection.Init<Editable.TileMap.TilemapLayer>(new EngineCollectionEditorSettings<Editable.TileMap.TilemapLayer>(map.Layers, this.OnLayerSelect, this.OnLayerRemove, this.OnLayerAdd));
-            this.ImageCollection.Init<TilemapSourceImage>(new EngineCollectionEditorSettings<TilemapSourceImage>(map.Sources, OnImageSourceSelect, add: OnImageSourceAdd));
-            PublishLayers(map);
-        }
-
-        private void PublishLayers(Tilemap map)
-        {
-            foreach (var layer in map.Layers)
+            foreach (var layer in structureTilemap.Layers)
             {
                 if (layer.SceneObject == default)
                 {
-                    layer.SceneObject = new TilemapLayer(layer, SelectedTiliemap);
+                    layer.SceneObject = new TilemapLayer(layer, structureTilemap.Width,structureTilemap.Height);
                     SceneManager.Current.AddObject(layer.SceneObject);
                     foreach (var tile in layer.Tiles)
                     {
@@ -204,27 +228,13 @@ namespace Dungeon.Engine.Forms
             }
         }
 
-        private void OnMapRemove(Tilemap map)
-        {
-            Project.Maps.Remove(map);
-        }
-
-        private void OnMapAdd(Tilemap map)
-        {
-            map = new Tilemap();
-            Project.Maps.Add(map);
-            OnMapSelect(map);
-        }
-
-        private Tilemap SelectedTiliemap => MapCollection.Selected.As<Tilemap>();
-
         private Editable.TileMap.TilemapLayer SelectedLayer => LayerCollection.Selected.As<Editable.TileMap.TilemapLayer>();
 
         private TilemapSourceImage SelectedSourceImage => ImageCollection.Selected.As<TilemapSourceImage>();
 
         private void OnImageSourceSelect(TilemapSourceImage source)
         {
-            TiledMapImageCells.Source = ToImage(source.GetData(SelectedTiliemap.CellSize));
+            //TiledMapImageCells.Source = ToImage(source.GetData(structureTilemap.CellSize));
         }
 
         public BitmapImage ToImage(byte[] array)
@@ -244,7 +254,7 @@ namespace Dungeon.Engine.Forms
             input.ShowDialog();
             if (!string.IsNullOrWhiteSpace(input.Text))
             {
-                SelectedTiliemap.Sources.Add(new TilemapSourceImage() { Name = input.Text });
+                structureTilemap.Sources.Add(new TilemapSourceImage() { Name = input.Text });
             }
         }
 
@@ -254,7 +264,7 @@ namespace Dungeon.Engine.Forms
             PropGrid.Fill(new Events.PropGridFillEvent(layer));
             if (layer.SceneObject == default)
             {
-                layer.SceneObject = new TilemapLayer(layer, SelectedTiliemap);
+                layer.SceneObject = new TilemapLayer(layer, structureTilemap.Width, structureTilemap.Height);
                 SceneManager.Current.AddObject(layer.SceneObject);
             }
         }
@@ -262,13 +272,15 @@ namespace Dungeon.Engine.Forms
         private void OnLayerAdd(Editable.TileMap.TilemapLayer layer)
         {
             layer = new Editable.TileMap.TilemapLayer();
-            SelectedTiliemap.Layers.Add(layer);
+            structureTilemap.Layers.Add(layer);
+            structureTilemap.Lock(nameof(StructureTilemap.Width));
+            structureTilemap.Lock(nameof(StructureTilemap.Height));
             OnLayerSelect(layer);
         }
 
         private void OnLayerRemove(Editable.TileMap.TilemapLayer layer)
         {
-            SelectedTiliemap.Layers.Remove(layer);
+            structureTilemap.Layers.Remove(layer);
             layer.SceneObject?.Destroy?.Invoke();
         }
 
@@ -286,7 +298,7 @@ namespace Dungeon.Engine.Forms
 
         private void OnCloseButtonClick(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.Hide();
         }
 
         private void EditMode(object sender, RoutedEventArgs e)
@@ -318,11 +330,11 @@ namespace Dungeon.Engine.Forms
             {
                 if (ImageCollection.Selected != default)
                 {
-                    var pos = Mouse.GetPosition(TiledMapImageCells);
-                    this.tilePos = new Point(Math.Floor(pos.X / 32), Math.Floor(pos.Y / 32));
-                    TilePeviewImage.Source = new CroppedBitmap(new BitmapImage(new Uri(ImageCollection.Selected.As<TilemapSourceImage>().Name)),
-                        new Int32Rect((int)this.tilePos.X * cellSize, (int)this.tilePos.Y * cellSize, SelectedTiliemap.CellSize, SelectedTiliemap.CellSize));
-                    TilePreview.Visibility = Visibility.Visible;
+                    //var pos = Mouse.GetPosition(TiledMapImageCells);
+                    //this.tilePos = new Point(Math.Floor(pos.X / 32), Math.Floor(pos.Y / 32));
+                    //TilePeviewImage.Source = new CroppedBitmap(new BitmapImage(new Uri(ImageCollection.Selected.As<TilemapSourceImage>().Name)),
+                    //    new Int32Rect((int)this.tilePos.X * cellSize, (int)this.tilePos.Y * cellSize, structureTilemap.CellSize, structureTilemap.CellSize));
+                    //TilePreview.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -430,54 +442,60 @@ namespace Dungeon.Engine.Forms
 
         private class TilemapLayer : SceneObject<Editable.TileMap.TilemapLayer>
         {
-            private readonly Tilemap map;
-
             public override bool IsBatch => true;
 
             public override bool CacheAvailable => false;
 
-            public TilemapLayer(Editable.TileMap.TilemapLayer component, Tilemap map) : base(component, true)
+            private double w, h;
+
+            public TilemapLayer(Editable.TileMap.TilemapLayer component, double width, double height) : base(component, true)
             {
-                this.map = map;
+                w = width;
+                h = height;
             }
 
-            public override double Width => map.Width;
+            public override double Width => w;
 
-            public override double Height => map.Height;
+            public override double Height => h;
         }
 
-        private class EngineTileMap : EmptySceneObject
+        public class EngineTileMap : EmptySceneObject
         {
-            public override bool Interface { get => true; set => base.Interface = value; }
+            public override bool Interface => true;
 
-            public EngineTileMap(int width, int height, int cellSize)
+            //public override bool IsBatch => true;
+
+            public EngineTileMap(int width, int height, int cellWidth, int cellHeight)
             {
-                for (int i = 0; i < height / cellSize; i++)//for each line
-                {
-                    this.AddChild(new DarkRectangle()
-                    {
-                        Top = i * cellSize,
-                        Left = 0,
-                        Width = width,
-                        Height = 1,
-                        Opacity = 1
-                    });
-                }
+                this.Width = width * cellWidth;
+                this.Height = height * cellHeight;
 
-                for (int i = 0; i < width / cellSize; i++)//for each line
+                for (int y = 0; y < height; y++)
                 {
-                    this.AddChild(new DarkRectangle()
+                    for (int x = 0; x < width; x++)
                     {
-                        Top = 0,
-                        Left = i * cellSize,
-                        Width = 1,
-                        Height = height,
-                        Opacity = 1
-                    });
+                        this.AddChild(new ImageControl("Images.isometric_cell.png".AsmRes())
+                        {
+                            Top = y * 66,
+                            Left = (x * 128) + y % 2 == 0 ? 0 : 64,
+                            Width = cellWidth,
+                            Height = cellHeight,
+                            Opacity = 1,
+                        });
+                    }
                 }
             }
 
             public override bool Visible => ShowCells;
+
+            private T Montserrat<T>(T drawText) where T : IDrawText
+            {
+                drawText.FontName = "Montserrat";
+                drawText.FontAssembly = "Dungeon12";
+                //drawText.FontPath = "Dungeon.Resources.Fonts.Mont.otf";
+
+                return drawText;
+            }
         }
     }
 }

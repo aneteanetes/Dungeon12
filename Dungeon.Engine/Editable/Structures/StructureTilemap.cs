@@ -22,17 +22,24 @@ namespace Dungeon.Engine.Editable.Structures
         [Title("Редактировать")]
         public void Edit()
         {
-            new TileEditorForm(this).Show();
+            MainWindow.TileEditorForm.Show(this);
         }
 
-        [Title("Высота")]
-        public int Height { get; set; }
-
-        [Title("Ширина")]
+        [Title("Ширина (в юнитах)")]
         public int Width { get; set; }
 
-        [Title("Размер ячейки")]
-        public int CellSize { get; set; } = 32;
+        [Title("Высота (в юнитах)")]
+        public int Height { get; set; }
+
+        [Title("Ширина ячейки")]
+        public int CellWidth { get; set; } // 128
+
+        [Title("Высота ячейки")]
+        public int CellHeight { get; set; } //66
+
+        //148 - 132
+        //168 - 160
+
 
         [Hidden]
         public string CompiledImagePath { get; set; }

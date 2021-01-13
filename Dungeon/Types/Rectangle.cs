@@ -72,8 +72,8 @@ namespace Dungeon.Types
         {
             set
             {
-                this.X = value.X;
-                this.Y = value.Y;
+                this.X = value?.X ?? default;
+                this.Y = value?.Y ?? default;
             }
         }
 

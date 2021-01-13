@@ -25,7 +25,13 @@ namespace Dungeon.Monogame
 {
     public class XNADrawClientImplementation
     {
-        public int cell { get; set; }
+        private int _cell;
+        public int cell
+        {
+            get => cellMode ? _cell : 1;
+            set => _cell = value;
+        }
+        private bool cellMode = false;
         private GraphicsDevice GraphicsDevice;
         private PenumbraComponent penumbra;
         private SpriteBatch spriteBatch;
@@ -40,9 +46,10 @@ namespace Dungeon.Monogame
 
         public ICamera Camera;
 
-        public XNADrawClientImplementation(GraphicsDevice graphicsDevice, PenumbraComponent penumbra, SpriteBatch spriteBatch,int cell,Effect globalImageFilter,ContentManager content, ICamera camera, Renderer myRenderer)
+        public XNADrawClientImplementation(GraphicsDevice graphicsDevice, PenumbraComponent penumbra, SpriteBatch spriteBatch,int cell,Effect globalImageFilter,ContentManager content, ICamera camera, Renderer myRenderer, bool cellMode=false)
         {
             GraphicsDevice = graphicsDevice;
+            this.cellMode = cellMode;
             this.penumbra = penumbra;
             this.spriteBatch = spriteBatch;
             this.cell = cell;

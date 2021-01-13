@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.2" orientation="isometric" renderorder="right-down" width="100" height="100" tilewidth="148" tileheight="164" infinite="1" nextlayerid="3" nextobjectid="1">
+ <tileset firstgid="1" name="floor" tilewidth="148" tileheight="164" tilecount="2" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="148" height="164" source="../../../../../ContentProject/Assets/GoldenSkullStudios/2D_Iso_Tile_Pack_Starter/Sprites/Brick/ISO_Tile_Brick_Brick_01.png"/>
+  </tile>
+  <tile id="1">
+   <image width="148" height="164" source="../../../../../ContentProject/Assets/GoldenSkullStudios/2D_Iso_Tile_Pack_Starter/Sprites/Brick/ISO_Tile_Brick_Brick_04.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="3" name="cd" tilewidth="148" tileheight="164" spacing="1" margin="18" tilecount="95" columns="19">
+  <image source="../../../../../Desktop/SPRITESHIT/floor.png" width="2888" height="984"/>
+ </tileset>
+</map>

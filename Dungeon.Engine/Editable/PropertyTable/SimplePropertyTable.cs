@@ -38,9 +38,19 @@ namespace Dungeon.Engine.Editable.PropertyTable
 
         public PropertyTableRow Get(string key) => PropertyTable.FirstOrDefault(x => x.Name == key);
 
+        public void Lock(string key)
+        {
+            var row = Get(key);
+            if (row != default)
+                row.Locked = true;
+        }
+
         public void Set(string key, object value, Type type)
         {
             var row = Get(key);
+            if (row.Locked)
+                return;
+
             row.Value = value;
             row.Type = type;
         }
@@ -50,6 +60,9 @@ namespace Dungeon.Engine.Editable.PropertyTable
             var row = PropertyTable.ElementAtOrDefault(index);
             if (row != default)
             {
+                if (row.Locked)
+                    return;
+
                 row.Value = value;
                 row.Type = type;
             }

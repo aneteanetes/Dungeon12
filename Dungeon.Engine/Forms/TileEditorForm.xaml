@@ -156,11 +156,8 @@
                 <ColumnDefinition Width="9*" MinWidth="500"></ColumnDefinition>
                 <ColumnDefinition Width="4*" MinWidth="250"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Border Grid.Row="0" Grid.Column="0">
-                <controls:EngineCollectionEditor x:Name="MapCollection" />
-            </Border>            
             <GridSplitter VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Column="0" Margin="0 0 0 1.5" Background="Gray" Foreground="Gray" Grid.Row="0" ShowsPreview="False" Height="3" />
-            <Border Grid.Row="1" Grid.Column="0">
+            <Border Grid.Row="0"  Grid.RowSpan="2" Grid.Column="0">
                 <controls:EngineCollectionEditor x:Name="LayerCollection" />
             </Border>
             <GridSplitter VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Column="0" Margin="0 0 0 1.5" Background="Gray" Foreground="Gray" Grid.Row="1" ShowsPreview="False" Height="3" />

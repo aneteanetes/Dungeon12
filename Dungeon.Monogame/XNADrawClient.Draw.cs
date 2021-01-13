@@ -5,6 +5,7 @@ namespace Dungeon.Engine.Host
 #endif
 {
     using Dungeon;
+    using Dungeon.Drawing;
     using Dungeon.Monogame.Effects;
     using Dungeon.Scenes;
     using Dungeon.View.Interfaces;
@@ -25,6 +26,8 @@ namespace Dungeon.Engine.Host
     public partial class D3D11Host
 #endif
     {
+        public DrawColor ClearColor { get; set; }
+
         private Dictionary<ISceneLayer, List<Texture2D>> PostProcessed = new Dictionary<ISceneLayer, List<Texture2D>>();
 
         private Dictionary<ISceneLayer, List<Texture2D>> PreProcessed = new Dictionary<ISceneLayer, List<Texture2D>>();
@@ -90,7 +93,7 @@ namespace Dungeon.Engine.Host
                 null
 //#endif
                 );
-            GraphicsDevice.Clear(this.scene.Is<@Sys_Clear_Screen>() ? Color.Black : Color.Transparent);
+            GraphicsDevice.Clear(this.scene.Is<@Sys_Clear_Screen>() ? Color.Black : Color.CornflowerBlue);
 
 #if !Engine
             drawCicled = true;
@@ -146,7 +149,7 @@ namespace Dungeon.Engine.Host
                 null
 #endif
                 );
-            GraphicsDevice.Clear(this.scene.Is<@Sys_Clear_Screen>() ? Color.Black : Color.Transparent);
+            GraphicsDevice.Clear(this.scene.Is<@Sys_Clear_Screen>() ? Color.Black : Color.CornflowerBlue);
             spriteBatch.Begin();
 
             if (this.scene != default)
@@ -166,8 +169,8 @@ namespace Dungeon.Engine.Host
             }
             spriteBatch.End();
 
-#if !Engine
             DrawDebugInfo();
+#if !Engine
             OnPointerMoved();
 #endif
 

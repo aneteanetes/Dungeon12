@@ -2,6 +2,7 @@
 {
     using Dungeon.Audio;
     using Dungeon.Control;
+    using Dungeon.Drawing;
     using Dungeon.Events;
     using Dungeon.Global;
     using Dungeon.Logging;

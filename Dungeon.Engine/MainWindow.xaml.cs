@@ -1,5 +1,6 @@
 ﻿using Dungeon.Engine.Editable;
 using Dungeon.Engine.Editable.ObjectTreeList;
+using Dungeon.Engine.Editable.PropertyTable;
 using Dungeon.Engine.Editable.Structures;
 using Dungeon.Engine.Engine;
 using Dungeon.Engine.Events;
@@ -7,9 +8,11 @@ using Dungeon.Engine.Forms;
 using Dungeon.Engine.Host;
 using Dungeon.Engine.Menus;
 using Dungeon.Engine.Projects;
+using Dungeon.Engine.Utils;
 using Dungeon.Resources;
 using Dungeon.Scenes.Manager;
 using Dungeon.Types;
+using Dungeon.Utils.ReflectionExtensions;
 using Dungeon.View.Interfaces;
 using LiteDB;
 using MoreLinq;
@@ -23,6 +26,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using static Dungeon.Engine.Forms.TileEditorForm;
 
 namespace Dungeon.Engine
 {
@@ -43,6 +47,8 @@ namespace Dungeon.Engine
 
     public partial class MainWindow : Window
     {
+        public static TileEditorForm TileEditorForm;
+
         public ObservableCollection<MenuItem> MenuItems { get; set; } = new ObservableCollection<MenuItem>();
 
         public EngineProject Project { get; set; }
@@ -71,8 +77,6 @@ namespace Dungeon.Engine
             DungeonGlobal.Events.Subscribe<RemoveSceneObjectFromSceneEvent>(RemovingSceneObjectFromSceneEvent,false);
             DungeonGlobal.Events.Subscribe<AddStructObjectEvent>(AddStructObjectEvent, false);
             
-
-            XnaHost.ClearColor = Microsoft.Xna.Framework.Color.Black;
             SceneManager = new SceneManager()
             {
                 DrawClient = XnaHost
@@ -88,7 +92,9 @@ namespace Dungeon.Engine
             this.MouseMove += XnaHost_MouseMove;
 
             StructsView.AddObjectBinding += (e, r) => AddStruct(e, r);
-            StructsView.TreeView.SelectedItemChanged += StructSelect;            
+            StructsView.TreeView.SelectedItemChanged += StructSelect;
+
+            TileEditorForm = new TileEditorForm();
         }
 
         private void StructSelect(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -197,6 +203,9 @@ namespace Dungeon.Engine
                 SceneManager.Start();
                 SceneManager.Change<EasyScene>();
                 PublishCurrentScene();
+
+                DungeonGlobal.Sizes.Width = Project.CompileSettings.WidthPixel;
+                DungeonGlobal.Sizes.Height = Project.CompileSettings.HeightPixel;
             }
             else
             {
@@ -266,6 +275,7 @@ namespace Dungeon.Engine
         private void OnCloseButtonClick(object sender, RoutedEventArgs e)
         {
             this.Close();
+            System.Windows.Application.Current.Shutdown();
         }
 
         private void Window_StateChanged(object sender, EventArgs e)
@@ -326,15 +336,6 @@ namespace Dungeon.Engine
 
                 new AddSctructureObject(parent)
                     .ShowDialog();
-            }
-        }
-
-        private void RemoveObject(object sender, RoutedEventArgs e)
-        {
-            var cmp = StructsView.TreeView;
-            if (cmp.SelectedItem is SceneObject obj)
-            {
-                RemovingSceneObjectFromSceneEvent(new RemoveSceneObjectFromSceneEvent(obj));
             }
         }
 
@@ -416,92 +417,32 @@ namespace Dungeon.Engine
             }
         }
 
-        private void PushSceneObjectToScene(SceneObject obj, bool initial=false, SceneObject parent=default)
+        private void PushSceneObjectToScene(SceneObject obj, SceneObject parent = default)
         {
-            try
+            var instance = SceneObjectActivator.Activate(obj, out string error);
+            if (error.IsNotEmpty())
             {
-                ISceneObject instance = default;
-
-                var properties = obj.Properties.ToList();
-
-                var ctors = properties.Where(x => x.Name.Contains("Constructor")).ToList();
-                if (ctors.Count == 0)
-                {
-                    instance = obj.ClassType.NewAs<ISceneObject>();
-                }
-                else
-                {
-                    var activeCtor = ctors.FirstOrDefault(row => row.Value.As<bool>() == true);
-                    if (activeCtor == default)
-                    {
-                        ChangeStatus("Для текущего объекта не выбран используемый конструктор!");
-                        return;
-                    }
-
-                    //всё что относится к конструктору мы не должны пытаться установить
-                    //var firstCtorProp = properties.FirstOrDefault(x => x.Name.ToLowerInvariant().Contains("Constructor"));
-                    //ctors.AddRange(properties.Skip(properties.IndexOf(firstCtorProp) + 1));
-                    //ниже идёт Except(ctors)
-
-                    var activeCtorIndex = int.Parse(activeCtor.Name.Replace("Constructor ", ""));
-                    var activeCtorInstance = obj.ClassType.GetConstructors().ElementAtOrDefault(activeCtorIndex);
-
-                    if (activeCtorInstance != default)
-                    {
-                        var @params = activeCtorInstance.GetParameters()
-                            .Select(param => properties.FirstOrDefault(p => p.Name == param.Name).Value)
-                            .ToArray();
-
-                        instance = obj.ClassType.New<object>(activeCtorInstance, @params).As<ISceneObject>();
-                    }
-                }
-
-                var props = properties.Except(ctors);
-                foreach (var p in props)
-                {
-                    try
-                    {
-                        var nowValue = instance.GetPropertyExprRaw(p.Name);
-                        if (initial && nowValue != default)
-                        {
-                            if (string.IsNullOrWhiteSpace(p.Value?.ToString()))
-                            {
-                                obj.Set(p.Name, nowValue, nowValue.GetType());
-                            }
-                            continue;
-                        }
-                        instance.SetPropertyExprType(p.Name, p.Value, p.Type);
-                    }
-                    catch
-                    {
-                        //ну кароч, свойства из конструктора пытаются установиться. 
-                    }
-                }
-
-                obj.Instance = instance;
-
-                if (obj.Nodes?.Count > 0)
-                {
-                    foreach (var n in obj.Nodes)
-                    {
-                        //PushSceneObjectToScene(n, initial, obj);
-                    }
-                }
-
-                if (parent != default)
-                {
-                    var instance1 = parent.Instance.As<ISceneObject>();
-                    instance1.AddChild(instance);
-                    return;
-                }
-
-                SceneManager.Current.AddObject(instance);
-                obj.Published=true;
+                this.ChangeStatus(error, true);
+                return;
             }
-            catch (Exception ex)
+
+            if (obj.Nodes?.Count > 0)
             {
-                ChangeStatus($"Ошибка публикации: {ex}");
+                foreach (var node in obj.Nodes)
+                {
+                    PushSceneObjectToScene(node.As<SceneObject>(), obj);
+                }
             }
+
+            if (parent != default)
+            {
+                var instance1 = parent.Instance.As<ISceneObject>();
+                instance1.AddChild(instance.As<ISceneObject>());
+                return;
+            }
+
+            SceneManager.Current.AddObject(instance.As<ISceneObject>());
+            obj.Published = true;
         }
 
         private void SelectScene(Scene item)
@@ -564,7 +505,7 @@ namespace Dungeon.Engine
             
         }
 
-        private void PublishSceneObject(PublishSceneObjectEvent @event)=> PushSceneObjectToScene(@event.SceneObject, true);
+        private void PublishSceneObject(PublishSceneObjectEvent @event)=> PushSceneObjectToScene(@event.SceneObject);
 
         private SceneObject SelectedSceneObject;
 

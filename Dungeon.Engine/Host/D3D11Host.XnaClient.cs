@@ -33,7 +33,7 @@ namespace Dungeon.Engine.Host
                 SceneLayers = new Dictionary<ISceneLayer, RenderTarget2D>();
                 if(value.Is<Scenes.Sys_Clear_Screen>())
                 {
-                    GraphicsDevice.Clear(Color.Black);
+                    GraphicsDevice.Clear(Color.White);
                 }
                 _scene = value;
             }
@@ -78,8 +78,6 @@ namespace Dungeon.Engine.Host
             DrawingSize.Cell = newCellSize;
             XNADrawClientImplementation.cell = newCellSize;
         }
-
-        public Microsoft.Xna.Framework.Color ClearColor { get; set; } = Color.CornflowerBlue;
 
 
         #region frameSettings

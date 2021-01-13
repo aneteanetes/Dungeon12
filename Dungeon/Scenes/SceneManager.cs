@@ -17,15 +17,14 @@
             return this.GetType() + $" [{Uid}]";
         }
 
-        public IDrawClient StaticDrawClient { get; set; }
-
+        private IDrawClient drawClient;
         public IDrawClient DrawClient
         {
-            get => StaticDrawClient;
+            get => drawClient;
             set
             {
                 DungeonGlobal.DrawClient = value;
-                StaticDrawClient = value;
+                drawClient = value;
             }
         }
 

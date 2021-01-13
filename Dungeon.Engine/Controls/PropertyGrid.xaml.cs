@@ -109,11 +109,11 @@ namespace Dungeon.Engine.Controls
                 if (prop.Name.Contains("Constructor"))
                 {
                     CreatePropGridCategory("Конструктор", true, rowNum++);
-                    CreatePropGridCell("Использовать", prop.Value, typeof(bool), rowNum, prop.Name);
+                    CreatePropGridCell("Использовать", prop.Value, typeof(bool), rowNum, prop.Name, locked: prop.Locked);
                 }
                 else
                 {
-                    CreatePropGridCell(prop.Name, prop.Value, prop.Type, rowNum,display:prop.Display, propertyTable: propertyTable);
+                    CreatePropGridCell(prop.Name, prop.Value, prop.Type, rowNum, display: prop.Display, propertyTable: propertyTable, locked: prop.Locked);
                 }
                 rowNum++;
             }
@@ -201,7 +201,8 @@ namespace Dungeon.Engine.Controls
 
         private void CreatePropGridCell(string name, object value, Type type, int rowNum, string nameBinding = default, string display = default,
             string description = default,
-            IPropertyTable propertyTable=default)
+            IPropertyTable propertyTable=default,
+            bool locked=false)
         {
             PropGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(28) });
 
@@ -259,7 +260,7 @@ namespace Dungeon.Engine.Controls
                     };
                     comboBoxEditor.SelectionChanged += (s, e) =>
                     {
-                        propertyTable.CollectionValueChanged.Invoke(collection, comboBoxEditor.SelectedItem);
+                        propertyTable.CollectionValueChanged?.Invoke(collection, comboBoxEditor.SelectedItem);
                     };
 
                     editor.Child = comboBoxEditor;
@@ -273,7 +274,7 @@ namespace Dungeon.Engine.Controls
                 // если это коллекция внутри объекта
                 else
                 {
-                    CollectionViewButton(name, value, type, rowNum, nameBinding, editor,propertyTable);
+                    CollectionViewButton(name, value, type, rowNum, nameBinding, editor, propertyTable);
                 }
             }
             else if (type.IsPrimitive || type == typeof(string))
@@ -286,6 +287,33 @@ namespace Dungeon.Engine.Controls
                 {
                     textEditor.ToolTip = description;
                 }
+
+                if (locked)
+                {
+                    editor.Child = default;
+                    var grid = new Grid();
+                    grid.ColumnDefinitions.Add(new ColumnDefinition
+                    {
+                        Width = new GridLength(8, GridUnitType.Star)
+                    });
+                    grid.ColumnDefinitions.Add(new ColumnDefinition
+                    {
+                        Width = new GridLength(2, GridUnitType.Star)
+                    });
+                    Grid.SetColumn(textEditor, 0);
+                    grid.Children.Add(textEditor);
+
+                    Image lockImg = new Image();
+                    lockImg.Source = new BitmapImage(new Uri("pack://siteoforigin:,,,/Icons/Lock_16x.png"));
+                    lockImg.Width = 16;
+                    lockImg.Height = 16;
+
+                    Grid.SetColumn(lockImg, 1);
+                    grid.Children.Add(lockImg);
+
+                    editor.Child = grid;
+                }
+
             }
             else if (propertyTable is SceneObject sceneObjectprop)
             {

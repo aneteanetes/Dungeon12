@@ -19,7 +19,9 @@ namespace Dungeon.Engine.Editable.PropertyTable
 
         public string Display { get; set; }
 
-        public object Value { get; set; }        
+        public object Value { get; set; }
+
+        public bool Locked { get; set; }
 
         public string TypeName { get; set; }
 
