@@ -338,7 +338,7 @@ namespace Dungeon.Monogame
 
         private void DrawSceneObject(ISceneObject sceneObject, double xParent = 0, double yParent = 0, bool batching = false, bool force = false, bool lightIgnoring = false)
         {
-            if (sceneObject.Interface && !lightIgnoring && !sceneObject.AbsolutePosition)
+            if (!batching && sceneObject.Interface && !lightIgnoring && !sceneObject.AbsolutePosition)
             {
                 InterfaceObjects.Add((sceneObject, xParent, yParent));
                 return;

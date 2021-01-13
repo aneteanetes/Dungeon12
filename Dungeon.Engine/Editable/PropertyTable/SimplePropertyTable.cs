@@ -45,6 +45,13 @@ namespace Dungeon.Engine.Editable.PropertyTable
                 row.Locked = true;
         }
 
+        public void Unlock(string key)
+        {
+            var row = Get(key);
+            if (row != default)
+                row.Locked = false;
+        }
+
         public void Set(string key, object value, Type type)
         {
             var row = Get(key);

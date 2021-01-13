@@ -30,7 +30,7 @@ namespace Dungeon.Engine.Forms
 
             XnaHost.MouseDown += HostPressed;
             XnaHost.MouseUp += HostRelease;
-            //XnaHost.MouseMove += HostMoving;
+            XnaHost.MouseMove += HostMoving;
             XnaHost.Loaded += (x, y) =>
             {
                 SceneManager = new SceneManager()
@@ -55,6 +55,18 @@ namespace Dungeon.Engine.Forms
             this.LayerCollection.Init<Editable.TileMap.TilemapLayer>(new EngineCollectionEditorSettings<Editable.TileMap.TilemapLayer>(structure.Layers, this.OnLayerSelect, this.OnLayerRemove, this.OnLayerAdd));
 
             this.ImageCollection.CollectionName.Content = "Тайлсеты";
+            this.ImageCollection.Init<Editable.TileMap.TilemapSourceImage>(new EngineCollectionEditorSettings<TilemapSourceImage>(structure.Sources, this.OnImageSourceSelect, this.OnImageSourceRemove, this.OnImageSourceAdd));
+
+            if (structure.Layers.Count == 0)
+            {
+                structureTilemap.Unlock(nameof(StructureTilemap.Width));
+                structureTilemap.Unlock(nameof(StructureTilemap.Height));
+            }
+
+            XnaHost.Width = structure.Width * structure.CellWidth;
+            XnaHost.Height = structure.Height * structure.CellHeight;
+
+            TileMapSize.Content = $"{XnaHost.Width}x{XnaHost.Height}";
         }
 
         public new void Show(StructureTilemap structure)
@@ -109,50 +121,47 @@ namespace Dungeon.Engine.Forms
         }
 
 #warning host moving
-        //private void HostMoving(object sender, MouseEventArgs e)
-        //{
-        //    if (draw && SelectedLayer != default && !SelectedLayer.BorderMode)
-        //    {
-        //        var mPos = Mouse.GetPosition(XnaHost);
-        //        var pos = new Point(Math.Floor(mPos.X / 32), Math.Floor(mPos.Y / 32));
-        //        var cellSize = structureTilemap.CellSize;
-        //        var offsetX = (int)tilePos.X * cellSize;
-        //        var offsetY = (int)tilePos.Y * cellSize;
+        private void HostMoving(object sender, MouseEventArgs e)
+        {
+            if (draw && SelectedLayer != default && !SelectedLayer.BorderMode)
+            {
+                var mPos = Mouse.GetPosition(XnaHost);
+                var pos = new Point(Math.Floor(mPos.X / 32), Math.Floor(mPos.Y / 32));
+                var offsetX = (int)tilePos.X * structureTilemap.CellWidth;
+                var offsetY = (int)tilePos.Y * structureTilemap.CellHeight;
 
-        //        var existedTile = SelectedLayer.SceneObject.Children.FirstOrDefault(x => x.Left == pos.X && x.Top == pos.Y);
-        //        var tileSource = new Types.Rectangle()
-        //        {
-        //            Width = cellSize,
-        //            Height = cellSize,
-        //            X = offsetX,
-        //            Y = offsetY
-        //        };
+                var existedTile = SelectedLayer.SceneObject.Children.FirstOrDefault(x => x.Left == pos.X && x.Top == pos.Y);
+                var tileSource = new Types.Rectangle()
+                {
+                    Width = structureTilemap.CellWidth,
+                    Height = structureTilemap.CellHeight,
+                    X = offsetX,
+                    Y = offsetY
+                };
 
-        //        if (existedTile != default && existedTile.Image != SelectedSourceImage.Name && !existedTile.ImageRegion.Equals(tileSource))
-        //        {
-        //            SelectedLayer.Tiles.Remove(existedTile.As<TilemapCell>().Component);
-        //            existedTile.Destroy();
-        //            SelectedLayer.SceneObject.Expired = true;
-        //        }
+                if (existedTile != default && existedTile.Image != SelectedSourceImage.Name && !existedTile.ImageRegion.Equals(tileSource))
+                {
+                    SelectedLayer.Tiles.Remove(existedTile.As<TilemapCell>().Component);
+                    existedTile.Destroy();
+                    SelectedLayer.SceneObject.Expired = true;
+                }
 
-        //        if (!clearing && tilePos != default)
-        //        {
-        //            var tile = new TilemapTile()
-        //            {
-        //                SourceImage = SelectedSourceImage.Name,
-        //                OffsetX = offsetX,
-        //                OffsetY = offsetY,
-        //                XPos = (int)pos.X,
-        //                YPos = (int)pos.Y
-        //            };
-        //            SelectedLayer.Tiles.Add(tile);
-        //            SelectedLayer.SceneObject.AddChild(new TilemapCell(tile, cellSize,SelectedLayer));
-        //            SelectedLayer.SceneObject.Expired = true;
-        //        }
-        //    }
-        //}
-
-        private bool first = false;
+                if (!clearing && tilePos != default)
+                {
+                    var tile = new TilemapTile()
+                    {
+                        SourceImage = SelectedSourceImage.Name,
+                        OffsetX = offsetX,
+                        OffsetY = offsetY,
+                        XPos = (int)pos.X,
+                        YPos = (int)pos.Y
+                    };
+                    SelectedLayer.Tiles.Add(tile);
+                    SelectedLayer.SceneObject.AddChild(new TilemapCell(tile, cellSize, SelectedLayer));
+                    SelectedLayer.SceneObject.Expired = true;
+                }
+            }
+        }
 
         private void ResetScene()
         {
@@ -163,13 +172,7 @@ namespace Dungeon.Engine.Forms
             var layer = SceneManager.Current.AddLayer("Main");
             layer.Width = 1920;
             layer.Height = 1080;
-            if (first)
-                layer.AddObject(new EngineTileMap(structureTilemap.Width, structureTilemap.Height, structureTilemap.CellWidth, structureTilemap.CellHeight));
-            else
-                layer.AddObject(new ImageControl("Images.frst.jpg".AsmRes()));
-
-            if (!first)
-                first = true;
+            layer.AddObject(new EngineTileMap(structureTilemap.Width, structureTilemap.Height, structureTilemap.CellWidth, structureTilemap.CellHeight));
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -198,12 +201,6 @@ namespace Dungeon.Engine.Forms
             //        }
             //    }
             //}
-
-            if (structureTilemap.Width != XnaHost.Width || structureTilemap.Height != XnaHost.Height)
-            {
-                XnaHost.Width = structureTilemap.Width;
-                XnaHost.Height = structureTilemap.Height;
-            }
             ResetScene();
             PublishLayers();
 
@@ -234,7 +231,7 @@ namespace Dungeon.Engine.Forms
 
         private void OnImageSourceSelect(TilemapSourceImage source)
         {
-            //TiledMapImageCells.Source = ToImage(source.GetData(structureTilemap.CellSize));
+            TiledMapImageCells.Source = ToImage(source.GetData(structureTilemap.CellWidth,structureTilemap.CellHeight));
         }
 
         public BitmapImage ToImage(byte[] array)
@@ -256,6 +253,11 @@ namespace Dungeon.Engine.Forms
             {
                 structureTilemap.Sources.Add(new TilemapSourceImage() { Name = input.Text });
             }
+        }
+
+        private void OnImageSourceRemove(TilemapSourceImage source)
+        {
+            structureTilemap.Sources.Remove(source);
         }
 
         private void OnLayerSelect(Editable.TileMap.TilemapLayer layer)
@@ -330,11 +332,11 @@ namespace Dungeon.Engine.Forms
             {
                 if (ImageCollection.Selected != default)
                 {
-                    //var pos = Mouse.GetPosition(TiledMapImageCells);
-                    //this.tilePos = new Point(Math.Floor(pos.X / 32), Math.Floor(pos.Y / 32));
-                    //TilePeviewImage.Source = new CroppedBitmap(new BitmapImage(new Uri(ImageCollection.Selected.As<TilemapSourceImage>().Name)),
-                    //    new Int32Rect((int)this.tilePos.X * cellSize, (int)this.tilePos.Y * cellSize, structureTilemap.CellSize, structureTilemap.CellSize));
-                    //TilePreview.Visibility = Visibility.Visible;
+                    var pos = Mouse.GetPosition(TiledMapImageCells);
+                    this.tilePos = new Point(Math.Floor(pos.X / structureTilemap.CellWidth), Math.Floor(pos.Y / structureTilemap.CellHeight));
+                    TilePeviewImage.Source = new CroppedBitmap(new BitmapImage(new Uri(ImageCollection.Selected.As<TilemapSourceImage>().Name)),
+                        new Int32Rect((int)this.tilePos.X * structureTilemap.CellWidth, (int)this.tilePos.Y * structureTilemap.CellHeight, structureTilemap.CellWidth, structureTilemap.CellHeight));
+                    TilePreview.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -463,7 +465,7 @@ namespace Dungeon.Engine.Forms
         {
             public override bool Interface => true;
 
-            //public override bool IsBatch => true;
+            public override bool IsBatch => true;
 
             public EngineTileMap(int width, int height, int cellWidth, int cellHeight)
             {
@@ -476,8 +478,8 @@ namespace Dungeon.Engine.Forms
                     {
                         this.AddChild(new ImageControl("Images.isometric_cell.png".AsmRes())
                         {
-                            Top = y * 66,
-                            Left = (x * 128) + y % 2 == 0 ? 0 : 64,
+                            Top = y * (y % 2 == 66 ? 0 : 33),
+                            Left = (x * 128) + (y % 2 == 0 ? 0 : 64),
                             Width = cellWidth,
                             Height = cellHeight,
                             Opacity = 1,

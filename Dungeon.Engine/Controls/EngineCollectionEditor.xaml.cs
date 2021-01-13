@@ -39,9 +39,9 @@ namespace Dungeon.Engine.Controls
 
         public override void AddCall(object selected) =>  Add?.Invoke(selected.As<T>());
 
-        public override void RemoveCall(object removed) => Remove.Invoke(removed.As<T>());
+        public override void RemoveCall(object removed) => Remove?.Invoke(removed.As<T>());
 
-        public override void SelectCall(object select) => Selected.Invoke(select.As<T>());
+        public override void SelectCall(object select) => Selected?.Invoke(select.As<T>());
     }
 
     public partial class EngineCollectionEditor : UserControl

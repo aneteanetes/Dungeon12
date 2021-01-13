@@ -1,4 +1,5 @@
 ﻿using Dungeon.Drawing.SceneObjects;
+using Dungeon.Engine.Projects;
 using Dungeon.Utils;
 using System;
 using System.Collections.ObjectModel;
@@ -29,7 +30,7 @@ namespace Dungeon.Engine.Editable.TileMap
 
         public byte[] Data { get; set; }
 
-        public byte[] GetData(int cellSize, bool forceRefresh=false)
+        public byte[] GetData(int cellWidth,int cellHeight, bool forceRefresh=false)
         {
             if (Data == default || forceRefresh)
             {
@@ -38,11 +39,11 @@ namespace Dungeon.Engine.Editable.TileMap
                 sceneObject.Width = size.X;
                 sceneObject.Height = size.Y;
 
-                for (int i = 0; i < size.Y / cellSize; i++)//for each line
+                for (int i = 0; i < size.Y / cellHeight; i++)//for each line
                 {
                     sceneObject.AddChild(new DarkRectangle()
                     {
-                        Top = i * cellSize,
+                        Top = i * cellHeight,
                         Left = 0,
                         Width = size.X,
                         Height = 1,
@@ -50,19 +51,24 @@ namespace Dungeon.Engine.Editable.TileMap
                     });
                 }
 
-                for (int i = 0; i < size.X / cellSize; i++)//for each line
+                for (int i = 0; i < size.X / cellWidth; i++)//for each line
                 {
                     sceneObject.AddChild(new DarkRectangle()
                     {
                         Top = 0,
-                        Left = i * cellSize,
+                        Left = i * cellWidth,
                         Width = 1,
                         Height = size.Y,
                         Opacity = 1
                     });
                 }
 
-                DungeonGlobal.DrawClient.SaveObject(sceneObject, Name);
+                var projPath = App.Container.Resolve<EngineProject>().Path;
+                var tilesetsPath = Path.Combine(projPath, "Tilesets");
+                if (!Directory.Exists(tilesetsPath))
+                    Directory.CreateDirectory(tilesetsPath);
+
+                DungeonGlobal.DrawClient.SaveObject(sceneObject, Path.Combine(tilesetsPath, Name));
 
                 Data = File.ReadAllBytes(Name);
             }

@@ -15,6 +15,12 @@ namespace Dungeon.Engine.Editable.PropertyTable
         /// <param name="key"></param>
         void Lock(string key);
 
+        /// <summary>
+        /// Разблокировать <see cref="Set(string, object, Type)"/> и <see cref="Set(string, object, Type, int)"/>
+        /// </summary>
+        /// <param name="key"></param>
+        void Unlock(string key);
+
         void Set(string key, object value, Type type, int index);
 
         System.Collections.Generic.IEnumerable<PropertyTableRow> Properties { get; }
