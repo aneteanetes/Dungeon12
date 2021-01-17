@@ -101,7 +101,7 @@
 
             this.OnMove += () => this.Avatar.OnMove?.Invoke();
 
-            this.AddChild(new ImageControl("ui/radius.png".AsmImgRes())
+            this.AddChild(new ImageControl("ui/radius.png".AsmImg())
             {
                 CacheAvailable=false,
                 Left=-1,

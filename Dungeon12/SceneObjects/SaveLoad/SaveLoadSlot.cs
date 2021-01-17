@@ -14,6 +14,7 @@ using System;
 using static Dungeon12.Global;
 using Dungeon12.Events.Events;
 using Dungeon12.Abilities;
+using Dungeon12.Scenes.Game;
 
 namespace Dungeon12.SceneObjects.SaveLoad
 {
@@ -24,7 +25,7 @@ namespace Dungeon12.SceneObjects.SaveLoad
         public SaveLoadSlot(SaveModel component, bool isSave, Action switchMain, SaveLoadWindow saveLoadWindow) : base(component, false)
         {
             _saveLoadWindow = saveLoadWindow;
-            Image = "ui/dialogs/answerpanel.png".AsmImgRes();
+            Image = "ui/dialogs/answerpanel.png".AsmImg();
 
             this.Width = 22;
             this.Height = 3;
@@ -88,19 +89,19 @@ namespace Dungeon12.SceneObjects.SaveLoad
                     AbsolutePosition = true,
                     OnClick = () =>
                     {
-                        Global.SceneManager.LoadingScreenCustom("FaithIsland").Then(cb =>
+                        Global.SceneManager.LoadingScreenCustom("FaithIsland").Then((Action<Dungeon.Types.Callback>)(cb =>
                         {
-                            Global.SceneManager.Destroy<Scenes.Game.Main>();
+                            Global.SceneManager.Destroy<MainScene>();
 
                             Cooldown.ResetAll();
-                            var data = JsonConvert.DeserializeObject<SavedGame>(Component.Data, Global.GetSaveSerializeSettings());
+                            var data = JsonConvert.DeserializeObject<SavedGame>(base.Component.Data, Global.GetSaveSerializeSettings());
                             GameMap.DeferredMapObjects = data.MapDeferredOptions;
-                            Global.GameState.RestorableRespawns = Component.RestorableRespawns;
+                            Global.GameState.RestorableRespawns = base.Component.RestorableRespawns;
 
                             Global.GameState.PlayerAvatar = new Avatar(data.Character.Character)
                             {
                                 Location = data.Character.Location,
-                                SceenPosition = Component.ScreenPosition
+                                SceenPosition = base.Component.ScreenPosition
                             };
 
                             Global.Time.Set(data.Time);
@@ -109,7 +110,7 @@ namespace Dungeon12.SceneObjects.SaveLoad
                             Global.GameState.Character = data.Character.Character;
                             Global.GameState.Character.Reload();
 
-                            Global.Camera.SetCamera(Component.CameraOffset.X, component.CameraOffset.Y);
+                            Global.Camera.SetCamera(base.Component.CameraOffset.X, component.CameraOffset.Y);
 
                             Global.GameState.Map = new Dungeon12.Map.GameMap();
                             Global.GameState.Map.LoadRegion(data.Map);
@@ -124,7 +125,7 @@ namespace Dungeon12.SceneObjects.SaveLoad
                             switchMain?.Invoke();
 
                             cb.Dispose();
-                        });
+                        }));
                     }
                 });
             }

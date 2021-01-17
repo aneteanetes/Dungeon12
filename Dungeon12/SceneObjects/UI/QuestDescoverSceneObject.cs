@@ -19,7 +19,7 @@ namespace Dungeon12.SceneObjects.UI
         public QuestDescoverSceneObject(IQuest component, bool questBook = false) : base(component, false)
         {
             _questBook = questBook;
-            this.Image = "ui/journal/descoverback.png".AsmImgRes();
+            this.Image = "ui/journal/descoverback.png".AsmImg();
             this.Width = 7;
             this.Height = .75;
 
@@ -86,7 +86,7 @@ namespace Dungeon12.SceneObjects.UI
 
             public ProgressQuestDiscover(IQuest component) : base(component, false)
             {
-                this.Image = "ui/journal/descoverprogress.png".AsmImgRes();
+                this.Image = "ui/journal/descoverprogress.png".AsmImg();
                 this.Left = .5;
                 this.Height = .75;
             }

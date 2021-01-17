@@ -2,6 +2,7 @@
 using Dungeon.Engine.Engine;
 using Dungeon.Engine.Projects;
 using Dungeon.Utils;
+using LiteDB;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -38,6 +39,10 @@ namespace Dungeon.Engine.Editable.Structures
 
         public override ObservableCollection<ObjectTreeListItem> CloneNodes() => new ObservableCollection<ObjectTreeListItem>();
 
+        [Hidden]
+        [BsonIgnore]
+        public Scenes.SceneLayer SceneLayer { get; set; }
+
         private Scene _hostScene;
         private Scene HostScene
         {
@@ -53,6 +58,15 @@ namespace Dungeon.Engine.Editable.Structures
                 return _hostScene;
             }
         }
+
+        [Title("Ширина (в px)")]
+        public int Width { get; set; }
+
+        [Title("Высота (в px)")]
+        public int Height { get; set; }
+
+        [Title("Слой интерфейса")]
+        public bool Interface { get; set; }
 
         [Title("Переместить выше")]
         [Visible]

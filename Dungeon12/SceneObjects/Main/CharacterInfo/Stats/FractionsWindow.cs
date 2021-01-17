@@ -14,7 +14,7 @@ using System.Linq;
 namespace Dungeon12.SceneObjects.Main.CharacterInfo.Stats
 {
 
-    public class FractionsWindow : EmptyControlSceneObject
+    public class FractionsWindow : EmptySceneControl
     {
         public override bool CacheAvailable => false;
 

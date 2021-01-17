@@ -18,7 +18,7 @@
     using Dungeon.Drawing.SceneObjects;
     using Dungeon;
 
-    public class CardGameScene : GameScene<Main,Start>
+    public class CardGameScene : GameScene<MainScene,Start>
     {
         public CardGameScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -26,7 +26,7 @@
 
         public override bool Destroyable => true;
 
-        public override void Init()
+        public override void Initialize()
         {
             var enemyDeckName = this.Args.FirstOrDefault();
             var enemyDeck = Deck.Load("Guardian");
@@ -51,7 +51,7 @@
                 dropMask.Destroy?.Invoke();
                 cardgameSceneObject.Destroy?.Invoke();
 
-                this.AddObject(new ImageControl("Loading/CardGameEnd.png".AsmImgRes()));
+                this.AddObject(new ImageControl("Loading/CardGameEnd.png".AsmImg()));
 
                 var endText = new TextControl(new DrawText(winner.Name == "Персонаж" ? "Вы выйграли" : $"Выйграл трактирщик", ConsoleColor.White).Triforce());
                 endText.Text.Size = 72;
@@ -73,7 +73,7 @@
                     Top = 17,
                     OnClick = () =>
                     {
-                        this.Switch<Main>();
+                        this.Switch<MainScene>();
                     }
                 });
             };
@@ -82,7 +82,7 @@
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
             if (keyPressed == Key.Escape)
-                this.Switch<Main>();
+                this.Switch<MainScene>();
         }
     }
 

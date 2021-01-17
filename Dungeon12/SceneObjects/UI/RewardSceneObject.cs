@@ -37,7 +37,7 @@ namespace Dungeon12.SceneObjects.UI
                         {
                             if (component.Exp > 0)
                             {
-                                image = "Icons/exp.png".AsmImgRes();
+                                image = "Icons/exp.png".AsmImg();
                                 tooltip = $"Опыт: {component.Exp}";
                             }
                             break;
@@ -46,7 +46,7 @@ namespace Dungeon12.SceneObjects.UI
                         {
                             if (component.Gold > 0)
                             {
-                                image = "Items/gold_b.png".AsmImgRes();
+                                image = "Items/gold_b.png".AsmImg();
                                 tooltip = $"Золото: {component.Gold}";
                             }
                             break;
@@ -55,7 +55,7 @@ namespace Dungeon12.SceneObjects.UI
                         {
                             if (component.Perks.Count > 0)
                             {
-                                image = "Items/gold_b.png".AsmImgRes();
+                                image = "Items/gold_b.png".AsmImg();
                                 tooltip = $"Способности: Хождение по воде, Материк";
                             }
                             break;
@@ -64,7 +64,7 @@ namespace Dungeon12.SceneObjects.UI
                         {
                             if (component.ItemGenerators.Count > 0)
                             {
-                                image = "Items/gold_b.png".AsmImgRes();
+                                image = "Items/gold_b.png".AsmImg();
                                 tooltip = $"Предметы: Оружие, Кольцо";
                             }
                             break;

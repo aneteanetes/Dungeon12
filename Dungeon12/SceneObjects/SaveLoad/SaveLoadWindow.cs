@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Dungeon12.SceneObjects.SaveLoad
 {
-    public class SaveLoadWindow : EmptyControlSceneObject
+    public class SaveLoadWindow : EmptySceneControl
     {
         private bool _isSave;
         private Action _switchMain;
@@ -17,7 +17,7 @@ namespace Dungeon12.SceneObjects.SaveLoad
             _switchMain = switchMain;
             _isSave = isSave;
 
-            Image = "ui/vertical(17x24).png".AsmImgRes();
+            Image = "ui/vertical(17x24).png".AsmImg();
             this.Width = 24;
             this.Height = 17;
 

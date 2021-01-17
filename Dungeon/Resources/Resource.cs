@@ -1,4 +1,5 @@
 ﻿using Dungeon.Data;
+using Dungeon.View;
 using LiteDB;
 using System;
 using System.IO;
@@ -25,6 +26,8 @@ namespace Dungeon.Resources
         public string Path { get; set; }
 
         public string CustomInfo { get; set; }
+
+        public PossibleResolution Resolution { get; set; }
 
         public byte[] Data { get; set; }
 

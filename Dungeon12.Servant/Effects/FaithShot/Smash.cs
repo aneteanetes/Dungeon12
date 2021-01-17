@@ -20,7 +20,7 @@ namespace Dungeon12.Servant.Effects.FaithShot
             this.Left = @object.Position.X / 32;
             this.Top = @object.Position.Y / 32;
 
-            var tileset = "Effects/faithshot.png".AsmImgRes();
+            var tileset = "Effects/faithshot.png".AsmImg();
             this.Image = tileset;
             this.Width = 1;
             this.Height = 1;

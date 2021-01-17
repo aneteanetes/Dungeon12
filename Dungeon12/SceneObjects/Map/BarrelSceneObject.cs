@@ -26,7 +26,7 @@ namespace Dungeon12.SceneObjects.Map
             this.TooltipText = @object.Used ? "Пустая бочка" : @object.Name;
         }
 
-        public override string Image => $"Objects/barrels/barell_{(@object.Used ? "empty" : @object.IdentifyName.ToLowerInvariant())}.png".AsmImgRes();
+        public override string Image => $"Objects/barrels/barell_{(@object.Used ? "empty" : @object.IdentifyName.ToLowerInvariant())}.png".AsmImg();
 
         protected override void Action(MouseButton mouseButton)
         {

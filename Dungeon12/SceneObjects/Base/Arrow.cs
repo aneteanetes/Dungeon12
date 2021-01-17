@@ -8,7 +8,7 @@
     using System;
     using Dungeon12;
 
-    public class Arrow : EmptyControlSceneObject
+    public class Arrow : EmptySceneControl
     {
         public override bool CacheAvailable => false;
 

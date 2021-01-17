@@ -63,8 +63,8 @@
         public SceneLayer AddLayer(string name)
         {
             var newLayer = new SceneLayer(this) { Name = name };
-            newLayer.Width = DungeonGlobal.Sizes.Width;
-            newLayer.Height = DungeonGlobal.Sizes.Height;
+            newLayer.Width = DungeonGlobal.Resolution.Width;
+            newLayer.Height = DungeonGlobal.Resolution.Height;
             LayerList.Add(newLayer);
             LayerMap.Add(name, () => LayerList.IndexOf(newLayer));
 
@@ -72,6 +72,7 @@
 
             return newLayer;
         }
+
 
         public SceneLayer RemoveLayer(string name)
         {
@@ -247,7 +248,7 @@
 
         protected virtual void KeyUp(Key keyPressed, KeyModifiers keyModifiers) { }
 
-        public virtual void Init() { }
+        public abstract void Initialize();
 
         public List<Resource> Resources = new List<Resource>();
 
@@ -326,13 +327,13 @@
         }
 
         [Obsolete("Use Layer.AddObject instead")]
-        public void AddControl(ISceneObjectControl sceneObjectControl)
+        public void AddControl(ISceneControl sceneObjectControl)
         {
             CheckLayerExists();
             ActiveLayer?.AddControl(sceneObjectControl);
         }
 
         [Obsolete("Use layers instead")]
-        public void RemoveControl(ISceneObjectControl sceneObjectControl) => this.LayerList.ForEach(ll => ll.RemoveControl(sceneObjectControl));
+        public void RemoveControl(ISceneControl sceneObjectControl) => this.LayerList.ForEach(ll => ll.RemoveControl(sceneObjectControl));
     }
 }

@@ -29,7 +29,7 @@ namespace Dungeon12.Bowman.Effects
         {
             get
             {
-                return new BaseAnimationMap(@"Effects\Arrow.png".AsmImgRes())
+                return new BaseAnimationMap(@"Effects\Arrow.png".AsmImg())
                 {
                     Direction = Direction,
                     Frames = Enumerable.Range(0, 4).Select(x => GetPoint(x)).ToList()
@@ -37,7 +37,7 @@ namespace Dungeon12.Bowman.Effects
             }
         }
 
-        public override string Image => @"Effects\Arrow.png".AsmImgRes();
+        public override string Image => @"Effects\Arrow.png".AsmImg();
         
         private Point GetPoint(int frame)
         {

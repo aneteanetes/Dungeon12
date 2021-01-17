@@ -18,7 +18,7 @@ namespace Dungeon12.SceneObjects
 
         public QuestionBox(QuestionBoxModel component, bool bindView = true) : base(component, bindView)
         {
-            this.Image = "ui/vertical(17x24).png".AsmImgRes();
+            this.Image = "ui/vertical(17x24).png".AsmImg();
             this.Width = 16;
             this.Height = 7;
             this.Left = 40d / 2d - 16d / 2d;
@@ -32,7 +32,7 @@ namespace Dungeon12.SceneObjects
             var yesText = component.YesText.AsDrawText().InSize(14).Montserrat();
             var noText = component.NoText.AsDrawText().InSize(14).Montserrat();
 
-            ISceneObjectControl yes = default;
+            ISceneControl yes = default;
             if (yesText.Length <= 3)
             {
                 var smallBtn = new SmallMetallButtonControl(yesText);
@@ -59,7 +59,7 @@ namespace Dungeon12.SceneObjects
             yesBtn.Top = 4;
             yesBtn.Left = 2;
 
-            ISceneObjectControl no = default;
+            ISceneControl no = default;
             if (noText.Length <= 3)
             {
                 var smallBtn = new SmallMetallButtonControl(noText);

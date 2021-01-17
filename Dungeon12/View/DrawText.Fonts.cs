@@ -13,6 +13,14 @@
             return drawText;
         }
 
+        public static T Carribean<T>(this T drawText) where T: IDrawText
+        {
+            drawText.FontName = "Pieces of Eight Cyrillic AA";
+            drawText.FontAssembly = "Dungeon12";
+
+            return drawText;
+        }
+
         public static T Triforce<T>(this T drawText) where T : IDrawText
         {
             drawText.FontName = "Triforce(RUS BY LYAJKA)";

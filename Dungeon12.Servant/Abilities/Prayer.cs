@@ -74,7 +74,7 @@ namespace Dungeon12.Servant.Abilities
             private Servant _servant;
             public PrayerBuff(Servant servant) => _servant = servant;
 
-            public override string Image => "Abilities/Prayer/buf.png".AsmImgRes();
+            public override string Image => "Abilities/Prayer/buf.png".AsmImg();
 
             IDisposable bufTick;
 

@@ -24,7 +24,7 @@ namespace Dungeon12.SceneObjects
         }
     }
 
-    public abstract class HandleSceneControl<T> : Dungeon.SceneObjects.ControlSceneObject<T>
+    public abstract class HandleSceneControl<T> : Dungeon.SceneObjects.SceneControl<T>
         where T : class, IGameComponent
     {
         public HandleSceneControl(T component, bool bindView = true) : base(component, bindView)

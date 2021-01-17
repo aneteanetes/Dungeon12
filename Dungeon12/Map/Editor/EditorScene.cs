@@ -29,7 +29,7 @@
 
         private EditedGameField field;
 
-        public override void Init()
+        public override void Initialize()
         {
             Global.DrawClient.SetCameraSpeed(5);
 

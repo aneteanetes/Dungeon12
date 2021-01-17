@@ -52,8 +52,14 @@
         private bool blockControls = false;
         private float audioVolume = 0;
 
+
+        Matrix ResolutionScale;
+        Types.Point monitorSize;
+
         protected virtual void GraphicsDeviceManagerInitialization(MonogameClientSettings settings)
         {
+            monitorSize = new Types.Point(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
+
             graphics = new GraphicsDeviceManager(this)
             {
                 IsFullScreen = settings.IsFullScreen,
@@ -61,10 +67,22 @@
                 PreferredBackBufferHeight = settings.HeightPixel,
                 SynchronizeWithVerticalRetrace = settings.VerticalSync,
             };
+            ResolutionScale = Matrix.CreateScale(new Vector3((float)settings.WidthPixel / (float)monitorSize.X, (float)settings.HeightPixel / (float)monitorSize.Y, 1));
+
+            DungeonGlobal.ChangeResolution += r =>
+            {
+                graphics.PreferredBackBufferWidth = r.Width;
+                graphics.PreferredBackBufferHeight = r.Height;
+                graphics.ApplyChanges();
+                DungeonGlobal.Resolution = r;
+                ResolutionScale = Matrix.CreateScale(new Vector3((float)monitorSize.X/ (float)r.Width, (float)monitorSize.Y/ (float)r.Height, 1));
+                SceneManager.Start();
+            };
 
             if (settings.IsWindowedFullScreen)
             {
                 graphics.HardwareModeSwitch = false;
+                this.Window.IsBorderless = true;
             }
 
             graphics.SynchronizeWithVerticalRetrace = true;
@@ -78,7 +96,6 @@
         public XNADrawClient(MonogameClientSettings settings)
         {
             clientSettings = settings;
-            DrawingSize.Cell = settings.CellSize;
             GraphicsDeviceManagerInitialization(settings);
 
             contentResolver = new EmbeddedContentResolver();

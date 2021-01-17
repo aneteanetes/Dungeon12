@@ -1,16 +1,15 @@
 ﻿namespace Dungeon.Drawing.SceneObjects
 {
-    using System;
     using Dungeon.Drawing;
     using Dungeon.Drawing.Impl;
     using Dungeon.GameObjects;
     using Dungeon.SceneObjects;
-    using Dungeon.Settings;
     using Dungeon.Utils;
     using Dungeon.View.Interfaces;
+    using System;
 
     [Hidden]
-    public class ColoredRectangle<TComponent> : ControlSceneObject<TComponent>
+    public class ColoredRectangle<TComponent> : SceneControl<TComponent>
         where TComponent : class, IGameComponent
     {
         public ConsoleColor Color { get; set; }

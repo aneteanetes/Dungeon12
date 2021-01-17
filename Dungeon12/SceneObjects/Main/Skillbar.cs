@@ -14,7 +14,7 @@
     using System.Linq;
     using Dungeon12.Events;
 
-    public class SkillBar : EmptyControlSceneObject
+    public class SkillBar : EmptySceneControl
     {
         public override bool Events => true;
 
@@ -23,10 +23,10 @@
         private GameMap gameMap;
         private Action<List<ISceneObject>> abilityEffects;
         private Action<ISceneObject> destroyBinding;
-        private Action<ISceneObjectControl> controlBinding;
+        private Action<ISceneControl> controlBinding;
         private PlayerSceneObject player;
 
-        public SkillBar(PlayerSceneObject player, GameMap gameMap, Action<List<ISceneObject>> abilityEffects, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding)
+        public SkillBar(PlayerSceneObject player, GameMap gameMap, Action<List<ISceneObject>> abilityEffects, Action<ISceneObject> destroyBinding, Action<ISceneControl> controlBinding)
         {
             this.gameMap = gameMap;
             this.player = player;
@@ -50,7 +50,7 @@
             BindAbilities(@event.PlayerSceneObject.As<PlayerSceneObject>(), @event.GameMap.As<GameMap>(), abilityEffects, destroyBinding, controlBinding);
         }
 
-        private void BindAbilities(PlayerSceneObject player, GameMap gameMap, Action<List<ISceneObject>> abilityEffects, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding)
+        private void BindAbilities(PlayerSceneObject player, GameMap gameMap, Action<List<ISceneObject>> abilityEffects, Action<ISceneObject> destroyBinding, Action<ISceneControl> controlBinding)
         {
             var x = 4.9;
 

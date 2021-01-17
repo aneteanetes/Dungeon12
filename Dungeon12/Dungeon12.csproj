@@ -13,9 +13,12 @@
 
   <ItemGroup>
     <Compile Remove="Data\**" />
+    <Compile Remove="Templates\**" />
     <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="Templates\**" />
     <None Remove="**\Resources\**\*" />
     <None Remove="Data\**" />
+    <None Remove="Templates\**" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="**\Resources\**\*" />
@@ -37,6 +40,8 @@
     <Folder Include="Noone\Resources\Images\Stats\" />
     <Folder Include="Resources\Audio\Music\Locations\" />
     <Folder Include="Resources\Images\Cards\Areas\" />
+    <Folder Include="Resources\Images\GUI\Buttons\" />
+    <Folder Include="Resources\Images\GUI\Planes\" />
     <Folder Include="Resources\Images\Items\Quest\" />
     <Folder Include="Resources\Images\Objects\deadguards\" />
     <Folder Include="Resources\Images\ui\checkbox\" />

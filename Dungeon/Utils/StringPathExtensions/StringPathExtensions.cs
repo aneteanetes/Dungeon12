@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using Dungeon.View.Interfaces;
 
@@ -68,7 +69,15 @@ namespace Dungeon
         /// <summary>
         /// Assembly.Resources.Images.Path
         /// <returns></returns>
-        public static string AsmImgRes(this string img, string between = "") => Assembly.GetCallingAssembly().GetName().Name + ".Resources.Images." + between.Embedded() + img.Embedded();
+        public static string AsmImg(this string img, string between = "") => Assembly.GetCallingAssembly().GetName().Name + ".Resources.Images." + between.Embedded() + img.Embedded();
+
+        /// <summary>
+        /// CallingAssembly.Resources.Images._between_IMG@_RESOLUTION.extension
+        /// </summary>
+        /// <param name="img"></param>
+        /// <param name="between"></param>
+        /// <returns></returns>
+        public static string AsmImgRes(this string img, string between = "") => Assembly.GetCallingAssembly().GetName().Name + ".Resources.Images." + between.Embedded() + Path.GetFileNameWithoutExtension(img.Embedded()) + "@" + DungeonGlobal.Resolution + Path.GetExtension(img.Embedded());
 
         public static string AsmRes(this string res)=> Assembly.GetCallingAssembly().GetName().Name + ".Resources." + res.Embedded();
 

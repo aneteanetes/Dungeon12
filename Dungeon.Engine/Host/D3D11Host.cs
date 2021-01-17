@@ -86,6 +86,7 @@ namespace Dungeon.Engine.Host
         /// </summary>
         public D3D11Host()
         {
+            Camera = new DungeonEngineCamera(this);
             _timer = new Stopwatch();
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;

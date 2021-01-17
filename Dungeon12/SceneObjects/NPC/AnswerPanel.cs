@@ -16,7 +16,7 @@
     using Dungeon;
     using Dungeon12;
 
-    public class AnswerPanel : EmptyControlSceneObject
+    public class AnswerPanel : EmptySceneControl
     {
         public override bool CacheAvailable => false;
 
@@ -33,7 +33,7 @@
 
             //this.Opacity = 0.8;
 
-            Image = "ui/dialogs/answerpanel.png".AsmImgRes();
+            Image = "ui/dialogs/answerpanel.png".AsmImg();
 
             this.Top = 15;
             this.Left = 0;
@@ -215,7 +215,7 @@
             return false;
         }
 
-        private class AnswerClickable : EmptyControlSceneObject
+        private class AnswerClickable : EmptySceneControl
         {
             public override bool AbsolutePosition => true;
 

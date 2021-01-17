@@ -13,7 +13,7 @@
     using Dungeon12;
     using Dungeon;
 
-    public class StatsInfoWindow : EmptyControlSceneObject
+    public class StatsInfoWindow : EmptySceneControl
     {
         public override bool CacheAvailable => false;
 

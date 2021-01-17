@@ -19,9 +19,9 @@ namespace Dungeon12.Scenes.Game
             this.loadingscreen = loadingscreen;
         }
 
-        public override void Init()
+        public override void Initialize()
         {
-            this.AddObject(new ImageControl($"Loading/{loadingscreen}.png".AsmImgRes()));
+            this.AddObject(new ImageControl($"Loading/{loadingscreen}.png".AsmImg()));
 
             var endText = new TextControl("ЗАГРУЗКА".AsDrawText().InSize(70).Triforce());
             endText.Left = 12;

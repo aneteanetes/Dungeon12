@@ -226,7 +226,7 @@
             }
         }
 
-        public override void AddChild(ISceneObjectControl sceneObject)
+        public override void AddChild(ISceneControl sceneObject)
         {
             sceneObject.ZIndex = this.ZIndex;
             base.AddChild(sceneObject);

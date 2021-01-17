@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
 {
-    internal class ScrollJournalContent : EmptyControlSceneObject
+    internal class ScrollJournalContent : EmptySceneControl
     {
         public override bool AbsolutePosition => true;
 
@@ -31,7 +31,7 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
         {
             this.Width = 12;
             this.Height = 17;
-            this.Image = "ui/scrollback(17x12).png".AsmImgRes();
+            this.Image = "ui/scrollback(17x12).png".AsmImg();
 
             var titleText = new DrawText(journalEntry.Display, new DrawColor(ConsoleColor.Black)) { Size = 24 }.Triforce();
             var title = this.AddTextCenter(titleText, vertical: false);
@@ -65,7 +65,7 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
                 visualProgress.Top = 14;
                 this.AddChild(visualProgress);
 
-                var visualReward = journalEntry.Quest.Reward.Visual().As<ISceneObjectControl>();
+                var visualReward = journalEntry.Quest.Reward.Visual().As<ISceneControl>();
                 visualReward.Top = 15;
                 this.AddControlCenter(visualReward,false,false);
             }
@@ -139,38 +139,38 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
             this.Width = .5;
             this.Height = .5;
             this.click = click;
-            this.Image = "ui/checkbox/on.png".AsmImgRes();
+            this.Image = "ui/checkbox/on.png".AsmImg();
             this.AddTextCenter(text.AsDrawText().InSize(10).Montserrat());
         }
 
         public override void Focus()
         {
-            this.Image = "ui/checkbox/hover.png".AsmImgRes();
+            this.Image = "ui/checkbox/hover.png".AsmImg();
             base.Focus();
         }
 
         public override void Unfocus()
         {
-            this.Image = "ui/checkbox/on.png".AsmImgRes();
+            this.Image = "ui/checkbox/on.png".AsmImg();
             base.Unfocus();
         }
 
         public override void Click(PointerArgs args)
         {
-            this.Image = "ui/checkbox/pressed.png".AsmImgRes();
+            this.Image = "ui/checkbox/pressed.png".AsmImg();
             base.Click(args);
         }
 
         public override void ClickRelease(PointerArgs args)
         {
-            this.Image = "ui/checkbox/on.png".AsmImgRes();
+            this.Image = "ui/checkbox/on.png".AsmImg();
             click?.Invoke();
             base.ClickRelease(args);
         }
 
         public override void GlobalClickRelease(PointerArgs args)
         {
-            this.Image = "ui/checkbox/on.png".AsmImgRes();
+            this.Image = "ui/checkbox/on.png".AsmImg();
             base.ClickRelease(args);
         }
     }

@@ -1,5 +1,7 @@
 ﻿using Dungeon.Data;
 using Dungeon.Monogame;
+using Dungeon.View;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dungeon.Engine.Projects
@@ -19,6 +21,9 @@ namespace Dungeon.Engine.Projects
         public bool CacheImagesAndMasks { get; set; } = true;
 
         [Display(Name = "Размер клетки", Description = "Размер клетки для позиционирования элементов, по умолчанию 1=32")]
-        public int CellSize { get; set; } = 32;        
+        public int CellSize { get; set; } = 32;
+
+        [Title("Доступные разрешения экрана")]
+        public ObservableCollection<PossibleResolution> Resolutions { get; set; } = new ObservableCollection<PossibleResolution>();
     }
 }

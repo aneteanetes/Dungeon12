@@ -14,6 +14,12 @@ namespace Dungeon.Monogame
 
             DungeonGlobal.Sizes.Width = settings.WidthPixel;
             DungeonGlobal.Sizes.Height = settings.HeightPixel;
+
+            DungeonGlobal.Resolution = new View.PossibleResolution()
+            {
+                Width = settings.WidthPixel,
+                Height = settings.HeightPixel
+            };
         }
 
         public void Run(bool FATAL = false)

@@ -11,9 +11,9 @@ namespace Dungeon.Engine.Host
 
         public EasyScene(SceneManager sceneManager) : base(sceneManager) { }
 
-        public override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
         }
     }
 }

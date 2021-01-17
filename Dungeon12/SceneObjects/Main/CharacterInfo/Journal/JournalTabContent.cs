@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 {
-    public class JournalTabContent : EmptyControlSceneObject
+    public class JournalTabContent : EmptySceneControl
     {
         public override bool CacheAvailable => false;
 

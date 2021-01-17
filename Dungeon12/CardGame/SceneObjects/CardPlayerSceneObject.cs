@@ -30,7 +30,7 @@ namespace Dungeon12.CardGame.SceneObjects
             {
                 this.AddChild(new EmptyTooltipedSceneObject(tooltip)
                 {
-                    Image= $"Cards/UI/{box}.png".AsmImgRes(),
+                    Image= $"Cards/UI/{box}.png".AsmImg(),
                     AbsolutePosition = true,
                     CacheAvailable = false,
                     Left = left
@@ -81,12 +81,12 @@ namespace Dungeon12.CardGame.SceneObjects
             private CardGamePlayer _component;
             public ResBox(CardGamePlayer component, int res) : base("Ресурс")
             {
-                Image = "Cards/Guardian/ressquare.png".AsmImgRes();
+                Image = "Cards/Guardian/ressquare.png".AsmImg();
                 _res = res;
                 _component = component;
             }
 
-            public override string Image => $"Cards/Guardian/ressquare{(_component.Resources > _res ? "" : "0")}.png".AsmImgRes();                
+            public override string Image => $"Cards/Guardian/ressquare{(_component.Resources > _res ? "" : "0")}.png".AsmImg();                
         }
     }
 }

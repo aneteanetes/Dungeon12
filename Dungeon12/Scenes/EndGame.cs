@@ -8,7 +8,7 @@
     using Dungeon.Scenes.Manager;
     using Dungeon12.Scenes.Game;
 
-    public class EndGame : GameScene<Start, Game.Main>
+    public class EndGame : GameScene<Start, MainScene>
     {
         public EndGame(SceneManager sceneManager) : base(sceneManager)
         {
@@ -16,9 +16,9 @@
 
         public override bool Destroyable => true;
 
-        public override void Init()
+        public override void Initialize()
         {
-            this.AddObject(new ImageControl("Loading/Sacrifice.png".AsmImgRes()));
+            this.AddObject(new ImageControl("Loading/Sacrifice.png".AsmImg()));
             this.AddObject(new EndSceneObject());
         }
 
@@ -26,7 +26,7 @@
         {
             if (keyPressed == Key.Escape && !hold)
             {
-                Global.SceneManager.Destroy<Main>();
+                Global.SceneManager.Destroy<MainScene>();
                 this.Switch<Start>();
             }
         }

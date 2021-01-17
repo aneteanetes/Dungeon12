@@ -21,7 +21,7 @@ namespace Dungeon12.Bowman
 
         public override int InitialHP => 50;
 
-        public override string Avatar => "archer.png".AsmImgRes();
+        public override string Avatar => "archer.png".AsmImg();
 
         public override string ClassName => "Охотник";
 
@@ -33,7 +33,7 @@ namespace Dungeon12.Bowman
 
         public override ConsoleColor ResourceColor => ConsoleColor.Yellow;
 
-        public override string Tileset => "sprite.png".AsmImgRes();
+        public override string Tileset => "sprite.png".AsmImg();
 
         public SpeedShot SpeedShot { get; set; } = new SpeedShot();
 

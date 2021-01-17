@@ -39,7 +39,7 @@ namespace Dungeon.Engine.Host
             }
         }
 
-        public DungeonEngineCamera Camera { get; set; } = new DungeonEngineCamera();
+        public DungeonEngineCamera Camera { get; set; }
 
         public double CameraOffsetX => Camera.CameraOffsetX;
 
@@ -119,7 +119,7 @@ namespace Dungeon.Engine.Host
 
         private bool skipCallback = false;
 
-        public string Uid { get; } = Guid.NewGuid().ToString();
+        public Types.Rectangle CameraView => Camera.CameraView;
 
         public Callback SetScene(IScene scene)
         {

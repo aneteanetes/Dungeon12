@@ -9,6 +9,7 @@
     using Dungeon.Resources;
     using Dungeon.Scenes.Manager;
     using Dungeon.Settings;
+    using Dungeon.View;
     using Dungeon.View.Interfaces;
     using MoreLinq;
     using System;
@@ -61,6 +62,10 @@
         public static EventBus Events { get; } = new EventBus();
 
         public static object TransportVariable { get; set; }
+
+        public static PossibleResolution Resolution { get; set; }
+
+        public static Action<PossibleResolution> ChangeResolution { get; set; }
 
         public static PointerArgs PointerLocation { get; set; }
 

@@ -12,7 +12,7 @@
         public Potion(int hitpoints)
         {
             Name = "Зелье";
-            Tileset = $"Items/Potions/1.gif".AsmImgRes();
+            Tileset = $"Items/Potions/1.gif".AsmImg();
             HealingValue = hitpoints;
             this.BaseStats.Add(new BaseStatEquip()
             {

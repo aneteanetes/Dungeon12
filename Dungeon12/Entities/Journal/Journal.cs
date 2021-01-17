@@ -39,7 +39,7 @@ namespace Dungeon12.Entites.Journal
             return new JournalCategory()
             {
                 Name = prop.ValueAttribute().ToString(),
-                Icon = $"Journal/{prop.ValueAttribute<IconAttribute>().ToString()}.png".AsmImgRes(),
+                Icon = $"Journal/{prop.ValueAttribute<IconAttribute>().ToString()}.png".AsmImg(),
                 Content = _Type[this, name] as List<JournalEntry>
             };
         }

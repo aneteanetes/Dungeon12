@@ -30,7 +30,7 @@ namespace Dungeon12.CardGame.SceneObjects
             this.Width = 4.65625;
             this.Height = 7;
 
-            this.Image = $"Cards/Guardian/{ImageMap[card.CardType]}0.png".AsmImgRes();
+            this.Image = $"Cards/Guardian/{ImageMap[card.CardType]}0.png".AsmImg();
 
             switch (card.CardType)
             {
@@ -111,7 +111,7 @@ namespace Dungeon12.CardGame.SceneObjects
 
         private void AsResource(Card card)
         {
-            this.Image = "Cards/Guardian/resource0.png".AsmImgRes();
+            this.Image = "Cards/Guardian/resource0.png".AsmImg();
         }
 
         private TextControl CardNameControl;
@@ -127,7 +127,7 @@ namespace Dungeon12.CardGame.SceneObjects
             GuardShieldText = this.AddTextCenter(guardCard.Shield.ToString().AsDrawText().InSize(72).Triforce(), true, false);
             GuardShieldText.Top = 3.8;
 
-            this.AddChild(new ImageControl($"Cards/Guardian/guard1.png".AsmImgRes())
+            this.AddChild(new ImageControl($"Cards/Guardian/guard1.png".AsmImg())
             {
                 AbsolutePosition = true,
                 CacheAvailable = false,
@@ -163,7 +163,7 @@ namespace Dungeon12.CardGame.SceneObjects
                 descText.Top = 3.7;
             }
 
-            this.AddChild(new ImageControl($"Cards/Guardian/ability1.png".AsmImgRes())
+            this.AddChild(new ImageControl($"Cards/Guardian/ability1.png".AsmImg())
             {
                 AbsolutePosition = true,
                 CacheAvailable = false,
@@ -176,7 +176,7 @@ namespace Dungeon12.CardGame.SceneObjects
         {
             this.Height = 4.65625;
             this.Width = 7;
-            this.Image = $"Cards/Areas/{areaCard.Image}.png".AsmImgRes();
+            this.Image = $"Cards/Areas/{areaCard.Image}.png".AsmImg();
 
             this.AddChild(new CardNum(() => areaCard.Rounds, 1, 1)
             {

@@ -128,6 +128,9 @@
         private double Width = 40 * 32;
         private double Height = 22.5 * 32;
 
+        public Types.Rectangle CameraView => Types.Rectangle.Empty;
+
+
         public bool InCamera(ISceneObject sceneObject)
         {
             var pos = sceneObject.ComputedPosition;

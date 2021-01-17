@@ -26,7 +26,6 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using static Dungeon.Engine.Forms.TileEditorForm;
 
 namespace Dungeon.Engine
 {
@@ -47,8 +46,6 @@ namespace Dungeon.Engine
 
     public partial class MainWindow : Window
     {
-        public static TileEditorForm TileEditorForm;
-
         public ObservableCollection<MenuItem> MenuItems { get; set; } = new ObservableCollection<MenuItem>();
 
         public EngineProject Project { get; set; }
@@ -93,8 +90,6 @@ namespace Dungeon.Engine
 
             StructsView.AddObjectBinding += (e, r) => AddStruct(e, r);
             StructsView.TreeView.SelectedItemChanged += StructSelect;
-
-            TileEditorForm = new TileEditorForm();
         }
 
         private void StructSelect(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -302,7 +297,7 @@ namespace Dungeon.Engine
             if (!Available)
                 return;
 
-            Project.Scenes.Add(new Scene() { Name = "Scene", Width = Project.CompileSettings.WidthPixel, Height = Project.CompileSettings.HeightPixel });
+            Project.Scenes.Add(new Scene() { Name = "Scene", Width = DungeonGlobal.Resolution.Width, Height = DungeonGlobal.Resolution.Width });
 
             ScenesView.SelectedIndex = ScenesView.Items.Count - 1;
         }
@@ -391,33 +386,22 @@ namespace Dungeon.Engine
             SceneManager.Change<EasyScene>();
             foreach (var @struct in SelectedScene.StructObjects)
             {
-                if (@struct is StructureTilemap structureTilemap)
+                if (@struct is StructureLayer structureLayer) //always, but easy cast
                 {
-                    var compiled = new SceneObject()
-                    {
-                        ClassName = "Dungeon.Drawing.SceneObjects.ImageControl",
-                    };
-                    if (structureTilemap.CompiledImagePath.IsNotEmpty())
-                    {
-                        compiled.Set("Name", structureTilemap.CompiledImagePath, typeof(string));
-                        PushSceneObjectToScene(compiled);
-                    }
-                }
+                    structureLayer.SceneLayer = SceneManager.Current.AddLayer(structureLayer.Name);
 
-                if (@struct is StructureLayer structureLayer)
-                {
                     foreach (var obj in structureLayer.Nodes)
                     {
                         if (obj is StructureSceneObject structSceneObject && structSceneObject.SceneObject != default)
                         {
-                            PushSceneObjectToScene(structSceneObject.SceneObject);
+                            PushSceneObjectToScene(structSceneObject.SceneObject, layer: structureLayer.SceneLayer);
                         }
                     }
                 }
             }
         }
 
-        private void PushSceneObjectToScene(SceneObject obj, SceneObject parent = default)
+        private void PushSceneObjectToScene(SceneObject obj, SceneObject parent = default, Scenes.SceneLayer layer=default)
         {
             var instance = SceneObjectActivator.Activate(obj, out string error);
             if (error.IsNotEmpty())
@@ -430,7 +414,7 @@ namespace Dungeon.Engine
             {
                 foreach (var node in obj.Nodes)
                 {
-                    PushSceneObjectToScene(node.As<SceneObject>(), obj);
+                    PushSceneObjectToScene(node.As<SceneObject>(), obj,layer);
                 }
             }
 
@@ -441,7 +425,7 @@ namespace Dungeon.Engine
                 return;
             }
 
-            SceneManager.Current.AddObject(instance.As<ISceneObject>());
+            layer.AddObject(instance.As<ISceneObject>());
             obj.Published = true;
         }
 
@@ -505,7 +489,7 @@ namespace Dungeon.Engine
             
         }
 
-        private void PublishSceneObject(PublishSceneObjectEvent @event)=> PushSceneObjectToScene(@event.SceneObject);
+        private void PublishSceneObject(PublishSceneObjectEvent @event) => PushSceneObjectToScene(@event.SceneObject, @event.Parent, @event.Layer.SceneLayer);
 
         private SceneObject SelectedSceneObject;
 

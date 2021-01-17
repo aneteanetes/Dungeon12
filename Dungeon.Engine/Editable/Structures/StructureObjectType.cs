@@ -7,8 +7,7 @@ namespace Dungeon.Engine.Editable
     public enum StructureObjectType
     {
         Layer = 0,
-        Object = 1,
-        TileMap = 2
+        Object = 1
     }
 
     public static class DungeonEngineSceneStructureTypeExtensions

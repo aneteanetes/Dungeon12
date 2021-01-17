@@ -15,7 +15,7 @@ namespace Dungeon12.CardGame.Scene
             this.Width = 40;
             this.Height = 22.5;
 
-            this.Image = "ui/horizontal(40x225).png".AsmImgRes();
+            this.Image = "ui/horizontal(40x225).png".AsmImg();
 
             var (Player1, Player2) = component.Start(playerDeck, "Персонаж", enemyDeck, "Трактирщик");
 
@@ -107,7 +107,7 @@ namespace Dungeon12.CardGame.Scene
             }
         }
 
-        private class LockSceneObject : EmptyControlSceneObject
+        private class LockSceneObject : EmptySceneControl
         { }
 
         private void AfterCardFlushed(GameDeskSceneObject gameDeskSceneObject, Entities.Card card, CardSceneObject c)

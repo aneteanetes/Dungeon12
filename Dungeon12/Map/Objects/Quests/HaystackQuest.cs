@@ -24,7 +24,7 @@ namespace Dungeon12.Map.Objects
 
         public override string TakeTrigger => nameof(HaystackQuestTakeTrigger);
 
-        public override string CustomLootImage => "Objects/haystack.png".AsmImgRes();
+        public override string CustomLootImage => "Objects/haystack.png".AsmImg();
 
         public override IDrawColor CustomLootColor => DrawColor.LightYellow;
 

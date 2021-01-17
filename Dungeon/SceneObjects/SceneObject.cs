@@ -86,22 +86,20 @@
             var textControl = new TextControl(drawText);
             var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text, this);
 
-            var width = Width * Settings.DrawingSize.CellF;
-            var height = Height * Settings.DrawingSize.CellF;
+            var width = Width;
+            var height = Height;
 
             if (horizontal)
             {
-                var left = width / 2 - measure.X / 2;
-                textControl.Left = left / Settings.DrawingSize.CellF;
+                textControl.Left = width / 2 - measure.X / 2;
             }
 
             if (vertical)
             {
-                var top = height / 2 - measure.Y / 2;
-                textControl.Top = top / Settings.DrawingSize.CellF;
+                textControl.Top = height / 2 - measure.Y / 2;
             }
 
-            Children.Add(textControl);
+            this.AddChild(textControl);
 
             return textControl;
         }
@@ -410,7 +408,7 @@
         public Action<ISceneObject> DestroyBinding { get; set; }
 
         [Hidden]
-        public Action<ISceneObjectControl> ControlBinding { get; set; }
+        public Action<ISceneControl> ControlBinding { get; set; }
 
         public virtual Rectangle CropPosition => new Rectangle
         {
@@ -537,6 +535,9 @@
         public string Tag { get; set; }
 
         public ISceneLayer Layer { get; set; }
+
+        [Title("Рисовать видимую часть")]
+        public bool DrawPartInSight { get; set; }
 
         private object flowContext = null;
 

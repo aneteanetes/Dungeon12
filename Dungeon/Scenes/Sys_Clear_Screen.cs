@@ -8,5 +8,7 @@ namespace Dungeon.Scenes
         public Sys_Clear_Screen(SceneManager sceneManager) : base(sceneManager) { }
 
         public override bool Destroyable => true;
+
+        public override void Initialize() { }
     }
 }

@@ -10,7 +10,7 @@
     using Dungeon12.Scenes.Game;
     using Dungeon;
 
-    public class End : GameScene<Start, Game.Main>
+    public class End : GameScene<Start, MainScene>
     {
         public End(SceneManager sceneManager) : base(sceneManager)
         {
@@ -18,7 +18,7 @@
 
         public override bool Destroyable => true;
         
-        public override void Init()
+        public override void Initialize()
         {
             var endText = new TextControl("Вы проиграли".AsDrawText().InSize(70).Triforce());
             endText.Left = 12;
@@ -31,7 +31,7 @@
                 Top = 17,
                 OnClick = () =>
                 {
-                    Global.SceneManager.Destroy<Main>();
+                    Global.SceneManager.Destroy<MainScene>();
                     this.Switch<Start>();
                 }
             });

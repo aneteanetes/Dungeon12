@@ -10,7 +10,7 @@ namespace Dungeon12.Bowman.Effects.Trap
             this.Width = 1;
             this.Height = 1;
 
-            this.Image = "trap.png".AsmImgRes();
+            this.Image = "trap.png".AsmImg();
 
             this.Left = component.Location.X;
             this.Top = component.Location.Y;

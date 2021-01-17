@@ -8,45 +8,43 @@ using Dungeon12.Scenes.Menus;
 
 namespace Dungeon12.Scenes
 {
-    public class SplashScene : StartScene<Start>
-    {
-        public SplashScene(SceneManager sceneManager) : base(sceneManager)
-        {
-        }
+    //public class SplashScene : StartScene<Start>
+    //{
+    //    public SplashScene(SceneManager sceneManager) : base(sceneManager)
+    //    {
+    //    }
 
-        public override bool Destroyable => true;
+    //    public override bool Destroyable => true;
 
-        //public override void FatalException()
-        //{
-        //    MessageBox.Show("Произошла фатальная ошибка, требуется перезапустить игру.", () => { Global.Exit?.Invoke(); });
-        //}
+    //    //public override void FatalException()
+    //    //{
+    //    //    MessageBox.Show("Произошла фатальная ошибка, требуется перезапустить игру.", () => { Global.Exit?.Invoke(); });
+    //    //}
 
-        AnimatedSplash Splash;
+    //    AnimatedSplash Splash;
 
-        public override void Init()
-        {
-            Global.DrawClient.SetCursor("Cursors.common.png".PathImage());
+    //    public override void Initialize()
+    //    {
+    //        Global.DrawClient.SetCursor("Cursors.common.png".PathImage());
 
-            Splash = new AnimatedSplash();
-            this.AddObject(Splash);
+    //        Splash = new AnimatedSplash();
+    //        this.AddObject(Splash);
+    //    }
 
-            base.Init();
-        }
+    //    protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
+    //    {
+    //        if(Splash.CanSwitch)
+    //        {
+    //            this.Switch<Start>();
+    //        }
+    //    }
 
-        protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
-        {
-            if(Splash.CanSwitch)
-            {
-                this.Switch<Start>();
-            }
-        }
-
-        protected override void MousePress(PointerArgs pointerArgs)
-        {
-            if (Splash.CanSwitch)
-            {
-                this.Switch<Start>();
-            }
-        }
-    }
+    //    protected override void MousePress(PointerArgs pointerArgs)
+    //    {
+    //        if (Splash.CanSwitch)
+    //        {
+    //            this.Switch<Start>();
+    //        }
+    //    }
+    //}
 }

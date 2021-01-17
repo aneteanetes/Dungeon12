@@ -16,7 +16,7 @@
 
         public override bool Destroyable => true;
         
-        public override void Init()
+        public override void Initialize()
         {
             this.AddObject(new ImageControl("Dungeon12.Resources.Images.d12back.png"));
 

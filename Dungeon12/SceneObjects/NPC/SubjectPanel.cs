@@ -17,7 +17,7 @@ namespace Dungeon12.SceneObjects.NPC
     using System.Linq;
     using Dungeon12;
 
-    public class SubjectPanel : EmptyControlSceneObject
+    public class SubjectPanel : EmptySceneControl
     {
         public override bool AbsolutePosition => true;
 
@@ -36,7 +36,7 @@ namespace Dungeon12.SceneObjects.NPC
 
             //Opacity = 0.8;
 
-            Image = "ui/dialogs/subjectpanel.png".AsmImgRes();
+            Image = "ui/dialogs/subjectpanel.png".AsmImg();
 
             Top = 0;
             Left = 31;
@@ -191,7 +191,7 @@ namespace Dungeon12.SceneObjects.NPC
             }
         }
 
-        private class SubjectClickable : EmptyControlSceneObject
+        private class SubjectClickable : EmptySceneControl
         {
             public override bool AbsolutePosition => true;
             public override bool CacheAvailable => false;
@@ -228,7 +228,7 @@ namespace Dungeon12.SceneObjects.NPC
             }
         }
 
-        private class ConversactionClickable : EmptyControlSceneObject
+        private class ConversactionClickable : EmptySceneControl
         {
             public override bool CacheAvailable => false;
 
@@ -254,7 +254,7 @@ namespace Dungeon12.SceneObjects.NPC
                 this.Height = conv.Conversations.Sum(x => 4.5);
             }
 
-            private class FaceClickControl : EmptyControlSceneObject
+            private class FaceClickControl : EmptySceneControl
             {
                 public override bool CacheAvailable => false;
 

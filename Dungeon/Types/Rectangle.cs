@@ -4,9 +4,10 @@ namespace Dungeon.Types
 {
     public class Rectangle
     {
+        public static Rectangle Empty => new Rectangle();
+
         public Rectangle()
         {
-
         }
         
         public Rectangle(int x, int y, int width, int height)

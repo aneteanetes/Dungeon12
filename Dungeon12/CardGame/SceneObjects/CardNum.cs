@@ -28,7 +28,7 @@ namespace Dungeon12.CardGame.SceneObjects
             double left = 0;
             for (int i = 0; i < 3; i++)
             {
-                var img = $"Cards/Numbers/0.png".AsmImgRes();
+                var img = $"Cards/Numbers/0.png".AsmImg();
 
                 this.AddChild(new ImageControl(img)
                 {
@@ -54,7 +54,7 @@ namespace Dungeon12.CardGame.SceneObjects
                 var num = Children.ElementAtOrDefault(i) as ImageControl;
                 if (@char != default)
                 {
-                    num.Image= $"Cards/Numbers/{@char}.png".AsmImgRes();
+                    num.Image= $"Cards/Numbers/{@char}.png".AsmImg();
                     num.Visible = true;
                 }
                 else

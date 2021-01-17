@@ -20,7 +20,7 @@ namespace Dungeon12.CardGame.SceneObjects
 
         public CardSkipSceneObject():base("Пропустить ход")
         {
-            this.Image = "Cards/Guardian/skip.png".AsmImgRes();
+            this.Image = "Cards/Guardian/skip.png".AsmImg();
             this.Width = 4.65625/2;
             this.Height = 7;
         }

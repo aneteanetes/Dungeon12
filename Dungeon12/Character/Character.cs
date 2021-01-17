@@ -95,7 +95,7 @@
 
         public virtual void AddClassPerk() { }
 
-        public virtual string Avatar => this.GetType().Name.AsmImgRes();
+        public virtual string Avatar => this.GetType().Name.AsmImg();
 
         /// <summary>
         /// это пиздец, выпили это нахуй

@@ -12,7 +12,7 @@ using Dungeon.Control.Keys;
 
 namespace Dungeon12.Scenes.SaveLoad
 {
-    public class SaveLoadScene : GameScene<Main, Start>
+    public class SaveLoadScene : GameScene<MainScene, Start>
     {
         public SaveLoadScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -22,13 +22,13 @@ namespace Dungeon12.Scenes.SaveLoad
 
         private bool isGame;
 
-        public override void Init()
+        public override void Initialize()
         {
             isGame = Args.ElementAtOrDefault(0) != default;
             var isSave = Args.ElementAtOrDefault(1) != default;
 
             this.AddObject(new Background());
-            this.AddObject(new SaveLoadWindow(isSave, () => this.Switch<Main>())
+            this.AddObject(new SaveLoadWindow(isSave, () => this.Switch<MainScene>())
             {
                 Left = 8,
                 Top = 2.5

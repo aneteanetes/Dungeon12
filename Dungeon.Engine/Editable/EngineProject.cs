@@ -1,17 +1,12 @@
 ﻿using Dungeon.Data;
 using Dungeon.Engine.Editable;
 using Dungeon.Engine.Editable.Structures;
-using Dungeon.Engine.Editable.TileMap;
 using Dungeon.Engine.Engine;
 using Dungeon.Resources;
 using LiteDB;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Runtime.Loader;
-using System.Windows.Controls;
 
 namespace Dungeon.Engine.Projects
 {
@@ -26,8 +21,6 @@ namespace Dungeon.Engine.Projects
         public List<Reference> References { get; set; }
 
         public ObservableCollection<Scene> Scenes { get; set; } = new ObservableCollection<Scene>();
-
-        public ObservableCollection<Tilemap> Maps { get; set; } = new ObservableCollection<Tilemap>();
 
         public ObservableCollection<ResourcesGraph> Resources { get; set; }
 

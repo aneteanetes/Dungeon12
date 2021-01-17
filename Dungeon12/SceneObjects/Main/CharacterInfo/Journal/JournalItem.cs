@@ -38,8 +38,8 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
             ItemIndex = model.ItemIndex;
 
             this.Image = _journalEntry == null
-                ? "ui/journal/group.png".AsmImgRes()
-                : "ui/journal/select.png".AsmImgRes();
+                ? "ui/journal/group.png".AsmImg()
+                : "ui/journal/select.png".AsmImg();
 
             this.Width = 10;
             this.Height = 1;

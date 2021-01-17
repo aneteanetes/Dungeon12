@@ -11,7 +11,7 @@ using System.Text;
 
 namespace Dungeon12.SceneObjects.UI
 {
-    public class AnimatedSplash : EmptyControlSceneObject
+    public class AnimatedSplash : EmptySceneControl
     {
         private ImageControl splashText;
 

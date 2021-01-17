@@ -7,6 +7,7 @@ using Dungeon.View.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended.Tiled;
 using Penumbra;
 using ProjectMercury;
 using ProjectMercury.Renderers;
@@ -63,7 +64,7 @@ namespace Dungeon.Monogame
 
         private bool useLight;
 
-        public void Draw(ISceneObject[] sceneObjects, Microsoft.Xna.Framework.GameTime gameTime, RenderTarget2D target = default, bool useLight = false,bool clear=false)
+        public void Draw(ISceneObject[] sceneObjects, Microsoft.Xna.Framework.GameTime gameTime, RenderTarget2D target = default, bool useLight = false,bool clear=false,Matrix? resolutionMatrix=default)
         {
             this.useLight = useLight;
             this.target = target;
@@ -142,7 +143,7 @@ namespace Dungeon.Monogame
 
         private void SetSpriteBatch(bool absolute = false, bool @interface = false, double scale=0)
         {
-            var scaleMatrix = Matrix.Identity;
+            Matrix scaleMatrix = Matrix.Identity;
             if (Camera.CameraOffsetZ != 0)
             {
                 var scaleVal = 1 + (Camera.CameraOffsetZ * 0.1);
@@ -158,11 +159,7 @@ namespace Dungeon.Monogame
             if (!absolute)
             {
                 SpriteBatchRestore = (smooth, filter) => spriteBatch.Begin(
-                    transformMatrix:
-#if Android
-                    screenScale*
-#endif
-                    Matrix.CreateTranslation((float)Camera.CameraOffsetX, (float)Camera.CameraOffsetY,0) * scaleMatrix,
+                    transformMatrix: Matrix.CreateTranslation((float)Camera.CameraOffsetX, (float)Camera.CameraOffsetY,0) * scaleMatrix,
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
                     blendState: useLight ? BlendState.AlphaBlend : BlendState.NonPremultiplied, effect: filter ? GlobalImageFilter : null
                     );
@@ -170,11 +167,7 @@ namespace Dungeon.Monogame
             else
             {
                 SpriteBatchRestore = (smooth, filter) => spriteBatch.Begin(
-                    transformMatrix:
-#if Android
-                    screenScale*,
-#endif
-                    scaleMatrix,
+                    transformMatrix: scaleMatrix,
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
                     blendState: useLight ? BlendState.AlphaBlend : BlendState.NonPremultiplied/*, effect: @interface ? null : GlobalImageFilter*/);
             }
@@ -467,7 +460,7 @@ namespace Dungeon.Monogame
                 return;
             }
 
-            if (force || !TileSetCache.TryGetValue(sceneObject.Uid, out Rect tileRegion))
+            if (force || sceneObject.DrawPartInSight || !TileSetCache.TryGetValue(sceneObject.Uid, out Rect tileRegion))
             {
                 if (sceneObject.ImageRegion == null)
                 {
@@ -483,6 +476,46 @@ namespace Dungeon.Monogame
                 {
                     TileSetCache.Add(sceneObject.Uid, tileRegion);
                 }
+            }
+
+            if (sceneObject.DrawPartInSight)
+            {
+                var camera = Camera.CameraView;
+                var imagePos = new Types.Point(sceneObject.Left, sceneObject.Top);
+                var imageOffset = new Types.Point();
+
+                if (imagePos.X < camera.X)
+                {
+                    imageOffset.X = Math.Abs(camera.X - imagePos.X);
+                }
+
+                if (imagePos.Y < camera.Y)
+                {
+                    imageOffset.Y = Math.Abs(camera.Y - imagePos.Y);
+                }
+
+                double w = 0, h = 0;
+
+                double wOffset = sceneObject.ImageRegion == null
+                    ? image.Width
+                    : sceneObject.ImageRegion.Width;
+
+
+                double hOffset = sceneObject.ImageRegion == null
+                    ? image.Height
+                    : sceneObject.ImageRegion.Height;
+
+                wOffset -= imageOffset.X;
+                hOffset -= imageOffset.Y;
+
+                w = camera.Width - wOffset < 0 ? camera.Width : wOffset;
+                h = camera.Height - wOffset < 0 ? camera.Height : hOffset;
+
+                tileRegion = new Rect(
+                    0 - imageOffset.X,
+                    0 - imageOffset.Y,
+                    w,
+                    h);
             }
 
             if (force || !PosCache.TryGetValue(sceneObject.Uid, out Rect pos) || sceneObject.Expired)
@@ -513,6 +546,11 @@ namespace Dungeon.Monogame
                     PosCache.Add(sceneObject.Uid, pos);
                     sceneObject.Expired = false;
                 }
+            }
+
+            if (sceneObject.DrawPartInSight)
+            {
+                pos = tileRegion;
             }
 
 #warning [INFO] Вот здесь теперь всё хорошо,но это место можно использовать для того что бы заоптимизировать преобразование размеров, т.к. масштабирование текстур происходит тут

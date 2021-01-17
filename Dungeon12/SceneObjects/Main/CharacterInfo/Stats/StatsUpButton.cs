@@ -33,38 +33,38 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Stats
             this.Width = .5;
             this.Height = .5;
             _up = up;
-            this.Image = "ui/checkbox/on.png".AsmImgRes();
+            this.Image = "ui/checkbox/on.png".AsmImg();
             this.AddTextCenter(text.AsDrawText().InSize(10).Montserrat());
         }
 
         public override void Focus()
         {
-            this.Image = "ui/checkbox/hover.png".AsmImgRes();
+            this.Image = "ui/checkbox/hover.png".AsmImg();
             base.Focus();
         }
 
         public override void Unfocus()
         {
-            this.Image = "ui/checkbox/on.png".AsmImgRes();
+            this.Image = "ui/checkbox/on.png".AsmImg();
             base.Unfocus();
         }
 
         public override void Click(PointerArgs args)
         {
-            this.Image = "ui/checkbox/pressed.png".AsmImgRes();
+            this.Image = "ui/checkbox/pressed.png".AsmImg();
             base.Click(args);
         }
 
         public override void ClickRelease(PointerArgs args)
         {
-            this.Image = "ui/checkbox/on.png".AsmImgRes();
+            this.Image = "ui/checkbox/on.png".AsmImg();
             _up?.Invoke(Component);
             base.ClickRelease(args);
         }
 
         public override void GlobalClickRelease(PointerArgs args)
         {
-            this.Image = "ui/checkbox/on.png".AsmImgRes();
+            this.Image = "ui/checkbox/on.png".AsmImg();
             base.ClickRelease(args);
         }
 

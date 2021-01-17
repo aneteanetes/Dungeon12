@@ -37,7 +37,7 @@ namespace Dungeon12.Servant
         {
             private Servant servant;
             int _count;
-            public FaithPowerOrb(Servant servant,int count) : base("fpower.png".AsmImgRes())
+            public FaithPowerOrb(Servant servant,int count) : base("fpower.png".AsmImg())
             {
                 _count = count;
                 this.servant = servant;

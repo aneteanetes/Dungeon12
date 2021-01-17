@@ -68,7 +68,7 @@
             AddArrows(upBind, downBind);
 
             handleSceneControl.AddHandle(ControlEventType.MouseWheel);
-            handleSceneControl.AddDynamicEvent(nameof(ControlSceneObject<EmptyGameComponent>.MouseWheel), MouseWheelBinding(upBind, downBind));
+            handleSceneControl.AddDynamicEvent(nameof(SceneControl<EmptyGameComponent>.MouseWheel), MouseWheelBinding(upBind, downBind));
         }
 
         private void AddArrows(Func<bool> upBind, Func<bool> downBind)

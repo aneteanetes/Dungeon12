@@ -78,7 +78,15 @@ namespace Dungeon.Engine.Editable.Structures
         public void Publish()
         {
             if (this.SceneObject != default)
-                DungeonGlobal.Events.Raise(new PublishSceneObjectEvent(this.SceneObject));
+                DungeonGlobal.Events.Raise(new PublishSceneObjectEvent(this.SceneObject, this.Parent?.As<StructureSceneObject>(false)?.SceneObject, HostLayer(this)));
+        }
+
+        private static StructureLayer HostLayer(ObjectTreeListItem obj)
+        {
+            if (obj.Parent is StructureLayer layer)
+                return layer;
+
+            return HostLayer(obj.Parent);
         }
 
         public override void InitRuntime()

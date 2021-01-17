@@ -19,7 +19,7 @@
 
         MetallButtonControl server, client;
 
-        public override void Init()
+        public override void Initialize()
         {
             this.AddObject(new Background(false));
             this.AddObject(new ImageControl("Dungeon12.Resources.Images.d12textM.png")

@@ -97,7 +97,7 @@
         Action<ISceneObject> DestroyBinding { get; set; }
 
         [Hidden]
-        Action<ISceneObjectControl> ControlBinding { get; set; }
+        Action<ISceneControl> ControlBinding { get; set; }
 
         /// <summary>
         /// Невидимый в режиме отрисовки `Force`
@@ -154,6 +154,9 @@
         int ZIndex { get; set; }
 
         bool DrawOutOfSight { get; set; }
+
+        [Title("Рисовать видимую часть")]
+        bool DrawPartInSight { get; set; }
 
         bool IntersectsWith(ISceneObject another);
 

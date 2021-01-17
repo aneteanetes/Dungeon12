@@ -18,7 +18,7 @@ namespace Dungeon12.Servant.Effects.Сonsecration
 
         public override bool CacheAvailable => false;
         
-        public СonsecrationCircle(GameMap gameMap, PhysicalObject position, long buffValue) : base("Effects/concentration.png".AsmImgRes())
+        public СonsecrationCircle(GameMap gameMap, PhysicalObject position, long buffValue) : base("Effects/concentration.png".AsmImg())
         {
             var totem = new ConsecrationCircleTotem(position.Position.X / 32, position.Position.Y / 32, buffValue);
             gameMap.MapObject.Add(totem);

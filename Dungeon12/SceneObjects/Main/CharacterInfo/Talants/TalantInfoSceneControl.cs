@@ -64,7 +64,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
             }
             else
             {
-                this.AddChild(new ImageControl("Talants/blocked.png".AsmImgRes())
+                this.AddChild(new ImageControl("Talants/blocked.png".AsmImg())
                 {
                     CacheAvailable = false,
                     AbsolutePosition = true

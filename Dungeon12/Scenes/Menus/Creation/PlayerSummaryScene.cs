@@ -11,7 +11,7 @@
     using Dungeon12.Scenes.Game;
     using System;
 
-    public class PlayerSummaryScene : GameScene<Main, PlayerOriginScene>
+    public class PlayerSummaryScene : GameScene<MainScene, PlayerOriginScene>
     {
         public PlayerSummaryScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -21,7 +21,7 @@
 
         public override bool Destroyable => true;
 
-        public override void Init()
+        public override void Initialize()
         {
             this.AddObject(new Prologue());
         }
@@ -55,7 +55,7 @@
         {
             if (!hold)
             {
-                this.Switch<Main>();
+                this.Switch<MainScene>();
             }
         }
     }

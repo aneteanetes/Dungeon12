@@ -24,7 +24,7 @@
     using System.IO;
     using System.Linq;
 
-    public class Start : GameScene<SoloDuoScene, Game.Main, EditorScene, CardGameScene,Start, SaveLoadScene>
+    public class Start : GameScene<SoloDuoScene, MainScene, EditorScene, CardGameScene,Start, SaveLoadScene>
     {
         public override bool AbsolutePositionScene => true;
 
@@ -70,7 +70,7 @@
             Debugger.Break();
         }
 
-        public override void Init()
+        public override void Initialize()
         {
 
 #warning подорожник на все проблемы со слоями
@@ -115,7 +115,7 @@
                                 Global.RemoveSaveInMemmory();
                                 this.ClearState();
                                 Global.GameState = new Dungeon12.Game.GameState();
-                                Global.SceneManager.Destroy<Main>();
+                                Global.SceneManager.Destroy<MainScene>();
                                 this.Switch<Start>();
                             }
                         }, this.ShowEffectsBinding);
@@ -191,7 +191,7 @@
                 OnClick = () =>
                 {
                     if (isGame)
-                        this.Switch<Main>();
+                        this.Switch<MainScene>();
                     else
                         Global.Exit?.Invoke();
                 }
@@ -201,7 +201,7 @@
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
             if (isGame && keyPressed == Key.Escape)
-                this.Switch<Main>();
+                this.Switch<MainScene>();
         }
     }
 }

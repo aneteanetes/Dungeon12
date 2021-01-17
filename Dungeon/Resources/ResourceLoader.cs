@@ -59,7 +59,12 @@ namespace Dungeon.Resources
 
             var db = LiteDatabase.GetCollection<Resource>();
 
-            var res = db.Find(x => x.Path == resource).FirstOrDefault();
+            Resource res = default;
+            try
+            {
+                res = db.Find(x => x.Path == resource).FirstOrDefault();
+            }
+            catch { }
             if (res == default)
             {
                 foreach (var rdb in ResourceDatabaseResolvers)

@@ -9,7 +9,7 @@ using System.Text;
 namespace Dungeon.SceneObjects.Base
 {
     [Hidden]
-    public class ButtonControl<TComponent> : ControlSceneObject<TComponent>
+    public class ButtonControl<TComponent> : SceneControl<TComponent>
         where TComponent : class, IGameComponent
     {
         protected TextControl textControl;

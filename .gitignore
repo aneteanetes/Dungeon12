@@ -252,3 +252,5 @@ paket-files/
 *.sln.iml
 /Rogue.Monogame/Content/Audio
 /Dungeon.Monogame/Content/fonts
+*.xcf
+/Dungeon.Engine/Resources/Island2.png

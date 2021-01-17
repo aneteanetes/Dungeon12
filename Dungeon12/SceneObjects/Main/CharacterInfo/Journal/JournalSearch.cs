@@ -8,7 +8,7 @@ using System;
 
 namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
 {
-    public class JournalSearch : EmptyControlSceneObject
+    public class JournalSearch : EmptySceneControl
     {
         public JournalSearch(Action<string> doFilter)
         {
@@ -34,7 +34,7 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
             });
         }
 
-        private class CrossButton : EmptyControlSceneObject
+        private class CrossButton : EmptySceneControl
         {
             private Action<string> _doFilter;
             private TextInputControl _textInput;
@@ -45,8 +45,8 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
 
                 _doFilter = doFilter;
                 _textInput = textInput;
-                Image = "ui/checkbox/on.png".AsmImgRes();
-                this.AddChildImageCenter(new ImageControl("ui/cancelicon.png".AsmImgRes())
+                Image = "ui/checkbox/on.png".AsmImg();
+                this.AddChildImageCenter(new ImageControl("ui/cancelicon.png".AsmImg())
                 {
                     AbsolutePosition = true,
                     CacheAvailable = false
@@ -63,18 +63,18 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
 
             public override void Focus()
             {
-                Image = "ui/checkbox/hover.png".AsmImgRes();
+                Image = "ui/checkbox/hover.png".AsmImg();
                 base.Focus();
             }
 
             public override void Unfocus()
             {
-                Image = "ui/checkbox/on.png".AsmImgRes();
+                Image = "ui/checkbox/on.png".AsmImg();
                 base.Unfocus();
             }
         }
 
-        private class SearchButton : EmptyControlSceneObject
+        private class SearchButton : EmptySceneControl
         {
             private Action<string> _doFilter;
             private TextInputControl _textInput;
@@ -85,8 +85,8 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
 
                 _doFilter = doFilter;
                 _textInput = textInput;
-                Image = "ui/checkbox/on.png".AsmImgRes();
-                this.AddChildImageCenter(new ImageControl("ui/searchicon.png".AsmImgRes())
+                Image = "ui/checkbox/on.png".AsmImg();
+                this.AddChildImageCenter(new ImageControl("ui/searchicon.png".AsmImg())
                 {
                     AbsolutePosition = true,
                     CacheAvailable = false
@@ -102,13 +102,13 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
 
             public override void Focus()
             {
-                Image= "ui/checkbox/hover.png".AsmImgRes();
+                Image= "ui/checkbox/hover.png".AsmImg();
                 base.Focus();
             }
 
             public override void Unfocus()
             {
-                Image = "ui/checkbox/on.png".AsmImgRes();
+                Image = "ui/checkbox/on.png".AsmImg();
                 base.Unfocus();
             }
         }

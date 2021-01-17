@@ -2,11 +2,20 @@
 using Dungeon.View.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls.Primitives;
 
 namespace Dungeon.Engine.Host
 {
     public class DungeonEngineCamera : ICamera
     {
+        D3D11Host host;
+
+        public DungeonEngineCamera(D3D11Host host)
+        {
+            this.host = host;
+        }
+
         private readonly HashSet<Direction> CameraMovings = new HashSet<Direction>();
         public void MoveCamera(Direction direction, bool stop = false, bool once = false)
         {
@@ -49,6 +58,19 @@ namespace Dungeon.Engine.Host
 
         public double CameraOffsetLimitZ { get; set; } = 3200000;
 
+        public Rectangle CameraView
+        {
+            get
+            {
+                var bounds = LayoutInformation.GetLayoutClip(host)?.Bounds;
+                if (bounds == null)
+                {
+                    return new Rectangle(0, 0, host.ActualWidth, host.ActualHeight);
+                }
+                var value = bounds.Value;
+                return new Rectangle(value.X, value.Y, value.Width, value.Height);
+            }
+        }
 
         private bool IsStop(double number, double limit) => Math.Abs(number) >= limit;
 

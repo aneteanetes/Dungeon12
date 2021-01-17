@@ -11,7 +11,7 @@
 
     public static class PropertyAccessor
     {
-        public static T As<T>(this object obj)
+        public static T As<T>(this object obj, bool trowIfTypeWrong = true)
         {
             if (obj == default)
             {
@@ -28,7 +28,10 @@
                 throw new System.ArgumentNullException("Property is null!");
             }
 
-            throw new System.Exception("Property had wrong type!");
+            if (trowIfTypeWrong)
+                throw new System.Exception("Property had wrong type!");
+
+            return default;
         }
 
         public static T As<T>(this object obj, T @defaultIfExists)

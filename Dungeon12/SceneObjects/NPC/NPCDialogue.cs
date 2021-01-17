@@ -12,7 +12,7 @@
     using System;
     using System.Linq;
 
-    public class NPCDialogue : EmptyControlSceneObject
+    public class NPCDialogue : EmptySceneControl
     {
         public override int LayerLevel => 50;
 
@@ -22,7 +22,7 @@
         private AnswerPanel answerPanel;
         private PlayerSceneObject _playerSceneObject;
         
-        public NPCDialogue(PlayerSceneObject playerSceneObject, Dungeon12.Map.Objects.Сonversational conversational, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding, GameMap gameMap, MetallButtonControl customizeExit)
+        public NPCDialogue(PlayerSceneObject playerSceneObject, Dungeon12.Map.Objects.Сonversational conversational, Action<ISceneObject> destroyBinding, Action<ISceneControl> controlBinding, GameMap gameMap, MetallButtonControl customizeExit)
         {
             current = this;
             Global.Freezer.World = this;

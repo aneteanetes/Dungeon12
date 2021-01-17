@@ -11,7 +11,7 @@ namespace Dungeon12
         [STAThread]
         static void Main()
         {
-            
+
             DungeonGlobal.BindGlobal<Global>();
             DungeonGlobal.ComponentUpdateCompatibility = true;
             Console.WriteLine(DungeonGlobal.Version);
@@ -24,13 +24,13 @@ namespace Dungeon12
             //ResourceLoader.NotDisposingResources = true;
             //ResourceLoader.CacheImagesAndMasks = false;
             Store.Init(Global.GetSaveSerializeSettings());
-#endif      
-
+#endif
             var monogameClient = new MonogameClient(new MonogameClientSettings()
             {
-                IsFullScreen=false,
-                WidthPixel=1280,
-                HeightPixel=720,
+                IsWindowedFullScreen = true,
+                IsFullScreen = false,
+                WidthPixel = 1920,
+                HeightPixel = 1080,
             });
 
             DungeonGlobal.ClientRun = monogameClient.Run;

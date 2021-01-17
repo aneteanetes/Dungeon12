@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Dungeon.Engine.Engine
 {
-    internal class EmbeddedResourceResolver : ResourceResolver
+    public class EmbeddedResourceResolver : ResourceResolver
     {
         private Assembly Assembly;
 

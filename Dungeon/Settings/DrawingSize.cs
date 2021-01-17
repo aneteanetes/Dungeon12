@@ -16,7 +16,7 @@ namespace Dungeon.Settings
 
         public int MapLines { get; set; } = 19;
 
-        public static int Cell { get; set; } = 32;
+        public static int Cell { get; set; } = 1;
 
         public static float CellF => (float)Cell;
 

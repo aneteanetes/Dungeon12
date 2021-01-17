@@ -36,9 +36,6 @@ namespace Dungeon.Engine.Forms
                     case StructureObjectType.Object:
                         newStruct = new StructureSceneObject();
                         break;
-                    case StructureObjectType.TileMap:
-                        newStruct = new StructureTilemap();
-                        break;
                     default:
                         break;
                 }

@@ -28,7 +28,7 @@
             {
                 Id=c.Identify,
                 Subjects = c.Subjects,
-                Face = $"NPCs/FaithIsland/avatars/{c.Identify}.png".AsmImgRes(),
+                Face = $"NPCs/FaithIsland/avatars/{c.Identify}.png".AsmImg(),
                 Name = c.Name
             }).ToList();
 

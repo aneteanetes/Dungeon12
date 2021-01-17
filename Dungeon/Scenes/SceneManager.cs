@@ -127,7 +127,7 @@
             get
             {
                 var loading = LoadingScreenType.NewAs<LoadingScene>();
-                loading.Init();
+                loading.Initialize();
                 return DrawClient.SetScene(loading);
             }
         }
@@ -135,7 +135,7 @@
         public Callback LoadingScreenCustom(params object[] args)
         {
             var loading = LoadingScreenType.NewAs<LoadingScene>(2, args);
-            loading.Init();
+            loading.Initialize();
             return DrawClient.SetScene(loading);
         }
 
@@ -161,7 +161,7 @@
                 Populate(Current, next, args);
                 Preapering = next;
                 CurrentScene = Preapering;
-                next.Init();
+                next.Initialize();
             }
 
             //Если мы переключаем сцену, а она в это время фризит мир - надо освободить мир
@@ -213,7 +213,7 @@
                 Preapering = next;
                 CurrentScene = Preapering;
                 next.Args = args;
-                next.Init();
+                next.Initialize();
                 if (next is StartScene nextStartScene)
                 {
                     if (nextStartScene.IsFatalException)

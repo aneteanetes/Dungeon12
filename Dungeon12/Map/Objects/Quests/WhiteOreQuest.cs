@@ -23,7 +23,7 @@ namespace Dungeon12.Map.Object
             Item = Dungeon.Store.EntitySingle<Item>(typeof(QuestItem).AssemblyQualifiedName, "WhiteOre");
         }
 
-        public override string CustomLootImage => "Objects/haystack.png".AsmImgRes();
+        public override string CustomLootImage => "Objects/haystack.png".AsmImg();
 
         public override IDrawColor CustomLootColor => DrawColor.SaddleBrown;
 

@@ -30,13 +30,13 @@ namespace Dungeon.Scenes
 
         public IEffect[] SceneGlobalEffects => GlobalEffects.ToArray();
 
-        private List<ISceneObjectControl> sceneObjectControls = new List<ISceneObjectControl>();
+        private List<ISceneControl> sceneObjectControls = new List<ISceneControl>();
 
-        private List<ISceneObjectControl> SceneObjectsControllable => new List<ISceneObjectControl>(sceneObjectControls);
+        private List<ISceneControl> SceneObjectsControllable => new List<ISceneControl>(sceneObjectControls);
 
-        private List<ISceneObjectControl> sceneObjectsInFocuses = new List<ISceneObjectControl>();
+        private List<ISceneControl> sceneObjectsInFocuses = new List<ISceneControl>();
 
-        private List<ISceneObjectControl> SceneObjectsInFocus => new List<ISceneObjectControl>(sceneObjectsInFocuses);
+        private List<ISceneControl> SceneObjectsInFocus => new List<ISceneControl>(sceneObjectsInFocuses);
 
         public double Width { get; set; }
 
@@ -100,7 +100,7 @@ namespace Dungeon.Scenes
             GlobalEffects.Add(effect);
         }
 
-        public void AddControl(ISceneObjectControl sceneObjectControl)
+        public void AddControl(ISceneControl sceneObjectControl)
         {
             if (!sceneObjectControls.Contains(sceneObjectControl))
             {
@@ -110,14 +110,14 @@ namespace Dungeon.Scenes
             }
         }
 
-        public void RemoveControl(ISceneObjectControl sceneObjectControl)
+        public void RemoveControl(ISceneControl sceneObjectControl)
         {
             sceneObjectControls.Remove(sceneObjectControl);
         }
 
         public void RemoveObject(ISceneObject sceneObject)
         {
-            if (sceneObject is ISceneObjectControl sceneObjectControl)
+            if (sceneObject is ISceneControl sceneObjectControl)
             {
                 RemoveControl(sceneObjectControl);
             }
@@ -127,7 +127,7 @@ namespace Dungeon.Scenes
 
         private void AddControlRecursive(ISceneObject sceneObject)
         {
-            if (sceneObject is ISceneObjectControl sceneObjectControl)
+            if (sceneObject is ISceneControl sceneObjectControl)
             {
                 AddControl(sceneObjectControl);
             }
@@ -138,10 +138,10 @@ namespace Dungeon.Scenes
             }
         }
 
-        private IEnumerable<ISceneObjectControl> ControlsByHandle(ControlEventType handleEvent, Key key = Key.None)
+        private IEnumerable<ISceneControl> ControlsByHandle(ControlEventType handleEvent, Key key = Key.None)
         {
             if (owner.Destroyed)
-                return Enumerable.Empty<ISceneObjectControl>();
+                return Enumerable.Empty<ISceneControl>();
 
             DungeonGlobal.Freezer.HandleFreezes.TryGetValue(handleEvent, out var freezer);
             if (DungeonGlobal.Freezer.World != null || freezer != null)
@@ -159,7 +159,7 @@ namespace Dungeon.Scenes
             }
         }
 
-        private IEnumerable<ISceneObjectControl> WhereHandles(ControlEventType handleEvent, Key key, IEnumerable<ISceneObjectControl> elements)
+        private IEnumerable<ISceneControl> WhereHandles(ControlEventType handleEvent, Key key, IEnumerable<ISceneControl> elements)
         {
             var handlers = elements
                 .Distinct()
@@ -180,9 +180,9 @@ namespace Dungeon.Scenes
             return handlers;
         }
 
-        private IEnumerable<ISceneObjectControl> WhereLayeredHandlers(IEnumerable<ISceneObjectControl> elements, PointerArgs pointerPressedEventArgs, Point offset)
+        private IEnumerable<ISceneControl> WhereLayeredHandlers(IEnumerable<ISceneControl> elements, PointerArgs pointerPressedEventArgs, Point offset)
         {
-            List<ISceneObjectControl> selected = new List<ISceneObjectControl>();
+            List<ISceneControl> selected = new List<ISceneControl>();
 
             var layered = elements.GroupBy(x => x.ZIndex)
                 .OrderByDescending(x => x.Key);
@@ -192,7 +192,7 @@ namespace Dungeon.Scenes
             //    Debugger.Break();
             //}
 
-            IGrouping<int, ISceneObjectControl> upper = null;
+            IGrouping<int, ISceneControl> upper = null;
 
             foreach (var layer in layered)
             {
@@ -220,13 +220,13 @@ namespace Dungeon.Scenes
             return selected;
         }
 
-        private bool RegionContains(ISceneObjectControl sceneObjControl, PointerArgs pos, Point offset)
+        private bool RegionContains(ISceneControl sceneObjControl, PointerArgs pos, Point offset)
         {
             Rectangle newRegion = ActualRegion(sceneObjControl, offset);
             return newRegion.Contains(pos.X, pos.Y);
         }
 
-        private Rectangle ActualRegion(ISceneObjectControl sceneObjControl, Point offset)
+        private Rectangle ActualRegion(ISceneControl sceneObjControl, Point offset)
         {
             var newRegion = new Rectangle
             {
@@ -248,19 +248,19 @@ namespace Dungeon.Scenes
             return newRegion;
         }
 
-        private IEnumerable<ISceneObjectControl> FreezedChain(ISceneObject freezing)
+        private IEnumerable<ISceneControl> FreezedChain(ISceneObject freezing)
         {
             if (freezing == null)
             {
                 //такая ситуация может быть когда мы зафризили сцену, но компонент удалили
-                return Enumerable.Empty<ISceneObjectControl>();
+                return Enumerable.Empty<ISceneControl>();
             }
 
-            List<ISceneObjectControl> freezingChain = new List<ISceneObjectControl>();
-            freezingChain.Add(freezing as ISceneObjectControl);
+            List<ISceneControl> freezingChain = new List<ISceneControl>();
+            freezingChain.Add(freezing as ISceneControl);
 
             var childControls = freezing.Children.Where(x => SceneObjectsControllable.Contains(x))
-                .Cast<ISceneObjectControl>();
+                .Cast<ISceneControl>();
 
             freezingChain.AddRange(childControls);
 
@@ -393,8 +393,8 @@ namespace Dungeon.Scenes
             }
         }
 
-        private void DoClicks(PointerArgs pointerPressedEventArgs, Point offset, IEnumerable<ISceneObjectControl> clickedElements,
-            Action<ISceneObjectControl, PointerArgs> whichClick)
+        private void DoClicks(PointerArgs pointerPressedEventArgs, Point offset, IEnumerable<ISceneControl> clickedElements,
+            Action<ISceneControl, PointerArgs> whichClick)
         {
             for (int i = 0; i < clickedElements.Count(); i++)
             {

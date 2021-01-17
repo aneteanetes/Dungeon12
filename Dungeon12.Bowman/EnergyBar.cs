@@ -19,7 +19,7 @@ namespace Dungeon12.Bowman
             this.AddChild(leftBar);
             this.AddChild(new EnergyBarHand(avatar,false)
             {
-                Left = 0.031+ MeasureImage("energy.png".AsmImgRes()).X+0.1,
+                Left = 0.031+ MeasureImage("energy.png".AsmImg()).X+0.1,
                 Top = 0.031,
                 Height = 0.46875
             });
@@ -35,7 +35,7 @@ namespace Dungeon12.Bowman
 
             public bool left;
 
-            public EnergyBarHand(Bowman archer,bool left=true) : base("energy.png".AsmImgRes())
+            public EnergyBarHand(Bowman archer,bool left=true) : base("energy.png".AsmImg())
             {
                 this.left = left;
                 this.archer = archer;

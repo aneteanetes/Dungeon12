@@ -12,7 +12,7 @@
     using Dungeon12.Scenes.Game;
     using System.Collections.Generic;
 
-    public class PlayerOriginScene : GameScene<PlayerSummaryScene, PlayerNameScene,Main>
+    public class PlayerOriginScene : GameScene<PlayerSummaryScene, PlayerNameScene,MainScene>
     {
         public PlayerOriginScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -24,7 +24,7 @@
 
         public override object[] LoadArguments => new object[] { "FaithIsland" };
 
-        public override void Init()
+        public override void Initialize()
         {
             this.AddObject(new ImageControl("Dungeon12.Resources.Images.d12back.png"));
             this.AddObject(new OriginDialogue(this.AddControl, this.RemoveControl)
@@ -86,7 +86,7 @@
                     Global.Time.Set(Dungeon.Time.GameStart);
                     Global.Time.Start();
 
-                    this.Switch<Main>("true");
+                    this.Switch<MainScene>("true");
                 }
             });
         }

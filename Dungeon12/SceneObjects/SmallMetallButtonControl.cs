@@ -7,7 +7,7 @@
     using Dungeon.View.Interfaces;
     using System;
 
-    public class SmallMetallButtonControl : EmptyControlSceneObject
+    public class SmallMetallButtonControl : EmptySceneControl
     {
         private TextControl textControl;
 

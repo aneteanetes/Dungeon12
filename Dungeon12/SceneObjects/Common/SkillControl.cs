@@ -37,11 +37,11 @@
 
         private Action<ISceneObject> destroyBinding;
 
-        private Action<ISceneObjectControl> controlBinding;
+        private Action<ISceneControl> controlBinding;
 
         private bool empty = false;
 
-        public SkillControl(GameMap gameMap, PlayerSceneObject player, Ability ability, AbilityPosition abilityPosition, Action<List<ISceneObject>> abilityEffects, Action<ISceneObject> destroyBinding, Action<ISceneObjectControl> controlBinding)
+        public SkillControl(GameMap gameMap, PlayerSceneObject player, Ability ability, AbilityPosition abilityPosition, Action<List<ISceneObject>> abilityEffects, Action<ISceneObject> destroyBinding, Action<ISceneControl> controlBinding)
             : base(ability, ability?.Name/*, abilityEffects*/)
         {
             this.controlBinding = controlBinding;

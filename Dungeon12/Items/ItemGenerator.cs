@@ -106,7 +106,7 @@ namespace Dungeon12.Items
 
             item.BaseStats = stats;
             item.Name = $"{item.Rare.ToDisplay()} {item.Kind.ToDisplay()}";
-            item.Tileset = $"Items/{item.Kind.ToString()}s/{RandomDungeon.Range(1, 3)}.gif".AsmImgRes();
+            item.Tileset = $"Items/{item.Kind.ToString()}s/{RandomDungeon.Range(1, 3)}.gif".AsmImg();
 
             return item;
         }
