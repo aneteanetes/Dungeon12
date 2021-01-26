@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Dungeon12.SceneObjects.UI
 {
-    public class RewardSceneObject : Dungeon12.SceneObjects.HandleSceneControl<Reward>
+    public class RewardSceneObject : Dungeon12.SceneObjects.SceneControl<Reward>
     {
         public override bool AbsolutePosition => true;
         public override bool CacheAvailable => false;

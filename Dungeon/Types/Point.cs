@@ -87,6 +87,10 @@ namespace Dungeon.Types
 
         public float Yf => (float)Y;
 
+        public int Xi => (int)X;
+
+        public int Yi => (int)Y;
+
         const double Rad2Deg = 180.0 / Math.PI;
         const double Deg2Rad = Math.PI / 180.0;
 

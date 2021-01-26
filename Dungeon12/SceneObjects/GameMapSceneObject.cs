@@ -13,7 +13,7 @@ using Dungeon;
 
 namespace Dungeon12.Drawing.Labirinth
 {
-    public class GameMapSceneObject : Dungeon12.SceneObjects.HandleSceneControl<GameMap>
+    public class GameMapSceneObject : Dungeon12.SceneObjects.SceneControl<GameMap>
     {
         public override bool IsBatch => true;
 

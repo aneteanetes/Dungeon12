@@ -10,7 +10,7 @@ using Dungeon.SceneObjects.Base;
 
 namespace Dungeon12.SceneObjects
 {
-    public class QuestionBox : HandleSceneControl<QuestionBoxModel>
+    public class QuestionBox : SceneControl<QuestionBoxModel>
     {
         public override bool AbsolutePosition => true;
 

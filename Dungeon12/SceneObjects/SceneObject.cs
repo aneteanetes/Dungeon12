@@ -24,10 +24,10 @@ namespace Dungeon12.SceneObjects
         }
     }
 
-    public abstract class HandleSceneControl<T> : Dungeon.SceneObjects.SceneControl<T>
+    public abstract class SceneControl<T> : Dungeon.SceneObjects.SceneControl<T>
         where T : class, IGameComponent
     {
-        public HandleSceneControl(T component, bool bindView = true) : base(component, bindView)
+        public SceneControl(T component, bool bindView = true) : base(component, bindView)
         {
             // ЭТО ПИЗДЕЦ КОСТЫЛЬ
             var owner = Global.SceneManager.Preapering;

@@ -3,6 +3,7 @@ using Dungeon.GameObjects;
 using Dungeon.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 #endif
@@ -35,6 +36,10 @@ namespace Dungeon.Data
         public static IEnumerable<T> Load<T>(Expression<Func<T, bool>> predicate = null, object cacheObject = default)
             where T : IPersist
             => Store.Entity<T>(predicate, cacheObject);
+
+        public static T LoadOne<T>(Expression<Func<T, bool>> predicate = null, object cacheObject = default)
+            where T : IPersist
+            => Store.Entity<T>(predicate, cacheObject).FirstOrDefault();
 
         public static T LoadById<T>(string id, object cacheObject = default)
             where T : IPersist

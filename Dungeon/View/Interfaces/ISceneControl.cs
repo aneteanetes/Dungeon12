@@ -9,6 +9,8 @@
     [Hidden]
     public interface ISceneControl : ISceneObject
     {
+        bool Controlable { get; }
+
         void KeyDown(Key key, KeyModifiers modifier, bool hold);
 
         void KeyUp(Key key, KeyModifiers modifier);

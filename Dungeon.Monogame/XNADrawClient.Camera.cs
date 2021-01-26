@@ -5,6 +5,7 @@
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
+    using Rec = Dungeon.Types.Rectangle;
 
     public partial class XNADrawClient : Game, IDrawClient
     {
@@ -36,7 +37,7 @@
             this.CameraOffsetX = 0;
             this.CameraOffsetY = 0;
         }
-        
+
         public void SetCamera(double x, double y)
         {
             this.CameraOffsetX = x;
@@ -46,7 +47,7 @@
         public void SetCameraSpeed(double speed) => cameraSpeed = speed;
 
         private double cameraSpeed = 2.5;
-        
+
         public double CameraOffsetX { get; set; }
 
         public double CameraOffsetY { get; set; }
@@ -125,10 +126,19 @@
             this.CameraMovings.Clear();
         }
 
-        private double Width = 40 * 32;
-        private double Height = 22.5 * 32;
+        private readonly Rec _cameraViewObject = new Rec();
+        public Rec CameraView
+        {
+            get
+            {
+                _cameraViewObject.X = CameraOffsetX * -1;
+                _cameraViewObject.Y = CameraOffsetY * -1;
+                _cameraViewObject.Width = DungeonGlobal.Resolution.Width;
+                _cameraViewObject.Height = DungeonGlobal.Resolution.Height;
 
-        public Types.Rectangle CameraView => Types.Rectangle.Empty;
+                return _cameraViewObject;
+            }
+        }
 
 
         public bool InCamera(ISceneObject sceneObject)
@@ -136,8 +146,8 @@
             var pos = sceneObject.ComputedPosition;
             if (sceneObject.AbsolutePosition)
             {
-                var byX = pos.X >= 0 && pos.X <= 40;
-                var byY = pos.Y >= 0 && pos.Y <= 22.5;
+                var byX = pos.X >= 0 && pos.X <= DungeonGlobal.Resolution.Width;
+                var byY = pos.Y >= 0 && pos.Y <= DungeonGlobal.Resolution.Height;
                 return byX && byY;
             }
 
@@ -145,15 +155,19 @@
             var h = sceneObject.ComputedPosition.Height == default ? 0.1 : sceneObject.ComputedPosition.Height;
 
             var cameraIn = IntersectsWith_WithoutAllocation(
-                CameraOffsetX*-1, CameraOffsetY*-1, Width, Height,
-                sceneObject.ComputedPosition.X * 32, sceneObject.ComputedPosition.Y * 32,  w * 32, h * 32);
+                CameraOffsetX * -1, CameraOffsetY * -1, DungeonGlobal.Resolution.Width, DungeonGlobal.Resolution.Height,
+                sceneObject.ComputedPosition.X * 32, sceneObject.ComputedPosition.Y * 32, w * 32, h * 32);
 
             var objIn = IntersectsWith_WithoutAllocation(
                 sceneObject.ComputedPosition.X * 32, sceneObject.ComputedPosition.Y * 32, w * 32, h * 32,
-                CameraOffsetX, CameraOffsetY, Width, Height);
+                CameraOffsetX, CameraOffsetY, DungeonGlobal.Resolution.Width, DungeonGlobal.Resolution.Height);
 
             return cameraIn || objIn;
         }
+
+        public bool InCamera(ITile tile)=> IntersectsWith_WithoutAllocation(
+                tile.Left, tile.Top, tile.Width, tile.Height,
+                CameraOffsetX*-1, CameraOffsetY*-1, DungeonGlobal.Resolution.Width, DungeonGlobal.Resolution.Height);
 
         private static bool IntersectsWith_WithoutAllocation(
             double x1, double y1, double w1, double h1,

@@ -64,7 +64,7 @@ namespace Dungeon.Monogame
 
         private bool useLight;
 
-        public void Draw(ISceneObject[] sceneObjects, Microsoft.Xna.Framework.GameTime gameTime, RenderTarget2D target = default, bool useLight = false,bool clear=false,Matrix? resolutionMatrix=default)
+        public void Draw(ISceneObject[] sceneObjects, Microsoft.Xna.Framework.GameTime gameTime, RenderTarget2D target = default, bool useLight = false,bool clear=false,Matrix? resolutionMatrix=default, ISceneLayer layer=default)
         {
             this.useLight = useLight;
             this.target = target;
@@ -77,7 +77,9 @@ namespace Dungeon.Monogame
                 .Where(x => x.Visible && (x.DrawOutOfSight || (!x.DrawOutOfSight && Camera.InCamera(x))))
                 .ToArray();
 
-            var isAbsoluteScene = scene?.AbsolutePositionScene ?? false;
+            var isAbsoluteScene = layer != default
+                ? layer.AbsoluteLayer
+                : (scene?.AbsolutePositionScene ?? false);
 
             var absolute = all
                 .Where(x => x.AbsolutePosition || isAbsoluteScene)
@@ -88,7 +90,7 @@ namespace Dungeon.Monogame
                 .OrderBy(x => x.LayerLevel).ToArray();
 
             GraphicsDevice.SetRenderTarget(target);
-            GraphicsDevice.Clear(clear ? Color.Black : Color.Transparent);
+            GraphicsDevice.Clear(Color.Transparent);
 
 #if Core
             if (useLight)
@@ -158,18 +160,18 @@ namespace Dungeon.Monogame
 
             if (!absolute)
             {
-                SpriteBatchRestore = (smooth, filter) => spriteBatch.Begin(
+                SpriteBatchRestore = (smooth, filter, alphaBlend) => spriteBatch.Begin(
                     transformMatrix: Matrix.CreateTranslation((float)Camera.CameraOffsetX, (float)Camera.CameraOffsetY,0) * scaleMatrix,
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
-                    blendState: useLight ? BlendState.AlphaBlend : BlendState.NonPremultiplied, effect: filter ? GlobalImageFilter : null
+                    blendState: useLight || alphaBlend ? BlendState.AlphaBlend : BlendState.NonPremultiplied, effect: filter ? GlobalImageFilter : null
                     );
             }
             else
             {
-                SpriteBatchRestore = (smooth, filter) => spriteBatch.Begin(
+                SpriteBatchRestore = (smooth, filter, alphaBlend) => spriteBatch.Begin(
                     transformMatrix: scaleMatrix,
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
-                    blendState: useLight ? BlendState.AlphaBlend : BlendState.NonPremultiplied/*, effect: @interface ? null : GlobalImageFilter*/);
+                    blendState: useLight || alphaBlend ? BlendState.AlphaBlend : BlendState.NonPremultiplied/*, effect: @interface ? null : GlobalImageFilter*/);
             }
             currentAbsolute = absolute;
             currentAbsolute=@interface;
@@ -178,7 +180,14 @@ namespace Dungeon.Monogame
 
         private bool currentAbsolute = false;
         private bool currentInterface = false;
-        private Action<bool, bool> SpriteBatchRestore = null;
+        private SpriteBatchRestoring SpriteBatchRestore = null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="LinearClamp"></param>
+        /// <param name="globalImageFilter">[Obsolete] use pre+post filters for layer</param>
+        private delegate void SpriteBatchRestoring(bool LinearClamp, bool globalImageFilter,bool alphaBlend=false);
 
         private static readonly string DefaultFontXnbExistedFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.Resources.Fonts.xnb.Montserrat.Montserrat10.xnb";
 
@@ -404,6 +413,13 @@ namespace Dungeon.Monogame
                     DrawSceneImage(sceneObject, y, x, force);
                 }
 
+#warning potencial performance harm!
+                if (sceneObject.TileMap != default)
+                {
+                    sceneObject.TileMap.Tiles.Where(t => Camera.InCamera(t))
+                        .ForEach(t => DrawSceneTile(t, sceneObject, y, x, force));
+                }
+
                 if (sceneObject.Path != null)
                 {
                     DrawScenePath(sceneObject.Path, x, y);
@@ -450,6 +466,77 @@ namespace Dungeon.Monogame
             SpriteBatchRestore = localSpriteBatchRestore;
         }
 
+        private void DrawSceneTile(ITile tile, ISceneObject sceneObject, double y, double x, bool force)
+        {
+            var image = TileSetByName(tile.Source);
+            if (image == default)
+            {
+                DungeonGlobal.Logger.Log("Медленный рендер тайла из-за отсутствия картинки!");
+                //Debugger.Break();
+                return;
+            }
+
+            var source = new Rectangle(tile.X, tile.Y, tile.Width, tile.Height);
+            var dest = new Rectangle(tile.Left+(int)x, tile.Top+ (int)y, tile.Width, tile.Height);
+
+            SpriteEffects spriteEffects = SpriteEffects.None;
+                       
+            var color = Color.White;
+            var drawColor = new Color(color.R, color.G, color.B, color.A);
+
+            var angle = (float)sceneObject.Angle;
+            var origin = angle != 0
+                ? new Vector2(tile.TileRegion.Widthi / 2f, tile.TileRegion.Heighti / 2f)
+                : Vector2.Zero;
+
+            if (sceneObject.Blur)
+            {
+                spriteBatch.End();
+                SpriteBatchRestore?.Invoke(true, sceneObject.Filtered);
+
+                if (sceneObject.Scale > 0)
+                {
+                    spriteBatch.Draw(image, new Vector2(dest.X, dest.Y), source, drawColor, 0, origin, (float)sceneObject.Scale, spriteEffects, 0f);
+                }
+                else
+                {
+                    spriteBatch.Draw(image, dest, source, drawColor, angle, origin, spriteEffects, 0f);
+                }
+
+                spriteBatch.End();
+                SpriteBatchRestore?.Invoke(false, sceneObject.Filtered);
+            }
+            else
+            {
+                if (sceneObject.Scale > 0)
+                {
+                    if (sceneObject.ScaleAndResize)
+                    {
+                        //spriteBatch.Draw(image, destinationRectangle: dest, sourceRectangle: source, origin: origin, rotation: angle, scale: new Vector2((float)sceneObject.Scale), color: color, effects: spriteEffects, layerDepth: 0);
+                        spriteBatch.Draw(image, new Vector2((float)tile.Left, (float)tile.Top), source, color, angle, origin, new Vector2((float)sceneObject.Scale), spriteEffects, 0);
+                    }
+                    else
+                    {
+                        spriteBatch.Draw(image, new Vector2(dest.X, dest.Y), source, drawColor, angle, origin, (float)sceneObject.Scale, spriteEffects, 0f);
+                    }
+                }
+                else if (sceneObject.AlphaBlend)
+                {
+                    spriteBatch.End();
+                    SpriteBatchRestore?.Invoke(true, sceneObject.Filtered,true);
+
+                    spriteBatch.Draw(image, dest, source, drawColor, angle, origin, spriteEffects, 0f);
+
+                    spriteBatch.End();
+                    SpriteBatchRestore?.Invoke(false, sceneObject.Filtered);
+                }
+                else
+                {
+                    spriteBatch.Draw(image, dest, source, drawColor, angle, origin, spriteEffects, 0f);
+                }
+            }
+        }
+
         private void DrawSceneImage(ISceneObject sceneObject, double y, double x, bool force)
         {
             var image = TileSetByName(sceneObject.Image);
@@ -460,7 +547,17 @@ namespace Dungeon.Monogame
                 return;
             }
 
-            if (force || sceneObject.DrawPartInSight || !TileSetCache.TryGetValue(sceneObject.Uid, out Rect tileRegion))
+            Rect tileRegion = default;
+
+            if (sceneObject.DrawPartInSight)
+            {
+                image = sceneObject.GetPropertyExpr<Texture2D>("CroppedImage");
+
+                var r = DungeonGlobal.Resolution;
+                tileRegion = new Rect(0, 0, r.Width, r.Height);
+            }
+            else
+            if (force || !TileSetCache.TryGetValue(sceneObject.Uid, out tileRegion))
             {
                 if (sceneObject.ImageRegion == null)
                 {
@@ -477,46 +574,7 @@ namespace Dungeon.Monogame
                     TileSetCache.Add(sceneObject.Uid, tileRegion);
                 }
             }
-
-            if (sceneObject.DrawPartInSight)
-            {
-                var camera = Camera.CameraView;
-                var imagePos = new Types.Point(sceneObject.Left, sceneObject.Top);
-                var imageOffset = new Types.Point();
-
-                if (imagePos.X < camera.X)
-                {
-                    imageOffset.X = Math.Abs(camera.X - imagePos.X);
-                }
-
-                if (imagePos.Y < camera.Y)
-                {
-                    imageOffset.Y = Math.Abs(camera.Y - imagePos.Y);
-                }
-
-                double w = 0, h = 0;
-
-                double wOffset = sceneObject.ImageRegion == null
-                    ? image.Width
-                    : sceneObject.ImageRegion.Width;
-
-
-                double hOffset = sceneObject.ImageRegion == null
-                    ? image.Height
-                    : sceneObject.ImageRegion.Height;
-
-                wOffset -= imageOffset.X;
-                hOffset -= imageOffset.Y;
-
-                w = camera.Width - wOffset < 0 ? camera.Width : wOffset;
-                h = camera.Height - wOffset < 0 ? camera.Height : hOffset;
-
-                tileRegion = new Rect(
-                    0 - imageOffset.X,
-                    0 - imageOffset.Y,
-                    w,
-                    h);
-            }
+            
 
             if (force || !PosCache.TryGetValue(sceneObject.Uid, out Rect pos) || sceneObject.Expired)
             {
@@ -1155,7 +1213,7 @@ namespace Dungeon.Monogame
 
         public void Clear(IDrawColor drawColor = null)
         {
-            var xnacolor = Color.Black;
+            var xnacolor = Color.Transparent;
             if (drawColor != default)
             {
                 xnacolor = new Color(drawColor.R, drawColor.G, drawColor.B, drawColor.A);

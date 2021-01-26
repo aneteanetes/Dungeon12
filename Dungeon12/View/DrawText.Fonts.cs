@@ -31,6 +31,3 @@
         }
     }
 }
-namespace Dungeon.Drawing
-{
-}

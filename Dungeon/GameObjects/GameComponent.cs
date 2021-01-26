@@ -1,4 +1,5 @@
-﻿using Dungeon.Transactions;
+﻿using Dungeon.Data;
+using Dungeon.Transactions;
 using Dungeon.Utils;
 using Dungeon.View.Interfaces;
 using System;
@@ -13,6 +14,12 @@ namespace Dungeon.GameObjects
         [Hidden]
         public ISceneObject SceneObject { get; set; }
 
+        public void Destroy()
+        {
+            SceneObject?.Destroy?.Invoke();
+            SceneObject = default;
+        }
+
         public virtual void SetView(ISceneObject sceneObject)
         {
             SceneObject = sceneObject;
@@ -21,5 +28,21 @@ namespace Dungeon.GameObjects
         protected override void CallApply(dynamic obj) { }
 
         protected override void CallDiscard(dynamic obj) { }
+    }
+
+    public abstract class StoredGameComponent<T> : GameComponent
+        where T: Persist
+    {
+        public T Data { get; protected set; }
+
+        public StoredGameComponent(int id)
+        {
+            Data = Persist.LoadOne<T>(x => x.ObjectId == id);
+        }
+
+        public StoredGameComponent(string name)
+        {
+            Data = Persist.LoadOne<T>(x => x.IdentifyName == name);
+        }
     }
 }

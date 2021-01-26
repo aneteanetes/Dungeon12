@@ -21,7 +21,7 @@
         public string Texture { get; set; } = "";
     }
 
-    public class LineSceneControl : Dungeon12.SceneObjects.HandleSceneControl<LineSceneModel>
+    public class LineSceneControl : Dungeon12.SceneObjects.SceneControl<LineSceneModel>
     {        
         private double opacity;
 

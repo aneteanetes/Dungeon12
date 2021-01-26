@@ -93,7 +93,7 @@ namespace Dungeon.Engine.Host
                 null
                 //#endif
                 );
-            GraphicsDevice.Clear(this.scene.Is<@Sys_Clear_Screen>() ? Color.Black : Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Transparent);
 
 #if !Engine
             drawCicled = true;
@@ -123,7 +123,7 @@ namespace Dungeon.Engine.Host
                         }
                     }
 
-                    XNADrawClientImplementation.Draw(layer.Objects, gameTime, buffer, light, clear: this.scene.Is<@Sys_Clear_Screen>());
+                    XNADrawClientImplementation.Draw(layer.Objects, gameTime, buffer, light, clear: this.scene.Is<@Sys_Clear_Screen>(), layer: layer);
 
                     PostProcessed.Clear();
                     foreach (var postEffect in layer.SceneGlobalEffects.Where(e => e.When == EffectTime.PostProcess))
@@ -146,7 +146,7 @@ namespace Dungeon.Engine.Host
                 null
 #endif
                 );
-            GraphicsDevice.Clear(this.scene.Is<@Sys_Clear_Screen>() ? Color.Black : Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Transparent);
 
             spriteBatch.Begin(
 #if !Engine

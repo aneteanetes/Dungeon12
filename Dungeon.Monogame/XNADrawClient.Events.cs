@@ -24,7 +24,7 @@ namespace Dungeon.Monogame
                         var obj = layer.Objects[i];
                         if (DungeonGlobal.ComponentUpdateCompatibility)
                         {
-                            if (obj.Updatable && InCamera(obj))
+                            if (obj.Updatable && (InCamera(obj) || obj.DrawPartInSight || obj.DrawOutOfSight))
                                 UpdateComponent(obj);
                         }
                         else

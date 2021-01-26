@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
 {
-    public class TalantTreeTabContent : Dungeon12.SceneObjects.HandleSceneControl<TalantTree>
+    public class TalantTreeTabContent : Dungeon12.SceneObjects.SceneControl<TalantTree>
     {
         public override bool CacheAvailable => false;
 

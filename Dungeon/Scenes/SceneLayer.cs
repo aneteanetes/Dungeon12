@@ -498,6 +498,8 @@ namespace Dungeon.Scenes
 
         public bool Destroyed { get; set; }
 
+        public bool AbsoluteLayer { get; set; }
+
         public void Destroy()
         {
             var sceneObjsForRemove = new List<ISceneObject>(SceneObjects);

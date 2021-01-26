@@ -14,11 +14,14 @@ namespace Dungeon12.Scenes.Menus
         {
         }
 
+
+        public override bool AbsolutePositionScene => true;
+
         public override bool Destroyable => true;
 
         public override void Initialize()
         {
-            var back = this.AddLayer("Background");
+            var back = this.CreateLayer("Background");
             back.AddObject(new ImageControl("Splash/MainMenu/menu.jfif".AsmImgRes()));
             back.AddObject(new ImageControl("Splash/d12.png".AsmImg())
             {

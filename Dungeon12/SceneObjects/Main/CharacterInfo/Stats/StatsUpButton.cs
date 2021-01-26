@@ -9,7 +9,7 @@ using Dungeon.Control;
 
 namespace Dungeon12.SceneObjects.Main.CharacterInfo.Stats
 {
-    public class StatsUpButton : Dungeon12.SceneObjects.HandleSceneControl<Character>
+    public class StatsUpButton : Dungeon12.SceneObjects.SceneControl<Character>
     {
         public override bool AbsolutePosition => true;
 

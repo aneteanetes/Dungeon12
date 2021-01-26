@@ -8,6 +8,10 @@
     [Hidden]
     public interface ISceneObject : IGameComponent
     {
+        public bool AlphaBlend { get; set; }
+
+        public ITileMap TileMap { get; set; }
+
         /// <summary>
         /// Host layer
         /// </summary>

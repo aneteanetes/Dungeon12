@@ -14,7 +14,7 @@
         }
     }
 
-    public abstract class TooltipedSceneObject<TComponent> : Dungeon12.SceneObjects.HandleSceneControl<TComponent>
+    public abstract class TooltipedSceneObject<TComponent> : Dungeon12.SceneObjects.SceneControl<TComponent>
         where TComponent : class, IGameComponent
     {
         protected Tooltip aliveTooltip = null;

@@ -114,7 +114,6 @@
         }
         private static readonly Dictionary<string, Delegate> ___GetEntityTypeLambdaRuntimeCache = new Dictionary<string, Delegate>();
 
-
         public static IEnumerable<T> EntityQuery<T>(Expression<Func<T, bool>> predicate = null, string dbName = "Data")
         {
             //if (!Directory.Exists(MainPath))

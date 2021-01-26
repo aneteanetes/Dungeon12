@@ -150,6 +150,8 @@
 
         public virtual bool HideCursor { get; set; }
 
+        public bool Controlable { get; set; }
+
         public virtual void Focus()
         {
             InFocus = true;

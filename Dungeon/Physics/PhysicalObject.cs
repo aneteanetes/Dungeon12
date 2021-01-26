@@ -1,12 +1,16 @@
 ﻿namespace Dungeon.Physics
 {
+    using Dungeon.Types;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
 
     public class PhysicalObject : VisualObject
     {
+        public bool IsPolygon => Size == default;
+
+        public List<Point> Polygons { get; set; } = new List<Point>();
+
         public virtual PhysicalSize Size { get; set; }
 
         public virtual PhysicalPosition Position { get; set; }

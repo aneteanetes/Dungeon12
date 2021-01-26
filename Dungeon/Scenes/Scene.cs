@@ -60,7 +60,7 @@
             }
         }
 
-        public SceneLayer AddLayer(string name)
+        public SceneLayer CreateLayer(string name)
         {
             var newLayer = new SceneLayer(this) { Name = name };
             newLayer.Width = DungeonGlobal.Resolution.Width;
@@ -321,7 +321,7 @@
         {
             if (this.LayerList.Count == 0)
             {
-                var l = AddLayer("Main");
+                var l = CreateLayer("Main");
                 l.IsActive = true;
             }
         }

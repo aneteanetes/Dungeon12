@@ -47,5 +47,10 @@ namespace Dungeon.Entities
         {
             SceneObject = sceneObject;
         }
+
+        public void Destroy()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

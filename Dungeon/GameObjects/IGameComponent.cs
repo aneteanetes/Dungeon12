@@ -5,5 +5,7 @@
         ISceneObject SceneObject { get; set; }
 
         void SetView(ISceneObject sceneObject);
+
+        void Destroy();
     }
 }

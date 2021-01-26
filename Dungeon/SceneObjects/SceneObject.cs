@@ -539,6 +539,10 @@
         [Title("Рисовать видимую часть")]
         public bool DrawPartInSight { get; set; }
 
+        public ITileMap TileMap { get; set; }
+
+        public bool AlphaBlend { get; set; }
+
         private object flowContext = null;
 
         public T GetFlowProperty<T>(string property, T @default = default) => flowContext.GetProperty<T>(property);

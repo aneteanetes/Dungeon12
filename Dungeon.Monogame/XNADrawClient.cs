@@ -378,10 +378,10 @@
             set
             {
                 SceneLayers = new Dictionary<ISceneLayer, RenderTarget2D>();
-                if (value.Is<Scenes.Sys_Clear_Screen>())
-                {
-                    GraphicsDevice.Clear(Color.Black);
-                }
+                //if (value.Is<Scenes.Sys_Clear_Screen>())
+                //{
+                //    GraphicsDevice.Clear(Color.Black);
+                //}
                 _scene = value;
             }
         }

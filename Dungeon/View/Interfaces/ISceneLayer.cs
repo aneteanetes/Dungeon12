@@ -20,5 +20,7 @@
 
         void RemoveObject(ISceneObject sceneObject);
 
+        bool AbsoluteLayer { get; }
+
     }
 }

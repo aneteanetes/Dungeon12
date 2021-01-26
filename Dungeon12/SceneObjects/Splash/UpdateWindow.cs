@@ -11,7 +11,7 @@ using System.Text;
 
 namespace Dungeon12.SceneObjects.Splash
 {
-    public class UpdateWindow : HandleSceneControl<UpdateModel>
+    public class UpdateWindow : SceneControl<UpdateModel>
     {
         public override bool AbsolutePosition => true;
         public override bool CacheAvailable => false;

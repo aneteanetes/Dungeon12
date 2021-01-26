@@ -18,7 +18,7 @@ using Dungeon12.Scenes.Game;
 
 namespace Dungeon12.SceneObjects.SaveLoad
 {
-    public class SaveLoadSlot : Dungeon12.SceneObjects.HandleSceneControl<SaveModel>
+    public class SaveLoadSlot : Dungeon12.SceneObjects.SceneControl<SaveModel>
     {
         private SaveLoadWindow _saveLoadWindow;
 

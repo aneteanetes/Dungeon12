@@ -388,7 +388,7 @@ namespace Dungeon.Engine
             {
                 if (@struct is StructureLayer structureLayer) //always, but easy cast
                 {
-                    structureLayer.SceneLayer = SceneManager.Current.AddLayer(structureLayer.Name);
+                    structureLayer.SceneLayer = SceneManager.Current.CreateLayer(structureLayer.Name);
 
                     foreach (var obj in structureLayer.Nodes)
                     {

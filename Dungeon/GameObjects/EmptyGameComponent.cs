@@ -14,6 +14,11 @@ namespace Dungeon.GameObjects
             SceneObject = sceneObject;
         }
 
+        public void Destroy()
+        {
+            SceneObject.Destroy?.Invoke();
+        }
+
         public static EmptyGameComponent Empty { get; } = new EmptyGameComponent();
     }
 }

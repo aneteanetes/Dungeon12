@@ -34,5 +34,7 @@
         public Rectangle CameraView { get; }
 
         bool InCamera(ISceneObject sceneObject);
+
+        bool InCamera(ITile tile);
     }
 }

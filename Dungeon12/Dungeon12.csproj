@@ -43,6 +43,7 @@
     <Folder Include="Resources\Images\GUI\Buttons\" />
     <Folder Include="Resources\Images\GUI\Planes\" />
     <Folder Include="Resources\Images\Items\Quest\" />
+    <Folder Include="Resources\Images\Tilesets\" />
     <Folder Include="Resources\Images\Objects\deadguards\" />
     <Folder Include="Resources\Images\ui\checkbox\" />
     <Folder Include="Resources\Images\ui\journal\" />

@@ -10,7 +10,7 @@ using Dungeon12.Entities.Quests;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Journal
 {
-    public class JournalList : Dungeon12.SceneObjects.HandleSceneControl<EmptySceneObject>
+    public class JournalList : Dungeon12.SceneObjects.SceneControl<EmptySceneObject>
     {
         public override bool AbsolutePosition => true;
 

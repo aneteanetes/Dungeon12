@@ -122,7 +122,7 @@
             Global.GameState.Player.FreezeDrawLoop = false;
 
 #if DEBUG
-            //this.AddObject(new Position(this.PlayerAvatar));
+            this.AddObject(new Position(this.PlayerAvatar));
 #endif
 
             this.AddObject(controlOverlay);
@@ -158,7 +158,7 @@
             }
 
             var persistRegion = this.Gamemap.LoadedRegionData;
-            var tileBack = persistRegion.TileBack;
+            string tileBack = null; // persistRegion.TileBack;
             if (tileBack != default)
             {
                 var back = new ImageControl(tileBack);
@@ -176,7 +176,7 @@
                 this.AddObject(back);
             }
 
-            this.AddObject(new ImageControl(persistRegion.Tile));
+            this.AddObject(new ImageControl(persistRegion.Image));
 
             //перенести туда где location
             if (this.PlayerAvatar.Location == default)
