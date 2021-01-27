@@ -5,6 +5,7 @@
     using Dungeon.Data;
     using System.Collections.Generic;
     using Dungeon12.Database.Respawn;
+    using Dungeon.Localization;
 
     public class Region : Persist
     {
@@ -26,7 +27,7 @@
 
         public string Name { get; set; }
 
-        public string Display { get; set; }
+        public LocalizedString Display { get; set; }
 
         public bool IsUnderLevel { get; set; }
 

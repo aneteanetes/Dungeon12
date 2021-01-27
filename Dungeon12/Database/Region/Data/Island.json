@@ -4,8 +4,11 @@
   "ImageObjects": "",
   "RegionMusic": "FaithIsland",
   "Name": "FaithIsland",
-  "Display": "Остров Веры",
-  
+  "Display": {
+	"Lang":"ru",
+	"Code":"FaithIslandDisplay",
+	"Value":"Остров Веры"
+  },  
   "orientation":"isometric",
   "height": 100,
   "tileheight":66,

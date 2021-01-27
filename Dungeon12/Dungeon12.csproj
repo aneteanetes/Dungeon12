@@ -40,6 +40,7 @@
     <Folder Include="Noone\Resources\Images\Stats\" />
     <Folder Include="Resources\Audio\Music\Locations\" />
     <Folder Include="Resources\Images\Cards\Areas\" />
+    <Folder Include="Resources\Images\Dolls\Childs\Girl1\" />
     <Folder Include="Resources\Images\GUI\Buttons\" />
     <Folder Include="Resources\Images\GUI\Planes\" />
     <Folder Include="Resources\Images\Items\Quest\" />
@@ -49,5 +50,6 @@
     <Folder Include="Resources\Images\ui\journal\" />
     <Folder Include="Resources\Shaders\" />
     <Folder Include="Resources\Scenario\" />
+    <Folder Include="SceneObjects\World\" />
   </ItemGroup>
 </Project>

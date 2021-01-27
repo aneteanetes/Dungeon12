@@ -1,11 +1,13 @@
 ﻿using Dungeon;
 using Dungeon.Data;
+using Dungeon.Localization;
 using Dungeon.SceneObjects;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using Dungeon12.Classes;
 using Dungeon12.Game;
 using Dungeon12.Items;
+using Dungeon12.Localization;
 using Dungeon12.Map;
 using LiteDB;
 using Newtonsoft.Json;
@@ -21,6 +23,7 @@ namespace Dungeon12
         {
             DefaultFontName = "Triforce(RUS BY LYAJKA)";
             DefaultFontSize = 30;
+            BuildLocation = @"C:\Users\anete\source\repos\Dungeon12\Dungeon12\bin\Debug\netcoreapp3.1\";
         }
 
         public static GameState GameState { get; set; } = new GameState();
@@ -166,6 +169,12 @@ namespace Dungeon12
                 return lStore.GetCollection<SaveModel>().Delete(id);
             }
         }
+
+        public static GameStrings Strings { get; set; } = new GameStrings();
+
+        public override LocalizationStringDictionary GetStringsClass() => Strings;
+
+        public override void LoadStrings(object localizationStringDictionary) => Strings = localizationStringDictionary.As<GameStrings>();
 
         public class WritablePropertiesOnlyResolver : Newtonsoft.Json.Serialization.DefaultContractResolver
         {

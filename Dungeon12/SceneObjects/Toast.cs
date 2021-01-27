@@ -22,8 +22,8 @@ namespace Dungeon12.SceneObjects
 
         public Toast(DrawText component)
         {
-            this.Width = 11;
-            this.Height = 1;
+            this.Width = 352;
+            this.Height = 32;
 
             this.Left = 40 / 2 - this.Width / 2;
             this.Top = .5 + (ShowedBoxes * 1.5);

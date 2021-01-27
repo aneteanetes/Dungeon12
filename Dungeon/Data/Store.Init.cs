@@ -10,6 +10,7 @@ using System.Runtime.Loader;
 using Dungeon.Resources;
 using Dungeon.Data;
 using System.Linq.Expressions;
+using Dungeon.Localization;
 
 namespace Dungeon
 {
@@ -29,15 +30,24 @@ namespace Dungeon
 
             if (!Directory.Exists(MainPath))
                 Directory.CreateDirectory(MainPath);
-            
+
             LastBuild = GetLastDataManifestBuild();
             CurrentBuild = new ResourceManifest();
 
-            CompileDatabase();
+            var strings = CompileDatabase();
+
+            var global = DungeonGlobal.GetBindedGlobal();
+            if (global == default)
+                return;
+
+            var localizationSettings = global.GetStringsClass();
+            localizationSettings.DynamicStrings = strings;
+            localizationSettings.___Save(localizationSettings.___DefaultLanguageCode);
         }
 
-        private static void CompileDatabase()
+        private static List<LocalizedString> CompileDatabase()
         {
+            var strings = new List<LocalizedString>();
             using (var db = new LiteDatabase($@"{MainPath}\Data.db"))
             {
                 foreach (var data in JsonFiles())
@@ -59,11 +69,11 @@ namespace Dungeon
 
                         if (res == default)
                         {
-                            StoreData(data, collection, item.path);
+                            strings.AddRange(StoreData(data, collection, item.path));
                         }
                         else if (res.LastWriteTime.ToString() != File.GetLastWriteTime(item.path).ToString())
                         {
-                            StoreData(data, collection, item.path);
+                            strings.AddRange(StoreData(data, collection, item.path));
                             LastBuild.Resources.Remove(res);
                         }
                     }
@@ -76,10 +86,13 @@ namespace Dungeon
                   .GetCollection<ResourceManifest>()
                   .Insert(CurrentBuild);
             }
+
+            return strings;
         }
 
-        private static void StoreData(DataInfo data, object collection, string path)
+        private static List<LocalizedString> StoreData(DataInfo data, object collection, string path)
         {
+            var strings = new List<LocalizedString>();
             var obj = JsonConvert.DeserializeObject(File.ReadAllText(path, Encoding.UTF8), data.Type, _jsonSerializerSettings);
             if (obj is IPersist persist)
             {
@@ -89,8 +102,21 @@ namespace Dungeon
                 {
                     persist.IdentifyName = id;
                 }
+
+                foreach (var stringProp in data.LocalizedStringsProps)
+                {
+                    var localized = obj.GetPropertyExpr<LocalizedString>(stringProp);
+                    strings.Add(new LocalizedString()
+                    {
+                        Code=localized.Code,
+                        Lang=localized.Lang,
+                    });
+                }
+
                 Insert(collection, id, obj);
             }
+
+            return strings;
         }
 
         private static object GenericList(Type type)
@@ -241,6 +267,17 @@ namespace Dungeon
         public string Assembly { get; set; }
 
         public Type Type { get; set; }
+
+        public List<string> LocalizedStringsProps
+        {
+            get
+            {
+                return Type.GetProperties()
+                    .Where(x => x.PropertyType == typeof(Localization.LocalizedString))
+                    .Select(x => x.Name)
+                    .ToList();
+            }
+        }
 
         public IEnumerable<(string path,DateTime modifydate)> JsonFiles { get; set; }
     }

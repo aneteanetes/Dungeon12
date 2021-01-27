@@ -5,6 +5,8 @@ using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using Dungeon12.Scenes.Game;
 using Dungeon12.Scenes.Menus.MainMenu;
+using System;
+using System.Linq;
 
 namespace Dungeon12.Scenes.Menus
 {
@@ -17,10 +19,14 @@ namespace Dungeon12.Scenes.Menus
 
         public override bool AbsolutePositionScene => true;
 
-        public override bool Destroyable => true;
+        public override bool Destroyable => false;
 
         public override void Initialize()
         {
+            Global.DrawClient.SetCursor("Cursors.common.png".PathImage());
+
+            var inGame = Args.ElementAtOrDefault(0) != default;
+
             var back = this.CreateLayer("Background");
             back.AddObject(new ImageControl("Splash/MainMenu/menu.jfif".AsmImgRes()));
             back.AddObject(new ImageControl("Splash/d12.png".AsmImg())
@@ -30,27 +36,44 @@ namespace Dungeon12.Scenes.Menus
             });
             back.AddObject(new NewsSceneObject("GUI/Planes/news.png".AsmImg())
             {
-                Left = 92,
-                Top = 441
+                Left = 1380,
+                Top = 485
             });
-            back.AddObject(new MainMenuButton("Новая игра")
+
+            back.AddObject(new DarkRectangle()
             {
-                Left = 800,
-                Top = 550,
-                OnClick = NewGame
+                Width = 370,
+                Height = 504,
+                Left=125,
+                Top=430,
+                Opacity = .6
             });
-            back.AddObject(new MainMenuButton("Загрузить")
+
+            var data = new (string text, Action click, bool disabled)[]
             {
-                Left = 800,
-                Top = 700,
-                OnClick = Load
-            });
-            back.AddObject(new MainMenuButton("Выйти")
+                (Global.Strings.NewGame,NewGame,false),
+                (Global.Strings.Save,SaveGame,!inGame),
+                (Global.Strings.Load,LoadGame,true),
+                (Global.Strings.Settings,Settings,false),
+                (Global.Strings.Credits,Credits,false),
+                (Global.Strings.ExitGame,Exit,false)
+            };
+
+            var y = 455;
+            var x = 130;
+
+            foreach (var item in data)
             {
-                Left = 800,
-                Top = 850,
-                OnClick = Exit
-            });
+                back.AddObject(new MainMenuButton(item.Item1)
+                {
+                    Left = x,
+                    Top = y,
+                    Disabled = item.disabled,
+                    OnClick = item.click
+                });
+
+                y += 80;
+            }
         }
 
         private void NewGame()
@@ -58,7 +81,21 @@ namespace Dungeon12.Scenes.Menus
             this.Switch<GameplayScene>();
         }
 
-        private void Load()
+        private void SaveGame()
+        {
+
+        }
+
+        private void LoadGame()
+        {
+
+        }
+        private void Settings()
+        {
+
+        }
+
+        private void Credits()
         {
 
         }

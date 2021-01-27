@@ -1,4 +1,5 @@
 ﻿using Dungeon;
+using Dungeon.Localization;
 
 namespace Demo
 {
@@ -8,5 +9,9 @@ namespace Demo
         {
             DefaultFontName = "Montserrat";
         }
+
+        public override LocalizationStringDictionary GetStringsClass() => default;
+
+        public override void LoadStrings(object localizationStringDictionary) { }
     }
 }

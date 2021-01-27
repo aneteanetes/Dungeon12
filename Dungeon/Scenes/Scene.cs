@@ -324,6 +324,12 @@
                 var l = CreateLayer("Main");
                 l.IsActive = true;
             }
+            else
+            {
+                var last = this.LayerList.Last();
+                last.IsActive = true;
+                ActiveLayer = last;
+            }
         }
 
         [Obsolete("Use Layer.AddObject instead")]

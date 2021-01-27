@@ -8,30 +8,45 @@ namespace Dungeon12.Scenes.Menus.MainMenu
 {
     public class MainMenuButton : EmptySceneControl
     {
-        private string Source(bool focus = false) => $"GUI/Buttons/MainMenuBtn{(focus ? "_focus" : "")}.png".AsmImg();
-
+        TextControl centerText;
         public MainMenuButton(string text)
         {
-            this.Image = Source();
+            this.Width = 350;
+            this.Height = 50;
 
-            this.Width = 300;
-            this.Height = 96;
-
-            this.AddTextCenter(text.AsDrawText()
+            centerText = this.AddTextCenter(text.AsDrawText()
                 .Carribean()
                 .InSize(42)
                 .InColor(DrawColor.WhiteSmoke));
         }
 
+        private bool _disabled;
+        public bool Disabled
+        {
+            get => _disabled;
+            set
+            {
+                _disabled = value;
+                if (value)
+                    this.centerText.Text.ForegroundColor = DrawColor.Gray;
+            }
+        }
+
         public override void Focus()
         {
+            if (Disabled)
+                return;
+
             Global.AudioPlayer.Effect("focus.wav".AsmSoundRes());
-            this.Image = Source(true);
+            centerText.Text.ForegroundColor = DrawColor.LightGoldenrodYellow;
         }
 
         public override void Unfocus()
         {
-            this.Image = Source();
+            if (Disabled)
+                return;
+
+            centerText.Text.ForegroundColor = DrawColor.White;
         }
 
         public Action OnClick;

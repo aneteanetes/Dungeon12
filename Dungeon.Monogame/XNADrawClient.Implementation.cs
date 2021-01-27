@@ -77,12 +77,20 @@ namespace Dungeon.Monogame
                 .Where(x => x.Visible && (x.DrawOutOfSight || (!x.DrawOutOfSight && Camera.InCamera(x))))
                 .ToArray();
 
-            var isAbsoluteScene = layer != default
-                ? layer.AbsoluteLayer
-                : (scene?.AbsolutePositionScene ?? false);
+            var isAbsoluteScene = false;
+
+            if (scene != default)
+            {
+                isAbsoluteScene = scene.AbsolutePositionScene;
+            }
+
+            if (!isAbsoluteScene && layer != default)
+            {
+                isAbsoluteScene = layer.AbsoluteLayer;
+            }
 
             var absolute = all
-                .Where(x => x.AbsolutePosition || isAbsoluteScene)
+                .Where(x => isAbsoluteScene || x.AbsolutePosition)
                 .OrderBy(x => x.LayerLevel).ToArray();
 
             var offsetted = all

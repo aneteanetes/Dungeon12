@@ -48,6 +48,7 @@
         
         public override void Initialize()
         {
+
             controlOverlay.Visible = Args?.ElementAtOrDefault(0) != default;
 
             this.AddObject(variableViewer);

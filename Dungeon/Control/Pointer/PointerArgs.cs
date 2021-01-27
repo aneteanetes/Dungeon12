@@ -49,8 +49,8 @@ namespace Dungeon.Control
                     }
                 }
 
-                gamecoordinates.X /= Settings.DrawingSize.CellF;
-                gamecoordinates.Y /= Settings.DrawingSize.CellF;
+                //gamecoordinates.X /= Settings.DrawingSize.CellF;
+                //gamecoordinates.Y /= Settings.DrawingSize.CellF;
 
                 return gamecoordinates;
             }

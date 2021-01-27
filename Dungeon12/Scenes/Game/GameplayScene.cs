@@ -1,16 +1,15 @@
 ﻿using Dungeon;
+using Dungeon.Control;
 using Dungeon.Control.Keys;
 using Dungeon.Drawing;
-using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using Dungeon.View.Interfaces;
 using Dungeon12.SceneObjects.GUI.Main;
-using Dungeon12.SceneObjects.World;
 using Dungeon12.Scenes.Menus;
 using Dungeon12.World;
-using System;
+using Dungeon12.World.Map;
 
 namespace Dungeon12.Scenes.Game
 {
@@ -30,10 +29,16 @@ namespace Dungeon12.Scenes.Game
         public override void Initialize()
         {
             InitializeWorld();
+            InitializeWorldObjects();
             InitializeUI();
         }
 
         public GameWorld World { get; set; }
+
+        private void InitializeWorldObjects()
+        {
+
+        }
 
         private void InitializeWorld()
         {
@@ -44,8 +49,8 @@ namespace Dungeon12.Scenes.Game
             this.MapLayer.AddObject(new WorldMapSceneObject(map));
 
             Global.Camera.SetCameraSpeed(20);
-            //set position create
-            //this.sceneManager.DrawClient.SetCamera(-6300, 0);
+            this.sceneManager.DrawClient.SetCamera(-6040, -3880);
+            //X6900 Y6580
         }
 
         private void InitializeUI()
@@ -55,7 +60,8 @@ namespace Dungeon12.Scenes.Game
 
             UILayer.AddObject(new Minimap()
             {
-                Left = 1597
+                Left = 1654,
+                Top = 8
             });
 
             // left panel
@@ -110,13 +116,24 @@ namespace Dungeon12.Scenes.Game
                 Top = 959
             });
 
-            UILayer.AddObject(new Position());
+            //camera coords
+            UILayer.AddObject(new Position(1750));
+            UILayer.AddObject(cursorPos = new Position(DungeonGlobal.Resolution.Width / 2));
+        }
+
+        Position cursorPos;
+
+        protected override void MouseMove(PointerArgs pointerArgs)
+        {
+            cursorPos.X = (Global.Camera.CameraOffsetX * -1) + pointerArgs.X;
+            cursorPos.Y = (Global.Camera.CameraOffsetX * -1) + pointerArgs.Y;
+            base.MouseMove(pointerArgs);
         }
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
             if (keyPressed == Key.Escape)
-                this.Switch<MainMenuScene>();
+                this.Switch<MainMenuScene>("InGame");
 
             var camera = this.sceneManager.DrawClient;
 
@@ -145,19 +162,33 @@ namespace Dungeon12.Scenes.Game
 
         private class Position : TextControl
         {
-            public Position() : base(null) { }
+            private double initialLeft;
+            public Position(double left) : base(null)
+            {
+                this.Left = initialLeft = left;
+            }
 
             public override bool AbsolutePosition => true;
 
             public override bool CacheAvailable => false;
 
-            public override IDrawText Text => new DrawText($"X:{Global.Camera.CameraOffsetX} Y:{Global.Camera.CameraOffsetY}").Montserrat();
+            public override IDrawText Text => new DrawText($"X:{this.X ?? Global.Camera.CameraOffsetX} Y:{this.Y ?? Global.Camera.CameraOffsetY}").Montserrat();
 
-            public override double Left => 1750;
+            public double? X { get; set; }
+
+            public double? Y { get; set; }
 
             public override double Height => 100;
 
-            public override double Width => this.MeasureText(Text).X / 32;
+            public override double Width
+            {
+                get
+                {
+                    var w = this.MeasureText(Text).X / 32;
+                    Left = initialLeft - w / 2;
+                    return w;
+                }
+            }
         }
     }
 }

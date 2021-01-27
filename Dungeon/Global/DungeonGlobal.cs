@@ -5,6 +5,7 @@
     using Dungeon.Drawing;
     using Dungeon.Events;
     using Dungeon.Global;
+    using Dungeon.Localization;
     using Dungeon.Logging;
     using Dungeon.Resources;
     using Dungeon.Scenes.Manager;
@@ -14,11 +15,12 @@
     using MoreLinq;
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Reflection;
 
-    public class DungeonGlobal
+    public abstract class DungeonGlobal
     {
         public DungeonGlobal()
         {
@@ -27,11 +29,23 @@
 
         private static DungeonGlobal global;
 
-        public static void BindGlobal<T>() where T: DungeonGlobal
+        public static DungeonGlobal GetBindedGlobal() => global;
+
+        public static void BindGlobal<T>() where T : DungeonGlobal
         {
             ResourceLoader.LoadAllAssembliesInFolder();
             GlobalExceptionHandling();
             global = typeof(T).NewAs<T>();
+
+            var strings = global.GetStringsClass();
+            if (strings != default)
+            {
+                var loaded = strings.___AutoLoad(strings.___DefaultLanguageCode);
+                if (loaded != default)
+                {
+                    global.LoadStrings(loaded);
+                }
+            }
         }
 
         /// <summary>
@@ -82,6 +96,8 @@
         public static string GameAssemblyName { get; set; }
 
         public static Assembly GameAssembly { get; set; }
+
+        public static string BuildLocation { get; set; }
 
         private static string _gameTitle;
         public static string GameTitle
@@ -149,6 +165,20 @@
         public static DrawClientRunDelegate ClientRun;
 
         public static DrawingSize Sizes { get; set; } = new DrawingSize();
+
+        public static CultureInfo CultureInfo { get; set; }
+
+        public static void SetCulture(CultureInfo cultureInfo)
+        {
+            CultureInfo = cultureInfo;
+            var global = GetBindedGlobal();
+            var strings = global.GetStringsClass();
+            global.LoadStrings(strings.___AutoLoad(cultureInfo.TwoLetterISOLanguageName));
+        }
+
+        public abstract LocalizationStringDictionary GetStringsClass();
+
+        public abstract void LoadStrings(object localizationStringDictionary);
 
         public static void Run(bool FATAL = false)
         {

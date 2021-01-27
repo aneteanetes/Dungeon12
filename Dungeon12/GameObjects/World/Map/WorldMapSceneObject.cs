@@ -1,14 +1,14 @@
 ﻿using Dungeon.Control.Keys;
 using Dungeon.SceneObjects.Tilemaps;
-using Dungeon12.World.Map;
+using Dungeon12.SceneObjects;
 
-namespace Dungeon12.SceneObjects.World
+namespace Dungeon12.World.Map
 {
     public class WorldMapSceneObject : SceneControl<WorldMap>
     {
         public WorldMapSceneObject(WorldMap component) : base(component, true)
         {
-            BuildTileMap();            
+            BuildTileMap();
         }
 
         protected override Key[] KeyHandles => new Key[]
@@ -18,7 +18,7 @@ namespace Dungeon12.SceneObjects.World
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
-            AlphaBlend = !AlphaBlend;
+            Toast.Show(Component.Data.Display);
             base.KeyDown(key, modifier, hold);
         }
 

@@ -25,6 +25,9 @@ namespace Dungeon12
             //ResourceLoader.CacheImagesAndMasks = false;
             Store.Init(Global.GetSaveSerializeSettings());
 #endif
+
+            DungeonGlobal.SetCulture(new System.Globalization.CultureInfo("en"));
+
             var monogameClient = new MonogameClient(new MonogameClientSettings()
             {
                 IsWindowedFullScreen = true,
