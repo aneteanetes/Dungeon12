@@ -26,11 +26,11 @@ namespace Dungeon12
             Store.Init(Global.GetSaveSerializeSettings());
 #endif
 
-            DungeonGlobal.SetCulture(new System.Globalization.CultureInfo("en"));
+            //DungeonGlobal.SetCulture(new System.Globalization.CultureInfo("en"));
 
             var monogameClient = new MonogameClient(new MonogameClientSettings()
             {
-                IsWindowedFullScreen = true,
+                IsWindowedFullScreen = false,
                 IsFullScreen = false,
                 WidthPixel = 1920,
                 HeightPixel = 1080,

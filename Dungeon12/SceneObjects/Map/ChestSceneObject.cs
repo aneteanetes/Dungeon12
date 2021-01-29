@@ -16,13 +16,13 @@ namespace Dungeon12.SceneObjects.Map
         protected override bool Loop => false;
 
         private bool inited = false;
-        public ChestSceneObject(PlayerSceneObject playerSceneObject, Chest @object) : base(playerSceneObject, @object, @object.Name, @object.Animation.DefaultFramePosition)
+        public ChestSceneObject(PlayerSceneObject playerSceneObject, Chest @object) : base(@object, @object.Name, @object.Animation.DefaultFramePosition)
         {
             this.RequestStop();
             this.SetAnimation(@object.Animation);
             inited = true;
 
-            this.ImageForceSet(@object.Animation.TileSet);
+            this.SetImageForce(@object.Animation.TileSet);
             this.ImageRegion = @object.Animation.DefaultFramePosition;
 
             Left = @object.Location.X;

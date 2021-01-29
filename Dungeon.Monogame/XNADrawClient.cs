@@ -160,6 +160,11 @@
             Window.TextInput += OnTextInput;
             // TODO: Add your initialization logic here
 #endif
+
+            var state = GamePad.GetState(0);
+                IsMouseVisible = !state.IsConnected;
+                DungeonGlobal.GamePadConnected = state.IsConnected;
+
             base.Initialize();
         }
 

@@ -1,22 +1,19 @@
 ﻿namespace Dungeon12.Classes
 {
+    using Dungeon;
     using Dungeon.Data;
-    using Dungeon12.Entities.Alive;
-    using Dungeon12.Entities.Alive.Enums;
-    using Dungeon12.Inventory;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
+    using Dungeon12.Conversations;
+    using Dungeon12.Entities.Alive;
+    using Dungeon12.Entities.Alive.Enums;
+    using Dungeon12.Entities.Quests;
+    using Dungeon12.Events.Events;
+    using Dungeon12.Inventory;
+    using Dungeon12.Scenes.Menus;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
-    using Dungeon;
-    using Dungeon12.Events.Events;
-    using Dungeon12.Entities.Quests;
-    using Dungeon.Scenes.Manager;
-    using Dungeon12.Scenes.Menus;
-    using Dungeon12.Abilities;
-    using Dungeon12.Conversations;
 
     /// <summary>
     /// Абстрактный класс персонажа
@@ -115,10 +112,6 @@
         public Backpack Backpack { get; set; } = new Backpack(6, 11);
 
         public Wear Clothes { get; set; } = new Wear();
-
-        public int Id { get; set; }
-
-        public int ObjectId { get; set; }
 
         /// <summary>
         /// Пересчитывает все характеристики

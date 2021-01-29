@@ -20,6 +20,13 @@
         RightDown = 4020,
     }
 
+    public enum Distance
+    {
+        Low = 0,
+        Medium = 1,
+        Hard = 1
+    }
+
     public enum SimpleDirection
     {
         Up = 1,
@@ -54,6 +61,21 @@ namespace Dungeon
                 case Direction.UpRight: return Direction.DownLeft;
                 case Direction.DownLeft: return Direction.UpRight;
                 case Direction.DownRight: return Direction.UpLeft;
+
+                default: return Direction.Idle;
+            }
+        }
+        public static Direction OppositeX(this Direction dir)
+        {
+            switch (dir)
+            {
+                case Direction.Left: return Direction.Right;
+                case Direction.Right: return Direction.Left;
+
+                case Direction.UpLeft: return Direction.UpRight;
+                case Direction.UpRight: return Direction.UpLeft;
+                case Direction.DownLeft: return Direction.DownRight;
+                case Direction.DownRight: return Direction.DownLeft;
 
                 default: return Direction.Idle;
             }

@@ -1,15 +1,18 @@
 ﻿using Dungeon;
 using Dungeon.Control;
+using Dungeon.Control.Gamepad;
 using Dungeon.Control.Keys;
 using Dungeon.Drawing;
 using Dungeon.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using Dungeon.View.Interfaces;
+using Dungeon12.GameObjects.Party;
 using Dungeon12.SceneObjects.GUI.Main;
 using Dungeon12.Scenes.Menus;
 using Dungeon12.World;
 using Dungeon12.World.Map;
+using System.Linq;
 
 namespace Dungeon12.Scenes.Game
 {
@@ -25,6 +28,7 @@ namespace Dungeon12.Scenes.Game
 
         SceneLayer UILayer;
         SceneLayer MapLayer;
+        SceneLayer ObjLayer;
 
         public override void Initialize()
         {
@@ -37,7 +41,13 @@ namespace Dungeon12.Scenes.Game
 
         private void InitializeWorldObjects()
         {
+            ObjLayer = this.CreateLayer(nameof(ObjLayer));
 
+            var party = World.CreateParty();            
+            ObjLayer.AddObject(new PartySceneObject(party));
+
+            party.SceneObject.Top = 4000;
+            party.SceneObject.Left = 6200;
         }
 
         private void InitializeWorld()
@@ -128,6 +138,15 @@ namespace Dungeon12.Scenes.Game
             cursorPos.X = (Global.Camera.CameraOffsetX * -1) + pointerArgs.X;
             cursorPos.Y = (Global.Camera.CameraOffsetX * -1) + pointerArgs.Y;
             base.MouseMove(pointerArgs);
+        }
+
+        protected override void GamePadButtonPress(GamePadButton[] btns)
+        {
+            if(btns.Contains(GamePadButton.Start))
+            {
+                this.Switch<MainMenuScene>("InGame");
+            }
+            base.GamePadButtonPress(btns);
         }
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)

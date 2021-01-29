@@ -9,6 +9,6 @@ namespace Dungeon12.Database.Chest
 
         public string LootTable { get; set; }
 
-        public AnimationMap Animation { get; set; }
+        public Animation Animation { get; set; }
     }
 }

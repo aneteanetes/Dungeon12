@@ -1,6 +1,7 @@
 ﻿namespace Dungeon.Scenes
 {
     using Dungeon.Control;
+    using Dungeon.Control.Gamepad;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.Resources;
@@ -138,6 +139,70 @@
             CallLayer(l => l.OnKeyDown(keyEventArgs));
         }
 
+        public void OnLeftStickMoveOnce(Direction direction, Distance distance)
+        {
+            if (Destroyed)
+                return;
+
+            if (DungeonGlobal.Freezer.World == null && !DungeonGlobal.BlockSceneControls)
+                try
+                {
+                    LeftStickMoveOnce(direction, distance);
+                }
+                catch (Exception ex)
+                {
+                    DungeonGlobal.Exception(ex);
+                    return;
+                }
+
+            CallLayer(l => l.OnLeftStickMoveOnce(direction, distance));
+        }
+
+        public void OnGamePadButtons(GamePadButton[] btns, bool pressed)
+        {
+            if (Destroyed)
+                return;
+
+            if (DungeonGlobal.Freezer.World == null && !DungeonGlobal.BlockSceneControls)
+                try
+                {
+                    if (pressed)
+                    {
+                        GamePadButtonPress(btns);
+                        CallLayer(l => l.OnGamePadButtonsPress(btns));
+                    }
+                    else
+                    {
+                        GamePadButtonRelease(btns);
+                        CallLayer(l => l.OnGamePadButtonsRelease(btns));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DungeonGlobal.Exception(ex);
+                    return;
+                }
+        }
+
+        public void OnLeftStickMove(Direction direction, Distance distance)
+        {
+            if (Destroyed)
+                return;
+
+            if (DungeonGlobal.Freezer.World == null && !DungeonGlobal.BlockSceneControls)
+                try
+                {
+                    LeftStickMove(direction, distance);
+                }
+                catch (Exception ex)
+                {
+                    DungeonGlobal.Exception(ex);
+                    return;
+                }
+
+            CallLayer(l => l.OnLeftStickMove(direction, distance));
+        }
+
         public void OnKeyUp(KeyArgs keyEventArgs)
         {
             if (Destroyed)
@@ -241,6 +306,14 @@
         protected virtual void MousePress(PointerArgs pointerArgs) { }
 
         protected virtual void MouseRelease(PointerArgs pointerArgs) { }
+
+        protected virtual void LeftStickMoveOnce(Direction direction, Distance distance) { }
+
+        protected virtual void GamePadButtonPress(GamePadButton[] btns) { }
+
+        protected virtual void GamePadButtonRelease(GamePadButton[] btns) { }
+
+        protected virtual void LeftStickMove(Direction direction, Distance distance) { }
 
         protected virtual void MouseWheel(MouseWheelEnum mouseWheel) { }
 

@@ -19,6 +19,12 @@
         /// <summary>
         /// Менее дорогое событие чем <see cref="MouseMove"/> однако частое
         /// </summary>
-        GlobalMouseMove
+        GlobalMouseMove,
+
+
+        // gamepad
+        LeftStickMove,
+        GamePadButtonsPress,
+        GamePadButtonsRelease
     }
 }

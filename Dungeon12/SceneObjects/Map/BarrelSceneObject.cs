@@ -16,7 +16,7 @@ namespace Dungeon12.SceneObjects.Map
 
         public override string Cursor => "take";
 
-        public BarrelSceneObject(PlayerSceneObject playerSceneObject, Barrel @object) : base(playerSceneObject, @object, @object.Name)
+        public BarrelSceneObject(PlayerSceneObject playerSceneObject, Barrel @object) : base(@object, @object.Name)
         {
             Left = @object.Location.X + .125;
             Top = @object.Location.Y;

@@ -1,10 +1,11 @@
 ﻿namespace Dungeon.View.Interfaces
 {
     using Dungeon.Control;
+    using Dungeon.Control.Gamepad;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
+    using Dungeon.Types;
     using Dungeon.Utils;
-    using System;
 
     [Hidden]
     public interface ISceneControl : ISceneObject
@@ -14,6 +15,14 @@
         void KeyDown(Key key, KeyModifiers modifier, bool hold);
 
         void KeyUp(Key key, KeyModifiers modifier);
+
+        void LeftStickMoveOnce(Direction direction, Distance distance);
+
+        void LeftStickMove(Direction direction, Distance distance);
+
+        void GamePadButtonsPress(GamePadButton[] btns);
+
+        void GamePadButtonsRelease(GamePadButton[] btns);
 
         void Focus();
 

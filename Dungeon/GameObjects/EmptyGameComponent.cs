@@ -20,5 +20,7 @@ namespace Dungeon.GameObjects
         }
 
         public static EmptyGameComponent Empty { get; } = new EmptyGameComponent();
+
+        public string Name { get; set; }
     }
 }

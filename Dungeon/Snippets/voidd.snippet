@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>voidd</Title>
+      <Shortcut>voidd</Shortcut>
+      <Description>
+        Создать сигнатуру метода
+      </Description>
+      <Author>anete.anetes</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>typeResult</ID>
+          <ToolTip>Тип возвращаемого результата</ToolTip>
+          <Default>long</Default>
+        </Literal>
+        <Literal>
+          <ID>methodName</ID>
+          <ToolTip>Имя метода</ToolTip>
+          <Default>Prop</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[        
+        public $typeResult$ $methodName$()
+        $end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

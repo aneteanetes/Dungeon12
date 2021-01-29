@@ -62,7 +62,7 @@
 
         public bool Animated => this.Animation != null;
 
-        public virtual AnimationMap Animation { get; set; }
+        public virtual Animation Animation { get; set; }
 
         public Point Location { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿namespace Dungeon.SceneObjects
 {
     using Dungeon.Control;
+    using Dungeon.Control.Gamepad;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.Proxy;
@@ -212,5 +213,13 @@
                 this.AddChild(mixinControl);
             }
         }
+
+        public virtual void LeftStickMoveOnce(Direction direction, Distance distance) { }
+
+        public virtual void LeftStickMove(Direction direction, Distance distance) { }
+
+        public virtual void GamePadButtonsPress(GamePadButton[] btns) { }
+
+        public virtual void GamePadButtonsRelease(GamePadButton[] btns) { }
     }
 }

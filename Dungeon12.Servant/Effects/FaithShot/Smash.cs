@@ -24,7 +24,7 @@ namespace Dungeon12.Servant.Effects.FaithShot
             this.Image = tileset;
             this.Width = 1;
             this.Height = 1;
-            this.SetAnimation(new AnimationMap()
+            this.SetAnimation(new Animation()
             {
                 Size = new Point(32, 32),
                 Frames = new List<Point>()

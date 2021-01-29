@@ -42,7 +42,7 @@
                     Width = 40
                 });
 
-                AnimationMap animMap = new AnimationMap()
+                Animation animMap = new Animation()
                 {
                     TileSet = conversational.ScreenImage,
                     TilesetAnimation = false,

@@ -9,8 +9,8 @@
 
     public class StandaloneSceneObject : AnimatedSceneObject<MapObject>
     {
-        public StandaloneSceneObject(PlayerSceneObject playerSceneObject, string img, AnimationMap animationMap,string tooltip, Func<int, AnimationMap, bool> requestNextFrame = null, Rectangle defaultFramePosition = null)
-            : base(playerSceneObject,null,tooltip, defaultFramePosition ?? new Dungeon.Types.Rectangle
+        public StandaloneSceneObject(PlayerSceneObject playerSceneObject, string img, Animation animationMap,string tooltip, Func<int, Animation, bool> requestNextFrame = null, Rectangle defaultFramePosition = null)
+            : base(null,tooltip, defaultFramePosition ?? new Dungeon.Types.Rectangle
             {
                 X = 0,
                 Y = 0,

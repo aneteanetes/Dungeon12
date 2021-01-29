@@ -28,7 +28,7 @@
             set { }
         }
 
-        public override AnimationMap Animation => new AnimationMap
+        public override Animation Animation => new Animation
         {
             TileSet = "Dungeon12.Resources.Images.Objects.portal.png",
             Size=new Point(32,32),

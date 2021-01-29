@@ -1,7 +1,7 @@
 ﻿using Dungeon.Control;
+using Dungeon.Control.Gamepad;
 using Dungeon.Control.Keys;
 using Dungeon.Control.Pointer;
-using Dungeon.Resources;
 using Dungeon.Settings;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
@@ -493,6 +493,90 @@ namespace Dungeon.Scenes
                 }
 
                 sceneObjectsInFocuses.AddRange(newFocused);
+            }
+        }
+
+        public void OnLeftStickMoveOnce(Direction direction, Distance distance)
+        {
+            var controls = ControlsByHandle(ControlEventType.LeftStickMove);
+            for (int i = 0; i < controls.Count(); i++)
+            {
+                var control = controls.ElementAtOrDefault(i);
+                if (control != null)
+                {
+                    try
+                    {
+                        control.LeftStickMoveOnce(direction,distance);
+                    }
+                    catch (Exception ex)
+                    {
+                        DungeonGlobal.Exception(ex);
+                        return;
+                    }
+                }
+            }
+        }
+
+        public void OnLeftStickMove(Direction direction, Distance distance)
+        {
+            var controls = ControlsByHandle(ControlEventType.LeftStickMove);
+            for (int i = 0; i < controls.Count(); i++)
+            {
+                var control = controls.ElementAtOrDefault(i);
+                if (control != null)
+                {
+                    try
+                    {
+                        control.LeftStickMove(direction, distance);
+                    }
+                    catch (Exception ex)
+                    {
+                        DungeonGlobal.Exception(ex);
+                        return;
+                    }
+                }
+            }
+        }
+
+        public void OnGamePadButtonsPress(GamePadButton[] btns)
+        {
+            var controls = ControlsByHandle(ControlEventType.GamePadButtonsPress);
+            for (int i = 0; i < controls.Count(); i++)
+            {
+                var control = controls.ElementAtOrDefault(i);
+                if (control != null)
+                {
+                    try
+                    {
+                        control.GamePadButtonsPress(btns);
+                    }
+                    catch (Exception ex)
+                    {
+                        DungeonGlobal.Exception(ex);
+                        return;
+                    }
+                }
+            }
+        }
+
+        public void OnGamePadButtonsRelease(GamePadButton[] btns)
+        {
+            var controls = ControlsByHandle(ControlEventType.GamePadButtonsRelease);
+            for (int i = 0; i < controls.Count(); i++)
+            {
+                var control = controls.ElementAtOrDefault(i);
+                if (control != null)
+                {
+                    try
+                    {
+                        control.GamePadButtonsRelease(btns);
+                    }
+                    catch (Exception ex)
+                    {
+                        DungeonGlobal.Exception(ex);
+                        return;
+                    }
+                }
             }
         }
 

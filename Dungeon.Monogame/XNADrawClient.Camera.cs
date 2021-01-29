@@ -156,10 +156,10 @@
 
             var cameraIn = IntersectsWith_WithoutAllocation(
                 CameraOffsetX * -1, CameraOffsetY * -1, DungeonGlobal.Resolution.Width, DungeonGlobal.Resolution.Height,
-                sceneObject.ComputedPosition.X * 32, sceneObject.ComputedPosition.Y * 32, w * 32, h * 32);
+                sceneObject.ComputedPosition.X, sceneObject.ComputedPosition.Y, w, h);
 
             var objIn = IntersectsWith_WithoutAllocation(
-                sceneObject.ComputedPosition.X * 32, sceneObject.ComputedPosition.Y * 32, w * 32, h * 32,
+                sceneObject.ComputedPosition.X, sceneObject.ComputedPosition.Y, w, h,
                 CameraOffsetX, CameraOffsetY, DungeonGlobal.Resolution.Width, DungeonGlobal.Resolution.Height);
 
             return cameraIn || objIn;

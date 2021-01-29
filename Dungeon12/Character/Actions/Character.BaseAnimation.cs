@@ -17,9 +17,8 @@ namespace Dungeon12.Classes
             Width = 32
         };
 
-        public override AnimationMap MoveUp => new BaseAnimationMap(this.Tileset)
+        public override Animation MoveUp => new BaseAnimationMap(this.Tileset)
         {
-            Direction = Direction.Up,
             Frames = new List<Point>
             {
                 //new Point(32,96),
@@ -29,9 +28,8 @@ namespace Dungeon12.Classes
             }
         };
 
-        public override AnimationMap MoveDown => new BaseAnimationMap(this.Tileset)
+        public override Animation MoveDown => new BaseAnimationMap(this.Tileset)
         {
-            Direction = Direction.Down,
             Frames = new List<Point>
             {
                 //new Point(32,0),
@@ -41,9 +39,8 @@ namespace Dungeon12.Classes
             }
         };
 
-        public override AnimationMap MoveLeft => new BaseAnimationMap(this.Tileset)
+        public override Animation MoveLeft => new BaseAnimationMap(this.Tileset)
         {
-            Direction = Direction.Left,
             Frames = new List<Point>
             {
                 //new Point(32,32),
@@ -53,9 +50,8 @@ namespace Dungeon12.Classes
             }
         };
 
-        public override AnimationMap MoveRight => new BaseAnimationMap(this.Tileset)
+        public override Animation MoveRight => new BaseAnimationMap(this.Tileset)
         {
-            Direction = Direction.Right,
             Frames = new List<Point>
             {
                 //new Point(32,64),
@@ -66,7 +62,7 @@ namespace Dungeon12.Classes
         };
     }
 
-    public class BaseAnimationMap : AnimationMap
+    public class BaseAnimationMap : Animation
     {
         public BaseAnimationMap(string tileSet,int x=32, int y=32)
         {

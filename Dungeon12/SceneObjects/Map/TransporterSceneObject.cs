@@ -8,7 +8,7 @@ namespace Dungeon12.SceneObjects.Map
     {
         public override string Cursor => "home";
 
-        public TransporterSceneObject(PlayerSceneObject playerSceneObject, Transporter @object) : base(playerSceneObject, @object, @object.Name)
+        public TransporterSceneObject(PlayerSceneObject playerSceneObject, Transporter @object) : base(@object, @object.Name)
         {
             this.Image = @object.Image;
             this.AutoSizeImage();

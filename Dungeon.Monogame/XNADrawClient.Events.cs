@@ -13,6 +13,7 @@ namespace Dungeon.Monogame
             {
                 UpdateMouseEvents();
                 UpdateKeyboardEvents();
+                UpdateGamepadEvents();
             }
 
             if (scene != default)

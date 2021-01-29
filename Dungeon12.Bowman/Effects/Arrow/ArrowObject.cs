@@ -25,7 +25,7 @@ namespace Dungeon12.Bowman.Effects
             Speed = speed;
         }
 
-        public AnimationMap Animation
+        public Animation Animation
         {
             get
             {

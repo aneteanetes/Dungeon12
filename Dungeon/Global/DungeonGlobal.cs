@@ -164,6 +164,8 @@
 
         public static DrawClientRunDelegate ClientRun;
 
+        public static bool GamePadConnected { get; set; } = false;
+
         public static DrawingSize Sizes { get; set; } = new DrawingSize();
 
         public static CultureInfo CultureInfo { get; set; }

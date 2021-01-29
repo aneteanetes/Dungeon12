@@ -25,7 +25,7 @@
 
         protected override Key[] KeyHandles => new Key[] { Key.LeftAlt, Key.RightAlt };
 
-        public TooltipClickableSceneObject(PlayerSceneObject playerSceneObject, T @object, string tooltip) : base(playerSceneObject, @object, tooltip)
+        public TooltipClickableSceneObject(PlayerSceneObject playerSceneObject, T @object, string tooltip) : base(@object, tooltip)
         {
         }
 

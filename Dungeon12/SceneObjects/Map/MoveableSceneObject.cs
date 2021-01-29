@@ -12,19 +12,19 @@
     using System.Collections.Generic;
 
     public abstract class MoveableSceneObject<T> : AnimatedSceneObject<T>
-        where T : Dungeon.Physics.PhysicalObject
+        where T : class, IGameComponent
     {
         protected Moveable moveable;
         protected GameMap location;
 
         protected MapObject mapObj;
 
-        public MoveableSceneObject(PlayerSceneObject playerSceneObject, T @object, GameMap location, MapObject mapObj, Moveable moveable, Rectangle defaultFramePosition)
-            : base(playerSceneObject, @object, mapObj.Name, defaultFramePosition)
+        public MoveableSceneObject(T @object, Moveable moveable, Rectangle defaultFramePosition)
+            : base(@object, @object.Name, defaultFramePosition)
         {
-            this.mapObj = mapObj;
+            //this.mapObj = mapObj;
             this.moveable = moveable;
-            this.location = location;
+            //this.location = location;
 
             if (moveable.Static)
             {
@@ -107,32 +107,35 @@
 
         protected Direction DetectDirection(PhysicalObject target)
         {
-            var playerPos = target.Position;
-            var thisPos = @object.Position;
+#warning TODO
+            return Direction.Idle;
 
-            Direction dirX = Direction.Idle;
-            Direction dirY = Direction.Idle;
+            //var playerPos = target.Position;
+            //var thisPos = @object.Position;
 
-            if (playerPos.X <= thisPos.X)
-            {
-                dirX = Direction.Left;
-            }
-            if (playerPos.X >= thisPos.X)
-            {
-                dirX = Direction.Right;
-            }
+            //Direction dirX = Direction.Idle;
+            //Direction dirY = Direction.Idle;
 
-            if (playerPos.Y >= thisPos.Y)
-            {
-                dirY = Direction.Down;
-            }
+            //if (playerPos.X <= thisPos.X)
+            //{
+            //    dirX = Direction.Left;
+            //}
+            //if (playerPos.X >= thisPos.X)
+            //{
+            //    dirX = Direction.Right;
+            //}
 
-            if (playerPos.Y <= thisPos.Y)
-            {
-                dirY = Direction.Up;
-            }
+            //if (playerPos.Y >= thisPos.Y)
+            //{
+            //    dirY = Direction.Down;
+            //}
 
-            return (Direction)((int)dirX + (int)dirY);
+            //if (playerPos.Y <= thisPos.Y)
+            //{
+            //    dirY = Direction.Up;
+            //}
+
+            //return (Direction)((int)dirX + (int)dirY);
         }
 
         private void CalculateMove()
@@ -330,7 +333,7 @@
             }
         }
 
-        private Dictionary<Direction, Func<Moveable, AnimationMap>> MovementMap => new Dictionary<Direction, Func<Moveable, AnimationMap>>()
+        private Dictionary<Direction, Func<Moveable, Animation>> MovementMap => new Dictionary<Direction, Func<Moveable, Animation>>()
         {
             { Direction.Idle,x=>x.Idle },
             { Direction.Left,x=>x.MoveLeft },

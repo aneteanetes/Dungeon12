@@ -108,8 +108,9 @@ namespace Dungeon
                     var localized = obj.GetPropertyExpr<LocalizedString>(stringProp);
                     strings.Add(new LocalizedString()
                     {
-                        Code=localized.Code,
-                        Lang=localized.Lang,
+                        Code = localized.Code,
+                        Lang = localized.Lang,
+                        Value = localized.Value
                     });
                 }
 

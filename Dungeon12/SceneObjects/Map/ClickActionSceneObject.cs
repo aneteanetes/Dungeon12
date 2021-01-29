@@ -3,6 +3,7 @@
     using Dungeon.Control;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
+    using Dungeon.View.Interfaces;
     using Dungeon12.Abilities;
     using Dungeon12.Abilities.Enums;
     using Dungeon12.Entities;
@@ -12,28 +13,28 @@
     using System.Linq;
 
     public abstract class ClickActionSceneObject<T> : TooltipedSceneObject<T>
-        where T : Dungeon.Physics.PhysicalObject
+        where T : class, IGameComponent
     {
         protected readonly PlayerSceneObject playerSceneObject;
         protected readonly T @object;
 
-        public ClickActionSceneObject(PlayerSceneObject playerSceneObject, T @object, string tooltip, bool bindView = true) : base(@object,tooltip, bindView)
+        public ClickActionSceneObject(T @object, string tooltip, bool bindView = true) : base(@object,tooltip, bindView)
         {
             this.@object = @object;
 
-            if (this.GetType() != typeof(PlayerSceneObject))
-            {
-                if (playerSceneObject != null)
-                {
-                    this.playerSceneObject = playerSceneObject;
-                    this.playerSceneObject.OnMove += CheckStopAction;
-                }
-            }
+            //if (this.GetType() != typeof(PlayerSceneObject))
+            //{
+            //    if (playerSceneObject != null)
+            //    {
+            //        this.playerSceneObject = playerSceneObject;
+            //        this.playerSceneObject.OnMove += CheckStopAction;
+            //    }
+            //}
 
-            if (this is PlayerSceneObject playerSceneObject1)
-            {
-                this.playerSceneObject = playerSceneObject1;
-            }
+            //if (this is PlayerSceneObject playerSceneObject1)
+            //{
+            //    this.playerSceneObject = playerSceneObject1;
+            //}
         }
 
         protected virtual int GrowSize { get; set; } = 3;
@@ -85,7 +86,7 @@
             }
             else
             {
-                Global.GameState.Player.BindMovePointAction(this.@object, () => Action(args.MouseButton));
+                //Global.GameState.Player.BindMovePointAction(this.@object, () => Action(args.MouseButton));
             }
         }
 
@@ -131,8 +132,10 @@
 
         protected virtual bool CheckActionAvailable(MouseButton mouseButton)
         {
-            var range = @object.Grow(3);
-            return playerSceneObject.Avatar.IntersectsWith(range);
+            //var range = @object.Grow(3);
+            //return playerSceneObject.Avatar.IntersectsWith(range);
+#warning todo
+            return false;
         }
 
         protected abstract void Action(MouseButton mouseButton);

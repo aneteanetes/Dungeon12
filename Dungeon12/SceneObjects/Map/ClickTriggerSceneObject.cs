@@ -9,7 +9,7 @@ namespace Dungeon12.SceneObjects.Map
 {
     public class ClickTriggerSceneObject : ClickActionSceneObject<ClickTrigger>
     {
-        public ClickTriggerSceneObject(PlayerSceneObject playerSceneObject, ClickTrigger @object) : base(playerSceneObject, @object, @object.Name, true)
+        public ClickTriggerSceneObject(PlayerSceneObject playerSceneObject, ClickTrigger @object) : base(@object, @object.Name, true)
         {
             this.Image = @object.Image;
         }

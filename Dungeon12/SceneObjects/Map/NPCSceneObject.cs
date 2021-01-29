@@ -44,7 +44,7 @@
         }
 
         public NPCSceneObject(PlayerSceneObject playerSceneObject, GameMap location, NPCMap mob, Rectangle defaultFramePosition)
-            : base(playerSceneObject, mob, location, mob, mob.Entity, defaultFramePosition)
+            : base(mob, mob.Entity, defaultFramePosition)
         {
             this.Image = mob.Tileset;
             Left = mob.Location.X;

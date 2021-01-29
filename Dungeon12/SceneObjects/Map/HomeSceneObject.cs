@@ -23,7 +23,7 @@
         private readonly GameMap gameMap;
 
         public HomeSceneObject(PlayerSceneObject playerSceneObject, Home home, string tooltip,GameMap gameMap,string tileset=default) 
-            : base(playerSceneObject,home, tooltip)
+            : base(home, tooltip)
         {
             this.gameMap = gameMap;
             Left = home.Location.X;

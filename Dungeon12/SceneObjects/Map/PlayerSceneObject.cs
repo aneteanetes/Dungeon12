@@ -73,7 +73,7 @@
         private Action<ISceneObject> destroyBinding;
 
         public PlayerSceneObject(Avatar player, Action<ISceneObject> destroyBinding)
-            : base(default, player, Global.GameState.Map,player,player.Entity,new Rectangle
+            : base(player, player.Entity,new Rectangle
             {
                 X = 32,
                 Y = 0,
@@ -116,7 +116,7 @@
 
         public virtual void OnEvent(ClassChangeEvent @event)
         {
-            this.ImageForceSet(this.Avatar.Tileset);
+            this.SetImageForce(this.Avatar.Tileset);
             this.GetAbilities().ForEach(a =>
             {
                 a.Owner = this.Avatar;
@@ -571,7 +571,7 @@
 
         private void SwitchPlayerFace(Direction value)
         {
-            AnimationMap animap = null;
+            Animation animap = null;
             switch (value)
             {
                 case Direction.Up:

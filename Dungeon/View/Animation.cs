@@ -4,7 +4,7 @@
     using System.Linq;
     using Dungeon.Types;
 
-    public class AnimationMap
+    public class Animation
     {
         public bool TilesetAnimation { get; set; } = true;
 
@@ -13,8 +13,6 @@
         public Point Size { get; set; }
 
         public List<Point> Frames { get; set; }
-
-        public Direction Direction { get; set; }
 
         public double FramesPerSecond { get; set; }
 

@@ -2,17 +2,18 @@
 {
     using Dungeon.Entities.Animations;
     using Dungeon.Types;
+    using Dungeon.View.Interfaces;
     using Dungeon12.Drawing.SceneObjects.Map;
     using System;
 
     public abstract class AnimatedSceneObject<T> : ClickActionSceneObject<T>
-        where T : Dungeon.Physics.PhysicalObject
+        where T : class, IGameComponent
     {
         public override bool DrawOutOfSight => false;
 
         public override bool CacheAvailable => false;
 
-        public AnimatedSceneObject(PlayerSceneObject playerSceneObject, T @object, string tooltip, Rectangle defaultFramePosition, Func<int, AnimationMap, bool> requestNextFrame = null, bool bindView = true) : base(playerSceneObject, @object, tooltip, bindView)
+        public AnimatedSceneObject( T @object, string tooltip, Rectangle defaultFramePosition, Func<int, Animation, bool> requestNextFrame = null, bool bindView = true) : base( @object, tooltip, bindView)
         {
             this.FramePosition = defaultFramePosition;
             this.RequestNextFrame = requestNextFrame ?? this.DefaultRequestNextFrame;
@@ -68,7 +69,7 @@
         /// Устанавливает базовое изображение игнорируя специальный сеттер, что бы сменить источник анимации
         /// </summary>
         /// <param name="img"></param>
-        public void ImageForceSet(string img) => base.Image = img;
+        public void SetImageForce(string img) => base.Image = img;
 
         private int frame = 0;
 
@@ -88,19 +89,19 @@
 
         protected bool RequestResume() => animationStop = false;
 
-        private AnimationMap animationMap;
+        private Animation animationMap;
 
-        protected void SetAnimation(AnimationMap animationMap) => this.animationMap = animationMap;
+        protected void SetAnimation(Animation animationMap) => this.animationMap = animationMap;
 
         protected Rectangle FramePosition;
 
-        protected Func<int, AnimationMap, bool> RequestNextFrame;
+        protected Func<int, Animation, bool> RequestNextFrame;
 
         public double FramesPerSecond => this.animationMap.FramesPerSecond == default
                 ? this.animationMap.Frames.Count
                 : this.animationMap.FramesPerSecond;
 
-        private bool DefaultRequestNextFrame(int frameCounter, AnimationMap animMap)
+        private bool DefaultRequestNextFrame(int frameCounter, Animation animMap)
         {
             var framesPerSec = animMap.FramesPerSecond == default
                 ? animMap.Frames.Count

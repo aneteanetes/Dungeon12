@@ -14,6 +14,8 @@ namespace Dungeon.GameObjects
         [Hidden]
         public ISceneObject SceneObject { get; set; }
 
+        public string Name { get; set; }
+
         public void Destroy()
         {
             SceneObject?.Destroy?.Invoke();
