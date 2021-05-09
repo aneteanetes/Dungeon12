@@ -16,9 +16,9 @@
 
         void KeyUp(Key key, KeyModifiers modifier);
 
-        void LeftStickMoveOnce(Direction direction, Distance distance);
+        void StickMoveOnce(Direction direction, GamePadStick stick);
 
-        void LeftStickMove(Direction direction, Distance distance);
+        void StickMove(Direction direction, GamePadStick stick);
 
         void GamePadButtonsPress(GamePadButton[] btns);
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -9,6 +10,16 @@ namespace Dungeon.Engine.Host
 {
     internal class MouseState
     {
+        public object obj { get; set; }
+
+        public async Task Do()
+        {
+            lock (obj)
+            {
+                await Task.CompletedTask;
+            }
+        }
+
         public MouseState(double x, double y, int scrollWheel, MouseButtonState leftButton, MouseButtonState middleButton, MouseButtonState rightButton)
         {
             X = x;

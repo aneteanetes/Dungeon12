@@ -214,9 +214,9 @@
             }
         }
 
-        public virtual void LeftStickMoveOnce(Direction direction, Distance distance) { }
+        public virtual void StickMoveOnce(Direction direction, GamePadStick stick) { }
 
-        public virtual void LeftStickMove(Direction direction, Distance distance) { }
+        public virtual void StickMove(Direction direction, GamePadStick stick) { }
 
         public virtual void GamePadButtonsPress(GamePadButton[] btns) { }
 

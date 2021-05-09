@@ -496,7 +496,7 @@ namespace Dungeon.Scenes
             }
         }
 
-        public void OnLeftStickMoveOnce(Direction direction, Distance distance)
+        public void OnStickMoveOnce(Direction direction, GamePadStick stick)
         {
             var controls = ControlsByHandle(ControlEventType.LeftStickMove);
             for (int i = 0; i < controls.Count(); i++)
@@ -506,7 +506,7 @@ namespace Dungeon.Scenes
                 {
                     try
                     {
-                        control.LeftStickMoveOnce(direction,distance);
+                        control.StickMoveOnce(direction, stick);
                     }
                     catch (Exception ex)
                     {
@@ -517,7 +517,7 @@ namespace Dungeon.Scenes
             }
         }
 
-        public void OnLeftStickMove(Direction direction, Distance distance)
+        public void OnStickMove(Direction direction, GamePadStick stick)
         {
             var controls = ControlsByHandle(ControlEventType.LeftStickMove);
             for (int i = 0; i < controls.Count(); i++)
@@ -527,7 +527,7 @@ namespace Dungeon.Scenes
                 {
                     try
                     {
-                        control.LeftStickMove(direction, distance);
+                        control.StickMove(direction, stick);
                     }
                     catch (Exception ex)
                     {

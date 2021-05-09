@@ -86,8 +86,11 @@ namespace Dungeon12.Scenes.Menus
             }
         }
 
-        protected override void LeftStickMoveOnce(Direction direction, Distance distance)
+        protected override void StickMoveOnce(Direction direction, GamePadStick stick)
         {
+            if (stick == GamePadStick.RightStick)
+                return;
+
             var currentIdx = button_idx;
             bool up = false;
 
@@ -116,7 +119,7 @@ namespace Dungeon12.Scenes.Menus
             currentFocus = FindIdx(up);
             currentFocus.Focus();
 
-            base.LeftStickMoveOnce(direction, distance);
+            base.StickMoveOnce(direction, stick);
         }
 
         private MainMenuButton FindIdx(bool up)

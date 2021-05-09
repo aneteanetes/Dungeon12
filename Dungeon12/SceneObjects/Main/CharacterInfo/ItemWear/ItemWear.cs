@@ -248,6 +248,7 @@
             }
 
             public bool IsEmpty => item == null;
+
             protected override void CallOnEvent(dynamic obj)
             {
                 OnEvent(obj);

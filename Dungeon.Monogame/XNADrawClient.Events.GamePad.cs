@@ -19,7 +19,7 @@ namespace Dungeon.Monogame
             if (!state.IsConnected)
                 return;
 
-            UpdateLeftStick(state);
+            UpdateSticks(state);
 
             var nowBtns = state.Buttons;
             OnGamePadButtons(nowBtns);
@@ -82,50 +82,80 @@ namespace Dungeon.Monogame
             SceneManager.Current?.OnGamePadButtons(released, false);
         }
 
-        private void UpdateLeftStick(GamePadState state)
+        private void UpdateSticks(GamePadState gamePadState)
         {
-            var left = state.ThumbSticks.Left;
+            UpdateLeft(gamePadState);
+        }
+
+        private void UpdateLeft(GamePadState gamePadState)
+        {
+            var left = gamePadState.ThumbSticks.Left;
             if (left != Vector2.Zero)
             {
                 var dir = DetectDirection(leftStickWas.X, left.X, leftStickWas.Y, left.Y);
 
-                if (startDir == Direction.Idle)
+                if (startDirLeft == Direction.Idle)
                 {
-                    startDir = dir;
+                    startDirLeft = dir;
                 }
 
-                if (dir == startDir)
+                if (dir == startDirLeft)
                 {
                     leftStickWas = left;
                 }
-                OnLeftStickMove(left);
-                Debug.WriteLine(left);
+                OnStickMove(left, GamePadStick.LeftStick);
             }
             else if (leftStickWas != Vector2.Zero && left == Vector2.Zero)
             {
-                OnLeftStickMoveOnce(left);
+                OnStickMoveOnce(left, GamePadStick.LeftStick);
+            }
+        }
+
+        private void UpdateRight(GamePadState gamePadState)
+        {
+            var right = gamePadState.ThumbSticks.Right;
+            if (right != Vector2.Zero)
+            {
+                var dir = DetectDirection(rightStickWas.X, right.X, rightStickWas.Y, right.Y);
+
+                if (startDirRight == Direction.Idle)
+                {
+                    startDirRight = dir;
+                }
+
+                if (dir == startDirRight)
+                {
+                    rightStickWas = right;
+                }
+                OnStickMove(right, GamePadStick.RightStick);
+            }
+            else if (rightStickWas != Vector2.Zero && right == Vector2.Zero)
+            {
+                OnStickMoveOnce(right, GamePadStick.RightStick);
             }
         }
 
         #region left stick
 
-        Direction startDir = Direction.Idle;
+        Direction startDirLeft = Direction.Idle;
+        Direction startDirRight = Direction.Idle;
         Vector2 leftStickWas = new Vector2(0, 0);
+        Vector2 rightStickWas = new Vector2(0, 0);
 
-        public void OnLeftStickMoveOnce(Vector2 leftStickNow)
+        public void OnStickMoveOnce(Vector2 leftStickNow, GamePadStick stick)
         {
             var dir = DetectDirection(leftStickNow.X, leftStickWas.X, leftStickNow.Y, leftStickWas.Y);
-            SceneManager.Current?.OnLeftStickMoveOnce(dir, Distance.Low);
-            startDir = Direction.Idle;
+            SceneManager.Current?.OnStickMoveOnce(dir, stick);
+            startDirLeft = Direction.Idle;
             leftStickWas = default;
         }
 
 
         Vector2 leftStickWasContinue = new Vector2(0, 0);
-        public void OnLeftStickMove(Vector2 leftStickNow)
+        public void OnStickMove(Vector2 leftStickNow, GamePadStick stick)
         {
             var dir = DetectDirection(leftStickWasContinue.X, leftStickNow.X, leftStickWasContinue.Y, leftStickNow.Y);
-            SceneManager.Current?.OnLeftStickMove(dir, Distance.Low);
+            SceneManager.Current?.OnStickMove(dir, stick);
             leftStickWasContinue = default;
         }
 

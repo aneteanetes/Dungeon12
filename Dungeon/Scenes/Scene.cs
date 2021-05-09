@@ -139,7 +139,7 @@
             CallLayer(l => l.OnKeyDown(keyEventArgs));
         }
 
-        public void OnLeftStickMoveOnce(Direction direction, Distance distance)
+        public void OnStickMoveOnce(Direction direction, GamePadStick stick)
         {
             if (Destroyed)
                 return;
@@ -147,7 +147,7 @@
             if (DungeonGlobal.Freezer.World == null && !DungeonGlobal.BlockSceneControls)
                 try
                 {
-                    LeftStickMoveOnce(direction, distance);
+                    StickMoveOnce(direction, stick);
                 }
                 catch (Exception ex)
                 {
@@ -155,7 +155,7 @@
                     return;
                 }
 
-            CallLayer(l => l.OnLeftStickMoveOnce(direction, distance));
+            CallLayer(l => l.OnStickMoveOnce(direction, stick));
         }
 
         public void OnGamePadButtons(GamePadButton[] btns, bool pressed)
@@ -184,7 +184,7 @@
                 }
         }
 
-        public void OnLeftStickMove(Direction direction, Distance distance)
+        public void OnStickMove(Direction direction, GamePadStick stick)
         {
             if (Destroyed)
                 return;
@@ -192,7 +192,7 @@
             if (DungeonGlobal.Freezer.World == null && !DungeonGlobal.BlockSceneControls)
                 try
                 {
-                    LeftStickMove(direction, distance);
+                    StickMove(direction, stick);
                 }
                 catch (Exception ex)
                 {
@@ -200,7 +200,7 @@
                     return;
                 }
 
-            CallLayer(l => l.OnLeftStickMove(direction, distance));
+            CallLayer(l => l.OnStickMove(direction, stick));
         }
 
         public void OnKeyUp(KeyArgs keyEventArgs)
@@ -307,13 +307,13 @@
 
         protected virtual void MouseRelease(PointerArgs pointerArgs) { }
 
-        protected virtual void LeftStickMoveOnce(Direction direction, Distance distance) { }
+        protected virtual void StickMoveOnce(Direction direction, GamePadStick stick) { }
 
         protected virtual void GamePadButtonPress(GamePadButton[] btns) { }
 
         protected virtual void GamePadButtonRelease(GamePadButton[] btns) { }
 
-        protected virtual void LeftStickMove(Direction direction, Distance distance) { }
+        protected virtual void StickMove(Direction direction, GamePadStick stick) { }
 
         protected virtual void MouseWheel(MouseWheelEnum mouseWheel) { }
 

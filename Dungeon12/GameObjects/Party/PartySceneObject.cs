@@ -1,5 +1,6 @@
 ﻿using Dungeon;
 using Dungeon.Control;
+using Dungeon.Control.Gamepad;
 using Dungeon.Control.Keys;
 using Dungeon.Control.Pointer;
 using Dungeon.Types;
@@ -278,10 +279,12 @@ namespace Dungeon12.GameObjects.Party
             Key.LeftShift
         };
 
-        public override void LeftStickMove(Direction direction, Distance distance)
+        public override void StickMove(Direction direction, GamePadStick stick)
         {
+            if (stick == GamePadStick.RightStick)
+                return;
+
             NowMoving.Clear();
-            //if (!NowMoving.Contains(direction.Opposite()))
             {
                 if(direction.ToString().Contains("Left") || direction.ToString().Contains("Right"))
                 {
@@ -292,9 +295,10 @@ namespace Dungeon12.GameObjects.Party
             }
         }
 
-        public override void LeftStickMoveOnce(Direction direction, Distance distance)
+        public override void StickMoveOnce(Direction direction, GamePadStick stick)
         {
-            NowMoving.Clear();
+            if (stick == GamePadStick.LeftStick)
+                NowMoving.Clear();
         }
 
         protected Direction DetectDirection(float x1, float x2, float y1, float y2)
