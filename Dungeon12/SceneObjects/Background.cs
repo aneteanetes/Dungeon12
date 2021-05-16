@@ -3,7 +3,7 @@ using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
 
 namespace Dungeon12.Drawing.SceneObjects
 {
-    public class Background : Dungeon.Drawing.SceneObjects.ImageControl
+    public class Background : Dungeon.Drawing.SceneObjects.ImageObject
     {
         //public override bool AbsolutePosition => true;
 

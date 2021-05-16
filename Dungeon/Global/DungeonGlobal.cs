@@ -40,7 +40,7 @@
             var strings = global.GetStringsClass();
             if (strings != default)
             {
-                var loaded = strings.___AutoLoad(strings.___DefaultLanguageCode);
+                var loaded = strings.___AutoLoad(strings.___DefaultLanguageCode, strings);
                 if (loaded != default)
                 {
                     global.LoadStrings(loaded);

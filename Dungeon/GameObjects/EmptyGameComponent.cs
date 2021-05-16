@@ -19,6 +19,8 @@ namespace Dungeon.GameObjects
             SceneObject.Destroy?.Invoke();
         }
 
+        public void Init() { }
+
         public static EmptyGameComponent Empty { get; } = new EmptyGameComponent();
 
         public string Name { get; set; }

@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using MoreLinq;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Dungeon.View.Interfaces;
 
 #pragma warning disable CS0618 // Type or member is obsolete
 
@@ -104,7 +105,7 @@ namespace Dungeon.Resources
             return res;
         }
 
-        public static Resource Load(string resource, bool caching = false, bool @throw = true, SceneManager sceneManager = default)
+        public static Resource Load(string resource, bool caching = false, bool @throw = true, SceneManager sceneManager = default, ISceneObject obj=default)
         {
             var res = LoadResource(resource);
 
@@ -113,7 +114,10 @@ namespace Dungeon.Resources
                 Settings.NotFoundAction?.Invoke(resource);
                 if ((Settings?.ThrowIfNotFound ?? true) && @throw)
                 {
-                    throw new KeyNotFoundException($"Ресурс {resource} не найден!");
+                    if (obj == default)
+                        throw new KeyNotFoundException($"Ресурс {resource} не найден!");
+                    else
+                        throw new KeyNotFoundException($"Ресурс {resource} из объекта {obj} не найден!");
                 }
                 else return default;
             }

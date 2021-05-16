@@ -52,5 +52,9 @@ namespace Dungeon.Entities
         {
             throw new NotImplementedException();
         }
+
+        public void Init()
+        {
+        }
     }
 }

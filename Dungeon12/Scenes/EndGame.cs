@@ -18,7 +18,7 @@
 
         public override void Initialize()
         {
-            this.AddObject(new ImageControl("Loading/Sacrifice.png".AsmImg()));
+            this.AddObject(new ImageObject("Loading/Sacrifice.png".AsmImg()));
             this.AddObject(new EndSceneObject());
         }
 

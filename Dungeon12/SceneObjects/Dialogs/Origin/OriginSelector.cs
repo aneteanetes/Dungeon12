@@ -25,7 +25,7 @@
             Opacity = 0.5;
             Round = 5;
 
-            this.AddChild(new ImageControl($"Dungeon12.Resources.Images.Origin.{origin.ToString()}.png")
+            this.AddChild(new ImageObject($"Dungeon12.Resources.Images.Origin.{origin.ToString()}.png")
             {
                 Width = 2,
                 Height = 2,

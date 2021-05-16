@@ -319,14 +319,14 @@ namespace Dungeon.Monogame
         /// </summary>
         /// <param name="tilesetName"></param>
         /// <returns></returns>
-        public Texture2D TileSetByName(string tilesetName)
+        public Texture2D TileSetByName(string tilesetName, ISceneObject sceneObject = default)
         {
             if (!tilesetsCache.TryGetValue(tilesetName, out var bitmap))
             {
 #if Android
                 tilesetName = tilesetName.Replace("Dungeon.Resources.","Dungeon.Resources.Android.");
 #endif
-                var res = ResourceLoader.Load(tilesetName);
+                var res = ResourceLoader.Load(tilesetName, obj: sceneObject);
                 if (res == default)
                     return default;
 
@@ -547,7 +547,7 @@ namespace Dungeon.Monogame
 
         private void DrawSceneImage(ISceneObject sceneObject, double y, double x, bool force)
         {
-            var image = TileSetByName(sceneObject.Image);
+            var image = TileSetByName(sceneObject.Image, sceneObject);
             if (image == default)
             {
                 DungeonGlobal.Logger.Log("Медленный рендер из-за отсутствия картинки!");
@@ -639,7 +639,12 @@ namespace Dungeon.Monogame
 
             Rectangle source = new Rectangle(tileRegion.Xi, tileRegion.Yi, tileRegion.Widthi, tileRegion.Heighti);
 
-            var color = Color.White;
+            var color =  Color.White;
+            if (sceneObject.Color != default)
+            {
+                var dcol = sceneObject.Color;
+                color = new Color(dcol.R, dcol.G, dcol.B, dcol.A);
+            }
 
             var alpha = sceneObject.Opacity == 0
                    ? color.A
@@ -773,7 +778,7 @@ namespace Dungeon.Monogame
             {
                 if (range.CompiledFontName == default)
                 {
-                    range.CompiledFontName = $"Dungeon12.Resources.Fonts.xnb/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}.xnb".Embedded();
+                    range.CompiledFontName = $"{DungeonGlobal.GameAssemblyName}.Resources.Fonts.xnb/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}.xnb".Embedded();
                 }
                 var font = range.CompiledFontName;
 
@@ -787,7 +792,7 @@ namespace Dungeon.Monogame
             {
                 if (range.CompiledFontName == default)
                 {
-                    range.CompiledFontName = $"Dungeon12.Resources.Fonts.xnb/{range.FontName}/{range.FontName}{range.Size}.xnb".Embedded();
+                    range.CompiledFontName = $"{DungeonGlobal.GameAssemblyName}.Resources.Fonts.xnb/{range.FontName}/{range.FontName}{range.Size}.xnb".Embedded();
                 }
                 var font = range.CompiledFontName;
 

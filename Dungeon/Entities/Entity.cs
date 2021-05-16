@@ -11,7 +11,9 @@ namespace Dungeon.Entities
         public string IdentifyName { get; set; }
 
         public string Assembly { get; set; }
+
         public int Id { get; set; }
+
         public int ObjectId { get; set; }
     }
 

@@ -30,7 +30,7 @@ namespace Dungeon12.CardGame.SceneObjects
             {
                 var img = $"Cards/Numbers/0.png".AsmImg();
 
-                this.AddChild(new ImageControl(img)
+                this.AddChild(new ImageObject(img)
                 {
                     AbsolutePosition = this.AbsolutePosition,
                     CacheAvailable = this.CacheAvailable,
@@ -51,7 +51,7 @@ namespace Dungeon12.CardGame.SceneObjects
             for (int i = 0; i < 3; i++)
             {
                 var @char =  value.ElementAtOrDefault(i);
-                var num = Children.ElementAtOrDefault(i) as ImageControl;
+                var num = Children.ElementAtOrDefault(i) as ImageObject;
                 if (@char != default)
                 {
                     num.Image= $"Cards/Numbers/{@char}.png".AsmImg();

@@ -33,7 +33,7 @@ namespace Dungeon12.Servant
 
         protected override string BarTile => "";
 
-        private class FaithPowerOrb : ImageControl
+        private class FaithPowerOrb : ImageObject
         {
             private Servant servant;
             int _count;

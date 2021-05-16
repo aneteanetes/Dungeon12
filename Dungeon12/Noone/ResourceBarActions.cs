@@ -55,7 +55,7 @@
 
         public override bool CacheAvailable => false;
 
-        private class ActionBarSB : Dungeon.Drawing.SceneObjects.ImageControl
+        private class ActionBarSB : Dungeon.Drawing.SceneObjects.ImageObject
         {
             public ActionBarSB(string imagePath) : base(imagePath)
             {

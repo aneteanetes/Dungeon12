@@ -39,10 +39,20 @@ namespace Dungeon.Localization
             return path;
         }
 
-        public object ___AutoLoad(string lang)
+        public object ___AutoLoad(string lang = default, LocalizationStringDictionary strings = default)
         {
+            if (lang == default)
+                return default;
+
             try
             {
+                var path = DoPath(lang);
+                if (!File.Exists(path) && strings != default)
+                {
+                    File.WriteAllText(path, JsonConvert.SerializeObject(strings, Formatting.Indented));
+                    return strings;
+                }
+
                 return JsonConvert.DeserializeObject(File.ReadAllText(DoPath(lang)), this.GetType());
             }
             catch (FileNotFoundException)

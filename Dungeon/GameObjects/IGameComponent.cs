@@ -9,5 +9,7 @@
         void SetView(ISceneObject sceneObject);
 
         void Destroy();
+
+        void Init();
     }
 }

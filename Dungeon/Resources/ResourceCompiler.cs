@@ -116,12 +116,16 @@ namespace Dungeon.Resources
 
             CurrentBuild.Resources.Add(new Resource() { Path = path, LastWriteTime = lastTime });
 
+            Console.WriteLine($"file {file} {(res==default ? "not" : "")} exists");
+
             if (res == default)
             {
+                Console.WriteLine($"compiling {file}");
                 CompileNewResource(file, projectName, db, lastTime);
             }
             else
             {
+                Console.WriteLine($"check update {file}");
                 CheckUpdateNeeded(file, db, lastTime, res);
                 LastBuild.Resources.Remove(res);
             }

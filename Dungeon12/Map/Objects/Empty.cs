@@ -16,7 +16,7 @@
         {
             if (this.Image != default)
             {
-                return new ImageControl(this.Image)
+                return new ImageObject(this.Image)
                 {
                     Left=this.Location.X,
                     Top=this.Location.Y

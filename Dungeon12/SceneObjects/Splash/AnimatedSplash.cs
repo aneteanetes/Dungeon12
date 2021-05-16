@@ -13,7 +13,7 @@ namespace Dungeon12.SceneObjects.UI
 {
     public class AnimatedSplash : EmptySceneControl
     {
-        private ImageControl splashText;
+        private ImageObject splashText;
 
         private string actualVersion;
 
@@ -28,7 +28,7 @@ namespace Dungeon12.SceneObjects.UI
 
             this.AddChild(new Background(true));
 
-            splashText = this.AddChildImageCenter(new ImageControl("Dungeon12.Resources.Images.d12textM.png")
+            splashText = this.AddChildImageCenter(new ImageObject("Dungeon12.Resources.Images.d12textM.png")
             {
                 Width=36,
                 Height=8

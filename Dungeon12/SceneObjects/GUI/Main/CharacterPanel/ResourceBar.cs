@@ -12,7 +12,7 @@ namespace Dungeon12.SceneObjects.GUI.Main
             this.Width = 146;
             this.Height = 19;
 
-            this.AddChild(new ImageControl($"GUI/Planes/hp_{(hp ? "hp" : "mana")}bar.png".AsmImg())
+            this.AddChild(new ImageObject($"GUI/Planes/hp_{(hp ? "hp" : "mana")}bar.png".AsmImg())
             {
                 Width = 146,
                 Height = 19

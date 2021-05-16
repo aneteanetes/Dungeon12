@@ -112,7 +112,7 @@
         /// <param name="vertical"></param>
         /// <param name="forceNotImage">принудительно мерять по контролу а не изображению</param>
         /// <returns></returns>
-        protected TSceneObject AddControlCenter<TSceneObject>(TSceneObject control, bool horizontal = true, bool vertical = true, bool forceNotImage=false)
+        public TSceneObject AddControlCenter<TSceneObject>(TSceneObject control, bool horizontal = true, bool vertical = true, bool forceNotImage=false)
             where TSceneObject : ISceneControl
         {
             ControlBinding?.Invoke(control);
@@ -193,11 +193,11 @@
 
         public virtual void TextInput(string text) => dynamicEvents[nameof(TextInput)]?.DynamicInvoke(text);
 
-        public virtual void AddChild(ISceneControl sceneObject)
-        {
-            ControlBinding?.Invoke(sceneObject);
-            base.AddChild(sceneObject);
-        }
+        //public virtual void AddChild(ISceneControl sceneObject)
+        //{
+        //    ControlBinding?.Invoke(sceneObject);
+        //    base.AddChild(sceneObject);
+        //}
 
         /// <summary>
         /// Добавляет компонент как миксин

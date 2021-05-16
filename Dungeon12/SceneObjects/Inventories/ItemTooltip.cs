@@ -39,7 +39,7 @@
             var goldMeasure = this.MeasureImage(goldImg);
 
             var goldLeft = this.Width / 2 - ((goldMeasure.X * 0.8) / 32 / 2);
-            this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.stats.gold.png")
+            this.AddChild(new ImageObject("Dungeon12.Resources.Images.ui.stats.gold.png")
             {
                 Height = 0.85,
                 Width = 0.85,

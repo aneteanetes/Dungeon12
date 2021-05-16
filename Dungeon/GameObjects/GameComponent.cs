@@ -30,6 +30,18 @@ namespace Dungeon.GameObjects
         protected override void CallApply(dynamic obj) { }
 
         protected override void CallDiscard(dynamic obj) { }
+
+        private bool _inited = false;
+        public void Init()
+        {
+            if (!_inited)
+            {
+                Initialization();
+                _inited = true;
+            }
+        }
+
+        public virtual void Initialization() { }
     }
 
     public abstract class StoredGameComponent<T> : GameComponent

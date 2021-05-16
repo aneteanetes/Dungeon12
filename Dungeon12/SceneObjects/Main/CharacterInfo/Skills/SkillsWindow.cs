@@ -172,10 +172,10 @@
 
                 this.AddChild(new DarkRectangle() { Color = ConsoleColor.White, Opacity = 1, Left = 0.5, Width = this.Width - 1, Height = 0.05, Top = top - 0.25 });
 
-                var border = this.AddChildImageCenter(new ImageControl("Dungeon12.Resources.Images.ui.squareB.png") { CacheAvailable=false });
+                var border = this.AddChildImageCenter(new ImageObject("Dungeon12.Resources.Images.ui.squareB.png") { CacheAvailable=false });
                 border.Top = 11.5;
 
-                var img = this.AddChildImageCenter(new ImageControl(ability.Image_B) { CacheAvailable = false, }, true, false);
+                var img = this.AddChildImageCenter(new ImageObject(ability.Image_B) { CacheAvailable = false, }, true, false);
 
                 img.Top = 11.5;
             }

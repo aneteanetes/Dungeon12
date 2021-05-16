@@ -2,7 +2,7 @@
 
 namespace Dungeon12.Scenes.Menus.MainMenu
 {
-    public class NewsSceneObject : ImageControl
+    public class NewsSceneObject : ImageObject
     {
         public NewsSceneObject(string imagePath) : base(imagePath)
         {

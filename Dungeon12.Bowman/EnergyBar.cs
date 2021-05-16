@@ -27,7 +27,7 @@ namespace Dungeon12.Bowman
 
         protected override string BarTile => "Dungeon12.Resources.Images.ui.player.hp_back.png";
 
-        private class EnergyBarHand : Dungeon.Drawing.SceneObjects.ImageControl
+        private class EnergyBarHand : Dungeon.Drawing.SceneObjects.ImageObject
         {
             private Bowman archer;
 

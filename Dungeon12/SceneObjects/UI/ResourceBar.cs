@@ -14,7 +14,7 @@
         }
     }
 
-    public abstract class ResourceBar : Dungeon.Drawing.SceneObjects.ImageControl
+    public abstract class ResourceBar : Dungeon.Drawing.SceneObjects.ImageObject
     {
         public ResourceBar() : base(null)
         {

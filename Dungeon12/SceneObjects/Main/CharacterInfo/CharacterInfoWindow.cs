@@ -113,7 +113,7 @@
                 this.Width = 2;
                 this.Height = 1;
 
-                var img = this.AddChildImageCenter(new ImageControl(classStat.Image)
+                var img = this.AddChildImageCenter(new ImageObject(classStat.Image)
                 {
                     AbsolutePosition = true,
                     CacheAvailable = false
@@ -227,7 +227,7 @@
             var goldMeasure = this.MeasureImage(goldImg);
 
             var goldLeft = this.Width / 2 - ((goldMeasure.X * 0.8) / 32 / 2);
-            this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.stats.gold.png")
+            this.AddChild(new ImageObject("Dungeon12.Resources.Images.ui.stats.gold.png")
             {
                 Height = 0.85,
                 Width = 0.85,
@@ -338,7 +338,7 @@
                 this.Height = 1;
                 this.Width = 1;
 
-                this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.additional.png")
+                this.AddChild(new ImageObject("Dungeon12.Resources.Images.ui.additional.png")
                 {
                     AbsolutePosition = true,
                     CacheAvailable = false,

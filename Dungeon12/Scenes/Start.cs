@@ -92,7 +92,7 @@
             {
                 AbsolutePosition = true,
             });
-            this.AddObject(new ImageControl("Dungeon12.Resources.Images.d12textM.png")
+            this.AddObject(new ImageObject("Dungeon12.Resources.Images.d12textM.png")
             {
                 Top = 2f,
                 Left = 10f,

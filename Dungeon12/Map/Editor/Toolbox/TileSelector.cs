@@ -12,11 +12,11 @@
 
         public override bool AbsolutePosition => true;
 
-        private Action<ImageControl> select;
+        private Action<ImageObject> select;
 
         public bool FullTile { get; set; }
 
-        public TileSelector(Action<ImageControl> select)
+        public TileSelector(Action<ImageObject> select)
         {
             this.select = select;
         }
@@ -39,7 +39,7 @@
         {
             if (FullTile)
             {
-                select(new ImageControl(this.Image)
+                select(new ImageObject(this.Image)
                 {
                     CacheAvailable=false
                 });
@@ -49,7 +49,7 @@
             var x = args.X/32 - this.Left;
             var y = args.Y/32 - this.Top;
             
-            select(new ImageControl(this.Image)
+            select(new ImageObject(this.Image)
             {
                 ImageRegion = new Dungeon.Types.Rectangle
                 {

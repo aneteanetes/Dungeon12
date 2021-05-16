@@ -10,7 +10,7 @@ namespace Dungeon.Monogame
         public bool IsFullScreen { get; set; } = true;
 
         [Display(Name = "Во весь экран (в окне)")]
-        public bool IsWindowedFullScreen { get; set; } = true;
+        public bool IsWindowedFullScreen { get; set; } = false;
 
         [Display(Name = "Ширина в px")]
         public int WidthPixel { get; set; } = 1280;
@@ -29,5 +29,7 @@ namespace Dungeon.Monogame
 
         [Hidden]
         public int CellSize { get; set; }
+
+        public bool Borderless { get; set; } = false;
     }
 }

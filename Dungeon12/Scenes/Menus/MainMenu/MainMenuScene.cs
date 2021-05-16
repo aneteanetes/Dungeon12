@@ -31,8 +31,8 @@ namespace Dungeon12.Scenes.Menus
             var inGame = Args.ElementAtOrDefault(0) != default;
 
             var back = this.CreateLayer("Background");
-            back.AddObject(new ImageControl("Splash/MainMenu/menu.jfif".AsmImgRes()));
-            back.AddObject(new ImageControl("Splash/d12.png".AsmImg())
+            back.AddObject(new ImageObject("Splash/MainMenu/menu.jfif".AsmImgRes()));
+            back.AddObject(new ImageObject("Splash/d12.png".AsmImg())
             {
                 Left = 332,
                 Top = 16

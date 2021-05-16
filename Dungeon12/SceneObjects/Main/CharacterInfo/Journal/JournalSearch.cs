@@ -46,7 +46,7 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
                 _doFilter = doFilter;
                 _textInput = textInput;
                 Image = "ui/checkbox/on.png".AsmImg();
-                this.AddChildImageCenter(new ImageControl("ui/cancelicon.png".AsmImg())
+                this.AddChildImageCenter(new ImageObject("ui/cancelicon.png".AsmImg())
                 {
                     AbsolutePosition = true,
                     CacheAvailable = false
@@ -86,7 +86,7 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
                 _doFilter = doFilter;
                 _textInput = textInput;
                 Image = "ui/checkbox/on.png".AsmImg();
-                this.AddChildImageCenter(new ImageControl("ui/searchicon.png".AsmImg())
+                this.AddChildImageCenter(new ImageObject("ui/searchicon.png".AsmImg())
                 {
                     AbsolutePosition = true,
                     CacheAvailable = false

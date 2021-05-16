@@ -51,7 +51,7 @@
                 dropMask.Destroy?.Invoke();
                 cardgameSceneObject.Destroy?.Invoke();
 
-                this.AddObject(new ImageControl("Loading/CardGameEnd.png".AsmImg()));
+                this.AddObject(new ImageObject("Loading/CardGameEnd.png".AsmImg()));
 
                 var endText = new TextControl(new DrawText(winner.Name == "Персонаж" ? "Вы выйграли" : $"Выйграл трактирщик", ConsoleColor.White).Triforce());
                 endText.Text.Size = 72;

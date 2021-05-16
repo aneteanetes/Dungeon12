@@ -3,7 +3,7 @@
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Transactions;
 
-    public class BuffSceneObject : Dungeon.Drawing.SceneObjects.ImageControl
+    public class BuffSceneObject : Dungeon.Drawing.SceneObjects.ImageObject
     {
         public override bool CacheAvailable => false;
 

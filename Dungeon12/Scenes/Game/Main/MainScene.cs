@@ -162,7 +162,7 @@
             string tileBack = null; // persistRegion.TileBack;
             if (tileBack != default)
             {
-                var back = new ImageControl(tileBack);
+                var back = new ImageObject(tileBack);
                 var offset = persistRegion.TileBackOffset;
                 if (offset != default)
                 {
@@ -173,11 +173,11 @@
             }
             else
             {
-                var back = new ImageControl("Regions/_back.png".AsmImg());
+                var back = new ImageObject("Regions/_back.png".AsmImg());
                 this.AddObject(back);
             }
 
-            this.AddObject(new ImageControl(persistRegion.Image));
+            this.AddObject(new ImageObject(persistRegion.Image));
 
             //перенести туда где location
             if (this.PlayerAvatar.Location == default)

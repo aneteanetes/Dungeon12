@@ -4,7 +4,7 @@
     using Dungeon.Proxy;
     using System;
 
-    public class ObjectHpBar : Dungeon.Drawing.SceneObjects.ImageControl
+    public class ObjectHpBar : Dungeon.Drawing.SceneObjects.ImageObject
     {
         public ObjectHpBar(Alive alive)
             : base("Dungeon12.Resources.Images.GUI.hpbar_e.png")
@@ -19,7 +19,7 @@
 
         public override bool CacheAvailable => false;
 
-        private class ObjectHpBarGreen : Dungeon.Drawing.SceneObjects.ImageControl
+        private class ObjectHpBarGreen : Dungeon.Drawing.SceneObjects.ImageObject
         {
             private Alive alive;
 

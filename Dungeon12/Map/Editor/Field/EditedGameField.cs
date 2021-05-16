@@ -30,13 +30,13 @@
             LoadFile();
         }
 
-        private ImageControl current;
+        private ImageObject current;
 
         private GameFieldHistory History;
 
         public void Cancel() => History.Back();
 
-        public void Selecting(ImageControl imageControl) => current = imageControl;
+        public void Selecting(ImageObject imageControl) => current = imageControl;
 
         public void SetLevel(int lvl) => this.lvl = lvl;
 
@@ -121,7 +121,7 @@
             if (measure)
             {
                 var size = MeasureImage(save);
-                this.AddChild(new ImageControl(save)
+                this.AddChild(new ImageObject(save)
                 {
                     Width = size.X,
                     Height = size.Y,
@@ -129,7 +129,7 @@
             }
             else
             {
-                this.AddChild(new ImageControl(save));
+                this.AddChild(new ImageObject(save));
             }
         }
 

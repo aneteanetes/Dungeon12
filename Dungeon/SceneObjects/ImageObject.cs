@@ -5,11 +5,11 @@
     /// <summary>
     /// По умолчанию не реагирует на события
     /// </summary>
-    public class ImageControl : EmptySceneObject
+    public class ImageObject : EmptySceneObject
     {
         public override bool Events => false;
 
-        public ImageControl(string imagePath)
+        public ImageObject(string imagePath)
         {
             Image = imagePath;
         }

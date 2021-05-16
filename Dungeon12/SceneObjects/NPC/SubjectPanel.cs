@@ -119,7 +119,7 @@ namespace Dungeon12.SceneObjects.NPC
             {
                 destroyConversation?.Invoke();
 
-                var staticface = new ImageControl(this.conv.FaceImage) { Blur = true };
+                var staticface = new ImageObject(this.conv.FaceImage) { Blur = true };
                 staticface.Height = 3;
                 staticface.Width = 3;
                 staticface.AbsolutePosition = true;
@@ -145,7 +145,7 @@ namespace Dungeon12.SceneObjects.NPC
 
             destroyConversation?.Invoke();
 
-            var face = new ImageControl(conv.Face) { Blur = true };
+            var face = new ImageObject(conv.Face) { Blur = true };
             face.Height = 3;
             face.Width = 3;
             face.AbsolutePosition = true;

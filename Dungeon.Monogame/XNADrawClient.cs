@@ -67,7 +67,13 @@
                 PreferredBackBufferHeight = settings.HeightPixel,
                 SynchronizeWithVerticalRetrace = settings.VerticalSync,
             };
-            ResolutionScale = Matrix.CreateScale(new Vector3((float)settings.WidthPixel / (float)monitorSize.X, (float)settings.HeightPixel / (float)monitorSize.Y, 1));
+
+            ResolutionScale = Matrix.Identity;
+
+            //if (monitorSize.X > settings.WidthPixel)
+            //{
+            //    ResolutionScale = Matrix.CreateScale(new Vector3((float)monitorSize.X / (float)settings.WidthPixel, (float)monitorSize.Y / (float)settings.HeightPixel, 1));
+            //}
 
             DungeonGlobal.ChangeResolution += r =>
             {
@@ -79,6 +85,7 @@
                 SceneManager.Start();
             };
 
+            this.Window.IsBorderless = settings.Borderless;
             if (settings.IsWindowedFullScreen)
             {
                 graphics.HardwareModeSwitch = false;

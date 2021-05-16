@@ -1,15 +1,13 @@
-﻿using FastMember;
+﻿using Dungeon.Transactions;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
+using FastMember;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Linq.Expressions;
-using Dungeon.Entities;
-using Dungeon.Data;
-using Dungeon.Transactions;
 
 namespace Dungeon.Proxy
 {
@@ -318,6 +316,8 @@ namespace Dungeon.Proxy
         {
             this.SceneObject?.Destroy?.Invoke();
         }
+
+        public void Init() { }
 
         #endregion
     }

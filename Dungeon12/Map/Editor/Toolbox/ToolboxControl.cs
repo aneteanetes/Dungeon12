@@ -15,7 +15,7 @@
         private TextInputControl textInputControl;
         private TileSelector tileSelector;
 
-        public ToolboxControl(Action<ImageControl> select, Action<int> level, Action<bool> obstruct, Action<bool> fullImage)
+        public ToolboxControl(Action<ImageObject> select, Action<int> level, Action<bool> obstruct, Action<bool> fullImage)
         {
             this.Height = 23;
             this.Width = 19;

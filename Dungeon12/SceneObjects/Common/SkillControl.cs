@@ -31,7 +31,7 @@
 
         private readonly PlayerSceneObject player;
 
-        private readonly ImageControl abilControl;
+        private readonly ImageObject abilControl;
 
         private readonly AbilityPosition abilityPosition;
 
@@ -75,7 +75,7 @@
 
             var a = this.ability;
 
-            abilControl = new ImageControl(IsBig ? a.Image_B : a.Image)
+            abilControl = new ImageObject(IsBig ? a.Image_B : a.Image)
             {
                 CacheAvailable = false
             };
@@ -91,7 +91,7 @@
             this.Image = SquareTexture(false);
         }
 
-        private class CooldownMask : Dungeon.Drawing.SceneObjects.ImageControl
+        private class CooldownMask : Dungeon.Drawing.SceneObjects.ImageObject
         {
             public override bool AbsolutePosition => true;
             public override bool CacheAvailable => false;

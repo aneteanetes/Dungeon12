@@ -81,7 +81,7 @@
             }
         }
 
-        protected TextControl AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical = true)
+        public TextControl AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical = true)
         {
             var textControl = new TextControl(drawText);
             var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text, this);
@@ -130,7 +130,7 @@
             return control;
         }
 
-        protected virtual T AddChildCenter<T>(T control, bool horizontal = true, bool vertical = true)
+        public virtual T AddChildCenter<T>(T control, bool horizontal = true, bool vertical = true)
             where T : ISceneObject
         {
             if (horizontal)
@@ -293,7 +293,7 @@
 
         }
 
-        public void AddChild(ISceneObject sceneObject)
+        public ISceneObject AddChild(ISceneObject sceneObject)
         {
             sceneObject.Destroy += () =>
             {
@@ -303,12 +303,28 @@
 
             Destroy += () => sceneObject.Destroy?.Invoke();
 
-            if (sceneObject is ISceneObject sceneControlObject)
-            {
-                sceneControlObject.Parent = this;
-            }
+            sceneObject.Parent = this;
 
             Children.Add(sceneObject);
+            return sceneObject;
+        }
+
+        public TSceneObject AddChild<TSceneObject>(TSceneObject sceneObject)
+            where TSceneObject : ISceneObject
+        {
+            sceneObject.Destroy += () =>
+            {
+                RemoveChild(sceneObject);
+                DestroyBinding?.Invoke(sceneObject);
+            };
+
+            Destroy += () => sceneObject.Destroy?.Invoke();
+
+            sceneObject.Parent = this;
+
+            Children.Add(sceneObject);
+            sceneObject.Parent = this;
+            return sceneObject;
         }
 
         public void ClearChildrens()
@@ -322,9 +338,10 @@
             }
         }
 
-        public void RemoveChild(ISceneObject sceneObject)
+        public ISceneObject RemoveChild(ISceneObject sceneObject)
         {
             Children.Remove(sceneObject);
+            return sceneObject;
         }
 
         public IEnumerable<T> GetChildren<T>() => Children.Where(x => x is T).Select(x => (T)x);
@@ -492,7 +509,7 @@
 
         public override string ToString()
         {
-            return $"{this.GetType().Name}#{Uid}#{owner.GetType().Name} :base {base.ToString()}";
+            return $"{this.GetType().Name}.{Parent?.ToString()} :base {base.ToString()}";
         }
 
         public bool IntersectsWith(ISceneObject another)
@@ -542,6 +559,7 @@
         public ITileMap TileMap { get; set; }
 
         public bool AlphaBlend { get; set; }
+        public IDrawColor Color { get; set; } = DrawColor.White;
 
         private object flowContext = null;
 
@@ -620,7 +638,7 @@
 
         public void AddEffects(params ISceneObject[] effects)
         {
-            effects.ForEach(this.AddChild);
+            effects.ForEach(x => this.AddChild(x));
         }
     }
 }

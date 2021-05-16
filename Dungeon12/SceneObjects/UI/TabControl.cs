@@ -60,7 +60,7 @@
 
             if (titleImg != null)
             {
-                this.AddChildImageCenter(new ImageControl(titleImg)
+                this.AddChildImageCenter(new ImageObject(titleImg)
                 {
                     AbsolutePosition = true,
                     CacheAvailable = false,

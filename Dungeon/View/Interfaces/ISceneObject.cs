@@ -139,6 +139,8 @@
 
         ICollection<ISceneObject> Children { get; }
 
+        IDrawColor Color { get; set; }
+
         bool AbsolutePosition { get; }
 
         string Uid { get; }
@@ -184,8 +186,8 @@
 
         bool Updatable { get; }
 
-        void AddChild(ISceneObject sceneObject);
+        ISceneObject AddChild(ISceneObject sceneObject);
 
-        void RemoveChild(ISceneObject sceneObject);
+        ISceneObject RemoveChild(ISceneObject sceneObject);
     }
 }

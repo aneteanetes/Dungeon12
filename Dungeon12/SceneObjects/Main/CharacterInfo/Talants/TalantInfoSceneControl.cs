@@ -43,7 +43,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
             this.talant = talant;
             var measure = this.MeasureImage("Dungeon12.Resources.Images.ui.square.png");
 
-            this.AddChild(new ImageControl(talant.Image)
+            this.AddChild(new ImageObject(talant.Image)
             {
                 CacheAvailable=false,
                 AbsolutePosition=true
@@ -64,7 +64,7 @@ namespace Dungeon12.Drawing.SceneObjects.Main.CharacterInfo.Talants
             }
             else
             {
-                this.AddChild(new ImageControl("Talants/blocked.png".AsmImg())
+                this.AddChild(new ImageObject("Talants/blocked.png".AsmImg())
                 {
                     CacheAvailable = false,
                     AbsolutePosition = true

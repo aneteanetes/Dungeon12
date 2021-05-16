@@ -58,7 +58,7 @@
 
         protected override void CallOnEvent(dynamic obj) => OnEvent(obj);
 
-        private class AvatarSceneObject : Dungeon.Drawing.SceneObjects.ImageControl
+        private class AvatarSceneObject : Dungeon.Drawing.SceneObjects.ImageObject
         {
             private Character player;
 
@@ -69,7 +69,7 @@
 
             public AvatarSceneObject WithFrame()
             {
-                this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.player.avatar.png")
+                this.AddChild(new ImageObject("Dungeon12.Resources.Images.ui.player.avatar.png")
                 {
                     Width = this.Width,
                     Height = this.Height,
@@ -87,7 +87,7 @@
                 return this;
             }
 
-            private class LevelUpMask : ImageControl
+            private class LevelUpMask : ImageObject
             {
                 private Character _character;
                 public LevelUpMask(Character character) : base("Dungeon12.Resources.Images.GUI.levelup.png")

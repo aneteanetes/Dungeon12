@@ -5,7 +5,7 @@
       <Title>propnet</Title>
       <Shortcut>propnet</Shortcut>
       <Description>
-        Создать рассчётное свойство с взаимодействием по сети
+        Проксируемое свойство
       </Description>
       <Author>anete.anetes</Author>
       <SnippetTypes>
@@ -24,6 +24,12 @@
           <ToolTip>Имя свойства</ToolTip>
           <Default>Prop</Default>
         </Literal>
+        <Literal default="true" Editable="false">
+          <ID>classname</ID>
+          <ToolTip>Class name</ToolTip>
+          <Function>ClassName()</Function>
+          <Default>ClassNamePlaceholder</Default>
+        </Literal>
       </Declarations>
       <Code Language="csharp">
         <![CDATA[        
@@ -33,9 +39,9 @@
         /// [Рассчётное через сеть]
         /// </para>
         /// </summary>
-        [Calculated(typeof(NetProperty))]
-        public $type$ $property$ { get => Get(___$property$); set => Set(nameof(___$property$), value); }
-        private $type$ ___$property$;        
+        [Proxied(typeof(NetProxy))]
+        public $type$ $property$ { get => Get(___$property$,typeof($classname$).AssemblyQualifiedName); set => Set(value,typeof($classname$).AssemblyQualifiedName); }
+        private $type$ ___$property$;  
         $end$]]>
       </Code>
     </Snippet>

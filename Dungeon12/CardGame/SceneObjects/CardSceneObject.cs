@@ -127,7 +127,7 @@ namespace Dungeon12.CardGame.SceneObjects
             GuardShieldText = this.AddTextCenter(guardCard.Shield.ToString().AsDrawText().InSize(72).Triforce(), true, false);
             GuardShieldText.Top = 3.8;
 
-            this.AddChild(new ImageControl($"Cards/Guardian/guard1.png".AsmImg())
+            this.AddChild(new ImageObject($"Cards/Guardian/guard1.png".AsmImg())
             {
                 AbsolutePosition = true,
                 CacheAvailable = false,
@@ -163,7 +163,7 @@ namespace Dungeon12.CardGame.SceneObjects
                 descText.Top = 3.7;
             }
 
-            this.AddChild(new ImageControl($"Cards/Guardian/ability1.png".AsmImg())
+            this.AddChild(new ImageObject($"Cards/Guardian/ability1.png".AsmImg())
             {
                 AbsolutePosition = true,
                 CacheAvailable = false,

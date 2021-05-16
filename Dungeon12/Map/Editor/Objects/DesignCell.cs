@@ -4,7 +4,7 @@
     using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
 
-    public class DesignCell : Dungeon.Drawing.SceneObjects.ImageControl
+    public class DesignCell : Dungeon.Drawing.SceneObjects.ImageObject
     {
         public override bool CacheAvailable => false;
 

@@ -44,5 +44,10 @@ namespace Dungeon12.Abilities.Talants.TalantTrees
         {
             SceneObject?.Destroy?.Invoke();
         }
+
+        public void Init()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

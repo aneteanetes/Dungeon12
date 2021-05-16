@@ -28,7 +28,7 @@
             this.Height = 1.5;
             this.Width = 1.5;
 
-            this.AddChild(new ImageControl("Dungeon12.Resources.Images.ui.player.character.png")
+            this.AddChild(new ImageObject("Dungeon12.Resources.Images.ui.player.character.png")
             {
                 CacheAvailable = false,
                 Height = 1.5,

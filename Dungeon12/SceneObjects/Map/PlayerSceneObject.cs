@@ -101,7 +101,7 @@
 
             this.OnMove += () => this.Avatar.OnMove?.Invoke();
 
-            this.AddChild(new ImageControl("ui/radius.png".AsmImg())
+            this.AddChild(new ImageObject("ui/radius.png".AsmImg())
             {
                 CacheAvailable=false,
                 Left=-1,
@@ -125,7 +125,7 @@
 
         public double Speed => Avatar.MovementSpeed;
 
-        private List<ImageControl> buffs = new List<ImageControl>();
+        private List<ImageObject> buffs = new List<ImageObject>();
 
         private void RedrawStates(Applicable applicable,bool remove=false)
         {

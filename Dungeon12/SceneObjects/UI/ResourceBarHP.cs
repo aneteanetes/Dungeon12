@@ -10,7 +10,7 @@
 
     public class ResourceBarHP : ResourceBar
     {
-        private readonly ImageControl HpBar;
+        private readonly ImageObject HpBar;
 
         public ResourceBarHP(Character avatar)
         { 
@@ -26,7 +26,7 @@
 
         protected override string BarTile => "Dungeon12.Resources.Images.ui.player.hp_back.png";
         
-        private class InteractiveHPBar : Dungeon.Drawing.SceneObjects.ImageControl
+        private class InteractiveHPBar : Dungeon.Drawing.SceneObjects.ImageObject
         {
             private Character player;
 

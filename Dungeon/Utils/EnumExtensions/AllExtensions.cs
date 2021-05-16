@@ -31,13 +31,14 @@
             return AddToDisplayCache(value);
         }
 
-        public static string Display(this MemberInfo member)
+        public static string Display<T>(this T value)
+            where T : MemberInfo
         {
-            var attrs = member.GetCustomAttributes(typeof(DisplayAttribute), false);
-            if (attrs.Length == 0)
-                return default;
+            var displayAttr = Attribute.GetCustomAttributes(value, typeof(DisplayAttribute)).FirstOrDefault().As<DisplayAttribute>();
+            if (displayAttr != default)
+                return displayAttr.Name;
 
-            return attrs.FirstOrDefault().As<DisplayAttribute>().Name;
+            return value.Value<ValueAttribute, string>();
         }
 
         private static string AddToDisplayCache<T>(this T value) where T : struct

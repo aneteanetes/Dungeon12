@@ -21,7 +21,7 @@ namespace Dungeon12.Scenes.Game
 
         public override void Initialize()
         {
-            this.AddObject(new ImageControl($"Loading/{loadingscreen}.png".AsmImg()));
+            this.AddObject(new ImageObject($"Loading/{loadingscreen}.png".AsmImg()));
 
             var endText = new TextControl("ЗАГРУЗКА".AsDrawText().InSize(70).Triforce());
             endText.Left = 12;

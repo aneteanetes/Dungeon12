@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace Dungeon12.Servant.Effects.Сonsecration
 {
-    public class СonsecrationCircle : ImageControl
+    public class СonsecrationCircle : ImageObject
     {
         public override bool AbsolutePosition => false;
 
