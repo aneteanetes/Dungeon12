@@ -8,13 +8,14 @@ using Dungeon.Types;
 using SidusXII.Enums;
 using SidusXII.SceneObjects.Base;
 using SidusXII.Scenes.Creation;
+using SidusXII.Scenes.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SidusXII.Scenes.MainMenu
 {
-    public class MainMenuScene : StartScene<RaceScene>
+    public class MainMenuScene : StartScene<RaceScene, MainScene>
     {
         public MainMenuScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -52,7 +53,7 @@ namespace SidusXII.Scenes.MainMenu
                 (Global.Strings.Save,SaveGame,!inGame),
                 (Global.Strings.Load,LoadGame,true),
                 (Global.Strings.Settings,Settings,false),
-                (Global.Strings.Credits,Credits,false),
+                (Global.Strings.FastGame,FastGame,false),
                 (Global.Strings.ExitGame,Exit,false)
             };
 
@@ -168,9 +169,10 @@ namespace SidusXII.Scenes.MainMenu
 
         }
 
-        private void Credits()
+        private void FastGame()
         {
-
+            Global.Game = new SidusXII.Game();
+            this.Switch<MainScene>();
         }
 
         private void Exit()

@@ -18,4 +18,8 @@
     <ProjectReference Include="..\Dungeon\Dungeon.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\Images\Dungeons\" />
+  </ItemGroup>
+
 </Project>

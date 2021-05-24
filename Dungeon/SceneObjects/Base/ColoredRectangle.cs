@@ -93,4 +93,13 @@
             Round = 5;
         }
     }
+
+    public class BlackRectangle : DarkRectangle
+    {
+        public BlackRectangle()
+        {
+            Fill = false;
+            Opacity = 1;
+        }
+    }
 }

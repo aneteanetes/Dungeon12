@@ -18,8 +18,11 @@ namespace Dungeon.Resources
 
         public ResourceManifest CurrentBuild { get; private set; }
 
-        public ResourceCompiler()
+        private static bool log = false;
+
+        public ResourceCompiler(bool logging=false)
         {
+            log = logging;
             LastBuild = GetLastResourceManifestBuild();
             CurrentBuild = new ResourceManifest();
         }
@@ -116,16 +119,19 @@ namespace Dungeon.Resources
 
             CurrentBuild.Resources.Add(new Resource() { Path = path, LastWriteTime = lastTime });
 
+            if(log)
             Console.WriteLine($"file {file} {(res==default ? "not" : "")} exists");
 
             if (res == default)
             {
-                Console.WriteLine($"compiling {file}");
+                if (log)
+                    Console.WriteLine($"compiling {file}");
                 CompileNewResource(file, projectName, db, lastTime);
             }
             else
             {
-                Console.WriteLine($"check update {file}");
+                if (log)
+                    Console.WriteLine($"check update {file}");
                 CheckUpdateNeeded(file, db, lastTime, res);
                 LastBuild.Resources.Remove(res);
             }
@@ -135,7 +141,8 @@ namespace Dungeon.Resources
         {
             if (res.LastWriteTime.ToString() != lastTime.ToString())
             {
-                Console.WriteLine($"Compile file: {file}");
+                if (log)
+                    Console.WriteLine($"Compile file: {file}");
                 CompileExistedResource(file, db, res);
             }
         }

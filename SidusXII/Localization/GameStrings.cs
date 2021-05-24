@@ -14,6 +14,8 @@ namespace SidusXII.Localization
 
         public string Credits { get; set; } = "Авторы";
 
+        public string FastGame { get; set; } = "Быстрая игра";
+
         public string ExitGame { get; set; } = "Выйти";
 
         public override string ___RelativeLocalizationFilesPath => "locale";
