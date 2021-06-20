@@ -1,11 +1,40 @@
 ﻿using Dungeon;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
+using Dungeon.Tiled;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SidusXII.SceneObjects.Main.Map
 {
+    public class ImageTile : EmptySceneControl
+    {
+        ImageObject selector;
+
+        public override bool PerPixelCollision => true;
+
+        public ImageTile(string img)
+        {
+            this.Image = img;
+            selector = new ImageObject("GUI/Parts/tileselector.png".AsmImg())
+            {
+                Visible = false,
+                Width = 210,
+                Height = 210
+            };
+            this.AddChild(selector);
+        }
+
+        public override void Focus()
+        {
+            selector.Visible = true;
+        }
+
+        public override void Unfocus()
+        {
+            selector.Visible = false;
+        }
+    }
+
     public class MapContainer : EmptySceneControl
     {
         public MapContainer()
@@ -13,8 +42,6 @@ namespace SidusXII.SceneObjects.Main.Map
             Image = "GUI/Planes/maphd.png".AsmImg();
             Width = 1234;
             Height = 710;
-
-            return;
 
             AddChildCenter(new DarkRectangle
             {
@@ -27,6 +54,67 @@ namespace SidusXII.SceneObjects.Main.Map
                 Depth = 2
             }, true, false);
 
+            this.Scale = .4;
+
+            var w = 167;///3;
+            var h = 192;///3;
+
+            var tiled = TiledMap.Load("Maps/faithisland.tmx".AsmRes());
+
+            foreach (var layer in tiled.Layers)
+            {
+                var x = 0;
+                var y = 0;
+
+                bool odd = false;
+
+                foreach (var tile in layer.Tiles)
+                {
+                    if (tile.FileName.IsNotEmpty())
+                    {
+                        var img = new ImageTile($"Tiles/{tile.FileName}".AsmImg())
+                        {
+                            Width = 210,
+                            Height = 210,
+                            Left = x - 22,
+                            Top = y - 9,
+                        };
+
+                        if (tile.FlippedHorizontally && tile.FlippedVertically)
+                        {
+                            img.Flip = Dungeon.View.Enums.FlipStrategy.Both;
+                        }
+                        else if (tile.FlippedHorizontally)
+                        {
+                            img.Flip = Dungeon.View.Enums.FlipStrategy.Horizontally;
+                        }
+                        else if (tile.FlippedVertically)
+                        {
+                            img.Flip = Dungeon.View.Enums.FlipStrategy.Vertically;
+                        }
+
+                        this.AddChild(img);
+                    }
+
+                    x += w;
+
+                    if (y / h == layer.height)
+                        y = 0;
+
+                    if (x / w == layer.width)
+                    {
+                        odd = !odd;
+                        x = 0;
+                        y += h;
+                        y -= 46;
+                        if (odd)
+                        {
+                            x = w / 2;
+                        }
+                    }
+                }
+            }
+
             //AddChildCenter(new MapView()
             //{
             //    Left = 58.5,
@@ -36,41 +124,42 @@ namespace SidusXII.SceneObjects.Main.Map
             ////x15 y 35
 
 
-            var size = 50;
-            var xTotal = Test.First().Length;
-            var yTotal = Test.Count;
-            var offsetX = 0;// 58.5;
-            var offsetY = 0;// 42;
+            //var size = 10;
+            //var xTotal = Test.First().Length;
+            //var yTotal = Test.Count;
+            //var offsetX = 0;// 58.5;
+            //var offsetY = 0;// 42;
 
-            //x:7, y:23
-            //x15 y 35
+            ////x:7, y:23
+            ////x15 y 35
 
-            var map = new EmptySceneObject()
-            {
-                Width = xTotal * size,
-                Height = yTotal * size
-            };
+            //var map = new EmptySceneObject()
+            //{
+            //    Width = xTotal * size,
+            //    Height = yTotal * size
+            //};
 
-            for (int y = 0; y < Test.Count; y++) // вначале по Y
-            {
-                for (int x = 0; x < Test.First().Length; x++)
-                {
-                    var i = Test[y][x];
-                    if (i != 0 && i != 16)
-                    {
-                        var c = new MapCell(x, y)
-                        {
-                            Width = size,
-                            Height = size
-                        };
-                        c.Left = (x * c.Width) + offsetX;
-                        c.Top = (y * c.Height) + offsetY;
-                        map.AddChild(c);
-                    }
-                }
-            }
+            //for (int y = 0; y < Test.Count; y++) // вначале по Y
+            //{
+            //    for (int x = 0; x < Test.First().Length; x++)
+            //    {
+            //        var i = Test[y][x];
+            //        if (i != 0 && i != 16)
+            //        {
+            //            var c = new MapCell(x, y)
+            //            {
+            //                Width = size,
+            //                Height = size
+            //            };
+            //            c.Left = (x * c.Width) + offsetX;
+            //            c.Top = (y * c.Height) + offsetY;
+            //            c.Init();
+            //            this.AddChild(c);
+            //        }
+            //    }
+            //}
 
-            Global.DrawClient.SaveObject(map, @"D:\dung.png");
+            //Global.DrawClient.SaveObject(map, @"D:\dung.png");
         }
 
         private List<int[]> Test = new List<int[]>

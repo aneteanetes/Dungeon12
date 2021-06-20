@@ -224,8 +224,15 @@ namespace Dungeon.Scenes
 
         private bool RegionContains(ISceneControl sceneObjControl, PointerArgs pos, Point offset)
         {
-            Rectangle newRegion = ActualRegion(sceneObjControl, offset);
-            return newRegion.Contains(pos.X, pos.Y);
+            Rectangle actualRegion = ActualRegion(sceneObjControl, offset);
+            var hitboxContains = actualRegion.Contains(pos.X, pos.Y);
+
+            if (hitboxContains && sceneObjControl.PerPixelCollision)
+            {
+                return sceneObjControl.Texture.Contains(new Point(pos.X - actualRegion.X, pos.Y - actualRegion.Y));
+            }
+
+            return hitboxContains;
         }
 
         private Rectangle ActualRegion(ISceneControl sceneObjControl, Point offset)

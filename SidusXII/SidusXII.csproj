@@ -20,6 +20,8 @@
 
   <ItemGroup>
     <Folder Include="Resources\Images\Dungeons\" />
+    <Folder Include="Resources\Images\Tiles\" />
+    <Folder Include="Resources\Maps\" />
   </ItemGroup>
 
 </Project>

@@ -1,22 +1,17 @@
-﻿using Dungeon;
-using Dungeon.Resources;
-using Dungeon.Scenes;
+﻿using Dungeon.Resources;
 using Dungeon.Types;
 using Dungeon.View.Enums;
 using Dungeon.View.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended.Tiled;
 using Penumbra;
 using ProjectMercury;
 using ProjectMercury.Renderers;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text;
 using Rect = Dungeon.Types.Rectangle;
@@ -309,10 +304,11 @@ namespace Dungeon.Monogame
             throw new System.NotImplementedException();
         }
 
-        private readonly Dictionary<string, RenderTarget2D> BatchCache = new Dictionary<string, RenderTarget2D>();
+        internal readonly Dictionary<string, RenderTarget2D> BatchCache = new Dictionary<string, RenderTarget2D>();
         private Dictionary<string, Rect> TileSetCache = new Dictionary<string, Rect>();
         private Dictionary<string, Rect> PosCache = new Dictionary<string, Rect>();
-        private static readonly Dictionary<string, Texture2D> tilesetsCache = new Dictionary<string, Texture2D>();
+        private Dictionary<string, Texture2D> DrawablePathCache = new Dictionary<string, Texture2D>();
+        internal static readonly Dictionary<string, Texture2D> tilesetsCache = new Dictionary<string, Texture2D>();
 
         /// <summary>
         /// TODO: нужно логирование что бы игра не падала но можно было понять причину сбоя
@@ -335,7 +331,7 @@ namespace Dungeon.Monogame
                 tilesetsCache.TryAdd(tilesetName, bitmap);
 
                 res.OnDispose += () =>
-                {
+                { 
                     tilesetsCache.Remove(tilesetName);
                     bitmap.Dispose();
                 };
@@ -545,6 +541,32 @@ namespace Dungeon.Monogame
             }
         }
 
+        private class Texture2DAdapter : ITexture
+        {
+            Texture2D _texture;
+            ISceneObject _sceneObject;
+            Color[] data;
+
+            public Texture2DAdapter(Texture2D texture, ISceneObject sceneObject)
+            {
+                _sceneObject = sceneObject;
+                _texture = texture;
+                _texture.Disposing += (s, e) =>
+                {
+                    _texture = null;
+                    data = null;
+                };
+                data = new Color[texture.Width * texture.Height];
+                _texture.GetData(data);
+            }
+
+            public bool Contains(Types.Point point)
+            {
+                int idx = Convert.ToInt32(point.X + point.Y * (_texture.Width));
+                return data[idx].A != 0;
+            }
+        }
+
         private void DrawSceneImage(ISceneObject sceneObject, double y, double x, bool force)
         {
             var image = TileSetByName(sceneObject.Image, sceneObject);
@@ -553,6 +575,10 @@ namespace Dungeon.Monogame
                 DungeonGlobal.Logger.Log("Медленный рендер из-за отсутствия картинки!");
                 //Debugger.Break();
                 return;
+            }
+            else if (sceneObject.PerPixelCollision && sceneObject.Texture==null)
+            {
+                sceneObject.Texture = new Texture2DAdapter(image,sceneObject);
             }
 
             Rect tileRegion = default;
@@ -636,6 +662,16 @@ namespace Dungeon.Monogame
             //    image = maskResult.image;
             //    spriteEffects = maskResult.effects;
             //}
+
+            if(sceneObject.Flip!= FlipStrategy.None)
+            {
+                if (sceneObject.Flip == FlipStrategy.Both)
+                    spriteEffects = SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically;
+                else if (sceneObject.Flip == FlipStrategy.Horizontally)
+                    spriteEffects = SpriteEffects.FlipHorizontally;
+                else if (sceneObject.Flip == FlipStrategy.Vertically)
+                    spriteEffects = SpriteEffects.FlipVertically;
+            }
 
             Rectangle source = new Rectangle(tileRegion.Xi, tileRegion.Yi, tileRegion.Widthi, tileRegion.Heighti);
 
@@ -912,7 +948,7 @@ namespace Dungeon.Monogame
                     {
                         depth = 1;
                     }
-                    DrawBorder(rect, depth, drawColor);
+                    DrawBorder(rect, depth, drawColor,drawablePath);
                 }
             }
 
@@ -1005,7 +1041,7 @@ namespace Dungeon.Monogame
         /// </summary>
         /// <param name="rectangleToDraw"></param>
         /// <param name="thicknessOfBorder"></param>
-        private void DrawBorder(Microsoft.Xna.Framework.Rectangle rectangleToDraw, int thicknessOfBorder, Color borderColor)
+        private void DrawBorder(Microsoft.Xna.Framework.Rectangle rectangleToDraw, int thicknessOfBorder, Color borderColor, IDrawablePath drawablePath)
         {
             Texture2D pixel = PixelColorTexture();
 
@@ -1027,13 +1063,15 @@ namespace Dungeon.Monogame
                                             thicknessOfBorder), borderColor);
         }
 
+        Texture2D pixel;
         private Texture2D PixelColorTexture()
         {
-            Texture2D pixel;
-
-            // Somewhere in your LoadContent() method:
-            pixel = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
-            pixel.SetData(new[] { Color.White }); // so that we can draw whatever color we want on top of it
+            if (pixel == default)
+            {
+                // Somewhere in your LoadContent() method:
+                pixel = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+                pixel.SetData(new[] { Color.White }); // so that we can draw whatever color we want on top of it
+            }
             return pixel;
         }
 

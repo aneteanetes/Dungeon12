@@ -6,6 +6,8 @@
 
     public interface IDrawablePath : IDrawContext
     {
+        string Uid { get; }
+
         float Depth { get; }
 
         bool Fill { get; }

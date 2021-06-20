@@ -1,4 +1,5 @@
 ﻿using LiteDB;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -71,12 +72,10 @@ namespace Dungeon.Resources
 
         private void WriteCurrentBuild()
         {
-            using (var buildDb = new LiteDatabase($@"{MainPath}\ResourceManifest.dtr"))
-            {
-                buildDb
-                  .GetCollection<ResourceManifest>()
-                  .Insert(CurrentBuild);
-            }
+            var manifestPath = $@"{MainPath}\ResourceManifest.dtr";
+            var manifest =  JsonConvert.SerializeObject(CurrentBuild, Formatting.Indented);
+
+            File.WriteAllText(manifestPath, manifest);
         }
 
         private void ProcessProject(string projectResDirectory, bool rebuild)
@@ -143,15 +142,16 @@ namespace Dungeon.Resources
             {
                 if (log)
                     Console.WriteLine($"Compile file: {file}");
-                CompileExistedResource(file, db, res);
+                CompileExistedResource(file, db, res.Path, lastTime);
             }
         }
 
-        private static void CompileExistedResource(string file, LiteCollection<Resource> db, Resource res)
+        private static void CompileExistedResource(string file, LiteCollection<Resource> db, string path, DateTime lastTime)
         {
-            var dataResource = db.Find(x => x.Path == res.Path).FirstOrDefault();
-            res.Data = File.ReadAllBytes(file);
-            db.Update(res);
+            var dataResource = db.Find(x => x.Path == path).FirstOrDefault();
+            dataResource.Data = File.ReadAllBytes(file);
+            dataResource.LastWriteTime = lastTime;
+            db.Update(dataResource);
         }
 
         private static void CompileNewResource(string file, string projectName, LiteCollection<Resource> db, DateTime lastTime)
@@ -188,21 +188,14 @@ namespace Dungeon.Resources
 
         private ResourceManifest GetLastResourceManifestBuild()
         {
-            ResourceManifest lastBuild = new ResourceManifest();
+            var manifestPath = $@"{MainPath}\ResourceManifest.dtr";
 
-            using (var buildDb = new LiteDatabase($@"{MainPath}\ResourceManifest.dtr"))
+            if (File.Exists(manifestPath))
             {
-                lastBuild = buildDb
-                    .GetCollection<ResourceManifest>()
-                    .FindAll().FirstOrDefault();
+                return JsonConvert.DeserializeObject<ResourceManifest>(File.ReadAllText(manifestPath));
             }
 
-            if (lastBuild == default)
-            {
-                lastBuild = new ResourceManifest();
-            }
-
-            return lastBuild;
+            return new ResourceManifest();
         }
     }
 }

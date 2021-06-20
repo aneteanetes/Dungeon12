@@ -2,6 +2,7 @@
 {
     using Dungeon.Types;
     using Dungeon.Utils;
+    using Dungeon.View.Enums;
     using System;
     using System.Collections.Generic;
 
@@ -48,6 +49,8 @@
         /// Must exists
         /// </summary>
         Rectangle CropPosition { get; }
+
+        ITexture Texture { get; set; }
 
         /// <summary>
         /// 0..1
@@ -137,6 +140,8 @@
 
         double Angle { get;}
 
+        public FlipStrategy Flip { get; set; }
+
         ICollection<ISceneObject> Children { get; }
 
         IDrawColor Color { get; set; }
@@ -189,5 +194,7 @@
         ISceneObject AddChild(ISceneObject sceneObject);
 
         ISceneObject RemoveChild(ISceneObject sceneObject);
+
+        bool PerPixelCollision { get; }
     }
 }

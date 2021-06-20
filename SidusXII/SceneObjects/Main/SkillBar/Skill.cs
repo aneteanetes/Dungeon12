@@ -8,7 +8,7 @@ namespace SidusXII.SceneObjects.Main
     {
         public Skill()
         {
-            this.Image = "GUI/Parts/skillframe.png".AsmImg();
+            //this.Image = "GUI/Parts/skillframe.png".AsmImg();
             this.Width = 92;
             this.Height = 92;
         }

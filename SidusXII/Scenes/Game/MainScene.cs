@@ -13,7 +13,7 @@ namespace SidusXII.Scenes.Game
         {
         }
 
-        public override bool Destroyable => false;
+        public override bool Destroyable => true;
 
         public override void Initialize()
         {

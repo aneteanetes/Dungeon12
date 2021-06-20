@@ -9,6 +9,7 @@
     using Dungeon.Scenes.Manager;
     using Dungeon.Types;
     using Dungeon.Utils;
+    using Dungeon.View.Enums;
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
@@ -559,7 +560,10 @@
         public ITileMap TileMap { get; set; }
 
         public bool AlphaBlend { get; set; }
+
         public IDrawColor Color { get; set; } = DrawColor.White;
+
+        public FlipStrategy Flip { get; set; } = FlipStrategy.None;
 
         private object flowContext = null;
 
@@ -640,5 +644,9 @@
         {
             effects.ForEach(x => this.AddChild(x));
         }
+
+        public ITexture Texture { get; set; }
+
+        public virtual bool PerPixelCollision { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Dungeon.Data;
 using Dungeon.View;
 using LiteDB;
+using Newtonsoft.Json;
 using System;
 using System.IO;
 
@@ -34,9 +35,11 @@ namespace Dungeon.Resources
         public DateTime LastWriteTime { get; set; }
 
         [BsonIgnore]
+        [JsonIgnore]
         private InformableMemoryStream stream;
 
         [BsonIgnore]
+        [JsonIgnore]
         public Stream Stream
         {
             get
@@ -64,6 +67,7 @@ namespace Dungeon.Resources
         }
 
         [BsonIgnore]
+        [JsonIgnore]
         public Action OnDispose { get; set; }        
     }
 }
