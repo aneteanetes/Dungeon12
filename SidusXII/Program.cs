@@ -26,9 +26,11 @@ namespace SidusXII
 #endif      
             var client = new MonogameClient(new MonogameClientSettings()
             {
-                WidthPixel = 1600,
-                HeightPixel = 900,
-                IsFullScreen = false,                
+                OriginWidthPixel=1600,
+                OriginHeightPixel=900,
+                WidthPixel = 1600,// (int)Math.Round(1600/1.5),
+                HeightPixel = 900,//(int)Math.Round(900/1.5),
+                IsFullScreen = false,
                 Add2DLighting = false
             });
             DungeonGlobal.ClientRun = client.Run;

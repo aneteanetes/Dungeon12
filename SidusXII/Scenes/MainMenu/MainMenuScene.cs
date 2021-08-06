@@ -164,6 +164,7 @@ namespace SidusXII.Scenes.MainMenu
         {
 
         }
+
         private void Settings()
         {
 

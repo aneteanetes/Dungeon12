@@ -123,7 +123,7 @@ namespace Dungeon.Engine.Host
                         }
                     }
 
-                    XNADrawClientImplementation.Draw(layer.Objects, gameTime, buffer, light, clear: this.scene.Is<@Sys_Clear_Screen>(), layer: layer);
+                    XNADrawClientImplementation.Draw(layer.Objects, gameTime, buffer, light, clear: this.scene.Is<@Sys_Clear_Screen>(), layer: layer, resolutionMatrix: ResolutionScale);
 
                     PostProcessed.Clear();
                     foreach (var postEffect in layer.SceneGlobalEffects.Where(e => e.When == EffectTime.PostProcess))
@@ -150,7 +150,7 @@ namespace Dungeon.Engine.Host
 
             spriteBatch.Begin(
 #if !Engine
-                transformMatrix: ResolutionScale
+                //transformMatrix: ResolutionScale
 #endif
                 );
 

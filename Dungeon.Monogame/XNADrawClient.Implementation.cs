@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Matrix = Microsoft.Xna.Framework.Matrix;
 using Rect = Dungeon.Types.Rectangle;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
@@ -59,12 +60,22 @@ namespace Dungeon.Monogame
 
         private bool useLight;
 
+        private Matrix? resolutionMatrix;
+
         public void Draw(ISceneObject[] sceneObjects, Microsoft.Xna.Framework.GameTime gameTime, RenderTarget2D target = default, bool useLight = false,bool clear=false,Matrix? resolutionMatrix=default, ISceneLayer layer=default)
         {
+            this.resolutionMatrix = resolutionMatrix;
             this.useLight = useLight;
             this.target = target;
 
             this.gameTime = gameTime;
+
+            foreach (var queuedDraw in QueuedDrawing)
+            {
+                queuedDraw?.Invoke(this);
+            }
+
+            QueuedDrawing.Clear();
 
             InterfaceObjects.Clear();
 
@@ -163,7 +174,7 @@ namespace Dungeon.Monogame
 
             if (!absolute)
             {
-                SpriteBatchRestore = (smooth, filter, alphaBlend) => spriteBatch.Begin(
+                SpriteBatchRestore = (smooth, filter, alphaBlend, istransformMatrix) => spriteBatch.Begin(
                     transformMatrix: Matrix.CreateTranslation((float)Camera.CameraOffsetX, (float)Camera.CameraOffsetY,0) * scaleMatrix,
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
                     blendState: useLight || alphaBlend ? BlendState.AlphaBlend : BlendState.NonPremultiplied, effect: filter ? GlobalImageFilter : null
@@ -171,8 +182,8 @@ namespace Dungeon.Monogame
             }
             else
             {
-                SpriteBatchRestore = (smooth, filter, alphaBlend) => spriteBatch.Begin(
-                    transformMatrix: scaleMatrix,
+                SpriteBatchRestore = (smooth, filter, alphaBlend, istransformMatrix) => spriteBatch.Begin(
+                    transformMatrix: istransformMatrix ? (resolutionMatrix ?? scaleMatrix) : new Matrix?(),
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
                     blendState: useLight || alphaBlend ? BlendState.AlphaBlend : BlendState.NonPremultiplied/*, effect: @interface ? null : GlobalImageFilter*/);
             }
@@ -185,12 +196,14 @@ namespace Dungeon.Monogame
         private bool currentInterface = false;
         private SpriteBatchRestoring SpriteBatchRestore = null;
 
+        private static List<Action<XNADrawClientImplementation>> QueuedDrawing = new List<Action<XNADrawClientImplementation>>();
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="LinearClamp"></param>
         /// <param name="globalImageFilter">[Obsolete] use pre+post filters for layer</param>
-        private delegate void SpriteBatchRestoring(bool LinearClamp, bool globalImageFilter,bool alphaBlend=false);
+        private delegate void SpriteBatchRestoring(bool LinearClamp, bool globalImageFilter, bool alphaBlend = false, bool transformMatrix = true);
 
         private static readonly string DefaultFontXnbExistedFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.Resources.Fonts.xnb.Montserrat.Montserrat10.xnb";
 
@@ -368,14 +381,20 @@ namespace Dungeon.Monogame
             var y = sceneObject.ComputedPosition.Y * cell;// + yParent;
             var x = sceneObject.ComputedPosition.X * cell;// + xParent;
 
+            if(batching)
+            {
+                x = 0;
+                y = 0;
+            }
+
             DrawLight(sceneObject, x, y);
             DrawEffects(sceneObject, x, y);
 
+            int width = (int)Math.Round(sceneObject.BoundPosition.Width * cell);
+            int height = (int)Math.Round(sceneObject.BoundPosition.Height * cell);
+
             if (sceneObject.IsBatch && !batching)
             {
-                int width = (int)Math.Round(sceneObject.BoundPosition.Width * cell);
-                int height = (int)Math.Round(sceneObject.BoundPosition.Height * cell);
-
                 if (sceneObject.Expired || !BatchCache.TryGetValue(sceneObject.Uid, out var bitmap))
                 {
                     bitmap = new RenderTarget2D(GraphicsDevice, width, height, false, GraphicsDevice.PresentationParameters.BackBufferFormat, DepthFormat.Depth24);
@@ -384,7 +403,7 @@ namespace Dungeon.Monogame
 
                     GraphicsDevice.SetRenderTargets(bitmap);
                     GraphicsDevice.Clear(Color.Transparent);
-                    SpriteBatchRestore.Invoke(false, sceneObject.Filtered);
+                    SpriteBatchRestore.Invoke(false, sceneObject.Filtered, transformMatrix: false);
 
                     DrawSceneObject(sceneObject, 0, 0, true);
 
@@ -393,9 +412,10 @@ namespace Dungeon.Monogame
 
                     BatchCache[sceneObject.Uid] = bitmap;
 
-
                     spriteBatch.End();
                     GraphicsDevice.SetRenderTarget(target);
+
+                    SaveObject(sceneObject, "C:\\temp\\batched3.png");
 
                     SpriteBatchRestore.Invoke(false, sceneObject.Filtered);
                 }
@@ -406,6 +426,11 @@ namespace Dungeon.Monogame
                 if (!sceneObject.CacheAvailable)
                 {
                     sceneObjPos = new Rect(x, y, width, height);
+                }
+
+                if (sceneObject.PerPixelCollision && sceneObject.Texture == null)
+                {
+                    sceneObject.Texture = new Texture2DAdapter(bitmap, sceneObject);
                 }
 
                 spriteBatch.Draw(bitmap, new Vector2(sceneObjPos.Xf, sceneObjPos.Yf), new Microsoft.Xna.Framework.Rectangle(tilesetPos.Xi, tilesetPos.Yi, tilesetPos.Widthi, tilesetPos.Heighti), Color.White);
@@ -547,6 +572,9 @@ namespace Dungeon.Monogame
             ISceneObject _sceneObject;
             Color[] data;
 
+            private double actualWidth;
+            private double actualHeight;
+
             public Texture2DAdapter(Texture2D texture, ISceneObject sceneObject)
             {
                 _sceneObject = sceneObject;
@@ -558,27 +586,86 @@ namespace Dungeon.Monogame
                 };
                 data = new Color[texture.Width * texture.Height];
                 _texture.GetData(data);
+
+                actualWidth = texture.Width;
+                actualHeight = texture.Height;
             }
 
-            public bool Contains(Types.Point point)
+            public object Texture => _texture;
+
+            public bool Contains(Types.Point point, Types.Point actualSize)
             {
-                int idx = Convert.ToInt32(point.X + point.Y * (_texture.Width));
-                return data[idx].A != 0;
+                if (actualSize.X != actualWidth || actualSize.Y != actualHeight)
+                {
+                    //return ScaleTexture(actualSize);
+
+                    if (actualSize.X > _texture.Width)
+                    {
+                        point.X /= actualSize.X / _texture.Width;
+                    }
+                    else
+                    {
+                        point.X *= _texture.Width / actualSize.X;
+                    }
+
+                    if (actualSize.Y > _texture.Height)
+                    {
+                        point.Y /= actualSize.Y / _texture.Height;
+                    }
+                    else
+                    {
+                        point.Y *= _texture.Height / actualSize.Y;
+                    }
+                }
+
+                try
+                {
+                    int idx = (int)Math.Floor(point.X + (Math.Round(point.Y) * actualWidth));
+                    return data[idx].A != 0;
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    return false;
+                }
+            }
+
+            private bool ScaleTexture(Types.Point actualSize)
+            {
+                QueuedDrawing.Add(xna =>
+                {
+                    var target = new RenderTarget2D(xna.GraphicsDevice, actualSize.Xi, actualSize.Yi);
+                    xna.GraphicsDevice.SetRenderTarget(target);
+                    xna.GraphicsDevice.Clear(Color.Transparent);
+                    xna.spriteBatch.Begin();
+                    xna.spriteBatch.Draw(_texture, target.Bounds, _texture.Bounds, Color.White);
+                    xna.spriteBatch.End();
+                    xna.GraphicsDevice.SetRenderTarget(null);
+
+                    var colors = new Color[actualSize.Xi * actualSize.Yi];
+                    target.GetData(colors);
+                    data = colors;
+                });
+
+                actualWidth = actualSize.X;
+                actualHeight = actualSize.Y;
+
+                return false;
             }
         }
 
         private void DrawSceneImage(ISceneObject sceneObject, double y, double x, bool force)
         {
-            var image = TileSetByName(sceneObject.Image, sceneObject);
+            Texture2D image = TileSetByName(sceneObject.Image, sceneObject);
+
             if (image == default)
             {
                 DungeonGlobal.Logger.Log("Медленный рендер из-за отсутствия картинки!");
                 //Debugger.Break();
                 return;
             }
-            else if (sceneObject.PerPixelCollision && sceneObject.Texture==null)
+            else if (sceneObject.PerPixelCollision && sceneObject.Texture == null)
             {
-                sceneObject.Texture = new Texture2DAdapter(image,sceneObject);
+                sceneObject.Texture = new Texture2DAdapter(image, sceneObject);
             }
 
             Rect tileRegion = default;

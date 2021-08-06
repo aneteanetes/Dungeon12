@@ -3,212 +3,176 @@ using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.Tiled;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SidusXII.SceneObjects.Main.Map
 {
-    public class ImageTile : EmptySceneControl
-    {
-        ImageObject selector;
-
-        public override bool PerPixelCollision => true;
-
-        public ImageTile(string img)
-        {
-            this.Image = img;
-            selector = new ImageObject("GUI/Parts/tileselector.png".AsmImg())
-            {
-                Visible = false,
-                Width = 210,
-                Height = 210
-            };
-            this.AddChild(selector);
-        }
-
-        public override void Focus()
-        {
-            selector.Visible = true;
-        }
-
-        public override void Unfocus()
-        {
-            selector.Visible = false;
-        }
-    }
-
     public class MapContainer : EmptySceneControl
     {
+        public const double TileSize = 205;
+
+        public override bool CacheAvailable => false;
+
         public MapContainer()
         {
             Image = "GUI/Planes/maphd.png".AsmImg();
             Width = 1234;
             Height = 710;
 
-            AddChildCenter(new DarkRectangle
-            {
-                Fill = true,
-                Width = 750,
-                Height = 650,
-                Left = 58.5,
-                Top = 42,
-                Opacity = 0.7,
-                Depth = 2
-            }, true, false);
+            //AddChildCenter(new DarkRectangle
+            //{
+            //    Fill = true,
+            //    Width = 750,
+            //    Height = 650,
+            //    Left = 58.5,
+            //    Top = 42,
+            //    Opacity = 0.7,
+            //    Depth = 2
+            //}, true, false);
 
-            this.Scale = .4;
+            //this.Scale = .4;
 
             var w = 167;///3;
             var h = 192;///3;
 
             var tiled = TiledMap.Load("Maps/faithisland.tmx".AsmRes());
 
-            foreach (var layer in tiled.Layers)
+            var examplelayer = tiled.Layers.FirstOrDefault();
+
+            var tileCount = examplelayer.Tiles.Count;
+
+            var layerWidth = examplelayer.width;
+            var layerHeight = examplelayer.height;
+
+            var coefficient = 0;
+
+            var x = 0;
+            var y = 0;
+
+            bool odd = false;
+
+            for (int i = 0; i < tileCount; i++)
             {
-                var x = 0;
-                var y = 0;
+                var img = new ImageTile()
+                {
+                    Width = TileSize,
+                    Height = TileSize,
+                    Left = x ,
+                    Top = y,
+                    DrawOutOfSight = true
+                };
 
-                bool odd = false;
-
-                foreach (var tile in layer.Tiles)
+                var tiles = tiled.Layers.Select(x => x.Tiles[i]);
+                foreach (var tile in tiles)
                 {
                     if (tile.FileName.IsNotEmpty())
                     {
-                        var img = new ImageTile($"Tiles/{tile.FileName}".AsmImg())
-                        {
-                            Width = 210,
-                            Height = 210,
-                            Left = x - 22,
-                            Top = y - 9,
-                        };
+                        //img.Image = $"Tiles/{tile.FileName}".AsmImg();
+                        var imgtile = new ImageObject($"Tiles/{tile.FileName}".AsmImg());
 
                         if (tile.FlippedHorizontally && tile.FlippedVertically)
                         {
-                            img.Flip = Dungeon.View.Enums.FlipStrategy.Both;
+                            imgtile.Flip = Dungeon.View.Enums.FlipStrategy.Both;
                         }
                         else if (tile.FlippedHorizontally)
                         {
-                            img.Flip = Dungeon.View.Enums.FlipStrategy.Horizontally;
+                            imgtile.Flip = Dungeon.View.Enums.FlipStrategy.Horizontally;
                         }
                         else if (tile.FlippedVertically)
                         {
-                            img.Flip = Dungeon.View.Enums.FlipStrategy.Vertically;
+                            imgtile.Flip = Dungeon.View.Enums.FlipStrategy.Vertically;
                         }
 
-                        this.AddChild(img);
+                        img.AddTile(imgtile);
                     }
+                }
 
-                    x += w;
+                this.AddChild(img);
 
-                    if (y / h == layer.height)
-                        y = 0;
+                break;
 
-                    if (x / w == layer.width)
+                x += w+ coefficient;
+
+                if (y / h == layerHeight)
+                    y = 0;
+
+                if (x / w == layerWidth)
+                {
+                    odd = !odd;
+                    x = 0;
+                    y += h;
+                    y -= 46;
+                    if (odd)
                     {
-                        odd = !odd;
-                        x = 0;
-                        y += h;
-                        y -= 46;
-                        if (odd)
-                        {
-                            x = w / 2;
-                        }
+                        x = w / 2;
                     }
                 }
             }
+        }
+    }
 
-            //AddChildCenter(new MapView()
-            //{
-            //    Left = 58.5,
-            //    Top = 42
-            //});
+    public class ImageTile : EmptySceneControl
+    {
+        private class BatchTile : EmptySceneControl
+        {
+            private ImageTile imageTile;
+            public BatchTile(ImageTile imageTile)
+            {
+                this.imageTile = imageTile;
+            }
 
-            ////x15 y 35
+            public override void Focus()
+            {
+                imageTile.Focus(true);
+            }
 
-
-            //var size = 10;
-            //var xTotal = Test.First().Length;
-            //var yTotal = Test.Count;
-            //var offsetX = 0;// 58.5;
-            //var offsetY = 0;// 42;
-
-            ////x:7, y:23
-            ////x15 y 35
-
-            //var map = new EmptySceneObject()
-            //{
-            //    Width = xTotal * size,
-            //    Height = yTotal * size
-            //};
-
-            //for (int y = 0; y < Test.Count; y++) // вначале по Y
-            //{
-            //    for (int x = 0; x < Test.First().Length; x++)
-            //    {
-            //        var i = Test[y][x];
-            //        if (i != 0 && i != 16)
-            //        {
-            //            var c = new MapCell(x, y)
-            //            {
-            //                Width = size,
-            //                Height = size
-            //            };
-            //            c.Left = (x * c.Width) + offsetX;
-            //            c.Top = (y * c.Height) + offsetY;
-            //            c.Init();
-            //            this.AddChild(c);
-            //        }
-            //    }
-            //}
-
-            //Global.DrawClient.SaveObject(map, @"D:\dung.png");
+            public override void Unfocus()
+            {
+                imageTile.Unfocus(true);
+            }
         }
 
-        private List<int[]> Test = new List<int[]>
+        ImageObject selector;
+
+        BatchTile Batch;
+
+        public ImageTile()
         {
-            new [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 0, 0, 0, 16, 16, 16, 16, 16, 16, 16, 4, 0, 0, 16, 16, 16, 16, 16, 16, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 4, 4, 4, 16, 1154, 1154, 1154, 1154, 1154, 65540, 4, 0, 0, 16, 962, 962, 962, 962, 962, 131076, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 0, 0, 4, 16, 1154, 1154, 822084738, 939525250, 1154, 16, 4, 0, 0, 16, 962, 962, 962, 962, 962, 16, 16, 16, 16, 16, 16, 16, 4, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 0, 0, 4, 16, 1154, 1154, 1154, 1154, 1154, 16, 4, 4, 4, 2097156, 962, 962, 822084546, 889193410, 962, 16, 898, 898, 898, 898, 898, 524292, 1627389956, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 16, 16, 16, 524292, 16, 16, 16, 16, 16, 16, 16, 4, 0, 0, 16, 962, 962, 962, 962, 962, 16, 898, 898, 822084482, 872416130, 898, 16, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 16, 1538, 1538, 1538, 131076, 1218, 1218, 1218, 1218, 1218, 16, 4, 4, 8388612, 16, 962, 962, 962, 962, 962, 16, 898, 898, 898, 898, 898, 16, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 16, 1538, 838862338, 872416770, 16, 1218, 1218, 822084802, 956302530, 1218, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 524292, 16, 16, 16, 2097156, 16, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 16, 1538, 1538, 1538, 16, 1218, 1218, 1218, 1218, 1218, 16, 578, 578, 578, 131076, 4, 4, 4, 4, 4, 4, 4, 16, 706, 706, 706, 16, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 16, 16, 16, 16, 16, 131076, 16, 16, 16, 16, 16, 578, 578, 578, 16, 16, 16, 16, 16, 4, 0, 0, 16, 706, 706, 706, 16, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 0, 4, 4, 4, 131076, 578, 956301890, 578, 16, 450, 450, 450, 262148, 4, 0, 4, 131076, 706, 822084290, 822084290, 16, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 4, 0, 0, 16, 16, 16, 2097156, 16, 0, 16, 578, 578, 578, 16, 450, 922747330, 450, 16, 4, 0, 4, 16, 706, 706, 706, 16, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 4, 0, 0, 16, 770, 770, 770, 16, 4, 16, 578, 578, 578, 16, 450, 450, 450, 16, 4, 0, 4, 16, 706, 706, 706, 16, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 4, 0, 0, 16, 770, 822084354, 838861570, 16, 4, 16, 131076, 16, 16, 16, 16, 16, 16, 16, 4, 16, 262148, 16, 16, 16, 16, 16, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 4, 4, 4, 131076, 770, 770, 770, 16, 4, 16, 1090, 1090, 1090, 131076, 4, 4, 4, 4, 4, 16, 834, 834, 834, 834, 834, 16, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 0, 16, 16, 16, 16, 16, 16, 16, 4, 16, 1090, 822084674, 922747970, 16, 16, 16, 16, 16, 0, 16, 834, 834, 834, 834, 834, 16, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 1660944388, 262148, 514, 514, 514, 16, 4, 4, 4, 16, 1090, 1090, 1090, 16, 642, 642, 642, 131076, 4, 16, 834, 834, 822084418, 855638850, 834, 16, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 4, 16, 514, 514, 514, 16, 4, 0, 4, 16, 16, 16, 16, 16, 642, 822084226, 805307010, 16, 4, 16, 834, 834, 834, 834, 834, 16, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 4, 16, 514, 939524610, 514, 16, 4, 0, 4, 4, 4, 4, 4, 16, 642, 642, 642, 16, 4, 16, 834, 834, 834, 834, 834, 16, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 4, 16, 514, 514, 514, 16, 4, 0, 0, 16, 16, 16, 16, 16, 16, 16, 131076, 16, 16, 16, 16, 16, 2097156, 16, 16, 16, 16, 16, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 4, 16, 514, 514, 514, 16, 4, 4, 4, 524292, 130, 130, 130, 130, 130, 524292, 1474, 1474, 1474, 524292, 4, 65540, 194, 194, 194, 194, 194, 16, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 4, 16, 16, 16, 16, 16, 4, 0, 0, 16, 130, 130, 130, 130, 130, 16, 1474, 838862274, 855639490, 16, 0, 16, 194, 194, 194, 194, 194, 16, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 4, 0, 4, 16, 130, 130, 838860930, 130, 130, 16, 1474, 1474, 1474, 16, 4, 1048580, 194, 194, 855638210, 194, 194, 16, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 4, 16, 16, 16, 16, 16, 4, 0, 4, 16, 130, 130, 130, 130, 130, 16, 16, 16, 131076, 16, 4, 16, 194, 194, 194, 194, 194, 16, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 4, 131076, 386, 386, 386, 16, 4, 0, 4, 16, 130, 130, 130, 130, 130, 65540, 4, 4, 4, 4, 4, 16, 194, 194, 194, 194, 194, 16, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 0, 16, 386, 386, 386, 16, 4, 0, 4, 16, 16, 16, 16, 16, 16, 16, 16, 16, 524292, 16, 16, 16, 16, 16, 16, 16, 16, 16, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 0, 16, 386, 905970050, 386, 131076, 4, 0, 4, 4, 4, 4, 4, 4, 4, 16, 66, 66, 66, 66, 66, 16, 4, 4, 4, 0, 4194308, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 0, 16, 386, 386, 386, 16, 16, 16, 16, 16, 16, 16, 0, 0, 4, 16, 66, 66, 66, 66, 66, 16, 4, 0, 4, 0, 4, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 0, 16, 386, 386, 386, 524292, 1026, 1026, 1026, 1026, 1026, 131076, 1694498820, 4, 1761607684, 16, 66, 66, 822083650, 66, 66, 131076, 1828716548, 0, 4, 0, 4, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 16, 16, 16, 16, 16, 16, 16, 1026, 1026, 822084610, 905970690, 1026, 16, 0, 0, 4, 16, 66, 66, 66, 66, 66, 16, 4, 0, 4, 0, 4, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 16, 1346, 1346, 1346, 16, 0, 16, 1026, 1026, 1026, 1026, 1026, 16, 4, 4, 4, 16, 66, 66, 66, 66, 66, 16, 4, 0, 4, 4, 4, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 16, 1346, 838862146, 822084930, 16, 0, 16, 16, 16, 262148, 16, 16, 16, 2097156, 16, 16, 16, 16, 16, 131076, 16, 16, 16, 131076, 16, 16, 16, 65540, 16, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 16, 1346, 1346, 1346, 16, 4, 4, 4, 4, 4, 131076, 258, 258, 258, 258, 258, 16, 4, 0, 4, 0, 4, 16, 322, 322, 322, 322, 322, 16, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 16, 131076, 16, 16, 16, 4, 16, 16, 16, 16, 16, 258, 258, 258, 258, 258, 16, 4, 0, 4, 0, 4, 16, 322, 322, 322, 322, 322, 16, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 16, 1410, 1410, 1410, 131076, 4, 131076, 1282, 1282, 1282, 16, 258, 258, 872415490, 258, 258, 16, 4, 0, 4, 0, 4, 16, 322, 322, 889192770, 322, 322, 16, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 16, 1410, 838862210, 838862210, 16, 0, 16, 1282, 838862082, 805307650, 16, 258, 258, 258, 258, 258, 16, 4, 0, 4, 0, 4, 16, 322, 322, 322, 322, 322, 16, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 16, 1410, 1410, 1410, 131076, 4, 524292, 1282, 1282, 1282, 131076, 258, 258, 258, 258, 258, 16, 4, 4, 4, 4, 4, 1048580, 322, 322, 322, 322, 322, 16, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 16, 16, 16, 16, 16, 0, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 0, 0, 4, 0, 0, 16, 16, 16, 16, 16, 16, 16, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            new [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-        };
+            Batch = new BatchTile(this)
+            {
+                Width = MapContainer.TileSize,
+                Height = MapContainer.TileSize,
+                DrawOutOfSight = true,
+                IsBatch = true,
+                PerPixelCollision = true,
+            };
+            this.AddChild(Batch);
+
+            this.selector = new ImageObject("GUI/Parts/tileselector.png".AsmImg())
+            {
+                Visible = false,
+                Width = MapContainer.TileSize,
+                Height = MapContainer.TileSize,
+                CacheAvailable = true
+            };
+            this.AddChild(selector);
+        }
+
+        public void AddTile(ImageObject imageObject)
+        {
+            imageObject.Width = MapContainer.TileSize;
+            imageObject.Height = MapContainer.TileSize;
+            Batch.AddChild(imageObject);
+        }
+
+        public void Focus(bool fromDepth)
+        {
+            selector.Visible = true;
+        }
+
+        public void Unfocus(bool fromDepth)
+        {
+            selector.Visible = false;
+        }
     }
 }

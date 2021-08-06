@@ -11,13 +11,14 @@
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
     using Microsoft.Xna.Framework.Media;
+    using Newtonsoft.Json;
     using Penumbra;
     using ProjectMercury.Renderers;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
-
+    using Matrix = Microsoft.Xna.Framework.Matrix;
 
     public partial class XNADrawClient : Game, IDrawClient
     {
@@ -54,11 +55,14 @@
 
 
         Matrix ResolutionScale;
-        Types.Point monitorSize;
+        Types.Point originSize;
 
         protected virtual void GraphicsDeviceManagerInitialization(MonogameClientSettings settings)
         {
-            monitorSize = new Types.Point(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
+            ResourceLoader.Settings.StretchResources = settings.ResouceStretching;
+
+            originSize = new Types.Point(settings.OriginWidthPixel, settings.OriginHeightPixel);
+            var size = new Types.Point(settings.WidthPixel, settings.HeightPixel);
 
             graphics = new GraphicsDeviceManager(this)
             {
@@ -70,10 +74,51 @@
 
             ResolutionScale = Matrix.Identity;
 
-            //if (monitorSize.X > settings.WidthPixel)
-            //{
-            //    ResolutionScale = Matrix.CreateScale(new Vector3((float)monitorSize.X / (float)settings.WidthPixel, (float)monitorSize.Y / (float)settings.HeightPixel, 1));
-            //}
+            bool scaling = false;
+            Types.Point left = Types.Point.Zero;
+            Types.Point right = Types.Point.Zero;
+
+            if (originSize.X > settings.WidthPixel)
+            {
+                scaling = true;
+                left = size;
+                right = originSize;
+            }
+            else if (originSize.X < settings.WidthPixel)
+            {
+                scaling = true;
+                left = originSize;
+                right = size;
+            }
+
+            if (scaling)
+            {
+                var scaleX = left.Xf / right.Xf;
+                var scaleY = left.Yf / right.Yf;
+
+                var scale = new Vector3(scaleX, scaleY, 1);
+
+                ResolutionScale = Matrix.CreateScale(scale);
+            }
+
+            DungeonGlobal.ResolutionScaleMatrix =
+                new System.Numerics.Matrix4x4(
+                    ResolutionScale.M11,
+                    ResolutionScale.M12,
+                    ResolutionScale.M13,
+                    ResolutionScale.M14,
+                    ResolutionScale.M21,
+                    ResolutionScale.M22,
+                    ResolutionScale.M23,
+                    ResolutionScale.M24,
+                    ResolutionScale.M31,
+                    ResolutionScale.M32,
+                    ResolutionScale.M33,
+                    ResolutionScale.M34,
+                    ResolutionScale.M41,
+                    ResolutionScale.M42,
+                    ResolutionScale.M43,
+                    ResolutionScale.M44);
 
             DungeonGlobal.ChangeResolution += r =>
             {
@@ -81,7 +126,7 @@
                 graphics.PreferredBackBufferHeight = r.Height;
                 graphics.ApplyChanges();
                 DungeonGlobal.Resolution = r;
-                ResolutionScale = Matrix.CreateScale(new Vector3((float)monitorSize.X/ (float)r.Width, (float)monitorSize.Y/ (float)r.Height, 1));
+                ResolutionScale = Matrix.CreateScale(new Vector3((float)originSize.X / (float)r.Width, (float)originSize.Y / (float)r.Height, 1));
                 SceneManager.Start();
             };
 

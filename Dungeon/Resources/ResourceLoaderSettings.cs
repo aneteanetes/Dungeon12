@@ -9,5 +9,7 @@ namespace Dungeon.Resources
         public bool ThrowIfNotFound { get; set; } = true;
 
         public Action<string> NotFoundAction { get; set; }
+
+        public bool StretchResources { get; set; }
     }
 }

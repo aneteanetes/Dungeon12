@@ -74,7 +74,7 @@
         /// </summary>
         Rectangle ComputedPosition { get; }
 
-        string Image { get; }
+        string Image { get; set; }
 
         Rectangle ImageRegion { get; set; }
 

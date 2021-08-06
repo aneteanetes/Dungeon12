@@ -10,6 +10,7 @@
     using Dungeon.Resources;
     using Dungeon.Scenes.Manager;
     using Dungeon.Settings;
+    using Dungeon.Types;
     using Dungeon.View;
     using Dungeon.View.Interfaces;
     using MoreLinq;
@@ -18,6 +19,7 @@
     using System.Globalization;
     using System.IO;
     using System.Linq;
+    using System.Numerics;
     using System.Reflection;
 
     public abstract class DungeonGlobal
@@ -78,6 +80,8 @@
         public static object TransportVariable { get; set; }
 
         public static PossibleResolution Resolution { get; set; }
+
+        public static Matrix4x4 ResolutionScaleMatrix { get; set; }
 
         public static Action<PossibleResolution> ChangeResolution { get; set; }
 

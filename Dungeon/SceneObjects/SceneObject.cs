@@ -393,8 +393,8 @@
 
                     _computedPosition = new Rectangle
                     {
-                        X = parentX + (float)Left*scale_,
-                        Y = parentY + (float)Top*scale_
+                        X = parentX + (float)Left * scale_,
+                        Y = parentY + (float)Top * scale_
                     };
                 }
 
@@ -407,7 +407,7 @@
 
         public virtual bool CacheAvailable { get; set; } = true;
 
-        public virtual bool IsBatch => false;
+        public virtual bool IsBatch { get; set; } = false;
 
         public virtual bool Expired { get; set; }
 
@@ -643,6 +643,10 @@
         public void AddEffects(params ISceneObject[] effects)
         {
             effects.ForEach(x => this.AddChild(x));
+        }
+
+        public void Load()
+        {
         }
 
         public ITexture Texture { get; set; }

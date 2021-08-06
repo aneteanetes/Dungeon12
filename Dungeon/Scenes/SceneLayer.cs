@@ -8,6 +8,7 @@ using Dungeon.View.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 namespace Dungeon.Scenes
 {
@@ -229,7 +230,10 @@ namespace Dungeon.Scenes
 
             if (hitboxContains && sceneObjControl.PerPixelCollision)
             {
-                return sceneObjControl.Texture.Contains(new Point(pos.X - actualRegion.X, pos.Y - actualRegion.Y));
+                var point = new Point(pos.X - actualRegion.X, pos.Y - actualRegion.Y);
+
+                bool value = sceneObjControl.Texture.Contains(point, actualRegion.Size);
+                return value;
             }
 
             return hitboxContains;
@@ -244,6 +248,13 @@ namespace Dungeon.Scenes
                 Height = sceneObjControl.BoundPosition.Height * DrawingSize.CellF,
                 Width = sceneObjControl.BoundPosition.Width * DrawingSize.CellF
             };
+            var scaledSize = Scaled(newRegion.Width, newRegion.Height);
+            newRegion.Height = scaledSize.Y;
+            newRegion.Width = scaledSize.X;
+
+            var scaledPos = Scaled(newRegion.X, newRegion.Y);
+            newRegion.X = scaledPos.X;
+            newRegion.Y = scaledPos.Y;
 
             if (!owner.AbsolutePositionScene && !sceneObjControl.AbsolutePosition)
             {
@@ -251,11 +262,14 @@ namespace Dungeon.Scenes
                 newRegion.Y += offset.Y;
             }
 
-            newRegion.X += this.Left;
-            newRegion.Y += this.Top;
+            var thisScaledPos = Scaled(this.Left, this.Top);
+            newRegion.X += thisScaledPos.X;
+            newRegion.Y += thisScaledPos.Y;
 
             return newRegion;
         }
+
+        private Vector2 Scaled(double x, double y) => Vector2.Transform(new Vector2((float)x, (float)y), DungeonGlobal.ResolutionScaleMatrix);
 
         private IEnumerable<ISceneControl> FreezedChain(ISceneObject freezing)
         {
@@ -458,9 +472,9 @@ namespace Dungeon.Scenes
 
         private void OnMouseMoveOnFocus(PointerArgs pointerPressedEventArgs, Point offset)
         {
-            var controls = ControlsByHandle(ControlEventType.Focus);
+            var controls = ControlsByHandle(ControlEventType.Focus).ToArray();
 
-            var nFocused = controls.Where(handler => RegionContains(handler, pointerPressedEventArgs, offset));
+            var nFocused = controls.Where(handler => RegionContains(handler, pointerPressedEventArgs, offset)).ToArray();
 
             var newFocused = WhereLayeredHandlers(nFocused, pointerPressedEventArgs, offset);
 

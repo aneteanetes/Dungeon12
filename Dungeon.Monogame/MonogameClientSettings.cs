@@ -18,6 +18,10 @@ namespace Dungeon.Monogame
         [Display(Name = "Высота в px")]
         public int HeightPixel { get; set; } = 720;
 
+        public int OriginWidthPixel { get; set; }
+
+        public int OriginHeightPixel { get; set; }
+
         [Display(Name = "V-sync")]
         public bool VerticalSync { get; set; } = true;
 
@@ -31,5 +35,10 @@ namespace Dungeon.Monogame
         public int CellSize { get; set; }
 
         public bool Borderless { get; set; } = false;
+
+        /// <summary>
+        /// Растягивать или ужимать изображения если нет подходящего под разрешение
+        /// </summary>
+        public bool ResouceStretching { get; set; } = true;
     }
 }

@@ -111,6 +111,14 @@ namespace Dungeon.Resources
 
             if (res == default)
             {
+                var resResolution = resource.IndexOf("@");
+                if (resResolution > 0)
+                {
+                    var fileName = resource.Substring(0, resResolution);
+                    var fileExt = Path.GetExtension(resource);
+                    return Load($"{fileName}{fileExt}", caching, @throw, sceneManager, obj);
+                }
+
                 Settings.NotFoundAction?.Invoke(resource);
                 if ((Settings?.ThrowIfNotFound ?? true) && @throw)
                 {

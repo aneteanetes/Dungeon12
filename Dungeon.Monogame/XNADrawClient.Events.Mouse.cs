@@ -6,6 +6,7 @@
     using System;
     using System.Collections.Generic;
     using Dungeon.Control;
+    using Microsoft.Xna.Framework;
 
     public partial class XNADrawClient
     {
@@ -102,29 +103,34 @@
                 if (mouseState.MiddleButton == ButtonState.Pressed)
                     mb = MouseButton.Middle;
 
-                this.light.Position = new Microsoft.Xna.Framework.Vector2(mousePosition.X, mousePosition.Y);
+                var pos = new Vector2(mousePosition.X, mousePosition.Y);
+
+                this.light.Position = pos;
+
+                var posTransformed = Vector2.Transform(pos, ResolutionScale);
 
                 currentScene.OnMouseMove(new PointerArgs
                 {
                     ClickCount = 0,
-                    MouseButton = (Dungeon.Control.Pointer.MouseButton)mb,
-                    X = mousePosition.X,
-                    Y = mousePosition.Y
-                }, new Dungeon.Types.Point(CameraOffsetX, CameraOffsetY));
+                    MouseButton = mb,
+                    X = pos.X,
+                    Y = pos.Y
+                }, Offset);
             }
         }
 
-        private readonly Dictionary<MouseButton, ButtonState> buttonPressings = new Dictionary<MouseButton, ButtonState>()
-        {
-            { MouseButton.Left, ButtonState.Released },
-            { MouseButton.Right, ButtonState.Released },
-            { MouseButton.Middle, ButtonState.Released },
-        };
+        private readonly Dictionary<MouseButton, ButtonState> buttonPressings 
+            = new Dictionary<MouseButton, ButtonState>()
+            {
+                { MouseButton.Left, ButtonState.Released },
+                { MouseButton.Right, ButtonState.Released },
+                { MouseButton.Middle, ButtonState.Released },
+            };
 
         private void OnPointerPressed(MouseButton mouseButton)
         {
-            var pos = mousePosition;
-            var offset = new Dungeon.Types.Point(CameraOffsetX, CameraOffsetY);
+            var pos = new Vector2(mousePosition.X, mousePosition.Y);
+            var posTransformed = Vector2.Transform(pos, ResolutionScale);
 
             SceneManager.Current?.OnMousePress(new PointerArgs
             {
@@ -132,14 +138,14 @@
                 MouseButton = mouseButton,
                 X = pos.X,
                 Y = pos.Y,
-                Offset = offset
-            }, offset);
+                Offset = Offset
+            }, Offset);
         }
 
         private void OnPointerReleased(MouseButton mouseButton)
         {
-            var pos = mousePosition;
-            var offset = new Types.Point(CameraOffsetX, CameraOffsetY);
+            var pos = new Vector2(mousePosition.X, mousePosition.Y);
+            var posTransformed = Vector2.Transform(pos, ResolutionScale);
 
             SceneManager.Current?.OnMouseRelease(new PointerArgs
             {
@@ -147,8 +153,18 @@
                 MouseButton = mouseButton,
                 X = pos.X,
                 Y = pos.Y,
-                Offset = offset
-            }, offset);
+                Offset = Offset
+            }, Offset);
+        }
+
+        private Types.Point Offset
+        {
+            get
+            {
+                var offsetScaled = Vector2.Transform(new Vector2((float)CameraOffsetX, (float)CameraOffsetY), ResolutionScale);
+
+                return new Types.Point(offsetScaled.X, offsetScaled.Y);
+            }
         }
     }
 }
