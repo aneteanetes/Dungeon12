@@ -71,11 +71,12 @@ namespace Dungeon.Types
 
         public Point Pos
         {
+            get => new(this.X, this.Y);
             set
             {
                 this.X = value?.X ?? default;
                 this.Y = value?.Y ?? default;
-            }
+            }            
         }
 
         public Point Size

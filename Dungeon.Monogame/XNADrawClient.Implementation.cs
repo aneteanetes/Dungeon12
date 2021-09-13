@@ -77,8 +77,6 @@ namespace Dungeon.Monogame
 
             QueuedDrawing.Clear();
 
-            InterfaceObjects.Clear();
-
             var all = sceneObjects
                 .Where(x => x.Visible && (x.DrawOutOfSight || (!x.DrawOutOfSight && Camera.InCamera(x))))
                 .ToArray();
@@ -131,6 +129,8 @@ namespace Dungeon.Monogame
             }
 
             spriteBatch.End();
+
+            InterfaceObjects.Clear();
 
             SetSpriteBatch(true);
 

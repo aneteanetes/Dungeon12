@@ -11,7 +11,7 @@ namespace SidusXII
         static void Main()
         {
             DungeonGlobal.BindGlobal<Global>();
-            DungeonGlobal.ComponentUpdateCompatibility = true;
+            DungeonGlobal.ComponentUpdateCompatibility = false;
             Console.WriteLine(DungeonGlobal.Version);
 #if DEBUG
             var resCompiler = new ResourceCompiler();
@@ -28,8 +28,6 @@ namespace SidusXII
             {
                 OriginWidthPixel=1600,
                 OriginHeightPixel=900,
-                WidthPixel = (int)Math.Round(1600/1.5),
-                HeightPixel = (int)Math.Round(900/1.5),
                 IsFullScreen = false,
                 Add2DLighting = false
             });

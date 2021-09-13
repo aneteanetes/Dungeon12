@@ -5,6 +5,9 @@ using Dungeon.Control.Pointer;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.Tiled;
+using Dungeon.View.Interfaces;
+using SidusXII.SceneObjects.GUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -117,7 +120,7 @@ namespace SidusXII.SceneObjects.Main.Map
             Columns.AddRange(Enumerable.Range(0, layerWidth).Select(x => new List<ImageTile>()));
             Rows.AddRange(Enumerable.Range(0, layerHeight).Select(x => new List<ImageTile>()));
 
-            for (int i = layerWidth; i < tileCount; i++)
+            for (int i = 0; i < tileCount; i++)
             {
                 var imgtile = new ImageTile()
                 {
@@ -154,7 +157,6 @@ namespace SidusXII.SceneObjects.Main.Map
                     }
                 }
 
-                imgtile.Visible = false;
                 this.AddChild(imgtile);
 
                 Rows[row].Add(imgtile);
@@ -245,8 +247,11 @@ namespace SidusXII.SceneObjects.Main.Map
             this.AddChild(Fog);
         }
 
+        private ImageObject tile;
+
         public void AddTile(ImageObject imageObject)
         {
+            tile = imageObject;
             imageObject.Width = MapContainer.TileSize;
             imageObject.Height = MapContainer.TileSize;
             Batch.AddChild(imageObject);
@@ -266,8 +271,10 @@ namespace SidusXII.SceneObjects.Main.Map
 
         public override void Click(PointerArgs args)
         {
-            //IsNotInvestigated = true;
-            //selector.Visible = false;
+            this.Layer.AddObject(new PopupString(tile.Image.AsDrawText(), this.ComputedPosition.Pos,speed:0.5)
+            {
+                Time=TimeSpan.FromSeconds(0.7),                
+            });
         }
     }
 }
