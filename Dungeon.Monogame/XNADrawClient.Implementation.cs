@@ -415,8 +415,6 @@ namespace Dungeon.Monogame
                     spriteBatch.End();
                     GraphicsDevice.SetRenderTarget(target);
 
-                    SaveObject(sceneObject, "C:\\temp\\batched3.png");
-
                     SpriteBatchRestore.Invoke(false, sceneObject.Filtered);
                 }
 

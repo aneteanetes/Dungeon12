@@ -8,11 +8,11 @@ namespace SidusXII.SceneObjects.Main
     {
         public PerksView()
         {
-            this.Image = "GUI/Planes/perks_back.png".AsmImg();
+            this.Image = "GUI/Planes/actions_back.png".AsmImg();
             this.Width = 368;
-            this.Height = 368;
+            this.Height = 208;
 
-            this.AddChild(new ImageObject("GUI/Planes/perks_grid.png".AsmImg()));
+            this.AddChild(new ImageObject("GUI/Planes/actions_grid.png".AsmImg()));
         }
     }
 }

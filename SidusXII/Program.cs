@@ -28,8 +28,8 @@ namespace SidusXII
             {
                 OriginWidthPixel=1600,
                 OriginHeightPixel=900,
-                WidthPixel = 1600,// (int)Math.Round(1600/1.5),
-                HeightPixel = 900,//(int)Math.Round(900/1.5),
+                WidthPixel = (int)Math.Round(1600/1.5),
+                HeightPixel = (int)Math.Round(900/1.5),
                 IsFullScreen = false,
                 Add2DLighting = false
             });

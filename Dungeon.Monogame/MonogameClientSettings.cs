@@ -13,10 +13,20 @@ namespace Dungeon.Monogame
         public bool IsWindowedFullScreen { get; set; } = false;
 
         [Display(Name = "Ширина в px")]
-        public int WidthPixel { get; set; } = 1280;
+        public int WidthPixel
+        {
+            get => widthPixel == -1 ? OriginWidthPixel : widthPixel;
+            set => widthPixel = value;
+        }
+        private int widthPixel = -1;
 
         [Display(Name = "Высота в px")]
-        public int HeightPixel { get; set; } = 720;
+        public int HeightPixel
+        {
+            get => heightPixel == -1 ? OriginHeightPixel : heightPixel;
+            set => heightPixel = value;
+        }
+        private int heightPixel = -1;
 
         public int OriginWidthPixel { get; set; }
 

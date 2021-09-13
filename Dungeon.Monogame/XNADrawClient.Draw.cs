@@ -243,7 +243,7 @@ namespace Dungeon.Engine.Host
 
                     //spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);
 
-                    spriteBatch.DrawString(font, DungeonGlobal.FPS.ToString(), new Vector2(this.Window.ClientBounds.Width - m, 15), Color.Yellow);
+                    spriteBatch.DrawString(font, DungeonGlobal.FPS.ToString(), new Vector2((this.Window.ClientBounds.Width - m)-2, 2), Color.Yellow);
                 }
 
                 if (neeedClose)

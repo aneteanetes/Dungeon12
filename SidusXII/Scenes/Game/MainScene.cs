@@ -20,8 +20,9 @@ namespace SidusXII.Scenes.Game
             var ui = this.CreateLayer("ui");
             ui.AddObject(new StatusBar());
             ui.AddObject(new MapContainer() { Top = 33, });
-            ui.AddObject(new PerksView() { Top = 531, Left = 1233 });
-            ui.AddObject(new ObjectInspector() { Left = 1232, Top = 33 });
+            ui.AddObject(new ScreenImageBox() { Left = 1232, Top = 33 });
+            ui.AddObject(new ObjectListBox() { Left = 1232, Top = 390 });
+            ui.AddObject(new PerksView() { Left = 1233, Top = 690 });
 
             ui.AddObject(new CharBar() { Top = 743, Left = 0 });
             ui.AddObject(new CharBar() { Top = 743, Left = 411 });

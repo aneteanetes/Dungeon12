@@ -1,4 +1,7 @@
 ﻿using Dungeon;
+using Dungeon.Control;
+using Dungeon.Control.Keys;
+using Dungeon.Control.Pointer;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.Tiled;
@@ -13,11 +16,22 @@ namespace SidusXII.SceneObjects.Main.Map
 
         public override bool CacheAvailable => false;
 
+        public int YScroll { get; set; } = 5;
+
         public MapContainer()
         {
             Image = "GUI/Planes/maphd.png".AsmImg();
             Width = 1234;
             Height = 710;
+
+            this.AddChild(new DarkRectangle()
+            {
+                Width = 1210,
+                Height = 680,
+                Opacity = 1,
+                Left = 15,
+                Top = 15
+            });
 
             //AddChildCenter(new DarkRectangle
             //{
@@ -30,8 +44,50 @@ namespace SidusXII.SceneObjects.Main.Map
             //    Depth = 2
             //}, true, false);
 
-            //this.Scale = .4;
+            RecalculateMap();
+        }
 
+        protected override ControlEventType[] Handles => new ControlEventType[]{
+            ControlEventType.MouseWheel,
+             ControlEventType.Key
+            };
+
+        public override bool AllKeysHandle => true;
+
+        public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
+        {
+            if(key== Key.Q)
+            {
+                Columns[0].ForEach(x => x.Visible = true);
+            }
+
+            if(key== Key.W)
+            {
+                Rows[3].ForEach(x => x.Visible = true);
+            }
+
+            base.KeyDown(key, modifier, hold);
+        }
+
+        public override void MouseWheel(MouseWheelEnum mouseWheelEnum)
+        {
+            if (mouseWheelEnum == MouseWheelEnum.Down)
+            {
+                YScroll++;
+            }
+            else
+            {
+                YScroll--;
+            }
+
+            base.MouseWheel(mouseWheelEnum);
+        }
+
+        List<List<ImageTile>> Rows = new List<List<ImageTile>>();
+        List<List<ImageTile>> Columns = new List<List<ImageTile>>();
+
+        private void RecalculateMap()
+        {
             var w = 167;///3;
             var h = 192;///3;
 
@@ -47,19 +103,30 @@ namespace SidusXII.SceneObjects.Main.Map
             var coefficient = 0;
 
             var x = 0;
-            var y = 0;
+            var y = YScroll;
 
             bool odd = false;
 
-            for (int i = 0; i < tileCount; i++)
+            //11 rows
+
+            var rows = 11;
+            var row = 0;
+
+            List<ImageTile> rowTiles = new List<ImageTile>();
+
+            Columns.AddRange(Enumerable.Range(0, layerWidth).Select(x => new List<ImageTile>()));
+            Rows.AddRange(Enumerable.Range(0, layerHeight).Select(x => new List<ImageTile>()));
+
+            for (int i = layerWidth; i < tileCount; i++)
             {
-                var img = new ImageTile()
+                var imgtile = new ImageTile()
                 {
                     Width = TileSize,
                     Height = TileSize,
-                    Left = x ,
-                    Top = y,
-                    DrawOutOfSight = true
+                    Left = x + 50,
+                    Top = y + 50,
+                    DrawOutOfSight = true,
+                    Scale = .4
                 };
 
                 var tiles = tiled.Layers.Select(x => x.Tiles[i]);
@@ -68,33 +135,37 @@ namespace SidusXII.SceneObjects.Main.Map
                     if (tile.FileName.IsNotEmpty())
                     {
                         //img.Image = $"Tiles/{tile.FileName}".AsmImg();
-                        var imgtile = new ImageObject($"Tiles/{tile.FileName}".AsmImg());
+                        var img = new ImageObject($"Tiles/{tile.FileName}".AsmImg());
 
                         if (tile.FlippedHorizontally && tile.FlippedVertically)
                         {
-                            imgtile.Flip = Dungeon.View.Enums.FlipStrategy.Both;
+                            img.Flip = Dungeon.View.Enums.FlipStrategy.Both;
                         }
                         else if (tile.FlippedHorizontally)
                         {
-                            imgtile.Flip = Dungeon.View.Enums.FlipStrategy.Horizontally;
+                            img.Flip = Dungeon.View.Enums.FlipStrategy.Horizontally;
                         }
                         else if (tile.FlippedVertically)
                         {
-                            imgtile.Flip = Dungeon.View.Enums.FlipStrategy.Vertically;
+                            img.Flip = Dungeon.View.Enums.FlipStrategy.Vertically;
                         }
 
-                        img.AddTile(imgtile);
+                        imgtile.AddTile(img);
                     }
                 }
 
-                this.AddChild(img);
+                imgtile.Visible = false;
+                this.AddChild(imgtile);
 
-                break;
+                Rows[row].Add(imgtile);
+                Columns[x/w].Add(imgtile);
 
-                x += w+ coefficient;
+                x += w + coefficient;
 
                 if (y / h == layerHeight)
+                {
                     y = 0;
+                }
 
                 if (x / w == layerWidth)
                 {
@@ -106,6 +177,7 @@ namespace SidusXII.SceneObjects.Main.Map
                     {
                         x = w / 2;
                     }
+                    row++;
                 }
             }
         }
@@ -136,6 +208,14 @@ namespace SidusXII.SceneObjects.Main.Map
 
         BatchTile Batch;
 
+        ImageObject Fog;
+
+        bool IsNotInvestigated
+        {
+            get => !Fog.Visible;
+            set => Fog.Visible = value;
+        }
+
         public ImageTile()
         {
             Batch = new BatchTile(this)
@@ -156,6 +236,13 @@ namespace SidusXII.SceneObjects.Main.Map
                 CacheAvailable = true
             };
             this.AddChild(selector);
+
+
+            Fog = new ImageObject("GUI/Parts/fogofwar.png".AsmImg())
+            {
+                Visible = false
+            };
+            this.AddChild(Fog);
         }
 
         public void AddTile(ImageObject imageObject)
@@ -167,12 +254,20 @@ namespace SidusXII.SceneObjects.Main.Map
 
         public void Focus(bool fromDepth)
         {
-            selector.Visible = true;
+            if (!Fog.Visible)
+                selector.Visible = true;
         }
 
         public void Unfocus(bool fromDepth)
         {
-            selector.Visible = false;
+            if (!Fog.Visible)
+                selector.Visible = false;
+        }
+
+        public override void Click(PointerArgs args)
+        {
+            //IsNotInvestigated = true;
+            //selector.Visible = false;
         }
     }
 }
