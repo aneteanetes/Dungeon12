@@ -11,7 +11,7 @@
         private KeyboardState keyboardState;
         private Keys[] pressed;
         private HashSet<Keys> keysState = new HashSet<Keys>();
-        private HashSet<Keys> keysHolds = new HashSet<Keys>();
+        private static HashSet<Keys> keysHolds = new HashSet<Keys>();
 
         private void UpdateKeyboardEvents()
         {
@@ -46,6 +46,11 @@
                 var pressedHashset = new HashSet<Keys>(pressed);
                 pressedHashset.IntersectWith(keysState);
                 keysHolds = pressedHashset;
+            }
+
+            foreach (var keyHold in keysHolds)
+            {
+                OnKeyDown(keyHold);
             }
 
             this.pressed = pressed;

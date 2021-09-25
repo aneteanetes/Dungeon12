@@ -1,6 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Localization;
 using SidusXII.Localization;
+using SidusXII.Settings;
 
 namespace SidusXII
 {
@@ -19,5 +20,7 @@ namespace SidusXII
         public override void LoadStrings(object localizationStringDictionary) { }
 
         public static Game Game { get; set; }
+
+        public static RootSettings Settings = new RootSettings();
     }
 }

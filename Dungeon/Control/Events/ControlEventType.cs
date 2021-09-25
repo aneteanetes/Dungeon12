@@ -23,7 +23,7 @@
 
 
         // gamepad
-        LeftStickMove,
+        GamePadStickMoves,
         GamePadButtonsPress,
         GamePadButtonsRelease
     }

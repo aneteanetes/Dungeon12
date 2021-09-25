@@ -208,6 +208,11 @@ namespace Dungeon.Types
             return this.X == x && this.Y == y;
         }
 
+        public bool Equals(Point point)
+        {
+            return this.EqualTo(point.X, point.Y);
+        }
+
         /// <summary>
         /// 
         /// </summary>

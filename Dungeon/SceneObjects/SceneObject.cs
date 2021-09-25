@@ -253,7 +253,7 @@
         {
             get
             {
-                if (pos == null || !CacheAvailable)
+                if (pos == null || !CachePosition)
                 {
                     pos = new Rectangle()
                     {
@@ -384,7 +384,7 @@
         {
             get
             {
-                if (_computedPosition == null || !CacheAvailable)
+                if (_computedPosition == null || !CachePosition)
                 {
                     var parentX = Parent?.ComputedPosition?.X ?? 0f;
                     var parentY = Parent?.ComputedPosition?.Y ?? 0f;
@@ -406,6 +406,8 @@
         public ISceneObject Parent { get; set; }
 
         public virtual bool CacheAvailable { get; set; } = true;
+
+        public virtual bool CachePosition { get; set; } = false;
 
         public virtual bool IsBatch { get; set; } = false;
 

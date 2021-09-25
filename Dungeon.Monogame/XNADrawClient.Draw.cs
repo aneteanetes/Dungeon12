@@ -169,9 +169,6 @@ namespace Dungeon.Engine.Host
             spriteBatch.End();
 
             DrawDebugInfo();
-#if !Engine
-            OnPointerMoved();
-#endif
 
             try
             {

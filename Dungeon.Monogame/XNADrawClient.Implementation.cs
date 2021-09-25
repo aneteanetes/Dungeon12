@@ -421,7 +421,7 @@ namespace Dungeon.Monogame
                 TileSetCache.TryGetValue(sceneObject.Uid, out var tilesetPos);
                 PosCache.TryGetValue(sceneObject.Uid, out var sceneObjPos);
 
-                if (!sceneObject.CacheAvailable)
+                if (!sceneObject.CachePosition)
                 {
                     sceneObjPos = new Rect(x, y, width, height);
                 }
@@ -720,7 +720,7 @@ namespace Dungeon.Monogame
 
                 if (!force && sceneObject.CacheAvailable)
                 {
-                    PosCache.Add(sceneObject.Uid, pos);
+                    PosCache[sceneObject.Uid]= pos;
                     sceneObject.Expired = false;
                 }
             }

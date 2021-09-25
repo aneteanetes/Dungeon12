@@ -264,7 +264,7 @@ namespace Dungeon12.GameObjects.Party
 
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
-            ControlEventType.LeftStickMove,
+            ControlEventType.GamePadStickMoves,
             ControlEventType.Key
         };
 

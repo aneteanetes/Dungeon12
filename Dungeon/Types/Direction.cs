@@ -65,12 +65,16 @@ namespace Dungeon
                 default: return Direction.Idle;
             }
         }
+
         public static Direction OppositeX(this Direction dir)
         {
             switch (dir)
             {
                 case Direction.Left: return Direction.Right;
                 case Direction.Right: return Direction.Left;
+
+                case Direction.Down: return Direction.Down;
+                case Direction.Up: return Direction.Up;
 
                 case Direction.UpLeft: return Direction.UpRight;
                 case Direction.UpRight: return Direction.UpLeft;

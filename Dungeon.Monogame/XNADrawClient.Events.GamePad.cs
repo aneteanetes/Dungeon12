@@ -85,6 +85,7 @@ namespace Dungeon.Monogame
         private void UpdateSticks(GamePadState gamePadState)
         {
             UpdateLeft(gamePadState);
+            UpdateRight(gamePadState);
         }
 
         private void UpdateLeft(GamePadState gamePadState)
@@ -107,7 +108,7 @@ namespace Dungeon.Monogame
             }
             else if (leftStickWas != Vector2.Zero && left == Vector2.Zero)
             {
-                OnStickMoveOnce(left, GamePadStick.LeftStick);
+                OnLeftStickMoveOnce(left, GamePadStick.LeftStick);
             }
         }
 
@@ -131,7 +132,7 @@ namespace Dungeon.Monogame
             }
             else if (rightStickWas != Vector2.Zero && right == Vector2.Zero)
             {
-                OnStickMoveOnce(right, GamePadStick.RightStick);
+                OnRightStickMoveOnce(right, GamePadStick.RightStick);
             }
         }
 
@@ -142,7 +143,7 @@ namespace Dungeon.Monogame
         Vector2 leftStickWas = new Vector2(0, 0);
         Vector2 rightStickWas = new Vector2(0, 0);
 
-        public void OnStickMoveOnce(Vector2 leftStickNow, GamePadStick stick)
+        public void OnLeftStickMoveOnce(Vector2 leftStickNow, GamePadStick stick)
         {
             var dir = DetectDirection(leftStickNow.X, leftStickWas.X, leftStickNow.Y, leftStickWas.Y);
             SceneManager.Current?.OnStickMoveOnce(dir, stick);
@@ -150,6 +151,13 @@ namespace Dungeon.Monogame
             leftStickWas = default;
         }
 
+        public void OnRightStickMoveOnce(Vector2 rightStickNow, GamePadStick stick)
+        {
+            var dir = DetectDirection(rightStickNow.X, rightStickWas.X, rightStickNow.Y, rightStickWas.Y);
+            SceneManager.Current?.OnStickMoveOnce(dir, stick);
+            startDirRight = Direction.Idle;
+            rightStickWas = default;
+        }
 
         Vector2 leftStickWasContinue = new Vector2(0, 0);
         public void OnStickMove(Vector2 leftStickNow, GamePadStick stick)

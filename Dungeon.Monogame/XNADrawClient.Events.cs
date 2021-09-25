@@ -11,7 +11,8 @@ namespace Dungeon.Monogame
 
             if (!blockControls)
             {
-                UpdateMouseEvents();
+                if (!DungeonGlobal.GamePadConnected)
+                    UpdateMouseEvents();
                 UpdateKeyboardEvents();
                 UpdateGamepadEvents();
             }

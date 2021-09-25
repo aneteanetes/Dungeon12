@@ -9,5 +9,7 @@
         public bool FlippedVertically { get; set; }
 
         public bool FlippedDiagonally { get; set; }
+
+        public TiledLayer Layer { get; set; }
     }
 }

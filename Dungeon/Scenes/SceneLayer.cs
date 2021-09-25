@@ -14,11 +14,15 @@ namespace Dungeon.Scenes
 {
     public class SceneLayer : ISceneLayer
     {
-        private Scene owner;
+        protected Scene Owner;
+
+        protected Scene Parent => Owner;
+
+        protected Scene Scene => Owner;
 
         public SceneLayer(Scene parentScene)
         {
-            owner = parentScene;
+            Owner = parentScene;
         }
 
         public string Name { get; set; }
@@ -39,9 +43,9 @@ namespace Dungeon.Scenes
 
         private List<ISceneControl> SceneObjectsInFocus => new List<ISceneControl>(sceneObjectsInFocuses);
 
-        public double Width { get; set; }
+        public virtual double Width { get; set; }
 
-        public double Height { get; set; }
+        public virtual double Height { get; set; }
 
         public double Left { get; set; }
 
@@ -49,8 +53,8 @@ namespace Dungeon.Scenes
 
         public bool IsActive
         {
-            get => owner.ActiveLayer == this;
-            set => owner.ActiveLayer = this;
+            get => Owner.ActiveLayer == this;
+            set => Owner.ActiveLayer = this;
         }
 
         public void AddObject(ISceneObject sceneObject)
@@ -143,7 +147,7 @@ namespace Dungeon.Scenes
 
         private IEnumerable<ISceneControl> ControlsByHandle(ControlEventType handleEvent, Key key = Key.None)
         {
-            if (owner.Destroyed)
+            if (Owner.Destroyed)
                 return Enumerable.Empty<ISceneControl>();
 
             DungeonGlobal.Freezer.HandleFreezes.TryGetValue(handleEvent, out var freezer);
@@ -167,7 +171,7 @@ namespace Dungeon.Scenes
             var handlers = elements
                 .Distinct()
                 .Where(c => c.Visible)
-                .Where(c => c.DrawOutOfSight || owner.sceneManager.DrawClient.InCamera(c))
+                .Where(c => c.DrawOutOfSight || Owner.sceneManager.DrawClient.InCamera(c))
                 .Where(x =>
                 {
                     bool handle = x.CanHandle.Contains(handleEvent);
@@ -256,7 +260,7 @@ namespace Dungeon.Scenes
             newRegion.X = scaledPos.X;
             newRegion.Y = scaledPos.Y;
 
-            if (!owner.AbsolutePositionScene && !sceneObjControl.AbsolutePosition)
+            if (!Owner.AbsolutePositionScene && !sceneObjControl.AbsolutePosition)
             {
                 newRegion.X += offset.X;
                 newRegion.Y += offset.Y;
@@ -295,7 +299,7 @@ namespace Dungeon.Scenes
             return freezingChain;
         }
 
-        public void OnText(string text)
+        public virtual void OnText(string text)
         {
             var textControls = ControlsByHandle(ControlEventType.Text);
 
@@ -317,7 +321,7 @@ namespace Dungeon.Scenes
             }
         }
 
-        public void OnKeyDown(KeyArgs keyEventArgs)
+        public virtual void OnKeyDown(KeyArgs keyEventArgs)
         {
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;           
@@ -337,7 +341,7 @@ namespace Dungeon.Scenes
             }
         }
 
-        public void OnKeyUp(KeyArgs keyEventArgs)
+        public virtual void OnKeyUp(KeyArgs keyEventArgs)
         {           
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
@@ -361,7 +365,7 @@ namespace Dungeon.Scenes
             }
         }
 
-        public void OnMousePress(PointerArgs pointerPressedEventArgs, Point offset)
+        public virtual void OnMousePress(PointerArgs pointerPressedEventArgs, Point offset)
         {
             var keyControls = ControlsByHandle(ControlEventType.Click);
             var globalKeyHandlers = ControlsByHandle(ControlEventType.GlobalClick);
@@ -378,7 +382,7 @@ namespace Dungeon.Scenes
             }
         }
 
-        public void OnMouseRelease(PointerArgs pointerPressedEventArgs, Point offset)
+        public virtual void OnMouseRelease(PointerArgs pointerPressedEventArgs, Point offset)
         {
             var keyControls = ControlsByHandle(ControlEventType.ClickRelease);
             var globalKeyHandlers = ControlsByHandle(ControlEventType.GlobalClickRelease);
@@ -394,7 +398,7 @@ namespace Dungeon.Scenes
             }
         }
 
-        public void OnMouseWheel(MouseWheelEnum wheelEnum)
+        public virtual void OnMouseWheel(MouseWheelEnum wheelEnum)
         {
             var wheelControls = ControlsByHandle(ControlEventType.MouseWheel);
 
@@ -433,7 +437,7 @@ namespace Dungeon.Scenes
                         Offset = offset
                     };
 
-                    if (!owner.AbsolutePositionScene && !clickedElement.AbsolutePosition)
+                    if (!Owner.AbsolutePositionScene && !clickedElement.AbsolutePosition)
                     {
                         args.X += offset.X;
                         args.Y += offset.Y;
@@ -455,7 +459,7 @@ namespace Dungeon.Scenes
             }
         }
 
-        public void OnMouseMove(PointerArgs pointerPressedEventArgs, Point offset)
+        public virtual void OnMouseMove(PointerArgs pointerPressedEventArgs, Point offset)
         {
             var globalMouseMoves = ControlsByHandle(ControlEventType.GlobalMouseMove);
             DoClicks(pointerPressedEventArgs, offset, globalMouseMoves, (c, a) => c.GlobalMouseMove(a));
@@ -519,9 +523,9 @@ namespace Dungeon.Scenes
             }
         }
 
-        public void OnStickMoveOnce(Direction direction, GamePadStick stick)
+        public virtual void OnStickMoveOnce(Direction direction, GamePadStick stick)
         {
-            var controls = ControlsByHandle(ControlEventType.LeftStickMove);
+            var controls = ControlsByHandle(ControlEventType.GamePadStickMoves);
             for (int i = 0; i < controls.Count(); i++)
             {
                 var control = controls.ElementAtOrDefault(i);
@@ -540,9 +544,9 @@ namespace Dungeon.Scenes
             }
         }
 
-        public void OnStickMove(Direction direction, GamePadStick stick)
+        public virtual void OnStickMove(Direction direction, GamePadStick stick)
         {
-            var controls = ControlsByHandle(ControlEventType.LeftStickMove);
+            var controls = ControlsByHandle(ControlEventType.GamePadStickMoves);
             for (int i = 0; i < controls.Count(); i++)
             {
                 var control = controls.ElementAtOrDefault(i);
@@ -561,7 +565,7 @@ namespace Dungeon.Scenes
             }
         }
 
-        public void OnGamePadButtonsPress(GamePadButton[] btns)
+        public virtual void OnGamePadButtonsPress(GamePadButton[] btns)
         {
             var controls = ControlsByHandle(ControlEventType.GamePadButtonsPress);
             for (int i = 0; i < controls.Count(); i++)
@@ -582,7 +586,7 @@ namespace Dungeon.Scenes
             }
         }
 
-        public void OnGamePadButtonsRelease(GamePadButton[] btns)
+        public virtual void OnGamePadButtonsRelease(GamePadButton[] btns)
         {
             var controls = ControlsByHandle(ControlEventType.GamePadButtonsRelease);
             for (int i = 0; i < controls.Count(); i++)

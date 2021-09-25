@@ -24,6 +24,11 @@
         /// Can be cached or have animation
         /// </summary>
         bool CacheAvailable { get; }
+
+        /// <summary>
+        /// Кэш позиции, используется когда родительский объект двигается, и вместе с ним должен двигаться дочерний
+        /// </summary>
+        bool CachePosition { get; }
         
         /// <summary>
         /// Is this object can be batched

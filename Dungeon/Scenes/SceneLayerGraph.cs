@@ -17,10 +17,11 @@ namespace Dungeon.Scenes
 
         public SceneLayerGraph(SceneLayer layer)
         {
+            Name = layer.Name;
             SceneLayer = layer;
             Size = new SceneLayerGraphSize(layer);
             Position = new PhysicalPosition();
-            this.Containable = true;
+            //this.Containable = true;
         }
 
         public SceneLayerGraph(PointerArgs pointerArgs)

@@ -224,6 +224,38 @@
             return nodes;
         }
 
+        /// <summary>
+        /// Находит последние ноды-контейнеры
+        /// </summary>
+        /// <param name="physicalObject"></param>
+        /// <returns></returns>
+        public List<T> QueryPhysical(T physicalObject)
+        {
+            List<T> nodes = new();
+
+            if (this.IntersectsWith(physicalObject))
+            {
+                if (this.Nodes.Count == 0)
+                {
+                    nodes.Add(Self);
+                }
+                else
+                {
+                    var copyNodes = new List<T>(Nodes);
+                    foreach (var node in copyNodes)
+                    {
+                        var queryDeepNode = node.QueryPhysical(physicalObject);
+                        if (queryDeepNode.Count > 0)
+                        {
+                            nodes.AddRange(queryDeepNode);
+                        }
+                    }
+                }
+            }
+
+            return nodes;
+        }
+
         public virtual void Add(T physicalObject)
         {
             physicalObject.Root = this;

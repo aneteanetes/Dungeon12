@@ -16,6 +16,9 @@ namespace Dungeon.Control
         /// </summary>
         public bool ProcessedOffset { get; set; }
 
+        /// <summary>
+        /// Координаты <see cref="X"/>, <see cref="Y"/>, учитывающие <see cref="Offset"/>
+        /// </summary>
         public Point GameCoordinates
         {
             get
@@ -56,10 +59,13 @@ namespace Dungeon.Control
             }
         }
 
+        /// <summary>
+        /// Чистые координаты <see cref="X"/>, <see cref="Y"/>
+        /// </summary>
         public Point AsPoint => new Point(X, Y);
 
         /// <summary>
-        /// Относительные координаты по игровой сетке
+        /// Относительные координаты по ИГРОВОЙ СЕТКЕ (<see cref="Settings.DrawingSize.CellF"/>)
         /// </summary>
         public Point Relative => new Point(X / Settings.DrawingSize.CellF, Y / Settings.DrawingSize.CellF);
     }

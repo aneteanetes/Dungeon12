@@ -33,6 +33,7 @@
             this.sceneManager = sceneManager;
             SceneLayerGraph = new SceneLayerGraph()
             {
+                Name="<== SCENE LAYER ==>",
                 Size = new Physics.PhysicalSize()
                 {
                     Width = DungeonGlobal.Sizes.Width,
@@ -61,9 +62,13 @@
             }
         }
 
-        public SceneLayer CreateLayer(string name)
+        public SceneLayer CreateLayer(string name) => CreateLayer<SceneLayer>(name);
+
+        public TSceneLayer CreateLayer<TSceneLayer>(string name)
+            where TSceneLayer : SceneLayer
         {
-            var newLayer = new SceneLayer(this) { Name = name };
+            var newLayer = typeof(TSceneLayer).New(this).As<TSceneLayer>();
+            newLayer.Name = name;
             newLayer.Width = DungeonGlobal.Resolution.Width;
             newLayer.Height = DungeonGlobal.Resolution.Height;
             LayerList.Add(newLayer);
@@ -73,7 +78,6 @@
 
             return newLayer;
         }
-
 
         public SceneLayer RemoveLayer(string name)
         {
@@ -103,7 +107,7 @@
             }
             else if (ActiveLayer == default && mouse != default)
             {
-                var layers = SceneLayerGraph.QueryContainer(new SceneLayerGraph(mouse));
+                var layers = SceneLayerGraph.QueryPhysical(new SceneLayerGraph(mouse));
                 layers.ForEach(l => invoke(l.SceneLayer));
             }
             else if (mouse == default)

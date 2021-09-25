@@ -96,7 +96,8 @@ namespace Dungeon.Tiled
                         FileName = tiledMap.TileNameByGid(gid).File,
                         FlippedDiagonally = flipped_diagonally,
                         FlippedHorizontally = flipped_horizontally,
-                        FlippedVertically = flipped_vertically
+                        FlippedVertically = flipped_vertically,
+                        Layer = layer
                     });
                 }
 
