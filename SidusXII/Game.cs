@@ -1,5 +1,5 @@
 ﻿using SidusXII.Characters;
-using SidusXII.Objects.Map;
+using SidusXII.Models.Map;
 
 namespace SidusXII
 {
@@ -11,6 +11,6 @@ namespace SidusXII
 
         public Character PartyMember2 { get; set; }
 
-        public LocationMap Location { get; set; }
+        public MapComponent Location { get; set; }
     }
 }

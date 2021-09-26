@@ -4,6 +4,7 @@ using Dungeon.Control.Gamepad;
 using Dungeon.Scenes;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
+using SidusXII.Models.Map;
 using SidusXII.SceneObjects.Main.Map;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace SidusXII.Layers.Main
             prev = null;
         }
 
-        private ISceneObject MapContainer => this.Objects.FirstOrDefault(x => x is MapObject);
+        private ISceneObject MapContainer => this.Objects.FirstOrDefault(x => x is MapSceneObject);
 
         Point prev;
 
@@ -56,7 +57,7 @@ namespace SidusXII.Layers.Main
                     return;
                 }
 
-                var dir = prev.DetectDirection(now, 1);
+                var dir = prev.DetectDirection(now, 4);
                 MoveMap(dir);
 
                 prev = now;

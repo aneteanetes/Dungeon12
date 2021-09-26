@@ -1,4 +1,6 @@
-﻿using Dungeon.Control.Keys;
+﻿using Dungeon;
+using Dungeon.Control.Keys;
+using Dungeon.Drawing.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using SidusXII.Layers.Main;
@@ -19,11 +21,13 @@ namespace SidusXII.Scenes.Game
         public override void Initialize()
         {
             var map = this.CreateLayer<MapLayer>("map");
-            map.AddObject(new MapObject(Global.Game.Location) {/* Top = 33, */});
+            map.Top = 33;
+            map.AddObject(new MapSceneObject(Global.Game.Location) {/* Top = 33, */});
+            map.AddObject(new ImageObject("GUI/Planes/maphd_border.png".AsmImg()) { Width = 1600, Height = 710 });
 
 
             var ui = this.CreateLayer("ui");
-            //ui.AddObject(new StatusBar());
+            ui.AddObject(new StatusBar());
             //ui.AddObject(new ScreenImageBox() { Left = 1232, Top = 33 });
             //ui.AddObject(new ObjectListBox() { Left = 1232, Top = 390 });
             //ui.AddObject(new PerksView() { Left = 1233, Top = 690 });

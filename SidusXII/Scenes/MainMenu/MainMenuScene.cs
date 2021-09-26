@@ -6,7 +6,7 @@ using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using Dungeon.Types;
 using SidusXII.Enums;
-using SidusXII.Objects.Map;
+using SidusXII.Models.Map;
 using SidusXII.SceneObjects.Base;
 using SidusXII.Scenes.Creation;
 using SidusXII.Scenes.Game;
@@ -175,7 +175,7 @@ namespace SidusXII.Scenes.MainMenu
         {
             Global.Game = new SidusXII.Game
             {
-                Location = LocationMap.Load("Maps/faithisland.tmx")
+                Location = MapComponent.Load("Maps/faithisland.tmx")
             };
             Global.Game.Location.Init();
             this.Switch<MainScene>();

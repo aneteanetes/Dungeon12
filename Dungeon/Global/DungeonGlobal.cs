@@ -21,6 +21,7 @@
     using System.Linq;
     using System.Numerics;
     using System.Reflection;
+    using System.Runtime.ExceptionServices;
 
     public abstract class DungeonGlobal
     {
@@ -136,7 +137,7 @@
             global.OnException(ex, ok);
 
             if (ExceptionRethrow)
-                throw ex;
+                ExceptionDispatchInfo.Capture(ex).Throw();
 
             Logger.Log(ex.ToString());
         }

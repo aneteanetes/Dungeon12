@@ -3,19 +3,20 @@ using Dungeon.Control;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.Types;
+using SidusXII.Models.Map;
 using SidusXII.SceneObjects.GUI;
 using System;
 
 namespace SidusXII.SceneObjects.Main.Map
 {
 
-    public class MapCell : EmptySceneControl
+    public class MapCellSceneObject : SceneControl<MapCellComponent>
     {
         private class BatchTile : EmptySceneControl
         {
-            private MapCell imageTile;
+            private MapCellSceneObject imageTile;
 
-            public BatchTile(MapCell imageTile)
+            public BatchTile(MapCellSceneObject imageTile)
             {
                 this.imageTile = imageTile;
             }
@@ -37,16 +38,16 @@ namespace SidusXII.SceneObjects.Main.Map
 
         BatchTile Batch;
 
-        ImageObject Fog;
+        public ImageObject Fog;
 
         public Point MapPosition { get; set; }
 
-        public MapCell()
+        public MapCellSceneObject(MapCellComponent mapCell):base(mapCell,true)
         {
             Batch = new BatchTile(this)
             {
-                Width = MapObject.TileSize,
-                Height = MapObject.TileSize,
+                Width = MapSceneObject.TileSize,
+                Height = MapSceneObject.TileSize,
                 DrawOutOfSight = true,
                 IsBatch = true,
                 PerPixelCollision = true,
@@ -57,16 +58,16 @@ namespace SidusXII.SceneObjects.Main.Map
             this.selector = new ImageObject("GUI/Parts/tileselector.png".AsmImg())
             {
                 Visible = false,
-                Width = MapObject.TileSize,
-                Height = MapObject.TileSize,
+                Width = MapSceneObject.TileSize,
+                Height = MapSceneObject.TileSize,
                 CacheAvailable = false
             };
 
             this.playerCellselector = new ImageObject("GUI/Parts/playercell.png".AsmImg())
             {
                 Visible = false,
-                Width = MapObject.TileSize,
-                Height = MapObject.TileSize,
+                Width = MapSceneObject.TileSize,
+                Height = MapSceneObject.TileSize,
                 CacheAvailable = false
             };
 
@@ -83,7 +84,8 @@ namespace SidusXII.SceneObjects.Main.Map
 
             Fog = new ImageObject("GUI/Parts/fogofwar.png".AsmImg())
             {
-                Visible = false
+                Visible = !Component.Visible,
+                CacheAvailable=false
             };
             this.AddChild(Fog);
         }
@@ -105,8 +107,8 @@ namespace SidusXII.SceneObjects.Main.Map
         public void AddTile(ImageObject imageObject)
         {
             tile = imageObject;
-            imageObject.Width = MapObject.TileSize;
-            imageObject.Height = MapObject.TileSize;
+            imageObject.Width = MapSceneObject.TileSize;
+            imageObject.Height = MapSceneObject.TileSize;
             Batch.AddChild(imageObject);
         }
 
@@ -139,7 +141,7 @@ namespace SidusXII.SceneObjects.Main.Map
             ControlEventType.Click
         };
 
-        static MapCell startedClick = null;
+        static MapCellSceneObject startedClick = null;
 
         public override void Click(PointerArgs args)
         {
