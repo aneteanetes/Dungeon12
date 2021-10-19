@@ -12,26 +12,6 @@ namespace SidusXII.SceneObjects.Main.Map
 
     public class MapCellSceneObject : SceneControl<MapCellComponent>
     {
-        private class BatchTile : EmptySceneControl
-        {
-            private MapCellSceneObject imageTile;
-
-            public BatchTile(MapCellSceneObject imageTile)
-            {
-                this.imageTile = imageTile;
-            }
-
-            public override void Focus()
-            {
-                imageTile.Focus(true);
-            }
-
-            public override void Unfocus()
-            {
-                imageTile.Unfocus(true);
-            }
-        }
-
         ImageObject selector;
 
         ImageObject playerCellselector;
@@ -87,6 +67,10 @@ namespace SidusXII.SceneObjects.Main.Map
                 Visible = !Component.Visible,
                 CacheAvailable=false
             };
+            if (Component.Fog != default)
+            {
+                Fog.Image = $"GUI/Parts/fog/{Component.Fog}".AsmImg();
+            }
             this.AddChild(Fog);
         }
 
@@ -161,6 +145,26 @@ namespace SidusXII.SceneObjects.Main.Map
                     Time = TimeSpan.FromSeconds(0.7),
                 });
                 startedClick = null;
+            }
+        }
+
+        private class BatchTile : EmptySceneControl
+        {
+            private MapCellSceneObject imageTile;
+
+            public BatchTile(MapCellSceneObject imageTile)
+            {
+                this.imageTile = imageTile;
+            }
+
+            public override void Focus()
+            {
+                imageTile.Focus(true);
+            }
+
+            public override void Unfocus()
+            {
+                imageTile.Unfocus(true);
             }
         }
     }

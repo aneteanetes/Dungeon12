@@ -4,6 +4,7 @@ using Dungeon.Tiled;
 using Dungeon.Types;
 using LiteDB;
 using Newtonsoft.Json;
+using SidusXII.SceneObjects.Main.Map;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +17,9 @@ namespace SidusXII.Models.Map
 
         public Point Location { get; set; } = new Point();
 
+        /// <summary>
+        /// X,Y
+        /// </summary>
         public Dictionary<string, MapCellComponent> Cells = new Dictionary<string, MapCellComponent>();
 
         public static MapComponent Load(string tmxResPath)
@@ -110,8 +114,14 @@ namespace SidusXII.Models.Map
             var visibles = Cells.Where(x => x.Value.Visible);
             foreach (var visible in visibles)
             {
+                var cell = visible.Value;
 
-
+                cell.InitAround(Cells);
+                cell.Around.ForEach(a =>
+                {
+                    a.InitAround(Cells);
+                    a.CreateFog();
+                });
             }
         }
     }

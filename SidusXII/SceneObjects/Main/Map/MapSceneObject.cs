@@ -28,7 +28,7 @@ namespace SidusXII.SceneObjects.Main.Map
         {
             Width = 1600;
             Height = 710;
-            Scale = .5;
+            Scale = .3;
 
             BuildMap();
             SetCameraPosition();

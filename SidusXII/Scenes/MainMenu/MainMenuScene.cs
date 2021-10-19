@@ -178,6 +178,7 @@ namespace SidusXII.Scenes.MainMenu
                 Location = MapComponent.Load("Maps/faithisland.tmx")
             };
             Global.Game.Location.Init();
+
             this.Switch<MainScene>();
         }
 
