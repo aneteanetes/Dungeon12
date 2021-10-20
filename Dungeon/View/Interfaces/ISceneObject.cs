@@ -67,6 +67,8 @@
         /// </summary>
         double Scale { get; set; }
 
+        double GetScaleValue();
+
         /// <summary>
         /// Тэг для поиска в visual tree
         /// </summary>

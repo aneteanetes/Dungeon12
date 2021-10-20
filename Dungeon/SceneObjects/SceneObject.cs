@@ -255,13 +255,14 @@
             {
                 if (pos == null || !CachePosition)
                 {
-                    pos = new Rectangle()
+                    if (pos == null)
                     {
-                        X = (float)Left,
-                        Y = (float)Top,
-                        Width = (float)Width,
-                        Height = (float)Height
-                    };
+                        pos = new Rectangle();
+                    }
+                    pos.X = (float)Left;
+                    pos.Y = (float)Top;
+                    pos.Width = (float)Width;
+                    pos.Height = (float)Height;
 
                     if (Scale != default)
                     {
@@ -485,6 +486,9 @@
         public virtual bool Filtered { get; set; } = true;
 
         private double _scale;
+
+        public double GetScaleValue() => _scale;
+
         public virtual double Scale
         {
             get

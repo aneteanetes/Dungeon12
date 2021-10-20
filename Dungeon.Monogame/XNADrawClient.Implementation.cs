@@ -355,7 +355,7 @@ namespace Dungeon.Monogame
 
         private List<(ISceneObject sceneObject, double x, double y)> InterfaceObjects = new List<(ISceneObject sceneObject, double x, double y)>();
 
-        private void DrawSceneObject(ISceneObject sceneObject, double xParent = 0, double yParent = 0, bool batching = false, bool force = false, bool lightIgnoring = false)
+        private void DrawSceneObject(ISceneObject sceneObject, double xParent = 0, double yParent = 0, bool batching = false, bool force = false, bool lightIgnoring = false, double parentScale = 0)
         {
             if (!batching && sceneObject.Interface && !lightIgnoring && !sceneObject.AbsolutePosition)
             {
@@ -378,20 +378,31 @@ namespace Dungeon.Monogame
 
             sceneObject.Drawed = true;
 
-            var x = 0d;
-            var y = 0d;
+            var scale_ = sceneObject.GetScaleValue();
+            if (parentScale != 0)
+                scale_ = parentScale;
 
-            if (!batching)
+            if (scale_ == 0)
+                scale_ = 1;
+
+            var computed = sceneObject.ComputedPosition;
+
+            var x = xParent + (float)sceneObject.Left * scale_;
+            var y = yParent + (float)sceneObject.Top * scale_;
+
+            if (batching)
             {
-                y = sceneObject.ComputedPosition.Y * cell;// + yParent;
-                x = sceneObject.ComputedPosition.X * cell;// + xParent;
+                x = 0d;
+                y = 0d;
             }
 
             DrawLight(sceneObject, x, y);
             DrawEffects(sceneObject, x, y);
 
-            int width = (int)Math.Round(sceneObject.BoundPosition.Width * cell);
-            int height = (int)Math.Round(sceneObject.BoundPosition.Height * cell);
+            //int width = (int)Math.Round((sceneObject.Width * scale_) * cell);
+            //int height = (int)Math.Round((sceneObject.Height * scale_) * cell);
+            int width = (int)Math.Round((sceneObject.BoundPosition.Width) * cell);
+            int height = (int)Math.Round((sceneObject.BoundPosition.Height ) * cell);
 
             if (sceneObject.IsBatch && !batching)
             {
@@ -485,7 +496,7 @@ namespace Dungeon.Monogame
                     var child = childrens.ElementAtOrDefault(i);
                     if (child != null)
                     {
-                        DrawSceneObject(child, x, y, batching, force);
+                        DrawSceneObject(child, x, y, batching, force, parentScale: sceneObject.Scale);
                     }
                 }
             }
