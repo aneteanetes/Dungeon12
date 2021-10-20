@@ -385,15 +385,13 @@ namespace Dungeon.Monogame
             if (scale_ == 0)
                 scale_ = 1;
 
-            var computed = sceneObject.ComputedPosition;
+            var x = 0d;
+            var y = 0d;
 
-            var x = xParent + (float)sceneObject.Left * scale_;
-            var y = yParent + (float)sceneObject.Top * scale_;
-
-            if (batching)
+            if (!batching)
             {
-                x = 0d;
-                y = 0d;
+                x = xParent + (float)sceneObject.Left * scale_;
+                y = yParent + (float)sceneObject.Top * scale_;
             }
 
             DrawLight(sceneObject, x, y);
