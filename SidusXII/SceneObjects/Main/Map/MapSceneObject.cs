@@ -28,7 +28,7 @@ namespace SidusXII.SceneObjects.Main.Map
         {
             Width = 1600;
             Height = 710;
-            Scale = .3;
+            Scale = .5;
 
             BuildMap();
             SetCameraPosition();
@@ -116,11 +116,11 @@ namespace SidusXII.SceneObjects.Main.Map
         {
             if (mouseWheelEnum == MouseWheelEnum.Down)
             {
-                YScroll++;
+                //Scale -= .1;
             }
             else
             {
-                YScroll--;
+                //Scale += .1;
             }
 
             base.MouseWheel(mouseWheelEnum);

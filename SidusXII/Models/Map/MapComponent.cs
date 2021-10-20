@@ -55,7 +55,8 @@ namespace SidusXII.Models.Map
                 var cell = new MapCellComponent
                 {
                     X = gameX,
-                    Y = gameY
+                    Y = gameY,
+                    Cells = Cells
                 };
 
                 var tiles = TiledMap.Layers.Select(x => x.Tiles[i]);
@@ -116,10 +117,10 @@ namespace SidusXII.Models.Map
             {
                 var cell = visible.Value;
 
-                cell.InitAround(Cells);
+                cell.InitAround();
                 cell.Around.ForEach(a =>
                 {
-                    a.InitAround(Cells);
+                    a.InitAround();
                     a.CreateFog();
                 });
             }

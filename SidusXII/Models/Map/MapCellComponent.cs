@@ -41,25 +41,48 @@ namespace SidusXII.Models.Map
 
         public MapCellComponent TopRight { get; private set; }
 
-        Dictionary<string, MapCellComponent> Cells;
+        public Dictionary<string, MapCellComponent> Cells { get; set; }
 
         private static string Index(int x, int y) => $"{x},{y}";
 
-        public void InitAround(Dictionary<string, MapCellComponent> cells)
+        public void InitAround()
         {
             var x = this.X;
             var y = this.Y;
 
-            Cells = cells;
             Cell = Cells[Index(x, y)];
 
-            Left = Cells[Index(x - 1, y)];
-            TopLeft = Cells[Index(x - 1, y - 1)];
-            BottomLeft = Cells[Index(x - 1, y + 1)];
+            try
+            {
+                Left = Cells[Index(x - 1, y)];
+            }
+            catch { }
+            try
+            {
+                TopLeft = Cells[Index(x - 1, y - 1)];
+            }
+            catch { }
+            try
+            {
+                BottomLeft = Cells[Index(x - 1, y + 1)];
+            }
+            catch { }
+            try
+            {
 
-            Right = Cells[Index(x + 1, y)];
-            TopRight = Cells[Index(x + 1, y - 1)];
-            BottomRight = Cells[Index(x, y + 1)];
+                Right = Cells[Index(x + 1, y)];
+            }
+            catch { }
+            try
+            {
+                TopRight = Cells[Index(x + 1, y - 1)];
+            }
+            catch { }
+            try
+            {
+                BottomRight = Cells[Index(x, y + 1)];
+            }
+            catch { }
 
             Around = new List<MapCellComponent>()
             {
@@ -83,9 +106,10 @@ namespace SidusXII.Models.Map
             //{
             //    fogtile = "fogofwar_righttop.png";
             //}
+
             if (TopRight.Visible)
             {
-                fogtile = "fogofwar_lefttop.png";
+                //fogtile = "fogofwar_lefttop.png";
             }
 
             if (fogtile != "")
