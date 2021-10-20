@@ -6,6 +6,8 @@ using Dungeon.Types;
 using SidusXII.Models.Map;
 using SidusXII.SceneObjects.GUI;
 using System;
+using System.Diagnostics;
+using System.Linq;
 
 namespace SidusXII.SceneObjects.Main.Map
 {
@@ -62,8 +64,21 @@ namespace SidusXII.SceneObjects.Main.Map
                 this.AddChild(playerCellselector);
             }
 
+            ReInitFog();
+        }
+
+        private void ReInitFog()
+        {
+            if (Fog != null)
+            {
+                this.RemoveChild(Fog);
+            }
+
             if (!Component.Visible)
             {
+                if (Component.FogPartsForDelete.Count > 0)
+                    Debugger.Break();
+
                 Fog = new Fogofwar(Component)
                 {
                     Visible = !Component.Visible,
@@ -140,11 +155,30 @@ namespace SidusXII.SceneObjects.Main.Map
 
             if (startedClick == this && selector.Visible)
             {
-                this.Layer.AddObject(new PopupString(MapPosition.ToString().AsDrawText(), this.ComputedPosition.Pos, speed: 0.5)
-                {
-                    Time = TimeSpan.FromSeconds(0.7),
-                });
+                ClickProcess();
                 startedClick = null;
+            }
+        }
+
+        private void ClickProcess()
+        {
+            this.Layer.AddObject(new PopupString(MapPosition.ToString().AsDrawText(), this.ComputedPosition.Pos, speed: 0.5)
+            {
+                Time = TimeSpan.FromSeconds(0.7),
+            });
+
+            if (this.Fog != null)
+            {
+                this.Component.Visible = true;
+                ReInitFog();
+
+                this.Component.InitAround();
+                this.Component.Around.ForEach(a =>
+                {
+                    a.InitAround();
+                    a.ClearFog();
+                    a.SceneObject.As<MapCellSceneObject>().ReInitFog();
+                });
             }
         }
 
@@ -164,6 +198,8 @@ namespace SidusXII.SceneObjects.Main.Map
 
             public ImageObject RB { get; set; } = new ImageObject("GUI/Parts/fog/parts/rb.png".AsmImg()) { CacheAvailable = false };
 
+            public ImageObject C { get; set; } = new ImageObject("GUI/Parts/fog/parts/c.png".AsmImg()) { CacheAvailable = false };
+
             public Fogofwar(MapCellComponent mapCellComponent)
             {
                 if (mapCellComponent.FogPartsForDelete.IsNotEmpty())
@@ -178,6 +214,11 @@ namespace SidusXII.SceneObjects.Main.Map
                     IsDefault = false;
 
                     mapCellComponent.FogPartsForDelete.ForEach(Clear);
+
+                    if (mapCellComponent.FogPartsForDelete.Distinct().Count() == 6)
+                    {
+                        this.AddChild(C);
+                    }
                 }
                 else
                 {

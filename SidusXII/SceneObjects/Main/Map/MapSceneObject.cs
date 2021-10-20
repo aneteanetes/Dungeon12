@@ -26,8 +26,8 @@ namespace SidusXII.SceneObjects.Main.Map
 
         public MapSceneObject(MapComponent component) : base(component, true)
         {
-            Width = 1600;
-            Height = 710;
+            Width = Global.Resolution.Width;
+            Height = Global.Resolution.Height;
             Scale = .5;
 
             BuildMap();
