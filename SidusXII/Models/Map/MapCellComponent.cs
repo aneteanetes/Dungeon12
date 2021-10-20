@@ -48,10 +48,8 @@ namespace SidusXII.Models.Map
 
         public void InitAround()
         {
-            SetCellOld();
-            return;
-            //if (Around.Count > 0)
-            //    return;
+            if (Around.Count > 0)
+                return;
 
             var x = this.X;
             var y = this.Y;
@@ -66,18 +64,6 @@ namespace SidusXII.Models.Map
             setCell(MapCellPart.R);
             setCell(MapCellPart.RT);
             setCell(MapCellPart.RB);
-
-
-
-            Around = new List<MapCellComponent>()
-            {
-                L,
-                LT,
-                LB,
-                R,
-                RT,
-                RB
-            };
 
         }
 
@@ -123,12 +109,15 @@ namespace SidusXII.Models.Map
             catch { }
         }
 
-        private Func<MapCellPart, bool> SetCellXY(int x, int y)
+        private Func<MapCellPart, bool> SetCellXY(int xVal, int yVal)
         {
-            var even = y % 2 == 0;
+            var even = yVal % 2 == 0;
 
             return (MapCellPart part) =>
             {
+                var x = xVal;
+                var y = yVal;
+
                 switch (part)
                 {
                     case MapCellPart.L:
@@ -150,12 +139,12 @@ namespace SidusXII.Models.Map
                         break;
 
                     case MapCellPart.RT:
-                        x -= (even ? 0 : 1);
+                        x += (even ? 0 : 1);
                         y -= 1;
                         break;
 
                     case MapCellPart.RB:
-                        x -= (even ? 0 : 1);
+                        x += (even ? 0 : 1);
                         y += 1;
                         break;
 
@@ -168,36 +157,7 @@ namespace SidusXII.Models.Map
                 {
                     var cell = Cells[indx];
                     this.SetPropertyExpr(part.ToString(), cell);
-
-                    //switch (part)
-                    //{
-                    //    case MapCellPart.L:
-                    //        L = cell;
-                    //        Around.Add(L);
-                    //        break;
-                    //    case MapCellPart.LT:
-                    //        LT = cell;
-                    //        Around.Add(LT);
-                    //        break;
-                    //    case MapCellPart.LB:
-                    //        LB = cell;
-                    //        Around.Add(LB);
-                    //        break;
-                    //    case MapCellPart.R:
-                    //        R = cell;
-                    //        Around.Add(R);
-                    //        break;
-                    //    case MapCellPart.RT:
-                    //        RT = cell;
-                    //        Around.Add(RT);
-                    //        break;
-                    //    case MapCellPart.RB:
-                    //        RB = cell;
-                    //        Around.Add(RB);
-                    //        break;
-                    //    default:
-                    //        break;
-                    //}
+                    this.Around.Add(cell);
                 }
 
                 return true;

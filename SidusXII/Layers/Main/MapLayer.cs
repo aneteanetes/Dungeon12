@@ -21,9 +21,9 @@ namespace SidusXII.Layers.Main
             Height = 710;
         }
 
-        public override double Width => 1600;
+        public override double Width => Global.Resolution.Width;
 
-        public override double Height => 710;
+        public override double Height => Global.Resolution.Height;
 
         bool movePossible = false;
 

@@ -76,9 +76,6 @@ namespace SidusXII.SceneObjects.Main.Map
 
             if (!Component.Visible)
             {
-                if (Component.FogPartsForDelete.Count > 0)
-                    Debugger.Break();
-
                 Fog = new Fogofwar(Component)
                 {
                     Visible = !Component.Visible,
