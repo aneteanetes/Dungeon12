@@ -17,7 +17,7 @@ namespace SidusXII.Models.Map
 
         public bool Visible { get; set; }
 
-        public string Fog { get; set; }
+        public List<MapCellPart> FogPartsForDelete = new List<MapCellPart>();
 
         public int X { get; set; }
 
@@ -29,17 +29,17 @@ namespace SidusXII.Models.Map
 
         public List<MapCellComponent> Around = new List<MapCellComponent>();
 
-        public MapCellComponent BottomLeft { get; private set; }
-
-        public MapCellComponent BottomRight { get; private set; }
-
         public MapCellComponent Left { get; private set; }
+
+        public MapCellComponent LeftTop { get; private set; }
+
+        public MapCellComponent LeftBottom { get; private set; }
 
         public MapCellComponent Right { get; private set; }
 
-        public MapCellComponent TopLeft { get; private set; }
+        public MapCellComponent RightTop { get; private set; }
 
-        public MapCellComponent TopRight { get; private set; }
+        public MapCellComponent RightBottom { get; private set; }
 
         public Dictionary<string, MapCellComponent> Cells { get; set; }
 
@@ -50,6 +50,8 @@ namespace SidusXII.Models.Map
             var x = this.X;
             var y = this.Y;
 
+            var even = y % 2 == 0;
+
             Cell = Cells[Index(x, y)];
 
             try
@@ -59,12 +61,12 @@ namespace SidusXII.Models.Map
             catch { }
             try
             {
-                TopLeft = Cells[Index(x - 1, y - 1)];
+                LeftTop = Cells[Index(x - (even ? 1 : 0), y - 1)];
             }
             catch { }
             try
             {
-                BottomLeft = Cells[Index(x - 1, y + 1)];
+                LeftBottom = Cells[Index(x - (even ? 1 : 0), y + 1)];
             }
             catch { }
             try
@@ -75,45 +77,52 @@ namespace SidusXII.Models.Map
             catch { }
             try
             {
-                TopRight = Cells[Index(x + 1, y - 1)];
+                RightTop = Cells[Index(x + (even ? 0 : 1), y - 1)];
             }
             catch { }
             try
             {
-                BottomRight = Cells[Index(x, y + 1)];
+                RightBottom = Cells[Index(x + (even ? 0 : 1), y + 1)];
             }
             catch { }
 
             Around = new List<MapCellComponent>()
             {
                 Left,
-                TopLeft,
-                BottomLeft,
+                LeftTop,
+                LeftBottom,
                 Right,
-                TopRight,
-                BottomRight
+                RightTop,
+                RightBottom
             };
         }
 
-        public void CreateFog()
+        public void ClearFog()
         {
-            //if (!NearHaveNotVisible)
-            //    return;
-
-            string fogtile = "";
-
-            //if (TopLeft.Visible)
-            //{
-            //    fogtile = "fogofwar_righttop.png";
-            //}
-
-            if (TopRight.Visible)
+            if (Left.Visible)
             {
-                //fogtile = "fogofwar_lefttop.png";
+                this.FogPartsForDelete.Add(MapCellPart.L);
             }
-
-            if (fogtile != "")
-                this.Fog = fogtile;
+            if (LeftTop.Visible)
+            {
+                this.FogPartsForDelete.Add(MapCellPart.LT);
+            }
+            if (LeftBottom.Visible)
+            {
+                this.FogPartsForDelete.Add(MapCellPart.LB);
+            }
+            if (Right.Visible)
+            {
+                this.FogPartsForDelete.Add(MapCellPart.R);
+            }
+            if (RightTop.Visible)
+            {
+                this.FogPartsForDelete.Add(MapCellPart.RT);
+            }
+            if (RightBottom.Visible)
+            {
+                this.FogPartsForDelete.Add(MapCellPart.RB);
+            }
         }
 
         public bool NearHaveNotVisible => Around.Any(x => !x.Visible);

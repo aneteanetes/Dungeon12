@@ -121,7 +121,7 @@ namespace SidusXII.Models.Map
                 cell.Around.ForEach(a =>
                 {
                     a.InitAround();
-                    a.CreateFog();
+                    a.ClearFog();
                 });
             }
         }

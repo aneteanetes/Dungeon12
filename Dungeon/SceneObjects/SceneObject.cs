@@ -391,11 +391,18 @@
 
                     var scale_ = Scale == default ? 1 : Scale;
 
-                    _computedPosition = new Rectangle
+                    if (_computedPosition != null)
                     {
-                        X = parentX + (float)Left * scale_,
-                        Y = parentY + (float)Top * scale_
-                    };
+
+                        _computedPosition.X = parentX + (float)Left * scale_;
+                        _computedPosition.Y = parentY + (float)Top * scale_;
+                    }
+                    else
+                        _computedPosition = new Rectangle
+                        {
+                            X = parentX + (float)Left * scale_,
+                            Y = parentY + (float)Top * scale_
+                        };
                 }
 
                 return _computedPosition;

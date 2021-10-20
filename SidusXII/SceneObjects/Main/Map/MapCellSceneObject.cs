@@ -18,7 +18,7 @@ namespace SidusXII.SceneObjects.Main.Map
 
         BatchTile Batch;
 
-        public ImageObject Fog;
+        Fogofwar Fog;
 
         public Point MapPosition { get; set; }
 
@@ -62,16 +62,16 @@ namespace SidusXII.SceneObjects.Main.Map
                 this.AddChild(playerCellselector);
             }
 
-            Fog = new ImageObject("GUI/Parts/fogofwar.png".AsmImg())
+            if (!Component.Visible)
             {
-                Visible = !Component.Visible,
-                CacheAvailable=false
-            };
-            if (Component.Fog != default)
-            {
-                Fog.Image = $"GUI/Parts/fog/{Component.Fog}".AsmImg();
+                Fog = new Fogofwar(Component)
+                {
+                    Visible = !Component.Visible,
+                    CacheAvailable = false,
+                };
+
+                this.AddChild(Fog);
             }
-            this.AddChild(Fog);
         }
 
         private bool playercell = false;
@@ -98,13 +98,13 @@ namespace SidusXII.SceneObjects.Main.Map
 
         public void Focus(bool fromDepth)
         {
-            if (!Fog.Visible)
+            if (Fog == default || !Fog.Visible || !Fog.IsDefault)
                 selector.Visible = true;
         }
 
         public void Unfocus(bool fromDepth)
         {
-            if (!Fog.Visible)
+            if (Fog == default || !Fog.Visible || !Fog.IsDefault)
                 selector.Visible = false;
         }
 
@@ -145,6 +145,50 @@ namespace SidusXII.SceneObjects.Main.Map
                     Time = TimeSpan.FromSeconds(0.7),
                 });
                 startedClick = null;
+            }
+        }
+
+        private class Fogofwar : EmptySceneObject
+        {
+            public bool IsDefault { get; set; } = true;
+
+            public ImageObject L { get; set; } = new ImageObject("GUI/Parts/fog/parts/l.png".AsmImg()) { CacheAvailable = false };
+
+            public ImageObject LT { get; set; } = new ImageObject("GUI/Parts/fog/parts/lt.png".AsmImg()) { CacheAvailable = false };
+
+            public ImageObject LB { get; set; } = new ImageObject("GUI/Parts/fog/parts/lb.png".AsmImg()) { CacheAvailable = false };
+
+            public ImageObject R { get; set; } = new ImageObject("GUI/Parts/fog/parts/r.png".AsmImg()) { CacheAvailable = false };
+
+            public ImageObject RT { get; set; } = new ImageObject("GUI/Parts/fog/parts/rt.png".AsmImg()) { CacheAvailable = false };
+
+            public ImageObject RB { get; set; } = new ImageObject("GUI/Parts/fog/parts/rb.png".AsmImg()) { CacheAvailable = false };
+
+            public Fogofwar(MapCellComponent mapCellComponent)
+            {
+                if (mapCellComponent.FogPartsForDelete.IsNotEmpty())
+                {
+                    this.AddChild(L);
+                    this.AddChild(LT);
+                    this.AddChild(LB);
+                    this.AddChild(R);
+                    this.AddChild(RT);
+                    this.AddChild(RB);
+
+                    IsDefault = false;
+
+                    mapCellComponent.FogPartsForDelete.ForEach(Clear);
+                }
+                else
+                {
+                    this.AddChild(new ImageObject("GUI/Parts/fogofwar.png".AsmImg()) { CacheAvailable = false });
+                }
+            }
+
+            public void Clear(MapCellPart part)
+            {
+                var fogPart = this.GetPropertyExpr<ImageObject>(part.ToString());
+                this.RemoveChild(fogPart);
             }
         }
 

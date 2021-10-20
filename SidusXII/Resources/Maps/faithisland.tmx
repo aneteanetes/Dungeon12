@@ -1317,7 +1317,7 @@
    <image width="210" height="210" source="../../../../../../Desktop/HK-Traveling Through Dangerous Scenery/HK-Traveling Through Dangerous Scenery/HK-Dangerous Utilities/Highway/Road/hk_highway_037.png"/>
   </tile>
  </tileset>
- <layer id="11" name="`[SPAWN]`" width="17" height="21">
+ <layer id="11" name="`[SPAWN]`" width="17" height="21" visible="0">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -1367,7 +1367,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="8" name="floor" width="17" height="21">
+ <layer id="8" name="floor" width="17" height="21" visible="0">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -1392,7 +1392,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="4" name="city" width="17" height="21">
+ <layer id="4" name="city" width="17" height="21" visible="0">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -1417,7 +1417,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="3" name="back" width="17" height="21">
+ <layer id="3" name="back" width="17" height="21" visible="0">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -1442,7 +1442,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="2" name="homes" width="17" height="21">
+ <layer id="2" name="homes" width="17" height="21" visible="0">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -1467,7 +1467,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="5" name="walls" width="17" height="21">
+ <layer id="5" name="walls" width="17" height="21" visible="0">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,141,140,140,140,140,140,140,140,140,140,140,141,0,0,0,
@@ -1492,7 +1492,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="9" name="roads" width="17" height="21">
+ <layer id="9" name="roads" width="17" height="21" visible="0">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,2147484176,521,0,0,0,0,
@@ -1517,7 +1517,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="7" name="walls2" width="17" height="21">
+ <layer id="7" name="walls2" width="17" height="21" visible="0">
   <data encoding="csv">
 374,374,374,374,374,374,374,374,374,374,374,374,374,374,374,374,374,
 374,374,3221225837,1073742167,1073742188,1073742193,1073742166,1073742167,1073742188,1073742167,1073742188,1073742166,2147483993,372,374,374,374,

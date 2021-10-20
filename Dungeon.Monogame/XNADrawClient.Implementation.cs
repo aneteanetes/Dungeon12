@@ -378,13 +378,13 @@ namespace Dungeon.Monogame
 
             sceneObject.Drawed = true;
 
-            var y = sceneObject.ComputedPosition.Y * cell;// + yParent;
-            var x = sceneObject.ComputedPosition.X * cell;// + xParent;
+            var x = 0d;
+            var y = 0d;
 
-            if(batching)
+            if (!batching)
             {
-                x = 0;
-                y = 0;
+                y = sceneObject.ComputedPosition.Y * cell;// + yParent;
+                x = sceneObject.ComputedPosition.X * cell;// + xParent;
             }
 
             DrawLight(sceneObject, x, y);
