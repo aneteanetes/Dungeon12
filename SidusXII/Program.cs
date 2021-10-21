@@ -22,8 +22,8 @@ namespace SidusXII
             //ResourceLoader.NotDisposingResources = true;
             //ResourceLoader.CacheImagesAndMasks = false;
 
-            GameEnum.Init();
 #endif      
+            GameEnum.Init();
             var client = new MonogameClient(new MonogameClientSettings()
             {
                 OriginWidthPixel=1600,
