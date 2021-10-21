@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace Dungeon.Localization
 {
@@ -27,7 +28,7 @@ namespace Dungeon.Localization
 
         protected string DoPath(string lang)
         {
-            var root = DungeonGlobal.BuildLocation;
+            var root = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             var path = Path.Combine(root, ___RelativeLocalizationFilesPath, lang + ".json");
 
             var dir = Path.GetDirectoryName(path);
