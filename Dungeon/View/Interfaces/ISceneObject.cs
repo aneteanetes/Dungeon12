@@ -18,6 +18,8 @@
         /// </summary>
         ISceneLayer Layer { get; set; }
 
+        bool HighLevelComponent { get; set; }
+
         bool Shadow { get; set; }
 
         /// <summary>

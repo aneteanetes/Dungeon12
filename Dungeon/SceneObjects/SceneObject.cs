@@ -665,5 +665,7 @@
         public ITexture Texture { get; set; }
 
         public virtual bool PerPixelCollision { get; set; }
+
+        public bool HighLevelComponent { get; set; }
     }
 }

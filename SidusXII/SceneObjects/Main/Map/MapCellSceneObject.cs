@@ -24,13 +24,14 @@ namespace SidusXII.SceneObjects.Main.Map
 
         public Point MapPosition { get; set; }
 
+        public override bool DrawOutOfSight => false;
+
         public MapCellSceneObject(MapCellComponent mapCell):base(mapCell,true)
         {
             Batch = new BatchTile(this)
             {
                 Width = MapSceneObject.TileSize,
                 Height = MapSceneObject.TileSize,
-                DrawOutOfSight = true,
                 IsBatch = true,
                 PerPixelCollision = true,
                 CacheAvailable = true,

@@ -397,10 +397,8 @@ namespace Dungeon.Monogame
             DrawLight(sceneObject, x, y);
             DrawEffects(sceneObject, x, y);
 
-            //int width = (int)Math.Round((sceneObject.Width * scale_) * cell);
-            //int height = (int)Math.Round((sceneObject.Height * scale_) * cell);
-            int width = (int)Math.Round((sceneObject.BoundPosition.Width) * cell);
-            int height = (int)Math.Round((sceneObject.BoundPosition.Height ) * cell);
+            int width = (int)Math.Round((sceneObject.Width * scale_) * cell);
+            int height = (int)Math.Round((sceneObject.Height * scale_) * cell);
 
             if (sceneObject.IsBatch && !batching)
             {

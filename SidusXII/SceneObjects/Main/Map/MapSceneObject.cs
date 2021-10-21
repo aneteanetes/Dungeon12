@@ -165,6 +165,7 @@ namespace SidusXII.SceneObjects.Main.Map
                     Height = TileSize,
                     DrawOutOfSight = true,
                     MapPosition = new Point(gamex, gamey),
+                    HighLevelComponent=true,
 
 
                     Left = 0 /*+ 400*/,

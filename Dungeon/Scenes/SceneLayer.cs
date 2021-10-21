@@ -59,6 +59,7 @@ namespace Dungeon.Scenes
 
         public void AddObject(ISceneObject sceneObject)
         {
+            sceneObject.HighLevelComponent = true;
             if (sceneObject.ControlBinding == null)
             {
                 sceneObject.ControlBinding += this.AddControl;
@@ -171,7 +172,7 @@ namespace Dungeon.Scenes
             var handlers = elements
                 .Distinct()
                 .Where(c => c.Visible)
-                .Where(c => c.DrawOutOfSight || Owner.sceneManager.DrawClient.InCamera(c))
+                .Where(c => c.DrawOutOfSight || (c.HighLevelComponent && Owner.sceneManager.DrawClient.InCamera(c)))
                 .Where(x =>
                 {
                     bool handle = x.CanHandle.Contains(handleEvent);
