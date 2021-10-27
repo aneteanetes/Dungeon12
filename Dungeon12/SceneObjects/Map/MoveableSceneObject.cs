@@ -88,7 +88,7 @@
                 if (moveDistance != 0)
                     return;
 
-                if (RandomDungeon.Chance(moveable.WalkChance))
+                if (Dungeon.Random.Chance(moveable.WalkChance))
                 {
                     move = Direction.Idle;
 
@@ -149,7 +149,7 @@
             //if (moveDistance != 0)
             //    return;
 
-            if (RandomDungeon.Chance(moveable.WalkChance))
+            if (Dungeon.Random.Chance(moveable.WalkChance))
             {
                 move = Direction.Idle;
 

@@ -22,7 +22,7 @@ namespace SidusXII.Scenes.Game
         {
             var map = this.CreateLayer<MapLayer>("map");
             //map.Top = 33;
-            map.AddObject(new MapSceneObject(Global.Game.Location) {/* Top = 33, */});
+            map.AddObject(new MapSceneObject(Global.Game.Map) {/* Top = 33, */});
             //map.AddObject(new ImageObject("GUI/Planes/maphd_border.png".AsmImg()) { Width = 1600, Height = 710 });
 
 

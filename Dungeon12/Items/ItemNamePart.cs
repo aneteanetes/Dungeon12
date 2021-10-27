@@ -36,6 +36,6 @@ namespace Dungeon12.Items
             _variations = variations;
         }
 
-        public string Value => _variations[RandomDungeon.Range(0, _variations.Length - 1)];
+        public string Value => _variations[Dungeon.Random.Range(0, _variations.Length - 1)];
     }
 }

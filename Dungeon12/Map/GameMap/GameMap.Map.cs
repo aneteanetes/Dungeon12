@@ -223,8 +223,8 @@
 
         private double RandomizePosition(RandomizePositionTry @try = null)
         {
-            var dir = RandomDungeon.Next(0, 2) == 0 ? 1 : -1;
-            var offset = RandomDungeon.Next(0, 3);
+            var dir = Random.Next(0, 2) == 0 ? 1 : -1;
+            var offset = Random.Next(0, 3);
 
             if (offset == 1)
                 return 0;

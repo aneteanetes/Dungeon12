@@ -36,12 +36,12 @@ namespace Dungeon12.Loot
 
             var container = new LootContainer()
             {
-                Gold = RandomDungeon.Range(lvl, lvl * 10)
+                Gold = Random.Range(lvl, lvl * 10)
             };
 
             foreach (var lootDrop in LootDrops)
             {
-                if (RandomDungeon.Chance(lootDrop.Chance))
+                if (Random.Chance(lootDrop.Chance))
                 {
                     var loot = lootDrop.Generator.Generate();
                     if (loot != default)
@@ -51,9 +51,9 @@ namespace Dungeon12.Loot
                 }
             }
 
-            if(RandomDungeon.Chance(20))
+            if(Random.Chance(20))
             {
-                container.Items.Add(new Potion(RandomDungeon.Range(Global.GameState.Character.Level * 5, Global.GameState.Character.Level * 10)));
+                container.Items.Add(new Potion(Random.Range(Global.GameState.Character.Level * 5, Global.GameState.Character.Level * 10)));
             }
 
             return container;

@@ -175,9 +175,9 @@ namespace SidusXII.Scenes.MainMenu
         {
             Global.Game = new SidusXII.Game
             {
-                Location = MapComponent.Load("Maps/faithisland.tmx")
+                Map = MapComponent.Load("Maps/faithisland.tmx")
             };
-            Global.Game.Location.Init();
+            Global.Game.Map.Init();
 
             this.Switch<MainScene>();
         }

@@ -31,7 +31,7 @@
             }
         }
 
-        public int Random() => RandomDungeon.Next(From, To);
+        public int Random() => Dungeon.Random.Next(From, To);
 
         public int Mid() => (From + To) / 2;
     }

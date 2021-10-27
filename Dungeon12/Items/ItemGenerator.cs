@@ -50,7 +50,7 @@ namespace Dungeon12.Items
 
             foreach (var statopt in statopts)
             {
-                if (RandomDungeon.Chance(statopt.Chance))
+                if (Dungeon.Random.Chance(statopt.Chance))
                 {
                     switch (statopt.Stat)
                     {
@@ -78,7 +78,7 @@ namespace Dungeon12.Items
                             });
                             break;
                         case Stats.Class:
-                            var statEqip = additionalEquipments[RandomDungeon.Range(0, Global.GameState.Equipment.AdditionalEquipments.Count - 1)].DeepClone();
+                            var statEqip = additionalEquipments[Dungeon.Random.Range(0, Global.GameState.Equipment.AdditionalEquipments.Count - 1)].DeepClone();
                             var values = statEqip.StatValues.Values;
                             statEqip.StatProperties.ForEach((x, i) =>
                             {
@@ -106,7 +106,7 @@ namespace Dungeon12.Items
 
             item.BaseStats = stats;
             item.Name = $"{item.Rare.ToDisplay()} {item.Kind.ToDisplay()}";
-            item.Tileset = $"Items/{item.Kind.ToString()}s/{RandomDungeon.Range(1, 3)}.gif".AsmImg();
+            item.Tileset = $"Items/{item.Kind.ToString()}s/{Dungeon.Random.Range(1, 3)}.gif".AsmImg();
 
             return item;
         }
@@ -116,7 +116,7 @@ namespace Dungeon12.Items
             var generations = GetGeneratorsFromRarity();
             foreach (var generator in generations.OrderBy(g => g.Chance))
             {
-                if (RandomDungeon.Chance(generator.Chance))
+                if (Dungeon.Random.Chance(generator.Chance))
                 {
                     return generator;
                 }

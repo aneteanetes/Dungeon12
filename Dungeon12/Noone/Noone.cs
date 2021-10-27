@@ -173,7 +173,7 @@
                 return amount;
             }
 
-            if (RandomDungeon.Chance(this.Block))
+            if (Dungeon.Random.Chance(this.Block))
             {
                 var block = (long)Math.Floor(amount * (this.Block / 100d));
 

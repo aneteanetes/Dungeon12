@@ -1,7 +1,9 @@
 ﻿using Dungeon;
 using Dungeon.GameObjects;
+using Dungeon.Types;
 using Dungeon.View.Enums;
 using SidusXII.SceneObjects.Main.Map;
+using SidusXII.SceneObjects.Main.Map.Cell;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +12,7 @@ using System.Linq;
 namespace SidusXII.Models.Map
 {
     [DebuggerDisplay("{X},{Y}")]
-    public class MapCellComponent : GameComponent
+    public class MapCellComponent : GameComponent<MapCellSceneObject>
     {
         public List<object> Objects { get; set; } = new List<object>();
 
@@ -18,13 +20,17 @@ namespace SidusXII.Models.Map
 
         public bool Visible { get; set; }
 
+        public bool Collision { get; set; }
+
         public List<MapCellPart> FogPartsForDelete { get; set; } = new List<MapCellPart>();
 
         public int X { get; set; }
 
         public int Y { get; set; }
 
-        public bool Spawn { get; set; }
+        public bool Player { get; set; }
+
+        public Point AsPoint() => new Point(X, Y);
 
         public MapCellComponent Cell { get; private set; }
 
@@ -65,48 +71,6 @@ namespace SidusXII.Models.Map
             setCell(MapCellPart.RT);
             setCell(MapCellPart.RB);
 
-        }
-
-        private void SetCellOld()
-        {
-            var x = this.X;
-            var y = this.Y;
-
-            var even = y % 2 == 0;
-
-            Cell = Cells[Index(x, y)];
-
-            try
-            {
-                L = Cells[Index(x - 1, y)];
-            }
-            catch { }
-            try
-            {
-                LT = Cells[Index(x - (even ? 1 : 0), y - 1)];
-            }
-            catch { }
-            try
-            {
-                LB = Cells[Index(x - (even ? 1 : 0), y + 1)];
-            }
-            catch { }
-            try
-            {
-
-                R = Cells[Index(x + 1, y)];
-            }
-            catch { }
-            try
-            {
-                RT = Cells[Index(x + (even ? 0 : 1), y - 1)];
-            }
-            catch { }
-            try
-            {
-                RB = Cells[Index(x + (even ? 0 : 1), y + 1)];
-            }
-            catch { }
         }
 
         private Func<MapCellPart, bool> SetCellXY(int xVal, int yVal)
@@ -164,6 +128,8 @@ namespace SidusXII.Models.Map
             };
         }
 
+        public bool InFog => FogPartsForDelete.Count > 0;
+
         public void ClearFog()
         {
             if (L?.Visible ?? false)
@@ -193,6 +159,25 @@ namespace SidusXII.Models.Map
         }
 
         public bool NearHaveNotVisible => Around.Any(x => !x.Visible);
+
+        public void SetPathOut(MapCellPart dirCell)
+        {
+            this.View.SetEdge(dirCell);
+            // при выходе с клетки мы как правило ничего больше показывать не должны
+        }
+
+        public void ClearPath()
+        {
+            this.View.ClearEdges();
+        }
+
+        public void SetPathIn(MapCellPart dirCell)
+        {
+            this.View.SetEdge(dirCell);
+            // т.к. это 100% клетка НА КОТОРУЮ нам надо попасть,
+            // надо показать сколько опыта и прочей хуйни мы получим
+            //show exp etc images
+        }
     }
 
     public class TileInfo

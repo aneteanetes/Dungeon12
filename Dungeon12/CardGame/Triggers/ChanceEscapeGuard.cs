@@ -10,7 +10,7 @@ namespace Dungeon12.CardGame.Triggers
 
         public override void Activate(Card card, CardGamePlayer enemy, CardGamePlayer player, AreaCard areaCard)
         {
-            if (RandomDungeon.Chance(20))
+            if (Random.Chance(20))
             {
                 if (card is GuardCard guardCard)
                 {

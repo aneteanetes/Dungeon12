@@ -10,6 +10,7 @@ using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using SidusXII.Models.Map;
 using SidusXII.SceneObjects.GUI;
+using SidusXII.SceneObjects.Main.Map.Cell;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace SidusXII.SceneObjects.Main.Map
         {
             Width = Global.Resolution.Width;
             Height = Global.Resolution.Height;
-            Scale = .5;
+            Scale = .4;
 
             BuildMap();
             SetCameraPosition();
@@ -133,7 +134,7 @@ namespace SidusXII.SceneObjects.Main.Map
 
         private void SetCameraPosition()
         {
-            var cellcomp = Component.Cells[Component.Location.X + "," + Component.Location.Y];
+            var cellcomp = Component.Cells[Component.PlayerLocation.X + "," + Component.PlayerLocation.Y];
             var cellsceneobj = cellcomp.SceneObject;
 
             this.Top -= cellsceneobj.Top;
@@ -142,7 +143,7 @@ namespace SidusXII.SceneObjects.Main.Map
             this.Top += 710 * .9;
             this.Left += 1600 * .9;
 
-            CursorPosition = Component.Location.Copy();
+            CursorPosition = Component.PlayerLocation.AsPoint();
         }
 
         private void BuildMap()

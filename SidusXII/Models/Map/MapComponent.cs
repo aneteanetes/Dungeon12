@@ -6,6 +6,7 @@ using LiteDB;
 using Newtonsoft.Json;
 using SidusXII.SceneObjects.Main.Map;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace SidusXII.Models.Map
@@ -14,8 +15,9 @@ namespace SidusXII.Models.Map
     {
         public const string SpawnLayerName = "`[SPAWN]`";
         public const string VisibleLayerName = "`[VISIBLE]`";
+        public const string CollisionLayerName = "`[COLLISION]`";
 
-        public Point Location { get; set; } = new Point();
+        public MapCellComponent PlayerLocation { get; set; }
 
         /// <summary>
         /// X,Y
@@ -65,11 +67,16 @@ namespace SidusXII.Models.Map
                 {
                     if (tile.FileName.IsNotEmpty())
                     {
-                        if (tile.Layer.name == MapComponent.SpawnLayerName && Location.IsDefault)
+                        if (tile.Layer.name == MapComponent.SpawnLayerName && PlayerLocation==null)
                         {
-                            Location = new Point(gameX, gameY);
-                            cell.Spawn = true;
+                            PlayerLocation = cell;
+                            cell.Player = true;
                             continue;
+                        }
+
+                        if(tile.Layer.name== MapComponent.CollisionLayerName)
+                        {
+                            cell.
                         }
 
                         if (tile.Layer.name == MapComponent.VisibleLayerName)
@@ -107,6 +114,11 @@ namespace SidusXII.Models.Map
                 }
             }
 
+            Cells.ForEach(c =>
+            {
+                c.Value.InitAround();
+            });
+
             SetNearFog();
         }
 
@@ -117,13 +129,76 @@ namespace SidusXII.Models.Map
             {
                 var cell = visible.Value;
 
-                cell.InitAround();
+                //cell.InitAround();
                 cell.Around.ForEach(a =>
                 {
-                    a.InitAround();
+                    //a.InitAround();
                     a.ClearFog();
                 });
             }
+        }
+
+        public void Move(MapCellComponent cell)
+        {
+            if (cell.Player)
+                return;
+
+            ClearPath();
+
+            PlayerLocation.Player = false;
+            cell.Player = true;
+            PlayerLocation = cell;
+        }
+
+        private List<MapCellComponent> MovePath = new List<MapCellComponent>();
+
+        public void FindPath(MapCellComponent cell)
+        {
+            ClearPath();
+            if (cell == PlayerLocation)
+                return;
+
+            MovePath.Clear();
+
+            var next = FindNextStep(PlayerLocation, ref cell);
+            MovePath.Add(next);
+
+            while (next != cell)
+            {
+                next = FindNextStep(next, ref cell);
+                MovePath.Add(next);
+            }
+        }
+
+        public void ClearPath()
+        {
+            PlayerLocation.ClearPath();
+            for (int i = 0; i < MovePath.Count; i++)
+            {
+                MovePath[i].ClearPath();
+            }
+            MovePath.Clear();
+        }
+
+        private MapCellComponent FindNextStep(MapCellComponent start, ref MapCellComponent destination)
+        {
+            var fromCoords = start.AsPoint();
+            var toCoords = destination.AsPoint();
+            var cellDir = fromCoords
+                .DetectDirection(toCoords)
+                .ToMapCell(fromCoords, toCoords);
+
+            var next = start.GetPropertyExpr<MapCellComponent>(cellDir.ToString());
+            //if (!next.Visible)
+            //{
+            //    destination = next;
+            //}
+
+            start.SetPathOut(cellDir);
+
+            next.SetPathIn(cellDir.Opposite());
+
+            return next;
         }
     }
 }

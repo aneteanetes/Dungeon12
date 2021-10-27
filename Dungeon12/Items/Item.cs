@@ -92,7 +92,7 @@
             get
             {
                 var lvl = Global.GameState.Character.Level;
-                var baseMultipler = (int)this.Rare * 1.25 + (int)this.Kind * 2.37 + (RandomDungeon.Range(lvl, lvl + 10) * 1.89);
+                var baseMultipler = (int)this.Rare * 1.25 + (int)this.Kind * 2.37 + (Dungeon.Random.Range(lvl, lvl + 10) * 1.89);
                 return (int)Math.Round(this.BaseStats.Sum(s => baseMultipler));
             }
         }

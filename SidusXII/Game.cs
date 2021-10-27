@@ -11,6 +11,6 @@ namespace SidusXII
 
         public Character PartyMember2 { get; set; }
 
-        public MapComponent Location { get; set; }
+        public MapComponent Map { get; set; }
     }
 }

@@ -8,6 +8,18 @@ using System.Text;
 
 namespace Dungeon.GameObjects
 {
+    public abstract class GameComponent<TSceneObject> : GameComponent
+        where TSceneObject : ISceneObject
+    {
+        [Newtonsoft.Json.JsonIgnore]
+        [Hidden]
+        public TSceneObject View
+        {
+            get => SceneObject.As<TSceneObject>();
+            set => SceneObject = value;
+        }
+    }
+
     public abstract class GameComponent : Applicable, IGameComponent
     {
         [Newtonsoft.Json.JsonIgnore]

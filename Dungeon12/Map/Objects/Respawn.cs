@@ -126,8 +126,8 @@ namespace Dungeon12.Map.Objects
             var pos = SpawnArea.Position;
             var posMax = SpawnArea.MaxPosition;
 
-            var x = RandomDungeon.Range(pos.X, posMax.X);
-            var y = RandomDungeon.Range(pos.Y, posMax.Y);
+            var x = Dungeon.Random.Range(pos.X, posMax.X);
+            var y = Dungeon.Random.Range(pos.Y, posMax.Y);
 
             mob.Location = new Point(x, y);
 

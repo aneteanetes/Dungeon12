@@ -116,11 +116,11 @@
             data.NPC.Level = data.Level;
             if (data.NPC.Level > 2)
             {
-                if (RandomDungeon.Chance(25))
+                if (Dungeon.Random.Chance(25))
                 {
                     data.NPC.Level--;
                 }
-                if (RandomDungeon.Chance(40))
+                if (Dungeon.Random.Chance(40))
                 {
                     data.NPC.Level++;
                 }

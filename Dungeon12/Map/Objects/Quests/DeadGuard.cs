@@ -21,7 +21,7 @@ namespace Dungeon12.Map.Object
         private int randomDeadGuardImageIndex = 0;
         public DeadGuard()
         {
-            randomDeadGuardImageIndex = RandomDungeon.Range(1, 4);
+            randomDeadGuardImageIndex = Dungeon.Random.Range(1, 4);
         }
 
         public override string CustomLootImage => $"Objects/deadguards/{randomDeadGuardImageIndex}.png".AsmImg();

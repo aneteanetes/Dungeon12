@@ -329,7 +329,7 @@
         {
             var target = mapTarget.BindedEntity.As<Interactable>();
 
-            var value = (long)RandomDungeon.Next(NPC.MinDMG*NPC.Level, NPC.MaxDMG*NPC.Level);
+            var value = (long)Dungeon.Random.Next(NPC.MinDMG * NPC.Level, NPC.MaxDMG * NPC.Level);
 
             target.Damage(NPC, new Damage()
             {

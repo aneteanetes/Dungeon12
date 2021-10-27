@@ -8,7 +8,7 @@ namespace Dungeon
     /// ааа, для того что бы всегда был один инстанс что бы не тупило
     /// </para>
     /// </summary>
-    public static class RandomDungeon
+    public static class Random
     {
         private static System.Random SystemRandom = new System.Random();
         private static readonly object syncLock = new object();
