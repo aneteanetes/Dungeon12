@@ -311,7 +311,7 @@
             return sceneObject;
         }
 
-        public TSceneObject AddChild<TSceneObject>(TSceneObject sceneObject)
+        public virtual TSceneObject AddChild<TSceneObject>(TSceneObject sceneObject)
             where TSceneObject : ISceneObject
         {
             sceneObject.Destroy += () =>

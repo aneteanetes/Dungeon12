@@ -2,6 +2,7 @@
 using Dungeon.Monogame;
 using Dungeon.Resources;
 using System;
+using System.Diagnostics;
 
 namespace Dungeon12
 {
@@ -10,8 +11,9 @@ namespace Dungeon12
         [STAThread]
         static void Main()
         {
+
             DungeonGlobal.BindGlobal<Global>();
-            DungeonGlobal.ComponentUpdateCompatibility = false;
+            DungeonGlobal.ComponentUpdateCompatibility = true;
             Console.WriteLine(DungeonGlobal.Version);
 #if DEBUG
             var resCompiler = new ResourceCompiler();
@@ -21,16 +23,21 @@ namespace Dungeon12
             DungeonGlobal.GlobalExceptionHandling();
             //ResourceLoader.NotDisposingResources = true;
             //ResourceLoader.CacheImagesAndMasks = false;
+            Store.Init(Global.GetSaveSerializeSettings());
+#endif
 
-#endif      
-            var client = new MonogameClient(new MonogameClientSettings()
+            //DungeonGlobal.SetCulture(new System.Globalization.CultureInfo("en"));
+
+            var monogameClient = new MonogameClient(new MonogameClientSettings()
             {
-                OriginWidthPixel = 1600,
-                OriginHeightPixel = 900,
+                IsWindowedFullScreen = false,
                 IsFullScreen = false,
-                Add2DLighting = false
+                WidthPixel = 1920,
+                HeightPixel = 1080,
             });
-            DungeonGlobal.ClientRun = client.Run;
+
+            DungeonGlobal.ClientRun = monogameClient.Run;
+
             DungeonGlobal.Run();
         }
     }

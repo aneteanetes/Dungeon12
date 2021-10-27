@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="isometric" renderorder="right-down" width="100" height="100" tilewidth="128" tileheight="162" infinite="0" nextlayerid="3" nextobjectid="1">
- <tileset firstgid="1" name="testtileset" tilewidth="128" tileheight="162" tilecount="20" columns="10">
-  <image source="../../../../../Desktop/testtileset.png" width="1280" height="324"/>
- </tileset>
-</map>
