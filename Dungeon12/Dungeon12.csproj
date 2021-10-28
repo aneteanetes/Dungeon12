@@ -5,9 +5,85 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;Core;DisableSound;</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Images\Particles\Beam.png" />
+    <None Remove="Resources\Images\Particles\BeamBlurred.png" />
+    <None Remove="Resources\Images\Particles\Cloud001.png" />
+    <None Remove="Resources\Images\Particles\Cloud002.png" />
+    <None Remove="Resources\Images\Particles\Cloud003.png" />
+    <None Remove="Resources\Images\Particles\Cloud004.png" />
+    <None Remove="Resources\Images\Particles\Flame.png" />
+    <None Remove="Resources\Images\Particles\FlowerBurst.png" />
+    <None Remove="Resources\Images\Particles\Laser.png" />
+    <None Remove="Resources\Images\Particles\LensFlare.png" />
+    <None Remove="Resources\Images\Particles\MultiDot.png" />
+    <None Remove="Resources\Images\Particles\Particle001.png" />
+    <None Remove="Resources\Images\Particles\Particle002.png" />
+    <None Remove="Resources\Images\Particles\Particle003.png" />
+    <None Remove="Resources\Images\Particles\Particle004.png" />
+    <None Remove="Resources\Images\Particles\Particle005.png" />
+    <None Remove="Resources\Images\Particles\Particle006.png" />
+    <None Remove="Resources\Images\Particles\Particle007.png" />
+    <None Remove="Resources\Images\Particles\Ring001.png" />
+    <None Remove="Resources\Images\Particles\Ring002.png" />
+    <None Remove="Resources\Images\Particles\snow.png" />
+    <None Remove="Resources\Images\Particles\SoftClumpy.png" />
+    <None Remove="Resources\Images\Particles\SoftSmokey.png" />
+    <None Remove="Resources\Images\Particles\Spikey001.png" />
+    <None Remove="Resources\Images\Particles\Spikey002.png" />
+    <None Remove="Resources\Images\Particles\Splash.png" />
+    <None Remove="Resources\Images\Particles\Spray001.png" />
+    <None Remove="Resources\Images\Particles\Star.png" />
+    <None Remove="Resources\Images\Particles\Water001.png" />
+    <None Remove="Resources\Images\Particles\Water002.png" />
+    <None Remove="Resources\Images\Particles\Weeds.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Images\Particles\Beam.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\BeamBlurred.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Cloud001.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Cloud002.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Cloud003.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Cloud004.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Flame.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\FlowerBurst.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Laser.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\LensFlare.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\MultiDot.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Particle001.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Particle002.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Particle003.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Particle004.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Particle005.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Particle006.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Particle007.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Ring001.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Ring002.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\snow.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\SoftClumpy.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\SoftSmokey.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Spikey001.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Spikey002.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Splash.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Spray001.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Star.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Water001.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Water002.png" />
+    <EmbeddedResource Include="Resources\Images\Particles\Weeds.png" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Dungeon.Monogame\Dungeon.Monogame.csproj" />
     <ProjectReference Include="..\Dungeon\Dungeon.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Maps\" />
   </ItemGroup>
 
 </Project>

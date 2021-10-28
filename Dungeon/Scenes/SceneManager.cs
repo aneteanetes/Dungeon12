@@ -213,6 +213,7 @@
                 Preapering = next;
                 CurrentScene = Preapering;
                 next.Args = args;
+                ProcessArgs(next);
                 next.Initialize();
                 if (next is StartScene nextStartScene)
                 {
@@ -230,6 +231,18 @@
             Current.Args = args;
             Current.Activate();
             CurrentScene = Current;
+        }
+
+        private void ProcessArgs(GameScene scene)
+        {
+            var arg = scene.Args?.ElementAtOrDefault(0);
+            if (arg != default)
+            {
+                if (bool.TryParse(arg, out var isInGame))
+                {
+                    scene.InGame = isInGame;
+                }
+            }
         }
 
         private static void Populate(GameScene previous, GameScene next, string[] args = default)

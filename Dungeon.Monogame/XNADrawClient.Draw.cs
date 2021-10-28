@@ -28,9 +28,9 @@ namespace Dungeon.Engine.Host
     {
         public DrawColor ClearColor { get; set; }
 
-        private Dictionary<ISceneLayer, List<Texture2D>> PostProcessed = new Dictionary<ISceneLayer, List<Texture2D>>();
+        private Dictionary<ISceneLayer, List<(Texture2D texture, IMonogameEffect effect)>> PostProcessed = new Dictionary<ISceneLayer, List<(Texture2D, IMonogameEffect)>>();
 
-        private Dictionary<ISceneLayer, List<Texture2D>> PreProcessed = new Dictionary<ISceneLayer, List<Texture2D>>();
+        private Dictionary<ISceneLayer, List<(Texture2D texture, IMonogameEffect effect)>> PreProcessed = new Dictionary<ISceneLayer, List<(Texture2D, IMonogameEffect)>>();
 
         private void ProcessMonogameEffect(IMonogameEffect monogameEffect, ISceneLayer layer, RenderTarget2D buffer)
         {
@@ -46,13 +46,13 @@ namespace Dungeon.Engine.Host
             var processed = monogameEffect.Draw(buffer);
             if (!PostProcessed.ContainsKey(layer))
             {
-                PostProcessed.Add(layer, new List<Texture2D>());
+                PostProcessed.Add(layer, new List<(Texture2D, IMonogameEffect)>());
             }
             else
             {
                 PostProcessed[layer].Clear();
             }
-            PostProcessed[layer].Add(processed);
+            PostProcessed[layer].Add((processed,monogameEffect));
         }
 
         private Dictionary<ISceneLayer, RenderTarget2D> SceneLayers = new Dictionary<ISceneLayer, RenderTarget2D>();
@@ -86,19 +86,14 @@ namespace Dungeon.Engine.Host
 #endif
         void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            GraphicsDevice.SetRenderTarget(
-                //#if Engine
-                //                _renderTarget
-                //#else
-                null
-                //#endif
-                );
+            GraphicsDevice.SetRenderTarget(null);
             GraphicsDevice.Clear(Color.Transparent);
 
-#if !Engine
             drawCicled = true;
             CalculateCamera();
-#endif
+
+            PreProcessed.Clear();
+            PostProcessed.Clear();
 
             if (this.scene != default)
             {
@@ -108,7 +103,6 @@ namespace Dungeon.Engine.Host
 
                     bool light = false;
 
-                    PreProcessed.Clear();
                     foreach (var preEffect in layer.SceneGlobalEffects.Where(e => e.When == EffectTime.PreProcess))
                     {
                         if (preEffect.Is<Light2D>())
@@ -125,7 +119,6 @@ namespace Dungeon.Engine.Host
 
                     XNADrawClientImplementation.Draw(layer.Objects, gameTime, buffer, light, clear: this.scene.Is<@Sys_Clear_Screen>(), layer: layer, resolutionMatrix: ResolutionScale);
 
-                    PostProcessed.Clear();
                     foreach (var postEffect in layer.SceneGlobalEffects.Where(e => e.When == EffectTime.PostProcess))
                     {
                         if (postEffect.Is<IMonogameEffect>())
@@ -139,34 +132,35 @@ namespace Dungeon.Engine.Host
             if (spriteBatch.IsOpened)
                 spriteBatch.End();
 
-            GraphicsDevice.SetRenderTarget(
-#if Engine
-                _renderTarget
-#else
-                null
-#endif
-                );
+            GraphicsDevice.SetRenderTarget(null);
             GraphicsDevice.Clear(Color.Transparent);
 
-            spriteBatch.Begin(
-#if !Engine
-                //transformMatrix: ResolutionScale
-#endif
-                );
+            spriteBatch.Begin();
 
             if (this.scene != default)
             {
                 foreach (var layerInfo in SceneLayers)
                 {
-                    spriteBatch.Draw(layerInfo.Value, new Vector2((float)layerInfo.Key.Left, (float)layerInfo.Key.Top), Color.White);
+                    bool skipForPostProcess = false;
+
+                    var havePostProcess = PostProcessed.ContainsKey(layerInfo.Key);
+                    if (havePostProcess)
+                    {
+                        skipForPostProcess = PostProcessed[layerInfo.Key].Any(x => x.effect.NotDrawOriginal);
+                    }
+
+                    if(!skipForPostProcess)
+                        spriteBatch.Draw(layerInfo.Value, new Vector2((float)layerInfo.Key.Left, (float)layerInfo.Key.Top), Color.White);
+
                     if (PostProcessed.ContainsKey(layerInfo.Key))
                         foreach (var processed in PostProcessed[layerInfo.Key])
                         {
-                            spriteBatch.Draw(processed, Vector2.Zero, Color.White);
+                            spriteBatch.Draw(processed.texture, Vector2.Zero, Color.White);
                         }
                 }
             }
             spriteBatch.End();
+
 
             DrawDebugInfo();
 

@@ -10,7 +10,7 @@
     <RestoreFallbackFolders>clear</RestoreFallbackFolders>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;Core;WINDOWS;monogameRuntime;</DefineConstants>
+    <DefineConstants>TRACE;Core;WINDOWS;monogameRuntime;DisableSound;</DefineConstants>
     <Optimize>false</Optimize>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>

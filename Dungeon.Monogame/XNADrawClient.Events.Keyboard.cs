@@ -5,6 +5,7 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Input;
     using System.Collections.Generic;
+    using System.IO;
 
     public partial class XNADrawClient
     {
@@ -72,10 +73,33 @@
                 Modifiers = GetModifier(),
                 Hold = hold
             });
+
+            if (key == Keys.Right)
+                shadowMaskPosition.X += 1;
+            if (key == Keys.Down)
+                shadowMaskPosition.Y += 1;
+
+            if(key== Keys.S)
+            {
+                using (var f = File.Create(@"C:\test\blend.png"))
+                {
+                    bitmap2.SaveAsPng(f, 1600, 900);
+                }
+            }
+
+            //if (key == Keys.Up)
+            //    this.MoveCamera(Types.Direction.Up);
+            //if (key == Keys.Left)
+            //    this.MoveCamera(Types.Direction.Left);
         }
+
+
+        Vector2 shadowMaskPosition = Vector2.Zero;
 
         private void OnKeyUp(Keys key)
         {
+            this.StopMoveCamera();
+
             keysHolds.Remove(key);
 
             SceneManager.Current?.OnKeyUp(new Dungeon.Control.Keys.KeyArgs

@@ -19,6 +19,8 @@
     {
         public object Freezer;
 
+        public bool InGame { get; set; }
+
         protected readonly List<Type> AvailableScenes = new List<Type>();
 
         public string[] Args { get; set; }

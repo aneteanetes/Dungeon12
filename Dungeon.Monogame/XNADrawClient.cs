@@ -1,5 +1,6 @@
 ﻿namespace Dungeon.Monogame
 {
+    using Dungeon.Monogame.Effects.Fogofwar;
     using Dungeon.Network;
     using Dungeon.Resources;
     using Dungeon.Scenes.Manager;
@@ -29,8 +30,8 @@
         public bool isFatal;
 
         public SceneManager SceneManager { get; set; }
-        protected GraphicsDeviceManager graphics;
-        SpriteBatchKnowed spriteBatch;
+        internal GraphicsDeviceManager graphics;
+        internal SpriteBatchKnowed spriteBatch;
         readonly Light SunLight = new PointLight
         {
             Scale = new Vector2(3700f),
@@ -70,6 +71,7 @@
                 PreferredBackBufferWidth = settings.WidthPixel,
                 PreferredBackBufferHeight = settings.HeightPixel,
                 SynchronizeWithVerticalRetrace = settings.VerticalSync,
+                PreferredDepthStencilFormat= DepthFormat.Depth24Stencil8
             };
 
             ResolutionScale = Matrix.Identity;
@@ -196,7 +198,7 @@
         BasicEffect effect;
 
 
-        XNADrawClientImplementation XNADrawClientImplementation;
+        internal XNADrawClientImplementation XNADrawClientImplementation;
 
         protected override void Initialize()
         {
@@ -295,11 +297,25 @@
             XNADrawClientImplementation = new XNADrawClientImplementation(GraphicsDevice, clientSettings.Add2DLighting ? penumbra : null, spriteBatch, clientSettings.CellSize, GlobalImageFilter, Content, this, myRenderer);
 
             Load3D();
+            ShadowMask = Texture2D.FromFile(GraphicsDevice, @"C:\Users\anete\source\repos\Dungeon12\Dungeon12\Resources\Images\Effects\fow.png");
+            //Texture2D.FromFile(GraphicsDevice, @"C:\Users\anete\Source\Repos\Dungeon12\Dungeon.Monogame\Resources\mask.png");
+            background = Texture2D.FromFile(GraphicsDevice, @"C:\Users\anete\source\repos\Dungeon12\Dungeon12\Resources\Images\d12back.png");
+            bitmap = new RenderTarget2D(GraphicsDevice, 1600, 900, false, GraphicsDevice.PresentationParameters.BackBufferFormat, DepthFormat.Depth24Stencil8);
+            
+            overlay = new RenderTarget2D(GraphicsDevice, 1600, 900, false, GraphicsDevice.PresentationParameters.BackBufferFormat, DepthFormat.None);
+
+            var pp = GraphicsDevice.PresentationParameters;
+            bitmap2 = new RenderTarget2D(GraphicsDevice, 1600, 900, false, pp.BackBufferFormat, pp.DepthStencilFormat, pp.MultiSampleCount, pp.RenderTargetUsage);
 
             SceneManager.Start(isFatal ? "FATAL" : default);
             Network.Start();
-            // TODO: use this.Content to load your game content here
         }
+
+        private Texture2D ShadowMask;
+        private Texture2D background;
+        private RenderTarget2D bitmap;
+        private RenderTarget2D overlay;
+        private RenderTarget2D bitmap2;
 
         private bool loaded = false;
 
@@ -541,6 +557,14 @@
                     SunLight.Position = new Vector2(-2660, -500);
                 }
             }
+        }
+        
+        public IEffect GetEffect(string name)
+        {
+            if (name == "FogOfWar")
+                return new FogOfWarEffect();
+
+            return null;
         }
     }
 }

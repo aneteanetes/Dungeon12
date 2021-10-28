@@ -7,10 +7,14 @@ namespace Dungeon.Monogame.Effects
     {
         public bool Loaded { get; set; }
 
+        public bool UseGlobalImageFilter { get; }
+
+        public bool NotDrawOriginal { get; }
+
 #if !Engine
         void Load(XNADrawClient client);
 #endif
 
-        Texture2D Draw(Texture2D input);
+        Texture2D Draw(RenderTarget2D input);
     }
 }

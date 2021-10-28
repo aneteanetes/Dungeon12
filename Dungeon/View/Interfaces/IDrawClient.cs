@@ -38,5 +38,12 @@
         /// </summary>
         /// <param name="image">Путь к изображению</param>
         void CacheImage(string image);
+
+        /// <summary>
+        /// Создать эффект который зависит от платформы
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        IEffect GetEffect(string name);
     }
 }

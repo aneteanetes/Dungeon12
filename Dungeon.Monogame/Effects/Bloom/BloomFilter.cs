@@ -193,6 +193,12 @@ namespace InTheWood.Shaders.Bloom
         }
 
         public bool Loaded { get; set; }
+        public Dungeon.Types.Point Position { get; set; }
+        public string Image { get; set; }
+        public Dungeon.Types.Point Size { get; set; }
+        public bool UseGlobalImageFilter => false;
+
+        public bool NotDrawOriginal => false;
 
         private float _bloomThreshold;
 
@@ -389,7 +395,7 @@ namespace InTheWood.Shaders.Bloom
         /// The smaller this value the better performance and the worse our final image quality</param>
         /// <param name="height">see: width</param>
         /// <returns></returns>
-        public Texture2D Draw(Texture2D inputTexture)
+        public Texture2D Draw(RenderTarget2D inputTexture)
         {
             int width = client.GraphicsDevice.Viewport.Width;
             int height = client.GraphicsDevice.Viewport.Height;

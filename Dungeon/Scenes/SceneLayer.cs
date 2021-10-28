@@ -2,6 +2,7 @@
 using Dungeon.Control.Gamepad;
 using Dungeon.Control.Keys;
 using Dungeon.Control.Pointer;
+using Dungeon.Drawing.SceneObjects;
 using Dungeon.Settings;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
@@ -31,9 +32,21 @@ namespace Dungeon.Scenes
 
         public ISceneObject[] Objects => SceneObjects.ToArray();
 
-        private readonly List<IEffect> GlobalEffects = new List<IEffect>();
+        private readonly List<IEffect> GlobalEffects = new();
 
-        public IEffect[] SceneGlobalEffects => GlobalEffects.ToArray();
+        private IEffect[] sceneGlobalEffects = new IEffect[0];
+
+        public IEffect[] SceneGlobalEffects
+        {
+            get
+            {
+                if (sceneGlobalEffects.Length != GlobalEffects.Count)
+                    return sceneGlobalEffects = GlobalEffects.ToArray();
+
+                return sceneGlobalEffects;
+            
+            }
+        }
 
         private List<ISceneControl> sceneObjectControls = new List<ISceneControl>();
 
@@ -76,6 +89,51 @@ namespace Dungeon.Scenes
             AddControlRecursive(sceneObject);
         }
 
+        public void AddObjectCenter<TSceneObject>(TSceneObject sceneObject, bool horizontal = true, bool vertical = true)
+            where TSceneObject : ISceneObject
+        {
+            if (sceneObject is ImageObject imageObject)
+            {
+
+                var measure = MeasureImage(imageObject.Image);
+
+                if (horizontal)
+                {
+                    var left = Width / 2 - measure.X / 2;
+                    imageObject.Left = left;
+                }
+
+                if (vertical)
+                {
+                    var top = Height / 2 - measure.Y / 2;
+                    imageObject.Top = top;
+                }
+            }
+            else
+            {
+                if (horizontal)
+                {
+                    var left = Width / 2d - sceneObject.Width / 2d;
+                    sceneObject.Left = left;
+                }
+
+                if (vertical)
+                {
+                    var top = Height / 2d - sceneObject.Height / 2d;
+                    sceneObject.Top = top;
+                }
+            }
+
+            AddObject(sceneObject);
+        }
+
+        protected Point MeasureImage(string img)
+        {
+            var m = DungeonGlobal.DrawClient.MeasureImage(img);
+
+            return new Point(m.X, m.Y);
+        }
+
         public void ShowEffectsBinding(List<ISceneObject> e)
         {
             e.ForEach(effect =>
@@ -107,6 +165,10 @@ namespace Dungeon.Scenes
             GlobalEffects.Add(effect);
         }
 
+        /// <summary>
+        /// Только добавляет в коллекцию контролов, НЕ ДОБАВЛЯЕТ НА СЦЕНУ
+        /// </summary>
+        /// <param name="sceneObjectControl"></param>
         public void AddControl(ISceneControl sceneObjectControl)
         {
             if (!sceneObjectControls.Contains(sceneObjectControl))

@@ -1,4 +1,5 @@
-﻿using Dungeon.View.Interfaces;
+﻿using Dungeon.Types;
+using Dungeon.View.Interfaces;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
@@ -21,7 +22,17 @@ namespace Dungeon.Monogame.Effects
 
         public EffectTime When => EffectTime.PreProcess;
 
-        public Texture2D Draw(Texture2D input)
+        public Point Position { get; set; }
+
+        public string Image { get; set; }
+
+        public Point Size { get; set; }
+
+        public bool UseGlobalImageFilter => false;
+
+        public bool NotDrawOriginal => false;
+
+        public Texture2D Draw(RenderTarget2D input)
         {
             throw new NotImplementedException();
         }

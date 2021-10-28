@@ -1,5 +1,6 @@
 ﻿namespace Dungeon.Drawing.Impl
 {
+    using Dungeon.Types;
     using Dungeon.View.Interfaces;
 
     public sealed class ParticleEffect : IEffect
@@ -16,5 +17,11 @@
         public string Assembly { get; }
 
         public EffectTime When => EffectTime.InProcess;
+
+        public Point Position { get; set; }
+
+        public string Image { get; set; }
+
+        public Point Size { get; set; }
     }
 }

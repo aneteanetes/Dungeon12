@@ -9,10 +9,14 @@ namespace Dungeon.Monogame
 
         public SpriteBatchKnowed(GraphicsDevice graphicsDevice) : base(graphicsDevice) { }
 
+        public DepthStencilState DepthStencilState;
+
+        public SpriteSortMode? spriteSortMode;
+
         public new void Begin(SpriteSortMode sortMode = SpriteSortMode.Deferred, BlendState blendState = null, SamplerState samplerState = null, DepthStencilState depthStencilState = null, RasterizerState rasterizerState = null, Effect effect = null, Matrix? transformMatrix = null)
         {
             IsOpened = true;
-            base.Begin(sortMode, blendState, samplerState, depthStencilState, rasterizerState, effect, transformMatrix);
+            base.Begin(spriteSortMode ?? sortMode, blendState, samplerState, depthStencilState ?? DepthStencilState, rasterizerState, effect, transformMatrix);
         }
 
         public new void End()

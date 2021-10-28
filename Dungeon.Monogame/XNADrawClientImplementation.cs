@@ -31,8 +31,8 @@ namespace Dungeon.Monogame
         private bool cellMode = false;
         private GraphicsDevice GraphicsDevice;
         private PenumbraComponent penumbra;
-        private SpriteBatch spriteBatch;
-        private Effect GlobalImageFilter;
+        private SpriteBatchKnowed spriteBatch;
+        internal Effect GlobalImageFilter;
         ContentManager Content; 
         Renderer myRenderer;
         private Microsoft.Xna.Framework.GameTime gameTime;
@@ -43,7 +43,7 @@ namespace Dungeon.Monogame
 
         public ICamera Camera;
 
-        public XNADrawClientImplementation(GraphicsDevice graphicsDevice, PenumbraComponent penumbra, SpriteBatch spriteBatch,int cell,Effect globalImageFilter,ContentManager content, ICamera camera, Renderer myRenderer, bool cellMode=false)
+        public XNADrawClientImplementation(GraphicsDevice graphicsDevice, PenumbraComponent penumbra, SpriteBatchKnowed spriteBatch,int cell,Effect globalImageFilter,ContentManager content, ICamera camera, Renderer myRenderer, bool cellMode=false)
         {
             GraphicsDevice = graphicsDevice;
             this.cellMode = cellMode;
@@ -177,7 +177,8 @@ namespace Dungeon.Monogame
                 SpriteBatchRestore = (smooth, filter, alphaBlend, istransformMatrix) => spriteBatch.Begin(
                     transformMatrix: Matrix.CreateTranslation((float)Camera.CameraOffsetX, (float)Camera.CameraOffsetY,0) * scaleMatrix,
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
-                    blendState: useLight || alphaBlend ? BlendState.AlphaBlend : BlendState.NonPremultiplied, effect: filter ? GlobalImageFilter : null
+                    blendState: useLight || alphaBlend ? BlendState.AlphaBlend : BlendState.NonPremultiplied, effect: filter ? GlobalImageFilter : null,
+                    depthStencilState:spriteBatch.DepthStencilState
                     );
             }
             else
@@ -185,7 +186,9 @@ namespace Dungeon.Monogame
                 SpriteBatchRestore = (smooth, filter, alphaBlend, istransformMatrix) => spriteBatch.Begin(
                     transformMatrix: istransformMatrix ? (resolutionMatrix ?? scaleMatrix) : new Matrix?(),
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
-                    blendState: useLight || alphaBlend ? BlendState.AlphaBlend : BlendState.NonPremultiplied/*, effect: @interface ? null : GlobalImageFilter*/);
+                    blendState: useLight || alphaBlend ? BlendState.AlphaBlend : BlendState.NonPremultiplied,
+                    depthStencilState:spriteBatch.DepthStencilState
+                    /*, effect: @interface ? null : GlobalImageFilter*/);
             }
             currentAbsolute = absolute;
             currentAbsolute=@interface;
