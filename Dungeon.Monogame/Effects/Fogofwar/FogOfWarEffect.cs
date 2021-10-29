@@ -69,22 +69,6 @@ namespace Dungeon.Monogame.Effects.Fogofwar
             return backBuffer;
         }
 
-        private void save(RenderTarget2D input)
-        {
-            using (var f = File.Create(@"C:\test\fog.png"))
-            {
-                fogMaskCursor.SaveAsPng(f, 1600, 900);
-            }
-            using (var f = File.Create(@"C:\test\buffer.png"))
-            {
-                fogMask.SaveAsPng(f, 1600, 900);
-            }
-            using (var f = File.Create(@"C:\test\input.png"))
-            {
-                input.SaveAsPng(f, 1600, 900);
-            }
-        }
-
         SpriteBatchKnowed spriteBatch => client.spriteBatch;
 
         GraphicsDeviceManager graphics => client.graphics;

@@ -28,7 +28,7 @@ namespace Dungeon.Resources
             CurrentBuild = new ResourceManifest();
         }
 
-        private LiteCollection<Resource> db;
+        private ILiteCollection<Resource> db;
 
         private void CopyPreCompiled(string path)
         {
@@ -136,7 +136,7 @@ namespace Dungeon.Resources
             }
         }
 
-        private static void CheckUpdateNeeded(string file, LiteCollection<Resource> db, DateTime lastTime, Resource res)
+        private static void CheckUpdateNeeded(string file, ILiteCollection<Resource> db, DateTime lastTime, Resource res)
         {
             if (res.LastWriteTime.ToString() != lastTime.ToString())
             {
@@ -146,7 +146,7 @@ namespace Dungeon.Resources
             }
         }
 
-        private static void CompileExistedResource(string file, LiteCollection<Resource> db, string path, DateTime lastTime)
+        private static void CompileExistedResource(string file, ILiteCollection<Resource> db, string path, DateTime lastTime)
         {
             var dataResource = db.Find(x => x.Path == path).FirstOrDefault();
             dataResource.Data = File.ReadAllBytes(file);
@@ -154,7 +154,7 @@ namespace Dungeon.Resources
             db.Update(dataResource);
         }
 
-        private static void CompileNewResource(string file, string projectName, LiteCollection<Resource> db, DateTime lastTime)
+        private static void CompileNewResource(string file, string projectName, ILiteCollection<Resource> db, DateTime lastTime)
         {
             var newResource = new Resource()
             {
