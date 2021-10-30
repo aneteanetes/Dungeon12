@@ -61,12 +61,7 @@ namespace Dungeon.Resources
             db = litedb.GetCollection<Resource>();
             db.EnsureIndex("Path");
             
-            IEnumerable<string> resDirectories = Directory.GetDirectories(Path.Combine(DungeonGlobal.ProjectPath, "Resources"), "*", SearchOption.AllDirectories);
-            foreach (var resDir in resDirectories)
-            {
-                ProcessProject(resDir, rebuild);
-            }
-
+            ProcessProjectResources(rebuild);
             WriteCurrentBuild();
         }
 
@@ -77,10 +72,9 @@ namespace Dungeon.Resources
             File.WriteAllText(ManifestPath, manifest);
         }
 
-        private void ProcessProject(string projectResDirectory, bool rebuild)
+        private void ProcessProjectResources(bool rebuild)
         {
-            var dir = new DirectoryInfo(projectResDirectory);
-            foreach (var file in Directory.GetFiles(dir.FullName, "*.*", SearchOption.TopDirectoryOnly))
+            foreach (var file in Directory.GetFiles(Path.Combine(DungeonGlobal.ProjectPath, "Resources"), "*.*", SearchOption.AllDirectories))
             {
                 try
                 {
