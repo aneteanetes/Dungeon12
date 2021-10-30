@@ -74,11 +74,25 @@ namespace Dungeon.Resources
 
         private void ProcessProjectResources(bool rebuild)
         {
-            foreach (var file in Directory.GetFiles(Path.Combine(DungeonGlobal.ProjectPath, "Resources"), "*.*", SearchOption.AllDirectories))
+            string[] currentResourcePathsInDb = db.Query().Select(x => x.Path).ToArray();
+            string[] filePaths = Directory.GetFiles(Path.Combine(DungeonGlobal.ProjectPath, "Resources"), "*.*",
+                SearchOption.AllDirectories);
+            string[] formattedFilePaths = filePaths.Select(path => FormatPathForDB(path)).ToArray();
+            
+            // Delete all resources from DB that are not present in Resource folder
+            foreach (var resPathInDb in currentResourcePathsInDb)
+            {
+                if (!formattedFilePaths.Contains(resPathInDb))
+                {
+                    db.DeleteMany(x => x.Path == resPathInDb);
+                }
+            }
+            
+            foreach (string filePath in filePaths)
             {
                 try
                 {
-                    ProcessFile(file);
+                    ProcessFile(filePath);
                 }
                 catch (Exception ex)
                 {
@@ -90,11 +104,11 @@ namespace Dungeon.Resources
 
         private void ProcessFile(string filePath)
         {
-            var relativePath = FormatPathForDB(filePath);
+            var formattedPath = FormatPathForDB(filePath);
             var lastTime = File.GetLastWriteTime(filePath);
-            var res = LastBuild.Resources.FirstOrDefault(x => x.Path == relativePath);
+            var res = LastBuild.Resources.FirstOrDefault(x => x.Path == formattedPath);
 
-            CurrentBuild.Resources.Add(new Resource() { Path = relativePath, LastWriteTime = lastTime });
+            CurrentBuild.Resources.Add(new Resource() { Path = formattedPath, LastWriteTime = lastTime });
 
             if(log)
             Console.WriteLine($"file {filePath} {(res==default ? "not" : "")} exists");
@@ -110,7 +124,6 @@ namespace Dungeon.Resources
                 if (log)
                     Console.WriteLine($"check update {filePath}");
                 CheckUpdateNeeded(filePath, db, lastTime, res);
-                LastBuild.Resources.Remove(res);
             }
         }
 
@@ -151,7 +164,9 @@ namespace Dungeon.Resources
         public static string MainPath => Store.MainPath;
 
         public static string CompilePath => Path.Combine(MainPath, "Data", $"{DungeonGlobal.GameAssembly.GetName().Name}.dtr");
-
+        
+        // We use manifest file to optimize querying resource metadata without loading content in memory.
+        // LiteDB doesn't provide a convenient way to only load certain fields in memory.
         public static string ManifestPath = Path.Combine(MainPath, "ResourceManifest.dtr");
         
         private ResourceManifest GetLastResourceManifestBuild()
