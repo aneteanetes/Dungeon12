@@ -81,10 +81,10 @@
 
             if(key== Keys.S)
             {
-                using (var f = File.Create(@"C:\test\blend.png"))
-                {
-                    bitmap2.SaveAsPng(f, 1600, 900);
-                }
+                // using (var f = File.Create(@"C:\test\blend.png"))
+                // {
+                //    bitmap2.SaveAsPng(f, 1600, 900);
+                // }
             }
 
             //if (key == Keys.Up)
