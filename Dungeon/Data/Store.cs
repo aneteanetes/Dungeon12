@@ -5,6 +5,7 @@
     using Dungeon.Types;
     using LiteDB;
     using System;
+    using System.IO;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
@@ -12,8 +13,8 @@
 
     public static partial class Store
     {
-        public static string MainPath = $@"{AppDomain.CurrentDomain.BaseDirectory}";
-
+        public static string MainPath = DungeonGlobal.BuildLocation;
+        
         public static T EntitySingle<T>(string id, object cacheObject = default, string db = "Data")
             where T : IPersist
         {
@@ -117,7 +118,7 @@
             //if (!Directory.Exists(MainPath))
             //    Directory.CreateDirectory(MainPath);
 
-            using (var db = new LiteDatabase($@"{MainPath}\{dbName}.db"))
+            using (var db = new LiteDatabase(Path.Combine(MainPath, $"{dbName}.db")))
             {
                 var collection = db.GetCollection<T>();
 

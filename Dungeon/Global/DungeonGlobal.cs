@@ -103,6 +103,8 @@
         public static Assembly GameAssembly { get; set; }
 
         public static string BuildLocation { get; set; }
+        
+        public static string ProjectPath { get; set; }
 
         private static string _gameTitle;
         public static string GameTitle

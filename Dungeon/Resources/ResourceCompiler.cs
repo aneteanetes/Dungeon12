@@ -38,13 +38,13 @@ namespace Dungeon.Resources
         public void Compile(bool rebuild=false)
         {
             var caller = Assembly.GetCallingAssembly().GetName().Name;
-            var dir = $@"{MainPath}\Data";
+            var dir = Path.Combine(MainPath, "Data");
             if(!Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
             }
 
-            var path = $@"{dir}\{caller}.dtr";
+            var path = Path.Combine(dir, $"{caller}.dtr");
             if (rebuild && File.Exists(path))
             {
                 File.Delete(path);
@@ -60,32 +60,25 @@ namespace Dungeon.Resources
             
             db = litedb.GetCollection<Resource>();
             db.EnsureIndex("Path");
-
-            IEnumerable<string> resDirectories = Directory.GetDirectories(Store.ProjectDirectory, "Resources", SearchOption.AllDirectories);
-            foreach (var resDir in resDirectories)
-            {
-                ProcessProject(resDir, rebuild);
-            }
-
+            
+            ProcessProjectResources(rebuild);
             WriteCurrentBuild();
         }
 
         private void WriteCurrentBuild()
         {
-            var manifestPath = $@"{MainPath}\ResourceManifest.dtr";
             var manifest =  JsonConvert.SerializeObject(CurrentBuild, Formatting.Indented);
 
-            File.WriteAllText(manifestPath, manifest);
+            File.WriteAllText(ManifestPath, manifest);
         }
 
-        private void ProcessProject(string projectResDirectory, bool rebuild)
+        private void ProcessProjectResources(bool rebuild)
         {
-            var dir = new DirectoryInfo(projectResDirectory);
-            foreach (var file in Directory.GetFiles(dir.FullName, "*.*", SearchOption.AllDirectories))
+            foreach (var file in Directory.GetFiles(Path.Combine(DungeonGlobal.ProjectPath, "Resources"), "*.*", SearchOption.AllDirectories))
             {
                 try
                 {
-                    ProcessFile(file, GetProjectName(dir)?.Replace(".csproj", ""));
+                    ProcessFile(file);
                 }
                 catch (Exception ex)
                 {
@@ -95,43 +88,28 @@ namespace Dungeon.Resources
             }
         }
 
-        private string GetProjectName(DirectoryInfo directory)
+        private void ProcessFile(string filePath)
         {
-            var proj = directory.GetFiles("*.csproj").FirstOrDefault();
-            if (proj != default)
-            {
-                return proj.Name;
-            }
-            else if (directory.Parent != default)
-            {
-                return GetProjectName(directory.Parent);
-            }
+            var relativePath = FormatPathForDB(filePath);
+            var lastTime = File.GetLastWriteTime(filePath);
+            var res = LastBuild.Resources.FirstOrDefault(x => x.Path == relativePath);
 
-            return null;
-        }
-
-        private void ProcessFile(string file, string projectName)
-        {
-            var path = GetPathUntillProjectName(file, projectName);
-            var lastTime = File.GetLastWriteTime(file);
-            var res = LastBuild.Resources.FirstOrDefault(x => x.Path == path);
-
-            CurrentBuild.Resources.Add(new Resource() { Path = path, LastWriteTime = lastTime });
+            CurrentBuild.Resources.Add(new Resource() { Path = relativePath, LastWriteTime = lastTime });
 
             if(log)
-            Console.WriteLine($"file {file} {(res==default ? "not" : "")} exists");
+            Console.WriteLine($"file {filePath} {(res==default ? "not" : "")} exists");
 
             if (res == default)
             {
                 if (log)
-                    Console.WriteLine($"compiling {file}");
-                CompileNewResource(file, projectName, db, lastTime);
+                    Console.WriteLine($"compiling {filePath}");
+                CompileNewResource(filePath, db, lastTime);
             }
             else
             {
                 if (log)
-                    Console.WriteLine($"check update {file}");
-                CheckUpdateNeeded(file, db, lastTime, res);
+                    Console.WriteLine($"check update {filePath}");
+                CheckUpdateNeeded(filePath, db, lastTime, res);
                 LastBuild.Resources.Remove(res);
             }
         }
@@ -154,45 +132,33 @@ namespace Dungeon.Resources
             db.Update(dataResource);
         }
 
-        private static void CompileNewResource(string file, string projectName, ILiteCollection<Resource> db, DateTime lastTime)
+        private static void CompileNewResource(string filePath, ILiteCollection<Resource> db, DateTime lastTime)
         {
             var newResource = new Resource()
             {
-                Path = GetPathUntillProjectName(file, projectName),// file.Substring(file.IndexOf(projectName + "\\")).Replace("\\", "."),
+                Path = FormatPathForDB(filePath),
                 LastWriteTime = lastTime,
-                Data = File.ReadAllBytes(file)
+                Data = File.ReadAllBytes(filePath)
             };
             db.Insert(newResource);
         }
 
-        public static string GetPathUntillProjectName(string path, string projName)
+        public static string FormatPathForDB(string filePath)
         {
-            var parts = path.Split("\\", StringSplitOptions.RemoveEmptyEntries).Reverse();
-            var partsEnum = parts.GetEnumerator();
-            partsEnum.MoveNext();
-            string currentPart = partsEnum.Current;
-            string newPath = default;
-            while(currentPart!=projName)
-            {
-                newPath = currentPart + (newPath == default ? "" : ".") + newPath;
-                partsEnum.MoveNext();
-                currentPart = partsEnum.Current;
-            }
-
-            return $"{projName}.{newPath}";
+            return Path.GetRelativePath(Directory.GetParent(DungeonGlobal.ProjectPath).ToString(), filePath).Replace(Path.DirectorySeparatorChar, '.');
         }
 
         public static string MainPath => Store.MainPath;
 
-        public static string CompilePath => $@"{MainPath}\Data\{DungeonGlobal.GameAssembly.GetName().Name}.dtr";
+        public static string CompilePath => Path.Combine(MainPath, "Data", $"{DungeonGlobal.GameAssembly.GetName().Name}.dtr");
 
+        public static string ManifestPath = Path.Combine(MainPath, "ResourceManifest.dtr");
+        
         private ResourceManifest GetLastResourceManifestBuild()
         {
-            var manifestPath = $@"{MainPath}\ResourceManifest.dtr";
-
-            if (File.Exists(manifestPath))
+            if (File.Exists(ManifestPath))
             {
-                return JsonConvert.DeserializeObject<ResourceManifest>(File.ReadAllText(manifestPath));
+                return JsonConvert.DeserializeObject<ResourceManifest>(File.ReadAllText(ManifestPath));
             }
 
             return new ResourceManifest();
