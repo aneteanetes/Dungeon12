@@ -48,7 +48,7 @@ namespace Dungeon
         private static List<LocalizedString> CompileDatabase()
         {
             var strings = new List<LocalizedString>();
-            using (var db = new LiteDatabase($@"{MainPath}\Data.db"))
+            using (var db = new LiteDatabase(Path.Combine(MainPath, "Data.db")))
             {
                 foreach (var data in JsonFiles())
                 {
@@ -80,7 +80,7 @@ namespace Dungeon
                 }
             }
 
-            using (var buildDb = new LiteDatabase($@"{MainPath}\DataManifest.dtr"))
+            using (var buildDb = new LiteDatabase(Path.Combine(MainPath, "DataManifest.dtr")))
             {
                 buildDb
                   .GetCollection<ResourceManifest>()
@@ -181,29 +181,14 @@ namespace Dungeon
 
         private static MethodInfo GetCollectionMethod => typeof(LiteDatabase).GetMethods().Where(x => x.IsGenericMethod && x.Name == "GetCollection").Last();
 
-        public static string ProjectDirectory
-        {
-            get
-            {
-                try
-                {
-                    return Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.ToString();
-                }
-                catch (Exception)
-                {
-                    return "";
-                }
-            }
-        }
-
         private static IEnumerable<DataInfo> JsonFiles()
         {
-            IEnumerable<string> databaseDirectories = Directory.GetDirectories(ProjectDirectory,"Database", SearchOption.AllDirectories);
+            IEnumerable<string> databaseDirectories = Directory.GetDirectories(DungeonGlobal.ProjectPath, "Database", SearchOption.AllDirectories);
 
             databaseDirectories = databaseDirectories
                 .Where(x =>
-                    x != Path.Combine(ProjectDirectory, "bin")
-                    && x != Path.Combine(ProjectDirectory, "obj"));
+                    x != Path.Combine(DungeonGlobal.ProjectPath, "bin")
+                    && x != Path.Combine(DungeonGlobal.ProjectPath, "obj"));
 
             return databaseDirectories.SelectMany(databaseDirectory =>
             {
@@ -247,7 +232,7 @@ namespace Dungeon
         {
             ResourceManifest lastBuild = new ResourceManifest();
 
-            using (var buildDb = new LiteDatabase($@"{MainPath}\DataManifest.dtr"))
+            using (var buildDb = new LiteDatabase(Path.Combine(MainPath, "DataManifest.dtr")))
             {
                 lastBuild = buildDb
                     .GetCollection<ResourceManifest>()

@@ -28,7 +28,7 @@ namespace Dungeon.Localization
 
         protected string DoPath(string lang)
         {
-            var root = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var root = DungeonGlobal.BuildLocation;
             var path = Path.Combine(root, ___RelativeLocalizationFilesPath, lang + ".json");
 
             var dir = Path.GetDirectoryName(path);

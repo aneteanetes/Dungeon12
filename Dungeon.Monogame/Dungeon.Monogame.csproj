@@ -7,7 +7,6 @@
     <OutputType>Library</OutputType>
     <StartupObject />
     <Configurations>Debug;Release;CompileDatabase</Configurations>
-    <RestoreFallbackFolders>clear</RestoreFallbackFolders>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE;Core;WINDOWS;monogameRuntime;DisableSound;</DefineConstants>
