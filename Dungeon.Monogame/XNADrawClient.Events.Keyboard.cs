@@ -73,24 +73,6 @@
                 Modifiers = GetModifier(),
                 Hold = hold
             });
-
-            if (key == Keys.Right)
-                shadowMaskPosition.X += 1;
-            if (key == Keys.Down)
-                shadowMaskPosition.Y += 1;
-
-            if(key== Keys.S)
-            {
-                using (var f = File.Create(@"C:\test\blend.png"))
-                {
-                    bitmap2.SaveAsPng(f, 1600, 900);
-                }
-            }
-
-            //if (key == Keys.Up)
-            //    this.MoveCamera(Types.Direction.Up);
-            //if (key == Keys.Left)
-            //    this.MoveCamera(Types.Direction.Left);
         }
 
 

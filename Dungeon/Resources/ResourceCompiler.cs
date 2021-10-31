@@ -74,7 +74,9 @@ namespace Dungeon.Resources
 
         private void ProcessProjectResources(bool rebuild)
         {
-            foreach (var file in Directory.GetFiles(Path.Combine(DungeonGlobal.ProjectPath, "Resources"), "*.*", SearchOption.AllDirectories))
+            var path = Path.Combine(DungeonGlobal.ProjectPath, "Resources");
+            var files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
+            foreach (var file in files)
             {
                 try
                 {
