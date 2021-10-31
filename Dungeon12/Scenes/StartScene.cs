@@ -4,6 +4,7 @@ using Dungeon.Control.Keys;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
+using Dungeon.Tiled;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using Dungeon12.Drawing.SceneObjects;
@@ -164,6 +165,7 @@ namespace Dungeon12.Scenes
 
         private void NewGame()
         {
+            var map = TiledMap.Load("Maps/tiled.tmx".AsmRes());
             //Global.Game = new SidusXII.Game();
             //this.Switch<RaceScene>();
         }

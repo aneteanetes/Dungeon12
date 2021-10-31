@@ -54,13 +54,92 @@ namespace Dungeon.Tiled
                 tiledMap.Tilesets.Add(tileSet);
             }
 
+            ProcessLayers(map, tiledMap);
+            ProcessObjects(map, tiledMap);
+
+            return tiledMap;
+        }
+
+        private static void ProcessObjects(XElement map, TiledMap tiledMap)
+        {
+            var objProps = typeof(TiledObject)
+                .GetProperties()
+                .Where(p => Char.IsLower(p.Name[0]))
+                .ToArray();
+
+            var tiledObjProps = typeof(TiledObjectProperty)
+                .GetProperties()
+                .Where(p => Char.IsLower(p.Name[0]))
+                .ToArray();
+
+            foreach (var objectlayer in map.Elements("objectgroup"))
+            {
+                foreach (var objtag in objectlayer.Elements())
+                {
+                    var tobj = new TiledObject();
+
+                    foreach (var prop in objProps)
+                    {
+                        var attr = objtag.Attribute(prop.Name);
+                        if (attr != null)
+                        {
+                            tobj.SetPropertyExprConverted(prop.Name, attr.Value.Replace(".",","));
+                        }
+                    }
+
+                    if (tobj.gid != 0)
+                    {
+                        tobj.file = tiledMap.TileNameByGid(tobj.gid).File;
+                    }
+
+                    var props = objtag.Element("properties");
+                    if (props != default)
+                    {
+                        foreach (var xmlprop in props.Elements())
+                        {
+                            var p = new TiledObjectProperty();
+                            foreach (var tiledObjProp in tiledObjProps)
+                            {
+                                var attr = xmlprop.Attribute(tiledObjProp.Name);
+                                if (attr != null)
+                                {
+                                    p.SetPropertyExprConverted(tiledObjProp.Name, attr.Value);
+                                }
+                            }
+                            tobj.Properties.Add(p);
+                        }
+                    }
+
+                    var xmlPolygon = objtag.Element("polygon");
+                    if(xmlPolygon!=null)
+                    {
+                        var xmlPoints = xmlPolygon.Attribute("points");
+                        if (xmlPoints != null)
+                        {
+                            var pointsString = xmlPoints.Value;
+                            tobj.Polygon = pointsString.Split(" ", StringSplitOptions.RemoveEmptyEntries)
+                                .Select(pointstr =>
+                                {
+                                    var p = pointstr.Split(",", StringSplitOptions.RemoveEmptyEntries);
+                                    return new Types.Point(p[0], p[1]);
+                                }).ToArray();
+                        }
+                    }
+
+                    tiledMap.Objects.Add(tobj);
+                }
+            }
+        }
+
+        private static void ProcessLayers(XElement map, TiledMap tiledMap)
+        {
             foreach (var xmlLayer in map.Elements("layer"))
             {
                 var layer = new TiledLayer()
                 {
                     name = xmlLayer.TagAttrString(nameof(TiledLayer.name)),
-                    height= xmlLayer.TagAttrInteger(nameof(TiledLayer.height)),
-                    width= xmlLayer.TagAttrInteger(nameof(TiledLayer.width))
+                    height = xmlLayer.TagAttrInteger(nameof(TiledLayer.height)),
+                    width = xmlLayer.TagAttrInteger(nameof(TiledLayer.width))
                 };
 
                 var dataTag = xmlLayer.Element("data");
@@ -103,8 +182,6 @@ namespace Dungeon.Tiled
 
                 tiledMap.Layers.Add(layer);
             }
-
-            return tiledMap;
         }
 
         public int width { get; set; }
@@ -114,6 +191,8 @@ namespace Dungeon.Tiled
         public int tilewidth { get; set; }
 
         public int tileheight { get; set; }
+
+        public List<TiledObject> Objects { get; set; } = new List<TiledObject>();
 
         public List<TiledTileset> Tilesets { get; set; } = new List<TiledTileset>();
 

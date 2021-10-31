@@ -50,6 +50,19 @@ namespace Dungeon.Types
             this.Y = y;
         }
 
+        public Point(string xStrDouble, string yStrDouble)
+        {
+            var parsedX = double.TryParse(xStrDouble.Replace(".", ","), out var x);
+            var parsedY = double.TryParse(yStrDouble.Replace(".", ","), out var y);
+            if (parsedX && parsedY)
+            {
+                X = x;
+                Y = y;
+                return;
+            }
+            throw new ArgumentException($"{nameof(xStrDouble)} or {nameof(yStrDouble)} is not double!");
+        }
+
         /// <summary>
         /// Static reference to zero point
         /// </summary>
