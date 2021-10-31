@@ -82,9 +82,9 @@
 
     }
 
-    public class DarkRectangle : ColoredRectangle<EmptyGameComponent>
+    public class DarkRectangle : ColoredRectangle<GameComponentEmpty>
     {
-        public DarkRectangle() : base(EmptyGameComponent.Empty)
+        public DarkRectangle() : base(GameComponentEmpty.Empty)
         {
             Color = ConsoleColor.Black;
             Depth = 1;

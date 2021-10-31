@@ -9,12 +9,12 @@
     using System;
     using Dungeon12;
 
-    public class OriginSelector : ColoredRectangle<EmptyGameComponent>
+    public class OriginSelector : ColoredRectangle<GameComponentEmpty>
     {
         private readonly Action<Origins> select;
         public readonly Origins origin;
 
-        public OriginSelector(Origins origin, Action<Origins> select):base(EmptyGameComponent.Empty)
+        public OriginSelector(Origins origin, Action<Origins> select):base(GameComponentEmpty.Empty)
         {
             this.origin = origin;
             this.select = select;

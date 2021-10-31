@@ -13,9 +13,9 @@
     using System.Linq;
     using Dungeon12;
 
-    public class OriginDescription : ColoredRectangle<EmptyGameComponent>
+    public class OriginDescription : ColoredRectangle<GameComponentEmpty>
     {
-        public OriginDescription(Origins origin):base(EmptyGameComponent.Empty)
+        public OriginDescription(Origins origin):base(GameComponentEmpty.Empty)
         {
             Color = ConsoleColor.Black;
             Depth = 1;

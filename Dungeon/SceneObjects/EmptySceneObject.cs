@@ -14,9 +14,9 @@ namespace Dungeon.SceneObjects
     /// ПО сути - утечка. ПО факту - MVC :D
     /// </para>
     /// </summary>
-    public class EmptySceneObject : SceneObject<EmptyGameComponent>
+    public class EmptySceneObject : SceneObject<GameComponentEmpty>
     {
-        public EmptySceneObject() : base(EmptyGameComponent.Empty)
+        public EmptySceneObject() : base(GameComponentEmpty.Empty)
         {
         }
     }

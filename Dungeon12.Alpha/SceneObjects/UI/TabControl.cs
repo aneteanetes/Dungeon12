@@ -12,7 +12,7 @@
     using System.Linq;
     using Dungeon.Drawing.SceneObjects;
 
-    public abstract class TabControl<TContent, TArgument, TTab> : TooltipedSceneObject<EmptyGameComponent>
+    public abstract class TabControl<TContent, TArgument, TTab> : TooltipedSceneObject<GameComponentEmpty>
         where TContent : ISceneObject
         where TTab : TabControl<TContent, TArgument, TTab>
         where TArgument : class
@@ -45,7 +45,7 @@
         };
 
         public TabControl(ISceneObject parent, bool active, TArgument argument = default, string title = null, string tooltip=null, string titleImg = null, double imgSqSize = 1.5)
-            :base(EmptyGameComponent.Empty, tooltip)
+            :base(GameComponentEmpty.Empty, tooltip)
         {
             InactiveOther += SetInactive;
             Destroy += () => { InactiveOther -= this.SetInactive; };

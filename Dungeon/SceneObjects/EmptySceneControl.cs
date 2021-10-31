@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Dungeon.SceneObjects
 {
-    public class EmptySceneControl : SceneControl<EmptyGameComponent>
+    public class EmptySceneControl : SceneControl<GameComponentEmpty>
     {
-        public EmptySceneControl() : base(EmptyGameComponent.Empty)
+        public EmptySceneControl() : base(GameComponentEmpty.Empty)
         {
         }
     }

@@ -7,11 +7,11 @@ using Dungeon.View.Interfaces;
 
 namespace Dungeon12.Drawing.SceneObjects.Map
 {
-    public class TooltipedImageControl : TooltipedSceneObject<EmptyGameComponent>
+    public class TooltipedImageControl : TooltipedSceneObject<GameComponentEmpty>
     {
         protected override ControlEventType[] Handles => new ControlEventType[] { ControlEventType.Focus };
 
-        public TooltipedImageControl(string img, string tooltip) : base(EmptyGameComponent.Empty, tooltip)
+        public TooltipedImageControl(string img, string tooltip) : base(GameComponentEmpty.Empty, tooltip)
         {
             this.Image = img;
             var measure = this.MeasureImage(img);

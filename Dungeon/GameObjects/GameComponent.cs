@@ -1,27 +1,34 @@
-﻿using Dungeon.Data;
-using Dungeon.Transactions;
+﻿using Dungeon.Transactions;
 using Dungeon.Utils;
 using Dungeon.View.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace Dungeon.GameObjects
 {
-    public abstract class GameComponent<TSceneObject> : GameComponent
-        where TSceneObject : ISceneObject
-    {
-        [Newtonsoft.Json.JsonIgnore]
-        [Hidden]
-        public TSceneObject View
-        {
-            get => SceneObject.As<TSceneObject>();
-            set => SceneObject = value;
-        }
-    }
-
     public abstract class GameComponent : Applicable, IGameComponent
     {
+        public Dictionary<Type, GameComponentBehavior> ComponentsMap = new Dictionary<Type, GameComponentBehavior>();
+
+        public TComponent Component<TComponent>() where TComponent : GameComponentBehavior
+            => (TComponent)ComponentsMap[typeof(TComponent)];
+
+        public GameComponent()
+        {
+            if (ComponentsMap == null)
+            {
+                GetType()
+                    .GetCustomAttributes(true)
+                    .Where(x => x is GameComponentBehavior)
+                    .Select(x => x as GameComponentBehavior)
+                    .ForEach(component =>
+                    {
+                        ComponentsMap[component.GetType()] = component;
+                    });
+            }
+        }
+
         [Newtonsoft.Json.JsonIgnore]
         [Hidden]
         public ISceneObject SceneObject { get; set; }
@@ -54,21 +61,5 @@ namespace Dungeon.GameObjects
         }
 
         public virtual void Initialization() { }
-    }
-
-    public abstract class StoredGameComponent<T> : GameComponent
-        where T: Persist
-    {
-        public T Data { get; protected set; }
-
-        public StoredGameComponent(int id)
-        {
-            Data = Persist.LoadOne<T>(x => x.ObjectId == id);
-        }
-
-        public StoredGameComponent(string name)
-        {
-            Data = Persist.LoadOne<T>(x => x.IdentifyName == name);
-        }
     }
 }

@@ -26,13 +26,13 @@
             this.AddObject(new Prologue());
         }
 
-        private class Prologue : ColoredRectangle<EmptyGameComponent>
+        private class Prologue : ColoredRectangle<GameComponentEmpty>
         {
             public override bool AbsolutePosition => true;
 
             public override bool CacheAvailable => false;
 
-            public Prologue() : base(EmptyGameComponent.Empty)
+            public Prologue() : base(GameComponentEmpty.Empty)
             {
                 this.Width = 40;
                 this.Height = 22.5;

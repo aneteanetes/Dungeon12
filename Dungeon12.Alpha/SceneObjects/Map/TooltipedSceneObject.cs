@@ -7,9 +7,9 @@
     using Dungeon.View.Interfaces;
     using System.Collections.Generic;
 
-    public class EmptyTooltipedSceneObject : TooltipedSceneObject<EmptyGameComponent>
+    public class EmptyTooltipedSceneObject : TooltipedSceneObject<GameComponentEmpty>
     {
-        public EmptyTooltipedSceneObject(string tooltip) : base(EmptyGameComponent.Empty, tooltip)
+        public EmptyTooltipedSceneObject(string tooltip) : base(GameComponentEmpty.Empty, tooltip)
         {
         }
     }

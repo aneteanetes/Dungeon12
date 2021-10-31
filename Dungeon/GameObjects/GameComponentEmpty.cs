@@ -1,11 +1,8 @@
 ﻿using Dungeon.View.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Dungeon.GameObjects
 {
-    public class EmptyGameComponent : IGameComponent
+    public class GameComponentEmpty : IGameComponent
     {
         public ISceneObject SceneObject { get; set; }
 
@@ -21,7 +18,7 @@ namespace Dungeon.GameObjects
 
         public void Init() { }
 
-        public static EmptyGameComponent Empty { get; } = new EmptyGameComponent();
+        public static GameComponentEmpty Empty { get; } = new GameComponentEmpty();
 
         public string Name { get; set; }
     }

@@ -10,11 +10,11 @@
     using Dungeon12.Drawing.SceneObjects.Dialogs.Origin;
     using System;
 
-    public class Scrollbar : ColoredRectangle<EmptyGameComponent>, IMixin
+    public class Scrollbar : ColoredRectangle<GameComponentEmpty>, IMixin
     {
         private Action<MouseWheelEnum> _redrawContent;
 
-        private Scrollbar(double height):base(EmptyGameComponent.Empty)
+        private Scrollbar(double height):base(GameComponentEmpty.Empty)
         {
             Color = ConsoleColor.Black;
             Depth = 1;
@@ -68,7 +68,7 @@
             AddArrows(upBind, downBind);
 
             handleSceneControl.AddHandle(ControlEventType.MouseWheel);
-            handleSceneControl.AddDynamicEvent(nameof(SceneControl<EmptyGameComponent>.MouseWheel), MouseWheelBinding(upBind, downBind));
+            handleSceneControl.AddDynamicEvent(nameof(SceneControl<GameComponentEmpty>.MouseWheel), MouseWheelBinding(upBind, downBind));
         }
 
         private void AddArrows(Func<bool> upBind, Func<bool> downBind)

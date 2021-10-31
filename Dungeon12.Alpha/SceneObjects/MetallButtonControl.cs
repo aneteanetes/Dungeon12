@@ -4,12 +4,12 @@
     using Dungeon.Drawing;
     using Dungeon.GameObjects;
     using Dungeon.SceneObjects.Base;
-    public class MetallButtonControl : ButtonControl<EmptyGameComponent>
+    public class MetallButtonControl : ButtonControl<GameComponentEmpty>
     {
-        public MetallButtonControl(string text) : base(EmptyGameComponent.Empty, text.AsDrawText().Triforce(), 24)
+        public MetallButtonControl(string text) : base(GameComponentEmpty.Empty, text.AsDrawText().Triforce(), 24)
         {
         }
-        public MetallButtonControl(DrawText text) : base(EmptyGameComponent.Empty, text, text.Size)
+        public MetallButtonControl(DrawText text) : base(GameComponentEmpty.Empty, text, text.Size)
         {
         }
 

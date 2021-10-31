@@ -9,7 +9,7 @@
     using System;
     using System.Linq;
 
-    public class TextInputControl : ColoredRectangle<EmptyGameComponent>
+    public class TextInputControl : ColoredRectangle<GameComponentEmpty>
     {
         private readonly int limit;
         private readonly bool capitalize;
@@ -61,7 +61,7 @@
             }
         }
 
-        private readonly ColoredRectangle<EmptyGameComponent> focusRect;
+        private readonly ColoredRectangle<GameComponentEmpty> focusRect;
 
         private static Action<TextInputControl> Change;
 
@@ -70,7 +70,7 @@
         public Func<string, bool> Validation { get; set; }
 
         public TextInputControl(IDrawText drawText, int chars, bool capitalize = false, bool autofocus = true, bool absolute = true, bool onEnterOnBlur = false, double width=0, double height = 0)
-            :base(EmptyGameComponent.Empty)
+            :base(GameComponentEmpty.Empty)
         {
             AbsolutePosition = absolute;
             limit = chars;

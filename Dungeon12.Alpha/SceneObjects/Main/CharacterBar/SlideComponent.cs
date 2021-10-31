@@ -7,14 +7,14 @@ using Dungeon.GameObjects;
 
 namespace Dungeon12.Drawing.SceneObjects.Main.CharacterBar
 {
-    public abstract class SlideComponent : TooltipedSceneObject<EmptyGameComponent>
+    public abstract class SlideComponent : TooltipedSceneObject<GameComponentEmpty>
     {
         public virtual double SlideOffsetLeft { get; set; } = 0;
         public virtual double SlideOffsetTop { get; set; } = 0;
 
         public Func<bool> SlideNeed = () => true;
 
-        public SlideComponent(string tooltip="") : base(EmptyGameComponent.Empty,tooltip)
+        public SlideComponent(string tooltip="") : base(GameComponentEmpty.Empty,tooltip)
         {
         }
 

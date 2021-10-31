@@ -4,9 +4,9 @@ using System;
 
 namespace Dungeon.SceneObjects.Construct
 {
-    public class Container : ColoredRectangle<EmptyGameComponent>
+    public class Container : ColoredRectangle<GameComponentEmpty>
     {
-        public Container() : base(EmptyGameComponent.Empty)
+        public Container() : base(GameComponentEmpty.Empty)
         {
             Color = ConsoleColor.Black;
             Depth = 1;

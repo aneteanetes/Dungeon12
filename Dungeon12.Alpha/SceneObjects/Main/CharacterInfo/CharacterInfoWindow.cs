@@ -98,7 +98,7 @@
 
         private Dictionary<string, TextControl> updateableStats = new Dictionary<string, TextControl>();
 
-        private class StatContainer : TooltipedSceneObject<EmptyGameComponent>
+        private class StatContainer : TooltipedSceneObject<GameComponentEmpty>
         {
             TextControl _textControl;
             ClassStat _classStat;
@@ -107,7 +107,7 @@
             public override bool AbsolutePosition => true;
             public override bool CacheAvailable => false;
 
-            public StatContainer(ClassStat classStat):base(EmptyGameComponent.Empty, classStat.StatName)
+            public StatContainer(ClassStat classStat):base(GameComponentEmpty.Empty, classStat.StatName)
             {
                 _classStat = classStat;
                 this.Width = 2;
