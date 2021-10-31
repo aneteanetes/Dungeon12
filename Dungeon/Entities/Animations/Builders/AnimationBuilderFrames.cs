@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Dungeon12.Entities.Animations.Builders
+namespace Dungeon.Entities.Animations.Builders
 {
     public class FramesAnimationBuilder : AnimationBuilder
     {

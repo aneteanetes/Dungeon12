@@ -1,10 +1,10 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Map
 {
     using Dungeon;
-    using Dungeon.Entities.Animations;
     using Dungeon.Physics;
     using Dungeon.SceneObjects;
     using Dungeon.Types;
+    using Dungeon.View;
     using Dungeon.View.Interfaces;
     using Dungeon12.Entities.Alive;
     using Dungeon12.Map;

@@ -1,8 +1,8 @@
 ﻿namespace Dungeon12.Entities.MapRelated
 {
-    using Dungeon.Entities.Animations;
     using Dungeon.Physics;
     using Dungeon.Types;
+    using Dungeon.View;
 
     public class Moveable
     {

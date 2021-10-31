@@ -9,6 +9,7 @@
     using Dungeon.Scenes.Manager;
     using Dungeon.Types;
     using Dungeon.Utils;
+    using Dungeon.View;
     using Dungeon.View.Enums;
     using Dungeon.View.Interfaces;
     using System;
@@ -17,7 +18,7 @@
 
     [Hidden]
     public abstract class SceneObject<TComponent> : GameComponent, ISceneObject, IFlowable, IMixinContainer
-        where TComponent : class, IGameComponent
+        where TComponent : class
     {
         private readonly Scenes.GameScene owner;
 
@@ -52,13 +53,16 @@
 
         public void BindComponent(TComponent component)
         {
-            component.SetView(this);
-
-            this.Destroy += () =>
+            if (component is IGameComponent gameComponent)
             {
-                Component = default;
-                component.SetView(default);
-            };
+                gameComponent.SetView(this);
+
+                this.Destroy += () =>
+                {
+                    Component = default;
+                    gameComponent.SetView(default);
+                };
+            }
         }
 
         private static Dictionary<string, ISceneObject> singletonInstances = new Dictionary<string, ISceneObject>();
@@ -278,8 +282,6 @@
         }
 
         public string Uid { get; } = Guid.NewGuid().ToString();
-
-        public virtual Rectangle ImageRegion { get; set; }
 
         public virtual IDrawText Text { get; protected set; }
 
@@ -554,11 +556,6 @@
             OnUpdate?.Invoke(this);
         }
 
-        public virtual void Update(GameTimeLoop gameTime)
-        {
-            Update();
-        }
-
         public virtual bool Updatable => false;
 
         public bool Drawed { get; set; }
@@ -667,5 +664,104 @@
         public virtual bool PerPixelCollision { get; set; }
 
         public bool HighLevelComponent { get; set; }
+
+        protected Animation animation;
+
+        protected bool InAnimation = false;
+        TimeSpan animationTime;
+        TimeSpan frameTime;
+        TimeSpan elapsed;
+        int frameCount = 0;
+
+
+        private string _originalImage;
+
+        private string _image;
+        public override string Image
+        {
+            get => _image;
+            set
+            {
+                if (InAnimation && _originalImage == null)
+                {
+                    _originalImage = _image;
+                }
+                _image = value;
+            }
+        }
+
+        private Rectangle _originalImageRegion;
+        private Rectangle _imageRegion;
+
+        public virtual Rectangle ImageRegion
+        {
+            get => _imageRegion;
+            set
+            {
+                if(InAnimation && _originalImageRegion==null)
+                {
+                    _originalImageRegion = _imageRegion;
+                }
+                _imageRegion = value;
+            }
+        }
+
+        public void PlayAnimation(Animation animation)
+        {
+            InAnimation = true;
+            this.animation = animation;
+            this._originalImage = this.Image;
+            this.Image = animation.TileSet;
+            this.ImageRegion = animation.DefaultFramePosition;
+            this.animationTime = animation.Time;
+            this.frameTime = animation.Time / animation.Frames.Count;
+            this.frameCount = 0;
+        }
+
+        public void StopAnimation()
+        {
+            if (!InAnimation)
+                return;
+
+            InAnimation = false;
+            this.animation = null;
+
+            this.Image = _originalImage;
+            _originalImage = null;
+
+            this.ImageRegion = _originalImageRegion;
+            _originalImageRegion = null;
+
+            this.animationTime = TimeSpan.Zero;
+            this.frameTime = TimeSpan.Zero;
+        }
+
+        protected virtual void UpdateFrame() { }
+
+        public virtual void Update(GameTimeLoop gameTime)
+        {
+            elapsed += gameTime.ElapsedGameTime;
+
+            if (InAnimation)
+            {
+                if (elapsed >= frameTime)
+                {
+                    elapsed = TimeSpan.Zero;
+                    var frame = animation.Frames[frameCount];
+                    this.ImageRegion.X = frame.X;
+                    this.ImageRegion.Y = frame.Y;
+
+                    frameCount++;
+                    UpdateFrame();
+
+                    if (frameCount == animation.Frames.Count)
+                    {
+                        StopAnimation();
+                    }
+                }
+            }
+
+            Update();
+        }
     }
 }

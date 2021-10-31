@@ -8,11 +8,11 @@
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon12.Drawing.SceneObjects.UI;
-    using Dungeon.Entities.Animations;
     using Dungeon.Events;
     using Dungeon12.Map;
     using Dungeon12.Map.Objects;
-    using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
+    using Dungeon12.SceneObjects;
+    using Dungeon.SceneObjects;
     using Dungeon.Transactions;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
@@ -24,6 +24,7 @@
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.Physics;
     using Dungeon.Drawing;
+    using Dungeon.View;
 
     public class PlayerSceneObject : MoveableSceneObject<Avatar>
     {

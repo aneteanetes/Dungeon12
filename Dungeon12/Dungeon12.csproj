@@ -10,6 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\Classes\Warrior\sprite.png" />
+    <None Remove="Resources\Images\Maps\FaithIsland.png" />
+    <None Remove="Resources\Images\Objects\barrel.png" />
     <None Remove="Resources\Images\Particles\Beam.png" />
     <None Remove="Resources\Images\Particles\BeamBlurred.png" />
     <None Remove="Resources\Images\Particles\Cloud001.png" />
@@ -44,6 +47,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Images\Classes\Warrior\sprite.png" />
+    <EmbeddedResource Include="Resources\Images\Maps\FaithIsland.png" />
+    <EmbeddedResource Include="Resources\Images\Objects\barrel.png" />
     <EmbeddedResource Include="Resources\Images\Particles\Beam.png" />
     <EmbeddedResource Include="Resources\Images\Particles\BeamBlurred.png" />
     <EmbeddedResource Include="Resources\Images\Particles\Cloud001.png" />

@@ -4,7 +4,6 @@
     using Dungeon.Data.Attributes;
     using Dungeon12.Data.Region;
     using Dungeon.Entities;
-    using Dungeon.Entities.Animations;
     using Dungeon12.Game;
     using Dungeon12.Map.Infrastructure;
     using Dungeon12.Merchants;
@@ -21,6 +20,7 @@
     using Dungeon12.Loot;
     using Dungeon12.Map.Objects;
     using Force.DeepCloner;
+    using Dungeon.View;
 
     [DataClass(typeof(RegionPart))]
     public class MapObject : PhysicalObject<MapObject>, IGameComponent

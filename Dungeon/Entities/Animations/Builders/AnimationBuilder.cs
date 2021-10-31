@@ -1,7 +1,8 @@
 ﻿using Dungeon.Types;
 using Dungeon.View;
+using System;
 
-namespace Dungeon12.Entities.Animations.Builders
+namespace Dungeon.Entities.Animations.Builders
 {
     public class AnimationBuilder
     {
@@ -9,15 +10,20 @@ namespace Dungeon12.Entities.Animations.Builders
         string normal;
         string axis;
         Point size;
+        TimeSpan time;
 
-        public virtual Animation Build() => animation;
+        public virtual Animation Build()
+        {
+            return animation;
+        }
 
         public AnimationBuilder() { }
 
-        public static AnimationBuilder Bind(string tile, string tileAxis) => new AnimationBuilder()
+        public static AnimationBuilder Bind(string tile, string tileAxis, TimeSpan time=default) => new AnimationBuilder()
         {
             normal = tile,
-            axis = tileAxis
+            axis = tileAxis,
+            time=time
         };
 
         public AnimationBuilder BindSize(Point size)
@@ -31,16 +37,17 @@ namespace Dungeon12.Entities.Animations.Builders
             var builder = Bind(tile, tileAxis);
             builder.animation = new Animation()
             {
-                TileSet = tile
+                TileSet = tile,
+                Time = builder.time
             };
             return builder;
         }
 
-        public AnimationBuilder Create() => Create(this.normal, this.axis);
+        public AnimationBuilder Create() => Create(normal, axis);
 
         public FramesAnimationBuilder CreateSize()
         {
-            var builder = Create(this.normal, this.axis);
+            var builder = Create(normal, axis);
             return builder.InSize(size);
         }
 

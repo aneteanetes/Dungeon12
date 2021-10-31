@@ -23,7 +23,7 @@
 
     [Hidden]
     public abstract class SceneControl<T> : SceneObject<T>, ISceneControl, IHandleSceneControl
-        where T : class, IGameComponent
+        where T : class
     {
         public SceneControl(T component, bool bindView = true) : base(component, bindView)
         {

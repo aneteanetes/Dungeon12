@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
-    using Dungeon.Entities.Animations;
     using Dungeon12.Map.Infrastructure;
     using Dungeon.Types;
+    using Dungeon.View;
 
     [Template(">")]
     public class Portal : MapObject

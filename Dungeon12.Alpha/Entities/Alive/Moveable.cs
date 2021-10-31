@@ -1,10 +1,10 @@
 ﻿namespace Dungeon12.Entities.Alive
 {
-    using Dungeon.Entities.Animations;
     using Dungeon12.Entities.Alive;
     using Dungeon.Physics;
     using Dungeon.Types;
     using System.Numerics;
+    using Dungeon.View;
 
     public class Moveable : Interactable
     {

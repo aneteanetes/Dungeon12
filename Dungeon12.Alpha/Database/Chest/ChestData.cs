@@ -1,4 +1,4 @@
-﻿using Dungeon.Entities.Animations;
+﻿using Dungeon.View;
 using Dungeon12.Data.Region;
 
 namespace Dungeon12.Database.Chest

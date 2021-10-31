@@ -1,5 +1,6 @@
-﻿namespace Dungeon.Entities.Animations
+﻿namespace Dungeon.View
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Dungeon.Types;
@@ -18,6 +19,8 @@
 
         public string[] FullFrames { get; set; }
 
+        public TimeSpan Time { get; set; }
+
         public Rectangle DefaultFramePosition => new Rectangle()
         {
             Height = Size.Y,
@@ -33,5 +36,7 @@
             X = Frames?.LastOrDefault()?.X ?? 0,
             Y = Frames?.LastOrDefault()?.Y ?? 0
         };
+
+        public Action OnEnd { get; set; }
     }
 }

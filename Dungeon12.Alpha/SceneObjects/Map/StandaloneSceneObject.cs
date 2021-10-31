@@ -2,8 +2,8 @@
 {
     using Dungeon.Control;
     using Dungeon.Control.Pointer;
-    using Dungeon.Entities.Animations;
     using Dungeon.Types;
+    using Dungeon.View;
     using Dungeon12.Map;
     using System;
 

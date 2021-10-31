@@ -1,19 +1,18 @@
 ﻿namespace Dungeon12.SceneObjects.Base
 {
-    using Dungeon.Entities.Animations;
     using Dungeon.SceneObjects;
     using Dungeon.Types;
-    using Dungeon.View.Interfaces;
+    using Dungeon.View;
     using System;
 
-    public abstract class AnimatedSceneObject<T> : SceneControl<T>
-        where T : class, IGameComponent
+    public abstract class FrameAnimatedSceneObject<T> : SceneControl<T>
+        where T : class
     {
         public override bool DrawOutOfSight => false;
 
         public override bool CacheAvailable => false;
 
-        public AnimatedSceneObject(T @object, Rectangle defaultFramePosition, Func<int, Animation, bool> requestNextFrame = null, bool bindView = true) : base(@object, bindView)
+        public FrameAnimatedSceneObject(T @object, Rectangle defaultFramePosition, Func<int, Animation, bool> requestNextFrame = null, bool bindView = true) : base(@object, bindView)
         {
             this.FramePosition = defaultFramePosition;
             this.RequestNextFrame = requestNextFrame ?? this.DefaultRequestNextFrame;

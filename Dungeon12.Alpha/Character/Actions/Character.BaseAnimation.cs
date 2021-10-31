@@ -1,5 +1,5 @@
-﻿using Dungeon.Entities.Animations;
-using Dungeon.Types;
+﻿using Dungeon.Types;
+using Dungeon.View;
 using Dungeon12.Entities.Alive;
 using System;
 using System.Collections.Generic;

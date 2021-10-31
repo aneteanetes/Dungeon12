@@ -1,5 +1,5 @@
-﻿using Dungeon.Entities.Animations;
-using Dungeon.Types;
+﻿using Dungeon.Types;
+using Dungeon.View;
 using Dungeon12.Entities.Animations.Builders;
 
 namespace Dungeon12.Entities.Animations

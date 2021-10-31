@@ -15,7 +15,7 @@ using System.Linq;
 
 namespace Dungeon12.Scenes
 {
-    public class StartScene : Dungeon.Scenes.StartScene
+    public class StartScene : Dungeon.Scenes.StartScene<MainScene>
     {
         public StartScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -36,27 +36,17 @@ namespace Dungeon12.Scenes
 
             layerBack.AddObjectCenter(new ImageObject("d12textM.png".AsmImg()), vertical: false);
 
-            fogofwar = this.sceneManager.DrawClient.GetEffect("FogOfWar");
-            fogofwar.Image = "Effects/fow.png".AsmImg();
-            fogofwar.Size = new Point(1600, 900);
+            //fogofwar = this.sceneManager.DrawClient.GetEffect("FogOfWar");
+            //fogofwar.Image = "Effects/fow.png".AsmImg();
+            //fogofwar.Size = new Point(1600, 900);
 
-            layerBack.AddGlobalEffect(fogofwar);
+            //layerBack.AddGlobalEffect(fogofwar);
 
             var ui = this.CreateLayer("ui");
             InitButtons(ui);
 
             var snow = this.CreateLayer("snow");
             snow.AddObject(new BackgroundSnow());
-        }
-
-        protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
-        {
-            if (keyPressed == Key.Right)
-                fogofwar.Position.X+=1;
-            if (keyPressed == Key.Down)
-                fogofwar.Position.Y+=1;
-
-            base.KeyPress(keyPressed, keyModifiers, hold);
         }
 
         private void InitButtons(SceneLayer ui)
@@ -165,9 +155,7 @@ namespace Dungeon12.Scenes
 
         private void NewGame()
         {
-            var map = TiledMap.Load("Maps/tiled.tmx".AsmRes());
-            //Global.Game = new SidusXII.Game();
-            //this.Switch<RaceScene>();
+            this.Switch<MainScene>();
         }
 
         private void SaveGame()
