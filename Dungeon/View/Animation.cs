@@ -7,6 +7,8 @@
 
     public class Animation
     {
+        public string Name { get; set; }
+
         public bool TilesetAnimation { get; set; } = true;
 
         public string TileSet { get; set; }

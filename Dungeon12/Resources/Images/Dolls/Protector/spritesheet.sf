@@ -1,0 +1,21 @@
+{
+  "textureAtlas": {
+    "texture": "spritesheet.png",
+    "regionWidth": 32,
+    "regionHeight": 48
+  },
+  "cycles": {
+    "down": {
+      "frames": [0,1,2,3]
+    },
+    "left": {
+      "frames": [4,5,6,7]
+    },
+    "right": {
+      "frames": [8,9,10,11]
+    },
+    "up": {
+      "frames": [12,13,14,15]
+    }
+  }
+}

@@ -17,7 +17,7 @@
         LeftUp = 301,
         RightUp = 4001,
         LeftDown = 320,
-        RightDown = 4020,
+        RightDown = 4020
     }
 
     public enum Distance
@@ -100,5 +100,18 @@ namespace Dungeon
                 default: return Direction.Idle;
             }
         }
+
+        public static string ToStringX(this Direction direction) => direction switch
+        {
+            Direction.Up => nameof(Direction.Up),
+            Direction.Down => nameof(Direction.Down),
+            Direction.Left => nameof(Direction.Left),
+            Direction.Right => nameof(Direction.Right),
+            Direction.UpLeft => nameof(Direction.UpLeft),
+            Direction.UpRight => nameof(Direction.UpRight),
+            Direction.DownLeft => nameof(Direction.DownLeft),
+            Direction.DownRight => nameof(Direction.DownRight),
+            _ => nameof(Direction.Idle),
+        };
     }
 }

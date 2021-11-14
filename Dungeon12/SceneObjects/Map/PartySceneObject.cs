@@ -1,42 +1,226 @@
-﻿using Dungeon;
-using Dungeon.Control;
-using Dungeon.Control.Keys;
-using Dungeon.SceneObjects;
-using Dungeon.Types;
-using Dungeon12.Entities;
-using System;
-using System.Collections.Generic;
-
-namespace Dungeon12.SceneObjects.Map
+﻿namespace Dungeon12.Drawing.SceneObjects.Map
 {
+    using Dungeon;
+    using Dungeon.Control;
+    using Dungeon.Control.Keys;
+    using Dungeon.SceneObjects;
+    using Dungeon.Types;
+    using Dungeon.View.Interfaces;
+    using Dungeon12.Entities;
+    using System.Collections.Generic;
+
     public class PartySceneObject : SceneControl<Party>
     {
-        public PartySceneObject(Party component) : base(component, true)
-        {
-            Image = component.Tileset;
-            ImageRegion = component.TileSetRegion;
-        }
+        public override bool Events => true;
+
+        public override bool Shadow => true;
+
+        public override bool Updatable => base.Updatable;
 
         public override bool CacheAvailable => false;
 
-        public override bool CachePosition => false;
+        protected override ControlEventType[] Handles => new ControlEventType[]
+        {
+            ControlEventType.Focus,
+            ControlEventType.Key,
+            ControlEventType.GlobalMouseMove
+        };
 
-        public override double Left => Component.Position.X;
+        private HeroSceneObject Hero1 { get; set; }
 
-        public override double Top => Component.Position.Y;
+        /// <summary>
+        /// left from main
+        /// </summary>
+        private HeroSceneObject Hero2 { get; set; }
 
-        public override double Width => Component.Size.Width;
+        /// <summary>
+        /// Right from main
+        /// </summary>
+        private HeroSceneObject Hero3 { get; set; }
 
-        public override double Height => Component.Size.Height;
+        /// <summary>
+        /// Always back
+        /// </summary>
+        private HeroSceneObject Hero4 { get; set; }
+
+        private HeroSceneObject[] Heroes { get; set; }
+
+        public PartySceneObject(Party party) : base(party)
+        {
+            Hero1 = new HeroSceneObject(party.Hero1)
+            {
+                LayerLevel = 4
+            };
+            Hero2 = new HeroSceneObject(party.Hero2)
+            {
+                LayerLevel = 1
+            };
+            Hero3 = new HeroSceneObject(party.Hero3)
+            {
+                LayerLevel = 2
+            };
+            Hero4 = new HeroSceneObject(party.Hero4)
+            {
+                LayerLevel = 3
+            };
+
+            this.AddChild(Hero2);
+            this.AddChild(Hero3);
+            this.AddChild(Hero4);
+            this.AddChild(Hero1);
+            SetHeroesInParty(Direction.Down);
+
+            Heroes = new HeroSceneObject[] { Hero1, Hero2, Hero3, Hero4 };
+        }
+
+        private void SetHeroesInParty(Direction direction)
+        {
+            Reset();
+
+            if (direction == Direction.Down)
+            {
+                Hero2.Left -= 20;
+                Hero2.Top -= 16;
+
+                Hero3.Left += 20;
+                Hero3.Top -= 16;
+
+                Hero4.Top -= 24;
+                Hero4.ZIndex = -1;
+
+                Hero4.LayerLevel = 3;
+                Hero1.LayerLevel = 4;
+            }
+
+            if (direction == Direction.Up)
+            {
+                Hero2.Left -= 20;
+                Hero2.Top += 16;
+
+                Hero3.Left += 20;
+                Hero3.Top += 16;
+
+                Hero4.Top += 24;
+
+                Hero4.LayerLevel = 4;
+                Hero1.LayerLevel = 3;
+            }
+
+            if (direction == Direction.Left)
+            {
+                Hero2.Left += 20;
+                Hero2.Top -= 16;
+
+                Hero3.Left += 20;
+                Hero3.Top += 16;
+
+                Hero4.Left += 40;
+            }
+
+            if (direction == Direction.Right)
+            {
+                Hero2.Left -= 20;
+                Hero2.Top -= 16;
+
+                Hero3.Left -= 20;
+                Hero3.Top += 16;
+
+                Hero4.Left -= 40;
+            }
+        }
+
+        private void Reset()
+        {
+            Hero2.Left = 0;
+            Hero2.Top = 0;
+            Hero3.Left = 0;
+            Hero3.Top = 0;
+            Hero4.Left = 0;
+            Hero4.Top = 0;
+        }
+
+        public override double Left => Component.Hero1.PhysicalObject.Position.X;
+
+        public override double Top => Component.Hero1.PhysicalObject.Position.Y;
+
+        public override double Height => Component.Hero1.WalkSpriteSheet.Height;
+
+        public override double Width => Component.Hero1.WalkSpriteSheet.Width;
+
+        public override void UpdateSceneObject(GameTimeLoop gameTime)
+        {
+            int dir = (int)Direction.Idle;
+
+            if (NowMoving.Contains(Direction.Up))
+            {
+                dir += 1;
+            }
+            if (NowMoving.Contains(Direction.Down))
+            {
+                dir += 20;
+            }
+            if (NowMoving.Contains(Direction.Left))
+            {
+                dir += 300;
+            }
+            if (NowMoving.Contains(Direction.Right))
+            {
+                dir += 4000;
+            }
+
+            Direction direction = (Direction)dir;
+            if (direction != Direction.Idle)
+            {
+                if (Component.Hero1.PhysicalObject.Move(direction))
+                {
+                    Component.Hero2?.PhysicalObject.MoveThrough(direction);
+                    Component.Hero3?.PhysicalObject.MoveThrough(direction);
+                    Component.Hero4?.PhysicalObject.MoveThrough(direction);
+
+                    this.PlayAnimations(direction);
+                }
+            }
+            else
+            {
+                this.StopAnimations();
+            }
+        }
+
+        private void PlayAnimations(Direction direction)
+        {
+            if (direction == Direction.DownLeft || direction == Direction.DownRight)
+                direction = Direction.Down;
+            else if (direction == Direction.UpLeft || direction == Direction.UpRight)
+                direction = Direction.Up;
+
+            SetHeroesInParty(direction);
+
+            var animName = direction.ToStringX().ToLowerInvariant();
+
+            foreach (var hero in Heroes)
+            {
+                if (hero.Component != default)
+                {
+                    hero.Component.WalkSpriteSheet.Animations.TryGetValue(animName, out var anim);
+                    hero.PlayAnimation(anim);
+                }
+            }
+        }
+
+        private void StopAnimations()
+        {
+            foreach (var hero in Heroes)
+            {
+                hero.StopAnimation();
+            }
+        }
 
         private readonly HashSet<Direction> NowMoving = new HashSet<Direction>();
-        private HashSet<Direction> OppositeDirections = new HashSet<Direction>();
+
+        private readonly HashSet<Direction> OppositeDirections = new HashSet<Direction>();
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
-            if (Component.CantMove)
-                return;
-
             switch (key)
             {
                 case Key.D:
@@ -88,9 +272,6 @@ namespace Dungeon12.SceneObjects.Map
 
         public override void KeyUp(Key key, KeyModifiers modifier)
         {
-            if (Component.CantMove)
-                return;
-
             switch (key)
             {
                 case Key.D:
@@ -155,144 +336,17 @@ namespace Dungeon12.SceneObjects.Map
                     break;
                 default: break;
             }
-            base.KeyUp(key, modifier);
-        }
 
-        protected override ControlEventType[] Handles => new ControlEventType[]
-            {
-                ControlEventType.Key,
-                ControlEventType.GlobalMouseMove
-            };
+            if (NowMoving.Count == 0)
+                StopAnimation();
+        }
 
         protected override Key[] KeyHandles => new Key[]
         {
-            Key.D,
-            Key.A,
             Key.W,
+            Key.A,
             Key.S,
-            Key.E,
-            Key.Q,
-            Key.LeftShift
+            Key.D,
         };
-
-        private Direction _directionVision = Direction.Idle;
-        private void SetDirectionVision(Direction value)
-        {
-            if (NowMoving.Count == 0 && _directionVision != value)
-            {
-                _directionVision = value;
-                SwitchPlayerFace(value);
-            }
-        }
-
-        public override void GlobalMouseMove(PointerArgs args)
-        {
-            var pointGameCoord = args.GameCoordinates;
-            var x = pointGameCoord.X;
-            var y = pointGameCoord.Y;
-
-            if (x < this.Left)
-            {
-                SetDirectionVision(Direction.Left);
-            }
-
-            if (x > this.Left)
-            {
-                SetDirectionVision(Direction.Right);
-            }
-
-            if (y > this.Top + 2)
-            {
-                SetDirectionVision(Direction.Down);
-            }
-
-            if (y < this.Top - 2)
-            {
-                SetDirectionVision(Direction.Up);
-            }
-        }
-
-        private void SwitchPlayerFace(Direction value)
-        {
-            //switch (value)
-            //{
-            //    case Direction.Up:
-            //        animap = this.Player.MoveUp;
-            //        break;
-            //    case Direction.Down:
-            //        animap = this.Player.MoveDown;
-            //        break;
-            //    case Direction.Left:
-            //        animap = this.Player.MoveLeft;
-            //        break;
-            //    case Direction.Right:
-            //        animap = this.Player.MoveRight;
-            //        break;
-            //    default:
-            //        break;
-            //}
-
-            //SetAnimation(animap);
-            //FramePosition.Pos = animap.Frames[0];
-            //Avatar.VisionDirection = value;
-        }
-
-        Action OnFrameUpdate;
-
-        protected override void UpdateFrame()
-        {
-            OnFrameUpdate?.Invoke();
-        }
-
-        public override void Update(GameTimeLoop gameTime)
-        {
-            base.Update(gameTime);
-
-            if (Component.CantMove || this.InAnimation)
-                return;
-
-            if (NowMoving.Count == 0)
-            {
-                this.StopAnimation();
-            }
-
-            if (NowMoving.Contains(Direction.Up))
-            {
-                if (CheckMoveAvailable(Direction.Up))
-                {
-                    OnFrameUpdate = () => Component.Position.Y -= Component.Speed;
-                    this.PlayAnimation(Component.AnimationMap.Up());
-                }
-            }
-            if (NowMoving.Contains(Direction.Down))
-            {
-                if (CheckMoveAvailable(Direction.Down))
-                {
-                    OnFrameUpdate = () => Component.Position.Y += Component.Speed;
-                    this.PlayAnimation(Component.AnimationMap.Down());
-                }
-            }
-            if (NowMoving.Contains(Direction.Left))
-            {
-                if (CheckMoveAvailable(Direction.Left))
-                {
-                    OnFrameUpdate = () => Component.Position.X -= Component.Speed;
-                    this.PlayAnimation(Component.AnimationMap.Left());
-                }
-            }
-            if (NowMoving.Contains(Direction.Right))
-            {
-                if (CheckMoveAvailable(Direction.Right))
-                {
-                    OnFrameUpdate = () => Component.Position.X += Component.Speed;
-                    this.PlayAnimation(Component.AnimationMap.Right());
-                }
-            }
-        }
-
-        protected bool CheckMoveAvailable(Direction direction)
-        {
-            return true;
-        }
     }
 }

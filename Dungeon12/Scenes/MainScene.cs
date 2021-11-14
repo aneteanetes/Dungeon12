@@ -1,19 +1,19 @@
 ﻿using Dungeon;
 using Dungeon.Control;
-using Dungeon.Control.Gamepad;
 using Dungeon.Control.Keys;
 using Dungeon.Drawing.SceneObjects;
+using Dungeon.Resources;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
-using Dungeon.Tiled;
 using Dungeon.Types;
-using Dungeon.View.Interfaces;
+using Dungeon.View;
+using Dungeon12.Components;
+using Dungeon12.Drawing.SceneObjects.Map;
 using Dungeon12.Entities;
-using Dungeon12.SceneObjects.Map;
 using Dungeon12.SceneObjects.UserInterface.Common;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Dungeon12.Scenes
 {
@@ -33,30 +33,76 @@ namespace Dungeon12.Scenes
             back.AddObject(new ImageObject("Maps/FaithIsland.png".AsmImg()));
 
             var objs = this.CreateLayer("obj");
-            var party = new Party
+
+
+            string[] heroes_str = new string[] { "Protector", "Assassin", "Priest", "Necromancer" };
+
+            List<Hero> heroes = new List<Hero>();
+
+            heroes_str.ForEach(h =>
             {
-                Size=new Dungeon.Physics.PhysicalSize()
+                var spritesheet = ResourceLoader.Load($"Images/Dolls/{h}/spritesheet.sf".AsmRes());
+                var hero = new Hero()
                 {
-                    Height = 32,
-                    Width = 32
-                },
-                Position = new Dungeon.Physics.PhysicalPosition()
-                {
-                    X = 1352.5,
-                    Y = 1442.5
-                },
-                Tileset = "Classes/Warrior/sprite.png".AsmImg(),
-                TileSetRegion = new Rectangle()
-                {
-                    X = 0,
-                    Y = 0,
-                    Height = 32,
-                    Width = 32
-                }
+                    PhysicalObject = new Entities.MapRelated.MapObject()
+                    {
+                        Size = new Dungeon.Physics.PhysicalSize()
+                        {
+                            Height = 8,
+                            Width = 8
+                        }
+                    },
+                    WalkSpriteSheet = SpriteSheet.Load(spritesheet.Stream.AsString())
+                };
+                hero.WalkSpriteSheet.DefaultFramePosition = Point.Zero.Copy();
+                hero.WalkSpriteSheet.Image = $"Dolls/{h}/spritesheet.png".AsmImg();
+                heroes.Add(hero);
+            });
+
+
+            var x = 1352.5;
+            var y = 1442.5;
+
+            heroes[0].PhysicalObject.Position = new Dungeon.Physics.PhysicalPosition()
+            {
+                X = x,
+                Y = y
             };
 
-            var partyscobj = new PartySceneObject(party);
-            objs.AddObject(partyscobj);
+            heroes[1].PhysicalObject.Position = new Dungeon.Physics.PhysicalPosition()
+            {
+                X = x-24,
+                Y = y-16
+            };
+            heroes[2].PhysicalObject.Position = new Dungeon.Physics.PhysicalPosition()
+            {
+                X = x + 24,
+                Y = y - 16
+            };
+            heroes[3].PhysicalObject.Position = new Dungeon.Physics.PhysicalPosition()
+            {
+                X = x,
+                Y = y - 24
+            };
+
+            var party = new Party()
+            {
+                Hero1 = heroes[0],
+                Hero2 = heroes[1],
+                Hero3 = heroes[2],
+                Hero4 = heroes[3],
+            };
+
+            objs.AddObject(new PartySceneObject(party));
+
+            //var party = new Party
+            //{
+            //    ,
+            //    FrameAnimated = FrameAnimated.FromTileset("Classes/Warrior/sprite.png".AsmImg(), 32, 32)
+            //};
+
+            //var partyscobj = new PlayerSceneObject(party);
+            //objs.AddObject(partyscobj);
 
             Global.Camera.SetCamera(-627.5, -1027.5);
         }

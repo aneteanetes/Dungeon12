@@ -1,17 +1,16 @@
-﻿using Dungeon;
-using Dungeon.Entities.Animations;
+﻿using Dungeon12.Components;
 using Dungeon12.Entities.MapRelated;
-using System;
 
 namespace Dungeon12.Entities
 {
-    public class Party : MapObject
+    public class Party
     {
-        public bool CantMove { get; set; }
+        public Hero Hero1 { get; set; }
 
-        public double Speed => 1.5;
+        public Hero Hero2 { get; set; }
 
-        public AnimationMap AnimationMap { get; set; }
-            = new AnimationMap(new Dungeon.Types.Point(32, 32), "Classes/Warrior/sprite.png".AsmImg(), 3,time: TimeSpan.FromSeconds(3));
+        public Hero Hero3 { get; set; }
+
+        public Hero Hero4 { get; set; }
     }
 }

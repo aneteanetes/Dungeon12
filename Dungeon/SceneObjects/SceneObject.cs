@@ -556,7 +556,7 @@
             OnUpdate?.Invoke(this);
         }
 
-        public virtual bool Updatable => false;
+        public virtual bool Updatable => true;
 
         public bool Drawed { get; set; }
 
@@ -667,54 +667,28 @@
 
         protected Animation animation;
 
-        protected bool InAnimation = false;
+        protected bool InAnimation { get; set; } = false;
         TimeSpan animationTime;
         TimeSpan frameTime;
         TimeSpan elapsed;
         int frameCount = 0;
-
-
-        private string _originalImage;
-
-        private string _image;
-        public override string Image
-        {
-            get => _image;
-            set
-            {
-                if (InAnimation && _originalImage == null)
-                {
-                    _originalImage = _image;
-                }
-                _image = value;
-            }
-        }
+        
+        public override string Image { get; set; }
 
         private Rectangle _originalImageRegion;
         private Rectangle _imageRegion;
 
-        public virtual Rectangle ImageRegion
-        {
-            get => _imageRegion;
-            set
-            {
-                if(InAnimation && _originalImageRegion==null)
-                {
-                    _originalImageRegion = _imageRegion;
-                }
-                _imageRegion = value;
-            }
-        }
+        public virtual Rectangle ImageRegion { get; set; }
 
         public void PlayAnimation(Animation animation)
         {
+            if (InAnimation && animation.Name == this.animation.Name)
+                return;
+
             InAnimation = true;
             this.animation = animation;
-            this._originalImage = this.Image;
-            this.Image = animation.TileSet;
-            this.ImageRegion = animation.DefaultFramePosition;
-            this.animationTime = animation.Time;
-            this.frameTime = animation.Time / animation.Frames.Count;
+            this.animationTime = animation.Time == default ? TimeSpan.FromSeconds(1) : animation.Time;
+            this.frameTime = this.animationTime / animation.Frames.Count;
             this.frameCount = 0;
         }
 
@@ -726,12 +700,6 @@
             InAnimation = false;
             this.animation = null;
 
-            this.Image = _originalImage;
-            _originalImage = null;
-
-            this.ImageRegion = _originalImageRegion;
-            _originalImageRegion = null;
-
             this.animationTime = TimeSpan.Zero;
             this.frameTime = TimeSpan.Zero;
         }
@@ -740,6 +708,8 @@
 
         public virtual void Update(GameTimeLoop gameTime)
         {
+            UpdateSceneObject(gameTime);
+
             elapsed += gameTime.ElapsedGameTime;
 
             if (InAnimation)
@@ -763,5 +733,7 @@
 
             Update();
         }
+
+        public virtual void UpdateSceneObject(GameTimeLoop gameTime) { }
     }
 }

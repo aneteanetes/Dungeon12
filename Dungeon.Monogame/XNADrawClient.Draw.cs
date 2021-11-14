@@ -133,6 +133,7 @@ namespace Dungeon.Engine.Host
                 spriteBatch.End();
 
             GraphicsDevice.SetRenderTarget(null);
+            
             GraphicsDevice.Clear(Color.Transparent);
 
             spriteBatch.Begin();
