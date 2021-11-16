@@ -15,7 +15,7 @@ using System.Linq;
 
 namespace Dungeon12.Scenes
 {
-    public class StartScene : Dungeon.Scenes.StartScene<MainScene>
+    public class StartScene : Dungeon.Scenes.StartScene<MainScene,MapScene>
     {
         public StartScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -155,7 +155,7 @@ namespace Dungeon12.Scenes
 
         private void NewGame()
         {
-            this.Switch<MainScene>();
+            this.Switch<MapScene>();
         }
 
         private void SaveGame()

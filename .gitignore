@@ -255,4 +255,5 @@ paket-files/
 *.xcf
 /Dungeon.Engine/Resources/Island2.png
 /SidusXII/Resources/Fonts
-/SidusXII/Resources/Images/Tiles
+/Dungeon12/Resources/Images/Tiles
+/Dungeon12/Resources/Images/Backgrounds

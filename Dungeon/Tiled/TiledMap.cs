@@ -47,7 +47,7 @@ namespace Dungeon.Tiled
                     .Select(x => new TiledTile()
                     {
                         Id = x.TagAttrInteger("id"),
-                        File = Path.GetFileName(x.Element("image").TagAttrString("source"))
+                        File = ResourceFile(x.Element("image").TagAttrString("source"))
                     })
                     .ToList();
 
@@ -58,6 +58,11 @@ namespace Dungeon.Tiled
             ProcessObjects(map, tiledMap);
 
             return tiledMap;
+        }
+
+        private static string ResourceFile(string file)
+        {
+            return file.Replace("../", "");
         }
 
         private static void ProcessObjects(XElement map, TiledMap tiledMap)
@@ -76,7 +81,10 @@ namespace Dungeon.Tiled
             {
                 foreach (var objtag in objectlayer.Elements())
                 {
-                    var tobj = new TiledObject();
+                    var tobj = new TiledObject()
+                    {
+                        objectgroup = objectlayer.Attribute("name").Value
+                    };
 
                     foreach (var prop in objProps)
                     {

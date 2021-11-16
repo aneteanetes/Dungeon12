@@ -90,7 +90,9 @@
     <Folder Include="Resources\Images\Dolls\Assassin\" />
     <Folder Include="Resources\Images\Dolls\Necromancer\" />
     <Folder Include="Resources\Images\Dolls\Priest\" />
+    <Folder Include="Resources\Images\Tilesets\" />
     <Folder Include="Resources\Maps\" />
+    <Folder Include="Resources\Sounds\" />
   </ItemGroup>
 
 </Project>

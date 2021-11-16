@@ -25,6 +25,7 @@ namespace Dungeon.Tiled
 
         public bool collide => Properties?.FirstOrDefault(x => x.name == "collide")?.value == "true";
 
+        public string objectgroup { get; set; }
 
         public List<TiledObjectProperty> Properties { get; set; } = new List<TiledObjectProperty>();
 

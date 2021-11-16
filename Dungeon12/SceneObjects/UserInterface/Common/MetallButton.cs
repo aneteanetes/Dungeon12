@@ -51,7 +51,7 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
             if (Disabled)
                 return;
 
-            DungeonGlobal.AudioPlayer.Effect("focus.wav".AsmSoundRes());
+            //DungeonGlobal.AudioPlayer.Effect("focus.wav".AsmSoundRes());
             Image = "UI/Common/mbutton_f.png".AsmImg();
             //this.textControl.Text.Paint(ActiveColor, true);
         }
