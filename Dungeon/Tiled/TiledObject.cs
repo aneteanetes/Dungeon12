@@ -29,6 +29,15 @@ namespace Dungeon.Tiled
 
         public List<TiledObjectProperty> Properties { get; set; } = new List<TiledObjectProperty>();
 
+        public T GetPropValue<T>(string propName)
+        {
+            var p = this.Properties.FirstOrDefault(x => x.name.ToLower() == propName.ToLower());
+            if (p == null)
+                return default;
+
+            return Convert.ChangeType(p.value, typeof(T)).As<T>();
+        }
+
         public Point[] Polygon { get; set; } = new Point[0];
 
     }

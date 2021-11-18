@@ -28,7 +28,7 @@ namespace Dungeon12.Scenes
         public override void Initialize()
         {
             var layerBack = this.CreateLayer("back");
-            layerBack.AddObject(new ImageObject("d12back.png".AsmImg())
+            layerBack.AddObject(new ImageObject("d12backl.png".AsmImg())
             {
                 Width = Global.Resolution.Width,
                 Height = Global.Resolution.Height

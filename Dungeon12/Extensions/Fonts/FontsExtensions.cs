@@ -21,6 +21,14 @@
             return drawText;
         }
 
+        public static T Gabriela<T>(this T drawText) where T:IDrawText
+        {
+            drawText.FontName = "Gabriela";
+            drawText.FontAssembly = "Dungeon12";
+
+            return drawText;
+        }
+
         public static T Triforce<T>(this T drawText) where T : IDrawText
         {
             drawText.FontName = "Triforce(RUS BY LYAJKA)";

@@ -163,7 +163,7 @@ namespace Dungeon.Resources
 
         public static string MainPath => Store.MainPath;
 
-        public static string CompilePath => Path.Combine(MainPath, "Data", $"{DungeonGlobal.GameAssembly.GetName().Name}.dtr");
+        public static string CompilePath => Path.Combine(MainPath ?? "", "Data", $"{DungeonGlobal.GameAssembly.GetName().Name}.dtr");
         
         // We use manifest file to optimize querying resource metadata without loading content in memory.
         // LiteDB doesn't provide a convenient way to only load certain fields in memory.

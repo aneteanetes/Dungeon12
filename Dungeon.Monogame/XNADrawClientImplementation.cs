@@ -381,9 +381,13 @@ namespace Dungeon.Monogame
 
             sceneObject.Drawed = true;
 
+            bool needScalePosition = false;
+
             var scale_ = sceneObject.GetScaleValue();
-            if (parentScale != 0)
+            if (parentScale != 0) {
                 scale_ = parentScale;
+                needScalePosition = true;
+            }
 
             if (scale_ == 0)
                 scale_ = 1;
@@ -393,8 +397,8 @@ namespace Dungeon.Monogame
 
             if (!batching)
             {
-                x = xParent + (float)sceneObject.Left * scale_;
-                y = yParent + (float)sceneObject.Top * scale_;
+                x = xParent + (float)sceneObject.Left * (needScalePosition ? scale_ : 1);
+                y = yParent + (float)sceneObject.Top * (needScalePosition ? scale_ : 1);
             }
 
             DrawLight(sceneObject, x, y);
@@ -949,7 +953,12 @@ namespace Dungeon.Monogame
                 txt = WrapText(spriteFont, txt, componentWidth * cell);
             }
 
-            var color = new Color(range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B, range.ForegroundColor.A);
+
+            var alpha = sceneObject.Opacity == 0
+                   ? range.ForegroundColor.A
+                   : sceneObject.Opacity;
+
+            var color = new Color(range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B, (float)alpha);
 
             //spriteBatch.End();
             //SpriteBatchRestore?.Invoke(true, sceneObject.Filtered);

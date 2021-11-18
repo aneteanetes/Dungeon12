@@ -11,6 +11,7 @@ using MoreLinq;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Dungeon.View.Interfaces;
+using Newtonsoft.Json;
 
 #pragma warning disable CS0618 // Type or member is obsolete
 
@@ -42,12 +43,19 @@ namespace Dungeon.Resources
         {
             get
             {
-                if (liteDatabase == default)
+                try
                 {
-                    liteDatabase = new LiteDatabase(ResourceCompiler.CompilePath);
-                    DungeonGlobal.Exit += () => liteDatabase.Dispose();
+                    if (liteDatabase == default)
+                    {
+                        liteDatabase = new LiteDatabase(ResourceCompiler.CompilePath);
+                        DungeonGlobal.Exit += () => liteDatabase.Dispose();
+                    }
+                    return liteDatabase;
                 }
-                return liteDatabase;
+                catch (Exception)
+                {
+                    return null;
+                }
             }
         }
 
@@ -58,25 +66,29 @@ namespace Dungeon.Resources
                 return RuntimeCache[resource];
             }
 
-            var db = LiteDatabase.GetCollection<Resource>();
+            var db = LiteDatabase?.GetCollection<Resource>();
 
             Resource res = default;
-            try
-            {
-                res = db.Find(x => x.Path == resource).FirstOrDefault();
-            }
-            catch { }
-            if (res == default)
-            {
-                foreach (var rdb in ResourceDatabaseResolvers)
-                {
-                    res = rdb.Resolve()
-                        .GetCollection<Resource>()
-                        .Find(x => x.Path == resource)
-                        .FirstOrDefault();
 
-                    if (res != default)
-                        break;
+            if (db != null)
+            {
+                try
+                {
+                    res = db.Find(x => x.Path == resource).FirstOrDefault();
+                }
+                catch { }
+                if (res == default)
+                {
+                    foreach (var rdb in ResourceDatabaseResolvers)
+                    {
+                        res = rdb.Resolve()
+                            .GetCollection<Resource>()
+                            .Find(x => x.Path == resource)
+                            .FirstOrDefault();
+
+                        if (res != default)
+                            break;
+                    }
                 }
             }
 
@@ -105,7 +117,16 @@ namespace Dungeon.Resources
             return res;
         }
 
-        public static Resource Load(string resource, bool caching = false, bool @throw = true, SceneManager sceneManager = default, ISceneObject obj=default)
+        public static T LoadJson<T>(string resource, bool caching = false, bool @throw = true, SceneManager sceneManager = default, ISceneObject obj = default)
+        {
+            var res = Load(resource, caching, @throw, sceneManager, obj);
+            if (res == default)
+                return default;
+
+            return JsonConvert.DeserializeObject<T>(res.Stream.AsString());
+        }
+
+        public static Resource Load(string resource, bool caching = false, bool @throw = true, SceneManager sceneManager = default, ISceneObject obj = default)
         {
             var res = LoadResource(resource);
 
@@ -275,7 +296,7 @@ namespace Dungeon.Resources
 
                 var argumentTypes = className
                     .Substring(openGeneric)
-                    .Split("]",StringSplitOptions.RemoveEmptyEntries)
+                    .Split("]", StringSplitOptions.RemoveEmptyEntries)
                     .Select(s => s.Replace("[", "").Replace("]", ""))
                     .Select(s => LoadTypeInternal(s, true))
                     .ToArray();

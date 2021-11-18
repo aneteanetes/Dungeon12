@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="hexagonal" renderorder="left-up" width="1" height="1" tilewidth="167" tileheight="192" infinite="1" hexsidelength="105" staggeraxis="y" staggerindex="odd" nextlayerid="25" nextobjectid="35">
+<map version="1.4" tiledversion="1.4.2" orientation="hexagonal" renderorder="left-up" width="1" height="1" tilewidth="167" tileheight="192" infinite="1" hexsidelength="105" staggeraxis="y" staggerindex="odd" nextlayerid="27" nextobjectid="42">
  <editorsettings>
   <chunksize width="4" height="4"/>
  </editorsettings>
@@ -33,7 +33,7 @@
    <image width="1600" height="900" source="../Images/Backgrounds/shipsize.png"/>
   </tile>
  </tileset>
- <tileset firstgid="51" name="tokens" tilewidth="240" tileheight="240" tilecount="3" columns="0">
+ <tileset firstgid="51" name="tokens" tilewidth="835" tileheight="600" tilecount="4" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="11">
    <properties>
@@ -53,12 +53,15 @@
    </properties>
    <image width="240" height="240" source="../Images/Backgrounds/guard.png"/>
   </tile>
+  <tile id="17">
+   <image width="835" height="600" source="../Images/Backgrounds/arrow.png"/>
+  </tile>
  </tileset>
  <layer id="19" name="Tiles" width="1" height="1">
   <data encoding="csv"/>
  </layer>
  <objectgroup id="24" name="Service">
-  <object id="34" x="-2" y="40" width="1598" height="902">
+  <object id="34" x="168" y="386" width="1202" height="204">
    <properties>
     <property name="Area" type="bool" value="true"/>
    </properties>
@@ -73,19 +76,20 @@
   <object id="8" gid="3" x="1162" y="592" width="210" height="210">
    <properties>
     <property name="Index" value="1"/>
-    <property name="IndexLinks" value="[2]"/>
+    <property name="IndexLinks" value="2"/>
+    <property name="IsOpen" type="bool" value="true"/>
    </properties>
   </object>
   <object id="9" gid="17" x="830" y="592" width="210" height="210">
    <properties>
     <property name="Index" value="2"/>
-    <property name="IndexLinks" value="[1,3]"/>
+    <property name="IndexLinks" value="1,3"/>
    </properties>
   </object>
   <object id="10" gid="11" x="498" y="592" width="210" height="210">
    <properties>
     <property name="Index" value="3"/>
-    <property name="IndexLinks" value="[2,4]"/>
+    <property name="IndexLinks" value="2,4"/>
    </properties>
   </object>
   <object id="11" gid="46" x="166" y="592" width="210" height="210">
@@ -95,7 +99,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="16" name="Objects">
+ <objectgroup id="16" name="Objects" visible="0">
   <object id="14" gid="65" x="1162" y="592" width="190" height="190"/>
   <object id="15" gid="66" x="830" y="592" width="240" height="240"/>
   <object id="16" gid="62" x="498" y="592" width="240" height="240"/>

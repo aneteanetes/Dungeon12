@@ -415,7 +415,7 @@
         [Hidden]
         public ISceneObject Parent { get; set; }
 
-        public virtual bool CacheAvailable { get; set; } = true;
+        public virtual bool CacheAvailable { get; set; } = false;
 
         public virtual bool CachePosition { get; set; } = false;
 
