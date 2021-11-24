@@ -121,7 +121,7 @@
         [Hidden]
         bool ForceInvisible { get; }
 
-        bool Visible { get; }
+        bool Visible { get; set; }
         
         /// <summary>
         /// Relative

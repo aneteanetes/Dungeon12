@@ -3,23 +3,26 @@ using Dungeon.Control.Gamepad;
 using Dungeon.Control.Keys;
 using Dungeon.Control.Pointer;
 using Dungeon.Drawing.SceneObjects;
+using Dungeon.ECS;
 using Dungeon.Settings;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 
 namespace Dungeon.Scenes
 {
+    [DebuggerDisplay("{Name}")]
     public class SceneLayer : ISceneLayer
     {
         protected Scene Owner;
 
         protected Scene Parent => Owner;
 
-        protected Scene Scene => Owner;
+        public IScene Scene => Owner;
 
         public SceneLayer(Scene parentScene)
         {
@@ -552,10 +555,20 @@ namespace Dungeon.Scenes
 
             var newLostFocused = inFocus.Where(x => !RegionContains(x, pointerPressedEventArgs, offset));
 
+
+
             foreach (var item in newLostFocused)
             {
                 try
                 {
+                    foreach (var system in Systems)
+                    {
+                        if (system.IsApplicable(item))
+                        {
+                            system.ProcessUnfocus(item);
+                        }
+                    }
+
                     item.Unfocus();
                 }
                 catch (Exception ex)
@@ -573,6 +586,13 @@ namespace Dungeon.Scenes
                 {
                     try
                     {
+                        foreach (var system in Systems)
+                        {
+                            if (system.IsApplicable(control))
+                            {
+                                system.ProcessFocus(control);
+                            }
+                        }
                         control.Focus();
                     }
                     catch (Exception ex)
@@ -585,6 +605,8 @@ namespace Dungeon.Scenes
                 sceneObjectsInFocuses.AddRange(newFocused);
             }
         }
+
+        private List<ISystem> Systems = new List<ISystem>();
 
         public virtual void OnStickMoveOnce(Direction direction, GamePadStick stick)
         {
@@ -683,6 +705,20 @@ namespace Dungeon.Scenes
             sceneObjsForRemove = new List<ISceneObject>(sceneObjectControls);
             sceneObjsForRemove.ForEach(x => x.Destroy?.Invoke());
             sceneObjsForRemove.Clear();
+        }
+
+        public void AddSystem(ISystem system)
+        {
+            if (!Systems.Contains(system))
+            {
+                system.SceneLayer = this;
+                Systems.Add(system);
+            }
+        }
+
+        public void RemoveSystem(ISystem system)
+        {
+            Systems.Remove(system);
         }
 
         //private static bool IntersectsPixel(Rectangle hitbox1, Texture2D texture1, Rectangle hitbox2, Texture2D texture2)

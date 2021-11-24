@@ -1,7 +1,12 @@
-﻿namespace Dungeon.View.Interfaces
+﻿using Dungeon.ECS;
+using System.Diagnostics;
+
+namespace Dungeon.View.Interfaces
 {
     public interface ISceneLayer
     {
+        IScene Scene { get; }
+
         ISceneObject[] Objects { get; }
 
         IEffect[] SceneGlobalEffects { get; }
@@ -18,9 +23,16 @@
 
         void AddObject(ISceneObject sceneObject);
 
+        void AddObjectCenter<TSceneObject>(TSceneObject sceneObject, bool horizontal = true, bool vertical = true)
+            where TSceneObject : ISceneObject;
+
         void RemoveObject(ISceneObject sceneObject);
 
         bool AbsoluteLayer { get; }
+
+        void AddSystem(ISystem system);
+
+        void RemoveSystem(ISystem system);
 
     }
 }

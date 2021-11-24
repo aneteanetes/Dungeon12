@@ -12,6 +12,8 @@ namespace Dungeon12.Entities.Map
     {
         public List<Location> Locations { get; set; }
 
+        public string DefaultLocationTile { get; set; }
+
         public List<Point> Lines { get; set; } = new List<Point>();
 
         public List<PhysicalObject> Objects { get; set; } = new List<PhysicalObject>();
@@ -45,6 +47,8 @@ namespace Dungeon12.Entities.Map
                 var linksIds = location.IndexLinks
                     .ToArray();
 
+                location.Region = region;
+
                 location.Links = region.Locations
                     .Where(x => linksIds.Contains(x.Index))
                     .ToList();
@@ -60,7 +64,7 @@ namespace Dungeon12.Entities.Map
                 return null;
 
             var uiObject = tiles.FirstOrDefault(x => x.objectgroup == "UI");
-            if(uiObject!=default)
+            if (uiObject != default)
             {
                 region.Objects.Add(new PhysicalObject()
                 {
@@ -94,11 +98,21 @@ namespace Dungeon12.Entities.Map
 
                 ObjectId = tileObj.GetPropValue<string>("objectid"),
 
-                Background = tile.file,
-                Object = tileObj.file,
+                BackgroundImage = tile.file,
+                ObjectImage = tileObj.file,
 
                 IsOpen = tile.GetPropValue<bool>("isopen")
             };
+
+            if (location.ObjectId != null)
+                try
+                {
+                    location.Polygon = ResourceLoader.LoadJson<Polygon>($"Objects/{location.ObjectId}.json".AsmRes(),@throw:false);
+                    if (location.Polygon == null)
+                        location.Polygon = new Polygon(); // это пока не все объекты пока разработка
+                    location.Polygon.Init();
+                }
+                catch { }
 
             return location;
         }

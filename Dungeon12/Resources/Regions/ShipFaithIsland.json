@@ -1,4 +1,5 @@
 {
   "Title": "",
-  "MapId": "ShipFromMainLandToFaithIsland"
+  "MapId": "ShipFromMainLandToFaithIsland",
+  "DefaultLocationTile": "hk_new-blank_006"
 }

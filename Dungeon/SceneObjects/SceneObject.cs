@@ -6,7 +6,6 @@
     using Dungeon.GameObjects;
     using Dungeon.Proxy;
     using Dungeon.SceneObjects.Mixins;
-    using Dungeon.Scenes.Manager;
     using Dungeon.Types;
     using Dungeon.Utils;
     using Dungeon.View;
@@ -392,19 +391,30 @@
                     var parentX = Parent?.ComputedPosition?.X ?? 0f;
                     var parentY = Parent?.ComputedPosition?.Y ?? 0f;
 
-                    var scale_ = Scale == default ? 1 : Scale;
+                    var scale_ = this.GetScaleValue();
+
+                    bool needScalePosition = false;
+
+                    var parentScale = Parent?.Scale ?? 0;
+                    if (parentScale != 0)
+                    {
+                        scale_ = parentScale;
+                        needScalePosition = true;
+                    }
+
+                    if (scale_ == 0)
+                        scale_ = 1;
 
                     if (_computedPosition != null)
                     {
-
-                        _computedPosition.X = parentX + (float)Left * scale_;
-                        _computedPosition.Y = parentY + (float)Top * scale_;
+                        _computedPosition.X = parentX + (float)Left * (needScalePosition ? scale_ : 1);
+                        _computedPosition.Y = parentY + (float)Top * (needScalePosition ? scale_ : 1);
                     }
                     else
                         _computedPosition = new Rectangle
                         {
-                            X = parentX + (float)Left * scale_,
-                            Y = parentY + (float)Top * scale_
+                            X = parentX + (float)Left * (needScalePosition ? scale_ : 1),
+                            Y = parentY + (float)Top * (needScalePosition ? scale_ : 1)
                         };
                 }
 

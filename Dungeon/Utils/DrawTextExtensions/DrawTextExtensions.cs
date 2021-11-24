@@ -12,7 +12,7 @@ namespace Dungeon
         public static DrawText AsDrawText(this string value)
         {
             if (string.IsNullOrWhiteSpace(value))
-                value = " ";
+                value = ".";
 
             return new DrawText(value,fontAsm: Assembly.GetCallingAssembly().GetName().Name).DefaultFont();
         }

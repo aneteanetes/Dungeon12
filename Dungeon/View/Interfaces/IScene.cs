@@ -4,6 +4,8 @@
     {
         ISceneLayer[] Layers { get; }
 
+        ISceneLayer GetLayer(string name);
+
         bool AbsolutePositionScene { get; }
 
         void Destroy();

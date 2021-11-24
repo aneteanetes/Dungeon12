@@ -1,0 +1,9 @@
+{
+  "Id": "TableInfo",
+  "Name": "Стол с документами",
+  "P0": {
+    "Name": "Прозвище",
+    "Icon": "scrollknife.png",
+    "Function": "NameEnterWindow"
+  }
+}

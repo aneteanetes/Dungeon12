@@ -47,7 +47,6 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\Images\Maps\FaithIsland.png" />
-    <EmbeddedResource Include="Resources\Images\Objects\barrel.png" />
     <EmbeddedResource Include="Resources\Images\Particles\Beam.png" />
     <EmbeddedResource Include="Resources\Images\Particles\BeamBlurred.png" />
     <EmbeddedResource Include="Resources\Images\Particles\Cloud001.png" />

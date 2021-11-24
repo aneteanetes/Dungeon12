@@ -1,6 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Monogame;
 using Dungeon.Resources;
+using Dungeon12.Functions.ObjectFunctions;
 using System;
 
 namespace Dungeon12
@@ -23,6 +24,7 @@ namespace Dungeon12
             //ResourceLoader.CacheImagesAndMasks = false;
 
 #endif      
+
             var client = new MonogameClient(new MonogameClientSettings()
             {
                 OriginWidthPixel = 1600,

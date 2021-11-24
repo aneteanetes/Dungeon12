@@ -1,13 +1,12 @@
 ﻿using Dungeon;
 using Dungeon.Control.Keys;
 using Dungeon.Drawing.SceneObjects;
-using Dungeon.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
-using Dungeon.Tiled;
+using Dungeon12.ECS.Systems;
 using Dungeon12.Entities.Map;
+using Dungeon12.Functions.ObjectFunctions;
 using Dungeon12.SceneObjects.Map;
-using System.Linq;
 
 namespace Dungeon12.Scenes
 {
@@ -25,6 +24,17 @@ namespace Dungeon12.Scenes
 
         public override void Initialize()
         {
+            Global.RegisterFunction<NameEnterWindowFunction>();
+            Global.RegisterFunction<SelectOriginFunction>();
+
+            Global.Game = new Game()
+            {
+                Party = new Entities.Party()
+                {
+                    Hero1 = new Entities.Hero()
+                }
+            };
+
             var background = this.CreateLayer("background");
             background.AddObject(new ImageObject("Backgrounds/ship.png".AsmImg())
             {
@@ -35,17 +45,19 @@ namespace Dungeon12.Scenes
             var mapLayer = this.CreateLayer("map");
 
             var region = Region.Load("ShipFaithIsland");
-            var regionSceneObj = new RegionSceneObject(region);
+            var regionSceneObj = new RegionSceneObject(region, hints);
             regionSceneObj.Scale = .7;
             regionSceneObj.Left = (Global.Resolution.Width / 2) - (regionSceneObj.Width * regionSceneObj.Scale / 2);
             regionSceneObj.Top = (Global.Resolution.Height / 2) - (regionSceneObj.Height * regionSceneObj.Scale / 2);
 
+            Global.Game.Region = region;
+
             mapLayer.AddObject(regionSceneObj);
+            mapLayer.AddSystem(new TooltipSystem());
 
             var ui = this.CreateLayer("ui");
             ui.AbsoluteLayer = true;
             ui.AddObject(hints);
-            
 
             //Global.AudioPlayer.Effect("Sounds/Ship.wav".AsmRes(), new Dungeon.Audio.AudioOptions()
             //{

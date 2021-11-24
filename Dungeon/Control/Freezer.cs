@@ -36,6 +36,26 @@ namespace Dungeon.Control
             }
         }
 
+        private Stack<object> freezeStack = new Stack<object>();
+
+        public void Freeze(object @object)
+        {
+            if (World == @object)
+                return;
+
+            if (freezeWorldObject != null)
+                freezeStack.Push(freezeWorldObject);
+            World = @object;
+        }
+
+        public void Unfreeze()
+        {
+            if (freezeStack.Count == 0)
+                World = null;
+            else
+                World = freezeStack.Pop();
+        }
+
         public Dictionary<ControlEventType, object> HandleFreezes = new Dictionary<ControlEventType, object>();
 
         public void FreezeHandle(ControlEventType controlEventType, object freezer)

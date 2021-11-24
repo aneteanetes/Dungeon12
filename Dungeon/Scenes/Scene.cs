@@ -81,7 +81,7 @@
 
         public SceneLayer RemoveLayer(string name)
         {
-            var layer = GetLayer(name);
+            var layer = GetLayer(name).As<SceneLayer>();
             layer.Destroyed = true;
             LayerMap.Remove(name);
             LayerList.Remove(layer);
@@ -89,7 +89,7 @@
             return layer;
         }
 
-        public SceneLayer GetLayer(string name)=> LayerList[LayerMap[name]()];
+        public ISceneLayer GetLayer(string name) => LayerList[LayerMap[name]()];
 
         public void ResetActiveLayer() => ActiveLayer = null;
 
