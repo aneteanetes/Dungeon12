@@ -10,14 +10,19 @@ namespace Dungeon12.SceneObjects.Map
     public enum HintStates
     {
         Default,
-        Click
+        Click,
+        LocationOpenedAndUsed,
+        NewHexAppear
     }
 
     public class HintScenarioSceneObject : EmptySceneControl
     {
         private readonly ArrowImage Arrow;
         private readonly PlateObject PlateFocus;
+        private readonly PlateObject PlateActivation;
         private readonly PlateObject PlateClick;
+        private readonly PlateObject PlateTextInput;
+        private readonly PlateObject PlateHexAppear;
 
         List<PlateObject> Plates = new List<PlateObject>();
 
@@ -30,21 +35,51 @@ namespace Dungeon12.SceneObjects.Map
 
             Arrow = new ArrowImage();
 
-            Plates.Add(this.AddChild(PlateFocus = new PlateObject("Перемещение",@"Для перемещения 
+            Plates.Add(this.AddChild(PlateFocus = new PlateObject("Перемещение", @"Для перемещения 
 наведите курсор 
-на клетку:")
+на плитку:")
             {
                 Left = 1282,
                 Top = 165
             }));
 
             Plates.Add(this.AddChild(PlateClick = new PlateObject("Активация", @"Для перемещения и
-активации клетки
+активации плитки
 нажмите на неё:")
             {
                 Left = 741,
                 Top = 184,
-                Visible=false
+                Visible = false
+            }));
+
+
+            Plates.Add(this.AddChild(PlateActivation = new PlateObject("Локация",
+                @"Каждая локация содержит в себе несколько плиток, выберите интересующую вас и нажмите для активации.",
+                true, 200)
+            {
+                Left = 1050,
+                Top = 18,
+                Visible = false
+            }));
+
+
+            Plates.Add(this.AddChild(PlateTextInput = new PlateObject("Ввод текста",
+                @"Для ввода текста нажмите на текстовое поле. Пока вы не нажмёте Enter или Esc другие элементы интерфейса не будут активны. После того как закончите ввод текста нажмите на Enter или Esc. 
+Как только будете готовы - подпишите свидетельство.",
+                true, 300)
+            {
+                Left = 137,
+                Top = 69,
+                Visible = false
+            }));
+
+            Plates.Add(this.AddChild(PlateHexAppear = new PlateObject("Появление плиток",
+                @"Некоторые плитки после использования могут открывать доступ до следующих. После подписания свидетельства вы должны указать своё происхождение",
+                true, 200)
+            {
+                Left = 1146,
+                Top = 147,
+                Visible = false
             }));
 
             this.AddChild(Arrow);
@@ -59,38 +94,83 @@ namespace Dungeon12.SceneObjects.Map
             state = states;
         }
 
+        public void StepNewHex()
+        {
+            if (state == HintStates.Click)
+            {
+                ChangeState(HintStates.LocationOpenedAndUsed);
+            }
+
+            Arrow.Reset();
+            Arrow.Visible = true;
+            Arrow.Left = 1008;
+            Arrow.Top = 254;
+            Arrow.Flip = Dungeon.View.Enums.FlipStrategy.None;
+
+            SetActivePlate(PlateHexAppear);
+        }
+
+        public void StepTextInput()
+        {
+            Arrow.Reset();
+            Arrow.Visible = true;
+            Arrow.Left = 357;
+            Arrow.Top = 176;
+            Arrow.Flip = Dungeon.View.Enums.FlipStrategy.Horizontally;
+
+            SetActivePlate(PlateTextInput);
+        }
+
+        private void SetActivePlate(PlateObject activePlate)
+        {
+            activePlate.Visible = true;
+            Plates.ForEach(x => { if (x != activePlate) { x.Visible = false; } });
+        }
+
         public void StepActivate()
         {
-            ChangeState(HintStates.Click);
-            Arrow.Visible = true;
-            Plates.ForEach(x => x.Visible = false);
+            if (state == HintStates.Click || state == HintStates.Default)
+            {
+                ChangeState(HintStates.Click);
+                Arrow.Invert();
+                Arrow.Visible = true;
+                Arrow.Left = 908;
+                Arrow.Top = 83;
+                Arrow.Flip = Dungeon.View.Enums.FlipStrategy.None;
+
+                SetActivePlate(PlateActivation);
+            }
+            else if (state == HintStates.LocationOpenedAndUsed)
+            {
+                StepNewHex();
+            }
         }
 
         public void StepFocus()
         {
             if (state == HintStates.Default)
             {
+                Arrow.Reset();
                 Arrow.Scale = .2;
                 Arrow.Left = 1157;
                 Arrow.Top = 266;
                 Arrow.Flip = Dungeon.View.Enums.FlipStrategy.None;
                 Arrow.Visible = true;
 
-                PlateFocus.Visible = true;
-                Plates.ForEach(x => { if (x != PlateFocus) { x.Visible = false; } });
+                SetActivePlate(PlateFocus);
             }
         }
 
         public void StepClick()
         {
+            Arrow.Reset();
             Arrow.Scale = .2;
             Arrow.Left = 949;
             Arrow.Top = 285;
             Arrow.Flip = Dungeon.View.Enums.FlipStrategy.Horizontally;
             Arrow.Visible = true;
 
-            PlateClick.Visible = true; 
-            Plates.ForEach(x => { if (x != PlateClick) { x.Visible = false; } });
+            SetActivePlate(PlateClick);
         }
 
         public override bool AllKeysHandle => true;
@@ -98,13 +178,13 @@ namespace Dungeon12.SceneObjects.Map
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
             if (key == Key.D)
-                Arrow.Left += 1;
+                PlateHexAppear.Left += 1;
             if (key == Key.A)
-                Arrow.Left -= 1;
+                PlateHexAppear.Left -= 1;
             if (key == Key.S)
-                Arrow.Top += 1;
+                PlateHexAppear.Top += 1;
             if (key == Key.W)
-                Arrow.Top -= 1;
+                PlateHexAppear.Top -= 1;
 
             base.KeyDown(key, modifier, hold);
         }
@@ -113,9 +193,21 @@ namespace Dungeon12.SceneObjects.Map
         {
             public ArrowImage() : base("Backgrounds/arrow.png".AsmImg())
             {
+                this.CacheAvailable = false;
             }
+
             public TimeSpan Time { get; set; }
             private bool down = false;
+
+            public void Invert()
+            {
+                Image = "Backgrounds/arrow_white.png".AsmImg();
+            }
+
+            public void Reset()
+            {
+                Image = "Backgrounds/arrow.png".AsmImg();
+            }
 
             public override void Update(GameTimeLoop gameTime)
             {
@@ -148,17 +240,29 @@ namespace Dungeon12.SceneObjects.Map
 
             public ImageObject Line { get; private set; }
 
-            public PlateObject(string title, string text) : base("Backgrounds/plate250125.png".AsmImg())
+            public PlateObject(string title, string text, bool wordwrap=false, double height=125) : base($"Backgrounds/plate250{height}.png".AsmImg())
             {
                 this.Width = 250;
-                this.Height = 125;
+                this.Height = height;
 
                 Title = this.AddTextCenter(title.AsDrawText().Gabriela().InSize(16), vertical: false);
                 Title.Top += 7;
 
-                Description = this.AddTextCenter(text.AsDrawText().Gabriela().InSize(12), vertical: false);
-                Description.Width = 200;
-                //Description.Left = 25;
+                var txt = text.AsDrawText().Gabriela().InSize(12);
+
+                if (wordwrap)
+                    txt = txt.WithWordWrap();
+
+                Description = this.AddTextCenter(txt, vertical: false);
+                if (!wordwrap)
+                {
+                    Description.Width = 200;
+                }
+                else
+                {
+                    Description.Width = 220;
+                    Description.Left = 15;
+                }
                 Description.Top +=46;
 
                 this.AddChild(Line = new ImageObject("Backgrounds/line230.png".AsmImg())

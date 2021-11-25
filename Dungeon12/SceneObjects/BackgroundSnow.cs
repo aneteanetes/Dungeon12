@@ -20,7 +20,7 @@ namespace Dungeon12.Drawing.SceneObjects
         {
             public BackgroundSnowParticle()
             {
-                this.Effects.Add(new ParticleEffect()
+                this.ParticleEffects.Add(new ParticleEffect()
                 {
                     Name = "SnowFast",
                     Scale = 1.4

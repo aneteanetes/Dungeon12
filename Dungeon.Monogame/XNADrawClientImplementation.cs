@@ -157,7 +157,7 @@ namespace Dungeon.Monogame
             }
         }
 
-        private void SetSpriteBatch(bool absolute = false, bool @interface = false, double scale=0)
+        private void SetSpriteBatch(bool absolute = false, bool @interface = false, double scale=0, IEffect effect=default)
         {
             Matrix scaleMatrix = Matrix.Identity;
             if (Camera.CameraOffsetZ != 0)
@@ -172,27 +172,80 @@ namespace Dungeon.Monogame
                 scaleMatrix = Matrix.CreateScale((float)scale);
             }
 
+            var bsInverter = new BlendState()
+            {
+                ColorSourceBlend = Blend.Zero,
+                ColorDestinationBlend = Blend.InverseSourceColor,
+            };
+
+            BlendState GetBlendState(bool useLight, bool alphaBlend, bool invert)
+            {
+                if (invert)
+                    return bsInverter;
+
+                return useLight || alphaBlend
+                    ? BlendState.AlphaBlend
+                    : BlendState.NonPremultiplied;
+            }
+
+            Effect GetEffect(bool filter, IEffect effect, bool invert)
+            {
+                if (filter)
+                    return GlobalImageFilter;
+
+                if (effect != default)
+                    return XnaEffectFromIEffect(effect);
+
+                if (invert)
+                    return XnaEffectFromIEffect("Invert");
+
+                return null;
+            }
+
             if (!absolute)
             {
-                SpriteBatchRestore = (smooth, filter, alphaBlend, istransformMatrix) => spriteBatch.Begin(
+                SpriteBatchRestore = (smooth, filter, alphaBlend, istransformMatrix, invert, effect) => spriteBatch.Begin(
                     transformMatrix: Matrix.CreateTranslation((float)Camera.CameraOffsetX, (float)Camera.CameraOffsetY,0) * scaleMatrix,
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
-                    blendState: useLight || alphaBlend ? BlendState.AlphaBlend : BlendState.NonPremultiplied, effect: filter ? GlobalImageFilter : null,
+                    blendState: GetBlendState(useLight,alphaBlend,invert),
+                    effect: GetEffect(filter,effect, invert),
                     depthStencilState:spriteBatch.DepthStencilState
                     );
             }
             else
             {
-                SpriteBatchRestore = (smooth, filter, alphaBlend, istransformMatrix) => spriteBatch.Begin(
+                SpriteBatchRestore = (smooth, filter, alphaBlend, istransformMatrix, invert, effect) => spriteBatch.Begin(
                     transformMatrix: istransformMatrix ? (resolutionMatrix ?? scaleMatrix) : new Matrix?(),
                     samplerState: !smooth ? SamplerState.PointWrap : SamplerState.LinearClamp,
-                    blendState: useLight || alphaBlend ? BlendState.AlphaBlend : BlendState.NonPremultiplied,
+                    blendState: GetBlendState(useLight, alphaBlend, invert),
+                    effect: GetEffect(filter, effect, invert),
                     depthStencilState:spriteBatch.DepthStencilState
                     /*, effect: @interface ? null : GlobalImageFilter*/);
             }
             currentAbsolute = absolute;
             currentAbsolute=@interface;
             SpriteBatchRestore.Invoke(false, true);
+        }
+
+        private static Dictionary<string, Effect> XnaEffectsLoaded = new Dictionary<string, Effect>();
+
+        private Effect XnaEffectFromIEffect(IEffect effect)
+            => XnaEffectFromIEffect(effect.Name);
+
+        private Effect XnaEffectFromIEffect(string effectName)
+        {
+            if (XnaEffectsLoaded.TryGetValue(effectName, out var xnaeff))
+            {
+                var effectres = ResourceLoader.Load($"Shaders/{effectName}.xnb".AsmRes(), @throw: false);
+                if (effectres != null)
+                {
+                    xnaeff = Content.Load<Effect>($"{effectName}", effectres.Stream);
+                }
+
+                XnaEffectsLoaded[effectName] = xnaeff;
+            }
+
+            return xnaeff;
         }
 
         private bool currentAbsolute = false;
@@ -206,7 +259,7 @@ namespace Dungeon.Monogame
         /// </summary>
         /// <param name="LinearClamp"></param>
         /// <param name="globalImageFilter">[Obsolete] use pre+post filters for layer</param>
-        private delegate void SpriteBatchRestoring(bool LinearClamp, bool globalImageFilter, bool alphaBlend = false, bool transformMatrix = true);
+        private delegate void SpriteBatchRestoring(bool LinearClamp, bool globalImageFilter, bool alphaBlend = false, bool transformMatrix = true, bool colorInvert=false, IEffect effect=default);
 
         private static readonly string DefaultFontXnbExistedFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.Resources.Fonts.xnb.Montserrat.Montserrat10.xnb";
 
@@ -247,7 +300,7 @@ namespace Dungeon.Monogame
 
             if (drawText.WordWrap && parent != default)
             {
-                var parentWidth = parent.BoundPosition.Width;
+                var parentWidth = parent.Width;
                 if (parentWidth > 0)
                 {
                     data = WrapText(font, data, parentWidth * cell);
@@ -667,6 +720,9 @@ namespace Dungeon.Monogame
 
         private void DrawSceneImage(ISceneObject sceneObject, double y, double x, bool force)
         {
+            if (sceneObject.Opacity == 0)
+                return;
+
             Texture2D image = TileSetByName(sceneObject.Image, sceneObject);
 
             if (image == default)
@@ -806,6 +862,13 @@ namespace Dungeon.Monogame
             }
             else
             {
+                if (sceneObject.ImageInvertColor)
+                {
+                    spriteBatch.End();
+                    color = Color.Black;
+                    SpriteBatchRestore?.Invoke(false, sceneObject.Filtered, colorInvert: true);
+                }
+
                 if (sceneObject.Scale > 0)
                 {
                     if (sceneObject.ScaleAndResize)
@@ -822,6 +885,9 @@ namespace Dungeon.Monogame
                 {
                     spriteBatch.Draw(image, dest, source, drawColor, angle, origin, spriteEffects, 0f);
                 }
+
+                spriteBatch.End();
+                SpriteBatchRestore?.Invoke(false, sceneObject.Filtered);
             }
         }
 
@@ -1268,13 +1334,13 @@ namespace Dungeon.Monogame
 
         private void DrawEffects(ISceneObject sceneObject, double x, double y)
         {
-            if (sceneObject.Effects==default || sceneObject.Effects.Count == 0)
+            if (sceneObject.ParticleEffects==default || sceneObject.ParticleEffects.Count == 0)
                 return;
 
             x = (int)x;
             y = (int)y;
 
-            foreach (var effect in sceneObject.Effects)
+            foreach (var effect in sceneObject.ParticleEffects)
             {
                 var path = $"{effect.Assembly}.Resources.Particles.{effect.Name}.xml";
 

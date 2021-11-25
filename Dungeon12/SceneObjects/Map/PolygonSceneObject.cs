@@ -12,8 +12,6 @@ namespace Dungeon12.SceneObjects.Map
 {
     public class PolygonSceneObject : SceneControl<Polygon>, ITooltiped
     {
-        HintScenarioSceneObject Hints;
-
         public override bool AbsolutePosition => true;
 
         ImageObject blackmask;
@@ -31,10 +29,8 @@ namespace Dungeon12.SceneObjects.Map
             public override string Image => $"Objects/{Component.Icon}".AsmImg();
         }
 
-        public PolygonSceneObject(Polygon polygon, string defaultBackground, int index, HintScenarioSceneObject hints) : base(polygon, true)
+        public PolygonSceneObject(Polygon polygon, string defaultBackground, int index) : base(polygon, true)
         {
-            Hints = hints;
-
             this.Width = 210;
             this.Height = 210;
 
@@ -109,20 +105,6 @@ namespace Dungeon12.SceneObjects.Map
                 Global.ExecuteFunction(this.Layer, Component.Function);
             }
             base.Click(args);
-        }
-
-        public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
-        {
-            //if (key == Key.D)
-            //    cells.Left += 1;
-            //if (key == Key.A)
-            //    cells.Left -= 1;
-            //if (key == Key.S)
-            //    cells.Top += 1;
-            //if (key == Key.W)
-            //    cells.Top -= 1;
-
-            base.KeyDown(key, modifier, hold);
         }
 
         private IDrawText tooltiptext;

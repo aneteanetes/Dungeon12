@@ -85,10 +85,13 @@
             }
         }
 
-        public TextControl AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical = true)
+        public TextControl AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical = true, double parentWidth=0)
         {
             var textControl = new TextControl(drawText);
-            var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text, this);
+            var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text, parentWidth==0
+                ? this
+                : new EmptySceneObject() { Width = parentWidth });
+
 
             var width = Width;
             var height = Height;
@@ -485,7 +488,7 @@
 
         public virtual ILight Light { get; set; }
 
-        public List<IEffect> Effects { get; set; } = new List<IEffect>();
+        public List<IEffect> ParticleEffects { get; set; } = new List<IEffect>();
 
         public virtual bool Interface { get; set; }
 
@@ -585,6 +588,8 @@
 
         public FlipStrategy Flip { get; set; } = FlipStrategy.None;
 
+        public bool ImageInvertColor { get; set; }
+
         private object flowContext = null;
 
         public T GetFlowProperty<T>(string property, T @default = default) => flowContext.GetProperty<T>(property);
@@ -660,7 +665,7 @@
             return default;
         }
 
-        public void AddEffects(params ISceneObject[] effects)
+        public void AddParticleEffects(params ISceneObject[] effects)
         {
             effects.ForEach(x => this.AddChild(x));
         }

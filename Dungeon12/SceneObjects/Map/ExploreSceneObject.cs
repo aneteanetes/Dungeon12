@@ -19,8 +19,6 @@ namespace Dungeon12.SceneObjects.Map
 
         private ImageObject Selection;
 
-        public HintScenarioSceneObject Hints;
-
         private ImageObject cells;
 
         public override bool AbsolutePosition => true;
@@ -108,12 +106,10 @@ namespace Dungeon12.SceneObjects.Map
 
         public ExploreTitleSceneObject ExploreTitle { get; set; }
 
-        public ExploreSceneObject(Location location, HintScenarioSceneObject hints) : base(location, true)
+        public ExploreSceneObject(Location location) : base(location, true)
         {
             Global.Game.Location = location;
             this.Destroy += () => Global.Game.Location = null;
-
-            Hints = hints;
 
             Width = Global.Resolution.Width;
             Height = Global.Resolution.Height;
@@ -128,7 +124,7 @@ namespace Dungeon12.SceneObjects.Map
             ExploreTitle = this.AddChildCenter(new ExploreTitleSceneObject(location.Polygon.Name));
             ExploreTitle.Top = 50;
 
-            this.AddChildCenter(new CellsSceneObject(this,location,hints));
+            this.AddChildCenter(new CellsSceneObject(this,location));
         }
 
         public override bool AllKeysHandle => true;

@@ -1,8 +1,6 @@
 ﻿namespace Dungeon12.SceneObjects.UserInterface
 {
     using Dungeon;
-    using Dungeon.Control;
-    using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.SceneObjects;
     using Dungeon12;
@@ -21,6 +19,9 @@
 
         public NameEnterSceneObject(Hero component, Action<string> yes = null, Action no=null):base(component)
         {
+            if (Global.Hints.IsEnabled)
+                Global.Hints.StepTextInput();
+
             Global.Freezer.Freeze(this);
             this.Width = 1000;
             this.Height = 800;
@@ -62,39 +63,6 @@
             close.Top = 560;
             close.Left = btn.Left+btn.Width+10;
             close.OnClick = Close;
-            //text.Top = 143;
-
-            //this.yes = yes;
-            //var enterName = new DrawText("В данном документе вам требуется", new DrawColor(ConsoleColor.White))
-            //{
-            //    Size = 50
-            //}.Triforce();
-
-            //var text = AddTextCenter(enterName, true, false);
-            //text.Top += 0.5;
-
-            //validationDisplay = AddTextCenter(new DrawText("Имя не может быть меньше 5 символов!", new DrawColor(ConsoleColor.Red)).Montserrat());
-            //validationDisplay.Visible = false;
-            //validationDisplay.Top -= 2.5;
-
-            //textInput = new TextInputControl(new DrawText("", new DrawColor(ConsoleColor.White)) { Size = 30 }.Triforce(), 14, true, width: 11, height: 1.5);
-            //textInput.OnTyping += ValidateShow;
-            //textInput.Top = Height / 2 - textInput.Height / 2;
-            //textInput.Left += 0.75;
-
-            //var yesBtn = new MetallButton("Назад");
-            //yesBtn.Top = Top + Height - 1.5;
-            //yesBtn.Left -= yesBtn.Width / 4;
-            //yesBtn.OnClick = no;
-
-            //var noBtn = new MetallButton("Далее");
-            //noBtn.Top = Top + Height - 1.5;
-            //noBtn.Left = Width / 2;
-            //noBtn.OnClick = OnYes;
-
-            //this.AddChild(yesBtn);
-            //this.AddChild(noBtn);
-            //AddChild(textInput);
         }
 
         private void SignIn()
@@ -109,12 +77,21 @@
                     Icon = "mountains.png",
                     Function = nameof(SelectOriginFunction)
                 });
+
+                if (Global.Hints.IsEnabled)
+                {
+                    Global.Hints.StepNewHex();
+                }
+
                 this.Close();
             }
         }
 
         private void Close()
         {
+            if (Global.Hints.IsEnabled)
+                Global.Hints.StepActivate();
+
             this.Destroy?.Invoke();
             Global.Freezer.Unfreeze();
         }

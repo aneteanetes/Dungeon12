@@ -17,8 +17,6 @@ namespace Dungeon12.SceneObjects.Map
 
         private ImageObject Object;
 
-        HintScenarioSceneObject Hints;
-
         public override bool AbsolutePosition => true;
 
         private class Close : EmptySceneControl
@@ -35,7 +33,7 @@ namespace Dungeon12.SceneObjects.Map
 
             public override void Click(PointerArgs args)
             {
-                exploreSceneObject.Hints.StepClick();
+                Global.Hints.StepClick();
                 exploreSceneObject.Destroy();
                 Global.Freezer.World = null;
             }
@@ -50,10 +48,8 @@ namespace Dungeon12.SceneObjects.Map
             }
         }
 
-        public CellsSceneObject(ExploreSceneObject explore, Location location, HintScenarioSceneObject hints) : base(location, true)
+        public CellsSceneObject(ExploreSceneObject explore, Location location) : base(location, true)
         {
-            Hints = hints;
-
             Image = "Backgrounds/location.png".AsmImg();
 
             this.AddChild(new Close(explore)
@@ -82,12 +78,12 @@ namespace Dungeon12.SceneObjects.Map
             //});
 
 
-            this.AddChild(new PolygonSceneObject(location.Polygon.P0, location.BackgroundImage, 0, hints));
-            this.AddChild(new PolygonSceneObject(location.Polygon.P1, location.BackgroundImage, 1, hints));
-            this.AddChild(new PolygonSceneObject(location.Polygon.P2, location.BackgroundImage, 2, hints));
-            this.AddChild(new PolygonSceneObject(location.Polygon.P3, location.BackgroundImage, 3, hints));
-            this.AddChild(new PolygonSceneObject(location.Polygon.P4, location.BackgroundImage, 4, hints));
-            this.AddChild(new PolygonSceneObject(location.Polygon.P5, location.BackgroundImage, 5, hints));
+            this.AddChild(new PolygonSceneObject(location.Polygon.P0, location.BackgroundImage, 0));
+            this.AddChild(new PolygonSceneObject(location.Polygon.P1, location.BackgroundImage, 1));
+            this.AddChild(new PolygonSceneObject(location.Polygon.P2, location.BackgroundImage, 2));
+            this.AddChild(new PolygonSceneObject(location.Polygon.P3, location.BackgroundImage, 3));
+            this.AddChild(new PolygonSceneObject(location.Polygon.P4, location.BackgroundImage, 4));
+            this.AddChild(new PolygonSceneObject(location.Polygon.P5, location.BackgroundImage, 5));
         }
 
         private List<PolygonSceneObject> Polygons = new List<PolygonSceneObject>();

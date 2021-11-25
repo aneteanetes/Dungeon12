@@ -87,6 +87,8 @@
 
         Rectangle ImageRegion { get; set; }
 
+        bool ImageInvertColor { get; set; }
+
         int LayerLevel { get; set; }
 
         IDrawText Text { get; }
@@ -102,7 +104,7 @@
         /// </summary>
         bool Blur { get; }
 
-        void AddEffects(params ISceneObject[] effects);
+        void AddParticleEffects(params ISceneObject[] effects);
 
         IImageMask ImageMask { get; }
 
@@ -182,7 +184,7 @@
 
         ILight Light { get; set; }
 
-        List<IEffect> Effects { get; set; }
+        List<IEffect> ParticleEffects { get; set; }
 
         bool Interface { get; set; }
 

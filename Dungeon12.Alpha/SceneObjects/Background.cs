@@ -35,7 +35,7 @@ namespace Dungeon12.Drawing.SceneObjects
                 this.Height = 800 / 32;
                 this.Left = this.Width / 2;
                 this.Top = -2;
-                this.Effects.Add(new ParticleEffect()
+                this.ParticleEffects.Add(new ParticleEffect()
                 {
                     Name = "SnowFast",
                     Scale = 0.8

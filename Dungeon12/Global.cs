@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Dungeon12.Functions;
 using Dungeon.Scenes;
 using Dungeon.View.Interfaces;
+using Dungeon12.SceneObjects.Map;
 
 namespace Dungeon12
 {
@@ -28,6 +29,8 @@ namespace Dungeon12
         public override void LoadStrings(object localizationStringDictionary) { }
 
         public static Dictionary<string, IFunction> Functions = new Dictionary<string, IFunction>();
+
+        public static HintScenarioSceneObject Hints;
 
         public static bool RegisterFunction<TFuncClass>() where TFuncClass : IFunction
         {

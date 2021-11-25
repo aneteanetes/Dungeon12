@@ -20,12 +20,8 @@ namespace Dungeon12.SceneObjects.Map
 
         private ImageObject Selection;
 
-        HintScenarioSceneObject Hints;
-
-        public LocationSceneObject(Location location, HintScenarioSceneObject hints) : base(location, true)
+        public LocationSceneObject(Location location) : base(location, true)
         {
-            Hints = hints;
-
             Width = location.Size.X;
             Height = location.Size.Y;
             Left = location.Position.X;
@@ -92,7 +88,8 @@ namespace Dungeon12.SceneObjects.Map
             if (Component.IsOpen)
             {
                 Selection.Visible = true;
-                Hints.StepClick();
+                if (Global.Hints.IsEnabled)
+                    Global.Hints.StepClick();
             }
         }
 
@@ -102,13 +99,14 @@ namespace Dungeon12.SceneObjects.Map
         {
             if (Component.IsOpen)
             {
-                if (Hints.IsEnabled)
+                if (Global.Hints.IsEnabled)
                 {
-                    Hints.StepActivate();
+                    Global.Hints.StepActivate();
                 }
 
-                this.Layer.AddObject(exploreSceneObject = new ExploreSceneObject(this.Component, Hints));
-                Global.Freezer.World = exploreSceneObject;
+                this.Layer.AddObject(exploreSceneObject = new ExploreSceneObject(this.Component));
+                //Global.Freezer.World = exploreSceneObject;
+#warning commented freeze
             }
         }
 
@@ -116,7 +114,7 @@ namespace Dungeon12.SceneObjects.Map
         {
             if (Component.IsOpen)
             {
-                Hints.StepFocus();
+                Global.Hints.StepFocus();
                 Selection.Visible = false;
             }
         }

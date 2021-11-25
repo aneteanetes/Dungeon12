@@ -1,4 +1,5 @@
 ﻿using Dungeon.View.Interfaces;
+using Dungeon12.SceneObjects.UserInterface;
 
 namespace Dungeon12.Functions.ObjectFunctions
 {
@@ -8,7 +9,7 @@ namespace Dungeon12.Functions.ObjectFunctions
 
         public bool Call(ISceneLayer layer)
         {
-            //layer.Scene.GetLayer("ui").AddObjectCenter(new NameEnterSceneObject(Global.Game.Party.Hero1));
+            layer.Scene.GetLayer("ui").AddObjectCenter(new OriginSelectSceneObject(Global.Game.Party.Hero1));
             return true;
         }
     }

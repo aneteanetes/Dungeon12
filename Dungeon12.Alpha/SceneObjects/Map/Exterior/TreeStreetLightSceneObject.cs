@@ -41,7 +41,7 @@
                     Color = new DrawColor(245, 132, 66)
                 };
 
-                this.Effects = new List<Dungeon.View.Interfaces.IEffect>()
+                this.ParticleEffects = new List<Dungeon.View.Interfaces.IEffect>()
                 {
                     new ParticleEffect()
                     {

@@ -25,6 +25,922 @@
 /processorParam:DebugMode=Auto
 /build:BloomCrossPlatform.fx
 
+#begin fonts/Gabriela/Gabriela10.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela10.spritefont
+
+#begin fonts/Gabriela/Gabriela11.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela11.spritefont
+
+#begin fonts/Gabriela/Gabriela12.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela12.spritefont
+
+#begin fonts/Gabriela/Gabriela13.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela13.spritefont
+
+#begin fonts/Gabriela/Gabriela14.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela14.spritefont
+
+#begin fonts/Gabriela/Gabriela15.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela15.spritefont
+
+#begin fonts/Gabriela/Gabriela16.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela16.spritefont
+
+#begin fonts/Gabriela/Gabriela17.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela17.spritefont
+
+#begin fonts/Gabriela/Gabriela18.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela18.spritefont
+
+#begin fonts/Gabriela/Gabriela19.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela19.spritefont
+
+#begin fonts/Gabriela/Gabriela20.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela20.spritefont
+
+#begin fonts/Gabriela/Gabriela21.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela21.spritefont
+
+#begin fonts/Gabriela/Gabriela22.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela22.spritefont
+
+#begin fonts/Gabriela/Gabriela23.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela23.spritefont
+
+#begin fonts/Gabriela/Gabriela24.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela24.spritefont
+
+#begin fonts/Gabriela/Gabriela25.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela25.spritefont
+
+#begin fonts/Gabriela/Gabriela26.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela26.spritefont
+
+#begin fonts/Gabriela/Gabriela27.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela27.spritefont
+
+#begin fonts/Gabriela/Gabriela28.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela28.spritefont
+
+#begin fonts/Gabriela/Gabriela29.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela29.spritefont
+
+#begin fonts/Gabriela/Gabriela30.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela30.spritefont
+
+#begin fonts/Gabriela/Gabriela31.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela31.spritefont
+
+#begin fonts/Gabriela/Gabriela32.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela32.spritefont
+
+#begin fonts/Gabriela/Gabriela33.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela33.spritefont
+
+#begin fonts/Gabriela/Gabriela34.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela34.spritefont
+
+#begin fonts/Gabriela/Gabriela35.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela35.spritefont
+
+#begin fonts/Gabriela/Gabriela36.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela36.spritefont
+
+#begin fonts/Gabriela/Gabriela37.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela37.spritefont
+
+#begin fonts/Gabriela/Gabriela38.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela38.spritefont
+
+#begin fonts/Gabriela/Gabriela39.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela39.spritefont
+
+#begin fonts/Gabriela/Gabriela40.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela40.spritefont
+
+#begin fonts/Gabriela/Gabriela41.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela41.spritefont
+
+#begin fonts/Gabriela/Gabriela42.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela42.spritefont
+
+#begin fonts/Gabriela/Gabriela43.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela43.spritefont
+
+#begin fonts/Gabriela/Gabriela44.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela44.spritefont
+
+#begin fonts/Gabriela/Gabriela45.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela45.spritefont
+
+#begin fonts/Gabriela/Gabriela46.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela46.spritefont
+
+#begin fonts/Gabriela/Gabriela47.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela47.spritefont
+
+#begin fonts/Gabriela/Gabriela48.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela48.spritefont
+
+#begin fonts/Gabriela/Gabriela49.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela49.spritefont
+
+#begin fonts/Gabriela/Gabriela50.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela50.spritefont
+
+#begin fonts/Gabriela/Gabriela51.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela51.spritefont
+
+#begin fonts/Gabriela/Gabriela52.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela52.spritefont
+
+#begin fonts/Gabriela/Gabriela53.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela53.spritefont
+
+#begin fonts/Gabriela/Gabriela54.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela54.spritefont
+
+#begin fonts/Gabriela/Gabriela55.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela55.spritefont
+
+#begin fonts/Gabriela/Gabriela56.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela56.spritefont
+
+#begin fonts/Gabriela/Gabriela57.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela57.spritefont
+
+#begin fonts/Gabriela/Gabriela58.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela58.spritefont
+
+#begin fonts/Gabriela/Gabriela59.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela59.spritefont
+
+#begin fonts/Gabriela/Gabriela60.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela60.spritefont
+
+#begin fonts/Gabriela/Gabriela61.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela61.spritefont
+
+#begin fonts/Gabriela/Gabriela62.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela62.spritefont
+
+#begin fonts/Gabriela/Gabriela63.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela63.spritefont
+
+#begin fonts/Gabriela/Gabriela64.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela64.spritefont
+
+#begin fonts/Gabriela/Gabriela65.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela65.spritefont
+
+#begin fonts/Gabriela/Gabriela66.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela66.spritefont
+
+#begin fonts/Gabriela/Gabriela67.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela67.spritefont
+
+#begin fonts/Gabriela/Gabriela68.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela68.spritefont
+
+#begin fonts/Gabriela/Gabriela69.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela69.spritefont
+
+#begin fonts/Gabriela/Gabriela70.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela70.spritefont
+
+#begin fonts/Gabriela/Gabriela71.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela71.spritefont
+
+#begin fonts/Gabriela/Gabriela72.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela72.spritefont
+
+#begin fonts/Gabriela/Gabriela8.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela8.spritefont
+
+#begin fonts/Gabriela/Gabriela9.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriela/Gabriela9.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA10.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA10.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA11.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA11.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA12.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA12.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA13.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA13.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA14.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA14.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA15.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA15.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA16.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA16.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA17.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA17.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA18.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA18.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA19.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA19.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA20.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA20.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA21.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA21.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA22.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA22.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA23.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA23.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA24.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA24.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA25.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA25.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA26.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA26.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA27.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA27.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA28.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA28.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA29.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA29.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA30.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA30.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA31.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA31.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA32.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA32.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA33.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA33.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA34.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA34.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA35.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA35.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA36.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA36.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA37.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA37.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA38.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA38.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA39.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA39.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA40.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA40.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA41.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA41.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA42.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA42.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA43.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA43.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA44.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA44.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA45.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA45.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA46.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA46.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA47.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA47.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA48.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA48.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA49.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA49.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA50.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA50.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA51.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA51.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA52.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA52.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA53.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA53.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA54.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA54.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA55.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA55.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA56.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA56.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA57.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA57.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA58.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA58.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA59.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA59.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA60.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA60.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA61.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA61.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA62.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA62.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA63.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA63.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA64.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA64.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA65.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA65.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA66.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA66.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA67.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA67.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA68.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA68.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA69.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA69.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA70.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA70.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA71.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA71.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA72.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA72.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA8.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA8.spritefont
+
+#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA9.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA9.spritefont
+
+#begin Invert.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Invert.fx
+
 #begin PenumbraHull.fx
 /importer:EffectImporter
 /processor:EffectProcessor
@@ -49,1174 +965,3 @@
 /processorParam:DebugMode=Auto
 /build:PenumbraTexture.fx
 
-
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA8.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA8.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA9.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA9.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA10.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA10.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA11.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA11.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA12.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA12.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA13.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA13.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA14.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA14.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA15.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA15.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA16.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA16.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA17.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA17.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA18.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA18.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA19.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA19.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA20.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA20.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA21.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA21.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA22.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA22.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA23.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA23.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA24.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA24.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA25.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA25.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA26.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA26.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA27.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA27.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA28.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA28.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA29.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA29.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA30.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA30.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA31.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA31.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA32.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA32.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA33.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA33.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA34.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA34.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA35.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA35.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA36.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA36.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA37.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA37.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA38.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA38.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA39.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA39.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA40.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA40.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA41.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA41.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA42.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA42.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA43.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA43.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA44.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA44.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA45.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA45.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA46.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA46.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA47.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA47.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA48.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA48.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA49.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA49.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA50.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA50.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA51.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA51.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA52.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA52.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA53.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA53.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA54.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA54.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA55.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA55.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA56.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA56.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA57.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA57.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA58.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA58.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA59.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA59.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA60.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA60.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA61.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA61.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA62.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA62.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA63.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA63.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA64.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA64.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA65.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA65.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA66.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA66.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA67.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA67.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA68.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA68.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA69.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA69.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA70.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA70.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA71.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA71.spritefont
-#begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA72.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA72.spritefont
-#begin fonts/Gabriela/Gabriela8.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela8.spritefont
-#begin fonts/Gabriela/Gabriela9.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela9.spritefont
-#begin fonts/Gabriela/Gabriela10.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela10.spritefont
-#begin fonts/Gabriela/Gabriela11.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela11.spritefont
-#begin fonts/Gabriela/Gabriela12.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela12.spritefont
-#begin fonts/Gabriela/Gabriela13.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela13.spritefont
-#begin fonts/Gabriela/Gabriela14.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela14.spritefont
-#begin fonts/Gabriela/Gabriela15.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela15.spritefont
-#begin fonts/Gabriela/Gabriela16.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela16.spritefont
-#begin fonts/Gabriela/Gabriela17.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela17.spritefont
-#begin fonts/Gabriela/Gabriela18.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela18.spritefont
-#begin fonts/Gabriela/Gabriela19.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela19.spritefont
-#begin fonts/Gabriela/Gabriela20.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela20.spritefont
-#begin fonts/Gabriela/Gabriela21.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela21.spritefont
-#begin fonts/Gabriela/Gabriela22.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela22.spritefont
-#begin fonts/Gabriela/Gabriela23.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela23.spritefont
-#begin fonts/Gabriela/Gabriela24.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela24.spritefont
-#begin fonts/Gabriela/Gabriela25.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela25.spritefont
-#begin fonts/Gabriela/Gabriela26.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela26.spritefont
-#begin fonts/Gabriela/Gabriela27.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela27.spritefont
-#begin fonts/Gabriela/Gabriela28.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela28.spritefont
-#begin fonts/Gabriela/Gabriela29.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela29.spritefont
-#begin fonts/Gabriela/Gabriela30.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela30.spritefont
-#begin fonts/Gabriela/Gabriela31.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela31.spritefont
-#begin fonts/Gabriela/Gabriela32.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela32.spritefont
-#begin fonts/Gabriela/Gabriela33.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela33.spritefont
-#begin fonts/Gabriela/Gabriela34.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela34.spritefont
-#begin fonts/Gabriela/Gabriela35.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela35.spritefont
-#begin fonts/Gabriela/Gabriela36.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela36.spritefont
-#begin fonts/Gabriela/Gabriela37.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela37.spritefont
-#begin fonts/Gabriela/Gabriela38.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela38.spritefont
-#begin fonts/Gabriela/Gabriela39.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela39.spritefont
-#begin fonts/Gabriela/Gabriela40.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela40.spritefont
-#begin fonts/Gabriela/Gabriela41.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela41.spritefont
-#begin fonts/Gabriela/Gabriela42.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela42.spritefont
-#begin fonts/Gabriela/Gabriela43.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela43.spritefont
-#begin fonts/Gabriela/Gabriela44.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela44.spritefont
-#begin fonts/Gabriela/Gabriela45.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela45.spritefont
-#begin fonts/Gabriela/Gabriela46.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela46.spritefont
-#begin fonts/Gabriela/Gabriela47.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela47.spritefont
-#begin fonts/Gabriela/Gabriela48.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela48.spritefont
-#begin fonts/Gabriela/Gabriela49.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela49.spritefont
-#begin fonts/Gabriela/Gabriela50.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela50.spritefont
-#begin fonts/Gabriela/Gabriela51.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela51.spritefont
-#begin fonts/Gabriela/Gabriela52.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela52.spritefont
-#begin fonts/Gabriela/Gabriela53.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela53.spritefont
-#begin fonts/Gabriela/Gabriela54.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela54.spritefont
-#begin fonts/Gabriela/Gabriela55.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela55.spritefont
-#begin fonts/Gabriela/Gabriela56.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela56.spritefont
-#begin fonts/Gabriela/Gabriela57.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela57.spritefont
-#begin fonts/Gabriela/Gabriela58.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela58.spritefont
-#begin fonts/Gabriela/Gabriela59.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela59.spritefont
-#begin fonts/Gabriela/Gabriela60.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela60.spritefont
-#begin fonts/Gabriela/Gabriela61.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela61.spritefont
-#begin fonts/Gabriela/Gabriela62.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela62.spritefont
-#begin fonts/Gabriela/Gabriela63.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela63.spritefont
-#begin fonts/Gabriela/Gabriela64.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela64.spritefont
-#begin fonts/Gabriela/Gabriela65.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela65.spritefont
-#begin fonts/Gabriela/Gabriela66.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela66.spritefont
-#begin fonts/Gabriela/Gabriela67.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela67.spritefont
-#begin fonts/Gabriela/Gabriela68.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela68.spritefont
-#begin fonts/Gabriela/Gabriela69.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela69.spritefont
-#begin fonts/Gabriela/Gabriela70.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela70.spritefont
-#begin fonts/Gabriela/Gabriela71.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela71.spritefont
-#begin fonts/Gabriela/Gabriela72.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela72.spritefont
-#begin fonts/Gabriela/Gabriela8.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela8.spritefont
-#begin fonts/Gabriela/Gabriela9.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela9.spritefont
-#begin fonts/Gabriela/Gabriela10.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela10.spritefont
-#begin fonts/Gabriela/Gabriela11.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela11.spritefont
-#begin fonts/Gabriela/Gabriela12.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela12.spritefont
-#begin fonts/Gabriela/Gabriela13.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela13.spritefont
-#begin fonts/Gabriela/Gabriela14.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela14.spritefont
-#begin fonts/Gabriela/Gabriela15.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela15.spritefont
-#begin fonts/Gabriela/Gabriela16.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela16.spritefont
-#begin fonts/Gabriela/Gabriela17.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela17.spritefont
-#begin fonts/Gabriela/Gabriela18.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela18.spritefont
-#begin fonts/Gabriela/Gabriela19.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela19.spritefont
-#begin fonts/Gabriela/Gabriela20.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela20.spritefont
-#begin fonts/Gabriela/Gabriela21.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela21.spritefont
-#begin fonts/Gabriela/Gabriela22.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela22.spritefont
-#begin fonts/Gabriela/Gabriela23.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela23.spritefont
-#begin fonts/Gabriela/Gabriela24.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela24.spritefont
-#begin fonts/Gabriela/Gabriela25.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela25.spritefont
-#begin fonts/Gabriela/Gabriela26.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela26.spritefont
-#begin fonts/Gabriela/Gabriela27.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela27.spritefont
-#begin fonts/Gabriela/Gabriela28.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela28.spritefont
-#begin fonts/Gabriela/Gabriela29.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela29.spritefont
-#begin fonts/Gabriela/Gabriela30.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela30.spritefont
-#begin fonts/Gabriela/Gabriela31.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela31.spritefont
-#begin fonts/Gabriela/Gabriela32.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela32.spritefont
-#begin fonts/Gabriela/Gabriela33.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela33.spritefont
-#begin fonts/Gabriela/Gabriela34.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela34.spritefont
-#begin fonts/Gabriela/Gabriela35.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela35.spritefont
-#begin fonts/Gabriela/Gabriela36.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela36.spritefont
-#begin fonts/Gabriela/Gabriela37.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela37.spritefont
-#begin fonts/Gabriela/Gabriela38.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela38.spritefont
-#begin fonts/Gabriela/Gabriela39.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela39.spritefont
-#begin fonts/Gabriela/Gabriela40.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela40.spritefont
-#begin fonts/Gabriela/Gabriela41.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela41.spritefont
-#begin fonts/Gabriela/Gabriela42.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela42.spritefont
-#begin fonts/Gabriela/Gabriela43.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela43.spritefont
-#begin fonts/Gabriela/Gabriela44.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela44.spritefont
-#begin fonts/Gabriela/Gabriela45.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela45.spritefont
-#begin fonts/Gabriela/Gabriela46.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela46.spritefont
-#begin fonts/Gabriela/Gabriela47.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela47.spritefont
-#begin fonts/Gabriela/Gabriela48.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela48.spritefont
-#begin fonts/Gabriela/Gabriela49.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela49.spritefont
-#begin fonts/Gabriela/Gabriela50.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela50.spritefont
-#begin fonts/Gabriela/Gabriela51.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela51.spritefont
-#begin fonts/Gabriela/Gabriela52.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela52.spritefont
-#begin fonts/Gabriela/Gabriela53.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela53.spritefont
-#begin fonts/Gabriela/Gabriela54.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela54.spritefont
-#begin fonts/Gabriela/Gabriela55.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela55.spritefont
-#begin fonts/Gabriela/Gabriela56.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela56.spritefont
-#begin fonts/Gabriela/Gabriela57.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela57.spritefont
-#begin fonts/Gabriela/Gabriela58.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela58.spritefont
-#begin fonts/Gabriela/Gabriela59.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela59.spritefont
-#begin fonts/Gabriela/Gabriela60.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela60.spritefont
-#begin fonts/Gabriela/Gabriela61.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela61.spritefont
-#begin fonts/Gabriela/Gabriela62.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela62.spritefont
-#begin fonts/Gabriela/Gabriela63.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela63.spritefont
-#begin fonts/Gabriela/Gabriela64.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela64.spritefont
-#begin fonts/Gabriela/Gabriela65.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela65.spritefont
-#begin fonts/Gabriela/Gabriela66.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela66.spritefont
-#begin fonts/Gabriela/Gabriela67.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela67.spritefont
-#begin fonts/Gabriela/Gabriela68.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela68.spritefont
-#begin fonts/Gabriela/Gabriela69.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela69.spritefont
-#begin fonts/Gabriela/Gabriela70.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela70.spritefont
-#begin fonts/Gabriela/Gabriela71.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela71.spritefont
-#begin fonts/Gabriela/Gabriela72.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Gabriela/Gabriela72.spritefont

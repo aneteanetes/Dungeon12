@@ -19,11 +19,10 @@ namespace Dungeon12.Scenes
         public override bool Destroyable => true;
 
         public override bool AbsolutePositionScene => false;
-
-        private HintScenarioSceneObject hints = new HintScenarioSceneObject();
-
         public override void Initialize()
         {
+            Global.Hints = new HintScenarioSceneObject();
+
             Global.RegisterFunction<NameEnterWindowFunction>();
             Global.RegisterFunction<SelectOriginFunction>();
 
@@ -45,7 +44,7 @@ namespace Dungeon12.Scenes
             var mapLayer = this.CreateLayer("map");
 
             var region = Region.Load("ShipFaithIsland");
-            var regionSceneObj = new RegionSceneObject(region, hints);
+            var regionSceneObj = new RegionSceneObject(region);
             regionSceneObj.Scale = .7;
             regionSceneObj.Left = (Global.Resolution.Width / 2) - (regionSceneObj.Width * regionSceneObj.Scale / 2);
             regionSceneObj.Top = (Global.Resolution.Height / 2) - (regionSceneObj.Height * regionSceneObj.Scale / 2);
@@ -57,7 +56,9 @@ namespace Dungeon12.Scenes
 
             var ui = this.CreateLayer("ui");
             ui.AbsoluteLayer = true;
-            ui.AddObject(hints);
+
+            var overlay = this.CreateLayer("overlay");
+            overlay.AddObject(Global.Hints);
 
             //Global.AudioPlayer.Effect("Sounds/Ship.wav".AsmRes(), new Dungeon.Audio.AudioOptions()
             //{

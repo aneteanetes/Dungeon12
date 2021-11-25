@@ -302,6 +302,9 @@ namespace Dungeon.Scenes
             {
                 var point = new Point(pos.X - actualRegion.X, pos.Y - actualRegion.Y);
 
+                if (sceneObjControl.Texture == null)
+                    return false;
+
                 bool value = sceneObjControl.Texture.Contains(point, actualRegion.Size);
                 return value;
             }

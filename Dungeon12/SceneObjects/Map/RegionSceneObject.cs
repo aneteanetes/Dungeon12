@@ -7,7 +7,7 @@ namespace Dungeon12.SceneObjects.Map
 {
     public class RegionSceneObject : SceneControl<Region>
     {
-        public RegionSceneObject(Region component, HintScenarioSceneObject hints) : base(component, true)
+        public RegionSceneObject(Region component) : base(component, true)
         {
             Width = component.Size.X;
             Height = component.Size.Y;
@@ -27,7 +27,7 @@ namespace Dungeon12.SceneObjects.Map
 
             foreach (var location in component.Locations)
             {
-                var locsceneobj = new LocationSceneObject(location, hints);
+                var locsceneobj = new LocationSceneObject(location);
                 this.AddChild(locsceneobj);
             }
         }
