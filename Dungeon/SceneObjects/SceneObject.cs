@@ -111,6 +111,26 @@
             return textControl;
         }
 
+        public void CenterText(TextControl textControl, bool horizontal = true, bool vertical = true, double parentWidth = 0)
+        {
+            var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text, parentWidth == 0
+                ? this
+                : new EmptySceneObject() { Width = parentWidth });
+
+            var width = Width;
+            var height = Height;
+
+            if (horizontal)
+            {
+                textControl.Left = width / 2 - measure.X / 2;
+            }
+
+            if (vertical)
+            {
+                textControl.Top = height / 2 - measure.Y / 2;
+            }
+        }
+
         protected T AddChildImageCenter<T>(T control, bool horizontal = true, bool vertical = true)
             where T : ISceneObject
         {
