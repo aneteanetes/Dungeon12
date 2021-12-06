@@ -17,7 +17,7 @@
             this.Width = Global.Resolution.Width;
             this.Height = Global.Resolution.Height;
 
-            var back = this.AddChildCenter(new ImageObject("Maps/mainlandback.png".AsmImg())
+            var back = this.AddChildCenter(new ImageObject("Maps/mainlandback_ancient_cut.png".AsmImg())
             {
                 Width=1000,
                 Height=629

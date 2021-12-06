@@ -60,11 +60,11 @@ namespace Dungeon12.Scenes
             var overlay = this.CreateLayer("overlay");
             overlay.AddObject(Global.Hints);
 
-            //Global.AudioPlayer.Effect("Sounds/Ship.wav".AsmRes(), new Dungeon.Audio.AudioOptions()
-            //{
-            //    Repeat=true
-            //});
-            //Global.AudioPlayer.Music("Sounds/RainStorm.ogg".AsmRes());
+            Global.AudioPlayer.Effect("Sounds/Ship.wav".AsmRes(), new Dungeon.Audio.AudioOptions()
+            {
+                Repeat = true
+            });
+            Global.AudioPlayer.Music("Sounds/RainStorm.ogg".AsmRes());
         }
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
