@@ -57,6 +57,7 @@ namespace Dungeon12.Scenes
 
             var ui = this.CreateLayer("ui");
             ui.AbsoluteLayer = true;
+            ui.AddSystem(new TooltipSystem());
 
             var overlay = this.CreateLayer("overlay");
             overlay.AddObject(Global.Hints);

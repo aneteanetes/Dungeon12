@@ -21,8 +21,12 @@ namespace Dungeon12.SceneObjects.UserInterface.OriginSelect
 
         ZonePerk perk;
 
-        public AreaDescription()
+        OriginSelectSceneObject originSelectSceneObject;
+
+        public AreaDescription(OriginSelectSceneObject originSelectSceneObject)
         {
+            this.originSelectSceneObject = originSelectSceneObject;
+
             this.Image = "Maps/desc.png".AsmImg();
 
             bonustext = this.AddTextCenter("Бонус: ".AsDrawText().Gabriela().InSize(20));
@@ -49,7 +53,9 @@ namespace Dungeon12.SceneObjects.UserInterface.OriginSelect
 
         private void SelectZone()
         {
-
+            Global.Game.Party.Hero1.Perks.Add(@fixed.Perk);
+            OriginSelectSceneObject.Selected = @fixed;
+            originSelectSceneObject.Destroy?.Invoke();
         }
 
         Zone zone;

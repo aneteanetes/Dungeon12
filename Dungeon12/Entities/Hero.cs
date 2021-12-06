@@ -1,6 +1,8 @@
 ﻿using Dungeon.View;
 using Dungeon12.Components;
 using Dungeon12.Entities.MapRelated;
+using Dungeon12.Entities.Perks;
+using System.Collections.Generic;
 
 namespace Dungeon12.Entities
 {
@@ -11,5 +13,7 @@ namespace Dungeon12.Entities
         public SpriteSheet WalkSpriteSheet { get; set; }
 
         public MapObject PhysicalObject { get; set; }
+
+        public List<Perk> Perks { get; set; } = new List<Perk>();
     }
 }

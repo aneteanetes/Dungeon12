@@ -15,27 +15,34 @@ namespace Dungeon12.SceneObjects.UserInterface.OriginSelect
             this.Width = 50;
             this.Height = 50;
 
-            this.AddChild(new ImageObject("Perks/perkborder.png".AsmImg()));
+            this.AddChild(new ImageObject("Perks/perkborder1.png".AsmImg()));
         }
 
         public IDrawText TooltipText => GetPerkTooltip();
 
         public bool ShowTooltip => true;
 
+        public override void Focus()
+        {
+            base.Focus();
+        }
+
         private Perk perk;
         public void Bind(Perk perk)
         {
             this.perk = perk;
-            //this.Image = perk.Image;
+            this.Image = perk?.Icon;
+            if (this.Image != default)
+                this.Image = $"Perks/{this.Image}".AsmImg();
         }
 
         private IDrawText GetPerkTooltip()
         {
-            var str = perk.Name + Environment.NewLine;
+            var str = perk?.Name + Environment.NewLine + Environment.NewLine;
 
-            str += perk.Description;
+            str += perk?.Description;
 
-            return str.AsDrawText().Gabriela().InSize(12);
+            return str.AsDrawText().Gabriela().InSize(12).WithWordWrap();
         }
     }
 }

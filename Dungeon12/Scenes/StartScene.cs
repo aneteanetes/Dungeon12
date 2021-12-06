@@ -23,8 +23,6 @@ namespace Dungeon12.Scenes
 
         public override bool Destroyable => true;
 
-        IEffect fogofwar;
-
         public override void Initialize()
         {
             var layerBack = this.CreateLayer("back");

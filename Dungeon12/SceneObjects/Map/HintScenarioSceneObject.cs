@@ -23,6 +23,7 @@ namespace Dungeon12.SceneObjects.Map
         private readonly PlateObject PlateClick;
         private readonly PlateObject PlateTextInput;
         private readonly PlateObject PlateHexAppear;
+        private readonly PlateObject PlateOrigin;
 
         List<PlateObject> Plates = new List<PlateObject>();
 
@@ -82,6 +83,16 @@ namespace Dungeon12.SceneObjects.Map
                 Visible = false
             }));
 
+
+            Plates.Add(this.AddChild(PlateOrigin = new PlateObject("Выбор региона",
+                @"Для выбора региона наведите на него курсор и нажмите левую кнопку мыши. Не забудьте изучить бонусы каждого региона.",
+                true, 200)
+            {
+                Left = 111,
+                Top = 451,
+                Visible = false
+            }));
+
             this.AddChild(Arrow);
 
             StepFocus();
@@ -92,6 +103,14 @@ namespace Dungeon12.SceneObjects.Map
         public void ChangeState(HintStates states)
         {
             state = states;
+        }
+
+        public void StepOriginSelect()
+        {
+            Arrow.Reset();
+            Arrow.Visible = false;
+
+            SetActivePlate(PlateOrigin);
         }
 
         public void StepNewHex()
@@ -178,13 +197,13 @@ namespace Dungeon12.SceneObjects.Map
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
             if (key == Key.D)
-                PlateHexAppear.Left += 1;
+                PlateOrigin.Left += 1;
             if (key == Key.A)
-                PlateHexAppear.Left -= 1;
+                PlateOrigin.Left -= 1;
             if (key == Key.S)
-                PlateHexAppear.Top += 1;
+                PlateOrigin.Top += 1;
             if (key == Key.W)
-                PlateHexAppear.Top -= 1;
+                PlateOrigin.Top -= 1;
 
             base.KeyDown(key, modifier, hold);
         }

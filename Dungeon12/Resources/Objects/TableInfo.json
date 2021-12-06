@@ -1,9 +1,10 @@
 {
   "Id": "TableInfo",
   "Name": "Стол с документами",
+  "Icon": "tablescroll.png",
   "P0": {
     "Name": "Подписать свидетельство",
-    "Icon": "scrollknife.png",
+    "Icon": "namescroll.png",
     "Function": "NameEnterWindow"
   }
 }

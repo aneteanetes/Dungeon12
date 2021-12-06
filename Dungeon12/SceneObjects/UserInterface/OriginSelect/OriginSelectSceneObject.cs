@@ -12,8 +12,18 @@
 
     public class OriginSelectSceneObject : SceneControl<Hero>
     {
+        public static Zone Selected;
+
         public OriginSelectSceneObject(Hero component):base(component)
         {
+            Global.Freezer.Freeze(this);
+            this.Destroy += () =>
+            {
+                Global.Freezer.Unfreeze();
+                if (Global.Hints.IsEnabled)
+                    Global.Hints.StepNewHex();
+            };
+
             this.Width = Global.Resolution.Width;
             this.Height = Global.Resolution.Height;
 
@@ -28,7 +38,7 @@
                 Height = 684
             });
 
-            var desc = new AreaDescription()
+            var desc = new AreaDescription(this)
             {
                 Left = map.Left + 768,
                 Top = map.Top + 227
@@ -41,13 +51,33 @@
                 this.AddChildCenter(new AreaObj(zone,desc));
             }
 
-            desc.Refresh(zones.FirstOrDefault(z => z.ObjectId == "fi"));
+            if (Selected == default)
+            {
+                desc.Refresh(zones.FirstOrDefault(z => z.ObjectId == "fi"));
+            }
+            else
+            {
+                desc.Refresh(Selected);
+                var areaSelected = this.Children.FirstOrDefault(c =>
+                {
+                    if (c is AreaObj a)
+                    {
+                        return a.Component.Name == Selected.Name;
+                    }
+                    return false;
+                }).As< AreaObj>();
+                areaSelected.ClickArea();
+            }
+
             this.AddChild(desc);
 
             void Close()
             {
                 this.Destroy?.Invoke();
             }
+
+            if (Global.Hints.IsEnabled)
+                Global.Hints.StepOriginSelect();
 
             this.AddChild(new MapCloseButton()
             {

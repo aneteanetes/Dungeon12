@@ -44,7 +44,8 @@ namespace Dungeon12.ECS.Systems
 
                     SceneLayer.AddObject(tooltip);
                     Tooltips[tooltiped] = tooltip;
-                }                
+                }
+                tooltip.TooltipText.SetText(tooltiped.TooltipText.ToString());
 
                 tooltipPosition.X += sceneObject.Width / 2 - Global.DrawClient.MeasureText(tooltip.TooltipText).X / 2;
 

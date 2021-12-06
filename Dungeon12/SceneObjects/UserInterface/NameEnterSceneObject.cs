@@ -87,7 +87,7 @@
             Global.Game.Location.Polygon.P1.Load(new Entities.Map.Polygon
             {
                 Name = "Происхождение",
-                Icon = "mountains.png",
+                Icon = "mapcross.png",
                 Function = nameof(SelectOriginFunction)
             });
         }

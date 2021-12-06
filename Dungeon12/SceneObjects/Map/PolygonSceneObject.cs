@@ -20,13 +20,13 @@ namespace Dungeon12.SceneObjects.Map
         {
             public Icon(Polygon polygon) : base(polygon)
             {
-                this.Width = 120;
-                this.Height = 120;
+                this.Width = 210;
+                this.Height = 210;
             }
 
             public override bool Visible => Component.Icon.IsNotEmpty();
 
-            public override string Image => $"Objects/{Component.Icon}".AsmImg();
+            public override string Image => $"Icons/{Component.Icon}".AsmImg();
         }
 
         public PolygonSceneObject(Polygon polygon, string defaultBackground, int index) : base(polygon, true)
@@ -78,11 +78,7 @@ namespace Dungeon12.SceneObjects.Map
                 Visible = false
             });
 
-            this.AddChildCenter(new Icon(polygon)
-            {
-                Width = 120,
-                Height = 120
-            });
+            this.AddChildCenter(new Icon(polygon));
         }
 
         public override bool AllKeysHandle => true;
