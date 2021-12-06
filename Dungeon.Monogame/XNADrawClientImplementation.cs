@@ -1026,8 +1026,8 @@ namespace Dungeon.Monogame
 
             var color = new Color(range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B, (float)alpha);
 
-            //spriteBatch.End();
-            //SpriteBatchRestore?.Invoke(true, sceneObject.Filtered);
+            spriteBatch.End();
+            SpriteBatchRestore?.Invoke(true, sceneObject.Filtered);
 
             if (sceneObject.Scale > 0)
             {
@@ -1038,8 +1038,8 @@ namespace Dungeon.Monogame
                 spriteBatch.DrawString(spriteFont, txt, new Vector2((int)x, (int)y), color);
             }
 
-            //spriteBatch.End();
-            //SpriteBatchRestore?.Invoke(false, sceneObject.Filtered);
+            spriteBatch.End();
+            SpriteBatchRestore?.Invoke(false, sceneObject.Filtered);
         }
 
         private static string WrapText(SpriteFont font, string text, double maxLineWidth, int counter = 0, string original = default)

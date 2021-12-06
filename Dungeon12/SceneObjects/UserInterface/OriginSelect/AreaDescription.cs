@@ -91,7 +91,11 @@ namespace Dungeon12.SceneObjects.UserInterface.OriginSelect
             var titletext1 = split[0].AsDrawText().Gabriela().InSize(23);
             var titletext2 = split[1].AsDrawText().Gabriela().InSize(23);
 
-            var desctext = component.Description.AsDrawText().Gabriela().InSize(17);
+            var desctext = component.Description
+                .AsDrawText()
+                .Gabriela()
+                .InSize(12)
+                .WithWordWrap();
 
             if (!inited)
             {
@@ -122,7 +126,7 @@ namespace Dungeon12.SceneObjects.UserInterface.OriginSelect
                     Left = 11,
                     Top = 94
                 };
-                Description.AddTextCenter(desctext);
+                Description.AddTextCenter(desctext,vertical:false);
                 this.AddChild(Description);
 
                 inited = true;

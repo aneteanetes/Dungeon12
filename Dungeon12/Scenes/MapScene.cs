@@ -7,6 +7,7 @@ using Dungeon12.ECS.Systems;
 using Dungeon12.Entities.Map;
 using Dungeon12.Functions.ObjectFunctions;
 using Dungeon12.SceneObjects.Map;
+using Dungeon12.SceneObjects.UserInterface;
 
 namespace Dungeon12.Scenes
 {
@@ -60,11 +61,11 @@ namespace Dungeon12.Scenes
             var overlay = this.CreateLayer("overlay");
             overlay.AddObject(Global.Hints);
 
-            Global.AudioPlayer.Effect("Sounds/Ship.wav".AsmRes(), new Dungeon.Audio.AudioOptions()
-            {
-                Repeat = true
-            });
-            Global.AudioPlayer.Music("Sounds/RainStorm.ogg".AsmRes());
+            //Global.AudioPlayer.Effect("Sounds/Ship.wav".AsmRes(), new Dungeon.Audio.AudioOptions()
+            //{
+            //    Repeat = true
+            //});
+            //Global.AudioPlayer.Music("Sounds/RainStorm.ogg".AsmRes());
         }
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)

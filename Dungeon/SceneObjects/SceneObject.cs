@@ -87,11 +87,20 @@
 
         public TextControl AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical = true, double parentWidth=0)
         {
+            var boundObj = parentWidth == 0
+                ? this as ISceneObject
+                : new EmptySceneObject() { Width = parentWidth, Height = this.Height };
+
             var textControl = new TextControl(drawText);
             var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text, parentWidth==0
                 ? this
                 : new EmptySceneObject() { Width = parentWidth });
 
+            if (drawText.WordWrap)
+            {
+                textControl.Width = boundObj.Width;
+                textControl.Height = boundObj.Height;
+            }
 
             var width = Width;
             var height = Height;

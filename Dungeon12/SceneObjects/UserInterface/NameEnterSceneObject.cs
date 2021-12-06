@@ -71,12 +71,7 @@
             if (!string.IsNullOrWhiteSpace(value))
             {
                 Global.Game.Party.Hero1.Name = value;
-                Global.Game.Location.Polygon.P1.Load(new Entities.Map.Polygon
-                {
-                    Name = "Происхождение",
-                    Icon = "mountains.png",
-                    Function = nameof(SelectOriginFunction)
-                });
+                AddOriginPolygon();
 
                 if (Global.Hints.IsEnabled)
                 {
@@ -85,6 +80,16 @@
 
                 this.Close();
             }
+        }
+
+        public static void AddOriginPolygon()
+        {
+            Global.Game.Location.Polygon.P1.Load(new Entities.Map.Polygon
+            {
+                Name = "Происхождение",
+                Icon = "mountains.png",
+                Function = nameof(SelectOriginFunction)
+            });
         }
 
         private void Close()
