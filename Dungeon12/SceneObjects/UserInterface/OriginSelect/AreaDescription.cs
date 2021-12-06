@@ -53,6 +53,7 @@ namespace Dungeon12.SceneObjects.UserInterface.OriginSelect
 
         private void SelectZone()
         {
+            Global.Game.Party.Hero1.Perks.Clear();
             Global.Game.Party.Hero1.Perks.Add(@fixed.Perk);
             OriginSelectSceneObject.Selected = @fixed;
             originSelectSceneObject.Destroy?.Invoke();
