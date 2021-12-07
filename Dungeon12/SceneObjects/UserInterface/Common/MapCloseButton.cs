@@ -3,6 +3,7 @@ using Dungeon.Control;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
+using Dungeon12.SceneObjects.Base;
 using System;
 
 namespace Dungeon12.SceneObjects.UserInterface.Common
@@ -39,6 +40,8 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
 
         public bool ShowTooltip => true;
 
+        public Tooltip CustomTooltipObject => null;
+
         public override void Focus()
         {
             if (Disabled)
@@ -54,5 +57,7 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
 
             Image = "Backgrounds/mapclose.png".AsmImg();
         }
+
+        public void RefreshTooltip() { }
     }
 }

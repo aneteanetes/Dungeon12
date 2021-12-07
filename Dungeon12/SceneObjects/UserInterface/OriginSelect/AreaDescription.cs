@@ -2,7 +2,9 @@
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon12.Entities.Zones;
+using Dungeon12.Functions.ObjectFunctions;
 using Dungeon12.SceneObjects.UserInterface.Common;
+using Dungeon12.SceneObjects.UserInterface.FractionSelect;
 using System;
 using System.Linq;
 
@@ -57,6 +59,16 @@ namespace Dungeon12.SceneObjects.UserInterface.OriginSelect
             Global.Game.Party.Hero1.Perks.Add(@fixed.Perk);
             OriginSelectSceneObject.Selected = @fixed;
             originSelectSceneObject.Destroy?.Invoke();
+
+            if (Global.Hints.IsEnabled)
+                Global.Hints.StepUseOther();
+
+            Global.Game.Location.Polygon.P2.Load(new Entities.Map.Polygon
+            {
+                Name = "Образование",
+                Icon = "profscroll.png",
+                Function = nameof(SelectCraftFunction)
+            });
         }
 
         Zone zone;

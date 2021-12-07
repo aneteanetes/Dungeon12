@@ -75,6 +75,19 @@
             return AddToValueCache<T>(value);
         }
 
+        public static T ToValue<TAttr,T>(this object value)
+            where TAttr : ValueAttribute
+        {
+            var memInfo = value.GetType().GetMember(value.ToString());
+            var attributes = memInfo[0].GetCustomAttributes(typeof(TAttr), false);
+            if (attributes.Length != 0)
+            {
+                return ((TAttr)attributes[0]).Value.As<T>();
+            }
+
+            return default;
+        }
+
 
         private static T AddToValueCache<T>(this object value)
         {

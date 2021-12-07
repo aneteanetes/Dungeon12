@@ -1,14 +1,13 @@
 ﻿using Dungeon;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
-using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.Entities.Perks;
-using System;
+using Dungeon12.SceneObjects.Base;
 
 namespace Dungeon12.SceneObjects.UserInterface.OriginSelect
 {
-    public class ZonePerk : EmptySceneControl, ITooltiped
+    public class ZonePerk : EmptySceneControl, ITooltipedCustom
     {
         public ZonePerk()
         {
@@ -17,10 +16,6 @@ namespace Dungeon12.SceneObjects.UserInterface.OriginSelect
 
             this.AddChild(new ImageObject("Perks/perkborder1.png".AsmImg()));
         }
-
-        public IDrawText TooltipText => GetPerkTooltip();
-
-        public bool ShowTooltip => true;
 
         public override void Focus()
         {
@@ -36,13 +31,8 @@ namespace Dungeon12.SceneObjects.UserInterface.OriginSelect
                 this.Image = $"Perks/{this.Image}".AsmImg();
         }
 
-        private IDrawText GetPerkTooltip()
-        {
-            var str = perk?.Name + Environment.NewLine + Environment.NewLine;
+        public bool ShowTooltip => true;
 
-            str += perk?.Description;
-
-            return str.AsDrawText().Gabriela().InSize(12).WithWordWrap();
-        }
+        public Tooltip GetTooltip() => new GameTooltip(perk?.Name, perk?.Description, 250);
     }
 }

@@ -26,6 +26,8 @@ namespace Dungeon12.Scenes
 
             Global.RegisterFunction<NameEnterWindowFunction>();
             Global.RegisterFunction<SelectOriginFunction>();
+            Global.RegisterFunction<SelectCraftFunction>();
+            Global.RegisterFunction<SelectFractionFunction>();
 
             Global.Game = new Game()
             {
@@ -58,6 +60,7 @@ namespace Dungeon12.Scenes
             var ui = this.CreateLayer("ui");
             ui.AbsoluteLayer = true;
             ui.AddSystem(new TooltipSystem());
+            ui.AddSystem(new TooltipCustomSystem());
 
             var overlay = this.CreateLayer("overlay");
             overlay.AddObject(Global.Hints);

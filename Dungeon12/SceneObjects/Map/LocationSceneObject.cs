@@ -5,6 +5,7 @@ using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.Entities.Map;
+using Dungeon12.SceneObjects.Base;
 
 namespace Dungeon12.SceneObjects.Map
 {
@@ -83,6 +84,8 @@ namespace Dungeon12.SceneObjects.Map
 
         public bool ShowTooltip => Component.IsOpen;
 
+        public Tooltip CustomTooltipObject => null;
+
         public override void Focus()
         {
             if (Component.IsOpen)
@@ -118,5 +121,7 @@ namespace Dungeon12.SceneObjects.Map
                 Selection.Visible = false;
             }
         }
+
+        public void RefreshTooltip() { }
     }
 }

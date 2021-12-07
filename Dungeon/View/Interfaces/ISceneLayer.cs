@@ -23,6 +23,8 @@ namespace Dungeon.View.Interfaces
 
         void AddObject(ISceneObject sceneObject);
 
+        void AddControl(ISceneControl sceneObjectControl);
+
         void AddObjectCenter<TSceneObject>(TSceneObject sceneObject, bool horizontal = true, bool vertical = true)
             where TSceneObject : ISceneObject;
 

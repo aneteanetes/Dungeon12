@@ -12,7 +12,7 @@ namespace Dungeon12.SceneObjects.Map
         Default,
         Click,
         LocationOpenedAndUsed,
-        NewHexAppear
+        OriginSelected
     }
 
     public class HintScenarioSceneObject : EmptySceneControl
@@ -24,6 +24,7 @@ namespace Dungeon12.SceneObjects.Map
         private readonly PlateObject PlateTextInput;
         private readonly PlateObject PlateHexAppear;
         private readonly PlateObject PlateOrigin;
+        private readonly PlateObject PlateUseOthers;
 
         List<PlateObject> Plates = new List<PlateObject>();
 
@@ -93,6 +94,16 @@ namespace Dungeon12.SceneObjects.Map
                 Visible = false
             }));
 
+
+            Plates.Add(this.AddChild(PlateUseOthers = new PlateObject("Исследование",
+                @"Продолжите исследование локации, как только все возможные плитки будут открыты вы сможете переместиться далее.",
+                true, 200)
+            {
+                Left = 111,
+                Top = 451,
+                Visible = false
+            }));
+
             this.AddChild(Arrow);
 
             StepFocus();
@@ -103,6 +114,19 @@ namespace Dungeon12.SceneObjects.Map
         public void ChangeState(HintStates states)
         {
             state = states;
+        }
+
+        public void StepUseOther()
+        {
+            if (state != HintStates.OriginSelected)
+            {
+                state = HintStates.OriginSelected;
+            }
+
+            Arrow.Reset();
+            Arrow.Visible = false;
+
+            SetActivePlate(PlateUseOthers);
         }
 
         public void StepOriginSelect()
@@ -163,6 +187,10 @@ namespace Dungeon12.SceneObjects.Map
             {
                 StepNewHex();
             }
+            else if (state == HintStates.OriginSelected)
+            {
+                StepUseOther();
+            }
         }
 
         public void StepFocus()
@@ -197,13 +225,13 @@ namespace Dungeon12.SceneObjects.Map
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
             if (key == Key.D)
-                PlateOrigin.Left += 1;
+                PlateUseOthers.Left += 1;
             if (key == Key.A)
-                PlateOrigin.Left -= 1;
+                PlateUseOthers.Left -= 1;
             if (key == Key.S)
-                PlateOrigin.Top += 1;
+                PlateUseOthers.Top += 1;
             if (key == Key.W)
-                PlateOrigin.Top -= 1;
+                PlateUseOthers.Top -= 1;
 
             base.KeyDown(key, modifier, hold);
         }

@@ -6,6 +6,7 @@ using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.Entities.Map;
+using Dungeon12.SceneObjects.Base;
 using System;
 
 namespace Dungeon12.SceneObjects.Map
@@ -103,6 +104,8 @@ namespace Dungeon12.SceneObjects.Map
             base.Click(args);
         }
 
+        public void RefreshTooltip() { }
+
         private IDrawText tooltiptext;
         public IDrawText TooltipText
         {
@@ -118,5 +121,7 @@ namespace Dungeon12.SceneObjects.Map
         }
 
         public bool ShowTooltip => Component != null && Component.IsNotEmpty;
+
+        public Tooltip CustomTooltipObject => null;
     }
 }
