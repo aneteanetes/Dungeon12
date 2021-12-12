@@ -1059,37 +1059,79 @@ namespace Dungeon.Monogame
             if (maxLineWidth < spaceWidth)
                 return text; //попытка избежать stackoverflowexception
 
-            foreach (string word in words)
+            foreach (string wordinwords in words)
             {
-                Vector2 size = font.MeasureString(word);
-
-                if (lineWidth + size.X < maxLineWidth)
-                {
-                    sb.Append(word + " ");
-                    lineWidth += size.X + spaceWidth;
-                }
-                else
-                {
-                    if (size.X > maxLineWidth)
-                    {
-                        if (sb.ToString() == "")
-                        {
-                            sb.Append(WrapText(font, word.Insert(word.Length / 2, " ") + " ", maxLineWidth, ++counter, original));
-                        }
-                        else
-                        {
-                            sb.Append(Environment.NewLine + WrapText(font, word.Insert(word.Length / 2, " ") + " ", maxLineWidth, ++counter, original));
-                        }
-                    }
-                    else
-                    {
-                        sb.Append(Environment.NewLine + word + " ");
-                        lineWidth = size.X + spaceWidth;
-                    }
-                }
+                Wrap(wordinwords, sb, font, maxLineWidth,ref lineWidth, spaceWidth,ref counter, original);
             }
 
             return sb.ToString();
+        }
+
+
+        private static void Wrap(string wordinwords, StringBuilder sb, SpriteFont font, double maxLineWidth,ref float lineWidth, float spaceWidth, ref int counter, string original)
+        {
+            var word = wordinwords;
+
+            if (wordinwords.Contains("\r\n"))
+            {
+                var rn = new List<string>();
+
+                int idx = wordinwords.IndexOf("\r\n");
+                while (idx != -1)
+                {
+                    var before = word.Substring(0, idx);
+                    rn.Add(before);
+                    rn.Add("\r\n");
+                    word = word.Remove(0, before.Length);
+                    word = word.Remove(0, 2);
+                    idx = word.IndexOf("\r\n");
+                }
+
+                if (!string.IsNullOrWhiteSpace(word))
+                    rn.Add(word);
+
+                foreach (var p in rn)
+                {
+                    if (p == "\r\n")
+                    {
+                        sb.AppendLine();
+                        lineWidth = 0;
+                    }
+                    else
+                    {
+                        Wrap(p, sb, font, maxLineWidth, ref lineWidth, spaceWidth, ref counter, original);
+                    }
+                }
+
+                return;
+            }
+
+            Vector2 size = font.MeasureString(word);
+
+            if (lineWidth + size.X < maxLineWidth)
+            {
+                sb.Append(word + " ");
+                lineWidth += size.X + spaceWidth;
+            }
+            else
+            {
+                if (size.X > maxLineWidth)
+                {
+                    if (sb.ToString() == "")
+                    {
+                        sb.Append(WrapText(font, word.Insert(word.Length / 2, " ") + " ", maxLineWidth, ++counter, original));
+                    }
+                    else
+                    {
+                        sb.Append(Environment.NewLine + WrapText(font, word.Insert(word.Length / 2, " ") + " ", maxLineWidth, ++counter, original));
+                    }
+                }
+                else
+                {
+                    sb.Append(Environment.NewLine + word + " ");
+                    lineWidth = size.X + spaceWidth;
+                }
+            }
         }
 
         private void DrawScenePath(IDrawablePath drawablePath, double x, double y)

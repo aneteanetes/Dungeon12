@@ -3,6 +3,7 @@ using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon12.Attributes;
 using Dungeon12.Entities.Enums;
+using Dungeon12.Entities.FractionPolygons;
 using Dungeon12.Entities.Zones;
 using Dungeon12.Functions.ObjectFunctions;
 using Dungeon12.SceneObjects.UserInterface.Common;
@@ -55,20 +56,19 @@ namespace Dungeon12.SceneObjects.UserInterface.FractionSelect
             var line2 = this.AddChildImageCenter(new ImageObject("FracPanel/line455.png".AsmImg()));
             line2.Top = 167;
 
-            var availableroles = this.AddTextCenter("Доступные роли:".AsDrawText().Gabriela().InSize(20));
+            var availableroles = this.AddTextCenter("Возможности:".AsDrawText().Gabriela().InSize(20));
             availableroles.Left = 38 - 10;
             availableroles.Top = 190;
 
-            var coordx = 40;
+            var coordx = 40+59;
 
-            fraction.ToValue<AvailableRolesAttribute, Roles[]>().ForEach(x =>
+            var ability = fraction.ToValue<FractionInfluenceAttribute, FractionAbility>();
+            var badge = this.AddChild(new IconEnumBadge(ability)
             {
-                var badge = this.AddChild(new IconEnumBadge(x));
-                badge.Top = 229;
-                badge.Left = coordx;
-                coordx += 59;
-                this.Layer.AddControl(badge);
+                Top=229,
+                Left=99
             });
+            this.Layer.AddControl(badge);
 
             var availablespecs = this.AddTextCenter("Специализации:".AsDrawText().Gabriela().InSize(20));
             availablespecs.Left = 292 - 10;

@@ -88,7 +88,6 @@
     <Folder Include="Resources\Images\Dolls\Necromancer\" />
     <Folder Include="Resources\Images\Dolls\Priest\" />
     <Folder Include="Resources\Images\Maps\" />
-    <Folder Include="Resources\Images\Icons\" />
     <Folder Include="Resources\Images\Professions\" />
     <Folder Include="Resources\Images\Tilesets\" />
     <Folder Include="Resources\Maps\" />
