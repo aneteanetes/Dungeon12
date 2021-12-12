@@ -13,7 +13,7 @@
             return drawText;
         }
 
-        public static T Carribean<T>(this T drawText) where T: IDrawText
+        public static T Carribean<T>(this T drawText) where T : IDrawText
         {
             drawText.FontName = "Pieces of Eight Cyrillic AA";
             drawText.FontAssembly = "Dungeon12";
@@ -21,9 +21,17 @@
             return drawText;
         }
 
-        public static T Gabriela<T>(this T drawText) where T:IDrawText
+        public static T Gabriela<T>(this T drawText) where T : IDrawText
         {
             drawText.FontName = "Gabriela";
+            drawText.FontAssembly = "Dungeon12";
+
+            return drawText;
+        }
+
+        public static T Runic<T>(this T drawText) where T : IDrawText
+        {
+            drawText.FontName = "American TextC";
             drawText.FontAssembly = "Dungeon12";
 
             return drawText;

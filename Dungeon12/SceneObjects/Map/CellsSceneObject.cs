@@ -6,6 +6,7 @@ using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.Entities.Map;
+using Dungeon12.Functions.ObjectFunctions;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -84,6 +85,16 @@ namespace Dungeon12.SceneObjects.Map
             this.AddChild(new PolygonSceneObject(location.Polygon.P3, location.BackgroundImage, 3));
             this.AddChild(new PolygonSceneObject(location.Polygon.P4, location.BackgroundImage, 4));
             this.AddChild(new PolygonSceneObject(location.Polygon.P5, location.BackgroundImage, 5));
+
+
+
+#warning DEVELOP
+            Global.Game.Location.Polygon.P4.Load(new Entities.Map.Polygon
+            {
+                Name = "Должность",
+                Icon = "specscroll.png",
+                Function = nameof(SelectSpecFunction)
+            });
         }
 
         private List<PolygonSceneObject> Polygons = new List<PolygonSceneObject>();

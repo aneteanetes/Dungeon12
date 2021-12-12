@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Dungeon12.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dungeon12.Entities.Enums
 {
     public enum Spec
     {
-        [Display(Name = "Рубака")]
+        [Display(Name = "Берсерк")]
         WarriorDamage, // сильные удары, добивания, никакой защиты
 
         [Display(Name = "Воитель")]
@@ -55,6 +56,6 @@ namespace Dungeon12.Entities.Enums
         WarlockBloodMage, // доты, плюс хилит от дот (массово)
 
         [Display(Name = "Шаман вуду")]
-        WarlockVoodoo // доты, плюс хилит от дот (массово)
+        WarlockVoodoo // контроль союзников и врагов
     }
 }

@@ -95,7 +95,7 @@ namespace Dungeon12.SceneObjects.UserInterface.FractionSelect
             {
                 Name = "Должность",
                 Icon = "specscroll.png",
-                Function = nameof(SelectFractionFunction)
+                Function = nameof(SelectSpecFunction)
             });
         }
     }
