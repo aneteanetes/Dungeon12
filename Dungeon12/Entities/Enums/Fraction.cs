@@ -33,7 +33,7 @@ namespace Dungeon12.Entities.Enums
 
         [Display(Name = "Культ проклятых")]
         [Value("Образовался после катастрофы, состоит из магов-отшельников и служителей смерти.")]
-        [AvailableSpecs(Spec.WarlockNecromancer, Spec.WarlockBloodMage)]
+        [AvailableSpecs(Spec.WarlockNecromancer, Spec.WarlockBloodMage, Spec.WarlockVoodoo)]
         [FractionInfluence(FractionAbility.Cult)]
         Cult // warlocks
     }

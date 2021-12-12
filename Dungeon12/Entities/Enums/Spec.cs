@@ -52,6 +52,9 @@ namespace Dungeon12.Entities.Enums
         WarlockNecromancer, // призывает скелетов, духов, и кости
 
         [Display(Name = "Маг крови")]
-        WarlockBloodMage // доты, плюс хилит от дот (массово)
+        WarlockBloodMage, // доты, плюс хилит от дот (массово)
+
+        [Display(Name = "Шаман вуду")]
+        WarlockVoodoo // доты, плюс хилит от дот (массово)
     }
 }
