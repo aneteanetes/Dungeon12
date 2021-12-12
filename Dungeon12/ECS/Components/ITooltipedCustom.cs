@@ -9,8 +9,6 @@ namespace Dungeon12.ECS.Components
 
         bool ShowTooltip { get; }
 
-        Tooltip CustomTooltipObject { get; }
-
         void RefreshTooltip();
     }
 }

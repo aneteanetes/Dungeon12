@@ -38,7 +38,7 @@ namespace Dungeon12.ECS.Systems
                         SceneLayer.RemoveObject(tooltip);
                     };
 
-                    tooltip = tooltiped.CustomTooltipObject ?? new Tooltip(tooltiped.TooltipText, tooltipPosition)
+                    tooltip = new Tooltip(tooltiped.TooltipText, tooltipPosition)
                     {
                         AbsolutePosition = sceneObject.AbsolutePosition,
                         LayerLevel = 100
@@ -47,9 +47,6 @@ namespace Dungeon12.ECS.Systems
                     SceneLayer.AddObject(tooltip);
                     Tooltips[tooltiped] = tooltip;
                 }
-
-                if (tooltiped.CustomTooltipObject == null)
-                    tooltip.TooltipText.SetText(tooltiped.TooltipText.ToString());
 
                 tooltipPosition.X += sceneObject.Width / 2 - Global.DrawClient.MeasureText(tooltip.TooltipText).X / 2;
 

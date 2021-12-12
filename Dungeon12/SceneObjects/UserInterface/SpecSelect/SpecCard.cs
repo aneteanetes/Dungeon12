@@ -32,7 +32,7 @@ namespace Dungeon12.SceneObjects.UserInterface.SpecSelect
             var title= this.AddTextCenter(titletxt, vertical: false);
             title.Top = 52;
 
-            this.AddChild(new ImageObject("Icons/Roles/Health.png".AsmImg())
+            this.AddChild(new ImageObjectTooltiped("Icons/Roles/Health.png".AsmImg(),"Выживаемость")
             {
                 Width=34,
                 Height=34,
@@ -44,7 +44,7 @@ namespace Dungeon12.SceneObjects.UserInterface.SpecSelect
             htxt.Top = 362;
             htxt.Left = 97;
 
-            this.AddChild(new ImageObject($"Icons/Roles/{SpecInfo.DamageIcon}.png".AsmImg())
+            this.AddChild(new ImageObjectTooltiped($"Icons/Roles/{SpecInfo.DamageIcon}.png".AsmImg(),"Cила атаки")
             {
                 Width = 34,
                 Height = 34,
@@ -56,7 +56,7 @@ namespace Dungeon12.SceneObjects.UserInterface.SpecSelect
             dpstxt.Top = 362;
             dpstxt.Left = 185;
 
-            this.AddChild(new ImageObject("Icons/Roles/Armor.png".AsmImg())
+            this.AddChild(new ImageObjectTooltiped("Icons/Roles/Armor.png".AsmImg(), "Уровень защиты")
             {
                 Width = 34,
                 Height = 34,
