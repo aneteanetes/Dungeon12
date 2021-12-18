@@ -3,6 +3,7 @@ using Dungeon.SceneObjects;
 using Dungeon12.Attributes;
 using Dungeon12.Entities;
 using Dungeon12.Entities.Enums;
+using Dungeon12.Functions.ObjectFunctions;
 
 namespace Dungeon12.SceneObjects.UserInterface.SpecSelect
 {
@@ -15,7 +16,7 @@ namespace Dungeon12.SceneObjects.UserInterface.SpecSelect
 
             specs = this;
 
-            var availableSpecs = Fraction.Vanguard.ToValue<AvailableSpecsAttribute, Spec[]>();
+            var availableSpecs = component.Fraction.ToValue<AvailableSpecsAttribute, Spec[]>();
 
             this.Width = Global.Resolution.Width;
             this.Height = Global.Resolution.Height;
@@ -27,6 +28,13 @@ namespace Dungeon12.SceneObjects.UserInterface.SpecSelect
         public static void Close()
         {
             specs.Destroy();
+
+            Global.Game.Location.Polygon.P5.Load(new Entities.Map.Polygon
+            {
+                Name = "Подтвердить",
+                Icon = "savebook.png",
+                Function = nameof(HeroConfirmFunction)
+            });
         }
 
         private class Plate : EmptySceneControl

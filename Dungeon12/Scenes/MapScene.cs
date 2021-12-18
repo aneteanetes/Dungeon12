@@ -29,6 +29,7 @@ namespace Dungeon12.Scenes
             Global.RegisterFunction<SelectCraftFunction>();
             Global.RegisterFunction<SelectFractionFunction>();
             Global.RegisterFunction<SelectSpecFunction>();
+            Global.RegisterFunction<HeroConfirmFunction>();
 
             Global.Game = new Game()
             {

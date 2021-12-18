@@ -1,7 +1,7 @@
 {
   "Description": "Защитник специализируется на защите группы и привлечении внимания врагов.",
-  "DamageIcon": "Damage",
-  "Damage": 1,
+  "DamageIcon": "Tank",
+  "Damage": 2,
   "Health": 3,
   "Armor": 3,
   "CardName": "Колода Защитника",

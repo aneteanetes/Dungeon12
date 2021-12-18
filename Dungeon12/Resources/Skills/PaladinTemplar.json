@@ -1,0 +1,22 @@
+{
+  "Description": "Тамплиер защищает и исцеляет группу. Небольшую защиту компенсирует постоянным исцелением.",
+  "DamageIcon": "Tank",
+  "Damage": 1,
+  "Health": 2,
+  "Armor": 2,
+  "CardName": "Колода Тамплиера",
+  "Skills": [
+    {
+      "IsBase": true
+    },
+    {
+      "IsBase": false
+    },
+    {
+      "IsBase": false
+    },
+    {
+      "IsBase": false
+    }
+  ]
+}

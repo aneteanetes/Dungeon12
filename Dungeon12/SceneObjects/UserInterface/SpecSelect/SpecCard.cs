@@ -1,9 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Drawing;
-using Dungeon.Drawing.SceneObjects;
 using Dungeon.Resources;
 using Dungeon.SceneObjects;
-using Dungeon.View.Interfaces;
 using Dungeon12.Entities;
 using Dungeon12.Entities.Enums;
 using Dungeon12.SceneObjects.UserInterface.Common;
@@ -29,22 +27,22 @@ namespace Dungeon12.SceneObjects.UserInterface.SpecSelect
             this.Image = $"SpecCard/{spec}.png".AsmImg();
 
             var titletxt = Runed(spec.ToDisplay()).InSize(40);
-            var title= this.AddTextCenter(titletxt, vertical: false);
+            var title = this.AddTextCenter(titletxt, vertical: false);
             title.Top = 52;
 
-            this.AddChild(new ImageObjectTooltiped("Icons/Roles/Health.png".AsmImg(),"Выживаемость")
+            this.AddChild(new ImageObjectTooltiped("Icons/Roles/Health.png".AsmImg(), "Выживаемость")
             {
-                Width=34,
-                Height=34,
-                Left=59,
-                Top=362
+                Width = 34,
+                Height = 34,
+                Left = 59,
+                Top = 362
             });
 
-            var htxt= this.AddTextCenter(Runed($"{SpecInfo.Health}/3").InSize(20));
+            var htxt = this.AddTextCenter(Runed($"{SpecInfo.Health}/3").InSize(20));
             htxt.Top = 362;
             htxt.Left = 97;
 
-            this.AddChild(new ImageObjectTooltiped($"Icons/Roles/{SpecInfo.DamageIcon}.png".AsmImg(),"Cила атаки")
+            this.AddChild(new ImageObjectTooltiped($"Icons/Roles/{SpecInfo.DamageIcon}.png".AsmImg(), "Сила специализации")
             {
                 Width = 34,
                 Height = 34,
@@ -68,7 +66,7 @@ namespace Dungeon12.SceneObjects.UserInterface.SpecSelect
             armtxt.Top = 362;
             armtxt.Left = 277;
 
-            var description = this.AddTextCenter(Runed(SpecInfo.Description).Gabriela().InSize(15).WithWordWrap(),parentWidth: 200);
+            var description = this.AddTextCenter(Runed(SpecInfo.Description).Gabriela().InSize(15).WithWordWrap(), parentWidth: 200);
             description.Top = 404;
             description.Left = 116;
 
@@ -86,9 +84,9 @@ namespace Dungeon12.SceneObjects.UserInterface.SpecSelect
             var topInit = 400;
             var iconRange = 40;
 
-            SpecInfo.Skills.ForEach((skill,i) =>
+            SpecInfo.Skills.ForEach((skill, i) =>
             {
-                var icon = this.AddChild(new SpecCardSkill(skill,i,spec));
+                var icon = this.AddChild(new SpecCardSkill(skill, i, spec));
                 icon.Top = topInit + iconRange * i;
                 icon.Left = 72;
             });

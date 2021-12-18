@@ -88,13 +88,13 @@ namespace Dungeon12.SceneObjects.Map
 
 
 
-#warning DEVELOP
-            Global.Game.Location.Polygon.P4.Load(new Entities.Map.Polygon
-            {
-                Name = "Должность",
-                Icon = "specscroll.png",
-                Function = nameof(SelectSpecFunction)
-            });
+//#warning DEVELOP
+//            Global.Game.Location.Polygon.P4.Load(new Entities.Map.Polygon
+//            {
+//                Name = "Должность",
+//                Icon = "specscroll.png",
+//                Function = nameof(SelectSpecFunction)
+//            });
         }
 
         private List<PolygonSceneObject> Polygons = new List<PolygonSceneObject>();

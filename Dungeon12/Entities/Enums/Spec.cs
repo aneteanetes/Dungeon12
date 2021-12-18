@@ -42,10 +42,10 @@ namespace Dungeon12.Entities.Enums
         PaladinAdept, // прямой большой хил с затратами маны
 
 
-        [Display(Name = "Судья")]
+        [Display(Name = "Инквизитор")]
         InquisitorJudge,  // утилити - призыв душ (перекачка), приговоры (дебафы)
 
-        [Display(Name = "Истязатель")]
+        [Display(Name = "Экзорцист")]
         InquisitorTormentor, // урон от двух противоположных стихий, но лёгкая броня
 
 

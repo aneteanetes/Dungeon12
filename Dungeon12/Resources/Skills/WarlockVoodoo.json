@@ -1,0 +1,22 @@
+{
+  "Description": "Шаман вуду контроллирует врагов или усиливает союзников",
+  "DamageIcon": "Debuff",
+  "Damage": 1,
+  "Health": 1,
+  "Armor": 1,
+  "CardName": "Колода Шамана вуду",
+  "Skills": [
+    {
+      "IsBase": true
+    },
+    {
+      "IsBase": false
+    },
+    {
+      "IsBase": false
+    },
+    {
+      "IsBase": false
+    }
+  ]
+}
