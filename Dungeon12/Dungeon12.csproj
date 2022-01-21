@@ -88,10 +88,15 @@
     <Folder Include="Resources\Images\Dolls\Necromancer\" />
     <Folder Include="Resources\Images\Dolls\Priest\" />
     <Folder Include="Resources\Images\Maps\" />
+    <Folder Include="Resources\Images\SpecCharacters\" />
     <Folder Include="Resources\Images\Professions\" />
     <Folder Include="Resources\Images\Tilesets\" />
     <Folder Include="Resources\Maps\" />
     <Folder Include="Resources\Sounds\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.40" />
   </ItemGroup>
 
 </Project>

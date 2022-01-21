@@ -1,12 +1,8 @@
 ﻿using Dungeon;
-using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.SceneObjects.Base;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Dungeon12.SceneObjects.UserInterface.Common
 {
@@ -25,5 +21,10 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
         public Tooltip CustomTooltipObject => null;
 
         public void RefreshTooltip() { }
+
+        public override void Focus()
+        {
+            base.Focus();
+        }
     }
 }

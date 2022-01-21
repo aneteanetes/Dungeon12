@@ -3,10 +3,13 @@ using Dungeon.Control.Keys;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
+using Dungeon12.Drawing.SceneObjects.Map;
 using Dungeon12.ECS.Systems;
 using Dungeon12.Entities.Map;
 using Dungeon12.Functions.ObjectFunctions;
+using Dungeon12.SceneObjects;
 using Dungeon12.SceneObjects.Map;
+using Dungeon12.SceneObjects.UI;
 using Dungeon12.SceneObjects.UserInterface;
 
 namespace Dungeon12.Scenes
@@ -22,7 +25,7 @@ namespace Dungeon12.Scenes
         public override bool AbsolutePositionScene => false;
         public override void Initialize()
         {
-            Global.Hints = new HintScenarioSceneObject();
+            Global.Helps = new HelpingSceneObject();
 
             Global.RegisterFunction<NameEnterWindowFunction>();
             Global.RegisterFunction<SelectOriginFunction>();
@@ -40,7 +43,7 @@ namespace Dungeon12.Scenes
             };
 
             var background = this.CreateLayer("background");
-            background.AddObject(new ImageObject("Backgrounds/ship.png".AsmImg())
+            background.AddObject(new ImageObject("Backgrounds/ship_fxd.png".AsmImg())
             {
                 Width = Global.Resolution.Width,
                 Height = Global.Resolution.Height
@@ -54,18 +57,31 @@ namespace Dungeon12.Scenes
             regionSceneObj.Left = (Global.Resolution.Width / 2) - (regionSceneObj.Width * regionSceneObj.Scale / 2);
             regionSceneObj.Top = (Global.Resolution.Height / 2) - (regionSceneObj.Height * regionSceneObj.Scale / 2);
 
+            region.PositionVisual = new Dungeon.Types.Point(regionSceneObj.Left, regionSceneObj.Top);
+
             Global.Game.Region = region;
 
             mapLayer.AddObject(regionSceneObj);
             mapLayer.AddSystem(new TooltipSystem());
+            mapLayer.AddObject(new PartySceneObject(Global.Game.Party));
 
             var ui = this.CreateLayer("ui");
             ui.AbsoluteLayer = true;
             ui.AddSystem(new TooltipSystem());
             ui.AddSystem(new TooltipCustomSystem());
 
+            Global.Game.HeroPlate1 = new HeroPlate(null);
+            Global.Game.HeroPlate2 = new HeroPlate(null);
+            Global.Game.HeroPlate3 = new HeroPlate(null);
+            Global.Game.HeroPlate4 = new HeroPlate(null);
+
+            ui.AddObject(Global.Game.HeroPlate1);
+            ui.AddObject(Global.Game.HeroPlate2);
+            ui.AddObject(Global.Game.HeroPlate3);
+            ui.AddObject(Global.Game.HeroPlate4);
+
             var overlay = this.CreateLayer("overlay");
-            overlay.AddObject(Global.Hints);
+            overlay.AddObject(Global.Helps);
 
             //Global.AudioPlayer.Effect("Sounds/Ship.wav".AsmRes(), new Dungeon.Audio.AudioOptions()
             //{

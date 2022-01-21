@@ -11,6 +11,9 @@ namespace Dungeon12.SceneObjects.UserInterface.CraftSelect
     {
         public CraftSelectSceneObject(Hero component) : base(component)
         {
+            if (Global.Helps.IsEnabled)
+                Global.Helps.ShowCraft();
+
             Global.Freezer.Freeze(this);
             this.Width = 620;
             this.Height = 800;
@@ -43,6 +46,9 @@ namespace Dungeon12.SceneObjects.UserInterface.CraftSelect
         {
             this.Destroy?.Invoke();
             Global.Freezer.Unfreeze();
+
+            if (Global.Helps.IsEnabled)
+                Global.Helps.StepUseOther();
         }
 
         private void Select()

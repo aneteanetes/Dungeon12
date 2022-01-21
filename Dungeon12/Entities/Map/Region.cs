@@ -22,6 +22,8 @@ namespace Dungeon12.Entities.Map
 
         public Point Position { get; set; }
 
+        public Point PositionVisual { get; set; }
+
         public string Title { get; set; }
 
         public string MapId { get; set; }

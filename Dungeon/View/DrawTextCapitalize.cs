@@ -9,5 +9,10 @@
 
             return drawText;
         }
+
+        public static string Capitalize(this string text)
+        {
+            return char.ToUpper(text[0]) + text.Substring(1);
+        }
     }
 }

@@ -30,23 +30,17 @@
         {
             if (hero == null)
                 return;
-
-            this.Image = hero.WalkSpriteSheet.Image;
-            this.ImageRegion = new Rectangle()
-            {
-                Height = hero.WalkSpriteSheet.Height,
-                Width = hero.WalkSpriteSheet.Width,
-                X = hero.WalkSpriteSheet.DefaultFramePosition.X,
-                Y = hero.WalkSpriteSheet.DefaultFramePosition.Y
-            };
         }
 
-        //public override double Left => Component ==null ? 0 : Component.PhysicalObject.Position.X;
+        public override string Image => Component?.Chip;
 
-        //public override double Top => Component == null ? 0 : Component.PhysicalObject.Position.Y;
-
-        public override double Height => Component == null ? 0 : Component.WalkSpriteSheet.Height;
-
-        public override double Width => Component == null ? 0 : Component.WalkSpriteSheet.Width;
+        public Rectangle _ImageRegion = new Rectangle()
+        {
+            Height = 240,
+            Width = 240,
+            X = 0,
+            Y = 0
+        };
+        public override Rectangle ImageRegion => _ImageRegion;
     }
 }

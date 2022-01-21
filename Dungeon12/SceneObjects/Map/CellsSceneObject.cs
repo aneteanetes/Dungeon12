@@ -20,11 +20,11 @@ namespace Dungeon12.SceneObjects.Map
 
         public override bool AbsolutePosition => true;
 
-        private class Close : EmptySceneControl
+        private class CloseBtn : EmptySceneControl
         {
             ExploreSceneObject exploreSceneObject;
 
-            public Close(ExploreSceneObject exploreSceneObject)
+            public CloseBtn(ExploreSceneObject exploreSceneObject)
             {
                 this.Image = "Backgrounds/cross.png".AsmImg();
                 this.exploreSceneObject = exploreSceneObject;
@@ -34,9 +34,9 @@ namespace Dungeon12.SceneObjects.Map
 
             public override void Click(PointerArgs args)
             {
-                Global.Hints.StepClick();
+                Global.Helps.StepClick();
                 exploreSceneObject.Destroy();
-                Global.Freezer.World = null;
+                Global.Freezer.Unfreeze();
             }
 
             public override void Focus()
@@ -49,11 +49,22 @@ namespace Dungeon12.SceneObjects.Map
             }
         }
 
+        public static CellsSceneObject Active;
+
+        public void Close()
+        {
+            closebtn.Click(null);
+        }
+
+        private CloseBtn closebtn;
+
         public CellsSceneObject(ExploreSceneObject explore, Location location) : base(location, true)
         {
+            Global.Freezer.Freeze(this);
             Image = "Backgrounds/location.png".AsmImg();
+            Active = this;
 
-            this.AddChild(new Close(explore)
+            closebtn = this.AddChild(new CloseBtn(explore)
             {
                 Left = Width - 50,
             });
@@ -88,13 +99,14 @@ namespace Dungeon12.SceneObjects.Map
 
 
 
-//#warning DEVELOP
-//            Global.Game.Location.Polygon.P4.Load(new Entities.Map.Polygon
-//            {
-//                Name = "Должность",
-//                Icon = "specscroll.png",
-//                Function = nameof(SelectSpecFunction)
-//            });
+#warning DEVELOP
+            Global.Game.Party.Hero1.Fraction = Entities.Enums.Fraction.MageGuild;
+            Global.Game.Location.Polygon.P4.Load(new Entities.Map.Polygon
+            {
+                Name = "Должность",
+                Icon = "specscroll.png",
+                Function = nameof(SelectSpecFunction)
+            });
         }
 
         private List<PolygonSceneObject> Polygons = new List<PolygonSceneObject>();

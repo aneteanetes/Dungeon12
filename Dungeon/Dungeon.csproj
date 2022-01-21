@@ -33,6 +33,7 @@
     <EmbeddedResource Remove="Resources\ResourceResolver.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.40" />
     <PackageReference Include="LiteDB" Version="5.0.11" />
     <PackageReference Include="MonoGame.Extended.Tiled" Version="3.8.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />

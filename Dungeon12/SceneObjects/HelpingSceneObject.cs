@@ -5,17 +5,18 @@ using Dungeon.SceneObjects;
 using System;
 using System.Collections.Generic;
 
-namespace Dungeon12.SceneObjects.Map
+namespace Dungeon12.SceneObjects
 {
     public enum HintStates
     {
         Default,
         Click,
         LocationOpenedAndUsed,
-        OriginSelected
+        OriginSelected,
+        HeroCreated
     }
 
-    public class HintScenarioSceneObject : EmptySceneControl
+    public class HelpingSceneObject : EmptySceneControl
     {
         private readonly ArrowImage Arrow;
         private readonly PlateObject PlateFocus;
@@ -25,19 +26,21 @@ namespace Dungeon12.SceneObjects.Map
         private readonly PlateObject PlateHexAppear;
         private readonly PlateObject PlateOrigin;
         private readonly PlateObject PlateUseOthers;
+        private readonly PlateObject PlateCraft;
+        private readonly PlateObject PlateConfirm;
 
         List<PlateObject> Plates = new List<PlateObject>();
 
         public bool IsEnabled { get; set; } = true;
 
-        public HintScenarioSceneObject()
+        public HelpingSceneObject()
         {
-            this.Width = Global.Resolution.Width;
-            this.Height = Global.Resolution.Height;
+            Width = DungeonGlobal.Resolution.Width;
+            Height = DungeonGlobal.Resolution.Height;
 
             Arrow = new ArrowImage();
 
-            Plates.Add(this.AddChild(PlateFocus = new PlateObject("Перемещение", @"Для перемещения 
+            Plates.Add(AddChild(PlateFocus = new PlateObject("Перемещение", @"Для перемещения 
 наведите курсор 
 на плитку:")
             {
@@ -45,7 +48,7 @@ namespace Dungeon12.SceneObjects.Map
                 Top = 165
             }));
 
-            Plates.Add(this.AddChild(PlateClick = new PlateObject("Активация", @"Для перемещения и
+            Plates.Add(AddChild(PlateClick = new PlateObject("Активация", @"Для перемещения и
 активации плитки
 нажмите на неё:")
             {
@@ -55,7 +58,7 @@ namespace Dungeon12.SceneObjects.Map
             }));
 
 
-            Plates.Add(this.AddChild(PlateActivation = new PlateObject("Локация",
+            Plates.Add(AddChild(PlateActivation = new PlateObject("Локация",
                 @"Каждая локация содержит в себе несколько плиток, выберите интересующую вас и нажмите для активации.",
                 true, 200)
             {
@@ -65,7 +68,7 @@ namespace Dungeon12.SceneObjects.Map
             }));
 
 
-            Plates.Add(this.AddChild(PlateTextInput = new PlateObject("Ввод текста",
+            Plates.Add(AddChild(PlateTextInput = new PlateObject("Ввод текста",
                 @"Для ввода текста нажмите на текстовое поле. Пока вы не нажмёте Enter или Esc другие элементы интерфейса не будут активны. После того как закончите ввод текста нажмите на Enter или Esc.
 
 Как только будете готовы - подпишите свидетельство.",
@@ -76,7 +79,7 @@ namespace Dungeon12.SceneObjects.Map
                 Visible = false
             }));
 
-            Plates.Add(this.AddChild(PlateHexAppear = new PlateObject("Появление плиток",
+            Plates.Add(AddChild(PlateHexAppear = new PlateObject("Появление плиток",
                 @"Некоторые плитки после использования могут открывать доступ до следующих. После подписания свидетельства вы должны указать своё происхождение",
                 true, 200)
             {
@@ -86,7 +89,7 @@ namespace Dungeon12.SceneObjects.Map
             }));
 
 
-            Plates.Add(this.AddChild(PlateOrigin = new PlateObject("Выбор региона",
+            Plates.Add(AddChild(PlateOrigin = new PlateObject("Выбор региона",
                 @"Для выбора региона наведите на него курсор и нажмите левую кнопку мыши. Не забудьте изучить бонусы каждого региона.",
                 true, 200)
             {
@@ -96,7 +99,7 @@ namespace Dungeon12.SceneObjects.Map
             }));
 
 
-            Plates.Add(this.AddChild(PlateUseOthers = new PlateObject("Исследование",
+            Plates.Add(AddChild(PlateUseOthers = new PlateObject("Исследование",
                 @"Продолжите исследование локации, как только все возможные плитки будут открыты вы сможете переместиться далее.",
                 true, 200)
             {
@@ -105,7 +108,25 @@ namespace Dungeon12.SceneObjects.Map
                 Visible = false
             }));
 
-            this.AddChild(Arrow);
+            Plates.Add(AddChild(PlateCraft = new PlateObject("Профессия",
+                @"Профессия позволяет создавать предметы для сопартийцев и последователей определённого типа.",
+                true, 200)
+            {
+                Left = 111,
+                Top = 451,
+                Visible = false
+            }));
+
+            Plates.Add(AddChild(PlateConfirm = new PlateObject("Подтверждение",
+                @"Подтвердите создание персонажа, после этого изменить свой выбор вы не сможете.",
+                true)
+            {
+                Left = 111,
+                Top = 451,
+                Visible = false
+            }));
+
+            AddChild(Arrow);
 
             StepFocus();
         }
@@ -115,6 +136,28 @@ namespace Dungeon12.SceneObjects.Map
         public void ChangeState(HintStates states)
         {
             state = states;
+        }
+
+        public void ConfirmCreate()
+        {
+            Arrow.Reset();
+            Arrow.Visible = false;
+            SetActivePlate(PlateConfirm);
+        }
+
+        public void Hide()
+        {
+            Arrow.Reset();
+            Arrow.Visible = false;
+            Plates.ForEach(x => x.Visible = false);
+        }
+
+        public void ShowCraft()
+        {
+            Arrow.Reset();
+            Arrow.Visible = false;
+
+            SetActivePlate(PlateCraft);
         }
 
         public void StepUseOther()
@@ -211,14 +254,17 @@ namespace Dungeon12.SceneObjects.Map
 
         public void StepClick()
         {
-            Arrow.Reset();
-            Arrow.Scale = .2;
-            Arrow.Left = 949;
-            Arrow.Top = 285;
-            Arrow.Flip = Dungeon.View.Enums.FlipStrategy.Horizontally;
-            Arrow.Visible = true;
+            if (state != HintStates.HeroCreated)
+            {
+                Arrow.Reset();
+                Arrow.Scale = .2;
+                Arrow.Left = 949;
+                Arrow.Top = 285;
+                Arrow.Flip = Dungeon.View.Enums.FlipStrategy.Horizontally;
+                Arrow.Visible = true;
 
-            SetActivePlate(PlateClick);
+                SetActivePlate(PlateClick);
+            }
         }
 
         public override bool AllKeysHandle => true;
@@ -241,7 +287,7 @@ namespace Dungeon12.SceneObjects.Map
         {
             public ArrowImage() : base("Backgrounds/arrow.png".AsmImg())
             {
-                this.CacheAvailable = false;
+                CacheAvailable = false;
             }
 
             public TimeSpan Time { get; set; }
@@ -259,7 +305,7 @@ namespace Dungeon12.SceneObjects.Map
 
             public override void Update(GameTimeLoop gameTime)
             {
-                if (Time == default(TimeSpan) || Time < default(TimeSpan))
+                if (Time == default || Time < default(TimeSpan))
                 {
                     Time = TimeSpan.FromMilliseconds(800);
                     down = !down;
@@ -269,12 +315,12 @@ namespace Dungeon12.SceneObjects.Map
 
                 if (down)
                 {
-                    this.Opacity -= opacityMultiplier;
+                    Opacity -= opacityMultiplier;
 
                 }
                 else
                 {
-                    this.Opacity += opacityMultiplier;
+                    Opacity += opacityMultiplier;
                 }
             }
             public double opacityMultiplier = 0.004;
@@ -288,12 +334,12 @@ namespace Dungeon12.SceneObjects.Map
 
             public ImageObject Line { get; private set; }
 
-            public PlateObject(string title, string text, bool wordwrap=false, double height=125) : base($"Backgrounds/plate250{height}.png".AsmImg())
+            public PlateObject(string title, string text, bool wordwrap = false, double height = 125) : base($"Backgrounds/plate250{height}.png".AsmImg())
             {
-                this.Width = 250;
-                this.Height = height;
+                Width = 250;
+                Height = height;
 
-                Title = this.AddTextCenter(title.AsDrawText().Gabriela().InSize(16), vertical: false);
+                Title = AddTextCenter(title.AsDrawText().Gabriela().InSize(16), vertical: false);
                 Title.Top += 7;
 
                 var txt = text.AsDrawText().Gabriela().InSize(12);
@@ -301,7 +347,7 @@ namespace Dungeon12.SceneObjects.Map
                 if (wordwrap)
                     txt = txt.WithWordWrap();
 
-                Description = this.AddTextCenter(txt, vertical: false);
+                Description = AddTextCenter(txt, vertical: false);
                 if (!wordwrap)
                 {
                     Description.Width = 200;
@@ -311,9 +357,9 @@ namespace Dungeon12.SceneObjects.Map
                     Description.Width = 220;
                     Description.Left = 15;
                 }
-                Description.Top +=46;
+                Description.Top += 46;
 
-                this.AddChild(Line = new ImageObject("Backgrounds/line230.png".AsmImg())
+                AddChild(Line = new ImageObject("Backgrounds/line230.png".AsmImg())
                 {
                     Left = 20,
                     Top = 39
@@ -326,7 +372,7 @@ namespace Dungeon12.SceneObjects.Map
 
             public override void Update(GameTimeLoop gameTime)
             {
-                if (Time == default(TimeSpan) || Time < default(TimeSpan))
+                if (Time == default || Time < default(TimeSpan))
                 {
                     Time = TimeSpan.FromMilliseconds(800);
                     down = !down;
@@ -336,14 +382,14 @@ namespace Dungeon12.SceneObjects.Map
 
                 if (down)
                 {
-                    this.Opacity -= opacityMultiplier;
+                    Opacity -= opacityMultiplier;
                     //Description.Opacity -= opacityMultiplier;
                     //Title.Opacity -= opacityMultiplier;
 
                 }
                 else
                 {
-                    this.Opacity += opacityMultiplier;
+                    Opacity += opacityMultiplier;
                     //Description.Opacity += opacityMultiplier;
                     //Title.Opacity += opacityMultiplier;
                 }

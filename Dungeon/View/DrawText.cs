@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Force.DeepCloner;
-using MoreLinq;
+﻿using Dungeon.GameObjects;
 using Dungeon.Settings;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
-using Dungeon.GameObjects;
+using MoreLinq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Dungeon.Drawing
@@ -448,6 +447,5 @@ namespace Dungeon.Drawing
         {
             return StringData;
         }
-
     }
 }

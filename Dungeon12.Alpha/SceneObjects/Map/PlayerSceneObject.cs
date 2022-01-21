@@ -62,7 +62,7 @@
 
         public Action<Direction> OnStop;
 
-        [ExcplicitFlowMethod]
+        //[ExcplicitFlowMethod]
         private void OnStopFlow(Direction dir)
         {
             Avatar.OnMoveStop?.Invoke(dir);

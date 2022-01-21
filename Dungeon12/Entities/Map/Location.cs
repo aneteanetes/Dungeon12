@@ -29,5 +29,7 @@ namespace Dungeon12.Entities.Map
         public Point Position { get; set; }
 
         public bool IsOpen { get; set; }
+
+        public bool IsActivable { get; set; } = true;
     }
 }

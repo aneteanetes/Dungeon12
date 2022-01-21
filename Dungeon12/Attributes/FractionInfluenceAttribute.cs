@@ -6,7 +6,7 @@ namespace Dungeon12.Attributes
 {
     public class FractionInfluenceAttribute : ValueAttribute
     {
-        public FractionInfluenceAttribute(FractionAbility ability) : base(ability)
+        public FractionInfluenceAttribute(FractionInfluenceAbility ability) : base(ability)
         {
         }
     }

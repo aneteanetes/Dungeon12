@@ -19,8 +19,8 @@
 
         public NameEnterSceneObject(Hero component, Action<string> yes = null, Action no=null):base(component)
         {
-            if (Global.Hints.IsEnabled)
-                Global.Hints.StepTextInput();
+            if (Global.Helps.IsEnabled)
+                Global.Helps.StepTextInput();
 
             Global.Freezer.Freeze(this);
             this.Width = 1000;
@@ -73,9 +73,9 @@
                 Global.Game.Party.Hero1.Name = value;
                 AddOriginPolygon();
 
-                if (Global.Hints.IsEnabled)
+                if (Global.Helps.IsEnabled)
                 {
-                    Global.Hints.StepNewHex();
+                    Global.Helps.StepNewHex();
                 }
 
                 this.Close();
@@ -94,8 +94,8 @@
 
         private void Close()
         {
-            if (Global.Hints.IsEnabled)
-                Global.Hints.StepActivate();
+            if (Global.Helps.IsEnabled)
+                Global.Helps.StepActivate();
 
             this.Destroy?.Invoke();
             Global.Freezer.Unfreeze();

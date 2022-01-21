@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Dungeon12.Functions;
 using Dungeon.Scenes;
 using Dungeon.View.Interfaces;
-using Dungeon12.SceneObjects.Map;
+using Dungeon12.SceneObjects;
 
 namespace Dungeon12
 {
@@ -30,7 +30,7 @@ namespace Dungeon12
 
         public static Dictionary<string, IFunction> Functions = new Dictionary<string, IFunction>();
 
-        public static HintScenarioSceneObject Hints;
+        public static HelpingSceneObject Helps;
 
         public static bool RegisterFunction<TFuncClass>() where TFuncClass : IFunction
         {

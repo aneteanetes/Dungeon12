@@ -1,7 +1,7 @@
 ﻿namespace Dungeon.View.Interfaces
 {
-    using System.Collections.Generic;
     using Dungeon.Types;
+    using System.Collections.Generic;
 
     public interface IDrawText : IGameComponent, IDrawContext, IGraph<IDrawText>
     {

@@ -11,6 +11,18 @@ namespace Dungeon12.Entities
     {
         public string Name { get; set; }
 
+        public string Chip { get; set; }
+
+        public int Level { get; set; } = 1;
+
+        public int FreePoints { get; set; } = 2;
+
+        public string Avatar { get; set; }
+
+        public int Hits { get; set; }
+
+        public int MaxHits { get; set; }
+
         public SpriteSheet WalkSpriteSheet { get; set; }
 
         public MapObject PhysicalObject { get; set; }
@@ -20,5 +32,7 @@ namespace Dungeon12.Entities
         public Crafts? Profession { get; set; }
 
         public Fraction? Fraction { get; set; }
+
+        public Spec? Spec { get; set; }
     }
 }

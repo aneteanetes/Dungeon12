@@ -1,6 +1,6 @@
 ﻿using Dungeon12.Entities;
 using Dungeon12.Entities.Map;
-using Dungeon12.Entities.MapRelated;
+using Dungeon12.SceneObjects.UI;
 
 namespace Dungeon12
 {
@@ -13,5 +13,13 @@ namespace Dungeon12
         public Location Location { get; set; }
 
         public Polygon Polygon { get; set; }
+
+        public HeroPlate HeroPlate1 { get; set; }
+
+        public HeroPlate HeroPlate2 { get; set; }
+
+        public HeroPlate HeroPlate3 { get; set; }
+
+        public HeroPlate HeroPlate4 { get; set; }
     }
 }

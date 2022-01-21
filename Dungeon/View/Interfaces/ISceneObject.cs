@@ -146,6 +146,11 @@
         double Height { get; set; }
 
         /// <summary>
+        /// If object dont have width/height but have image with size it size will be bind to the sceneobject
+        /// </summary>
+        bool AutoBindSceneObjectSizeByContainedImage { get; set; }
+
+        /// <summary>
         /// Угол на который надо повернуть объект при отображении
         /// </summary>
 
@@ -165,7 +170,7 @@
         /// Вызвать уничтожение объекта. КОМУ НАДО ТОТ УНИЧТОЖИТ ЁПТА
         /// </summary>
         [Hidden]
-        Action Destroy { get; set; }
+        new Action Destroy { get; set; }
 
         /// <summary>
         /// Посылание эффектов в сцену

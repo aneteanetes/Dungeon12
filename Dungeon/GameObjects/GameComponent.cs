@@ -39,7 +39,11 @@ namespace Dungeon.GameObjects
         {
             SceneObject?.Destroy?.Invoke();
             SceneObject = default;
+            OnDestroyGameComponent?.Invoke();
         }
+
+
+        public Action OnDestroyGameComponent;
 
         public virtual void SetView(ISceneObject sceneObject)
         {

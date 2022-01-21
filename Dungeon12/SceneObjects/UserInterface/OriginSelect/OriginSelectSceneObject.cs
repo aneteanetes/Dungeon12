@@ -20,8 +20,8 @@
             this.Destroy += () =>
             {
                 Global.Freezer.Unfreeze();
-                if (Global.Hints.IsEnabled)
-                    Global.Hints.StepNewHex();
+                if (Global.Helps.IsEnabled)
+                    Global.Helps.StepNewHex();
             };
 
             this.Width = Global.Resolution.Width;
@@ -76,8 +76,8 @@
                 this.Destroy?.Invoke();
             }
 
-            if (Global.Hints.IsEnabled)
-                Global.Hints.StepOriginSelect();
+            if (Global.Helps.IsEnabled)
+                Global.Helps.StepOriginSelect();
 
             this.AddChild(new MapCloseButton()
             {

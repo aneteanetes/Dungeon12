@@ -33,6 +33,24 @@ namespace Dungeon12.SceneObjects.UserInterface.FractionSelect
 
         public bool IsEmpty => fraction == null;
 
+        public override TSceneObject AddChild<TSceneObject>(TSceneObject sceneObject)
+        {
+            sceneObject.Destroy += () =>
+            {
+                RemoveChild(sceneObject);
+                DestroyBinding?.Invoke(sceneObject);
+            };
+
+            Destroy += () => sceneObject.Destroy?.Invoke();
+
+            sceneObject.Parent = this;
+
+            Children.Add(sceneObject);
+            sceneObject.Parent = this;
+
+            return sceneObject;
+        }
+
         public void Load(Fraction fraction)
         {
             this.fraction = fraction;
@@ -62,13 +80,23 @@ namespace Dungeon12.SceneObjects.UserInterface.FractionSelect
 
             var coordx = 40+59;
 
-            var ability = fraction.ToValue<FractionInfluenceAttribute, FractionAbility>();
-            var badge = this.AddChild(new IconEnumBadge(ability)
+            var abilityInfluence = fraction.ToValue<FractionInfluenceAttribute, FractionInfluenceAbility>();
+            var badgeInf = this.AddChild(new IconEnumBadge(abilityInfluence)
             {
                 Top=229,
-                Left=99
+                Left=55
+            });
+            this.Layer.AddControl(badgeInf);
+
+
+            var ability = fraction.ToValue<FractionAbilityAttribute, FractionAbility>();
+            var badge = this.AddChild(new IconEnumBadge(ability)
+            {
+                Top = 229,
+                Left = 115
             });
             this.Layer.AddControl(badge);
+
 
             var availablespecs = this.AddTextCenter("Специализации:".AsDrawText().Gabriela().InSize(20));
             availablespecs.Left = 292 - 10;

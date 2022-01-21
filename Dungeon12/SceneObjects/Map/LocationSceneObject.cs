@@ -91,8 +91,8 @@ namespace Dungeon12.SceneObjects.Map
             if (Component.IsOpen)
             {
                 Selection.Visible = true;
-                if (Global.Hints.IsEnabled)
-                    Global.Hints.StepClick();
+                if (Global.Helps.IsEnabled)
+                    Global.Helps.StepClick();
             }
         }
 
@@ -100,11 +100,11 @@ namespace Dungeon12.SceneObjects.Map
 
         public override void Click(PointerArgs args)
         {
-            if (Component.IsOpen)
+            if (Component.IsOpen && Component.IsActivable)
             {
-                if (Global.Hints.IsEnabled)
+                if (Global.Helps.IsEnabled)
                 {
-                    Global.Hints.StepActivate();
+                    Global.Helps.StepActivate();
                 }
 
                 this.Layer.AddObject(exploreSceneObject = new ExploreSceneObject(this.Component));
@@ -117,7 +117,7 @@ namespace Dungeon12.SceneObjects.Map
         {
             if (Component.IsOpen)
             {
-                Global.Hints.StepFocus();
+                Global.Helps.StepFocus();
                 Selection.Visible = false;
             }
         }

@@ -109,7 +109,6 @@ namespace Dungeon12.SceneObjects.Map
         public ExploreSceneObject(Location location) : base(location, true)
         {
             Global.Game.Location = location;
-            this.Destroy += () => Global.Game.Location = null;
 
             Width = Global.Resolution.Width;
             Height = Global.Resolution.Height;

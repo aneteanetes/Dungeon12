@@ -1,5 +1,4 @@
-﻿using Dungeon12.Components;
-using Dungeon12.Entities.MapRelated;
+﻿using Dungeon12.Entities.Map;
 
 namespace Dungeon12.Entities
 {

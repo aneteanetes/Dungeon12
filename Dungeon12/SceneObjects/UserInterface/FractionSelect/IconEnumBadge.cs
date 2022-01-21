@@ -14,10 +14,17 @@ namespace Dungeon12.SceneObjects.UserInterface.FractionSelect
         private string title;
         private string description;
 
-        public IconEnumBadge(FractionAbility ability) : this()
+        public IconEnumBadge(FractionInfluenceAbility ability) : this()
         {
             title = ability.ToDisplay();
             description = "Приносит 1 Влияния каждый ход.\r\n\r\n" + ability.ToValue<string>();
+            this.Image = $"Icons/FractionAbilities/{ability}.png".AsmImg();
+        }
+
+        public IconEnumBadge(FractionAbility ability) : this()
+        {
+            title = ability.ToDisplay();
+            description = ability.ToValue<string>();
             this.Image = $"Icons/FractionAbilities/{ability}.png".AsmImg();
         }
 

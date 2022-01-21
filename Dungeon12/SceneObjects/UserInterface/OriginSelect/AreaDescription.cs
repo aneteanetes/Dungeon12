@@ -60,8 +60,8 @@ namespace Dungeon12.SceneObjects.UserInterface.OriginSelect
             OriginSelectSceneObject.Selected = @fixed;
             originSelectSceneObject.Destroy?.Invoke();
 
-            if (Global.Hints.IsEnabled)
-                Global.Hints.StepUseOther();
+            if (Global.Helps.IsEnabled)
+                Global.Helps.StepUseOther();
 
             Global.Game.Location.Polygon.P2.Load(new Entities.Map.Polygon
             {

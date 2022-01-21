@@ -303,7 +303,7 @@ namespace Dungeon.Monogame
                 var parentWidth = parent.Width;
                 if (parentWidth > 0)
                 {
-                    data = WrapText(font, data, parentWidth * cell);
+                    data = WrapText(font, data, parentWidth * cell,dtext: drawText);
                 }
             }
 
@@ -779,6 +779,12 @@ namespace Dungeon.Monogame
                 {
                     width = image.Width;
                     height = image.Height;
+
+#warning sceneobject bind size by image [AutoBindSceneObjectSizeByContainedImage]
+                    if (sceneObject.AutoBindSceneObjectSizeByContainedImage) {
+                        sceneObject.Width = width;
+                        sceneObject.Height = height;
+                    }
                 }
                 else
                 {
@@ -1042,7 +1048,7 @@ namespace Dungeon.Monogame
             SpriteBatchRestore?.Invoke(false, sceneObject.Filtered);
         }
 
-        private static string WrapText(SpriteFont font, string text, double maxLineWidth, int counter = 0, string original = default)
+        private static string WrapText(SpriteFont font, string text, double maxLineWidth, int counter = 0, string original = default, IDrawText dtext=default)
         {
             if (original == default)
             {

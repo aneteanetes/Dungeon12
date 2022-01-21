@@ -31,6 +31,14 @@
             return AddToDisplayCache(value);
         }
 
+        public static string ToDisplay<T>(this T? value) where T : struct
+        {
+            if (!value.HasValue)
+                return null;
+
+            return value.Value.ToDisplay<T>();
+        }
+
         public static string Display<T>(this T value)
             where T : MemberInfo
         {

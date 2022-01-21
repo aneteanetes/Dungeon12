@@ -75,7 +75,13 @@ namespace Dungeon12.SceneObjects.UserInterface.SpecSelect
                 var btn = new MapButton();
                 btn.Width = 157;
                 btn.Height = 40;
-                btn.OnClick = () => { SpecSelectSceneObject.Close(); };
+                btn.OnClick = () =>
+                {
+                    Global.Game.Party.Hero1.Spec = spec;
+                    Global.Game.Party.Hero1.MaxHits = Global.Game.Party.Hero1.Hits = SpecInfo.Health * 50;
+                    Global.Game.Party.Hero1.Chip = $"SpecChips/{spec}.png".AsmImg();
+                    SpecSelectSceneObject.Close();
+                };
 
                 this.AddChildCenter(btn);
                 btn.Top = 560;

@@ -1,11 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace Dungeon.Drawing
 {
     public partial class DrawColor
     {
+        /// <summary>
+        /// 
+        /// <para>
+        /// [Кэшируемый]
+        /// </para>
+        /// </summary>
+        public static DrawColor GetByName(string name)
+        {
+            if (!___GetByNameCache.TryGetValue(name, out var value))
+            {
+                value = typeof(DrawColor).GetField(name, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
+                ___GetByNameCache.Add(name, value);
+            }
+
+            return value.GetValue(null).As<DrawColor>();
+        }
+        private static readonly Dictionary<string, FieldInfo> ___GetByNameCache = new Dictionary<string, FieldInfo>();
+
+
         public static DrawColor AliceBlue = new DrawColor(240, 248, 255);
         public static DrawColor LightSalmon = new DrawColor(255, 160, 122);
         public static DrawColor AntiqueWhite = new DrawColor(250, 235, 215);

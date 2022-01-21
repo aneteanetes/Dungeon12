@@ -11,6 +11,7 @@ namespace Dungeon12.SceneObjects.UserInterface.SpecSelect
     {
         public SpecSelectSceneObject(Hero component) : base(component)
         {
+            Global.Helps.Hide();
             Global.Freezer.Freeze(this);
             this.Destroy += () => Global.Freezer.Unfreeze();
 
@@ -35,6 +36,9 @@ namespace Dungeon12.SceneObjects.UserInterface.SpecSelect
                 Icon = "savebook.png",
                 Function = nameof(HeroConfirmFunction)
             });
+
+            if (Global.Helps.IsEnabled)
+                Global.Helps.ConfirmCreate();
         }
 
         private class Plate : EmptySceneControl

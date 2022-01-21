@@ -359,6 +359,11 @@
 
             Children.Add(sceneObject);
             sceneObject.Parent = this;
+
+#warning adding controls into Layer dynamic
+            if (this.Layer != default)
+                this.Layer.AddObject(sceneObject);
+
             return sceneObject;
         }
 
@@ -723,6 +728,8 @@
         private Rectangle _imageRegion;
 
         public virtual Rectangle ImageRegion { get; set; }
+
+        public bool AutoBindSceneObjectSizeByContainedImage { get; set; } = true;
 
         public void PlayAnimation(Animation animation)
         {
