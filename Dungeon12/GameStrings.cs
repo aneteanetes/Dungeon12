@@ -14,7 +14,7 @@ namespace Dungeon12.Localization
 
         public string Credits { get; set; } = "Авторы";
 
-        public string FastGame { get; set; } = "Быстрая игра";
+        public string FastGame { get; set; } = "ККИ";
 
         public string ExitGame { get; set; } = "Выйти";
 

@@ -38,6 +38,8 @@ namespace Dungeon.Monogame
         [Display(Name = "2D свет")]
         public bool Add2DLighting { get; set; } = true;
 
+        public int MonitorIndex { get; set; } = 0;
+
         [Display(Name = "2D свет - цвет")]
         public Color AmbientColor2DLight { get; set; }
 

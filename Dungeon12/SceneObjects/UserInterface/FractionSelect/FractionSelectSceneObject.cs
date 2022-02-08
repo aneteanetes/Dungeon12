@@ -29,13 +29,14 @@
 
             var map = this.AddChildCenter(new Map(this));
 
-            desc = this.AddChild(new FractionDescription());
-
             var mapborder = this.AddChildCenter(new ImageObject("Maps/mapbord.png".AsmImg())
             {
                 Width = 1058,
                 Height = 684
             });
+            desc = this.AddChild(new FractionDescription());
+            desc.Left = (mapborder.Left + 1000) - desc.Width;
+            desc.Top = (mapborder.Top + 629) - desc.Height;
 
             this.AddChild(new MapCloseButton()
             {

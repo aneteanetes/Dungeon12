@@ -41,6 +41,11 @@
             X = 0,
             Y = 0
         };
+
+        public override double Width => 180;
+
+        public override double Height => 180;
+
         public override Rectangle ImageRegion => _ImageRegion;
     }
 }

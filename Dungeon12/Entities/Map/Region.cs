@@ -33,14 +33,9 @@ namespace Dungeon12.Entities.Map
             var region = ResourceLoader.LoadJson<Region>($"Regions/{id}.json".AsmRes());
             var tiled = TiledMap.Load($"Maps/{region.MapId}.tmx".AsmRes());
 
-            var area = tiled.Objects.FirstOrDefault(x => x.Properties.FirstOrDefault(p => p.name == "Area") != default);
-
-            region.Size = new Point(area.width, area.height);
-            region.Position = new Point(area.x, area.y);
-
             region.Locations = tiled.Objects
                 .GroupBy(t => new { t.x, t.y })
-                .Select(g => CreateLocation(g, area, region))
+                .Select(g => CreateLocation(g, region))
                 .Where(x => x != null)
                 .ToList();
 
@@ -59,38 +54,20 @@ namespace Dungeon12.Entities.Map
             return region;
         }
 
-        private static Location CreateLocation(IEnumerable<TiledObject> tiles, TiledObject area, Region region)
+        private static Location CreateLocation(IEnumerable<TiledObject> tiles, Region region)
         {
-            var service = tiles.FirstOrDefault(x => x.objectgroup == "Service");
-            if (service != null)
-                return null;
-
-            var uiObject = tiles.FirstOrDefault(x => x.objectgroup == "UI");
-            if (uiObject != default)
-            {
-                region.Objects.Add(new PhysicalObject()
-                {
-                    Image = uiObject.file,
-                    Size = new PhysicalSize(uiObject.width, uiObject.height),
-                    Position = new PhysicalPosition(uiObject.x - area.x, (uiObject.y - uiObject.height) - area.y)
-                });
-                return null;
-            }
-
             var line = tiles.FirstOrDefault(t => t.objectgroup == "Lines");
             if (line != default)
             {
-                region.Lines.Add(new Point(line.x - area.x, (line.y - line.height) - area.y));
+                region.Lines.Add(SetPosition(line));
                 return null;
             }
 
             var tile = tiles.FirstOrDefault(t => t.objectgroup == "Cells");
-            var tileObj = tiles.FirstOrDefault(t => t.objectgroup == "Objects");
 
             var location = new Location
             {
                 Size = new Point(tile.width, tile.height),
-                Position = new Point(tile.x - area.x, (tile.y - tile.height) - area.y),
 
                 Index = tile.GetPropValue<int>("index"),
                 IndexLinks = tile.GetPropValue<string>("IndexLinks")
@@ -98,18 +75,19 @@ namespace Dungeon12.Entities.Map
                     .Select(x => int.Parse(x))
                     .ToArray() ?? new int[0],
 
-                ObjectId = tileObj.GetPropValue<string>("objectid"),
+                ObjectId = tile?.GetPropValue<string>("objectid"),
 
                 BackgroundImage = tile.file,
-                ObjectImage = tileObj.file,
 
                 IsOpen = tile.GetPropValue<bool>("isopen")
             };
 
+            location.Position = SetPosition(tile);
+
             if (location.ObjectId != null)
                 try
                 {
-                    location.Polygon = ResourceLoader.LoadJson<Polygon>($"Objects/{location.ObjectId}.json".AsmRes(),@throw:false);
+                    location.Polygon = ResourceLoader.LoadJson<Polygon>($"Objects/{location.ObjectId}.json".AsmRes(), @throw: false);
                     if (location.Polygon == null)
                         location.Polygon = new Polygon(); // это пока не все объекты пока разработка
                     location.Polygon.Init();
@@ -117,6 +95,46 @@ namespace Dungeon12.Entities.Map
                 catch { }
 
             return location;
+        }
+
+        private static Point SetPosition(TiledObject tile)
+        {
+            var position = new Point(tile.x, (tile.y / 148) - 1);
+
+            if (position.Y % 2 == 0)
+            {
+                //чётный
+
+                if (position.X < 0)
+                    position.X = 0;
+                else if (position.X == 83)
+                    position.X = 1;
+                else
+                {
+                    position.X = (position.X - 83) / 166;
+                    position.X += 1;
+                }
+            }
+            else
+            {
+                //не чётный
+
+                if (position.X != 0)
+                {
+                    position.X /= 166;
+                }
+
+            }
+
+            position.X *= 96;
+            if (!position.IsEvenY)
+            {
+                position.X += 48;
+            }
+
+            position.Y *= 86;
+
+            return position;
         }
     }
 }

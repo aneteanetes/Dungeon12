@@ -72,8 +72,8 @@
             Heroes = new HeroSceneObject[] { Hero1, Hero2, Hero3, Hero4 };
         }
 
-        public override double Left => /*(Global.Game?.Region?.PositionVisual?.X ?? 0) +*/ (Global.Game?.Location?.Position?.X ??0) + (25);
+        public override double Left => ((Global.Game?.Location?.Position?.X ?? 0)+417.5d)-30;
 
-        public override double Top => (Global.Game?.Region?.PositionVisual?.Y ?? 0) + (Global.Game?.Location?.Position?.Y ?? 0) - (250 / 3);
+        public override double Top => ((Global.Game?.Location?.Position?.Y ?? 0)+127d)-35;
     }
 }

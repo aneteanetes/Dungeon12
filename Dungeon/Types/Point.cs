@@ -74,6 +74,10 @@ namespace Dungeon.Types
             this.Y = y;
         }
 
+        public bool IsEvenX => X % 2 == 0;
+
+        public bool IsEvenY => Y % 2 == 0;
+
         private double x { get; set; }
         public double X
         {

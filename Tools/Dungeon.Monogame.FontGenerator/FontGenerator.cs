@@ -8,8 +8,11 @@ namespace Dungeon.Monogame
 {
     public class FontGenerator
     {
-        public FontGenerator(string contentFilePath, string fontName, int minSize = 8, int maxSize = 72)
+        private bool Isbold;
+
+        public FontGenerator(string contentFilePath, string fontName, int minSize = 8, int maxSize = 72, bool isBold=false)
         {
+            this.Isbold = isBold;
             this.contentFilePath = contentFilePath;
             contentDirectory = Path.Combine(Path.GetDirectoryName(contentFilePath), "fonts");
             contentContent = File.ReadAllText(contentFilePath);
@@ -42,7 +45,7 @@ namespace Dungeon.Monogame
 
         public void Generate()
         {
-            var spritefontTemplate = ResourceLoader.Load("template.spritefont".AsmNameRes(),true).Stream.AsString();
+            var spritefontTemplate = ResourceLoader.Load($"template{(Isbold ? "bold" : "" )}.spritefont".AsmNameRes(),true).Stream.AsString();
             var contentTemplate = ResourceLoader.Load("content.template".AsmNameRes(),true).Stream.AsString();
 
             foreach (var fontName in fontNames)

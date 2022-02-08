@@ -51,11 +51,12 @@ namespace Dungeon12.Scenes
 
             var mapLayer = this.CreateLayer("map");
 
-            var region = Region.Load("ShipFaithIsland");
-            var regionSceneObj = new RegionSceneObject(region);
-            regionSceneObj.Scale = .7;
-            regionSceneObj.Left = (Global.Resolution.Width / 2) - (regionSceneObj.Width * regionSceneObj.Scale / 2);
-            regionSceneObj.Top = (Global.Resolution.Height / 2) - (regionSceneObj.Height * regionSceneObj.Scale / 2);
+            var region = Region.Load("Ship");
+            var regionSceneObj = new StaticRegionSceneObject(region);
+            //regionSceneObj.Scale = .7;
+            //regionSceneObj.Left = (Global.Resolution.Width / 2) - (regionSceneObj.Width * regionSceneObj.Scale / 2);
+            //regionSceneObj.Top = (Global.Resolution.Height / 2) - (regionSceneObj.Height * regionSceneObj.Scale / 2);
+            mapLayer.AddObjectCenter(regionSceneObj);
 
             region.PositionVisual = new Dungeon.Types.Point(regionSceneObj.Left, regionSceneObj.Top);
 
@@ -82,6 +83,8 @@ namespace Dungeon12.Scenes
 
             var overlay = this.CreateLayer("overlay");
             overlay.AddObject(Global.Helps);
+
+            //ui.AddObject(new ImageObject("listtemplate.png"));
 
             //Global.AudioPlayer.Effect("Sounds/Ship.wav".AsmRes(), new Dungeon.Audio.AudioOptions()
             //{

@@ -21,7 +21,7 @@ namespace Dungeon.Monogame
             int.TryParse(fontsizeMin, out var min);
             int.TryParse(fontsizeMax, out var max);
 
-            var generator = new FontGenerator(contentFilePath, "American TextC", min == default ? 8 : min, max == default ? 72 : max);
+            var generator = new FontGenerator(contentFilePath, "Cambria", min == default ? 8 : min, max == default ? 72 : max,true);
             generator.Generate();
         }
     }

@@ -124,7 +124,7 @@ namespace Dungeon12.SceneObjects.Map
                     Height = 210
                 });
 
-                this.AddChild(new ImageObject(location.ObjectImage.AsmRes())
+                this.AddChild(new ImageObject($"Icons/{location.Polygon?.Icon}".AsmImg() ?? location.BackgroundImage.AsmRes())
                 {
                     Width = 210,
                     Height = 210

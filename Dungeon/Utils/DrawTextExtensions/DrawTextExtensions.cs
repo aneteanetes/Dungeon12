@@ -98,6 +98,12 @@ namespace Dungeon
             return drawText;
         }
 
+        public static DrawText InBold(this DrawText drawText)
+        {
+            drawText.Bold = true;
+            return drawText;
+        }
+
         public static DrawText WithWordWrap(this DrawText drawText)
         {
             drawText.WordWrap = true;

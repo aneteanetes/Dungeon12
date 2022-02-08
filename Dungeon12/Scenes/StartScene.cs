@@ -15,7 +15,7 @@ using System.Linq;
 
 namespace Dungeon12.Scenes
 {
-    public class StartScene : Dungeon.Scenes.StartScene<MainScene,MapScene>
+    public class StartScene : Dungeon.Scenes.StartScene<MainScene,MapScene,TCGScene>
     {
         public StartScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -55,7 +55,7 @@ namespace Dungeon12.Scenes
                 (Global.Strings.Save,SaveGame,!InGame),
                 (Global.Strings.Load,LoadGame,true),
                 (Global.Strings.Settings,Settings,false),
-                (Global.Strings.FastGame,FastGame,false),
+                (Global.Strings.FastGame,TCG,false),
                 (Global.Strings.ExitGame,Exit,false)
            };
 
@@ -171,9 +171,9 @@ namespace Dungeon12.Scenes
 
         }
 
-        private void FastGame()
+        private void TCG()
         {
-            //this.Switch<MainScene>();
+            this.Switch<TCGScene>();
         }
 
         private void Exit()

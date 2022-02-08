@@ -462,6 +462,9 @@
         [Hidden]
         public ISceneObject Parent { get; set; }
 
+        /// <summary>
+        /// Default: False since 18.11.12
+        /// </summary>
         public virtual bool CacheAvailable { get; set; } = false;
 
         public virtual bool CachePosition { get; set; } = false;

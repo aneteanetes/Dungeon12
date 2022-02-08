@@ -1,0 +1,9 @@
+{
+  "Type": "Creature",
+  "Subtype": "Defender",
+  "Region": "Ushal",
+  "Cost": 1,
+  "Name": "Кавалерия",
+  "Description": "Конное войско империи. Базируется в столице - бастионе Империи Ушал.",
+  "Image": "warrior.png"
+}

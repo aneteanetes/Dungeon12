@@ -17,9 +17,6 @@ namespace Dungeon12.SceneObjects.UserInterface.FractionSelect
     {
         public FractionDescription()
         {
-            Left = 486 + 300;
-            Top = 248 + 135.5;
-
             Image = "FracPanel/fracpanel.png".AsmImg();
             this.Width = 513;
             this.Height = 380;

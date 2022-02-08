@@ -14,7 +14,7 @@ namespace Dungeon12.Entities.FractionPolygons
         MageGuild,
 
         [Display(Name = "Воровство")]
-        [Value("Позволяет воровать предметы и взламывать замки")]
+        [Value("Позволяет воровать предметы, взламывать замки, разоружать ловушки")]
         Mercenary,
 
         [Display(Name = "Торговля")]

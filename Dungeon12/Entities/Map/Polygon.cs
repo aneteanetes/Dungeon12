@@ -11,6 +11,8 @@ namespace Dungeon12.Entities.Map
 
         public string Icon { get; set; }
 
+        public string ObjectImage { get; set; }
+
         public string Function { get; set; }
 
         public bool IsNotEmpty => !string.IsNullOrWhiteSpace(ObjectId) || !string.IsNullOrWhiteSpace(Function);

@@ -27,10 +27,12 @@ namespace Dungeon12
 
             var client = new MonogameClient(new MonogameClientSettings()
             {
-                OriginWidthPixel = 1600,
-                OriginHeightPixel = 900,
-                IsFullScreen = false,
-                Add2DLighting = false
+                OriginWidthPixel = 1920,
+                OriginHeightPixel = 1080,
+                IsFullScreen = true,
+                Add2DLighting = false,
+                IsWindowedFullScreen = true,
+                MonitorIndex = 1
             });
             DungeonGlobal.ClientRun = client.Run;
             DungeonGlobal.Run();

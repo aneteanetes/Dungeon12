@@ -23,49 +23,60 @@ namespace Dungeon12.SceneObjects.Map
 
         public LocationSceneObject(Location location) : base(location, true)
         {
-            Width = location.Size.X;
-            Height = location.Size.Y;
+            Width = 126;
+            Height = 126;
+
             Left = location.Position.X;
             Top = location.Position.Y;
 
             CacheAvailable = false;
 
-            Background = new ImageObject(location.BackgroundImage.AsmRes())
+            var icon = location.Polygon == null || location.Polygon.Icon == null
+                ? location.BackgroundImage.AsmRes()
+                : $"Icons/{location.Polygon.Icon}".AsmImg();
+
+            Background = new ImageObject(icon)
             {
-                Width = location.Size.X,
-                Height = location.Size.Y,
-                CacheAvailable = false
+                Width = 126,
+                Height = 126
             };
 
-            Object = new ImageObject(location.ObjectImage.AsmRes())
-            {
-                Width = location.Size.X,
-                Height = location.Size.Y,
-                CacheAvailable = false
-            };
+            //Object = new ImageObject(location.ObjectImage.AsmRes())
+            //{
+            //    Width = location.Size.X,
+            //    Height = location.Size.Y,
+            //    CacheAvailable = false
+            //};
 
             Fog = new ImageObject("Tiles/fog.png".AsmImg())
             {
-                Width = 300,
-                Height = 300,
-                Left = -45,
-                Top = -45,
+                Width = 160,
+                Height = 160,
+                Left = -20,
+                Top = -20,
                 CacheAvailable = false
             };
 
             Selection = new ImageObject("Tiles/empty_invert.png".AsmImg())
             {
-                Width = location.Size.X,
-                Height = location.Size.Y,
+                Width = 126,
+                Height = 126,
                 Visible = false
             };
 
             this.AddChild(Background);
             this.AddChild(Selection);
-            this.AddChild(Object);
+            //this.AddChild(Object);
 
             if (!location.IsOpen)
                 this.AddChild(Fog);
+        }
+
+        public override void UpdateSceneObject(GameTimeLoop gameTime)
+        {
+            if (Component.IsOpen)
+                this.Fog.Visible = false;
+            base.UpdateSceneObject(gameTime);
         }
 
         private IDrawText tooltiptext;

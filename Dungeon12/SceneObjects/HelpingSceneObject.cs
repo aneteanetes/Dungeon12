@@ -18,7 +18,7 @@ namespace Dungeon12.SceneObjects
 
     public class HelpingSceneObject : EmptySceneControl
     {
-        private readonly ArrowImage Arrow;
+        //private readonly ArrowImage Arrow;
         private readonly PlateObject PlateFocus;
         private readonly PlateObject PlateActivation;
         private readonly PlateObject PlateClick;
@@ -38,32 +38,32 @@ namespace Dungeon12.SceneObjects
             Width = DungeonGlobal.Resolution.Width;
             Height = DungeonGlobal.Resolution.Height;
 
-            Arrow = new ArrowImage();
+            //Arrow = new ArrowImage();
 
             Plates.Add(AddChild(PlateFocus = new PlateObject("Перемещение", @"Для перемещения 
 наведите курсор 
 на плитку:")
             {
-                Left = 1282,
-                Top = 165
+                Left = 1332,
+                Top = 358
             }));
 
             Plates.Add(AddChild(PlateClick = new PlateObject("Активация", @"Для перемещения и
 активации плитки
 нажмите на неё:")
             {
-                Left = 741,
-                Top = 184,
+                Left = 1026,
+                Top = 331,
                 Visible = false
             }));
 
 
             Plates.Add(AddChild(PlateActivation = new PlateObject("Локация",
-                @"Каждая локация содержит в себе несколько плиток, выберите интересующую вас и нажмите для активации.",
+                @"Каждая локация содержит в себе несколько плиток, выберите доступную нажмите для активации. Если плиток несколько вы сможете выбирать какую активировать.",
                 true, 200)
             {
-                Left = 1050,
-                Top = 18,
+                Left = 848,
+                Top = 101,
                 Visible = false
             }));
 
@@ -74,8 +74,8 @@ namespace Dungeon12.SceneObjects
 Как только будете готовы - подпишите свидетельство.",
                 true, 300)
             {
-                Left = 137,
-                Top = 69,
+                Left = 219,
+                Top = 225,
                 Visible = false
             }));
 
@@ -126,7 +126,7 @@ namespace Dungeon12.SceneObjects
                 Visible = false
             }));
 
-            AddChild(Arrow);
+            //AddChild(Arrow);
 
             StepFocus();
         }
@@ -140,22 +140,22 @@ namespace Dungeon12.SceneObjects
 
         public void ConfirmCreate()
         {
-            Arrow.Reset();
-            Arrow.Visible = false;
+            //Arrow.Reset();
+            //Arrow.Visible = false;
             SetActivePlate(PlateConfirm);
         }
 
         public void Hide()
         {
-            Arrow.Reset();
-            Arrow.Visible = false;
+            //Arrow.Reset();
+            //Arrow.Visible = false;
             Plates.ForEach(x => x.Visible = false);
         }
 
         public void ShowCraft()
         {
-            Arrow.Reset();
-            Arrow.Visible = false;
+            //Arrow.Reset();
+           //Arrow.Visible = false;
 
             SetActivePlate(PlateCraft);
         }
@@ -167,16 +167,16 @@ namespace Dungeon12.SceneObjects
                 state = HintStates.OriginSelected;
             }
 
-            Arrow.Reset();
-            Arrow.Visible = false;
+            //Arrow.Reset();
+            //Arrow.Visible = false;
 
             SetActivePlate(PlateUseOthers);
         }
 
         public void StepOriginSelect()
         {
-            Arrow.Reset();
-            Arrow.Visible = false;
+            //Arrow.Reset();
+            //Arrow.Visible = false;
 
             SetActivePlate(PlateOrigin);
         }
@@ -188,22 +188,22 @@ namespace Dungeon12.SceneObjects
                 ChangeState(HintStates.LocationOpenedAndUsed);
             }
 
-            Arrow.Reset();
-            Arrow.Visible = true;
-            Arrow.Left = 1008;
-            Arrow.Top = 254;
-            Arrow.Flip = Dungeon.View.Enums.FlipStrategy.None;
+            //Arrow.Reset();
+            //Arrow.Visible = true;
+            //Arrow.Left = 1008;
+            //Arrow.Top = 254;
+            //Arrow.Flip = Dungeon.View.Enums.FlipStrategy.None;
 
             SetActivePlate(PlateHexAppear);
         }
 
         public void StepTextInput()
         {
-            Arrow.Reset();
-            Arrow.Visible = true;
-            Arrow.Left = 357;
-            Arrow.Top = 176;
-            Arrow.Flip = Dungeon.View.Enums.FlipStrategy.Horizontally;
+            //Arrow.Reset();
+            //Arrow.Visible = true;
+            //Arrow.Left = 357;
+            //Arrow.Top = 176;
+            //Arrow.Flip = Dungeon.View.Enums.FlipStrategy.Horizontally;
 
             SetActivePlate(PlateTextInput);
         }
@@ -219,11 +219,11 @@ namespace Dungeon12.SceneObjects
             if (state == HintStates.Click || state == HintStates.Default)
             {
                 ChangeState(HintStates.Click);
-                Arrow.Invert();
-                Arrow.Visible = true;
-                Arrow.Left = 908;
-                Arrow.Top = 83;
-                Arrow.Flip = Dungeon.View.Enums.FlipStrategy.None;
+                //Arrow.Invert();
+                //Arrow.Visible = true;
+                //Arrow.Left = 908;
+                //Arrow.Top = 83;
+                //Arrow.Flip = Dungeon.View.Enums.FlipStrategy.None;
 
                 SetActivePlate(PlateActivation);
             }
@@ -241,12 +241,12 @@ namespace Dungeon12.SceneObjects
         {
             if (state == HintStates.Default)
             {
-                Arrow.Reset();
-                Arrow.Scale = .2;
-                Arrow.Left = 1157;
-                Arrow.Top = 266;
-                Arrow.Flip = Dungeon.View.Enums.FlipStrategy.None;
-                Arrow.Visible = true;
+                //Arrow.Reset();
+                //Arrow.Scale = .2;
+                //Arrow.Left = 1157;
+                //Arrow.Top = 266;
+                //Arrow.Flip = Dungeon.View.Enums.FlipStrategy.None;
+                //Arrow.Visible = true;
 
                 SetActivePlate(PlateFocus);
             }
@@ -256,12 +256,12 @@ namespace Dungeon12.SceneObjects
         {
             if (state != HintStates.HeroCreated)
             {
-                Arrow.Reset();
-                Arrow.Scale = .2;
-                Arrow.Left = 949;
-                Arrow.Top = 285;
-                Arrow.Flip = Dungeon.View.Enums.FlipStrategy.Horizontally;
-                Arrow.Visible = true;
+                //Arrow.Reset();
+                //Arrow.Scale = .2;
+                //Arrow.Left = 949;
+                //Arrow.Top = 285;
+                //Arrow.Flip = Dungeon.View.Enums.FlipStrategy.Horizontally;
+                //Arrow.Visible = true;
 
                 SetActivePlate(PlateClick);
             }
@@ -272,13 +272,16 @@ namespace Dungeon12.SceneObjects
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
             if (key == Key.D)
-                PlateUseOthers.Left += 1;
+                PlateHexAppear.Left += 1;
             if (key == Key.A)
-                PlateUseOthers.Left -= 1;
+                PlateHexAppear.Left -= 1;
             if (key == Key.S)
-                PlateUseOthers.Top += 1;
+                PlateHexAppear.Top += 1;
             if (key == Key.W)
-                PlateUseOthers.Top -= 1;
+                PlateHexAppear.Top -= 1;
+
+            if(key== Key.Space)
+                Console.WriteLine();
 
             base.KeyDown(key, modifier, hold);
         }

@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <None Remove="Resources\content.template" />
+    <None Remove="Resources\templatebold.spritefont" />
   </ItemGroup>
 
   <ItemGroup>

@@ -14,6 +14,8 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
             Image = imagePath;
         }
 
+        public override bool PerPixelCollision => true;
+
         public IDrawText TooltipText { get; set; }
 
         public bool ShowTooltip => true;

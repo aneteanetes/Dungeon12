@@ -29,6 +29,14 @@
             return drawText;
         }
 
+        public static T Cambria<T>(this T drawText) where T : IDrawText
+        {
+            drawText.FontName = "Cambria";
+            drawText.FontAssembly = "Dungeon12";
+
+            return drawText;
+        }
+
         public static T Runic<T>(this T drawText) where T : IDrawText
         {
             drawText.FontName = "American TextC";
