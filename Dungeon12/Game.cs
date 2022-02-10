@@ -21,5 +21,7 @@ namespace Dungeon12
         public HeroPlate HeroPlate3 { get; set; }
 
         public HeroPlate HeroPlate4 { get; set; }
+
+        public Calendar Calendar { get; set; }
     }
 }

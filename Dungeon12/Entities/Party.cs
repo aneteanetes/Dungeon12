@@ -11,5 +11,12 @@ namespace Dungeon12.Entities
         public Hero Hero3 { get; set; }
 
         public Hero Hero4 { get; set; }
+
+        public int Food { get; set; }
+
+        public void Move(Location location)
+        {
+            Global.Game.Location = location;
+        }
     }
 }

@@ -108,8 +108,6 @@ namespace Dungeon12.SceneObjects.Map
 
         public ExploreSceneObject(Location location) : base(location, true)
         {
-            Global.Game.Location = location;
-
             Width = Global.Resolution.Width;
             Height = Global.Resolution.Height;
 
@@ -149,7 +147,10 @@ namespace Dungeon12.SceneObjects.Map
             {
                 if (tooltiptext == null)
                 {
-                    tooltiptext = "Стол с бумагами".AsDrawText().Gabriela().InSize(12);
+                    var name = Component?.Polygon?.Name ?? " ";
+                    if (name == null)
+                        name = " ";
+                    tooltiptext = name.AsDrawText().Gabriela().InSize(12);
                 }
 
                 return tooltiptext;

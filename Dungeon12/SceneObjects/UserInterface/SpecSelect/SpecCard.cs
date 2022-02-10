@@ -80,6 +80,9 @@ namespace Dungeon12.SceneObjects.UserInterface.SpecSelect
                     Global.Game.Party.Hero1.Spec = spec;
                     Global.Game.Party.Hero1.MaxHits = Global.Game.Party.Hero1.Hits = SpecInfo.Health * 50;
                     Global.Game.Party.Hero1.Chip = $"SpecChips/{spec}.png".AsmImg();
+
+                    SetAssistanceSpec(spec);
+
                     SpecSelectSceneObject.Close();
                 };
 
@@ -101,6 +104,32 @@ namespace Dungeon12.SceneObjects.UserInterface.SpecSelect
             var tcg = this.AddChild(new SpecCardSkill(SpecInfo.CardName));
             tcg.Top = 535;
             tcg.Left = 278;
+        }
+
+        private static void SetAssistanceSpec(Spec spec)
+        {
+            string image = "";
+            switch (spec)
+            {
+                case Spec.WarriorWarchief:
+                    image = Spec.PaladinAdept.ToString();
+                    break;
+                case Spec.MageAoe:
+                    image = Spec.MercenaryLeader.ToString();
+                    break;
+                case Spec.MercenaryLeader:
+                    image = Spec.MageAoe.ToString();
+                    break;
+                case Spec.PaladinAdept:
+                    image = Spec.WarriorWarchief.ToString();
+                    break;
+                case Spec.WarlockNecromancer:
+                    image = Spec.WarriorWarchief.ToString();
+                    break;
+                default:
+                    break;
+            }
+            Global.Game.Location.Links[0].Polygon.ObjectImage = image + ".png";                        
         }
 
         private DrawText Runed(string text)

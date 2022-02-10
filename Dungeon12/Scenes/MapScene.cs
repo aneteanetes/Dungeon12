@@ -39,7 +39,8 @@ namespace Dungeon12.Scenes
                 Party = new Entities.Party()
                 {
                     Hero1 = new Entities.Hero()
-                }
+                },
+                Calendar = new Entities.Calendar()
             };
 
             var background = this.CreateLayer("background");
@@ -80,6 +81,10 @@ namespace Dungeon12.Scenes
             ui.AddObject(Global.Game.HeroPlate2);
             ui.AddObject(Global.Game.HeroPlate3);
             ui.AddObject(Global.Game.HeroPlate4);
+            var clock = new GlobalClock(Global.Game.Calendar);
+            ui.AddObjectCenter(clock);
+            clock.Top = -75;
+
 
             var overlay = this.CreateLayer("overlay");
             overlay.AddObject(Global.Helps);

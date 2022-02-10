@@ -1,6 +1,7 @@
 ﻿namespace Dungeon.Drawing.SceneObjects
 {
     using Dungeon.SceneObjects;
+    using System;
     using System.Reflection;
 
     /// <summary>
@@ -18,6 +19,24 @@
             }
 
             Image = imagePath;
+        }
+
+        public ImageObject(Func<string> imagePath)
+        {
+            imageDelegate = imagePath;
+        }
+
+        private Func<string> imageDelegate;
+
+        public override string Image
+        {
+            get
+            {
+                if (imageDelegate != null)
+                    return imageDelegate();
+                return base.Image;
+            }
+            set => base.Image = value;
         }
 
         protected override void CallOnEvent(dynamic obj)

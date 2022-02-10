@@ -32,6 +32,11 @@ namespace Dungeon12.ECS.Systems
                 SceneLayer.AddObject(tooltip);
 
                 tooltipPosition.X += sceneObject.Width / 2 - Global.DrawClient.MeasureText(tooltip.TooltipText).X / 2;
+                if (tooltipPosition.Y < 0)
+                {
+                    tooltipPosition.Y = 5;
+                    tooltipPosition.X = sceneObject.Left + sceneObject.Width + 5;
+                }
 
                 tooltip.SetPosition(tooltipPosition);
                 tooltip.Visible = true;

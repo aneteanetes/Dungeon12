@@ -124,11 +124,28 @@ namespace Dungeon12.SceneObjects.Map
                     Height = 210
                 });
 
-                this.AddChild(new ImageObject($"Icons/{location.Polygon?.Icon}".AsmImg() ?? location.BackgroundImage.AsmRes())
+                var icon = location.Polygon?.Icon;
+                if (icon == null)
+                    icon = location.BackgroundImage.AsmRes();
+                else
+                    icon = $"Icons/{location.Polygon?.Icon}".AsmImg();
+
+                this.AddChild(new ImageObject(icon)
                 {
                     Width = 210,
                     Height = 210
                 });
+
+                if (location.Polygon.ObjectImage != null)
+                {
+                    var Object = new ImageObject(() => $"SpecChips/{location.Polygon.ObjectImage}".AsmImg())
+                    {
+                        Width = 210,
+                        Height = 210,
+                        Top=-15
+                    };
+                    this.AddChild(Object);
+                }
             }
 
             public override void Focus()

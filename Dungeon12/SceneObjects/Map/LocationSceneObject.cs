@@ -40,13 +40,28 @@ namespace Dungeon12.SceneObjects.Map
                 Width = 126,
                 Height = 126
             };
+            this.AddChild(Background);
 
-            //Object = new ImageObject(location.ObjectImage.AsmRes())
-            //{
-            //    Width = location.Size.X,
-            //    Height = location.Size.Y,
-            //    CacheAvailable = false
-            //};
+            Selection = new ImageObject("Tiles/empty_invert.png".AsmImg())
+            {
+                Width = 126,
+                Height = 126,
+                Visible = false
+            };
+
+            this.AddChild(Selection);
+
+            if (location.Polygon.ObjectImage != null)
+            {
+                Object = new ImageObject(() => $"SpecChips/{location.Polygon.ObjectImage}".AsmImg())
+                {
+                    Width = 180,
+                    Height = 180,
+                    Left = -30,
+                    Top = -50
+                };
+                this.AddChild(Object);
+            }
 
             Fog = new ImageObject("Tiles/fog.png".AsmImg())
             {
@@ -56,17 +71,6 @@ namespace Dungeon12.SceneObjects.Map
                 Top = -20,
                 CacheAvailable = false
             };
-
-            Selection = new ImageObject("Tiles/empty_invert.png".AsmImg())
-            {
-                Width = 126,
-                Height = 126,
-                Visible = false
-            };
-
-            this.AddChild(Background);
-            this.AddChild(Selection);
-            //this.AddChild(Object);
 
             if (!location.IsOpen)
                 this.AddChild(Fog);
@@ -86,7 +90,10 @@ namespace Dungeon12.SceneObjects.Map
             {
                 if (tooltiptext == null)
                 {
-                    tooltiptext = "Стол с бумагами".AsDrawText().Gabriela().InSize(12);
+                    var name = Component?.Polygon?.Name ?? " ";
+                    if (name == null)
+                        name = " ";
+                    tooltiptext = name.AsDrawText().Gabriela().InSize(12);
                 }
 
                 return tooltiptext;
@@ -111,14 +118,17 @@ namespace Dungeon12.SceneObjects.Map
 
         public override void Click(PointerArgs args)
         {
-            if (Component.IsOpen && Component.IsActivable)
+            if (Component.IsOpen)
             {
                 if (Global.Helps.IsEnabled)
                 {
                     Global.Helps.StepActivate();
                 }
 
-                this.Layer.AddObject(exploreSceneObject = new ExploreSceneObject(this.Component));
+                Global.Game.Party.Move(this.Component);
+
+                if (Component.IsActivable)
+                    this.Layer.AddObject(exploreSceneObject = new ExploreSceneObject(this.Component));
                 //Global.Freezer.World = exploreSceneObject;
 #warning commented freeze
             }

@@ -3,6 +3,7 @@
     using Dungeon.Control;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
+    using Dungeon.SceneObjects;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using System;
@@ -25,6 +26,8 @@
 
         public IDrawText TooltipText { get; set; }
 
+        TextControl txt;
+
         public Tooltip(IDrawText drawText, Point position)
         {
             if (position == default)
@@ -39,13 +42,18 @@
             Width = textSize.X+10;
             Height = textSize.Y+5;
 
-            var text = AddTextCenter(drawText);
+            var text = txt = AddTextCenter(drawText);
             text.Filtered = false;
 
             TooltipText = text.Text;
 
             //base.Left = position.X - Width / 2;
             //Top = position.Y;
+        }
+
+        public void SetText(IDrawText text)
+        {
+            txt.SetText(text);
         }
 
         public void SetPosition(Point position)
