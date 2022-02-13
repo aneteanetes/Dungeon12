@@ -99,7 +99,7 @@ namespace Dungeon12.SceneObjects.Map
             if (!string.IsNullOrWhiteSpace(Component.Function))
             {
                 Global.Game.Polygon = Component;
-                Global.ExecuteFunction(this.Layer, Component.Function);
+                Global.ExecuteFunction(this.Layer, Component.Function, Component.ObjectId);
             }
             base.Click(args);
         }

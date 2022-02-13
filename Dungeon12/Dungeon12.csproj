@@ -10,6 +10,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Resources\Images\Dolls\**" />
+    <Compile Remove="Resources\Images\SpecCharacters\**" />
+    <Compile Remove="Resources\Images\UI\Talk\**" />
+    <EmbeddedResource Remove="Resources\Images\Dolls\**" />
+    <EmbeddedResource Remove="Resources\Images\SpecCharacters\**" />
+    <EmbeddedResource Remove="Resources\Images\UI\Talk\**" />
+    <None Remove="Resources\Images\Dolls\**" />
+    <None Remove="Resources\Images\SpecCharacters\**" />
+    <None Remove="Resources\Images\UI\Talk\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Images\Objects\barrel.png" />
     <None Remove="Resources\Images\Particles\Beam.png" />
     <None Remove="Resources\Images\Particles\BeamBlurred.png" />
@@ -84,11 +96,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Images\Dolls\Assassin\" />
-    <Folder Include="Resources\Images\Dolls\Necromancer\" />
-    <Folder Include="Resources\Images\Dolls\Priest\" />
     <Folder Include="Resources\Images\Maps\" />
-    <Folder Include="Resources\Images\SpecCharacters\" />
     <Folder Include="Resources\Images\Professions\" />
     <Folder Include="Resources\Images\Tilesets\" />
     <Folder Include="Resources\Maps\" />

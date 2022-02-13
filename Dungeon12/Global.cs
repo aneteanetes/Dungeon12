@@ -8,6 +8,8 @@ using Dungeon12.Functions;
 using Dungeon.Scenes;
 using Dungeon.View.Interfaces;
 using Dungeon12.SceneObjects;
+using System.Linq;
+using Dungeon12.Entities.Enums;
 
 namespace Dungeon12
 {
@@ -38,14 +40,24 @@ namespace Dungeon12
             return Functions.TryAdd(func.Name, func);
         }
 
-        public static bool ExecuteFunction(ISceneLayer sceneLayer, string name)
+        public static bool ExecuteFunction(ISceneLayer sceneLayer, string name, string objectId)
         {
             if (Functions.TryGetValue(name, out var func))
             {
-                return func.Call(sceneLayer);
+                return func.Call(sceneLayer, objectId);
             }
 
             return false;
         }
+
+        public static Spec DemoSpecNPC() => Game.Party.Hero1.Spec switch
+        {
+            Spec.WarriorWarchief => Spec.PaladinAdept,
+            Spec.MageAoe => Spec.MercenaryLeader,
+            Spec.MercenaryLeader => Spec.MageAoe,
+            Spec.PaladinAdept => Spec.WarriorWarchief,
+            Spec.WarlockNecromancer => Spec.WarriorWarchief,
+            _ => Spec.InquisitorJudge,
+        };
     }
 }

@@ -33,6 +33,7 @@ namespace Dungeon12.Scenes
             Global.RegisterFunction<SelectFractionFunction>();
             Global.RegisterFunction<SelectSpecFunction>();
             Global.RegisterFunction<HeroConfirmFunction>();
+            Global.RegisterFunction<DialogueFunction>();
 
             Global.Game = new Game()
             {
@@ -83,7 +84,14 @@ namespace Dungeon12.Scenes
             ui.AddObject(Global.Game.HeroPlate4);
             var clock = new GlobalClock(Global.Game.Calendar);
             ui.AddObjectCenter(clock);
-            clock.Top = -75;
+            clock.Top = 0;
+            ui.AddObject(new FoodCounter(Global.Game.Party.Food)
+            {
+                Left = Global.Resolution.Width - 255
+            });
+            var panel = new Panel();
+            ui.AddObjectCenter(panel);
+            panel.Top = Global.Resolution.Height - panel.Height;
 
 
             var overlay = this.CreateLayer("overlay");

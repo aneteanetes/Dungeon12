@@ -1,5 +1,6 @@
 {
   "Title": "",
   "MapId": "Ship",
-  "DefaultLocationTile": "hk_new-blank_006"
+  "DefaultLocationTile": "hk_new-blank_006",
+  "Indoor": true
 }

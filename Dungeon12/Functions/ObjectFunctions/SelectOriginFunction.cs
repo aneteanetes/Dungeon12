@@ -7,7 +7,7 @@ namespace Dungeon12.Functions.ObjectFunctions
     {
         public string Name => nameof(SelectOriginFunction);
 
-        public bool Call(ISceneLayer layer)
+        public bool Call(ISceneLayer layer, string objectId)
         {
             layer.Scene.GetLayer("ui").AddObjectCenter(new OriginSelectSceneObject(Global.Game.Party.Hero1));
             return true;

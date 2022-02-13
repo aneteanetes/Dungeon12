@@ -12,6 +12,8 @@ namespace Dungeon12.Entities.Map
     {
         public List<Location> Locations { get; set; }
 
+        public bool Indoor { get; set; }
+
         public string DefaultLocationTile { get; set; }
 
         public List<Point> Lines { get; set; } = new List<Point>();
@@ -31,7 +33,7 @@ namespace Dungeon12.Entities.Map
         public static Region Load(string id) //ShipFaithIsland
         {
             var region = ResourceLoader.LoadJson<Region>($"Regions/{id}.json".AsmRes());
-            var tiled = TiledMap.Load($"Maps/{region.MapId}.tmx".AsmRes());
+            var tiled = TiledMap.Load($"Maps/{region.MapId}.tmx".AsmRes());            
 
             region.Locations = tiled.Objects
                 .GroupBy(t => new { t.x, t.y })

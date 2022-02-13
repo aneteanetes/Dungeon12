@@ -1,0 +1,56 @@
+{
+  "Name": "Ассистент*%name%",
+  "Avatar": "%dynamic%",
+  "Goals": [
+    {
+      "Name": "Полный сундук",
+      "Icon": "1.png",
+      "ReplicaType": "Evil",
+      "Function": "AddItemShipChest"
+    },
+    {
+      "Name": "Профессионал",
+      "Icon": "3.png",
+      "ReplicaType": "Wisdom",
+      "Function": "GiveCraftToolsShip"
+    },
+    {
+      "Name": "В ресурсе",
+      "Icon": "4.png",
+      "ReplicaType": "Trick",
+      "Function": "GiveResShip"
+    },
+    {
+      "Name": "Гигиена",
+      "Icon": "5.png",
+      "ReplicaType": "Evil",
+      "Function": "FirstClueShip"
+    },
+    {
+      "Name": "Помощь",
+      "Icon": "2.png",
+      "ReplicaType": "Good",
+      "Function": "JoinShip"
+    }
+  ],
+  "Subjects": [
+    {
+      "Name": "Документы"
+    },
+    {
+      "Name": "Волна Света"
+    },
+    {
+      "Name": "Расследование"
+    },
+    {
+      "Name": "Припасы"
+    },
+    {
+      "Name": "Торговый груз"
+    },
+    {
+      "Name": "Инструменты"
+    }
+  ]
+}

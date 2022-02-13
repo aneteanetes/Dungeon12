@@ -25,6 +25,916 @@
 /processorParam:DebugMode=Auto
 /build:BloomCrossPlatform.fx
 
+#begin fonts/American TextC/American TextC10.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC10.spritefont
+
+#begin fonts/American TextC/American TextC11.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC11.spritefont
+
+#begin fonts/American TextC/American TextC12.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC12.spritefont
+
+#begin fonts/American TextC/American TextC13.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC13.spritefont
+
+#begin fonts/American TextC/American TextC14.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC14.spritefont
+
+#begin fonts/American TextC/American TextC15.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC15.spritefont
+
+#begin fonts/American TextC/American TextC16.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC16.spritefont
+
+#begin fonts/American TextC/American TextC17.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC17.spritefont
+
+#begin fonts/American TextC/American TextC18.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC18.spritefont
+
+#begin fonts/American TextC/American TextC19.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC19.spritefont
+
+#begin fonts/American TextC/American TextC20.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC20.spritefont
+
+#begin fonts/American TextC/American TextC21.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC21.spritefont
+
+#begin fonts/American TextC/American TextC22.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC22.spritefont
+
+#begin fonts/American TextC/American TextC23.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC23.spritefont
+
+#begin fonts/American TextC/American TextC24.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC24.spritefont
+
+#begin fonts/American TextC/American TextC25.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC25.spritefont
+
+#begin fonts/American TextC/American TextC26.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC26.spritefont
+
+#begin fonts/American TextC/American TextC27.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC27.spritefont
+
+#begin fonts/American TextC/American TextC28.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC28.spritefont
+
+#begin fonts/American TextC/American TextC29.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC29.spritefont
+
+#begin fonts/American TextC/American TextC30.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC30.spritefont
+
+#begin fonts/American TextC/American TextC31.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC31.spritefont
+
+#begin fonts/American TextC/American TextC32.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC32.spritefont
+
+#begin fonts/American TextC/American TextC33.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC33.spritefont
+
+#begin fonts/American TextC/American TextC34.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC34.spritefont
+
+#begin fonts/American TextC/American TextC35.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC35.spritefont
+
+#begin fonts/American TextC/American TextC36.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC36.spritefont
+
+#begin fonts/American TextC/American TextC37.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC37.spritefont
+
+#begin fonts/American TextC/American TextC38.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC38.spritefont
+
+#begin fonts/American TextC/American TextC39.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC39.spritefont
+
+#begin fonts/American TextC/American TextC40.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC40.spritefont
+
+#begin fonts/American TextC/American TextC41.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC41.spritefont
+
+#begin fonts/American TextC/American TextC42.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC42.spritefont
+
+#begin fonts/American TextC/American TextC43.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC43.spritefont
+
+#begin fonts/American TextC/American TextC44.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC44.spritefont
+
+#begin fonts/American TextC/American TextC45.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC45.spritefont
+
+#begin fonts/American TextC/American TextC46.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC46.spritefont
+
+#begin fonts/American TextC/American TextC47.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC47.spritefont
+
+#begin fonts/American TextC/American TextC48.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC48.spritefont
+
+#begin fonts/American TextC/American TextC49.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC49.spritefont
+
+#begin fonts/American TextC/American TextC50.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC50.spritefont
+
+#begin fonts/American TextC/American TextC51.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC51.spritefont
+
+#begin fonts/American TextC/American TextC52.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC52.spritefont
+
+#begin fonts/American TextC/American TextC53.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC53.spritefont
+
+#begin fonts/American TextC/American TextC54.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC54.spritefont
+
+#begin fonts/American TextC/American TextC55.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC55.spritefont
+
+#begin fonts/American TextC/American TextC56.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC56.spritefont
+
+#begin fonts/American TextC/American TextC57.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC57.spritefont
+
+#begin fonts/American TextC/American TextC58.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC58.spritefont
+
+#begin fonts/American TextC/American TextC59.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC59.spritefont
+
+#begin fonts/American TextC/American TextC60.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC60.spritefont
+
+#begin fonts/American TextC/American TextC61.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC61.spritefont
+
+#begin fonts/American TextC/American TextC62.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC62.spritefont
+
+#begin fonts/American TextC/American TextC63.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC63.spritefont
+
+#begin fonts/American TextC/American TextC64.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC64.spritefont
+
+#begin fonts/American TextC/American TextC65.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC65.spritefont
+
+#begin fonts/American TextC/American TextC66.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC66.spritefont
+
+#begin fonts/American TextC/American TextC67.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC67.spritefont
+
+#begin fonts/American TextC/American TextC68.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC68.spritefont
+
+#begin fonts/American TextC/American TextC69.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC69.spritefont
+
+#begin fonts/American TextC/American TextC70.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC70.spritefont
+
+#begin fonts/American TextC/American TextC71.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC71.spritefont
+
+#begin fonts/American TextC/American TextC72.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC72.spritefont
+
+#begin fonts/American TextC/American TextC8.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC8.spritefont
+
+#begin fonts/American TextC/American TextC9.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/American TextC/American TextC9.spritefont
+
+#begin fonts/Cambria/Cambria10.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria10.spritefont
+
+#begin fonts/Cambria/Cambria11.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria11.spritefont
+
+#begin fonts/Cambria/Cambria12.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria12.spritefont
+
+#begin fonts/Cambria/Cambria13.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria13.spritefont
+
+#begin fonts/Cambria/Cambria14.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria14.spritefont
+
+#begin fonts/Cambria/Cambria15.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria15.spritefont
+
+#begin fonts/Cambria/Cambria16.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria16.spritefont
+
+#begin fonts/Cambria/Cambria17.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria17.spritefont
+
+#begin fonts/Cambria/Cambria18.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria18.spritefont
+
+#begin fonts/Cambria/Cambria19.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria19.spritefont
+
+#begin fonts/Cambria/Cambria20.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria20.spritefont
+
+#begin fonts/Cambria/Cambria21.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria21.spritefont
+
+#begin fonts/Cambria/Cambria22.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria22.spritefont
+
+#begin fonts/Cambria/Cambria23.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria23.spritefont
+
+#begin fonts/Cambria/Cambria24.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria24.spritefont
+
+#begin fonts/Cambria/Cambria25.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria25.spritefont
+
+#begin fonts/Cambria/Cambria26.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria26.spritefont
+
+#begin fonts/Cambria/Cambria27.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria27.spritefont
+
+#begin fonts/Cambria/Cambria28.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria28.spritefont
+
+#begin fonts/Cambria/Cambria29.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria29.spritefont
+
+#begin fonts/Cambria/Cambria30.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria30.spritefont
+
+#begin fonts/Cambria/Cambria31.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria31.spritefont
+
+#begin fonts/Cambria/Cambria32.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria32.spritefont
+
+#begin fonts/Cambria/Cambria33.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria33.spritefont
+
+#begin fonts/Cambria/Cambria34.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria34.spritefont
+
+#begin fonts/Cambria/Cambria35.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria35.spritefont
+
+#begin fonts/Cambria/Cambria36.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria36.spritefont
+
+#begin fonts/Cambria/Cambria37.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria37.spritefont
+
+#begin fonts/Cambria/Cambria38.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria38.spritefont
+
+#begin fonts/Cambria/Cambria39.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria39.spritefont
+
+#begin fonts/Cambria/Cambria40.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria40.spritefont
+
+#begin fonts/Cambria/Cambria41.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria41.spritefont
+
+#begin fonts/Cambria/Cambria42.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria42.spritefont
+
+#begin fonts/Cambria/Cambria43.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria43.spritefont
+
+#begin fonts/Cambria/Cambria44.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria44.spritefont
+
+#begin fonts/Cambria/Cambria45.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria45.spritefont
+
+#begin fonts/Cambria/Cambria46.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria46.spritefont
+
+#begin fonts/Cambria/Cambria47.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria47.spritefont
+
+#begin fonts/Cambria/Cambria48.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria48.spritefont
+
+#begin fonts/Cambria/Cambria49.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria49.spritefont
+
+#begin fonts/Cambria/Cambria50.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria50.spritefont
+
+#begin fonts/Cambria/Cambria51.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria51.spritefont
+
+#begin fonts/Cambria/Cambria52.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria52.spritefont
+
+#begin fonts/Cambria/Cambria53.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria53.spritefont
+
+#begin fonts/Cambria/Cambria54.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria54.spritefont
+
+#begin fonts/Cambria/Cambria55.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria55.spritefont
+
+#begin fonts/Cambria/Cambria56.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria56.spritefont
+
+#begin fonts/Cambria/Cambria57.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria57.spritefont
+
+#begin fonts/Cambria/Cambria58.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria58.spritefont
+
+#begin fonts/Cambria/Cambria59.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria59.spritefont
+
+#begin fonts/Cambria/Cambria60.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria60.spritefont
+
+#begin fonts/Cambria/Cambria61.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria61.spritefont
+
+#begin fonts/Cambria/Cambria62.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria62.spritefont
+
+#begin fonts/Cambria/Cambria63.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria63.spritefont
+
+#begin fonts/Cambria/Cambria64.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria64.spritefont
+
+#begin fonts/Cambria/Cambria65.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria65.spritefont
+
+#begin fonts/Cambria/Cambria66.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria66.spritefont
+
+#begin fonts/Cambria/Cambria67.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria67.spritefont
+
+#begin fonts/Cambria/Cambria68.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria68.spritefont
+
+#begin fonts/Cambria/Cambria69.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria69.spritefont
+
+#begin fonts/Cambria/Cambria70.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria70.spritefont
+
+#begin fonts/Cambria/Cambria71.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria71.spritefont
+
+#begin fonts/Cambria/Cambria72.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria72.spritefont
+
+#begin fonts/Cambria/Cambria8.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria8.spritefont
+
+#begin fonts/Cambria/Cambria9.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Cambria/Cambria9.spritefont
+
 #begin fonts/Gabriela/Gabriela10.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -479,6 +1389,461 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:fonts/Gabriela/Gabriela9.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro10.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro10.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro11.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro11.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro12.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro12.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro13.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro13.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro14.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro14.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro15.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro15.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro16.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro16.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro17.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro17.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro18.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro18.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro19.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro19.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro20.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro20.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro21.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro21.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro22.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro22.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro23.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro23.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro24.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro24.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro25.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro25.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro26.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro26.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro27.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro27.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro28.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro28.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro29.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro29.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro30.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro30.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro31.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro31.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro32.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro32.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro33.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro33.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro34.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro34.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro35.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro35.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro36.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro36.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro37.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro37.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro38.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro38.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro39.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro39.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro40.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro40.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro41.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro41.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro42.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro42.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro43.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro43.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro44.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro44.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro45.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro45.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro46.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro46.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro47.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro47.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro48.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro48.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro49.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro49.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro50.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro50.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro51.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro51.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro52.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro52.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro53.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro53.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro54.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro54.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro55.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro55.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro56.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro56.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro57.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro57.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro58.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro58.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro59.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro59.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro60.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro60.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro61.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro61.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro62.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro62.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro63.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro63.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro64.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro64.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro65.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro65.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro66.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro66.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro67.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro67.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro68.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro68.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro69.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro69.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro70.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro70.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro71.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro71.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro72.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro72.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro8.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro8.spritefont
+
+#begin fonts/Good Vibes Pro/Good Vibes Pro9.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Good Vibes Pro/Good Vibes Pro9.spritefont
 
 #begin fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA10.spritefont
 /importer:FontDescriptionImporter
@@ -935,6 +2300,12 @@
 /processorParam:TextureFormat=Compressed
 /build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA9.spritefont
 
+#begin Greyscale.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Greyscale.fx
+
 #begin Invert.fx
 /importer:EffectImporter
 /processor:EffectProcessor
@@ -965,1174 +2336,3 @@
 /processorParam:DebugMode=Auto
 /build:PenumbraTexture.fx
 
-
-#begin fonts/Good Vibes Pro/Good Vibes Pro8.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro8.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro9.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro9.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro10.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro10.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro11.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro11.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro12.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro12.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro13.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro13.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro14.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro14.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro15.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro15.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro16.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro16.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro17.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro17.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro18.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro18.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro19.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro19.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro20.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro20.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro21.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro21.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro22.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro22.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro23.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro23.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro24.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro24.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro25.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro25.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro26.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro26.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro27.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro27.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro28.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro28.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro29.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro29.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro30.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro30.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro31.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro31.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro32.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro32.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro33.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro33.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro34.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro34.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro35.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro35.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro36.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro36.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro37.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro37.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro38.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro38.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro39.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro39.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro40.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro40.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro41.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro41.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro42.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro42.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro43.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro43.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro44.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro44.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro45.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro45.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro46.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro46.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro47.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro47.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro48.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro48.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro49.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro49.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro50.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro50.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro51.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro51.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro52.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro52.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro53.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro53.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro54.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro54.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro55.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro55.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro56.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro56.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro57.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro57.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro58.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro58.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro59.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro59.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro60.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro60.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro61.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro61.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro62.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro62.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro63.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro63.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro64.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro64.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro65.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro65.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro66.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro66.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro67.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro67.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro68.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro68.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro69.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro69.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro70.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro70.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro71.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro71.spritefont
-#begin fonts/Good Vibes Pro/Good Vibes Pro72.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Good Vibes Pro/Good Vibes Pro72.spritefont
-#begin fonts/American TextC/American TextC8.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC8.spritefont
-#begin fonts/American TextC/American TextC9.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC9.spritefont
-#begin fonts/American TextC/American TextC10.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC10.spritefont
-#begin fonts/American TextC/American TextC11.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC11.spritefont
-#begin fonts/American TextC/American TextC12.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC12.spritefont
-#begin fonts/American TextC/American TextC13.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC13.spritefont
-#begin fonts/American TextC/American TextC14.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC14.spritefont
-#begin fonts/American TextC/American TextC15.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC15.spritefont
-#begin fonts/American TextC/American TextC16.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC16.spritefont
-#begin fonts/American TextC/American TextC17.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC17.spritefont
-#begin fonts/American TextC/American TextC18.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC18.spritefont
-#begin fonts/American TextC/American TextC19.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC19.spritefont
-#begin fonts/American TextC/American TextC20.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC20.spritefont
-#begin fonts/American TextC/American TextC21.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC21.spritefont
-#begin fonts/American TextC/American TextC22.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC22.spritefont
-#begin fonts/American TextC/American TextC23.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC23.spritefont
-#begin fonts/American TextC/American TextC24.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC24.spritefont
-#begin fonts/American TextC/American TextC25.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC25.spritefont
-#begin fonts/American TextC/American TextC26.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC26.spritefont
-#begin fonts/American TextC/American TextC27.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC27.spritefont
-#begin fonts/American TextC/American TextC28.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC28.spritefont
-#begin fonts/American TextC/American TextC29.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC29.spritefont
-#begin fonts/American TextC/American TextC30.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC30.spritefont
-#begin fonts/American TextC/American TextC31.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC31.spritefont
-#begin fonts/American TextC/American TextC32.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC32.spritefont
-#begin fonts/American TextC/American TextC33.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC33.spritefont
-#begin fonts/American TextC/American TextC34.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC34.spritefont
-#begin fonts/American TextC/American TextC35.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC35.spritefont
-#begin fonts/American TextC/American TextC36.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC36.spritefont
-#begin fonts/American TextC/American TextC37.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC37.spritefont
-#begin fonts/American TextC/American TextC38.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC38.spritefont
-#begin fonts/American TextC/American TextC39.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC39.spritefont
-#begin fonts/American TextC/American TextC40.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC40.spritefont
-#begin fonts/American TextC/American TextC41.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC41.spritefont
-#begin fonts/American TextC/American TextC42.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC42.spritefont
-#begin fonts/American TextC/American TextC43.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC43.spritefont
-#begin fonts/American TextC/American TextC44.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC44.spritefont
-#begin fonts/American TextC/American TextC45.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC45.spritefont
-#begin fonts/American TextC/American TextC46.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC46.spritefont
-#begin fonts/American TextC/American TextC47.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC47.spritefont
-#begin fonts/American TextC/American TextC48.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC48.spritefont
-#begin fonts/American TextC/American TextC49.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC49.spritefont
-#begin fonts/American TextC/American TextC50.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC50.spritefont
-#begin fonts/American TextC/American TextC51.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC51.spritefont
-#begin fonts/American TextC/American TextC52.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC52.spritefont
-#begin fonts/American TextC/American TextC53.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC53.spritefont
-#begin fonts/American TextC/American TextC54.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC54.spritefont
-#begin fonts/American TextC/American TextC55.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC55.spritefont
-#begin fonts/American TextC/American TextC56.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC56.spritefont
-#begin fonts/American TextC/American TextC57.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC57.spritefont
-#begin fonts/American TextC/American TextC58.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC58.spritefont
-#begin fonts/American TextC/American TextC59.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC59.spritefont
-#begin fonts/American TextC/American TextC60.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC60.spritefont
-#begin fonts/American TextC/American TextC61.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC61.spritefont
-#begin fonts/American TextC/American TextC62.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC62.spritefont
-#begin fonts/American TextC/American TextC63.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC63.spritefont
-#begin fonts/American TextC/American TextC64.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC64.spritefont
-#begin fonts/American TextC/American TextC65.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC65.spritefont
-#begin fonts/American TextC/American TextC66.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC66.spritefont
-#begin fonts/American TextC/American TextC67.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC67.spritefont
-#begin fonts/American TextC/American TextC68.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC68.spritefont
-#begin fonts/American TextC/American TextC69.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC69.spritefont
-#begin fonts/American TextC/American TextC70.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC70.spritefont
-#begin fonts/American TextC/American TextC71.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC71.spritefont
-#begin fonts/American TextC/American TextC72.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/American TextC/American TextC72.spritefont
-#begin fonts/Cambria/Cambria8.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria8.spritefont
-#begin fonts/Cambria/Cambria9.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria9.spritefont
-#begin fonts/Cambria/Cambria10.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria10.spritefont
-#begin fonts/Cambria/Cambria11.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria11.spritefont
-#begin fonts/Cambria/Cambria12.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria12.spritefont
-#begin fonts/Cambria/Cambria13.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria13.spritefont
-#begin fonts/Cambria/Cambria14.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria14.spritefont
-#begin fonts/Cambria/Cambria15.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria15.spritefont
-#begin fonts/Cambria/Cambria16.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria16.spritefont
-#begin fonts/Cambria/Cambria17.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria17.spritefont
-#begin fonts/Cambria/Cambria18.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria18.spritefont
-#begin fonts/Cambria/Cambria19.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria19.spritefont
-#begin fonts/Cambria/Cambria20.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria20.spritefont
-#begin fonts/Cambria/Cambria21.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria21.spritefont
-#begin fonts/Cambria/Cambria22.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria22.spritefont
-#begin fonts/Cambria/Cambria23.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria23.spritefont
-#begin fonts/Cambria/Cambria24.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria24.spritefont
-#begin fonts/Cambria/Cambria25.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria25.spritefont
-#begin fonts/Cambria/Cambria26.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria26.spritefont
-#begin fonts/Cambria/Cambria27.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria27.spritefont
-#begin fonts/Cambria/Cambria28.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria28.spritefont
-#begin fonts/Cambria/Cambria29.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria29.spritefont
-#begin fonts/Cambria/Cambria30.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria30.spritefont
-#begin fonts/Cambria/Cambria31.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria31.spritefont
-#begin fonts/Cambria/Cambria32.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria32.spritefont
-#begin fonts/Cambria/Cambria33.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria33.spritefont
-#begin fonts/Cambria/Cambria34.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria34.spritefont
-#begin fonts/Cambria/Cambria35.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria35.spritefont
-#begin fonts/Cambria/Cambria36.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria36.spritefont
-#begin fonts/Cambria/Cambria37.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria37.spritefont
-#begin fonts/Cambria/Cambria38.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria38.spritefont
-#begin fonts/Cambria/Cambria39.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria39.spritefont
-#begin fonts/Cambria/Cambria40.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria40.spritefont
-#begin fonts/Cambria/Cambria41.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria41.spritefont
-#begin fonts/Cambria/Cambria42.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria42.spritefont
-#begin fonts/Cambria/Cambria43.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria43.spritefont
-#begin fonts/Cambria/Cambria44.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria44.spritefont
-#begin fonts/Cambria/Cambria45.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria45.spritefont
-#begin fonts/Cambria/Cambria46.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria46.spritefont
-#begin fonts/Cambria/Cambria47.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria47.spritefont
-#begin fonts/Cambria/Cambria48.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria48.spritefont
-#begin fonts/Cambria/Cambria49.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria49.spritefont
-#begin fonts/Cambria/Cambria50.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria50.spritefont
-#begin fonts/Cambria/Cambria51.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria51.spritefont
-#begin fonts/Cambria/Cambria52.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria52.spritefont
-#begin fonts/Cambria/Cambria53.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria53.spritefont
-#begin fonts/Cambria/Cambria54.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria54.spritefont
-#begin fonts/Cambria/Cambria55.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria55.spritefont
-#begin fonts/Cambria/Cambria56.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria56.spritefont
-#begin fonts/Cambria/Cambria57.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria57.spritefont
-#begin fonts/Cambria/Cambria58.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria58.spritefont
-#begin fonts/Cambria/Cambria59.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria59.spritefont
-#begin fonts/Cambria/Cambria60.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria60.spritefont
-#begin fonts/Cambria/Cambria61.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria61.spritefont
-#begin fonts/Cambria/Cambria62.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria62.spritefont
-#begin fonts/Cambria/Cambria63.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria63.spritefont
-#begin fonts/Cambria/Cambria64.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria64.spritefont
-#begin fonts/Cambria/Cambria65.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria65.spritefont
-#begin fonts/Cambria/Cambria66.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria66.spritefont
-#begin fonts/Cambria/Cambria67.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria67.spritefont
-#begin fonts/Cambria/Cambria68.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria68.spritefont
-#begin fonts/Cambria/Cambria69.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria69.spritefont
-#begin fonts/Cambria/Cambria70.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria70.spritefont
-#begin fonts/Cambria/Cambria71.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria71.spritefont
-#begin fonts/Cambria/Cambria72.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/Cambria/Cambria72.spritefont

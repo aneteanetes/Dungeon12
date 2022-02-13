@@ -5,6 +5,7 @@
   "P0": {
     "Name": "Диалог",
     "Icon": "talk.png",
-    "Function": "Dialogue"
+    "ObjectId": "NPCApprenticeShip",
+    "Function": "DialogueFunction"
   }
 }

@@ -1,4 +1,5 @@
-﻿using Dungeon12.Attributes;
+﻿using Dungeon;
+using Dungeon12.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dungeon12.Entities.Enums
@@ -9,6 +10,7 @@ namespace Dungeon12.Entities.Enums
         WarriorDamage, // сильные удары, добивания, никакой защиты
 
         [Display(Name = "Воитель")]
+        [Value("Юно")]
         WarriorWarchief, // стратегические приёмы, урон в зависимости от обстоятельств
 
         [Display(Name = "Защитник")]
@@ -16,6 +18,7 @@ namespace Dungeon12.Entities.Enums
 
 
         [Display(Name = "Колдун")]
+        [Value("Итель")]
         MageAoe, // урон стихией по площади
 
         [Display(Name = "Маг")]
@@ -26,6 +29,7 @@ namespace Dungeon12.Entities.Enums
 
 
         [Display(Name = "Предводитель")]
+        [Value("Зиморан")]
         MercenaryLeader, // промахи, скользящие удары, парирование, перехват ударов
 
         [Display(Name = "Убийца")]
@@ -39,6 +43,7 @@ namespace Dungeon12.Entities.Enums
         PaladinTemplar, // танк через чуть чуть постоянного хила 
 
         [Display(Name = "Адепт")]
+        [Value("Илзру")]
         PaladinAdept, // прямой большой хил с затратами маны
 
 

@@ -125,12 +125,32 @@ namespace Dungeon12.SceneObjects.Map
                     Global.Helps.StepActivate();
                 }
 
-                Global.Game.Party.Move(this.Component);
+                var game = Global.Game;
+
+                if (Global.Game.Location != this.Component)
+                {
+                    game.Party.Move(this.Component);
+                    if (!Global.Game.VisitedLocations.Contains(game.Location.UId))
+                    {
+                        Global.Game.VisitedLocations.Add(game.Location.UId);
+                        if (Component.IsActivable)
+                        {
+                            this.Layer.AddObject(exploreSceneObject = new ExploreSceneObject(this.Component));
+                        }
+                    }
+                    return;
+                }
 
                 if (Component.IsActivable)
-                    this.Layer.AddObject(exploreSceneObject = new ExploreSceneObject(this.Component));
-                //Global.Freezer.World = exploreSceneObject;
+                {
+                    //if (!Global.Game.VisitedLocations.Contains(game.Location.UId))
+                    //{
+                    //    Global.Game.VisitedLocations.Add(game.Location.UId);
+                        this.Layer.AddObject(exploreSceneObject = new ExploreSceneObject(this.Component));
+                        //Global.Freezer.World = exploreSceneObject;
 #warning commented freeze
+                    //}
+                }
             }
         }
 

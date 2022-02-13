@@ -7,7 +7,7 @@ namespace Dungeon12.Functions.ObjectFunctions
     {
         public string Name => "NameEnterWindow";
 
-        public bool Call(ISceneLayer layer)
+        public bool Call(ISceneLayer layer, string objectId)
         {
             layer.Scene.GetLayer("ui").AddObjectCenter(new NameEnterSceneObject(Global.Game.Party.Hero1));
             return true;

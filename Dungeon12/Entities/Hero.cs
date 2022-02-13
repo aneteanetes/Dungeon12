@@ -9,6 +9,22 @@ namespace Dungeon12.Entities
 {
     public class Hero : IPhysical
     {
+        /// <summary>
+        /// Усталость в %
+        /// </summary>
+        public int Tire { get; set; }
+
+        /// <summary>
+        /// Утомить
+        /// </summary>
+        public void Tires(int percent)
+        {
+            if (Tire + percent > 50)
+                Tire = 50;
+            else
+                Tire += percent;
+        }
+
         public string Name { get; set; }
 
         public string Chip { get; set; }
@@ -22,6 +38,14 @@ namespace Dungeon12.Entities
         public int Hits { get; set; }
 
         public int MaxHits { get; set; }
+
+        public void Heal(int hp)
+        {
+            if (Hits + hp > MaxHits)
+                Hits = MaxHits;
+            else
+                Hits += hp;
+        }
 
         public SpriteSheet WalkSpriteSheet { get; set; }
 

@@ -8,7 +8,7 @@ namespace Dungeon12.Functions.ObjectFunctions
     {
         public string Name => nameof(SelectSpecFunction);
 
-        public bool Call(ISceneLayer layer)
+        public bool Call(ISceneLayer layer, string objectId)
         {
             layer.Scene.GetLayer("ui").AddObjectCenter(new SpecSelectSceneObject(Global.Game.Party.Hero1));
             return true;

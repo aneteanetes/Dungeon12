@@ -7,7 +7,7 @@ namespace Dungeon12.Functions.ObjectFunctions
     {
         public string Name => nameof(HeroConfirmFunction);
 
-        public bool Call(ISceneLayer layer)
+        public bool Call(ISceneLayer layer, string objectId)
         {
             layer.Scene.GetLayer("ui").AddObjectCenter(new ConfirmHeroSceneObject(Global.Game.Party.Hero1));
             return true;

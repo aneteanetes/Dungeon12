@@ -6,6 +6,6 @@ namespace Dungeon12.Functions
     {
         string Name { get; }
 
-        bool Call(ISceneLayer layer);
+        bool Call(ISceneLayer layer, string objectId);
     }
 }

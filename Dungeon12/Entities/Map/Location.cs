@@ -6,6 +6,8 @@ namespace Dungeon12.Entities.Map
 {
     public class Location
     {
+        public string UId => Region.MapId + Index;
+
         public Region Region { get; set; }
 
         public string Name { get; set; }

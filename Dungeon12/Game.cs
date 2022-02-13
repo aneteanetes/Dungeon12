@@ -1,6 +1,7 @@
 ﻿using Dungeon12.Entities;
 using Dungeon12.Entities.Map;
 using Dungeon12.SceneObjects.UI;
+using System.Collections.Generic;
 
 namespace Dungeon12
 {
@@ -23,5 +24,7 @@ namespace Dungeon12
         public HeroPlate HeroPlate4 { get; set; }
 
         public Calendar Calendar { get; set; }
+
+        public List<string> VisitedLocations { get; set; } = new List<string>();
     }
 }
