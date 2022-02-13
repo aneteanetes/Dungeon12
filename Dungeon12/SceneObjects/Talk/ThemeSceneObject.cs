@@ -40,7 +40,9 @@ namespace Dungeon12.SceneObjects.Talk
                     Width = 50,
                     Height = 50,
                     Top = goaltop,
-                    Left = ava.Left + ava.Width - 50
+                    Left = ava.Left + ava.Width - 50,
+                    IsMonochrome = true,
+                    Blur=true
                 });
 
                 goaltop += 48;

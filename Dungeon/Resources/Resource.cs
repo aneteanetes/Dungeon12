@@ -3,10 +3,12 @@ using Dungeon.View;
 using LiteDB;
 using Newtonsoft.Json;
 using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace Dungeon.Resources
 {
+    [DebuggerDisplay("{Path}")]
     public class Resource : Persist, IDisposable
     {
         private class InformableMemoryStream : MemoryStream

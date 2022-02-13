@@ -1,4 +1,5 @@
 ﻿using Dungeon.Resources;
+using Dungeon.SceneObjects;
 using Dungeon.Types;
 using Dungeon.View.Enums;
 using Dungeon.View.Interfaces;
@@ -190,8 +191,8 @@ namespace Dungeon.Monogame
 
             Effect GetEffect(bool filter, IEffect effect, bool invert)
             {
-                if (filter)
-                    return GlobalImageFilter;
+                //if (filter)
+                //    return GlobalImageFilter;
 
                 if (effect != default)
                     return XnaEffectFromIEffect(effect);
@@ -234,7 +235,7 @@ namespace Dungeon.Monogame
 
         private Effect XnaEffectFromIEffect(string effectName)
         {
-            if (XnaEffectsLoaded.TryGetValue(effectName, out var xnaeff))
+            if (!XnaEffectsLoaded.TryGetValue(effectName, out var xnaeff))
             {
                 var effectres = ResourceLoader.Load($"Shaders/{effectName}.xnb".AsmRes(), @throw: false);
                 if (effectres != null)
@@ -824,7 +825,7 @@ namespace Dungeon.Monogame
             //    spriteEffects = maskResult.effects;
             //}
 
-            if(sceneObject.Flip!= FlipStrategy.None)
+            if (sceneObject.Flip != FlipStrategy.None)
             {
                 if (sceneObject.Flip == FlipStrategy.Both)
                     spriteEffects = SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically;
@@ -849,10 +850,16 @@ namespace Dungeon.Monogame
 
             var drawColor = new Color(color.R, color.G, color.B, (float)alpha);
 
+            IEffect effect = null;
+            if(sceneObject.IsMonochrome)
+            {
+                effect = new NamedEffect("Greyscale");
+            }
+
             if (sceneObject.Blur)
             {
                 spriteBatch.End();
-                SpriteBatchRestore?.Invoke(true, sceneObject.Filtered);
+                SpriteBatchRestore?.Invoke(true, sceneObject.Filtered, effect: effect);
 
                 if (sceneObject.Scale > 0)
                 {
@@ -872,7 +879,7 @@ namespace Dungeon.Monogame
                 {
                     spriteBatch.End();
                     color = Color.Black;
-                    SpriteBatchRestore?.Invoke(false, sceneObject.Filtered, colorInvert: true);
+                    SpriteBatchRestore?.Invoke(false, sceneObject.Filtered, colorInvert: true, effect: effect);
                 }
 
                 if (sceneObject.Scale > 0)

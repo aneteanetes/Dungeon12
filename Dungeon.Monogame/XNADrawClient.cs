@@ -22,6 +22,7 @@
     using System.Reflection;
     using System.Runtime.InteropServices;
     using Matrix = Microsoft.Xna.Framework.Matrix;
+    using Dungeon.Monogame.Effects;
 
     public partial class XNADrawClient : Game, IDrawClient
     {
@@ -325,6 +326,7 @@
 
         protected override void Initialize()
         {
+            ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver(Assembly.GetExecutingAssembly()));
             this.Window.Title = DungeonGlobal.GameTitle;
 #if Android
             GraphicsDevice.PresentationParameters.IsFullScreen = true;
@@ -351,6 +353,8 @@
 
         RenderTarget2D backBuffer;
 
+        static Grayscale GrayscaleShader = new Grayscale();
+
         protected override void LoadContent()
         {
             GraphicsDevice.PresentationParameters.RenderTargetUsage = RenderTargetUsage.PreserveContents;
@@ -366,6 +370,7 @@
 
             DungeonGlobal.Camera = this;
 
+            //GrayscaleShader.Load(this);
 
             var penumbraShaders = new Dictionary<string, Effect>();            
             var penumbraShaderPaths = new (string path, string key)[]

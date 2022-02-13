@@ -734,6 +734,8 @@
 
         public bool AutoBindSceneObjectSizeByContainedImage { get; set; } = true;
 
+        public bool IsMonochrome { get; set; }
+
         public void PlayAnimation(Animation animation)
         {
             if (InAnimation && animation.Name == this.animation.Name)

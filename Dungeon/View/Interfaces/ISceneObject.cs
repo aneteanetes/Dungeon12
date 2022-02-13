@@ -22,6 +22,8 @@
 
         bool Shadow { get; set; }
 
+        bool IsMonochrome { get; set; }
+
         /// <summary>
         /// Can be cached or have animation
         /// </summary>

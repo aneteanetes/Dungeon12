@@ -53,11 +53,17 @@ namespace Dungeon.Resources
                 ms.Seek(0, SeekOrigin.Begin);
             }
 
-            return new Resource()
+            var res = new Resource()
             {
                 Path = contentPath,
                 Data = ms.ToArray()
             };
+            res.OnDispose += () =>
+            {
+                ___ResolveCache.Remove(contentPath);
+            };
+
+            return res;
         }
     }
 }
