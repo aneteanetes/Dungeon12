@@ -15,8 +15,6 @@ namespace Dungeon12.SceneObjects.Map
 
         private ImageObject Object;
 
-        private ImageObject Character;
-
         private ImageObject Fog;
 
         private ImageObject Selection;
@@ -130,9 +128,9 @@ namespace Dungeon12.SceneObjects.Map
                 if (Global.Game.Location != this.Component)
                 {
                     game.Party.Move(this.Component);
-                    if (!Global.Game.VisitedLocations.Contains(game.Location.UId))
+                    if (!Global.Game.State.VisitedLocations.Contains(game.Location.UId))
                     {
-                        Global.Game.VisitedLocations.Add(game.Location.UId);
+                        Global.Game.State.VisitedLocations.Add(game.Location.UId);
                         if (Component.IsActivable)
                         {
                             this.Layer.AddObject(exploreSceneObject = new ExploreSceneObject(this.Component));

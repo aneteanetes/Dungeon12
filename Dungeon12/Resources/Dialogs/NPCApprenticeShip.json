@@ -5,37 +5,80 @@
     {
       "Name": "Полный сундук",
       "Icon": "1.png",
-      "ReplicaType": "Evil",
+      "Type": "Evil",
       "Function": "AddItemShipChest"
     },
     {
       "Name": "Профессионал",
       "Icon": "3.png",
-      "ReplicaType": "Wisdom",
+      "Type": "Wisdom",
       "Function": "GiveCraftToolsShip"
     },
     {
       "Name": "В ресурсе",
       "Icon": "4.png",
-      "ReplicaType": "Trick",
+      "Type": "Trick",
       "Function": "GiveResShip"
     },
     {
       "Name": "Гигиена",
       "Icon": "5.png",
-      "ReplicaType": "Evil",
+      "Type": "Wisdom",
       "Function": "FirstClueShip"
     },
     {
       "Name": "Помощь",
       "Icon": "2.png",
-      "ReplicaType": "Good",
+      "Type": "Good",
       "Function": "JoinShip"
     }
   ],
   "Subjects": [
     {
-      "Name": "Документы"
+      "Name": "Документы",
+      "Replica": {
+        "Text": "Рад что вы наконец заполнили все бумаги, мы уже подплываем к острову.",
+        "Lines": [
+          {
+            "Text": "Спасибо что оставил(а) их у меня на столе.",
+            "Type": "Good",
+            "Weight": 1,
+            "Replica": {
+              "Text": "Благодарю вас, не забудьте проверить оставшиеся на корабле запасы.",
+              "End": true
+            }
+          },
+          {
+            "Text": "Как мой помощник(ца) ты мог(ла) бы заполнить их сам(а).",
+            "Type": "Evil",
+            "Weight": 1,
+            "Replica": {
+              "Text": "Учту на будущее.",
+              "End": true
+            }
+          },
+          {
+            "Text": "Возможно ты выложил(а) не все бумаги?",
+            "Type": "Trick",
+            "Weight": 1,
+            "Replica": {
+              "Text": "Кроме бумаг вам оставили увесистный свёрток, кажется это какой-то амулет местных властей, я положил его в сундук с вашими личными вещами.",
+              "Goal": "Полный сундук",
+              "End": true
+            }
+          },
+          {
+            "Text": "Кажется на этих бумагах был след от мыла, ты знаешь откуда он взялся?",
+            "Type": "Wisdom",
+            "Weight": 1,
+            "Replica": {
+              "Text": "Да, к бумагам было приложено письмо с краткими указаниями и кусочек местного мыла, всё в вашем сундуке.",
+              "Goal": "Гигиена",
+              "End": true
+            }
+          }
+        ]
+      }
     },
     {
       "Name": "Волна Света"

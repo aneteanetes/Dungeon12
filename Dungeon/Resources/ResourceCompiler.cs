@@ -19,6 +19,29 @@ namespace Dungeon.Resources
 
         public ResourceManifest CurrentBuild { get; private set; }
 
+        private static string repositorypath = null;
+
+        public static string RepositoryPath
+        {
+            get
+            {
+#if DEBUG
+                if (repositorypath == null)
+                {
+                    DirectoryInfo path = new DirectoryInfo(DungeonGlobal.BuildLocation);
+                    while (!Directory.Exists(Path.Combine(path.FullName, ".git")))
+                    {
+                        path = path.Parent;
+                    }
+
+                    return path.FullName;
+                }
+#endif
+
+                return repositorypath;
+            }
+        }
+
         private static bool log = false;
 
         public ResourceCompiler(bool logging=false)

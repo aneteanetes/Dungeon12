@@ -93,11 +93,16 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
             if (Time == default(TimeSpan) || Time < default(TimeSpan))
             {
                 this.Destroy?.Invoke();
+                OnAfter?.Invoke();
                 return;
             }
 
             Time -= gameTime.ElapsedGameTime;
             this.Top -= speed;
         }
+
+        public Action OnAfter;
+
+        public void After(Action action) => OnAfter = action;
     }
 }

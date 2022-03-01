@@ -10,6 +10,7 @@ using Dungeon.View.Interfaces;
 using Dungeon12.SceneObjects;
 using System.Linq;
 using Dungeon12.Entities.Enums;
+using Dungeon.Drawing;
 
 namespace Dungeon12
 {
@@ -33,6 +34,8 @@ namespace Dungeon12
         public static Dictionary<string, IFunction> Functions = new Dictionary<string, IFunction>();
 
         public static HelpingSceneObject Helps;
+
+        public static DrawColor CommonColor { get; } = new DrawColor(139, 107, 86);
 
         public static bool RegisterFunction<TFuncClass>() where TFuncClass : IFunction
         {

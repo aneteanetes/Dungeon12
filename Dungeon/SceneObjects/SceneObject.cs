@@ -30,7 +30,7 @@
         {
             if (bindView && component != default)
             {
-                BindComponent(component);
+                BindGameComponent(component);
             }
             else if (component != default)
             {
@@ -50,7 +50,7 @@
             ProcessSingleton();
         }
 
-        public void BindComponent(TComponent component)
+        public void BindGameComponent(TComponent component)
         {
             if (component is IGameComponent gameComponent)
             {
@@ -62,6 +62,11 @@
                     gameComponent.SetView(default);
                 };
             }
+        }
+
+        public void BindComponent(TComponent component)
+        {
+            Component = component;
         }
 
         private static Dictionary<string, ISceneObject> singletonInstances = new Dictionary<string, ISceneObject>();
@@ -204,6 +209,7 @@
         /// Возвращает в абсолютных координатах
         /// </summary>
         /// <param name="text"></param>
+        /// <param name="parent">Только если wordWrap</param>
         /// <returns></returns>
         protected Point MeasureText(IDrawText text, ISceneObject parent = default) => DungeonGlobal.DrawClient.MeasureText(text, parent);
 
@@ -525,7 +531,7 @@
 
         public virtual ILight Light { get; set; }
 
-        public List<IEffect> ParticleEffects { get; set; } = new List<IEffect>();
+        public List<IEffectParticle> ParticleEffects { get; set; } = new List<IEffectParticle>();
 
         public virtual bool Interface { get; set; }
 
@@ -734,7 +740,7 @@
 
         public bool AutoBindSceneObjectSizeByContainedImage { get; set; } = true;
 
-        public bool IsMonochrome { get; set; }
+        public virtual bool IsMonochrome { get; set; }
 
         public void PlayAnimation(Animation animation)
         {

@@ -25,6 +25,6 @@ namespace Dungeon12
 
         public Calendar Calendar { get; set; }
 
-        public List<string> VisitedLocations { get; set; } = new List<string>();
+        public GameState State { get; set; } = new GameState();
     }
 }

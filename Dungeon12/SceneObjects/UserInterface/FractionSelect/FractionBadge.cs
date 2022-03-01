@@ -47,8 +47,6 @@ namespace Dungeon12.SceneObjects.UserInterface.FractionSelect
             mainobj.desc.Load(fraction);
         }
 
-        private static FractionDescription desc;
-
         public override void Focus()
         {
             if (selected != this)

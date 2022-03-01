@@ -17,12 +17,12 @@ namespace Dungeon12.SceneObjects.Talk
             this.Width = 1360;
             this.Height = 900;
 
-            this.AddChild(new MainTextSceneObject());
-
-            this.AddChild(new ReplySceneObject(null)
+            var reply = this.AddChild(new ReplySceneObject(null)
             {
                 Top = 623
             });
+
+            this.AddChild(new MainTextSceneObject(reply));
 
             this.AddChild(new ThemeSceneObject(Component)
             {

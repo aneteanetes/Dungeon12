@@ -353,8 +353,6 @@
 
         RenderTarget2D backBuffer;
 
-        static Grayscale GrayscaleShader = new Grayscale();
-
         protected override void LoadContent()
         {
             GraphicsDevice.PresentationParameters.RenderTargetUsage = RenderTargetUsage.PreserveContents;

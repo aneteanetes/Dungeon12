@@ -13,14 +13,6 @@ namespace Dungeon12.SceneObjects.Map
 {
     public class ExploreSceneObject : SceneControl<Location>
     {
-        private ImageObject Background;
-
-        private ImageObject Object;
-
-        private ImageObject Selection;
-
-        private ImageObject cells;
-
         public override bool AbsolutePosition => true;
 
         public class ExploreTitleSceneObject : DarkRectangle

@@ -4,6 +4,19 @@ namespace Dungeon12.Localization
 {
     public class GameStrings : LocalizationStringDictionary<GameStrings>
     {
+        public string Warrior { get; set; } = "Воин";
+        public string Mage { get; set; } = "Маг";
+        public string Thief { get; set; } = "Вор";
+        public string Priest { get; set; } = "Священник";
+
+        public string Next { get; set; } = "Далее";
+
+        public string Prev { get; set; } = "Назад";
+
+        public string Cancel { get; set; } = "Отмена";
+
+        public string CreateParty { get; set; } = "Создание отряда";
+
         public string NewGame { get; set; } = "Новая игра";
 
         public string Save { get; set; } = "Сохранить";

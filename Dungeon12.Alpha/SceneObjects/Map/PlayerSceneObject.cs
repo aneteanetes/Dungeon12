@@ -43,7 +43,7 @@
             set
             {
                 _avatar = value;
-                BindComponent(_avatar);
+                BindGameComponent(_avatar);
             }
         }
 

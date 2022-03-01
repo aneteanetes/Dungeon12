@@ -3,7 +3,7 @@
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
 
-    public sealed class ParticleEffect : IEffect
+    public sealed class ParticleEffect : IEffectParticle
     {
         public ParticleEffect()
         {
@@ -23,5 +23,10 @@
         public string Image { get; set; }
 
         public Point Size { get; set; }
+
+        public bool Once { get; set; }
+
+        public bool IsTriggered { get; set; }
+        public int TriggerCount { get; set; }
     }
 }

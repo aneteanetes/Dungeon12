@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon.UpdateServer", "Too
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon12.Alpha", "Dungeon12.Alpha\Dungeon12.Alpha.csproj", "{8F28905E-0AC2-40E3-8A38-06AE2F4A00EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dungeon12", "Dungeon12\Dungeon12.csproj", "{E8206113-FBCB-4E38-A280-F424CE9DD4FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon12", "Dungeon12\Dungeon12.csproj", "{E8206113-FBCB-4E38-A280-F424CE9DD4FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -19,37 +19,10 @@
     <None Remove="**\Resources\**\*" />
     <None Remove="Data\**" />
     <None Remove="Templates\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="**\Resources\**\*" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Remove="Noone\Resources\attack.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Noone\Resources\Audio\Sound\attack.wav" />
-  </ItemGroup>
+  </ItemGroup>  
 
   <ItemGroup>
     <ProjectReference Include="..\Dungeon.Monogame\Dungeon.Monogame.csproj" />
     <ProjectReference Include="..\Dungeon\Dungeon.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Database\Quests\Data\" />
-    <Folder Include="Noone\Resources\Images\Stats\" />
-    <Folder Include="Resources\Audio\Music\Locations\" />
-    <Folder Include="Resources\Images\Cards\Areas\" />
-    <Folder Include="Resources\Images\Dolls\Childs\Girl1\" />
-    <Folder Include="Resources\Images\GUI\Buttons\" />
-    <Folder Include="Resources\Images\GUI\Planes\" />
-    <Folder Include="Resources\Images\Items\Quest\" />
-    <Folder Include="Resources\Images\Tilesets\" />
-    <Folder Include="Resources\Images\Objects\deadguards\" />
-    <Folder Include="Resources\Images\ui\checkbox\" />
-    <Folder Include="Resources\Images\ui\journal\" />
-    <Folder Include="Resources\Shaders\" />
-    <Folder Include="Resources\Scenario\" />
-    <Folder Include="SceneObjects\World\" />
   </ItemGroup>
 </Project>

@@ -13,6 +13,7 @@ namespace Dungeon12.Functions.ObjectFunctions
         public bool Call(ISceneLayer layer, string objectId)
         {
             var dialogue = ResourceLoader.LoadJson<Dialogue>($"Dialogs/{objectId}.json".AsmRes());
+            dialogue.BindLinks();
             dialogue.Id = objectId;
             layer.Scene.GetLayer("ui").AddObjectCenter(new DialogueSceneObject(dialogue));
             return true;

@@ -15,6 +15,8 @@ namespace Dungeon12.Entities
 
         public Food Food { get; set; } = new Food();
 
+        public Fame Fame { get; set; } = new Fame();
+
         public void Move(Location location)
         {
             if (Global.Game.Location == location)

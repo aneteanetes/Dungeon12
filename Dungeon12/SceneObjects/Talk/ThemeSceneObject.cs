@@ -5,7 +5,7 @@ using Dungeon12.Entities.Talks;
 
 namespace Dungeon12.SceneObjects.Talk
 {
-    public class ThemeSceneObject : SceneObject<Dialogue>
+    public class ThemeSceneObject : SceneControl<Dialogue>
     {
         public ThemeSceneObject(Dialogue component) : base(component)
         {
@@ -35,14 +35,10 @@ namespace Dungeon12.SceneObjects.Talk
 
             foreach (var goal in component.Goals)
             {
-                this.AddChild(new ImageObject($"Talk/Goals/{component.Id}/{goal.Icon}")
+                this.AddChild(new GoalSceneObject(component.Id, goal)
                 {
-                    Width = 50,
-                    Height = 50,
                     Top = goaltop,
-                    Left = ava.Left + ava.Width - 50,
-                    IsMonochrome = true,
-                    Blur=true
+                    Left = ava.Left + ava.Width - 50
                 });
 
                 goaltop += 48;
@@ -52,9 +48,12 @@ namespace Dungeon12.SceneObjects.Talk
 
             foreach (var subj in component.Subjects)
             {
-                var sbj = this.AddTextCenter(subj.Name.AsDrawText().Gabriela().InSize(20), vertical: false);
-                sbj.Top = top;
-                top += 52;
+                if (!Global.Game.State.Dialogues.Contains(subj.SubjectId))
+                {
+                    var sbj = this.AddChildCenter(new SubjectSceneObject(subj));
+                    sbj.Top = top;
+                    top += 52;
+                }
             }
         }
     }

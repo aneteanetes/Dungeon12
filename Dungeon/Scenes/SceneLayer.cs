@@ -73,7 +73,8 @@ namespace Dungeon.Scenes
             set => Owner.ActiveLayer = this;
         }
 
-        public void AddObject(ISceneObject sceneObject)
+        public TSceneObject AddObject<TSceneObject>(TSceneObject sceneObject)
+            where TSceneObject : ISceneObject
         {
             sceneObject.HighLevelComponent = true;
             if (sceneObject.ControlBinding == null)
@@ -90,6 +91,8 @@ namespace Dungeon.Scenes
             this.SceneObjects.Add(sceneObject);
 
             AddControlRecursive(sceneObject);
+
+            return sceneObject;
         }
 
         public void AddObjectCenter<TSceneObject>(TSceneObject sceneObject, bool horizontal = true, bool vertical = true)

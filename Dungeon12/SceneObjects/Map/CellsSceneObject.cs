@@ -1,23 +1,15 @@
 ﻿using Dungeon;
 using Dungeon.Control;
-using Dungeon.Control.Keys;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
-using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
 using Dungeon12.Entities.Map;
 using Dungeon12.Functions.ObjectFunctions;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Dungeon12.SceneObjects.Map
 {
     public class CellsSceneObject : SceneControl<Location>
     {
-        private ImageObject Background;
-
-        private ImageObject Object;
-
         public override bool AbsolutePosition => true;
 
         private class CloseBtn : EmptySceneControl

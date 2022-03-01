@@ -77,6 +77,7 @@ namespace Dungeon
         public static DrawText InColor(this DrawText drawText, DrawColor drawColor)
         {
             drawText.ForegroundColor = drawColor;
+            drawText.BackgroundColor = drawColor;
             return drawText;
         }
 

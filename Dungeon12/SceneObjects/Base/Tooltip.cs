@@ -14,7 +14,7 @@
 
         public override bool CacheAvailable => false;
 
-        public override bool Interface => true;
+        public override bool Interface => false;
 
         public Tooltip(string text, Point position, IDrawColor drawColor)
             : this(new DrawText(text, drawColor ?? new DrawColor(ConsoleColor.White))

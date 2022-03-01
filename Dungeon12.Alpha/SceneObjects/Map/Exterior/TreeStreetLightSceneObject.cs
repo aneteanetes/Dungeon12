@@ -4,6 +4,7 @@
     using Dungeon.Drawing.Impl;
     using Dungeon12.SceneObjects; using Dungeon.SceneObjects;
     using System.Collections.Generic;
+    using Dungeon.View.Interfaces;
 
     public class TreeStreetLightSceneObject : EmptySceneObject
     {
@@ -41,7 +42,7 @@
                     Color = new DrawColor(245, 132, 66)
                 };
 
-                this.ParticleEffects = new List<Dungeon.View.Interfaces.IEffect>()
+                this.ParticleEffects = new List<IEffectParticle>()
                 {
                     new ParticleEffect()
                     {

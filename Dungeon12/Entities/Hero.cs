@@ -25,7 +25,7 @@ namespace Dungeon12.Entities
                 Tire += percent;
         }
 
-        public string Name { get; set; }
+        public string Name { get; set; } = "Adventurer";
 
         public string Chip { get; set; }
 

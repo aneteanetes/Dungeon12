@@ -191,7 +191,7 @@
 
         ILight Light { get; set; }
 
-        List<IEffect> ParticleEffects { get; set; }
+        List<IEffectParticle> ParticleEffects { get; set; }
 
         bool Interface { get; set; }
 

@@ -1033,11 +1033,11 @@ namespace Dungeon.Monogame
             }
 
 
-            var alpha = sceneObject.Opacity == 0
-                   ? range.ForegroundColor.A
-                   : sceneObject.Opacity;
+            var alpha = /*sceneObject.Opacity == 0
+                   ?*/ range.ForegroundColor.A/*
+                   : sceneObject.Opacity*/;
 
-            var color = new Color(range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B, (float)alpha);
+            var color = new Color(range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B, (byte)alpha);
 
             spriteBatch.End();
             SpriteBatchRestore?.Invoke(true, sceneObject.Filtered);
@@ -1397,6 +1397,7 @@ namespace Dungeon.Monogame
 
             foreach (var effect in sceneObject.ParticleEffects)
             {
+
                 var path = $"{effect.Assembly}.Resources.Particles.{effect.Name}.xml";
 
                 void DrawEffect()
@@ -1424,8 +1425,15 @@ namespace Dungeon.Monogame
                         myRenderer.LoadContent(Content);
                     }
 
-                    var pos = new Vector2((float)x, (float)y);
-                    particleEffect.Trigger(pos);
+
+                    if (!effect.Once || effect.TriggerCount>0)
+                    {
+                        var pos = new Vector2((float)x, (float)y);
+                        particleEffect.Trigger(pos);
+
+                        effect.TriggerCount--;
+                    }
+
                     var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
                     particleEffect.Update(deltaTime);
 
@@ -1441,7 +1449,9 @@ namespace Dungeon.Monogame
                     SpriteBatchRestore.Invoke(false, sceneObject.Filtered);
                 }
 
-                Once.Call(DrawEffect, "XNACLIENT" + nameof(Draw) + nameof(DrawEffect) + path);
+                DrawEffect();
+
+                //Once.Call(DrawEffect, "XNACLIENT" + nameof(Draw) + nameof(DrawEffect) + path);
             }
         }
 

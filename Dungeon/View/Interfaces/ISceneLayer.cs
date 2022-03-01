@@ -21,7 +21,7 @@ namespace Dungeon.View.Interfaces
 
         bool Destroyed { get; }
 
-        void AddObject(ISceneObject sceneObject);
+        TSceneObject AddObject<TSceneObject>(TSceneObject sceneObject) where TSceneObject : ISceneObject;
 
         void AddControl(ISceneControl sceneObjectControl);
 
