@@ -1,6 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Control;
 using Dungeon.SceneObjects;
+using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.Entities;
 using Dungeon12.Entities.Enums;
@@ -100,7 +101,7 @@ namespace Dungeon12.SceneObjects.UserInterface.CraftSelect
 
         public bool ShowTooltip => true;
 
-        public Tooltip GetTooltip()
+        public ISceneObject GetTooltip()
         {
             var title = prof.ToDisplay();
             var descr = prof.ToValue<string>();

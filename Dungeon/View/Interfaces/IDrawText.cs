@@ -45,5 +45,7 @@
         bool CenterAlign { get; }
 
         bool WordWrap { get; }
+
+        IDrawText Copy();
     }
 }

@@ -495,6 +495,8 @@ namespace Dungeon.Scenes
         private void DoClicks(PointerArgs pointerPressedEventArgs, Point offset, IEnumerable<ISceneControl> clickedElements,
             Action<ISceneControl, PointerArgs> whichClick)
         {
+            DungeonGlobal.PointerLocation = pointerPressedEventArgs;
+
             for (int i = 0; i < clickedElements.Count(); i++)
             {
                 var clickedElement = clickedElements.ElementAtOrDefault(i);
@@ -515,7 +517,7 @@ namespace Dungeon.Scenes
                         args.Y += offset.Y;
                         args.ProcessedOffset = true;
                     }
-
+                    
                     DungeonGlobal.PointerLocation = args;
 
                     try

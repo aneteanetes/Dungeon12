@@ -96,6 +96,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Entities\Heroes\" />
     <Folder Include="Resources\Images\Maps\" />
     <Folder Include="Resources\Images\Professions\" />
     <Folder Include="Resources\Images\Tilesets\" />

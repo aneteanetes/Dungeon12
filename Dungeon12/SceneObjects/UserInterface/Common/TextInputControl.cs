@@ -3,12 +3,14 @@
     using Dungeon;
     using Dungeon.Control;
     using Dungeon.Control.Keys;
+    using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.GameObjects;
     using Dungeon.SceneObjects;
     using Dungeon.View.Interfaces;
     using System;
     using System.Linq;
+    using System.Text.RegularExpressions;
 
     public class TextInputControl : ColoredRectangle<GameComponentEmpty>
     {
@@ -30,7 +32,9 @@
                 {
                     if (!autofocus)
                     {
-                        focusRect.Opacity = 0.001;
+                        if (!_invisibleBack)
+                            focusRect.Opacity = 0.001;
+
                         freezing = true;
 
                         Global.Freezer.Freeze(this);
@@ -43,7 +47,9 @@
                     if (!autofocus)
                     {
                         freezing = false;
-                        focusRect.Opacity = 0.5;
+
+                        if (!_invisibleBack)
+                            focusRect.Opacity = 0.5;
 
                         Global.Freezer.Unfreeze();
                         //Global.Freezer.UnfreezeHandle(ControlEventType.Key, this);
@@ -74,16 +80,31 @@
 
         public Func<string, bool> Validation { get; set; }
 
-        public TextInputControl(IDrawText drawText, int chars, bool capitalize = false, bool autofocus = true, bool absolute = true, bool onEnterOnBlur = false, double width=0, double height = 0)
+        private bool _invisibleBack;
+        private TextControl _placeholder;
+
+        public TextInputControl(IDrawText drawText, 
+            int chars, 
+            bool capitalize = false, 
+            bool autofocus = true, 
+            bool absolute = true,
+            bool onEnterOnBlur = false, 
+            double width=0, 
+            double height = 0,
+            bool invisibleBack=false,
+            IDrawText placeholder=null,
+            bool carrige=false)
             :base(GameComponentEmpty.Empty)
         {
+            _invisibleBack = invisibleBack;
             AbsolutePosition = absolute;
             limit = chars;
 
             Color = ConsoleColor.Black;
             Depth = 1;
             Fill = true;
-            Opacity = 0.5;
+
+            Opacity = invisibleBack ? 0 : 0.5;
             Round = 5;
 
             this.capitalize = capitalize;
@@ -108,10 +129,15 @@
 
             drawText.SetText("");
 
-            typingText = new TypingText(drawText);
+            typingText = new TypingText(drawText, carrige);
             SetInputTextPosition();
 
             AddChild(typingText);
+
+            if (placeholder != default)
+            {
+                _placeholder = this.AddTextCenter(placeholder);
+            }
 
             if (!autofocus)
             {
@@ -124,7 +150,8 @@
                             OnEnter?.Invoke(Value);
                         }
                         focus = false;
-                        focusRect.Opacity = 0.5;
+                        if (!_invisibleBack)
+                            focusRect.Opacity = 0.5;
                     }
                 };
                 focusRect = new BlurRect()
@@ -133,6 +160,8 @@
                     Height = Height
                 };
                 AddChild(focusRect);
+                if (_invisibleBack)
+                    focusRect.Opacity = 0;
             }
         }
 
@@ -169,13 +198,16 @@
 
             if (key == Key.Enter)
             {
-                focus = false;
-                OnEnter?.Invoke(Value);
+                EnterKeyDown();
             }
 
             if (key == Key.Escape)
             {
+                typingText.HideCarriage();
+
                 focus = false;
+                if (!Value.IsNotEmpty() && _placeholder != default)
+                    _placeholder.Visible = true;
             }
 
             //if (key == Key.Delete)
@@ -193,6 +225,17 @@
             //    }
             //    return;
             //}
+        }
+
+        private void EnterKeyDown()
+        {
+            typingText.HideCarriage();
+
+            focus = false;
+            OnEnter?.Invoke(Value);
+
+            if (!Value.IsNotEmpty() && _placeholder != default)
+                _placeholder.Visible = true;
         }
 
         public Action<string> OnTyping;
@@ -217,6 +260,9 @@
                 if (text == "\u001b")
                     return;
 
+                if (int.TryParse(text, out var num))
+                    return;
+
                 if (text == "\b")
                 {
                     if (innerText.Length > 0)
@@ -224,19 +270,50 @@
                         innerText.SetText(innerText.StringData.Substring(0, innerText.StringData.Length - 1));
                         SetInputTextPosition();
                     }
-                }
-                else
+                }                
+                else if (CleanInput(text).IsNotEmpty() || text==" ")
                 {
+                    if (_placeholder != null)
+                        _placeholder.Visible = false;
+
                     innerText.SetText(innerText.StringData + text);
                     SetInputTextPosition();
                 }
             }
         }
+        static string CleanInput(string strIn)
+        {
+            // Replace invalid characters with empty strings.
+            try
+            {
+                return Regex.Replace(strIn, @"[^\w]", "",
+                                     RegexOptions.None, TimeSpan.FromSeconds(1.5));
+            }
+            // If we timeout when replacing invalid characters,
+            // we should return Empty.
+            catch (RegexMatchTimeoutException)
+            {
+                return String.Empty;
+            }
+        }
 
         public override void Click(PointerArgs args)
         {
+            if (!focus)
+                typingText.ShowCarriage();
+
             focus = true;
+
+            if (_placeholder != default)
+                _placeholder.Visible = false;
             //Change?.Invoke(this);
+        }
+
+        public override void GlobalClick(PointerArgs args)
+        {
+            if (!___focus)
+                EnterKeyDown();
+            base.GlobalClick(args);
         }
 
         public override void ClickRelease(PointerArgs args)
@@ -257,14 +334,17 @@
 
         public override bool AllKeysHandle => true;
 
+        private bool ___focus = false;
         public override void Focus()
         {
+            ___focus = true;
             Opacity = 0.7;
             UpdatePath();
         }
 
         public override void Unfocus()
         {
+            ___focus = false;
             Opacity = 0.5;
             UpdatePath();
         }
@@ -286,15 +366,91 @@
 
         public Action<string> OnEnter { get; set; }
 
-        protected override ControlEventType[] Handles => new ControlEventType[] { ControlEventType.Text, ControlEventType.Key, ControlEventType.Click, ControlEventType.GlobalClickRelease, ControlEventType.ClickRelease };
+        protected override ControlEventType[] Handles => new ControlEventType[] { 
+            ControlEventType.Text, 
+            ControlEventType.Key, 
+            ControlEventType.Click, 
+            ControlEventType.GlobalClick,
+            ControlEventType.GlobalClickRelease, 
+            ControlEventType.ClickRelease };
 
         private class TypingText : TextControl
         {
             public override bool CacheAvailable => false;
 
-            public TypingText(IDrawText text) : base(text)
+            public TextControl carriage;
+
+            public TypingText(IDrawText text, bool IsCarriage) : base(text)
             {
+                if (IsCarriage)
+                {
+                    var carriagetext = text.Copy();
+                    carriagetext.SetText("|");
+
+                    carriage = this.AddTextCenter(carriagetext);
+                    carriage.Left = this.Width;
+                    carriage.Visible = false;
+                    //carriage.Top = this.MeasureText(carriagetext).Y / 4;
+                }
             }
+
+            public void ShowCarriage()
+            {
+                if (carriage != default)
+                {
+                    carriage.Opacity = 1;
+                    carriage.Visible = true;
+                }
+            }
+
+            public void HideCarriage()
+            {
+                if (carriage != default)
+                    carriage.Visible = false;
+            }
+
+            public override void Update(GameTimeLoop gameTime)
+            {
+                if (carriage != default)
+                {
+                    carriage.Left = this.MeasureText(this.Text).X;
+                    if (this.Text.StringData.IsNotEmpty())
+                    {
+                        carriage.Top = this.MeasureText(Text).Y / 6;
+                    }
+
+
+                    if (Time == default || Time < default(TimeSpan))
+                    {
+                        Time = TimeSpan.FromMilliseconds(300);
+                        down = !down;
+                    }
+
+                    Time -= gameTime.ElapsedGameTime;
+
+                    if (down)
+                    {
+                        carriage.Opacity -= opacityMultiplier;
+                        //Description.Opacity -= opacityMultiplier;
+                        //Title.Opacity -= opacityMultiplier;
+
+                    }
+                    else
+                    {
+                        carriage.Opacity += opacityMultiplier;
+                        //Description.Opacity += opacityMultiplier;
+                        //Title.Opacity += opacityMultiplier;
+                    }
+                }
+
+                base.Update(gameTime);
+            }
+
+            public TimeSpan Time { get; set; }
+                        private bool down = false;
+
+
+            public double opacityMultiplier = 0.1;
         }
 
         private class BlurRect : DarkRectangle

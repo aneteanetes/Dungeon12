@@ -1037,6 +1037,12 @@ namespace Dungeon.Monogame
                    ?*/ range.ForegroundColor.A/*
                    : sceneObject.Opacity*/;
 
+            if (sceneObject.Opacity > 0 && sceneObject.Opacity < 1)
+            {
+                var new_value = sceneObject.Opacity * 255;
+                alpha = Convert.ToByte((int)Math.Round(new_value));
+            }
+
             var color = new Color(range.ForegroundColor.R, range.ForegroundColor.G, range.ForegroundColor.B, (byte)alpha);
 
             spriteBatch.End();

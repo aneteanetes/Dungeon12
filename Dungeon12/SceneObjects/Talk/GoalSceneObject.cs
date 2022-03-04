@@ -48,7 +48,7 @@ namespace Dungeon12.SceneObjects.Talk
             base.Focus();
         }
 
-        public Tooltip GetTooltip() => new GoalTooltip(Component.Name, Component.Type);
+        public ISceneObject GetTooltip() => new GoalTooltip(Component.Name, Component.Type);
 
         private class GoalTooltip : Tooltip
         {

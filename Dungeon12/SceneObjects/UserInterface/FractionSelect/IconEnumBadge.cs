@@ -1,5 +1,6 @@
 ﻿using Dungeon;
 using Dungeon.SceneObjects;
+using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.Entities.Enums;
 using Dungeon12.Entities.FractionPolygons;
@@ -40,7 +41,7 @@ namespace Dungeon12.SceneObjects.UserInterface.FractionSelect
             Height = 50;
         }
 
-        public Tooltip GetTooltip()
+        public ISceneObject GetTooltip()
         {
             return new GameTooltip(title, description, description==null ? 0 : 325, description==null);
         }

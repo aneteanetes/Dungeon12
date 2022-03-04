@@ -41,7 +41,7 @@ namespace Dungeon12.Scenes.Create
             {
                 Left = 984,
                 Top = 988,
-                OnClick = () => { }
+                OnClick = () => Next()
             });
 
             layer.AddObject(new ArrowBtn(false)
@@ -82,13 +82,38 @@ namespace Dungeon12.Scenes.Create
             {
                 Party = new Entities.Party()
                 {
-                    Hero1 = new Entities.Hero(),
-                    Hero2 = new Entities.Hero(),
-                    Hero3 = new Entities.Hero(),
+                    Hero1 = new Entities.Hero()
+                    {
+                        Class= Entities.Enums.Archetype.Warrior
+                    },
+                    Hero2 = new Entities.Hero()
+                    {
+                        Class = Entities.Enums.Archetype.Mage
+                    },
+                    Hero3 = new Entities.Hero()
+                    {
+                        Class = Entities.Enums.Archetype.Thief
+                    },
                     Hero4 = new Entities.Hero()
+                    {
+                        Class = Entities.Enums.Archetype.Priest
+                    },
                 },
                 Calendar = new Entities.Calendar()
             };
+        }
+
+        private static void Next()
+        {
+            foreach (var hero in Global.Game.Party.Heroes)
+            {
+                if(hero.Name.IsEmpty())
+                {
+                    hero.Name = Global.Strings.ByProperty($"{hero.Class}{hero.Sex}");
+                }
+
+                System.Console.WriteLine(hero.Name);
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
+using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.Entities.Perks;
 using Dungeon12.SceneObjects.Base;
@@ -33,6 +34,6 @@ namespace Dungeon12.SceneObjects.UserInterface.OriginSelect
 
         public bool ShowTooltip => true;
 
-        public Tooltip GetTooltip() => new GameTooltip(perk?.Name, perk?.Description, 250);
+        public ISceneObject GetTooltip() => new GameTooltip(perk?.Name, perk?.Description, 250);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Dungeon;
 using Dungeon.SceneObjects;
+using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.Entities;
 using Dungeon12.Entities.Enums;
@@ -44,7 +45,7 @@ namespace Dungeon12.SceneObjects.UserInterface.FractionSelect
             this.Image = $"Icons/Skills/tcgcards.png".AsmImg();
         }
 
-        public Tooltip GetTooltip()
+        public ISceneObject GetTooltip()
         {
             return new GameTooltip(title, description, description == null ? 0 : 325, description == null);
         }

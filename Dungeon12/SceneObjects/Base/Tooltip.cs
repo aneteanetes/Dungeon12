@@ -26,6 +26,8 @@
 
         public IDrawText TooltipText { get; set; }
 
+        public override IDrawText Text => TooltipText;
+
         TextControl txt;
 
         public Tooltip(IDrawText drawText, Point position)
@@ -39,21 +41,16 @@
 
             var textSize = MeasureText(drawText);
 
-            Width = textSize.X+10;
-            Height = textSize.Y+5;
+            Width = textSize.X + 10;
+            Height = textSize.Y + 5;
 
-            var text = txt = AddTextCenter(drawText);
-            text.Filtered = false;
+            //var text = txt = AddTextCenter(drawText);
+            //text.Filtered = false;
 
-            TooltipText = text.Text;
+            TooltipText = drawText;
 
             //base.Left = position.X - Width / 2;
             //Top = position.Y;
-        }
-
-        public void SetText(IDrawText text)
-        {
-            txt.SetText(text);
         }
 
         public void SetPosition(Point position)

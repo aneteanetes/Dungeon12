@@ -13,6 +13,17 @@ namespace Dungeon12.Entities
 
         public Hero Hero4 { get; set; }
 
+        public IEnumerable<Hero> Heroes
+        {
+            get
+            {
+                yield return Hero1;
+                yield return Hero2;
+                yield return Hero3;
+                yield return Hero4;
+            }
+        }
+
         public Food Food { get; set; } = new Food();
 
         public Fame Fame { get; set; } = new Fame();

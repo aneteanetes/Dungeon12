@@ -36,8 +36,11 @@ namespace Dungeon.Drawing
             ForegroundColor = foregroundColor;
         }
 
+        private DrawText() { }
+
         public void SetText(string value)
         {
+            value.Trim('\r');
             stringData = value;
         }
 
@@ -446,6 +449,20 @@ namespace Dungeon.Drawing
         public override string ToString()
         {
             return StringData;
+        }
+
+        public IDrawText Copy()
+        {
+            var @new = new DrawText();
+            @new.Size = this.Size;
+            @new.stringData = this.stringData;
+            @new.WordWrap = this.WordWrap;
+            @new.ForegroundColor = this.ForegroundColor;
+            @new.BackgroundColor = this.BackgroundColor;
+            @new.FontAssembly = this.FontAssembly;
+            @new.FontName = this.FontName;
+
+            return @new;
         }
     }
 }

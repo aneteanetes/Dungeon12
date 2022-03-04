@@ -138,7 +138,8 @@
                 MouseButton = mouseButton,
                 X = pos.X,
                 Y = pos.Y,
-                Offset = Offset
+                Offset = Offset,
+                Released=false
             }, Offset);
         }
 
@@ -153,7 +154,8 @@
                 MouseButton = mouseButton,
                 X = pos.X,
                 Y = pos.Y,
-                Offset = Offset
+                Offset = Offset,
+                Released = true
             }, Offset);
         }
 

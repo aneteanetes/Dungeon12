@@ -1,21 +1,19 @@
 ﻿using Dungeon;
 using Dungeon.Control;
-using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
-using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.Entities;
 using Dungeon12.Entities.Enums;
-using Dungeon12.Entities.Talks;
-using Dungeon12.SceneObjects.Base;
 
 namespace Dungeon12.SceneObjects.Create
 {
     public class ClassButton : SceneControl<Hero>, ITooltiped
     {
         Archetype _archetype;
+
+        Selector _selector;
 
         public ClassButton(Hero component, Archetype archetype) : base(component)
         {
@@ -24,6 +22,30 @@ namespace Dungeon12.SceneObjects.Create
             this.Height = 55;
 
             this.Image = $"Enums/Archetype/{archetype}.png".AsmImg();
+            _selector = this.AddChild(new Selector(Component,archetype));
+        }
+
+        private class Selector : SceneControl<Hero>
+        {
+            Archetype _archetype;
+
+            public Selector(Hero c, Archetype archetype) : base(c)
+            {
+                _archetype = archetype;
+                   Image = "UI/start/classselector.png".AsmImg();
+                Width = 60;
+                Height = 60;
+                Left = -2.5;
+                Top = -2.5;
+            }
+
+            public override bool Visible => Component.Class == _archetype;
+        }
+
+        public override void Click(PointerArgs args)
+        {
+            Component.Class = _archetype;
+            base.Click(args);
         }
 
         public IDrawText TooltipText => _archetype.Display().AsDrawText().Gabriela().InSize(12);

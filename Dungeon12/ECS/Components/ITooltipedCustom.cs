@@ -3,12 +3,10 @@ using Dungeon12.SceneObjects.Base;
 
 namespace Dungeon12.ECS.Components
 {
-    public interface ITooltiped
+    public interface ITooltipedCustom
     {
-        IDrawText TooltipText { get; }
-
         bool ShowTooltip { get; }
 
-        void RefreshTooltip();
+        ISceneObject GetTooltip();
     }
 }

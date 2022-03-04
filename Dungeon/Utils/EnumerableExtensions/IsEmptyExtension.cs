@@ -14,6 +14,8 @@
             return @enum != null && @enum.Count() > 0;
         }
 
+        public static bool IsEmpty<T>(this IEnumerable<T> @enum) => !IsNotEmpty<T>(@enum);
+
         public static void ForEach<T>(this IEnumerable<T> @enum, Action<T> action)
         {
             foreach (var item in @enum)

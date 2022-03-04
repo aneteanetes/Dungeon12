@@ -11,6 +11,8 @@ namespace Dungeon.Control
         public double Y { get; set; }
         public Point Offset { get; set; }
 
+        public bool Released { get; set; }
+
         /// <summary>
         /// Флаг указывающий что offset был вычтен
         /// </summary>

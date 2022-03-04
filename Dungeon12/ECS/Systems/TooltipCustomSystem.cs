@@ -16,7 +16,7 @@ namespace Dungeon12.ECS.Systems
             return sceneObject is ITooltipedCustom;
         }
 
-        Dictionary<ITooltipedCustom, Tooltip> Tooltips = new Dictionary<ITooltipedCustom, Tooltip>();
+        Dictionary<ITooltipedCustom, ISceneObject> Tooltips = new Dictionary<ITooltipedCustom, ISceneObject>();
 
         public void ProcessFocus(ISceneObject sceneObject)
         {
@@ -31,14 +31,15 @@ namespace Dungeon12.ECS.Systems
                 Tooltips[tooltiped] = tooltip;
                 SceneLayer.AddObject(tooltip);
 
-                tooltipPosition.X += sceneObject.Width / 2 - Global.DrawClient.MeasureText(tooltip.TooltipText).X / 2;
+                tooltipPosition.X += sceneObject.Width / 2 - Global.DrawClient.MeasureText(tooltip.Text).X / 2;
                 if (tooltipPosition.Y < 0)
                 {
                     tooltipPosition.Y = 5;
                     tooltipPosition.X = sceneObject.Left + sceneObject.Width + 5;
                 }
 
-                tooltip.SetPosition(tooltipPosition);
+                tooltip.Top = tooltipPosition.Y;
+                tooltip.Left = tooltipPosition.X;
                 tooltip.Visible = true;
             }
         }

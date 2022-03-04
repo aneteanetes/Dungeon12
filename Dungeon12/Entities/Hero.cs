@@ -3,12 +3,31 @@ using Dungeon12.Components;
 using Dungeon12.Entities.Enums;
 using Dungeon12.Entities.MapRelated;
 using Dungeon12.Entities.Perks;
+using System;
 using System.Collections.Generic;
 
 namespace Dungeon12.Entities
 {
     public class Hero : IPhysical
     {
+        private Archetype _class;
+        public Archetype Class
+        {
+            get
+            {
+                return _class;
+            }
+            set
+            {
+                ClassChange?.Invoke(_class, value);
+                _class = value;
+            }
+        }
+
+        public Action<Archetype, Archetype> ClassChange;
+
+        public Sex Sex { get; set; }
+
         /// <summary>
         /// Усталость в %
         /// </summary>
@@ -25,7 +44,7 @@ namespace Dungeon12.Entities
                 Tire += percent;
         }
 
-        public string Name { get; set; } = "Adventurer";
+        public string Name { get; set; }
 
         public string Chip { get; set; }
 
@@ -58,5 +77,27 @@ namespace Dungeon12.Entities
         public Fraction? Fraction { get; set; }
 
         public Spec? Spec { get; set; }
+
+        //skills
+
+        public int Landscape { get; set; }
+        public int Eating { get; set; }
+        public int Repair { get; set; }
+        public int Weaponcraft { get; set; }
+
+        public int Portals { get; set; }
+        public int Attension { get; set; }
+        public int Spiritism { get; set; }
+        public int Alchemy { get; set; }
+
+        public int Traps { get; set; }
+        public int Lockpicking { get; set; }
+        public int Stealing { get; set; }
+        public int Leatherwork { get; set; }
+
+        public int Prayers { get; set; }
+        public int FoodStoring { get; set; }
+        public int Trade { get; set; }
+        public int Tailoring { get; set; }
     }
 }
