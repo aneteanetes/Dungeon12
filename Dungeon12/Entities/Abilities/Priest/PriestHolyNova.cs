@@ -11,5 +11,25 @@ namespace Dungeon12.Entities.Abilities.Priest
     public class PriestHolyNova : Ability
     {
         public override Archetype Class => Archetype.Priest;
+
+        public override void Bind()
+        {
+            Name = Global.Strings.PriestHolyNova;
+            Description = Global.Strings.PriestHolyNovaDescT1;
+            Area = new AbilityArea(all: true);
+            Element = Element.HolyMagic;
+            Cooldown = 5;
+            UseRange = AbilRange.Friendly;
+        }
+
+        public override string[] GetTextParams()
+        {
+            return new string[] {
+                $"{Global.Strings.Heal}: {Value}",
+                $"{Global.Strings.Type}: {Element.Display()}",
+                " ",
+                Global.Strings.NotAffectSummoned
+            };
+        }
     }
 }

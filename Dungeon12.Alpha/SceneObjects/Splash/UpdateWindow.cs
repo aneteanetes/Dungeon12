@@ -55,7 +55,7 @@ namespace Dungeon12.SceneObjects.Splash
                 updBtn.Visible = false;
                 var percent = this.AddTextCenter("0%".AsDrawText().Montserrat().InSize(18), true, false);
                 percent.Top += 1;
-                UpdateManager.Download(Global.Platform,Global.Version, model.ToVer, p =>
+                UpdateManager.Download(Global.Platform,Global.Version.ToString(), model.ToVer, p =>
                   {
                       if (p == 100)
                       {

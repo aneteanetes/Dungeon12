@@ -452,6 +452,25 @@ namespace Dungeon.Scenes
             {
                 DoClicks(pointerPressedEventArgs, offset, globalKeyHandlers, (c, a) => c.GlobalClick(a));
             }
+
+            foreach (var control in clickedElements)
+            {
+                try
+                {
+                    foreach (var system in Systems)
+                    {
+                        if (system.IsApplicable(control))
+                        {
+                            system.ProcessClick(pointerPressedEventArgs, control);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DungeonGlobal.Exception(ex);
+                    return;
+                }
+            }
         }
 
         public virtual void OnMouseRelease(PointerArgs pointerPressedEventArgs, Point offset)
@@ -467,6 +486,11 @@ namespace Dungeon.Scenes
             if (globalKeyHandlers.Count() != 0)
             {
                 DoClicks(pointerPressedEventArgs, offset, globalKeyHandlers, (c, a) => c.GlobalClickRelease(a));
+            }
+
+            foreach (var system in Systems)
+            {
+                system.ProcessGlobalClickRelease(pointerPressedEventArgs);
             }
         }
 
@@ -723,6 +747,9 @@ namespace Dungeon.Scenes
                 Systems.Add(system);
             }
         }
+
+        public TSystem GetSystem<TSystem>() where TSystem : ISystem 
+            => Systems.FirstOrDefault(s => s.Is<TSystem>()).As<TSystem>();
 
         public void RemoveSystem(ISystem system)
         {

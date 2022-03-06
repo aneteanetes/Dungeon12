@@ -10,7 +10,69 @@ namespace Dungeon12.Localization
             return this.GetPropertyExpr<string>(nameof);
         }
 
+        public string IgnoreTargetPhysicalDefence { get; set; } = "Игнорирует физическую защиту цели";
+
+        public string Damage { get; set; } = "Урон";
+
+        public string Heal { get; set; } = "Исцеление";
+
+        public string Incoming { get; set; } = "Входящий";
+
+        public string Active { get; set; } = "Действует";
+
+        public string Turn { get; set; } = "Ход";
+
+        public string Turns { get; set; } = "Ходов";
+
+        public string Attack { get; set; } = "Атака";
+
+        public string Defence { get; set; } = "Защита";
+
+        public string Barrier { get; set; } = "Барьер";
+
+        public string Type { get; set; } = "Тип";
+
+        public string Range { get; set; } = "Дальность";
+
+        public string StunChanse { get; set; } = "Шанс оглушить";
+
+        public string Health { get; set; } = "Здоровье";
+
+        public string HealEffective { get; set; } = "Эффективность исцеления";
+
+        public string Sacrifice { get; set; } = "Умирает вместо призвавшего";
+
+        public string Taunt { get; set; } = "Провоцирует";
+
+        public string NotAffectSummoned { get; set; } = "Не действует на призванных существ";
+
+        public string HideAttack { get; set; } = "Скрытая";
+
+        public string EachHandAttack { get; set; } = "Атака оружием в каждой руке";
+
+        public string RightHandAttack { get; set; } = "Атака оружием в правой руке";
+
+        public string LeftHandAttack { get; set; } = "Атака оружием в левой руке";
+
+        public string RangeClose { get; set; } = "Ближний бой";
+
+        public string RangeFar { get; set; } = "Дальний бой";
+
+        public string RangeAny { get; set; } = "Любой";
+
+        public string RangeFriendly { get; set; } = "Дружественная цель";
+
+        public string Summon { get; set; } = "Призыв";
+
+        public string RangeWeaponDepends { get; set; } = "Зависит от оружия";
+
+        public string Healing { get; set; } = "Исцеление";
+
+        public string ElemenentalUnitHis { get; set; } = "Элементаля";
+
         public string Area { get; set; } = "Область";
+
+        public string Cooldown { get; set; } = "Восстановление";
 
         public string EnterCharacterName { get; set; } = "Введите имя персонажа";
 
@@ -111,6 +173,28 @@ namespace Dungeon12.Localization
         public string PriestHolyNova { get; set; } = "Волна света";
         public string PriestAngel { get; set; } = "Помощь ангела";
 
+        //abils descr default
+
+        public string WarriorAttackDescT1 { get; set; } = "Наносит удар тупой стороной оружия по одной цели игнорируя физическую броню.";
+        public string WarriorThrowDescT1 { get; set; } = "Бросает оружие в цель во втором ряду. В следующий ход враг будет атаковать война.";
+        public string WarriorStandDescT1 { get; set; } = "Увеличивает физическую защиту уменьшая урон от способностей.";
+        public string WarriorWarcryDescT1 { get; set; } = "Заставляет всех врагов атаковать война в следующий ход.";
+
+        public string MageArrowAttackDescT1 { get; set; } = "Выпускает магическую стрелу способную нанести урон в любом радиусе.";
+        public string MageAoeDescT1 { get; set; } = "Выпускают сферу огня наносящую урон в небольшом радиусе.";
+        public string MageShieldDescT1 { get; set; } = "Увеличивает физическую и магическую защиту дружественной цели.";
+        public string MageSummonDescT1 { get; set; } = "Призывает элементаля сражающегося на вашей стороне со случайной целью.";
+
+        public string ThiefAttackDescT1 { get; set; } = "Скрытая атака выполняется после любой следующей атаки дружественного существа.";
+        public string ThiefShadowDescT1 { get; set; } = "Атака наносящая урон от магии тьмы двум рядом стоящим целям.";
+        public string ThiefMarkDescT1 { get; set; } = "Удар наносящий небольшой урон но оставляющий метку на цели увеличивающую повреждения.";
+        public string ThiefStepDescT1 { get; set; } = "После активации позволяет совершить два действия подряд в этом ходу.";
+
+        public string PriestAttackDescT1 { get; set; } = "Атака ближнего боя с шансом оглушить врага на один ход.";
+        public string PriestHealDescT1 { get; set; } = "Исцеляет выбранного члена отряда. Не работает на призванных существ.";
+        public string PriestHolyNovaDescT1 { get; set; } = "Волна света исцеляющая всех членов отряда.";
+        public string PriestAngelDescT1 { get; set; } = "Призывает ангела который увеличивает исходящее исцеление и может пожертвовать собой ради жреца.";
+
         // standard names
         public string WarriorFemale { get; set; } = "Аехани";
         public string WarriorMale { get; set; } = "Мадаор";
@@ -120,5 +204,16 @@ namespace Dungeon12.Localization
         public string ThiefFemale { get; set; } = "Гиссель";
         public string PriestMale { get; set; } = "Дженс";
         public string PriestFemale { get; set; } = "Селуа";
+
+        // elements
+
+        public string ElementMental { get; set; } = "Ментальный";
+        public string ElementPhysical { get; set; } = "Физический";
+        public string ElementFire { get; set; } = "Огонь";
+        public string ElementFrost { get; set; } = "Холод";
+        public string ElementMagical { get; set; } = "Магия";
+        public string ElementSpirit { get; set; } = "Дух";
+        public string ElementHoly { get; set; } = "Свет";
+        public string ElementDark { get; set; } = "Тьма";
     }
 }

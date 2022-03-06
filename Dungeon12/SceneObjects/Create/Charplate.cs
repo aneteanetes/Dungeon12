@@ -35,6 +35,7 @@ namespace Dungeon12.SceneObjects.Create
                 Left = 21,
                 Top = 234
             });
+
             textInput = this.AddChild(
                 new TextInputControl(
                     " ".AsDrawText().InSize(16).Gabriela().InColor(Global.CommonColor), 

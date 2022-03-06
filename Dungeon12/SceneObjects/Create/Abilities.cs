@@ -6,6 +6,7 @@ using Dungeon12.ECS.Components;
 using Dungeon12.Entities;
 using Dungeon12.Entities.Abilities;
 using Dungeon12.Entities.Enums;
+using Dungeon12.SceneObjects.Base;
 using System.Linq;
 
 namespace Dungeon12.SceneObjects.Create
@@ -34,7 +35,7 @@ namespace Dungeon12.SceneObjects.Create
             }
         }
 
-        public class AbilityItem : SceneControl<Hero>, ITooltiped
+        public class AbilityItem : SceneControl<Hero>, ITooltiped, IMouseHint
         {
             Ability _ability;
 
@@ -60,6 +61,9 @@ namespace Dungeon12.SceneObjects.Create
             public IDrawText TooltipText => $"{Global.Strings.ByProperty(_ability.ClassName)} ({Global.Strings.LeftMouseButton} - {Global.Strings.Info})".AsDrawText().Gabriela();
 
             public bool ShowTooltip => true;
+
+            public GraphicsTooltip CreateMouseHint()
+                => new GraphicsTooltip(_ability.Name, _ability.Description, GraphicsTooltipSize.AutoByParams, _ability.Area,_ability.Cooldown, _ability.TextParams);
 
             public void RefreshTooltip() { }
         }

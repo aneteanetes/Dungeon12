@@ -11,5 +11,28 @@ namespace Dungeon12.Entities.Abilities.Priest
     public class PriestAngel : Ability
     {
         public override Archetype Class => Archetype.Priest;
+
+        public override void Bind()
+        {
+            Name = Global.Strings.PriestAngel;
+            Description = Global.Strings.PriestAngelDescT1;
+            Element = Element.HolyMagic;
+            Cooldown = 6;
+            UseRange = AbilRange.Summon;
+        }
+
+        public int HealEffective { get; set; } = 30;
+
+        public override string[] GetTextParams()
+        {
+            return new string[] {
+                $"{Global.Strings.Range}: {UseRange.Display()}",
+                $"{Global.Strings.Type}: {Element.Display()}",
+                " ",
+                $"{Global.Strings.HealEffective}: +{HealEffective}%",
+                $"{Global.Strings.Sacrifice}",
+                $"{Global.Strings.Active} {Global.Strings.Turns.ToLowerInvariant()}: 3",
+            };
+        }
     }
 }

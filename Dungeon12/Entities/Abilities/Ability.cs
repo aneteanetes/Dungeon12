@@ -6,13 +6,54 @@ using Dungeon12.Entities.Enums;
 
 namespace Dungeon12.Entities.Abilities
 {
-    public class Ability
+    public abstract class Ability
     {
-        public virtual string Name { get; }
+        public Ability()
+        {
+            Bind();
+            TextParams = GetTextParams();
+        }
+
+        public string Name { get; protected set; }
 
         public string ClassName => this.GetType().Name;
 
+        public virtual int Value { get; set; }
+
+        public int Cooldown { get; set; } = -1;
+
+        public string Description { get; protected set; }
+
+        public AbilityArea Area { get; protected set; }
+
+        public AbilRange UseRange { get; set; }
+
+        public Element Element { get; set; }
+
+        public Ability[] Buffs { get; set; }
+
+        public Ability[] Debuffs { get; set; }
+
+        public string[] TextParams { get; protected set; }
+
         public virtual Archetype Class { get; }
+
+        /// <summary>
+        /// Здесь надо присвоить Name, Description, Area, Element, Range, Cooldown
+        /// </summary>
+        public abstract void Bind();
+
+        /// <summary>
+        /// Получить параметры в виде массива строк:
+        /// <para>
+        /// Атака: 15
+        /// </para>
+        /// <para>
+        /// Тип: Физический
+        /// </para>
+        /// </summary>
+        /// <returns></returns>
+        public abstract string[] GetTextParams();
 
         public static Ability[] ByClass(Archetype archetype) => archetype switch
         {

@@ -34,6 +34,8 @@ namespace Dungeon.View.Interfaces
 
         void AddSystem(ISystem system);
 
+        TSystem GetSystem<TSystem>() where TSystem : ISystem;
+
         void RemoveSystem(ISystem system);
 
     }

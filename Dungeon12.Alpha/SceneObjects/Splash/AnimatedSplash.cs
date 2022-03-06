@@ -56,7 +56,7 @@ namespace Dungeon12.SceneObjects.UI
             {
                 actualVersion = version;
                 var next = Semver.SemVersion.Parse(version);
-                var now = Semver.SemVersion.Parse(Global.Version);
+                var now = Semver.SemVersion.Parse(Global.Version.ToString());
 
                 needUpdate = next > now;
             }
@@ -117,7 +117,7 @@ namespace Dungeon12.SceneObjects.UI
             var upd = new UpdateWindow(new UpdateModel()
             {
                 Notes= UpdateManager.Notes(Global.Platform, actualVersion),
-                FromVer= Global.Version,
+                FromVer= Global.Version.ToString(),
                 ToVer= actualVersion,
                 Cancel=()=>
                 {

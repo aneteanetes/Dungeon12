@@ -28,6 +28,8 @@
 
         void Unfocus();
 
+        bool IsInFocus { get; }
+
         void Click(PointerArgs args);
 
         void ClickRelease(PointerArgs args);

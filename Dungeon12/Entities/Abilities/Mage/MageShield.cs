@@ -11,5 +11,27 @@ namespace Dungeon12.Entities.Abilities.Mage
     public class MageShield : Ability
     {
         public override Archetype Class => Archetype.Mage;
+
+        public override void Bind()
+        {
+            Name = Global.Strings.MageShield;
+            Description = Global.Strings.MageShieldDescT1;
+            Area = new AbilityArea(friendlytarget: true);
+            Element = Element.Magical;
+            Cooldown = 8;
+            UseRange = AbilRange.Friendly;
+        }
+
+        public int BarrierValue { get; set; }
+
+        public override string[] GetTextParams()
+        {
+            return new string[] {
+                $"{Global.Strings.Defence}: +{Value}",
+                $"{Global.Strings.Barrier}: +{BarrierValue}",
+                $"{Global.Strings.Type}: {Element.Display()}",
+                $"{Global.Strings.Range}: {UseRange.Display()}"
+            };
+        }
     }
 }

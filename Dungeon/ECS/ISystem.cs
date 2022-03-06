@@ -1,4 +1,6 @@
-﻿using Dungeon.Utils.AttributesForInformation;
+﻿using Dungeon.Control;
+using Dungeon.Control.Pointer;
+using Dungeon.Utils.AttributesForInformation;
 using Dungeon.View.Interfaces;
 
 namespace Dungeon.ECS
@@ -13,5 +15,9 @@ namespace Dungeon.ECS
         void ProcessFocus(ISceneObject sceneObject);
 
         void ProcessUnfocus(ISceneObject sceneObject);
+
+        void ProcessClick(PointerArgs pointerArgs, ISceneObject sceneObject);
+
+        void ProcessGlobalClickRelease(PointerArgs pointerArgs);
     }
 }

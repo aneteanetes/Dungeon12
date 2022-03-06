@@ -147,7 +147,7 @@
             return control;
         }
 
-        protected bool InFocus { get; private set; }
+        public bool IsInFocus { get; private set; }
 
         public virtual bool HideCursor { get; set; }
 
@@ -155,7 +155,7 @@
 
         public virtual void Focus()
         {
-            InFocus = true;
+            IsInFocus = true;
             if (Cursor != null)
             {
                 DungeonGlobal.DrawClient.SetCursor(("Cursors." + Cursor + ".png").PathImage());
@@ -169,7 +169,7 @@
 
         public virtual void Unfocus()
         {
-            InFocus = false;
+            IsInFocus = false;
             if (Cursor != null || HideCursor)
             {
                 DungeonGlobal.DrawClient.SetCursor("Cursors.common.png".PathImage());

@@ -1,4 +1,6 @@
-﻿using Dungeon.ECS;
+﻿using Dungeon.Control;
+using Dungeon.Control.Pointer;
+using Dungeon.ECS;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
@@ -56,5 +58,9 @@ namespace Dungeon12.ECS.Systems
                 }
             }
         }
+
+        public void ProcessClick(PointerArgs pointerArgs, ISceneObject sceneObject) { }
+
+        public void ProcessGlobalClickRelease(PointerArgs pointerArgs) { }
     }
 }

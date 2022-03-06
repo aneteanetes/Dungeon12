@@ -637,7 +637,7 @@
 
         private void UseAbility()
         {
-            if(!InFocus)
+            if(!IsInFocus)
             {
                 return;
             }

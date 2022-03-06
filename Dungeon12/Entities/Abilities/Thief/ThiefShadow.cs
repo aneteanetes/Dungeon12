@@ -11,5 +11,25 @@ namespace Dungeon12.Entities.Abilities.Thief
     public class ThiefShadow : Ability
     {
         public override Archetype Class => Archetype.Thief;
+
+        public override void Bind()
+        {
+            Name = Global.Strings.ThiefShadow;
+            Description = Global.Strings.ThiefShadowDescT1;
+            Area = new AbilityArea(true, true);
+            Element = Element.DarkMagic;
+            Cooldown = 2;
+            UseRange = AbilRange.Weapon;
+        }
+
+        public override string[] GetTextParams()
+        {
+            return new string[] {
+                $"{Global.Strings.Damage}: {Value}",
+                $"{Global.Strings.Type}: {Element.Display()}",
+                $"{Global.Strings.Range}: {UseRange.Display()}",
+                Global.Strings.RightHandAttack
+            };
+        }
     }
 }

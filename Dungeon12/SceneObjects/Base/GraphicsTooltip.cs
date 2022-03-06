@@ -2,13 +2,14 @@
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.Types;
+using Dungeon.View.Interfaces;
 using Dungeon12.Entities;
 
 namespace Dungeon12.SceneObjects.Base
 {
     public class GraphicsTooltip : EmptySceneObject
     {
-        public GraphicsTooltip(string title, string text, GraphicsTooltipSize size = GraphicsTooltipSize.Two, AbilityArea area = default, params string[] leftparams)
+        public GraphicsTooltip(string title, string text, GraphicsTooltipSize size = GraphicsTooltipSize.Two, AbilityArea area = default,int cooldown=-1, params string[] leftparams)
         {
             this.Width = 355;
 
@@ -24,8 +25,8 @@ namespace Dungeon12.SceneObjects.Base
             description.Top = 45;
 
             descMeasure.Y += 90;
-            BindHeight(size, descMeasure);
-            BindArea(area);
+            BindHeight(size, descMeasure, leftparams);
+            BindArea(area,cooldown);
             BindParams(leftparams);
         }
 
@@ -44,9 +45,29 @@ namespace Dungeon12.SceneObjects.Base
             }
         }
 
-        private void BindHeight(GraphicsTooltipSize size, Point descMeasure)
+        private void BindHeight(GraphicsTooltipSize size, Point descMeasure,string[] leftparams)
         {
             double height = 0;
+
+            if (size == GraphicsTooltipSize.AutoByParams)
+            {
+                if (leftparams.Length <= 2)
+                {
+                    size = GraphicsTooltipSize.Two;
+                }
+                else if (leftparams.Length > 2 && leftparams.Length<5)
+                {
+                    size = GraphicsTooltipSize.Four;
+                }
+                else if (leftparams.Length > 4 && leftparams.Length < 7)
+                {
+                    size = GraphicsTooltipSize.Six;
+                }
+                else if (leftparams.Length > 6)
+                {
+                    size = GraphicsTooltipSize.Eight;
+                }
+            }
 
             if (size == GraphicsTooltipSize.Auto)
             {
@@ -91,18 +112,24 @@ namespace Dungeon12.SceneObjects.Base
             this.Image = $"UI/Tooltips/note{((int)size)}.png".AsmImg();
         }
 
-        private void BindArea(AbilityArea area)
+        private void BindArea(AbilityArea area, int cooldown)
         {
+            if (cooldown > -1)
+            {
+                var cooldowntext = this.AddTextCenter($"{Global.Strings.Cooldown}: {cooldown}".AsDrawText().Gabriela().InColor(Global.DarkColor).InSize(FontSize));
+                cooldowntext.Left = 175;
+                cooldowntext.Top = 142;
+            }
+
             if (area != default)
             {
-                var areatext = this.AddTextCenter(Global.Strings.Area.AsDrawText().Gabriela().InColor(Global.DarkColor).InSize(FontSize));
-                areatext.Left = 197;
-                areatext.Top = 128;
-
                 var posimg = "UI/Tooltips/radiusicon.png";
+
+                bool haveRadius = false;
 
                 if (area.Left)
                 {
+                    haveRadius = true;
                     this.AddChild(new ImageObject(posimg)
                     {
                         Left = 273,
@@ -112,6 +139,7 @@ namespace Dungeon12.SceneObjects.Base
 
                 if (area.Center)
                 {
+                    haveRadius = true;
                     this.AddChild(new ImageObject(posimg)
                     {
                         Left = 286,
@@ -121,6 +149,7 @@ namespace Dungeon12.SceneObjects.Base
 
                 if (area.Right)
                 {
+                    haveRadius = true;
                     this.AddChild(new ImageObject(posimg)
                     {
                         Left = 299,
@@ -130,6 +159,7 @@ namespace Dungeon12.SceneObjects.Base
 
                 if (area.LeftBack)
                 {
+                    haveRadius = true;
                     this.AddChild(new ImageObject(posimg)
                     {
                         Left = 279,
@@ -139,19 +169,30 @@ namespace Dungeon12.SceneObjects.Base
 
                 if (area.RightBack)
                 {
+                    haveRadius = true;
                     this.AddChild(new ImageObject(posimg)
                     {
                         Left = 292,
                         Top = 122
                     });
                 }
+
+                if (haveRadius)
+                {
+                    var areatext = this.AddTextCenter($"{Global.Strings.Area}:".AsDrawText().Gabriela().InColor(Global.DarkColor).InSize(FontSize));
+                    areatext.Left = 175;
+                    areatext.Top = 120;
+                }
             }
         }
+
+        public ISceneObject Host { get; set; }
     }
 
     public enum GraphicsTooltipSize
     {
-        Auto=0,
+        Auto = 0,
+        AutoByParams = 1,
         Two = 2,
         Four = 4,
         Six = 6,
