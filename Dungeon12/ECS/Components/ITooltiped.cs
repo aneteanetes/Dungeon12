@@ -7,7 +7,5 @@ namespace Dungeon12.ECS.Components
         IDrawText TooltipText { get; }
 
         bool ShowTooltip { get; }
-
-        void RefreshTooltip();
     }
 }

@@ -65,6 +65,9 @@
 
         private void OnKeyDown(Keys key)
         {
+            if (key == Keys.P)
+                makingscreenshot = true;
+
             var hold = keysHolds.Contains(key);
 
             SceneManager.Current?.OnKeyDown(new Dungeon.Control.Keys.KeyArgs
@@ -77,6 +80,8 @@
 
 
         Vector2 shadowMaskPosition = Vector2.Zero;
+
+        private bool makingscreenshot = false;
 
         private void OnKeyUp(Keys key)
         {

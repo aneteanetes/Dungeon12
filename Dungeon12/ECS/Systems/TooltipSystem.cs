@@ -38,7 +38,7 @@ namespace Dungeon12.ECS.Systems
                 if (!tooltiped.ShowTooltip)
                     return;
 
-                tooltiped.RefreshTooltip();
+                //tooltiped.RefreshTooltip();
 
                 var tooltipPosition = new Point(sceneObject.ComputedPosition.X, sceneObject.ComputedPosition.Y - 20);
 

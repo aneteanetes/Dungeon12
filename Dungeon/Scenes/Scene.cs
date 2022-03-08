@@ -413,7 +413,7 @@
         public void AddControl(ISceneControl sceneObjectControl)
         {
             CheckLayerExists();
-            ActiveLayer?.AddControl(sceneObjectControl);
+            ActiveLayer?.AddExistedControl(sceneObjectControl);
         }
 
         [Obsolete("Use layers instead")]

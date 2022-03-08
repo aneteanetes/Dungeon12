@@ -9,6 +9,8 @@ namespace Dungeon12
     {
         public Party Party { get; set; }
 
+        public MapRegion MapRegion { get; set; }
+
         public Region Region { get; set; }
 
         public Location Location { get; set; }

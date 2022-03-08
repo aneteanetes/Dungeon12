@@ -11,6 +11,10 @@ namespace Dungeon12.Entities
 
         public double Quality { get; set; } = 5;
 
+        public string Name { get; set; }
+
+        public string Image { get; set; }
+
         public void Restore(List<Hero> heroes, double multiplier = 1)
         {
             if (Value > 0)
@@ -23,5 +27,20 @@ namespace Dungeon12.Entities
                 });
             }
         }
+
+        public void Init()
+        {
+            Components = new List<Food>()
+            {
+                new Food(),
+                new Food(),
+                new Food(),
+                new Food(),
+                new Food(),
+                new Food(),
+            };
+        }
+
+        public List<Food> Components { get; set; }
     }
 }

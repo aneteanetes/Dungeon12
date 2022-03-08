@@ -14,7 +14,7 @@ namespace Dungeon12.SceneObjects.Map
 
         protected override bool SilentTooltip => true;
 
-        public override string Cursor => "take";
+        public override string CursorOld => "take";
 
         public BarrelSceneObject(PlayerSceneObject playerSceneObject, Barrel @object) : base(@object, @object.Name)
         {

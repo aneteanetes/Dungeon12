@@ -101,6 +101,7 @@
     <Folder Include="Resources\Images\Maps\" />
     <Folder Include="Resources\Images\Professions\" />
     <Folder Include="Resources\Images\Tilesets\" />
+    <Folder Include="Resources\Images\UI\layout\" />
     <Folder Include="Resources\Maps\" />
     <Folder Include="Resources\Sounds\" />
   </ItemGroup>

@@ -30,7 +30,7 @@
 
         private NPC NPC => @object.Entity;
 
-        public override string Cursor
+        public override string CursorOld
         {
             get
             {

@@ -53,7 +53,7 @@
                     CacheAvailable = false,
                     AbsolutePosition = this.AbsolutePosition,
                     LayerLevel = 1000,
-                    Cursor = ClickableTooltipCursor
+                    CursorOld = ClickableTooltipCursor
                 };
 
                 var boundInfo = new TooltipBoundInfo

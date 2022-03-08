@@ -6,7 +6,7 @@ namespace Dungeon12.SceneObjects.Map
 {
     public class TransporterSceneObject : ClickActionSceneObject<Transporter>
     {
-        public override string Cursor => "home";
+        public override string CursorOld => "home";
 
         public TransporterSceneObject(PlayerSceneObject playerSceneObject, Transporter @object) : base(@object, @object.Name)
         {

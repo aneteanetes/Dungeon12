@@ -1,5 +1,6 @@
 ﻿using Dungeon.View;
 using Dungeon12.Components;
+using Dungeon12.Entities.Abilities;
 using Dungeon12.Entities.Enums;
 using Dungeon12.Entities.MapRelated;
 using Dungeon12.Entities.Perks;
@@ -21,6 +22,27 @@ namespace Dungeon12.Entities
             {
                 ClassChange?.Invoke(_class, value);
                 _class = value;
+            }
+        }
+
+        public void BindSkills()
+        {
+            switch (Class)
+            {
+                case Archetype.Warrior:
+                    Landscape = Eating = Repair = Weaponcraft = 1;
+                    break;
+                case Archetype.Mage:
+                    Portals = Attension = Spiritism = Alchemy = 1;
+                    break;
+                case Archetype.Thief:
+                    Traps = Lockpicking = Stealing = Leatherwork = 1;
+                    break;
+                case Archetype.Priest:
+                    Prayers = FoodStoring = Trade = Tailoring = 1;
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -57,6 +79,10 @@ namespace Dungeon12.Entities
         public int Hits { get; set; }
 
         public int MaxHits { get; set; }
+
+        public List<Ability> Abilities { get; set; } = new List<Ability>();
+
+        public List<Ability> Effects { get; set; } = new List<Ability>();
 
         public void Heal(int hp)
         {

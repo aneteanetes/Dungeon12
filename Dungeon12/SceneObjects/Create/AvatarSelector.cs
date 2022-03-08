@@ -45,6 +45,8 @@ namespace Dungeon12.SceneObjects.Create
             {
                 AvatarViewer.Image = $"Avatars/{now.Short()}{index}.png".AsmImg();
             };
+            Component.Avatar = AvatarViewer.Image;
+            Component.Sex = Component.Class.Sex(index);
         }
 
         private void Leaf(bool next)

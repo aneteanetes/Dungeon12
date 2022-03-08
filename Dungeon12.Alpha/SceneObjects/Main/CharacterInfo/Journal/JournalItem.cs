@@ -17,7 +17,7 @@ namespace Dungeon12.SceneObjects.Main.CharacterInfo.Journal
 
         public override double SlideOffsetTop => SlideDownCount;
 
-        public override string Cursor => _journalEntry==null ? "info" : "question";
+        public override string CursorOld => _journalEntry==null ? "info" : "question";
 
         public override bool AbsolutePosition => true;
 

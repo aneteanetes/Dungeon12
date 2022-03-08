@@ -26,6 +26,8 @@ namespace Dungeon12.Scenes
 
         public override void Initialize()
         {
+            Global.DrawClient.SetCursor("Cursors/common.png".AsmImg());
+
             var layerBack = this.CreateLayer("back");
             layerBack.AddObject(new ImageObject("d12backl.png".AsmImg())
             {

@@ -38,6 +38,12 @@ namespace Dungeon12
         public static DrawColor CommonColor { get; } = new DrawColor(139, 107, 86);
         public static DrawColor DarkColor { get; } = new DrawColor(19, 11, 6);
 
+        public static DrawColor FractionColorCult { get; } = new DrawColor(8, 73, 14);
+        public static DrawColor FractionColorMages { get; } = new DrawColor(124, 13, 123);
+        public static DrawColor FractionColorExarch { get; } = new DrawColor(239, 255, 0);
+        public static DrawColor FractionColorRogues { get; } = CommonColor;
+        public static DrawColor FractionColorVanguard { get; } = new DrawColor(10, 7, 105);
+
         public static bool RegisterFunction<TFuncClass>() where TFuncClass : IFunction
         {
             var func = typeof(TFuncClass).NewAs<TFuncClass>();

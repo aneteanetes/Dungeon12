@@ -1,15 +1,17 @@
 ﻿using Dungeon;
-using Dungeon.Control.Keys;
 using Dungeon.Drawing.SceneObjects;
+using Dungeon.Resources;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using Dungeon12.ECS.Systems;
+using Dungeon12.Entities.Abilities;
+using Dungeon12.Entities.Enums;
+using Dungeon12.Entities.Map;
 using Dungeon12.SceneObjects.Create;
-using Dungeon12.SceneObjects.UserInterface.Common;
 
 namespace Dungeon12.Scenes.Create
 {
-    public class CreateScene : GameScene<StartScene>
+    public class CreateScene : GameScene<StartScene, RegionScene>
     {
         public CreateScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -104,7 +106,7 @@ namespace Dungeon12.Scenes.Create
             };
         }
 
-        private static void Next()
+        private void Next()
         {
             foreach (var hero in Global.Game.Party.Heroes)
             {
@@ -113,7 +115,26 @@ namespace Dungeon12.Scenes.Create
                     hero.Name = Global.Strings.ByProperty($"{hero.Class}{hero.Sex}");
                 }
 
-                System.Console.WriteLine(hero.Name);
+                hero.Abilities = new System.Collections.Generic.List<Ability>(Ability.ByClass(hero.Class));
+                hero.BindSkills();
+
+                Global.Game.Party.Food.Init();
+
+                //foreach (var startFood in Global.Game.Party.Food.Components)
+                //{
+                //    startFood.Value = 5;
+                //    startFood.Image = "Icons/Food/apple.png".AsmImg();
+                //    startFood.Name = Global.Strings.Apples;
+                //}
+                var startFood = Global.Game.Party.Food.Components[0];
+                startFood.Value = 5;
+                startFood.Image = "Icons/Food/apple.png".AsmImg();
+                startFood.Name = Global.Strings.Apples;
+
+                Global.Game.MapRegion = ResourceLoader.LoadJson<MapRegion>("Regions/FaithIsland.json".AsmRes());
+
+
+                this.Switch<RegionScene>();
             }
         }
     }

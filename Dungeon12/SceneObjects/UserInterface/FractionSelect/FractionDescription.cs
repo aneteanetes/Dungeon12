@@ -83,7 +83,7 @@ namespace Dungeon12.SceneObjects.UserInterface.FractionSelect
                 Top=229,
                 Left=55
             });
-            this.Layer.AddControl(badgeInf);
+            this.Layer.AddExistedControl(badgeInf);
 
 
             var ability = fraction.ToValue<FractionAbilityAttribute, FractionAbility>();
@@ -92,7 +92,7 @@ namespace Dungeon12.SceneObjects.UserInterface.FractionSelect
                 Top = 229,
                 Left = 115
             });
-            this.Layer.AddControl(badge);
+            this.Layer.AddExistedControl(badge);
 
 
             var availablespecs = this.AddTextCenter("Специализации:".AsDrawText().Gabriela().InSize(20));
@@ -107,7 +107,7 @@ namespace Dungeon12.SceneObjects.UserInterface.FractionSelect
                 badge.Top = 229;
                 badge.Left = coordx;
                 coordx += 55;
-                this.Layer.AddControl(badge);
+                this.Layer.AddExistedControl(badge);
             });
         }
 

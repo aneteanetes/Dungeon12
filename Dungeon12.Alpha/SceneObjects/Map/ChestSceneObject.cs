@@ -11,7 +11,7 @@ namespace Dungeon12.SceneObjects.Map
 
         protected override bool SilentTooltip => true;
 
-        public override string Cursor => "take";
+        public override string CursorOld => "take";
 
         protected override bool Loop => false;
 

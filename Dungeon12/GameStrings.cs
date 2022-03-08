@@ -77,6 +77,9 @@ namespace Dungeon12.Localization
         public string EnterCharacterName { get; set; } = "Введите имя персонажа";
 
         public string Abilities { get; set; } = "Способности";
+
+        public string Apples { get; set; } = "Яблоки";
+
         public string Skills { get; set; } = "Навыки";
 
         public string LeftMouseButton { get; set; } = "ЛКМ";
@@ -113,6 +116,16 @@ namespace Dungeon12.Localization
         public override string ___RelativeLocalizationFilesPath => "locale";
 
         public override string ___DefaultLanguageCode => "ru";
+
+        //fractions
+        public string Friendly{ get; set; } = "Арбитры";
+        public string Neutral{ get; set; } = "Нейтралитет";
+        public string Vanguard{ get; set; } = "Авангард";
+        public string MageGuild{ get; set; } = "Гильдия магов";
+        public string Mercenary{ get; set; } = "Наёмники";
+        public string Exarch{ get; set; } = "Экзархат";
+        public string Cult{ get; set; } = "Культ проклятых";
+
 
         //skills
 

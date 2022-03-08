@@ -16,7 +16,7 @@
 
     public class HomeSceneObject : ClickActionSceneObject<Home>
     {
-        public override string Cursor => @object.Merchant == null
+        public override string CursorOld => @object.Merchant == null
             ? "home"
             : "shop";
 

@@ -79,7 +79,7 @@ namespace Dungeon.Scenes
             sceneObject.HighLevelComponent = true;
             if (sceneObject.ControlBinding == null)
             {
-                sceneObject.ControlBinding += this.AddControl;
+                sceneObject.ControlBinding += this.AddExistedControl;
                 sceneObject.ControlBinding += this.RemoveControl;
                 sceneObject.DestroyBinding += this.RemoveObject;
                 sceneObject.ShowInScene += ShowEffectsBinding;
@@ -150,7 +150,7 @@ namespace Dungeon.Scenes
                 }
                 if (effect.ControlBinding == null)
                 {
-                    effect.ControlBinding = this.AddControl;
+                    effect.ControlBinding = this.AddExistedControl;
                 }
 
                 effect.Destroy += () =>
@@ -175,7 +175,7 @@ namespace Dungeon.Scenes
         /// Только добавляет в коллекцию контролов, НЕ ДОБАВЛЯЕТ НА СЦЕНУ
         /// </summary>
         /// <param name="sceneObjectControl"></param>
-        public void AddControl(ISceneControl sceneObjectControl)
+        public void AddExistedControl(ISceneControl sceneObjectControl)
         {
             if (!sceneObjectControls.Contains(sceneObjectControl))
             {
@@ -205,7 +205,7 @@ namespace Dungeon.Scenes
         {
             if (sceneObject is ISceneControl sceneObjectControl)
             {
-                AddControl(sceneObjectControl);
+                AddExistedControl(sceneObjectControl);
             }
 
             foreach (var childSceneObject in sceneObject.Children)

@@ -132,7 +132,20 @@ namespace Dungeon.Engine.Host
             if (spriteBatch.IsOpened)
                 spriteBatch.End();
 
-            GraphicsDevice.SetRenderTarget(null);
+            RenderTarget2D screenshottarget = null;
+
+            if (makingscreenshot)
+            {
+                var pp = GraphicsDevice.PresentationParameters;
+                screenshottarget = new RenderTarget2D(GraphicsDevice, DungeonGlobal.Resolution.Width, DungeonGlobal.Resolution.Height, false,
+                            pp.BackBufferFormat, pp.DepthStencilFormat, pp.MultiSampleCount, pp.RenderTargetUsage);
+
+                GraphicsDevice.SetRenderTarget(screenshottarget);
+            }
+            else
+            {
+                GraphicsDevice.SetRenderTarget(null);
+            }
             
             GraphicsDevice.Clear(Color.Transparent);
 
@@ -179,6 +192,20 @@ namespace Dungeon.Engine.Host
             Draw3D();
             base.Draw(gameTime);
 #endif
+            if (makingscreenshot)
+            {
+                GraphicsDevice.SetRenderTarget(null);
+                var screenpath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Screenshots");
+                if(!Directory.Exists(screenpath))
+                {
+                    Directory.CreateDirectory(screenpath);
+                }
+                using (var f = File.Create(Path.Combine(screenpath, $"Screenshot {DateTime.Now:dd.MM.yyyy HH mm}.png")))
+                {
+                    screenshottarget.SaveAsPng(f, screenshottarget.Width, screenshottarget.Height);
+                }
+                makingscreenshot = false;
+            }
         }
 
 #if Engine

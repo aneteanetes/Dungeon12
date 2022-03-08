@@ -10,7 +10,7 @@
 
     public class LootSceneObject : TooltipClickableSceneObject<Loot>
     {
-        public override string Cursor => "takeloot";
+        public override string CursorOld => "takeloot";
 
         protected override string ClickableTooltipCursor => "takeloot";
 

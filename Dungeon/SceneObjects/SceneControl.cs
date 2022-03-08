@@ -71,7 +71,7 @@
 
         public bool MousePerPixel { get; set; }
 
-        public virtual string Cursor { get; set; } = null;
+        public virtual string CursorOld { get; set; } = null;
 
         protected virtual ControlEventType[] Handles { get; } = null;
 
@@ -156,9 +156,9 @@
         public virtual void Focus()
         {
             IsInFocus = true;
-            if (Cursor != null)
+            if (CursorOld != null)
             {
-                DungeonGlobal.DrawClient.SetCursor(("Cursors." + Cursor + ".png").PathImage());
+                DungeonGlobal.DrawClient.SetCursor(("Cursors." + CursorOld + ".png").PathImage());
             }
             if (HideCursor)
             {
@@ -170,7 +170,7 @@
         public virtual void Unfocus()
         {
             IsInFocus = false;
-            if (Cursor != null || HideCursor)
+            if (CursorOld != null || HideCursor)
             {
                 DungeonGlobal.DrawClient.SetCursor("Cursors.common.png".PathImage());
             }

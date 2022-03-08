@@ -9,7 +9,7 @@
 
     public class MoneySceneObject : TooltipClickableSceneObject<Money>
     {
-        public override string Cursor => "takeloot";
+        public override string CursorOld => "takeloot";
 
         protected override string ClickableTooltipCursor => "takeloot";
 

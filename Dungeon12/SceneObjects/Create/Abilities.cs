@@ -63,7 +63,7 @@ namespace Dungeon12.SceneObjects.Create
             public bool ShowTooltip => true;
 
             public GraphicsTooltip CreateMouseHint()
-                => new GraphicsTooltip(_ability.Name, _ability.Description, GraphicsTooltipSize.AutoByParams, _ability.Area,_ability.Cooldown, _ability.TextParams);
+                => new GraphicsTooltip(_ability.Name, _ability.Description, GraphicsTooltipSize.AutoByParams, _ability.Area,_ability.Cooldown, _ability.GetTextParams());
 
             public void RefreshTooltip() { }
         }
