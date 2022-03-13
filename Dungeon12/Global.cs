@@ -36,6 +36,7 @@ namespace Dungeon12
         public static HelpingSceneObject Helps;
 
         public static DrawColor CommonColor { get; } = new DrawColor(139, 107, 86);
+        public static DrawColor CommonColorLight { get; } = new DrawColor(234, 186, 155);
         public static DrawColor DarkColor { get; } = new DrawColor(19, 11, 6);
 
         public static DrawColor FractionColorCult { get; } = new DrawColor(8, 73, 14);

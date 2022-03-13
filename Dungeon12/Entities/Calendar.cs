@@ -20,6 +20,11 @@ namespace Dungeon12.Entities
 
         public int Year { get; set; } = 1201;
 
+        public string TimeText()
+        {
+            return $"{Time.Hours:00}:{Time.Minutes:00}";
+        }
+
         public string ClockText()
         {
             var dayofweek = ((DayWeek)Week).ToValue<string>();

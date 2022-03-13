@@ -40,6 +40,10 @@
 
         void SetText(string value);
 
+        void AddText(string value);
+
+        void AddLine(string value);
+
         bool Bold { get; set; }
 
         bool CenterAlign { get; }

@@ -47,7 +47,9 @@
             //var text = txt = AddTextCenter(drawText);
             //text.Filtered = false;
 
-            TooltipText = drawText;
+            drawText.SetText(" " + drawText.StringData);
+
+            TooltipText = drawText.SegoeUIBold();
 
             //base.Left = position.X - Width / 2;
             //Top = position.Y;

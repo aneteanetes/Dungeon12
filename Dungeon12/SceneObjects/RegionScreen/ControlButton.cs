@@ -9,12 +9,18 @@ namespace Dungeon12.SceneObjects.RegionScreen
 {
     public class ControlButton : EmptySceneControl, ITooltiped
     {
-        public ControlButton(string img, string tooltipText, Action click)
+        private char _char;
+        private bool _isdisabled;
+
+        public ControlButton(char @char, string tooltipText, Action click, bool isdisabled = false)
         {
-            Height = 77;
-            Width = 77;
+            _isdisabled = isdisabled;
+            _char = @char;
+
+            Height = 75;
+            Width = 75;
             OnClick = click;
-            Image = img.AsmImg();
+            Image = $"UI/layout/btns/{@char}{(isdisabled ? "d" : "")}.png".AsmImg();
             TooltipText = tooltipText.AsDrawText().Gabriela();
         }
 
@@ -24,8 +30,29 @@ namespace Dungeon12.SceneObjects.RegionScreen
 
         public bool ShowTooltip => true;
 
+        public override void Focus()
+        {
+            if (_isdisabled)
+                return;
+
+            Image = $"UI/layout/btns/{_char}a.png".AsmImg();
+            base.Focus();
+        }
+
+        public override void Unfocus()
+        {
+            if (_isdisabled)
+                return;
+
+            Image = $"UI/layout/btns/{_char}.png".AsmImg();
+            base.Unfocus();
+        }
+
         public override void Click(PointerArgs args)
         {
+            if (_isdisabled)
+                return;
+
             OnClick?.Invoke();
             base.Click(args);
         }

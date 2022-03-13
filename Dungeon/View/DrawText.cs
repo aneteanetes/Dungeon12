@@ -44,6 +44,17 @@ namespace Dungeon.Drawing
             stringData = value;
         }
 
+        public void AddText(string value)
+        {
+            value.Trim('\r');
+            stringData += value;
+        }
+
+        public void AddLine(string value)
+        {
+            stringData += Environment.NewLine+ value;
+        }
+
         private string stringData;
         public string StringData
         {

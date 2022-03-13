@@ -322,7 +322,7 @@
 
         public virtual IDrawText Text { get; protected set; }
 
-        public virtual IDrawablePath Path { get; }
+        public virtual IDrawablePath Path { get; set; }
 
         public ICollection<ISceneObject> Children { get; } = new List<ISceneObject>();
 

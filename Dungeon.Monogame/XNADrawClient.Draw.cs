@@ -80,6 +80,8 @@ namespace Dungeon.Engine.Host
             }
         }
 
+        private string prevSceneUid;
+
         protected
 #if !Engine
         override
@@ -205,6 +207,12 @@ namespace Dungeon.Engine.Host
                     screenshottarget.SaveAsPng(f, screenshottarget.Width, screenshottarget.Height);
                 }
                 makingscreenshot = false;
+            }
+
+            if (prevSceneUid != scene.Uid)
+            {
+                scene.Loaded();
+                prevSceneUid = scene.Uid;
             }
         }
 

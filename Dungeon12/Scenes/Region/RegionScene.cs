@@ -20,29 +20,12 @@ namespace Dungeon12.Scenes
         public override void Initialize()
         {
             var back = CreateLayer("background");
+            back.AddObject(new ImageObject("Regions/background.png"));
             back.AddObject(new AreaImage());
-            back.AddObject(new ImageObject("UI/layout/mainframe2.png"));
-            back.AddObject(new ImageObject("UI/layout/bot.png")
+            back.AddObject(new ImageObject("UI/layout/mainframe_a.png"));
+            back.AddObject(new ImageObject("UI/layout/mainframe_c.png")
             {
-                Left = 1400,
-                Top = 518
-            });
-            // wip
-            back.AddObject(new ImageObject("UI/layout/map.png")
-            {
-                Left = 1400
-            });
-            back.AddObject(new ImageObject("Locations/FaithIsland/ship.png")
-            {
-                Left = 1408,
-                Top=11
-            });
-
-
-            back.AddObject(new ImageObject("UI/layout/locationsquares.png")
-            {
-                Left = 1437,
-                Top = 575
+                Top = 864
             });
 
             var ui = CreateLayer("ui");
@@ -51,59 +34,35 @@ namespace Dungeon12.Scenes
             ui.AddSystem(new MouseHintSystem());
             ui.AddSystem(new CursorSystem());
 
-            ui.AddObject(new ControlButton("UI/layout/skillsbtn.png", "[С] Персонажи", CharacterSkills)
-            {
-                Left=40,
-                Top= 895
-            });
-
-            ui.AddObject(new ControlButton("UI/layout/itemsbtn.png", "[I] Экипировка", ItemsAndInventory)
-            {
-                Left=40,
-                Top= 980
-            });
-
-            ui.AddObject(new ControlButton("UI/layout/questbtn.png", "[Q] Журнал", Quests)
-            {
-                Left=1290,
-                Top=895
-            });
-
-            ui.AddObject(new ControlButton("UI/layout/escbtn.png", "[Esc] Меню", EscapeMenu)
-            {
-                Left = 1290,
-                Top = 980
-            });
+            ui.AddObject(new ButtonPanel());
 
             ui.AddObject(new HeroPanel(Global.Game.Party.Hero1)
             {
-                Left=155,
-                Top=890
+                Left = 427,
+                Top = 887
             });
 
             ui.AddObject(new HeroPanel(Global.Game.Party.Hero2)
             {
-                Left = 440,
-                Top = 890
+                Left = 712,
+                Top = 887
             });
 
             ui.AddObject(new HeroPanel(Global.Game.Party.Hero3)
             {
-                Left = 725,
-                Top = 890
+                Left = 997,
+                Top = 887
             });
 
             ui.AddObject(new HeroPanel(Global.Game.Party.Hero4)
             {
-                Left = 1010,
-                Top = 890
+                Left = 1282,
+                Top = 887
             });
-
-            ui.AddObject(new SkillPanel(Global.Game.Party));
 
             ui.AddObject(new FoodPanel(Global.Game.Party)
             {
-                Left = 1020,
+                Left = 1530,
                 Top = 45
             });
 
@@ -111,9 +70,18 @@ namespace Dungeon12.Scenes
             ui.AddObject(new MapRegionPoints(Global.Game.MapRegion));
             ui.AddObject(new InfluencePanel(Global.Game.MapRegion)
             {
-                Left=1175,
-                Top=130
+                Left = 1685,
+                Top = 130
             });
+
+            ui.AddObject(new TextWindow(Global.Game.Log));
+
+            ui.AddObject(new QuestBar(Global.Game.QuestBook));
+        }
+
+        public override void Loaded()
+        {
+            Global.Game.Log.Push("Вы прибываете на Остров Веры");
         }
 
         private void CharacterSkills() { }

@@ -1,6 +1,5 @@
 ﻿using Dungeon.Resources;
 using Dungeon.SceneObjects;
-using Dungeon.Types;
 using Dungeon.View.Enums;
 using Dungeon.View.Interfaces;
 using Microsoft.Xna.Framework;
@@ -412,6 +411,8 @@ namespace Dungeon.Monogame
 
         private List<(ISceneObject sceneObject, double x, double y)> InterfaceObjects = new List<(ISceneObject sceneObject, double x, double y)>();
 
+        public static bool BoundMode = false;
+
         private void DrawSceneObject(ISceneObject sceneObject, double xParent = 0, double yParent = 0, bool batching = false, bool force = false, bool lightIgnoring = false, double parentScale = 0)
         {
             if (!batching && sceneObject.Interface && !lightIgnoring && !sceneObject.AbsolutePosition)
@@ -515,9 +516,22 @@ namespace Dungeon.Monogame
                         .ForEach(t => DrawSceneTile(t, sceneObject, y, x, force));
                 }
 
-                if (sceneObject.Path != null)
+                if (sceneObject.Path != null || BoundMode)
                 {
-                    DrawScenePath(sceneObject.Path, x, y);
+                    if (BoundMode)
+                    {
+                        DrawScenePath(new Dungeon.Drawing.Impl.DrawablePath()
+                        {
+                            Fill=true,
+                            ForegroundColor = Drawing.DrawColor.Red,
+                            BackgroundColor = Drawing.DrawColor.Red,
+                            Depth = 5,
+                            PathPredefined = PathPredefined.Rectangle,
+                            Region = sceneObject.BoundPosition
+                        },x,y);
+                    }
+                    else
+                        DrawScenePath(sceneObject.Path, x, y);
                 }
 
                 if (sceneObject.Text != null)
@@ -1162,7 +1176,7 @@ namespace Dungeon.Monogame
                 var drawColor = new Color(color.R, color.G, color.B, (float)color.Opacity);
                 var pathReg = drawablePath.Region;
 
-                var rect = new Microsoft.Xna.Framework.Rectangle((int)x, (int)y, (int)(pathReg.Width * cell), (int)(pathReg.Height * cell));
+                var rect = new Rectangle((int)x, (int)y, (int)(pathReg.Width * cell), (int)(pathReg.Height * cell));
                 var cornerRadius = drawablePath.Radius;
 
                 if (drawablePath.Fill)
@@ -1175,11 +1189,11 @@ namespace Dungeon.Monogame
                 else
                 {
                     var depth = (int)Math.Round(drawablePath.Depth);
-                    if(depth==0)
+                    if (depth == 0)
                     {
                         depth = 1;
                     }
-                    DrawBorder(rect, depth, drawColor,drawablePath);
+                    DrawBorder(rect, depth, drawColor, drawablePath);
                 }
             }
 

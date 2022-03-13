@@ -10,8 +10,8 @@ namespace Dungeon12.SceneObjects.RegionScreen
     {
         public MapRegionPoints(MapRegion component) : base(component)
         {
-            this.Width = 1380;
-            this.Height = 850;
+            this.Width = Global.Resolution.Width;
+            this.Height = Global.Resolution.Height;
 
             foreach (var point in component.Points)
             {

@@ -28,6 +28,9 @@ namespace Dungeon12.Entities
             }
         }
 
+
+        public bool PortalsActive => Heroes.Any(h => h.Class == Enums.Archetype.Mage);
+
         public Food Food { get; set; } = new Food();
 
         public Fame Fame { get; set; } = new Fame();

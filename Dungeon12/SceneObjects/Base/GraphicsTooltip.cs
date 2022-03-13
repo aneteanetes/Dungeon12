@@ -37,7 +37,7 @@ namespace Dungeon12.SceneObjects.Base
             double paramtop = 120;
             foreach (var leftparam in leftparams)
             {
-                var paramtext = this.AddTextCenter(leftparam.AsDrawText().Gabriela().InColor(Global.DarkColor).InSize(FontSize));
+                var paramtext = this.AddTextCenter(leftparam.AsDrawText().SegoeUIBold().InColor(Global.DarkColor).InSize(FontSize));
                 paramtext.Left = 18;
                 paramtext.Top = paramtop;
 
@@ -116,7 +116,7 @@ namespace Dungeon12.SceneObjects.Base
         {
             if (cooldown > -1)
             {
-                var cooldowntext = this.AddTextCenter($"{Global.Strings.Cooldown}: {cooldown}".AsDrawText().Gabriela().InColor(Global.DarkColor).InSize(FontSize));
+                var cooldowntext = this.AddTextCenter($"{Global.Strings.Cooldown}: {cooldown}".AsDrawText().SegoeUIBold().InColor(Global.DarkColor).InSize(FontSize));
                 cooldowntext.Left = 175;
                 cooldowntext.Top = 142;
             }
@@ -179,7 +179,7 @@ namespace Dungeon12.SceneObjects.Base
 
                 if (haveRadius)
                 {
-                    var areatext = this.AddTextCenter($"{Global.Strings.Area}:".AsDrawText().Gabriela().InColor(Global.DarkColor).InSize(FontSize));
+                    var areatext = this.AddTextCenter($"{Global.Strings.Area}:".AsDrawText().SegoeUIBold().InColor(Global.DarkColor).InSize(FontSize));
                     areatext.Left = 175;
                     areatext.Top = 120;
                 }

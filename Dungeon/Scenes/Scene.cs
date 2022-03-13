@@ -418,5 +418,7 @@
 
         [Obsolete("Use layers instead")]
         public void RemoveControl(ISceneControl sceneObjectControl) => this.LayerList.ForEach(ll => ll.RemoveControl(sceneObjectControl));
+
+        public virtual void Loaded() { }
     }
 }

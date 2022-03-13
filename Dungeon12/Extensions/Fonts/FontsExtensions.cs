@@ -29,6 +29,22 @@
             return drawText;
         }
 
+        public static T SegoeUI<T>(this T drawText) where T : IDrawText
+        {
+            drawText.FontName = "Segoe UI";
+            drawText.FontAssembly = "Dungeon12";
+
+            return drawText;
+        }
+
+        public static T SegoeUIBold<T>(this T drawText) where T : IDrawText
+        {
+            drawText.FontName = "Segoe UI Bold";
+            drawText.FontAssembly = "Dungeon12";
+
+            return drawText;
+        }
+
         public static T Cambria<T>(this T drawText) where T : IDrawText
         {
             drawText.FontName = "Cambria";

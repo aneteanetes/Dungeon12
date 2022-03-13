@@ -19,12 +19,6 @@
 /processorParam:DebugMode=Auto
 /build:Bloom.fx
 
-#begin BloomCrossPlatform.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Auto
-/build:BloomCrossPlatform.fx
-
 #begin fonts/American TextC/American TextC10.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -2299,6 +2293,916 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:fonts/Pieces of Eight Cyrillic AA/Pieces of Eight Cyrillic AA9.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold10.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold10.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold11.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold11.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold12.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold12.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold13.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold13.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold14.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold14.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold15.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold15.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold16.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold16.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold17.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold17.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold18.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold18.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold19.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold19.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold20.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold20.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold21.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold21.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold22.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold22.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold23.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold23.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold24.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold24.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold25.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold25.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold26.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold26.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold27.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold27.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold28.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold28.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold29.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold29.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold30.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold30.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold31.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold31.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold32.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold32.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold33.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold33.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold34.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold34.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold35.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold35.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold36.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold36.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold37.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold37.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold38.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold38.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold39.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold39.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold40.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold40.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold41.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold41.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold42.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold42.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold43.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold43.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold44.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold44.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold45.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold45.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold46.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold46.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold47.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold47.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold48.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold48.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold49.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold49.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold50.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold50.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold51.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold51.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold52.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold52.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold53.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold53.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold54.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold54.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold55.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold55.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold56.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold56.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold57.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold57.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold58.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold58.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold59.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold59.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold60.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold60.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold61.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold61.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold62.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold62.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold63.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold63.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold64.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold64.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold65.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold65.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold66.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold66.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold67.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold67.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold68.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold68.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold69.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold69.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold70.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold70.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold71.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold71.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold72.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold72.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold8.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold8.spritefont
+
+#begin fonts/Segoe UI Bold/Segoe UI Bold9.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI Bold/Segoe UI Bold9.spritefont
+
+#begin fonts/Segoe UI/Segoe UI10.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI10.spritefont
+
+#begin fonts/Segoe UI/Segoe UI11.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI11.spritefont
+
+#begin fonts/Segoe UI/Segoe UI12.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI12.spritefont
+
+#begin fonts/Segoe UI/Segoe UI13.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI13.spritefont
+
+#begin fonts/Segoe UI/Segoe UI14.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI14.spritefont
+
+#begin fonts/Segoe UI/Segoe UI15.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI15.spritefont
+
+#begin fonts/Segoe UI/Segoe UI16.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI16.spritefont
+
+#begin fonts/Segoe UI/Segoe UI17.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI17.spritefont
+
+#begin fonts/Segoe UI/Segoe UI18.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI18.spritefont
+
+#begin fonts/Segoe UI/Segoe UI19.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI19.spritefont
+
+#begin fonts/Segoe UI/Segoe UI20.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI20.spritefont
+
+#begin fonts/Segoe UI/Segoe UI21.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI21.spritefont
+
+#begin fonts/Segoe UI/Segoe UI22.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI22.spritefont
+
+#begin fonts/Segoe UI/Segoe UI23.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI23.spritefont
+
+#begin fonts/Segoe UI/Segoe UI24.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI24.spritefont
+
+#begin fonts/Segoe UI/Segoe UI25.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI25.spritefont
+
+#begin fonts/Segoe UI/Segoe UI26.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI26.spritefont
+
+#begin fonts/Segoe UI/Segoe UI27.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI27.spritefont
+
+#begin fonts/Segoe UI/Segoe UI28.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI28.spritefont
+
+#begin fonts/Segoe UI/Segoe UI29.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI29.spritefont
+
+#begin fonts/Segoe UI/Segoe UI30.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI30.spritefont
+
+#begin fonts/Segoe UI/Segoe UI31.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI31.spritefont
+
+#begin fonts/Segoe UI/Segoe UI32.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI32.spritefont
+
+#begin fonts/Segoe UI/Segoe UI33.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI33.spritefont
+
+#begin fonts/Segoe UI/Segoe UI34.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI34.spritefont
+
+#begin fonts/Segoe UI/Segoe UI35.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI35.spritefont
+
+#begin fonts/Segoe UI/Segoe UI36.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI36.spritefont
+
+#begin fonts/Segoe UI/Segoe UI37.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI37.spritefont
+
+#begin fonts/Segoe UI/Segoe UI38.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI38.spritefont
+
+#begin fonts/Segoe UI/Segoe UI39.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI39.spritefont
+
+#begin fonts/Segoe UI/Segoe UI40.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI40.spritefont
+
+#begin fonts/Segoe UI/Segoe UI41.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI41.spritefont
+
+#begin fonts/Segoe UI/Segoe UI42.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI42.spritefont
+
+#begin fonts/Segoe UI/Segoe UI43.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI43.spritefont
+
+#begin fonts/Segoe UI/Segoe UI44.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI44.spritefont
+
+#begin fonts/Segoe UI/Segoe UI45.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI45.spritefont
+
+#begin fonts/Segoe UI/Segoe UI46.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI46.spritefont
+
+#begin fonts/Segoe UI/Segoe UI47.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI47.spritefont
+
+#begin fonts/Segoe UI/Segoe UI48.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI48.spritefont
+
+#begin fonts/Segoe UI/Segoe UI49.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI49.spritefont
+
+#begin fonts/Segoe UI/Segoe UI50.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI50.spritefont
+
+#begin fonts/Segoe UI/Segoe UI51.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI51.spritefont
+
+#begin fonts/Segoe UI/Segoe UI52.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI52.spritefont
+
+#begin fonts/Segoe UI/Segoe UI53.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI53.spritefont
+
+#begin fonts/Segoe UI/Segoe UI54.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI54.spritefont
+
+#begin fonts/Segoe UI/Segoe UI55.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI55.spritefont
+
+#begin fonts/Segoe UI/Segoe UI56.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI56.spritefont
+
+#begin fonts/Segoe UI/Segoe UI57.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI57.spritefont
+
+#begin fonts/Segoe UI/Segoe UI58.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI58.spritefont
+
+#begin fonts/Segoe UI/Segoe UI59.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI59.spritefont
+
+#begin fonts/Segoe UI/Segoe UI60.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI60.spritefont
+
+#begin fonts/Segoe UI/Segoe UI61.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI61.spritefont
+
+#begin fonts/Segoe UI/Segoe UI62.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI62.spritefont
+
+#begin fonts/Segoe UI/Segoe UI63.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI63.spritefont
+
+#begin fonts/Segoe UI/Segoe UI64.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI64.spritefont
+
+#begin fonts/Segoe UI/Segoe UI65.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI65.spritefont
+
+#begin fonts/Segoe UI/Segoe UI66.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI66.spritefont
+
+#begin fonts/Segoe UI/Segoe UI67.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI67.spritefont
+
+#begin fonts/Segoe UI/Segoe UI68.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI68.spritefont
+
+#begin fonts/Segoe UI/Segoe UI69.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI69.spritefont
+
+#begin fonts/Segoe UI/Segoe UI70.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI70.spritefont
+
+#begin fonts/Segoe UI/Segoe UI71.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI71.spritefont
+
+#begin fonts/Segoe UI/Segoe UI72.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI72.spritefont
+
+#begin fonts/Segoe UI/Segoe UI8.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI8.spritefont
+
+#begin fonts/Segoe UI/Segoe UI9.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Segoe UI/Segoe UI9.spritefont
 
 #begin Greyscale.fx
 /importer:EffectImporter

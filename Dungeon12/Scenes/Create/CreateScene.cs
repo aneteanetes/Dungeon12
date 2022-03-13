@@ -87,7 +87,7 @@ namespace Dungeon12.Scenes.Create
                 {
                     Hero1 = new Entities.Hero()
                     {
-                        Class= Entities.Enums.Archetype.Warrior
+                        Class = Entities.Enums.Archetype.Warrior
                     },
                     Hero2 = new Entities.Hero()
                     {
@@ -102,7 +102,9 @@ namespace Dungeon12.Scenes.Create
                         Class = Entities.Enums.Archetype.Priest
                     },
                 },
-                Calendar = new Entities.Calendar()
+                Calendar = new Entities.Calendar(),
+                Log = new Entities.GameLog(),
+                QuestBook = new Entities.Quests.QuestBook()
             };
         }
 
@@ -132,10 +134,10 @@ namespace Dungeon12.Scenes.Create
                 startFood.Name = Global.Strings.Apples;
 
                 Global.Game.MapRegion = ResourceLoader.LoadJson<MapRegion>("Regions/FaithIsland.json".AsmRes());
-
-
-                this.Switch<RegionScene>();
             }
+
+
+            this.Switch<RegionScene>();
         }
     }
 }
