@@ -10,7 +10,7 @@ namespace Dungeon.Monogame
     {
         private bool Isbold;
 
-        public FontGenerator(string contentFilePath, string fontName, int minSize = 8, int maxSize = 72, bool isBold=false)
+        public FontGenerator(string contentFilePath, string fontName, int minSize = 8, int maxSize = 72, bool isBold=false, int lineSpacing=0)
         {
             this.Isbold = isBold;
             this.contentFilePath = contentFilePath;
@@ -34,8 +34,11 @@ namespace Dungeon.Monogame
             {
                 max = maxSize;
             }
+
+            _lineSpacing = lineSpacing;
         }
 
+        int _lineSpacing = 0;
         int min = 8;
         int max = 72;
         string[] fontNames;
@@ -63,6 +66,14 @@ namespace Dungeon.Monogame
 
                     var content = contentTemplate.Replace("{FontName}", fontName)
                         .Replace("{FontSize}", size.ToString());
+
+                    string linsepace = "";
+                    if (_lineSpacing != 0)
+                    {
+                        linsepace = $"<LineSpacing>{_lineSpacing}</LineSpacing>";
+                    }
+
+                    spriteFont = spriteFont.Replace("{LineSpacing}", linsepace);
 
                     var spritefontPath = Path.Combine(fontFolderName, $"{fontName}{size}.spritefont");
 

@@ -134,7 +134,7 @@ namespace Dungeon12.SceneObjects.UserInterface.SpecSelect
 
         private DrawText Runed(string text)
         {
-            return text.AsDrawText().Runic().InColor(System.ConsoleColor.Black);
+            return text.AsDrawText().Gabriela().InColor(System.ConsoleColor.Black);
         }
     }
 }

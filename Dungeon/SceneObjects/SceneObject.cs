@@ -514,9 +514,11 @@
         [Default(true)]
         public virtual bool Visible
         {
-            get => visible && (Parent?.Visible ?? true);
+            get => (VisibleFunction == null ? visible : VisibleFunction()) && (Parent?.Visible ?? true);
             set => visible = value;
         }
+
+        public Func<bool> VisibleFunction { get; set; }
 
         public virtual int ZIndex { get; set; } = 0;
 

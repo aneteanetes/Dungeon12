@@ -61,7 +61,7 @@ namespace Dungeon12.SceneObjects.TCG
                 this.AddChild(new ImageObject("TCG/kit/design.png".AsmImg()));
                 this.AddChild(new ImageObject($"TCG/kit/banner/{((int)component.Region)}.png".AsmImg()));
 
-                var nametxt = this.AddTextCenter(component.Name.AsDrawText().Cambria().InSize(27).InBold(), true, false, 366);
+                var nametxt = this.AddTextCenter(component.Name.AsDrawText().FrizQuad().InSize(27).InBold(), true, false, 366);
                 nametxt.Left = 47;
                 nametxt.Top = 35;
 

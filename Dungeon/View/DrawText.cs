@@ -2,7 +2,6 @@
 using Dungeon.Settings;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
-using MoreLinq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -132,6 +131,8 @@ namespace Dungeon.Drawing
         public bool WordWrap { get; set; }
 
         public string CompiledFontName { get; set; }
+
+        public int LineSpacing { get; set; }
 
         public void Append(IDrawText drawText) => Append(drawText, true);
 

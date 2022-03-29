@@ -1,17 +1,18 @@
-﻿#if !Engine
-namespace Dungeon.Monogame
-#elif Engine
-namespace Dungeon.Engine.Host
-#endif
+﻿namespace Dungeon.Monogame
 {
     using Dungeon;
     using Dungeon.Drawing;
     using Dungeon.Monogame.Effects;
+    using Dungeon.Resources;
     using Dungeon.Scenes;
     using Dungeon.View.Interfaces;
     using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
+    using MonoGame.Extended.BitmapFonts;
+    using MonoGame.Extended.Content;
+    using MonoGame.Extended.TextureAtlases;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -19,12 +20,7 @@ namespace Dungeon.Engine.Host
     using System.Linq;
     using System.Reflection;
 
-#if !Engine
-
     public partial class XNADrawClient : Game, IDrawClient
-#elif Engine
-    public partial class D3D11Host
-#endif
     {
         public DrawColor ClearColor { get; set; }
 
@@ -52,7 +48,7 @@ namespace Dungeon.Engine.Host
             {
                 PostProcessed[layer].Clear();
             }
-            PostProcessed[layer].Add((processed,monogameEffect));
+            PostProcessed[layer].Add((processed, monogameEffect));
         }
 
         private Dictionary<ISceneLayer, RenderTarget2D> SceneLayers = new Dictionary<ISceneLayer, RenderTarget2D>();
@@ -82,11 +78,7 @@ namespace Dungeon.Engine.Host
 
         private string prevSceneUid;
 
-        protected
-#if !Engine
-        override
-#endif
-        void Draw(Microsoft.Xna.Framework.GameTime gameTime)
+        protected override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
             GraphicsDevice.SetRenderTarget(null);
             GraphicsDevice.Clear(Color.Transparent);
@@ -148,7 +140,7 @@ namespace Dungeon.Engine.Host
             {
                 GraphicsDevice.SetRenderTarget(null);
             }
-            
+
             GraphicsDevice.Clear(Color.Transparent);
 
             spriteBatch.Begin();
@@ -165,7 +157,7 @@ namespace Dungeon.Engine.Host
                         skipForPostProcess = PostProcessed[layerInfo.Key].Any(x => x.effect.NotDrawOriginal);
                     }
 
-                    if(!skipForPostProcess)
+                    if (!skipForPostProcess)
                         spriteBatch.Draw(layerInfo.Value, new Vector2((float)layerInfo.Key.Left, (float)layerInfo.Key.Top), Color.White);
 
                     if (PostProcessed.ContainsKey(layerInfo.Key))
@@ -190,15 +182,14 @@ namespace Dungeon.Engine.Host
                 spriteBatch.End();
             }
 
-#if !Engine
             Draw3D();
             base.Draw(gameTime);
-#endif
+
             if (makingscreenshot)
             {
                 GraphicsDevice.SetRenderTarget(null);
                 var screenpath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Screenshots");
-                if(!Directory.Exists(screenpath))
+                if (!Directory.Exists(screenpath))
                 {
                     Directory.CreateDirectory(screenpath);
                 }
@@ -216,11 +207,7 @@ namespace Dungeon.Engine.Host
             }
         }
 
-#if Engine
-
-    }
-#elif !Engine
-#region frameSettings
+        #region frameSettings
 
         private bool frameEnd;
         private int _frame;
@@ -229,7 +216,7 @@ namespace Dungeon.Engine.Host
         private double _fps;
         Stopwatch _st = Stopwatch.StartNew();
 
-#endregion
+        #endregion
 
         private void DrawDebugInfo()
         {
@@ -270,7 +257,7 @@ namespace Dungeon.Engine.Host
 
                     //spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);
 
-                    spriteBatch.DrawString(font, DungeonGlobal.FPS.ToString(), new Vector2((this.Window.ClientBounds.Width - m)-2, 2), Color.Yellow);
+                    spriteBatch.DrawString(font, DungeonGlobal.FPS.ToString(), new Vector2((this.Window.ClientBounds.Width - m) - 2, 2), Color.Yellow);
                 }
 
                 if (neeedClose)
@@ -315,5 +302,4 @@ namespace Dungeon.Engine.Host
             XNADrawClientImplementation.CacheImage(image);
         }
     }
-#endif
-    }
+}

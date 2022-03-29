@@ -47,13 +47,15 @@ namespace Dungeon.Resources
                 {
                     if (liteDatabase == default)
                     {
-                        liteDatabase = new LiteDatabase(ResourceCompiler.CompilePath);
+                        var path = Path.Combine(ResourceCompiler.MainPath ?? "", "Data", $"{DungeonGlobal.GameAssembly.GetName().Name}.dtr");
+                        liteDatabase = new LiteDatabase(path);
                         DungeonGlobal.Exit += () => liteDatabase.Dispose();
                     }
                     return liteDatabase;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Console.WriteLine(ex);
                     return null;
                 }
             }

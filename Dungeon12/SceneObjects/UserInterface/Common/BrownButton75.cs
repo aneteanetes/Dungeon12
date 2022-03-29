@@ -15,7 +15,7 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
             this.Width = 75;
             this.Height = 75;
 
-            Label = this.AddTextCenter(text.AsDrawText().Triforce().InSize(24));
+            Label = this.AddTextCenter(text.AsDrawText().Gabriela().InSize(24));
         }
 
         private bool _disabled;

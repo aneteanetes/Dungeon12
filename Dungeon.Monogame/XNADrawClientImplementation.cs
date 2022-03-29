@@ -1038,6 +1038,13 @@ namespace Dungeon.Monogame
                 }
             }
 
+            var baseLineSpacing = spriteFont.LineSpacing;
+
+            if (range.LineSpacing != 0)
+            {
+                spriteFont.LineSpacing = range.LineSpacing;
+            }
+
             var txt = range.StringData;
 
             var componentWidth = sceneObject.BoundPosition.Width;
@@ -1072,6 +1079,9 @@ namespace Dungeon.Monogame
             }
 
             spriteBatch.End();
+
+            spriteFont.LineSpacing = baseLineSpacing;
+
             SpriteBatchRestore?.Invoke(false, sceneObject.Filtered);
         }
 

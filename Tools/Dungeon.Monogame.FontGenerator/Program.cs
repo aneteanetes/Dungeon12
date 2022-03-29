@@ -21,7 +21,7 @@ namespace Dungeon.Monogame
             int.TryParse(fontsizeMin, out var min);
             int.TryParse(fontsizeMax, out var max);
 
-            var generator = new FontGenerator(contentFilePath, "Segoe UI Bold", min == default ? 8 : min, max == default ? 72 : max,true);
+            var generator = new FontGenerator(contentFilePath, "Gabriola Bold", min == default ? 24 : min, max == default ? 24 : max,true,2);
             generator.Generate();
         }
     }

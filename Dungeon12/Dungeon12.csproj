@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -101,8 +101,9 @@
     <Folder Include="Resources\Images\Maps\" />
     <Folder Include="Resources\Images\Professions\" />
     <Folder Include="Resources\Images\Tilesets\" />
-    <Folder Include="Resources\Images\UI\layout\" />
+    <Folder Include="Resources\Images\UI\layout\location\" />
     <Folder Include="Resources\Maps\" />
+    <Folder Include="Resources\FontsBitmap\" />
     <Folder Include="Resources\Sounds\" />
   </ItemGroup>
 

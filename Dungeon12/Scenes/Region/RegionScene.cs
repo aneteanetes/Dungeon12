@@ -5,7 +5,6 @@ using Dungeon.Scenes.Manager;
 using Dungeon12.ECS.Systems;
 using Dungeon12.SceneObjects.HeroPanelObjs;
 using Dungeon12.SceneObjects.RegionScreen;
-using Dungeon12.SceneObjects.RegionSkillPanel;
 
 namespace Dungeon12.Scenes
 {

@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6</TargetFramework>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   
   <ItemGroup>
@@ -11,10 +12,6 @@
   
   <ItemGroup>
     <None Remove="Content\Greyscale.fx" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Compile Include="Content\Greyscale.fx" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MonoGame.Content.Builder" Version="3.7.0.4" />

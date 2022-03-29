@@ -48,12 +48,12 @@ namespace Dungeon12.SceneObjects.Talk
 
             foreach (var subj in component.Subjects)
             {
-                if (!Global.Game.State.Dialogues.Contains(subj.SubjectId))
-                {
-                    var sbj = this.AddChildCenter(new SubjectSceneObject(subj));
-                    sbj.Top = top;
-                    top += 52;
-                }
+                //if (!Global.Game.State.Dialogues.Contains(subj.SubjectId))
+                //{
+                //    var sbj = this.AddChildCenter(new SubjectSceneObject(subj));
+                //    sbj.Top = top;
+                //    top += 52;
+                //}
             }
         }
     }

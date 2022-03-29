@@ -2,6 +2,7 @@
 using Dungeon.Control.Gamepad;
 using Dungeon.Control.Keys;
 using Dungeon.Drawing.SceneObjects;
+using Dungeon.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using Dungeon.Tiled;
@@ -16,7 +17,7 @@ using System.Linq;
 
 namespace Dungeon12.Scenes
 {
-    public class StartScene : Dungeon.Scenes.StartScene<MainScene,MapScene,TCGScene, CreateScene>
+    public class StartScene : Dungeon.Scenes.StartScene<MapScene,TCGScene, CreateScene>
     {
         public StartScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -29,11 +30,11 @@ namespace Dungeon12.Scenes
             Global.DrawClient.SetCursor("Cursors/common.png".AsmImg());
 
             var layerBack = this.CreateLayer("back");
-            layerBack.AddObject(new ImageObject("d12backl.png".AsmImg())
-            {
-                Width = Global.Resolution.Width,
-                Height = Global.Resolution.Height
-            });
+            //layerBack.AddObject(new ImageObject("d12backl.png".AsmImg())
+            //{
+            //    Width = Global.Resolution.Width,
+            //    Height = Global.Resolution.Height
+            //});
 
             layerBack.AddObjectCenter(new ImageObject("d12textM.png".AsmImg()), vertical: false);
 
@@ -45,9 +46,31 @@ namespace Dungeon12.Scenes
 
             var ui = this.CreateLayer("ui");
             InitButtons(ui);
+            ui.AddObjectCenter(new TestLineSpacing());
 
             var snow = this.CreateLayer("snow");
             snow.AddObject(new BackgroundSnow());
+        }
+
+        private class TestLineSpacing : EmptySceneObject
+        {
+            public TestLineSpacing()
+            {
+                this.Width = 329;
+                this.Height = 85;
+
+                var txt = @"Бессменный капитан корабля ""Волна Света"" - единственной наемной команды во всем архипелаге."
+                    .AsDrawText()
+                    .Gabriola()
+                    .InSize(24)
+                    .WithWordWrap();
+
+                txt.LineSpacing = 24;
+
+                this.AddTextCenter(txt, false, false);
+                this.AddTextCenter(txt, false, false);
+                this.AddTextCenter(txt, false, false);
+            }
         }
 
         private void InitButtons(SceneLayer ui)

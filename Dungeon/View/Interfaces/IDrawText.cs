@@ -38,6 +38,8 @@
 
         string FontAssembly { get; set; }
 
+        int LineSpacing { get; set; }
+
         void SetText(string value);
 
         void AddText(string value);

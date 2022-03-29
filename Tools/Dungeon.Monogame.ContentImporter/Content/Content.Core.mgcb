@@ -10,6 +10,7 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\MonoGame.Extended.Content.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -929,6 +930,209 @@
 /processorParam:TextureFormat=Compressed
 /build:fonts/Cambria/Cambria9.spritefont
 
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold10.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold10.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold11.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold11.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold12.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold12.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold13.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold13.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold14.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold14.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold15.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold15.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold16.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold16.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold17.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold17.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold18.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold18.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold19.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold19.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold20.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold20.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold21.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold21.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold22.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold22.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold23.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold23.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold24.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold24.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold25.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold25.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold26.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold26.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold27.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold27.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold28.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold28.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold29.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold29.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold30.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold30.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold31.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold31.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold32.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold32.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold33.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold33.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold34.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold34.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold35.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold35.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold36.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold36.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold8.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold8.spritefont
+
+#begin fonts/Friz Quadrata Bold/Friz Quadrata Bold9.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Friz Quadrata Bold/Friz Quadrata Bold9.spritefont
+
 #begin fonts/Gabriela/Gabriela10.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -1383,6 +1587,13 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:fonts/Gabriela/Gabriela9.spritefont
+
+#begin fonts/Gabriola Bold/Gabriola Bold24.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/Gabriola Bold/Gabriola Bold24.spritefont
 
 #begin fonts/Good Vibes Pro/Good Vibes Pro10.spritefont
 /importer:FontDescriptionImporter

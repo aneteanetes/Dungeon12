@@ -86,7 +86,7 @@ namespace Dungeon12.SceneObjects.Talk
                 subj.Unblock();
             }
 
-            Global.Game.State.Dialogues.Add(Component.SubjectId);
+            //Global.Game.State.Dialogues.Add(Component.SubjectId);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Dungeon.Scenes.Manager;
+﻿using Dungeon.SceneObjects;
+using Dungeon.Scenes.Manager;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -46,6 +47,19 @@ namespace Dungeon.Control
             if (freezeWorldObject != null)
                 freezeStack.Push(freezeWorldObject);
             World = @object;
+        }
+
+        public void Freeze(IAutoUnfreeze destroyable)
+        {
+            if (World == destroyable)
+                return;
+
+            if (freezeWorldObject != null)
+                freezeStack.Push(freezeWorldObject);
+
+            World = destroyable;
+
+            destroyable.Destroy += () => Unfreeze();
         }
 
         public void Unfreeze()

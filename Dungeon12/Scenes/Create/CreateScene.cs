@@ -134,6 +134,7 @@ namespace Dungeon12.Scenes.Create
                 startFood.Name = Global.Strings.Apples;
 
                 Global.Game.MapRegion = ResourceLoader.LoadJson<MapRegion>("Regions/FaithIsland.json".AsmRes());
+                Global.Game.MapRegion.BuildGraph();
             }
 
 
