@@ -115,8 +115,6 @@ namespace Dungeon12.SceneObjects.RegionScreen
 
                 Global.Game.State.PointId = Component.Id;
 
-                //Console.WriteLine($"shortest path to {Component.Id}: { string.Join(", ", shortestPath(Component.Id))}");
-
                 this.Layer.AddObjectCenter(new LocationWindow(Component));
 
                 base.Click(args);

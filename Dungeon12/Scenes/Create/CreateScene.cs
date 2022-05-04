@@ -1,4 +1,5 @@
 ﻿using Dungeon;
+using Dungeon.Control.Keys;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Resources;
 using Dungeon.Scenes;
@@ -22,6 +23,7 @@ namespace Dungeon12.Scenes.Create
         public override void Initialize()
         {
             InitGame();
+            Global.AudioPlayer.Music("test4.ogg".AsmMusicRes());
 
             var backlayer = this.CreateLayer("back");
             backlayer.AddObject(new ImageObject("Scenes/create.png")
@@ -139,6 +141,13 @@ namespace Dungeon12.Scenes.Create
 
 
             this.Switch<RegionScene>();
+        }
+
+        protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
+        {
+            if (keyPressed== Key.Escape)
+                this.Switch<StartScene>();
+            base.KeyPress(keyPressed, keyModifiers, hold);
         }
     }
 }

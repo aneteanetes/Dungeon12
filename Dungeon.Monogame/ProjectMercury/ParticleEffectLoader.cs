@@ -7,6 +7,7 @@
     using System.Reflection;
     using System.Xml;
     using System.Xml.Linq;
+    using Dungeon.Types;
     using FastMember;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
@@ -115,6 +116,9 @@
 #if Android
             typeName = $"ProjectMercury.Emitters.{CurrentType}, ProjectMercury.Android";
 #endif
+            Console.WriteLine($"emitter type: {typeName}");
+            var emittype = TypeResolver.GetTypeImpl(typeName);
+            Console.WriteLine(emittype);
             emitter = (Emitter)Activator.CreateInstance(Type.GetType(typeName));
 
             if(asm!=default)

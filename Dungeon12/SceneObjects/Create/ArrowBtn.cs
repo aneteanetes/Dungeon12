@@ -19,6 +19,8 @@ namespace Dungeon12.SceneObjects.Create
             this.Image = $"UI/start/{(right ? "next" : "prev")}.png".AsmImg();
         }
 
+        public override string Image { get => base.Image; set => base.Image=value; }
+
         public Action OnClick { get; set; }
 
         public IDrawText TooltipText => $"{(_right ? Global.Strings.Next : Global.Strings.Cancel)}".AsDrawText().Gabriela();

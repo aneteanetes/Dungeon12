@@ -46,12 +46,16 @@
         public virtual bool AbsolutePositionScene => true;
 
         private SceneLayer _activeLayer;
+        private bool loggedallinactivedlayers=false;
         public SceneLayer ActiveLayer
         {
             get
             {
-                if (_activeLayer == default)
+                if (_activeLayer == default && !loggedallinactivedlayers)
+                {
+                    loggedallinactivedlayers = true;
                     DungeonGlobal.Logger.Log("All layers on Scene is inactive!");
+                }
                 return _activeLayer;
             }
             set
@@ -353,7 +357,7 @@
                 l.Destroy();
             }
 
-            if (!ResourceLoader.NotDisposingResources)
+            if (!ResourceLoader.Settings.EmbeddedMode && !ResourceLoader.NotDisposingResources)
             {
                 Resources.ForEach(r => r.Dispose());
                 Resources.Clear();

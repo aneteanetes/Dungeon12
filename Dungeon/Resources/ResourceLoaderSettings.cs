@@ -11,5 +11,7 @@ namespace Dungeon.Resources
         public Action<string> NotFoundAction { get; set; }
 
         public bool StretchResources { get; set; }
+
+        public bool EmbeddedMode { get; set; }
     }
 }

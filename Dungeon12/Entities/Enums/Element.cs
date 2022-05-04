@@ -1,4 +1,6 @@
-﻿namespace Dungeon12.Entities.Enums
+﻿using System;
+
+namespace Dungeon12.Entities.Enums
 {
     public enum Element
     {
@@ -13,6 +15,13 @@
 
         HolyMagic, // священная магия (радиация)
         DarkMagic, // магия тьмы, ну просто магия ёпт
+    }
+
+    class MyClass
+    {
+        public MyClass()
+        {
+        }
     }
 
     public static class ElementExtensions

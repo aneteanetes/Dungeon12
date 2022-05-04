@@ -2,6 +2,8 @@
 using Dungeon.Monogame;
 using Dungeon.Resources;
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Dungeon12
 {
@@ -14,15 +16,18 @@ namespace Dungeon12
             DungeonGlobal.ComponentUpdateCompatibility = false;
             Console.WriteLine(DungeonGlobal.Version);
 #if DEBUG
-            var resCompiler = new ResourceCompiler();
-            resCompiler.Compile();
+            ResourceLoader.Settings.EmbeddedMode = true;
 
-            DungeonGlobal.ExceptionRethrow = true;
-            DungeonGlobal.GlobalExceptionHandling();
+            //var resCompiler = new ResourceCompiler();
+            //resCompiler.Compile();
+
+            //DungeonGlobal.ExceptionRethrow = true;
+            //DungeonGlobal.GlobalExceptionHandling();
             //ResourceLoader.NotDisposingResources = true;
             //ResourceLoader.CacheImagesAndMasks = false;
 
 #endif      
+            ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver(Assembly.GetExecutingAssembly()));
 
             var client = new MonogameClient(new MonogameClientSettings()
             {

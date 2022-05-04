@@ -48,6 +48,7 @@ namespace Dungeon.Resources
                     if (liteDatabase == default)
                     {
                         var path = Path.Combine(ResourceCompiler.MainPath ?? "", "Data", $"{DungeonGlobal.GameAssembly.GetName().Name}.dtr");
+                        Console.WriteLine(path);
                         liteDatabase = new LiteDatabase(path);
                         DungeonGlobal.Exit += () => liteDatabase.Dispose();
                     }
@@ -72,7 +73,7 @@ namespace Dungeon.Resources
 
             Resource res = default;
 
-            if (db != null)
+            if (db != null && !Settings.EmbeddedMode)
             {
                 try
                 {
@@ -154,7 +155,7 @@ namespace Dungeon.Resources
             }
 
             bool addToScene = !caching;
-            if (NotDisposingResources)
+            if (NotDisposingResources || Settings.EmbeddedMode)
             {
                 addToScene = !(sceneManager ?? DungeonGlobal.SceneManager).Preapering?.Resources.Any(r => r.Path == res.Path) ?? false;
             }

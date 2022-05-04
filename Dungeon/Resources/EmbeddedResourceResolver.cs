@@ -35,6 +35,14 @@ namespace Dungeon.Resources
 
         internal Resource InternalResolve(string contentPath)
         {
+            if (contentPath.Contains(' '))
+            {
+                var split = contentPath.Split(".");
+                var filename = split[^2]+"."+split[^1];
+                var originalPath = contentPath.Replace(filename, "").Replace(" ", "_");
+                contentPath = $"{originalPath}{filename}";
+            }
+
             MemoryStream ms = new MemoryStream();
             using (Stream stream = Assembly.GetManifestResourceStream(contentPath))
             {

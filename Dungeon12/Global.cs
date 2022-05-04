@@ -20,7 +20,14 @@ namespace Dungeon12
         {
             DefaultFontName = "Montserrat";
             BuildLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            ProjectPath = Directory.GetParent(BuildLocation).Parent.Parent.ToString();
+            try
+            {
+                ProjectPath = Directory.GetParent(BuildLocation).Parent.Parent.ToString();
+            }
+            catch
+            {
+                System.Console.WriteLine("ProjectPath variable is not detected Parent.Parent, but its ok for dev build, TODO: dev build");
+            }
         }
 
         public static GameStrings Strings { get; set; } = new GameStrings();

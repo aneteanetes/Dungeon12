@@ -16,41 +16,9 @@ namespace Dungeon12.SceneObjects.RegionScreen
         {
             Global.Freezer.Freeze(this);
 
-            this.Width = 430;
-            this.Height = 460;
-            this.Image = "UI/layout/location/back.png".AsmImg();
-
-            var container = this.AddChild(new EmptySceneObject()
-            {
-                Left = 56,
-                Top = 6,
-                Width = 318,
-                Height = 45
-            });
-
-            container.AddTextCenter(component.Name.AsDrawText().Gabriela().InSize(15).InColor(Global.CommonColor));
-
-            this.AddChild(new ImageObject("UI/layout/location/grid.png")
-            {
-                Width = 376,
-                Height = 376,
-                Left = 27,
-                Top = 63
-            });
-
-            this.AddChild(new ImageObject("UI/layout/location/grida.png")
-            {
-                Width = 376,
-                Height = 376,
-                Left = 27,
-                Top = 63
-            });
-
-            foreach (var info in component.Objects)
-            {
-                var mapobj = ResourceLoader.LoadJson<MapObject>($"Objects/{info.Id}.json");
-                this.AddChild(new ObjectScene(mapobj, info));
-            }
+            this.Width = 970;
+            this.Height = 790;
+            this.Image = "UI/layout/window/frame.png".AsmImg();
 
             if (component.Closeable)
                 this.AddChild(new Close(this));
@@ -70,25 +38,13 @@ namespace Dungeon12.SceneObjects.RegionScreen
 
                 TooltipText = "Закрыть".AsDrawText();
 
-                this.Width = 29;
-                this.Height = 29;
+                this.Width = 60;
+                this.Height = 60;
 
-                this.Left = 399;
-                this.Top = 29;
+                this.Left = 880;
+                this.Top = 18;
 
-                this.Image = "UI/layout/location/x.png".AsmImg();
-            }
-
-            public override void Focus()
-            {
-                this.Image = "UI/layout/location/xa.png".AsmImg();
-                base.Focus();
-            }
-
-            public override void Unfocus()
-            {
-                this.Image = "UI/layout/location/x.png".AsmImg();
-                base.Unfocus();
+                this.Image = "UI/layout/window/framex.png".AsmImg();
             }
 
             public override void Click(PointerArgs args)
@@ -98,40 +54,40 @@ namespace Dungeon12.SceneObjects.RegionScreen
             }
         }
 
-        private class ObjectScene : SceneControl<MapObject>, ITooltiped
-        {
-            ImageObject _border;
+        //private class ObjectScene : SceneControl<MapObject>, ITooltiped
+        //{
+        //    ImageObject _border;
 
-            public ObjectScene(MapObject component, MapObjectInfo info) : base(component)
-            {
-                this.Width = 72;
-                this.Height = 72;
+        //    public ObjectScene(MapObject component, MapObjectInfo info) : base(component)
+        //    {
+        //        this.Width = 72;
+        //        this.Height = 72;
 
-                this.Left = info.X * 76;
-                this.Top = info.Y * 76;
+        //        this.Left = info.X * 76;
+        //        this.Top = info.Y * 76;
 
-                this.Image = $"UI/layout/location/b.png".AsmImg();
-                this.AddChild(new ImageObject($"Icons/{component.Icon}.png"));
-                _border = this.AddChild(new ImageObject($"UI/layout/location/r.png"));
+        //        this.Image = $"UI/layout/location/b.png".AsmImg();
+        //        this.AddChild(new ImageObject($"Icons/{component.Icon}.png"));
+        //        _border = this.AddChild(new ImageObject($"UI/layout/location/r.png"));
 
-                TooltipText = component.Name.AsDrawText();
-            }
+        //        TooltipText = component.Name.AsDrawText();
+        //    }
 
-            public IDrawText TooltipText { get; set; }
+        //    public IDrawText TooltipText { get; set; }
 
-            public bool ShowTooltip => true;
+        //    public bool ShowTooltip => true;
 
-            public override void Focus()
-            {
-                _border.Image = $"UI/layout/location/a.png".AsmImg();
-                base.Focus();
-            }
+        //    public override void Focus()
+        //    {
+        //        _border.Image = $"UI/layout/location/a.png".AsmImg();
+        //        base.Focus();
+        //    }
 
-            public override void Unfocus()
-            {
-                _border.Image = $"UI/layout/location/r.png".AsmImg();
-                base.Unfocus();
-            }
-        }
+        //    public override void Unfocus()
+        //    {
+        //        _border.Image = $"UI/layout/location/r.png".AsmImg();
+        //        base.Unfocus();
+        //    }
+        //}
     }
 }

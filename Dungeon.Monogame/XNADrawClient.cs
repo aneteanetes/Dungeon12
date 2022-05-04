@@ -60,6 +60,9 @@
             var root = Path.GetDirectoryName(entrydll);
             var sdlPath = Path.Combine(root, @"runtimes\win-x64\native\SDL2.dll");
 
+            if (!File.Exists(sdlPath))
+                sdlPath = Path.Combine(root, "SDL2.dll");
+
             var SDL = LoadLibraryW(sdlPath);
 
             var SDL_GetNumVideoDisplays = GetProcAddress(SDL, "SDL_GetNumVideoDisplays");
@@ -314,7 +317,15 @@
 
             DungeonGlobal.TransportVariable = GraphicsDevice;
 
-            SDL_InitMonitors();
+            try
+            {
+                SDL_InitMonitors();
+            }
+            catch
+            {
+#warning todo
+                Console.WriteLine("SDL cant be inited in release mode, TODO: dev build");
+            }
         }
 
         VertexPositionTexture[] floorVerts;

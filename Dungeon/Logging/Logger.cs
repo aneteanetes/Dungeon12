@@ -17,7 +17,13 @@ namespace Dungeon.Logging
             }
         }
 
-        public void Log(string msg) => Logs.Add(msg);
+        public void Log(string msg)
+        {
+#if DEBUG
+            Console.WriteLine("log: " + msg);
+#endif
+            Logs.Add(msg);
+        }
 
         public void Save(string path) => File.WriteAllText(path, string.Join(Environment.NewLine, Logs.Select(x => $"[{x.When}] : {x.Message}").ToList()));
 

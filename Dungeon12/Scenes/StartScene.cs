@@ -1,13 +1,10 @@
 ﻿using Dungeon;
 using Dungeon.Control.Gamepad;
-using Dungeon.Control.Keys;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
-using Dungeon.Tiled;
 using Dungeon.Types;
-using Dungeon.View.Interfaces;
 using Dungeon12.Drawing.SceneObjects;
 using Dungeon12.SceneObjects.UserInterface.Common;
 using Dungeon12.Scenes.Create;
@@ -17,7 +14,7 @@ using System.Linq;
 
 namespace Dungeon12.Scenes
 {
-    public class StartScene : Dungeon.Scenes.StartScene<MapScene,TCGScene, CreateScene>
+    public class StartScene : Dungeon.Scenes.StartScene<TCGScene, CreateScene>
     {
         public StartScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -27,50 +24,22 @@ namespace Dungeon12.Scenes
 
         public override void Initialize()
         {
+            Global.AudioPlayer.Music("test2.ogg".AsmMusicRes());
             Global.DrawClient.SetCursor("Cursors/common.png".AsmImg());
 
             var layerBack = this.CreateLayer("back");
-            //layerBack.AddObject(new ImageObject("d12backl.png".AsmImg())
-            //{
-            //    Width = Global.Resolution.Width,
-            //    Height = Global.Resolution.Height
-            //});
-
+            layerBack.AddObject(new ImageObject("d12backl.png".AsmImg())
+            {
+                Width = Global.Resolution.Width,
+                Height = Global.Resolution.Height
+            });
             layerBack.AddObjectCenter(new ImageObject("d12textM.png".AsmImg()), vertical: false);
-
-            //fogofwar = this.sceneManager.DrawClient.GetEffect("FogOfWar");
-            //fogofwar.Image = "Effects/fow.png".AsmImg();
-            //fogofwar.Size = new Point(1600, 900);
-
-            //layerBack.AddGlobalEffect(fogofwar);
 
             var ui = this.CreateLayer("ui");
             InitButtons(ui);
-            ui.AddObjectCenter(new TestLineSpacing());
 
             var snow = this.CreateLayer("snow");
             snow.AddObject(new BackgroundSnow());
-        }
-
-        private class TestLineSpacing : EmptySceneObject
-        {
-            public TestLineSpacing()
-            {
-                this.Width = 329;
-                this.Height = 85;
-
-                var txt = @"Бессменный капитан корабля ""Волна Света"" - единственной наемной команды во всем архипелаге."
-                    .AsDrawText()
-                    .Gabriola()
-                    .InSize(24)
-                    .WithWordWrap();
-
-                txt.LineSpacing = 24;
-
-                this.AddTextCenter(txt, false, false);
-                this.AddTextCenter(txt, false, false);
-                this.AddTextCenter(txt, false, false);
-            }
         }
 
         private void InitButtons(SceneLayer ui)
@@ -78,7 +47,7 @@ namespace Dungeon12.Scenes
             var data = new (string text, Action click, bool disabled)[]
            {
                 (Global.Strings.NewGame,NewGame,false),
-                (Global.Strings.Save,SaveGame,!InGame),
+               (Global.Strings.Save,SaveGame,!InGame),
                 (Global.Strings.Load,LoadGame,true),
                 (Global.Strings.Settings,Settings,false),
                 (Global.Strings.FastGame,TCG,false),
@@ -184,17 +153,16 @@ namespace Dungeon12.Scenes
 
         private void SaveGame()
         {
-
+            Global.AudioPlayer.Music("test2");
         }
 
         private void LoadGame()
         {
-
+            Global.AudioPlayer.Music("test3");
         }
 
         private void Settings()
         {
-
         }
 
         private void TCG()
