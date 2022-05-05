@@ -7,7 +7,7 @@
     using System.Collections.Generic;
 
     public abstract class MoveableSceneObject<T> : AnimatedSceneObject<T>
-        where T : class, IPhysical, IFrameAnimated
+        where T : class, IFrameAnimated
     {
         public MoveableSceneObject(T @object)
             : base(@object)
@@ -30,11 +30,11 @@
 
         protected void Move(Direction dir)
         {
-            if (Component.PhysicalObject.Move(dir))
-            {
-                var anim = MovementMap[dir];
-                SetAnimation(anim(Component.FrameAnimated));
-            }
+            //if (Component.PhysicalObject.Move(dir))
+            //{
+            //    var anim = MovementMap[dir];
+            //    SetAnimation(anim(Component.FrameAnimated));
+            //}
         }
 
 

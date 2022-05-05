@@ -22,6 +22,45 @@ namespace Dungeon12.SceneObjects.Location_
 
             if (component.Closeable)
                 AddChild(new Close(this));
+
+            foreach (var obj in component.Objects)
+            {
+                this.AddChild(new LocationObject(obj));
+            }
+
+            this.AddChild(new Title(component.Name)
+            {
+                Left=40,
+                Top=24
+            });
+
+            this.AddChild(new Description(component.Description)
+            {
+                Left=40,
+                Top=90
+            });
+        }
+
+        private class Description : EmptySceneObject
+        {
+            public Description(string desc)
+            {
+                this.Width=890;
+                this.Height=63;
+
+                this.AddTextCenter(desc.SegoeUI().InSize(13).InColor(Global.CommonColorLight).WithWordWrap());
+            }
+        }
+
+        private class Title : EmptySceneObject
+        {
+            public Title(string title)
+            {
+                this.Width=830;
+                this.Height=50;
+
+                this.AddTextCenter(title.Gabriela().InSize(26).InColor(Global.CommonColorLight));
+            }
         }
 
         private class Close : EmptySceneControl, ITooltiped

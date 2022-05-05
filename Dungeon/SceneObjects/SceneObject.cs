@@ -14,6 +14,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
 
     [Hidden]
     public abstract class SceneObject<TComponent> : GameComponent, ISceneObject, IFlowable, IMixinContainer
@@ -732,9 +733,24 @@
         TimeSpan frameTime;
         TimeSpan elapsed;
         int frameCount = 0;
-        
-        public override string Image { get; set; }
 
+        private string _image;
+        /// <summary>
+        /// Теперь AsmImg() проставляется автоматом!
+        /// </summary>
+        public override string Image
+        {
+            get => _image;
+            set
+            {
+                _image = value;
+                if (!_image.Contains(".Resources.Images."))
+                {
+                    _image = Assembly.GetCallingAssembly().GetName().Name + ".Resources.Images." + _image.Embedded();
+                }
+            }
+
+        }
         private Rectangle _originalImageRegion;
         private Rectangle _imageRegion;
 

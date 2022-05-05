@@ -2,6 +2,7 @@
 using Dungeon.Drawing;
 using Dungeon.Resources;
 using Dungeon.SceneObjects;
+using Dungeon.View.Interfaces;
 using Dungeon12.Entities;
 using Dungeon12.Entities.Enums;
 using Dungeon12.SceneObjects.UserInterface.Common;
@@ -132,7 +133,7 @@ namespace Dungeon12.SceneObjects.UserInterface.SpecSelect
             Global.Game.Location.Links[0].Polygon.ObjectImage = image + ".png";                        
         }
 
-        private DrawText Runed(string text)
+        private IDrawText Runed(string text)
         {
             return text.AsDrawText().Gabriela().InColor(System.ConsoleColor.Black);
         }

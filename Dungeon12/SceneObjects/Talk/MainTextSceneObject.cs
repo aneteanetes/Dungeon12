@@ -1,6 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Drawing;
 using Dungeon.SceneObjects;
+using Dungeon.View.Interfaces;
 using Dungeon12.Entities.Talks;
 using System.Collections.Generic;
 
@@ -83,7 +84,7 @@ namespace Dungeon12.SceneObjects.Talk
                 texttxt.Left = leftOffset;
             }
 
-            private static DrawText DrawText(string text, DrawColor color = null)
+            private static IDrawText DrawText(string text, DrawColor color = null)
             {
                 if (color == null)
                     color = DrawColor.White;

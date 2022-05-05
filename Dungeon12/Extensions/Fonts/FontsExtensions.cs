@@ -1,9 +1,11 @@
 ﻿namespace Dungeon12
 {
+    using Dungeon;
     using Dungeon.View.Interfaces;
 
     public static class FontsExtensions
     {
+        public static IDrawText Gabriela(this string text) => text.AsDrawText().Gabriela();
 
         public static T Gabriela<T>(this T drawText) where T : IDrawText
         {
@@ -20,6 +22,8 @@
             return drawText;
         }
 
+        public static IDrawText SegoeUI(this string text) => text.AsDrawText().SegoeUI();
+
         public static T SegoeUI<T>(this T drawText) where T : IDrawText
         {
             drawText.FontName = "Segoe UI";
@@ -27,6 +31,7 @@
 
             return drawText;
         }
+        public static IDrawText SegoeUIBold(this string text) => text.AsDrawText().SegoeUIBold();
 
         public static T SegoeUIBold<T>(this T drawText) where T : IDrawText
         {

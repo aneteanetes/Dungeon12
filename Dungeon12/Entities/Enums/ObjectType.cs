@@ -2,6 +2,8 @@
 {
     public enum ObjectType
     {
+        Barrel,
+        Note,
         Item,
         NPC,
         Chest,

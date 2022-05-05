@@ -16,12 +16,14 @@ namespace Dungeon12.Entities.Map
 
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
         public bool Illuminate { get; set; }
 
         public int[] Joins { get; set; } = new int[0];
 
         public bool Closeable { get; set; } = true;
 
-        public List<MapObjectInfo> Objects { get; set; } = new List<MapObjectInfo>();
+        public List<MapObject> Objects { get; set; } = new List<MapObject>();
     }
 }

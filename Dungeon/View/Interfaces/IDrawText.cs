@@ -50,7 +50,7 @@
 
         bool CenterAlign { get; }
 
-        bool WordWrap { get; }
+        bool WordWrap { get; set; }
 
         IDrawText Copy();
     }

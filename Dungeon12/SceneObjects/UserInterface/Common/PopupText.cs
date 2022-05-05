@@ -7,7 +7,7 @@ using System;
 
 namespace Dungeon12.SceneObjects.UserInterface.Common
 {
-    public class PopupText : SceneObject<DrawText>
+    public class PopupText : SceneObject<IDrawText>
     {
         public override bool Filtered => false;
 
@@ -42,7 +42,7 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
         {
         }
 
-        public PopupText(DrawText drawText, Point position, int frames = 30, double speed = 0.06) : base(drawText)
+        public PopupText(IDrawText drawText, Point position, int frames = 30, double speed = 0.06) : base(drawText)
         {
             maxFrames = frames;
             this.Text = Component;

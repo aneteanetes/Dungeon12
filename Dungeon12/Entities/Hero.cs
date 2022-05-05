@@ -1,15 +1,13 @@
 ﻿using Dungeon.View;
-using Dungeon12.Components;
 using Dungeon12.Entities.Abilities;
 using Dungeon12.Entities.Enums;
-using Dungeon12.Entities.MapRelated;
 using Dungeon12.Entities.Perks;
 using System;
 using System.Collections.Generic;
 
 namespace Dungeon12.Entities
 {
-    public class Hero : IPhysical
+    public class Hero 
     {
         private Archetype _class;
         public Archetype Class
@@ -93,8 +91,6 @@ namespace Dungeon12.Entities
         }
 
         public SpriteSheet WalkSpriteSheet { get; set; }
-
-        public MapObject PhysicalObject { get; set; }
 
         public List<Perk> Perks { get; set; } = new List<Perk>();
 

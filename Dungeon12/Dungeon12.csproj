@@ -10,6 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Resources\Icons\**" />
+    <EmbeddedResource Remove="Resources\Icons\**" />
     <None Remove="Resources\**" />
     <EmbeddedResource Include="Resources\**" />
   </ItemGroup>
@@ -24,7 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\MapObjects\" />
+    <Folder Include="Components\Movable\" />
+    <Folder Include="Resources\Loot\" />
   </ItemGroup>
 
 </Project>

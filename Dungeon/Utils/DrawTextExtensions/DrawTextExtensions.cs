@@ -74,38 +74,38 @@ namespace Dungeon
             return drawText;
         }
 
-        public static DrawText InColor(this DrawText drawText, DrawColor drawColor)
+        public static IDrawText InColor(this IDrawText drawText, DrawColor drawColor)
         {
             drawText.ForegroundColor = drawColor;
             drawText.BackgroundColor = drawColor;
             return drawText;
         }
 
-        public static DrawText InColor(this DrawText drawText, IDrawColor drawColor)
+        public static IDrawText InColor(this IDrawText drawText, IDrawColor drawColor)
         {
             drawText.ForegroundColor = drawColor;
             return drawText;
         }
 
-        public static DrawText InColor(this DrawText drawText, ConsoleColor consoleColor)
+        public static IDrawText InColor(this IDrawText drawText, ConsoleColor consoleColor)
         {
             drawText.ForegroundColor = new DrawColor(consoleColor);
             return drawText;
         }
 
-        public static DrawText InSize(this DrawText drawText, long size=12)
+        public static IDrawText InSize(this IDrawText drawText, long size=12)
         {
             drawText.Size = size;
             return drawText;
         }
 
-        public static DrawText InBold(this DrawText drawText)
+        public static IDrawText InBold(this IDrawText drawText)
         {
             drawText.Bold = true;
             return drawText;
         }
 
-        public static DrawText WithWordWrap(this DrawText drawText)
+        public static IDrawText WithWordWrap(this IDrawText drawText)
         {
             drawText.WordWrap = true;
             return drawText;
