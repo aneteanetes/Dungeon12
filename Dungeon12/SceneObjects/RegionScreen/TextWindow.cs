@@ -27,7 +27,7 @@ namespace Dungeon12.SceneObjects.RegionScreen
                 this.Left = 7;
                 this.Top = -2;
                 
-                this.Text = "Загрузка...".AsDrawText().FrizQuad().InSize(10).InColor(Global.CommonColorLight).WithWordWrap();
+                this.Text = "Загрузка...".AsDrawText().SegoeUIBold().InSize(10).InColor(Global.CommonColorLight).WithWordWrap();
             }
 
             public void AddText(string text)

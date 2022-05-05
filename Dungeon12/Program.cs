@@ -16,10 +16,10 @@ namespace Dungeon12
             DungeonGlobal.ComponentUpdateCompatibility = false;
             Console.WriteLine(DungeonGlobal.Version);
 #if DEBUG
-            ResourceLoader.Settings.EmbeddedMode = true;
+            //ResourceLoader.Settings.EmbeddedMode = false;
 
-            //var resCompiler = new ResourceCompiler();
-            //resCompiler.Compile();
+            var resCompiler = new ResourceCompiler();
+            resCompiler.Compile();
 
             //DungeonGlobal.ExceptionRethrow = true;
             //DungeonGlobal.GlobalExceptionHandling();

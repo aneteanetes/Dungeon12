@@ -23,4 +23,8 @@
     <PackageReference Include="HtmlAgilityPack" Version="1.11.40" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\MapObjects\" />
+  </ItemGroup>
+
 </Project>

@@ -195,7 +195,7 @@
                 PreferredBackBufferWidth = settings.WidthPixel,
                 PreferredBackBufferHeight = settings.HeightPixel,
                 SynchronizeWithVerticalRetrace = settings.VerticalSync,
-                PreferredDepthStencilFormat= DepthFormat.Depth24Stencil8
+                PreferredDepthStencilFormat= DepthFormat.Depth24Stencil8,
             };
 
             ResolutionScale = Matrix.Identity;
@@ -328,11 +328,6 @@
             }
         }
 
-        VertexPositionTexture[] floorVerts;
-        // new code:
-        BasicEffect effect;
-
-
         internal XNADrawClientImplementation XNADrawClientImplementation;
 
         protected override void Initialize()
@@ -355,7 +350,10 @@
                 IsMouseVisible = !state.IsConnected;
                 DungeonGlobal.GamePadConnected = state.IsConnected;
 
-           base.Initialize();
+            graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            graphics.ApplyChanges();
+
+            base.Initialize();
         }
 
         protected virtual string GameTitle => "Dungeon 12";

@@ -1,27 +1,27 @@
 ﻿using Dungeon;
 using Dungeon.Control;
-using Dungeon.Drawing.SceneObjects;
-using Dungeon.Resources;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.Entities.Map;
-using Dungeon12.Entities.Objects;
 
-namespace Dungeon12.SceneObjects.RegionScreen
+namespace Dungeon12.SceneObjects.Location_
 {
     public class LocationWindow : SceneControl<MapPoint>, IAutoUnfreeze
     {
         public LocationWindow(MapPoint component) : base(component)
         {
-            Global.Freezer.Freeze(this);
+            DungeonGlobal.Freezer.Freeze(this);
 
-            this.Width = 970;
-            this.Height = 790;
-            this.Image = "UI/layout/window/frame.png".AsmImg();
+            Left = 475;
+            Top=35;
+
+            Width = 970;
+            Height = 790;
+            Image = "UI/Windows/Location/location.png".AsmImg();
 
             if (component.Closeable)
-                this.AddChild(new Close(this));
+                AddChild(new Close(this));
         }
 
         private class Close : EmptySceneControl, ITooltiped
@@ -38,13 +38,13 @@ namespace Dungeon12.SceneObjects.RegionScreen
 
                 TooltipText = "Закрыть".AsDrawText();
 
-                this.Width = 60;
-                this.Height = 60;
+                Width = 60;
+                Height = 60;
 
-                this.Left = 880;
-                this.Top = 18;
+                Left = 880;
+                Top = 18;
 
-                this.Image = "UI/layout/window/framex.png".AsmImg();
+                Image = "UI/Windows/Location/framex.png".AsmImg();
             }
 
             public override void Click(PointerArgs args)

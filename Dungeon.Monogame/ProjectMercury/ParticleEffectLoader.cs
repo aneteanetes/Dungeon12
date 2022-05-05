@@ -116,9 +116,9 @@
 #if Android
             typeName = $"ProjectMercury.Emitters.{CurrentType}, ProjectMercury.Android";
 #endif
-            Console.WriteLine($"emitter type: {typeName}");
+            //Console.WriteLine($"emitter type: {typeName}");
             var emittype = TypeResolver.GetTypeImpl(typeName);
-            Console.WriteLine(emittype);
+            //Console.WriteLine(emittype);
             emitter = (Emitter)Activator.CreateInstance(Type.GetType(typeName));
 
             if(asm!=default)

@@ -6,6 +6,7 @@ using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.Entities.Map;
+using Dungeon12.SceneObjects.Location_;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -115,7 +116,7 @@ namespace Dungeon12.SceneObjects.RegionScreen
 
                 Global.Game.State.PointId = Component.Id;
 
-                this.Layer.AddObjectCenter(new LocationWindow(Component));
+                this.Layer.AddObject(new LocationWindow(Component));
 
                 base.Click(args);
             }
