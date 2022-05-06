@@ -1,4 +1,6 @@
-﻿using Dungeon.SceneObjects;
+﻿using Dungeon.Control.Keys;
+using Dungeon.SceneObjects;
+using Dungeon12.SceneObjects.Stats;
 
 namespace Dungeon12.SceneObjects.RegionScreen
 {
@@ -12,7 +14,7 @@ namespace Dungeon12.SceneObjects.RegionScreen
             this.Left = 1565;
             this.Top = 887;
 
-            this.AddChild(new ControlButton('e', "Персонажи", HeroWindow));
+            this.AddChild(new ControlButton('e', "Персонажи (I)", HeroWindow));
             this.AddChild(new ControlButton('q', "Журнал", QuestWindow)
             {
                 Left=88
@@ -53,9 +55,16 @@ namespace Dungeon12.SceneObjects.RegionScreen
 
         }
 
+        public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
+        {
+            if (key== Key.I)
+                HeroWindow();
+            base.KeyDown(key, modifier, hold);
+        }
+
         private void HeroWindow()
         {
-
+            Global.Windows.Activate<StatsWindow>(this.Layer);
         }
 
         private void QuestWindow()

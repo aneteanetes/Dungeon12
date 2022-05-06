@@ -1,0 +1,33 @@
+﻿using Dungeon.View.Interfaces;
+using Dungeon12.SceneObjects.Stats;
+using System;
+
+namespace Dungeon12
+{
+    public class GlobalWindows
+    {
+        public StatsWindow StatsWindow { get; set; }
+
+        public void Activate<T>(ISceneLayer layer, bool ignoreOpened = false)
+        {
+            switch (typeof(T))
+            {
+                case Type stats when stats==typeof(StatsWindow):
+                    {
+                        if (StatsWindow==null)
+                        {
+                            layer.AddObjectCenter(StatsWindow=new StatsWindow());
+                        }
+                        else if (!ignoreOpened)
+                        {
+                            StatsWindow.Destroy();
+                            StatsWindow = null;
+                        }
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
+    }
+}

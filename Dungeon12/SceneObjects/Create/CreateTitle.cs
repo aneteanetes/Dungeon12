@@ -3,9 +3,9 @@ using Dungeon.SceneObjects;
 
 namespace Dungeon12.SceneObjects.Create
 {
-    public class Title : EmptySceneObject
+    public class CreateTitle : EmptySceneObject
     {
-        public Title()
+        public CreateTitle()
         {
             this.Width = 564;
             this.Height = 124;

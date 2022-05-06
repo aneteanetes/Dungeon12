@@ -13,18 +13,23 @@ namespace Dungeon12.SceneObjects.Base
         {
             this.Width = 355;
 
-            var header = this.AddTextCenter(title.AsDrawText().Gabriela().InColor(Global.CommonColor).InSize(16), vertical: false);
+            var desc = text.AsDrawText().Gabriela().InColor(Global.CommonColorLight).InSize(FontSize).WithWordWrap();
+            var descMeasure = this.MeasureText(desc, new EmptySceneObject() { Width = 320 });
+            this.Height=descMeasure.Y;
+            this.AddBorder();
+
+            var header = this.AddTextCenter(title.AsDrawText().Gabriela().InColor(Global.CommonColorLight).InSize(16), vertical: false);
             header.Top = 5;
 
-            var desc = text.AsDrawText().Gabriela().InColor(Global.DarkColor).InSize(FontSize).WithWordWrap();
 
-            var descMeasure = this.MeasureText(desc, new EmptySceneObject() { Width = 320 });
 
             var description = this.AddTextCenter(desc, vertical: false, parentWidth: 320);
             description.Left = 18;
             description.Top = 45;
 
             descMeasure.Y += 90;
+
+
             BindHeight(size, descMeasure, leftparams);
             BindArea(area,cooldown);
             BindParams(leftparams);
@@ -37,7 +42,7 @@ namespace Dungeon12.SceneObjects.Base
             double paramtop = 120;
             foreach (var leftparam in leftparams)
             {
-                var paramtext = this.AddTextCenter(leftparam.AsDrawText().SegoeUIBold().InColor(Global.DarkColor).InSize(FontSize));
+                var paramtext = this.AddTextCenter(leftparam.AsDrawText().SegoeUIBold().InColor(Global.CommonColorLight).InSize(FontSize));
                 paramtext.Left = 18;
                 paramtext.Top = paramtop;
 
@@ -109,14 +114,14 @@ namespace Dungeon12.SceneObjects.Base
 
             this.Height = height;
 
-            this.Image = $"UI/Tooltips/note{((int)size)}.png".AsmImg();
+            //this.Image = $"UI/Tooltips/note{((int)size)}.png".AsmImg();
         }
 
         private void BindArea(AbilityArea area, int cooldown)
         {
             if (cooldown > -1)
             {
-                var cooldowntext = this.AddTextCenter($"{Global.Strings.Cooldown}: {cooldown}".AsDrawText().SegoeUIBold().InColor(Global.DarkColor).InSize(FontSize));
+                var cooldowntext = this.AddTextCenter($"{Global.Strings.Cooldown}: {cooldown}".AsDrawText().SegoeUIBold().InColor(Global.CommonColorLight).InSize(FontSize));
                 cooldowntext.Left = 175;
                 cooldowntext.Top = 142;
             }
@@ -179,7 +184,7 @@ namespace Dungeon12.SceneObjects.Base
 
                 if (haveRadius)
                 {
-                    var areatext = this.AddTextCenter($"{Global.Strings.Area}:".AsDrawText().SegoeUIBold().InColor(Global.DarkColor).InSize(FontSize));
+                    var areatext = this.AddTextCenter($"{Global.Strings.Area}:".AsDrawText().SegoeUIBold().InColor(Global.CommonColorLight).InSize(FontSize));
                     areatext.Left = 175;
                     areatext.Top = 120;
                 }

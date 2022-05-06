@@ -52,6 +52,8 @@ namespace Dungeon12
         public static DrawColor FractionColorRogues { get; } = CommonColor;
         public static DrawColor FractionColorVanguard { get; } = new DrawColor(10, 7, 105);
 
+        public static GlobalWindows Windows { get; set; } = new GlobalWindows();
+
         public static bool RegisterFunction<TFuncClass>() where TFuncClass : IFunction
         {
             var func = typeof(TFuncClass).NewAs<TFuncClass>();

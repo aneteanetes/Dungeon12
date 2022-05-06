@@ -831,9 +831,15 @@ namespace Dungeon.Monogame
                 effect = new NamedEffect("Greyscale");
             }
 
+            var samplerstate = SamplerState.PointWrap;
+
             if (sceneObject.Blur)
             {
-                BeginDraw(SamplerState.LinearClamp,sceneObject.Filtered, effect: effect);
+                samplerstate =sceneObject.Mode == DrawMode.Normal
+                    ? SamplerState.LinearClamp
+                    : SamplerState.LinearWrap;
+
+                BeginDraw(samplerstate, sceneObject.Filtered, effect: effect);
 
                 if (sceneObject.Scale > 0)
                 {
@@ -848,10 +854,18 @@ namespace Dungeon.Monogame
             }
             else
             {
+                samplerstate =sceneObject.Mode == DrawMode.Normal
+                    ? SamplerState.PointWrap
+                    : SamplerState.LinearWrap;
+
                 if (sceneObject.ImageInvertColor)
                 {
                     color = Color.Black;
-                    BeginDraw(filter: sceneObject.Filtered,colorInvert:true,effect:effect);
+                    BeginDraw(samplerstate, filter: sceneObject.Filtered, colorInvert: true, effect: effect);
+                }
+                else if (sceneObject.Mode!= DrawMode.Normal)
+                {
+                    //BeginDraw(samplerstate, filter: sceneObject.Filtered);
                 }
 
                 if (sceneObject.Scale > 0)
@@ -1131,6 +1145,8 @@ namespace Dungeon.Monogame
             }
         }
 
+        Dictionary<Color, Texture2D> dummyTextureCache = new Dictionary<Color, Texture2D>();
+
         private void DrawScenePath(IDrawablePath drawablePath, double x, double y)
         {
             if (drawablePath.PathPredefined == PathPredefined.Rectangle)
@@ -1145,8 +1161,11 @@ namespace Dungeon.Monogame
 
                 if (drawablePath.Fill)
                 {
-                    var dummyTexture = new Texture2D(GraphicsDevice, 1, 1);
-                    dummyTexture.SetData(new Color[] { drawColor });
+                    if (!dummyTextureCache.TryGetValue(drawColor, out var dummyTexture))
+                    {
+                        dummyTextureCache.Add(drawColor, dummyTexture= new Texture2D(GraphicsDevice, 1, 1));
+                        dummyTexture.SetData(new Color[] { drawColor });
+                    }
 
                     spriteBatch.Draw(dummyTexture, rect, drawColor);
                 }

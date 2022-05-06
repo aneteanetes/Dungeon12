@@ -13,6 +13,8 @@
 
         public ITileMap TileMap { get; set; }
 
+        DrawMode Mode { get; set; }
+
         /// <summary>
         /// Host layer
         /// </summary>

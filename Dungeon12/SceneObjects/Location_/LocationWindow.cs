@@ -4,6 +4,7 @@ using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.Entities.Map;
+using Dungeon12.SceneObjects.Base;
 
 namespace Dungeon12.SceneObjects.Location_
 {
@@ -49,17 +50,6 @@ namespace Dungeon12.SceneObjects.Location_
                 this.Height=63;
 
                 this.AddTextCenter(desc.SegoeUI().InSize(13).InColor(Global.CommonColorLight).WithWordWrap());
-            }
-        }
-
-        private class Title : EmptySceneObject
-        {
-            public Title(string title)
-            {
-                this.Width=830;
-                this.Height=50;
-
-                this.AddTextCenter(title.Gabriela().InSize(26).InColor(Global.CommonColorLight));
             }
         }
 

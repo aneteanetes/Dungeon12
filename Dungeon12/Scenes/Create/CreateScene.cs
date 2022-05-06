@@ -38,7 +38,7 @@ namespace Dungeon12.Scenes.Create
             layer.AddSystem(new TooltipCustomSystem());
             layer.AddSystem(new MouseHintSystem());
 
-            var title = new Title();
+            var title = new CreateTitle();
             layer.AddObjectCenter(title, vertical: false);
             title.Top = 25;
 

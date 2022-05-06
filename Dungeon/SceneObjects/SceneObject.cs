@@ -760,6 +760,8 @@
 
         public virtual bool IsMonochrome { get; set; }
 
+        public virtual DrawMode Mode { get; set; } = DrawMode.Normal;
+
         public void PlayAnimation(Animation animation)
         {
             if (InAnimation && animation.Name == this.animation.Name)

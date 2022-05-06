@@ -228,5 +228,7 @@ namespace Dungeon12.Localization
         public string ElementSpirit { get; set; } = "Дух";
         public string ElementHoly { get; set; } = "Свет";
         public string ElementDark { get; set; } = "Тьма";
+
+        public string PartyInventory { get; set; } = "Инвентарь отряда";
     }
 }

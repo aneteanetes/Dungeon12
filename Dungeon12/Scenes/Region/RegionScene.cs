@@ -5,6 +5,7 @@ using Dungeon.Scenes.Manager;
 using Dungeon12.ECS.Systems;
 using Dungeon12.SceneObjects.HeroPanelObjs;
 using Dungeon12.SceneObjects.RegionScreen;
+using Dungeon12.SceneObjects.Stats;
 
 namespace Dungeon12.Scenes
 {
@@ -15,6 +16,8 @@ namespace Dungeon12.Scenes
         }
 
         public override bool Destroyable => true;
+
+        private SceneLayer ui;
 
         public override void Initialize()
         {
@@ -28,7 +31,7 @@ namespace Dungeon12.Scenes
                 Top = 864
             });
 
-            var ui = CreateLayer("ui");
+            ui = CreateLayer("ui");
 
             ui.AddSystem(new TooltipSystem());
             ui.AddSystem(new MouseHintSystem());
@@ -97,6 +100,10 @@ namespace Dungeon12.Scenes
             if (keyPressed == Key.Escape)
             {
                 this.Switch<StartScene>();
+            }
+            else if (keyPressed == Key.I && !hold)
+            {
+                Global.Windows.Activate<StatsWindow>(ui);
             }
 
             base.KeyPress(keyPressed, keyModifiers, hold);
