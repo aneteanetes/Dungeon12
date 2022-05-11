@@ -79,7 +79,7 @@ namespace Dungeon12.SceneObjects.UserInterface.SpecSelect
                 btn.OnClick = () =>
                 {
                     Global.Game.Party.Hero1.Spec = spec;
-                    Global.Game.Party.Hero1.MaxHits = Global.Game.Party.Hero1.Hits = SpecInfo.Health * 50;
+                    //Global.Game.Party.Hero1.MaxHits = Global.Game.Party.Hero1.Hits = SpecInfo.Health * 50;
                     Global.Game.Party.Hero1.Chip = $"SpecChips/{spec}.png".AsmImg();
 
                     SetAssistanceSpec(spec);

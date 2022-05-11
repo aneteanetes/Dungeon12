@@ -70,7 +70,7 @@ namespace Dungeon12.SceneObjects.RegionScreen
 
             private class GoalLine : SceneObject<Goal>
             {
-                private TextControl _counter;
+                private TextObject _counter;
 
                 public GoalLine(Goal component) : base(component)
                 {

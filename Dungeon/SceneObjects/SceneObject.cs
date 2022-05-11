@@ -29,6 +29,14 @@
         /// </summary>
         public SceneObject(TComponent component, bool bindView = true)
         {
+            if (this is IAutoFreeze)
+            {
+                if (this is IAutoUnfreeze unfreeze)
+                    DungeonGlobal.Freezer.Freeze(unfreeze);
+                else //not possible now
+                    DungeonGlobal.Freezer.Freeze(this);
+            }
+
             if (bindView && component != default)
             {
                 BindGameComponent(component);
@@ -91,13 +99,13 @@
             }
         }
 
-        public TextControl AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical = true, double parentWidth=0)
+        public TextObject AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical = true, double parentWidth=0)
         {
             var boundObj = parentWidth == 0
                 ? this as ISceneObject
                 : new EmptySceneObject() { Width = parentWidth, Height = this.Height };
 
-            var textControl = new TextControl(drawText);
+            var textControl = new TextObject(drawText);
             var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text, parentWidth==0
                 ? this
                 : new EmptySceneObject() { Width = parentWidth });
@@ -126,7 +134,35 @@
             return textControl;
         }
 
-        public void CenterText(TextControl textControl, bool horizontal = true, bool vertical = true, double parentWidth = 0)
+        public TextObject AddText(IDrawText text, double left, double top)
+        {
+            var txt = new TextObject(text)
+            {
+                Left=left,
+                Top=top
+            };
+
+            return this.AddChild(txt);
+        }
+
+        public TextObject AddTextPos(IDrawText text, double left, double top, double width, double height, bool alignCenter = true)
+        {
+            var textControl = new TextObject(text);
+
+            textControl.Left = left;
+            textControl.Top=top;
+            textControl.Width = width;
+            textControl.Height = height;
+
+            var m = this.MeasureText(text);
+
+            textControl.Left -= m.X / 2 - width / 2;
+            textControl.Top -= m.Y / 2 - height / 2;
+
+            return this.AddChild(textControl);
+        }
+
+        public void CenterText(TextObject textControl, bool horizontal = true, bool vertical = true, double parentWidth = 0)
         {
             var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text, parentWidth == 0
                 ? this
@@ -199,7 +235,7 @@
             }
             else
             {
-                var textControl = new TextControl(drawText);
+                var textControl = new TextObject(drawText);
                 Children.Add(textControl);
             }
 

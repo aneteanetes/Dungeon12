@@ -17,7 +17,7 @@ namespace Dungeon12.SceneObjects.Map
 
         public class ExploreTitleSceneObject : DarkRectangle
         {
-            private TextControl text;
+            private TextObject text;
             private ImageObject titleline;
 
             public ExploreTitleSceneObject(string titletext)

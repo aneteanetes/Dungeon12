@@ -8,7 +8,7 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
 {
     public class MapButton : EmptySceneControl
     {
-        readonly TextControl Label;
+        readonly TextObject Label;
 
         public MapButton()
         {

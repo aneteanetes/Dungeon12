@@ -331,9 +331,9 @@ namespace Dungeon12.SceneObjects
 
         private class PlateObject : ImageObject
         {
-            public TextControl Title { get; private set; }
+            public TextObject Title { get; private set; }
 
-            public TextControl Description { get; private set; }
+            public TextObject Description { get; private set; }
 
             public ImageObject Line { get; private set; }
 

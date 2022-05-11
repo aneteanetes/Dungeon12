@@ -7,8 +7,18 @@ using System.Collections.Generic;
 
 namespace Dungeon12.Entities
 {
-    public class Hero 
+    public class Hero : Battler
     {
+        public int FreePoints { get; set; } = 0;
+
+        public int Strength { get; set; } = 10;
+
+        public int Agility { get; set; } = 10;
+
+        public int Intellegence { get; set; } = 10;
+
+        public int Stamina { get; set; } = 10;
+
         private Archetype _class;
         public Archetype Class
         {
@@ -28,24 +38,44 @@ namespace Dungeon12.Entities
             switch (Class)
             {
                 case Archetype.Warrior:
-                    Landscape = Eating = Repair = Weaponcraft = 1;
+                    Landscape = Eating = Repair = Weaponcraft = 0;
                     break;
                 case Archetype.Mage:
-                    Portals = Attension = Spiritism = Alchemy = 1;
+                    Portals = Attension = Spiritism = Alchemy = 0;
                     break;
                 case Archetype.Thief:
-                    Traps = Lockpicking = Stealing = Leatherwork = 1;
+                    Traps = Lockpicking = Stealing = Leatherwork = 0;
                     break;
                 case Archetype.Priest:
-                    Prayers = FoodStoring = Trade = Tailoring = 1;
+                    Prayers = FoodStoring = Trade = Tailoring = 0;
                     break;
                 default:
                     break;
             }
         }
 
-        public Action<Archetype, Archetype> ClassChange;
+        public int SkillValue(Skill skill) => skill switch
+        {
+            Skill.Landscape => Landscape,
+            Skill.Eating => Eating,
+            Skill.Repair => Repair,
+            Skill.Weaponcraft => Weaponcraft,
+            Skill.Portals => Portals,
+            Skill.Attension => Attension,
+            Skill.Spiritism => Spiritism,
+            Skill.Alchemy => Alchemy,
+            Skill.Traps => Traps,
+            Skill.Lockpicking => Lockpicking,
+            Skill.Stealing => Stealing,
+            Skill.Leatherwork => Leatherwork,
+            Skill.Prayers => Prayers,
+            Skill.FoodStoring => FoodStoring,
+            Skill.Trade => Trade,
+            Skill.Tailoring => Tailoring,
+            _ => 0,
+        };
 
+        public Action<Archetype, Archetype> ClassChange;
         public Sex Sex { get; set; }
 
         /// <summary>
@@ -68,15 +98,7 @@ namespace Dungeon12.Entities
 
         public string Chip { get; set; }
 
-        public int Level { get; set; } = 1;
-
-        public int FreePoints { get; set; } = 2;
-
         public string Avatar { get; set; }
-
-        public int Hits { get; set; }
-
-        public int MaxHits { get; set; }
 
         public List<Ability> Abilities { get; set; } = new List<Ability>();
 
@@ -84,10 +106,7 @@ namespace Dungeon12.Entities
 
         public void Heal(int hp)
         {
-            if (Hits + hp > MaxHits)
-                Hits = MaxHits;
-            else
-                Hits += hp;
+            Hp.Add(hp);
         }
 
         public SpriteSheet WalkSpriteSheet { get; set; }

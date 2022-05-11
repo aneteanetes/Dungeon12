@@ -51,7 +51,7 @@ namespace Dungeon12.SceneObjects.Talk
         private class ReplyClickSceneObject : SceneControl<ReplicaLine>
         {
             private ImageObject icon;
-            private TextControl text;
+            private TextObject text;
 
             public ReplyClickSceneObject(ReplicaLine component) : base(component)
             {
@@ -59,7 +59,7 @@ namespace Dungeon12.SceneObjects.Talk
                 this.Height = 50;
 
                 this.AddChild(icon = new ImageObject($"Talk/1.png".AsmImg()));
-                this.AddChild(text = new TextControl("-".AsDrawText().Gabriela().InSize(16))
+                this.AddChild(text = new TextObject("-".AsDrawText().Gabriela().InSize(16))
                 {
                     Left = 55,
                     Top = 15

@@ -61,7 +61,7 @@ namespace Dungeon12.SceneObjects.UserInterface.ConfirmHero
             CellsSceneObject.Active.Close();
             Global.Game.Location.IsActivable = false;
             Global.Game.Location.Reveal();
-            Global.Game.HeroPlate1.ReLoad(Global.Game.Party.Hero1);
+            //Global.Game.HeroPlate1.ReLoad(Global.Game.Party.Hero1);
         }
 
         private void Close()

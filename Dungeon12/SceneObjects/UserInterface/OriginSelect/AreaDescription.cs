@@ -17,7 +17,7 @@ namespace Dungeon12.SceneObjects.UserInterface.OriginSelect
 
         private EmptySceneObject Description;
 
-        private TextControl bonustext;
+        private TextObject bonustext;
 
         private MapButton button;
 
@@ -152,8 +152,8 @@ namespace Dungeon12.SceneObjects.UserInterface.OriginSelect
             }
             else
             {
-                var txt1 = Title1.Children.First().As<TextControl>();
-                var txt2 = Title2.Children.First().As<TextControl>();
+                var txt1 = Title1.Children.First().As<TextObject>();
+                var txt2 = Title2.Children.First().As<TextObject>();
 
                 txt1.SetText(titletext1);
                 txt2.SetText(titletext2);
@@ -161,7 +161,7 @@ namespace Dungeon12.SceneObjects.UserInterface.OriginSelect
                 Title1.CenterText(txt1);
                 Title2.CenterText(txt2);
 
-                Description.Children.First().As<TextControl>().SetText(desctext);
+                Description.Children.First().As<TextObject>().SetText(desctext);
             }
 
             button.Visible = component.Selectable;

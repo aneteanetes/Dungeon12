@@ -81,7 +81,7 @@
         public Func<string, bool> Validation { get; set; }
 
         private bool _invisibleBack;
-        private TextControl _placeholder;
+        private TextObject _placeholder;
 
         public TextInputControl(IDrawText drawText, 
             int chars, 
@@ -374,11 +374,11 @@
             ControlEventType.GlobalClickRelease, 
             ControlEventType.ClickRelease };
 
-        private class TypingText : TextControl
+        private class TypingText : TextObject
         {
             public override bool CacheAvailable => false;
 
-            public TextControl carriage;
+            public TextObject carriage;
 
             public TypingText(IDrawText text, bool IsCarriage) : base(text)
             {

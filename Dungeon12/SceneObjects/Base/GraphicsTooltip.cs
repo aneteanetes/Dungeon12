@@ -4,42 +4,55 @@ using Dungeon.SceneObjects;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using Dungeon12.Entities;
+using System.Linq;
 
 namespace Dungeon12.SceneObjects.Base
 {
     public class GraphicsTooltip : EmptySceneObject
     {
-        public GraphicsTooltip(string title, string text, GraphicsTooltipSize size = GraphicsTooltipSize.Two, AbilityArea area = default,int cooldown=-1, params string[] leftparams)
+        public GraphicsTooltip(string title, string text, GraphicsTooltipSize size = GraphicsTooltipSize.Two, AbilityArea area = default, int cooldown = -1, params string[] leftparams)
         {
             this.Width = 355;
 
             var desc = text.AsDrawText().Gabriela().InColor(Global.CommonColorLight).InSize(FontSize).WithWordWrap();
             var descMeasure = this.MeasureText(desc, new EmptySceneObject() { Width = 320 });
-            this.Height=descMeasure.Y;
+
+            var ttle = title.AsDrawText().Gabriela().InColor(Global.CommonColorLight).InSize(16);
+            var ttleMeasure = this.MeasureText(ttle, new EmptySceneObject() { Width = 320 });
+
+
+            this.Height=
+                descMeasure.Y +15
+                + ttleMeasure.Y + (leftparams.Length==0 ? 15 : 0)
+                + MeasureParams(leftparams);
+
             this.AddBorder();
 
-            var header = this.AddTextCenter(title.AsDrawText().Gabriela().InColor(Global.CommonColorLight).InSize(16), vertical: false);
+            var header = this.AddTextCenter(ttle, vertical: false);
             header.Top = 5;
-
-
 
             var description = this.AddTextCenter(desc, vertical: false, parentWidth: 320);
             description.Left = 18;
-            description.Top = 45;
+            description.Top = 40;
 
-            descMeasure.Y += 90;
+            //descMeasure.Y += 90;
 
 
-            BindHeight(size, descMeasure, leftparams);
-            BindArea(area,cooldown);
-            BindParams(leftparams);
+            //BindHeight(size, descMeasure, leftparams);
+            //BindArea(area,cooldown);
+            BindParams(leftparams, description.Top+descMeasure.Y+5);
         }
 
         private int FontSize = 12;
 
-        private void BindParams(string[] leftparams)
+        private double MeasureParams(string[] leftparams )
         {
-            double paramtop = 120;
+            return leftparams.Sum(x=> this.MeasureText(x.AsDrawText().SegoeUIBold().InColor(Global.CommonColorLight).InSize(FontSize)).Y +5);
+        }
+
+        private void BindParams(string[] leftparams, double paramtop)
+        {
+            //double paramtop = 120;
             foreach (var leftparam in leftparams)
             {
                 var paramtext = this.AddTextCenter(leftparam.AsDrawText().SegoeUIBold().InColor(Global.CommonColorLight).InSize(FontSize));
@@ -48,73 +61,6 @@ namespace Dungeon12.SceneObjects.Base
 
                 paramtop += 20;
             }
-        }
-
-        private void BindHeight(GraphicsTooltipSize size, Point descMeasure,string[] leftparams)
-        {
-            double height = 0;
-
-            if (size == GraphicsTooltipSize.AutoByParams)
-            {
-                if (leftparams.Length <= 2)
-                {
-                    size = GraphicsTooltipSize.Two;
-                }
-                else if (leftparams.Length > 2 && leftparams.Length<5)
-                {
-                    size = GraphicsTooltipSize.Four;
-                }
-                else if (leftparams.Length > 4 && leftparams.Length < 7)
-                {
-                    size = GraphicsTooltipSize.Six;
-                }
-                else if (leftparams.Length > 6)
-                {
-                    size = GraphicsTooltipSize.Eight;
-                }
-            }
-
-            if (size == GraphicsTooltipSize.Auto)
-            {
-                if (descMeasure.Y < 226)
-                {
-                    size = GraphicsTooltipSize.Two;
-                }
-                else if (descMeasure.Y < 271)
-                {
-                    size = GraphicsTooltipSize.Four;
-                }
-                else if (descMeasure.Y < 317)
-                {
-                    size = GraphicsTooltipSize.Six;
-                }
-                else
-                {
-                    size = GraphicsTooltipSize.Eight;
-                }
-            }
-
-            switch (size)
-            {
-                case GraphicsTooltipSize.Two:
-                    height = 180;
-                    break;
-                case GraphicsTooltipSize.Four:
-                    height = 226;
-                    break;
-                case GraphicsTooltipSize.Six:
-                    height = 271;
-                    break;
-                case GraphicsTooltipSize.Eight:
-                    height = 317;
-                    break;
-                default:
-                    break;
-            }
-
-            this.Height = height;
-
-            //this.Image = $"UI/Tooltips/note{((int)size)}.png".AsmImg();
         }
 
         private void BindArea(AbilityArea area, int cooldown)

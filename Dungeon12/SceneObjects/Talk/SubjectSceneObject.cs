@@ -9,7 +9,7 @@ namespace Dungeon12.SceneObjects.Talk
 {
     public class SubjectSceneObject : SceneControl<Subject>
     {
-        private TextControl textControl;
+        private TextObject textControl;
         private static List<SubjectSceneObject> subjects = new List<SubjectSceneObject>();
 
         public SubjectSceneObject(Subject component) : base(component)

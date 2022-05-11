@@ -28,7 +28,7 @@
 
         public override IDrawText Text => TooltipText;
 
-        TextControl txt;
+        TextObject txt;
 
         public Tooltip(IDrawText drawText, Point position)
         {

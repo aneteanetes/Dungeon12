@@ -20,14 +20,6 @@ namespace Dungeon12
 
         public Polygon Polygon { get; set; }
 
-        public HeroPlate HeroPlate1 { get; set; }
-
-        public HeroPlate HeroPlate2 { get; set; }
-
-        public HeroPlate HeroPlate3 { get; set; }
-
-        public HeroPlate HeroPlate4 { get; set; }
-
         public Calendar Calendar { get; set; }
 
         public GameLog Log { get; set; }

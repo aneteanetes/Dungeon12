@@ -8,7 +8,7 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
 {
     public class BrownButton : EmptySceneControl
     {
-        readonly TextControl Label;
+        readonly TextObject Label;
 
         public BrownButton(string text)
         {

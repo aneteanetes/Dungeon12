@@ -45,13 +45,13 @@ namespace Dungeon12.Entities
             {
                 List<Hero> restoreHeroes = new List<Hero>();
 
-                if (Hero1.Hits != Hero1.MaxHits)
+                if (!Hero1.Hp.ValuesEquals())
                     restoreHeroes.Add(Hero1);
-                if (Hero2.Hits != Hero2.MaxHits)
+                if (!Hero2.Hp.ValuesEquals())
                     restoreHeroes.Add(Hero2);
-                if (Hero3.Hits != Hero3.MaxHits)
+                if (!Hero3.Hp.ValuesEquals())
                     restoreHeroes.Add(Hero3);
-                if (Hero4.Hits != Hero4.MaxHits)
+                if (!Hero4.Hp.ValuesEquals())
                     restoreHeroes.Add(Hero4);
 
                 if (restoreHeroes.Count > 0)
@@ -70,13 +70,13 @@ namespace Dungeon12.Entities
                 {
                     List<Hero> restoreHeroes = new List<Hero>();
 
-                    if (Hero1.Hits != Hero1.MaxHits)
+                    if (!Hero1.Hp.ValuesEquals())
                         restoreHeroes.Add(Hero1);
-                    if (Hero2.Hits != Hero2.MaxHits)
+                    if (!Hero2.Hp.ValuesEquals())
                         restoreHeroes.Add(Hero2);
-                    if (Hero3.Hits != Hero3.MaxHits)
+                    if (!Hero3.Hp.ValuesEquals())
                         restoreHeroes.Add(Hero3);
-                    if (Hero4.Hits != Hero4.MaxHits)
+                    if (!Hero4.Hp.ValuesEquals())
                         restoreHeroes.Add(Hero4);
 
                     if (restoreHeroes.Count > 0)

@@ -15,7 +15,7 @@
         private Action<string> yes;
         private TextInputControl textInput;
 
-        private TextControl validationDisplay;
+        private TextObject validationDisplay;
 
         public NameEnterSceneObject(Hero component, Action<string> yes = null, Action no=null):base(component)
         {

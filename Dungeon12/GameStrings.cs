@@ -10,6 +10,8 @@ namespace Dungeon12.Localization
             return this.GetPropertyExpr<string>(nameof);
         }
 
+        public string FreePoints { get; set; }
+
         public string IgnoreTargetPhysicalDefence { get; set; } = "Игнорирует физическую защиту цели";
 
         public string Damage { get; set; } = "Урон";

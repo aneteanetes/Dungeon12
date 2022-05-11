@@ -23,7 +23,7 @@ namespace Dungeon12.Entities
                 var quality = (Quality / 100) * multiplier;
                 heroes.ForEach(h =>
                 {
-                    h.Heal((int)(h.MaxHits * quality));
+                    h.Heal((int)(h.Hp.Max.FlatValue * quality));
                 });
             }
         }

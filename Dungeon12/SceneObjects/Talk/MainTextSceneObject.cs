@@ -11,7 +11,7 @@ namespace Dungeon12.SceneObjects.Talk
     {
         public static MainTextSceneObject Instance;
 
-        private TextControl Title;
+        private TextObject Title;
 
         // 14 lines
 
@@ -76,11 +76,11 @@ namespace Dungeon12.SceneObjects.Talk
 
                 if (name.IsNotEmpty())
                 {
-                    var nametxt = this.AddChild(new TextControl(DrawText(name + ":", namecolor)));
+                    var nametxt = this.AddChild(new TextObject(DrawText(name + ":", namecolor)));
                     leftOffset = this.MeasureText(nametxt.Text).X + 5;
                 }
 
-                var texttxt = this.AddChild(new TextControl(DrawText(text)));
+                var texttxt = this.AddChild(new TextObject(DrawText(text)));
                 texttxt.Left = leftOffset;
             }
 
