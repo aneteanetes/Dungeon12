@@ -34,7 +34,7 @@ namespace Dungeon12.Scenes.Create
 
             var layer = this.CreateLayer("main");
             layer.AbsoluteLayer = true;
-            layer.AddSystem(new TooltipSystem());
+            layer.AddSystem(new TooltipDrawTextSystem());
             layer.AddSystem(new TooltipCustomSystem());
             layer.AddSystem(new MouseHintSystem());
 
@@ -116,7 +116,7 @@ namespace Dungeon12.Scenes.Create
             {
                 if(hero.Name.IsEmpty())
                 {
-                    hero.Name = Global.Strings.ByProperty($"{hero.Class}{hero.Sex}");
+                    hero.Name = Global.Strings[$"{hero.Class}{hero.Sex}"];
                 }
 
                 hero.Abilities = new System.Collections.Generic.List<Ability>(Ability.ByClass(hero.Class));
@@ -133,7 +133,7 @@ namespace Dungeon12.Scenes.Create
                 var startFood = Global.Game.Party.Food.Components[0];
                 startFood.Value = 5;
                 startFood.Image = "Icons/Food/apple.png".AsmImg();
-                startFood.Name = Global.Strings.Apples;
+                startFood.Name = Global.Strings["Apples"];
 
                 Global.Game.MapRegion = ResourceLoader.LoadJson<MapRegion>("Regions/FaithIsland.json".AsmRes());
                 Global.Game.MapRegion.BuildGraph();

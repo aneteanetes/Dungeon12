@@ -8,9 +8,9 @@ using System.Linq;
 
 namespace Dungeon12.SceneObjects.Base
 {
-    public class GraphicsTooltip : EmptySceneObject
+    public class GameHint : EmptySceneObject
     {
-        public GraphicsTooltip(string title, string text, GraphicsTooltipSize size = GraphicsTooltipSize.Two, AbilityArea area = default, int cooldown = -1, params string[] leftparams)
+        public GameHint(string title, string text, AbilityArea area = default, int cooldown = -1, double opacity=.9, params string[] leftparams)
         {
             this.Width = 355;
 
@@ -26,7 +26,7 @@ namespace Dungeon12.SceneObjects.Base
                 + ttleMeasure.Y + (leftparams.Length==0 ? 15 : 0)
                 + MeasureParams(leftparams);
 
-            this.AddBorder();
+            this.AddBorder(opacity);
 
             var header = this.AddTextCenter(ttle, vertical: false);
             header.Top = 5;
@@ -67,7 +67,7 @@ namespace Dungeon12.SceneObjects.Base
         {
             if (cooldown > -1)
             {
-                var cooldowntext = this.AddTextCenter($"{Global.Strings.Cooldown}: {cooldown}".AsDrawText().SegoeUIBold().InColor(Global.CommonColorLight).InSize(FontSize));
+                var cooldowntext = this.AddTextCenter($"{Global.Strings["Cooldown"]}: {cooldown}".AsDrawText().SegoeUIBold().InColor(Global.CommonColorLight).InSize(FontSize));
                 cooldowntext.Left = 175;
                 cooldowntext.Top = 142;
             }
@@ -130,7 +130,7 @@ namespace Dungeon12.SceneObjects.Base
 
                 if (haveRadius)
                 {
-                    var areatext = this.AddTextCenter($"{Global.Strings.Area}:".AsDrawText().SegoeUIBold().InColor(Global.CommonColorLight).InSize(FontSize));
+                    var areatext = this.AddTextCenter($"{Global.Strings["Area"]}:".AsDrawText().SegoeUIBold().InColor(Global.CommonColorLight).InSize(FontSize));
                     areatext.Left = 175;
                     areatext.Top = 120;
                 }

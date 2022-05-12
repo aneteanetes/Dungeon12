@@ -1,6 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
+using Dungeon12.SceneObjects.Base;
 using System.Collections.Generic;
 
 namespace Dungeon12.SceneObjects.Stats
@@ -21,13 +22,15 @@ namespace Dungeon12.SceneObjects.Stats
             _sceneObject = sceneObject;
         }
 
-        private List<TextObject> texts = new List<TextObject>();
+        private List<SceneObject<IDrawText>> texts = new List<SceneObject<IDrawText>>();
 
         public void AddParam(string name, object value)
         {
             var nam = Text(name);
 
-            texts.Add(_sceneObject.AddText(nam, _left, _top));
+            texts.Add(_sceneObject.AddChild(GetTextComponent(nam, _left, _top)));
+            //ControlBinding?.Invoke(control);
+            //_sceneObject.AddControlCenter
 
             var val = Value(value.ToString());
             var valmeasure = Global.DrawClient.MeasureText(val);
@@ -35,6 +38,16 @@ namespace Dungeon12.SceneObjects.Stats
             texts.Add(_sceneObject.AddText(val, (_left+_width)-(valmeasure.X+1), _top));
 
             _top+= Global.DrawClient.MeasureText(nam).Y;
+        }
+
+        private static TextObjectHint GetTextComponent(IDrawText text, double left, double top)
+        {
+            var txt = text.ToString().Replace(":", "");
+            return new TextObjectHint(text, Global.Strings[txt], Global.Strings[txt], Global.Strings.Description[txt])
+            {
+                Left= left,
+                Top= top
+            };
         }
 
         public void AddEmpty()

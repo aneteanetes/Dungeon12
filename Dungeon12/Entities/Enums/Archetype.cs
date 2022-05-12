@@ -12,10 +12,10 @@
     {
         public static string Display(this Archetype archetype) => archetype switch
         {
-            Archetype.Warrior => Global.Strings.Warrior,
-            Archetype.Mage => Global.Strings.Mage,
-            Archetype.Thief => Global.Strings.Thief,
-            Archetype.Priest => Global.Strings.Priest,
+            Archetype.Warrior => Global.Strings["Warrior"],
+            Archetype.Mage => Global.Strings["Mage"],
+            Archetype.Thief => Global.Strings["Thief"],
+            Archetype.Priest => Global.Strings["Priest"],
             _ => "",
         };
         public static string Short(this Archetype archetype) => archetype switch

@@ -30,14 +30,14 @@ namespace Dungeon12.Entities.Enums
         {
             switch (element)
             {
-                case Element.Mental: return Global.Strings.ElementMental;
-                case Element.Physical: return Global.Strings.ElementPhysical;
-                case Element.Fire: return Global.Strings.ElementFire;
-                case Element.Frost: return Global.Strings.ElementFrost;
-                case Element.Magical:return Global.Strings.ElementMagical;
-                case Element.Spirit: return Global.Strings.ElementSpirit;
-                case Element.HolyMagic: return Global.Strings.ElementHoly;
-                case Element.DarkMagic: return Global.Strings.ElementDark;
+                case Element.Mental: return Global.Strings["ElementMental"];
+                case Element.Physical: return Global.Strings["ElementPhysical"];
+                case Element.Fire: return Global.Strings["ElementFire"];
+                case Element.Frost: return Global.Strings["ElementFrost"];
+                case Element.Magical:return Global.Strings["ElementMagical"];
+                case Element.Spirit: return Global.Strings["ElementSpirit"];
+                case Element.HolyMagic: return Global.Strings["ElementHoly"];
+                case Element.DarkMagic: return Global.Strings["ElementDark"];
                 default: return "";
             }
         }

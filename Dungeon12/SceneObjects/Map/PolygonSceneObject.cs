@@ -11,7 +11,7 @@ using System;
 
 namespace Dungeon12.SceneObjects.Map
 {
-    public class PolygonSceneObject : SceneControl<Polygon>, ITooltiped
+    public class PolygonSceneObject : SceneControl<Polygon>, ITooltipedDrawText
     {
         public override bool AbsolutePosition => true;
 

@@ -9,7 +9,7 @@ using Dungeon12.Entities.Enums;
 
 namespace Dungeon12.SceneObjects.Create
 {
-    public class ClassButton : SceneControl<Hero>, ITooltiped
+    public class ClassButton : SceneControl<Hero>, ITooltipedDrawText
     {
         Archetype _archetype;
 

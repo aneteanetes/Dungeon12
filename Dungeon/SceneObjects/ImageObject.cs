@@ -37,7 +37,6 @@
                     return imageDelegate();
                 return base.Image;
             }
-            set => base.Image = value;
         }
 
         protected override void CallOnEvent(dynamic obj)

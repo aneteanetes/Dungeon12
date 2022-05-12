@@ -41,7 +41,7 @@ namespace Dungeon12.SceneObjects.RegionScreen
             }
         }
 
-        private class InfluencePlate : SceneControl<MapRegion>, ITooltiped
+        private class InfluencePlate : SceneControl<MapRegion>, ITooltipedDrawText
         {
             Fraction _fraction;
 
@@ -69,7 +69,7 @@ namespace Dungeon12.SceneObjects.RegionScreen
 
                 this.Image = $"UI/layout/influence{postfix}.png".AsmImg();
 
-                TooltipText=Global.Strings.ByProperty(fraction.ToString())
+                TooltipText=Global.Strings[fraction.ToString()]
                     .AsDrawText()
                     .Gabriela();
 

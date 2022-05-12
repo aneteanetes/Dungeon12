@@ -13,7 +13,7 @@ using System.Text;
 
 namespace Dungeon12.SceneObjects.HeroPanelObjs
 {
-    public class AbilityItem : SceneControl<Hero>, ITooltiped, IMouseHint, ICursored
+    public class AbilityItem : SceneControl<Hero>, ITooltipedDrawText, IMouseHint, ICursored
     {
         Ability _ability;
 
@@ -48,13 +48,13 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
 
         public override bool Visible => Component.Class == _ability.Class;
 
-        public IDrawText TooltipText => $"{Global.Strings.ByProperty(_ability.ClassName)}".AsDrawText().Gabriela();
+        public IDrawText TooltipText => $"{Global.Strings[_ability.ClassName]}".AsDrawText().Gabriela();
 
         public bool ShowTooltip => true;
 
         public CursorImage Cursor => CursorImage.Question;
 
-        public GraphicsTooltip CreateMouseHint()
-            => new GraphicsTooltip(_ability.Name, _ability.Description, GraphicsTooltipSize.AutoByParams, _ability.Area, _ability.Cooldown, _ability.GetTextParams());
+        public GameHint CreateMouseHint()
+            => new GameHint(_ability.Name, _ability.Description,_ability.Area, _ability.Cooldown,.9, _ability.GetTextParams());
     }
 }

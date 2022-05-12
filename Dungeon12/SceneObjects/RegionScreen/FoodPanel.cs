@@ -26,7 +26,7 @@ namespace Dungeon12.SceneObjects.RegionScreen
             }
         }
 
-        private class FoodPlate : SceneControl<Food>, ITooltiped
+        private class FoodPlate : SceneControl<Food>, ITooltipedDrawText
         {
             public FoodPlate(Food component) : base(component)
             {

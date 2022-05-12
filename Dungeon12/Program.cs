@@ -12,14 +12,12 @@ namespace Dungeon12
         [STAThread]
         static void Main()
         {
-            DungeonGlobal.BindGlobal<Global>();
+            DungeonGlobal.BindGlobal<Global>(true);
             DungeonGlobal.ComponentUpdateCompatibility = false;
             Console.WriteLine(DungeonGlobal.Version);
 #if DEBUG
             //ResourceLoader.Settings.EmbeddedMode = false;
 
-            var resCompiler = new ResourceCompiler();
-            resCompiler.Compile();
 
             //DungeonGlobal.ExceptionRethrow = true;
             //DungeonGlobal.GlobalExceptionHandling();

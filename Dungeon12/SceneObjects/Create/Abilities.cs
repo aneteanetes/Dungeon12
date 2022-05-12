@@ -18,7 +18,7 @@ namespace Dungeon12.SceneObjects.Create
             this.Height = 110;
             this.Width = 315;
 
-            var title = this.AddTextCenter(Global.Strings.Abilities.AsDrawText().Gabriela().InColor(Global.CommonColor).InSize(25), vertical: false);
+            var title = this.AddTextCenter(Global.Strings["Abilities"].AsDrawText().Gabriela().InColor(Global.CommonColor).InSize(25), vertical: false);
             title.Top = -50;
 
             foreach (var archtype in typeof(Archetype).All<Archetype>())
@@ -35,7 +35,7 @@ namespace Dungeon12.SceneObjects.Create
             }
         }
 
-        public class AbilityItem : SceneControl<Hero>, ITooltiped, IMouseHint
+        public class AbilityItem : SceneControl<Hero>, ITooltipedDrawText, IMouseHint
         {
             Ability _ability;
 
@@ -58,12 +58,12 @@ namespace Dungeon12.SceneObjects.Create
 
             public override bool Visible => Component.Class == _ability.Class;
 
-            public IDrawText TooltipText => $"{Global.Strings.ByProperty(_ability.ClassName)} ({Global.Strings.LeftMouseButton} - {Global.Strings.Info})".AsDrawText().Gabriela();
+            public IDrawText TooltipText => $"{Global.Strings[_ability.ClassName]} ({Global.Strings["LeftMouseButton"]} - {Global.Strings["Info"]})".AsDrawText().Gabriela();
 
             public bool ShowTooltip => true;
 
-            public GraphicsTooltip CreateMouseHint()
-                => new GraphicsTooltip(_ability.Name, _ability.Description, GraphicsTooltipSize.AutoByParams, _ability.Area,_ability.Cooldown, _ability.GetTextParams());
+            public GameHint CreateMouseHint()
+                => new GameHint(_ability.Name, _ability.Description, _ability.Area,_ability.Cooldown,.9, _ability.GetTextParams());
 
             public void RefreshTooltip() { }
         }

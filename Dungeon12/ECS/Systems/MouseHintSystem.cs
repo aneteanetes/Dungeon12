@@ -48,17 +48,19 @@ namespace Dungeon12.ECS.Systems
 
         private void CreateHint(PointerArgs args, ISceneObject sceneObject)
         {
-            if (!(sceneObject is IMouseHint mouseHintObject))
+            if (sceneObject is not IMouseHint mouseHintObject)
+                return;
+            var hint = mouseHintObject.CreateMouseHint();
+            if (hint==null)
                 return;
 
-            var tooltipsys = SceneLayer.GetSystem<TooltipSystem>();
+            var tooltipsys = SceneLayer.GetSystem<TooltipDrawTextSystem>();
             var tooltip = tooltipsys.GetTooltip(sceneObject);
             if (tooltip != default)
                 tooltip.Visible = false;
 
             DestroyHint();
 
-            var hint = mouseHintObject.CreateMouseHint();
             hint.Host = sceneObject;
 
             var hintPos = new Point(args.X+15, args.Y);
@@ -95,7 +97,7 @@ namespace Dungeon12.ECS.Systems
             ExistedHint = hint;
         }
 
-        private GraphicsTooltip ExistedHint;
+        private GameHint ExistedHint;
 
         private void DestroyHint(bool clickrelease=false)
         {
@@ -103,7 +105,7 @@ namespace Dungeon12.ECS.Systems
             {
                 if (clickrelease)
                 {
-                    var tooltipsys = SceneLayer.GetSystem<TooltipSystem>();
+                    var tooltipsys = SceneLayer.GetSystem<TooltipDrawTextSystem>();
                     var tooltip = tooltipsys.GetTooltip(ExistedHint.Host);
                     if (tooltip != default)
                         tooltip.Visible = true;

@@ -7,7 +7,7 @@ using System;
 
 namespace Dungeon12.SceneObjects.RegionScreen
 {
-    public class ControlButton : EmptySceneControl, ITooltiped
+    public class ControlButton : EmptySceneControl, ITooltipedDrawText
     {
         private char _char;
         private bool _isdisabled;

@@ -14,8 +14,6 @@ namespace Dungeon12.Entities.Abilities.Priest
 
         public override void Bind()
         {
-            Name = Global.Strings.PriestAngel;
-            Description = Global.Strings.PriestAngelDescT1;
             Element = Element.HolyMagic;
             Cooldown = 6;
             UseRange = AbilRange.Summon;
@@ -26,12 +24,12 @@ namespace Dungeon12.Entities.Abilities.Priest
         public override string[] GetTextParams()
         {
             return new string[] {
-                $"{Global.Strings.Range}: {UseRange.Display()}",
-                $"{Global.Strings.Type}: {Element.Display()}",
+                $"{Global.Strings["Range"]}: {UseRange.Display()}",
+                $"{Global.Strings["Type"]}: {Element.Display()}",
                 " ",
-                $"{Global.Strings.HealEffective}: +{HealEffective}%",
-                $"{Global.Strings.Sacrifice}",
-                $"{Global.Strings.Active} {Global.Strings.Turns.ToLowerInvariant()}: 3",
+                $"{Global.Strings["HealEffective"]}: +{HealEffective}%",
+                $"{Global.Strings["Sacrifice"]}",
+                $"{Global.Strings["Active"]} {Global.Strings["Turns"].ToLowerInvariant()}: 3",
             };
         }
     }

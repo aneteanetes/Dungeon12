@@ -8,8 +8,6 @@ namespace Dungeon12.Entities.Abilities.Warrior
 
         public override void Bind()
         {
-            Name = Global.Strings.WarriorStand;
-            Description = Global.Strings.WarriorStandDescT1;
             Area = new AbilityArea(all:true);
             Element = Element.Mental;
             Cooldown = 5;
@@ -23,8 +21,8 @@ namespace Dungeon12.Entities.Abilities.Warrior
         public override string[] GetTextParams()
         {
             return new string[] {
-                $"{Global.Strings.Defence}: +{DefencePercentage}%",
-                $"{Global.Strings.Damage}: -{Value}%",
+                $"{Global.Strings["Defence"]}: +{DefencePercentage}%",
+                $"{Global.Strings["Damage"]}: -{Value}%",
             };
         }
     }

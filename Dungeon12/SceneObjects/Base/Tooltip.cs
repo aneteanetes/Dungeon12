@@ -26,30 +26,33 @@
 
         public IDrawText TooltipText { get; set; }
 
-        public override IDrawText Text => TooltipText;
+        public override IDrawText Text => txt.Text;
 
         TextObject txt;
 
-        public Tooltip(IDrawText drawText, Point position)
+        public Tooltip(IDrawText drawText, Point position, double opacity=.8)
         {
             if (position == default)
             {
                 return;
             }
 
-            Opacity = 0.8;
+            //Opacity = opacity;
 
             var textSize = MeasureText(drawText);
 
             Width = textSize.X + 10;
             Height = textSize.Y + 5;
 
+            this.AddBorder(opacity);
+
             //var text = txt = AddTextCenter(drawText);
             //text.Filtered = false;
 
             drawText.SetText(" " + drawText.StringData);
 
-            TooltipText = drawText.SegoeUIBold();
+            txt = this.AddText(drawText.SegoeUIBold(), 0, 0);
+            TooltipText = txt.Text;
 
             //base.Left = position.X - Width / 2;
             //Top = position.Y;

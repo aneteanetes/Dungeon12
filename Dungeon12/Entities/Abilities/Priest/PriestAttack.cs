@@ -11,8 +11,6 @@ namespace Dungeon12.Entities.Abilities.Priest
 
         public override void Bind()
         {
-            Name = Global.Strings.PriestAttack;
-            Description = Global.Strings.PriestAttackDescT1;
             Area = new AbilityArea();
             Element = Element.Physical;
             UseRange = AbilRange.Close;
@@ -23,10 +21,10 @@ namespace Dungeon12.Entities.Abilities.Priest
         public override string[] GetTextParams()
         {
             return new string[] {
-                $"{Global.Strings.Damage}: {Value}",
-                $"{Global.Strings.Type}: {Element.Display()}",
-                $"{Global.Strings.Range}: {UseRange.Display()}",
-                $"{Global.Strings.StunChanse}: {StunChanse}%",
+                $"{Global.Strings["Damage"]}: {Value}",
+                $"{Global.Strings["Type"]}: {Element.Display()}",
+                $"{Global.Strings["Range"]}: {UseRange.Display()}",
+                $"{Global.Strings["StunChanse"]}: {StunChanse}%",
             };
         }
     }

@@ -17,16 +17,7 @@ namespace Dungeon12.Entities
 
         public Hero Hero4 { get; set; }
 
-        public IEnumerable<Hero> Heroes
-        {
-            get
-            {
-                yield return Hero1;
-                yield return Hero2;
-                yield return Hero3;
-                yield return Hero4;
-            }
-        }
+        public Hero[] Heroes => new Hero[] { Hero1, Hero2, Hero3, Hero4 };
 
 
         public bool PortalsActive => Heroes.Any(h => h.Class == Enums.Archetype.Mage);

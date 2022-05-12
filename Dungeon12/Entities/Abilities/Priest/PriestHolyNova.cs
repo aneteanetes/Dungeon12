@@ -14,8 +14,6 @@ namespace Dungeon12.Entities.Abilities.Priest
 
         public override void Bind()
         {
-            Name = Global.Strings.PriestHolyNova;
-            Description = Global.Strings.PriestHolyNovaDescT1;
             Area = new AbilityArea(all: true);
             Element = Element.HolyMagic;
             Cooldown = 5;
@@ -25,10 +23,10 @@ namespace Dungeon12.Entities.Abilities.Priest
         public override string[] GetTextParams()
         {
             return new string[] {
-                $"{Global.Strings.Heal}: {Value}",
-                $"{Global.Strings.Type}: {Element.Display()}",
+                $"{Global.Strings["Heal"]}: {Value}",
+                $"{Global.Strings["Type"]}: {Element.Display()}",
                 " ",
-                Global.Strings.NotAffectSummoned
+                Global.Strings["NotAffectSummoned"]
             };
         }
     }

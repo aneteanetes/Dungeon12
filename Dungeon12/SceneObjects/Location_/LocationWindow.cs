@@ -53,7 +53,7 @@ namespace Dungeon12.SceneObjects.Location_
             }
         }
 
-        private class Close : EmptySceneControl, ITooltiped
+        private class Close : EmptySceneControl, ITooltipedDrawText
         {
             public IDrawText TooltipText { get; set; }
 

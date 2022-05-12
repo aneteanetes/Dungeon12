@@ -11,8 +11,6 @@ namespace Dungeon12.Entities.Abilities.Mage
 
         public override void Bind()
         {
-            Name = Global.Strings.MageArrowAttack;
-            Description = Global.Strings.MageArrowAttackDescT1;
             Area = new AbilityArea();
             Element = Element.Magical;
             UseRange = AbilRange.Any;
@@ -21,9 +19,9 @@ namespace Dungeon12.Entities.Abilities.Mage
         public override string[] GetTextParams()
         {
             return new string[] {
-                $"{Global.Strings.Damage}: {Value}",
-                $"{Global.Strings.Type}: {Element.Display()}",
-                $"{Global.Strings.Range}: {UseRange.Display()}"
+                $"{Global.Strings["Damage"]}: {Value}",
+                $"{Global.Strings["Type"]}: {Element.Display()}",
+                $"{Global.Strings["Range"]}: {UseRange.Display()}"
             };
         }
     }

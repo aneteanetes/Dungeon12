@@ -6,6 +6,7 @@ using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using Dungeon.Types;
 using Dungeon12.Drawing.SceneObjects;
+using Dungeon12.Locale;
 using Dungeon12.SceneObjects.UserInterface.Common;
 using Dungeon12.Scenes.Create;
 using System;
@@ -45,14 +46,14 @@ namespace Dungeon12.Scenes
         private void InitButtons(SceneLayer ui)
         {
             var data = new (string text, Action click, bool disabled)[]
-           {
-                (Global.Strings.NewGame,NewGame,false),
-               (Global.Strings.Save,SaveGame,!InGame),
-                (Global.Strings.Load,LoadGame,true),
-                (Global.Strings.Settings,Settings,false),
-                (Global.Strings.FastGame,TCG,false),
-                (Global.Strings.ExitGame,Exit,false)
-           };
+            {
+                (Global.Strings["NewGame"],NewGame,false),
+                (Global.Strings["Save"],SaveGame,!InGame),
+                (Global.Strings["Load"],LoadGame,true),
+                (Global.Strings["Settings"],Settings,false),
+                (Global.Strings["FastGame"],TCG,false),
+                (Global.Strings["ExitGame"],Exit,false)
+            };
 
             var y = 200;
             var x = 60;

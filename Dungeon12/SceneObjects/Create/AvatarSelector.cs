@@ -6,6 +6,7 @@ using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.Entities;
 using Dungeon12.Entities.Enums;
+using Dungeon12.Locale;
 using System;
 
 namespace Dungeon12.SceneObjects.Create
@@ -71,7 +72,7 @@ namespace Dungeon12.SceneObjects.Create
             Component.Sex = Component.Class.Sex(index);
         }
 
-        private class IndexButton : EmptySceneControl, ITooltiped
+        private class IndexButton : EmptySceneControl, ITooltipedDrawText
         {
             private bool _next;
 
@@ -85,7 +86,7 @@ namespace Dungeon12.SceneObjects.Create
 
             public Action<bool> OnClick { get; set; }
 
-            public IDrawText TooltipText => (_next ? Global.Strings.Next : Global.Strings.Prev).AsDrawText().Gabriela();
+            public IDrawText TooltipText => (_next ? Global.Strings["Далее"] : Global.Strings["Назад"]).AsDrawText().Gabriela();
 
             public bool ShowTooltip => true;
 

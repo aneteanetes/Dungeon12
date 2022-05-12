@@ -6,7 +6,7 @@ using Dungeon12.Entities.Objects;
 
 namespace Dungeon12.SceneObjects.Location_
 {
-    internal class LocationObject : SceneControl<MapObject>, ITooltiped
+    internal class LocationObject : SceneControl<MapObject>, ITooltipedDrawText
     {
         public LocationObject(MapObject component) : base(component)
         {

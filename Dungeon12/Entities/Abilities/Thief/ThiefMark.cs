@@ -14,8 +14,6 @@ namespace Dungeon12.Entities.Abilities.Thief
 
         public override void Bind()
         {
-            Name = Global.Strings.ThiefMark;
-            Description = Global.Strings.ThiefMarkDescT1;
             Area = new AbilityArea();
             Element = Element.Mental;
             Cooldown = 6;
@@ -29,12 +27,12 @@ namespace Dungeon12.Entities.Abilities.Thief
         public override string[] GetTextParams()
         {
             return new string[] {
-                $"{Global.Strings.Damage}: {Value}",
-                $"{Global.Strings.Type}: {Element.Display()}",
-                $"{Global.Strings.Range}: {UseRange.Display()}",
-                $"{Global.Strings.Incoming} {Global.Strings.Damage.ToLowerInvariant()}: +{PlusIncomingDamagePercent}%",
-                $"{Global.Strings.Active} {Global.Strings.Turns.ToLowerInvariant()}: {DebuffTime}",
-                Global.Strings.LeftHandAttack,
+                $"{Global.Strings["Damage"]}: {Value}",
+                $"{Global.Strings["Type"]}: {Element.Display()}",
+                $"{Global.Strings["Range"]}: {UseRange.Display()}",
+                $"{Global.Strings["Incoming"]} {Global.Strings["Damage"].ToLowerInvariant()}: +{PlusIncomingDamagePercent}%",
+                $"{Global.Strings["Active"]} {Global.Strings["Turns"].ToLowerInvariant()}: {DebuffTime}",
+                Global.Strings["LeftHandAttack"],
             };
         }
     }

@@ -162,6 +162,22 @@
             return this.AddChild(textControl);
         }
 
+        public T AddTextPos<T>(T textControl, double left, double top, double width, double height, bool alignCenter = true)
+            where T : SceneObject<IDrawText>
+        {
+            textControl.Left = left;
+            textControl.Top=top;
+            textControl.Width = width;
+            textControl.Height = height;
+
+            var m = this.MeasureText(textControl.Text);
+
+            textControl.Left -= m.X / 2 - width / 2;
+            textControl.Top -= m.Y / 2 - height / 2;
+
+            return this.AddChild(textControl);
+        }
+
         public void CenterText(TextObject textControl, bool horizontal = true, bool vertical = true, double parentWidth = 0)
         {
             var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text, parentWidth == 0
@@ -402,10 +418,6 @@
 
             Children.Add(sceneObject);
             sceneObject.Parent = this;
-
-#warning adding controls into Layer dynamic
-            if (this.Layer != default)
-                this.Layer.AddObject(sceneObject);
 
             return sceneObject;
         }

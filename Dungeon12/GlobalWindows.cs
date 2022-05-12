@@ -16,12 +16,12 @@ namespace Dungeon12
                     {
                         if (StatsWindow==null)
                         {
-                            layer.AddObjectCenter(StatsWindow=new StatsWindow());
+                            layer.AddObjectCenter(StatsWindow=new StatsWindow(layer));
+                            StatsWindow.Destroy+=() => StatsWindow=null;
                         }
                         else if (!ignoreOpened)
                         {
                             StatsWindow.Destroy();
-                            StatsWindow = null;
                         }
                         break;
                     }

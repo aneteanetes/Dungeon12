@@ -43,7 +43,7 @@ namespace Dungeon12.SceneObjects.Create
                     true, 
                     autofocus: false,
                     invisibleBack:true,
-                    placeholder: Global.Strings.EnterCharacterName.AsDrawText().InSize(16).Gabriela().InColor(Global.CommonColor),
+                    placeholder: Global.Strings["EnterCharacterName"].AsDrawText().InSize(16).Gabriela().InColor(Global.CommonColor),
                     carrige:true));
 
             textInput.OnEnter += value =>

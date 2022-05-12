@@ -8,8 +8,8 @@ namespace Dungeon12.Entities.Abilities.Warrior
 
         public override void Bind()
         {
-            Name = Global.Strings.WarriorWarcry;
-            Description = Global.Strings.WarriorWarcryDescT1;
+            Name = Global.Strings[nameof(WarriorWarcry)];
+            Description = Global.Strings.Description[nameof(WarriorWarcry)];
             Area = new AbilityArea(all: true);
             Element = Element.Mental;
             Cooldown = 10;
@@ -19,10 +19,10 @@ namespace Dungeon12.Entities.Abilities.Warrior
         public override string[] GetTextParams()
         {
             return new string[] {
-                $"{Global.Strings.Damage}: {Value}",
-                $"{Global.Strings.Type}: {Element.Display()}",
-                $"{Global.Strings.Range}: {UseRange.Display()}",
-                Global.Strings.Taunt
+                $"{Global.Strings["Damage"]}: {Value}",
+                $"{Global.Strings["Type"]}: {Element.Display()}",
+                $"{Global.Strings["Range"]}: {UseRange.Display()}",
+                Global.Strings["Taunt"]
             };
         }
     }

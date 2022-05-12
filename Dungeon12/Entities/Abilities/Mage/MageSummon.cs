@@ -11,8 +11,6 @@ namespace Dungeon12.Entities.Abilities.Mage
 
         public override void Bind()
         {
-            Name = Global.Strings.MageSummon;
-            Description = Global.Strings.MageSummonDescT1;
             Element = Element.Spirit;
             Cooldown = 15;
             UseRange = AbilRange.Summon;
@@ -25,12 +23,12 @@ namespace Dungeon12.Entities.Abilities.Mage
         public override string[] GetTextParams()
         {
             return new string[] {
-                $"{Global.Strings.Range}: {UseRange.Display()}",
-                $"{Global.Strings.Type}: {Element.Display()}",
+                $"{Global.Strings["Range"]}: {UseRange.Display()}",
+                $"{Global.Strings["Type"]}: {Element.Display()}",
                 " ",
-                $"{Global.Strings.Health} {Global.Strings.ElemenentalUnitHis.ToLowerInvariant()}: {SummonedHealth}",
-                $"{Global.Strings.Damage} {Global.Strings.ElemenentalUnitHis.ToLowerInvariant()}: {SummonedDamage}",
-                $"{Global.Strings.Attack} {Global.Strings.ElemenentalUnitHis.ToLowerInvariant()}: {Element.Physical.Display()}",
+                $"{Global.Strings["Health"]} {Global.Strings["ElemenentalUnitHis"].ToLowerInvariant()}: {SummonedHealth}",
+                $"{Global.Strings["Damage"]} {Global.Strings["ElemenentalUnitHis"].ToLowerInvariant()}: {SummonedDamage}",
+                $"{Global.Strings["Attack"]} {Global.Strings["ElemenentalUnitHis"].ToLowerInvariant()}: {Element.Physical.Display()}",
             };
         }
     }

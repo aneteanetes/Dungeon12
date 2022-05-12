@@ -2,7 +2,6 @@
 using System.IO;
 using Dungeon;
 using Dungeon.Localization;
-using Dungeon12.Localization;
 using System.Collections.Generic;
 using Dungeon12.Functions;
 using Dungeon.Scenes;
@@ -11,6 +10,7 @@ using Dungeon12.SceneObjects;
 using System.Linq;
 using Dungeon12.Entities.Enums;
 using Dungeon.Drawing;
+using Dungeon12.Locale;
 
 namespace Dungeon12
 {

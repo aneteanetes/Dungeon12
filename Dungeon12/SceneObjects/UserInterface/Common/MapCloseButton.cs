@@ -8,7 +8,7 @@ using System;
 
 namespace Dungeon12.SceneObjects.UserInterface.Common
 {
-    public class MapCloseButton : EmptySceneControl, ITooltiped
+    public class MapCloseButton : EmptySceneControl, ITooltipedDrawText
     {
         public MapCloseButton()
         {

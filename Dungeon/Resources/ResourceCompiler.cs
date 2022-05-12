@@ -60,7 +60,7 @@ namespace Dungeon.Resources
 
         public void Compile(bool rebuild = false)
         {
-            var caller = Assembly.GetCallingAssembly().GetName().Name;
+            var caller = DungeonGlobal.GameAssemblyName;
             var dir = Path.Combine(MainPath, "Data");
             if (!Directory.Exists(dir))
             {

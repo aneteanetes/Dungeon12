@@ -7,7 +7,7 @@ using System;
 
 namespace Dungeon12.SceneObjects.UI
 {
-    public class PanelButton : EmptySceneControl, ITooltiped
+    public class PanelButton : EmptySceneControl, ITooltipedDrawText
     {
         string tooltip;
 

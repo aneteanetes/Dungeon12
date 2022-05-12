@@ -16,12 +16,12 @@
         {
             switch (range)
             {
-                case AbilRange.Close: return Global.Strings.RangeClose;
-                case AbilRange.Far: return Global.Strings.RangeFar;
-                case AbilRange.Any: return Global.Strings.RangeAny;
-                case AbilRange.Friendly: return Global.Strings.RangeFriendly;
-                case AbilRange.Summon: return Global.Strings.Summon;
-                case AbilRange.Weapon: return Global.Strings.RangeWeaponDepends;
+                case AbilRange.Close: return Global.Strings["RangeClose"];
+                case AbilRange.Far: return Global.Strings["RangeFar"];
+                case AbilRange.Any: return Global.Strings["RangeAny"];
+                case AbilRange.Friendly: return Global.Strings["RangeFriendly"];
+                case AbilRange.Summon: return Global.Strings["Summon"];
+                case AbilRange.Weapon: return Global.Strings["RangeWeaponDepends"];
                 default: return "";
             }
         }

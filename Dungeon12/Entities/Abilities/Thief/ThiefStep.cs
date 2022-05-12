@@ -14,8 +14,6 @@ namespace Dungeon12.Entities.Abilities.Thief
 
         public override void Bind()
         {
-            Name = Global.Strings.ThiefStep;
-            Description = Global.Strings.ThiefStepDescT1;
             Cooldown = 6;
         }
 

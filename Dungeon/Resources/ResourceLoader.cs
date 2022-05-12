@@ -47,7 +47,14 @@ namespace Dungeon.Resources
                 {
                     if (liteDatabase == default)
                     {
-                        var path = Path.Combine(ResourceCompiler.MainPath ?? "", "Data", $"{DungeonGlobal.GameAssembly.GetName().Name}.dtr");
+                        var caller = DungeonGlobal.GameAssemblyName;
+                        var dir = Path.Combine(Store.MainPath, "Data");
+                        if (!Directory.Exists(dir))
+                        {
+                            Directory.CreateDirectory(dir);
+                        }
+
+                        var path = Path.Combine(dir, $"{caller}.dtr");
                         Console.WriteLine(path);
                         liteDatabase = new LiteDatabase(path);
                         DungeonGlobal.Exit += () => liteDatabase.Dispose();
@@ -122,7 +129,7 @@ namespace Dungeon.Resources
 
         public static T LoadJson<T>(string resource, bool caching = false, bool @throw = true, SceneManager sceneManager = default, ISceneObject obj = default)
         {
-            var res = Load(resource, caching, @throw, sceneManager, obj);
+            var res = Load(resource, true, @throw, sceneManager, obj);
             if (res == default)
                 return default;
 

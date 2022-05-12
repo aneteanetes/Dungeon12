@@ -11,8 +11,6 @@ namespace Dungeon12.Entities.Abilities.Thief
 
         public override void Bind()
         {
-            Name = Global.Strings.ThiefAttack;
-            Description = Global.Strings.ThiefAttackDescT1;
             Area = new AbilityArea();
             Element = Element.Physical;
             UseRange = AbilRange.Weapon;
@@ -21,10 +19,10 @@ namespace Dungeon12.Entities.Abilities.Thief
         public override string[] GetTextParams()
         {
             return new string[] {
-                $"{Global.Strings.Damage}: {Value}",
-                $"{Global.Strings.Type}: {Element.Display()}",
-                $"{Global.Strings.Range}: {UseRange.Display()}",
-                Global.Strings.EachHandAttack
+                $"{Global.Strings["Damage"]}: {Value}",
+                $"{Global.Strings["Type"]}: {Element.Display()}",
+                $"{Global.Strings["Range"]}: {UseRange.Display()}",
+                Global.Strings["EachHandAttack"]
             };
         }
     }

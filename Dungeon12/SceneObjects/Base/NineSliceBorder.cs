@@ -6,12 +6,13 @@ namespace Dungeon12.SceneObjects.Base
 {
     internal class NineSliceBorder : EmptySceneObject
     {
-        public NineSliceBorder(double width, double height) : this(new NineSliceSettings()
+        public NineSliceBorder(double width, double height, double opacity) : this(new NineSliceSettings()
         {
             Width = width,
             Height = height,
             Size=5,
-            ImagesPath="UI/border/"
+            ImagesPath="UI/border/",
+            Opacity =opacity
         })
         { }
 
@@ -22,7 +23,7 @@ namespace Dungeon12.SceneObjects.Base
 
             var size = settings.Size;
 
-            this.AddChild(new DarkRectangle() { Width=settings.Width, Height=settings.Height, Opacity=0.9 });
+            this.AddChild(new DarkRectangle() { Width=settings.Width, Height=settings.Height, Opacity=settings.Opacity });
 
             this.AddChild(new ImageObject($"{settings.ImagesPath}leftup.png") { Width=size, Height=size });
             this.AddChild(new ImageObject($"{settings.ImagesPath}rightup.png") { Width=size, Height=size, Left=this.Width-size });
@@ -47,5 +48,7 @@ namespace Dungeon12.SceneObjects.Base
         public double Height { get; set; }
 
         public string ImagesPath { get; set; }
+
+        public double Opacity { get; set; } = .9;
     }
 }

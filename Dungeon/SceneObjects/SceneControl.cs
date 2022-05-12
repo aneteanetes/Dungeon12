@@ -221,5 +221,27 @@
         public virtual void GamePadButtonsPress(GamePadButton[] btns) { }
 
         public virtual void GamePadButtonsRelease(GamePadButton[] btns) { }
+
+        public override TSceneObject AddChild<TSceneObject>(TSceneObject sceneObject)
+        {
+            if (sceneObject is ISceneControl sceneControl)
+                AddControl(sceneControl);
+
+            return base.AddChild(sceneObject);
+        }
+
+        public override T1 AddChildCenter<T1>(T1 control, bool horizontal = true, bool vertical = true)
+        {
+            if(control is ISceneControl sceneControl)
+                AddControl(sceneControl);
+
+            return base.AddChildCenter(control, horizontal, vertical);
+        }
+
+        public virtual void AddControl<T1>(T1 control) where T1 : ISceneControl
+        {
+            if (this.Layer != default)
+                this.Layer.AddExistedControl(control);
+        }
     }
 }

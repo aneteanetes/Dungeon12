@@ -7,7 +7,7 @@ using System;
 
 namespace Dungeon12.SceneObjects.Create
 {
-    public class ArrowBtn : EmptySceneControl, ITooltiped
+    public class ArrowBtn : EmptySceneControl, ITooltipedDrawText
     {
         private bool _right;
 
@@ -23,7 +23,7 @@ namespace Dungeon12.SceneObjects.Create
 
         public Action OnClick { get; set; }
 
-        public IDrawText TooltipText => $"{(_right ? Global.Strings.Next : Global.Strings.Cancel)}".AsDrawText().Gabriela();
+        public IDrawText TooltipText => $"{(_right ? Global.Strings["Next"] : Global.Strings["Cancel"])}".AsDrawText().Gabriela();
 
         public bool ShowTooltip => true;
 

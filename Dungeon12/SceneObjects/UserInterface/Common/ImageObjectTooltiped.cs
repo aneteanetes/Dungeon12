@@ -6,7 +6,7 @@ using Dungeon12.SceneObjects.Base;
 
 namespace Dungeon12.SceneObjects.UserInterface.Common
 {
-    public class ImageObjectTooltiped : EmptySceneControl, ITooltiped
+    public class ImageObjectTooltiped : EmptySceneControl, ITooltipedDrawText
     {
         public ImageObjectTooltiped(string imagePath, string tooltip)
         {

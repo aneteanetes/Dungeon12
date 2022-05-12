@@ -8,8 +8,6 @@ namespace Dungeon12.Entities.Abilities.Mage
 
         public override void Bind()
         {
-            Name = Global.Strings.MageAoe;
-            Description = Global.Strings.MageAoeDescT1;
             Area = new AbilityArea(true,true,leftback:true);
             Element = Element.Fire;
             Cooldown = 3;
@@ -19,9 +17,9 @@ namespace Dungeon12.Entities.Abilities.Mage
         public override string[] GetTextParams()
         {
             return new string[] {
-                $"{Global.Strings.Damage}: {Value}",
-                $"{Global.Strings.Type}: {Element.Display()}",
-                $"{Global.Strings.Range}: {UseRange.Display()}"
+                $"{Global.Strings["Damage"]}: {Value}",
+                $"{Global.Strings["Type"]}: {Element.Display()}",
+                $"{Global.Strings["Range"]}: {UseRange.Display()}"
             };
         }
     }

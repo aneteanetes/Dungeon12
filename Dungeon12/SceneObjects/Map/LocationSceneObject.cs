@@ -9,7 +9,7 @@ using Dungeon12.SceneObjects.Base;
 
 namespace Dungeon12.SceneObjects.Map
 {
-    public class LocationSceneObject : SceneControl<Location>, ITooltiped
+    public class LocationSceneObject : SceneControl<Location>, ITooltipedDrawText
     {
         private ImageObject Background;
 

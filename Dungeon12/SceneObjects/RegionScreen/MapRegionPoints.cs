@@ -26,7 +26,7 @@ namespace Dungeon12.SceneObjects.RegionScreen
             }
         }
 
-        private class MapRegionPoint : SceneControl<MapPoint>, ITooltiped
+        private class MapRegionPoint : SceneControl<MapPoint>, ITooltipedDrawText
         {
             private MapRegion _region;
             private ImageObject _pointer;

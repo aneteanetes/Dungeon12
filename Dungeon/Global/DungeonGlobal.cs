@@ -34,11 +34,20 @@
 
         public static DungeonGlobal GetBindedGlobal() => global;
 
-        public static void BindGlobal<T>() where T : DungeonGlobal
+        public static void BindGlobal<T>(bool compileData=false) where T : DungeonGlobal
         {
+            DungeonGlobal.GameAssembly = typeof(T).Assembly;
+            DungeonGlobal.GameAssemblyName = DungeonGlobal.GameAssembly.GetName().Name;
+
             ResourceLoader.LoadAllAssembliesInFolder();
             GlobalExceptionHandling();
             global = typeof(T).NewAs<T>();
+
+            if (compileData)
+            {
+                var resCompiler = new ResourceCompiler();
+                resCompiler.Compile();
+            }
 
             var strings = global.GetStringsClass();
             if (strings != default)

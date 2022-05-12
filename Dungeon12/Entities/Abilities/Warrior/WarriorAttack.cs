@@ -8,8 +8,6 @@ namespace Dungeon12.Entities.Abilities.Warrior
 
         public override void Bind()
         {
-            Name = Global.Strings.WarriorAttack;
-            Description = Global.Strings.WarriorAttackDescT1;
             Area = new AbilityArea();
             Element = Element.Physical;
             UseRange = AbilRange.Close;
@@ -18,10 +16,10 @@ namespace Dungeon12.Entities.Abilities.Warrior
         public override string[] GetTextParams()
         {
             return new string[] {
-                $"{Global.Strings.Damage}: {Value}",
-                $"{Global.Strings.Type}: {Element.Display()}",
-                $"{Global.Strings.Range}: {UseRange.Display()}",
-                Global.Strings.IgnoreTargetPhysicalDefence
+                $"{Global.Strings["Damage"]}: {Value}",
+                $"{Global.Strings["Type"]}: {Element.Display()}",
+                $"{Global.Strings["Range"]}: {UseRange.Display()}",
+                Global.Strings["IgnoreTargetPhysicalDefence"]
             };
         }
     }

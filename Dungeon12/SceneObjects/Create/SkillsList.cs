@@ -18,7 +18,7 @@ namespace Dungeon12.SceneObjects.Create
             this.Height = 212;
             this.Width = 242;
 
-            var title = this.AddTextCenter(Global.Strings.Skills.AsDrawText().Gabriela().InColor(Global.CommonColor).InSize(25), vertical: false);
+            var title = this.AddTextCenter(Global.Strings["Skills"].AsDrawText().Gabriela().InColor(Global.CommonColor).InSize(25), vertical: false);
             title.Top = 5;
 
             var skillgroups = typeof(Skill).All<Skill>()
@@ -44,7 +44,7 @@ namespace Dungeon12.SceneObjects.Create
             }
         }
 
-        public class SkillListItem : SceneControl<Hero>, ITooltiped, IMouseHint
+        public class SkillListItem : SceneControl<Hero>, ITooltipedDrawText, IMouseHint
         {
             Skill _skill;
 
@@ -59,14 +59,12 @@ namespace Dungeon12.SceneObjects.Create
 
             public override bool Visible => Component.Class == _skill.Class();
 
-            public IDrawText TooltipText => $"{Global.Strings.LeftMouseButton} - {Global.Strings.Info}".AsDrawText().Gabriela();
+            public IDrawText TooltipText => $"{Global.Strings["LeftMouseButton"]} - {Global.Strings["Info"]}".AsDrawText().Gabriela();
 
             public bool ShowTooltip => true;
 
-            public GraphicsTooltip CreateMouseHint() =>
-                new GraphicsTooltip(_skill.Display(), 
-                    Global.Strings.ByProperty($"{_skill}Desc"), 
-                    GraphicsTooltipSize.Auto);
+            public GameHint CreateMouseHint() =>
+                new GameHint(_skill.Display(), Global.Strings.Description[_skill.ToString()]);
 
             public void RefreshTooltip() { }
         }

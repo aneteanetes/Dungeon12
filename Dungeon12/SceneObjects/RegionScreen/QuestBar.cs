@@ -89,7 +89,7 @@ namespace Dungeon12.SceneObjects.RegionScreen
                 }
             }
 
-            private class PlateButton : EmptySceneControl, ITooltiped
+            private class PlateButton : EmptySceneControl, ITooltipedDrawText
             {
                 private string _img;
                 public PlateButton(string img)

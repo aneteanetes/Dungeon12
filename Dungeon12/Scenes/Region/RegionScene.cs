@@ -33,7 +33,7 @@ namespace Dungeon12.Scenes
 
             ui = CreateLayer("ui");
 
-            ui.AddSystem(new TooltipSystem());
+            ui.AddSystem(new TooltipDrawTextSystem());
             ui.AddSystem(new MouseHintSystem());
             ui.AddSystem(new CursorSystem());
 
@@ -97,7 +97,7 @@ namespace Dungeon12.Scenes
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
-            if (keyPressed == Key.Escape)
+            if (keyPressed == Key.Escape && !hold)
             {
                 this.Switch<StartScene>();
             }

@@ -10,6 +10,8 @@ namespace Dungeon12.Entities.Abilities
     {
         public Ability()
         {
+            Name=Global.Strings[ClassName];
+            Description=Global.Strings.Description[ClassName];
             Bind();
             TextParams = GetTextParams();
         }
