@@ -374,6 +374,12 @@
             ControlEventType.GlobalClickRelease, 
             ControlEventType.ClickRelease };
 
+        public override void Destroy()
+        {
+            Change=null;
+            base.Destroy();
+        }
+
         private class TypingText : TextObject
         {
             public override bool CacheAvailable => false;

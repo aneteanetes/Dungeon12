@@ -570,6 +570,12 @@
             get => _scene;
             set
             {
+                foreach (var sceneLayer in SceneLayers)
+                {
+                    sceneLayer.Value.Dispose();
+                }
+                SceneLayers.Clear();
+
                 SceneLayers = new Dictionary<ISceneLayer, RenderTarget2D>();
                 //if (value.Is<Scenes.Sys_Clear_Screen>())
                 //{

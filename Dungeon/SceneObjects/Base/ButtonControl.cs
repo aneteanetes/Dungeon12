@@ -10,7 +10,7 @@ namespace Dungeon.SceneObjects.Base
 {
     [Hidden]
     public class ButtonControl<TComponent> : SceneControl<TComponent>
-        where TComponent : class, IGameComponent
+        where TComponent : class
     {
         protected TextObject textControl;
 

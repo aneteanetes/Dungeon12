@@ -39,8 +39,8 @@ namespace Dungeon12.Scenes
             var ui = this.CreateLayer("ui");
             InitButtons(ui);
 
-            var snow = this.CreateLayer("snow");
-            snow.AddObject(new BackgroundSnow());
+            //var snow = this.CreateLayer("snow");
+            //snow.AddObject(new BackgroundSnow());
         }
 
         private void InitButtons(SceneLayer ui)

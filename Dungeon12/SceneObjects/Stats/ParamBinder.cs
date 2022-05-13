@@ -65,7 +65,7 @@ namespace Dungeon12.SceneObjects.Stats
             return (name).SegoeUIBold().InSize(10).InColor(Global.CommonColorLight);
         }
 
-        public void Destroy()
+        public virtual void Destroy()
         {
             texts.ForEach(t=>t.Destroy());
         }

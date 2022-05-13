@@ -11,8 +11,6 @@
 
     public class HeroSceneObject : SceneControl<Hero>
     {
-        public override bool Events => true;
-
         public override bool Shadow => true;
 
         public override bool Updatable => base.Updatable;

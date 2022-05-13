@@ -312,10 +312,7 @@ namespace Dungeon.Proxy
 
         protected override void CallDiscard(dynamic obj) { }
 
-        public void Destroy()
-        {
-            this.SceneObject?.Destroy?.Invoke();
-        }
+        public virtual void Destroy(){ this.SceneObject?.Destroy(); }
 
         public void Init() { }
 

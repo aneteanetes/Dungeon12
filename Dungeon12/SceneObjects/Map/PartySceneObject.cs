@@ -1,18 +1,11 @@
 ﻿namespace Dungeon12.Drawing.SceneObjects.Map
 {
-    using Dungeon;
     using Dungeon.Control;
-    using Dungeon.Control.Keys;
     using Dungeon.SceneObjects;
-    using Dungeon.Types;
-    using Dungeon.View.Interfaces;
     using Dungeon12.Entities;
-    using System.Collections.Generic;
 
     public class PartySceneObject : SceneControl<Party>
     {
-        public override bool Events => true;
-
         public override bool Shadow => true;
 
         public override bool Updatable => base.Updatable;

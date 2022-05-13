@@ -169,7 +169,10 @@ namespace Dungeon.Resources
 
             if (addToScene)
             {
-                (sceneManager ?? DungeonGlobal.SceneManager).Preapering?.Resources.Add(res);
+                var sManager = (sceneManager ?? DungeonGlobal.SceneManager);
+                var scene = sManager.Preapering;
+                if (scene!=default && !scene.Resources.Contains(res))
+                    scene.Resources.Add(res);
             }
 
             return res;

@@ -967,6 +967,8 @@ namespace Dungeon.Monogame
             return thisTex;
         }
 
+        private Dictionary<string, SpriteFont> SpriteFontCache = new Dictionary<string, SpriteFont>();
+
         private void DrawSceneText(float fontSize, double y, double x, IDrawText range, ISceneObject sceneObject)
         {
             bool fontWeight = range.Bold;
@@ -985,7 +987,10 @@ namespace Dungeon.Monogame
                 if (resFont == default)
                     return;
 
-                spriteFont = Content.Load<SpriteFont>(font, resFont.Stream);
+                if (!SpriteFontCache.TryGetValue(font, out spriteFont))
+                {
+                    SpriteFontCache[font] =spriteFont = Content.Load<SpriteFont>(font, resFont.Stream);
+                }
             }
             else
             {
@@ -999,13 +1004,9 @@ namespace Dungeon.Monogame
                 if (resFont == default)
                     return;
 
-                if (string.IsNullOrEmpty(range.FontPath))
+                if (!SpriteFontCache.TryGetValue(font, out spriteFont))
                 {
-                    spriteFont = Content.Load<SpriteFont>(font, resFont.Stream);
-                }
-                else
-                {
-                    spriteFont = Content.Load<SpriteFont>(font, resFont.Stream);
+                    SpriteFontCache[font] =spriteFont = Content.Load<SpriteFont>(font, resFont.Stream);
                 }
             }
 
@@ -1376,7 +1377,7 @@ namespace Dungeon.Monogame
                     penumbra.Lights.Add(light);
                     Lights[sceneObject.Uid] = light;
 
-                    sceneObject.Destroy += () =>
+                    sceneObject.OnDestroy += () =>
                     {
                         Lights.Remove(sceneObject.Uid);
                         penumbra.Lights.Remove(light);
@@ -1423,7 +1424,7 @@ namespace Dungeon.Monogame
 
                         ParticleEffects.Add(sceneObject.Uid, particleEffect);
 
-                        sceneObject.Destroy += () => ParticleEffects.Remove(sceneObject.Uid);
+                        sceneObject.OnDestroy += () => ParticleEffects.Remove(sceneObject.Uid);
 
                         myRenderer.LoadContent(Content);
                     }

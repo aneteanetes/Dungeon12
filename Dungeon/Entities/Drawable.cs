@@ -48,9 +48,9 @@ namespace Dungeon.Entities
             SceneObject = sceneObject;
         }
 
-        public void Destroy()
+        public virtual void Destroy()
         {
-            throw new NotImplementedException();
+
         }
 
         public void Init()

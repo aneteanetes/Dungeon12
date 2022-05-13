@@ -9,7 +9,7 @@ namespace Dungeon.Monogame
         {
             var gameTimeLoop = new GameTimeLoop(gameTime.TotalGameTime, gameTime.ElapsedGameTime, gameTime.IsRunningSlowly);
 
-            if (!blockControls)
+            if (!blockControls && !SceneManager.IsSwitching)
             {
                 if (!DungeonGlobal.GamePadConnected)
                     UpdateMouseEvents();

@@ -10,17 +10,12 @@ using System.Text;
 
 namespace Dungeon.Data
 {
-    public class Persist
-#if Core
-        : GameComponent, IPersist
-#endif
+    public class Persist : IPersist
     {
         /// <summary>
         /// Внутреннее свойство для LiteDb
         /// </summary>
-#if Core
         [Hidden]
-#endif
         public int Id { get; set; }
 
         /// <summary>
@@ -32,7 +27,6 @@ namespace Dungeon.Data
 
         public string Assembly { get; set; }
 
-#if Core
         public static IEnumerable<T> Load<T>(Expression<Func<T, bool>> predicate = null, object cacheObject = default)
             where T : IPersist
             => Store.Entity<T>(predicate, cacheObject);
@@ -44,6 +38,5 @@ namespace Dungeon.Data
         public static T LoadById<T>(string id, object cacheObject = default)
             where T : IPersist
             => Store.EntitySingle<T>(id, cacheObject);
-#endif
     }
 }

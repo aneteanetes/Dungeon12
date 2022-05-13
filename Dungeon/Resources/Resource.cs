@@ -66,6 +66,7 @@ namespace Dungeon.Resources
             OnDispose?.Invoke();
             stream?.Dispose();
             Data = null;
+            GC.Collect();
         }
 
         [BsonIgnore]

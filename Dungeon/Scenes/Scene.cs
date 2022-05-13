@@ -15,7 +15,7 @@
 
     public abstract class Scene : IScene
     {
-        public readonly SceneManager sceneManager;
+        public SceneManager sceneManager;
 
         public abstract bool Destroyable { get; }
 
@@ -99,24 +99,27 @@
 
         protected void CallLayer(Action<SceneLayer> layerAction, PointerArgs mouse = default)
         {
-            void invoke(SceneLayer l)
-            {
-                if (l != default)
-                    layerAction?.Invoke(l);
-            }
-
             if (mouse != default && ActiveLayer != default)
             {
-                invoke(ActiveLayer);
+                layerAction?.Invoke(ActiveLayer);
             }
             else if (ActiveLayer == default && mouse != default)
             {
                 var layers = SceneLayerGraph.QueryPhysical(new SceneLayerGraph(mouse));
-                layers.ForEach(l => invoke(l.SceneLayer));
+                foreach (var layer in layers)
+                {
+                    var sceneLayer = layer.SceneLayer;
+                    if (!sceneLayer.Destroyed)
+                        layerAction?.Invoke(sceneLayer);
+                }
             }
             else if (mouse == default)
             {
-                LayerList.ForEach(l => invoke(l));
+                foreach (var layer in LayerList)
+                {
+                    if (!layer.Destroyed)
+                        layerAction?.Invoke(layer);
+                }
             }
         }
 
@@ -357,12 +360,17 @@
                 l.Destroy();
             }
 
+            LayerList.Clear();
+            LayerMap=null;
+            SceneLayerGraph=null;
+
             if (!ResourceLoader.Settings.EmbeddedMode && !ResourceLoader.NotDisposingResources)
             {
                 Resources.ForEach(r => r.Dispose());
                 Resources.Clear();
-                GC.Collect();
+                Resources=null;
             }
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
             Destroyed = true;
         }
 

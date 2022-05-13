@@ -1,4 +1,5 @@
 ﻿using Dungeon.View.Interfaces;
+using System;
 
 namespace Dungeon.GameObjects
 {
@@ -11,9 +12,9 @@ namespace Dungeon.GameObjects
             SceneObject = sceneObject;
         }
 
-        public void Destroy()
+        public virtual void Destroy()
         {
-            SceneObject.Destroy?.Invoke();
+            SceneObject.Destroy();
         }
 
         public void Init() { }

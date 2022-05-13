@@ -7,6 +7,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Threading;
 
     public class SceneManager
     {
@@ -30,12 +31,24 @@
 
         private readonly Dictionary<Type, GameScene> SceneCache = new Dictionary<Type, GameScene>();
 
-        public GameScene Current { get; set; }
+        private GameScene _current;
+        public GameScene Current
+        {
+            get
+            {
+                return IsSwitching 
+                    ? null 
+                    : _current;
+            }
+
+        }
         public GameScene Preapering = null;
 
         public GameScene CurrentScene { get; set; }
 
         public Type LoadingScreenType { get; set; }
+
+        public bool IsSwitching { get; set; }
 
         public void Start(params string[] args)
         {
@@ -110,8 +123,8 @@
 
         public void Switch<TScene>(params string[] args) where TScene : GameScene
         {
-            if (Current?.Loadable ?? false)
-                LoadingScreenCustom(Current.LoadArguments).Then(cb =>
+            if (_current?.Loadable ?? false)
+                LoadingScreenCustom(_current.LoadArguments).Then(cb =>
                 {
                     SwitchImplementation<TScene>(args);
                     cb.Dispose();
@@ -141,14 +154,16 @@
 
         private void SwitchImplementation<TScene>(string[] args) where TScene : GameScene
         {
+            IsSwitching= true;
+
             // вначале уничтожаем сцену, потому что если мы
             // хотим переключить на ту же самую сцену,
             // она будет в кэше и не будет создана т.к.
             // будет в состоянии "не удаляемой"
-            if (Current?.Destroyable ?? false)
+            if (_current?.Destroyable ?? false)
             {
-                SceneCache.Remove(Current.GetType());
-                Current.Destroy();
+                SceneCache.Remove(_current.GetType());
+                _current.Destroy();
             }
 
             var sceneType = typeof(TScene);
@@ -158,37 +173,45 @@
                 next = sceneType.New<TScene>(this);
                 SceneCache.Add(typeof(TScene), next);
 
-                Populate(Current, next, args);
+                Populate(_current, next, args);
                 Preapering = next;
                 CurrentScene = Preapering;
                 next.Initialize();
             }
 
             //Если мы переключаем сцену, а она в это время фризит мир - надо освободить мир
-            if (Current?.Freezer != null)
+            if (_current?.Freezer != null)
             {
                 DungeonGlobal.Freezer.World = null;
             }
 
+            // удаляем ссылки
+
+            _current.sceneManager=null;
+
+
             Preapering = next;
             CurrentScene = Preapering;
-            Current = next;
+
+            _current=next;
             //Если мы переключаем сцену, а в следующей есть физер - значит надо восстановить её состояние
             if (next.Freezer != null)
             {
                 DungeonGlobal.Freezer.World = next.Freezer;
             }
 
-            Current.Activate();
-            CurrentScene = Current;
+            _current.Activate();
+            CurrentScene = _current;
+
+            IsSwitching = false;
         }
 
         public void Change<TScene>(params string[] args) where TScene : GameScene => Switch<TScene>(args);
 
         public void Change(Type sceneType, params string[] args)
         {
-            if (Current?.Loadable ?? false)
-                LoadingScreenCustom(Current.LoadArguments).Then(cb =>
+            if (_current?.Loadable ?? false)
+                LoadingScreenCustom(_current.LoadArguments).Then(cb =>
                 {
                     ChangeImplementation(sceneType, args);
                     cb.Dispose();
@@ -199,9 +222,11 @@
 
         private void ChangeImplementation(Type sceneType, string[] args)
         {
-            if (Current?.Destroyable ?? false)
+            IsSwitching=true;
+
+            if (_current?.Destroyable ?? false)
             {
-                SceneCache.Remove(Current.GetType());
+                SceneCache.Remove(_current.GetType());
             }
 
             if (!SceneCache.TryGetValue(sceneType, out GameScene next))
@@ -209,7 +234,7 @@
                 next = sceneType.NewAs<GameScene>(this);
                 SceneCache.Add(sceneType, next);
 
-                Populate(Current, next);
+                Populate(_current, next);
                 Preapering = next;
                 CurrentScene = Preapering;
                 next.Args = args;
@@ -226,11 +251,13 @@
 
             Preapering = next;
             CurrentScene = Preapering;
-            Current = next;
+            _current = next;
 
-            Current.Args = args;
-            Current.Activate();
-            CurrentScene = Current;
+            _current.Args = args;
+            _current.Activate();
+            CurrentScene = _current;
+
+            IsSwitching = false;
         }
 
         private void ProcessArgs(GameScene scene)

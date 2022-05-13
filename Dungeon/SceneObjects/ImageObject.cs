@@ -10,8 +10,6 @@
     /// </summary>
     public class ImageObject : EmptySceneObject
     {
-        public override bool Events => false;
-
         public ImageObject(string imagePath)
         {
             if (!imagePath.Contains(".Resources.Images."))
@@ -37,11 +35,6 @@
                     return imageDelegate();
                 return base.Image;
             }
-        }
-
-        protected override void CallOnEvent(dynamic obj)
-        {
-            OnEvent(obj);
         }
     }
 }

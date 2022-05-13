@@ -83,7 +83,7 @@ namespace Dungeon.Scenes
                 sceneObject.ControlBinding += this.RemoveControl;
                 sceneObject.DestroyBinding += this.RemoveObject;
                 sceneObject.ShowInScene += ShowEffectsBinding;
-                sceneObject.Destroy += () => this.RemoveObject(sceneObject);
+                sceneObject.OnDestroy += () => this.RemoveObject(sceneObject);
                 sceneObject.ShowInScene += this.ShowEffectsBinding;
                 sceneObject.Layer = this;
                 sceneObject.Init();
@@ -153,7 +153,7 @@ namespace Dungeon.Scenes
                     effect.ControlBinding = this.AddExistedControl;
                 }
 
-                effect.Destroy += () =>
+                effect.OnDestroy += () =>
                 {
                     this.RemoveObject(effect);
                 };
@@ -182,7 +182,7 @@ namespace Dungeon.Scenes
                 sceneObjectControl.Layer = this;
                 sceneObjectControl.Init();
                 sceneObjectControls.Add(sceneObjectControl);
-                sceneObjectControl.Destroy += () => { RemoveControl(sceneObjectControl); };
+                sceneObjectControl.OnDestroy += () => { RemoveControl(sceneObjectControl); };
             }
         }
 
@@ -446,6 +446,9 @@ namespace Dungeon.Scenes
             clickedElements = WhereLayeredHandlers(clickedElements, pointerPressedEventArgs, offset);
 
             DoClicks(pointerPressedEventArgs, offset, clickedElements, (c, a) => c.Click(a));
+
+            if (this.Destroyed)
+                return;
 
             /// глобальный клик позже потому что он в никуда, да и отмекнять его придётся чаще
             if (globalKeyHandlers.Count() != 0)
@@ -728,15 +731,18 @@ namespace Dungeon.Scenes
 
         public bool AbsoluteLayer { get; set; }
 
-        public void Destroy()
+        public virtual void Destroy()
         {
             var sceneObjsForRemove = new List<ISceneObject>(SceneObjects);
-            sceneObjsForRemove.ForEach(x => x.Destroy?.Invoke());
+            sceneObjsForRemove.ForEach(x => x.Destroy());
             sceneObjsForRemove.Clear();
 
             sceneObjsForRemove = new List<ISceneObject>(sceneObjectControls);
-            sceneObjsForRemove.ForEach(x => x.Destroy?.Invoke());
+            sceneObjsForRemove.ForEach(x => x.Destroy());
             sceneObjsForRemove.Clear();
+
+            Destroyed=true;
+            this.Owner=null;
         }
 
         public void AddSystem(ISystem system)

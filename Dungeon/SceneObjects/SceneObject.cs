@@ -17,7 +17,7 @@
     using System.Reflection;
 
     [Hidden]
-    public abstract class SceneObject<TComponent> : GameComponent, ISceneObject, IFlowable, IMixinContainer
+    public abstract class SceneObject<TComponent> : ISceneObject, IFlowable, IMixinContainer
         where TComponent : class
     {
         private readonly Scenes.GameScene owner;
@@ -41,20 +41,8 @@
             {
                 BindGameComponent(component);
             }
-            else if (component != default)
-            {
-                this.Destroy += () =>
-                {
-                    Component = default;
-                };
-            }
 
             Component = component;
-
-            Destroy += () =>
-            {
-                this.UnsubscribeEvents();
-            };
 
             ProcessSingleton();
         }
@@ -64,12 +52,6 @@
             if (component is IGameComponent gameComponent)
             {
                 gameComponent.SetView(this);
-
-                this.Destroy += () =>
-                {
-                    Component = default;
-                    gameComponent.SetView(default);
-                };
             }
         }
 
@@ -90,12 +72,11 @@
                 var key = GetType().FullName;
                 if (singletonInstances.TryGetValue(key, out var instance))
                 {
-                    instance.Destroy?.Invoke();
+                    instance.Destroy();
                     singletonInstances.Remove(key);
                 }
 
                 singletonInstances.Add(key, this);
-                Destroy += () => singletonInstances.Remove(key);
             }
         }
 
@@ -389,13 +370,13 @@
 
         public ISceneObject AddChild(ISceneObject sceneObject)
         {
-            sceneObject.Destroy += () =>
+            sceneObject.OnDestroy += () =>
             {
                 RemoveChild(sceneObject);
                 DestroyBinding?.Invoke(sceneObject);
             };
 
-            Destroy += () => sceneObject.Destroy?.Invoke();
+            OnDestroy += () => sceneObject.Destroy();
 
             sceneObject.Parent = this;
 
@@ -406,13 +387,13 @@
         public virtual TSceneObject AddChild<TSceneObject>(TSceneObject sceneObject)
             where TSceneObject : ISceneObject
         {
-            sceneObject.Destroy += () =>
+            sceneObject.OnDestroy += () =>
             {
                 RemoveChild(sceneObject);
                 DestroyBinding?.Invoke(sceneObject);
             };
 
-            Destroy += () => sceneObject.Destroy?.Invoke();
+            OnDestroy += () => sceneObject.Destroy();
 
             sceneObject.Parent = this;
 
@@ -428,7 +409,7 @@
 
             foreach (var removing in forRemove)
             {
-                removing.Destroy?.Invoke();
+                removing.Destroy();
                 RemoveChild(removing);
             }
         }
@@ -453,7 +434,7 @@
 
             foreach (var removing in forRemove)
             {
-                removing.Destroy?.Invoke();
+                removing.Destroy();
                 RemoveChild(removing);
             }
         }
@@ -532,9 +513,6 @@
         /// Абсолютная позиция НЕ НАСЛЕДУЕТСЯ в целях ПРОИЗВОДИТЕЛЬНОСТИ
         /// </summary>
         public virtual bool AbsolutePosition { get; set; } = false;
-
-        [Hidden]
-        public Action Destroy { get; set; }
 
         [Hidden]
         public Action<List<ISceneObject>> ShowInScene { get; set; }
@@ -786,7 +764,7 @@
         /// <summary>
         /// Теперь AsmImg() проставляется автоматом!
         /// </summary>
-        public override string Image
+        public virtual string Image
         {
             get => _image;
             set
@@ -809,6 +787,8 @@
         public virtual bool IsMonochrome { get; set; }
 
         public virtual DrawMode Mode { get; set; } = DrawMode.Normal;
+
+        public string Name { get; set; }
 
         public void PlayAnimation(Animation animation)
         {
@@ -865,5 +845,30 @@
         }
 
         public virtual void UpdateSceneObject(GameTimeLoop gameTime) { }
+
+        public Action OnDestroy { get; set; }
+
+        public virtual void Destroy()
+        {
+            Component = default;
+            if (Component is GameComponent gameComponent)
+                gameComponent.SetView(default);
+
+            singletonInstances.Remove(GetType().FullName);
+            OnDestroy?.Invoke();
+            OnDestroy = null;
+
+            ClearDelegates();
+        }
+
+        private void ClearDelegates()
+        {
+            this.GetType()
+                .GetProperties(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public)
+                .Where(p => p.PropertyType.BaseType!=null && p.PropertyType.BaseType.Name=="MulticastDelegate")
+                .ForEach(p => this.SetPropertyExprType(p.Name, null, p.PropertyType));
+        }
+
+        public virtual void Init() { }
     }
 }

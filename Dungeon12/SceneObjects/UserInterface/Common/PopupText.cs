@@ -11,10 +11,6 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
     {
         public override bool Filtered => false;
 
-        protected override void CallOnEvent(dynamic obj)
-        {
-            OnEvent(obj);
-        }
         public override bool CacheAvailable => false;
 
         public override bool AbsolutePosition => true;
@@ -67,7 +63,7 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
         {
             if (frames >= maxFrames)
             {
-                this.Destroy?.Invoke();
+                this.Destroy();
                 return;
             }
 
@@ -92,7 +88,7 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
         {
             if (Time == default(TimeSpan) || Time < default(TimeSpan))
             {
-                this.Destroy?.Invoke();
+                this.Destroy();
                 OnAfter?.Invoke();
                 return;
             }

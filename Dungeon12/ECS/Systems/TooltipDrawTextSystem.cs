@@ -60,7 +60,7 @@ namespace Dungeon12.ECS.Systems
                 if (!Tooltips.TryGetValue(tooltipedDrawText, out var tooltip) )
                 {
                     Tooltips.Add(tooltipedDrawText, null);
-                    sceneObject.Destroy += () =>
+                    sceneObject.OnDestroy += () =>
                     {
                         Tooltips.Remove(tooltipedDrawText);
                         SceneLayer.RemoveObject(tooltip);
@@ -98,7 +98,7 @@ namespace Dungeon12.ECS.Systems
                 tooltip?.Destroy();
             }
 
-            sceneObject.Destroy += () =>
+            sceneObject.OnDestroy += () =>
             {
                 Tooltips1.Remove(tooltiped);
                 SceneLayer.RemoveObject(tooltip);

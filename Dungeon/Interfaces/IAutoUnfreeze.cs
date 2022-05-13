@@ -4,6 +4,8 @@ namespace Dungeon
 {
     public interface IAutoUnfreeze
     {
-        Action Destroy { get; set; }
+        Action OnDestroy { get; set; }
+
+        void Destroy();
     }
 }

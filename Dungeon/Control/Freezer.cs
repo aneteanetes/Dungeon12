@@ -59,7 +59,7 @@ namespace Dungeon.Control
 
             World = destroyable;
 
-            destroyable.Destroy += () => Unfreeze();
+            destroyable.OnDestroy += () => Unfreeze();
         }
 
         public void Unfreeze()

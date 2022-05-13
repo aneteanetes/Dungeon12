@@ -7,7 +7,7 @@
     using System.Collections.Generic;
 
     [Hidden]
-    public interface ISceneObject : IGameComponent
+    public interface ISceneObject
     {
         public bool AlphaBlend { get; set; }
 
@@ -171,12 +171,6 @@
         string Uid { get; }
 
         /// <summary>
-        /// Вызвать уничтожение объекта. КОМУ НАДО ТОТ УНИЧТОЖИТ ЁПТА
-        /// </summary>
-        [Hidden]
-        new Action Destroy { get; set; }
-
-        /// <summary>
         /// Посылание эффектов в сцену
         /// </summary>
         [Hidden]
@@ -216,5 +210,16 @@
         ISceneObject RemoveChild(ISceneObject sceneObject);
 
         bool PerPixelCollision { get; }
+
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Вызвать уничтожение объекта.
+        /// </summary>
+        void Destroy();
+
+        Action OnDestroy { get; set; }
+
+        void Init();
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Dungeon.Control;
-using Dungeon.Drawing;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.SceneObjects.UserInterface.Common;

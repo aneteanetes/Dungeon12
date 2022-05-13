@@ -17,7 +17,7 @@ namespace Dungeon12
                         if (StatsWindow==null)
                         {
                             layer.AddObjectCenter(StatsWindow=new StatsWindow(layer));
-                            StatsWindow.Destroy+=() => StatsWindow=null;
+                            StatsWindow.OnDestroy+=() => StatsWindow=null;
                         }
                         else if (!ignoreOpened)
                         {

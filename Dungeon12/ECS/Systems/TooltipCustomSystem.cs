@@ -52,7 +52,7 @@ namespace Dungeon12.ECS.Systems
             {
                 if (Tooltips.TryGetValue(tooltiped, out var tooltip))
                 {
-                    tooltip.Destroy?.Invoke();
+                    tooltip.Destroy();
                     SceneLayer.RemoveObject(tooltip);
                     Tooltips.Remove(tooltiped);
                 }

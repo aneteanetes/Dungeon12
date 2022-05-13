@@ -35,14 +35,15 @@ namespace Dungeon.SceneObjects
             yesBtn.Left = 8;
             yesBtn.OnClick = () =>
             {
-                this.Destroy?.Invoke();
+                this.Destroy();
                 ok?.Invoke();
             };
+        }
 
-            this.Destroy += () =>
-            {
-                DungeonGlobal.Freezer.World = null;
-            };
+        public override void Destroy()
+        {
+            DungeonGlobal.Freezer.World = null;
+            base.Destroy();
         }
 
         private class OkButton : ButtonControl<EmptySceneObject>

@@ -64,7 +64,7 @@ namespace Dungeon12.ECS.Systems
             hint.Host = sceneObject;
 
             var hintPos = new Point(args.X+15, args.Y);
-            sceneObject.Destroy += () =>
+            sceneObject.OnDestroy += () =>
             {
                 if (hint != null)
                 {
@@ -111,7 +111,7 @@ namespace Dungeon12.ECS.Systems
                         tooltip.Visible = true;
                 }
 
-                ExistedHint.Destroy?.Invoke();
+                ExistedHint.Destroy();
                 ExistedHint = null;
             }
         }

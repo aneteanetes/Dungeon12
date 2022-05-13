@@ -35,9 +35,9 @@ namespace Dungeon.GameObjects
 
         public string Name { get; set; }
 
-        public void Destroy()
+        public virtual void Destroy()
         {
-            SceneObject?.Destroy?.Invoke();
+            SceneObject.Destroy();
             SceneObject = default;
             OnDestroyGameComponent?.Invoke();
         }

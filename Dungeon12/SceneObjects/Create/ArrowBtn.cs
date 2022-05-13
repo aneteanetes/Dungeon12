@@ -34,5 +34,10 @@ namespace Dungeon12.SceneObjects.Create
         }
 
         public void RefreshTooltip() { }
+
+        public override void Destroy()
+        {
+            base.Destroy();
+        }
     }
 }

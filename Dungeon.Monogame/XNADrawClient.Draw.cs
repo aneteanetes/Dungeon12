@@ -253,11 +253,9 @@
 
                     var font = Content.Load<SpriteFont>(DefaultFontXnbExistedFile, stream);
 
-                    var m = (float)this.MeasureText(DungeonGlobal.FPS.ToString().AsDrawText().InSize(10)).X;
-
                     //spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);
 
-                    spriteBatch.DrawString(font, DungeonGlobal.FPS.ToString(), new Vector2((this.Window.ClientBounds.Width - m) - 2, 2), Color.Yellow);
+                    spriteBatch.DrawString(font, DungeonGlobal.FPS.ToString(), new Vector2((this.Window.ClientBounds.Width - 50) - 2, 2), Color.Yellow);
                 }
 
                 if (neeedClose)

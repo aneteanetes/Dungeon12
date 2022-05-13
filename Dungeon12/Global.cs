@@ -1,16 +1,13 @@
-﻿using System.Reflection;
-using System.IO;
-using Dungeon;
-using Dungeon.Localization;
-using System.Collections.Generic;
-using Dungeon12.Functions;
-using Dungeon.Scenes;
-using Dungeon.View.Interfaces;
-using Dungeon12.SceneObjects;
-using System.Linq;
-using Dungeon12.Entities.Enums;
+﻿using Dungeon;
 using Dungeon.Drawing;
+using Dungeon.Localization;
+using Dungeon.View.Interfaces;
+using Dungeon12.Entities.Enums;
 using Dungeon12.Locale;
+using Dungeon12.SceneObjects;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
 namespace Dungeon12
 {
@@ -38,8 +35,6 @@ namespace Dungeon12
 
         public override void LoadStrings(object localizationStringDictionary) { }
 
-        public static Dictionary<string, IFunction> Functions = new Dictionary<string, IFunction>();
-
         public static HelpingSceneObject Helps;
 
         public static DrawColor CommonColor { get; } = new DrawColor(139, 107, 86);
@@ -53,22 +48,6 @@ namespace Dungeon12
         public static DrawColor FractionColorVanguard { get; } = new DrawColor(10, 7, 105);
 
         public static GlobalWindows Windows { get; set; } = new GlobalWindows();
-
-        public static bool RegisterFunction<TFuncClass>() where TFuncClass : IFunction
-        {
-            var func = typeof(TFuncClass).NewAs<TFuncClass>();
-            return Functions.TryAdd(func.Name, func);
-        }
-
-        public static bool ExecuteFunction(ISceneLayer sceneLayer, string name, string objectId)
-        {
-            if (Functions.TryGetValue(name, out var func))
-            {
-                return func.Call(sceneLayer, objectId);
-            }
-
-            return false;
-        }
 
         public static Spec DemoSpecNPC() => Game.Party.Hero1.Spec switch
         {

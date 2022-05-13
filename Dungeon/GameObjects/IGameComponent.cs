@@ -1,4 +1,6 @@
-﻿namespace Dungeon.View.Interfaces
+﻿using System;
+
+namespace Dungeon.View.Interfaces
 {
     public interface IGameComponent
     {
@@ -8,6 +10,9 @@
 
         void SetView(ISceneObject sceneObject);
 
+        /// <summary>
+        /// Вызвать уничтожение объекта.
+        /// </summary>
         void Destroy();
 
         void Init();
