@@ -14,7 +14,7 @@ namespace Dungeon12.SceneObjects.Base
         {
             this.Width = 355;
 
-            var desc = text.AsDrawText().Gabriela().InColor(Global.CommonColorLight).InSize(FontSize).WithWordWrap();
+            var desc = text.AsDrawText().SegoeUIBold().InColor(Global.CommonColorLight).InSize(FontSize).WithWordWrap();
             var descMeasure = this.MeasureText(desc, new EmptySceneObject() { Width = 320 });
 
             var ttle = title.AsDrawText().Gabriela().InColor(Global.CommonColorLight).InSize(16);

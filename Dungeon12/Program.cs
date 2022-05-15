@@ -11,13 +11,11 @@ namespace Dungeon12
     public static class Program
     {
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
-            DungeonGlobal.BindGlobal<Global>(true);
-            DungeonGlobal.ComponentUpdateCompatibility = false;
-            Console.WriteLine(DungeonGlobal.Version);
+            DungeonGlobal.BindGlobal<Global>(true,true);
 #if DEBUG
-            //ResourceLoader.Settings.EmbeddedMode = false;
+            ResourceLoader.Settings.EmbeddedMode = false;
 
 
             //DungeonGlobal.ExceptionRethrow = true;
@@ -28,14 +26,25 @@ namespace Dungeon12
 #endif      
             ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver(Assembly.GetExecutingAssembly()));
 
+            var width = 1920;
+            var height = 1080;
+            var monitor = 1;
+
+            if (args!=null && args.Length > 0)
+            {
+                int.TryParse(args.ElementAtOrDefault(0) ?? "1920", out width);
+                int.TryParse(args.ElementAtOrDefault(1) ?? "1080", out height);
+                int.TryParse(args.ElementAtOrDefault(2) ?? "1", out monitor);
+            }
+
             var client = new MonogameClient(new MonogameClientSettings()
             {
-                OriginWidthPixel = 1920,
-                OriginHeightPixel = 1080,
+                OriginWidthPixel = width,
+                OriginHeightPixel = height,
                 IsFullScreen = true,
                 Add2DLighting = false,
                 IsWindowedFullScreen = true,
-                MonitorIndex = 1
+                MonitorIndex = monitor
             });
             DungeonGlobal.ClientRun = client.Run;
             DungeonGlobal.Run();

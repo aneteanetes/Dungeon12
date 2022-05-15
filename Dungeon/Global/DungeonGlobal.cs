@@ -34,8 +34,12 @@
 
         public static DungeonGlobal GetBindedGlobal() => global;
 
-        public static void BindGlobal<T>(bool compileData=false) where T : DungeonGlobal
+        public static bool IsDevelopment { get; private set; }
+
+        public static void BindGlobal<T>(bool isDevelop, bool compileData=false) where T : DungeonGlobal
         {
+            IsDevelopment=isDevelop;
+
             DungeonGlobal.GameAssembly = typeof(T).Assembly;
             DungeonGlobal.GameAssemblyName = DungeonGlobal.GameAssembly.GetName().Name;
 

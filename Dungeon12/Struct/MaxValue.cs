@@ -27,7 +27,7 @@
 
         public bool ValuesEquals()=>Current==Max.FlatValue;
 
-        public string ToString(string delimiter = "/") => $"{Current}/{Max.FlatValue}";
+        public string ToString(string delimiter = "/") => $"{Current}{delimiter}{Max.FlatValue}";
 
         public override string ToString() => ToString("/");
     }

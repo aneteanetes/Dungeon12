@@ -21,7 +21,7 @@ namespace Dungeon12.Scenes
 
         public override void Initialize()
         {
-            Global.AudioPlayer.Music("test3.ogg".AsmMusicRes());
+            Global.AudioPlayer.Music("FaithIsland.ogg".AsmMusicRes());
             var back = CreateLayer("background");
             back.AddObject(new ImageObject("Regions/background.png"));
             back.AddObject(new AreaImage());

@@ -23,7 +23,7 @@ namespace Dungeon12.Scenes.Create
         public override void Initialize()
         {
             InitGame();
-            Global.AudioPlayer.Music("test4.ogg".AsmMusicRes());
+            Global.AudioPlayer.Music("CreateParty.ogg".AsmMusicRes());
 
             var backlayer = this.CreateLayer("back");
             backlayer.AddObject(new ImageObject("Scenes/create.png")

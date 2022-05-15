@@ -25,16 +25,16 @@ namespace Dungeon12.Scenes
 
         public override void Initialize()
         {
-            Global.AudioPlayer.Music("test2.ogg".AsmMusicRes());
+            Global.AudioPlayer.Music("Main.ogg".AsmMusicRes());
             Global.DrawClient.SetCursor("Cursors/common.png".AsmImg());
 
             var layerBack = this.CreateLayer("back");
-            layerBack.AddObject(new ImageObject("d12backl.png".AsmImg())
+            layerBack.AddObject(new ImageObject("back.png".AsmImg())
             {
                 Width = Global.Resolution.Width,
                 Height = Global.Resolution.Height
             });
-            layerBack.AddObjectCenter(new ImageObject("d12textM.png".AsmImg()), vertical: false);
+            //layerBack.AddObjectCenter(new ImageObject("d12textM.png".AsmImg()), vertical: false);
 
             var ui = this.CreateLayer("ui");
             InitButtons(ui);
@@ -55,12 +55,12 @@ namespace Dungeon12.Scenes
                 (Global.Strings["ExitGame"],Exit,false)
             };
 
-            var y = 200;
+            var y = 450;
             var x = 60;
 
             foreach (var (text, click, disabled) in data)
             {
-                var btn = new MetallButton(text)
+                var btn = new ClassicButton(text)
                 {
                     Left = x,
                     Top = y,
@@ -115,7 +115,7 @@ namespace Dungeon12.Scenes
             base.StickMoveOnce(direction, stick);
         }
 
-        private MetallButton FindIdx(bool up)
+        private ClassicButton FindIdx(bool up)
         {
             currentFocus = btns.ElementAtOrDefault(button_idx);
             if (currentFocus.Disabled)
@@ -144,8 +144,8 @@ namespace Dungeon12.Scenes
         }
 
         private int button_idx = 0;
-        List<MetallButton> btns = new List<MetallButton>();
-        MetallButton currentFocus;
+        List<ClassicButton> btns = new();
+        ClassicButton currentFocus;
 
         private void NewGame()
         {
@@ -154,7 +154,6 @@ namespace Dungeon12.Scenes
 
         private void SaveGame()
         {
-            Global.AudioPlayer.Music("test2");
         }
 
         private void LoadGame()

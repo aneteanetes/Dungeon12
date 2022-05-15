@@ -10,8 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Resources\Icons\**" />
-    <EmbeddedResource Remove="Resources\Icons\**" />
     <None Remove="Resources\**" />
     <EmbeddedResource Include="Resources\**" />
   </ItemGroup>

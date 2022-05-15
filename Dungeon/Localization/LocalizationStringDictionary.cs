@@ -58,7 +58,13 @@ namespace Dungeon.Localization
 
             try
             {
-                Values = Resources.ResourceLoader.LoadJson<Dictionary<string,string>>($"Locales/{lang}.json".AsmRes(this.GetType().Assembly));
+                Values = Resources.ResourceLoader.LoadJson<Dictionary<string, string>>($"Locales/{lang}.json".AsmRes(this.GetType().Assembly), @throw: false);
+                if (DungeonGlobal.IsDevelopment)
+                    return Values;
+
+
+                if (Values==default)
+                    Values=new Dictionary<string, string>();
 
                 var path = DoPath(lang);
                 if (!File.Exists(path) && strings != default)
@@ -67,7 +73,9 @@ namespace Dungeon.Localization
                     return strings;
                 }
 
-                return JsonConvert.DeserializeObject(File.ReadAllText(DoPath(lang)), this.GetType());
+                var json = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(DoPath(lang)));
+                Values=json;
+                return this;
             }
             catch (FileNotFoundException)
             {

@@ -445,6 +445,9 @@ namespace Dungeon.Scenes
             var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs, offset));
             clickedElements = WhereLayeredHandlers(clickedElements, pointerPressedEventArgs, offset);
 
+            if (this.Destroyed)
+                return;
+
             DoClicks(pointerPressedEventArgs, offset, clickedElements, (c, a) => c.Click(a));
 
             if (this.Destroyed)
@@ -537,6 +540,9 @@ namespace Dungeon.Scenes
                         Y = pointerPressedEventArgs.Y,
                         Offset = offset
                     };
+
+                    if (Owner==null)
+                        return;
 
                     if (!Owner.AbsolutePositionScene && !clickedElement.AbsolutePosition)
                     {

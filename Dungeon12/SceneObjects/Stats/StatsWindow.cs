@@ -126,8 +126,8 @@ namespace Dungeon12.SceneObjects.Stats
 
             binderCommon = new ParamBinder(this, 255, 183, 104);
             binderCommon.AddParam("Уровень", hero.Level);
+            binderCommon.AddParam("Опыт", $"{hero.Exp}/{hero.ExpTable[hero.Level]}");
             binderCommon.AddParam("Здоровье", hero.Hp.ToString());
-            binderCommon.AddEmpty();
             binderCommon.AddParam("Урон", hero.Damage.ToString("-"));
             binderCommon.AddParam("Сила атаки", hero.AD);
             binderCommon.AddParam("Сила магии", hero.AP);
@@ -149,10 +149,10 @@ namespace Dungeon12.SceneObjects.Stats
             binderDef.AddParam("Шанс физ. блока", $"{hero.BlockChance}%");
 
             binderAdd=new ParamBinder(this, 41, 189, 334);
+            binderAdd.AddParam("Инициатива", hero.Initiative);
             binderAdd.AddParam("Проницание магии", hero.MagicPenetration);
             binderAdd.AddParam("Сокрушительный удар", $"{hero.CrushingBlowChance}%");
             binderAdd.AddParam("Скользящий удар", $"{hero.GlancingBlowChance}%");
-            binderAdd.AddEmpty();
             binderAdd.AddParam("Урон скольз. ударов", $"x{hero.GlancingBlowMultiplier}");
             binderAdd.AddParam("Парирование", $"{hero.ParryChance}%");
             binderAdd.AddEmpty();

@@ -4,7 +4,11 @@
     {
         public MaxValue Hp { get; set; } = new MaxValue(50, 50);
 
-        public int Level { get; set; } = 1;
+        public int Level { get; private set; } = 1;
+
+        public int Exp { get; private set; } = 0;
+
+        public ExpTable ExpTable { get; set; } = new ExpTable();
 
         public MaxValue Damage { get; set; } = new MaxValue(5, 10);
 
@@ -20,6 +24,8 @@
 
         public Value Speed { get; set; } = new Value(1);
 
+        public Value Initiative { get; set; } = new Value(1);
+
         /// <summary>
         /// Шанс попадения
         /// </summary>
@@ -29,7 +35,7 @@
 
         public Value Armor { get; set; } = new Value(0);
 
-        public int ArmorClass { get; set; } = 1;
+        public int ArmorClass { get; set; } = 0;
 
         /// <summary>
         /// Шанс отражения магии
