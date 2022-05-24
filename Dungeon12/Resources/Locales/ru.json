@@ -214,5 +214,19 @@
   "ElementMagical": "Магия",
   "ElementSpirit": "Дух",
   "ElementHoly": "Свет",
-  "ElementDark": "Тьма"
+  "ElementDark": "Тьма",
+  "Neck":"Амулет",
+  "Helm":"Шлем",
+  "Mask":"Маска",
+  "Trinket":"Реликвия",
+  "Shoulder":"Наплечники",
+  "Cloak":"Накидка",
+  "Chest":"Грудь",
+  "Legs":"Ноги",
+  "Gloves":"Перчатки",
+  "Boots":"Ступни",
+  "Ranged":"Дальний бой",
+  "RightHand":"Правая рука",
+  "LeftHand":"Левая рука",
+  "Ammunition": "Боеприпасы"
 }

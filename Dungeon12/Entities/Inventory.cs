@@ -2,32 +2,32 @@
 {
     internal class Inventory
     {
-        public Item Neck { get; set; }
+        public Item Neck { get; set; } = new Item();
 
-        public Item Helm { get; set; }
+        public Item Helm { get; set; } = new Item();
 
-        public Item Mask { get; set; }
+        public Item Mask { get; set; } = new Item();
 
-        public Item Trinket { get; set; }
+        public Item Trinket { get; set; } = new Item();
 
-        public Item Shoulder { get; set; }
+        public Item Shoulder { get; set; } = new Item();
 
-        public Item Cloak { get; set; }
+        public Item Cloak { get; set; } = new Item();
 
-        public Item Shirt { get; set; }
+        public Item Chest { get; set; } = new Item();
 
-        public Item Legs { get; set; }
+        public Item Legs { get; set; } = new Item();
 
-        public Item Gloves { get; set; }
+        public Item Gloves { get; set; } = new Item();
 
-        public Item Boots { get; set; }
+        public Item Boots { get; set; } = new Item();
 
-        public Item Wand { get; set; }
+        public Item Ranged { get; set; } = new Item();
 
-        public Item Weapon { get; set; }
+        public Item LeftHand { get; set; } = new Item();
 
-        public Item Shield { get; set; }
+        public Item RightHand { get; set; } = new Item();
 
-        public Item Ammunition { get; set; }
+        public Item Ammunition { get; set; } = new Item();
     }
 }

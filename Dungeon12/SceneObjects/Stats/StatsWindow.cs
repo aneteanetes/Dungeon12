@@ -16,6 +16,7 @@ namespace Dungeon12.SceneObjects.Stats
         Title CharacterName;
         ImageObject Avatar;
         ClassBadge _class;
+        InventorySceneObject _inventory;
 
         public StatsWindow(ISceneLayer layer) : base(Global.Game.Party.Hero1)
         {
@@ -175,6 +176,13 @@ namespace Dungeon12.SceneObjects.Stats
             {
                 Left=297,
                 Top=32,
+            });
+
+            _inventory?.Destroy();
+            _inventory= this.AddChild(new InventorySceneObject(hero.Inventory)
+            {
+                Left =468,
+                Top=101
             });
 
             Avatar.Image=hero.Avatar;

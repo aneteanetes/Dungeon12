@@ -848,6 +848,8 @@
 
         public Action OnDestroy { get; set; }
 
+        public bool IsDestoryed { get; private set; }
+
         public virtual void Destroy()
         {
             Component = default;
@@ -859,6 +861,7 @@
             OnDestroy = null;
 
             ClearDelegates();
+            IsDestoryed=true;
         }
 
         private void ClearDelegates()

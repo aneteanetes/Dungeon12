@@ -4,15 +4,15 @@
     {
         Neck,
         Helm,
-        Head,
+        Mask,
         Trinket,
         Shoulder,
         Cloak,
-        Shirt,
+        Chest,
         Legs,
         Gloves,
         Boots,
-        Wand,
+        Ranged,
         RightHand,
         LeftHand,
         Ammunition

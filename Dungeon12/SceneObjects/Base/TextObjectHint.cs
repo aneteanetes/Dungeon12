@@ -3,6 +3,7 @@ using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.Entities.Enums;
+using System;
 
 namespace Dungeon12.SceneObjects.Base
 {
@@ -16,20 +17,25 @@ namespace Dungeon12.SceneObjects.Base
 
             Text = component;
             TooltipText = tooltip;
-
-            if (title.IsNotEmpty())
+            GetHint = () =>
             {
-                _hint=new GameHint(title, text, opacity:1, leftparams: leftparams);
-            }
+                GameHint _hint = null;
+                if (title.IsNotEmpty())
+                {
+                    _hint=new GameHint(title, text, opacity: 1, leftparams: leftparams);
+                }
+
+                return _hint;
+            };
         }
 
-        private readonly GameHint _hint = null;
+        private Func<GameHint> GetHint { get; set; }
 
         public string TooltipText { get; set; }
 
         public CursorImage Cursor => CursorImage.Question;
 
-        public GameHint CreateMouseHint() => _hint;
+        public GameHint CreateMouseHint() => GetHint();
 
         public void SetText(IDrawText text) => Text = text;
     }

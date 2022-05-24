@@ -46,11 +46,20 @@ namespace Dungeon12.ECS.Systems
             DestroyHint();
         }
 
+        private List<string> gamehintUids = new List<string>();
+
         private void CreateHint(PointerArgs args, ISceneObject sceneObject)
         {
             if (sceneObject is not IMouseHint mouseHintObject)
                 return;
             var hint = mouseHintObject.CreateMouseHint();
+            if (!gamehintUids.Contains(hint.Uid))
+            {
+                gamehintUids.Add(hint.Uid);
+            }
+            else
+                throw new System.Exception($"GameHing with same uid:{hint.Uid} already used! It is mean that u use one component in CreateMouseHint. CreateMouseHint must create new component every time because MouseHintSystem controls this component lifetime and destroying it. Using same component can be potential performance harm and memory leak.");
+
             if (hint==null)
                 return;
 

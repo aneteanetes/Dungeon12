@@ -17,8 +17,8 @@ namespace Dungeon12.SceneObjects.Stats
             this.Height = 56;
         }
 
-        public override string Image { get => Component==null ? null : $"Items/{Component.Image}".AsmImg(); set => base.Image=value; }
+        public override string Image { get => Component.Id.IsEmpty() ? null : $"Items/{Component.Image}".AsmImg(); set => base.Image=value; }
 
-        public string TooltipText => Component ==null ? type.ToDisplay() : null;
+        public string TooltipText => Component.Id.IsEmpty() ? Global.Strings[type.ToString()] : null;
     }
 }
