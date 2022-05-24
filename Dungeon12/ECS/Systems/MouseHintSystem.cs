@@ -106,7 +106,7 @@ namespace Dungeon12.ECS.Systems
             ExistedHint = hint;
         }
 
-        private GameHint ExistedHint;
+        private ISceneObjectHosted ExistedHint;
 
         private void DestroyHint(bool clickrelease=false)
         {

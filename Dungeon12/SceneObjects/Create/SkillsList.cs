@@ -63,7 +63,7 @@ namespace Dungeon12.SceneObjects.Create
 
             public bool ShowTooltip => true;
 
-            public GameHint CreateMouseHint() =>
+            public ISceneObjectHosted CreateMouseHint() =>
                 new GameHint(_skill.Display(), Global.Strings.Description[_skill.ToString()]);
 
             public void RefreshTooltip() { }

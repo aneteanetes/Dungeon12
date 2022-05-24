@@ -2,19 +2,15 @@
 {
     internal enum WeaponType
     {
-        None,
+        Armor,
         /// <summary>
         /// Колющее
         /// </summary>
-        Stabbing,
+        Piercing,
         /// <summary>
         /// Режущее
         /// </summary>
-        Cutting,
-        /// <summary>
-        /// Рубящее
-        /// </summary>
-        Chopping,
+        Slashing,
         /// <summary>
         /// Дробящее
         /// </summary>

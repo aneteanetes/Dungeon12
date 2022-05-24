@@ -35,7 +35,7 @@ namespace Dungeon12.SceneObjects.Base
 
         public CursorImage Cursor => CursorImage.Question;
 
-        public GameHint CreateMouseHint() => GetHint();
+        public ISceneObjectHosted CreateMouseHint() => GetHint();
 
         public void SetText(IDrawText text) => Text = text;
     }

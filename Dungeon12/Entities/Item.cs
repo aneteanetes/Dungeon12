@@ -1,4 +1,5 @@
-﻿using Dungeon.GameObjects;
+﻿using Dungeon;
+using Dungeon.GameObjects;
 using Dungeon12.Entities.Enums;
 
 namespace Dungeon12.Entities
@@ -12,5 +13,7 @@ namespace Dungeon12.Entities
         public ItemMaterial Material { get; set; }
 
         public WeaponType AttackType { get; set; }
+
+        public Rarity Rarity { get; set; }
     }
 }

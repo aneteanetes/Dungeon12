@@ -1,5 +1,6 @@
 ﻿namespace Dungeon
 {
+    using Dungeon.Drawing;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -16,6 +17,7 @@
         }
 
         private static readonly Dictionary<ValueType, string> DisplayCache = new Dictionary<ValueType, string>();
+        private static readonly Dictionary<ValueType, DrawColor> EnumColourCache = new Dictionary<ValueType, DrawColor>();
 
         /// <summary>
         /// enum To display
@@ -29,6 +31,14 @@
                 return display;
 
             return AddToDisplayCache(value);
+        }
+
+        public static DrawColor Colour<T>(this T value) where T : struct
+        {
+            if (EnumColourCache.TryGetValue(value, out DrawColor colour))
+                return colour;
+
+            return AddToEnumColourCache(value);
         }
 
         public static string ToDisplay<T>(this T? value) where T : struct
@@ -84,6 +94,22 @@
             DisplayCache.Add(value, description);
 
             return description;
+        }
+
+        private static DrawColor AddToEnumColourCache<T>(this T value) where T : struct
+        {
+            var memInfo = typeof(T).GetMember(value.ToString());
+            var attributes = memInfo[0].GetCustomAttributes(typeof(DrawColourAttribute), false);
+
+            DrawColor color = new();
+            if (attributes.Length > 0)
+            {
+                color = ((DrawColourAttribute)attributes[0]).Colour;
+            }
+
+            EnumColourCache.Add(value, color);
+
+            return color;
         }
 
         private static readonly Dictionary<object, object> ValueCache = new Dictionary<object, object>();
