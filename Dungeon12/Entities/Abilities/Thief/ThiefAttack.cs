@@ -5,7 +5,7 @@ namespace Dungeon12.Entities.Abilities.Thief
     /// <summary>
     /// атака с ядом, атака дальнего боя, атака таунт ближний
     /// </summary>
-    public class ThiefAttack : Ability
+    internal class ThiefAttack : Ability
     {
         public override Archetype Class => Archetype.Thief;
 

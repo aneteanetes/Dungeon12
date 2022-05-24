@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Dungeon12.ECS.Systems
 {
-    public class TooltipCustomSystem : ISystem
+    internal class TooltipCustomSystem : ISystem
     {
         public ISceneLayer SceneLayer { get; set; }
 

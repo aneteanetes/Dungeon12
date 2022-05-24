@@ -3,7 +3,7 @@ using Dungeon.Localization;
 
 namespace Dungeon12.Locale
 {
-    public class GameStrings : LocalizationStringDictionary
+    internal class GameStrings : LocalizationStringDictionary
     {
         public override string ___RelativeLocalizationFilesPath => "locale";
 

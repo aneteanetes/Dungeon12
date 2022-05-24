@@ -8,7 +8,7 @@ using Dungeon12.SceneObjects.Base;
 
 namespace Dungeon12.SceneObjects.Location_
 {
-    public class LocationWindow : SceneControl<MapPoint>, IAutoUnfreeze
+    internal class LocationWindow : SceneControl<MapPoint>, IAutoUnfreeze
     {
         public LocationWindow(MapPoint component) : base(component)
         {

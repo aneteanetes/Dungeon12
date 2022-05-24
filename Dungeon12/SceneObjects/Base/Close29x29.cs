@@ -5,7 +5,7 @@ using Dungeon12.ECS.Components;
 
 namespace Dungeon12.SceneObjects.Stats
 {
-    public class Close29x29 : EmptySceneControl, ITooltiped
+    internal class Close29x29 : EmptySceneControl, ITooltiped
     {
         public string TooltipText => "Закрыть";
 

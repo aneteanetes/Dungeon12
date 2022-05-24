@@ -15,7 +15,7 @@ using System.Linq;
 
 namespace Dungeon12.Scenes
 {
-    public class StartScene : Dungeon.Scenes.StartScene<TCGScene, CreateScene>
+    internal class StartScene : Dungeon.Scenes.StartScene<TCGScene, CreateScene>
     {
         public StartScene(SceneManager sceneManager) : base(sceneManager)
         {

@@ -7,7 +7,7 @@ using Dungeon12.TCG;
 
 namespace Dungeon12.SceneObjects.TCG
 {
-    public class CardSceneObject : SceneControl<Card>
+    internal class CardSceneObject : SceneControl<Card>
     {
         public CardSceneObject(Card component) : base(component, false)
         {

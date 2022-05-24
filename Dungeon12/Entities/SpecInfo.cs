@@ -1,6 +1,6 @@
 ﻿namespace Dungeon12.Entities
 {
-    public class SpecInfo
+    internal class SpecInfo
     {
         public string Description { get; set; }
 

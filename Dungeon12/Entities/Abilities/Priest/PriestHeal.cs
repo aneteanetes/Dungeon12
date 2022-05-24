@@ -8,7 +8,7 @@ namespace Dungeon12.Entities.Abilities.Priest
     /// <summary>
     /// Исцеление, преобразуется в щиты, сильное исцеление, исцеление по времени
     /// </summary>
-    public class PriestHeal : Ability
+    internal class PriestHeal : Ability
     {
         public override Archetype Class => Archetype.Priest;
 

@@ -68,6 +68,19 @@
                 }
             }
 
+            if (description == null)
+            {
+                var global = DungeonGlobal.GetBindedGlobal();
+                if (global != null)
+                {
+                    var strings = global.GetStringsClass();
+                    description = strings[value.ToString()];
+                }
+            }
+
+            if (description == null)
+                description=$"ENUM-DISPLAY-STRING-NOT-FOUND (EVEN LOCALIZED): {value.GetType().FullName}.{value}";
+
             DisplayCache.Add(value, description);
 
             return description;

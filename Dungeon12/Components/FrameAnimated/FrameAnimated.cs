@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Dungeon12.Components
 {
-    public class FrameAnimated
+    internal class FrameAnimated
     {
         public virtual Animation Idle { get; set; }
 

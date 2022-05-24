@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace Dungeon12.Entities
 {
-    public class Party
+    internal class Party
     {
         public Hero Hero1 { get; set; }
 

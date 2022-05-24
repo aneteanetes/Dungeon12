@@ -9,7 +9,7 @@ using Dungeon12.SceneObjects.Stats;
 
 namespace Dungeon12.Scenes
 {
-    public class RegionScene : GameScene<StartScene, RegionScene>
+    internal class RegionScene : GameScene<StartScene, RegionScene>
     {
         public RegionScene(SceneManager sceneManager) : base(sceneManager)
         {

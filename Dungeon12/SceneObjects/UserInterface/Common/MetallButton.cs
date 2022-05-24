@@ -6,7 +6,7 @@ using System;
 
 namespace Dungeon12.SceneObjects.UserInterface.Common
 {
-    public class MetallButton : EmptySceneControl
+    internal class MetallButton : EmptySceneControl
     {
         readonly TextObject Label;
 

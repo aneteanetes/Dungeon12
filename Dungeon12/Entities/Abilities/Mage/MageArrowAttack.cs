@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Dungeon12.Entities.Abilities.Mage
 {
-    public class MageArrowAttack : Ability
+    internal class MageArrowAttack : Ability
     {
         public override Archetype Class => Archetype.Mage;
 

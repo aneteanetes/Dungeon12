@@ -12,7 +12,7 @@ using Dungeon12.SceneObjects.Create;
 
 namespace Dungeon12.Scenes.Create
 {
-    public class CreateScene : GameScene<StartScene, RegionScene>
+    internal class CreateScene : GameScene<StartScene, RegionScene>
     {
         public CreateScene(SceneManager sceneManager) : base(sceneManager)
         {

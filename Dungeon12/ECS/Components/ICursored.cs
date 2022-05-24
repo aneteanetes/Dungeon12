@@ -2,7 +2,7 @@
 
 namespace Dungeon12.ECS.Components
 {
-    public interface ICursored
+    internal interface ICursored
     {
         CursorImage Cursor { get; }
     }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Dungeon12.SceneObjects.UI
 {
-    public class Panel : EmptySceneControl
+    internal class Panel : EmptySceneControl
     {
         public Panel()
         {

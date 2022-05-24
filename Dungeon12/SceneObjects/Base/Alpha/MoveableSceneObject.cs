@@ -6,7 +6,7 @@
     using System;
     using System.Collections.Generic;
 
-    public abstract class MoveableSceneObject<T> : AnimatedSceneObject<T>
+    internal abstract class MoveableSceneObject<T> : AnimatedSceneObject<T>
         where T : class, IFrameAnimated
     {
         public MoveableSceneObject(T @object)

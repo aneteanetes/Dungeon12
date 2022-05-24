@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Dungeon12.Entities.Quests
 {
-    public class QuestBook
+    internal class QuestBook
     {
         public List<Quest> Quests { get; set; } = new List<Quest>();
 

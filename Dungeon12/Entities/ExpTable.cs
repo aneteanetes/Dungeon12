@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Dungeon12.Entities
 {
-    public class ExpTable
+    internal class ExpTable
     {
         static ExpTable()
         {

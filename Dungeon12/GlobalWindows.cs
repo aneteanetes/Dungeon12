@@ -4,7 +4,7 @@ using System;
 
 namespace Dungeon12
 {
-    public class GlobalWindows
+    internal class GlobalWindows
     {
         public StatsWindow StatsWindow { get; set; }
 

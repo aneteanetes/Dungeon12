@@ -6,7 +6,7 @@ using Dungeon12.Entities.Enums;
 
 namespace Dungeon12.SceneObjects.Create
 {
-    public class Charplate : SceneControl<Hero>
+    internal class Charplate : SceneControl<Hero>
     {
         TextInputControl textInput;
 

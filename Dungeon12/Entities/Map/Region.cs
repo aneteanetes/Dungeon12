@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Dungeon12.Entities.Map
 {
-    public class Region
+    internal class Region
     {
         public List<Location> Locations { get; set; }
 

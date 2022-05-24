@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Dungeon12.Entities
 {
-    public class Hero : Battler
+    internal class Hero : Battler
     {
         public int FreePoints { get; set; } = 0;
 
@@ -59,10 +59,10 @@ namespace Dungeon12.Entities
             Skill.Landscape => Landscape,
             Skill.Eating => Eating,
             Skill.Repair => Repair,
-            Skill.Weaponcraft => Weaponcraft,
+            Skill.Smithing => Weaponcraft,
             Skill.Portals => Portals,
             Skill.Attension => Attension,
-            Skill.Spiritism => Spiritism,
+            Skill.Enchantment => Spiritism,
             Skill.Alchemy => Alchemy,
             Skill.Traps => Traps,
             Skill.Lockpicking => Lockpicking,
@@ -140,5 +140,7 @@ namespace Dungeon12.Entities
         public int FoodStoring { get; set; }
         public int Trade { get; set; }
         public int Tailoring { get; set; }
+
+        public Inventory Inventory { get; set; } = new Inventory();
     }
 }

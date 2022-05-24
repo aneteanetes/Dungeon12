@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace Dungeon12.SceneObjects.RegionScreen
 {
-    public class InfluencePanel : SceneControl<MapRegion>
+    internal class InfluencePanel : SceneControl<MapRegion>
     {
         public InfluencePanel(MapRegion component) : base(component)
         {

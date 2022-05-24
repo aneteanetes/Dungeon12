@@ -2,7 +2,7 @@
 
 namespace Dungeon12.Entities.Quests
 {
-    public class Quest
+    internal class Quest
     {
         public string Id { get; set; }
 

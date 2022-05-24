@@ -4,7 +4,7 @@ using Dungeon12.Entities;
 
 namespace Dungeon12.SceneObjects.RegionScreen
 {
-    public class TextWindow : SceneControl<GameLog>
+    internal class TextWindow : SceneControl<GameLog>
     {
         public TextWindow(GameLog component) : base(component)
         {

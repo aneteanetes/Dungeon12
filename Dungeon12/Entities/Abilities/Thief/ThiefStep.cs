@@ -8,7 +8,7 @@ namespace Dungeon12.Entities.Abilities.Thief
     /// <summary>
     /// перемещение по карте
     /// </summary>
-    public class ThiefStep : Ability
+    internal class ThiefStep : Ability
     {
         public override Archetype Class => Archetype.Thief;
 

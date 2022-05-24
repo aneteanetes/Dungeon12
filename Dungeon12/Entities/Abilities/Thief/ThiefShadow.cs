@@ -8,7 +8,7 @@ namespace Dungeon12.Entities.Abilities.Thief
     /// <summary>
     /// магическая ближняя атака - преобразуется в полноценную магию тьмы
     /// </summary>
-    public class ThiefShadow : Ability
+    internal class ThiefShadow : Ability
     {
         public override Archetype Class => Archetype.Thief;
 

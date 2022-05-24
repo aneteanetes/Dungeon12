@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace Dungeon12.SceneObjects.Create
 {
-    public class Abilities : SceneControl<Hero>
+    internal class Abilities : SceneControl<Hero>
     {
         public Abilities(Hero component) : base(component)
         {
@@ -35,7 +35,7 @@ namespace Dungeon12.SceneObjects.Create
             }
         }
 
-        public class AbilityItem : SceneControl<Hero>, ITooltipedDrawText, IMouseHint
+        internal class AbilityItem : SceneControl<Hero>, ITooltipedDrawText, IMouseHint
         {
             Ability _ability;
 

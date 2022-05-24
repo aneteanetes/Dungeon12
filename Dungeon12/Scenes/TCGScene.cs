@@ -10,7 +10,7 @@ using Dungeon12.TCG;
 
 namespace Dungeon12.Scenes
 {
-    public class TCGScene : GameScene<StartScene>
+    internal class TCGScene : GameScene<StartScene>
     {
         public TCGScene(SceneManager sceneManager) : base(sceneManager)
         {

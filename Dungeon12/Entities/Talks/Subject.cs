@@ -2,7 +2,7 @@
 
 namespace Dungeon12.Entities.Talks
 {
-    public class Subject
+    internal class Subject
     {
         public string SubjectId => Dialogue.Id + Name;
 

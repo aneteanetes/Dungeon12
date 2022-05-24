@@ -8,7 +8,7 @@ namespace Dungeon12.SceneObjects
 {
     public static class PopUpExtensions
     {
-        public static PopupText Popup<T>(this SceneObject<T> sceneObject, PointerArgs pointerArgs, IDrawText text, double speed=.5, double seconds=.7)
+        internal static PopupText Popup<T>(this SceneObject<T> sceneObject, PointerArgs pointerArgs, IDrawText text, double speed=.5, double seconds=.7)
             where T : class
         {
             var popup = new PopupText(text, pointerArgs.AsPoint, speed: speed)

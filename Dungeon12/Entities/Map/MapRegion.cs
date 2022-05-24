@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Dungeon12.Entities.Map
 {
-    public class MapRegion
+    internal class MapRegion
     {
         public string Name { get; set; }
 

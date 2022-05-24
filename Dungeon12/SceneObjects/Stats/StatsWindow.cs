@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace Dungeon12.SceneObjects.Stats
 {
-    public class StatsWindow : SceneControl<Hero>, IAutoFreeze
+    internal class StatsWindow : SceneControl<Hero>, IAutoFreeze
     {
         Title CharacterName;
         ImageObject Avatar;

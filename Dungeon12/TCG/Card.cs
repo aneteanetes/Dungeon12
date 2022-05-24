@@ -2,7 +2,7 @@
 
 namespace Dungeon12.TCG
 {
-    public class Card
+    internal class Card
     {
         public Types Type { get; set; }
 

@@ -4,7 +4,7 @@ using Dungeon12.Entities.FractionPolygons;
 
 namespace Dungeon12.Attributes
 {
-    public class FractionAbilityAttribute : ValueAttribute
+    internal class FractionAbilityAttribute : ValueAttribute
     {
         public FractionAbilityAttribute(FractionAbility ability) : base(ability)
         {

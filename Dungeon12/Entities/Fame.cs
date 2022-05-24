@@ -2,7 +2,7 @@
 
 namespace Dungeon12.Entities
 {
-    public class Fame
+    internal class Fame
     {
         public int Good { get; set; }
 

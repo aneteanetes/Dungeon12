@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dungeon12.Entities
 {
-    public class GameLog
+    internal class GameLog
     {
         public List<string> Records { get; set; } = new List<string>();
 

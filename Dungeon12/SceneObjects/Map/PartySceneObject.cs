@@ -4,7 +4,7 @@
     using Dungeon.SceneObjects;
     using Dungeon12.Entities;
 
-    public class PartySceneObject : SceneControl<Party>
+    internal class PartySceneObject : SceneControl<Party>
     {
         public override bool Shadow => true;
 

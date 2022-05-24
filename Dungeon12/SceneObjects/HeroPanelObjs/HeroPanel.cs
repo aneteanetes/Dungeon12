@@ -5,7 +5,7 @@ using Dungeon12.Entities;
 
 namespace Dungeon12.SceneObjects.HeroPanelObjs
 {
-    public class HeroPanel : SceneControl<Hero>
+    internal class HeroPanel : SceneControl<Hero>
     {
         public HeroPanel(Hero component) : base(component)
         {

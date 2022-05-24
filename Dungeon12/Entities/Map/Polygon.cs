@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Dungeon12.Entities.Map
 {
-    public class Polygon
+    internal class Polygon
     {
         public string ObjectId { get; set; }
 

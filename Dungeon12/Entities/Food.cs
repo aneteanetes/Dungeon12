@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Dungeon12.Entities
 {
-    public class Food
+    internal class Food
     {
         public int Value { get; set; } = 0;
 

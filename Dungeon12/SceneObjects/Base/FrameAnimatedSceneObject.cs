@@ -5,7 +5,7 @@
     using Dungeon.View;
     using System;
 
-    public abstract class FrameAnimatedSceneObject<T> : SceneControl<T>
+    internal abstract class FrameAnimatedSceneObject<T> : SceneControl<T>
         where T : class
     {
         public override bool DrawOutOfSight => false;

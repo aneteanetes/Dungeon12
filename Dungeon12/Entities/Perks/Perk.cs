@@ -1,6 +1,6 @@
 ﻿namespace Dungeon12.Entities.Perks
 {
-    public class Perk
+    internal class Perk
     {
         public string Id { get; set; }
 

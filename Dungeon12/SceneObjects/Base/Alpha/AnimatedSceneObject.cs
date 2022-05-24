@@ -7,7 +7,7 @@
     using Dungeon12.Components;
     using System;
 
-    public abstract class AnimatedSceneObject<T> : SceneControl<T>
+    internal abstract class AnimatedSceneObject<T> : SceneControl<T>
         where T : class, IFrameAnimated
     {
         public override bool DrawOutOfSight => false;

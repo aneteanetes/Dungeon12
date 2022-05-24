@@ -12,7 +12,7 @@
     using System.Linq;
     using System.Text.RegularExpressions;
 
-    public class TextInputControl : ColoredRectangle<GameComponentEmpty>
+    internal class TextInputControl : ColoredRectangle<GameComponentEmpty>
     {
         private readonly int limit;
         private readonly bool capitalize;

@@ -2,7 +2,7 @@
 
 namespace Dungeon12.ECS.Components
 {
-    public interface ITooltipedDrawText
+    internal interface ITooltipedDrawText
     {
         IDrawText TooltipText { get; }
 

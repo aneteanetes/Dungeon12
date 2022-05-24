@@ -13,7 +13,7 @@ using System.Linq;
 
 namespace Dungeon12.SceneObjects.RegionScreen
 {
-    public class MapRegionPoints : SceneControl<MapRegion>
+    internal class MapRegionPoints : SceneControl<MapRegion>
     {
         public MapRegionPoints(MapRegion component) : base(component)
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Dungeon12.Entities.Map
 {
-    public class RegionGraph
+    internal class RegionGraph
     {
         public RegionGraph() { }
         public RegionGraph(IEnumerable<int> vertices, IEnumerable<(int,int)> edges)

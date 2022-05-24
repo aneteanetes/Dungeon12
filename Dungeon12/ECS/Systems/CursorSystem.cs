@@ -6,7 +6,7 @@ using Dungeon12.ECS.Components;
 
 namespace Dungeon12.ECS.Systems
 {
-    public class CursorSystem : ISystem
+    internal class CursorSystem : ISystem
     {
         public ISceneLayer SceneLayer { get; set; }
 

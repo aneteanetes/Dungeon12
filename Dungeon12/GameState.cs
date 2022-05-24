@@ -1,6 +1,6 @@
 ﻿namespace Dungeon12
 {
-    public class GameState
+    internal class GameState
     {
         public int RegionId { get; set; }
 

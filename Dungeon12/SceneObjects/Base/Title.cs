@@ -3,7 +3,7 @@ using Dungeon.SceneObjects;
 
 namespace Dungeon12.SceneObjects.Base
 {
-    public class Title : EmptySceneObject
+    internal class Title : EmptySceneObject
     {
         public Title(string title, double width=830,double height=50)
         {

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Dungeon12.ECS.Systems
 {
-    public class TooltipDrawTextSystem : ISystem
+    internal class TooltipDrawTextSystem : ISystem
     {
         private static Dictionary<ITooltipedDrawText, Tooltip> Tooltips = new Dictionary<ITooltipedDrawText, Tooltip>();
         private static Dictionary<ITooltiped, Tooltip> Tooltips1 = new Dictionary<ITooltiped, Tooltip>();

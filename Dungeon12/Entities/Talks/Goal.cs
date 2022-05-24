@@ -3,7 +3,7 @@ using Newtonsoft.Json.Converters;
 
 namespace Dungeon12.Entities.Talks
 {
-    public class Goal
+    internal class Goal
     {
         public string Name { get; set; }
 

@@ -11,14 +11,14 @@ namespace Dungeon12.Entities.Enums
         [Value("w")]
         Repair,
         [Value("w")]
-        Weaponcraft,
+        Smithing,
 
         [Value("m")]
         Portals,
         [Value("m")]
         Attension,
         [Value("m")]
-        Spiritism,
+        Enchantment,
         [Value("m")]
         Alchemy,
 
@@ -48,10 +48,10 @@ namespace Dungeon12.Entities.Enums
             Skill.Landscape => Global.Strings[nameof(Skill.Landscape)],
             Skill.Eating => Global.Strings[nameof(Skill.Eating)],
             Skill.Repair => Global.Strings[nameof(Skill.Repair)],
-            Skill.Weaponcraft => Global.Strings[nameof(Skill.Weaponcraft)],
+            Skill.Smithing => Global.Strings[nameof(Skill.Smithing)],
             Skill.Portals => Global.Strings[nameof(Skill.Portals)],
             Skill.Attension => Global.Strings[nameof(Skill.Attension)],
-            Skill.Spiritism => Global.Strings[nameof(Skill.Spiritism)],
+            Skill.Enchantment => Global.Strings[nameof(Skill.Enchantment)],
             Skill.Alchemy => Global.Strings[nameof(Skill.Alchemy)],
             Skill.Traps => Global.Strings[nameof(Skill.Traps)],
             Skill.Lockpicking => Global.Strings[nameof(Skill.Lockpicking)],
@@ -69,10 +69,10 @@ namespace Dungeon12.Entities.Enums
             Skill.Landscape => Archetype.Warrior,
             Skill.Eating => Archetype.Warrior,
             Skill.Repair => Archetype.Warrior,
-            Skill.Weaponcraft => Archetype.Warrior,
+            Skill.Smithing => Archetype.Warrior,
             Skill.Portals => Archetype.Mage,
             Skill.Attension => Archetype.Mage,
-            Skill.Spiritism => Archetype.Mage,
+            Skill.Enchantment => Archetype.Mage,
             Skill.Alchemy => Archetype.Mage,
             Skill.Traps => Archetype.Thief,
             Skill.Lockpicking => Archetype.Thief,
@@ -86,3 +86,4 @@ namespace Dungeon12.Entities.Enums
         };
     }
 }
+//Проверки навыков дают однотипные задания:

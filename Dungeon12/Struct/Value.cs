@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Dungeon12
 {
-    public class Value
+    internal class Value
     {
         public Value(double value = 0)
         {

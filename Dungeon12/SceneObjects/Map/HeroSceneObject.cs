@@ -9,7 +9,7 @@
     using Dungeon12.Entities;
     using System.Collections.Generic;
 
-    public class HeroSceneObject : SceneControl<Hero>
+    internal class HeroSceneObject : SceneControl<Hero>
     {
         public override bool Shadow => true;
 

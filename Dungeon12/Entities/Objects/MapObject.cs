@@ -3,7 +3,7 @@ using Dungeon12.Entities.Enums;
 
 namespace Dungeon12.Entities.Objects
 {
-    public class MapObject : GameComponent
+    internal class MapObject : GameComponent
     {
         public string Id { get; set; }
 

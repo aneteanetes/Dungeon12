@@ -2,7 +2,7 @@
 
 namespace Dungeon12.Entities.Abilities.Warrior
 {
-    public class WarriorAttack : Ability
+    internal class WarriorAttack : Ability
     {
         public override Archetype Class => Archetype.Warrior;
 

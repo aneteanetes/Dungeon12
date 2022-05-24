@@ -2,7 +2,7 @@
 
 namespace Dungeon12.ECS.Components
 {
-    public interface IMouseHint
+    internal interface IMouseHint
     {
         GameHint CreateMouseHint();
     }

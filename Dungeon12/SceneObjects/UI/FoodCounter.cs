@@ -7,7 +7,7 @@ using Dungeon12.Entities;
 
 namespace Dungeon12.SceneObjects.UI
 {
-    public class FoodCounter : SceneControl<Food>
+    internal class FoodCounter : SceneControl<Food>
     {
         public FoodCounter(Food component) : base(component, true)
         {

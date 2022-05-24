@@ -39,7 +39,7 @@ namespace Dungeon12.SceneObjects.Base
         }
     }
 
-    public class NineSliceSettings
+    internal class NineSliceSettings
     {
         public double Size { get; set; }
 

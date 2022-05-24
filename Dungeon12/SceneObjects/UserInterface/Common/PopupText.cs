@@ -7,7 +7,7 @@ using System;
 
 namespace Dungeon12.SceneObjects.UserInterface.Common
 {
-    public class PopupText : SceneObject<IDrawText>
+    internal class PopupText : SceneObject<IDrawText>
     {
         public override bool Filtered => false;
 

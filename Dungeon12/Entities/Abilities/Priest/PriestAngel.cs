@@ -8,7 +8,7 @@ namespace Dungeon12.Entities.Abilities.Priest
     /// <summary>
     /// Призыв ангела - по умолчанию урон, потом может лечить, наносить разный урон, постоянный суммон (инквизитор)
     /// </summary>
-    public class PriestAngel : Ability
+    internal class PriestAngel : Ability
     {
         public override Archetype Class => Archetype.Priest;
 

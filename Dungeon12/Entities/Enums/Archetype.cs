@@ -29,8 +29,8 @@
 
         public static Skill[] Skills(this Archetype archetype) => archetype switch
         {
-            Archetype.Warrior => new Skill[] { Skill.Landscape, Skill.Eating, Skill.Repair, Skill.Weaponcraft },
-            Archetype.Mage => new Skill[] { Skill.Portals, Skill.Attension, Skill.Spiritism, Skill.Alchemy },
+            Archetype.Warrior => new Skill[] { Skill.Landscape, Skill.Eating, Skill.Repair, Skill.Smithing },
+            Archetype.Mage => new Skill[] { Skill.Portals, Skill.Attension, Skill.Enchantment, Skill.Alchemy },
             Archetype.Thief => new Skill[] { Skill.Traps, Skill.Lockpicking, Skill.Stealing, Skill.Leatherwork },
             Archetype.Priest => new Skill[] { Skill.Prayers, Skill.FoodStoring, Skill.Trade, Skill.Tailoring },
             _ => System.Array.Empty<Skill>(),

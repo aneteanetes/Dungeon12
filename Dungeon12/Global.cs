@@ -11,7 +11,7 @@ using System.Reflection;
 
 namespace Dungeon12
 {
-    public class Global : DungeonGlobal
+    internal class Global : DungeonGlobal
     {
         public Global()
         {

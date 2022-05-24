@@ -7,7 +7,7 @@ using Dungeon12.Entities;
 
 namespace Dungeon12.SceneObjects.RegionScreen
 {
-    public class FoodPanel : SceneControl<Party>
+    internal class FoodPanel : SceneControl<Party>
     {
         public FoodPanel(Party component, bool bindView = true) : base(component, bindView)
         {

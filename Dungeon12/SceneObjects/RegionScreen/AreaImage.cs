@@ -3,7 +3,7 @@ using Dungeon.SceneObjects;
 
 namespace Dungeon12.SceneObjects.RegionScreen
 {
-    public class AreaImage : EmptySceneObject
+    internal class AreaImage : EmptySceneObject
     {
         public AreaImage()
         {

@@ -2,7 +2,7 @@
 
 namespace Dungeon12.Entities.Zones
 {
-    public class Zone
+    internal class Zone
     {
         public string ObjectId { get; set; }
 

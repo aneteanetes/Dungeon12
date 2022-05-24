@@ -1,6 +1,6 @@
 ﻿namespace Dungeon12.Components
 {
-    public interface IFrameAnimated
+    internal interface IFrameAnimated
     {
         public FrameAnimated FrameAnimated { get; set; }
     }

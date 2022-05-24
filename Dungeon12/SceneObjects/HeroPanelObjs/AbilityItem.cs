@@ -13,7 +13,7 @@ using System.Text;
 
 namespace Dungeon12.SceneObjects.HeroPanelObjs
 {
-    public class AbilityItem : SceneControl<Hero>, ITooltipedDrawText, IMouseHint, ICursored
+    internal class AbilityItem : SceneControl<Hero>, ITooltipedDrawText, IMouseHint, ICursored
     {
         Ability _ability;
 

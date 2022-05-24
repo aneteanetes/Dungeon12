@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Dungeon12.ECS.Systems
 {
-    public class MouseHintSystem : ISystem
+    internal class MouseHintSystem : ISystem
     {
         public ISceneLayer SceneLayer { get; set; }
 

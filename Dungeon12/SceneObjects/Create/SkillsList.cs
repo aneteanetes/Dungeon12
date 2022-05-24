@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace Dungeon12.SceneObjects.Create
 {
-    public class SkillsList : SceneControl<Hero>
+    internal class SkillsList : SceneControl<Hero>
     {
         public SkillsList(Hero component) : base(component)
         {
@@ -44,7 +44,7 @@ namespace Dungeon12.SceneObjects.Create
             }
         }
 
-        public class SkillListItem : SceneControl<Hero>, ITooltipedDrawText, IMouseHint
+        internal class SkillListItem : SceneControl<Hero>, ITooltipedDrawText, IMouseHint
         {
             Skill _skill;
 

@@ -3,7 +3,7 @@ using Dungeon12.SceneObjects.Base;
 
 namespace Dungeon12.ECS.Components
 {
-    public interface ITooltipedCustom
+    internal interface ITooltipedCustom
     {
         bool ShowTooltip { get; }
 

@@ -7,7 +7,7 @@ using System;
 
 namespace Dungeon12.SceneObjects.Create
 {
-    public class ArrowBtn : EmptySceneControl, ITooltipedDrawText
+    internal class ArrowBtn : EmptySceneControl, ITooltipedDrawText
     {
         private bool _right;
 

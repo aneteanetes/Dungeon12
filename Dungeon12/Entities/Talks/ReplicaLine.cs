@@ -1,6 +1,6 @@
 ﻿namespace Dungeon12.Entities.Talks
 {
-    public class ReplicaLine
+    internal class ReplicaLine
     {
         public Replica Replica { get; set; }
 

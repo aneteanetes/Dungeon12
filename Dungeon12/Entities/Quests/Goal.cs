@@ -1,6 +1,6 @@
 ﻿namespace Dungeon12.Entities.Quests
 {
-    public class Goal
+    internal class Goal
     {
         public string Text { get; set; }
 

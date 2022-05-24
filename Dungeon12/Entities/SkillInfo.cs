@@ -2,7 +2,7 @@
 
 namespace Dungeon12.Entities
 {
-    public class SkillInfo
+    internal class SkillInfo
     {
         public string Name { get; set; }
 

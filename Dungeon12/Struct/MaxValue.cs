@@ -1,6 +1,6 @@
 ﻿namespace Dungeon12
 {
-    public class MaxValue
+    internal class MaxValue
     {
         public MaxValue(double current = 0, double max = 0)
         {

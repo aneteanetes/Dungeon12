@@ -6,7 +6,7 @@ using System;
 
 namespace Dungeon12.SceneObjects.UserInterface.Common
 {
-    public class BrownButton75 : EmptySceneControl
+    internal class BrownButton75 : EmptySceneControl
     {
         readonly TextObject Label;
 

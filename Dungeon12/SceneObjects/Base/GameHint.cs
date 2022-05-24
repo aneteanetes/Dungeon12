@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Dungeon12.SceneObjects.Base
 {
-    public class GameHint : EmptySceneObject
+    internal class GameHint : EmptySceneObject
     {
         public GameHint(string title, string text, AbilityArea area = default, int cooldown = -1, double opacity=.9, params string[] leftparams)
         {

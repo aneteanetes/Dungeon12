@@ -1,6 +1,6 @@
 ﻿namespace Dungeon12.Entities
 {
-    public class AbilityArea
+    internal class AbilityArea
     {
         public AbilityArea(bool left = false, bool center = false, bool right = false, bool leftback = false, bool rightback = false, bool single = true, bool all=false, bool self=false,bool friendlytarget=false)
         {

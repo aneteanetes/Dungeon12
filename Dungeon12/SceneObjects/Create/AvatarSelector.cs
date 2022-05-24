@@ -11,7 +11,7 @@ using System;
 
 namespace Dungeon12.SceneObjects.Create
 {
-    public class AvatarSelector : SceneControl<Hero>
+    internal class AvatarSelector : SceneControl<Hero>
     {
         private ImageObject AvatarViewer;
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Dungeon12.Entities.Map
 {
-    public class Location
+    internal class Location
     {
         public string UId => Region.MapId + Index;
 

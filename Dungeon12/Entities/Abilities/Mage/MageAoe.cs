@@ -2,7 +2,7 @@
 
 namespace Dungeon12.Entities.Abilities.Mage
 {
-    public class MageAoe : Ability
+    internal class MageAoe : Ability
     {
         public override Archetype Class => Archetype.Mage;
 

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dungeon12.Entities
 {
-    public class Calendar
+    internal class Calendar
     {
         public TimeSpan Time { get; set; } = TimeSpan.FromHours(8).Add(TimeSpan.FromMinutes(56));
 

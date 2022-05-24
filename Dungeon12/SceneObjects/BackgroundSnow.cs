@@ -3,7 +3,7 @@ using Dungeon.SceneObjects;
 
 namespace Dungeon12.Drawing.SceneObjects
 {
-    public class BackgroundSnow : EmptySceneObject
+    internal class BackgroundSnow : EmptySceneObject
     {
         public override bool CacheAvailable => false;
 

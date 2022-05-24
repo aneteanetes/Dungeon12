@@ -16,7 +16,7 @@ namespace Dungeon12.SceneObjects
         HeroCreated
     }
 
-    public class HelpingSceneObject : EmptySceneControl
+    internal class HelpingSceneObject : EmptySceneControl
     {
         //private readonly ArrowImage Arrow;
         private readonly PlateObject PlateFocus;

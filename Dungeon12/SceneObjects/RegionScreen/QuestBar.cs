@@ -8,7 +8,7 @@ using System;
 
 namespace Dungeon12.SceneObjects.RegionScreen
 {
-    public class QuestBar : SceneControl<QuestBook>
+    internal class QuestBar : SceneControl<QuestBook>
     {
         public QuestBar(QuestBook component) : base(component)
         {

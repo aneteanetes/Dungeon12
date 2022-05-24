@@ -4,7 +4,7 @@ using Dungeon12.SceneObjects.Stats;
 
 namespace Dungeon12.SceneObjects.RegionScreen
 {
-    public class ButtonPanel : EmptySceneControl
+    internal class ButtonPanel : EmptySceneControl
     {
         public ButtonPanel()
         {

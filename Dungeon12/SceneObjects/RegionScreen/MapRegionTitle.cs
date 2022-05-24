@@ -5,7 +5,7 @@ using System;
 
 namespace Dungeon12.SceneObjects.RegionScreen
 {
-    public class MapRegionTitle : SceneObject<MapRegion>
+    internal class MapRegionTitle : SceneObject<MapRegion>
     {
         public MapRegionTitle(MapRegion component) : base(component)
         {

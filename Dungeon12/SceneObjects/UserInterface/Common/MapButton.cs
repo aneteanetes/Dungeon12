@@ -6,7 +6,7 @@ using System;
 
 namespace Dungeon12.SceneObjects.UserInterface.Common
 {
-    public class MapButton : EmptySceneControl
+    internal class MapButton : EmptySceneControl
     {
         readonly TextObject Label;
 

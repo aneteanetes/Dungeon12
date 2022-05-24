@@ -8,7 +8,7 @@ namespace Dungeon12.Entities.Abilities.Thief
     /// <summary>
     /// Метка - изначально баф, потом метка молнии, сильный яд, таунт, итд
     /// </summary>
-    public class ThiefMark : Ability
+    internal class ThiefMark : Ability
     {
         public override Archetype Class => Archetype.Thief;
 

@@ -8,7 +8,7 @@
     using Dungeon.View.Interfaces;
     using System;
 
-    public class Tooltip : DarkRectangle
+    internal class Tooltip : DarkRectangle
     {
         public override bool Filtered => false;
 

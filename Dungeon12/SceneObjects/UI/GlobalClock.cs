@@ -11,7 +11,7 @@ using System;
 
 namespace Dungeon12.SceneObjects.UI
 {
-    public class GlobalClock : SceneControl<Calendar>
+    internal class GlobalClock : SceneControl<Calendar>
     {
         public override bool PerPixelCollision => true;
 

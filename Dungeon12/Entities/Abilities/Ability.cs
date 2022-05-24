@@ -6,7 +6,7 @@ using Dungeon12.Entities.Enums;
 
 namespace Dungeon12.Entities.Abilities
 {
-    public abstract class Ability
+    internal abstract class Ability
     {
         public Ability()
         {

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Dungeon12
 {
-    public class Game
+    internal class Game
     {
         public Party Party { get; set; }
         
