@@ -8,9 +8,9 @@ namespace Dungeon12.SceneObjects.Stats
 {
     internal class WearSceneObject : SceneControl<Item>, ITooltiped
     {
-        ItemType type;
+        ItemSlot type;
 
-        public WearSceneObject(Item component, ItemType itemType) : base(component)
+        public WearSceneObject(Item component, ItemSlot itemType) : base(component)
         {
             type = itemType;
             this.Width = 56;
@@ -19,6 +19,6 @@ namespace Dungeon12.SceneObjects.Stats
 
         public override string Image { get => Component.Id.IsEmpty() ? null : $"Items/{Component.Image}".AsmImg(); set => base.Image=value; }
 
-        public string TooltipText => Component.Id.IsEmpty() ? Global.Strings[type.ToString()] : null;
+        public string TooltipText => Component.Id.IsEmpty() ? Global.Strings[type] : null;
     }
 }

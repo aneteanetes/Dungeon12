@@ -2,19 +2,10 @@
 {
     internal enum ItemType
     {
-        Neck,
-        Helm,
-        Mask,
-        Trinket,
-        Shoulder,
-        Cloak,
-        Chest,
-        Legs,
-        Gloves,
-        Boots,
-        Ranged,
-        RightHand,
-        LeftHand,
+        Accessory,
+        Armor,
+        Weapon,
+        Shield,
         Ammunition
     }
 }

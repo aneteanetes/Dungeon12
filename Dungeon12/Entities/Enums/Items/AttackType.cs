@@ -1,8 +1,7 @@
 ﻿namespace Dungeon12.Entities.Enums
 {
-    internal enum WeaponType
+    internal enum AttackType
     {
-        Armor,
         /// <summary>
         /// Колющее
         /// </summary>

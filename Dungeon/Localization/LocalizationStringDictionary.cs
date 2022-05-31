@@ -32,6 +32,24 @@ namespace Dungeon.Localization
             }
         }
 
+        public string this[object @const]
+        {
+            get
+            {
+                string key = @const.ToString();
+                var type = @const.GetType();
+
+                if (type.IsEnum)
+                {
+                    key=$"{type.Name}.{key}";
+                }
+
+                if (!Values.TryGetValue(key, out var value))
+                    return $"LOCALE-ENUM-STRING-NOT-FOUND: {key}";
+                return value;
+            }
+        }
+
         public T ___Load<T>(string lang)
         {
             return JsonConvert.DeserializeObject<T>(File.ReadAllText(DoPath(lang)));

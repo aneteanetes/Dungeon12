@@ -14,22 +14,22 @@ namespace Dungeon12.SceneObjects.Stats
 
         public override void Init()
         {
-            this.AddChild(new WearSceneObject(Component.Neck, ItemType.Neck));
-            this.AddChild(new WearSceneObject(Component.Helm, ItemType.Helm) { Left=77 });
-            this.AddChild(new WearSceneObject(Component.Mask, ItemType.Mask) { Left=153 });
-            this.AddChild(new WearSceneObject(Component.Trinket, ItemType.Trinket) { Left=229 });
+            this.AddChild(new WearSceneObject(Component.Neck, ItemSlot.Neck));
+            this.AddChild(new WearSceneObject(Component.Helm, ItemSlot.Helm) { Left=77 });
+            this.AddChild(new WearSceneObject(Component.Mask, ItemSlot.Mask) { Left=153 });
+            this.AddChild(new WearSceneObject(Component.Trinket, ItemSlot.Trinket) { Left=229 });
 
-            this.AddChild(new WearSceneObject(Component.Shoulder, ItemType.Shoulder) { Top=76 });
-            this.AddChild(new WearSceneObject(Component.Cloak, ItemType.Cloak) { Top=76, Left=229 });
-            this.AddChild(new WearSceneObject(Component.Chest, ItemType.Chest) { Top=151 });
-            this.AddChild(new WearSceneObject(Component.Legs, ItemType.Legs) { Top=151, Left=229 });
-            this.AddChild(new WearSceneObject(Component.Gloves, ItemType.Gloves) { Top=226 });
-            this.AddChild(new WearSceneObject(Component.Boots, ItemType.Boots) { Top=226, Left=229 });
+            this.AddChild(new WearSceneObject(Component.Shoulder, ItemSlot.Shoulder) { Top=76 });
+            this.AddChild(new WearSceneObject(Component.Cloak, ItemSlot.Cloak) { Top=76, Left=229 });
+            this.AddChild(new WearSceneObject(Component.Chest, ItemSlot.Chest) { Top=151 });
+            this.AddChild(new WearSceneObject(Component.Legs, ItemSlot.Legs) { Top=151, Left=229 });
+            this.AddChild(new WearSceneObject(Component.Gloves, ItemSlot.Gloves) { Top=226 });
+            this.AddChild(new WearSceneObject(Component.Boots, ItemSlot.Boots) { Top=226, Left=229 });
 
-            this.AddChild(new WearSceneObject(Component.Ranged, ItemType.Ranged) { Top=302 });
-            this.AddChild(new WearSceneObject(Component.LeftHand, ItemType.LeftHand) { Top=302, Left=77 });
-            this.AddChild(new WearSceneObject(Component.RightHand, ItemType.RightHand) { Top=302, Left=153 });
-            this.AddChild(new WearSceneObject(Component.Ammunition, ItemType.Ammunition) { Top=302, Left=229 });
+            this.AddChild(new WearSceneObject(Component.Ranged, ItemSlot.Ranged) { Top=302 });
+            this.AddChild(new WearSceneObject(Component.LeftHand, ItemSlot.LeftHand) { Top=302, Left=77 });
+            this.AddChild(new WearSceneObject(Component.RightHand, ItemSlot.RightHand) { Top=302, Left=153 });
+            this.AddChild(new WearSceneObject(Component.Ammunition, ItemSlot.Ammunition) { Top=302, Left=229 });
         }
     }
 }

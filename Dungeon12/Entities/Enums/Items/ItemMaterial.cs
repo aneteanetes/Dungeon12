@@ -37,4 +37,21 @@ namespace Dungeon12.Entities.Enums
         [DrawColour(98, 74, 46)]
         TannedLeather
     }
+
+    internal static class ItemMaterialEnumExtensions
+    {
+        public static int Durability(this ItemMaterial material) => material switch
+        {
+            ItemMaterial.Copper => 70,
+            ItemMaterial.Bronze => 95,
+            ItemMaterial.Steel => 120,
+            ItemMaterial.Cotton => 15,
+            ItemMaterial.Wool => 25,
+            ItemMaterial.Silk => 30,
+            ItemMaterial.RawLeather => 45,
+            ItemMaterial.Rawhide => 55,
+            ItemMaterial.TannedLeather => 60,
+            _ => 10,
+        };
+    }
 }
