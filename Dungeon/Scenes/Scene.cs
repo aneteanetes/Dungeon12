@@ -68,6 +68,8 @@
 
         public SceneLayer CreateLayer(string name) => CreateLayer<SceneLayer>(name);
 
+        public SceneLayer AddLayer(string name) => CreateLayer(name);
+
         public TSceneLayer CreateLayer<TSceneLayer>(string name)
             where TSceneLayer : SceneLayer
         {

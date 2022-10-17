@@ -1,17 +1,21 @@
 ﻿namespace Dungeon.Drawing.SceneObjects
 {
-    using Dungeon.Drawing.Impl;
     using Dungeon.SceneObjects;
     using System;
     using System.Reflection;
+
+    public class ImageSceneObject : ImageObject { public ImageSceneObject(string imagePath = null) : base(imagePath) { } }
 
     /// <summary>
     /// По умолчанию не реагирует на события
     /// </summary>
     public class ImageObject : EmptySceneObject
     {
-        public ImageObject(string imagePath)
+        public ImageObject(string imagePath=null)
         {
+            if (imagePath == null)
+                return;
+
             if (!imagePath.Contains(".Resources.Images."))
             {
                 imagePath = Assembly.GetCallingAssembly().GetName().Name + ".Resources.Images." + imagePath.Embedded();

@@ -9,13 +9,14 @@ using Dungeon12.Drawing.SceneObjects;
 using Dungeon12.Locale;
 using Dungeon12.SceneObjects.UserInterface.Common;
 using Dungeon12.Scenes.Create;
+using Dungeon12.Scenes.Main;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Dungeon12.Scenes
 {
-    internal class StartScene : Dungeon.Scenes.StartScene<TCGScene, CreateScene>
+    internal class StartScene : Dungeon.Scenes.StartScene<TCGScene, CreateScene, MainScene>
     {
         public StartScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -149,7 +150,7 @@ namespace Dungeon12.Scenes
 
         private void NewGame()
         {
-            this.Switch<CreateScene>();
+            this.Switch<MainScene>();
         }
 
         private void SaveGame()

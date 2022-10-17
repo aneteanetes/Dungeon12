@@ -742,10 +742,6 @@
             effects.ForEach(x => this.AddChild(x));
         }
 
-        public void Load()
-        {
-        }
-
         public ITexture Texture { get; set; }
 
         public virtual bool PerPixelCollision { get; set; }
@@ -816,9 +812,9 @@
 
         protected virtual void UpdateFrame() { }
 
-        public virtual void Update(GameTimeLoop gameTime)
+        public virtual void InternalUpdate(GameTimeLoop gameTime)
         {
-            UpdateSceneObject(gameTime);
+            Update(gameTime);
 
             elapsed += gameTime.ElapsedGameTime;
 
@@ -844,7 +840,7 @@
             Update();
         }
 
-        public virtual void UpdateSceneObject(GameTimeLoop gameTime) { }
+        public virtual void Update(GameTimeLoop gameTime) { }
 
         public Action OnDestroy { get; set; }
 

@@ -306,7 +306,7 @@ namespace Dungeon12.SceneObjects
                 Image = "Backgrounds/arrow.png".AsmImg();
             }
 
-            public override void Update(GameTimeLoop gameTime)
+            public override void InternalUpdate(GameTimeLoop gameTime)
             {
                 if (Time == default || Time < default(TimeSpan))
                 {
@@ -373,7 +373,7 @@ namespace Dungeon12.SceneObjects
 
             private bool down = false;
 
-            public override void Update(GameTimeLoop gameTime)
+            public override void InternalUpdate(GameTimeLoop gameTime)
             {
                 if (Time == default || Time < default(TimeSpan))
                 {

@@ -28,4 +28,6 @@
     <Folder Include="Resources\Loot\" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties resources_4dialogs_4npcapprenticeship_1json__JsonSchema="https://docs.strmprivacy.io/jsonschema/BatchJob.json" /></VisualStudio></ProjectExtensions>
+
 </Project>

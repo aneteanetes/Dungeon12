@@ -194,7 +194,7 @@
         /// <summary>
         /// Метод вызывается перед отрисовкой, а то заебало уже хаки юзать
         /// </summary>
-        void Update(GameTimeLoop gameTime);
+        void InternalUpdate(GameTimeLoop gameTime);
 
         /// <summary>
         /// Метод вызывается перед отрисовкой, а то заебало уже хаки юзать

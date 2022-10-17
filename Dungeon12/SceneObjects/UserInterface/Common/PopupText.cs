@@ -84,7 +84,7 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
 
         public override bool Updatable => true;
 
-        public override void Update(GameTimeLoop gameTime)
+        public override void InternalUpdate(GameTimeLoop gameTime)
         {
             if (Time == default(TimeSpan) || Time < default(TimeSpan))
             {

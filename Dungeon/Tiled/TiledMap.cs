@@ -1,10 +1,12 @@
 ﻿using Dungeon.Resources;
+using Dungeon.Types;
 using Dungeon.Utils.XElementExtensions;
 using MoreLinq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Xml.Linq;
 
 namespace Dungeon.Tiled
@@ -50,6 +52,9 @@ namespace Dungeon.Tiled
                         File = ResourceFile(x.Element("image").TagAttrString("source"))
                     })
                     .ToList();
+
+                if (tileSet.Tiles.Count == 0)
+                    tileSet.Autotiled=true;
 
                 tiledMap.Tilesets.Add(tileSet);
             }
@@ -97,7 +102,7 @@ namespace Dungeon.Tiled
 
                     if (tobj.gid != 0)
                     {
-                        tobj.file = tiledMap.TileNameByGid(tobj.gid).File;
+                        tobj.file = tiledMap.TileFileNameByGid(tobj.gid);
                     }
 
                     var props = objtag.Element("properties");
@@ -166,9 +171,14 @@ namespace Dungeon.Tiled
 
                 if (gids.Count == 0)
                 {
-                    gids = dataTag.Value.Split(",", System.StringSplitOptions.RemoveEmptyEntries).Select(x => uint.Parse(x)).ToList();
+                    gids = dataTag.Value
+                        .Split(",", System.StringSplitOptions.RemoveEmptyEntries)
+                        .Select(x => uint.Parse(x))
+                        .ToList();
                 }
 
+                var iX = 0;
+                var iY = 0;
                 foreach (var gidHASHED in gids)
                 {
                     // Read out the flags
@@ -178,14 +188,27 @@ namespace Dungeon.Tiled
 
                     var gid = gidHASHED & ~(FLIPPED_HORIZONTALLY_FLAG | FLIPPED_VERTICALLY_FLAG | FLIPPED_DIAGONALLY_FLAG);
 
-                    layer.Tiles.Add(new TiledPolygon()
+                    var coords = tiledMap.ParseCoordinates(gid);
+
+                    layer.Tiles.Add(new TiledPolygon(gid)
                     {
-                        FileName = tiledMap.TileNameByGid(gid).File,
+                        FileName = tiledMap.TileFileNameByGid(gid),
                         FlippedDiagonally = flipped_diagonally,
                         FlippedHorizontally = flipped_horizontally,
                         FlippedVertically = flipped_vertically,
-                        Layer = layer
+                        Layer = layer,
+                        TileOffsetX=coords.Xi,
+                        TileOffsetY=coords.Yi,
+                        Position = new Point(iX,iY)
                     });
+
+                    iX++;
+                    if (iX>layer.width-1)
+                    {
+                        iX=0;
+                        iY++;
+                    }
+
                 }
 
                 tiledMap.Layers.Add(layer);
@@ -204,15 +227,28 @@ namespace Dungeon.Tiled
 
         public List<TiledTileset> Tilesets { get; set; } = new List<TiledTileset>();
 
-        private TiledTile TileNameByGid(uint gid)
+        private Point ParseCoordinates(uint gid)
+        {
+            var tileset = this.Tilesets.FirstOrDefault(x => x.TileGids.Contains(gid));
+            if (tileset != null)
+                return tileset.Coords(gid);
+
+            return Point.Zero;
+        }
+
+        private string TileFileNameByGid(uint gid)
         {
             if (gid == 0)
-                return new TiledTile();
+                return null;
 
             var tileset = this.Tilesets.FirstOrDefault(x => x.TileGids.Contains(gid));
-            var tile =  tileset.Tiles.FirstOrDefault(x => x.Id == Math.Abs(gid - tileset.firstgid));
 
-            return tile;
+            if (tileset.Autotiled)
+                return tileset.name;
+
+            return tileset.Tiles
+                .FirstOrDefault(x => x.Id == Math.Abs(gid - tileset.firstgid))
+                ?.File;
         }
 
         public List<TiledLayer> Layers { get; set; } = new List<TiledLayer>();

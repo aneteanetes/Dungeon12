@@ -86,7 +86,7 @@ namespace Dungeon12.SceneObjects.UI
             }
         }
 
-        public override void UpdateSceneObject(GameTimeLoop gameTime)
+        public override void Update(GameTimeLoop gameTime)
         {
             if (prev.TotalGameTime == default)
             {
@@ -102,7 +102,7 @@ namespace Dungeon12.SceneObjects.UI
                 prev = gameTime;
             }
 
-            base.UpdateSceneObject(gameTime);
+            base.Update(gameTime);
         }
     }
 }

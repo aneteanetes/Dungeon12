@@ -40,7 +40,7 @@ namespace Dungeon.Monogame
 
         private void UpdateComponent(ISceneObject sceneObject, GameTimeLoop gameTimeLoop)
         {
-            sceneObject.Update(gameTimeLoop);
+            sceneObject.InternalUpdate(gameTimeLoop);
 
             for (int i = 0; i < sceneObject.Children.Count; i++)
             {
