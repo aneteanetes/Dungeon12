@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Dungeon.Global;
+using System;
 
 namespace Dungeon.Monogame
 {
-    public class MonogameClient
+    public class MonogameClient : IDrawFrontend
     {
         MonogameClientSettings _settings;
 
@@ -22,11 +21,10 @@ namespace Dungeon.Monogame
             };
         }
 
-        public void Run(bool FATAL = false)
+        public void Start()
         {
             using (var game = new XNADrawClient(_settings))
             {
-                game.isFatal = FATAL;
                 DungeonGlobal.Exit += () =>
                 {
                     game.Dispose();

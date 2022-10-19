@@ -54,12 +54,12 @@
         /// <summary>
         /// Must exists
         /// </summary>
-        Rectangle BoundPosition { get; }
+        Square BoundPosition { get; }
 
         /// <summary>
         /// Must exists
         /// </summary>
-        Rectangle CropPosition { get; }
+        Square CropPosition { get; }
 
         ITexture Texture { get; set; }
 
@@ -85,11 +85,11 @@
         /// <summary>
         /// Position with parent and scale
         /// </summary>
-        Rectangle ComputedPosition { get; }
+        Square ComputedPosition { get; }
 
         string Image { get; set; }
 
-        Rectangle ImageRegion { get; set; }
+        Square ImageRegion { get; set; }
 
         bool ImageInvertColor { get; set; }
 

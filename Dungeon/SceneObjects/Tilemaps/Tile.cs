@@ -27,8 +27,8 @@ namespace Dungeon.SceneObjects.Tilemaps
 
         public string Uid { get; }
 
-        public Rectangle TileRegion { get; set; }
+        public Square TileRegion { get; set; }
 
-        public Rectangle TilePosition { get; set; }
+        public Square TilePosition { get; set; }
     }
 }

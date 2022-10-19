@@ -193,9 +193,6 @@
             }
             Logger.SaveIsNeeded($"Logs\\{DateTime.Now.ToString("dd=MM HH_mm_ss")}");
         };
-
-        public static DrawClientRunDelegate ClientRun;
-
         public static bool GamePadConnected { get; set; } = false;
 
         public static DrawingSize Sizes { get; set; } = new DrawingSize();
@@ -214,18 +211,9 @@
 
         public abstract void LoadStrings(object localizationStringDictionary);
 
-        public static void Run(bool FATAL = false)
+        public static void Run(IDrawFrontend drawFrontend)
         {
-            try
-            {
-                ClientRun(FATAL);
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(ex.ToString());
-                throw;
-                Run(true);
-            }
+            drawFrontend.Start();
         }
     }
 }

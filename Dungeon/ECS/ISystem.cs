@@ -1,5 +1,4 @@
 ﻿using Dungeon.Control;
-using Dungeon.Control.Pointer;
 using Dungeon.Utils.AttributesForInformation;
 using Dungeon.View.Interfaces;
 

@@ -54,14 +54,14 @@
                 if (_activeLayer == default && !loggedallinactivedlayers)
                 {
                     loggedallinactivedlayers = true;
-                    DungeonGlobal.Logger.Log("All layers on Scene is inactive!");
+                    DungeonGlobal.Logger.Log($"All layers on {this.GetType()}-scene is inactive!");
                 }
                 return _activeLayer;
             }
             set
             {
                 if (_activeLayer == default)
-                    DungeonGlobal.Logger.Log("All layers on Scene now setted as inactive!");
+                    DungeonGlobal.Logger.Log($"All layers on {this.GetType()}-scene now setted as inactive!");
                 _activeLayer = value;
             }
         }

@@ -23,7 +23,7 @@
 
         public TimeSpan Time { get; set; }
 
-        public Rectangle DefaultFramePosition => new Rectangle()
+        public Square DefaultFramePosition => new Square()
         {
             Height = Size.Y,
             Width = Size.X,
@@ -31,7 +31,7 @@
             Y = Frames?.FirstOrDefault()?.Y ?? 0
         };
 
-        public Rectangle LastFramePosition => new Rectangle()
+        public Square LastFramePosition => new Square()
         {
             Height = Size.Y,
             Width = Size.X,

@@ -209,7 +209,6 @@
 
         #region frameSettings
 
-        private bool frameEnd;
         private int _frame;
         private TimeSpan _lastFps;
         private int _lastFpsFrame;
@@ -238,11 +237,7 @@
                     _lastFpsFrame = _frame;
                     _lastFps = nowTs;
                 }
-
-                frameEnd = DungeonGlobal.FPS >= 55;
-
                 //var text = $"Версия: {DungeonGlobal.Version}";
-
 
                 using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(DefaultFontXnbExistedFile))
                 {
@@ -255,7 +250,7 @@
 
                     //spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);
 
-                    spriteBatch.DrawString(font, DungeonGlobal.FPS.ToString(), new Vector2((this.Window.ClientBounds.Width - 50) - 2, 2), Color.Yellow);
+                    spriteBatch.DrawString(font, DungeonGlobal.FPS.ToString("F0"), new Vector2((this.Window.ClientBounds.Width - 50) - 2, 2), Color.Yellow);
                 }
 
                 if (neeedClose)

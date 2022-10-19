@@ -14,7 +14,7 @@
         public bool Fill { get; set; }
         public IDrawColor BackgroundColor { get; set; }
         public IDrawColor ForegroundColor { get; set; }
-        public Rectangle Region { get; set; }
+        public Square Region { get; set; }
 
         public List<Point> Paths = new List<Point>();
         public IEnumerable<Point> Path => Paths;

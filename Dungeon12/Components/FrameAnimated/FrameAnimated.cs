@@ -24,16 +24,16 @@ namespace Dungeon12.Components
 
         public virtual Animation MoveDownRight { get; set; }
 
-        public virtual Rectangle DefaultFramePosition { get; set; }
+        public virtual Square DefaultFramePosition { get; set; }
 
         public string Tileset { get; set; }
 
-        public static FrameAnimated FromTileset(string tileset, int xFrame, int yFrame, Rectangle defaultFrame = null)
+        public static FrameAnimated FromTileset(string tileset, int xFrame, int yFrame, Square defaultFrame = null)
         {
             return new FrameAnimated()
             {
                 Tileset = tileset,
-                DefaultFramePosition = defaultFrame ?? new Rectangle()
+                DefaultFramePosition = defaultFrame ?? new Square()
                 {
                     X = xFrame,
                     Height = xFrame,

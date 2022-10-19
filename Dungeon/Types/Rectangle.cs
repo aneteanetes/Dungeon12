@@ -2,15 +2,15 @@
 
 namespace Dungeon.Types
 {
-    public class Rectangle
+    public class Square
     {
-        public static Rectangle Empty => new Rectangle();
+        public static Square Empty => new Square();
 
-        public Rectangle()
+        public Square()
         {
         }
         
-        public Rectangle(int x, int y, int width, int height)
+        public Square(int x, int y, int width, int height)
         {
             X = x;
             Y = y;
@@ -18,7 +18,7 @@ namespace Dungeon.Types
             Height = height;
         }
 
-        public Rectangle(double x, double y, double width, double height)
+        public Square(double x, double y, double width, double height)
         {
             X = x;
             Y = y;
@@ -54,7 +54,7 @@ namespace Dungeon.Types
 
         public float yMax => Yf+ Heightf;
 
-        public bool Overlaps(Rectangle other)
+        public bool Overlaps(Square other)
         {
             var x1 = Math.Max(this.X, other.X);
             var x2 = Math.Min(this.X + this.Width, other.X + other.Width);
@@ -87,7 +87,7 @@ namespace Dungeon.Types
             }
         }
 
-        public bool IntersectsWithOrContains(Rectangle b) => this.IntersectsWith(b) || this.Contains(b.X, b.Y);
+        public bool IntersectsWithOrContains(Square b) => this.IntersectsWith(b) || this.Contains(b.X, b.Y);
 
         public bool Contains(double x, double y)
         {
@@ -95,7 +95,7 @@ namespace Dungeon.Types
                 (y >= Y) && (y < Y+Height));
         }
 
-        public bool IntersectsWith(Rectangle b)
+        public bool IntersectsWith(Square b)
         {
             var x1 = Math.Max(X, b.X);
             var x2 = Math.Min(X + Width, b.X + b.Width);
@@ -110,7 +110,7 @@ namespace Dungeon.Types
             return false;
         }
 
-        public bool Equals(Rectangle obj)
+        public bool Equals(Square obj)
             => obj.Width == this.Width
             && obj.Height == this.Height
             && obj.X == this.X

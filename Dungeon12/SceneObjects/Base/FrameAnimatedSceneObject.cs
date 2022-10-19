@@ -12,7 +12,7 @@
 
         public override bool CacheAvailable => false;
 
-        public FrameAnimatedSceneObject(T @object, Rectangle defaultFramePosition, Func<int, Animation, bool> requestNextFrame = null, bool bindView = true) : base(@object, bindView)
+        public FrameAnimatedSceneObject(T @object, Square defaultFramePosition, Func<int, Animation, bool> requestNextFrame = null, bool bindView = true) : base(@object, bindView)
         {
             this.FramePosition = defaultFramePosition;
             this.RequestNextFrame = requestNextFrame ?? this.DefaultRequestNextFrame;
@@ -22,7 +22,7 @@
 
         public bool FreezeForceAnimation { get; set; }
 
-        public override Rectangle ImageRegion
+        public override Square ImageRegion
         {
             get
             {
@@ -92,7 +92,7 @@
 
         protected void SetAnimation(Animation animationMap) => this.animationMap = animationMap;
 
-        protected Rectangle FramePosition;
+        protected Square FramePosition;
 
         protected Func<int, Animation, bool> RequestNextFrame;
 

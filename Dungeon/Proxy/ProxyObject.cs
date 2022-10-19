@@ -278,11 +278,11 @@ namespace Dungeon.Proxy
 
         public virtual string Tileset { get; set; }
 
-        public virtual Rectangle TileSetRegion { get; set; }
+        public virtual Square TileSetRegion { get; set; }
 
-        public virtual Rectangle TileSetRegionStart { get; set; }
+        public virtual Square TileSetRegionStart { get; set; }
 
-        public virtual Rectangle Region { get; set; }
+        public virtual Square Region { get; set; }
 
         public virtual bool Container => false;
 

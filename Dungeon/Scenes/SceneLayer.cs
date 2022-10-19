@@ -298,7 +298,7 @@ namespace Dungeon.Scenes
 
         private bool RegionContains(ISceneControl sceneObjControl, PointerArgs pos, Point offset)
         {
-            Rectangle actualRegion = ActualRegion(sceneObjControl, offset);
+            Square actualRegion = ActualRegion(sceneObjControl, offset);
             var hitboxContains = actualRegion.Contains(pos.X, pos.Y);
 
             if (hitboxContains && sceneObjControl.PerPixelCollision)
@@ -315,9 +315,9 @@ namespace Dungeon.Scenes
             return hitboxContains;
         }
 
-        private Rectangle ActualRegion(ISceneControl sceneObjControl, Point offset)
+        private Square ActualRegion(ISceneControl sceneObjControl, Point offset)
         {
-            var newRegion = new Rectangle
+            var newRegion = new Square
             {
                 X = sceneObjControl.ComputedPosition.X * DrawingSize.CellF,
                 Y = sceneObjControl.ComputedPosition.Y * DrawingSize.CellF,

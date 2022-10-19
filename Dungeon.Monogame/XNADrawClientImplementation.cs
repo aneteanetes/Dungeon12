@@ -15,7 +15,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Matrix = Microsoft.Xna.Framework.Matrix;
-using Rect = Dungeon.Types.Rectangle;
+using Rect = Dungeon.Types.Square;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Dungeon.Monogame
@@ -181,6 +181,7 @@ namespace Dungeon.Monogame
         }
 
         private Matrix scaleMatrix = Matrix.Identity;
+
         private void SetSpriteBatch(bool absolute = false, bool @interface = false, double scale=0, IEffect effect=default)
         {
             scaleMatrix = Matrix.Identity;
@@ -885,7 +886,7 @@ namespace Dungeon.Monogame
                     spriteBatch.Draw(image, dest, source, drawColor, angle, origin, spriteEffects, 0f);
                 }
 
-                BeginDraw(filter: sceneObject.Filtered);
+                //BeginDraw(filter: sceneObject.Filtered);
             }
         }
 

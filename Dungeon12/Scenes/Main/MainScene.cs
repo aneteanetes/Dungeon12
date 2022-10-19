@@ -3,7 +3,7 @@ using Dungeon.Control.Keys;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using Dungeon.Tiled;
-using Dungeon12.SceneObjects;
+using Dungeon12.SceneObjects.World;
 
 namespace Dungeon12.Scenes.Main
 {

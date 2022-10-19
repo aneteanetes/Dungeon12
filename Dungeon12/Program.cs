@@ -46,8 +46,7 @@ namespace Dungeon12
                 IsWindowedFullScreen = true,
                 MonitorIndex = monitor
             });
-            DungeonGlobal.ClientRun = client.Run;
-            DungeonGlobal.Run();
+            DungeonGlobal.Run(client);
         }
     }
 }

@@ -20,8 +20,8 @@ namespace Dungeon.View.Interfaces
 
         int Height { get; }
 
-        Rectangle TileRegion { get; set; }
+        Square TileRegion { get; set; }
 
-        Rectangle TilePosition { get; set; }
+        Square TilePosition { get; set; }
     }
 }

@@ -5,7 +5,7 @@
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
-    using Rec = Dungeon.Types.Rectangle;
+    using Rec = Dungeon.Types.Square;
 
     public partial class XNADrawClient : Game, IDrawClient
     {

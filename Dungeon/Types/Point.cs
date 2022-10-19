@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Dungeon.Types
 {
@@ -262,6 +260,25 @@ namespace Dungeon.Types
             }
 
             return (Direction)((int)dirX + (int)dirY);
+        }
+
+        public Direction Move(int x = 0, int y = 0)
+        {
+            int dir = (int)Direction.Idle;
+
+            if (x>0)
+                dir+= (int)Direction.Right;
+            if(x<0)
+                dir+= (int)Direction.Left;
+            if (y<0)
+                dir+= (int)Direction.Up;
+            if (y>0)
+                dir+= (int)Direction.Down;
+
+            this.X+=x;
+            this.Y+=y;
+
+            return (Direction)dir;
         }
 
         private bool Compare(bool isLess, double a, double b, double accuracy)

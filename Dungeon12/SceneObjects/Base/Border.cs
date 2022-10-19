@@ -4,9 +4,9 @@ using Dungeon.View.Enums;
 
 namespace Dungeon12.SceneObjects.Base
 {
-    internal class NineSliceBorder : EmptySceneObject
+    internal class Border : EmptySceneObject
     {
-        public NineSliceBorder(double width, double height, double opacity) : this(new NineSliceSettings()
+        public Border(double width, double height, double opacity) : this(new NineSliceSettings()
         {
             Width = width,
             Height = height,
@@ -16,7 +16,7 @@ namespace Dungeon12.SceneObjects.Base
         })
         { }
 
-        public NineSliceBorder(NineSliceSettings settings)
+        public Border(NineSliceSettings settings)
         {
             this.Width = settings.Width;
             this.Height = settings.Height;

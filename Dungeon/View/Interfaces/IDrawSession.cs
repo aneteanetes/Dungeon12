@@ -19,7 +19,7 @@
 
         bool AutoClear { get; }
 
-        Rectangle SessionRegion { get; }
+        Square SessionRegion { get; }
 
         IEnumerable<IDrawText> TextContent { get; }
 

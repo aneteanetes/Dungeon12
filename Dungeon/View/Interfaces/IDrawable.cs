@@ -18,7 +18,7 @@ namespace Dungeon.View.Interfaces
 
         string Tileset { get; }
 
-        Rectangle TileSetRegion { get; }
+        Square TileSetRegion { get; }
 
         /// <summary>
         /// Контейнер для рисования

@@ -18,9 +18,9 @@ namespace Dungeon.Entities
 
         public virtual string Tileset { get; set; }
 
-        public virtual Rectangle TileSetRegion { get; set; }
+        public virtual Square TileSetRegion { get; set; }
 
-        public virtual Rectangle Region { get; set; }
+        public virtual Square Region { get; set; }
 
         public virtual bool Container => false;
 

@@ -7,7 +7,7 @@ namespace Dungeon12
     {
         public static void AddBorder(this ISceneObject sceneObject, double opacity=.9)
         {
-            sceneObject.AddChild(new NineSliceBorder(sceneObject.Width, sceneObject.Height,opacity));
+            sceneObject.AddChild(new Border(sceneObject.Width, sceneObject.Height,opacity));
         }
     }
 }

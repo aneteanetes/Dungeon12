@@ -32,7 +32,7 @@
 
         public override string Image => Component?.Chip;
 
-        public Rectangle _ImageRegion = new Rectangle()
+        public Square _ImageRegion = new Square()
         {
             Height = 240,
             Width = 240,
@@ -44,6 +44,6 @@
 
         public override double Height => 180;
 
-        public override Rectangle ImageRegion => _ImageRegion;
+        public override Square ImageRegion => _ImageRegion;
     }
 }

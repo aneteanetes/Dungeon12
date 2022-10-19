@@ -24,7 +24,7 @@
 
         public bool FreezeForceAnimation { get; set; }
 
-        public override Rectangle ImageRegion
+        public override Square ImageRegion
         {
             get
             {
@@ -98,7 +98,7 @@
 
         protected void SetAnimation(Animation animationMap) => this.animationMap = animationMap;
 
-        protected Rectangle FramePosition;
+        protected Square FramePosition;
 
         protected Func<int, Animation, bool> RequestNextFrame;
 

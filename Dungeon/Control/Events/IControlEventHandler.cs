@@ -6,6 +6,6 @@ namespace Dungeon.Control.Events
     {
         void Handle(ControlEventType @event);
 
-        Rectangle Location { get; }
+        Square Location { get; }
     }
 }

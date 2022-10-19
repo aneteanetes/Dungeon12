@@ -31,7 +31,7 @@
 
         void SetCameraSpeed(double speed);
 
-        public Rectangle CameraView { get; }
+        public Square CameraView { get; }
 
         bool InCamera(ISceneObject sceneObject);
 

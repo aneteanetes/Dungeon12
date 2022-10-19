@@ -319,12 +319,12 @@
         /// </summary>
         public virtual double Angle { get; set; }
 
-        private Rectangle pos = null;
+        private Square pos = null;
 
         /// <summary>
         /// Relative position
         /// </summary>
-        public virtual Rectangle BoundPosition
+        public virtual Square BoundPosition
         {
             get
             {
@@ -332,7 +332,7 @@
                 {
                     if (pos == null)
                     {
-                        pos = new Rectangle();
+                        pos = new Square();
                     }
                     pos.X = (float)Left;
                     pos.Y = (float)Top;
@@ -454,8 +454,8 @@
             }
         }
 
-        private Rectangle _computedPosition;
-        public Rectangle ComputedPosition
+        private Square _computedPosition;
+        public Square ComputedPosition
         {
             get
             {
@@ -484,7 +484,7 @@
                         _computedPosition.Y = parentY + (float)Top * (needScalePosition ? scale_ : 1);
                     }
                     else
-                        _computedPosition = new Rectangle
+                        _computedPosition = new Square
                         {
                             X = parentX + (float)Left * (needScalePosition ? scale_ : 1),
                             Y = parentY + (float)Top * (needScalePosition ? scale_ : 1)
@@ -523,7 +523,7 @@
         [Hidden]
         public Action<ISceneControl> ControlBinding { get; set; }
 
-        public virtual Rectangle CropPosition => new Rectangle
+        public virtual Square CropPosition => new Square
         {
             X = BoundPosition.X,
             Y = BoundPosition.Y,
@@ -773,10 +773,10 @@
             }
 
         }
-        private Rectangle _originalImageRegion;
-        private Rectangle _imageRegion;
+        private Square _originalImageRegion;
+        private Square _imageRegion;
 
-        public virtual Rectangle ImageRegion { get; set; }
+        public virtual Square ImageRegion { get; set; }
 
         public bool AutoBindSceneObjectSizeByContainedImage { get; set; } = true;
 

@@ -104,7 +104,7 @@ namespace Dungeon.Drawing
 
         public bool IsEmptyInside => InnerText.Count == 0;
 
-        public Rectangle Region { get; set; }
+        public Square Region { get; set; }
 
         public virtual float Size { get; set; } = 12f;
 
