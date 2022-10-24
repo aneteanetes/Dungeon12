@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 namespace Dungeon.Monogame.Effects
 {
@@ -12,7 +11,7 @@ namespace Dungeon.Monogame.Effects
         public bool NotDrawOriginal { get; }
 
 #if !Engine
-        void Load(XNADrawClient client);
+        void Load(GameClient client);
 #endif
 
         Texture2D Draw(RenderTarget2D input);

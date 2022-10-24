@@ -16,8 +16,8 @@
         public IDrawColor ForegroundColor { get; set; }
         public Square Region { get; set; }
 
-        public List<Point> Paths = new List<Point>();
-        public IEnumerable<Point> Path => Paths;
+        public List<Dot> Paths = new List<Dot>();
+        public IEnumerable<Dot> Path => Paths;
 
         public float Angle { get; set; }
 

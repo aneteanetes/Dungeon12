@@ -27,7 +27,7 @@ namespace Dungeon12.Scenes
         public override void Initialize()
         {
             Global.AudioPlayer.Music("Main.ogg".AsmMusicRes());
-            Global.DrawClient.SetCursor("Cursors/common.png".AsmImg());
+            Global.GameClient.SetCursor("Cursors/common.png".AsmImg());
 
             var layerBack = this.CreateLayer("back");
             layerBack.AddObject(new ImageObject("back.png".AsmImg())

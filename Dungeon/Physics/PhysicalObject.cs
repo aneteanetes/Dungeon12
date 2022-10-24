@@ -9,7 +9,7 @@
     {
         public bool IsPolygon => Size == default;
 
-        public List<Point> Polygons { get; set; } = new List<Point>();
+        public List<Dot> Polygons { get; set; } = new List<Dot>();
 
         public virtual PhysicalSize Size { get; set; }
 

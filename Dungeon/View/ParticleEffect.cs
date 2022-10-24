@@ -18,11 +18,11 @@
 
         public EffectTime When => EffectTime.InProcess;
 
-        public Point Position { get; set; }
+        public Dot Position { get; set; }
 
         public string Image { get; set; }
 
-        public Point Size { get; set; }
+        public Dot Size { get; set; }
 
         public bool Once { get; set; }
 

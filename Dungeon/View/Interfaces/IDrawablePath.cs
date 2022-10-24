@@ -18,7 +18,7 @@
 
         PathPredefined PathPredefined { get; }
 
-        IEnumerable<Point> Path { get; }
+        IEnumerable<Dot> Path { get; }
 
         string Texture { get; }
     }

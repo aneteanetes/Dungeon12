@@ -20,10 +20,10 @@ namespace Dungeon.Entities.Animations.Builders
 
         public AnimationBuilder WithFrames(params (int x, int y)[] poses)
         {
-            var frames = new List<Point>();
+            var frames = new List<Dot>();
             foreach (var pos in poses)
             {
-                frames.Add(new Point(pos.x * animationBuilder.animation.Size.X, pos.y * animationBuilder.animation.Size.Y));
+                frames.Add(new Dot(pos.x * animationBuilder.animation.Size.X, pos.y * animationBuilder.animation.Size.Y));
             }
             animationBuilder.animation.Frames = frames;
 

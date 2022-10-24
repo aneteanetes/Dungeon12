@@ -43,7 +43,7 @@ namespace Dungeon12.SceneObjects.UI
 
             public override void Focus()
             {
-                tooltip.SetPosition(new Point(125, 125));
+                tooltip.SetPosition(new Dot(125, 125));
                 tooltip.Visible = true;
 
                 base.Focus();
@@ -78,7 +78,7 @@ namespace Dungeon12.SceneObjects.UI
 
                 public override IDrawText Text => calendar.ClockText().AsDrawText().Gabriela();
 
-                public void SetPosition(Point position)
+                public void SetPosition(Dot position)
                 {
                     Left = position.X;
                     Top = position.Y;

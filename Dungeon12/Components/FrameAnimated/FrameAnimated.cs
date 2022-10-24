@@ -42,38 +42,38 @@ namespace Dungeon12.Components
                 MoveUp = new Animation()
                 {
                     TileSet = tileset,
-                    Frames = new List<Point>
+                    Frames = new List<Dot>
                     {
-                        new Point(64,96),
-                        new Point(0,96),
-                        new Point(32,96)
+                        new Dot(64,96),
+                        new Dot(0,96),
+                        new Dot(32,96)
                     }
                 },
                 MoveDown = new Animation()
                 {
-                    Frames = new List<Point>
+                    Frames = new List<Dot>
                     {
-                        new Point(64,0),
-                        new Point(0,0),
-                        new Point(32,0)
+                        new Dot(64,0),
+                        new Dot(0,0),
+                        new Dot(32,0)
                     }
                 },
                 MoveLeft = new Animation()
                 {
-                    Frames = new List<Point>
+                    Frames = new List<Dot>
                     {
-                        new Point(64,32),
-                        new Point(0,32),
-                        new Point(32,32)
+                        new Dot(64,32),
+                        new Dot(0,32),
+                        new Dot(32,32)
                     }
                 },
                 MoveRight = new Animation()
                 {
-                    Frames = new List<Point>
+                    Frames = new List<Dot>
                     {
-                        new Point(64,64),
-                        new Point(0,64),
-                        new Point(32,64)
+                        new Dot(64,64),
+                        new Dot(0,64),
+                        new Dot(32,64)
                     }
                 }
             };

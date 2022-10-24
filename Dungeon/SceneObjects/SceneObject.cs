@@ -87,7 +87,7 @@
                 : new EmptySceneObject() { Width = parentWidth, Height = this.Height };
 
             var textControl = new TextObject(drawText);
-            var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text, parentWidth==0
+            var measure = DungeonGlobal.GameClient.MeasureText(textControl.Text, parentWidth==0
                 ? this
                 : new EmptySceneObject() { Width = parentWidth });
 
@@ -161,7 +161,7 @@
 
         public void CenterText(TextObject textControl, bool horizontal = true, bool vertical = true, double parentWidth = 0)
         {
-            var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text, parentWidth == 0
+            var measure = DungeonGlobal.GameClient.MeasureText(textControl.Text, parentWidth == 0
                 ? this
                 : new EmptySceneObject() { Width = parentWidth });
 
@@ -245,7 +245,7 @@
         /// <param name="text"></param>
         /// <param name="parent">Только если wordWrap</param>
         /// <returns></returns>
-        protected Point MeasureText(IDrawText text, ISceneObject parent = default) => DungeonGlobal.DrawClient.MeasureText(text, parent);
+        protected Dot MeasureText(IDrawText text, ISceneObject parent = default) => DungeonGlobal.GameClient.MeasureText(text, parent);
 
         protected DrawText CutText(DrawText text, double height)
         {
@@ -266,11 +266,11 @@
         /// </summary>
         /// <param name="text"></param>
         /// <returns>relative X/Y</returns>
-        protected Point MeasureImage(string img)
+        protected Dot MeasureImage(string img)
         {
-            var m = DungeonGlobal.DrawClient.MeasureImage(img);
+            var m = DungeonGlobal.GameClient.MeasureImage(img);
 
-            return new Point(m.X / Settings.DrawingSize.CellF, m.Y / Settings.DrawingSize.CellF);
+            return new Dot(m.X / Settings.DrawingSize.CellF, m.Y / Settings.DrawingSize.CellF);
         }
 
         [Default(1)]
@@ -659,8 +659,6 @@
         public IDrawColor Color { get; set; } = DrawColor.White;
 
         public FlipStrategy Flip { get; set; } = FlipStrategy.None;
-
-        public bool ImageInvertColor { get; set; }
 
         private object flowContext = null;
 

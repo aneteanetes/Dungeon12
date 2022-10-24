@@ -1,4 +1,5 @@
-﻿using Dungeon.Drawing.SceneObjects;
+﻿using Dungeon.Drawing;
+using Dungeon.Drawing.SceneObjects;
 using Dungeon.Types;
 
 namespace Dungeon12.SceneObjects.World
@@ -7,6 +8,7 @@ namespace Dungeon12.SceneObjects.World
     {
         public WorldTileSceneObject()
         {
+            //Color = DrawColor.DarkBlue;
             Width = WorldSettings.cellSize;
             Height = WorldSettings.cellSize;
             Image = "terrain.png";

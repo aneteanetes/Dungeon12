@@ -9,7 +9,7 @@ namespace Dungeon.Entities.Animations.Builders
         internal Animation animation;
         string normal;
         string axis;
-        Point size;
+        Dot size;
         TimeSpan time;
 
         public virtual Animation Build()
@@ -26,7 +26,7 @@ namespace Dungeon.Entities.Animations.Builders
             time=time
         };
 
-        public AnimationBuilder BindSize(Point size)
+        public AnimationBuilder BindSize(Dot size)
         {
             this.size = size;
             return this;
@@ -51,7 +51,7 @@ namespace Dungeon.Entities.Animations.Builders
             return builder.InSize(size);
         }
 
-        public FramesAnimationBuilder InSize(Point size)
+        public FramesAnimationBuilder InSize(Dot size)
         {
             animation.Size = size;
             return new FramesAnimationBuilder(this);

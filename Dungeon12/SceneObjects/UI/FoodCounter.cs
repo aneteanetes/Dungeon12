@@ -38,7 +38,7 @@ namespace Dungeon12.SceneObjects.UI
 
         public override void Focus()
         {
-            tooltip.SetPosition(new Point(50, 100));
+            tooltip.SetPosition(new Dot(50, 100));
             tooltip.Visible = true;
 
             base.Focus();
@@ -73,7 +73,7 @@ namespace Dungeon12.SceneObjects.UI
 
             public override IDrawText Text => $"Эффективность: {food.Quality}%".AsDrawText().Gabriela();
 
-            public void SetPosition(Point position)
+            public void SetPosition(Dot position)
             {
                 Left = position.X;
                 Top = position.Y;

@@ -69,7 +69,7 @@ namespace Dungeon.Types
             return false;
         }
 
-        public Point Pos
+        public Dot Pos
         {
             get => new(this.X, this.Y);
             set
@@ -79,11 +79,11 @@ namespace Dungeon.Types
             }            
         }
 
-        public Point Size
+        public Dot Size
         {
             get
             {
-                return new Point(this.Width, this.Height);
+                return new Dot(this.Width, this.Height);
             }
         }
 

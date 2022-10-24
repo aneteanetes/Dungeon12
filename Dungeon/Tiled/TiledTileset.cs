@@ -26,10 +26,10 @@ namespace Dungeon.Tiled
         /// </summary>
         public bool Autotiled { get; set; }
 
-        public Point Coords(uint gid)
+        public Dot Coords(uint gid)
         {
             if (gid== 0)
-                return Point.Zero;
+                return Dot.Zero;
 
             if (Autotiled)
             {
@@ -37,7 +37,7 @@ namespace Dungeon.Tiled
                 {
                     // x == 0
                     // y == gid/32
-                    return new Point(0, gid/tileheight);
+                    return new Dot(0, gid/tileheight);
                 }
                 var y = gid / tileheight;
 
@@ -45,9 +45,9 @@ namespace Dungeon.Tiled
 
                 var x = gid - integerGid - 1;
 
-                return new Point(x, y);
+                return new Dot(x, y);
             }
-            return Point.Zero;
+            return Dot.Zero;
         }
 
         public int TileIndexFrom => firstgid;

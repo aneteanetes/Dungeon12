@@ -55,7 +55,7 @@ namespace Dungeon12.ECS.Systems
 
                 //tooltiped.RefreshTooltip();
 
-                var tooltipPosition = new Point(sceneObject.ComputedPosition.X, sceneObject.ComputedPosition.Y - 20);
+                var tooltipPosition = new Dot(sceneObject.ComputedPosition.X, sceneObject.ComputedPosition.Y - 20);
 
                 if (!Tooltips.TryGetValue(tooltipedDrawText, out var tooltip) )
                 {
@@ -66,9 +66,9 @@ namespace Dungeon12.ECS.Systems
                         SceneLayer.RemoveObject(tooltip);
                     };
 
+#warning ОБЪЕКТЫ ЛИШИЛИСЬ ABSOLUTE POSITION, ПОЭТОМУ ТУЛТИПЫ ДОЛЖНЫ БЫТЬ НА АБСОЛЮТНОМ СЛОЕ
                     tooltip = new Tooltip(tooltipedDrawText.TooltipText, tooltipPosition)
                     {
-                        AbsolutePosition = sceneObject.AbsolutePosition,
                         LayerLevel = 100
                     };
 
@@ -76,7 +76,7 @@ namespace Dungeon12.ECS.Systems
                     Tooltips[tooltipedDrawText] = tooltip;
                 }
 
-                tooltipPosition.X += sceneObject.Width / 2 - Global.DrawClient.MeasureText(tooltip.TooltipText).X / 2;
+                tooltipPosition.X += sceneObject.Width / 2 - Global.GameClient.MeasureText(tooltip.TooltipText).X / 2;
 
                 if (tooltipPosition.Y < 0)
                 {
@@ -91,7 +91,7 @@ namespace Dungeon12.ECS.Systems
 
         private void ProcessFocus(ISceneObject sceneObject, ITooltiped tooltiped)
         {
-            var tooltipPosition = new Point(sceneObject.ComputedPosition.X, sceneObject.ComputedPosition.Y - 20);
+            var tooltipPosition = new Dot(sceneObject.ComputedPosition.X, sceneObject.ComputedPosition.Y - 20);
 
             if (Tooltips1.TryGetValue(tooltiped, out var tooltip))
             {
@@ -104,9 +104,10 @@ namespace Dungeon12.ECS.Systems
                 SceneLayer.RemoveObject(tooltip);
             };
 
+#warning ОБЪЕКТЫ ЛИШИЛИСЬ ABSOLUTE POSITION, ПОЭТОМУ ТУЛТИПЫ ДОЛЖНЫ БЫТЬ НА АБСОЛЮТНОМ СЛОЕ
+
             tooltip = new Tooltip(tooltiped.TooltipText.Gabriela(), tooltipPosition,1)
             {
-                AbsolutePosition = sceneObject.AbsolutePosition,
                 LayerLevel = 100
             };
 
@@ -114,7 +115,7 @@ namespace Dungeon12.ECS.Systems
             Tooltips1[tooltiped] = tooltip;
 
 
-            tooltipPosition.X += sceneObject.Width / 2 - Global.DrawClient.MeasureText(tooltip.TooltipText).X / 2;
+            tooltipPosition.X += sceneObject.Width / 2 - Global.GameClient.MeasureText(tooltip.TooltipText).X / 2;
 
             if (tooltipPosition.Y < 0)
             {

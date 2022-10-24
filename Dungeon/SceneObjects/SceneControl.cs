@@ -117,9 +117,9 @@
         {
             ControlBinding?.Invoke(control);
 
-            Point measure = string.IsNullOrWhiteSpace(control.Image) && !forceNotImage
-                ? new Point(control.Width, control.Height)
-                : new Point(MeasureImage(control.Image).X * Settings.DrawingSize.CellF, MeasureImage(control.Image).Y * Settings.DrawingSize.CellF);
+            Dot measure = string.IsNullOrWhiteSpace(control.Image) && !forceNotImage
+                ? new Dot(control.Width, control.Height)
+                : new Dot(MeasureImage(control.Image).X * Settings.DrawingSize.CellF, MeasureImage(control.Image).Y * Settings.DrawingSize.CellF);
 
             double width = this.Width;
             double height = this.Height;
@@ -158,11 +158,11 @@
             IsInFocus = true;
             if (CursorOld != null)
             {
-                DungeonGlobal.DrawClient.SetCursor(("Cursors." + CursorOld + ".png").PathImage());
+                DungeonGlobal.GameClient.SetCursor(("Cursors." + CursorOld + ".png").PathImage());
             }
             if (HideCursor)
             {
-                DungeonGlobal.DrawClient.SetCursor("1px.png".AsmImg());
+                DungeonGlobal.GameClient.SetCursor("1px.png".AsmImg());
             }
             dynamicEvents[nameof(Focus)]?.DynamicInvoke();
         }
@@ -172,7 +172,7 @@
             IsInFocus = false;
             if (CursorOld != null || HideCursor)
             {
-                DungeonGlobal.DrawClient.SetCursor("Cursors.common.png".PathImage());
+                DungeonGlobal.GameClient.SetCursor("Cursors.common.png".PathImage());
             }
             dynamicEvents[nameof(Unfocus)]?.DynamicInvoke();
         }

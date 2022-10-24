@@ -21,7 +21,7 @@ namespace Dungeon.SceneObjects.Base
             text.Size = size;
             textControl = new TextObject(text);
 
-            var measure = DungeonGlobal.DrawClient.MeasureText(textControl.Text);
+            var measure = DungeonGlobal.GameClient.MeasureText(textControl.Text);
 
             var width = this.Width * Settings.DrawingSize.CellF;
             var height = this.Height * Settings.DrawingSize.CellF;

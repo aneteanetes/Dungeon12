@@ -133,11 +133,11 @@ namespace Dungeon.Scenes
             AddObject(sceneObject);
         }
 
-        protected Point MeasureImage(string img)
+        protected Dot MeasureImage(string img)
         {
-            var m = DungeonGlobal.DrawClient.MeasureImage(img);
+            var m = DungeonGlobal.GameClient.MeasureImage(img);
 
-            return new Point(m.X, m.Y);
+            return new Dot(m.X, m.Y);
         }
 
         public void ShowEffectsBinding(List<ISceneObject> e)
@@ -240,7 +240,7 @@ namespace Dungeon.Scenes
             var handlers = elements
                 .Distinct()
                 .Where(c => c.Visible)
-                .Where(c => c.DrawOutOfSight || (c.HighLevelComponent && Owner.sceneManager.DrawClient.InCamera(c)))
+                .Where(c => c.DrawOutOfSight || (c.HighLevelComponent && Owner.sceneManager.GameClient.InCamera(c)))
                 .Where(x =>
                 {
                     bool handle = x.CanHandle.Contains(handleEvent);
@@ -256,7 +256,7 @@ namespace Dungeon.Scenes
             return handlers;
         }
 
-        private IEnumerable<ISceneControl> WhereLayeredHandlers(IEnumerable<ISceneControl> elements, PointerArgs pointerPressedEventArgs, Point offset)
+        private IEnumerable<ISceneControl> WhereLayeredHandlers(IEnumerable<ISceneControl> elements, PointerArgs pointerPressedEventArgs, Dot offset)
         {
             List<ISceneControl> selected = new List<ISceneControl>();
 
@@ -296,14 +296,14 @@ namespace Dungeon.Scenes
             return selected;
         }
 
-        private bool RegionContains(ISceneControl sceneObjControl, PointerArgs pos, Point offset)
+        private bool RegionContains(ISceneControl sceneObjControl, PointerArgs pos, Dot offset)
         {
             Square actualRegion = ActualRegion(sceneObjControl, offset);
             var hitboxContains = actualRegion.Contains(pos.X, pos.Y);
 
             if (hitboxContains && sceneObjControl.PerPixelCollision)
             {
-                var point = new Point(pos.X - actualRegion.X, pos.Y - actualRegion.Y);
+                var point = new Dot(pos.X - actualRegion.X, pos.Y - actualRegion.Y);
 
                 if (sceneObjControl.Texture == null)
                     return false;
@@ -315,7 +315,7 @@ namespace Dungeon.Scenes
             return hitboxContains;
         }
 
-        private Square ActualRegion(ISceneControl sceneObjControl, Point offset)
+        private Square ActualRegion(ISceneControl sceneObjControl, Dot offset)
         {
             var newRegion = new Square
             {
@@ -332,7 +332,8 @@ namespace Dungeon.Scenes
             newRegion.X = scaledPos.X;
             newRegion.Y = scaledPos.Y;
 
-            if (!Owner.AbsolutePositionScene && !sceneObjControl.AbsolutePosition)
+#warning !sceneObjControl.AbsolutePosition
+            if (!Owner.AbsolutePositionScene/* && !sceneObjControl.AbsolutePosition*/)
             {
                 newRegion.X += offset.X;
                 newRegion.Y += offset.Y;
@@ -437,7 +438,7 @@ namespace Dungeon.Scenes
             }
         }
 
-        public virtual void OnMousePress(PointerArgs pointerPressedEventArgs, Point offset)
+        public virtual void OnMousePress(PointerArgs pointerPressedEventArgs, Dot offset)
         {
             var keyControls = ControlsByHandle(ControlEventType.Click);
             var globalKeyHandlers = ControlsByHandle(ControlEventType.GlobalClick);
@@ -479,7 +480,7 @@ namespace Dungeon.Scenes
             }
         }
 
-        public virtual void OnMouseRelease(PointerArgs pointerPressedEventArgs, Point offset)
+        public virtual void OnMouseRelease(PointerArgs pointerPressedEventArgs, Dot offset)
         {
             var keyControls = ControlsByHandle(ControlEventType.ClickRelease);
             var globalKeyHandlers = ControlsByHandle(ControlEventType.GlobalClickRelease);
@@ -522,7 +523,7 @@ namespace Dungeon.Scenes
             }
         }
 
-        private void DoClicks(PointerArgs pointerPressedEventArgs, Point offset, IEnumerable<ISceneControl> clickedElements,
+        private void DoClicks(PointerArgs pointerPressedEventArgs, Dot offset, IEnumerable<ISceneControl> clickedElements,
             Action<ISceneControl, PointerArgs> whichClick)
         {
             DungeonGlobal.PointerLocation = pointerPressedEventArgs;
@@ -544,7 +545,8 @@ namespace Dungeon.Scenes
                     if (Owner==null)
                         return;
 
-                    if (!Owner.AbsolutePositionScene && !clickedElement.AbsolutePosition)
+#warning !clickedElement.AbsolutePosition
+                    if (!Owner.AbsolutePositionScene /*&& !clickedElement.AbsolutePosition*/)
                     {
                         args.X += offset.X;
                         args.Y += offset.Y;
@@ -566,7 +568,7 @@ namespace Dungeon.Scenes
             }
         }
 
-        public virtual void OnMouseMove(PointerArgs pointerPressedEventArgs, Point offset)
+        public virtual void OnMouseMove(PointerArgs pointerPressedEventArgs, Dot offset)
         {
             var globalMouseMoves = ControlsByHandle(ControlEventType.GlobalMouseMove);
             DoClicks(pointerPressedEventArgs, offset, globalMouseMoves, (c, a) => c.GlobalMouseMove(a));
@@ -581,7 +583,7 @@ namespace Dungeon.Scenes
             DoClicks(pointerPressedEventArgs, offset, moveControls, (c, a) => c.MouseMove(a));
         }
 
-        private void OnMouseMoveOnFocus(PointerArgs pointerPressedEventArgs, Point offset)
+        private void OnMouseMoveOnFocus(PointerArgs pointerPressedEventArgs, Dot offset)
         {
             var controls = ControlsByHandle(ControlEventType.Focus).ToArray();
 

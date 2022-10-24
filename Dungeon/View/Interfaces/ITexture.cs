@@ -4,6 +4,6 @@
 
     public interface ITexture
     {
-        bool Contains(Point point, Point actualSize);
+        bool Contains(Dot point, Dot actualSize);
     }
 }

@@ -134,7 +134,7 @@ namespace Dungeon.Tiled
                                 .Select(pointstr =>
                                 {
                                     var p = pointstr.Split(",", StringSplitOptions.RemoveEmptyEntries);
-                                    return new Types.Point(p[0], p[1]);
+                                    return new Types.Dot(p[0], p[1]);
                                 }).ToArray();
                         }
                     }
@@ -199,7 +199,7 @@ namespace Dungeon.Tiled
                         Layer = layer,
                         TileOffsetX=coords.Xi,
                         TileOffsetY=coords.Yi,
-                        Position = new Point(iX,iY)
+                        Position = new Dot(iX,iY)
                     });
 
                     iX++;
@@ -227,13 +227,13 @@ namespace Dungeon.Tiled
 
         public List<TiledTileset> Tilesets { get; set; } = new List<TiledTileset>();
 
-        private Point ParseCoordinates(uint gid)
+        private Dot ParseCoordinates(uint gid)
         {
             var tileset = this.Tilesets.FirstOrDefault(x => x.TileGids.Contains(gid));
             if (tileset != null)
                 return tileset.Coords(gid);
 
-            return Point.Zero;
+            return Dot.Zero;
         }
 
         private string TileFileNameByGid(uint gid)

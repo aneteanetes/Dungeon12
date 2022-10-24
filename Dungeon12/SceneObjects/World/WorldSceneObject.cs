@@ -1,6 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Control;
 using Dungeon.Control.Keys;
+using Dungeon.Drawing;
 using Dungeon.SceneObjects;
 using Dungeon.Tiled;
 using Dungeon.Types;
@@ -38,7 +39,7 @@ namespace Dungeon12.SceneObjects.World
             var start = map.Layers.Last().Tiles.FirstOrDefault(x => x.Gid != 0);
 
             pointer = AddChildCenter(new WorldPartySceneObject());
-            pointer.Load(start.TileOffsetX, start.TileOffsetY);
+            //pointer.Load(start.TileOffsetX, start.TileOffsetY);
 
             var back = map.Layers.FirstOrDefault(x => x.name == "Background");
 
@@ -51,25 +52,52 @@ namespace Dungeon12.SceneObjects.World
                 });
 
             UpdateView(current = start.Position);
-            Player = new Point
+            Player = new Dot
             {
                 X = current.X,
                 Y = current.Y
             };
+            pointer.Coords=Player;
 
             this.AddBorder(0);
+            //UpdateLight();
         }
 
         WorldPartySceneObject pointer = null;
-        Point current = null;
-        Point Player = null;
-        Point offset = new Point(0, 0);
+        Dot current = null;
+        Dot Player = null;
+        Dot offset = new Dot(0, 0);
 
         protected override ControlEventType[] Handles => new ControlEventType[] { ControlEventType.Key };
-        protected override Key[] KeyHandles => new Key[] { Key.W, Key.A, Key.S, Key.D };
+        protected override Key[] KeyHandles => new Key[] { Key.W, Key.A, Key.S, Key.D, Key.R, Key.G, Key.B, Key.H, Key.P, Key.M  };
+
+        private bool isPlus = true;
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
+            if (key == Key.P)
+                isPlus=true;
+            if (key == Key.M)
+                isPlus=false;
+
+            if (key == Key.R)
+            {
+                lightcolor.R+=(byte)(isPlus ? 1 : -1);
+            }
+            if (key == Key.G)
+            {
+                lightcolor.G+=(byte)(isPlus ? 1 : -1);
+            }
+            if (key == Key.B)
+            {
+                lightcolor.B+=(byte)(isPlus ? 1 : -1);
+            }
+            if (key == Key.H)
+            {
+                lightcolor.A+=(byte)(isPlus ? 1 : -1);
+            }
+
+
             if (hold)
                 return;
 
@@ -112,36 +140,38 @@ namespace Dungeon12.SceneObjects.World
             switch (direction)
             {
                 case Direction.Up:
-                    pointer.Top-=64;
+                    pointer.Top-=WorldSettings.cellSize;
                     break;
                 case Direction.Down:
-                    pointer.Top+=64;
+                    pointer.Top+=WorldSettings.cellSize;
                     break;
                 case Direction.Left:
-                    pointer.Left-=64;
+                    pointer.Left-=WorldSettings.cellSize;
                     break;
                 case Direction.Right:
-                    pointer.Left+=64;
+                    pointer.Left+=WorldSettings.cellSize;
                     break;
                 case Direction.UpLeft:
-                    pointer.Top-=64;
-                    pointer.Left-=64;
+                    pointer.Top-=WorldSettings.cellSize;
+                    pointer.Left-=WorldSettings.cellSize;
                     break;
                 case Direction.UpRight:
-                    pointer.Top-=64;
-                    pointer.Left+=64;
+                    pointer.Top-=WorldSettings.cellSize;
+                    pointer.Left+=WorldSettings.cellSize;
                     break;
                 case Direction.DownLeft:
-                    pointer.Top+=64;
-                    pointer.Left-=64;
+                    pointer.Top+=WorldSettings.cellSize;
+                    pointer.Left-=WorldSettings.cellSize;
                     break;
                 case Direction.DownRight:
-                    pointer.Top+=64;
-                    pointer.Left+=64;
+                    pointer.Top+=WorldSettings.cellSize;
+                    pointer.Left+=WorldSettings.cellSize;
                     break;
                 default:
                     break;
             }
+
+            //UpdateLight();
         }
 
         public override void Update(GameTimeLoop gameTime)
@@ -182,9 +212,95 @@ namespace Dungeon12.SceneObjects.World
             //    current.Y = Player.Y;
             //    UpdateView(current);
             //}
+
+            //UpdateLight();
         }
 
-        private void UpdateView(Point pos)
+        private static DrawColor lightcolor = new DrawColor(255, 255, 255, 100);
+        private static DrawColor lightcolor2 = new DrawColor(lightcolor.R, lightcolor.G, lightcolor.B, (byte)((int)lightcolor.A-25));
+
+        private DrawColor ChangeColor(int plusAlpha) => new DrawColor(255, 255, 255, (byte)((int)lightcolor.A+plusAlpha));
+
+        private void UpdateLight()
+        {
+            views.ForEach(x => x.Color=DrawColor.Black.Lighter(-175));
+
+            var x = 20+offset.X;
+            var y = 12+offset.Y;
+
+            var center = views[x, y];
+            center.Color=new DrawColor(lightcolor.R, lightcolor.G, lightcolor.B, (byte)((int)lightcolor.A+25));
+
+            var up = views[x, y-1];
+            up.Color=lightcolor;
+
+
+            var down = views[x, y+1];
+            down.Color=lightcolor;
+
+            var left = views[x-1, y];
+            left.Color=lightcolor;
+
+            var right = views[x+1, y];
+            right.Color=lightcolor;
+
+            var leftTop = views[x-1, y-1];
+            leftTop.Color=lightcolor2;
+            var rightTop = views[x+1, y-1];
+            rightTop.Color=lightcolor2;
+            var leftDown = views[x-1, y+1];
+            leftDown.Color=lightcolor2;
+            var rightDown = views[x+1, y+1];
+            rightDown.Color=lightcolor2;
+
+            views[x-2, y-2].Color=ChangeColor(-75);
+            views[x-1, y-2].Color=ChangeColor(-50);
+
+            views[x, y-2].Color=ChangeColor(-45);
+
+            views[x+1, y-2].Color=ChangeColor(-50);
+            views[x+2, y-2].Color=ChangeColor(-75);
+
+            views[x-2, y-1].Color=ChangeColor(-50);
+            views[x-2, y].Color=ChangeColor(-45);
+            views[x-2, y+1].Color=ChangeColor(-50);
+
+            views[x+2, y-1].Color=ChangeColor(-50);
+            views[x+2, y].Color=ChangeColor(-45);
+            views[x+2, y+1].Color=ChangeColor(-50);
+
+
+            views[x+2, y+2].Color=ChangeColor(-75);
+            views[x-1, y+2].Color=ChangeColor(-50);
+
+            views[x, y+2].Color=ChangeColor(-45);
+
+            views[x+1, y+2].Color=ChangeColor(-50);
+            views[x+2, y+2].Color=ChangeColor(-75);
+
+            views[x-2, y+2].Color=ChangeColor(-75);
+
+
+
+
+            views[x-3, y-1].Color=ChangeColor(-75);
+            views[x-3, y].Color=ChangeColor(-75);
+            views[x-3, y+1].Color=ChangeColor(-75);
+
+            views[x-1, y-3].Color=ChangeColor(-75);
+            views[x, y-3].Color=ChangeColor(-75);
+            views[x+1, y-3].Color=ChangeColor(-75);
+
+            views[x+3, y-1].Color=ChangeColor(-75);
+            views[x+3, y].Color=ChangeColor(-75);
+            views[x+3, y+1].Color=ChangeColor(-75);
+
+            views[x-1, y+3].Color=ChangeColor(-75);
+            views[x, y+3].Color=ChangeColor(-75);
+            views[x+1, y+3].Color=ChangeColor(-75);
+        }
+
+        private void UpdateView(Dot pos)
         {
             var back = map.Layers.FirstOrDefault(x => x.name == "Background");
 

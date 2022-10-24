@@ -22,23 +22,23 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
 
         private double speed;
 
-        public PopupText(string text, ConsoleColor color, Point position, int frames = 25, float size = 12, double speed = 0.06)
+        public PopupText(string text, ConsoleColor color, Dot position, int frames = 25, float size = 12, double speed = 0.06)
             : this(text, new DrawColor(color), position, frames, size, speed) { }
 
-        public PopupText(string text, ConsoleColor color, Point position, bool big = false)
+        public PopupText(string text, ConsoleColor color, Dot position, bool big = false)
             : this(text, color, position, 25, big ? 14 : 12, 0.06)
         { }
 
-        public PopupText(string text, IDrawColor color, Point position, bool big = false)
+        public PopupText(string text, IDrawColor color, Dot position, bool big = false)
             : this(text, color, position, 25, big ? 14 : 12, 0.06)
         { }
 
-        public PopupText(string text, IDrawColor color, Point position, int frames, float size = 10, double speed = 0.06)
+        public PopupText(string text, IDrawColor color, Dot position, int frames, float size = 10, double speed = 0.06)
             : this(new DrawText(text, color) { Size = size }, position, frames, speed)
         {
         }
 
-        public PopupText(IDrawText drawText, Point position, int frames = 30, double speed = 0.06) : base(drawText)
+        public PopupText(IDrawText drawText, Dot position, int frames = 30, double speed = 0.06) : base(drawText)
         {
             maxFrames = frames;
             this.Text = Component;

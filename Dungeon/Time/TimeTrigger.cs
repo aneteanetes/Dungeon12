@@ -5,8 +5,8 @@ namespace Dungeon
 {
     public class TimeTrigger
     {
-        public static Func<GameTime> GlobalTimeSource = () => new GameTime();
-        private static GameTime GlobalTime => GlobalTimeSource();
+        public static Func<InGameTime> GlobalTimeSource = () => new InGameTime();
+        private static InGameTime GlobalTime => GlobalTimeSource();
 
         Func<int> hoursSource;
 

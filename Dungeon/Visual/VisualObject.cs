@@ -3,7 +3,7 @@ using Dungeon.View.Interfaces;
 
 namespace Dungeon
 {
-    public class VisualObject : NetObject, IVisual
+    public class VisualObject : GameNetObject, IVisual
     {
         public virtual ISceneObject Visual() => default;
     }

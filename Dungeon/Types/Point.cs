@@ -5,22 +5,22 @@ namespace Dungeon.Types
     /// <summary>
     /// Это ссылочный тип! А значит мы получаем бесценную возможность сравнивать с null, но при этом ИЗМЕНЕНИЯ КООРДИНАТ ПРОИСХОДИТ ПО ССЫЛКЕ
     /// </summary>
-    public class Point
+    public class Dot
     {
         public bool IsDefault { get; private set; } = true;
 
-        public Point()
+        public Dot()
         {
 
         }
 
-        public static Point FromString(string xy)
+        public static Dot FromString(string xy)
         {
             if (xy == default)
-                return new Point();
+                return new Dot();
 
             if (!xy.Contains("X:") || !xy.Contains("Y:"))
-                return new Point();
+                return new Dot();
 
             try
             {
@@ -28,27 +28,27 @@ namespace Dungeon.Types
                 double.TryParse(splitted[0].Replace("X:", ""), out var x);
                 double.TryParse(splitted[1].Replace("Y:", ""), out var y);
 
-                return new Point(x, y);
+                return new Dot(x, y);
             }
             catch
             {
-                return new Point();
+                return new Dot();
             }
         }
 
-        public Point(Point fromCopy)
+        public Dot(Dot fromCopy)
         {
             this.X = fromCopy.X;
             this.Y = fromCopy.Y;
         }
 
-        public Point(float x, float y)
+        public Dot(float x, float y)
         {
             this.X = x;
             this.Y = y;
         }
 
-        public Point(string xStrDouble, string yStrDouble)
+        public Dot(string xStrDouble, string yStrDouble)
         {
             var parsedX = double.TryParse(xStrDouble.Replace(".", ","), out var x);
             var parsedY = double.TryParse(yStrDouble.Replace(".", ","), out var y);
@@ -64,9 +64,9 @@ namespace Dungeon.Types
         /// <summary>
         /// Static reference to zero point
         /// </summary>
-        public static Point Zero { get; } = new Point(0, 0);
+        public static Dot Zero { get; } = new Dot(0, 0);
 
-        public Point(double x, double y)
+        public Dot(double x, double y)
         {
             this.X = x;
             this.Y = y;
@@ -109,7 +109,7 @@ namespace Dungeon.Types
         const double Rad2Deg = 180.0 / Math.PI;
         const double Deg2Rad = Math.PI / 180.0;
 
-        public double Angle(Point end)
+        public double Angle(Dot end)
         {
             return Math.Atan2(this.Y - end.Y, end.X - this.X);
         }
@@ -136,18 +136,18 @@ namespace Dungeon.Types
             }
         }
 
-        public Point Add(double x=0,double y=0)
+        public Dot Add(double x=0,double y=0)
         {
-            var p = new Point(this);
+            var p = new Dot(this);
             p.X += x;
             p.Y += y;
 
             return p;
         }
 
-        public Point CalculatePath(Point destination, double maxRange, double stepSize)
+        public Dot CalculatePath(Dot destination, double maxRange, double stepSize)
         {
-            Point last = new Point(this);
+            Dot last = new Dot(this);
             
             var xDiff = destination.X - this.X;
             var yDiff = destination.Y - this.Y;
@@ -214,16 +214,16 @@ namespace Dungeon.Types
 
         public override string ToString() => $"X:{X}, Y:{Y}";
 
-        public Point Copy() => new Point(this);
+        public Dot Copy() => new Dot(this);
 
-        public Point Clone() => Copy();
+        public Dot Clone() => Copy();
 
         public bool EqualTo(double x, double y)
         {
             return this.X == x && this.Y == y;
         }
 
-        public bool Equals(Point point)
+        public bool Equals(Dot point)
         {
             return this.EqualTo(point.X, point.Y);
         }
@@ -234,7 +234,7 @@ namespace Dungeon.Types
         /// <param name="another"></param>
         /// <param name="accuracy">amount of sensitivity</param>
         /// <returns></returns>
-        public Direction DetectDirection(Point another, double accuracy = 0)
+        public Direction DetectDirection(Dot another, double accuracy = 0)
         {
             Direction dirX = Direction.Idle;
             Direction dirY = Direction.Idle;

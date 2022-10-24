@@ -16,6 +16,6 @@ namespace Dungeon.Physics
 
         public double Y { get; set; }
 
-        public Point ToPoint() => new Point(X, Y);
+        public Dot ToPoint() => new Dot(X, Y);
     }
 }

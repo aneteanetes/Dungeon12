@@ -238,7 +238,7 @@
             CallLayer(l => l.OnKeyUp(keyEventArgs));
         }
 
-        public void OnMousePress(PointerArgs pointerPressedEventArgs, Point offset)
+        public void OnMousePress(PointerArgs pointerPressedEventArgs, Dot offset)
         {
             if (Destroyed)
                 return;
@@ -257,7 +257,7 @@
             CallLayer(l => l.OnMousePress(pointerPressedEventArgs,offset), pointerPressedEventArgs);
         }
 
-        public void OnMouseRelease(PointerArgs pointerPressedEventArgs, Point offset)
+        public void OnMouseRelease(PointerArgs pointerPressedEventArgs, Dot offset)
         {
             if (Destroyed)
                 return;
@@ -295,7 +295,7 @@
             CallLayer(l => l.OnMouseWheel(wheelEnum));
         }
 
-        public void OnMouseMove(PointerArgs pointerPressedEventArgs, Point offset)
+        public void OnMouseMove(PointerArgs pointerPressedEventArgs, Dot offset)
         {
             if (sceneManager.Current != this)
                 return;
@@ -340,7 +340,7 @@
 
         public virtual void Activate()
         {
-            this.sceneManager.DrawClient.SetScene(this);
+            this.sceneManager.GameClient.SetScene(this);
         }
                 
         protected virtual void Switch<T>(params string[] args) where T : GameScene

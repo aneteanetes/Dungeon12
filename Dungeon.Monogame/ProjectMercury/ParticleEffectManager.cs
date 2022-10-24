@@ -17,13 +17,13 @@ namespace ProjectMercury
         /// <summary>
         /// Gets or sets the renderer which is used to render the particle effects.
         /// </summary>
-        public Renderer Renderer { get; set; }
+        public ParticleRenderer Renderer { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ParticleEffectManager"/> class.
         /// </summary>
         /// <param name="renderer">The renderer which will be used to render particles.</param>
-        public ParticleEffectManager(Renderer renderer) : base(20)
+        public ParticleEffectManager(ParticleRenderer renderer) : base(20)
         {
             Guard.ArgumentNull("renderer", renderer);
 

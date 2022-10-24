@@ -8,13 +8,13 @@ namespace Dungeon
     public static class StringPathExtensions
     {
         /// <summary>
-        /// <see cref="Global"/>.<see cref="IDrawClient.CacheImage"/>
+        /// <see cref="Global"/>.<see cref="IGameClient.CacheImage"/>
         /// </summary>
         /// <param name="imgPath"></param>
         /// <returns></returns>
         public static string Cache(this string imgPath)
         {
-            DungeonGlobal.DrawClient.CacheImage(imgPath);
+            DungeonGlobal.GameClient.CacheImage(imgPath);
             return imgPath;
         }
 

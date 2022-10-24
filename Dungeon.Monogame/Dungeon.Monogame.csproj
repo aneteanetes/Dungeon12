@@ -31,7 +31,6 @@
     <MonoGameContentReference Include="**\*.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <MonoGameContentReference Remove="Content.Core.mgcb" />
     <MonoGameContentReference Remove="Content\Content.Android.mgcb" />
   </ItemGroup>
   <ItemGroup>

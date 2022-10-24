@@ -26,9 +26,9 @@ namespace Dungeon12.Entities.Map
 
         public List<Location> Links { get; set; }
 
-        public Point Size { get; set; }
+        public Dot Size { get; set; }
 
-        public Point Position { get; set; }
+        public Dot Position { get; set; }
 
         public bool IsOdd { get; set; }
 

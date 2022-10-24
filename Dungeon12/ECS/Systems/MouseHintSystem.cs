@@ -72,7 +72,7 @@ namespace Dungeon12.ECS.Systems
 
             hint.Host = sceneObject;
 
-            var hintPos = new Point(args.X+15, args.Y);
+            var hintPos = new Dot(args.X+15, args.Y);
             sceneObject.OnDestroy += () =>
             {
                 if (hint != null)

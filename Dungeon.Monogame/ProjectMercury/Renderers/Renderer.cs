@@ -17,7 +17,7 @@ namespace ProjectMercury.Renderers
     /// <summary>
     /// Defines the abstract base class for a Renderer.
     /// </summary>
-    public abstract class Renderer : IDisposable
+    public abstract class ParticleRenderer : IDisposable
     {
         /// <summary>
         /// Hold a reference to the games GraphicsDeviceService.
@@ -41,9 +41,9 @@ namespace ProjectMercury.Renderers
 
         /// <summary>
         /// Releases unmanaged resources and performs other cleanup operations before the
-        /// <see cref="Renderer"/> is reclaimed by garbage collection.
+        /// <see cref="ParticleRenderer"/> is reclaimed by garbage collection.
         /// </summary>
-        ~Renderer()
+        ~ParticleRenderer()
         {
             this.Dispose(false);
         }

@@ -2,9 +2,6 @@
 using Dungeon.View.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.IO;
-using Point = Dungeon.Types.Point;
 
 namespace Dungeon.Monogame.Effects.Fogofwar
 {
@@ -23,14 +20,15 @@ namespace Dungeon.Monogame.Effects.Fogofwar
 
         public EffectTime When => EffectTime.PostProcess;
 
-        public Point Position { get; set; } = new Point();
+        public Dot Position { get; set; } = new Dot();
 
         public string Image { get; set; }
 
         public bool Loaded { get; set; }
 
-        public Point Size { get; set; }
+        public Dot Size { get; set; }
 
+#warning need FogOfWarEffect refactoring
         public Texture2D Draw(RenderTarget2D input)
         {
             spriteBatch.DepthStencilState = null;
@@ -69,7 +67,7 @@ namespace Dungeon.Monogame.Effects.Fogofwar
             return backBuffer;
         }
 
-        SpriteBatchKnowed spriteBatch => client.spriteBatch;
+        SpriteBatchKnowed spriteBatch => client.DefaultSpriteBatch;
 
         GraphicsDeviceManager graphics => client.graphics;
 
@@ -79,7 +77,7 @@ namespace Dungeon.Monogame.Effects.Fogofwar
 
         public bool NotDrawOriginal => true;
 
-        XNADrawClient client;
+        GameClient client;
 
         RenderTarget2D fogMaskCursor;
 
@@ -98,7 +96,7 @@ namespace Dungeon.Monogame.Effects.Fogofwar
 
         DepthStencilState state2;
 
-        public void Load(XNADrawClient client)
+        public void Load(GameClient client)
         {
             this.client = client;
             var pp = GraphicsDevice.PresentationParameters;
@@ -128,7 +126,7 @@ namespace Dungeon.Monogame.Effects.Fogofwar
                 pp.MultiSampleCount,
                 pp.RenderTargetUsage);
 
-            areaTexture = client.XNADrawClientImplementation.TileSetByName(Image);
+            areaTexture = client.ImageLoader.LoadTexture2D(Image);
 
             projectionMatrix = Matrix.CreateOrthographicOffCenter(0,
              graphics.GraphicsDevice.PresentationParameters.BackBufferWidth,

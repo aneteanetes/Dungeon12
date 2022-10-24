@@ -25,6 +25,10 @@ namespace Dungeon.Drawing
         }
         private static readonly Dictionary<string, FieldInfo> ___GetByNameCache = new Dictionary<string, FieldInfo>();
 
+        public DrawColor Lighter(int plusAlpha)
+        {
+            return new DrawColor(R, G, B, (byte)(A+plusAlpha));
+        }
 
         public static DrawColor AliceBlue = new DrawColor(240, 248, 255);
         public static DrawColor LightSalmon = new DrawColor(255, 160, 122);

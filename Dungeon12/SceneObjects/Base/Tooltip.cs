@@ -16,7 +16,7 @@
 
         public override bool Interface => false;
 
-        public Tooltip(string text, Point position, IDrawColor drawColor)
+        public Tooltip(string text, Dot position, IDrawColor drawColor)
             : this(new DrawText(text, drawColor ?? new DrawColor(ConsoleColor.White))
             {
                 Size = 12,
@@ -30,7 +30,7 @@
 
         TextObject txt;
 
-        public Tooltip(IDrawText drawText, Point position, double opacity=.8)
+        public Tooltip(IDrawText drawText, Dot position, double opacity=.8)
         {
             if (position == default)
             {
@@ -58,7 +58,7 @@
             //Top = position.Y;
         }
 
-        public void SetPosition(Point position)
+        public void SetPosition(Dot position)
         {
             Left = position.X;
             Top = position.Y;

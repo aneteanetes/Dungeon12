@@ -9,7 +9,7 @@ namespace Dungeon.Entities.Animations
     {
         int framesPerAnim;
 
-        public AnimationMap(Point size, string animTile, int frames, string animTileAxis = default, TimeSpan time = default)
+        public AnimationMap(Dot size, string animTile, int frames, string animTileAxis = default, TimeSpan time = default)
         {
             framesPerAnim = frames;
             bind = AnimationBuilder

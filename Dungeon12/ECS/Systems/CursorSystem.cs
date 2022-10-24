@@ -23,10 +23,10 @@ namespace Dungeon12.ECS.Systems
         {
             if (sceneObject is ICursored cursored)
             {
-                Global.DrawClient.SetCursor($"Cursors/{cursored.Cursor.ToString().ToLowerInvariant()}.png".AsmImg());
+                Global.GameClient.SetCursor($"Cursors/{cursored.Cursor.ToString().ToLowerInvariant()}.png".AsmImg());
             }
         }
 
-        public void ProcessUnfocus(ISceneObject sceneObject) => Global.DrawClient.SetCursor("Cursors/common.png".AsmImg());
+        public void ProcessUnfocus(ISceneObject sceneObject) => Global.GameClient.SetCursor("Cursors/common.png".AsmImg());
     }
 }

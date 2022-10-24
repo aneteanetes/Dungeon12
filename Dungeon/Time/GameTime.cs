@@ -4,11 +4,11 @@
     using System.Collections.Generic;
     using System.Text;
 
-    public class GameTime : Time
+    public class InGameTime : Time
     {
         private System.Timers.Timer internalTimer;
 
-        public GameTime()
+        public InGameTime()
         {
             internalTimer = new System.Timers.Timer
             {
@@ -45,7 +45,7 @@
         [Newtonsoft.Json.JsonIgnore]
         public Action OnMinute { get; set; }
 
-        public static implicit operator string(GameTime globalTime) => globalTime.ToString();
+        public static implicit operator string(InGameTime globalTime) => globalTime.ToString();
 
         /// <summary>
         /// Таймер
@@ -73,7 +73,7 @@
             return new Time(hours, minutes, days, years);
         }
 
-        public GameTime Set(Time time)
+        public InGameTime Set(Time time)
         {
             this.OnTimeSet?.Invoke(new Time(Hours, Minutes, Days, Years), time);
 

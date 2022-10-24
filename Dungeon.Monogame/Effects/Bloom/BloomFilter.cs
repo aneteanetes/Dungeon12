@@ -1,6 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Monogame;
 using Dungeon.Monogame.Effects;
+using Dungeon.Monogame.Runner;
 using Dungeon.View.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -193,9 +194,9 @@ namespace InTheWood.Shaders.Bloom
         }
 
         public bool Loaded { get; set; }
-        public Dungeon.Types.Point Position { get; set; }
+        public Dungeon.Types.Dot Position { get; set; }
         public string Image { get; set; }
-        public Dungeon.Types.Point Size { get; set; }
+        public Dungeon.Types.Dot Size { get; set; }
         public bool UseGlobalImageFilter => false;
 
         public bool NotDrawOriginal => false;
@@ -208,7 +209,7 @@ namespace InTheWood.Shaders.Bloom
 
         #region initialize
 
-        private XNADrawClient client;
+        private GameClient client;
 
         /// <summary>
         /// Loads all needed components for the BloomEffect. This effect won't work without calling load
@@ -219,7 +220,7 @@ namespace InTheWood.Shaders.Bloom
         /// <param name="height">initial value for creating the rendertargets</param>
         /// <param name="renderTargetFormat">The intended format for the rendertargets. For normal, non-hdr, applications color or rgba1010102 are fine NOTE: For OpenGL, SurfaceFormat.Color is recommended for non-HDR applications.</param>
         /// <param name="quadRenderer">if you already have quadRenderer you may reuse it here</param>
-        public void Load(XNADrawClient client)
+        public void Load(GameClient client)
         {
             this.client = client;
             _graphicsDevice = client.GraphicsDevice;

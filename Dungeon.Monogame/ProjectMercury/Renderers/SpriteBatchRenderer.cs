@@ -18,7 +18,7 @@ namespace ProjectMercury.Renderers
     /// <summary>
     /// Defines a Renderer which uses the standard XNA SpriteBatch class to render Particles.
     /// </summary>
-    public sealed class SpriteBatchRenderer : Renderer
+    public sealed class SpriteBatchRenderer : ParticleRenderer
     {
         private SpriteBatch Batch;
 

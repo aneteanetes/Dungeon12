@@ -16,15 +16,15 @@ namespace Dungeon12.Entities.Map
 
         public string DefaultLocationTile { get; set; }
 
-        public List<Point> Lines { get; set; } = new List<Point>();
+        public List<Dot> Lines { get; set; } = new List<Dot>();
 
         public List<PhysicalObject> Objects { get; set; } = new List<PhysicalObject>();
 
-        public Point Size { get; set; }
+        public Dot Size { get; set; }
 
-        public Point Position { get; set; }
+        public Dot Position { get; set; }
 
-        public Point PositionVisual { get; set; }
+        public Dot PositionVisual { get; set; }
 
         public string Title { get; set; }
 
@@ -69,7 +69,7 @@ namespace Dungeon12.Entities.Map
 
             var location = new Location
             {
-                Size = new Point(tile.width, tile.height),
+                Size = new Dot(tile.width, tile.height),
 
                 Index = tile.GetPropValue<int>("index"),
                 IndexLinks = tile.GetPropValue<string>("IndexLinks")
@@ -99,9 +99,9 @@ namespace Dungeon12.Entities.Map
             return location;
         }
 
-        private static Point SetPosition(TiledObject tile)
+        private static Dot SetPosition(TiledObject tile)
         {
-            var position = new Point(tile.x, (tile.y / 148) - 1);
+            var position = new Dot(tile.x, (tile.y / 148) - 1);
 
             if (position.Y % 2 == 0)
             {

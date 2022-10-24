@@ -12,11 +12,11 @@ namespace Dungeon.View.Interfaces
 
         public EffectTime When { get; }
 
-        public Point Position { get; set; }
+        public Dot Position { get; set; }
 
         public string Image { get; set; }
 
-        public Point Size { get; set; }
+        public Dot Size { get; set; }
     }
 
     public enum EffectTime

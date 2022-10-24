@@ -1,8 +1,4 @@
-﻿using Force.DeepCloner;
-using System;
-using System.Diagnostics;
-
-namespace Dungeon
+﻿namespace Dungeon
 {
     public class Time
     {

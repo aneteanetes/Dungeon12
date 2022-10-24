@@ -33,11 +33,11 @@ namespace Dungeon12.SceneObjects.Stats
             //_sceneObject.AddControlCenter
 
             var val = Value(value.ToString());
-            var valmeasure = Global.DrawClient.MeasureText(val);
+            var valmeasure = Global.GameClient.MeasureText(val);
 
             texts.Add(_sceneObject.AddText(val, (_left+_width)-(valmeasure.X+1), _top));
 
-            _top+= Global.DrawClient.MeasureText(nam).Y;
+            _top+= Global.GameClient.MeasureText(nam).Y;
         }
 
         private static TextObjectHint GetTextComponent(IDrawText text, double left, double top)

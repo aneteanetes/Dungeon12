@@ -27,13 +27,13 @@ namespace Dungeon12.ECS.Systems
                 if (!tooltiped.ShowTooltip)
                     return;
 
-                var tooltipPosition = new Point(sceneObject.ComputedPosition.X, sceneObject.ComputedPosition.Y - 20);
+                var tooltipPosition = new Dot(sceneObject.ComputedPosition.X, sceneObject.ComputedPosition.Y - 20);
 
                 var tooltip = tooltiped.GetTooltip();
                 Tooltips[tooltiped] = tooltip;
                 SceneLayer.AddObject(tooltip);
 
-                tooltipPosition.X += sceneObject.Width / 2 - Global.DrawClient.MeasureText(tooltip.Text).X / 2;
+                tooltipPosition.X += sceneObject.Width / 2 - Global.GameClient.MeasureText(tooltip.Text).X / 2;
                 if (tooltipPosition.Y < 0)
                 {
                     tooltipPosition.Y = 5;

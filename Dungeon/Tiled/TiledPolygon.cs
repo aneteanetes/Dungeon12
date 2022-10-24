@@ -21,7 +21,7 @@ namespace Dungeon.Tiled
 
         public int TileOffsetY { get; set; }
 
-        public Point Position { get; set; } = Point.Zero;
+        public Dot Position { get; set; } = Dot.Zero;
 
         public TiledLayer Layer { get; set; }
     }

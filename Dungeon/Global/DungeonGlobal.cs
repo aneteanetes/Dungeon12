@@ -77,7 +77,7 @@
 
         public static ICamera Camera { get; set; }
 
-        public static IDrawClient DrawClient { get; set; }
+        public static IGameClient GameClient { get; set; }
 
         private static Freezer freezer;
         public static Freezer Freezer
@@ -99,7 +99,7 @@
 
         public static bool BlockSceneControls { get; set; }
 
-        public static GameTime Time { get; } = new GameTime();
+        public static InGameTime Time { get; } = new InGameTime();
 
         public static EventBus Events { get; } = new EventBus();
 
@@ -211,9 +211,9 @@
 
         public abstract void LoadStrings(object localizationStringDictionary);
 
-        public static void Run(IDrawFrontend drawFrontend)
+        public static void Run(IGameRunner drawFrontend)
         {
-            drawFrontend.Start();
+            drawFrontend.Run();
         }
     }
 }

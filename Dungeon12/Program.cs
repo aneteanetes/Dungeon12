@@ -1,8 +1,8 @@
 ﻿using Dungeon;
-using Dungeon.Monogame;
+using Dungeon.Monogame.Runner;
+using Dungeon.Monogame.Settings;
 using Dungeon.Resources;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -37,14 +37,18 @@ namespace Dungeon12
                 int.TryParse(args.ElementAtOrDefault(2) ?? "1", out monitor);
             }
 
-            var client = new MonogameClient(new MonogameClientSettings()
+            var client = new GameRunner(new GameSettings()
             {
                 OriginWidthPixel = width,
                 OriginHeightPixel = height,
                 IsFullScreen = true,
-                Add2DLighting = false,
+                Add2DLighting = true,
                 IsWindowedFullScreen = true,
-                MonitorIndex = monitor
+                MonitorIndex = monitor,
+                NeedCalculateCamera=false,
+#if DEBUG
+                IsDebug = true,
+#endif
             });
             DungeonGlobal.Run(client);
         }

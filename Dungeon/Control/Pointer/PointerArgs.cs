@@ -9,7 +9,7 @@ namespace Dungeon.Control
         public MouseButton MouseButton { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
-        public Point Offset { get; set; }
+        public Dot Offset { get; set; }
 
         public bool Released { get; set; }
 
@@ -21,11 +21,11 @@ namespace Dungeon.Control
         /// <summary>
         /// Координаты <see cref="X"/>, <see cref="Y"/>, учитывающие <see cref="Offset"/>
         /// </summary>
-        public Point GameCoordinates
+        public Dot GameCoordinates
         {
             get
             {
-                var gamecoordinates = new Point(X, Y);
+                var gamecoordinates = new Dot(X, Y);
 
                 if (ProcessedOffset)
                 {
@@ -64,11 +64,11 @@ namespace Dungeon.Control
         /// <summary>
         /// Чистые координаты <see cref="X"/>, <see cref="Y"/>
         /// </summary>
-        public Point AsPoint => new Point(X, Y);
+        public Dot AsPoint => new Dot(X, Y);
 
         /// <summary>
         /// Относительные координаты по ИГРОВОЙ СЕТКЕ (<see cref="Settings.DrawingSize.CellF"/>)
         /// </summary>
-        public Point Relative => new Point(X / Settings.DrawingSize.CellF, Y / Settings.DrawingSize.CellF);
+        public Dot Relative => new Dot(X / Settings.DrawingSize.CellF, Y / Settings.DrawingSize.CellF);
     }
 }

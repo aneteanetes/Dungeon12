@@ -38,7 +38,7 @@ namespace Dungeon.Tiled
             return Convert.ChangeType(p.value, typeof(T)).As<T>();
         }
 
-        public Point[] Polygon { get; set; } = new Point[0];
+        public Dot[] Polygon { get; set; } = new Dot[0];
 
     }
 

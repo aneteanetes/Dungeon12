@@ -1,4 +1,5 @@
-﻿using Dungeon.Types;
+﻿using Dungeon.Monogame.Runner;
+using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -22,11 +23,11 @@ namespace Dungeon.Monogame.Effects
 
         public EffectTime When => EffectTime.PreProcess;
 
-        public Point Position { get; set; }
+        public Dot Position { get; set; }
 
         public string Image { get; set; }
 
-        public Point Size { get; set; }
+        public Dot Size { get; set; }
 
         public bool UseGlobalImageFilter => false;
 
@@ -38,7 +39,7 @@ namespace Dungeon.Monogame.Effects
         }
 
 #if !Engine
-        public void Load(XNADrawClient client)
+        public void Load(GameClient client)
         {
             throw new NotImplementedException();
         }

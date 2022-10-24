@@ -91,8 +91,6 @@
 
         Square ImageRegion { get; set; }
 
-        bool ImageInvertColor { get; set; }
-
         int LayerLevel { get; set; }
 
         IDrawText Text { get; }
@@ -166,8 +164,6 @@
 
         IDrawColor Color { get; set; }
 
-        bool AbsolutePosition { get; }
-
         string Uid { get; }
 
         /// <summary>
@@ -188,8 +184,6 @@
         ILight Light { get; set; }
 
         List<IEffectParticle> ParticleEffects { get; set; }
-
-        bool Interface { get; set; }
 
         /// <summary>
         /// Метод вызывается перед отрисовкой, а то заебало уже хаки юзать

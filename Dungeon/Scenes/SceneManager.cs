@@ -11,6 +11,11 @@
 
     public class SceneManager
     {
+        public SceneManager(IGameClient gameClient)
+        {
+            DungeonGlobal.GameClient = this.GameClient = gameClient;
+        }
+
         public string Uid { get; } = Guid.NewGuid().ToString();
 
         public override string ToString()
@@ -18,16 +23,7 @@
             return this.GetType() + $" [{Uid}]";
         }
 
-        private IDrawClient drawClient;
-        public IDrawClient DrawClient
-        {
-            get => drawClient;
-            set
-            {
-                DungeonGlobal.DrawClient = value;
-                drawClient = value;
-            }
-        }
+        public IGameClient GameClient { get; }
 
         private readonly Dictionary<Type, GameScene> SceneCache = new Dictionary<Type, GameScene>();
 
@@ -141,7 +137,7 @@
             {
                 var loading = LoadingScreenType.NewAs<LoadingScene>();
                 loading.Initialize();
-                return DrawClient.SetScene(loading);
+                return GameClient.SetScene(loading);
             }
         }
 
@@ -149,7 +145,7 @@
         {
             var loading = LoadingScreenType.NewAs<LoadingScene>(2, args);
             loading.Initialize();
-            return DrawClient.SetScene(loading);
+            return GameClient.SetScene(loading);
         }
 
         private void SwitchImplementation<TScene>(string[] args) where TScene : GameScene

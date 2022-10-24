@@ -13,9 +13,9 @@
 
         public string TileSet { get; set; }
 
-        public Point Size { get; set; }
+        public Dot Size { get; set; }
 
-        public List<Point> Frames { get; set; }
+        public List<Dot> Frames { get; set; }
 
         public double FramesPerSecond { get; set; }
 

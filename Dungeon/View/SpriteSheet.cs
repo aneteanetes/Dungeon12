@@ -16,7 +16,7 @@ namespace Dungeon.View
 
         public Dictionary<string, Animation> Animations { get; set; } = new Dictionary<string, Animation>();
 
-        public Point DefaultFramePosition { get; set; }
+        public Dot DefaultFramePosition { get; set; }
 
         public static SpriteSheet Load(string json)
         {
@@ -34,7 +34,7 @@ namespace Dungeon.View
                 var anim = new Animation()
                 {
                     Name = (c as JProperty).Name,
-                    Frames = new List<Point>(),
+                    Frames = new List<Dot>(),
                     Time = TimeSpan.FromSeconds(.5)
                 };
 
@@ -44,7 +44,7 @@ namespace Dungeon.View
 
                 for (int i = 0; i < frames.Length; i++)
                 {
-                    anim.Frames.Add(new Point(i * sheet.Width, y * sheet.Height));
+                    anim.Frames.Add(new Dot(i * sheet.Width, y * sheet.Height));
                 }
 
                 sheet.Animations.Add(anim.Name, anim);
