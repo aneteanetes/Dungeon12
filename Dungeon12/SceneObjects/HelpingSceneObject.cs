@@ -306,26 +306,27 @@ namespace Dungeon12.SceneObjects
                 Image = "Backgrounds/arrow.png".AsmImg();
             }
 
-            public override void InternalUpdate(GameTimeLoop gameTime)
-            {
-                if (Time == default || Time < default(TimeSpan))
-                {
-                    Time = TimeSpan.FromMilliseconds(800);
-                    down = !down;
-                }
+#warning закоментированно анимация-мерцание
+            //public override void InternalUpdate(GameTimeLoop gameTime)
+            //{
+            //    if (Time == default || Time < default(TimeSpan))
+            //    {
+            //        Time = TimeSpan.FromMilliseconds(800);
+            //        down = !down;
+            //    }
 
-                Time -= gameTime.ElapsedGameTime;
+            //    Time -= gameTime.ElapsedGameTime;
 
-                if (down)
-                {
-                    Opacity -= opacityMultiplier;
+            //    if (down)
+            //    {
+            //        Opacity -= opacityMultiplier;
 
-                }
-                else
-                {
-                    Opacity += opacityMultiplier;
-                }
-            }
+            //    }
+            //    else
+            //    {
+            //        Opacity += opacityMultiplier;
+            //    }
+            //}
             public double opacityMultiplier = 0.004;
         }
 
@@ -373,30 +374,30 @@ namespace Dungeon12.SceneObjects
 
             private bool down = false;
 
-            public override void InternalUpdate(GameTimeLoop gameTime)
-            {
-                if (Time == default || Time < default(TimeSpan))
-                {
-                    Time = TimeSpan.FromMilliseconds(800);
-                    down = !down;
-                }
+            //public override void InternalUpdate(GameTimeLoop gameTime)
+            //{
+            //    if (Time == default || Time < default(TimeSpan))
+            //    {
+            //        Time = TimeSpan.FromMilliseconds(800);
+            //        down = !down;
+            //    }
 
-                Time -= gameTime.ElapsedGameTime;
+            //    Time -= gameTime.ElapsedGameTime;
 
-                if (down)
-                {
-                    Opacity -= opacityMultiplier;
-                    //Description.Opacity -= opacityMultiplier;
-                    //Title.Opacity -= opacityMultiplier;
+            //    if (down)
+            //    {
+            //        Opacity -= opacityMultiplier;
+            //        //Description.Opacity -= opacityMultiplier;
+            //        //Title.Opacity -= opacityMultiplier;
 
-                }
-                else
-                {
-                    Opacity += opacityMultiplier;
-                    //Description.Opacity += opacityMultiplier;
-                    //Title.Opacity += opacityMultiplier;
-                }
-            }
+            //    }
+            //    else
+            //    {
+            //        Opacity += opacityMultiplier;
+            //        //Description.Opacity += opacityMultiplier;
+            //        //Title.Opacity += opacityMultiplier;
+            //    }
+            //}
 
             public double opacityMultiplier = 0.004;
         }

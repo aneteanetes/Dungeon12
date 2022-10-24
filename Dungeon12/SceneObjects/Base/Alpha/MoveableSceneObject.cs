@@ -22,12 +22,6 @@
 
         protected bool AutoMove => true;
 
-        public override void Update()
-        {
-            if (!Drawed)
-                return;
-        }
-
         protected void Move(Direction dir)
         {
             //if (Component.PhysicalObject.Move(dir))

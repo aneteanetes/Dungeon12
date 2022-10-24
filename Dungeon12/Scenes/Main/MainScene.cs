@@ -1,5 +1,6 @@
 ﻿using Dungeon;
 using Dungeon.Control.Keys;
+using Dungeon.Drawing.SceneObjects;
 using Dungeon.Monogame.Effects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
@@ -18,10 +19,15 @@ namespace Dungeon12.Scenes.Main
 
         public override void Initialize()
         {
+            var background = this.AddLayer("back");
+            background.AddObject(new ImageObject("back.png"));
+
             var map = this.AddLayer("map");
             map.AddGlobalEffect(new Light2D());
+
             var tiled = TiledMap.Load($"Maps/test2.tmx".AsmRes());
             var world = new WorldSceneObject(tiled);
+
             map.AddObjectCenter(world);
         }
 

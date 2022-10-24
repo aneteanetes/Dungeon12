@@ -60,7 +60,6 @@ namespace Dungeon12.SceneObjects.World
             pointer.Coords=Player;
 
             this.AddBorder(0);
-            //UpdateLight();
         }
 
         WorldPartySceneObject pointer = null;
@@ -69,37 +68,22 @@ namespace Dungeon12.SceneObjects.World
         Dot offset = new Dot(0, 0);
 
         protected override ControlEventType[] Handles => new ControlEventType[] { ControlEventType.Key };
-        protected override Key[] KeyHandles => new Key[] { Key.W, Key.A, Key.S, Key.D, Key.R, Key.G, Key.B, Key.H, Key.P, Key.M  };
-
-        private bool isPlus = true;
+        protected override Key[] KeyHandles => new Key[] { Key.W, Key.A, Key.S, Key.D, Key.Up, Key.Down };
 
         public override void KeyDown(Key key, KeyModifiers modifier, bool hold)
         {
-            if (key == Key.P)
-                isPlus=true;
-            if (key == Key.M)
-                isPlus=false;
-
-            if (key == Key.R)
-            {
-                lightcolor.R+=(byte)(isPlus ? 1 : -1);
-            }
-            if (key == Key.G)
-            {
-                lightcolor.G+=(byte)(isPlus ? 1 : -1);
-            }
-            if (key == Key.B)
-            {
-                lightcolor.B+=(byte)(isPlus ? 1 : -1);
-            }
-            if (key == Key.H)
-            {
-                lightcolor.A+=(byte)(isPlus ? 1 : -1);
-            }
-
-
             if (hold)
                 return;
+
+            if (key == Key.Up)
+            {
+                pointer.Range+=1;
+            }
+
+            if (key == Key.Down)
+            {
+                pointer.Range-=1;
+            }
 
             if (key == Key.A)
             {
@@ -220,85 +204,6 @@ namespace Dungeon12.SceneObjects.World
         private static DrawColor lightcolor2 = new DrawColor(lightcolor.R, lightcolor.G, lightcolor.B, (byte)((int)lightcolor.A-25));
 
         private DrawColor ChangeColor(int plusAlpha) => new DrawColor(255, 255, 255, (byte)((int)lightcolor.A+plusAlpha));
-
-        private void UpdateLight()
-        {
-            views.ForEach(x => x.Color=DrawColor.Black.Lighter(-175));
-
-            var x = 20+offset.X;
-            var y = 12+offset.Y;
-
-            var center = views[x, y];
-            center.Color=new DrawColor(lightcolor.R, lightcolor.G, lightcolor.B, (byte)((int)lightcolor.A+25));
-
-            var up = views[x, y-1];
-            up.Color=lightcolor;
-
-
-            var down = views[x, y+1];
-            down.Color=lightcolor;
-
-            var left = views[x-1, y];
-            left.Color=lightcolor;
-
-            var right = views[x+1, y];
-            right.Color=lightcolor;
-
-            var leftTop = views[x-1, y-1];
-            leftTop.Color=lightcolor2;
-            var rightTop = views[x+1, y-1];
-            rightTop.Color=lightcolor2;
-            var leftDown = views[x-1, y+1];
-            leftDown.Color=lightcolor2;
-            var rightDown = views[x+1, y+1];
-            rightDown.Color=lightcolor2;
-
-            views[x-2, y-2].Color=ChangeColor(-75);
-            views[x-1, y-2].Color=ChangeColor(-50);
-
-            views[x, y-2].Color=ChangeColor(-45);
-
-            views[x+1, y-2].Color=ChangeColor(-50);
-            views[x+2, y-2].Color=ChangeColor(-75);
-
-            views[x-2, y-1].Color=ChangeColor(-50);
-            views[x-2, y].Color=ChangeColor(-45);
-            views[x-2, y+1].Color=ChangeColor(-50);
-
-            views[x+2, y-1].Color=ChangeColor(-50);
-            views[x+2, y].Color=ChangeColor(-45);
-            views[x+2, y+1].Color=ChangeColor(-50);
-
-
-            views[x+2, y+2].Color=ChangeColor(-75);
-            views[x-1, y+2].Color=ChangeColor(-50);
-
-            views[x, y+2].Color=ChangeColor(-45);
-
-            views[x+1, y+2].Color=ChangeColor(-50);
-            views[x+2, y+2].Color=ChangeColor(-75);
-
-            views[x-2, y+2].Color=ChangeColor(-75);
-
-
-
-
-            views[x-3, y-1].Color=ChangeColor(-75);
-            views[x-3, y].Color=ChangeColor(-75);
-            views[x-3, y+1].Color=ChangeColor(-75);
-
-            views[x-1, y-3].Color=ChangeColor(-75);
-            views[x, y-3].Color=ChangeColor(-75);
-            views[x+1, y-3].Color=ChangeColor(-75);
-
-            views[x+3, y-1].Color=ChangeColor(-75);
-            views[x+3, y].Color=ChangeColor(-75);
-            views[x+3, y+1].Color=ChangeColor(-75);
-
-            views[x-1, y+3].Color=ChangeColor(-75);
-            views[x, y+3].Color=ChangeColor(-75);
-            views[x+1, y+3].Color=ChangeColor(-75);
-        }
 
         private void UpdateView(Dot pos)
         {

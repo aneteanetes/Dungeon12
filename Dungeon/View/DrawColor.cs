@@ -65,5 +65,17 @@ namespace Dungeon.Drawing
         };
 
         public double Opacity { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is DrawColor drawColor)
+                return
+                    drawColor.R==this.R
+                    && drawColor.G == this.G
+                    && drawColor.B == this.B
+                    && drawColor.A == this.A;
+
+            return base.Equals(obj);
+        }
     }
 }

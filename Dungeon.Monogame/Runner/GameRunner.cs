@@ -28,8 +28,9 @@ namespace Dungeon.Monogame.Runner
             {
                 DungeonGlobal.Exit += () =>
                 {
-                    game.Dispose();
                     game.Exit();
+                    game.DrawClient.Dispose();
+                    game.Dispose();
                     Environment.Exit(0);
                 };
                 game.Run();

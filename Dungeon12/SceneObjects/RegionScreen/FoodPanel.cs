@@ -52,10 +52,10 @@ namespace Dungeon12.SceneObjects.RegionScreen
 
             public bool ShowTooltip => true;
 
-            public override void InternalUpdate(GameTimeLoop gameTime)
+            public override void Update(GameTimeLoop gameTime)
             {
                 TooltipText.SetText($"{Component.Name}: {Component.Value} ({Component.Quality}%)");
-                base.InternalUpdate(gameTime);
+                base.Update(gameTime);
             }
         }
     }

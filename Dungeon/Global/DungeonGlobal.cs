@@ -65,7 +65,7 @@
         }
 
         /// <summary>
-        /// Если установлено true тогда <see cref="ISceneObject.InternalUpdate(GameTimeLoop)"/> будет работать только на компонентах у которых включён <see cref="ISceneObject.Updatable"/> и в зависимости от дерева композиции
+        /// Если установлено true тогда <see cref="ISceneObject.ComponentUpdateChainCall(GameTimeLoop)"/> будет работать только на компонентах у которых включён <see cref="ISceneObject.Updatable"/> и в зависимости от дерева композиции
         /// </summary>
         public static bool ComponentUpdateCompatibility { get; set; }
 

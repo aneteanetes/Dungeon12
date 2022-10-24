@@ -415,7 +415,8 @@
                     carriage.Visible = false;
             }
 
-            public override void InternalUpdate(GameTimeLoop gameTime)
+
+            public override void Update(GameTimeLoop gameTime)
             {
                 if (carriage != default)
                 {
@@ -448,8 +449,6 @@
                         //Title.Opacity += opacityMultiplier;
                     }
                 }
-
-                base.InternalUpdate(gameTime);
             }
 
             public TimeSpan Time { get; set; }

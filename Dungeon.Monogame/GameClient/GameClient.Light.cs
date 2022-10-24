@@ -40,16 +40,9 @@ namespace Dungeon.Monogame
                 }
                 penumbra = new PenumbraComponent(this, penumbraShaders);
                 penumbra.Initialize();
-                if (_settings.Add2DLighting)
-                {
-                    if (_settings.Add2DLighting != default)
-                    {
-                        penumbra.AmbientColor = _settings.AmbientColor2DLight;
-                    }
-                    Components.Add(penumbra);
-                }
-
-
+                //penumbra.AmbientColor = _settings.AmbientColor2DLight;
+                penumbra.Debug=false;
+                //Components.Add(penumbra);
                 //penumbra.Lights.Add(SunLight);
             }
         }

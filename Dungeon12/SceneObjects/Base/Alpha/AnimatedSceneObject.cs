@@ -35,7 +35,7 @@
             }
         }
 
-        public override void InternalUpdate(GameTimeLoop gameTime)
+        public override void Update(GameTimeLoop gameTime)
         {
             if (Loop || !AnimationPlayed)
             {

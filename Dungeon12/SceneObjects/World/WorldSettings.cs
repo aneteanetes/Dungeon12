@@ -3,7 +3,7 @@
     public static class WorldSettings
     {
         public static int _width = 41;
-        public static int _height = 25;
+        public static int _height = 31;
 
         public static int _widthBorder = 6;
         public static int _heightBorder = 4;

@@ -185,10 +185,10 @@ namespace Dungeon.Monogame
             LayerSpriteBatch = new SpriteBatchKnowed(GraphicsDevice);
             ImageLoader = new ImageLoader(GraphicsDevice);
 
-            DrawClient = new DrawClient(GraphicsDevice, Content, ImageLoader, ParticleRenderer, penumbra);
-
             LoadPenumbra();
             Load3D();
+
+            DrawClient = new DrawClient(GraphicsDevice, Content, ImageLoader, ParticleRenderer, penumbra);
             
             DungeonGlobal.Camera = this;
             DungeonGlobal.SceneManager = SceneManager =  new SceneManager(this);

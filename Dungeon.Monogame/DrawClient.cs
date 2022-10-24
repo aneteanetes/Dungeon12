@@ -22,7 +22,7 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Dungeon.Monogame
 {
-    public class DrawClient
+    public class DrawClient : IDisposable
     {
         /// settings
 
@@ -83,12 +83,13 @@ namespace Dungeon.Monogame
             var isAbsolute = layer.AbsoluteLayer;
 
             GraphicsDevice.SetRenderTarget(target);
-            GraphicsDevice.Clear(Color.Transparent);
-
-            SpriteBatchManager.Begin(_resolutionMatrix);
 
             if (lightning)
                 penumbra?.BeginDraw();
+
+            GraphicsDevice.Clear(Color.Transparent);
+            
+            SpriteBatchManager.Begin(_resolutionMatrix);
 
             var spriteBatch = SpriteBatchManager.GetSpriteBatch();
 
@@ -97,12 +98,12 @@ namespace Dungeon.Monogame
                 DrawSceneObject(sceneObject, target, spriteBatch, gameTime);
             }
 
+            SpriteBatchManager.End();
+
             if (lightning)
                 penumbra?.Draw(gameTime);
 
             DrawLights(layer);
-
-            SpriteBatchManager.End();
         }
 
         private void DrawSceneObject(ISceneObject sceneObject, RenderTarget2D renderTarget, SpriteBatchKnowed spriteBatch, GameTime gameTime, double xParent = 0, double yParent = 0, bool batching = false, double parentScale = 0)
@@ -728,6 +729,7 @@ namespace Dungeon.Monogame
                     var oldLight = LightsInstances[sceneObject.Uid];
                     penumbra.Lights.Remove(oldLight);
                     LightsInstances.Remove(sceneObject.Uid);
+                    objLight.Updated=false;
                 }
 
                 if (!LightsInstances.TryGetValue(sceneObject.Uid, out var light))
@@ -737,7 +739,7 @@ namespace Dungeon.Monogame
                         case LightType.Point:
                             light = new PointLight()
                             {
-                                Scale = new Vector2(objLight.Range),
+                                Scale = new Vector2(objLight.Range*100),
                                 ShadowType = ShadowType.Illuminated,
                                 Radius = sceneObject.Light.Range,
                                 Position = pos,
@@ -748,7 +750,7 @@ namespace Dungeon.Monogame
 
                             light = new Spotlight()
                             {
-                                Scale = new Vector2(objLight.Range),
+                                Scale = new Vector2(objLight.Range*100),
                                 ShadowType = ShadowType.Illuminated,
                                 Radius = sceneObject.Light.Range,
                                 Position = pos,
@@ -759,7 +761,7 @@ namespace Dungeon.Monogame
 
                             light = new TexturedLight(ImageLoader.LoadTexture2D(objLight.Image))
                             {
-                                Scale = new Vector2(objLight.Range),
+                                Scale = new Vector2(objLight.Range*100),
                                 ShadowType = ShadowType.Illuminated,
                                 Radius = sceneObject.Light.Range,
                                 Position = pos,
@@ -937,8 +939,8 @@ namespace Dungeon.Monogame
             foreach (var light in LightsInstances)
             {
                 var sceneObj = layer?.Objects?.FirstOrDefault(o => light.Key == o.Uid);
-                if (sceneObj != default && camera!=null)
-                    if (!camera.InCamera(sceneObj) || !sceneObj.Visible)
+                if (sceneObj != default)
+                    if (!sceneObj.Visible || (camera!=null && !camera.InCamera(sceneObj)))
                     {
                         lightsfordelete.Add(light.Key);
                     }
@@ -947,6 +949,11 @@ namespace Dungeon.Monogame
             {
                 LightsInstances.Remove(lightDelete);
             }
+        }
+
+        public void Dispose()
+        {
+            SpriteBatchManager.Dispose();
         }
     }
 }

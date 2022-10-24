@@ -77,7 +77,7 @@ namespace Dungeon
         /// <param name="img"></param>
         /// <param name="between"></param>
         /// <returns></returns>
-        public static string AsmImgRes(this string img, string between = "") => Assembly.GetCallingAssembly().GetName().Name + ".Resources.Images." + between.Embedded() + Path.GetFileNameWithoutExtension(img.Embedded()) + "@" + DungeonGlobal.Resolution + Path.GetExtension(img.Embedded());
+        public static string AsmImgResolution(this string img, string between = "") => Assembly.GetCallingAssembly().GetName().Name + ".Resources.Images." + between.Embedded() + Path.GetFileNameWithoutExtension(img.Embedded()) + "@" + DungeonGlobal.Resolution + Path.GetExtension(img.Embedded());
 
         public static string AsmRes(this string res)=> Assembly.GetCallingAssembly().GetName().Name + ".Resources." + res.Embedded();
 

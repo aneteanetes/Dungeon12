@@ -89,6 +89,11 @@
 
         string Image { get; set; }
 
+        /// <summary>
+        /// По умолчанию должен быть true
+        /// </summary>
+        bool Updatable { get; }
+
         Square ImageRegion { get; set; }
 
         int LayerLevel { get; set; }
@@ -185,19 +190,9 @@
 
         List<IEffectParticle> ParticleEffects { get; set; }
 
-        /// <summary>
-        /// Метод вызывается перед отрисовкой, а то заебало уже хаки юзать
-        /// </summary>
-        void InternalUpdate(GameTimeLoop gameTime);
-
-        /// <summary>
-        /// Метод вызывается перед отрисовкой, а то заебало уже хаки юзать
-        /// </summary>
-        void Update();
+        void ComponentUpdateChainCall(GameTimeLoop gameTime);
 
         bool Drawed { get; set; }
-
-        bool Updatable { get; }
 
         ISceneObject AddChild(ISceneObject sceneObject);
 

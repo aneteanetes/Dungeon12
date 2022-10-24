@@ -3,11 +3,12 @@ using Dungeon.View.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 namespace Dungeon.Monogame
 {
-    public class SpriteBatchManager
+    public class SpriteBatchManager : IDisposable
     {
         private ContentManager _contentManager;
         private GraphicsDevice _graphicsDevice;
@@ -97,6 +98,8 @@ namespace Dungeon.Monogame
 
             return xnaeff;
         }
+
+        public void Dispose() => SpriteBatches.ForEach(kv => kv.Value.Dispose());
 
         private static Dictionary<string, Effect> XnaEffectsLoaded = new Dictionary<string, Effect>();
     }

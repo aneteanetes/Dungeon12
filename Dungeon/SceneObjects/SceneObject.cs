@@ -629,17 +629,12 @@
         }
 
         [Hidden]
-        public Action<SceneObject<TComponent>> OnUpdate { get; set; }
+        public Action<SceneObject<TComponent>> AfterUpdate { get; set; }
 
         /// <summary>
         /// Хинт для фронта
         /// </summary>
         public bool ScaleAndResize { get; set; }
-
-        public virtual void Update()
-        {
-            OnUpdate?.Invoke(this);
-        }
 
         public virtual bool Updatable => true;
 
@@ -808,9 +803,9 @@
             this.frameTime = TimeSpan.Zero;
         }
 
-        protected virtual void UpdateFrame() { }
+        protected virtual void AnimationFrameChange() { }
 
-        public virtual void InternalUpdate(GameTimeLoop gameTime)
+        public void ComponentUpdateChainCall(GameTimeLoop gameTime)
         {
             Update(gameTime);
 
@@ -826,7 +821,7 @@
                     this.ImageRegion.Y = frame.Y;
 
                     frameCount++;
-                    UpdateFrame();
+                    AnimationFrameChange();
 
                     if (frameCount == animation.Frames.Count)
                     {
@@ -834,8 +829,7 @@
                     }
                 }
             }
-
-            Update();
+            AfterUpdate?.Invoke(this);
         }
 
         public virtual void Update(GameTimeLoop gameTime) { }

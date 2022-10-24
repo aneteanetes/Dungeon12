@@ -6,6 +6,8 @@ namespace Dungeon12.SceneObjects.World
 {
     public class WorldTileSceneObject : ImageSceneObject
     {
+        public override bool Updatable => false;
+
         public WorldTileSceneObject()
         {
             //Color = DrawColor.DarkBlue;

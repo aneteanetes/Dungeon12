@@ -24,23 +24,18 @@ namespace Dungeon.Monogame
                     for (int i = 0; i < layer.Objects.Length; i++)
                     {
                         var obj = layer.Objects[i];
-                        if (DungeonGlobal.ComponentUpdateCompatibility)
-                        {
-                            if (obj.Updatable && (InCamera(obj) || obj.DrawPartInSight || obj.DrawOutOfSight))
-                                UpdateComponent(obj);
-                        }
-                        else
-                        {
-                            UpdateComponent(obj, gameTimeLoop);
-                        }
+                        UpdateComponent(obj, gameTimeLoop);
                     }
-                }                
+                }
             }
         }
 
         private void UpdateComponent(ISceneObject sceneObject, GameTimeLoop gameTimeLoop)
         {
-            sceneObject.InternalUpdate(gameTimeLoop);
+            if (!sceneObject.Updatable)
+                return;
+
+            sceneObject.ComponentUpdateChainCall(gameTimeLoop);
 
             for (int i = 0; i < sceneObject.Children.Count; i++)
             {
@@ -48,24 +43,6 @@ namespace Dungeon.Monogame
                 if (child != null)
                 {
                     UpdateComponent(child, gameTimeLoop);
-                }
-            }
-        }
-
-        private void UpdateComponent(ISceneObject sceneObject)
-        {
-            //if(frameEnd)
-            //{
-                sceneObject.Update();
-            //}
-
-            for (int i = 0; i < sceneObject.Children.Count; i++)
-            {
-                var child = sceneObject.Children.ElementAtOrDefault(i);
-                if (child != null)
-                {
-                    if (child.Updatable && InCamera(child))
-                        UpdateComponent(child);
                 }
             }
         }
