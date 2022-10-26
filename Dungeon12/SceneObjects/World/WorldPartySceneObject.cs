@@ -37,7 +37,7 @@ namespace Dungeon12.SceneObjects.World
         bool plus = true;
 
         private float speed = .0005f;
-        private float limit = .02f;
+        private float limit = .03f;
 
         private float _range;
         public float Range
@@ -45,6 +45,11 @@ namespace Dungeon12.SceneObjects.World
             get => _range;
             set
             {
+                if (value<_range)
+                    limit-=.05f;
+                else if (value>_range)
+                    limit+=.05f;
+
                 _range = value;
                 this.Light.Range=value;
             }

@@ -200,11 +200,6 @@ namespace Dungeon12.SceneObjects.World
             //UpdateLight();
         }
 
-        private static DrawColor lightcolor = new DrawColor(255, 255, 255, 100);
-        private static DrawColor lightcolor2 = new DrawColor(lightcolor.R, lightcolor.G, lightcolor.B, (byte)((int)lightcolor.A-25));
-
-        private DrawColor ChangeColor(int plusAlpha) => new DrawColor(255, 255, 255, (byte)((int)lightcolor.A+plusAlpha));
-
         private void UpdateView(Dot pos)
         {
             var back = map.Layers.FirstOrDefault(x => x.name == "Background");
