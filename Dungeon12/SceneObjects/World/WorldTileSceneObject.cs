@@ -18,7 +18,7 @@ namespace Dungeon12.SceneObjects.World
             Width = WorldSettings.cellSize;
             Height = WorldSettings.cellSize;
             this.Image = "terrain.png";
-            
+
             ImageRegion = new Square()
             {
                 Width = 32,
@@ -53,8 +53,7 @@ namespace Dungeon12.SceneObjects.World
                 offsetY = 10;
             }
 
-            ImageRegion.X = offsetX * 32;
-            ImageRegion.Y = offsetY * 32;
+            this.ImageRegion=ImageRegion.SetCoords(offsetX * 32, offsetY * 32);
         }
     }
 }

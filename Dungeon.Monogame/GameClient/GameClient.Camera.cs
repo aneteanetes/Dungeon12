@@ -125,16 +125,12 @@
             this.CameraMovings.Clear();
         }
 
-        private readonly Square _cameraViewObject = new Square();
+        private Square _cameraViewObject = new Square();
         public Square CameraView
         {
             get
             {
-                _cameraViewObject.X = CameraOffsetX * -1;
-                _cameraViewObject.Y = CameraOffsetY * -1;
-                _cameraViewObject.Width = DungeonGlobal.Resolution.Width;
-                _cameraViewObject.Height = DungeonGlobal.Resolution.Height;
-
+                _cameraViewObject=new Square(CameraOffsetX * -1, CameraOffsetY * -1, DungeonGlobal.Resolution.Width, DungeonGlobal.Resolution.Height);
                 return _cameraViewObject;
             }
         }

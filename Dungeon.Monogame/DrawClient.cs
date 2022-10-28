@@ -344,7 +344,7 @@ namespace Dungeon.Monogame
             else
             if (!TileSetCache.TryGetValue(sceneObject.Uid, out tileRegion))
             {
-                if (sceneObject.ImageRegion == null)
+                if (sceneObject.ImageRegion == default(Square))
                 {
                     tileRegion = new Rect(0, 0, image.Width, image.Height);
                 }

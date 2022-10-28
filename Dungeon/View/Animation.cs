@@ -27,16 +27,16 @@
         {
             Height = Size.Y,
             Width = Size.X,
-            X = Frames?.FirstOrDefault()?.X ?? 0,
-            Y = Frames?.FirstOrDefault()?.Y ?? 0
+            X = Frames?.FirstOrDefault().X ?? 0,
+            Y = Frames?.FirstOrDefault().Y ?? 0
         };
 
         public Square LastFramePosition => new Square()
         {
             Height = Size.Y,
             Width = Size.X,
-            X = Frames?.LastOrDefault()?.X ?? 0,
-            Y = Frames?.LastOrDefault()?.Y ?? 0
+            X = Frames?.LastOrDefault().X ?? 0,
+            Y = Frames?.LastOrDefault().Y ?? 0
         };
 
         public Action OnEnd { get; set; }

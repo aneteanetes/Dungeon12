@@ -28,17 +28,19 @@ namespace Dungeon12.Components
 
         public string Tileset { get; set; }
 
-        public static FrameAnimated FromTileset(string tileset, int xFrame, int yFrame, Square defaultFrame = null)
+        public static FrameAnimated FromTileset(string tileset, int xFrame, int yFrame, Square defaultFrame)
         {
             return new FrameAnimated()
             {
                 Tileset = tileset,
-                DefaultFramePosition = defaultFrame ?? new Square()
-                {
-                    X = xFrame,
-                    Height = xFrame,
-                    Width = yFrame
-                },
+                DefaultFramePosition = defaultFrame != default 
+                    ? defaultFrame
+                    : new Square()
+                    {
+                        X = xFrame,
+                        Height = xFrame,
+                        Width = yFrame
+                    },
                 MoveUp = new Animation()
                 {
                     TileSet = tileset,

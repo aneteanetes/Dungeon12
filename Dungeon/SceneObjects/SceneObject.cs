@@ -319,7 +319,7 @@
         /// </summary>
         public virtual double Angle { get; set; }
 
-        private Square pos = null;
+        private Square pos;
 
         /// <summary>
         /// Relative position
@@ -445,8 +445,6 @@
         public void RecalculateComputedAndBounds()
         {
             this.Expired = true;
-            _computedPosition = null;
-            pos = null;
 
             foreach (var child in this.Children)
             {
@@ -459,10 +457,10 @@
         {
             get
             {
-                if (_computedPosition == null || !CachePosition)
+                if (_computedPosition == default || !CachePosition)
                 {
-                    var parentX = Parent?.ComputedPosition?.X ?? 0f;
-                    var parentY = Parent?.ComputedPosition?.Y ?? 0f;
+                    var parentX = Parent.ComputedPosition.X;
+                    var parentY = Parent.ComputedPosition.Y;
 
                     var scale_ = this.GetScaleValue();
 
@@ -478,7 +476,7 @@
                     if (scale_ == 0)
                         scale_ = 1;
 
-                    if (_computedPosition != null)
+                    if (_computedPosition != default)
                     {
                         _computedPosition.X = parentX + (float)Left * (needScalePosition ? scale_ : 1);
                         _computedPosition.Y = parentY + (float)Top * (needScalePosition ? scale_ : 1);
@@ -769,7 +767,7 @@
         private Square _originalImageRegion;
         private Square _imageRegion;
 
-        public virtual Square ImageRegion { get; set; }
+        public virtual Square ImageRegion { get; set; } = new Square();
 
         public bool AutoBindSceneObjectSizeByContainedImage { get; set; } = true;
 
@@ -817,8 +815,7 @@
                 {
                     elapsed = TimeSpan.Zero;
                     var frame = animation.Frames[frameCount];
-                    this.ImageRegion.X = frame.X;
-                    this.ImageRegion.Y = frame.Y;
+                    this.ImageRegion=ImageRegion.SetCoords(frame.X, frame.Y);
 
                     frameCount++;
                     AnimationFrameChange();

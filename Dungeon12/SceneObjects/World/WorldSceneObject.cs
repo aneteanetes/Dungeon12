@@ -63,8 +63,8 @@ namespace Dungeon12.SceneObjects.World
         }
 
         WorldPartySceneObject pointer = null;
-        Dot current = null;
-        Dot Player = null;
+        Dot current = default;
+        Dot Player = default;
         Dot offset = new Dot(0, 0);
 
         protected override ControlEventType[] Handles => new ControlEventType[] { ControlEventType.Key };

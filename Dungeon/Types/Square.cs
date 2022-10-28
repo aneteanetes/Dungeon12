@@ -2,12 +2,14 @@
 
 namespace Dungeon.Types
 {
-    public class Square
+    public struct Square
     {
-        public static Square Empty => new Square();
-
         public Square()
         {
+            X = 0;
+            Y = 0;
+            Width = 0;
+            Height = 0;
         }
         
         public Square(int x, int y, int width, int height)
@@ -50,9 +52,11 @@ namespace Dungeon.Types
 
         public int Widthi => (int)Width;
 
+#pragma warning disable IDE1006 // Naming Styles
         public float xMax => Xf+ Widthf;
 
         public float yMax => Yf+ Heightf;
+#pragma warning restore IDE1006 // Naming Styles
 
         public bool Overlaps(Square other)
         {
@@ -74,8 +78,8 @@ namespace Dungeon.Types
             get => new(this.X, this.Y);
             set
             {
-                this.X = value?.X ?? default;
-                this.Y = value?.Y ?? default;
+                this.X = value.X;
+                this.Y = value.Y;
             }            
         }
 
@@ -86,6 +90,8 @@ namespace Dungeon.Types
                 return new Dot(this.Width, this.Height);
             }
         }
+
+        public Square SetCoords(double x, double y) => new(x, y, this.Width, this.Height);
 
         public bool IntersectsWithOrContains(Square b) => this.IntersectsWith(b) || this.Contains(b.X, b.Y);
 
@@ -115,5 +121,15 @@ namespace Dungeon.Types
             && obj.Height == this.Height
             && obj.X == this.X
             && obj.Y == this.Y;
+
+        public static bool operator ==(Square op1, Square op2)
+        {
+            return op1.Equals(op2);
+        }
+
+        public static bool operator !=(Square op1, Square op2)
+        {
+            return !op1.Equals(op2);
+        }
     }
 }

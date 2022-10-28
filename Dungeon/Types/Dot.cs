@@ -3,49 +3,42 @@
 namespace Dungeon.Types
 {
     /// <summary>
-    /// Это ссылочный тип! А значит мы получаем бесценную возможность сравнивать с null, но при этом ИЗМЕНЕНИЯ КООРДИНАТ ПРОИСХОДИТ ПО ССЫЛКЕ
+    /// X,Y struct
     /// </summary>
-    public class Dot
+    public struct Dot
     {
         public bool IsDefault { get; private set; } = true;
 
         public Dot()
         {
-
-        }
-
-        public static Dot FromString(string xy)
-        {
-            if (xy == default)
-                return new Dot();
-
-            if (!xy.Contains("X:") || !xy.Contains("Y:"))
-                return new Dot();
-
-            try
-            {
-                var splitted = xy.Split(",", StringSplitOptions.RemoveEmptyEntries);
-                double.TryParse(splitted[0].Replace("X:", ""), out var x);
-                double.TryParse(splitted[1].Replace("Y:", ""), out var y);
-
-                return new Dot(x, y);
-            }
-            catch
-            {
-                return new Dot();
-            }
+            x=0;
+            y=0;
+            vectorX= VectorDir.Plus;
+            vectorY= VectorDir.Plus;
         }
 
         public Dot(Dot fromCopy)
         {
-            this.X = fromCopy.X;
-            this.Y = fromCopy.Y;
+            x = fromCopy.X;
+            y = fromCopy.Y;
+            vectorX= VectorDir.Plus;
+            vectorY= VectorDir.Plus;
         }
 
         public Dot(float x, float y)
         {
-            this.X = x;
-            this.Y = y;
+            this.x = x;
+            this.y = y;
+            vectorX= VectorDir.Plus;
+            vectorY= VectorDir.Plus;
+        }
+
+        public Dot(double x, double y)
+        {
+            this.x = x;
+            this.y = y;
+            vectorX= VectorDir.Plus;
+            vectorY= VectorDir.Plus;
         }
 
         public Dot(string xStrDouble, string yStrDouble)
@@ -54,8 +47,10 @@ namespace Dungeon.Types
             var parsedY = double.TryParse(yStrDouble.Replace(".", ","), out var y);
             if (parsedX && parsedY)
             {
-                X = x;
-                Y = y;
+                this.x = x;
+                this.y = y;
+                vectorX= VectorDir.Plus;
+                vectorY= VectorDir.Plus;
                 return;
             }
             throw new ArgumentException($"{nameof(xStrDouble)} or {nameof(yStrDouble)} is not double!");
@@ -65,12 +60,6 @@ namespace Dungeon.Types
         /// Static reference to zero point
         /// </summary>
         public static Dot Zero { get; } = new Dot(0, 0);
-
-        public Dot(double x, double y)
-        {
-            this.X = x;
-            this.Y = y;
-        }
 
         public bool IsEvenX => X % 2 == 0;
 
@@ -218,16 +207,6 @@ namespace Dungeon.Types
 
         public Dot Clone() => Copy();
 
-        public bool EqualTo(double x, double y)
-        {
-            return this.X == x && this.Y == y;
-        }
-
-        public bool Equals(Dot point)
-        {
-            return this.EqualTo(point.X, point.Y);
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -281,7 +260,29 @@ namespace Dungeon.Types
             return (Direction)dir;
         }
 
-        private bool Compare(bool isLess, double a, double b, double accuracy)
+        public static Dot FromString(string xy)
+        {
+            if (xy == default)
+                return new Dot();
+
+            if (!xy.Contains("X:") || !xy.Contains("Y:"))
+                return new Dot();
+
+            try
+            {
+                var splitted = xy.Split(",", StringSplitOptions.RemoveEmptyEntries);
+                double.TryParse(splitted[0].Replace("X:", ""), out var x);
+                double.TryParse(splitted[1].Replace("Y:", ""), out var y);
+
+                return new Dot(x, y);
+            }
+            catch
+            {
+                return new Dot();
+            }
+        }
+
+        private static bool Compare(bool isLess, double a, double b, double accuracy)
         {
             var diff = Math.Abs(a - b);
             if (diff < accuracy)
@@ -291,6 +292,26 @@ namespace Dungeon.Types
             static bool more(double x1, double x2) => x1 > x2;
 
             return isLess ? less(a, b) : more(a, b);
+        }
+
+        public bool EqualTo(double x, double y)
+        {
+            return this.X == x && this.Y == y;
+        }
+
+        public bool Equals(Dot point)
+        {
+            return this.EqualTo(point.X, point.Y);
+        }
+
+        public static bool operator ==(Dot op1, Dot op2)
+        {
+            return op1.Equals(op2);
+        }
+
+        public static bool operator !=(Dot op1, Dot op2)
+        {
+            return !op1.Equals(op2);
         }
     }
 }
