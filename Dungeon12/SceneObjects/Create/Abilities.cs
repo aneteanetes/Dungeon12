@@ -56,7 +56,7 @@ namespace Dungeon12.SceneObjects.Create
                 });
             }
 
-            public override bool Visible => Component.Class == _ability.Class;
+            public override bool Visible => Component.Archetype == _ability.Class;
 
             public IDrawText TooltipText => $"{Global.Strings[_ability.ClassName]} ({Global.Strings["LeftMouseButton"]} - {Global.Strings["Info"]})".AsDrawText().Gabriela();
 

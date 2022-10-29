@@ -39,12 +39,12 @@ namespace Dungeon12.SceneObjects.Create
                 Top = -2.5;
             }
 
-            public override bool Visible => Component.Class == _archetype;
+            public override bool Visible => Component.Archetype == _archetype;
         }
 
         public override void Click(PointerArgs args)
         {
-            Component.Class = _archetype;
+            Component.Archetype = _archetype;
             base.Click(args);
         }
 

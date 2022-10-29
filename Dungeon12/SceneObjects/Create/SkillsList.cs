@@ -57,7 +57,7 @@ namespace Dungeon12.SceneObjects.Create
                 this.AddTextCenter(skill.Display().AsDrawText().Gabriela().InColor(Global.CommonColor).InSize(20));
             }
 
-            public override bool Visible => Component.Class == _skill.Class();
+            public override bool Visible => Component.Archetype == _skill.Class();
 
             public IDrawText TooltipText => $"{Global.Strings["LeftMouseButton"]} - {Global.Strings["Info"]}".AsDrawText().Gabriela();
 

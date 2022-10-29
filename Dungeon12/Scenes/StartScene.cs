@@ -150,7 +150,7 @@ namespace Dungeon12.Scenes
 
         private void NewGame()
         {
-            this.Switch<MainScene>();
+            this.Switch<CreateScene>();
         }
 
         private void SaveGame()

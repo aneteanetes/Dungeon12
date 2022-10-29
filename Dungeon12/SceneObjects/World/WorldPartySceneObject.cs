@@ -1,71 +1,48 @@
-﻿using Dungeon;
-using Dungeon.Drawing;
+﻿using Dungeon.SceneObjects;
 using Dungeon.Types;
+using Dungeon12.Entities;
 
 namespace Dungeon12.SceneObjects.World
 {
-    public class WorldPartySceneObject : WorldTileSceneObject
+    internal class WorldPartySceneObject : SceneObject<Party>
     {
-        public override bool Updatable => true;
+        private WorldHeroSceneObject h1,h2,h3,h4;
 
-        public WorldPartySceneObject()
+        internal WorldPartySceneObject(Party component, bool bindView = true) : base(component, bindView)
         {
-            Color = DrawColor.White;
             Width = WorldSettings.cellSize;
             Height = WorldSettings.cellSize;
-            Image = "units1.png";
 
-            ImageRegion = new Square()
-            {
-                Width = 32,
-                Height = 32,
-                X=1*32,
-                Y=3*32
-            };
+            h1 = this.AddChild(new WorldHeroSceneObject(component.Hero2)); // mage
+            h1.SetSlot(Compass.North);
 
-            this.Light=new Light()
-            {
-                Color = DrawColor.White
-                //Type= Dungeon.View.Interfaces.LightType.Texture,
-                //Image = "TexturedLight.png".AsmImg()
-            };
-            Range=1;
+            h2 = this.AddChild(new WorldHeroSceneObject(component.Hero1)); // warrior
+            h2.SetSlot(Compass.West);
+
+            h3 =this.AddChild(new WorldHeroSceneObject(component.Hero4)); // priest
+            h3.SetSlot(Compass.East);
+
+            h4 = this.AddChild(new WorldHeroSceneObject(component.Hero3)); // thief
+            h4.SetSlot(Compass.South);
         }
 
-        public Dot Coords { get; set; } = new Dot();
-
-        bool plus = true;
-
-        private float speed = .0005f;
-        private float limit = .03f;
-
-        private float _range;
-        public float Range
+        public void ChangeDirection(Direction direction)
         {
-            get => _range;
-            set
+            switch (direction)
             {
-                if (value<_range)
-                    limit-=.05f;
-                else if (value>_range)
-                    limit+=.05f;
-
-                _range = value;
-                this.Light.Range=value;
+                case Direction.Idle:
+                    break;
+                case Direction.Up:
+                    break;
+                case Direction.Down:
+                    break;
+                case Direction.Left:
+                    break;
+                case Direction.Right:
+                    break;
+                default:
+                    break;
             }
-        }
-
-        public override void Update(GameTimeLoop gameTime)
-        {
-            this.Light.Range+=speed*(plus ? 1 : -1);
-
-            if (this.Light.Range>(Range+limit))
-                plus=false;
-            if (this.Light.Range<(Range-limit))
-                plus=true;
-
-
-            base.Update(gameTime);
         }
     }
 }

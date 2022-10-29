@@ -459,8 +459,8 @@
             {
                 if (_computedPosition == default || !CachePosition)
                 {
-                    var parentX = Parent.ComputedPosition.X;
-                    var parentY = Parent.ComputedPosition.Y;
+                    var parentX = Parent?.ComputedPosition.X ?? 0;
+                    var parentY = Parent?.ComputedPosition.Y ?? 0;
 
                     var scale_ = this.GetScaleValue();
 

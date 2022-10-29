@@ -46,7 +46,7 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
             base.Unfocus();
         }
 
-        public override bool Visible => Component.Class == _ability.Class;
+        public override bool Visible => Component.Archetype == _ability.Class;
 
         public IDrawText TooltipText => $"{Global.Strings[_ability.ClassName]}".AsDrawText().Gabriela();
 

@@ -20,7 +20,7 @@ namespace Dungeon12.Entities
         public Hero[] Heroes => new Hero[] { Hero1, Hero2, Hero3, Hero4 };
 
 
-        public bool PortalsActive => Heroes.Any(h => h.Class == Enums.Archetype.Mage);
+        public bool PortalsActive => Heroes.Any(h => h.Archetype == Enums.Archetype.Mage);
 
         public Food Food { get; set; } = new Food();
 

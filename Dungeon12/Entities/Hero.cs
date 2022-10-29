@@ -19,8 +19,10 @@ namespace Dungeon12.Entities
 
         public int Stamina { get; set; } = 10;
 
+        public Classes Class { get; set; }
+
         private Archetype _class;
-        public Archetype Class
+        public Archetype Archetype
         {
             get
             {
@@ -35,7 +37,7 @@ namespace Dungeon12.Entities
 
         public void BindSkills()
         {
-            switch (Class)
+            switch (Archetype)
             {
                 case Archetype.Warrior:
                     Landscape = Eating = Repair = Weaponcraft = 0;

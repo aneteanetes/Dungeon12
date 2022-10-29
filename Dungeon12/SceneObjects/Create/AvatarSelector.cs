@@ -19,7 +19,7 @@ namespace Dungeon12.SceneObjects.Create
 
         public AvatarSelector(Hero component) : base(component)
         {
-            AvatarViewer = this.AddChild(new ImageObject($"Avatars/{component.Class.Short()}1.png")
+            AvatarViewer = this.AddChild(new ImageObject($"Avatars/{component.Archetype.Short()}1.png")
             {
                 Width = 100,
                 Height = 158,
@@ -47,7 +47,7 @@ namespace Dungeon12.SceneObjects.Create
                 AvatarViewer.Image = $"Avatars/{now.Short()}{index}.png".AsmImg();
             };
             Component.Avatar = AvatarViewer.Image;
-            Component.Sex = Component.Class.Sex(index);
+            Component.Sex = Component.Archetype.Sex(index);
         }
 
         private void Leaf(bool next)
@@ -67,9 +67,9 @@ namespace Dungeon12.SceneObjects.Create
                     index--;
             }
 
-            AvatarViewer.Image = $"Avatars/{Component.Class.Short()}{index}.png".AsmImg();
+            AvatarViewer.Image = $"Avatars/{Component.Archetype.Short()}{index}.png".AsmImg();
             Component.Avatar = AvatarViewer.Image;
-            Component.Sex = Component.Class.Sex(index);
+            Component.Sex = Component.Archetype.Sex(index);
         }
 
         private class IndexButton : EmptySceneControl, ITooltipedDrawText

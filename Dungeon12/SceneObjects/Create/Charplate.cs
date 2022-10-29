@@ -22,7 +22,7 @@ namespace Dungeon12.SceneObjects.Create
                 Top = 27
             });
 
-            Component.Sex = Component.Class.Sex(1);
+            Component.Sex = Component.Archetype.Sex(1);
 
             this.AddChild(new AvatarSelector(Component)
             {

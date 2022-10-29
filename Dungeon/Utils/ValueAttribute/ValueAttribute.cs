@@ -99,5 +99,19 @@
         public static TResult Value<TAttribute, TResult>(this Module asm) where TAttribute : ValueAttribute => asm.ValueAttribute<TAttribute>().As<TResult>();
 
         public static TResult Value<TAttribute, TResult>(this MemberInfo asm) where TAttribute : ValueAttribute => asm.ValueAttribute<TAttribute>().As<TResult>();
+
+        public static TResult ValueAttr<TAttribute, TResult>(this object enumValue)
+           where TAttribute : ValueAttribute
+        {
+            var enumType = enumValue.GetType();
+            if (!enumType.IsEnum)
+                return default;
+
+            var field = enumType.GetField(enumValue.ToString());
+            if (field == default)
+                return default;
+
+            return field.Value<TAttribute, TResult>();
+        }
     }
 }

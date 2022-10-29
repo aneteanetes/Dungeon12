@@ -38,7 +38,7 @@ namespace Dungeon12.SceneObjects.World
 
             var start = map.Layers.Last().Tiles.FirstOrDefault(x => x.Gid != 0);
 
-            pointer = AddChildCenter(new WorldPartySceneObject());
+            pointer = AddChildCenter(new WorldPartySceneObject(Global.Game.Party));
             //pointer.Load(start.TileOffsetX, start.TileOffsetY);
 
             var back = map.Layers.FirstOrDefault(x => x.name == "Background");
@@ -57,7 +57,6 @@ namespace Dungeon12.SceneObjects.World
                 X = current.X,
                 Y = current.Y
             };
-            pointer.Coords=Player;
 
             this.AddBorder(0);
         }
@@ -74,16 +73,6 @@ namespace Dungeon12.SceneObjects.World
         {
             if (hold)
                 return;
-
-            if (key == Key.Up)
-            {
-                pointer.Range+=1;
-            }
-
-            if (key == Key.Down)
-            {
-                pointer.Range-=1;
-            }
 
             if (key == Key.A)
             {

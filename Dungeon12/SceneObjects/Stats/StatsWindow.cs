@@ -40,7 +40,7 @@ namespace Dungeon12.SceneObjects.Stats
                 Top=186,
             });
             this.AddChild(new ImageObject("UI/start/icon.png") { Left=610, Top=307 });
-            _class = this.AddChild(new ClassBadge(Component.Class) { Left=613, Top=310 });
+            _class = this.AddChild(new ClassBadge(Component.Archetype) { Left=613, Top=310 });
 
             this.AddTextPos(TextSeg(Global.Strings["Основное"], 9), 250, 85, 190, 18);
             this.AddTextPos(TextSeg(Global.Strings["Защита"], 9), 250, 263, 192, 16);
@@ -98,7 +98,7 @@ namespace Dungeon12.SceneObjects.Stats
             var leftSkill = 33;
             var topSkill = 106;
 
-            hero.Class.Skills().ForEach(s =>
+            hero.Archetype.Skills().ForEach(s =>
             {
                 var sEnum = s.ToString();
                 var skillName = Global.Strings[sEnum];
@@ -186,7 +186,7 @@ namespace Dungeon12.SceneObjects.Stats
             });
 
             Avatar.Image=hero.Avatar;
-            _class.Set(hero.Class);
+            _class.Set(hero.Archetype);
             AddTexts(hero);
         }
 

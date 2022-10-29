@@ -9,10 +9,11 @@ using Dungeon12.Entities.Abilities;
 using Dungeon12.Entities.Enums;
 using Dungeon12.Entities.Map;
 using Dungeon12.SceneObjects.Create;
+using Dungeon12.Scenes.Main;
 
 namespace Dungeon12.Scenes.Create
 {
-    internal class CreateScene : GameScene<StartScene, RegionScene>
+    internal class CreateScene : GameScene<StartScene, MainScene>
     {
         public CreateScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -89,19 +90,23 @@ namespace Dungeon12.Scenes.Create
                 {
                     Hero1 = new Entities.Hero()
                     {
-                        Class = Entities.Enums.Archetype.Warrior
+                        Archetype = Entities.Enums.Archetype.Warrior,
+                         Class = Classes.Warrior
                     },
                     Hero2 = new Entities.Hero()
                     {
-                        Class = Entities.Enums.Archetype.Mage
+                        Archetype = Entities.Enums.Archetype.Mage,
+                         Class = Classes.Elementalist
                     },
                     Hero3 = new Entities.Hero()
                     {
-                        Class = Entities.Enums.Archetype.Thief
+                        Archetype = Entities.Enums.Archetype.Thief,
+                         Class = Classes.Rogue
                     },
                     Hero4 = new Entities.Hero()
                     {
-                        Class = Entities.Enums.Archetype.Priest
+                        Archetype = Entities.Enums.Archetype.Priest,
+                         Class = Classes.Priest
                     },
                 },
                 Calendar = new Entities.Calendar(),
@@ -116,10 +121,10 @@ namespace Dungeon12.Scenes.Create
             {
                 if(hero.Name.IsEmpty())
                 {
-                    hero.Name = Global.Strings[$"{hero.Class}{hero.Sex}"];
+                    hero.Name = Global.Strings[$"{hero.Archetype}{hero.Sex}"];
                 }
 
-                hero.Abilities = new System.Collections.Generic.List<Ability>(Ability.ByClass(hero.Class));
+                hero.Abilities = new System.Collections.Generic.List<Ability>(Ability.ByClass(hero.Archetype));
                 hero.BindSkills();
 
                 Global.Game.Party.Food.Init();
@@ -140,7 +145,7 @@ namespace Dungeon12.Scenes.Create
             }
 
 
-            this.Switch<RegionScene>();
+            this.Switch<MainScene>();
         }
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
