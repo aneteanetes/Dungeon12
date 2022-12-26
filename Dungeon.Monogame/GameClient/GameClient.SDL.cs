@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -35,9 +36,18 @@ namespace Dungeon.Monogame
         }
 
         private static List<SDL_Rect> MonitorBounds = new List<SDL_Rect>();
+        private static bool SDLLoaded=false;
 
         private void SDL_InitMonitors()
         {
+            if (SDLLoaded)
+            {
+                // that means counter already +1 on SDL library (monogame import internal same dll)
+                // So, we not need dispose it, but it will be very good not increment counter
+                // acutally, if GameClient will be reinited, but application is not - it can be potential increment
+                return;
+            }
+
             var entrydll = Assembly.GetExecutingAssembly().Location;
             var root = Path.GetDirectoryName(entrydll);
             var sdlPath = Path.Combine(root, @"runtimes\win-x64\native\SDL2.dll");
@@ -45,7 +55,14 @@ namespace Dungeon.Monogame
             if (!File.Exists(sdlPath))
                 sdlPath = Path.Combine(root, "SDL2.dll");
 
+            if (!File.Exists(sdlPath))
+            {
+                Console.WriteLine("Cant find SDL2.dll, monitor choosing is not available!");
+                return;
+            }
+
             var SDL = LoadLibraryW(sdlPath);
+            SDLLoaded=true; 
 
             var SDL_GetNumVideoDisplays = GetProcAddress(SDL, "SDL_GetNumVideoDisplays");
             var SDL_GetNumVideoDisplaysFunc = Marshal.GetDelegateForFunctionPointer<GetNumVideoDisplays>(SDL_GetNumVideoDisplays);
