@@ -25,7 +25,7 @@ namespace Dungeon.View.Interfaces
 
         void AddExistedControl(ISceneControl sceneObjectControl);
 
-        void AddObjectCenter<TSceneObject>(TSceneObject sceneObject, bool horizontal = true, bool vertical = true)
+        TSceneObject AddObjectCenter<TSceneObject>(TSceneObject sceneObject, bool horizontal = true, bool vertical = true)
             where TSceneObject : ISceneObject;
 
         void RemoveObject(ISceneObject sceneObject);

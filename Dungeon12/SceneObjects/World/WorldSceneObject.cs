@@ -10,13 +10,13 @@ using System.Linq;
 
 namespace Dungeon12.SceneObjects.World
 {
-    public class WorldSceneObject : EmptySceneControl
+    internal class WorldSceneObject : EmptySceneControl
     {
         CoordDictionary<WorldTileSceneObject> views = new CoordDictionary<WorldTileSceneObject>();
         CoordDictionary<TiledPolygon> tiles = new CoordDictionary<TiledPolygon>();
         private TiledMap map;
 
-        public WorldSceneObject(TiledMap map)
+        public WorldSceneObject(TiledMap map, WorldPartySceneObject worldPartySceneObject=null)
         {
             this.map = map;
             Width = WorldSettings.cellSize * WorldSettings._width;
@@ -38,7 +38,7 @@ namespace Dungeon12.SceneObjects.World
 
             var start = map.Layers.Last().Tiles.FirstOrDefault(x => x.Gid != 0);
 
-            pointer = AddChildCenter(new WorldPartySceneObject(Global.Game.Party));
+            pointer = worldPartySceneObject ?? AddChildCenter(new WorldPartySceneObject(Global.Game.Party));
             //pointer.Load(start.TileOffsetX, start.TileOffsetY);
 
             var back = map.Layers.FirstOrDefault(x => x.name == "Background");

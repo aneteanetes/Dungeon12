@@ -13,6 +13,8 @@ namespace Dungeon12.SceneObjects.World
             Width = WorldSettings.cellSize;
             Height = WorldSettings.cellSize;
             this.Image = "terrain.png";
+            //this.Blur = true;
+            
 
             ImageRegion = new Square()
             {

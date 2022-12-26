@@ -95,7 +95,7 @@ namespace Dungeon.Scenes
             return sceneObject;
         }
 
-        public void AddObjectCenter<TSceneObject>(TSceneObject sceneObject, bool horizontal = true, bool vertical = true)
+        public TSceneObject AddObjectCenter<TSceneObject>(TSceneObject sceneObject, bool horizontal = true, bool vertical = true)
             where TSceneObject : ISceneObject
         {
             if (sceneObject is ImageObject imageObject)
@@ -130,7 +130,7 @@ namespace Dungeon.Scenes
                 }
             }
 
-            AddObject(sceneObject);
+            return AddObject(sceneObject);
         }
 
         protected Dot MeasureImage(string img)
@@ -262,11 +262,6 @@ namespace Dungeon.Scenes
 
             var layered = elements.GroupBy(x => x.ZIndex)
                 .OrderByDescending(x => x.Key);
-
-            //if(elements.Any(x=>x.ZIndex>0))
-            //{
-            //    Debugger.Break();
-            //}
 
             IGrouping<int, ISceneControl> upper = null;
 

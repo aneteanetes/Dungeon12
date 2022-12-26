@@ -10,13 +10,17 @@ using Microsoft.Xna.Framework.Media;
 using ProjectMercury.Renderers;
 using System;
 using System.Reflection;
+using System.Reflection.Metadata;
 
 namespace Dungeon.Monogame
 {
     public partial class GameClient : Game, IGameClient
     {
+        public static GameClient Instance;
+
         public GameClient(GameSettings settings)
         {
+            Instance=this;
             this._settings = settings;
             GraphicsDeviceManagerInitialization(settings);
 
@@ -188,8 +192,11 @@ namespace Dungeon.Monogame
             LoadPenumbra();
             Load3D();
 
-            DrawClient = new DrawClient(GraphicsDevice, Content, ImageLoader, ParticleRenderer, penumbra);
-            
+            DrawClient = new DrawClient(GraphicsDevice, Content, ImageLoader, ParticleRenderer, penumbra)
+            {
+                SpriteBatchManager=new SpriteBatchManager(GraphicsDevice, Content)
+            };
+
             DungeonGlobal.Camera = this;
             DungeonGlobal.SceneManager = SceneManager =  new SceneManager(this);
             SceneManager.Start(isFatal ? "FATAL" : default);

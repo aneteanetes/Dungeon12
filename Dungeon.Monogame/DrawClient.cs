@@ -27,7 +27,7 @@ namespace Dungeon.Monogame
         /// settings
 
         private static readonly string DefaultFontXnbExistedFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.Resources.Fonts.xnb.Montserrat.Montserrat10.xnb";
-        private SpriteBatchManager SpriteBatchManager;
+        public SpriteBatchManager SpriteBatchManager;
         private ImageLoader ImageLoader;
         private PixelTexture PixelTexture;
         private GraphicsDevice GraphicsDevice;
@@ -59,7 +59,6 @@ namespace Dungeon.Monogame
             this.Content = content;
             this.camera = camera;
             this.ParticleRenderer = particleRenderer;
-            this.SpriteBatchManager=new SpriteBatchManager(graphicsDevice, content);
             this.ImageLoader = imageLoader;
             this.PixelTexture=new PixelTexture(graphicsDevice);
         }

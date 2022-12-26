@@ -9,6 +9,8 @@ namespace Dungeon12.Entities
 {
     internal class Hero : Battler
     {
+        public bool IsSelected { get; set; }
+
         public int FreePoints { get; set; } = 0;
 
         public int Strength { get; set; } = 10;

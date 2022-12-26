@@ -13,6 +13,8 @@
 
         public string TileSet { get; set; }
 
+        public bool Loop { get; set; }
+
         public Dot Size { get; set; }
 
         public List<Dot> Frames { get; set; }

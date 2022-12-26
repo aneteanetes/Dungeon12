@@ -795,10 +795,16 @@
                 return;
 
             InAnimation = false;
-            this.animation = null;
 
             this.animationTime = TimeSpan.Zero;
             this.frameTime = TimeSpan.Zero;
+
+            if (this.animation.Loop)
+            {
+                PlayAnimation(this.animation);
+            }
+            else
+                this.animation = null;
         }
 
         protected virtual void AnimationFrameChange() { }
