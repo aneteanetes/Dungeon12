@@ -4,6 +4,8 @@
     {
         public MaxValue Hp { get; set; } = new MaxValue(50, 50);
 
+        public int Endurance { get; set; } = 100;
+
         public int Level { get; private set; } = 1;
 
         public int Exp { get; private set; } = 0;

@@ -47,6 +47,10 @@ namespace Dungeon.Resources
                 {
                     if (liteDatabase == default)
                     {
+
+                        if (Store.MainPath==null)
+                            return null;
+
                         var caller = DungeonGlobal.GameAssemblyName;
                         var dir = Path.Combine(Store.MainPath, "Data");
                         if (!Directory.Exists(dir))

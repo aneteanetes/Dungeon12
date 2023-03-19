@@ -9,24 +9,35 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
     {
         public HeroPanel(Hero component) : base(component)
         {
-            this.Width = 254;
-            this.Height = 165;
+            this.Width = 360;
+            this.Height = 230;
 
             this.Image = "UI/char/back.png".AsmImg();
 
             this.AddChild(new ImageObject(component.Avatar)
             {
-                Width = 61,
-                Height = 92,
-                Top = 69,
-                Left = 3
+                Width = 87,
+                Height = 131,
+                Top = 95,
+                Left = 4
             });
 
-            var name = this.AddTextCenter(component.Name.AsDrawText().Gabriela().InColor(Global.CommonColor).InSize(14));
-            name.Left = 76;
-            name.Top = 67;
+            var name = this.AddTextCenter(component.Name.AsDrawText().Gabriela().InColor(Global.CommonColor).InSize(20));
+            name.Left = 105;
+            name.Top = 95;
 
             var abilLeft = 0;
+
+            this.AddChild(new ValueBar(component, true)
+            {
+                Left=110,
+                Top=168
+            });
+            this.AddChild(new ValueBar(component, false)
+            {
+                Left=110,
+                Top=197
+            });
 
             foreach (var abil in component.Abilities)
             {
@@ -35,8 +46,13 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
                     Left = abilLeft
                 });
 
-                abilLeft += 65;
+                abilLeft += 92;
             }
+        }
+
+        public override void Drawing()
+        {
+            base.Drawing();
         }
     }
 }

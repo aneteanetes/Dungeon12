@@ -20,15 +20,15 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
         public AbilityItem(Hero component, Ability ability) : base(component)
         {
             _ability = ability;
-            this.Width = 60;
-            this.Height = 60;
+            this.Width = 85;
+            this.Height = 85;
 
             this.Image = "UI/start/icon.png".AsmImg();
 
-            this.AddChild(new ImageObject($"Abilities/{ability.ClassName}.png")
+            this.AddChild(new ImageObject($"Abilities/{ability.ClassName}.tga")
             {
-                Width = 56,
-                Height = 56,
+                Width = 81,
+                Height = 81,
                 Left = 2,
                 Top = 2
             });

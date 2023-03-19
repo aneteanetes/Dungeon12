@@ -182,8 +182,8 @@
             }
 
             // удаляем ссылки
-
-            _current.sceneManager=null;
+            if (_current.Destroyable)
+                _current.sceneManager=null;
 
 
             Preapering = next;

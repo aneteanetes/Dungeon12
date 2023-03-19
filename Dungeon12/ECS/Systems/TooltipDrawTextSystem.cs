@@ -1,12 +1,10 @@
 ﻿using Dungeon;
 using Dungeon.Control;
-using Dungeon.Control.Pointer;
 using Dungeon.ECS;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.SceneObjects.Base;
-using System.Collections.Generic;
 
 namespace Dungeon12.ECS.Systems
 {

@@ -1,7 +1,6 @@
 ﻿using Dungeon;
 using Dungeon.Control;
 using Dungeon.Control.Keys;
-using Dungeon.Drawing;
 using Dungeon.SceneObjects;
 using Dungeon.Tiled;
 using Dungeon.Types;

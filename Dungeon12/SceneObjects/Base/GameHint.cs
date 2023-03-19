@@ -43,7 +43,9 @@ namespace Dungeon12.SceneObjects.Base
             BindParams(leftparams, description.Top+descMeasure.Y+5);
         }
 
-        private int FontSize = 12;
+        private int FontSize = 15;
+
+        public override bool Blur { get => base.Blur; set => base.Blur=value; }
 
         private double MeasureParams(string[] leftparams )
         {

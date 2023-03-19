@@ -49,7 +49,7 @@
 
             if (compileData)
             {
-                var resCompiler = new ResourceCompiler();
+                var resCompiler = new ResourceCompiler(logOnlyNewUpdate:true);
                 resCompiler.Compile();
             }
 
@@ -193,6 +193,9 @@
             }
             Logger.SaveIsNeeded($"Logs\\{DateTime.Now.ToString("dd=MM HH_mm_ss")}");
         };
+
+        public static Action OnRun { get; set; }
+
         public static bool GamePadConnected { get; set; } = false;
 
         public static DrawingSize Sizes { get; set; } = new DrawingSize();
@@ -210,6 +213,8 @@
         public abstract LocalizationStringDictionary GetStringsClass();
 
         public abstract void LoadStrings(object localizationStringDictionary);
+
+        public string this[string index] => GetStringsClass()[index];
 
         public static void Run(IGameRunner drawFrontend)
         {

@@ -1,5 +1,6 @@
 ﻿namespace Dungeon.Scenes
 {
+    using Dungeon.Localization;
     using Dungeon.Logging;
     using Dungeon.Scenes.Manager;
     using System;
@@ -17,6 +18,8 @@
 
     public abstract class GameScene : CommandScene
     {
+        public LocalizationStringDictionary Strings => DungeonGlobal.GetBindedGlobal().GetStringsClass();
+
         public object Freezer;
 
         public bool InGame { get; set; }

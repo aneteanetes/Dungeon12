@@ -5,9 +5,9 @@ using System.Reflection;
 
 namespace Dungeon.Localization
 {
-    public abstract class LocalizationStringDictionary
+    public class LocalizationStringDictionary
     {
-        public LocalizationStringDictionary()
+        public LocalizationStringDictionary(string relativeLocalizationFilesPath = "locale", string defaultLanguageCode = "ru")
         {
             this.GetType().GetProperties().ForEach(p =>
             {
@@ -16,9 +16,9 @@ namespace Dungeon.Localization
             });
         }
 
-        public abstract string ___RelativeLocalizationFilesPath { get; }
+        public virtual string ___RelativeLocalizationFilesPath { get; }
 
-        public abstract string ___DefaultLanguageCode { get; }
+        public virtual string ___DefaultLanguageCode { get; }
 
         public Dictionary<string, string> Values { get; set; } = new Dictionary<string, string>();
 

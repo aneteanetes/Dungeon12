@@ -210,5 +210,7 @@
         Action OnDestroy { get; set; }
 
         void Init();
+
+        void Drawing();
     }
 }

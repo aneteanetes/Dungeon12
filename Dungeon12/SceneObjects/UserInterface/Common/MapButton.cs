@@ -26,9 +26,9 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
             {
                 _disabled = value;
                 //if (value)
-                //    Label.Text.ForegroundColor = DrawColor.Gray;
+                //    Label.Strings.ForegroundColor = DrawColor.Gray;
                 //else
-                //    Label.Text.ForegroundColor = DrawColor.White;
+                //    Label.Strings.ForegroundColor = DrawColor.White;
             }
         }
 

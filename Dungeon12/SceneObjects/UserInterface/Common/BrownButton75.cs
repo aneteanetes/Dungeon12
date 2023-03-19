@@ -53,7 +53,7 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
 
             //DungeonGlobal.AudioPlayer.Effect("focus.wav".AsmSoundRes());
             Image = "UI/Common/brownbutton75_light.png".AsmImg();
-            //this.textControl.Text.Paint(ActiveColor, true);
+            //this.textControl.Strings.Paint(ActiveColor, true);
         }
 
         public override void Unfocus()
@@ -62,7 +62,7 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
                 return;
 
             Image = "UI/Common/brownbutton75.png".AsmImg();
-            //this.textControl.Text.Paint(InactiveColor, true);
+            //this.textControl.Strings.Paint(InactiveColor, true);
         }
     }
 }

@@ -80,13 +80,18 @@
             }
         }
 
-        public TextObject AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical = true, double parentWidth=0)
+        public TextObject AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical = true, double parentWidth = 0)
+            => AddTextCenter<TextObject>(drawText,horizontal,vertical,parentWidth);
+            
+
+        public T AddTextCenter<T>(IDrawText drawText, bool horizontal = true, bool vertical = true, double parentWidth=0)
+            where T : SceneObject<IDrawText>
         {
             var boundObj = parentWidth == 0
                 ? this as ISceneObject
                 : new EmptySceneObject() { Width = parentWidth, Height = this.Height };
 
-            var textControl = new TextObject(drawText);
+            var textControl = typeof(T).New(drawText).As<T>();
             var measure = DungeonGlobal.GameClient.MeasureText(textControl.Text, parentWidth==0
                 ? this
                 : new EmptySceneObject() { Width = parentWidth });
@@ -303,6 +308,10 @@
         /// Relative
         /// </summary>
         public virtual double Top { get; set; }
+
+        public double LeftMax => Width+Left;
+
+        public double TopMax => Height+Top;
 
         /// <summary>
         /// Relative
@@ -649,7 +658,7 @@
 
         public bool AlphaBlend { get; set; }
 
-        public IDrawColor Color { get; set; } = DrawColor.White;
+        public IDrawColor Color { get; set; }
 
         public FlipStrategy Flip { get; set; } = FlipStrategy.None;
 
@@ -864,5 +873,7 @@
         }
 
         public virtual void Init() { }
+
+        public virtual void Drawing() { }
     }
 }

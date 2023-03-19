@@ -1,6 +1,7 @@
 ﻿using Dungeon.Global;
 using Dungeon.Monogame.Settings;
 using System;
+using System.Threading.Tasks;
 
 namespace Dungeon.Monogame.Runner
 {
@@ -33,6 +34,9 @@ namespace Dungeon.Monogame.Runner
                     game.Dispose();
                     Environment.Exit(0);
                 };
+
+                DungeonGlobal.OnRun?.Invoke();
+
                 game.Run();
             }
         }

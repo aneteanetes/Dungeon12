@@ -1,22 +1,17 @@
 ﻿using Dungeon;
 using Dungeon.Control.Gamepad;
 using Dungeon.Drawing.SceneObjects;
-using Dungeon.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using Dungeon.Types;
-using Dungeon12.Drawing.SceneObjects;
-using Dungeon12.Locale;
 using Dungeon12.SceneObjects.UserInterface.Common;
-using Dungeon12.Scenes.Create;
-using Dungeon12.Scenes.Main;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Dungeon12.Scenes
 {
-    internal class StartScene : Dungeon.Scenes.StartScene<TCGScene, CreateScene, MainScene>
+    internal class StartScene : StartScene<TCGScene, CreateScene>
     {
         public StartScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -48,12 +43,12 @@ namespace Dungeon12.Scenes
         {
             var data = new (string text, Action click, bool disabled)[]
             {
-                (Global.Strings["NewGame"],NewGame,false),
-                (Global.Strings["Save"],SaveGame,!InGame),
-                (Global.Strings["Load"],LoadGame,true),
-                (Global.Strings["Settings"],Settings,false),
-                (Global.Strings["FastGame"],TCG,false),
-                (Global.Strings["ExitGame"],Exit,false)
+                (Strings["NewGame"],NewGame,false),
+                (Strings["Save"],SaveGame,!InGame),
+                (Strings["Load"],LoadGame,true),
+                (Strings["Settings"],Settings,false),
+                (Strings["Credits"],TCG,false),
+                (Strings["ExitGame"],Exit,false)
             };
 
             var y = 450;

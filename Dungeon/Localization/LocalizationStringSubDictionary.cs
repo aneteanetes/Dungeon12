@@ -11,6 +11,6 @@
             _propertyName= propertyName;
         }
 
-        public string this[string @const] => _localizationStringDictionary[@const+_propertyName];
+        public string this[string @const] => _localizationStringDictionary[_propertyName+"."+@const];
     }
 }

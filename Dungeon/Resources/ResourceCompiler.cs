@@ -43,9 +43,11 @@ namespace Dungeon.Resources
         }
 
         private static bool log = false;
+        private static bool _logOnlyNewUpdate = false;
 
-        public ResourceCompiler(bool logging = false)
+        public ResourceCompiler(bool logging = false, bool logOnlyNewUpdate=false)
         {
+            _logOnlyNewUpdate=logOnlyNewUpdate;
             log = logging;
             LastBuild = GetLastResourceManifestBuild();
             CurrentBuild = new ResourceManifest();
@@ -138,8 +140,8 @@ namespace Dungeon.Resources
 
             if (res == default)
             {
-                if (log)
-                    Console.WriteLine($"compiling {filePath}");
+                if (log || _logOnlyNewUpdate)
+                    Console.WriteLine($"Add file: {filePath}");
                 CompileNewResource(filePath, db, lastTime);
             }
             else
@@ -154,8 +156,8 @@ namespace Dungeon.Resources
         {
             if (res.LastWriteTime.ToString() != lastTime.ToString())
             {
-                if (log)
-                    Console.WriteLine($"Compile file: {file}");
+                if (log || _logOnlyNewUpdate)
+                    Console.WriteLine($"Update file: {file}");
                 CompileExistedResource(file, db, res.Path, lastTime);
             }
         }

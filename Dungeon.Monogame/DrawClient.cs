@@ -318,6 +318,8 @@ namespace Dungeon.Monogame
             if (sceneObject.Opacity == 0)
                 return;
 
+            sceneObject.Drawing();
+
             Texture2D image = ImageLoader.LoadTexture2D(sceneObject.Image, sceneObject);
 
             if (image == default)
@@ -468,9 +470,9 @@ namespace Dungeon.Monogame
             }
             else
             {
-                samplerstate =sceneObject.Mode == DrawMode.Normal
+                samplerstate =/*sceneObject.Mode == DrawMode.Normal
                     ? SamplerState.PointWrap
-                    : SamplerState.LinearWrap;
+                    : */SamplerState.LinearWrap;
 
                 var sb = SpriteBatchManager.GetSpriteBatch(samplerstate);
 

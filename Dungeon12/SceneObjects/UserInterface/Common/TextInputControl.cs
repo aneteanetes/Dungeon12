@@ -194,7 +194,7 @@
             if (!autofocus && !focus)
                 return;
 
-            //var text = typingText.Text;
+            //var text = typingText.Strings;
 
             if (key == Key.Enter)
             {
