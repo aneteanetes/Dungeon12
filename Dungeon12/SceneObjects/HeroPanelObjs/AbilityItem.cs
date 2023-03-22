@@ -17,7 +17,7 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
     {
         Ability _ability;
 
-        public AbilityItem(Hero component, Ability ability) : base(component)
+        public AbilityItem(Hero component, Ability ability, int idx=0) : base(component)
         {
             _ability = ability;
             this.Width = 85;
@@ -25,7 +25,62 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
 
             this.Image = "UI/start/icon.png".AsmImg();
 
-            this.AddChild(new ImageObject($"Abilities/{ability.ClassName}.tga")
+            var img = $"Abilities/{ability.ClassName}.tga";
+
+            if (idx>0)
+            {
+                switch (component.Archetype)
+                {
+                    case Archetype.Warrior:
+                        switch (idx)
+                        {
+                            case 1: img = $"AbilitiesPeacefull/Landscape.tga"; break;
+                            case 2: img = $"AbilitiesPeacefull/Eating.tga"; break;
+                            case 3: img = $"AbilitiesPeacefull/Repair.tga"; break;
+                            case 4: img = $"AbilitiesPeacefull/Smithing.tga"; break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case Archetype.Mage:
+                        switch (idx)
+                        {
+                            case 1: img = $"AbilitiesPeacefull/Portals.tga"; break;
+                            case 2: img = $"AbilitiesPeacefull/Attension.tga"; break;
+                            case 3: img = $"AbilitiesPeacefull/Enchantment.tga"; break;
+                            case 4: img = $"AbilitiesPeacefull/Alchemy.tga"; break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case Archetype.Thief:
+                        switch (idx)
+                        {
+                            case 1: img = $"AbilitiesPeacefull/Traps.tga"; break;
+                            case 2: img = $"AbilitiesPeacefull/Lockpicking.tga"; break;
+                            case 3: img = $"AbilitiesPeacefull/Stealing.tga"; break;
+                            case 4: img = $"AbilitiesPeacefull/Leatherwork.tga"; break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case Archetype.Priest:
+                        switch (idx)
+                        {
+                            case 1: img = $"AbilitiesPeacefull/Prayers.tga"; break;
+                            case 2: img = $"AbilitiesPeacefull/FoodStoring.tga"; break;
+                            case 3: img = $"AbilitiesPeacefull/Trade.tga"; break;
+                            case 4: img = $"AbilitiesPeacefull/Tailoring.tga"; break;
+                            default:
+                                break;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            this.AddChild(new ImageObject(img)
             {
                 Width = 81,
                 Height = 81,

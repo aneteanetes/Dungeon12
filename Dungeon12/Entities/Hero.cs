@@ -42,10 +42,10 @@ namespace Dungeon12.Entities
             switch (Archetype)
             {
                 case Archetype.Warrior:
-                    Landscape = Eating = Repair = Weaponcraft = 0;
+                    Landscape = Eating = Repair = Smithing = 0;
                     break;
                 case Archetype.Mage:
-                    Portals = Attension = Spiritism = Alchemy = 0;
+                    Portals = Attension = Enchantment = Alchemy = 0;
                     break;
                 case Archetype.Thief:
                     Traps = Lockpicking = Stealing = Leatherwork = 0;
@@ -63,10 +63,10 @@ namespace Dungeon12.Entities
             Skill.Landscape => Landscape,
             Skill.Eating => Eating,
             Skill.Repair => Repair,
-            Skill.Smithing => Weaponcraft,
+            Skill.Smithing => Smithing,
             Skill.Portals => Portals,
             Skill.Attension => Attension,
-            Skill.Enchantment => Spiritism,
+            Skill.Enchantment => Enchantment,
             Skill.Alchemy => Alchemy,
             Skill.Traps => Traps,
             Skill.Lockpicking => Lockpicking,
@@ -128,11 +128,11 @@ namespace Dungeon12.Entities
         public int Landscape { get; set; }
         public int Eating { get; set; }
         public int Repair { get; set; }
-        public int Weaponcraft { get; set; }
+        public int Smithing { get; set; }
 
         public int Portals { get; set; }
         public int Attension { get; set; }
-        public int Spiritism { get; set; }
+        public int Enchantment { get; set; }
         public int Alchemy { get; set; }
 
         public int Traps { get; set; }

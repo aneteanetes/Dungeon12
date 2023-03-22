@@ -47,7 +47,7 @@ namespace Dungeon12.SceneObjects.Create
 
                 this.Image = "UI/start/icon.png".AsmImg();
 
-                this.AddChild(new ImageObject($"Abilities/{ability.ClassName}.png")
+                this.AddChild(new ImageObject($"Abilities/{ability.ClassName}.tga")
                 {
                     Width = 56,
                     Height = 56,

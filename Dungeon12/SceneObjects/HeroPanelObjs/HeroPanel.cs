@@ -7,7 +7,7 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
 {
     internal class HeroPanel : SceneControl<Hero>
     {
-        public HeroPanel(Hero component) : base(component)
+        public HeroPanel(Hero component, bool isPeaceful=false) : base(component)
         {
             this.Width = 360;
             this.Height = 230;
@@ -39,14 +39,17 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
                 Top=197
             });
 
+            int i = 1;
+
             foreach (var abil in component.Abilities)
             {
-                this.AddChild(new AbilityItem(Component, abil)
+                this.AddChild(new AbilityItem(Component, abil, isPeaceful ? i : 0)
                 {
                     Left = abilLeft
-                });
+                });                
 
                 abilLeft += 92;
+                i++;
             }
         }
 
