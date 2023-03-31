@@ -1,5 +1,7 @@
-﻿using Dungeon.Drawing.SceneObjects;
+﻿using Dungeon.Drawing;
+using Dungeon.Drawing.SceneObjects;
 using Dungeon.GameObjects;
+using Dungeon.View.Interfaces;
 using System;
 
 namespace Dungeon.SceneObjects.Construct
@@ -8,7 +10,7 @@ namespace Dungeon.SceneObjects.Construct
     {
         public Container() : base(GameComponentEmpty.Empty)
         {
-            Color = ConsoleColor.Black;
+            Color = new DrawColor(ConsoleColor.Black);
             Depth = 1;
             Opacity = 1;
         }

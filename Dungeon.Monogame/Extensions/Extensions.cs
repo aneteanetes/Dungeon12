@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.CompilerServices;
+using Dungeon.Drawing.Impl;
+using Dungeon.Drawing;
 
 namespace Dungeon.Monogame
 {
@@ -61,6 +63,19 @@ namespace Dungeon.Monogame
             }
 
             return color;
+        }
+
+        public static Color ToColor(this IDrawColor drawColor)
+        {
+            var alpha = drawColor.A;
+
+            if (drawColor.Opacity > 0 && drawColor.Opacity < 1)
+            {
+                var new_value = drawColor.Opacity * 255;
+                alpha = System.Convert.ToByte((int)Math.Round(new_value));
+            }
+
+            return new Color(drawColor.R, drawColor.G, drawColor.B, (byte)alpha);
         }
     }
 }

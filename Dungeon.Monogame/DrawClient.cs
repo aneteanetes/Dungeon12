@@ -6,6 +6,7 @@ using Dungeon.View.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using Penumbra;
 using ProjectMercury;
 using ProjectMercury.Renderers;
@@ -589,9 +590,7 @@ namespace Dungeon.Monogame
         {
             if (drawablePath.PathPredefined == PathPredefined.Rectangle)
             {
-                var color = drawablePath.BackgroundColor;
-
-                var drawColor = new Color(color.R, color.G, color.B, (float)color.Opacity);
+                var drawColor = drawablePath.BackgroundColor.ToColor();
                 var pathReg = drawablePath.Region;
 
                 var rect = new Rectangle((int)x, (int)y, (int)(pathReg.Width), (int)(pathReg.Height));
@@ -638,13 +637,7 @@ namespace Dungeon.Monogame
                 var fromVector = new Vector2(from.Xf, from.Yf);
                 var toVector = new Vector2(to.Xf, to.Yf);
 
-                var color = drawablePath.BackgroundColor;
-
-                var alpha = color.Opacity == 0
-                    ? color.A
-                    : color.Opacity;
-
-                var drawColor = new Color(color.R, color.G, color.B, (float)alpha);
+                var drawColor = drawablePath.BackgroundColor.ToColor();
 
                 DrawLineTo(texture, fromVector, toVector, drawColor, (int)drawablePath.Depth);
             }

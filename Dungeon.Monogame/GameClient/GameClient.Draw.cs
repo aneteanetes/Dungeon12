@@ -135,10 +135,6 @@ namespace Dungeon.Monogame
 
             DrawDebugInfo();
 
-#warning code changed and commented cuz idk for what
-            //if (spriteBatch.IsOpened)
-            //    spriteBatch.End();
-
             Draw3D();
             base.Draw(gameTime);
 

@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="Components\Movable\" />
+    <Folder Include="Resources\Images\Backgrounds\Regions\" />
     <Folder Include="Resources\Loot\" />
   </ItemGroup>
 </Project>

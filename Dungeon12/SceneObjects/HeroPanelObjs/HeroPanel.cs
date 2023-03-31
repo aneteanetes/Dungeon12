@@ -43,7 +43,7 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
 
             foreach (var abil in component.Abilities)
             {
-                this.AddChild(new AbilityItem(Component, abil, isPeaceful ? i : 0)
+                this.AddChild(new AbilityItemBig(Component, abil, isPeaceful ? i : 0)
                 {
                     Left = abilLeft
                 });                

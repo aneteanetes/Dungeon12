@@ -1,4 +1,5 @@
 ﻿using Dungeon.Control.Keys;
+using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects.Base;
 using Dungeon.View.Interfaces;
@@ -55,7 +56,7 @@ namespace Dungeon.SceneObjects
 
                 this.AddChild(new DarkRectangle()
                 {
-                    Color = ConsoleColor.Gray,
+                    Color = new DrawColor(ConsoleColor.Gray),
                     Width = 3,
                     Height = 2,
                     Top=-1,

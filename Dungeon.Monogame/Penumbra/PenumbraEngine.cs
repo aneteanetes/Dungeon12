@@ -97,7 +97,7 @@ namespace Penumbra
 
             // Switch render target to a diffuse map. This is where users will render content to be lit.            
             Device.SetRenderTargets(Textures.DiffuseMapBindings);
-            Device.Clear(Color.Black);
+            Device.Clear(Color.White);
         }
 
         public void Render()

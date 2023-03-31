@@ -30,7 +30,6 @@ namespace Dungeon.Monogame
         /// </summary>
         public void Flush()
         {
-
         }
     }
 }

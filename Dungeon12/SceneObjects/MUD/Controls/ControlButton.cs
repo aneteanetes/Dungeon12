@@ -1,11 +1,9 @@
 ﻿using Dungeon;
 using Dungeon.Control;
-using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
-using System;
 
-namespace Dungeon12.SceneObjects.RegionScreen
+namespace Dungeon12.SceneObjects.MUD.Controls
 {
     internal class ControlButton : EmptySceneControl, ITooltipedDrawText
     {
@@ -21,7 +19,7 @@ namespace Dungeon12.SceneObjects.RegionScreen
             Width = 75;
             OnClick = click;
             Image = $"UI/layout/btns/{@char}{(isdisabled ? "d" : "")}.png".AsmImg();
-            TooltipText = tooltipText.AsDrawText().Gabriela();
+            TooltipText = Global.Strings[tooltipText].AsDrawText().Gabriela();
         }
 
         private readonly Action OnClick;

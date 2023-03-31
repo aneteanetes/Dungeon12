@@ -15,6 +15,7 @@ namespace Dungeon.Monogame
         private int _lastFpsFrame;
         private double _fps;
         readonly Stopwatch _st = Stopwatch.StartNew();
+        private SpriteFont spriteFontFPS;
 
         private void DrawDebugInfo()
         {
@@ -38,19 +39,22 @@ namespace Dungeon.Monogame
                 }
                 //var text = $"Версия: {DungeonGlobal.Version}";
 
-                using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(DefaultFontXnbExistedFile))
+                if (spriteFontFPS==null)
                 {
-                    if (stream.CanSeek)
+                    using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(DefaultFontXnbExistedFile))
                     {
-                        stream.Seek(0, SeekOrigin.Begin);
+                        if (stream.CanSeek)
+                        {
+                            stream.Seek(0, SeekOrigin.Begin);
+                        }
+
+                        spriteFontFPS = Content.Load<SpriteFont>(DefaultFontXnbExistedFile, stream);
+
+                        //spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);                        
                     }
-
-                    var font = Content.Load<SpriteFont>(DefaultFontXnbExistedFile, stream);
-
-                    //spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);
-
-                    DefaultSpriteBatch.DrawString(font, DungeonGlobal.FPS.ToString("F0"), new Vector2((this.Window.ClientBounds.Width - 50) - 2, 2), Color.Yellow);
                 }
+
+                DefaultSpriteBatch.DrawString(spriteFontFPS, DungeonGlobal.FPS.ToString("F0"), new Vector2((this.Window.ClientBounds.Width - 50) - 2, 2), Color.Yellow);
 
                 if (neeedClose)
                 {

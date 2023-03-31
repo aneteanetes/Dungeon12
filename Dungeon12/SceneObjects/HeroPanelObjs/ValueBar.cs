@@ -14,7 +14,7 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
             this.Width=235;
             this.Height=17;
 
-            var textProvide = () => (isHp ? component.Hp.ToString() : component.Endurance.ToString()).AsDrawText().Gabriela();
+            var textProvide = () => (isHp ? component.Hp.ToString() : component.Endurance.ToString()).AsDrawText().InBold().InSize(13).Calibri();
 
             this.AddChild(new ValueBarColor(isHp)
             {
@@ -27,7 +27,7 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
                 }
             });
 
-            var label = this.AddTextCenter<BindedTextObject>(textProvide(), true, true, 235);
+            var label = this.AddTextCenter<BindedTextObject>(textProvide(), true, true);
             label._label=textProvide;
         }
 
@@ -54,7 +54,7 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
 
         private class BindedTextObject : TextObject
         {
-            public Func<DrawText> _label;
+            public Func<IDrawText> _label;
 
             public BindedTextObject(IDrawText component) : base(component)
             {

@@ -10,10 +10,8 @@
 
     [Hidden]
     public class ColoredRectangle<TComponent> : SceneControl<TComponent>
-        where TComponent : class, IGameComponent
+        where TComponent : class
     {
-        public ConsoleColor Color { get; set; }
-
         public bool Fill { get; set; }
 
         private double opacity;
@@ -71,7 +69,7 @@
 
         public ColoredRectangle<TComponent> DarkPanel()
         {
-            Color = ConsoleColor.Black;
+            Color = new DrawColor(ConsoleColor.Black);
             Depth = 1;
             Fill = true;
             Opacity = 0.5;
@@ -86,10 +84,10 @@
     {
         public DarkRectangle() : base(GameComponentEmpty.Empty)
         {
-            Color = ConsoleColor.Black;
+            Color = new DrawColor(ConsoleColor.Black);
             Depth = 1;
             Fill = true;
-            Opacity = 0.5;
+            Opacity = .5;
             Round = 5;
         }
     }

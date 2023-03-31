@@ -100,11 +100,11 @@
             AbsolutePosition = absolute;
             limit = chars;
 
-            Color = ConsoleColor.Black;
+            Color = new DrawColor(ConsoleColor.Black);
             Depth = 1;
             Fill = true;
 
-            Opacity = invisibleBack ? 0 : 0.5;
+            Opacity = invisibleBack ? 000.1 : 0.5;
             Round = 5;
 
             this.capitalize = capitalize;
@@ -129,7 +129,7 @@
 
             drawText.SetText("");
 
-            typingText = new TypingText(drawText, carrige);
+            typingText = new TypingText(drawText, carrige,placeholder);
             SetInputTextPosition();
 
             AddChild(typingText);
@@ -161,7 +161,7 @@
                 };
                 AddChild(focusRect);
                 if (_invisibleBack)
-                    focusRect.Opacity = 0;
+                    focusRect.Opacity = 0.0001;
             }
         }
 
@@ -386,7 +386,7 @@
 
             public TextObject carriage;
 
-            public TypingText(IDrawText text, bool IsCarriage) : base(text)
+            public TypingText(IDrawText text, bool IsCarriage, IDrawText placeholder = null) : base(text)
             {
                 if (IsCarriage)
                 {
@@ -396,7 +396,8 @@
                     carriage = this.AddTextCenter(carriagetext);
                     carriage.Left = this.Width;
                     carriage.Visible = false;
-                    //carriage.Top = this.MeasureText(carriagetext).Y / 4;
+                    if (placeholder!= null)
+                        carriage.Top = this.MeasureText(placeholder).Y / 6;
                 }
             }
 
@@ -412,7 +413,10 @@
             public void HideCarriage()
             {
                 if (carriage != default)
+                {
                     carriage.Visible = false;
+                    Time= default;
+                }
             }
 
 
@@ -452,7 +456,7 @@
             }
 
             public TimeSpan Time { get; set; }
-                        private bool down = false;
+            private bool down = false;
 
 
             public double opacityMultiplier = 0.1;
@@ -464,7 +468,7 @@
 
             public BlurRect()
             {
-                Color = ConsoleColor.Gray;
+                Color = new DrawColor(ConsoleColor.Gray);
                 Fill = true;
                 Opacity = 0.5;
             }

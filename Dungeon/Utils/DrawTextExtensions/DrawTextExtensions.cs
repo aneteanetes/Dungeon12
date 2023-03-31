@@ -20,6 +20,13 @@ namespace Dungeon
             return new DrawText(value,fontAsm: Assembly.GetCallingAssembly().GetName().Name).DefaultFont();
         }
 
+        public static T WithOpacity<T>(this T drawText, double opacity)
+            where T : IDrawText
+        {
+            drawText.Opacity=opacity;
+            return drawText;
+        }
+
         /// <summary>
         /// 
         /// <para>

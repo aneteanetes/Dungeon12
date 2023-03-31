@@ -20,7 +20,8 @@ namespace Dungeon.Monogame
 
         public GameClient(GameSettings settings)
         {
-            Instance=this;
+            InactiveSleepTime=settings.DropFpsOnUnfocus;
+            Instance =this;
             this._settings = settings;
             GraphicsDeviceManagerInitialization(settings);
 

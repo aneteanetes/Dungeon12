@@ -17,6 +17,9 @@ namespace Dungeon.Drawing
             A = rgba.A;
         }
 
+        public DrawColor(IDrawColor color)
+            :this(color.R,color.G,color.B,color.A) { }
+
 
         public DrawColor(byte r, byte g, byte b)
         {

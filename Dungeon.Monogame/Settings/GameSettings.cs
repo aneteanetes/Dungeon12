@@ -1,11 +1,14 @@
 ﻿using Dungeon.Utils;
 using Microsoft.Xna.Framework;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dungeon.Monogame.Settings
 {
     public class GameSettings
     {
+        public TimeSpan DropFpsOnUnfocus { get; set; } = TimeSpan.Zero;
+
         [Display(Name = "Во весь экран")]
         public bool IsFullScreen { get; set; } = true;
 

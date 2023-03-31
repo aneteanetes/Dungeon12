@@ -13,13 +13,16 @@ using System.Text;
 
 namespace Dungeon12.SceneObjects.HeroPanelObjs
 {
-    internal class AbilityItem : SceneControl<Hero>, ITooltipedDrawText, IMouseHint, ICursored
+    internal class AbilityItemBig : SceneControl<Hero>, ITooltipedDrawText, IMouseHint, ICursored
     {
         Ability _ability;
 
-        public AbilityItem(Hero component, Ability ability, int idx=0) : base(component)
+        private string _title;
+
+        public AbilityItemBig(Hero component, Ability ability, int idx=0) : base(component)
         {
             _ability = ability;
+            _title = _ability.ClassName;
             this.Width = 85;
             this.Height = 85;
 
@@ -34,10 +37,10 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
                     case Archetype.Warrior:
                         switch (idx)
                         {
-                            case 1: img = $"AbilitiesPeacefull/Landscape.tga"; break;
-                            case 2: img = $"AbilitiesPeacefull/Eating.tga"; break;
-                            case 3: img = $"AbilitiesPeacefull/Repair.tga"; break;
-                            case 4: img = $"AbilitiesPeacefull/Smithing.tga"; break;
+                            case 1: img = $"AbilitiesPeacefull/Landscape.tga"; _title = "Landscape"; break;
+                            case 2: img = $"AbilitiesPeacefull/Eating.tga"; _title = "Eating"; break;
+                            case 3: img = $"AbilitiesPeacefull/Repair.tga"; _title = "Repair"; break;
+                            case 4: img = $"AbilitiesPeacefull/Smithing.tga"; _title = "Smithing"; break;
                             default:
                                 break;
                         }
@@ -45,10 +48,10 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
                     case Archetype.Mage:
                         switch (idx)
                         {
-                            case 1: img = $"AbilitiesPeacefull/Portals.tga"; break;
-                            case 2: img = $"AbilitiesPeacefull/Attension.tga"; break;
-                            case 3: img = $"AbilitiesPeacefull/Enchantment.tga"; break;
-                            case 4: img = $"AbilitiesPeacefull/Alchemy.tga"; break;
+                            case 1: img = $"AbilitiesPeacefull/Portals.tga"; _title = "Portals"; break;
+                            case 2: img = $"AbilitiesPeacefull/Attension.tga"; _title = "Attension"; break;
+                            case 3: img = $"AbilitiesPeacefull/Enchantment.tga"; _title = "Enchantment"; break;
+                            case 4: img = $"AbilitiesPeacefull/Alchemy.tga"; _title = "Alchemy"; break;
                             default:
                                 break;
                         }
@@ -56,10 +59,10 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
                     case Archetype.Thief:
                         switch (idx)
                         {
-                            case 1: img = $"AbilitiesPeacefull/Traps.tga"; break;
-                            case 2: img = $"AbilitiesPeacefull/Lockpicking.tga"; break;
-                            case 3: img = $"AbilitiesPeacefull/Stealing.tga"; break;
-                            case 4: img = $"AbilitiesPeacefull/Leatherwork.tga"; break;
+                            case 1: img = $"AbilitiesPeacefull/Traps.tga"; _title = "Traps"; break;
+                            case 2: img = $"AbilitiesPeacefull/Lockpicking.tga"; _title = "Lockpicking"; break;
+                            case 3: img = $"AbilitiesPeacefull/Stealing.tga"; _title = "Stealing"; break;
+                            case 4: img = $"AbilitiesPeacefull/Leatherwork.tga"; _title = "Leatherwork"; break;
                             default:
                                 break;
                         }
@@ -67,10 +70,10 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
                     case Archetype.Priest:
                         switch (idx)
                         {
-                            case 1: img = $"AbilitiesPeacefull/Prayers.tga"; break;
-                            case 2: img = $"AbilitiesPeacefull/FoodStoring.tga"; break;
-                            case 3: img = $"AbilitiesPeacefull/Trade.tga"; break;
-                            case 4: img = $"AbilitiesPeacefull/Tailoring.tga"; break;
+                            case 1: img = $"AbilitiesPeacefull/Prayers.tga"; _title = "Prayers"; break;
+                            case 2: img = $"AbilitiesPeacefull/FoodStoring.tga"; _title = "FoodStoring"; break;
+                            case 3: img = $"AbilitiesPeacefull/Trade.tga"; _title = "Trade"; break;
+                            case 4: img = $"AbilitiesPeacefull/Tailoring.tga"; _title = "Tailoring"; break;
                             default:
                                 break;
                         }
@@ -103,7 +106,7 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
 
         public override bool Visible => Component.Archetype == _ability.Class;
 
-        public IDrawText TooltipText => $"{Global.Strings[_ability.ClassName]}".AsDrawText().Gabriela();
+        public IDrawText TooltipText => $"{Global.Strings[_title]}".AsDrawText().WithOpacity(1.1).Gabriela();
 
         public bool ShowTooltip => true;
 

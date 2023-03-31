@@ -12,6 +12,9 @@
             drawText.FontName = "Calibri";
             drawText.FontAssembly = "Dungeon12";
 
+            if (drawText.Bold)
+                drawText.FontName+=" Bold";
+
             return drawText;
         }
 

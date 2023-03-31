@@ -53,7 +53,9 @@ namespace Dungeon12.ECS.Systems
 
                 //tooltiped.RefreshTooltip();
 
-                var tooltipPosition = new Dot(sceneObject.ComputedPosition.X, sceneObject.ComputedPosition.Y - 20);
+                var pointer = Global.PointerLocation;
+
+                var tooltipPosition = new Dot(pointer.X, pointer.Y - 20);
 
                 if (!Tooltips.TryGetValue(tooltipedDrawText, out var tooltip) )
                 {
@@ -67,14 +69,14 @@ namespace Dungeon12.ECS.Systems
 #warning ОБЪЕКТЫ ЛИШИЛИСЬ ABSOLUTE POSITION, ПОЭТОМУ ТУЛТИПЫ ДОЛЖНЫ БЫТЬ НА АБСОЛЮТНОМ СЛОЕ
                     tooltip = new Tooltip(tooltipedDrawText.TooltipText, tooltipPosition)
                     {
-                        LayerLevel = 100
+                        //LayerLevel = 100
                     };
 
                     SceneLayer.AddObject(tooltip);
                     Tooltips[tooltipedDrawText] = tooltip;
                 }
 
-                tooltipPosition.X += sceneObject.Width / 2 - Global.GameClient.MeasureText(tooltip.TooltipText).X / 2;
+                tooltipPosition.X += sceneObject.Width / 2 - Global.GameClient.MeasureText(tooltip.Text.Text).X / 2;
 
                 if (tooltipPosition.Y < 0)
                 {
@@ -113,7 +115,7 @@ namespace Dungeon12.ECS.Systems
             Tooltips1[tooltiped] = tooltip;
 
 
-            tooltipPosition.X += sceneObject.Width / 2 - Global.GameClient.MeasureText(tooltip.TooltipText).X / 2;
+            tooltipPosition.X += sceneObject.Width / 2 - Global.GameClient.MeasureText(tooltip.Text.Text).X / 2;
 
             if (tooltipPosition.Y < 0)
             {

@@ -24,11 +24,7 @@
             }, position)
         { }
 
-        public IDrawText TooltipText { get; set; }
-
-        public override IDrawText Text => txt.Text;
-
-        TextObject txt;
+        public new TextObject Text { get; set; }
 
         public Tooltip(IDrawText drawText, Dot position, double opacity=.8)
         {
@@ -41,19 +37,18 @@
 
             var textSize = MeasureText(drawText);
 
-            Width = textSize.X + 10;
-            Height = textSize.Y + 5;
+            Width = textSize.X+5;
+            Height = textSize.Y+5;
 
-            this.AddBorder(opacity);
+
+            this.AddBorder(drawText.Opacity == 1 ? opacity : drawText.Opacity);
 
             //var text = txt = AddTextCenter(drawText);
             //text.Filtered = false;
 
-            drawText.SetText(" " + drawText.StringData);
+            //drawText.SetText(" " + drawText.StringData);
 
-            txt = this.AddText(drawText.SegoeUIBold(), 0, 0);
-            TooltipText = txt.Text;
-
+            Text = this.AddTextCenter(drawText.SegoeUIBold());
             //base.Left = position.X - Width / 2;
             //Top = position.Y;
         }
