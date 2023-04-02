@@ -8,6 +8,11 @@ namespace Dungeon12.SceneObjects.Create
 {
     internal class Charplate : SceneControl<Hero>
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         TextInputControl textInput;
 
         public Charplate(Hero component) : base(component)

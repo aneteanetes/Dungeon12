@@ -1,7 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Drawing;
-using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
+using Dungeon.SceneObjects.Base;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
@@ -13,6 +13,11 @@ namespace Dungeon12.SceneObjects.UI
 {
     internal class GlobalClock : SceneControl<Calendar>
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public override bool PerPixelCollision => true;
 
         public GlobalClock(Calendar component) : base(component, true)
@@ -31,6 +36,11 @@ namespace Dungeon12.SceneObjects.UI
 
         private class ClockFace : SceneControl<Calendar>
         {
+            public override void Throw(Exception ex)
+            {
+                throw ex;
+            }
+
             public ClockFace(Calendar calendar) : base(calendar)
             {
                 this.Width = 125;

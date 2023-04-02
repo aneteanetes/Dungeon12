@@ -7,6 +7,11 @@ namespace Dungeon12.SceneObjects.MUD
 {
     internal class LocationView : SceneObject<Location>
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public LocationView(Location component) : base(component)
         {
             this.Width=400;

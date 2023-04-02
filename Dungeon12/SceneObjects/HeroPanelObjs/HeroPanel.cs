@@ -7,6 +7,11 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
 {
     internal class HeroPanel : SceneControl<Hero>
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public HeroPanel(Hero component, bool isPeaceful=false) : base(component)
         {
             this.Width = 360;

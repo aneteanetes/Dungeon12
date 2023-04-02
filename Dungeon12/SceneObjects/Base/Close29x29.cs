@@ -7,6 +7,11 @@ namespace Dungeon12.SceneObjects.Stats
 {
     internal class Close29x29 : EmptySceneControl, ITooltiped
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public string TooltipText => "Закрыть";
 
         private ISceneObject _sceneObject;

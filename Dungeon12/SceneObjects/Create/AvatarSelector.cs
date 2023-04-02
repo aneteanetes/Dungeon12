@@ -12,6 +12,11 @@ namespace Dungeon12.SceneObjects.Create
 {
     internal class AvatarSelector : SceneControl<Hero>
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         private ImageObject AvatarViewer;
 
         private int index = 1;
@@ -73,6 +78,11 @@ namespace Dungeon12.SceneObjects.Create
 
         private class IndexButton : EmptySceneControl, ITooltipedDrawText
         {
+            public override void Throw(Exception ex)
+            {
+                throw ex;
+            }
+
             private bool _next;
 
             public IndexButton(bool next)

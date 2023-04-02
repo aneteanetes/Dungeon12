@@ -8,11 +8,11 @@
     {
         string Uid { get; }
 
-        float Depth { get; }
+        double Depth { get; }
 
         bool Fill { get; }
 
-        float Angle { get; }
+        double Angle { get; }
 
         float Radius { get; }
 

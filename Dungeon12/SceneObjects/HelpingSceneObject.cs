@@ -286,6 +286,11 @@ namespace Dungeon12.SceneObjects
             base.KeyDown(key, modifier, hold);
         }
 
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         private class ArrowImage : ImageObject
         {
             public ArrowImage() : base("Backgrounds/arrow.png".AsmImg())

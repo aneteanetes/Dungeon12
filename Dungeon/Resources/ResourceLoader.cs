@@ -159,8 +159,7 @@ namespace Dungeon.Resources
                 {
                     if (obj == default)
                         throw new KeyNotFoundException($"Ресурс {resource} не найден!");
-                    else
-                        throw new KeyNotFoundException($"Ресурс {resource} из объекта {obj} не найден!");
+                    else obj.Throw(new KeyNotFoundException($"Ресурс {resource} из объекта {obj} не найден!"));
                 }
                 else return default;
             }

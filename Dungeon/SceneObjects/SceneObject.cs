@@ -82,19 +82,30 @@
 
         public TextObject AddTextCenter(IDrawText drawText, bool horizontal = true, bool vertical = true, double parentWidth = 0)
             => AddTextCenter<TextObject>(drawText,horizontal,vertical,parentWidth);
-            
+
+        private class EmptyObj : SceneObject<GameComponentEmpty>
+        {
+            public EmptyObj() : base(new GameComponentEmpty())
+            {
+            }
+
+            public override void Throw(Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         public T AddTextCenter<T>(IDrawText drawText, bool horizontal = true, bool vertical = true, double parentWidth=0)
             where T : SceneObject<IDrawText>
         {
             var boundObj = parentWidth == 0
                 ? this as ISceneObject
-                : new EmptySceneObject() { Width = parentWidth, Height = this.Height };
+                : new EmptyObj() { Width = parentWidth, Height = this.Height };
 
             var textControl = typeof(T).New(drawText).As<T>();
             var measure = DungeonGlobal.GameClient.MeasureText(textControl.Text, parentWidth==0
                 ? this
-                : new EmptySceneObject() { Width = parentWidth });
+                : new EmptyObj() { Width = parentWidth });
 
             if (drawText.WordWrap)
             {
@@ -168,7 +179,7 @@
         {
             var measure = DungeonGlobal.GameClient.MeasureText(textControl.Text, parentWidth == 0
                 ? this
-                : new EmptySceneObject() { Width = parentWidth });
+                : new EmptyObj() { Width = parentWidth });
 
             var width = Width;
             var height = Height;
@@ -849,6 +860,17 @@
         public Action OnDestroy { get; set; }
 
         public bool IsDestoryed { get; private set; }
+        public double AngleDegree
+        {
+            get
+            {
+                return (180d / Math.PI) * Angle;
+            }
+            set
+            {
+                Angle = (Math.PI / 180d) * value;
+            }
+        }
 
         public virtual void Destroy()
         {
@@ -875,5 +897,7 @@
         public virtual void Init() { }
 
         public virtual void Drawing() { }
+
+        public virtual void Throw(Exception ex) { }
     }
 }

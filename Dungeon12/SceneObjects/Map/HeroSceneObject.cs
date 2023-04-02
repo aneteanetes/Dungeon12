@@ -11,6 +11,11 @@
 
     internal class HeroSceneObject : SceneControl<Hero>
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public override bool Shadow => true;
 
         public override bool Updatable => base.Updatable;

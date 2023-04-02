@@ -8,6 +8,11 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
 {
     internal class BrownButton : EmptySceneControl
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         readonly TextObject Label;
 
         public BrownButton(string text)

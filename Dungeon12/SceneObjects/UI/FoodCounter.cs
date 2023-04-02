@@ -1,6 +1,6 @@
 ﻿using Dungeon;
-using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
+using Dungeon.SceneObjects.Base;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using Dungeon12.Entities;
@@ -9,6 +9,11 @@ namespace Dungeon12.SceneObjects.UI
 {
     internal class FoodCounter : SceneControl<Food>
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public FoodCounter(Food component) : base(component, true)
         {
             this.Width = 255;
@@ -26,6 +31,11 @@ namespace Dungeon12.SceneObjects.UI
 
         private class Counter : SceneObject<Food>
         {
+            public override void Throw(Exception ex)
+            {
+                throw ex;
+            }
+
             public Counter(Food food) : base(food)
             {
             }

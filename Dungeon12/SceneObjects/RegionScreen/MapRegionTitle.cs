@@ -7,6 +7,7 @@ namespace Dungeon12.SceneObjects.RegionScreen
 {
     internal class MapRegionTitle : SceneObject<MapRegion>
     {
+
         public MapRegionTitle(MapRegion component) : base(component)
         {
             Image = "UI/layout/titleback.png".AsmImg();

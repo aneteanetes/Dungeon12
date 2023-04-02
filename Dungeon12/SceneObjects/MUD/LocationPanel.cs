@@ -6,6 +6,11 @@ namespace Dungeon12.SceneObjects.MUD
 {
     internal class LocationPanel : SceneControl<Location>
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public LocationPanel(Location location) :base(location)
         {
             this.Width=1120;

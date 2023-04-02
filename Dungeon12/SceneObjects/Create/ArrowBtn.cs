@@ -9,6 +9,11 @@ namespace Dungeon12.SceneObjects.Create
 {
     internal class ArrowBtn : EmptySceneControl, ITooltipedDrawText
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         private bool _right;
 
         public ArrowBtn(bool right=true)

@@ -10,16 +10,20 @@
     {
         public string Uid { get; } = Guid.NewGuid().ToString();
 
-        public float Depth { get; set; } = 1;
+        public double Depth { get; set; } = 1;
+
         public bool Fill { get; set; }
+
         public IDrawColor BackgroundColor { get; set; }
+
         public IDrawColor ForegroundColor { get; set; }
+
         public Square Region { get; set; }
 
         public List<Dot> Paths = new List<Dot>();
         public IEnumerable<Dot> Path => Paths;
 
-        public float Angle { get; set; }
+        public double Angle { get; set; }
 
         public string Texture { get; set; }
 

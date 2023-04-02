@@ -4,9 +4,9 @@
     using Dungeon.Control;
     using Dungeon.Control.Keys;
     using Dungeon.Drawing;
-    using Dungeon.Drawing.SceneObjects;
     using Dungeon.GameObjects;
     using Dungeon.SceneObjects;
+    using Dungeon.SceneObjects.Base;
     using Dungeon.View.Interfaces;
     using System;
     using System.Linq;

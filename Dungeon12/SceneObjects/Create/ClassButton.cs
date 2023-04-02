@@ -11,6 +11,11 @@ namespace Dungeon12.SceneObjects.Create
 {
     internal class ClassButton : SceneControl<Hero>, ITooltipedDrawText
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         Archetype _archetype;
 
         Selector _selector;
@@ -27,6 +32,11 @@ namespace Dungeon12.SceneObjects.Create
 
         private class Selector : SceneControl<Hero>
         {
+            public override void Throw(Exception ex)
+            {
+                throw ex;
+            }
+
             Archetype _archetype;
 
             public Selector(Hero c, Archetype archetype) : base(c)

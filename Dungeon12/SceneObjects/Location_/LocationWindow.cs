@@ -10,6 +10,11 @@ namespace Dungeon12.SceneObjects.Location_
 {
     internal class LocationWindow : SceneControl<MapPoint>, IAutoUnfreeze
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public LocationWindow(MapPoint component) : base(component)
         {
             DungeonGlobal.Freezer.Freeze(this);

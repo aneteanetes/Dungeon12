@@ -8,6 +8,11 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
 {
     internal class ImageObjectTooltiped : EmptySceneControl, ITooltipedDrawText
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public ImageObjectTooltiped(string imagePath, string tooltip)
         {
             TooltipText = tooltip.AsDrawText().Gabriela().InSize(12);

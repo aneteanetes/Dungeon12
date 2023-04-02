@@ -7,6 +7,11 @@ namespace Dungeon12.SceneObjects.MUD.Controls
 {
     internal class ButtonPanel : EmptySceneControl
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public ButtonPanel()
         {
             Width = 400;

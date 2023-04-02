@@ -9,6 +9,11 @@ namespace Dungeon12.SceneObjects.TCG
 {
     internal class CardSceneObject : SceneControl<Card>
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public CardSceneObject(Card component) : base(component, false)
         {
             this.Width = 500;
@@ -44,6 +49,11 @@ namespace Dungeon12.SceneObjects.TCG
 
         private class CardBackground : SceneObject<Card>
         {
+            public override void Throw(Exception ex)
+            {
+                throw ex;
+            }
+
 
             public CardBackground(Card component) : base(component)
             {

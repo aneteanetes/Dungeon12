@@ -1,12 +1,10 @@
 ﻿using Dungeon.Control;
 using Dungeon.GameObjects;
-using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Dungeon12
 {
-    internal class SceneControl<T> : Dungeon.SceneObjects.SceneControl<T> where T : class
+    internal abstract class SceneControl<T> : Dungeon.SceneObjects.SceneControl<T> where T : class
     {
         public SceneControl(T component, bool bindView = true) : base(component, bindView)
         {
@@ -19,14 +17,14 @@ namespace Dungeon12
         }
     }
 
-    internal class EmptySceneControl : SceneControl<GameComponentEmpty>
+    internal abstract class EmptySceneControl : SceneControl<GameComponentEmpty>
     {
         public EmptySceneControl() : base(new GameComponentEmpty())
         {
         }
     }
 
-    internal class TextObjectControl : SceneControl<IDrawText>
+    internal abstract class TextObjectControl : SceneControl<IDrawText>
     {
         public TextObjectControl(IDrawText component) : base(component)
         {

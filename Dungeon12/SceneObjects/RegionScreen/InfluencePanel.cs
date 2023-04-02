@@ -12,6 +12,11 @@ namespace Dungeon12.SceneObjects.RegionScreen
 {
     internal class InfluencePanel : SceneControl<MapRegion>
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public InfluencePanel(MapRegion component) : base(component)
         {
             this.Width = 195;

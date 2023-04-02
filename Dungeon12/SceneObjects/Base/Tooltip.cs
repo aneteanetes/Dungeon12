@@ -2,8 +2,8 @@
 {
     using Dungeon.Control;
     using Dungeon.Drawing;
-    using Dungeon.Drawing.SceneObjects;
     using Dungeon.SceneObjects;
+    using Dungeon.SceneObjects.Base;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using System;

@@ -13,6 +13,10 @@ namespace Dungeon12.SceneObjects.Create
 {
     internal class Abilities : SceneControl<Hero>
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
         public Abilities(Hero component) : base(component)
         {
             this.Height = 110;
@@ -39,6 +43,10 @@ namespace Dungeon12.SceneObjects.Create
         {
             Ability _ability;
 
+            public override void Throw(Exception ex)
+            {
+                throw ex;
+            }
             public AbilityItem(Hero component, Ability ability) : base(component)
             {
                 _ability = ability;

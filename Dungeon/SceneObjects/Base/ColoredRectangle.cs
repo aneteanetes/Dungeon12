@@ -1,4 +1,4 @@
-﻿namespace Dungeon.Drawing.SceneObjects
+﻿namespace Dungeon.SceneObjects.Base
 {
     using Dungeon.Drawing;
     using Dungeon.Drawing.Impl;
@@ -12,6 +12,10 @@
     public class ColoredRectangle<TComponent> : SceneControl<TComponent>
         where TComponent : class
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
         public bool Fill { get; set; }
 
         private double opacity;
@@ -31,7 +35,7 @@
 
         protected void UpdatePath()
         {
-            this.drawablePath = null;
+            drawablePath = null;
         }
 
         private DrawablePath drawablePath;
@@ -46,7 +50,7 @@
             {
                 if (drawablePath == null)
                 {
-                    var color = new DrawColor(this.Color)
+                    var color = new DrawColor(Color)
                     {
                         Opacity = Opacity,
                         A = 255
@@ -54,12 +58,12 @@
 
                     drawablePath = new DrawablePath
                     {
-                        Fill = this.Fill,
+                        Fill = Fill,
                         BackgroundColor = color,
-                        Depth = this.Depth,
+                        Depth = Depth,
                         PathPredefined = View.Enums.PathPredefined.Rectangle,
-                        Region = this.BoundPosition,
-                        Radius = (float)this.Round
+                        Region = BoundPosition,
+                        Radius = (float)Round
                     };
                 }
 

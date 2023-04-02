@@ -9,6 +9,11 @@ namespace Dungeon12.SceneObjects.RegionScreen
 {
     internal class FoodPanel : SceneControl<Party>
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public FoodPanel(Party component, bool bindView = true) : base(component, bindView)
         {
             this.Height = 65;
@@ -28,6 +33,11 @@ namespace Dungeon12.SceneObjects.RegionScreen
 
         private class FoodPlate : SceneControl<Food>, ITooltipedDrawText
         {
+            public override void Throw(Exception ex)
+            {
+                throw ex;
+            }
+
             public FoodPlate(Food component) : base(component)
             {
                 this.Width = 50;

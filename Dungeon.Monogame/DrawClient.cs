@@ -621,7 +621,7 @@ namespace Dungeon.Monogame
             {
                 Texture2D texture = default;
 
-                if (drawablePath.Texture != string.Empty)
+                if (drawablePath.Texture.IsNotEmpty())
                 {
                     texture = ImageLoader.LoadTexture2D(drawablePath.Texture);
                 }
@@ -639,11 +639,11 @@ namespace Dungeon.Monogame
 
                 var drawColor = drawablePath.BackgroundColor.ToColor();
 
-                DrawLineTo(texture, fromVector, toVector, drawColor, (int)drawablePath.Depth);
+                DrawLineTo(texture, fromVector, toVector, drawColor, (int)drawablePath.Depth, drawablePath.Angle);
             }
         }
 
-        public void DrawLineTo(Texture2D texture, Vector2 src, Vector2 dst, Color color, int depth)
+        public void DrawLineTo(Texture2D texture, Vector2 src, Vector2 dst, Color color, int depth, double angle)
         {
             if (texture == default)
             {
@@ -657,14 +657,16 @@ namespace Dungeon.Monogame
             //direction is destination - source vectors
             Vector2 direction = dst - src;
             //get the angle from 2 specified numbers (our point)
-            var angle = (float)Math.Atan2(direction.Y, direction.X);
+            if (angle==default)
+                angle = (float)Math.Atan2(direction.Y, direction.X);
+
             //calculate the distance between our two vectors
             float distance;
             Vector2.Distance(ref src, ref dst, out distance);
 
             //draw the sprite with rotation
             var sb = SpriteBatchManager.GetSpriteBatch(SamplerState.LinearWrap);
-            sb.Draw(texture, src, new Rectangle((int)src.X, (int)src.Y, (int)distance, depth), color, angle, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+            sb.Draw(texture, src, new Rectangle((int)src.X, (int)src.Y, (int)distance, depth), color, (float)angle, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
         }
 
         /// <summary>

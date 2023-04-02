@@ -12,6 +12,11 @@ namespace Dungeon.SceneObjects.Base
     public class ButtonControl<TComponent> : SceneControl<TComponent>
         where TComponent : class
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         protected TextObject textControl;
 
         public ButtonControl(TComponent component, string text, float size = 30) : this(component, new DrawText(text, ConsoleColor.White) { Size = size }.DefaultFont()) { }

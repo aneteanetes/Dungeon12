@@ -95,8 +95,8 @@ namespace Dungeon.Types
 
         public int Yi => (int)Y;
 
-        const double Rad2Deg = 180.0 / Math.PI;
-        const double Deg2Rad = Math.PI / 180.0;
+        public const double Rad2Deg = 180.0 / Math.PI;
+        public const double Deg2Rad = Math.PI / 180.0;
 
         public double Angle(Dot end)
         {

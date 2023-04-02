@@ -40,5 +40,10 @@
                 return base.Image;
             }
         }
+
+        public override void Throw(Exception ex)
+        {
+            Parent?.Throw(ex);
+        }
     }
 }

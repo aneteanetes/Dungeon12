@@ -65,6 +65,22 @@ namespace Dungeon
                 default: return Direction.Idle;
             }
         }
+        public static string ToStringUpDown(this Direction dir)
+        {
+            if(dir== Direction.LeftDown)
+                return "DownLeft";
+
+            if (dir== Direction.LeftUp)
+                return "UpLeft";
+
+            if (dir== Direction.RightUp)
+                return "UpRight";
+
+            if (dir== Direction.RightDown)
+                return "DownRight";
+
+            return dir.ToString();
+        }
 
         public static Direction OppositeX(this Direction dir)
         {
@@ -82,6 +98,20 @@ namespace Dungeon
                 case Direction.DownRight: return Direction.DownLeft;
 
                 default: return Direction.Idle;
+            }
+        }
+
+        public static bool IsDiagonal(this Direction dir)
+        {
+            switch (dir)
+            {
+                case Direction.UpLeft:
+                case Direction.UpRight: 
+                case Direction.DownLeft: 
+                case Direction.DownRight:
+                    return true;
+
+                default: return false;
             }
         }
 

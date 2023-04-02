@@ -19,5 +19,10 @@ namespace Dungeon.SceneObjects
         public EmptySceneObject() : base(GameComponentEmpty.Empty)
         {
         }
+
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
     }
 }

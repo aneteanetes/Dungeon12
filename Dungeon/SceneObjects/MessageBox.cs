@@ -1,6 +1,6 @@
 ﻿using Dungeon.Control.Keys;
 using Dungeon.Drawing;
-using Dungeon.Drawing.SceneObjects;
+using Dungeon.GameObjects;
 using Dungeon.SceneObjects.Base;
 using Dungeon.View.Interfaces;
 using System;
@@ -47,9 +47,9 @@ namespace Dungeon.SceneObjects
             base.Destroy();
         }
 
-        private class OkButton : ButtonControl<EmptySceneObject>
+        private class OkButton : ButtonControl<GameComponentEmpty>
         {
-            public OkButton() : base(new EmptySceneObject(), "Ок", 30)
+            public OkButton() : base(new GameComponentEmpty(), "Ок", 30)
             {
                 this.Width = 3;
                 this.Height = 2;

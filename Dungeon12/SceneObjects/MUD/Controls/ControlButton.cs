@@ -7,6 +7,11 @@ namespace Dungeon12.SceneObjects.MUD.Controls
 {
     internal class ControlButton : EmptySceneControl, ITooltipedDrawText
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         private char _char;
         private bool _isdisabled;
 

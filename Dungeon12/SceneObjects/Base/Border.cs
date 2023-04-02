@@ -1,5 +1,6 @@
 ﻿using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
+using Dungeon.SceneObjects.Base;
 using Dungeon.View.Enums;
 
 namespace Dungeon12.SceneObjects.Base

@@ -1,6 +1,6 @@
 ﻿using Dungeon.Drawing;
-using Dungeon.Drawing.SceneObjects;
 using Dungeon.GameObjects;
+using Dungeon.SceneObjects.Base;
 using Dungeon.View.Interfaces;
 using System;
 

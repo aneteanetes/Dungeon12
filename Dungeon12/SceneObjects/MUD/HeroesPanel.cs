@@ -6,6 +6,11 @@ namespace Dungeon12.SceneObjects.MUD
 {
     internal class HeroesPanel : SceneControl<Party>
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public HeroesPanel(Party component) : base(component, true)
         {
             this.Width=1520;

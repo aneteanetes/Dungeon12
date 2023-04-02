@@ -15,6 +15,10 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
 {
     internal class AbilityItemBig : SceneControl<Hero>, ITooltipedDrawText, IMouseHint, ICursored
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
         Ability _ability;
 
         private string _title;

@@ -8,6 +8,11 @@ namespace Dungeon12.SceneObjects.Location_
 {
     internal class LocationObject : SceneControl<MapObject>, ITooltipedDrawText
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public LocationObject(MapObject component) : base(component)
         {
             this.Width=72;

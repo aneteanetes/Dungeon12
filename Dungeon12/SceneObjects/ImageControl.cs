@@ -1,11 +1,17 @@
 ﻿using Dungeon;
 using Dungeon.SceneObjects;
+using Dungeon12.ECS.Components;
 using System.Reflection;
 
 namespace Dungeon12
 {
-    internal class ImageControl : EmptySceneControl
+    internal class ImageControl : EmptySceneControl, ITooltiped
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public ImageControl(string imagePath = null)
         {
             if (imagePath == null)
@@ -35,5 +41,7 @@ namespace Dungeon12
                 return base.Image;
             }
         }
+
+        public string TooltipText { get; set; }
     }
 }

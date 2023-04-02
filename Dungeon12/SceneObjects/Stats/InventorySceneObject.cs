@@ -6,6 +6,11 @@ namespace Dungeon12.SceneObjects.Stats
 {
     internal class InventorySceneObject : SceneControl<Inventory>
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public InventorySceneObject(Inventory component, bool bindView = true) : base(component, bindView)
         {
             this.Height=358;

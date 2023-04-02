@@ -158,10 +158,12 @@
         bool AutoBindSceneObjectSizeByContainedImage { get; set; }
 
         /// <summary>
-        /// Угол на который надо повернуть объект при отображении
+        /// Угол на который надо повернуть объект при отображении, В РАДИАНАХ (походу)
         /// </summary>
 
         double Angle { get;}
+
+        double AngleDegree { get; set; }
 
         public FlipStrategy Flip { get; set; }
 
@@ -212,5 +214,7 @@
         void Init();
 
         void Drawing();
+
+        void Throw(Exception ex);
     }
 }

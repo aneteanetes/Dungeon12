@@ -7,6 +7,11 @@ namespace Dungeon12.SceneObjects.RegionScreen
 {
     internal class LocationTitle : SceneObject<Location>
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public LocationTitle(Location component) : base(component)
         {
             Image = "UI/layout/titleback.png".AsmImg();

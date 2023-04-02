@@ -10,6 +10,11 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
 {
     internal class MapCloseButton : EmptySceneControl, ITooltipedDrawText
     {
+        public override void Throw(Exception ex)
+        {
+            throw ex;
+        }
+
         public MapCloseButton()
         {
             this.Image = "Backgrounds/mapclose.png".AsmImg();

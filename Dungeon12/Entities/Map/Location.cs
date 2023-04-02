@@ -1,6 +1,4 @@
-﻿using Dungeon.Physics;
-using Dungeon.Types;
-using System.Collections.Generic;
+﻿using Dungeon.Types;
 
 namespace Dungeon12.Entities.Map
 {
@@ -16,7 +14,13 @@ namespace Dungeon12.Entities.Map
 
         public string BackgroundImage { get; set; }
 
+        public int X { get; set; }
+
+        public int Y { get; set; }
+
         public string ObjectImage { get; set; }
+
+        public bool IsCurrent { get; set; }
 
         public string ObjectId { get; set; }
 
@@ -27,6 +31,8 @@ namespace Dungeon12.Entities.Map
         public int[] IndexLinks { get; set; }
 
         public List<Location> Links { get; set; }
+
+        public List<LocationTransition> Transitions { get; set; } = new();
 
         public Dot Size { get; set; }
 
