@@ -1,28 +1,30 @@
 # Dungeon 12
-This is 2D top-down rpg game with "old school" gameplay based on table game D12 which used two dices with 6 edges.
-
-# Little Story
-Six years ago it was console-interface game (which u can get through 'master' branch). And now sequel got 2D graphics with a few graphical engines (AvaloniaUI, SkiaDraw, Monogame).
-
-# Platform
-This game based on a "game engine" written by my own. It have much wrong decisions, but no one of this don't bring much troubles. All of this, i think, 100% is open source. 
-It's written by C# .net core 2.1 without any .NET Framework part.
-
-You can try to use this engine separetly of D12 game, but i think it take some time to separate core. (This work will ended after first beta-version of game)
+Party based MUD-like single player game based on own 2d10 rpg-system 'Nabunassir'.
 
 # Gameplay
-The core of the gameplay is action rpg. You have a hero who can have his own storyline, with four abilities. And your goal is to reach the end of the scenario in an open world.
+The core of gameplay is step-based rpg in MUD style. Your goal is to reach the end of the scenario in the open world as a party of 4 heroes created by your own.
+The world of game is 'Nabunassar': Akkad-like fantasy world with own creatures and gods descended from heaven and living among mortals.
 
-But the main feature of this game is the ability to change its class throughout history. At the start, you can get one of the three base classes, but in the first version of the game it will be something around twelve ordinary, and four epic.
+All the features of the game stem from the role-playing system 'Nabunassir' 2d10 game with flexible system of four main archetypes: warriors, mages, priests and rogues.
+Each archetype have access to 4 abilities for each tactical role: tank, dps, heal, support, and can combine as want by hold different ability-cards. Like combat abilities, each character can hold 4 peacefull cards like craft,landshift, portals, trades, etc.
 
-In spite of all this, the completed gameplay will contains parts from: Might and Magic VI-VIII, Action-rpg, some good rpg games like Dragon Age, and some of old Rogue-like games.
+I want to repeat the experience of exploring the world from Might&Magic (VI-VII), the role-playing system from PF/DnD/WFRP (but more adaptive) and the same epic story as in Dragon Age: Origins. I am truly believing in turn-based play as the most tactically rich solution.
 
 # Build 
-## Monogame graphical engine
- * install Rogue.Monogame\Build\MonoGameSetup.exe
- * install Rogue.Monogame\Build\vcredist_x64.exe (or download x32 version of Visual `C++ Redistributable for Visual Studio 2012 Update 4`)
- * install all fonts from Rogue.Resources\Fonts\
- * be sure repository path doesn't contain any special characters like `.`,`#`, e.t.c.
+You need to compile and run the "Dungeon12" project.
+At the runtime you can have issues with resources - some of them may be missing due to being paid for private use or otherwise. In this case, try to repeat them.
 
-# Early prototype
-![Early prototype screenshot](/Misc/d12earlyproto.PNG?raw=true "Early prototype screenshot")
+# Platform
+This game based on a "game engine" written by my own. It still have much wrong decisions, but no one of this don't bring much troubles. It's 100% open source. 
+Game engine available on 'Dungeon' project, written in C# and run under .NET6. 
+
+Finally the 'Dungeon' engine has been isolated and can be used separately! (but still not as nuget-package).
+
+# Story
+This is open source project based on ''Dungeon'' game engine developed some years ago. Game engine is not about graphics, but about abstraction and approaches.
+Graphics provided by graphics clients, like ''Dungeon.Monogame'' in this repository. Previously, there was graphical remake of console rogue-like game.
+Original console game available on 'master' branch. Remake available on 'extract' (latest build) and 'monogame' (stable build), but have issues with compilation.
+Current game hosted on Dungeon12 project.
+
+# Realtime Mockup
+![Realtime mockup screenshot](/Misc/mud.PNG?raw=true "Realtime mockup screenshot")
