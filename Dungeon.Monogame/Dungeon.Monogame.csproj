@@ -34,7 +34,6 @@
     <MonoGameContentReference Remove="Content\Content.Android.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MonoGame.Content.Builder" Version="3.7.0.4" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1700" />
     <PackageReference Include="NSubsys" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -48,8 +47,6 @@
   <ItemGroup>
     <Folder Include="ProjectMercury\" />
   </ItemGroup>
-  <Import Project="$(SolutionDir)\NuGet.Common.props" />
-  <Import Project="$(SolutionDir)\Symbols.props" />
     
   <ItemGroup>
     <Compile Remove="Content\**" />
