@@ -58,7 +58,7 @@ namespace Dungeon.Monogame
             GraphicsDevice.SetRenderTarget(null);
 
             if (!isscreenshot)
-                GraphicsDevice.Clear(Color.Transparent);
+                GraphicsDevice.Clear(Color.Black);
 
             drawCicled = true;
 
@@ -186,11 +186,11 @@ namespace Dungeon.Monogame
 
                 Console.WriteLine("saved");
                 var writer = new ImageWriter();
-                using var file = File.Create(Path.Combine(screenpath, $"Screenshot {DateTime.Now:dd.MM.yyyy HH mm ss}{screenCounter}.png"));
+                using var file = File.Create(Path.Combine(screenpath, $"Screenshot {DateTime.Now:dd.MM.yyyy HH mm ss}{screenCounter}.jpg"));
 
                 fixed (Color* ptr = &screenshotData[0])
                 {
-                    writer.WritePng(ptr, width, height, ColorComponents.RedGreenBlueAlpha, file);
+                    writer.WriteJpg(ptr, width, height, ColorComponents.RedGreenBlueAlpha, file,95);
 
                 }
             });
