@@ -55,7 +55,7 @@ namespace Dungeon12.ECS.Systems
 
                 var pointer = Global.PointerLocation;
 
-                var tooltipPosition = new Dot(pointer.X, pointer.Y - 20);
+                var tooltipPosition = new Dot(pointer.X, pointer.Y-20);
 
                 if (!Tooltips.TryGetValue(tooltipedDrawText, out var tooltip) )
                 {
@@ -76,7 +76,7 @@ namespace Dungeon12.ECS.Systems
                     Tooltips[tooltipedDrawText] = tooltip;
                 }
 
-                tooltipPosition.X += sceneObject.Width / 2 - Global.GameClient.MeasureText(tooltip.Text.Text).X / 2;
+                //tooltipPosition.X += sceneObject.Width / 2 - Global.GameClient.MeasureText(tooltip.Text.Text).X / 2;
 
                 if (tooltipPosition.Y < 0)
                 {
@@ -91,7 +91,9 @@ namespace Dungeon12.ECS.Systems
 
         private void ProcessFocus(ISceneObject sceneObject, ITooltiped tooltiped)
         {
-            var tooltipPosition = new Dot(sceneObject.ComputedPosition.X, sceneObject.ComputedPosition.Y - 20);
+            var pointer = Global.PointerLocation;
+
+            var tooltipPosition = new Dot(pointer.X, pointer.Y-20);
 
             if (Tooltips1.TryGetValue(tooltiped, out var tooltip))
             {
@@ -115,7 +117,7 @@ namespace Dungeon12.ECS.Systems
             Tooltips1[tooltiped] = tooltip;
 
 
-            tooltipPosition.X += sceneObject.Width / 2 - Global.GameClient.MeasureText(tooltip.Text.Text).X / 2;
+            //tooltipPosition.X += sceneObject.Width / 2 - Global.GameClient.MeasureText(tooltip.Text.Text).X / 2;
 
             if (tooltipPosition.Y < 0)
             {

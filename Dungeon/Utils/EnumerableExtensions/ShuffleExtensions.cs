@@ -13,7 +13,7 @@ namespace Dungeon
             while (n > 1)
             {
                 n--;
-                int k = Random.Next(n + 1);
+                int k = RandomGlobal.Next(n + 1);
                 T value = list[k];
                 list[k] = list[n];
                 list[n] = value;
@@ -28,7 +28,7 @@ namespace Dungeon
             while (n > 1)
             {
                 n--;
-                int k = Random.Next(n + 1);
+                int k = RandomGlobal.Next(n + 1);
                 T value = list[k];
                 list[k] = list[n];
                 list[n] = value;

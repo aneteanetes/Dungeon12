@@ -11,6 +11,7 @@
     using Dungeon.View;
     using Dungeon.View.Enums;
     using Dungeon.View.Interfaces;
+    using MathNet.Numerics.Distributions;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -129,6 +130,35 @@
             this.AddChild(textControl);
 
             return textControl;
+        }
+
+        public T CenterChild<T>(T child, bool x = true, bool y = true, Dot measure =default)
+            where T : ISceneObject
+        {
+            var width = Width;
+            var height = Height;
+
+            if (measure == default)
+                measure = new Dot(child.Width, child.Height);
+
+            if (x)
+            {
+                child.Left = width / 2 - measure.X / 2;
+            }
+
+            if (y)
+            {
+                child.Top = Math.Abs(height / 2 -  measure.Y / 2);
+            }
+
+            return child;
+        }
+
+        public T CenterChildText<T>(T text, bool x = true, bool y = true)
+            where T : SceneObject<IDrawText>
+        {
+            var measure = DungeonGlobal.GameClient.MeasureText(text.Text, this);
+            return CenterChild(text, x, y, measure);
         }
 
         public TextObject AddText(IDrawText text, double left, double top)

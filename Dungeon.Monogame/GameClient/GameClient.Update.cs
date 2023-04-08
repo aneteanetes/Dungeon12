@@ -13,7 +13,7 @@ namespace Dungeon.Monogame
             {
                 if (!DungeonGlobal.GamePadConnected)
                     UpdateMouseEvents();
-                UpdateKeyboardEvents();
+                UpdateKeyboardEvents(gameTime);
                 UpdateGamepadEvents();
             }
 

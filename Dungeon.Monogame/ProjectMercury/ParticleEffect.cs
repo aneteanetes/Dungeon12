@@ -71,7 +71,7 @@ namespace ProjectMercury
         /// <summary>
         /// Raises the <see cref="E:NameChanged"/> event.
         /// </summary>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event screenshotData.</param>
         protected virtual void OnNameChanged(EventArgs e)
         {
             if (this.NameChanged != null)

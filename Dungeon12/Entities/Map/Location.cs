@@ -26,6 +26,8 @@ namespace Dungeon12.Entities.Map
 
         public Polygon Polygon { get; set; }
 
+        public List<Polygon> Polygons { get; set; } = new List<Polygon>();
+
         public int Index { get; set; }
 
         public int[] IndexLinks { get; set; }

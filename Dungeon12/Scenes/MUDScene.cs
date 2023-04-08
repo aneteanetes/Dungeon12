@@ -24,12 +24,13 @@ namespace Dungeon12.Scenes
 
             var region = new Region()
             {
-                MapId="sea"
+                MapId="sea",
+                Title=@"""Волна Света"""
             };
 
             var location = new Location()
             {
-                Name=@"""Волна Света"" - Каюты",
+                Name=@"Каюты",
                 Description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                 BackgroundImage="sea.jpg",
                 ObjectImage="ship_cockpit.png",
@@ -55,6 +56,12 @@ namespace Dungeon12.Scenes
             main.AddObject(new HeroesPanel(Global.Game.Party) // heroes
             {
                 Top = 830
+            });
+
+            main.AddObject(new ChatPanel(Global.Game.Log)
+            {
+                Left = 400,
+                Top = 630
             });
 
             main.AddObject(new LocationPanel(location) // center

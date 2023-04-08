@@ -2,13 +2,18 @@
 using Dungeon.Monogame.Effects;
 using Dungeon.Scenes;
 using Dungeon.View.Interfaces;
+using MathNet.Numerics.Distributions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Penumbra;
+using StbImageWriteSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Dungeon.Monogame
 {
@@ -44,10 +49,16 @@ namespace Dungeon.Monogame
 
         private string prevSceneUid;
 
-        protected override void Draw(GameTime gameTime)
+        Color[] screenshotData = null;
+
+        protected override unsafe void Draw(GameTime gameTime)
         {
+            var isscreenshot = makingscreenshot && !_screenshotSaving;
+
             GraphicsDevice.SetRenderTarget(null);
-            GraphicsDevice.Clear(Color.Transparent);
+
+            if (!isscreenshot)
+                GraphicsDevice.Clear(Color.Transparent);
 
             drawCicled = true;
 
@@ -93,7 +104,7 @@ namespace Dungeon.Monogame
 
             RenderTarget2D screenshottarget = null;
 
-            if (makingscreenshot)
+            if (isscreenshot)
             {
                 var pp = GraphicsDevice.PresentationParameters;
                 screenshottarget = new RenderTarget2D(GraphicsDevice, DungeonGlobal.Resolution.Width, DungeonGlobal.Resolution.Height, false,
@@ -138,19 +149,18 @@ namespace Dungeon.Monogame
             Draw3D();
             base.Draw(gameTime);
 
-            if (makingscreenshot)
+            if (isscreenshot)
             {
                 GraphicsDevice.SetRenderTarget(null);
-                var screenpath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Screenshots");
-                if (!Directory.Exists(screenpath))
-                {
-                    Directory.CreateDirectory(screenpath);
-                }
-                using (var f = File.Create(Path.Combine(screenpath, $"Screenshot {DateTime.Now:dd.MM.yyyy HH mm}.png")))
-                {
-                    screenshottarget.SaveAsPng(f, screenshottarget.Width, screenshottarget.Height);
-                }
-                makingscreenshot = false;
+
+                var width = DungeonGlobal.Resolution.Width;
+                var height = DungeonGlobal.Resolution.Height;
+
+                int colorDataLength = width*height;
+                screenshotData = new Color[colorDataLength];
+                screenshottarget.GetData(0, null, screenshotData, 0, colorDataLength);
+
+                SaveScreenshot();
             }
 
             if (prevSceneUid != Scene.Uid)
@@ -158,6 +168,32 @@ namespace Dungeon.Monogame
                 Scene.Loaded();
                 prevSceneUid = Scene.Uid;
             }
+        }
+
+        private unsafe void SaveScreenshot()
+        {
+            _screenshotSaving= true;
+            var width = DungeonGlobal.Resolution.Width;
+            var height = DungeonGlobal.Resolution.Height;
+
+            Task.Run(() =>
+            {
+                var screenpath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Screenshots");
+                if (!Directory.Exists(screenpath))
+                {
+                    Directory.CreateDirectory(screenpath);
+                }
+
+                Console.WriteLine("saved");
+                var writer = new ImageWriter();
+                using var file = File.Create(Path.Combine(screenpath, $"Screenshot {DateTime.Now:dd.MM.yyyy HH mm ss}{screenCounter}.png"));
+
+                fixed (Color* ptr = &screenshotData[0])
+                {
+                    writer.WritePng(ptr, width, height, ColorComponents.RedGreenBlueAlpha, file);
+
+                }
+            });
         }
     }
 }

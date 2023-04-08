@@ -15,6 +15,10 @@ namespace Dungeon12.Entities.Map
 
         public string Function { get; set; }
 
+        public int X { get; set; }
+
+        public int Y { get; set; }
+
         public bool IsNotEmpty => !string.IsNullOrWhiteSpace(ObjectId) || !string.IsNullOrWhiteSpace(Function);
 
         public void Load(Polygon polygon)

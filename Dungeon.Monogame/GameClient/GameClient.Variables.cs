@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Penumbra;
 using ProjectMercury.Renderers;
+using System;
 
 namespace Dungeon.Monogame
 {
@@ -15,6 +16,7 @@ namespace Dungeon.Monogame
         private Effect GlobalImageFilter = null;
 
         private GameTime gameTime;
+        private TimeSpan gameTimePrev;
         private Callback сallback;
 
         private bool loaded = false;

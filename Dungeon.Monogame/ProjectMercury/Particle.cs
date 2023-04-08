@@ -14,7 +14,7 @@ namespace ProjectMercury
     using Microsoft.Xna.Framework.Graphics;
 
     /// <summary>
-    /// Defines the data structure for a particle.
+    /// Defines the screenshotData structure for a particle.
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct Particle

@@ -4,6 +4,7 @@
     using Dungeon.Scenes.Manager;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Input;
+    using MonoGame.Extended;
     using System.Collections.Generic;
     using System.IO;
 
@@ -14,8 +15,14 @@
         private HashSet<Keys> keysState = new HashSet<Keys>();
         private static HashSet<Keys> keysHolds = new HashSet<Keys>();
 
-        private void UpdateKeyboardEvents()
+        private void UpdateKeyboardEvents(Microsoft.Xna.Framework.GameTime gameTime)
         {
+            var elapsed = gameTimePrev - gameTime.TotalGameTime;
+            if (elapsed.Seconds<1)
+                screenCounter++;
+            else
+                screenCounter=0;
+
             keyboardState = Keyboard.GetState();
 
             var pressed = keyboardState.GetPressedKeys();
@@ -29,13 +36,13 @@
                 keysState.ExceptWith(pressedHashset);
                 foreach (var key in keysState)
                 {
-                    OnKeyUp(key);
+                    OnKeyUp(key, gameTime);
                 }
 
                 pressedHashset.ExceptWith(currentHashset);
                 foreach (var key in pressedHashset)
                 {
-                    OnKeyDown(key);
+                    OnKeyDown(key,gameTime);
                 }
 
                 keysState = new HashSet<Keys>(pressed);
@@ -51,7 +58,7 @@
 
             foreach (var keyHold in keysHolds)
             {
-                OnKeyDown(keyHold);
+                OnKeyDown(keyHold, gameTime);
             }
 
             this.pressed = pressed;
@@ -62,10 +69,12 @@
             SceneManager.Current?.OnText(e.Character.ToString());
         }
 
-        private void OnKeyDown(Keys key)
+        private GameTime screenTime = new GameTime();
+
+        private void OnKeyDown(Keys key, Microsoft.Xna.Framework.GameTime gameTime)
         {
             if (key == Keys.P)
-                makingscreenshot = true;
+                makingscreenshot=true;
 
             var hold = keysHolds.Contains(key);
 
@@ -80,10 +89,18 @@
 
         Vector2 shadowMaskPosition = Vector2.Zero;
 
-        private bool makingscreenshot = false;
+        private int screenCounter = 0;
+        private bool _screenshotSaving;
+        private bool makingscreenshot;
 
-        private void OnKeyUp(Keys key)
+        private void OnKeyUp(Keys key, Microsoft.Xna.Framework.GameTime gameTime)
         {
+            if (key == Keys.P)
+            {
+                makingscreenshot=false;
+                _screenshotSaving=false;
+            }
+
             this.StopMoveCamera();
 
             keysHolds.Remove(key);

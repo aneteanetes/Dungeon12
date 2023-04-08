@@ -102,7 +102,7 @@ namespace Penumbra
 
         public void Render()
         {
-            // Update hulls internal data structures.
+            // Update hulls internal screenshotData structures.
             Hulls.Update();
 
             // We want to use clamping sampler state throughout the lightmap rendering process.
@@ -113,10 +113,10 @@ namespace Penumbra
             // Switch render target to lightmap.
             Device.SetRenderTargets(Textures.LightmapBindings);
 
-            // Clear lightmap color, depth and stencil data.
+            // Clear lightmap color, depth and stencil screenshotData.
             Device.Clear(ClearOptions.DepthBuffer | ClearOptions.Stencil | ClearOptions.Target, _ambientColor, 1f, 0);
 
-            // Set per frame shader data.
+            // Set per frame shader screenshotData.
             ShadowRenderer.PreRender();
 
             // Generate lightmap. For each light, mask the shadowed areas determined by hulls and render light.
@@ -129,7 +129,7 @@ namespace Penumbra
                 if (!light.Enabled || Hulls.Contains(light))
                     continue;
 
-                // Update light's internal data structures.
+                // Update light's internal screenshotData structures.
                 light.Update();
 
                 // Continue only if light is within camera view.

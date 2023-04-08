@@ -8,7 +8,7 @@ namespace Dungeon
     /// ааа, для того что бы всегда был один инстанс что бы не тупило
     /// </para>
     /// </summary>
-    public static class Random
+    public static class RandomGlobal
     {
         private static System.Random SystemRandom = new System.Random();
         private static readonly object syncLock = new object();
@@ -32,7 +32,7 @@ namespace Dungeon
         {
             lock (syncLock)
             {
-                return SystemRandom.Next(minValue, maxValue);
+                return SystemRandom.Next(minValue, maxValue+1);
             }
         }
 

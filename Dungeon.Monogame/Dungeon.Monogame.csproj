@@ -11,7 +11,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE;Core;WINDOWS;monogameRuntime;DisableSound;</DefineConstants>
     <Optimize>false</Optimize>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='CompileDatabase|AnyCPU'">
     <DefineConstants>TRACE;Core;WINDOWS</DefineConstants>
@@ -39,6 +39,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="StbImageWriteSharp" Version="1.16.7" />
     <PackageReference Include="YAXLib" Version="4.0.0" />
   </ItemGroup>
   <ItemGroup>

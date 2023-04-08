@@ -1,4 +1,6 @@
 ﻿using Dungeon12.Entities.Map;
+using Dungeon12.SceneObjects.RegionScreen;
+using System.ComponentModel;
 
 namespace Dungeon12.SceneObjects.MUD.ViewRegion
 {
@@ -68,6 +70,8 @@ namespace Dungeon12.SceneObjects.MUD.ViewRegion
                 Left= 4*50 +12,
                 Top= 4*50 +12,
             });
+
+            this.AddChild(new AreaTitle(region.Title));
 
             //this.AddChild(new RegionViewTile(loc)
             //{

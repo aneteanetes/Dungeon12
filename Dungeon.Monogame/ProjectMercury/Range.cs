@@ -223,7 +223,7 @@ namespace ProjectMercury
         /// Returns a hash code for this instance.
         /// </summary>
         /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// A hash code for this instance, suitable for use in hashing algorithms and screenshotData structures like a hash table. 
         /// </returns>
         public override int GetHashCode()
         {

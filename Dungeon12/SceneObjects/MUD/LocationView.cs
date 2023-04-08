@@ -2,6 +2,7 @@
 using Dungeon.SceneObjects;
 using Dungeon12.Entities.Map;
 using Dungeon12.SceneObjects.MUD.ViewRegion;
+using Dungeon12.SceneObjects.RegionScreen;
 
 namespace Dungeon12.SceneObjects.MUD
 {
@@ -26,6 +27,8 @@ namespace Dungeon12.SceneObjects.MUD
                 Width=390,
                 Height=390
             });
+
+            this.AddChild(new AreaTitle(component.Name));
         }
     }
 }

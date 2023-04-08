@@ -203,6 +203,7 @@ namespace Dungeon.Monogame
             SceneManager.Start(isFatal ? "FATAL" : default);
         }
 
+
         protected override void Update(GameTime gameTime)
         {
             if (this.сallback != default && !skipCallback && drawCicled)
@@ -224,6 +225,9 @@ namespace Dungeon.Monogame
 
             drawCicled = false;
             skipCallback = false;
+
+
+            gameTimePrev = gameTime.TotalGameTime;
 
             base.Update(gameTime);
         }

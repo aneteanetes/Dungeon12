@@ -117,7 +117,7 @@ namespace Dungeon
 
         public static Direction Rangom(this Direction dir)
         {
-            switch (Random.Range(0,9))
+            switch (RandomGlobal.Range(0,9))
             {
                 case 1: return Direction.Up;
                 case 2: return Direction.Down;
