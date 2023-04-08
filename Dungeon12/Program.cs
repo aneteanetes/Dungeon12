@@ -6,6 +6,7 @@ using Dungeon12;
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 DungeonGlobal.BindGlobal<Global>(true, true);
@@ -17,6 +18,8 @@ ResourceLoader.Settings.EmbeddedMode = false;
 //DungeonGlobal.GlobalExceptionHandling();
 //ResourceLoader.NotDisposingResources = true;
 //ResourceLoader.CacheImagesAndMasks = false;
+
+Console.OutputEncoding = Encoding.UTF8;
 
 ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver(Assembly.GetExecutingAssembly()));
 
