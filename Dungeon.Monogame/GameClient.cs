@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using ProjectMercury.Renderers;
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Metadata;
 
@@ -20,7 +21,16 @@ namespace Dungeon.Monogame
 
         public GameClient(GameSettings settings)
         {
-            InactiveSleepTime=settings.DropFpsOnUnfocus;
+            try
+            {
+                SDL_InitMonitors();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("SDL cant be inited in release mode, TODO: dev build");
+            }
+
+            InactiveSleepTime =settings.DropFpsOnUnfocus;
             Instance =this;
             this._settings = settings;
             GraphicsDeviceManagerInitialization(settings);
@@ -65,21 +75,20 @@ namespace Dungeon.Monogame
             };
 
             DungeonGlobal.TransportVariable = GraphicsDevice;
-
-            try
-            {
-                SDL_InitMonitors();
-            }
-            catch
-            {
-#warning SDL cant be inited in release mode?
-                Console.WriteLine("SDL cant be inited in release mode, TODO: dev build");
-            }
         }
 
         protected virtual void GraphicsDeviceManagerInitialization(GameSettings settings)
         {
             ResourceLoader.Settings.StretchResources = settings.ResouceStretching;
+
+            var monitor = MonitorBounds.ElementAtOrDefault(settings.MonitorIndex);
+            if (monitor.w == 0)
+                monitor = MonitorBounds.ElementAtOrDefault(0);
+            if (settings.WidthHeightAutomated && monitor.w != originSize.X)
+            {
+                settings.WidthPixel = monitor.w;
+                settings.HeightPixel = monitor.h;
+            }
 
             originSize = new Types.Dot(settings.OriginWidthPixel, settings.OriginHeightPixel);
             var size = new Types.Dot(settings.WidthPixel, settings.HeightPixel);
@@ -98,6 +107,7 @@ namespace Dungeon.Monogame
             bool scaling = false;
             Types.Dot left = Types.Dot.Zero;
             Types.Dot right = Types.Dot.Zero;
+
 
             if (originSize.X > settings.WidthPixel)
             {
@@ -147,8 +157,8 @@ namespace Dungeon.Monogame
                 graphics.PreferredBackBufferHeight = r.Height;
                 graphics.ApplyChanges();
                 DungeonGlobal.Resolution = r;
-                ResolutionScale = Matrix.CreateScale(new Vector3((float)originSize.X / (float)r.Width, (float)originSize.Y / (float)r.Height, 1));
-                DrawClient.ChangeResolution(ResolutionScale);
+                var scale  = Matrix.CreateScale(new Vector3((float)originSize.X / (float)r.Width, (float)originSize.Y / (float)r.Height, 1));
+                DrawClient.ChangeResolution(scale);
                 SceneManager.Start(isFatal ? "FATAL" : default);
             };
 
@@ -197,6 +207,7 @@ namespace Dungeon.Monogame
             {
                 SpriteBatchManager=new SpriteBatchManager(GraphicsDevice, Content)
             };
+            DrawClient.ChangeResolution(ResolutionScale);
 
             DungeonGlobal.Camera = this;
             DungeonGlobal.SceneManager = SceneManager =  new SceneManager(this);

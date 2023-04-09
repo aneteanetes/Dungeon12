@@ -49,6 +49,7 @@ namespace Dungeon.Monogame
 
             var entrydll = Assembly.GetExecutingAssembly().Location;
             var root = Path.GetDirectoryName(entrydll);
+#warning SDL runtime platform check
             var sdlPath = Path.Combine(root, @"runtimes\win-x64\native\SDL2.dll");
 
             if (!File.Exists(sdlPath))
@@ -71,7 +72,6 @@ namespace Dungeon.Monogame
             var SDL_GetDisplayBounds = GetProcAddress(SDL, "SDL_GetDisplayBounds");
             var SDL_GetDisplayBoundsFunc = Marshal.GetDelegateForFunctionPointer<GetDisplayBounds>(SDL_GetDisplayBounds);
 
-
             for (int i = 0; i < dCount; i++)
             {
                 SDL_Rect r = new SDL_Rect();
@@ -83,10 +83,10 @@ namespace Dungeon.Monogame
         private bool SetMonitor(int index)
         {
             var bounds = MonitorBounds.ElementAtOrDefault(index);
-            if (bounds.w == 0 || bounds.x == 0)
-                return false;
 
-            Window.Position = new Point(bounds.x, _settings.IsFullScreen ? 0 : 50);
+            if (bounds.x != 0) {
+                Window.Position = new Point(bounds.x, _settings.IsFullScreen ? 0 : 50);
+            }
 
             var resolution = DungeonGlobal.Resolution;
 
@@ -100,7 +100,7 @@ namespace Dungeon.Monogame
                         Y  = bounds.h / 2 - resolution.Height / 2
                     };
                 }
-                else
+                else if (_settings.IsFullScreen)
                 {
                     FitBounds(bounds);
                 }

@@ -23,7 +23,7 @@ ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver(Assembly.GetEx
 
 var width = 1920;
 var height = 1080;
-var monitor = 1;
+var monitor = 0;
 
 if (args!=null && args.Length > 0)
 {

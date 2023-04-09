@@ -18,15 +18,33 @@ namespace Dungeon.Monogame.Settings
         [Display(Name = "Ширина в px")]
         public int WidthPixel
         {
-            get => widthPixel == -1 ? OriginWidthPixel : widthPixel;
+            get
+            {
+                if(widthPixel == -1)
+                {
+                    WidthHeightAutomated = true;
+                    widthPixel = OriginWidthPixel;
+                }
+                return widthPixel;
+            }
             set => widthPixel = value;
         }
         private int widthPixel = -1;
 
+        public bool WidthHeightAutomated { get; private set; }
+
         [Display(Name = "Высота в px")]
         public int HeightPixel
         {
-            get => heightPixel == -1 ? OriginHeightPixel : heightPixel;
+            get
+            {
+                if (heightPixel == -1)
+                {
+                    WidthHeightAutomated = true;
+                    heightPixel = OriginHeightPixel;
+                }
+                return heightPixel;
+            }
             set => heightPixel = value;
         }
         private int heightPixel = -1;
