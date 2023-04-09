@@ -58,14 +58,14 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
                 return;
 
             DungeonGlobal.AudioPlayer.Effect("focus.wav".AsmSoundRes());
-            this.Image="UI/btn_b.png";
+            Label.Text.ForegroundColor = Global.CommonColor;
         }
 
         public override void Unfocus()
         {
             if (Disabled)
                 return;
-            this.Image="UI/btn_a.png";
+            Label.Text.ForegroundColor = Global.CommonColorLight;
         }
     }
 }

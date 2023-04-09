@@ -153,7 +153,7 @@ namespace Dungeon.Monogame
             };
 
             this.Window.IsBorderless = settings.Borderless;
-            if (settings.IsWindowedFullScreen)
+            if (settings.IsFullScreen && settings.IsWindowedFullScreen)
             {
                 graphics.HardwareModeSwitch = false;
                 this.Window.IsBorderless = true;

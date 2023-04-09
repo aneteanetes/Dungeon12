@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MathNet.Numerics.Distributions;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,8 +12,6 @@ namespace Dungeon.Monogame
 {
     public partial class GameClient
     {
-        private static int MonitorOffsetX;
-
         [DllImport("kernel32", SetLastError = true, CharSet = CharSet.Unicode)]
 		public static extern IntPtr LoadLibraryW(string lpszLib);
 
@@ -84,66 +83,80 @@ namespace Dungeon.Monogame
         private bool SetMonitor(int index)
         {
             var bounds = MonitorBounds.ElementAtOrDefault(index);
-            if (bounds.w == 0)
+            if (bounds.w == 0 || bounds.x == 0)
                 return false;
 
-            MonitorOffsetX = bounds.x;
-            this.Window.Position = new Microsoft.Xna.Framework.Point(bounds.x, 0);
+            Window.Position = new Point(bounds.x, _settings.IsFullScreen ? 0 : 50);
 
-            if (bounds.w != DungeonGlobal.Resolution.Width)
+            var resolution = DungeonGlobal.Resolution;
+
+            if (resolution.Width!=bounds.w || resolution.Height!=bounds.h)
             {
-                graphics.PreferredBackBufferWidth = bounds.w;
-                graphics.PreferredBackBufferHeight = bounds.h;
-                graphics.ApplyChanges();
-                DungeonGlobal.Resolution = new View.PossibleResolution(bounds.w, bounds.h);
-                //ResolutionScale = Matrix.CreateScale(new Vector3((float)originSize.X / (float)bounds.w, (float)originSize.Y / (float)bounds.h, 1));
-
-                Types.Dot left = Types.Dot.Zero;
-                Types.Dot right = Types.Dot.Zero;
-
-                var size = new Types.Dot(bounds.w, bounds.h);
-
-                if (originSize.X > bounds.w)
+                if (bounds.w > resolution.Width || bounds.h>resolution.Height)
                 {
-                    left = size;
-                    right = originSize;
+                    Window.Position = new Point
+                    {
+                        X  = bounds.w / 2 - resolution.Width / 2,
+                        Y  = bounds.h / 2 - resolution.Height / 2
+                    };
                 }
-                else if (originSize.X < bounds.w)
+                else
                 {
-                    left = originSize;
-                    right = size;
+                    FitBounds(bounds);
                 }
-
-                var scaleX = left.Xf / right.Xf;
-                var scaleY = left.Yf / right.Yf;
-
-                var scale = new Vector3(scaleX, scaleY, 1);
-
-                ResolutionScale = Matrix.CreateScale(scale);
-
-                DungeonGlobal.ResolutionScaleMatrix =
-                    new System.Numerics.Matrix4x4(
-                        ResolutionScale.M11,
-                        ResolutionScale.M12,
-                        ResolutionScale.M13,
-                        ResolutionScale.M14,
-                        ResolutionScale.M21,
-                        ResolutionScale.M22,
-                        ResolutionScale.M23,
-                        ResolutionScale.M24,
-                        ResolutionScale.M31,
-                        ResolutionScale.M32,
-                        ResolutionScale.M33,
-                        ResolutionScale.M34,
-                        ResolutionScale.M41,
-                        ResolutionScale.M42,
-                        ResolutionScale.M43,
-                        ResolutionScale.M44);
-
-                return true;
             }
 
             return false;
+        }
+
+        private void FitBounds(SDL_Rect bounds)
+        {
+            graphics.PreferredBackBufferWidth = bounds.w;
+            graphics.PreferredBackBufferHeight = bounds.h;
+            graphics.ApplyChanges();
+            DungeonGlobal.Resolution = new View.PossibleResolution(bounds.w, bounds.h);
+
+            Types.Dot left = Types.Dot.Zero;
+            Types.Dot right = Types.Dot.Zero;
+
+            var size = new Types.Dot(bounds.w, bounds.h);
+
+            if (originSize.X > bounds.w)
+            {
+                left = size;
+                right = originSize;
+            }
+            else if (originSize.X < bounds.w)
+            {
+                left = originSize;
+                right = size;
+            }
+
+            var scaleX = left.Xf / right.Xf;
+            var scaleY = left.Yf / right.Yf;
+
+            var scale = new Vector3(scaleX, scaleY, 1);
+
+            ResolutionScale = Matrix.CreateScale(scale);
+
+            DungeonGlobal.ResolutionScaleMatrix =
+                new System.Numerics.Matrix4x4(
+                    ResolutionScale.M11,
+                    ResolutionScale.M12,
+                    ResolutionScale.M13,
+                    ResolutionScale.M14,
+                    ResolutionScale.M21,
+                    ResolutionScale.M22,
+                    ResolutionScale.M23,
+                    ResolutionScale.M24,
+                    ResolutionScale.M31,
+                    ResolutionScale.M32,
+                    ResolutionScale.M33,
+                    ResolutionScale.M34,
+                    ResolutionScale.M41,
+                    ResolutionScale.M42,
+                    ResolutionScale.M43,
+                    ResolutionScale.M44);
         }
     }
 }

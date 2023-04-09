@@ -36,7 +36,7 @@ var client = new GameRunner(new GameSettings()
 {
     OriginWidthPixel = width,
     OriginHeightPixel = height,
-    IsFullScreen = true,
+    IsFullScreen = false,
     Add2DLighting = true,
     IsWindowedFullScreen = true,
     MonitorIndex = monitor,
