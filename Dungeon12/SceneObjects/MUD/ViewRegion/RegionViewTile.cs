@@ -2,6 +2,8 @@
 using Dungeon.Control;
 using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
+using Dungeon.ECS;
+using Dungeon.ECS.Impl;
 using Dungeon.SceneObjects;
 using Dungeon.SceneObjects.Base;
 using Dungeon.Types;
@@ -58,7 +60,7 @@ namespace Dungeon12.SceneObjects.MUD.ViewRegion
             //base.Click(args);
         }
 
-        private class TransitionView : SceneControl<LocationTransition>, ITooltiped
+        private class TransitionView : SceneControl<LocationTransition>
         {
             public TransitionView(LocationTransition component) : base(component)
             {
@@ -105,18 +107,16 @@ namespace Dungeon12.SceneObjects.MUD.ViewRegion
                         break;
                 }
 
-                var imgText = isDiagonal ? "diagonal" : "straight";
-
-                var img = this.AddChild(new ImageObject($"MUD/RegionView/TransitionView/{component.Direction.ToStringUpDown().ToLowerInvariant()}/{component.State.ToString().ToLowerInvariant()}.png")
+                var img = this.AddChild(new ImageControl($"MUD/RegionView/TransitionView/{component.Direction.ToStringUpDown().ToLowerInvariant()}/{component.State.ToString().ToLowerInvariant()}.png")
                 {
+                    PerPixelCollision =true,
                     Width=this.Width,
                     Height=this.Height,
                 });
+                img.Components.Add(new ECSComponent(typeof(ITooltiped), new object[] { component.Name }));
 
                 return;
             }
-
-            public string TooltipText => Component.Name;
 
             public override void Throw(Exception ex)
             {

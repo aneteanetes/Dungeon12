@@ -3,6 +3,7 @@
     using Dungeon;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
+    using Dungeon.ECS;
     using Dungeon.GameObjects;
     using Dungeon.Proxy;
     using Dungeon.SceneObjects.Mixins;
@@ -901,6 +902,8 @@
                 Angle = (Math.PI / 180d) * value;
             }
         }
+
+        public List<IECSComponent> Components { get; set; } = new List<IECSComponent>();
 
         public virtual void Destroy()
         {

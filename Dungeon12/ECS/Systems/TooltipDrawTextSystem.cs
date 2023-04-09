@@ -12,6 +12,7 @@ namespace Dungeon12.ECS.Systems
     {
         private static Dictionary<ITooltipedDrawText, Tooltip> Tooltips = new Dictionary<ITooltipedDrawText, Tooltip>();
         private static Dictionary<ITooltiped, Tooltip> Tooltips1 = new Dictionary<ITooltiped, Tooltip>();
+        private static Dictionary<IECSComponent, (ITooltiped, Tooltip)> TooltipsDynamic = new();
 
         public Tooltip GetTooltip(ISceneObject sceneObject)
         {
@@ -33,13 +34,31 @@ namespace Dungeon12.ECS.Systems
 
         public bool IsApplicable(ISceneObject sceneObject)
         {
-            return
+            var @interface =
                 sceneObject is ITooltipedDrawText
                 || sceneObject is ITooltiped;
+
+            return @interface || ComponentInfo(sceneObject)!=default;
+        }
+
+        private static IECSComponent ComponentInfo(ISceneObject sceneObject)
+        {
+            return sceneObject.Components.FirstOrDefault(c => c.Type == typeof(ITooltiped) || c.Type == typeof(ITooltipedDrawText));
+        }
+
+        private class TooltipedComponent : ITooltiped
+        {
+            public string TooltipText { get; set; }
         }
 
         public void ProcessFocus(ISceneObject sceneObject)
         {
+            var compInfo = ComponentInfo(sceneObject);
+            if (compInfo!=default) {
+                ProcessFocus(sceneObject, new TooltipedComponent() { TooltipText = compInfo.Arguments[0].As<string>() }, compInfo);
+                return;
+            }
+
             if(sceneObject is ITooltiped tooltiped)
             {
                 if (tooltiped.TooltipText.IsNotEmpty())
@@ -89,7 +108,7 @@ namespace Dungeon12.ECS.Systems
             }
         }
 
-        private void ProcessFocus(ISceneObject sceneObject, ITooltiped tooltiped)
+        private void ProcessFocus(ISceneObject sceneObject, ITooltiped tooltiped, IECSComponent component=default)
         {
             var pointer = Global.PointerLocation;
 
@@ -106,8 +125,6 @@ namespace Dungeon12.ECS.Systems
                 SceneLayer.RemoveObject(tooltip);
             };
 
-#warning ОБЪЕКТЫ ЛИШИЛИСЬ ABSOLUTE POSITION, ПОЭТОМУ ТУЛТИПЫ ДОЛЖНЫ БЫТЬ НА АБСОЛЮТНОМ СЛОЕ
-
             tooltip = new Tooltip(tooltiped.TooltipText.Gabriela(), tooltipPosition,1)
             {
                 LayerLevel = 100
@@ -115,6 +132,9 @@ namespace Dungeon12.ECS.Systems
 
             SceneLayer.AddObject(tooltip);
             Tooltips1[tooltiped] = tooltip;
+
+            if (component!=default)
+                TooltipsDynamic[component]=(tooltiped, tooltip);
 
 
             //tooltipPosition.X += sceneObject.Width / 2 - Global.GameClient.MeasureText(tooltip.Text.Text).X / 2;
@@ -131,7 +151,22 @@ namespace Dungeon12.ECS.Systems
 
         public void ProcessUnfocus(ISceneObject sceneObject)
         {
-            if(sceneObject is ITooltiped tooltiped)
+            var compInfo = ComponentInfo(sceneObject);
+            if (compInfo!=default)
+            {
+                if (TooltipsDynamic.TryGetValue(compInfo, out var tooltip1))
+                {
+                    TooltipsDynamic.Remove(compInfo);
+                    if (Tooltips1.TryGetValue(tooltip1.Item1, out var tooltip))
+                    {
+                        tooltip?.Destroy();
+                    }
+                }
+                return;
+            }
+
+
+            if (sceneObject is ITooltiped tooltiped)
             {
                 if (Tooltips1.TryGetValue(tooltiped, out var tooltip))
                 {

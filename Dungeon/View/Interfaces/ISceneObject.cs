@@ -1,5 +1,6 @@
 ﻿namespace Dungeon.View.Interfaces
 {
+    using Dungeon.ECS;
     using Dungeon.Types;
     using Dungeon.Utils;
     using Dungeon.View.Enums;
@@ -9,6 +10,8 @@
     [Hidden]
     public interface ISceneObject
     {
+        List<IECSComponent> Components { get; }
+
         public bool AlphaBlend { get; set; }
 
         public ITileMap TileMap { get; set; }
