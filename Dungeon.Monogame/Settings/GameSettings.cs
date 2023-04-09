@@ -9,8 +9,7 @@ namespace Dungeon.Monogame.Settings
     {
         public TimeSpan DropFpsOnUnfocus { get; set; } = TimeSpan.Zero;
 
-        [Display(Name = "Во весь экран")]
-        public bool IsFullScreen { get; set; } = true;
+        public WindowMode WindowMode { get; set; } = WindowMode.Windowed;
 
         [Display(Name = "Во весь экран (в окне)")]
         public bool IsWindowedFullScreen { get; set; } = false;

@@ -23,7 +23,7 @@ ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver(Assembly.GetEx
 
 var width = 1920;
 var height = 1080;
-var monitor = 0;
+var monitor = 1;
 
 if (args!=null && args.Length > 0)
 {
@@ -36,9 +36,9 @@ var client = new GameRunner(new GameSettings()
 {
     OriginWidthPixel = width,
     OriginHeightPixel = height,
-    IsFullScreen = false,
+    WindowMode = WindowMode.FullScreenHardware,
     Add2DLighting = true,
-    IsWindowedFullScreen = true,
+    IsWindowedFullScreen = false,
     MonitorIndex = monitor,
     NeedCalculateCamera=false,
 #if DEBUG

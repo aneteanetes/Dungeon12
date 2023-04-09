@@ -53,7 +53,7 @@ namespace Dungeon.Monogame.Effects.ShaderBlur
 
             gaussianBlur.ComputeOffsets(w, h);
 
-            _gameClient.DrawClient.SpriteBatchManager.Begin(_gameClient.ResolutionScale);
+            _gameClient.DrawClient.SpriteBatchManager.Begin(_gameClient.ResolutionMatrix);
 
             var result =  gaussianBlur.PerformGaussianBlur(input, r1, r2, _gameClient.DrawClient.SpriteBatchManager.GetSpriteBatch());
 

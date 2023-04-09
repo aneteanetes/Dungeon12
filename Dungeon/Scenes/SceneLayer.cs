@@ -341,7 +341,8 @@ namespace Dungeon.Scenes
             return newRegion;
         }
 
-        private Vector2 Scaled(double x, double y) => Vector2.Transform(new Vector2((float)x, (float)y), DungeonGlobal.ResolutionScaleMatrix);
+        private Vector2 Scaled(double x, double y) => new Vector2((float)x, (float)y);
+            //=> Vector2.Transform(new Vector2((float)x, (float)y), DungeonGlobal.ResolutionScaleMatrix);
 
         private IEnumerable<ISceneControl> FreezedChain(ISceneObject freezing)
         {
@@ -438,7 +439,7 @@ namespace Dungeon.Scenes
             var keyControls = ControlsByHandle(ControlEventType.Click);
             var globalKeyHandlers = ControlsByHandle(ControlEventType.GlobalClick);
 
-            var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs, offset));
+            var clickedElements = keyControls.Where(so => RegionContains(so, pointerPressedEventArgs, offset)).ToArray().AsEnumerable();
             clickedElements = WhereLayeredHandlers(clickedElements, pointerPressedEventArgs, offset);
 
             if (this.Destroyed)

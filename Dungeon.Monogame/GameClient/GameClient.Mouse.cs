@@ -107,17 +107,19 @@
 
                 this.light.Position = pos;
 
-                var posTransformed = Vector2.Transform(pos, ResolutionScale);
+                
+                var posTransformed = PosTransformed(pos);
 
                 currentScene.OnMouseMove(new PointerArgs
                 {
                     ClickCount = 0,
                     MouseButton = mb,
-                    X = pos.X,
-                    Y = pos.Y
+                    X = posTransformed.X,
+                    Y = posTransformed.Y
                 }, Offset);
             }
         }
+        private Vector2 PosTransformed(Vector2 pos) => new(pos.X / Scale.X, pos.Y / Scale.Y);
 
         private readonly Dictionary<MouseButton, ButtonState> buttonPressings 
             = new Dictionary<MouseButton, ButtonState>()
@@ -130,14 +132,14 @@
         private void OnPointerPressed(MouseButton mouseButton)
         {
             var pos = new Vector2(mousePosition.X, mousePosition.Y);
-            var posTransformed = Vector2.Transform(pos, ResolutionScale);
+            var posTransformed = PosTransformed(pos);
 
             SceneManager.Current?.OnMousePress(new PointerArgs
             {
                 ClickCount = 1,
                 MouseButton = mouseButton,
-                X = pos.X,
-                Y = pos.Y,
+                X = posTransformed.X,
+                Y = posTransformed.Y,
                 Offset = Offset,
                 Released=false
             }, Offset);
@@ -146,14 +148,14 @@
         private void OnPointerReleased(MouseButton mouseButton)
         {
             var pos = new Vector2(mousePosition.X, mousePosition.Y);
-            var posTransformed = Vector2.Transform(pos, ResolutionScale);
+            var posTransformed = PosTransformed(pos);
 
             SceneManager.Current?.OnMouseRelease(new PointerArgs
             {
                 ClickCount = 1,
                 MouseButton = mouseButton,
-                X = pos.X,
-                Y = pos.Y,
+                X = posTransformed.X,
+                Y = posTransformed.Y,
                 Offset = Offset,
                 Released = true
             }, Offset);
@@ -163,7 +165,7 @@
         {
             get
             {
-                var offsetScaled = Vector2.Transform(new Vector2((float)CameraOffsetX, (float)CameraOffsetY), ResolutionScale);
+                var offsetScaled = Vector2.Transform(new Vector2((float)CameraOffsetX, (float)CameraOffsetY), ResolutionMatrix);
 
                 return new Types.Dot(offsetScaled.X, offsetScaled.Y);
             }

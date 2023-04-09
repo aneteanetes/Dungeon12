@@ -77,6 +77,8 @@ namespace Dungeon.Monogame
             DungeonGlobal.TransportVariable = GraphicsDevice;
         }
 
+        private Vector3 Scale = default;
+
         protected virtual void GraphicsDeviceManagerInitialization(GameSettings settings)
         {
             ResourceLoader.Settings.StretchResources = settings.ResouceStretching;
@@ -84,7 +86,8 @@ namespace Dungeon.Monogame
             var monitor = MonitorBounds.ElementAtOrDefault(settings.MonitorIndex);
             if (monitor.w == 0)
                 monitor = MonitorBounds.ElementAtOrDefault(0);
-            if (settings.WidthHeightAutomated && monitor.w != originSize.X)
+
+            if (settings.WidthHeightAutomated && monitor.w != originSize.X && settings.WindowMode== WindowMode.FullScreenSoftware)
             {
                 settings.WidthPixel = monitor.w;
                 settings.HeightPixel = monitor.h;
@@ -95,14 +98,14 @@ namespace Dungeon.Monogame
 
             graphics = new GraphicsDeviceManager(this)
             {
-                IsFullScreen = settings.IsFullScreen,
+                IsFullScreen = settings.WindowMode== WindowMode.FullScreenSoftware || settings.WindowMode== WindowMode.FullScreenHardware,
                 PreferredBackBufferWidth = settings.WidthPixel,
                 PreferredBackBufferHeight = settings.HeightPixel,
                 SynchronizeWithVerticalRetrace = settings.VerticalSync,
                 PreferredDepthStencilFormat= DepthFormat.Depth24Stencil8,
             };
 
-            ResolutionScale = Matrix.Identity;
+            ResolutionMatrix = Matrix.Identity;
 
             bool scaling = false;
             Types.Dot left = Types.Dot.Zero;
@@ -112,14 +115,14 @@ namespace Dungeon.Monogame
             if (originSize.X > settings.WidthPixel)
             {
                 scaling = true;
-                left = size;
-                right = originSize;
+                left = originSize;
+                right = size;
             }
             else if (originSize.X < settings.WidthPixel)
             {
                 scaling = true;
-                left = originSize;
-                right = size;
+                left = size;
+                right = originSize;
             }
 
             if (scaling)
@@ -127,29 +130,30 @@ namespace Dungeon.Monogame
                 var scaleX = left.Xf / right.Xf;
                 var scaleY = left.Yf / right.Yf;
 
-                var scale = new Vector3(scaleX, scaleY, 1);
+                var scale = Scale = new Vector3(scaleX, scaleY, 1);
 
-                ResolutionScale = Matrix.CreateScale(scale);
+                ResolutionMatrix = Matrix.CreateScale(scale);
             }
+            else Scale = new Vector3(1, 1, 1);
 
             DungeonGlobal.ResolutionScaleMatrix =
                 new System.Numerics.Matrix4x4(
-                    ResolutionScale.M11,
-                    ResolutionScale.M12,
-                    ResolutionScale.M13,
-                    ResolutionScale.M14,
-                    ResolutionScale.M21,
-                    ResolutionScale.M22,
-                    ResolutionScale.M23,
-                    ResolutionScale.M24,
-                    ResolutionScale.M31,
-                    ResolutionScale.M32,
-                    ResolutionScale.M33,
-                    ResolutionScale.M34,
-                    ResolutionScale.M41,
-                    ResolutionScale.M42,
-                    ResolutionScale.M43,
-                    ResolutionScale.M44);
+                    ResolutionMatrix.M11,
+                    ResolutionMatrix.M12,
+                    ResolutionMatrix.M13,
+                    ResolutionMatrix.M14,
+                    ResolutionMatrix.M21,
+                    ResolutionMatrix.M22,
+                    ResolutionMatrix.M23,
+                    ResolutionMatrix.M24,
+                    ResolutionMatrix.M31,
+                    ResolutionMatrix.M32,
+                    ResolutionMatrix.M33,
+                    ResolutionMatrix.M34,
+                    ResolutionMatrix.M41,
+                    ResolutionMatrix.M42,
+                    ResolutionMatrix.M43,
+                    ResolutionMatrix.M44);
 
             DungeonGlobal.ChangeResolution += r =>
             {
@@ -162,11 +166,9 @@ namespace Dungeon.Monogame
                 SceneManager.Start(isFatal ? "FATAL" : default);
             };
 
-            this.Window.IsBorderless = settings.Borderless;
-            if (settings.IsFullScreen && settings.IsWindowedFullScreen)
+            if (settings.WindowMode== WindowMode.FullScreenSoftware)
             {
                 graphics.HardwareModeSwitch = false;
-                this.Window.IsBorderless = true;
             }
 
             graphics.SynchronizeWithVerticalRetrace = true;
@@ -207,7 +209,7 @@ namespace Dungeon.Monogame
             {
                 SpriteBatchManager=new SpriteBatchManager(GraphicsDevice, Content)
             };
-            DrawClient.ChangeResolution(ResolutionScale);
+            DrawClient.ChangeResolution(ResolutionMatrix);
 
             DungeonGlobal.Camera = this;
             DungeonGlobal.SceneManager = SceneManager =  new SceneManager(this);

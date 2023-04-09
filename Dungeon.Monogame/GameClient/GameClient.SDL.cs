@@ -83,9 +83,11 @@ namespace Dungeon.Monogame
         private bool SetMonitor(int index)
         {
             var bounds = MonitorBounds.ElementAtOrDefault(index);
-
+            if (MonitorBounds.Count == 1)
+                bounds = MonitorBounds[0];
             if (bounds.x != 0) {
-                Window.Position = new Point(bounds.x, _settings.IsFullScreen ? 0 : 50);
+                var isfullscreen = _settings.WindowMode == Settings.WindowMode.FullScreenHardware || _settings.WindowMode == Settings.WindowMode.FullScreenSoftware;
+                Window.Position = new Point(bounds.x, isfullscreen ? 0 : 50);
             }
 
             var resolution = DungeonGlobal.Resolution;
@@ -99,10 +101,6 @@ namespace Dungeon.Monogame
                         X  = bounds.w / 2 - resolution.Width / 2,
                         Y  = bounds.h / 2 - resolution.Height / 2
                     };
-                }
-                else if (_settings.IsFullScreen)
-                {
-                    FitBounds(bounds);
                 }
             }
 
@@ -137,26 +135,26 @@ namespace Dungeon.Monogame
 
             var scale = new Vector3(scaleX, scaleY, 1);
 
-            ResolutionScale = Matrix.CreateScale(scale);
+            ResolutionMatrix = Matrix.CreateScale(scale);
 
             DungeonGlobal.ResolutionScaleMatrix =
                 new System.Numerics.Matrix4x4(
-                    ResolutionScale.M11,
-                    ResolutionScale.M12,
-                    ResolutionScale.M13,
-                    ResolutionScale.M14,
-                    ResolutionScale.M21,
-                    ResolutionScale.M22,
-                    ResolutionScale.M23,
-                    ResolutionScale.M24,
-                    ResolutionScale.M31,
-                    ResolutionScale.M32,
-                    ResolutionScale.M33,
-                    ResolutionScale.M34,
-                    ResolutionScale.M41,
-                    ResolutionScale.M42,
-                    ResolutionScale.M43,
-                    ResolutionScale.M44);
+                    ResolutionMatrix.M11,
+                    ResolutionMatrix.M12,
+                    ResolutionMatrix.M13,
+                    ResolutionMatrix.M14,
+                    ResolutionMatrix.M21,
+                    ResolutionMatrix.M22,
+                    ResolutionMatrix.M23,
+                    ResolutionMatrix.M24,
+                    ResolutionMatrix.M31,
+                    ResolutionMatrix.M32,
+                    ResolutionMatrix.M33,
+                    ResolutionMatrix.M34,
+                    ResolutionMatrix.M41,
+                    ResolutionMatrix.M42,
+                    ResolutionMatrix.M43,
+                    ResolutionMatrix.M44);
         }
     }
 }

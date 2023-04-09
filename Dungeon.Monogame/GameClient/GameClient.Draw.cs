@@ -119,7 +119,7 @@ namespace Dungeon.Monogame
 
             GraphicsDevice.Clear(Color.Transparent);
 
-            LayerSpriteBatch.Begin();
+            LayerSpriteBatch.Begin(transformMatrix:ResolutionMatrix);
             if (this.Scene != default)
             {
                 foreach (var layerInfo in SceneLayers)

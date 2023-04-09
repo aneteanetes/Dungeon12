@@ -35,7 +35,7 @@ namespace Dungeon.Monogame
         internal SpriteBatchKnowed DefaultSpriteBatch;
         internal SpriteBatchKnowed LayerSpriteBatch;
 
-        public Matrix ResolutionScale;
+        public Matrix ResolutionMatrix;
         private Dot originSize;
 
         private GameSettings _settings;

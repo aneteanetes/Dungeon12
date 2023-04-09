@@ -88,8 +88,8 @@ namespace Dungeon.Monogame
                 penumbra?.BeginDraw();
 
             GraphicsDevice.Clear(Color.Transparent);
-            
-            SpriteBatchManager.Begin(_resolutionMatrix);
+
+            SpriteBatchManager.Begin(Matrix.Identity);// /*_resolutionMatrix*/);
 
             var spriteBatch = SpriteBatchManager.GetSpriteBatch();
 
