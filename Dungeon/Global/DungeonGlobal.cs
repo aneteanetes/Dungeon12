@@ -22,6 +22,7 @@
     using System.Numerics;
     using System.Reflection;
     using System.Runtime.ExceptionServices;
+    using System.Text;
 
     public abstract class DungeonGlobal
     {
@@ -38,6 +39,7 @@
 
         public static void BindGlobal<T>(bool isDevelop, bool compileData=false) where T : DungeonGlobal
         {
+            Console.OutputEncoding = Encoding.UTF8;
             IsDevelopment=isDevelop;
 
             DungeonGlobal.GameAssembly = typeof(T).Assembly;

@@ -19,8 +19,6 @@ ResourceLoader.Settings.EmbeddedMode = false;
 //ResourceLoader.NotDisposingResources = true;
 //ResourceLoader.CacheImagesAndMasks = false;
 
-Console.OutputEncoding = Encoding.UTF8;
-
 ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver(Assembly.GetExecutingAssembly()));
 
 var width = 1920;
