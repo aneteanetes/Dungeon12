@@ -87,7 +87,7 @@ namespace Dungeon.Monogame
             if (monitor.w == 0)
                 monitor = MonitorBounds.ElementAtOrDefault(0);
 
-            if (settings.WidthHeightAutomated && monitor.w != originSize.X && settings.WindowMode== WindowMode.FullScreenSoftware)
+            if (settings.WidthHeightAutomated && monitor.w != originSize.X && (settings.WindowMode== WindowMode.FullScreenSoftware || settings.WindowMode== WindowMode.WindowedScaled))
             {
                 settings.WidthPixel = monitor.w;
                 settings.HeightPixel = monitor.h;
