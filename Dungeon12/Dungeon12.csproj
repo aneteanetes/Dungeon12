@@ -15,7 +15,7 @@
     <None Remove="Resources\**" />
     <EmbeddedResource Include="Resources\**" />
     <None Update="*.cfg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
@@ -29,4 +29,5 @@
     <Folder Include="Resources\Images\Backgrounds\Regions\" />
     <Folder Include="Resources\Loot\" />
   </ItemGroup>
+
 </Project>
