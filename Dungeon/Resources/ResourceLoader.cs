@@ -21,17 +21,6 @@ namespace Dungeon.Resources
     {
         public static ResourceLoaderSettings Settings { get; set; } = new ResourceLoaderSettings();
 
-        /// <summary>
-        /// Флаг позволяющий не освобождать ресуры
-        /// полезно для дебага
-        /// </summary>
-        public static bool NotDisposingResources = false;
-
-        /// <summary>
-        /// Флаг кэширования изображений и их масок
-        /// </summary>
-        public static bool CacheImagesAndMasks = true;
-
         public static List<ResourceDatabaseResolver> ResourceDatabaseResolvers { get; set; } = new List<ResourceDatabaseResolver>();
 
         public static List<ResourceResolver> ResourceResolvers { get; set; } = new List<ResourceResolver>();
@@ -165,7 +154,7 @@ namespace Dungeon.Resources
             }
 
             bool addToScene = !caching;
-            if (NotDisposingResources || Settings.EmbeddedMode)
+            if (Settings.NotDisposingResources || Settings.EmbeddedMode)
             {
                 addToScene = !(sceneManager ?? DungeonGlobal.SceneManager).Preapering?.Resources.Any(r => r.Path == res.Path) ?? false;
             }

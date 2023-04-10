@@ -1,12 +1,9 @@
 ﻿using Dungeon;
 using Dungeon.Drawing;
 using Dungeon.Localization;
-using Dungeon.View.Interfaces;
 using Dungeon12.Entities.Enums;
 using Dungeon12.Locale;
 using Dungeon12.SceneObjects;
-using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 
 namespace Dungeon12

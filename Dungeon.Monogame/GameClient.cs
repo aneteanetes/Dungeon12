@@ -19,7 +19,7 @@ namespace Dungeon.Monogame
     {
         public static GameClient Instance;
 
-        public GameClient(GameSettings settings)
+        public GameClient(MonogameSettings settings)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace Dungeon.Monogame
 
         private Vector3 Scale = default;
 
-        protected virtual void GraphicsDeviceManagerInitialization(GameSettings settings)
+        protected virtual void GraphicsDeviceManagerInitialization(MonogameSettings settings)
         {
             ResourceLoader.Settings.StretchResources = settings.ResouceStretching;
 

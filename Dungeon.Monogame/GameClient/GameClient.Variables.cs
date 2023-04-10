@@ -38,7 +38,7 @@ namespace Dungeon.Monogame
         public Matrix ResolutionMatrix;
         private Dot originSize;
 
-        private GameSettings _settings;
+        private MonogameSettings _settings;
         public ContentResolver contentResolver;
     }
 }
