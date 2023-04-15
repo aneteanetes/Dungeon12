@@ -1,4 +1,5 @@
 ﻿using Dungeon12.Entities;
+using Dungeon12.Entities.Journal;
 using Dungeon12.Entities.Map;
 using Dungeon12.Entities.Quests;
 using Dungeon12.SceneObjects.UI;

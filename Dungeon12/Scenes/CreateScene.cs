@@ -110,7 +110,7 @@ namespace Dungeon12.Scenes
                     },
                 },
                 Calendar = new Entities.Calendar(),
-                Log = new Entities.GameLog(),
+                Log = new Entities.Journal.GameLog(),
                 QuestBook = new Entities.Quests.QuestBook()
             };
         }

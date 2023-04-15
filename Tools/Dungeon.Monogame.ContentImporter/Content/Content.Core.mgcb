@@ -38,6 +38,12 @@
 /processorParam:DebugMode=Auto
 /build:Invert.fx
 
+#begin Mask.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Mask.fx
+
 #begin PenumbraHull.fx
 /importer:EffectImporter
 /processor:EffectProcessor

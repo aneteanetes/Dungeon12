@@ -11,6 +11,14 @@
   </ItemGroup>
   
   <ItemGroup>
+    <None Remove="Content\Mask.fx" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Include="Content\Mask.fx" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <PackageReference Include="MonoGame.Content.Builder" Version="3.7.0.4" />
   </ItemGroup>
   

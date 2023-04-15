@@ -1,4 +1,5 @@
-﻿using Dungeon.Control.Keys;
+﻿using Dungeon;
+using Dungeon.Control.Keys;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using Dungeon12.ECS.Systems;
@@ -64,7 +65,8 @@ namespace Dungeon12.Scenes
                 Top = 630
             });
 
-            main.AddObject(new LocationPanel(location) // center
+            InitField(location);
+            main.AddObject(new FieldPanel(location) // center
             {
                 Top = 30,
                 Left = 400
@@ -81,6 +83,56 @@ namespace Dungeon12.Scenes
                 Top = 830,
                 Left = 1520
             });
+
+            Global.Game.Log.Push("Вы просыпаетесь после шторма в каютах корабля 'Волна света'...");
+        }
+
+        private static void InitField(Location location)
+        {
+            var icons = new string[]
+            {
+                "hk_new-blank_005",
+                "hk_new-blank_006"
+            };
+
+            for (int y = 0; y < 5; y++)
+            {
+                for (int x = 0; x < 8; x++)
+                {
+                    if (y % 2 != 0 && x==7)
+                        continue;
+
+                    location.Polygons.Add(new Polygon()
+                    {
+                        Icon = icons[RandomGlobal.Next(0, 1)],
+                        X=x,
+                        Y=y,
+                    });
+                }
+            }
+
+            location.Init();
+
+            location[2, 4].Object=new Entities.Objects.MapObject()
+            {
+                Icon=$"Chips/w1.png".AsmImg(),
+                Name = Global.Game.Party.Hero1.Name
+            };
+            location[3, 4].Object=new Entities.Objects.MapObject()
+            {
+                Icon=$"Chips/m1.png".AsmImg(),
+                Name = Global.Game.Party.Hero2.Name
+            };
+            location[4, 4].Object=new Entities.Objects.MapObject()
+            {
+                Icon="Chips/t1.png".AsmImg(),
+                Name = Global.Game.Party.Hero3.Name
+            };
+            location[5, 4].Object=new Entities.Objects.MapObject()
+            {
+                Icon="Chips/p1.png".AsmImg(),
+                Name = Global.Game.Party.Hero4.Name
+            };
         }
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)

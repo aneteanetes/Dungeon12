@@ -53,7 +53,10 @@ namespace Dungeon.Drawing
 
         public void AddLine(string value)
         {
-            stringData += Environment.NewLine+ value;
+            if (string.IsNullOrWhiteSpace(stringData))
+                stringData=value;
+            else
+                stringData += Environment.NewLine+ value;
         }
 
         private string stringData;

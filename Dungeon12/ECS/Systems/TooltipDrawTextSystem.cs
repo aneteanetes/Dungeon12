@@ -130,6 +130,9 @@ namespace Dungeon12.ECS.Systems
                 LayerLevel = 100
             };
 
+            if (sceneObject is ITooltipedPositionByComponent)
+                tooltipPosition.X = sceneObject.ComputedPosition.X+sceneObject.Width*.85;
+
             SceneLayer.AddObject(tooltip);
             Tooltips1[tooltiped] = tooltip;
 

@@ -7,14 +7,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Dungeon12.SceneObjects.MUD
 {
-    internal class LocationPanel : SceneControl<Location>
+    internal class FieldPanel : SceneControl<Location>
     {
         public override void Throw(Exception ex)
         {
             throw ex;
         }
 
-        public LocationPanel(Location location) : base(location)
+        public FieldPanel(Location location) : base(location)
         {
             this.Width=1120;
             this.Height=600;
@@ -23,39 +23,11 @@ namespace Dungeon12.SceneObjects.MUD
 
             this.AddBorderBack(.8);
 
-            var icons = new string[]
-            {
-                "hk_new-blank_005",
-                "hk_new-blank_006"
-            };
-
-            for (int y = 0; y < 5; y++)
-            {
-                for (int x = 0; x < 8; x++)
-                {
-                    if (y % 2 != 0 && x==7)
-                        continue;
-
-                    location.Polygons.Add(new Polygon()
-                    {
-                        Icon = icons[RandomGlobal.Next(0, 1)],
-                        X=x,
-                        Y=y,
-                    });
-                }
-            }
-
             location.Polygons.ForEach(p =>
             {
                 var pos = PolygonPositions[$"{p.X},{p.Y}"];
 
-                this.AddChild(new PolygonView(p)
-                {
-                    Left = pos.X,
-                    Top = pos.Y,
-                    Width=polygonSize,
-                    Height=polygonSize,
-                });
+                this.AddChild(new PolygonView(p,pos.X,pos.Y,polygonSize,polygonSize));
             });
         }
 
@@ -93,13 +65,7 @@ namespace Dungeon12.SceneObjects.MUD
                         Icon = icons[RandomGlobal.Next(0, 1)],
                         X=x,
                         Y=y,
-                    })
-                    {
-                        Left = left,
-                        Top = top,
-                        Width=size,
-                        Height=size,
-                    });
+                    }, left, top, size, size));
 
                     Console.WriteLine($@"{{""{x},{y}"", new Dot({left.ToString().Replace(",", ".")}, {top.ToString().Replace(",", ".")})}},");
 

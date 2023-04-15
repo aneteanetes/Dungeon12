@@ -1,6 +1,0 @@
-﻿#begin fonts/{FontName}/{FontName}{FontSize}.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:fonts/{FontName}/{FontName}{FontSize}.spritefont

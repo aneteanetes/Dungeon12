@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Dungeon.Monogame.FontGenerator": {
-      "commandName": "Project",
-      "commandLineArgs": ""
-    }
-  }
-}

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Dungeon12.Entities.Objects;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Dungeon12.Entities.Map
@@ -14,6 +15,8 @@ namespace Dungeon12.Entities.Map
         public string ObjectImage { get; set; }
 
         public string Function { get; set; }
+
+        public MapObject Object { get; set; }
 
         public int X { get; set; }
 

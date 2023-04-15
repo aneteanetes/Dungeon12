@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon", "Dungeon\Dungeon.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon.Monogame.ContentImporter", "Tools\Dungeon.Monogame.ContentImporter\Dungeon.Monogame.ContentImporter.csproj", "{95968357-1330-428E-93FF-825C2B71A846}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon.Monogame.FontGenerator", "Tools\Dungeon.Monogame.FontGenerator\Dungeon.Monogame.FontGenerator.csproj", "{FB24BF05-96E9-4F53-8D28-6D98C348B006}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon12", "Dungeon12\Dungeon12.csproj", "{E8206113-FBCB-4E38-A280-F424CE9DD4FA}"
 EndProject
 Global
@@ -61,18 +59,6 @@ Global
 		{95968357-1330-428E-93FF-825C2B71A846}.Release|Any CPU.Build.0 = Release|Any CPU
 		{95968357-1330-428E-93FF-825C2B71A846}.Release|x86.ActiveCfg = Release|Any CPU
 		{95968357-1330-428E-93FF-825C2B71A846}.Release|x86.Build.0 = Release|Any CPU
-		{FB24BF05-96E9-4F53-8D28-6D98C348B006}.CompileDatabase|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB24BF05-96E9-4F53-8D28-6D98C348B006}.CompileDatabase|Any CPU.Build.0 = Debug|Any CPU
-		{FB24BF05-96E9-4F53-8D28-6D98C348B006}.CompileDatabase|x86.ActiveCfg = Debug|Any CPU
-		{FB24BF05-96E9-4F53-8D28-6D98C348B006}.CompileDatabase|x86.Build.0 = Debug|Any CPU
-		{FB24BF05-96E9-4F53-8D28-6D98C348B006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB24BF05-96E9-4F53-8D28-6D98C348B006}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB24BF05-96E9-4F53-8D28-6D98C348B006}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{FB24BF05-96E9-4F53-8D28-6D98C348B006}.Debug|x86.Build.0 = Debug|Any CPU
-		{FB24BF05-96E9-4F53-8D28-6D98C348B006}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB24BF05-96E9-4F53-8D28-6D98C348B006}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FB24BF05-96E9-4F53-8D28-6D98C348B006}.Release|x86.ActiveCfg = Release|Any CPU
-		{FB24BF05-96E9-4F53-8D28-6D98C348B006}.Release|x86.Build.0 = Release|Any CPU
 		{E8206113-FBCB-4E38-A280-F424CE9DD4FA}.CompileDatabase|Any CPU.ActiveCfg = Debug|Any CPU
 		{E8206113-FBCB-4E38-A280-F424CE9DD4FA}.CompileDatabase|Any CPU.Build.0 = Debug|Any CPU
 		{E8206113-FBCB-4E38-A280-F424CE9DD4FA}.CompileDatabase|x86.ActiveCfg = Debug|Any CPU
@@ -91,7 +77,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{95968357-1330-428E-93FF-825C2B71A846} = {5FB1E387-84A2-47BC-8C07-497293307A3C}
-		{FB24BF05-96E9-4F53-8D28-6D98C348B006} = {5FB1E387-84A2-47BC-8C07-497293307A3C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED22073D-6C04-4F62-80B2-5EE0EA19C68D}

@@ -89,10 +89,10 @@ namespace Dungeon12.Entities.Map
             if (location.ObjectId != null)
                 try
                 {
-                    location.Polygon = ResourceLoader.LoadJson<Polygon>($"Objects/{location.ObjectId}.json".AsmRes(), @throw: false);
-                    if (location.Polygon == null)
-                        location.Polygon = new Polygon(); // это пока не все объекты пока разработка
-                    location.Polygon.Init();
+                    //location.Polygon = ResourceLoader.LoadJson<Polygon>($"Objects/{location.ObjectId}.json".AsmRes(), @throw: false);
+                    //if (location.Polygon == null)
+                    //    location.Polygon = new Polygon(); // это пока не все объекты пока разработка
+                    //location.Polygon.Init();
                 }
                 catch { }
 

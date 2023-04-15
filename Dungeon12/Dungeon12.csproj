@@ -1,33 +1,42 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net6</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net6</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<ApplicationIcon>d12icon.ico</ApplicationIcon>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;Core;DisableSound;</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DefineConstants>TRACE;Core;DisableSound;</DefineConstants>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Resources\**" />
-    <EmbeddedResource Include="Resources\**" />
-    <None Update="*.cfg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Resources\**" />
+		<EmbeddedResource Include="Resources\**" />
+		<None Remove="d12icon.bmp" />
+		<None Remove="d12icon.ico" />
+		<EmbeddedResource Include="d12icon.bmp">
+			<LogicalName>Icon.bmp</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="d12icon.ico">
+			<LogicalName>Icon.ico</LogicalName>
+		</EmbeddedResource>
+		<None Update="*.cfg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Dungeon.Monogame\Dungeon.Monogame.csproj" />
-    <ProjectReference Include="..\Dungeon\Dungeon.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Dungeon.Monogame\Dungeon.Monogame.csproj" />
+		<ProjectReference Include="..\Dungeon\Dungeon.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Components\Movable\" />
-    <Folder Include="Resources\Images\Backgrounds\Regions\" />
-    <Folder Include="Resources\Loot\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Components\Movable\" />
+		<Folder Include="Resources\Images\Backgrounds\Regions\" />
+		<Folder Include="Resources\Loot\" />
+	</ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@
 
 namespace Dungeon12.Entities.Map
 {
-    internal class Location
+    internal class Location : CoordDictionary<Polygon>
     {
         public string UId => Region.MapId + Index;
 
@@ -24,8 +24,6 @@ namespace Dungeon12.Entities.Map
 
         public string ObjectId { get; set; }
 
-        public Polygon Polygon { get; set; }
-
         public List<Polygon> Polygons { get; set; } = new List<Polygon>();
 
         public int Index { get; set; }
@@ -46,9 +44,12 @@ namespace Dungeon12.Entities.Map
 
         public bool IsActivable { get; set; } = true;
 
-        public void Reveal()
+        public void Init()
         {
-            Links.ForEach(l => l.IsOpen = true);
+            this.Polygons.ForEach(x =>
+            {
+                this.Add(x.X, x.Y, x);
+            });
         }
     }
 }
