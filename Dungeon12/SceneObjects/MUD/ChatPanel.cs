@@ -1,4 +1,5 @@
-﻿using Dungeon.SceneObjects;
+﻿using Dungeon;
+using Dungeon.SceneObjects;
 using Dungeon12.Entities;
 
 namespace Dungeon12.SceneObjects.MUD
@@ -11,6 +12,26 @@ namespace Dungeon12.SceneObjects.MUD
             this.Height=200;
 
             this.AddBorder();
+
+            double top = 5;
+
+            for (int i = 0; i < 10; i++)
+            {
+                var txt = this.AddChild(
+                    new TextObject($"{DateTime.Now:mm:ss} : {Guid.NewGuid()} {Guid.NewGuid()} {Guid.NewGuid()}"
+                        .AsDrawText()
+                        .InBold()
+                        .Calibri()
+                        .InSize(15)
+                        .InColor(Global.CommonColorLight))
+                {
+                    Left=7,
+                    Top=top
+                });
+                top += 19;
+
+
+            }
         }
     }
 }

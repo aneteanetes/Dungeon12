@@ -14,6 +14,9 @@
   <ItemGroup>
     <None Remove="Resources\**" />
     <EmbeddedResource Include="Resources\**" />
+    <None Update="*.cfg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -26,4 +29,5 @@
     <Folder Include="Resources\Images\Backgrounds\Regions\" />
     <Folder Include="Resources\Loot\" />
   </ItemGroup>
+
 </Project>

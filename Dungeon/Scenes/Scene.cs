@@ -366,7 +366,7 @@
             LayerMap=null;
             SceneLayerGraph=null;
 
-            if (!ResourceLoader.Settings.EmbeddedMode && !ResourceLoader.NotDisposingResources)
+            if (!ResourceLoader.Settings.EmbeddedMode && !ResourceLoader.Settings.NotDisposingResources)
             {
                 Resources.ForEach(r => r.Dispose());
                 Resources.Clear();

@@ -5,30 +5,27 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dungeon.Monogame.Settings
 {
-    public class GameSettings
+    public class MonogameSettings
     {
         public TimeSpan DropFpsOnUnfocus { get; set; } = TimeSpan.Zero;
 
         public WindowMode WindowMode { get; set; } = WindowMode.Windowed;
-
-        [Display(Name = "Во весь экран (в окне)")]
-        public bool IsWindowedFullScreen { get; set; } = false;
 
         [Display(Name = "Ширина в px")]
         public int WidthPixel
         {
             get
             {
-                if(widthPixel == -1)
+                if(widthPixel == 0)
                 {
                     WidthHeightAutomated = true;
-                    widthPixel = OriginWidthPixel;
+                    return OriginWidthPixel;
                 }
                 return widthPixel;
             }
             set => widthPixel = value;
         }
-        private int widthPixel = -1;
+        private int widthPixel = 0;
 
         public bool WidthHeightAutomated { get; private set; }
 
@@ -37,16 +34,16 @@ namespace Dungeon.Monogame.Settings
         {
             get
             {
-                if (heightPixel == -1)
+                if (heightPixel == 0)
                 {
                     WidthHeightAutomated = true;
-                    heightPixel = OriginHeightPixel;
+                    return OriginHeightPixel;
                 }
                 return heightPixel;
             }
             set => heightPixel = value;
         }
-        private int heightPixel = -1;
+        private int heightPixel = 0 ;
 
         public int OriginWidthPixel { get; set; }
 

@@ -1,29 +1,29 @@
-﻿namespace Dungeon
-{
-    using Dungeon.Audio;
-    using Dungeon.Control;
-    using Dungeon.Drawing;
-    using Dungeon.Events;
-    using Dungeon.Global;
-    using Dungeon.Localization;
-    using Dungeon.Logging;
-    using Dungeon.Resources;
-    using Dungeon.Scenes.Manager;
-    using Dungeon.Settings;
-    using Dungeon.Types;
-    using Dungeon.View;
-    using Dungeon.View.Interfaces;
-    using MoreLinq;
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Numerics;
-    using System.Reflection;
-    using System.Runtime.ExceptionServices;
-    using System.Text;
+﻿using Dungeon.Audio;
+using Dungeon.Configuration;
+using Dungeon.Control;
+using Dungeon.Events;
+using Dungeon.Global;
+using Dungeon.Localization;
+using Dungeon.Logging;
+using Dungeon.Resources;
+using Dungeon.Scenes.Manager;
+using Dungeon.Settings;
+using Dungeon.View;
+using Dungeon.View.Interfaces;
+using Microsoft.Extensions.Configuration;
+using MoreLinq;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Numerics;
+using System.Reflection;
+using System.Runtime.ExceptionServices;
+using System.Text;
 
+namespace Dungeon
+{
     public abstract class DungeonGlobal
     {
         public DungeonGlobal()
@@ -37,8 +37,11 @@
 
         public static bool IsDevelopment { get; private set; }
 
-        public static void BindGlobal<T>(bool isDevelop, bool compileData=false) where T : DungeonGlobal
+        private static bool isInited = false;
+
+        public static DungeonConfiguration Init<T>(bool isDevelop, bool compileData=false) where T : DungeonGlobal
         {
+            ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver(Assembly.GetEntryAssembly()));
             Console.OutputEncoding = Encoding.UTF8;
             IsDevelopment=isDevelop;
 
@@ -64,7 +67,22 @@
                     global.LoadStrings(loaded);
                 }
             }
+
+            var config = new ConfigurationBuilder()
+                .AddJsonFile($"{GameAssemblyName.ToLowerInvariant()}.cfg", true)
+                .AddJsonFile($"{GameAssemblyName.ToLowerInvariant()}.local.cfg", true)
+                .Build();
+
+            Configuration = config.Get<DungeonConfiguration>();
+            Configuration.ConfigurationRoot = config;
+            ResourceLoader.Settings = Configuration.ResourceLoader;
+
+            isInited = true;
+
+            return Configuration;
         }
+
+        public static DungeonConfiguration Configuration { get; private set; }
 
         /// <summary>
         /// Если установлено true тогда <see cref="ISceneObject.ComponentUpdateChainCall(GameTimeLoop)"/> будет работать только на компонентах у которых включён <see cref="ISceneObject.Updatable"/> и в зависимости от дерева композиции
@@ -220,6 +238,8 @@
 
         public static void Run(IGameRunner drawFrontend)
         {
+            if (!isInited)
+                throw new Exception("Dungeon.Init must call before run!");
             drawFrontend.Run();
         }
     }

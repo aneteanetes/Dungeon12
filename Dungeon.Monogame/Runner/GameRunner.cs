@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Dungeon.Monogame.Runner
 {
-    public class GameRunner : IGameRunner
+    public class MonogameRunner : IGameRunner
     {
-        private readonly GameSettings _settings;
+        private readonly MonogameSettings _settings;
 
-        public GameRunner(GameSettings settings)
+        public MonogameRunner(MonogameSettings settings)
         {
             _settings = settings;
 

@@ -13,5 +13,9 @@ namespace Dungeon.Resources
         public bool StretchResources { get; set; }
 
         public bool EmbeddedMode { get; set; }
+
+        public bool NotDisposingResources { get; set; }
+
+        public bool CacheImagesAndMasks { get; set; } = true;
     }
 }
