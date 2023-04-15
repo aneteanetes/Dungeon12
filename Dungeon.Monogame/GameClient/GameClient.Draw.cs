@@ -145,6 +145,7 @@ namespace Dungeon.Monogame
             LayerSpriteBatch.End();
 
             DrawDebugInfo();
+            DrawFPS();
 
             Draw3D();
             base.Draw(gameTime);

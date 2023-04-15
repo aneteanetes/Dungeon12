@@ -34,6 +34,7 @@
     <MonoGameContentReference Remove="Content\Content.Android.mgcb" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FontStashSharp.MonoGame" Version="1.2.8" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1700" />
     <PackageReference Include="NSubsys" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -47,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ProjectMercury\" />
+    <Folder Include="Resources\Fonts\ttf\" />
   </ItemGroup>
     
   <ItemGroup>
