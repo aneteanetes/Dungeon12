@@ -57,7 +57,7 @@ namespace Dungeon12.SceneObjects.World
                 Y = current.Y
             };
 
-            this.AddBorder(0);
+            this.AddBorderBack(0);
         }
 
         WorldPartySceneObject pointer = null;

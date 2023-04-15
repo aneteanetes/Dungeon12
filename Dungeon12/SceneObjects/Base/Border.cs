@@ -24,7 +24,8 @@ namespace Dungeon12.SceneObjects.Base
 
             var size = settings.Size;
 
-            this.AddChild(new DarkRectangle() { Width=settings.Width, Height=settings.Height, Opacity=settings.Opacity });
+            if (settings.Opacity>0)
+                this.AddChild(new DarkRectangle() { Width=settings.Width, Height=settings.Height, Opacity=settings.Opacity });
 
             this.AddChild(new ImageObject($"{settings.ImagesPath}leftup.png") { Width=size, Height=size, Mode= DrawMode.Tiled });
             this.AddChild(new ImageObject($"{settings.ImagesPath}rightup.png") { Width=size, Height=size, Left=this.Width-size, Mode= DrawMode.Tiled });

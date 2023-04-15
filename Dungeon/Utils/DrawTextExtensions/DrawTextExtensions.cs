@@ -106,6 +106,12 @@ namespace Dungeon
             return drawText;
         }
 
+        public static IDrawText IsNew(this IDrawText drawText, bool @is=false)
+        {
+            drawText.IsNew=@is;
+            return drawText;
+        }
+
         public static IDrawText InBold(this IDrawText drawText)
         {
             drawText.Bold = true;

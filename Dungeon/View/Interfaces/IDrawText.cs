@@ -5,6 +5,8 @@
 
     public interface IDrawText : IGameComponent, IDrawContext, IGraph<IDrawText>
     {
+        bool IsNew { get; set; }
+
         IEnumerable<IDrawText> Data { get; }
 
         string StringData { get; }

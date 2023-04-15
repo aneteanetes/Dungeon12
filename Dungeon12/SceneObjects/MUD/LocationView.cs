@@ -6,19 +6,19 @@ using Dungeon12.SceneObjects.RegionScreen;
 
 namespace Dungeon12.SceneObjects.MUD
 {
-    internal class LocationView : SceneObject<Location>
+    internal class LocationPreviewImg : SceneObject<Location>
     {
         public override void Throw(Exception ex)
         {
             throw ex;
         }
 
-        public LocationView(Location component) : base(component)
+        public LocationPreviewImg(Location component) : base(component)
         {
             this.Width=400;
             this.Height=400;
 
-            this.AddBorder();
+            this.AddBorderBack();
 
             this.AddChild(new ImageObject($"Locations/{component.Region.MapId}/{component.ObjectImage}")
             {

@@ -117,6 +117,6 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
         public CursorImage Cursor => CursorImage.Question;
 
         public ISceneObjectHosted CreateMouseHint()
-            => new GameHint(_ability.Name, _ability.Description,_ability.Area, _ability.Cooldown,.9, _ability.GetTextParams());
+            => new ObjectPanel(_ability.Name, _ability.Description,_ability.Area, _ability.Cooldown, _ability.GetTextParams());
     }
 }

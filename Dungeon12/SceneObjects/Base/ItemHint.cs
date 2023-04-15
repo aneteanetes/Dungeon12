@@ -14,7 +14,7 @@ namespace Dungeon12.SceneObjects.Base
         {
             this.Width = 355;
 
-            this.AddBorder();
+            this.AddBorderBack();
 
             this.AddText(item.Name
                 .SegoeUIBold()

@@ -214,8 +214,6 @@ namespace Dungeon.Monogame
             DungeonGlobal.Camera = this;
             DungeonGlobal.SceneManager = SceneManager =  new SceneManager(this);
             SceneManager.Start(isFatal ? "FATAL" : default);
-
-            LoadFontSystem();
         }
 
 

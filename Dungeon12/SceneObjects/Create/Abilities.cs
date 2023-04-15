@@ -22,7 +22,7 @@ namespace Dungeon12.SceneObjects.Create
             this.Height = 110;
             this.Width = 315;
 
-            var title = this.AddTextCenter(Global.Strings["Abilities"].AsDrawText().Gabriela().InColor(Global.CommonColor).InSize(25), vertical: false);
+            var title = this.AddTextCenter(Global.Strings["Abilities"].AsDrawText().Gabriela().InColor(Global.CommonColor).InSize(35), vertical: false);
             title.Top = -50;
 
             foreach (var archtype in typeof(Archetype).All<Archetype>())
@@ -71,7 +71,7 @@ namespace Dungeon12.SceneObjects.Create
             public bool ShowTooltip => true;
 
             public ISceneObjectHosted CreateMouseHint()
-                => new GameHint(_ability.Name, _ability.Description, _ability.Area,_ability.Cooldown,.9, _ability.GetTextParams());
+                => new ObjectPanel(_ability.Name, _ability.Description, _ability.Area,_ability.Cooldown,_ability.GetTextParams());
 
             public void RefreshTooltip() { }
         }

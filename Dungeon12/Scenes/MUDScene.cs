@@ -43,12 +43,12 @@ namespace Dungeon12.Scenes
 
             main.AddObject(new Border(1920, 30)); // status bar
 
-            main.AddObject(new LocationView(location)
+            main.AddObject(new LocationPreviewImg(location)
             {
                 Top = 30
             });
 
-            _=main.AddObject(new RegionView(region) // ?
+            _=main.AddObject(new MUDMapView(region) // ?
             {
                 Top = 430
             });

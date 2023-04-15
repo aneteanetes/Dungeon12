@@ -19,7 +19,7 @@ namespace Dungeon12.SceneObjects.MUD.Controls
 
             this.Image="UI/mud/btnsback.jpg".AsmImg();
 
-            this.AddBorder();
+            this.AddBorderBack();
 
             AddChild(new ControlButton('e', "Персонажи (I)", HeroWindow)
             {

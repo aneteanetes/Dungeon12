@@ -18,7 +18,7 @@ namespace Dungeon12.SceneObjects.Create
             this.Height = 212;
             this.Width = 242;
 
-            var title = this.AddTextCenter(Global.Strings["Skills"].AsDrawText().Gabriela().InColor(Global.CommonColor).InSize(25), vertical: false);
+            var title = this.AddTextCenter(Global.Strings["Skills"].AsDrawText().Gabriela().InColor(Global.CommonColor).InSize(35), vertical: false);
             title.Top = 5;
 
             var skillgroups = typeof(Skill).All<Skill>()
@@ -54,7 +54,7 @@ namespace Dungeon12.SceneObjects.Create
                 this.Width = 242;
                 this.Height = 35;
 
-                this.AddTextCenter(skill.Display().AsDrawText().Gabriela().InColor(Global.CommonColor).InSize(20));
+                this.AddTextCenter(skill.Display().AsDrawText().Gabriela().InColor(Global.CommonColor).InSize(25));
             }
 
             public override bool Visible => Component.Archetype == _skill.Class();
@@ -64,7 +64,7 @@ namespace Dungeon12.SceneObjects.Create
             public bool ShowTooltip => true;
 
             public ISceneObjectHosted CreateMouseHint() =>
-                new GameHint(_skill.Display(), Global.Strings.Description[_skill.ToString()]);
+                new ObjectPanel(_skill.Display(), Global.Strings.Description[_skill.ToString()]);
 
             public void RefreshTooltip() { }
         }

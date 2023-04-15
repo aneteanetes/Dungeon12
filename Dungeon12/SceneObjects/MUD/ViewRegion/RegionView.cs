@@ -4,14 +4,14 @@ using System.ComponentModel;
 
 namespace Dungeon12.SceneObjects.MUD.ViewRegion
 {
-    internal class RegionView : SceneControl<Region>
+    internal class MUDMapView : SceneControl<Region>
     {
-        public RegionView(Region region) : base(region)
+        public MUDMapView(Region region) : base(region)
         {
             Width = 400;
             Height = 400;
 
-            this.AddBorder();
+            this.AddBorderBack();
 
             //this.AddChild(new RegionViewTile(loc)
             //{

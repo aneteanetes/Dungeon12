@@ -11,7 +11,7 @@ namespace Dungeon12.SceneObjects.Create
             this.Height = 124;
             this.Image = "UI/start/title.png".AsmImg();
 
-            this.AddTextCenter(Global.Strings["CreateParty"].AsDrawText().InColor(Global.CommonColor).Gabriela().InSize(35));
+            this.AddTextCenter(Global.Strings["CreateParty"].AsDrawText().InColor(Global.CommonColor).Gabriela().InSize(50));
         }
     }
 }

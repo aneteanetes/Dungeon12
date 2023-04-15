@@ -19,7 +19,7 @@
         public Tooltip(string text, Dot position, IDrawColor drawColor)
             : this(new DrawText(text, drawColor ?? new DrawColor(ConsoleColor.White))
             {
-                Size = 12,
+                Size = 20,
                 FontName = "Gabriela"
             }, position)
         { }
@@ -41,7 +41,7 @@
             Height = textSize.Y+5;
 
 
-            this.AddBorder(drawText.Opacity == 1 ? opacity : drawText.Opacity);
+            this.AddBorderBack(drawText.Opacity == 1 ? opacity : drawText.Opacity);
 
             //var text = txt = AddTextCenter(drawText);
             //text.Filtered = false;

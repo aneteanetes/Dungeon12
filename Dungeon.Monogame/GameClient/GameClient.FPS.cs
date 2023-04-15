@@ -1,6 +1,6 @@
 ﻿using Dungeon.View.Interfaces;
+using FontStashSharp;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -15,7 +15,7 @@ namespace Dungeon.Monogame
         private int _lastFpsFrame;
         private double _fps;
         readonly Stopwatch _st = Stopwatch.StartNew();
-        private SpriteFont spriteFontFPS;
+        private DynamicSpriteFont fontFPS;
 
         private void DrawDebugInfo()
         {
@@ -39,7 +39,7 @@ namespace Dungeon.Monogame
                 }
                 //var text = $"Версия: {DungeonGlobal.Version}";
 
-                if (spriteFontFPS==null)
+                if (fontFPS==null)
                 {
                     using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(DefaultFontXnbExistedFile))
                     {
@@ -48,13 +48,13 @@ namespace Dungeon.Monogame
                             stream.Seek(0, SeekOrigin.Begin);
                         }
 
-                        spriteFontFPS = Content.Load<SpriteFont>(DefaultFontXnbExistedFile, stream);
 
-                        //spriteBatch.DrawString(font, text, new Vector2(1050, 16), Color.White);                        
+                        var fontSys = DrawClient.GetTrueTypeFontSystemByNameAndStream("Montserrat Bold", stream);
+                        fontFPS = fontSys.GetFont(20);
                     }
                 }
 
-                DefaultSpriteBatch.DrawString(spriteFontFPS, DungeonGlobal.FPS.ToString("F0"), new Vector2((this.Window.ClientBounds.Width - 50) - 2, 2), Color.Yellow);
+                fontFPS.DrawText(DefaultSpriteBatch,DungeonGlobal.FPS.ToString("F0"), new Vector2((this.Window.ClientBounds.Width - 50) - 2, 2), Color.Yellow);
 
                 if (neeedClose)
                 {
@@ -66,6 +66,6 @@ namespace Dungeon.Monogame
             catch { DefaultSpriteBatch.End(); }
         }
 
-        private const string DefaultFontXnbExistedFile = "Dungeon.Monogame.Resources.Fonts.xnb.Montserrat.Montserrat10.xnb";
+        private const string DefaultFontXnbExistedFile = "Dungeon.Monogame.Resources.Fonts.ttf.Montserrat-Bold.ttf";
     }
 }

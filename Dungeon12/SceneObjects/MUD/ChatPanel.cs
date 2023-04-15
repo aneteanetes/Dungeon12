@@ -11,7 +11,7 @@ namespace Dungeon12.SceneObjects.MUD
             this.Width=1120;
             this.Height=200;
 
-            this.AddBorder();
+            this.AddBorderBack();
 
             double top = 5;
 
@@ -22,12 +22,13 @@ namespace Dungeon12.SceneObjects.MUD
                         .AsDrawText()
                         .InBold()
                         .Calibri()
-                        .InSize(15)
+                        .InSize(20)
+                        .IsNew(true)
                         .InColor(Global.CommonColorLight))
-                {
-                    Left=7,
-                    Top=top
-                });
+                    {
+                        Left=7,
+                        Top=top
+                    });
                 top += 19;
 
 

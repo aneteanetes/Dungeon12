@@ -1,8 +1,12 @@
-﻿using Dungeon.Resources;
+﻿using Dungeon.Drawing;
+using Dungeon.Monogame.Fonts;
+using Dungeon.Resources;
 using Dungeon.SceneObjects;
 using Dungeon.Types;
 using Dungeon.View.Enums;
 using Dungeon.View.Interfaces;
+using FontStashSharp;
+using FontStashSharp.Rasterizers.StbTrueTypeSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,8 +19,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using static System.Net.WebRequestMethods;
 using Matrix = Microsoft.Xna.Framework.Matrix;
 using Rect = Dungeon.Types.Square;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
@@ -27,7 +29,7 @@ namespace Dungeon.Monogame
     {
         /// settings
 
-        private static readonly string DefaultFontXnbExistedFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.Resources.Fonts.xnb.Montserrat.Montserrat10.xnb";
+        private static readonly string DefaultFontXnbExistedFile = $"Dungeon.Monogame.Resources.Fonts.ttf.Montserrat-Bold.ttf";
         public SpriteBatchManager SpriteBatchManager;
         private ImageLoader ImageLoader;
         private PixelTexture PixelTexture;
@@ -45,13 +47,13 @@ namespace Dungeon.Monogame
         /// cache
 
         private static readonly Dictionary<string, ParticleEffect> ParticleEffects = new();
-        private static readonly Dictionary<string, Light> LightsInstances = new();
+        private static readonly Dictionary<string, Penumbra.Light> LightsInstances = new();
         private readonly Dictionary<string, RenderTarget2D> BatchCache = new();
         private readonly Dictionary<string, Rect> TileSetCache = new();
         private readonly Dictionary<string, Rect> PosCache = new();
         private readonly Dictionary<string, Texture2D> DrawablePathCache = new();
-        private readonly Dictionary<string, SpriteFont> SpriteFontCache = new();
         private readonly Dictionary<Color, Texture2D> dummyTextureCache = new();
+        private readonly Dictionary<string, FontSystem> NewFontsCache = new();
 
         public DrawClient(GraphicsDevice graphicsDevice, ContentManager content, ImageLoader imageLoader, ParticleRenderer particleRenderer, PenumbraComponent penumbra=null, ICamera camera = null)
         {
@@ -221,7 +223,7 @@ namespace Dungeon.Monogame
 
                     foreach (var range in text.Data)
                     {
-                        DrawSceneText(text.Size, textY, textX, range, sceneObject);
+                        DrawSceneText(textY, textX, range, sceneObject);
 
                         if (range.StringData == Environment.NewLine)
                         {
@@ -504,60 +506,23 @@ namespace Dungeon.Monogame
             }
         }
 
-        private void DrawSceneText(float fontSize, double y, double x, IDrawText range, ISceneObject sceneObject)
+        private void DrawSceneText(double y, double x, IDrawText range, ISceneObject sceneObject)
         {
-            bool fontWeight = range.Bold;
+            var font = GetTrueTypeFont(range);
 
-            SpriteFont spriteFont;
-
-            if (string.IsNullOrEmpty(range.FontName))
-            {
-                if (range.CompiledFontName == default)
-                {
-                    range.CompiledFontName = $"{DungeonGlobal.GameAssemblyName}.Resources.Fonts.xnb/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}.xnb".Embedded();
-                }
-                var font = range.CompiledFontName;
-
-                var resFont = ResourceLoader.Load(font);
-                if (resFont == default)
-                    return;
-
-                if (!SpriteFontCache.TryGetValue(font, out spriteFont))
-                {
-                    SpriteFontCache[font] =spriteFont = Content.Load<SpriteFont>(font, resFont.Stream);
-                }
-            }
-            else
-            {
-                if (range.CompiledFontName == default)
-                {
-                    range.CompiledFontName = $"{DungeonGlobal.GameAssemblyName}.Resources.Fonts.xnb/{range.FontName}/{range.FontName}{range.Size}.xnb".Embedded();
-                }
-                var font = range.CompiledFontName;
-
-                var resFont = ResourceLoader.Load(font);
-                if (resFont == default)
-                    return;
-
-                if (!SpriteFontCache.TryGetValue(font, out spriteFont))
-                {
-                    SpriteFontCache[font] =spriteFont = Content.Load<SpriteFont>(font, resFont.Stream);
-                }
-            }
-
-            var baseLineSpacing = spriteFont.LineSpacing;
+            var lineSpace = font.LineHeight;
 
             if (range.LineSpacing != 0)
             {
-                spriteFont.LineSpacing = range.LineSpacing;
+                lineSpace = range.LineSpacing;
             }
 
-            var txt = range.StringData;
+            var text = range.StringData;
 
             var componentWidth = sceneObject.BoundPosition.Width;
             if (range.WordWrap && componentWidth > 0)
             {
-                txt = TextWrapper.WrapText(spriteFont, txt, componentWidth);
+                text = TextWrapper.WrapText(font, text, componentWidth);
             }
 
             var alpha = /*sceneObject.Opacity == 0
@@ -576,14 +541,14 @@ namespace Dungeon.Monogame
 
             if (sceneObject.Scale > 0)
             {
-                sb.DrawString(spriteFont, txt, new Vector2((int)x, (int)y), color, 0, Vector2.Zero, (float)sceneObject.Scale, SpriteEffects.None, 1);
+                Console.WriteLine("do not use it!");
+                var scaleVector = Vector2.Multiply(Vector2.One, (float)sceneObject.Scale);
+                font.DrawText(sb, text, new Vector2((int)x, (int)y), color, scaleVector,lineSpacing:lineSpace);
             }
             else
             {
-                sb.DrawString(spriteFont, txt, new Vector2((int)x, (int)y), color);
+                font.DrawText(sb, text, new Vector2((float)x, (float)y), color/*, lineSpacing: lineSpace*/);
             }
-
-            spriteFont.LineSpacing = baseLineSpacing;
         }
 
         private void DrawScenePath(IDrawablePath drawablePath, double x, double y)
@@ -864,36 +829,7 @@ namespace Dungeon.Monogame
 
         public Dot MeasureText(IDrawText drawText, ISceneObject parent = default)
         {
-            string customFontName = null;
-            if (drawText.FontName != null)
-            {
-                customFontName = $"{drawText.FontAssembly}.Resources.Fonts.xnb.{drawText.FontName}/{drawText.FontName}{drawText.Size}.xnb".Embedded();
-            }
-
-            if (customFontName == default)
-            {
-                customFontName = $"{drawText.FontAssembly}.Resources.Fonts/xnb/{DungeonGlobal.DefaultFontName}/{DungeonGlobal.DefaultFontName}{DungeonGlobal.DefaultFontSize}.xnb".Embedded();
-            }
-
-            SpriteFont font = default;
-            var resFont = ResourceLoader.Load(customFontName, false, false);
-
-            if (resFont != default)
-            {
-                font = Content.Load<SpriteFont>(customFontName, resFont.Stream);
-            }
-            else
-            {
-                using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(DefaultFontXnbExistedFile))
-                {
-                    if (stream.CanSeek)
-                    {
-                        stream.Seek(0, SeekOrigin.Begin);
-                    }
-
-                    font = Content.Load<SpriteFont>(DefaultFontXnbExistedFile, stream);
-                }
-            }
+            var font = GetTrueTypeFont(drawText);
 
             var data = drawText.StringData;
 
@@ -905,10 +841,54 @@ namespace Dungeon.Monogame
                     data = TextWrapper.WrapText(font, data, parentWidth, dtext: drawText);
                 }
             }
-
             var m = font.MeasureString(data);
 
             return new Dungeon.Types.Dot(m.X, m.Y);
+        }
+
+        public DynamicSpriteFont GetTrueTypeFont(IDrawText drawText)
+        {
+            var fontSystem = GetTrueTypeFontSystemByName(drawText.FontName);
+            return fontSystem.GetFont(drawText.Size);
+        }
+
+        public FontSystem GetTrueTypeFontSystemByName(string fontName)
+        {
+            var fontResourceKey = $"{DungeonGlobal.GameAssemblyName}.Resources.Fonts.ttf/{fontName}.ttf".Embedded();
+            var fontRes = ResourceLoader.Load(fontResourceKey).Data;
+
+            return GetTrueTypeFontSystemByNameAndData(fontName, fontRes);
+        }
+
+        public FontSystem GetTrueTypeFontSystemByNameAndData(string fontName, byte[] data)
+            => GetTrueTypeFontSystemByNameAndDataOrStream(fontName, data);
+
+        public FontSystem GetTrueTypeFontSystemByNameAndStream(string fontName, Stream stream)
+            => GetTrueTypeFontSystemByNameAndDataOrStream(fontName, stream: stream);
+
+        private FontSystem GetTrueTypeFontSystemByNameAndDataOrStream(string fontName, byte[] data= default, Stream stream=default)
+        {
+            if (!NewFontsCache.TryGetValue(fontName, out var fontSystem))
+            {
+                fontSystem = GetTrueTypeFontSystemObject();
+
+                if (data!=default)
+                    fontSystem.AddFont(data);
+                else
+                    fontSystem.AddFont(stream);
+
+                NewFontsCache[fontName]= fontSystem;
+            }
+            return fontSystem;
+        }
+
+        private static FontSystem GetTrueTypeFontSystemObject()
+        {
+            return new FontSystem(new FontSystemSettings()
+            {
+                FontLoader = new StbFontSourceLoader(new StbTrueTypeSharpSettings()),
+                FontResolutionFactor=2
+            });
         }
 
         public Dot MeasureImage(string image)

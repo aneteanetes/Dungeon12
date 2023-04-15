@@ -20,9 +20,9 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
             this.Width = 250;
             this.Height = 65;
 
-            this.AddBorder(0);
+            this.AddBorder();
 
-            this.Label= this.AddTextCenter(text.Gabriela().InColor(Global.CommonColorLight).InSize(24));
+            this.Label= this.AddTextCenter(text.Gabriela().InColor(Global.CommonColorLight).InSize(34).IsNew(true));
             this.Image="UI/btn_a.png";
         }
 

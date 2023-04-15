@@ -59,7 +59,7 @@
 
         public static T FrizQuad<T>(this T drawText) where T : IDrawText
         {
-            drawText.FontName = "Fritz Quadrata Cyrillic";
+            drawText.FontName = "Fritz";
             drawText.FontAssembly = "Dungeon12";
 
             return drawText;
@@ -67,7 +67,7 @@
 
         public static T FrizBold<T>(this T drawText) where T : IDrawText
         {            
-            drawText.FontName = "Friz Quadrata Bold";
+            drawText.FontName = "Friz";
             drawText.FontAssembly = "Dungeon12";
 
             return drawText;

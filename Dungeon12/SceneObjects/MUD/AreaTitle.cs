@@ -12,9 +12,9 @@ namespace Dungeon12.SceneObjects.RegionScreen
             this.Width = 400;
             this.Height = 30;
 
-            this.AddBorder();
+            this.AddBorderBack();
 
-            text = this.AddTextCenter(title.AsDrawText().Gabriela().InColor(Global.CommonColorLight).InSize(15));
+            text = this.AddTextCenter(title.AsDrawText().Gabriela().InColor(Global.CommonColorLight).InSize(20));
         }
 
         public void SetText(string title)

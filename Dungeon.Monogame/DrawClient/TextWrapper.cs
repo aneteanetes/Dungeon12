@@ -1,4 +1,5 @@
 ﻿using Dungeon.View.Interfaces;
+using FontStashSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,7 +12,7 @@ namespace Dungeon.Monogame
 {
     internal static class TextWrapper
     {
-        internal static string WrapText(SpriteFont font, string text, double maxLineWidth, int counter = 0, string original = default, IDrawText dtext = default)
+        internal static string WrapText(DynamicSpriteFont font, string text, double maxLineWidth, int counter = 0, string original = default, IDrawText dtext = default)
         {
             if (original == default)
             {
@@ -36,7 +37,7 @@ namespace Dungeon.Monogame
             return sb.ToString();
         }
 
-        private static void Wrap(string wordinwords, StringBuilder sb, SpriteFont font, double maxLineWidth, ref float lineWidth, float spaceWidth, ref int counter, string original)
+        private static void Wrap(string wordinwords, StringBuilder sb, DynamicSpriteFont font, double maxLineWidth, ref float lineWidth, float spaceWidth, ref int counter, string original)
         {
             var word = wordinwords;
 

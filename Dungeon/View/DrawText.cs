@@ -16,7 +16,9 @@ namespace Dungeon.Drawing
         /// </summary>
         private readonly List<IDrawText> InnerText = new List<IDrawText>();
 
-        public DrawText(string value, float size = 12, bool wordWrap = false, string fontAsm=default)
+        public const float DefaultSize = 19;
+
+        public DrawText(string value, float size = DefaultSize, bool wordWrap = false, string fontAsm=default)
         {
             WordWrap = wordWrap;
             Size = size;
@@ -106,7 +108,7 @@ namespace Dungeon.Drawing
 
         public Square Region { get; set; }
 
-        public virtual float Size { get; set; } = 12f;
+        public virtual float Size { get; set; } = DefaultSize;
 
         public virtual float LetterSpacing { get; set; } = 11.5625f;
 
@@ -133,6 +135,8 @@ namespace Dungeon.Drawing
         public string CompiledFontName { get; set; }
 
         public int LineSpacing { get; set; }
+
+        public bool IsNew { get; set; }
 
         public void Append(IDrawText drawText) => Append(drawText, true);
 

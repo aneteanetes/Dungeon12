@@ -21,7 +21,7 @@ namespace Dungeon12.SceneObjects.MUD
 
             this.Image = $"Backgrounds/Regions/"+location.BackgroundImage;
 
-            this.AddBorder();
+            this.AddBorderBack(.8);
 
             var icons = new string[]
             {

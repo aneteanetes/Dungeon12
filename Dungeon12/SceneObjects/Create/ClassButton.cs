@@ -58,7 +58,7 @@ namespace Dungeon12.SceneObjects.Create
             base.Click(args);
         }
 
-        public IDrawText TooltipText => _archetype.Display().AsDrawText().Gabriela().InSize(12);
+        public IDrawText TooltipText => _archetype.Display().AsDrawText().Gabriela();
 
         public bool ShowTooltip => true;
 

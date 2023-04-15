@@ -19,17 +19,18 @@ namespace Dungeon12.SceneObjects.Base
             TooltipText = tooltip;
             GetHint = () =>
             {
-                GameHint _hint = null;
+                ObjectPanel _hint = null;
                 if (title.IsNotEmpty())
                 {
-                    _hint=new GameHint(title, text, opacity: 1, leftparams: leftparams);
+                    throw new Exception("Fdsa");
+                    //_hint=new ObjectPanel(title, text, opacity: 1, leftparams: leftparams);
                 }
 
                 return _hint;
             };
         }
 
-        private Func<GameHint> GetHint { get; set; }
+        private Func<ObjectPanel> GetHint { get; set; }
 
         public string TooltipText { get; set; }
 

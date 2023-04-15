@@ -16,7 +16,7 @@ namespace Dungeon12.SceneObjects.MUD
             this.Width=1520;
             this.Height=250;
 
-            this.AddBorder();
+            this.AddBorderBack();
 
             var leftOffset = 15d;
             var topOffset = 10;
