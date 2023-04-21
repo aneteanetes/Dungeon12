@@ -62,6 +62,11 @@
             Component = component;
         }
 
+        public void ClearComponent(TComponent component)
+        {
+            Component=default;
+        }
+
         private static Dictionary<string, ISceneObject> singletonInstances = new Dictionary<string, ISceneObject>();
 
         /// <summary>

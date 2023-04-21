@@ -7,9 +7,6 @@ namespace Dungeon12.Entities.Enums
 {
     public enum Fraction
     {
-        Friendly,
-        Neutral,
-
         [Display(Name = "Авангард")]
         [Value("Основан как содружество различных военных организаций призваных сохранять мир на всём материке.")]
         [AvailableSpecs(Spec.WarriorDamage, Spec.WarriorWarchief, Spec.WarriorProtector)]
@@ -43,6 +40,8 @@ namespace Dungeon12.Entities.Enums
         [AvailableSpecs(Spec.WarlockNecromancer, Spec.WarlockBloodMage, Spec.WarlockVoodoo)]
         [FractionInfluence(FractionInfluenceAbility.Cult)]
         [FractionAbility(FractionAbility.Cult)]
-        Cult // warlocks
+        Cult, // warlocks,
+        Friendly,
+        Neutral
     }
 }

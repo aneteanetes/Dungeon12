@@ -2,6 +2,7 @@
 {
     public enum ObjectType
     {
+        Hero,
         Barrel,
         Note,
         Item,

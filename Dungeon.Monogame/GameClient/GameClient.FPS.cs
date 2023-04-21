@@ -54,7 +54,7 @@ namespace Dungeon.Monogame
                     }
                 }
 
-                fontFPS.DrawText(DefaultSpriteBatch,DungeonGlobal.FPS.ToString("F0"), new Vector2((this.Window.ClientBounds.Width - 50) - 2, 2), Color.Yellow);
+                fontFPS.DrawText(DefaultSpriteBatch,DungeonGlobal.FPS.ToString("F0"), new Vector2((this.Window.ClientBounds.Width - 50), 25), Color.Yellow);
 
                 if (neeedClose)
                 {

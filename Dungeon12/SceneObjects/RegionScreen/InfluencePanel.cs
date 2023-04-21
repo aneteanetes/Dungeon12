@@ -22,15 +22,15 @@ namespace Dungeon12.SceneObjects.RegionScreen
             this.Width = 195;
             this.Height = 220;
 
-            this.AddChild(new InfluencePlate(component, Fraction.Neutral, true)
-            {
-                Left = 150
-            });
+            //this.AddChild(new InfluencePlate(component, Fraction.Neutral, true)
+            //{
+            //    Left = 150
+            //});
 
-            this.AddChild(new InfluencePlate(component, Fraction.Friendly, true)
-            {
-                Left = 50
-            });
+            //this.AddChild(new InfluencePlate(component, Fraction.Friendly, true)
+            //{
+            //    Left = 50
+            //});
 
             var top = 65;
 
@@ -61,13 +61,13 @@ namespace Dungeon12.SceneObjects.RegionScreen
 
                 switch (fraction)
                 {
-                    case Fraction.Neutral: postfix = "_n"; break;
+                    //case Fraction.Neutral: postfix = "_n"; break;
                     case Fraction.Vanguard: postfix = "_v"; break;
                     case Fraction.MageGuild: postfix = "_m"; break;
                     case Fraction.Mercenary: postfix = "_r"; break;
                     case Fraction.Exarch: postfix = "_e"; break;
                     case Fraction.Cult: postfix = "_c"; break;
-                    case Fraction.Friendly:
+                    //case Fraction.Friendly:
                     default:
                         break;
                 }

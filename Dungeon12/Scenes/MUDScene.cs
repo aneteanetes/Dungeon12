@@ -7,6 +7,7 @@ using Dungeon12.Entities.Map;
 using Dungeon12.SceneObjects.Base;
 using Dungeon12.SceneObjects.MUD;
 using Dungeon12.SceneObjects.MUD.Controls;
+using Dungeon12.SceneObjects.MUD.Info;
 using Dungeon12.SceneObjects.MUD.ViewRegion;
 
 namespace Dungeon12.Scenes
@@ -66,13 +67,13 @@ namespace Dungeon12.Scenes
             });
 
             InitField(location);
-            main.AddObject(new FieldPanel(location) // center
+            main.AddObject(new FieldLocationPanel(location) // center
             {
                 Top = 30,
                 Left = 400
             });
 
-            main.AddObject(new Border(400, 800) // info panel
+            main.AddObject(new InfoPanel(Global.Game) // info panel
             {
                 Top = 30,
                 Left = 1520
@@ -84,10 +85,10 @@ namespace Dungeon12.Scenes
                 Left = 1520
             });
 
-            Global.Game.Log.Push("Вы просыпаетесь после шторма в каютах корабля 'Волна света'...");
+            //Global.Game.Log.Push("Вы просыпаетесь после шторма в каютах корабля 'Волна света'...");
         }
 
-        private static void InitField(Location location)
+        private void InitField(Location location)
         {
             var icons = new string[]
             {
@@ -113,6 +114,11 @@ namespace Dungeon12.Scenes
 
             location.Init();
 
+            Global.Game.Party.Hero1.Chip = $"Chips/w1.png".AsmImg();
+            Global.Game.Party.Hero2.Chip = $"Chips/m1.png".AsmImg();
+            Global.Game.Party.Hero3.Chip = $"Chips/t1.png".AsmImg();
+            Global.Game.Party.Hero4.Chip = $"Chips/p1.png".AsmImg();
+
             location[2, 4].Object=new Entities.Objects.MapObject()
             {
                 Icon=$"Chips/w1.png".AsmImg(),
@@ -132,6 +138,11 @@ namespace Dungeon12.Scenes
             {
                 Icon="Chips/p1.png".AsmImg(),
                 Name = Global.Game.Party.Hero4.Name
+            };
+            location[5, 2].Object=new Entities.Objects.MapObject()
+            {
+                Icon ="Map/Objects/chestc1.tga".AsmImg(),
+                Name=$"Сундук {Strings[Global.Game.Party.Fraction.ToString()+"-whom"]}"
             };
         }
 

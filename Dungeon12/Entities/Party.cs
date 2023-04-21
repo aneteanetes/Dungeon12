@@ -1,14 +1,11 @@
-﻿using Dungeon;
+﻿using Dungeon12.Entities.Enums;
 using Dungeon12.Entities.Map;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
+using System.Collections;
 using Region = Dungeon12.Entities.Map.Region;
 
 namespace Dungeon12.Entities
 {
-    internal class Party
+    internal class Party : IEnumerable<Hero>
     {
         public Hero Hero1 { get; set; }
 
@@ -18,6 +15,8 @@ namespace Dungeon12.Entities
 
         public Hero Hero4 { get; set; }
 
+        public Fraction Fraction { get; set; }
+
         public Hero[] Heroes => new Hero[] { Hero1, Hero2, Hero3, Hero4 };
 
 
@@ -26,6 +25,14 @@ namespace Dungeon12.Entities
         public Food Food { get; set; } = new Food();
 
         public Fame Fame { get; set; } = new Fame();
+
+        public IEnumerator<Hero> GetEnumerator()
+        {
+            yield return Hero1;
+            yield return Hero2;
+            yield return Hero3;
+            yield return Hero4;
+        }
 
         public void Move(Location location)
         {
@@ -83,5 +90,7 @@ namespace Dungeon12.Entities
                 }
             }
         }
+
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
     }
 }

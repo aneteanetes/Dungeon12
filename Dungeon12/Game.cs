@@ -19,7 +19,14 @@ namespace Dungeon12
 
         public Location Location { get; set; }
 
-        public Polygon Polygon { get; set; }
+        public Polygon FocusPolygon { get; set; }
+
+        public void SelectPolygon(Polygon polygon)
+        {
+            FocusPolygon = polygon;
+            OnSelectPolygon?.Invoke(polygon);
+        }
+        public Action<Polygon> OnSelectPolygon { get; } = delegate { };
 
         public Calendar Calendar { get; set; }
 

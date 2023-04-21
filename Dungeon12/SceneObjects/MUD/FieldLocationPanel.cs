@@ -7,14 +7,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Dungeon12.SceneObjects.MUD
 {
-    internal class FieldPanel : SceneControl<Location>
+    internal class FieldLocationPanel : SceneControl<Location>
     {
         public override void Throw(Exception ex)
         {
             throw ex;
         }
 
-        public FieldPanel(Location location) : base(location)
+        public FieldLocationPanel(Location location) : base(location)
         {
             this.Width=1120;
             this.Height=600;

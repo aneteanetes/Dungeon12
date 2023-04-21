@@ -1,6 +1,8 @@
-﻿namespace Dungeon12.Entities
+﻿using Dungeon12.Entities.Objects;
+
+namespace Dungeon12.Entities
 {
-    internal class Battler
+    internal class Battler : GameObject
     {
         public MaxValue Hp { get; set; } = new MaxValue(50, 50);
 

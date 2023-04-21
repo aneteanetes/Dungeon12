@@ -73,13 +73,13 @@ namespace Dungeon12.SceneObjects.RegionScreen
 
                 switch (component.Fraction)
                 {
-                    case Entities.Enums.Fraction.Friendly: frac = "_p"; break;
                     case Entities.Enums.Fraction.Vanguard: frac = "_v"; break;
                     case Entities.Enums.Fraction.MageGuild: frac = "_m"; break;
                     case Entities.Enums.Fraction.Mercenary: frac = "_r"; break;
                     case Entities.Enums.Fraction.Exarch: frac = "_e"; break;
                     case Entities.Enums.Fraction.Cult: frac = "_c"; break;
-                    case Entities.Enums.Fraction.Neutral:
+                    //case Entities.Enums.Fraction.Friendly: frac = "_p"; break;
+                    //case Entities.Enums.Fraction.Neutral:
                     default:
                         break;
                 }
