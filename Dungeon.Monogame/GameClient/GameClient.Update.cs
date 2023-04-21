@@ -30,6 +30,7 @@ namespace Dungeon.Monogame
             }
         }
 
+#warning something here FPS harm!
         private void UpdateComponent(ISceneObject sceneObject, GameTimeLoop gameTimeLoop)
         {
             if (!sceneObject.Updatable)
