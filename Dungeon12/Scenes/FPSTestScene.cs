@@ -5,7 +5,7 @@ using Dungeon.Scenes.Manager;
 
 namespace Dungeon12.Scenes
 {
-    internal class FPSTestScene : GameScene
+    internal class FPSTestScene : Dungeon.Scenes.GameScene
     {
         public FPSTestScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -17,9 +17,9 @@ namespace Dungeon12.Scenes
         {
             var main = this.CreateLayer("main");
 
-            for (int y = 0; y < 100; y++)
+            for (int y = 0; y < 150; y++)
             {
-                for (int x = 0; x < 100; x++)
+                for (int x = 0; x < 150; x++)
                 {
                     main.AddObject(new ColoredRectangle<FPSTestScene>(this)
                     {

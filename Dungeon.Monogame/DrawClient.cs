@@ -650,7 +650,7 @@ namespace Dungeon.Monogame
             // Draw top line
             sb.Draw(pixel, new Rectangle(rectangleToDraw.X, rectangleToDraw.Y, rectangleToDraw.Width, thicknessOfBorder), borderColor);
 
-            // Draw left line
+            //Draw left line
             sb.Draw(pixel, new Rectangle(rectangleToDraw.X, rectangleToDraw.Y, thicknessOfBorder, rectangleToDraw.Height), borderColor);
 
             // Draw right line
