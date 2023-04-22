@@ -43,7 +43,10 @@ namespace Dungeon12.Scenes
             main.AddSystem(new MouseHintSystem());
             main.AddSystem(new CursorSystem());
 
-            main.AddObject(new Border(1920, 30)); // status bar
+            main.AddObject(new Border(400, 30)); // left status bar
+            main.AddObject(new Border(400, 30) {  Left=1520 }); // right status bar
+
+            var stepCounter = main.AddObject(new TurnPanel(new Entities.TurnOrder()) {  Left = 400}); // left status bar
 
             main.AddObject(new LocationPreviewImg(location)
             {
@@ -69,7 +72,7 @@ namespace Dungeon12.Scenes
             InitField(location);
             main.AddObject(new FieldLocationPanel(location) // center
             {
-                Top = 30,
+                Top = stepCounter.Height,
                 Left = 400
             });
 
