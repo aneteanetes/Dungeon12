@@ -4,6 +4,7 @@
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.ECS;
+    using Dungeon.ECS.Impl;
     using Dungeon.GameObjects;
     using Dungeon.Proxy;
     using Dungeon.SceneObjects.Mixins;
@@ -15,6 +16,7 @@
     using MathNet.Numerics.Distributions;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Linq;
     using System.Reflection;
 
@@ -908,8 +910,6 @@
             }
         }
 
-        public List<IECSComponent> Components { get; set; } = new List<IECSComponent>();
-
         public virtual void Destroy()
         {
             Component = default;
@@ -937,5 +937,12 @@
         public virtual void Drawing() { }
 
         public virtual void Throw(Exception ex) { }
+
+        public List<IECSComponent> Components { get; set; } = new List<IECSComponent>();
+
+        public void AddECSComponent<TECSComponent>(params object[] args) 
+            => Components.Add(new ECSComponent(typeof(TECSComponent), args));
+
+        public virtual void Refresh() { }
     }
 }

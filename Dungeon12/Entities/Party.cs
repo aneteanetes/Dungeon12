@@ -1,5 +1,6 @@
 ﻿using Dungeon12.Entities.Enums;
 using Dungeon12.Entities.Map;
+using Dungeon12.Entities.Turns;
 using System.Collections;
 using Region = Dungeon12.Entities.Map.Region;
 
@@ -18,7 +19,6 @@ namespace Dungeon12.Entities
         public Fraction Fraction { get; set; }
 
         public Hero[] Heroes => new Hero[] { Hero1, Hero2, Hero3, Hero4 };
-
 
         public bool PortalsActive => Heroes.Any(h => h.Archetype == Enums.Archetype.Mage);
 

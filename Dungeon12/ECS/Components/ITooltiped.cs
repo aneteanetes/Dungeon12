@@ -1,6 +1,8 @@
-﻿namespace Dungeon12.ECS.Components
+﻿using Dungeon.ECS;
+
+namespace Dungeon12.ECS.Components
 {
-    internal interface ITooltiped
+    internal interface ITooltiped : IComponent
     {
         string TooltipText { get; }
     }

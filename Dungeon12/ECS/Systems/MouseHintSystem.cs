@@ -63,7 +63,7 @@ namespace Dungeon12.ECS.Systems
             if (hint==null)
                 return;
 
-            var tooltipsys = SceneLayer.GetSystem<TooltipDrawTextSystem>();
+            var tooltipsys = SceneLayer.GetSystem<TooltipSystem>();
             var tooltip = tooltipsys.GetTooltip(sceneObject);
             if (tooltip != default)
                 tooltip.Visible = false;
@@ -114,7 +114,7 @@ namespace Dungeon12.ECS.Systems
             {
                 if (clickrelease)
                 {
-                    var tooltipsys = SceneLayer.GetSystem<TooltipDrawTextSystem>();
+                    var tooltipsys = SceneLayer.GetSystem<TooltipSystem>();
                     var tooltip = tooltipsys.GetTooltip(ExistedHint.Host);
                     if (tooltip != default)
                         tooltip.Visible = true;

@@ -14,6 +14,11 @@ namespace Dungeon.SceneObjects.Grouping
             _items.AddRange(items);
         }
 
+        public ObjectGroupBuilder(List<TItem> items)
+        {
+            _items.AddRange(items);
+        }
+
         public TItem Add(TItem item)
         {
             _items.Add(item);

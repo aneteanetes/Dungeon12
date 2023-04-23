@@ -61,7 +61,7 @@ namespace Dungeon12.Scenes
             var warriorcard = ResourceLoader.LoadJson<Card>($"Cards/warrior.json".AsmRes());
 
             var cards = this.CreateLayer("cards");
-            cards.AddSystem(new TooltipDrawTextSystem());
+            cards.AddSystem(new TooltipSystem());
             cards.AddObjectCenter(new CardSceneObject(warriorcard));
         }
 

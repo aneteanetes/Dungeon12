@@ -288,6 +288,8 @@ namespace Dungeon.Proxy
 
         public ISceneObject SceneObject { get; set; }
 
+        public bool IsDestroyed { get; set; }
+
         /// <summary>
         /// Возвращает свойство типа T - реализация: case of types
         /// </summary>
@@ -312,7 +314,11 @@ namespace Dungeon.Proxy
 
         protected override void CallDiscard(dynamic obj) { }
 
-        public virtual void Destroy(){ this.SceneObject?.Destroy(); }
+        public virtual void Destroy()
+        {
+            this.IsDestroyed = true;
+            this.SceneObject?.Destroy();
+        }
 
         public void Init() { }
 

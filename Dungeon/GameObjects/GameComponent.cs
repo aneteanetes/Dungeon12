@@ -40,7 +40,10 @@ namespace Dungeon.GameObjects
             SceneObject.Destroy();
             SceneObject = default;
             OnDestroyGameComponent?.Invoke();
+            IsDestroyed=true;
         }
+
+        public bool IsDestroyed { get; private set; }
 
 
         public Action OnDestroyGameComponent;
@@ -48,6 +51,7 @@ namespace Dungeon.GameObjects
         public virtual void SetView(ISceneObject sceneObject)
         {
             SceneObject = sceneObject;
+            IsDestroyed=false;
         }
 
         protected override void CallApply(dynamic obj) { }
@@ -65,5 +69,7 @@ namespace Dungeon.GameObjects
         }
 
         public virtual void Initialization() { }
+
+        public void Refresh() => SceneObject.Refresh();
     }
 }

@@ -43,6 +43,8 @@ namespace Dungeon.Entities
 
         public ISceneObject SceneObject { get; set; }
 
+        public bool IsDestroyed { get; set; }
+
         public void SetView(ISceneObject sceneObject)
         {
             SceneObject = sceneObject;
@@ -50,7 +52,7 @@ namespace Dungeon.Entities
 
         public virtual void Destroy()
         {
-
+            IsDestroyed=true;
         }
 
         public void Init()

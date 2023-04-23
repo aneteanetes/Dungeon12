@@ -1,8 +1,9 @@
-﻿using Dungeon.View.Interfaces;
+﻿using Dungeon.ECS;
+using Dungeon.View.Interfaces;
 
 namespace Dungeon12.ECS.Components
 {
-    internal interface ITooltipedDrawText
+    internal interface ITooltipedDrawText : IComponent
     {
         IDrawText TooltipText { get; }
 

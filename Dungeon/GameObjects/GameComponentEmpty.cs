@@ -22,5 +22,7 @@ namespace Dungeon.GameObjects
         public static GameComponentEmpty Empty { get; } = new GameComponentEmpty();
 
         public string Name { get; set; }
+
+        public bool IsDestroyed { get; set; }
     }
 }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Dungeon.SceneObjects.Grouping
 {
+    /// <summary>
+    /// Must be new()
+    /// </summary>
     public class ObjectGroupProperty
     {
         public bool Value { get; private set; }

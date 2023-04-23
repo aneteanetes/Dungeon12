@@ -8,6 +8,7 @@ using Dungeon12.SceneObjects.Base;
 using Dungeon12.SceneObjects.MUD;
 using Dungeon12.SceneObjects.MUD.Controls;
 using Dungeon12.SceneObjects.MUD.Info;
+using Dungeon12.SceneObjects.MUD.Turning;
 using Dungeon12.SceneObjects.MUD.ViewRegion;
 
 namespace Dungeon12.Scenes
@@ -39,14 +40,14 @@ namespace Dungeon12.Scenes
                 Region=region
             };
 
-            main.AddSystem(new TooltipDrawTextSystem());
+            main.AddSystem(new TooltipSystem());
             main.AddSystem(new MouseHintSystem());
             main.AddSystem(new CursorSystem());
 
             main.AddObject(new Border(400, 30)); // left status bar
             main.AddObject(new Border(400, 30) {  Left=1520 }); // right status bar
 
-            var stepCounter = main.AddObject(new TurnPanel(new Entities.TurnOrder()) {  Left = 400}); // left status bar
+            var stepCounter = main.AddObject(new TurnPanel(Global.Game.Turns) {  Left = 400}); // left status bar
 
             main.AddObject(new LocationPreviewImg(location)
             {

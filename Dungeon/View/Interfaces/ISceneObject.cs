@@ -12,6 +12,8 @@
     {
         List<IECSComponent> Components { get; }
 
+        void AddECSComponent<TECSComponent>(params object[] args);
+
         public bool AlphaBlend { get; set; }
 
         public ITileMap TileMap { get; set; }
@@ -219,5 +221,7 @@
         void Drawing();
 
         void Throw(Exception ex);
+
+        void Refresh();
     }
 }

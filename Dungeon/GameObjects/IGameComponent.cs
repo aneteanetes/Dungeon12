@@ -15,6 +15,8 @@ namespace Dungeon.View.Interfaces
         /// </summary>
         void Destroy();
 
+        bool IsDestroyed { get; }
+
         void Init();
     }
 }

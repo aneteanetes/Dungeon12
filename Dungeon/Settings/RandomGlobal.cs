@@ -20,6 +20,14 @@ namespace Dungeon
             }
         }
 
+        public static double NextDouble()
+        {
+            lock(syncLock)
+            {
+                return SystemRandom.NextDouble();
+            }
+        }
+
         public static int Next(int maxValue)
         {
             lock (syncLock)

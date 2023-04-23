@@ -26,6 +26,7 @@ namespace Dungeon12.SceneObjects.MUD.Locations
         public override void Click(PointerArgs args)
         {
             Selected.True();
+            Global.Game.Turns.Next();
             base.Click(args);
         }
 
@@ -55,7 +56,7 @@ namespace Dungeon12.SceneObjects.MUD.Locations
 
         public override string Image
         {
-            get => Component.Image;
+            get => Component.Chip;
         }
 
         public string TooltipText => Component.Name;

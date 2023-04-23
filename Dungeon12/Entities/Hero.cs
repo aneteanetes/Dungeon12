@@ -98,9 +98,7 @@ namespace Dungeon12.Entities
                 Tire += percent;
         }
 
-        public string Chip { get; set; }
-
-        public override string Image => Chip;
+        public override string Image => Avatar;
 
         public string Avatar { get; set; }
 

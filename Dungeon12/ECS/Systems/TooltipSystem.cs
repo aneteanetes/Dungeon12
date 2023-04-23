@@ -8,7 +8,7 @@ using Dungeon12.SceneObjects.Base;
 
 namespace Dungeon12.ECS.Systems
 {
-    internal class TooltipDrawTextSystem : ISystem
+    internal class TooltipSystem : ISystem
     {
         private static Dictionary<ITooltipedDrawText, Tooltip> Tooltips = new Dictionary<ITooltipedDrawText, Tooltip>();
         private static Dictionary<ITooltiped, Tooltip> Tooltips1 = new Dictionary<ITooltiped, Tooltip>();
@@ -34,11 +34,7 @@ namespace Dungeon12.ECS.Systems
 
         public bool IsApplicable(ISceneObject sceneObject)
         {
-            var @interface =
-                sceneObject is ITooltipedDrawText
-                || sceneObject is ITooltiped;
-
-            return @interface || ComponentInfo(sceneObject)!=default;
+            return sceneObject.IsComponent<ITooltiped, ITooltipedDrawText>();
         }
 
         private static IECSComponent ComponentInfo(ISceneObject sceneObject)
@@ -130,7 +126,7 @@ namespace Dungeon12.ECS.Systems
                 LayerLevel = 100
             };
 
-            if (sceneObject is ITooltipedPositionByComponent)
+            if (sceneObject.IsComponent<ITooltipedPositionByComponent>())
                 tooltipPosition.X = sceneObject.ComputedPosition.X+sceneObject.Width*.85;
 
             SceneLayer.AddObject(tooltip);
@@ -145,7 +141,7 @@ namespace Dungeon12.ECS.Systems
             if (tooltipPosition.Y < 0)
             {
                 tooltipPosition.Y = 5;
-                tooltipPosition.X = sceneObject.Left + sceneObject.Width + 5;
+                //tooltipPosition.X = sceneObject.Left + sceneObject.Width + 5;
             }
 
             tooltip.SetPosition(tooltipPosition);

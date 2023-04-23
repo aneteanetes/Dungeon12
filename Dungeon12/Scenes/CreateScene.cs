@@ -35,7 +35,7 @@ namespace Dungeon12.Scenes
 
             var layer = CreateLayer("main");
             layer.AbsoluteLayer = true;
-            layer.AddSystem(new TooltipDrawTextSystem());
+            layer.AddSystem(new TooltipSystem());
             layer.AddSystem(new TooltipCustomSystem());
             layer.AddSystem(new MouseHintSystem());
 
@@ -143,6 +143,9 @@ namespace Dungeon12.Scenes
                 Global.Game.MapRegion = ResourceLoader.LoadJson<MapRegion>("Regions/FaithIsland.json".AsmRes());
                 Global.Game.MapRegion.BuildGraph();
             }
+
+            var turns = Global.Game.Turns=new Entities.Turns.TurnOrder(Global.Game);
+            turns.Init();
 
 
             //this.Switch<RegionScene>();
