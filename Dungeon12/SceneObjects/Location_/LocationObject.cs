@@ -19,7 +19,7 @@ namespace Dungeon12.SceneObjects.Location_
             this.Height=72;
             this.Image="UI/Windows/Location/cell_b.png";
 
-            this.AddChild(new ImageObject($"Icons/{component.Icon}.png") { Width=72, Height=72 });
+            //this.AddChild(new ImageObject($"Icons/{component.Icon}.png") { Width=72, Height=72 });
             this.AddChild(new ImageObject($"UI/Windows/Location/cell_a.png"));
 
             this.Left=65;

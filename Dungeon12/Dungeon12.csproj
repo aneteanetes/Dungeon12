@@ -37,6 +37,7 @@
 		<Folder Include="Components\Movable\" />
 		<Folder Include="Resources\Images\Backgrounds\Regions\" />
 		<Folder Include="Resources\Loot\" />
+		<Folder Include="Tools\" />
 	</ItemGroup>
 
 </Project>

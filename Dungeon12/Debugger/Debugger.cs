@@ -7,14 +7,22 @@ namespace Dungeon12
     {
         private static ISceneObject sceneObject;
 
+        public static bool IsEnabled = false;
+
         public static void Bind(ISceneObject _sceneObject)
         {
+            if (!IsEnabled)
+                return;
+
             sceneObject= _sceneObject;
             Console.WriteLine(sceneObject.ToString());
         }
 
         public static void Set(string property, string value)
         {
+            if (!IsEnabled)
+                return;
+
             if (sceneObject == null)
             {
                 Console.WriteLine("sceneObject is null!");
@@ -35,6 +43,9 @@ namespace Dungeon12
 
         public static void Get(string property)
         {
+            if (!IsEnabled)
+                return;
+
             if (sceneObject==null)
             {
                 Console.WriteLine("sceneObject is null!");

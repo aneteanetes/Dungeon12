@@ -1,8 +1,9 @@
 ﻿using Dungeon;
+using Dungeon.Control;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon12.ECS.Components;
+using Dungeon12.Entities;
 using Dungeon12.Entities.Map;
-using System.ComponentModel;
 
 namespace Dungeon12.SceneObjects.MUD.Locations
 {
@@ -11,6 +12,7 @@ namespace Dungeon12.SceneObjects.MUD.Locations
         public override bool PerPixelCollision => true;
 
         private ImageObject focus = null;
+        private ImageObject selector = null;
 
         public PolygonView(Polygon component, double left, double top, double width, double height) : base(component)
         {
@@ -19,20 +21,34 @@ namespace Dungeon12.SceneObjects.MUD.Locations
             Width= width;
             Height= height;
 
-            focus=this.AddChild(new ImageObject("Tiles/empty_invert.png")
+            focus = this.AddChild(new ImageObject("Tiles/empty_invert.png")
             {
-                Width= width,
-                Height= height,
+                Width = width,
+                Height = height,
             });
-            focus.Visible=false;
+            focus.Visible = false;
+
+            selector = this.AddChild(new ImageObject("Tiles/empty_invert.png")
+            {
+                Width = width,
+                Height = height,
+                VisibleFunction = () => component.Object?.IsSelected ?? false
+            });
+            selector.Visible = false;
         }
 
         public override string Image
         {
-            get => Component.Object?.Icon ?? $"Tiles/{Component.Icon}.png".AsmImg();
+            get => Component.Object?.GameObject?.Chip ?? $"Tiles/{Component.Icon}.png".AsmImg();
         }
 
-        public string TooltipText => Component.Object?.Name;
+        public string TooltipText => Component.Object?.Name ?? Component.Object?.GameObject?.Name;
+
+        public override void Click(PointerArgs args)
+        {
+            Component.Object?.Select();
+            base.Click(args);
+        }
 
         public override void Focus()
         {

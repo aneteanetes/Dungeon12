@@ -2,7 +2,7 @@
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon12.ECS.Components;
-using Dungeon12.Entities.Turns;
+using Dungeon12.Entities.Turning;
 
 namespace Dungeon12.SceneObjects.MUD.Turning
 {

@@ -2,7 +2,7 @@
 using Dungeon12.Entities.Journal;
 using Dungeon12.Entities.Map;
 using Dungeon12.Entities.Quests;
-using Dungeon12.Entities.Turns;
+using Dungeon12.Entities.Turning;
 using Dungeon12.SceneObjects.UI;
 using System.Collections.Generic;
 
@@ -22,7 +22,7 @@ namespace Dungeon12
 
         public Polygon FocusPolygon { get; set; }
 
-        public TurnOrder Turns { get; set; }
+        public Turns Turns { get; set; }
 
         public void SelectPolygon(Polygon polygon)
         {

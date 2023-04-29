@@ -1,17 +1,17 @@
-﻿using Dungeon12.Entities.Turns;
+﻿using Dungeon12.Entities.Turning;
 
 namespace Dungeon12.SceneObjects.MUD.Turning
 {
-    internal class TurnsView : SceneControl<TurnOrder>
+    internal class TurnsView : SceneControl<Turns>
     {
-        public TurnsView(TurnOrder component) : base(component)
+        public TurnsView(Turns component) : base(component)
         {
             Height = 60;
             Width = 45 * component.Count;
 
             var left = 0d;
 
-            foreach (var turn in component.Turns)
+            foreach (var turn in component)
             {
                 this.AddChild(new TurnIcon(turn)
                 {

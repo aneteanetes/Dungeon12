@@ -144,7 +144,7 @@ namespace Dungeon12.Scenes
                 Global.Game.MapRegion.BuildGraph();
             }
 
-            var turns = Global.Game.Turns=new Entities.Turns.TurnOrder(Global.Game);
+            var turns = Global.Game.Turns=new Entities.Turning.Turns(Global.Game);
             turns.Init();
 
 

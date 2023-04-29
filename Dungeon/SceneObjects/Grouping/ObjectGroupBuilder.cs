@@ -19,6 +19,28 @@ namespace Dungeon.SceneObjects.Grouping
             _items.AddRange(items);
         }
 
+        public ObjectGroupBuilder(IEnumerable<TItem> items, Expression<Func<TItem, ObjectGroupProperty>> selector)
+        {
+            _items.AddRange(items);
+            Property(selector);
+        }
+
+        public static ObjectGroup<TItem> Build(IEnumerable<TItem> items, Expression<Func<TItem, ObjectGroupProperty>> selector)
+        {
+            var builder = new ObjectGroupBuilder<TItem>();
+            builder._items.AddRange(items);
+            builder.Property(selector);
+            return builder.Build();
+        }
+
+        public static ObjectGroup<TItem> Build(Expression<Func<TItem, ObjectGroupProperty>> selector, params TItem[] items)
+        {
+            var builder = new ObjectGroupBuilder<TItem>();
+            builder._items.AddRange(items);
+            builder.Property(selector);
+            return builder.Build();
+        }
+
         public TItem Add(TItem item)
         {
             _items.Add(item);

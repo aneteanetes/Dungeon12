@@ -131,5 +131,9 @@ namespace Dungeon.Types
         {
             return !op1.Equals(op2);
         }
+
+        public override bool Equals(object obj) => base.Equals(obj);
+
+        public override int GetHashCode()=>base.GetHashCode();
     }
 }

@@ -2,6 +2,7 @@
 using Dungeon12.Entities.Abilities;
 using Dungeon12.Entities.Enums;
 using Dungeon12.Entities.Perks;
+using Dungeon12.Entities.Turning;
 using System;
 using System.Collections.Generic;
 
@@ -9,8 +10,6 @@ namespace Dungeon12.Entities
 {
     internal class Hero : Battler
     {
-        public bool IsSelected { get; set; }
-
         public int FreePoints { get; set; } = 0;
 
         public int Strength { get; set; } = 10;
@@ -20,6 +19,8 @@ namespace Dungeon12.Entities
         public int Intellegence { get; set; } = 10;
 
         public int Stamina { get; set; } = 10;
+
+        public bool CanFight { get; set; } = true;
 
         public Classes Class { get; set; }
 
@@ -144,5 +145,18 @@ namespace Dungeon12.Entities
         public int Tailoring { get; set; }
 
         public Inventory Inventory { get; set; } = new Inventory();
+
+        private Action _selectEvent = () => { };
+        public void OnSelect(Action select) => _selectEvent+=select;
+
+        public void Select()
+        {
+            _selectEvent?.Invoke();
+        }
+
+        public override TurnType DoTurn()
+        {
+            return TurnType.Await;
+        }
     }
 }

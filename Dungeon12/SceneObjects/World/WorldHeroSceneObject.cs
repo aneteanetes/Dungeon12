@@ -136,7 +136,7 @@ namespace Dungeon12.SceneObjects.World
                 this.PlayAnimation(anim);
             }
 
-            public override bool Visible => Component.IsSelected;
+            public override bool Visible => true;
         }       
 
     }

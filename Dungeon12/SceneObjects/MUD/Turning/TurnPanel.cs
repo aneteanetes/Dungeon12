@@ -1,17 +1,24 @@
-﻿using Dungeon12.Entities.Turns;
+﻿using Dungeon12.Entities.Turning;
 
 namespace Dungeon12.SceneObjects.MUD.Turning
 {
-    internal class TurnPanel : SceneControl<TurnOrder>
+    internal class TurnPanel : SceneControl<Turns>
     {
-        public TurnPanel(TurnOrder component) : base(component)
+        TurnsView turnsView;
+
+        public TurnPanel(Turns component) : base(component)
         {
             Width = 1120;
             Height = 60;
 
             this.AddBorder();
 
-            AddChildCenter(new TurnsView(component));
+            turnsView = AddChildCenter(new TurnsView(component));
+            component.BeforeNewRoundTurn += t =>
+            {
+                turnsView.Destroy();
+                turnsView = AddChildCenter(new TurnsView(t));
+            };
         }
     }
 }

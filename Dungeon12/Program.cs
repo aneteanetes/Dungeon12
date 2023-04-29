@@ -3,6 +3,7 @@ using Dungeon.Monogame.Runner;
 using Dungeon.Monogame.Settings;
 using Dungeon.Resources;
 using Dungeon12;
+using Dungeon12.Entities.Turning;
 
 var cfg = DungeonGlobal.Init<Global>(true, true);
 
@@ -13,6 +14,8 @@ monocfg.IsDebug = true;
 
 var client = new MonogameRunner(monocfg);
 
+Debugger.IsEnabled=true;
+
 DungeonGlobal.OnRun+=() =>
 {
     Task.Run(() =>
@@ -20,6 +23,12 @@ DungeonGlobal.OnRun+=() =>
         while (true)
         {
             var value = Console.ReadLine();
+            if (value=="debugger")
+            {
+                Debugger.IsEnabled=!Debugger.IsEnabled;
+                continue;
+            }
+
             if (value.IsNotEmpty() && value.Contains(' '))
             {                
                 var keyvalue = value.Split(' ');

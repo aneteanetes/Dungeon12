@@ -13,7 +13,7 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
             throw ex;
         }
 
-        readonly TextObject Label;
+        readonly TextObject Label = null;
 
         public MapButton()
         {

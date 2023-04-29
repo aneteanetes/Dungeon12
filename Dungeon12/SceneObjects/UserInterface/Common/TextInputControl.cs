@@ -238,7 +238,7 @@
                 _placeholder.Visible = true;
         }
 
-        public Action<string> OnTyping;
+        public Action<string> OnTyping = x => { };
 
         public override void TextInput(string text)
         {

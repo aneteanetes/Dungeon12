@@ -92,39 +92,6 @@ namespace Dungeon12.SceneObjects.MUD.ViewRegion
             //});
 
             return;
-
-            for (int y = 0; y < 8; y++)
-            {
-                for (int x = 0; x < 8; x++)
-                {
-                    //if (x!=0 || y!=0)
-                    //    loc=new Location() { Name=Guid.NewGuid().ToString() };
-
-                    var loc = new Location()
-                    {
-                        Name=Guid.NewGuid().ToString(),
-                        Transitions=new List<LocationTransition>()
-                        {
-                            new LocationTransition() { Direction =  Dungeon.Types.Direction.Up},
-                            new LocationTransition() { Direction =  Dungeon.Types.Direction.Down},
-                            new LocationTransition() { Direction=  Dungeon.Types.Direction.Left},
-                            new LocationTransition() { Direction=  Dungeon.Types.Direction.Right},
-                            new LocationTransition() { Direction=  Dungeon.Types.Direction.UpLeft},
-                            new LocationTransition() { Direction=  Dungeon.Types.Direction.UpRight},
-                            new LocationTransition() { Direction=  Dungeon.Types.Direction.DownLeft},
-                            new LocationTransition() { Direction=  Dungeon.Types.Direction.DownRight},
-                        },
-                        X=x,
-                        Y=y
-                    };
-
-                    this.AddChild(new RegionViewTile(loc)
-                    {
-                        Left= x*50 +12,
-                        Top= y*50 +12,
-                    });
-                }
-            }
         }
         public override void Throw(Exception ex)
         {

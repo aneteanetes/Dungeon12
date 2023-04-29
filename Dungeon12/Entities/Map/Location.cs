@@ -1,4 +1,5 @@
 ﻿using Dungeon.Types;
+using Dungeon12.Entities.Objects;
 
 namespace Dungeon12.Entities.Map
 {
@@ -31,6 +32,14 @@ namespace Dungeon12.Entities.Map
         public int[] IndexLinks { get; set; }
 
         public List<Location> Links { get; set; }
+
+        public IEnumerable<GameObject> Enemies
+        {
+            get
+            {
+                return Enumerable.Empty<GameObject>();
+            }
+        }
 
         public List<LocationTransition> Transitions { get; set; } = new();
 

@@ -16,7 +16,7 @@ namespace Dungeon12.SceneObjects.World
             h1 = this.AddChild(new WorldHeroSceneObject(component.Hero2)); // mage
             h1.SetSlot(Compass.North);
 
-            component.Hero1.IsSelected = true;
+            //component.Hero1.IsSelected = true;
             h2 = this.AddChild(new WorldHeroSceneObject(component.Hero1)); // warrior
             h2.SetSlot(Compass.West);
 

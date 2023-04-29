@@ -377,7 +377,7 @@ namespace Dungeon12.SceneObjects
 
             public TimeSpan Time { get; set; }
 
-            private bool down = false;
+            //private bool down = false;
 
             //public override void InternalUpdate(GameTimeLoop gameTime)
             //{

@@ -1,9 +1,11 @@
 ﻿using Dungeon;
 using Dungeon.Control.Keys;
+using Dungeon.SceneObjects.Grouping;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using Dungeon12.ECS.Systems;
 using Dungeon12.Entities.Map;
+using Dungeon12.Entities.Objects.OnMap;
 using Dungeon12.SceneObjects.Base;
 using Dungeon12.SceneObjects.MUD;
 using Dungeon12.SceneObjects.MUD.Controls;
@@ -89,6 +91,8 @@ namespace Dungeon12.Scenes
                 Left = 1520
             });
 
+            Global.Game.Turns.NewRound();
+
             //Global.Game.Log.Push("Вы просыпаетесь после шторма в каютах корабля 'Волна света'...");
         }
 
@@ -118,35 +122,35 @@ namespace Dungeon12.Scenes
 
             location.Init();
 
+            var party = Global.Game.Party;
             Global.Game.Party.Hero1.Chip = $"Chips/w1.png".AsmImg();
             Global.Game.Party.Hero2.Chip = $"Chips/m1.png".AsmImg();
             Global.Game.Party.Hero3.Chip = $"Chips/t1.png".AsmImg();
             Global.Game.Party.Hero4.Chip = $"Chips/p1.png".AsmImg();
 
-            location[2, 4].Object=new Entities.Objects.MapObject()
+
+            var heromap1 = new HeroMapObject(party.Hero1)
             {
-                Icon=$"Chips/w1.png".AsmImg(),
-                Name = Global.Game.Party.Hero1.Name
+                IsSelected=true,
             };
-            location[3, 4].Object=new Entities.Objects.MapObject()
-            {
-                Icon=$"Chips/m1.png".AsmImg(),
-                Name = Global.Game.Party.Hero2.Name
-            };
-            location[4, 4].Object=new Entities.Objects.MapObject()
-            {
-                Icon="Chips/t1.png".AsmImg(),
-                Name = Global.Game.Party.Hero3.Name
-            };
-            location[5, 4].Object=new Entities.Objects.MapObject()
-            {
-                Icon="Chips/p1.png".AsmImg(),
-                Name = Global.Game.Party.Hero4.Name
-            };
+            var heromap2 = new HeroMapObject(party.Hero2);
+            var heromap3 = new HeroMapObject(party.Hero3);
+            var heromap4 = new HeroMapObject(party.Hero4);
+
+            var heroObjects = ObjectGroupBuilder<HeroMapObject>.Build(x => x.Selected, heromap1, heromap2, heromap3, heromap4);
+
+            location[2, 4].Object=heromap1;
+            location[3, 4].Object=heromap2;
+            location[4, 4].Object=heromap3;
+            location[5, 4].Object=heromap4;
+
             location[5, 2].Object=new Entities.Objects.MapObject()
             {
-                Icon ="Map/Objects/chestc1.tga".AsmImg(),
-                Name=$"Сундук {Strings[Global.Game.Party.Fraction.ToString()+"-whom"]}"
+                GameObject=new Entities.Objects.GameObject()
+                {
+                    Chip="Map/Objects/chestc1.tga".AsmImg(),
+                    Name=$"Сундук {Strings[Global.Game.Party.Fraction.ToString()+"-whom"]}"
+                }
             };
         }
 

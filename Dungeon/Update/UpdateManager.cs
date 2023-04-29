@@ -3,6 +3,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 
+#pragma warning disable IDE0063 // Use simple 'using' statement
+#pragma warning disable SYSLIB0014 // Type or member is obsolete
+#pragma warning disable CS0618 // Type or member is obsolete
+
 namespace Dungeon.Update
 {
     public class UpdateManager
@@ -102,3 +106,6 @@ namespace Dungeon.Update
         }
     }
 }
+#pragma warning restore CS0618 // Type or member is obsolete
+#pragma warning restore SYSLIB0014 // Type or member is obsolete
+#pragma warning restore IDE0063 // Use simple 'using' statement

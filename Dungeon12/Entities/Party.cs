@@ -1,6 +1,6 @@
 ﻿using Dungeon12.Entities.Enums;
 using Dungeon12.Entities.Map;
-using Dungeon12.Entities.Turns;
+using Dungeon12.Entities.Turning;
 using System.Collections;
 using Region = Dungeon12.Entities.Map.Region;
 

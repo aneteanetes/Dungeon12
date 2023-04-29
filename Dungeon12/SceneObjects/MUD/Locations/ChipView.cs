@@ -26,7 +26,8 @@ namespace Dungeon12.SceneObjects.MUD.Locations
         public override void Click(PointerArgs args)
         {
             Selected.True();
-            Global.Game.Turns.Next();
+#warning turns
+            //Global.Game.Turns.Next();
             base.Click(args);
         }
 
