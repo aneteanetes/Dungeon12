@@ -29,7 +29,7 @@ namespace Dungeon12.SceneObjects.MUD.Controls
 
         private readonly Action OnClick;
 
-        public IDrawText TooltipText { get; set; }
+        public IDrawText TooltipText { get; }
 
         public bool ShowTooltip => true;
 
