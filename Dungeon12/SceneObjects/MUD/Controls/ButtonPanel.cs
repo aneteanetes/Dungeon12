@@ -43,7 +43,7 @@ namespace Dungeon12.SceneObjects.MUD.Controls
             });
 
 
-            AddChild(new ControlButton('s', "Инвентарь отряда", CraftWindow)
+            AddChild(new ControlButton('s', "Инвентарь", CraftWindow)
             {
                 Top = 150,
                 Left = 25
