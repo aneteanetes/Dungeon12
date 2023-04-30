@@ -22,8 +22,7 @@ namespace Dungeon12.SceneObjects.Base
                 ObjectPanel _hint = null;
                 if (title.IsNotEmpty())
                 {
-                    throw new Exception("Fdsa");
-                    //_hint=new ObjectPanel(title, text, opacity: 1, leftparams: leftparams);
+                    _hint=new ObjectPanel(title, text, leftparams: leftparams);
                 }
 
                 return _hint;

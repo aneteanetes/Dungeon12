@@ -57,12 +57,12 @@ namespace Dungeon12.SceneObjects.Stats
 
         private IDrawText Text(string name)
         {
-            return (name+":").SegoeUIBold().InSize(10).InColor(Global.CommonColorLight);
+            return (name+":").SegoeUIBold().InSize(16).InColor(Global.CommonColorLight);
         }
 
         private IDrawText Value(string name)
         {
-            return (name).SegoeUIBold().InSize(10).InColor(Global.CommonColorLight);
+            return (name).SegoeUIBold().InSize(16).InColor(Global.CommonColorLight);
         }
 
         public virtual void Destroy()

@@ -41,14 +41,14 @@ namespace Dungeon12.SceneObjects.Stats
             this.AddChild(new ImageObject("UI/start/icon.png") { Left=610, Top=307 });
             _class = this.AddChild(new ClassBadge(Component.Archetype) { Left=613, Top=310 });
 
-            this.AddTextPos(TextSeg(Global.Strings["Основное"], 9), 250, 85, 190, 18);
-            this.AddTextPos(TextSeg(Global.Strings["Защита"], 9), 250, 263, 192, 16);
-            this.AddTextPos(TextSeg(Global.Strings["Дополнительно"], 9), 38, 316, 190, 18);
-            this.AddTextPos(Global.Strings["Свободные очки"].SegoeUIBold().InSize(10).InColor(Global.CommonColorLight), 32, 30, 208, 26);
+            this.AddTextPos(TextSeg(Global.Strings["Основное"], 14), 250, 85, 190, 18);
+            this.AddTextPos(TextSeg(Global.Strings["Защита"], 14), 250, 263, 192, 16);
+            this.AddTextPos(TextSeg(Global.Strings["Дополнительно"], 14), 38, 316, 190, 18);
+            this.AddTextPos(Global.Strings["Свободные очки"].SegoeUIBold().InSize(16).InColor(Global.CommonColorLight), 32, 30, 208, 26);
 
-            this.AddTextPos(TextGab(Global.Strings["Навыки"], 14), 35, 80, 200, 26);
+            this.AddTextPos(TextGab(Global.Strings["Навыки"], 20), 35, 80, 200, 26);
 
-            this.AddTextPos(TextGab(Global.Strings["Характеристики"], 14), 32, 197, 200, 26);
+            this.AddTextPos(TextGab(Global.Strings["Характеристики"], 20), 32, 197, 200, 26);
 
             Fill(Component);
 
@@ -104,25 +104,25 @@ namespace Dungeon12.SceneObjects.Stats
                 var text = TextGab(skillName);
                 var hint = new TextObjectHint(text, skillName, skillName, Global.Strings.Description[sEnum]) { Left= leftSkill, Top= topSkill };
                 var sk = this.AddChild(hint);
-                var skv = this.AddTextPos(TextSeg(hero.SkillValue(s).ToString(), 12), 193, topSkill, 24, 20);
+                var skv = this.AddTextPos(TextSeg(hero.SkillValue(s).ToString(), 18), 193, topSkill, 24, 20);
                 skillAndstats.Add(sk);
                 skillAndstats.Add(skv);
                 topSkill+=22;
             });
 
             skillAndstats.Add(this.AddChild(new TextObjectHint(TextGab(Global.Strings[nameof(Hero.Strength)]), Global.Strings[nameof(Hero.Strength)], Global.Strings[nameof(Hero.Strength)], Global.Strings.Description[nameof(Hero.Strength)]) { Left= 33, Top= 223 }));
-            skillAndstats.Add(this.AddTextPos(TextSeg(hero.Strength.ToString(), 12), 193, 222, 24, 20));
+            skillAndstats.Add(this.AddTextPos(TextSeg(hero.Strength.ToString(), 18), 193, 222, 24, 20));
             
             skillAndstats.Add(this.AddChild(new TextObjectHint(TextGab(Global.Strings[nameof(Hero.Agility)]), Global.Strings[nameof(Hero.Agility)], Global.Strings[nameof(Hero.Agility)], Global.Strings.Description[nameof(Hero.Agility)]) { Left= 33, Top= 245 })); 
-            skillAndstats.Add(this.AddTextPos(TextSeg(hero.Agility.ToString(), 12), 193, 245, 24, 20));
+            skillAndstats.Add(this.AddTextPos(TextSeg(hero.Agility.ToString(), 18), 193, 245, 24, 20));
 
             skillAndstats.Add(this.AddChild(new TextObjectHint(TextGab(Global.Strings[nameof(Hero.Intellegence)]), Global.Strings[nameof(Hero.Intellegence)], Global.Strings[nameof(Hero.Intellegence)], Global.Strings.Description[nameof(Hero.Intellegence)]) { Left= 33, Top= 266 }));
-            skillAndstats.Add(this.AddTextPos(TextSeg(hero.Intellegence.ToString(), 12), 193, 266, 24, 20));
+            skillAndstats.Add(this.AddTextPos(TextSeg(hero.Intellegence.ToString(), 18), 193, 266, 24, 20));
 
             skillAndstats.Add(this.AddChild(new TextObjectHint(TextGab(Global.Strings[nameof(Hero.Stamina)]), Global.Strings[nameof(Hero.Stamina)], Global.Strings[nameof(Hero.Stamina)], Global.Strings.Description[nameof(Hero.Stamina)]) { Left= 33, Top= 289 })); 
-            skillAndstats.Add(this.AddTextPos(TextSeg(hero.Stamina.ToString(), 12), 193, 289, 24, 20));
+            skillAndstats.Add(this.AddTextPos(TextSeg(hero.Stamina.ToString(), 18), 193, 289, 24, 20));
 
-            freePoints = this.AddTextPos((Global.Strings[$"навыков и характеристик"]+$" {hero.FreePoints}").SegoeUIBold().InSize(10).InColor(Global.CommonColorLight), 32, 44, 208, 26);
+            freePoints = this.AddTextPos((Global.Strings[$"навыков и характеристик"]+$" {hero.FreePoints}").SegoeUIBold().InSize(16).InColor(Global.CommonColorLight), 32, 44, 208, 26);
 
             binderCommon = new ParamBinder(this, 255, 183, 104);
             binderCommon.AddParam("Уровень", hero.Level);
@@ -165,7 +165,7 @@ namespace Dungeon12.SceneObjects.Stats
 
         private IDrawText TextSeg(string text, int size = 16)
             => text.AsDrawText().SegoeUIBold().InSize(size).InColor(Global.CommonColorLight);
-        private IDrawText TextGab(string text, int size = 12)
+        private IDrawText TextGab(string text, int size = 16)
             => text.AsDrawText().Gabriela().InSize(size).InColor(Global.CommonColorLight);
 
         private void Fill(Hero hero)
