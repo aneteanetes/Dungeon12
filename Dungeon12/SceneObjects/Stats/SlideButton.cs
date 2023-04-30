@@ -1,26 +1,27 @@
 ﻿using Dungeon.Control;
-using Dungeon.SceneObjects;
 using Dungeon12.ECS.Components;
-using System;
+using Dungeon;
+using Dungeon.View.Interfaces;
 
 namespace Dungeon12.SceneObjects.Stats
 {
-    internal class SlideButton : EmptySceneControl, ITooltiped
+    internal class SlideButton : EmptySceneControl, ITooltipedDrawText
     {
         private string img;
         Action _click;
 
-        public SlideButton(Action click, bool left = true)
+        public SlideButton(string tooltipText, Action click, bool left = true)
         {
             img = left ? "left" : "right";
-            this.Width=50;
-            this.Height=50;
+            Width=50;
+            Height=50;
             _click = click;
-
-            this.Image=$"UI/Windows/Stats/{img}.png";
+            Image = $"UI/Windows/Stats/{img}.png";
+            TooltipText = Global.Strings[tooltipText].AsDrawText().Gabriela();;
         }
 
-        public string TooltipText { get; set; }
+        public IDrawText TooltipText { get; }
+        public bool ShowTooltip => true;
 
         public override void Click(PointerArgs args)
         {
