@@ -7,7 +7,6 @@ using Dungeon.View.Interfaces;
 using Dungeon12.Entities;
 using Dungeon12.Entities.Enums;
 using Dungeon12.SceneObjects.Base;
-using System.Collections.Generic;
 
 namespace Dungeon12.SceneObjects.Stats
 {
@@ -53,8 +52,8 @@ namespace Dungeon12.SceneObjects.Stats
 
             Fill(Component);
 
-            this.AddChild(new SlideButton(SlideBack) { Left=243, Top=25, TooltipText=Global.Strings["Назад"] });
-            this.AddChild(new SlideButton(SlideForward, false) { Left=723, Top=25, TooltipText=Global.Strings["Далее"] });
+            this.AddChild(new SlideButton("Назад", SlideBack) { Left=243, Top=25 });
+            this.AddChild(new SlideButton("Далее", SlideForward, false) { Left=723, Top=25 });
 
             this.AddChild(new Close29x29(this)
             {
