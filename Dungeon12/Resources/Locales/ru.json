@@ -241,5 +241,17 @@
   "ItemSlot.Ranged": "Дальний бой",
   "ItemSlot.RightHand": "Правая рука",
   "ItemSlot.LeftHand": "Левая рука",
-  "ItemSlot.Ammunition": "Боеприпасы"
+  "ItemSlot.Ammunition": "Боеприпасы",
+  "january": "Нашо",
+  "february": "Сабу",
+  "march": "Рохати",
+  "april": "Ниса",
+  "may": "Хайя",
+  "june": "Айлул",
+  "july": "Тамус",
+  "august": "Шамадж",
+  "september": "Аваль",
+  "october": "Зиран",
+  "november": "Тешрин",
+  "december": "Нергал"
 }

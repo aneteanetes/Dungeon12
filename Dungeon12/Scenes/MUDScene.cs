@@ -46,7 +46,7 @@ namespace Dungeon12.Scenes
             main.AddSystem(new MouseHintSystem());
             main.AddSystem(new CursorSystem());
 
-            main.AddObject(new Border(400, 30)); // left status bar
+            main.AddObject(new DateTimePanel(Global.Game.Calendar));// left status bar
             main.AddObject(new Border(400, 30) {  Left=1520 }); // right status bar
 
             var stepCounter = main.AddObject(new TurnPanel(Global.Game.Turns) {  Left = 400}); // left status bar

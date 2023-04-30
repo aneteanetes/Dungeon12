@@ -113,6 +113,9 @@ namespace Dungeon12.Entities.Turning
         {
             Console.WriteLine($"turn: {Current.Value}");
 
+            // 1 шаг - 2 минуты
+            game.Calendar.Add(0, 2);
+
             QueuedTurn=false;
             AfterTurn(this);
 

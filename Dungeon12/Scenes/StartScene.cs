@@ -46,8 +46,8 @@ namespace Dungeon12.Scenes
                 (Strings["NewGame"],NewGame,false),
                 (Strings["Save"],SaveGame,!InGame),
                 (Strings["Load"],LoadGame,true),
-                (Strings["Settings"],Settings,false),
-                (Strings["Credits"],TCG,false),
+                (Strings["Settings"],Settings,true),
+                (Strings["Credits"],TCG,true),
                 (Strings["ExitGame"],Exit,false)
             };
 

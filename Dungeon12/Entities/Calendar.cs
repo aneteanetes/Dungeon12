@@ -1,5 +1,4 @@
 ﻿using Dungeon;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dungeon12.Entities
@@ -13,6 +12,8 @@ namespace Dungeon12.Entities
         public int MinutesSave { get; set; }
 
         public int Week { get; set; } = 4;
+
+        public DayWeek DayOfWeek => (DayWeek)Week;
 
         public int Month { get; set; } = 9;
 
@@ -28,10 +29,18 @@ namespace Dungeon12.Entities
         public string ClockText()
         {
             var dayofweek = ((DayWeek)Week).ToValue<string>();
-            var month = ((MonthYear)Month).ToDisplay();
+            var month = ((MonthYear)Month).AsShimmer();
             return $"{Time.Hours:00}:{Time.Minutes:00} {dayofweek}, {month}, {Year}г.";
         }
         // 8:15 Пн, Месяц Капли, 1201г.
+
+        public string DateText()
+        {
+            var dayofweek = ((DayWeek)Week).ToValue<string>();
+            var month = ((MonthYear)Month).ToDisplay();
+            return $"{Day} {dayofweek}, {month}, {Year}г.";
+        }
+        // 17 Пн, Месяц Капли, 1201г.
 
         public void Add(int hours, int minutes)
         {
@@ -108,29 +117,37 @@ namespace Dungeon12.Entities
 
     public enum MonthYear
     {
-        [Display(Name = "Месяц Внешних")]
-        Outers =1,
-        [Display(Name = "Месяц Тьмы")]
-        Darks=2,
-        [Display(Name = "Месяц Света")]
-        Lights = 3,
-        [Display(Name = "Месяц Гроз")]
-        Thunders = 4,
-        [Display(Name = "Месяц Туманов")]
-        Fogs = 5,
-        [Display(Name = "Месяц Спокойствия")]
-        Relaxs = 6,
-        [Display(Name = "Месяц Огня")]
-        Fires = 7,
-        [Display(Name = "Месяц Пепла")]
-        Dusts = 8,
-        [Display(Name = "Месяц Капли")]
-        Water = 9,
-        [Display(Name = "Месяц Страха")]
-        Fears = 10,
-        [Display(Name = "Месяц Пустоты")]
-        Voids = 11,
-        [Display(Name = "Месяц Духов")]
-        Spirits = 12,
+        [Display(Name = "Месяц Ангела")]
+        january =1,
+        [Display(Name = "Месяц Хаоса")]
+        february=2,
+        [Display(Name = "Месяц Болезни")]
+        march = 3,
+        [Display(Name = "Месяц Крови")]
+        april = 4,
+        [Display(Name = "Месяц Нефрита")]
+        may = 5,
+        [Display(Name = "Месяц Ярости")]
+        june = 6,
+        [Display(Name = "Месяц Кузнеца")]
+        july = 7,
+        [Display(Name = "Месяц Моря")]
+        august = 8,
+        [Display(Name = "Месяц Солнца")]
+        september = 9,
+        [Display(Name = "Месяц Мудрости")]
+        october = 10,
+        [Display(Name = "Месяц Луны")]
+        november = 11,
+        [Display(Name = "Месяц Смерти")]
+        december = 12,
+    }
+
+    public static class MonthYearExtensions
+    {
+        public static string AsShimmer(this MonthYear monthYear)
+        {
+            return Global.Strings[monthYear.ToString()];
+        }
     }
 }

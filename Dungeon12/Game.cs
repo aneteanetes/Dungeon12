@@ -31,7 +31,7 @@ namespace Dungeon12
         }
         public Action<Polygon> OnSelectPolygon { get; } = delegate { };
 
-        public Calendar Calendar { get; set; }
+        public Calendar Calendar { get; set; } = new Calendar();
 
         public GameLog Log { get; set; }
 
