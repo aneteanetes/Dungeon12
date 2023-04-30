@@ -59,6 +59,16 @@ namespace Dungeon.Drawing
                 stringData += Environment.NewLine+ value;
         }
 
+        public void RemoveLine(int idx)
+        {
+            stringData = string.Join(Environment.NewLine, stringData.Split(Environment.NewLine).Select((x, i) =>
+            {
+                if (i==idx)
+                    return null;
+                return x;
+            }).Where(x => x!=null));
+        }
+
         private string stringData;
         public string StringData
         {

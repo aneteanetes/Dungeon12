@@ -29,6 +29,15 @@ namespace Dungeon12.SceneObjects.MUD
             component.OnPush+=OnPush;
         }
 
-        private void OnPush(GameLogMessage message) => textBox.Text.AddLine(message.ToString());
+        private void OnPush(GameLogMessage message)
+        {
+            var height = this.MeasureText(textBox.Text).Y;
+            if (height>=this.Height-10)
+            {
+                textBox.Text.RemoveLine(0);
+            }
+
+            textBox.Text.AddLine(message.ToString());
+        }
     }
 }

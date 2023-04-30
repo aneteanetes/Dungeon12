@@ -48,6 +48,8 @@
 
         void AddLine(string value);
 
+        void RemoveLine(int idx);
+
         bool Bold { get; set; }
 
         bool CenterAlign { get; }

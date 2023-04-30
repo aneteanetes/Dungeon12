@@ -152,9 +152,12 @@ namespace Dungeon12.Entities.Turning
 
             while (Current.Value.Object!=hero)
             {
+                game.Log.Push($"{Current.Value.Object.Name} пропускает ход");
                 var result = Turn();
                 if (result is TurnResult.AwaitUserInput && Current.Value.Object!=hero)
+                {
                     Turn();
+                }
                 
                 if (result.IsFailed())
                     return result;

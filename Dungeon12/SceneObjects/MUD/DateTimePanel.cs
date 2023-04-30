@@ -2,6 +2,7 @@
 using Dungeon.SceneObjects;
 using Dungeon12.ECS.Components;
 using Dungeon12.Entities;
+using Dungeon12.Entities.Enums;
 using System;
 using System.ComponentModel;
 
