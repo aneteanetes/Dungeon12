@@ -21,7 +21,7 @@ namespace Dungeon12.SceneObjects.MUD.Controls
 
             this.AddBorderBack();
 
-            AddChild(new ControlButton('e', "Персонажи (I)", HeroWindow)
+            AddChild(new ControlButton('e', "Персонажи", HeroWindow)
             {
                 Left=25,
                 Top=40
