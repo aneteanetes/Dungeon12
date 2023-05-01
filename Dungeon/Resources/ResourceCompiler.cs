@@ -109,6 +109,7 @@ namespace Dungeon.Resources
             {
                 if (!formattedFilePaths.Contains(resPathInDb))
                 {
+                    Console.WriteLine($"res {resPathInDb} deleted!");
                     db.DeleteMany(x => x.Path == resPathInDb);
                 }
             }
