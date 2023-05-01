@@ -9,7 +9,9 @@ using Dungeon12.Entities.Abilities;
 using Dungeon12.Entities.Enums;
 using Dungeon12.Entities.Map;
 using Dungeon12.SceneObjects.Create;
+using Dungeon12.SceneObjects.UserInterface.Common;
 using System.Collections.Generic;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Dungeon12.Scenes
 {
@@ -43,18 +45,32 @@ namespace Dungeon12.Scenes
             layer.AddObjectCenter(title, vertical: false);
             title.Top = 25;
 
-            layer.AddObject(new ArrowBtn()
-            {
-                Left = 984,
-                Top = 988,
-                OnClick = () => Next()
-            });
+            //layer.AddObject(new ArrowBtn()
+            //{
+            //    Left = 984,
+            //    Top = 988,
+            //    OnClick = () => Next()
+            //});
 
-            layer.AddObject(new ArrowBtn(false)
+            //layer.AddObject(new ArrowBtn(false)
+            //{
+            //    Left = 890,
+            //    Top = 988,
+            //    OnClick = () => Switch<StartScene>()
+            //});
+
+            var cancelBtn = layer.AddObject(new ClassicButton(Global.Strings["Cancel"])
             {
-                Left = 890,
+                Left = 700,
                 Top = 988,
                 OnClick = () => Switch<StartScene>()
+            });
+
+            var nextBtn = layer.AddObject(new ClassicButton(Global.Strings["StartGame"])
+            {
+                Left = 1020,
+                Top = 988,
+                OnClick = () => Next()
             });
 
             var h1 = layer.AddObject(new Charplate(Global.Game.Party.Hero1)

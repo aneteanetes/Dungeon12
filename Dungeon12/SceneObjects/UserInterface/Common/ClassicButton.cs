@@ -50,6 +50,7 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
         public override void Click(PointerArgs args)
         {
             OnClick?.Invoke();
+            base.Click(args);
         }
 
         public override void Focus()
