@@ -49,6 +49,9 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
 
         public override void Click(PointerArgs args)
         {
+            if (Disabled)
+                return;
+            
             OnClick?.Invoke();
         }
 
