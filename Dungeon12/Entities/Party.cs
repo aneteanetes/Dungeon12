@@ -26,6 +26,10 @@ namespace Dungeon12.Entities
 
         public Fame Fame { get; set; } = new Fame();
 
+        public Prayers Prayers { get; set; } = new Prayers();
+
+        public int Gold { get; set; }
+
         public IEnumerator<Hero> GetEnumerator()
         {
             yield return Hero1;

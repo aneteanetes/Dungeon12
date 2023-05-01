@@ -88,6 +88,8 @@ namespace Dungeon12.Scenes
             {
                 Party = new Entities.Party()
                 {
+                    Gold=500,
+                    Fame=new Entities.Fame(Fraction.Vanguard),
                     Hero1 = new Entities.Hero()
                     {
                         Archetype = Archetype.Warrior,

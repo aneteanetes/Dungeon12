@@ -5,11 +5,13 @@
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.Proxy;
+    using Dungeon.Scenes.Manager;
     using Dungeon.Types;
     using Dungeon.Utils;
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.Tracing;
     using System.Linq;
 
     public interface IHandleSceneControl : IMixinContainer
@@ -241,7 +243,15 @@
         public virtual void AddControl<T1>(T1 control) where T1 : ISceneControl
         {
             if (this.Layer != default)
+            {
                 this.Layer.AddExistedControl(control);
+            }
+            else
+            {
+                var activeLayer = DungeonGlobal.SceneManager?.Current?.ActiveLayer;
+                if(activeLayer!=default)
+                    activeLayer.AddExistedControl(control);
+            }
         }
     }
 }

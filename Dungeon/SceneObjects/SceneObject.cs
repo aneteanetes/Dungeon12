@@ -33,6 +33,10 @@
         /// </summary>
         public SceneObject(TComponent component, bool bindView = true)
         {
+            var activeLayer = Dungeon.DungeonGlobal.SceneManager?.CurrentScene?.ActiveLayer;
+            if (activeLayer!=default)
+                this.Layer=activeLayer;
+
             if (this is IAutoFreeze)
             {
                 if (this is IAutoUnfreeze unfreeze)

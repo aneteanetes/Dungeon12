@@ -212,7 +212,7 @@
 
             //if (key == Key.Delete)
             //{
-            //    text.SetText(string.Empty);
+            //    text.SetDrawText(string.Empty);
             //    SetInputTextPosition();
             //}
 
@@ -220,7 +220,7 @@
             //{
             //    if (text.Length > 0)
             //    {
-            //        text.SetText(text.StringData.Substring(0, text.StringData.Length - 1));
+            //        text.SetDrawText(text.StringData.Substring(0, text.StringData.Length - 1));
             //        SetInputTextPosition();
             //    }
             //    return;

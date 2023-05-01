@@ -20,5 +20,10 @@ namespace Dungeon12.SceneObjects.MUD.Turning
                 turnsView = AddChildCenter(new TurnsView(t));
             };
         }
+
+        public override void Focus()
+        {
+            base.Focus();
+        }
     }
 }

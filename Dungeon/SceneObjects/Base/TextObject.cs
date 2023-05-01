@@ -10,7 +10,9 @@
             Text = component;
         }
 
-        public void SetText(IDrawText text) => Text = text;
+        public void SetDrawText(IDrawText text) => Text = text;
+
+        public void SetText(string txt) => Text.SetText(txt);
 
         public override void Throw(Exception ex)
         {

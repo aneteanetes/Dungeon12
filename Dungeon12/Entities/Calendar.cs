@@ -15,6 +15,8 @@ namespace Dungeon12.Entities
 
         public DayWeek DayOfWeek => (DayWeek)Week;
 
+        public MonthYear MonthYear => (MonthYear)Month;
+
         public int Month { get; set; } = 9;
 
         public int Day { get; set; } = 15;

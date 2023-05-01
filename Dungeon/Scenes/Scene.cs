@@ -81,6 +81,7 @@
             LayerMap.Add(name, () => LayerList.IndexOf(newLayer));
 
             SceneLayerGraph.Add(new SceneLayerGraph(newLayer));
+            ActiveLayer=newLayer;
 
             return newLayer;
         }

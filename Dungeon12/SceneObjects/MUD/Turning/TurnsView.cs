@@ -21,5 +21,10 @@ namespace Dungeon12.SceneObjects.MUD.Turning
                 left+=33;
             }
         }
+
+        public override void Focus()
+        {
+            base.Focus();
+        }
     }
 }

@@ -46,7 +46,7 @@
             //var text = txt = AddTextCenter(drawText);
             //text.Filtered = false;
 
-            //drawText.SetText(" " + drawText.StringData);
+            //drawText.SetDrawText(" " + drawText.StringData);
 
             Text = this.AddTextCenter(drawText.SegoeUIBold());
             //base.Left = position.X - Width / 2;

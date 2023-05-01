@@ -253,5 +253,12 @@
   "september": "Аваль",
   "october": "Зиран",
   "november": "Тешрин",
-  "december": "Нергал"
+  "december": "Нергал",
+  "Glory": "Слава",
+  "Gold": "Золото",
+  "Fame.Good": "Положительная",
+  "Fame.Evil": "Отрицательная",
+  "Fame.Trick": "Дурная",
+  "Fame.Wisdom": "Рассудительная",
+  "Fame.Mixed": "Смешанная"
 }

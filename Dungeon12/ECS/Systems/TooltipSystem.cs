@@ -144,6 +144,12 @@ namespace Dungeon12.ECS.Systems
                 //tooltipPosition.X = sceneObject.Left + sceneObject.Width + 5;
             }
 
+            if (tooltipPosition.X+tooltip.Width> Global.Resolution.Width)
+            {
+                tooltipPosition.X = Global.Resolution.Width - (tooltip.Width+5);
+                //tooltipPosition.X = sceneObject.Left + sceneObject.Width + 5;
+            }
+
             tooltip.SetPosition(tooltipPosition);
             tooltip.Visible = true;
         }
