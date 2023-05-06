@@ -24,5 +24,17 @@ namespace Dungeon12
         {
             sceneObject.AddChild(new Border(sceneObject.Width, sceneObject.Height, -1));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sceneObject"></param>
+        /// <param name="opacity"></param>
+        public static void AddBorder(this ISceneObject sceneObject, NineSliceSettings settings)
+        {
+            settings.BindDefaults(sceneObject);
+
+            sceneObject.AddChild(new Border(settings));
+        }
     }
 }

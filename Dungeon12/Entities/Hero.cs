@@ -1,4 +1,5 @@
-﻿using Dungeon.View;
+﻿using Dungeon.SceneObjects.Grouping;
+using Dungeon.View;
 using Dungeon12.Entities.Abilities;
 using Dungeon12.Entities.Enums;
 using Dungeon12.Entities.Perks;
@@ -10,6 +11,8 @@ namespace Dungeon12.Entities
 {
     internal class Hero : Battler
     {
+        public ObjectGroupProperty IsActive { get; set; } = new ObjectGroupProperty();
+
         public int FreePoints { get; set; } = 0;
 
         public int Strength { get; set; } = 10;

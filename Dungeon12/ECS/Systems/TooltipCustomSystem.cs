@@ -1,6 +1,7 @@
 ﻿using Dungeon.Control;
 using Dungeon.Control.Pointer;
 using Dungeon.ECS;
+using Dungeon.Scenes;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
@@ -11,7 +12,11 @@ namespace Dungeon12.ECS.Systems
 {
     internal class TooltipCustomSystem : ISystem
     {
-        public ISceneLayer SceneLayer { get; set; }
+        SceneLayer tooltipLayer = null;
+        public TooltipCustomSystem(SceneLayer tooltipLayer = null)
+        {
+            this.tooltipLayer= tooltipLayer;
+        }
 
         public bool IsApplicable(ISceneObject sceneObject)
         {
@@ -31,7 +36,8 @@ namespace Dungeon12.ECS.Systems
 
                 var tooltip = tooltiped.GetTooltip();
                 Tooltips[tooltiped] = tooltip;
-                SceneLayer.AddObject(tooltip);
+
+                (tooltipLayer ?? sceneObject.Layer).AddObject(tooltip);
 
                 tooltipPosition.X += sceneObject.Width / 2 - Global.GameClient.MeasureText(tooltip.Text).X / 2;
                 if (tooltipPosition.Y < 0)
@@ -53,7 +59,7 @@ namespace Dungeon12.ECS.Systems
                 if (Tooltips.TryGetValue(tooltiped, out var tooltip))
                 {
                     tooltip.Destroy();
-                    SceneLayer.RemoveObject(tooltip);
+                    tooltip.Layer.RemoveObject(tooltip);
                     Tooltips.Remove(tooltiped);
                 }
             }

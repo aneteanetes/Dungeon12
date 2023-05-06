@@ -477,7 +477,7 @@ namespace Dungeon.Monogame
                     ? SamplerState.PointWrap
                     : */SamplerState.LinearWrap;
 
-                var sb = SpriteBatchManager.GetSpriteBatch(samplerstate);
+                var sb = SpriteBatchManager.GetSpriteBatch(samplerstate,effect: effect);
 
 #warning как бы здесь не потерять Mode.Tiled
                 //if (sceneObject.Mode!= DrawMode.Normal)

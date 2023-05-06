@@ -460,7 +460,7 @@ namespace Dungeon.Scenes
             {
                 try
                 {
-                    foreach (var system in Systems)
+                    foreach (var system in Scene.GetSystems())
                     {
                         if (system.IsApplicable(control))
                         {
@@ -491,7 +491,7 @@ namespace Dungeon.Scenes
                 DoClicks(pointerPressedEventArgs, offset, globalKeyHandlers, (c, a) => c.GlobalClickRelease(a));
             }
 
-            foreach (var system in Systems)
+            foreach (var system in Scene.GetSystems())
             {
                 system.ProcessGlobalClickRelease(pointerPressedEventArgs);
             }
@@ -600,7 +600,7 @@ namespace Dungeon.Scenes
             {
                 try
                 {
-                    foreach (var system in Systems)
+                    foreach (var system in Scene.GetSystems())
                     {
                         if (system.IsApplicable(item))
                         {
@@ -625,7 +625,7 @@ namespace Dungeon.Scenes
                 {
                     try
                     {
-                        foreach (var system in Systems)
+                        foreach (var system in Scene.GetSystems())
                         {
                             if (system.IsApplicable(control))
                             {
@@ -644,8 +644,6 @@ namespace Dungeon.Scenes
                 sceneObjectsInFocuses.AddRange(newFocused);
             }
         }
-
-        private List<ISystem> Systems = new List<ISystem>();
 
         public virtual void OnStickMoveOnce(Direction direction, GamePadStick stick)
         {
@@ -747,23 +745,6 @@ namespace Dungeon.Scenes
 
             Destroyed=true;
             this.Owner=null;
-        }
-
-        public void AddSystem(ISystem system)
-        {
-            if (!Systems.Contains(system))
-            {
-                system.SceneLayer = this;
-                Systems.Add(system);
-            }
-        }
-
-        public TSystem GetSystem<TSystem>() where TSystem : ISystem 
-            => Systems.FirstOrDefault(s => s.Is<TSystem>()).As<TSystem>();
-
-        public void RemoveSystem(ISystem system)
-        {
-            Systems.Remove(system);
         }
 
         //private static bool IntersectsPixel(Rectangle hitbox1, Texture2D texture1, Rectangle hitbox2, Texture2D texture2)

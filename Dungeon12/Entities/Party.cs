@@ -1,4 +1,5 @@
-﻿using Dungeon12.Entities.Enums;
+﻿using Dungeon.SceneObjects.Grouping;
+using Dungeon12.Entities.Enums;
 using Dungeon12.Entities.Map;
 using Dungeon12.Entities.Turning;
 using System.Collections;
@@ -96,5 +97,7 @@ namespace Dungeon12.Entities
         }
 
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
+
+        public void Init() => ObjectGroupBuilder<Hero>.Build(this, x => x.IsActive);
     }
 }

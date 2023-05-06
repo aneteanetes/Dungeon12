@@ -8,8 +8,6 @@ namespace Dungeon12.ECS.Systems
 {
     internal class CursorSystem : ISystem
     {
-        public ISceneLayer SceneLayer { get; set; }
-
         public bool IsApplicable(ISceneObject sceneObject)
         {
             return sceneObject is ICursored;

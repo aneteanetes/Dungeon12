@@ -30,7 +30,9 @@ namespace Dungeon.SceneObjects.Grouping
             var builder = new ObjectGroupBuilder<TItem>();
             builder._items.AddRange(items);
             builder.Property(selector);
-            return builder.Build();
+            var build = builder.Build();
+            build.Select();
+            return build;
         }
 
         public static ObjectGroup<TItem> Build(Expression<Func<TItem, ObjectGroupProperty>> selector, params TItem[] items)

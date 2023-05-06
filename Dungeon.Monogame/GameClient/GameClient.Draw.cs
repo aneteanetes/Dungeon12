@@ -186,13 +186,15 @@ namespace Dungeon.Monogame
 
                 Console.WriteLine("saved");
                 var writer = new ImageWriter();
-                using var file = File.Create(Path.Combine(screenpath, $"Screenshot {DateTime.Now:dd.MM.yyyy HH mm ss}{screenCounter}.jpg"));
+                var path = Path.Combine(screenpath, $"Screenshot {DateTime.Now:dd.MM.yyyy HH mm ss}{screenCounter}.jpg");
+                using var file = File.Create(path);
 
                 fixed (Color* ptr = &screenshotData[0])
                 {
                     writer.WriteJpg(ptr, width, height, ColorComponents.RedGreenBlueAlpha, file,95);
-
                 }
+
+                DungeonGlobal.ScreenshotSaved?.Invoke(path);
             });
         }
     }

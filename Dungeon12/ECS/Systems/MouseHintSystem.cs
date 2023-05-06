@@ -2,6 +2,7 @@
 using Dungeon.Control.Pointer;
 using Dungeon.ECS;
 using Dungeon.Scenes;
+using Dungeon.Scenes.Manager;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
@@ -12,7 +13,11 @@ namespace Dungeon12.ECS.Systems
 {
     internal class MouseHintSystem : ISystem
     {
-        public ISceneLayer SceneLayer { get; set; }
+        SceneLayer tooltipLayer = null;
+        public MouseHintSystem(SceneLayer tooltipLayer = null)
+        {
+            this.tooltipLayer= tooltipLayer;
+        }
 
         public bool IsApplicable(ISceneObject sceneObject)
         {
@@ -63,7 +68,7 @@ namespace Dungeon12.ECS.Systems
             if (hint==null)
                 return;
 
-            var tooltipsys = SceneLayer.GetSystem<TooltipSystem>();
+            var tooltipsys = sceneObject.Layer.Scene.GetSystem<TooltipSystem>();
             var tooltip = tooltipsys.GetTooltip(sceneObject);
             if (tooltip != default)
                 tooltip.Visible = false;
@@ -114,7 +119,7 @@ namespace Dungeon12.ECS.Systems
             {
                 if (clickrelease)
                 {
-                    var tooltipsys = SceneLayer.GetSystem<TooltipSystem>();
+                    var tooltipsys = Global.SceneManager.CurrentScene.GetSystem<TooltipSystem>();
                     var tooltip = tooltipsys.GetTooltip(ExistedHint.Host);
                     if (tooltip != default)
                         tooltip.Visible = true;

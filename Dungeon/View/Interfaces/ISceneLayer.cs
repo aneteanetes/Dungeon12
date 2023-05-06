@@ -32,11 +32,5 @@ namespace Dungeon.View.Interfaces
 
         bool AbsoluteLayer { get; }
 
-        void AddSystem(ISystem system);
-
-        TSystem GetSystem<TSystem>() where TSystem : ISystem;
-
-        void RemoveSystem(ISystem system);
-
     }
 }

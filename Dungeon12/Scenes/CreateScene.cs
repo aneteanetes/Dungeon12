@@ -37,9 +37,13 @@ namespace Dungeon12.Scenes
 
             var layer = CreateLayer("main");
             layer.AbsoluteLayer = true;
-            layer.AddSystem(new TooltipSystem());
-            layer.AddSystem(new TooltipCustomSystem());
-            layer.AddSystem(new MouseHintSystem());
+
+            var ui = CreateLayer("ui");
+            this.AddSystem(new TooltipSystem(ui));
+            this.AddSystem(new TooltipCustomSystem(ui));
+            this.AddSystem(new MouseHintSystem(ui));
+
+            this.ActiveLayer=layer;
 
             var title = new CreateTitle();
             layer.AddObjectCenter(title, vertical: false);
@@ -131,6 +135,8 @@ namespace Dungeon12.Scenes
                 Log = new Entities.Journal.GameLog(),
                 QuestBook = new Entities.Quests.QuestBook()
             };
+
+            Global.Game.Party.Init();
         }
 
         private void Next()

@@ -1,4 +1,5 @@
-﻿using Dungeon.SceneObjects;
+﻿using Dungeon.Control;
+using Dungeon.SceneObjects;
 using Dungeon12.Entities;
 using Dungeon12.SceneObjects.HeroPanelObjs;
 
@@ -19,7 +20,7 @@ namespace Dungeon12.SceneObjects.MUD
             this.AddBorderBack();
 
             var leftOffset = 15d;
-            var topOffset = 10;
+            var topOffset = 12.5;
 
             var p1 = this.AddChild(new HeroPanel(component.Hero1,true)
             {
@@ -44,6 +45,10 @@ namespace Dungeon12.SceneObjects.MUD
                 Left = p3.LeftMax+leftOffset,
                 Top=topOffset,
             });
+        }
+
+        public override void Click(PointerArgs args)
+        {
         }
     }
 }

@@ -25,7 +25,21 @@ namespace Dungeon12.Scenes
 
         public override void Initialize()
         {
+            DungeonGlobal.ScreenshotSaved+=path =>
+            {
+                Global.Game.Log.Push($"Скриншот сохранён: {path}");
+            };
+
             var main = AddLayer("main");
+
+            var ui = this.AddLayer("ui");
+
+            this.ActiveLayer=main;
+
+            this.AddSystem(new TooltipSystem(ui));
+            this.AddSystem(new TooltipCustomSystem(ui));
+            this.AddSystem(new MouseHintSystem(ui));
+            this.AddSystem(new CursorSystem());
 
             var region = new Region()
             {
@@ -41,11 +55,6 @@ namespace Dungeon12.Scenes
                 ObjectImage="ship_cockpit.png",
                 Region=region
             };
-
-            main.AddSystem(new TooltipSystem());
-            main.AddSystem(new TooltipCustomSystem());
-            main.AddSystem(new MouseHintSystem());
-            main.AddSystem(new CursorSystem());
 
             main.AddObject(new DateTimePanel(Global.Game.Calendar));// left status bar
             main.AddObject(new ResourcePanel(Global.Game.Party) {  Left=1520 }); // right status bar

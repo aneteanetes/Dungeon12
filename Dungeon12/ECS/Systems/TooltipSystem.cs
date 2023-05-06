@@ -1,6 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Control;
 using Dungeon.ECS;
+using Dungeon.Scenes;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
@@ -10,6 +11,12 @@ namespace Dungeon12.ECS.Systems
 {
     internal class TooltipSystem : ISystem
     {
+        SceneLayer tooltipLayer = null;
+        public TooltipSystem(SceneLayer tooltipLayer = null)
+        {
+            this.tooltipLayer= tooltipLayer;
+        }
+
         private static Dictionary<ITooltipedDrawText, Tooltip> Tooltips = new Dictionary<ITooltipedDrawText, Tooltip>();
         private static Dictionary<ITooltiped, Tooltip> Tooltips1 = new Dictionary<ITooltiped, Tooltip>();
         private static Dictionary<IECSComponent, (ITooltiped, Tooltip)> TooltipsDynamic = new();
@@ -29,8 +36,6 @@ namespace Dungeon12.ECS.Systems
 
             return null;
         }
-
-        public ISceneLayer SceneLayer { get; set; }
 
         public bool IsApplicable(ISceneObject sceneObject)
         {
@@ -78,7 +83,7 @@ namespace Dungeon12.ECS.Systems
                     sceneObject.OnDestroy += () =>
                     {
                         Tooltips.Remove(tooltipedDrawText);
-                        SceneLayer.RemoveObject(tooltip);
+                        tooltip.Layer.RemoveObject(tooltip);
                     };
 
 #warning ОБЪЕКТЫ ЛИШИЛИСЬ ABSOLUTE POSITION, ПОЭТОМУ ТУЛТИПЫ ДОЛЖНЫ БЫТЬ НА АБСОЛЮТНОМ СЛОЕ
@@ -87,7 +92,7 @@ namespace Dungeon12.ECS.Systems
                         //LayerLevel = 100
                     };
 
-                    SceneLayer.AddObject(tooltip);
+                    (tooltipLayer ?? sceneObject.Layer).AddObject(tooltip);
                     Tooltips[tooltipedDrawText] = tooltip;
                 }
 
@@ -118,7 +123,7 @@ namespace Dungeon12.ECS.Systems
             sceneObject.OnDestroy += () =>
             {
                 Tooltips1.Remove(tooltiped);
-                SceneLayer.RemoveObject(tooltip);
+                tooltip.Layer.RemoveObject(tooltip);
             };
 
             tooltip = new Tooltip(tooltiped.TooltipText.Gabriela(), tooltipPosition,1)
@@ -129,7 +134,7 @@ namespace Dungeon12.ECS.Systems
             if (sceneObject.IsComponent<ITooltipedPositionByComponent>())
                 tooltipPosition.X = sceneObject.ComputedPosition.X+sceneObject.Width*.85;
 
-            SceneLayer.AddObject(tooltip);
+            (tooltipLayer ?? sceneObject.Layer).AddObject(tooltip);
             Tooltips1[tooltiped] = tooltip;
 
             if (component!=default)

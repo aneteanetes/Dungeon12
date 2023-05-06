@@ -668,9 +668,13 @@
             return this;
         }
 
+        public string StringTo { get; private set; }
         public override string ToString()
         {
-            return $"{this.GetType().Name}.{Parent?.ToString()} :base {base.ToString()}";
+            if(StringTo==null)
+                StringTo = $"{this.GetType().Name}.{Parent?.ToString()} :base {base.ToString()}";
+
+            return StringTo;
         }
 
         public bool IntersectsWith(ISceneObject another)

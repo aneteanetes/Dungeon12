@@ -1,4 +1,7 @@
-﻿namespace Dungeon.View.Interfaces
+﻿using Dungeon.ECS;
+using System.Collections.Generic;
+
+namespace Dungeon.View.Interfaces
 {
     public interface IScene
     {
@@ -13,5 +16,11 @@
         void Destroy();
 
         void Loaded();
+
+        void AddSystem(ISystem system);
+
+        TSystem GetSystem<TSystem>() where TSystem : ISystem;
+
+        IEnumerable<ISystem> GetSystems();
     }
 }

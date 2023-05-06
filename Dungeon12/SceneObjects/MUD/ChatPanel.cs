@@ -31,7 +31,7 @@ namespace Dungeon12.SceneObjects.MUD
 
         private void OnPush(GameLogMessage message)
         {
-            var height = this.MeasureText(textBox.Text).Y;
+            var height = this.MeasureText(textBox.Text,this).Y;
             if (height>=this.Height-10)
             {
                 textBox.Text.RemoveLine(0);

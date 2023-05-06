@@ -4,6 +4,7 @@
     using Dungeon.Control.Gamepad;
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
+    using Dungeon.ECS;
     using Dungeon.Resources;
     using Dungeon.Scenes.Manager;
     using Dungeon.Settings;
@@ -47,6 +48,7 @@
 
         private SceneLayer _activeLayer;
         private bool loggedallinactivedlayers=false;
+#warning ActiveLayer - ошибка (может и нет, но блядь, работа с ним - ошибка)
         public SceneLayer ActiveLayer
         {
             get
@@ -355,6 +357,21 @@
         private readonly List<SceneLayer> LayerList = new List<SceneLayer>();
 
         public ISceneLayer[] Layers => LayerList.ToArray();
+
+        public List<ISystem> Systems { get; set; } = new List<ISystem>();
+
+        public IEnumerable<ISystem> GetSystems() => Systems;
+
+        public void AddSystem(ISystem system)
+        {
+            if (!Systems.Contains(system))
+            {
+                Systems.Add(system);
+            }
+        }
+
+        public TSystem GetSystem<TSystem>() where TSystem : ISystem
+            => Systems.FirstOrDefault(s => s.Is<TSystem>()).As<TSystem>();
 
         public virtual void Destroy()
         {

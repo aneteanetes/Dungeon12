@@ -39,6 +39,8 @@ namespace Dungeon
 
         private static bool isInited = false;
 
+        public static Action<string> ScreenshotSaved { get; set; }
+
         public static DungeonConfiguration Init<T>(bool isDevelop, bool compileData=false) where T : DungeonGlobal
         {
             ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver(Assembly.GetEntryAssembly()));

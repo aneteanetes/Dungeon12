@@ -2,12 +2,13 @@
 using Dungeon.SceneObjects;
 using Dungeon.SceneObjects.Base;
 using Dungeon.View.Enums;
+using Dungeon.View.Interfaces;
 
 namespace Dungeon12.SceneObjects.Base
 {
     internal class Border : EmptySceneObject
     {
-        public Border(double width, double height, double opacity=.9) : this(new NineSliceSettings()
+        public Border(double width, double height, double opacity = .9) : this(new NineSliceSettings()
         {
             Width = width,
             Height = height,
@@ -51,5 +52,33 @@ namespace Dungeon12.SceneObjects.Base
         public string ImagesPath { get; set; }
 
         public double Opacity { get; set; } = .9;
+
+        private static NineSliceSettings _default;
+        public static NineSliceSettings Default 
+            => _default ??= new NineSliceSettings()
+            {
+                Size=5,
+                ImagesPath="UI/border/",
+            };
+
+        public NineSliceSettings BindDefaults(ISceneObject sceneObject)
+        {
+            if (this.Width==default)
+                this.Width = sceneObject.Width;
+
+            if (this.Height==default)
+                this.Height = sceneObject.Height;
+
+            if (this.Opacity==default)
+                this.Opacity = -1;
+
+            if (this.Size==default)
+                this.Size=5;
+
+            if (this.ImagesPath==default)
+                this.ImagesPath="UI/border/";
+
+            return this;
+        }
     }
 }

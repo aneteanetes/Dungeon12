@@ -6,9 +6,6 @@ namespace Dungeon.ECS
 {
     public interface ISystem
     {
-        [Injected]
-        ISceneLayer SceneLayer { get; set; }
-
         bool IsApplicable(ISceneObject sceneObject);
 
         void ProcessFocus(ISceneObject sceneObject);

@@ -66,6 +66,7 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
         {
             if (Disabled)
                 return;
+
             Label.Text.ForegroundColor = Global.CommonColorLight;
         }
     }

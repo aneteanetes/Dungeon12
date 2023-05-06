@@ -35,7 +35,7 @@
           <Default>long</Default>
         </Literal>
       </Declarations>
-      <Code Language="csharp">
+      <Code Language="csharp">	  
         <![CDATA[
         /// <summary>
         /// 
@@ -49,14 +49,19 @@
             {
                 value = //логика кэширования
                   default;
-                ___$methodName$Cache.Add($argName$, value);
+                ___$methodName$Cache.AddOrUpdate($argName$, value, (x, y) => value);
             }
 
             return value;
         }
-        private readonly Dictionary<$typeArg$, $typeResult$> ___$methodName$Cache = new Dictionary<$typeArg$, $typeResult$>();        
+        private static ConcurrentDictionary<$typeArg$, $typeResult$> ___$methodName$Cache = new ();
         $end$]]>
       </Code>
+	  <Imports>
+		<Import>
+			<Namespace>System.Collections.Concurrent</Namespace>
+		</Import>
+	  </Imports>
     </Snippet>
   </CodeSnippet>
 </CodeSnippets>

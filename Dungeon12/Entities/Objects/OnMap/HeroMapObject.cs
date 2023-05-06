@@ -27,6 +27,7 @@ namespace Dungeon12.Entities.Objects.OnMap
             if (turn.IsSuccess())
             {
                 this.Selected.True();
+                _hero.IsActive.True();
             }
         }
     }
