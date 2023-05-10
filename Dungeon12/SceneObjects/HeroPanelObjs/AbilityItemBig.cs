@@ -1,4 +1,5 @@
 ﻿using Dungeon;
+using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
@@ -9,7 +10,7 @@ using Dungeon12.SceneObjects.Base;
 
 namespace Dungeon12.SceneObjects.HeroPanelObjs
 {
-    internal class AbilityItemBig : SceneControl<Hero>, ITooltipedDrawText, IMouseHint, ICursored
+    internal class AbilityItemBig : SceneControl<Hero>,/* ITooltipedDrawText, IMouseHint,*/ ICursored, ITooltipedCustom
     {
         public override void Throw(Exception ex)
         {
@@ -21,7 +22,7 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
 
         private ImageObject _icon;
 
-        public AbilityItemBig(Hero component, Ability ability, int idx=0) : base(component)
+        public AbilityItemBig(Hero component, Ability ability) : base(component)
         {
             _ability = ability;
             _title = _ability.ClassName;
@@ -90,5 +91,53 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
 
         public ISceneObjectHosted CreateMouseHint()
             => new ObjectPanel(_ability.Name, _ability.Description,_ability.Area, _ability.Cooldown, _ability.GetTextParams());
+
+        public ISceneObject GetTooltip()
+        {
+            var dur =  RandomGlobal.Next(0, 2);
+            var cd = RandomGlobal.Next(0, 5);
+
+            return new GenericPanel(new Entities.Plates.GenericData()
+            {
+                Icon = $"Abilities/{_ability.ClassName}.tga".AsmImg(),
+                Title=_ability.Name,
+                Rank = "1 Уровень",
+                Resources=new List<Entities.Plates.ResourceData>()
+                {
+                    new Entities.Plates.ResourceData()
+                    {
+                        Title = "энергии",
+                        Amount = "20%"
+                    }
+                },
+                Radius = 3,
+                Duration=new Entities.Plates.DurationData()
+                {
+                    Duration = (Duration)dur,
+                    Value =  dur == 2 ? RandomGlobal.Next(1, 3) : 0
+                },
+                Cooldown=new Entities.Cooldowns.Cooldown()
+                {
+                    Type = (Entities.Cooldowns.CooldownType)cd,
+                    Value = cd == 1 ? 0 : RandomGlobal.Next(1, 3)
+                },
+                Charges = 2,
+                Requires=new List<Entities.Plates.RequiredData>()
+                {
+                    new Entities.Plates.RequiredData()
+                    {
+                        Text="Требуется: "+Component.Archetype.Display()
+                    }
+                },
+                RequiresLevel = 1,
+                Fraction = Fraction.Vanguard,
+                Text = _ability.Description,
+                //Rune=new Entities.Runes.Rune()
+                //{
+                //    Name="Руна Жара",
+                //    SetName = "Цветение огня"
+                //}
+            });
+        }
     }
 }

@@ -76,18 +76,19 @@ namespace Dungeon12.ECS.Systems
             DestroyHint();
 
             hint.Host = sceneObject;
+            var layer = (tooltipLayer ?? sceneObject.Layer);
 
             var hintPos = new Dot(args.X+15, args.Y);
             sceneObject.OnDestroy += () =>
             {
                 if (hint != null)
                 {
-                    sceneObject.Layer.RemoveObject(hint);
+                    layer.RemoveObject(hint);
                     ExistedHint = null;
                 }
             };
 
-            sceneObject.Layer.AddObject(hint);
+            layer.AddObject(hint);
 
             if (hintPos.Y < 0)
             {

@@ -39,11 +39,23 @@ namespace Dungeon12.ECS.Systems
 
                 (tooltipLayer ?? sceneObject.Layer).AddObject(tooltip);
 
-                tooltipPosition.X += sceneObject.Width / 2 - Global.GameClient.MeasureText(tooltip.Text).X / 2;
+                tooltipPosition.X += sceneObject.Width / 2 - (tooltip.Width / 2);
                 if (tooltipPosition.Y < 0)
                 {
                     tooltipPosition.Y = 5;
-                    tooltipPosition.X = sceneObject.Left + sceneObject.Width + 5;
+                }
+                if (tooltipPosition.Y + tooltip.Height > Global.Resolution.Height)
+                {
+                    tooltipPosition.Y = Global.Resolution.Height-tooltip.Height-5;
+                }
+
+                if (tooltipPosition.X < 0)
+                {
+                    tooltipPosition.X = 5;
+                }
+                if(tooltipPosition.X+tooltip.Width> Global.Resolution.Width)
+                {
+                    tooltipPosition.X = Global.Resolution.Width-tooltip.Width-5;
                 }
 
                 tooltip.Top = tooltipPosition.Y;

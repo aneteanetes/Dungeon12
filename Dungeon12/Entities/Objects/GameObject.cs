@@ -38,6 +38,9 @@ namespace Dungeon12.Entities.Objects
         /// </summary>
         public virtual string Image { get; set; }
 
+        /// <summary>
+        /// resource path
+        /// </summary>
         public virtual string Chip { get; set; }
 
         public Value Initiative { get; set; } = new Value(1);

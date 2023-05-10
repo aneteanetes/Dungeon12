@@ -18,6 +18,22 @@
             return drawText;
         }
 
+        public static T InCommonColor<T>(this T text) where T : IDrawText
+        {
+            text.ForegroundColor = Global.CommonColor;
+            text.BackgroundColor = Global.CommonColor;
+
+            return text;
+        }
+
+        public static T InCommonLightColor<T>(this T text) where T : IDrawText
+        {
+            text.ForegroundColor = Global.CommonColorLight;
+            text.BackgroundColor = Global.CommonColorLight;
+
+            return text;
+        }
+
         public static IDrawText Gabriela(this string text) => text.AsDrawText().Gabriela();
 
         public static T Gabriela<T>(this T drawText) where T : IDrawText
@@ -26,6 +42,11 @@
             drawText.FontAssembly = "Dungeon12";
 
             return drawText;
+        }
+
+        public static IDrawText HeroName(this string name)
+        {
+            return name.AsDrawText().Gabriela().InColor(Global.CommonColor).InSize(20);
         }
 
         public static T Gabriola<T>(this T drawText) where T : IDrawText

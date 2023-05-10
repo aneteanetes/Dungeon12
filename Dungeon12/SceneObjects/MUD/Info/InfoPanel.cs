@@ -1,16 +1,21 @@
-﻿using Dungeon.SceneObjects.Grouping;
+﻿using Dungeon.Control;
+using Dungeon.SceneObjects.Grouping;
 using Dungeon12.SceneObjects.MUD.Locations;
 
 namespace Dungeon12.SceneObjects.MUD.Info
 {
     internal class InfoPanel : SceneControl<Game>
     {
+        CharacterInfo character;
+
         public InfoPanel(Game component) : base(component)
         {
             Width = 400;
             Height = 800;
 
             this.AddBorder();
+
+            character = this.AddChild(new CharacterInfo());
 
             //var groupBuilder = new ObjectGroupBuilder<ChipView>()
             //    .Property(x => x.Selected);
@@ -33,6 +38,10 @@ namespace Dungeon12.SceneObjects.MUD.Info
             //var group = groupBuilder.Build();
 
             //group.Select();
+        }
+
+        public override void Click(PointerArgs args)
+        {
         }
     }
 }

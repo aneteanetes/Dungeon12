@@ -510,7 +510,7 @@ namespace Dungeon.Monogame
         {
             var font = GetTrueTypeFont(range);
 
-            var lineSpace = font.LineHeight;
+            var lineSpace = 0;// font.LineHeight;
 
             if (range.LineSpacing != 0)
             {
@@ -547,7 +547,7 @@ namespace Dungeon.Monogame
             }
             else
             {
-                font.DrawText(sb, text, new Vector2((float)x, (float)y), color/*, lineSpacing: lineSpace*/);
+                font.DrawText(sb, text, new Vector2((float)x, (float)y), color,lineSpacing:lineSpace);
             }
         }
 
@@ -841,7 +841,15 @@ namespace Dungeon.Monogame
                     data = TextWrapper.WrapText(font, data, parentWidth, dtext: drawText);
                 }
             }
-            var m = font.MeasureString(data);
+
+            var lineSpace = 0;// font.LineHeight;
+
+            if (drawText.LineSpacing != 0)
+            {
+                lineSpace = drawText.LineSpacing;
+            }
+
+            var m = font.MeasureString(data, lineSpacing: lineSpace);
 
             return new Dungeon.Types.Dot(m.X, m.Y);
         }

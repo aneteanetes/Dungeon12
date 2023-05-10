@@ -178,7 +178,7 @@
             var txt = new TextObject(text)
             {
                 Left=left,
-                Top=top
+                Top=top,
             };
 
             return this.AddChild(txt);
@@ -303,9 +303,15 @@
         /// <param name="text"></param>
         /// <param name="parent">Только если wordWrap</param>
         /// <returns></returns>
-        protected Dot MeasureText(IDrawText text, ISceneObject parent = default) => DungeonGlobal.GameClient.MeasureText(text, parent);
+        protected Dot MeasureText(IDrawText text, ISceneObject parent = default)
+        {
+            if (text == null)
+                return Dot.Zero;
 
-        protected DrawText CutText(DrawText text, double height)
+            return DungeonGlobal.GameClient.MeasureText(text, parent);
+        }
+
+            protected DrawText CutText(DrawText text, double height)
         {
             var y = this.MeasureText(text, this).Y / Settings.DrawingSize.CellF;
             if (y > height)

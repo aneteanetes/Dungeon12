@@ -39,7 +39,7 @@ namespace Dungeon12.SceneObjects.Create
             }
         }
 
-        internal class AbilityItem : SceneControl<Hero>, ITooltipedDrawText, IMouseHint
+        internal class AbilityItem : SceneControl<Hero>, ITooltipedCustom, IMouseHint
         {
             Ability _ability;
 
@@ -74,6 +74,54 @@ namespace Dungeon12.SceneObjects.Create
                 => new ObjectPanel(_ability.Name, _ability.Description, _ability.Area,_ability.Cooldown,_ability.GetTextParams());
 
             public void RefreshTooltip() { }
+
+            public ISceneObject GetTooltip()
+            {
+                var dur = RandomGlobal.Next(0, 2);
+                var cd = RandomGlobal.Next(0, 5);
+
+                return new GenericPanel(new Entities.Plates.GenericData()
+                {
+                    Icon = $"Abilities/{_ability.ClassName}.tga".AsmImg(),
+                    Title=_ability.Name,
+                    Rank = Global.Strings[Ranks.Novice],
+                    Resources=new List<Entities.Plates.ResourceData>()
+                    {
+                        new Entities.Plates.ResourceData()
+                        {
+                            Title = "энергии",
+                            Amount = "25%"
+                        }
+                    },
+                    Radius = 2,
+                    Duration=new Entities.Plates.DurationData()
+                    {
+                        Duration = (Duration)dur,
+                        Value =  dur == 2 ? RandomGlobal.Next(1, 3) : 0
+                    },
+                    Cooldown=new Entities.Cooldowns.Cooldown()
+                    {
+                        Type = (Entities.Cooldowns.CooldownType)cd,
+                        Value = cd == 1 ? 0 : RandomGlobal.Next(1, 3)
+                    },
+                    Charges = 2,
+                    Requires=new List<Entities.Plates.RequiredData>()
+                    {
+                        new Entities.Plates.RequiredData()
+                        {
+                            Text="Требуется: "+Component.Archetype.Display()
+                        }
+                    },
+                    RequiresLevel = 1,
+                    Fraction = Fraction.Vanguard,
+                    Text = _ability.Description,
+                    //Rune=new Entities.Runes.Rune()
+                    //{
+                    //    Name="Руна Жара",
+                    //    SetName = "Цветение огня"
+                    //}
+                });
+            }
         }
     }
 }

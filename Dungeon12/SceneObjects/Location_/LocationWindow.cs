@@ -104,7 +104,7 @@ namespace Dungeon12.SceneObjects.Location_
         //        this.AddChild(new ImageObject($"Icons/{component.Icon}.png"));
         //        _border = this.AddChild(new ImageObject($"UI/layout/location/r.png"));
 
-        //        TooltipText = component.Name.AsDrawText();
+        //        TooltipText = component.Title.AsDrawText();
         //    }
 
         //    public IDrawText TooltipText { get; set; }

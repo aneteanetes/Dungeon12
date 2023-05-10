@@ -17,6 +17,8 @@ namespace Dungeon12.Entities
 
         public Hero Hero4 { get; set; }
 
+        public Hero Active => Heroes.FirstOrDefault(x => x.IsActive==true);
+
         public Fraction Fraction { get; set; }
 
         public Hero[] Heroes => new Hero[] { Hero1, Hero2, Hero3, Hero4 };

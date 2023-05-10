@@ -157,7 +157,7 @@ namespace Dungeon12.Scenes
                 //{
                 //    startFood.Value = 5;
                 //    startFood.Image = "Icons/Food/apple.png".AsmImg();
-                //    startFood.Name = Global.Strings.Apples;
+                //    startFood.Title = Global.Strings.Apples;
                 //}
                 var startFood = Global.Game.Party.Food.Components[0];
                 startFood.Value = 5;

@@ -10,9 +10,11 @@ namespace Dungeon12
         /// </summary>
         /// <param name="sceneObject"></param>
         /// <param name="opacity"></param>
-        public static void AddBorderBack(this ISceneObject sceneObject, double opacity=.95)
+        public static Border AddBorderBack(this ISceneObject sceneObject, double opacity=.95)
         {
-            sceneObject.AddChild(new Border(sceneObject.Width, sceneObject.Height,opacity));
+            var b = new Border(sceneObject.Width, sceneObject.Height, opacity);
+            sceneObject.AddChild(b);
+            return b;
         }
 
         /// <summary>

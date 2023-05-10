@@ -41,7 +41,7 @@ namespace Dungeon12.Entities.Abilities
         public virtual Archetype Class { get; }
 
         /// <summary>
-        /// Здесь надо присвоить Name, Description, Area, Element, Range, Cooldown
+        /// Здесь надо присвоить Title, Description, Area, Element, Range, Cooldown
         /// </summary>
         public abstract void Bind();
 
