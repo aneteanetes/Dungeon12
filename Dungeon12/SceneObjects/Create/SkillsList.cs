@@ -67,18 +67,7 @@ namespace Dungeon12.SceneObjects.Create
             public ISceneObjectHosted CreateMouseHint() =>
                 new ObjectPanel(_skill.Display(), Global.Strings.Description[_skill.ToString()]);
 
-            public ISceneObject GetTooltip()
-            {
-                return new GenericPanel(new Entities.Plates.GenericData()
-                {
-                    Title = _skill.Localized(),
-                    Icon = $"AbilitiesPeacefull/{_skill}.tga",
-                    Rank = Ranks.Novice.Localized(),
-                    Subtype = "Skill".Localized(),
-                    Text= Global.Strings.Description[_skill.ToString()],
-                    SizeSettings = new Square() { Width=308 }
-                });
-            }
+            public ISceneObject GetTooltip() => new GenericPanel(_skill.GenericData());
 
             public void RefreshTooltip() { }
         }

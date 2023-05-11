@@ -15,5 +15,7 @@
 
             return dur;
         }
+
+        public static implicit operator DurationData(Duration duration)=>new DurationData() {  Duration = duration };   
     }
 }

@@ -3,13 +3,17 @@ using Dungeon.Control;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Localization;
 using Dungeon.SceneObjects;
+using Dungeon.SceneObjects.Tilemaps;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.Entities;
+using Dungeon12.Entities.Abilities;
 using Dungeon12.Entities.Enums;
 using Dungeon12.Entities.Plates;
 using Dungeon12.SceneObjects.Base;
+using Dungeon12.SceneObjects.HeroPanelObjs;
 using Dungeon12.SceneObjects.Stats;
+using System.ComponentModel;
 
 namespace Dungeon12.SceneObjects.MUD.Info
 {
@@ -181,6 +185,18 @@ namespace Dungeon12.SceneObjects.MUD.Info
                 Left = 265,
                 Top=465
             });
+
+            var abilLeft = 35d;
+
+            for (int i = 0; i < 4; i++)
+            {
+                var skl = this.AddChild(new SkillObject(i)
+                {
+                    Left = abilLeft,
+                    Top =550
+                });
+                abilLeft+=skl.Width+25;
+            }
         }
 
         public override void Update(GameTimeLoop gameTime)
@@ -191,6 +207,47 @@ namespace Dungeon12.SceneObjects.MUD.Info
         public override Hero Component => Global.Game.Party.Active;
 
         public override void Click(PointerArgs args) { }
+
+        private class SkillObject : ActiveHeroControl, ITooltipedCustom, ITooltipedPositionByComponent
+        {
+            private int i;
+
+            public SkillObject(int i)
+            {
+                this.i=i;
+                this.Width = 64;
+                this.Height = 64;
+
+                this.Image = "UI/start/icon.png".AsmImg();
+
+                this.AddChild(new ImageObject(() => $"AbilitiesPeacefull/{Component.Skills[i]}.tga".AsmImg())
+                {
+                    Width = this.Width-4,
+                    Height = this.Height-4,
+                    Left = 2,
+                    Top = 2
+                });
+            }
+
+            public bool ShowTooltip => true;
+
+            public override void Focus()
+            {
+                Image = "UI/start/classselector.png".AsmImg();
+                base.Focus();
+            }
+
+            public ISceneObject GetTooltip()
+            {
+                return new GenericPanel(Component.Skills[i].GenericData());
+            }
+
+            public override void Unfocus()
+            {
+                Image = "UI/start/icon.png".AsmImg();
+                base.Unfocus();
+            }
+        }
 
         class StatObject : ActiveHeroControl
         {

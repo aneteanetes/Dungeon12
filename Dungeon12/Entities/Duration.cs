@@ -4,6 +4,7 @@
     {
         Instant=0,
         Passive = 1,
-        Turns =2
+        Turns =2,
+        Craft=3
     }
 }

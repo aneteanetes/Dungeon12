@@ -327,7 +327,7 @@ namespace Dungeon.Monogame
 
             if (image == default)
             {
-                DungeonGlobal.Logger.Log("Медленный рендер из-за отсутствия картинки!");
+                DungeonGlobal.Logger.Log($"Медленный рендер из-за отсутствия картинки! [{sceneObject.Image}]");
                 //Debugger.Break();
                 return;
             }

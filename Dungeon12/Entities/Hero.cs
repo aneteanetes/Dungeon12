@@ -46,21 +46,23 @@ namespace Dungeon12.Entities
             switch (Archetype)
             {
                 case Archetype.Warrior:
-                    Landscape = Eating = Repair = Smithing = 0;
+                    Skills = new Skill[] { Skill.Landscape, Skill.Eating, Skill.Repair, Skill.Smithing };
                     break;
                 case Archetype.Mage:
-                    Portals = Attension = Enchantment = Alchemy = 0;
+                    Skills = new Skill[] { Skill.Portals, Skill.Attension, Skill.Enchantment, Skill.Alchemy };
                     break;
                 case Archetype.Thief:
-                    Traps = Lockpicking = Stealing = Leatherwork = 0;
+                    Skills = new Skill[] { Skill.Traps, Skill.Lockpicking, Skill.Stealing, Skill.Leatherwork };
                     break;
                 case Archetype.Priest:
-                    Prayers = FoodStoring = Trade = Tailoring = 0;
+                    Skills = new Skill[] { Skill.Prayers, Skill.FoodStoring, Skill.Trade, Skill.Tailoring };
                     break;
                 default:
                     break;
             }
         }
+
+        public Skill[] Skills { get; set; }
 
         public int SkillValue(Skill skill) => skill switch
         {

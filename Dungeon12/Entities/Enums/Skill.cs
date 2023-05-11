@@ -1,4 +1,8 @@
 ﻿using Dungeon;
+using Dungeon.Localization;
+using Dungeon.Types;
+using Dungeon12.Entities.Plates;
+using Dungeon12.SceneObjects.Base;
 
 namespace Dungeon12.Entities.Enums
 {
@@ -65,6 +69,44 @@ namespace Dungeon12.Entities.Enums
             Skill.Tailoring => Archetype.Priest,
             _ => Archetype.Priest,
         };
+
+
+        internal static Duration Durations(this Skill skill) => skill switch
+        {
+            Skill.Landscape => Duration.Instant,
+            Skill.Eating => Duration.Passive,
+            Skill.Repair => Duration.Instant,
+            Skill.Smithing => Duration.Craft,
+            Skill.Portals => Duration.Instant,
+            Skill.Attension => Duration.Passive,
+            Skill.Enchantment => Duration.Instant,
+            Skill.Alchemy => Duration.Craft,
+            Skill.Traps => Duration.Instant,
+            Skill.Lockpicking => Duration.Instant,
+            Skill.Stealing => Duration.Instant,
+            Skill.Leatherwork => Duration.Craft,
+            Skill.Prayers => Duration.Instant,
+            Skill.FoodStoring => Duration.Passive,
+            Skill.Trade => Duration.Passive,
+            Skill.Tailoring => Duration.Craft,
+            _ => Duration.Instant,
+        };
+
+
+
+        internal static GenericData GenericData(this Skill skill)
+        {
+            return new GenericData()
+            {
+                Title = skill.Localized(),
+                Icon = $"AbilitiesPeacefull/{skill}.tga",
+                Rank = Ranks.Novice.Localized(),
+                Subtype = "Skill".Localized(),
+                Text= Global.Strings.Description[skill.ToString()],
+                SizeSettings = new Square() { Width=308 },
+                Duration=skill.Durations()
+            };
+        }
     }
 }
 //Проверки навыков дают однотипные задания:

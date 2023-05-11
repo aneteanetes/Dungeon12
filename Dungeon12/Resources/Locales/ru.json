@@ -289,6 +289,7 @@
   "Duration.Instant": "Мгновенное",
   "Duration.Passive": "Пассивное",
   "Duration.Turns": "ходов",
+  "Duration.Craft": "Ремесло",
   "CooldownType.Turn": "ход.",
   "CooldownType.Battle": "бой",
   "CooldownType.Minutes": "мин.",

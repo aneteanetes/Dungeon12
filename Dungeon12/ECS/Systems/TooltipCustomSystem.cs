@@ -34,6 +34,12 @@ namespace Dungeon12.ECS.Systems
 
                 var tooltipPosition = new Dot(sceneObject.ComputedPosition.X, sceneObject.ComputedPosition.Y - 20);
 
+                if (sceneObject.IsComponent<ITooltipedPositionByComponent>())
+                {
+                    tooltipPosition.X = sceneObject.ComputedPosition.X+sceneObject.Width*.85;
+                    tooltipPosition.Y = sceneObject.ComputedPosition.Y+sceneObject.Height*.85;
+                }
+
                 var tooltip = tooltiped.GetTooltip();
                 Tooltips[tooltiped] = tooltip;
 
