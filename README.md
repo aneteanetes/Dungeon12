@@ -27,4 +27,4 @@ Original console game available on 'master' branch. Remake available on 'extract
 Current game hosted on Dungeon12 project.
 
 # Realtime Mockup
-Will be later...
+![Realtime mockup screenshot](/Misc/Screenshot 11.05.2023 22 25 563035.jpg?raw=true "Realtime mockup screenshot")
