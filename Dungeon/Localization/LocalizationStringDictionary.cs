@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using Dungeon.Control.Keys;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Dungeon.Localization
 {
@@ -26,9 +28,7 @@ namespace Dungeon.Localization
         {
             get
             {
-                if (!Values.TryGetValue(@const, out var value))
-                    return $"LOCALE-STRING-NOT-FOUND: {@const}";
-                return value;
+                return GetValueInternal(@const);
             }
         }
 
@@ -44,10 +44,35 @@ namespace Dungeon.Localization
                     key=$"{type.Name}.{key}";
                 }
 
-                if (!Values.TryGetValue(key, out var value))
-                    return $"LOCALE-ENUM-STRING-NOT-FOUND: {key}";
-                return value;
+                return GetValueInternal(key);
             }
+        }
+
+        public string GetValueEnumPrefix(string prefix, object enumValue)
+        {
+            string key = enumValue.ToString();
+            var type = enumValue.GetType();
+
+            if (type.IsEnum)
+            {
+                key=$"{type.Name}.{key}";
+            }
+
+            return GetValueInternal(prefix+key);
+        }
+
+        private string GetValueInternal(string key)
+        {
+            if (!Values.TryGetValue(key, out var value))
+                return $"LOCALE-STRING-NOT-FOUND: {key}";
+
+            if (value.StartsWith("{") && value.EndsWith("}"))
+            {
+                if (!Values.TryGetValue(value.Replace("{", "").Replace("}", ""), out value))
+                    return $"WRONG-LINK: [{key}:{value}]";
+            }
+
+            return value;
         }
 
         public T ___Load<T>(string lang)

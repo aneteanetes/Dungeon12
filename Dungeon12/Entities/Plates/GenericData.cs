@@ -1,4 +1,5 @@
-﻿using Dungeon12.Entities.Cooldowns;
+﻿using Dungeon.Types;
+using Dungeon12.Entities.Cooldowns;
 using Dungeon12.Entities.Enums;
 using Dungeon12.Entities.Runes;
 
@@ -6,6 +7,8 @@ namespace Dungeon12.Entities.Plates
 {
     internal class GenericData
     {
+        public Square SizeSettings { get; set; }
+
         /// <summary>
         /// Absolute
         /// </summary>

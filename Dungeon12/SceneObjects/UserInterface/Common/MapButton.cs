@@ -30,7 +30,7 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
             set
             {
                 _disabled = value;
-                //if (value)
+                //if (txt)
                 //    Label.Strings.ForegroundColor = DrawColor.Gray;
                 //else
                 //    Label.Strings.ForegroundColor = DrawColor.White;

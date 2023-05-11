@@ -12,5 +12,7 @@
         }
 
         public string this[string @const] => _localizationStringDictionary[_propertyName+"."+@const];
+
+        public string this[object obj] => _localizationStringDictionary.GetValueEnumPrefix(_propertyName+".",obj);
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace Dungeon12
 {
-    internal class MaxValue
+    internal class RangeValue
     {
-        public MaxValue(double current = 0, double max = 0)
+        public RangeValue(double current = 0, double max = 0)
         {
             Set(current, max);
         }

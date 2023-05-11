@@ -1,5 +1,6 @@
 ﻿using Dungeon;
 using Dungeon.Drawing.SceneObjects;
+using Dungeon.Localization;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
@@ -83,6 +84,7 @@ namespace Dungeon12.SceneObjects.Create
                 return new GenericPanel(new Entities.Plates.GenericData()
                 {
                     Icon = $"Abilities/{_ability.ClassName}.tga".AsmImg(),
+                    Subtype = "Ability".Localized(),
                     Title=_ability.Name,
                     Rank = Global.Strings[Ranks.Novice],
                     Resources=new List<Entities.Plates.ResourceData>()

@@ -41,6 +41,8 @@ namespace Dungeon12
             return false;
         }
 
-        public override string ToString()=>FlatValue.ToString();
+        public string ToString(string prefix=null, string postfix=null)=>$"{prefix}{FlatValue}{postfix}";
+
+        public override string ToString() => ToString(null, null);
     }
 }

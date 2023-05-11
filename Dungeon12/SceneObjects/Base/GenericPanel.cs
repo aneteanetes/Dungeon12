@@ -11,7 +11,6 @@ namespace Dungeon12.SceneObjects.Base
     {
         public GenericPanel(GenericData component) : base(component)
         {
-
             this.AddChild(new Icon(component.Icon)
             {
                 Left=-72
@@ -64,6 +63,12 @@ namespace Dungeon12.SceneObjects.Base
                 }
             }
 
+            if (component.SizeSettings!=default)
+            {
+                if (component.SizeSettings.Width>0 && this.Width<component.SizeSettings.Width)
+                    this.Width = component.SizeSettings.Width;
+            }
+
             this.Height = this.MeasureText(name).Y+5;
 
             var border = this.AddBorderBack(.99);
@@ -78,17 +83,30 @@ namespace Dungeon12.SceneObjects.Base
             if (rank != null)
                 this.AddText(rank, Right(rank), top);
 
-            top+=topAdd+5;
-            this.AddText(res ?? radius, left, top);
-            this.Height += this.MeasureText(res ?? radius).Y+offsetTop;
-            if (res!=null && radius!=null)
-                this.AddText(radius, Right(radius), top);
+            if (subtype!=null)
+            {
+                top+=topAdd+5;
+                this.AddText(subtype, left, top);
+                this.Height += this.MeasureText(subtype).Y+offsetTop;
+            }
 
-            top+=topAdd;
-            this.AddText(dur ?? cd, left, top);
-            this.Height += this.MeasureText(dur ?? cd).Y+offsetTop;
-            if (dur!=null && cd!=null)
-                this.AddText(cd, Right(cd), top);
+            if (res!=null || radius!=null)
+            {
+                top+=topAdd+5;
+                this.AddText(res ?? radius, left, top);
+                this.Height += this.MeasureText(res ?? radius).Y+offsetTop;
+                if (res!=null && radius!=null)
+                    this.AddText(radius, Right(radius), top);
+            }
+
+            if (dur!=null || cd!=null)
+            {
+                top+=topAdd;
+                this.AddText(dur ?? cd, left, top);
+                this.Height += this.MeasureText(dur ?? cd).Y+offsetTop;
+                if (dur!=null && cd!=null)
+                    this.AddText(cd, Right(cd), top);
+            }
 
             if (charge!=null)
             {

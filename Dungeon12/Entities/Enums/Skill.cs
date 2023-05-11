@@ -43,26 +43,7 @@ namespace Dungeon12.Entities.Enums
 
     public static class SkillExtensions
     {
-        public static string Display(this Skill skill) => skill switch
-        {
-            Skill.Landscape => Global.Strings[nameof(Skill.Landscape)],
-            Skill.Eating => Global.Strings[nameof(Skill.Eating)],
-            Skill.Repair => Global.Strings[nameof(Skill.Repair)],
-            Skill.Smithing => Global.Strings[nameof(Skill.Smithing)],
-            Skill.Portals => Global.Strings[nameof(Skill.Portals)],
-            Skill.Attension => Global.Strings[nameof(Skill.Attension)],
-            Skill.Enchantment => Global.Strings[nameof(Skill.Enchantment)],
-            Skill.Alchemy => Global.Strings[nameof(Skill.Alchemy)],
-            Skill.Traps => Global.Strings[nameof(Skill.Traps)],
-            Skill.Lockpicking => Global.Strings[nameof(Skill.Lockpicking)],
-            Skill.Stealing => Global.Strings[nameof(Skill.Stealing)],
-            Skill.Leatherwork => Global.Strings[nameof(Skill.Leatherwork)],
-            Skill.Prayers => Global.Strings[nameof(Skill.Prayers)],
-            Skill.FoodStoring => Global.Strings[nameof(Skill.FoodStoring)],
-            Skill.Trade => Global.Strings[nameof(Skill.Trade)],
-            Skill.Tailoring => Global.Strings[nameof(Skill.Tailoring)],
-            _ => "",
-        };
+        public static string Display(this Skill skill) => Global.Strings[skill];
 
         public static Archetype Class(this Skill skill) => skill switch
         {

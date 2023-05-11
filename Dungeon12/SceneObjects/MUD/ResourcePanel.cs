@@ -141,7 +141,7 @@ namespace Dungeon12.SceneObjects.MUD
                 base.Update(gameTime);
             }
 
-            public string TooltipText => Global.Strings["Prayers"]+$": {Component.Prayers.Current.God.AsShimmer()}";
+            public string TooltipText => Global.Strings[Skill.Prayers]+$": {Component.Prayers.Current.God.AsShimmer()}";
         }
 
         private static IDrawText CommonDrawText(string value) => value.ToString().AsDrawText().InBold().InSize(18).Calibri();

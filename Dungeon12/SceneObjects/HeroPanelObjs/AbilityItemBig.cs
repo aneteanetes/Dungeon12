@@ -1,6 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
+using Dungeon.Localization;
 using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.Entities;
@@ -101,6 +102,7 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
             {
                 Icon = $"Abilities/{_ability.ClassName}.tga".AsmImg(),
                 Title=_ability.Name,
+                Subtype = "Ability".Localized(),
                 Rank = "1 Уровень",
                 Resources=new List<Entities.Plates.ResourceData>()
                 {

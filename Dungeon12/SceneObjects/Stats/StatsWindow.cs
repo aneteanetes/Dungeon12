@@ -100,7 +100,7 @@ namespace Dungeon12.SceneObjects.Stats
             hero.Archetype.Skills().ForEach(s =>
             {
                 var sEnum = s.ToString();
-                var skillName = Global.Strings[sEnum];
+                var skillName = Global.Strings[s];
                 var text = TextGab(skillName);
                 var hint = new TextObjectHint(text, skillName, skillName, Global.Strings.Description[sEnum]) { Left= leftSkill, Top= topSkill };
                 var sk = this.AddChild(hint);
@@ -132,14 +132,14 @@ namespace Dungeon12.SceneObjects.Stats
             binderCommon.AddParam("Сила атаки", hero.AD);
             binderCommon.AddParam("Сила магии", hero.AP);
             binderCommon.AddParam("Скорость", hero.Speed);
-            binderCommon.AddParam("Меткость", $"{hero.HitChance}%");
+            binderCommon.AddParam("Меткость", $"{hero.Accuracy}%");
             binderCommon.AddParam("Шанс крит.", $"{hero.CritChance}%");
 
             binderDef=new ParamBinder(this, 254, 183, 277);
             binderDef.AddParam("Броня", hero.Armor);
             binderDef.AddParam("Класс брони", hero.ArmorClass);
             binderDef.AddEmpty();
-            binderDef.AddParam("Отражение магии", $"{hero.MagicReflectChance}%");
+            binderDef.AddParam("Отражение магии", $"{hero.SpellReflect}%");
             binderDef.AddParam("Защита от огня", hero.FireProtection);
             binderDef.AddParam("Защита от холода", hero.FrostProtection);
             binderDef.AddParam("Защита от магии", hero.MagicProtection);

@@ -1,10 +1,11 @@
-﻿using Dungeon12.Entities.Objects;
+﻿using Dungeon12.Entities.Enums;
+using Dungeon12.Entities.Objects;
 
 namespace Dungeon12.Entities
 {
     internal class Battler : GameObject
     {
-        public MaxValue Hp { get; set; } = new MaxValue(50, 50);
+        public RangeValue Hp { get; set; } = new RangeValue(50, 50);
 
         public int Endurance { get; set; } = 100;
 
@@ -12,9 +13,13 @@ namespace Dungeon12.Entities
 
         public int Exp { get; private set; } = 0;
 
+        public string ExpStr() => $"{Exp}/{ExpTable[Level]}";
+
         public ExpTable ExpTable { get; set; } = new ExpTable();
 
-        public MaxValue Damage { get; set; } = new MaxValue(5, 10);
+        public RangeValue Damage { get; set; } = new RangeValue(5, 10);
+
+        public Element DamageType { get; set; } = Element.Physical;
 
         /// <summary>
         /// Attack POwer
@@ -28,23 +33,23 @@ namespace Dungeon12.Entities
 
         public Value Speed { get; set; } = new Value(1);
 
-        public Value Initiative { get; set; } = new Value(1);
-
         /// <summary>
         /// Шанс попадения
         /// </summary>
-        public Value HitChance { get; set; } = new Value(95);
+        public Value Accuracy { get; set; } = new Value(95);
 
         public Value CritChance { get; set; } = new Value(5);
 
         public Value Armor { get; set; } = new Value(0);
+
+        public ArmorType ArmorType { get; set; }
 
         public int ArmorClass { get; set; } = 0;
 
         /// <summary>
         /// Шанс отражения магии
         /// </summary>
-        public Value MagicReflectChance { get; set; } = new Value(10);
+        public Value SpellReflect { get; set; } = new Value(10);
 
         public Value FireProtection { get; set; } = new Value();
 

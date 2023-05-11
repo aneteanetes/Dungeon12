@@ -62,7 +62,7 @@
         //public override double Left
         //{
         //    get => base.Left;
-        //    set => base.Left = value - Width / 2;
+        //    set => base.Left = txt - Width / 2;
         //}
 
         protected override ControlEventType[] Handles => new ControlEventType[] { };

@@ -1,16 +1,21 @@
 ﻿using Dungeon;
 using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
+using Dungeon.Localization;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
+using Dungeon12.ECS.Components;
 using Dungeon12.Entities;
 
 namespace Dungeon12.SceneObjects.HeroPanelObjs
 {
-    internal class ValueBar : SceneControl<Hero>
+    internal class ValueBar : SceneControl<Hero>, ITooltiped
     {
+        private bool _ishp;
+
         public ValueBar(Hero component, bool isHp) : base(component)
         {
+            _ishp = isHp;
             this.Width=235;
             this.Height=17;
 
@@ -30,6 +35,8 @@ namespace Dungeon12.SceneObjects.HeroPanelObjs
             var label = this.AddTextCenter<BindedTextObject>(textProvide(), true, true);
             label._label=textProvide;
         }
+
+        public string TooltipText => _ishp ? "HPs".Localized() : "EPs".Localized();
 
         private class ValueBarColor : ImageObject
         {
