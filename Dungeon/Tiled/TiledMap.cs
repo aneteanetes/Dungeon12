@@ -19,9 +19,15 @@ namespace Dungeon.Tiled
 
         private TiledMap() { }
 
+
         public static TiledMap Load(string resourceName)
         {
             var res = ResourceLoader.Load(resourceName);
+            return Load(res);
+        }
+
+        public static TiledMap Load(Resource res)
+        {
             var xdoc = XDocument.Load(res.Stream);
             var map = xdoc.Root;
 

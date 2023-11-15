@@ -34,7 +34,7 @@
             this.sceneManager = sceneManager;
             SceneLayerGraph = new SceneLayerGraph()
             {
-                Name="<== SCENE LAYER ==>",
+                Name = "<== SCENE LAYER ==>",
                 Size = new Physics.PhysicalSize()
                 {
                     Width = DungeonGlobal.Sizes.Width,
@@ -47,7 +47,7 @@
         public virtual bool AbsolutePositionScene => true;
 
         private SceneLayer _activeLayer;
-        private bool loggedallinactivedlayers=false;
+        private bool loggedallinactivedlayers = false;
 #warning ActiveLayer - ошибка (может и нет, но блядь, работа с ним - ошибка)
         public SceneLayer ActiveLayer
         {
@@ -83,7 +83,7 @@
             LayerMap.Add(name, () => LayerList.IndexOf(newLayer));
 
             SceneLayerGraph.Add(new SceneLayerGraph(newLayer));
-            ActiveLayer=newLayer;
+            ActiveLayer = newLayer;
 
             return newLayer;
         }
@@ -226,8 +226,8 @@
 
             var key = keyEventArgs.Key;
             var modifier = keyEventArgs.Modifiers;
-            
-            if (DungeonGlobal.Freezer.World== null && !DungeonGlobal.BlockSceneControls)
+
+            if (DungeonGlobal.Freezer.World == null && !DungeonGlobal.BlockSceneControls)
                 try
                 {
                     KeyUp(key, modifier);
@@ -257,7 +257,7 @@
                     return;
                 }
 
-            CallLayer(l => l.OnMousePress(pointerPressedEventArgs,offset), pointerPressedEventArgs);
+            CallLayer(l => l.OnMousePress(pointerPressedEventArgs, offset), pointerPressedEventArgs);
         }
 
         public void OnMouseRelease(PointerArgs pointerPressedEventArgs, Dot offset)
@@ -339,13 +339,13 @@
 
         public abstract void Initialize();
 
-        public List<Resource> Resources = new List<Resource>();
+        public Dictionary<string, Resource> ResourcesMap = new Dictionary<string, Resource>();
 
         public virtual void Activate()
         {
             this.sceneManager.GameClient.SetScene(this);
         }
-                
+
         protected virtual void Switch<T>(params string[] args) where T : GameScene
         {
             this.sceneManager.Change<T>(args);
@@ -359,6 +359,8 @@
         public ISceneLayer[] Layers => LayerList.ToArray();
 
         public List<ISystem> Systems { get; set; } = new List<ISystem>();
+
+        public virtual bool IsPreloadedScene => false;
 
         public IEnumerable<ISystem> GetSystems() => Systems;
 
@@ -381,16 +383,17 @@
             }
 
             LayerList.Clear();
-            LayerMap=null;
-            SceneLayerGraph=null;
+            LayerMap = null;
+            SceneLayerGraph = null;
 
             if (!ResourceLoader.Settings.EmbeddedMode && !ResourceLoader.Settings.NotDisposingResources)
             {
-                Resources.ForEach(r => r.Dispose());
-                Resources.Clear();
-                Resources=null;
+                ResourcesMap.ForEach(kv => kv.Value.Dispose());
+                ResourcesMap.Clear();
+                ResourcesMap = null;
             }
             GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+
             Destroyed = true;
         }
 
@@ -417,7 +420,7 @@
         }
 
         [Obsolete("Use layers instead")]
-        public void RemoveObject(ISceneObject sceneObject)=>this.LayerList.ForEach(ll => ll.RemoveObject(sceneObject));
+        public void RemoveObject(ISceneObject sceneObject) => this.LayerList.ForEach(ll => ll.RemoveObject(sceneObject));
 
         [Obsolete("Use Layer.AddObject instead")]
         public void AddObject(ISceneObject sceneObject)
@@ -452,5 +455,31 @@
         public void RemoveControl(ISceneControl sceneObjectControl) => this.LayerList.ForEach(ll => ll.RemoveControl(sceneObjectControl));
 
         public virtual void Loaded() { }
+
+        public virtual void LoadResources()
+        {
+            var names = this.LoadResourcesNames();
+            foreach (var name in names)
+            {
+                LoadResource(name);
+            }
+        }
+
+        protected Resource LoadResource(string name)
+        {
+            var res = ResourceLoader.Load(name);
+            ResourcesMap.Add(name, res);
+            return res;
+        }
+
+        protected virtual IEnumerable<string> LoadResourcesNames() => Enumerable.Empty<string>();
+
+        public Resource GetResource(string name)
+        {
+            if (ResourcesMap.TryGetValue(name, out var res))
+                return res;
+
+            throw new KeyNotFoundException($"Ресурс {name} не загружен на сцену!");
+        }
     }
 }

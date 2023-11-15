@@ -16,7 +16,16 @@ namespace Dungeon.Monogame
         {
             if (!tilesetsCache.TryGetValue(imageFullPath, out var bitmap))
             {
-                var res = ResourceLoader.Load(imageFullPath, obj: sceneObject);
+                Resource res = null;
+                if (sceneObject?.Scene?.IsPreloadedScene ?? false)
+                {
+                    res = sceneObject.Scene.GetResource(imageFullPath);
+                }
+                else
+                {
+                    res = ResourceLoader.Load(imageFullPath, obj: sceneObject);
+                }
+
                 if (res == default)
                     return default;
 

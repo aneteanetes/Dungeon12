@@ -15,7 +15,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Dungeon12.Scenes
 {
-    internal class CreateScene : GameScene<StartScene, RegionScene, MUDScene>
+    internal class CreateScene : GameScene<StartScene, RegionScene, MUDScene, GlobalMapScene>
     {
         public CreateScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -172,8 +172,7 @@ namespace Dungeon12.Scenes
             turns.Init();
 
 
-            //this.Switch<RegionScene>();
-            Switch<MUDScene>();
+            Switch<GlobalMapScene>();
         }
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)

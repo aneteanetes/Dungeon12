@@ -46,6 +46,8 @@
         /// </summary>
         bool IsBatch { get; }
 
+        bool IsActive { get; set; }
+
         /// <summary>
         /// is this object need to re cached
         /// </summary>
@@ -77,6 +79,8 @@
         /// Масштаб
         /// </summary>
         double Scale { get; set; }
+
+        IScene Scene { get; set; }
 
         double GetScaleValue();
 

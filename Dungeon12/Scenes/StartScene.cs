@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace Dungeon12.Scenes
 {
-    internal class StartScene : StartScene<TCGScene, CreateScene>
+    internal class StartScene : StartScene<TCGScene, CreateScene,GlobalMapScene>
     {
         public StartScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -45,6 +45,7 @@ namespace Dungeon12.Scenes
             {
                 (Strings["NewGame"],NewGame,false),
                 (Strings["Save"],SaveGame,!InGame),
+                (Strings["NewScene"],GlobalMap,!InGame),
                 (Strings["Load"],LoadGame,true),
                 (Strings["Settings"],Settings,true),
                 (Strings["Credits"],TCG,true),
@@ -150,6 +151,11 @@ namespace Dungeon12.Scenes
 
         private void SaveGame()
         {
+        }
+
+        private void GlobalMap()
+        {
+            this.Switch<GlobalMapScene>();
         }
 
         private void LoadGame()

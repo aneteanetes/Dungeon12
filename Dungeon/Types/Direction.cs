@@ -1,23 +1,26 @@
-﻿namespace Dungeon.Types
+﻿using System;
+
+namespace Dungeon.Types
 {
+    [Flags]
     public enum Direction
     {
         Idle = 0,
 
-        Up = 1,
-        Down = 20,
-        Left = 300,
-        Right = 4000,
+        Up = 2,
+        Down = 4,
+        Left = 8,
+        Right = 16,
 
-        UpLeft = 301,
-        UpRight = 4001,
-        DownLeft = 320,
-        DownRight = 4020,
+        UpLeft = Up | Left,
+        UpRight = Up | Right,
+        DownLeft = Down | Left,
+        DownRight = Down | Right,
 
-        LeftUp = 301,
-        RightUp = 4001,
-        LeftDown = 320,
-        RightDown = 4020
+        LeftUp = UpLeft,
+        RightUp = UpRight,
+        LeftDown = DownLeft,
+        RightDown = DownRight,
     }
 
     public enum Distance

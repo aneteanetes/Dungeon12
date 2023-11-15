@@ -10,6 +10,8 @@ namespace Dungeon12
 {
     internal class Game
     {
+        public World World { get; set; }
+
         public Party Party { get; set; }
         
         public QuestBook QuestBook { get; set; }

@@ -150,7 +150,7 @@
 
         private void SwitchImplementation<TScene>(string[] args) where TScene : GameScene
         {
-            IsSwitching= true;
+            IsSwitching = true;
 
             // вначале уничтожаем сцену, потому что если мы
             // хотим переключить на ту же самую сцену,
@@ -172,6 +172,7 @@
                 Populate(_current, next, args);
                 Preapering = next;
                 CurrentScene = Preapering;
+                next.LoadResources();
                 next.Initialize();
             }
 

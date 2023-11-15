@@ -16,12 +16,24 @@
             if (imagePath == null)
                 return;
 
-            if (!imagePath.Contains(".Resources.Images."))
+            imagePath = MakeImagePath(imagePath);
+            Image = imagePath;
+        }
+
+        public static string MakeImagePath(string imagePath)
+        {
+            if (imagePath.IsEmpty())
+                throw new NullReferenceException("imagePath is empty!");
+
+            if (!imagePath.Contains(".Resources."))
             {
-                imagePath = Assembly.GetCallingAssembly().GetName().Name + ".Resources.Images." + imagePath.Embedded();
+                if (!imagePath.StartsWith("Images"))
+                    imagePath = $"Images/{imagePath}";
+
+                return Assembly.GetEntryAssembly().GetName().Name + ".Resources." + imagePath.Embedded();
             }
 
-            Image = imagePath;
+            return imagePath;
         }
 
         public ImageObject(Func<string> imagePath)

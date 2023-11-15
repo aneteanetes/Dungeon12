@@ -11,7 +11,7 @@ namespace Dungeon12.SceneObjects
         internal static PopupText Popup<T>(this SceneObject<T> sceneObject, PointerArgs pointerArgs, IDrawText text, double speed=.5, double seconds=.7)
             where T : class
         {
-            var popup = new PopupText(text, pointerArgs.AsPoint, speed: speed)
+            var popup = new PopupText(text, pointerArgs.AsDot(), speed: speed)
             {
                 Time = TimeSpan.FromSeconds(0.7),
             };

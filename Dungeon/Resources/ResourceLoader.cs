@@ -131,6 +131,11 @@ namespace Dungeon.Resources
 
         public static Resource Load(string resource, bool caching = false, bool @throw = true, SceneManager sceneManager = default, ISceneObject obj = default)
         {
+            if (!resource.Contains(".Resources."))
+            {
+                resource = Assembly.GetEntryAssembly().GetName().Name + ".Resources." + resource.Embedded();
+            }
+
             var res = LoadResource(resource);
 
             if (res == default)
@@ -156,15 +161,15 @@ namespace Dungeon.Resources
             bool addToScene = !caching;
             if (Settings.NotDisposingResources || Settings.EmbeddedMode)
             {
-                addToScene = !(sceneManager ?? DungeonGlobal.SceneManager).Preapering?.Resources.Any(r => r.Path == res.Path) ?? false;
+                addToScene = !(sceneManager ?? DungeonGlobal.SceneManager).Preapering?.ResourcesMap.Any(r => r.Value.Path == res.Path) ?? false;
             }
 
             if (addToScene)
             {
                 var sManager = (sceneManager ?? DungeonGlobal.SceneManager);
                 var scene = sManager.Preapering;
-                if (scene!=default && !scene.Resources.Contains(res))
-                    scene.Resources.Add(res);
+                if (scene!=default && !scene.IsPreloadedScene && !scene.ResourcesMap.ContainsKey(res.Path))
+                    scene.ResourcesMap.Add(res.Path,res);
             }
 
             return res;

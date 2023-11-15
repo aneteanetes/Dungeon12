@@ -1,4 +1,5 @@
 ﻿using Dungeon.ECS;
+using Dungeon.Resources;
 using System.Collections.Generic;
 
 namespace Dungeon.View.Interfaces
@@ -22,5 +23,11 @@ namespace Dungeon.View.Interfaces
         TSystem GetSystem<TSystem>() where TSystem : ISystem;
 
         IEnumerable<ISystem> GetSystems();
+
+        void LoadResources();
+
+        Resource GetResource(string name);
+
+        bool IsPreloadedScene {  get; }
     }
 }

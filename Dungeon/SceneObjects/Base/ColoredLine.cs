@@ -85,10 +85,6 @@ namespace Dungeon.SceneObjects.Base
                     dotTo= new Dot(Left, Top-Length);
                     this.Angle=5.5;
                     break;
-                case Direction.DownLeft:
-                    dotTo= new Dot(Left, Top+Length);
-                    this.Angle=5.5;
-                    break;
                 case Direction.DownRight:
                     dotTo= new Dot(Left, Top-Length);
                     this.Angle=-5.5;

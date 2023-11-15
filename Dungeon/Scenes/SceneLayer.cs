@@ -33,7 +33,7 @@ namespace Dungeon.Scenes
 
         private readonly List<ISceneObject> SceneObjects = new List<ISceneObject>();
 
-        public ISceneObject[] Objects => SceneObjects.ToArray();
+        public ISceneObject[] Objects => SceneObjects.Where(x => x.IsActive).ToArray();
 
         private readonly List<IEffect> GlobalEffects = new();
 
@@ -76,6 +76,7 @@ namespace Dungeon.Scenes
         public TSceneObject AddObject<TSceneObject>(TSceneObject sceneObject)
             where TSceneObject : ISceneObject
         {
+            sceneObject.Scene = this.Scene;
             sceneObject.HighLevelComponent = true;
             if (sceneObject.ControlBinding == null)
             {

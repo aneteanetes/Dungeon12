@@ -954,9 +954,34 @@
 
         public List<IECSComponent> Components { get; set; } = new List<IECSComponent>();
 
+        public IScene Scene { get; set; }
+
+        public bool IsActive { get; set; } = true;
+
         public void AddECSComponent<TECSComponent>(params object[] args) 
             => Components.Add(new ECSComponent(typeof(TECSComponent), args));
 
         public virtual void Refresh() { }
+
+        public void Move(Direction dir, double speed)
+        {
+            Console.WriteLine(dir);
+            if (dir.HasFlag(Direction.Right))
+            {
+                Left += speed;
+            }
+            if (dir.HasFlag(Direction.Left))
+            {
+                Left -= speed;
+            }
+            if (dir.HasFlag(Direction.Down))
+            {
+                Top += speed;
+            }
+            if (dir.HasFlag(Direction.Up))
+            {
+                Top -= speed;
+            }
+        }
     }
 }

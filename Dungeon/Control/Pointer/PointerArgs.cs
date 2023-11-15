@@ -64,7 +64,7 @@ namespace Dungeon.Control
         /// <summary>
         /// Чистые координаты <see cref="X"/>, <see cref="Y"/>
         /// </summary>
-        public Dot AsPoint => new Dot(X, Y);
+        public Dot AsDot() => new Dot(X, Y);
 
         /// <summary>
         /// Относительные координаты по ИГРОВОЙ СЕТКЕ (<see cref="Settings.DrawingSize.CellF"/>)
