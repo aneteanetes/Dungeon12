@@ -20,5 +20,7 @@ namespace Dungeon.Varying
         public virtual T Get<T>() => default;
 
         public virtual object Get() => default;
+
+        public Action OnChange;
     }
 }

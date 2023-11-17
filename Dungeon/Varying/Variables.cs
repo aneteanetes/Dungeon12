@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Dungeon.Varying
@@ -18,6 +19,12 @@ namespace Dungeon.Varying
         {
             var variable = TryGet<T>(name);
             variable.Set(value);
+        }
+
+        public static void OnChange<T>(string name, Action action)
+        {
+            var variable = TryGet<T>(name);
+            variable.OnChange += action;
         }
 
         private static Variable TryGet<T>(string name)

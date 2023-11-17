@@ -13,6 +13,7 @@ namespace Dungeon.Varying
         public override void Set(string value)
         {
             Value = Convert.ChangeType(value, typeof(T)).As<T>();
+            this.OnChange?.Invoke();
         }
 
         public override void Set<Ts>(Ts value)
