@@ -1,6 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Control;
 using Dungeon.Types;
+using Dungeon.Varying;
 
 namespace Dungeon12.SceneObjects.Map
 {
@@ -18,6 +19,8 @@ namespace Dungeon12.SceneObjects.Map
                 Width=this.Width, 
                 Height=this.Height
             });
+
+            Variables.Set("MapMoving", 13.5);
         }
 
         protected override ControlEventType[] Handles => new ControlEventType[]
@@ -51,7 +54,7 @@ namespace Dungeon12.SceneObjects.Map
                 if (prev != now)
                 {
                     var dir = prev.DetectDirection(now,5);
-                    terrain.Move(dir, 13.5);
+                    terrain.Move(dir, Variables.Get<double>("MapMoving"));
                 }
 
                 prev = now;

@@ -1,10 +1,9 @@
-﻿using Dungeon12.Entities;
+﻿using Dungeon.Varying;
+using Dungeon12.Entities;
 using Dungeon12.Entities.Journal;
 using Dungeon12.Entities.Map;
 using Dungeon12.Entities.Quests;
 using Dungeon12.Entities.Turning;
-using Dungeon12.SceneObjects.UI;
-using System.Collections.Generic;
 
 namespace Dungeon12
 {
@@ -38,5 +37,7 @@ namespace Dungeon12
         public GameLog Log { get; set; }
 
         public GameState State { get; set; } = new GameState();
+
+        public Variables Variables { get; set; } = new();
     }
 }

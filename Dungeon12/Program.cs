@@ -2,6 +2,7 @@
 using Dungeon.Monogame.Runner;
 using Dungeon.Monogame.Settings;
 using Dungeon.Resources;
+using Dungeon.VariableEditor;
 using Dungeon12;
 using Dungeon12.Entities.Turning;
 
@@ -41,5 +42,8 @@ DungeonGlobal.OnRun+=() =>
         }
     });
 };
+
+var form = new VariablesForm();
+form.Show();
 
 DungeonGlobal.Run(client);

@@ -14,7 +14,7 @@ namespace Dungeon12.SceneObjects.Map
         {
             var tileLayer = component.Map.Layers.FirstOrDefault(x => x.name == "Tiles");
 
-            var size = 64;
+            var size = 210;
 
             foreach (var tile in tileLayer.Tiles)
             {

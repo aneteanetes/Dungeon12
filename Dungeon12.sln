@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon", "Dungeon\Dungeon.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon12", "Dungeon12\Dungeon12.csproj", "{E8206113-FBCB-4E38-A280-F424CE9DD4FA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dungeon.VariableEditor", "Dungeon.VariableEditor\Dungeon.VariableEditor.csproj", "{78F2C849-8170-4D16-A579-BD0D48A7D453}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CompileDatabase|Any CPU = CompileDatabase|Any CPU
@@ -55,6 +57,18 @@ Global
 		{E8206113-FBCB-4E38-A280-F424CE9DD4FA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E8206113-FBCB-4E38-A280-F424CE9DD4FA}.Release|x86.ActiveCfg = Release|Any CPU
 		{E8206113-FBCB-4E38-A280-F424CE9DD4FA}.Release|x86.Build.0 = Release|Any CPU
+		{78F2C849-8170-4D16-A579-BD0D48A7D453}.CompileDatabase|Any CPU.ActiveCfg = Debug|Any CPU
+		{78F2C849-8170-4D16-A579-BD0D48A7D453}.CompileDatabase|Any CPU.Build.0 = Debug|Any CPU
+		{78F2C849-8170-4D16-A579-BD0D48A7D453}.CompileDatabase|x86.ActiveCfg = Debug|Any CPU
+		{78F2C849-8170-4D16-A579-BD0D48A7D453}.CompileDatabase|x86.Build.0 = Debug|Any CPU
+		{78F2C849-8170-4D16-A579-BD0D48A7D453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78F2C849-8170-4D16-A579-BD0D48A7D453}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78F2C849-8170-4D16-A579-BD0D48A7D453}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{78F2C849-8170-4D16-A579-BD0D48A7D453}.Debug|x86.Build.0 = Debug|Any CPU
+		{78F2C849-8170-4D16-A579-BD0D48A7D453}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78F2C849-8170-4D16-A579-BD0D48A7D453}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78F2C849-8170-4D16-A579-BD0D48A7D453}.Release|x86.ActiveCfg = Release|Any CPU
+		{78F2C849-8170-4D16-A579-BD0D48A7D453}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
