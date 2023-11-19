@@ -13,5 +13,7 @@ namespace Dungeon.Tiled
         public int height { get; set; }
 
         public List<TiledPolygon> Tiles { get; set; } = new List<TiledPolygon>();
+
+        public List<List<TiledPolygon>> TilesArray { get; set; } = new();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Dungeon;
+using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon12.ECS.Components;
 using System.Reflection;
@@ -14,15 +15,7 @@ namespace Dungeon12
 
         public ImageControl(string imagePath = null)
         {
-            if (imagePath == null)
-                return;
-
-            if (!imagePath.Contains(".Resources.Images."))
-            {
-                imagePath = Assembly.GetCallingAssembly().GetName().Name + ".Resources.Images." + imagePath.Embedded();
-            }
-
-            Image = imagePath;
+            Image = ImageObject.MakeImagePath(imagePath);
         }
 
         public ImageControl(Func<string> imagePath)

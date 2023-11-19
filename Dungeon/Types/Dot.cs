@@ -238,7 +238,7 @@ namespace Dungeon.Types
                 dirY = Direction.Up;
             }
 
-            return (Direction)((int)dirX + (int)dirY);
+            return dirX | dirY;
         }
 
         public Direction Move(int x = 0, int y = 0)

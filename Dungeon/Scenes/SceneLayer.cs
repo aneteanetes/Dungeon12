@@ -240,8 +240,6 @@ namespace Dungeon.Scenes
         {
             var handlers = elements
                 .Distinct()
-                .Where(c => c.Visible)
-                .Where(c => c.DrawOutOfSight || (c.HighLevelComponent && Owner.sceneManager.GameClient.InCamera(c.DrawClientWidth,c.DrawClientHeight,c.DrawClientX,c.DrawClientY)))
                 .Where(x =>
                 {
                     bool handle = x.CanHandle.Contains(handleEvent);
@@ -254,7 +252,7 @@ namespace Dungeon.Scenes
                     return handle;
                 });
 
-            return handlers;
+            return handlers.ToArray();
         }
 
         private IEnumerable<ISceneControl> WhereLayeredHandlers(IEnumerable<ISceneControl> elements, PointerArgs pointerPressedEventArgs, Dot offset)
@@ -313,33 +311,42 @@ namespace Dungeon.Scenes
 
         private Square ActualRegion(ISceneControl sceneObjControl, Dot offset)
         {
-            var newRegion = new Square
+#warning actualregion refactoring
+            return new Square()
             {
-                X = sceneObjControl.ComputedPosition.X * DrawingSize.CellF,
-                Y = sceneObjControl.ComputedPosition.Y * DrawingSize.CellF,
-                Height = sceneObjControl.BoundPosition.Height * DrawingSize.CellF,
-                Width = sceneObjControl.BoundPosition.Width * DrawingSize.CellF
+                Height = sceneObjControl.DrawClientHeight,
+                Width = sceneObjControl.DrawClientWidth,
+                X = sceneObjControl.DrawClientX,
+                Y = sceneObjControl.DrawClientY,
             };
-            var scaledSize = Scaled(newRegion.Width, newRegion.Height);
-            newRegion.Height = scaledSize.Y;
-            newRegion.Width = scaledSize.X;
 
-            var scaledPos = Scaled(newRegion.X, newRegion.Y);
-            newRegion.X = scaledPos.X;
-            newRegion.Y = scaledPos.Y;
+            //var newRegion = new Square
+            //{
+            //    X = sceneObjControl.ComputedPosition.X * DrawingSize.CellF,
+            //    Y = sceneObjControl.ComputedPosition.Y * DrawingSize.CellF,
+            //    Height = sceneObjControl.BoundPosition.Height * DrawingSize.CellF,
+            //    Width = sceneObjControl.BoundPosition.Width * DrawingSize.CellF
+            //};
+//            var scaledSize = Scaled(newRegion.Width, newRegion.Height);
+//            newRegion.Height = scaledSize.Y;
+//            newRegion.Width = scaledSize.X;
 
-#warning !sceneObjControl.AbsolutePosition
-            if (!Owner.AbsolutePositionScene/* && !sceneObjControl.AbsolutePosition*/)
-            {
-                newRegion.X += offset.X;
-                newRegion.Y += offset.Y;
-            }
+//            var scaledPos = Scaled(newRegion.X, newRegion.Y);
+//            newRegion.X = scaledPos.X;
+//            newRegion.Y = scaledPos.Y;
 
-            var thisScaledPos = Scaled(this.Left, this.Top);
-            newRegion.X += thisScaledPos.X;
-            newRegion.Y += thisScaledPos.Y;
+//#warning !sceneObjControl.AbsolutePosition
+//            if (!Owner.AbsolutePositionScene/* && !sceneObjControl.AbsolutePosition*/)
+//            {
+//                newRegion.X += offset.X;
+//                newRegion.Y += offset.Y;
+//            }
 
-            return newRegion;
+//            var thisScaledPos = Scaled(this.Left, this.Top);
+//            newRegion.X += thisScaledPos.X;
+//            newRegion.Y += thisScaledPos.Y;
+
+//            return newRegion;
         }
 
         private Vector2 Scaled(double x, double y) => new Vector2((float)x, (float)y);
@@ -594,8 +601,6 @@ namespace Dungeon.Scenes
                 .Where(x => !inFocus.Contains(x));
 
             var newLostFocused = inFocus.Where(x => !RegionContains(x, pointerPressedEventArgs, offset));
-
-
 
             foreach (var item in newLostFocused)
             {

@@ -1,4 +1,6 @@
-﻿namespace Dungeon.ECS
+﻿using Dungeon.Control;
+
+namespace Dungeon.ECS
 {
     /// <summary>
     /// ECS component

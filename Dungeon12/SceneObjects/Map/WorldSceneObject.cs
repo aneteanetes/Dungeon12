@@ -15,19 +15,7 @@ namespace Dungeon12.SceneObjects.Map
             Width = Global.Resolution.Width;
             Height = Global.Resolution.Height;
 
-            //this.AddChild(new ImageObject("World.png")
-            //{
-            //    Width=10800,
-            //    Height=8150
-            //});
-
-            terrain = this.AddChild(new WorldTerrainSceneObject(component)
-            {
-                Width = this.Width,
-                Height = this.Height
-            });
-
-            Variables.Set("MapMoving", 13.5);
+            terrain = this.AddChild(new WorldTerrainSceneObject(component));
         }
 
         protected override ControlEventType[] Handles => new ControlEventType[]
@@ -41,7 +29,9 @@ namespace Dungeon12.SceneObjects.Map
 
         public override void Click(PointerArgs args)
         {
-            hold = true;
+            if (args.MouseButton == Dungeon.Control.Pointer.MouseButton.Right)
+                hold = true;
+
             base.Click(args);
         }
 
@@ -60,8 +50,8 @@ namespace Dungeon12.SceneObjects.Map
 
                 if (prev != now)
                 {
-                    var dir = prev.DetectDirection(now,5);
-                    terrain.Move(dir, Variables.Get<double>("MapMoving"));
+                    var dir = prev.DetectDirection(now, Variables.Get<double>("MapDetectDirectionAccuracy",1));
+                    terrain.Move(dir, Variables.Get<double>("MapMoving",3));
                 }
 
                 prev = now;
@@ -77,7 +67,9 @@ namespace Dungeon12.SceneObjects.Map
 
         public override void GlobalClickRelease(PointerArgs args)
         {
-            hold = false;
+            if (args.MouseButton == Dungeon.Control.Pointer.MouseButton.Right)
+                hold = false;
+
             base.GlobalClickRelease(args);
         }
     }

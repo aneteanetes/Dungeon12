@@ -44,6 +44,7 @@ DungeonGlobal.OnRun+=() =>
 };
 
 var form = new VariablesForm();
+form.WindowState = System.Windows.Forms.FormWindowState.Minimized;
 form.Show();
 
 DungeonGlobal.Run(client);

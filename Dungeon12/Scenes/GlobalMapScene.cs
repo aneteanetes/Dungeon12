@@ -5,6 +5,7 @@ using Dungeon.Resources;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using Dungeon.Tiled;
+using Dungeon12.SceneObjects.Playing;
 using Dungeon12.SceneObjects.GlobalMap;
 using Dungeon12.SceneObjects.Map;
 
@@ -16,7 +17,7 @@ namespace Dungeon12.Scenes
         {
         }
 
-        public override bool Destroyable => false;
+        public override bool Destroyable => true;
 
         public override bool IsPreloadedScene => true;
 
@@ -25,6 +26,8 @@ namespace Dungeon12.Scenes
             var back = this.AddLayer("back");
             back.AddObject(new ImageObject("Backgrounds/Regions/sea.jpg"));
 
+            back.AddObject(new WorldSceneObject(Global.Game.World));
+
             var portraitsY = 30d;
 
             foreach (var hero in Global.Game.Party.Heroes)
@@ -32,13 +35,17 @@ namespace Dungeon12.Scenes
                 var port = back.AddObject(new PortraitHero(hero)
                 {
                     Left = 30,
-                    Top = portraitsY
+                    Top = portraitsY,
+                    AbsolutePosition=true
                 });
 
                 portraitsY += port.Height + 30d;
             }
 
-            back.AddObject(new WorldSceneObject(Global.Game.World));
+            back.AddObject(new StatusBar(Global.Game));
+            back.AddObject(new TextWindow(Global.Game));
+            back.AddObject(new Information(Global.Game));
+            back.AddObject(new MapMoveBar(Global.Game));
         }
 
         protected override IEnumerable<string> LoadResourcesNames()

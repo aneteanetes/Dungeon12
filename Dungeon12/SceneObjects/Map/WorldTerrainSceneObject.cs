@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dungeon.Varying;
+using Dungeon.SceneObjects.Tilemaps;
 
 namespace Dungeon12.SceneObjects.Map
 {
@@ -15,35 +16,42 @@ namespace Dungeon12.SceneObjects.Map
         {
             var tileLayer = component.Map.Layers.FirstOrDefault(x => x.name == "Tiles");
 
-            Variables.Set("GlobalMapTileSize", 210);
-            var size = 210;
+            var size = Variables.Get("GlobalMapTileSize", 210);
 
-            List<ImageObject> images= new List<ImageObject>();
+            double left = 0;
+            double top = 0;
 
-            foreach (var tile in tileLayer.Tiles)
+            for (int y = 0; y < tileLayer.TilesArray.Count; y++)
             {
-                if (tile.FileName.IsNotEmpty())
+                var row = tileLayer.TilesArray[y];
+                left = 0;
+
+                if (y % 2 == 0)
                 {
-                    images.Add(this.AddChild(new ImageObject(tile.FileName)
-                    {
-                        Width = size,
-                        Height = size,
-                        Left = tile.Position.X * size,
-                        Top = tile.Position.Y * size
-                    }));
+                    left -= Variables.Get("GlobalMapLeftOddOffset", 85d);
                 }
-            }
 
-            void resize()
-            {
-                images.ForEach(i =>
+                for (int x = 0; x < row.Count; x++)
                 {
-                    i.Height = Variables.Get<int>("GlobalMapTileSize");
-                    i.Width = Variables.Get<int>("GlobalMapTileSize");
-                });
+                    var tile = row[x];
+
+                    if (tile.FileName.IsNotEmpty())
+                    {
+                        this.AddChild(new ImageControl(tile.FileName)
+                        {
+                            Width = size,
+                            Height = size,
+                            Left = left,
+                            Top = top
+                        });
+                    }
+                    left += Variables.Get("GlobalMapTileLeftPlus", 172);
+                }
+                top += size-55;
             }
 
-            Variables.OnChange<int>("GlobalMapTileSize", resize);
+            this.Width = left;
+            this.Height = top;
         }
     }
 }

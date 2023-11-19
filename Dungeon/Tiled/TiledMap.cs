@@ -217,6 +217,10 @@ namespace Dungeon.Tiled
 
                 }
 
+                layer.TilesArray = layer.Tiles.GroupBy(x => x.Position.Y)
+                    .Select(x => new List<TiledPolygon>(x.OrderBy(x => x.Position.X)))
+                    .ToList();
+
                 tiledMap.Layers.Add(layer);
             }
         }

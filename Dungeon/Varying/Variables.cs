@@ -8,9 +8,9 @@ namespace Dungeon.Varying
     {
         private static Dictionary<string, Variable> variables = new();
 
-        public static T Get<T>(string name)
+        public static T Get<T>(string name, T @default = default)
         {
-            var variable = TryGet<T>(name);
+            var variable = TryGet<T>(name, @default);
 
             return variable.Get<T>();
         }
@@ -27,11 +27,12 @@ namespace Dungeon.Varying
             variable.OnChange += action;
         }
 
-        private static Variable TryGet<T>(string name)
+        private static Variable TryGet<T>(string name, T @default = default)
         {
             if (!variables.TryGetValue(name, out var variable))
             {
                 variables[name] = variable = new Variable<T>(name);
+                variable.Set(@default.ToString());
             }
 
             return variable;
