@@ -1,12 +1,15 @@
-﻿using Dungeon.Monogame.Resolvers;
+﻿using Dungeon.Monogame.Components;
+using Dungeon.Monogame.Resolvers;
 using Dungeon.Monogame.Settings;
 using Dungeon.Resources;
 using Dungeon.Scenes.Manager;
+using Dungeon.Varying;
 using Dungeon.View.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using MonoGame.Extended;
 using ProjectMercury.Renderers;
 using System;
 using System.Linq;
@@ -18,6 +21,8 @@ namespace Dungeon.Monogame
     public partial class GameClient : Game, IGameClient
     {
         public static GameClient Instance;
+
+        FPSMeter FPS = new FPSMeter();
 
         public GameClient(MonogameSettings settings)
         {
@@ -61,8 +66,8 @@ namespace Dungeon.Monogame
             IsMouseVisible = true;
 
             // fixing framerate
-            this.IsFixedTimeStep = true;//false;
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d); //60);
+            this.IsFixedTimeStep = false;
+            //this.TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d); //60);
 
 
             DungeonGlobal.AudioPlayer = this;
@@ -101,7 +106,7 @@ namespace Dungeon.Monogame
                 IsFullScreen = settings.WindowMode== WindowMode.FullScreenSoftware || settings.WindowMode== WindowMode.FullScreenHardware,
                 PreferredBackBufferWidth = settings.WidthPixel,
                 PreferredBackBufferHeight = settings.HeightPixel,
-                SynchronizeWithVerticalRetrace = settings.VerticalSync,
+                SynchronizeWithVerticalRetrace = false,// settings.VerticalSync,
                 PreferredDepthStencilFormat= DepthFormat.Depth24Stencil8,
             };
 
@@ -171,12 +176,13 @@ namespace Dungeon.Monogame
                 graphics.HardwareModeSwitch = false;
             }
 
-            graphics.SynchronizeWithVerticalRetrace = true;
+            graphics.SynchronizeWithVerticalRetrace = false;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
         }
 
         protected override void Initialize()
         {
+            Variables.Set("FPSLEFT", this.Window.ClientBounds.Width - 100);
             ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver(Assembly.GetExecutingAssembly()));
             this.Window.Title = DungeonGlobal.GameTitle;
 
@@ -205,7 +211,7 @@ namespace Dungeon.Monogame
             LoadPenumbra();
             Load3D();
 
-            DrawClient = new DrawClient(GraphicsDevice, Content, ImageLoader, ParticleRenderer, penumbra)
+            DrawClient = new DrawClient(GraphicsDevice, Content, ImageLoader, ParticleRenderer, penumbra, this)
             {
                 SpriteBatchManager=new SpriteBatchManager(GraphicsDevice, Content)
             };
@@ -219,11 +225,12 @@ namespace Dungeon.Monogame
 
         protected override void Update(GameTime gameTime)
         {
-            if (this.сallback != default && !skipCallback && drawCicled)
-            {
-                this.сallback.Call();
-                this.сallback = default;
-            }
+            FPS.Update(gameTime);
+            //if (this.сallback != default && !skipCallback && drawCicled)
+            //{
+            //    this.сallback.Call();
+            //    this.сallback = default;
+            //}
 
             this.gameTime = gameTime;
 
@@ -233,8 +240,8 @@ namespace Dungeon.Monogame
             if (_settings.IsDebug)
                 DebugUpdate();
 
+            UpdateLayers(gameTime);
             UpdateLoop(gameTime);
-            UpdateLayersExistance(gameTime);
 
             drawCicled = false;
             skipCallback = false;

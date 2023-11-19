@@ -68,11 +68,13 @@ namespace Dungeon.Monogame
             PreProcessed.Clear();
             PostProcessed.Clear();
 
+            this.DrawClient.SpriteBatchManager.Begin(Matrix.Identity);// /*_resolutionMatrix*/);
             if (this.Scene != default)
             {
-                foreach (var layer in this.Scene.Layers)
+                foreach (var info in SceneLayers)
                 {
-                    var buffer = SceneLayers[layer];
+                    var layer = info.Key;
+                    var buffer = info.Value;
 
                     bool light = false;
 
@@ -101,6 +103,8 @@ namespace Dungeon.Monogame
                     }
                 }
             }
+
+            this.DrawClient.SpriteBatchManager.End();
 
             RenderTarget2D screenshottarget = null;
 
@@ -142,9 +146,10 @@ namespace Dungeon.Monogame
                         }
                 }
             }
+            DrawDebugInfo();
+
             LayerSpriteBatch.End();
 
-            DrawDebugInfo();
 
             Draw3D();
             base.Draw(gameTime);

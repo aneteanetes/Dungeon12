@@ -176,7 +176,7 @@
 
         public FlipStrategy Flip { get; set; }
 
-        ICollection<ISceneObject> Children { get; }
+        IList<ISceneObject> Children { get; }
 
         IDrawColor Color { get; set; }
 
@@ -227,5 +227,13 @@
         void Throw(Exception ex);
 
         void Refresh();
+
+        int DrawClientWidth { get; set; }
+
+        int DrawClientHeight { get; set; }
+
+        double DrawClientX { get; set; }
+
+        double DrawClientY { get; set; }
     }
 }

@@ -31,9 +31,9 @@ namespace Dungeon.Scenes
 
         public string Name { get; set; }
 
-        private readonly List<ISceneObject> SceneObjects = new List<ISceneObject>();
+        public List<ISceneObject> SceneObjects = new List<ISceneObject>();
 
-        public ISceneObject[] Objects => SceneObjects.Where(x => x.IsActive).ToArray();
+        public List<ISceneObject> Objects => SceneObjects;
 
         private readonly List<IEffect> GlobalEffects = new();
 
@@ -227,12 +227,12 @@ namespace Dungeon.Scenes
                 {
                     freezer = DungeonGlobal.Freezer.World;
                 }
-                var chain = FreezedChain(SceneObjectsControllable.FirstOrDefault(x => x == freezer));
+                var chain = FreezedChain(ActiveObjectControls.FirstOrDefault(x => x == freezer));
                 return WhereHandles(handleEvent, key, chain);
             }
             else
             {
-                return WhereHandles(handleEvent, key, SceneObjectsControllable);
+                return WhereHandles(handleEvent, key, ActiveObjectControls);
             }
         }
 
@@ -241,7 +241,7 @@ namespace Dungeon.Scenes
             var handlers = elements
                 .Distinct()
                 .Where(c => c.Visible)
-                .Where(c => c.DrawOutOfSight || (c.HighLevelComponent && Owner.sceneManager.GameClient.InCamera(c)))
+                .Where(c => c.DrawOutOfSight || (c.HighLevelComponent && Owner.sceneManager.GameClient.InCamera(c.DrawClientWidth,c.DrawClientHeight,c.DrawClientX,c.DrawClientY)))
                 .Where(x =>
                 {
                     bool handle = x.CanHandle.Contains(handleEvent);
@@ -733,6 +733,10 @@ namespace Dungeon.Scenes
         public bool Destroyed { get; set; }
 
         public bool AbsoluteLayer { get; set; }
+
+        public List<ISceneObject> ActiveObjects { get; set; } = new();
+
+        public List<ISceneControl> ActiveObjectControls { get; set; } = new();
 
         public virtual void Destroy()
         {

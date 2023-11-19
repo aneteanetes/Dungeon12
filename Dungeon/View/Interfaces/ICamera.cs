@@ -33,7 +33,7 @@
 
         public Square CameraView { get; }
 
-        bool InCamera(ISceneObject sceneObject);
+        bool InCamera(int w, int h, double x, double y);
 
         bool InCamera(ITile tile);
     }

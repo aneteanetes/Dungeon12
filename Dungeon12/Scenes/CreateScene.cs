@@ -15,7 +15,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Dungeon12.Scenes
 {
-    internal class CreateScene : GameScene<StartScene, RegionScene, MUDScene, GlobalMapScene>
+    internal class CreateScene : StartScene<StartScene, RegionScene, MUDScene, GlobalMapScene>
     {
         public CreateScene(SceneManager sceneManager) : base(sceneManager)
         {

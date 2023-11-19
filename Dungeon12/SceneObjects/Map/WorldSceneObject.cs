@@ -1,5 +1,6 @@
 ﻿using Dungeon;
 using Dungeon.Control;
+using Dungeon.Drawing.SceneObjects;
 using Dungeon.Types;
 using Dungeon.Varying;
 
@@ -14,10 +15,16 @@ namespace Dungeon12.SceneObjects.Map
             Width = Global.Resolution.Width;
             Height = Global.Resolution.Height;
 
+            //this.AddChild(new ImageObject("World.png")
+            //{
+            //    Width=10800,
+            //    Height=8150
+            //});
+
             terrain = this.AddChild(new WorldTerrainSceneObject(component)
             {
-                Width=this.Width, 
-                Height=this.Height
+                Width = this.Width,
+                Height = this.Height
             });
 
             Variables.Set("MapMoving", 13.5);

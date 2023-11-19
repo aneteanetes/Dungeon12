@@ -73,7 +73,7 @@ namespace Dungeon.Resources
 
             Resource res = default;
 
-            if (db != null && !Settings.EmbeddedMode)
+            if (db != null && !Settings.IsEmbeddedMode)
             {
                 try
                 {
@@ -159,7 +159,7 @@ namespace Dungeon.Resources
             }
 
             bool addToScene = !caching;
-            if (Settings.NotDisposingResources || Settings.EmbeddedMode)
+            if (Settings.NotDisposingResources || Settings.IsEmbeddedMode && sceneManager!=null)
             {
                 addToScene = !(sceneManager ?? DungeonGlobal.SceneManager).Preapering?.ResourcesMap.Any(r => r.Value.Path == res.Path) ?? false;
             }

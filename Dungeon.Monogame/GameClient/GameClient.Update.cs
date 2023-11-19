@@ -1,4 +1,5 @@
 ﻿using Dungeon.View.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Dungeon.Monogame
@@ -19,33 +20,24 @@ namespace Dungeon.Monogame
 
             if (Scene != default)
             {
-                foreach (var layer in Scene.Layers)
+                foreach (var layer in SceneLayers)
                 {
-                    for (int i = 0; i < layer.Objects.Length; i++)
+                    var controls = layer.Key.ActiveObjectControls;
+                    for (int i = 0; i < controls.Count; i++)
                     {
-                        var obj = layer.Objects[i];
-                        UpdateComponent(obj, gameTimeLoop);
+                        var control = controls[i];
+                        UpdateComponent(control, gameTimeLoop);
                     }
                 }
             }
         }
 
-#warning something here FPS harm!
         private void UpdateComponent(ISceneObject sceneObject, GameTimeLoop gameTimeLoop)
         {
             if (!sceneObject.Updatable)
                 return;
 
             sceneObject.ComponentUpdateChainCall(gameTimeLoop);
-
-            for (int i = 0; i < sceneObject.Children.Count; i++)
-            {
-                var child = sceneObject.Children.ElementAtOrDefault(i);
-                if (child != null)
-                {
-                    UpdateComponent(child, gameTimeLoop);
-                }
-            }
         }
     }
 }

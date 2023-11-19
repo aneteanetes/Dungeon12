@@ -136,17 +136,14 @@
         }
 
 
-        public bool InCamera(ISceneObject sceneObject)
+        public bool InCamera(int w, int h, double x, double y)
         {
-            var w = sceneObject.ComputedPosition.Width == default ? 0.1 : sceneObject.ComputedPosition.Width;
-            var h = sceneObject.ComputedPosition.Height == default ? 0.1 : sceneObject.ComputedPosition.Height;
-
             var cameraIn = IntersectsWith_WithoutAllocation(
                 CameraOffsetX * -1, CameraOffsetY * -1, DungeonGlobal.Resolution.Width, DungeonGlobal.Resolution.Height,
-                sceneObject.ComputedPosition.X, sceneObject.ComputedPosition.Y, w, h);
+                x, y, w, h);
 
             var objIn = IntersectsWith_WithoutAllocation(
-                sceneObject.ComputedPosition.X, sceneObject.ComputedPosition.Y, w, h,
+                x, y, w, h,
                 CameraOffsetX, CameraOffsetY, DungeonGlobal.Resolution.Width, DungeonGlobal.Resolution.Height);
 
             return cameraIn || objIn;

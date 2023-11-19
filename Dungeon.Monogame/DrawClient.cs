@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Principal;
 using Matrix = Microsoft.Xna.Framework.Matrix;
 using Rect = Dungeon.Types.Square;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
@@ -76,12 +77,6 @@ namespace Dungeon.Monogame
             if (lightning)
                 lightning=penumbra!=null;
 
-            var sceneObjects = layer.Objects
-                .Where(x => x.Visible);
-
-            if (camera!=null)
-                sceneObjects = sceneObjects.Where(x => camera.InCamera(x) || x.DrawOutOfSight);
-
             var isAbsolute = layer.AbsoluteLayer;
 
             GraphicsDevice.SetRenderTarget(target);
@@ -91,21 +86,18 @@ namespace Dungeon.Monogame
 
             GraphicsDevice.Clear(Color.Transparent);
 
-            SpriteBatchManager.Begin(Matrix.Identity);// /*_resolutionMatrix*/);
-
             var spriteBatch = SpriteBatchManager.GetSpriteBatch();
 
-            foreach (var sceneObject in sceneObjects)
+            for (int i = 0; i < layer.ActiveObjects.Count; i++)
             {
-                DrawSceneObject(sceneObject, target, spriteBatch, gameTime);
+                DrawSceneObject(layer.ActiveObjects[i], target, spriteBatch, gameTime);
             }
 
-            SpriteBatchManager.End();
-
             if (lightning)
+            {
                 penumbra?.Draw(gameTime);
-
-            DrawLights(layer);
+                DrawLights(layer);
+            }
         }
 
         private void DrawSceneObject(ISceneObject sceneObject, RenderTarget2D renderTarget, SpriteBatchKnowed spriteBatch, GameTime gameTime, double xParent = 0, double yParent = 0, bool batching = false, double parentScale = 0)
@@ -115,31 +107,14 @@ namespace Dungeon.Monogame
 
             sceneObject.Drawed = true;
 
-            bool needScalePosition = false;
+            var x = sceneObject.DrawClientX;
+            var y = sceneObject.DrawClientY;
 
-            var scale_ = sceneObject.GetScaleValue();
-            if (parentScale != 0) {
-                scale_ = parentScale;
-                needScalePosition = true;
-            }
+            DrawLight(sceneObject, x,y);
+            DrawEffects(sceneObject, x, y, gameTime);
 
-            if (scale_ == 0)
-                scale_ = 1;
-
-            var x = 0d;
-            var y = 0d;
-
-            if (!batching)
-            {
-                x = xParent + (float)sceneObject.Left * (needScalePosition ? scale_ : 1);
-                y = yParent + (float)sceneObject.Top * (needScalePosition ? scale_ : 1);
-            }
-
-            DrawLight(sceneObject, x, y);
-            DrawEffects(sceneObject, x, y,gameTime);
-
-            int width = (int)Math.Round((sceneObject.Width * scale_));
-            int height = (int)Math.Round((sceneObject.Height * scale_) );
+            int width = sceneObject.DrawClientWidth;
+            int height = sceneObject.DrawClientHeight;
 
             if (sceneObject.IsBatch && !batching)
             {
@@ -239,16 +214,25 @@ namespace Dungeon.Monogame
                     }
                 }
 
-                var childrens = sceneObject.Children.OrderBy(c => c.LayerLevel).ToArray();
+                //for (int i = 0; i < sceneObject.Children.Count; i++)
+                //{
+                //    var child = sceneObject.Children[i];
+                //    if (child != null)
+                //    {
+                //        DrawSceneObject(child, renderTarget, spriteBatch, gameTime, x, y, batching, sceneObject.Scale);
+                //    }
+                //}
 
-                for (int i = 0; i < childrens.Length; i++)
-                {
-                    var child = childrens.ElementAtOrDefault(i);
-                    if (child != null)
-                    {
-                        DrawSceneObject(child, renderTarget, spriteBatch, gameTime, x, y, batching, sceneObject.Scale);
-                    }
-                }
+                //var childrens = sceneObject.Children.OrderBy(c => c.LayerLevel).ToArray();
+
+                //for (int i = 0; i < childrens.Length; i++)
+                //{
+                //    var child = childrens.ElementAtOrDefault(i);
+                //    if (child != null)
+                //    {
+                //        DrawSceneObject(child, renderTarget, spriteBatch, gameTime, x, y, batching, sceneObject.Scale);
+                //    }
+                //}
             }
         }
 
@@ -924,7 +908,7 @@ namespace Dungeon.Monogame
             {
                 var sceneObj = layer?.Objects?.FirstOrDefault(o => light.Key == o.Uid);
                 if (sceneObj != default)
-                    if (!sceneObj.Visible || (camera!=null && !camera.InCamera(sceneObj)))
+                    if (!sceneObj.Visible /*|| (camera!=null && !camera.InCamera(sceneObj))*/)
                     {
                         lightsfordelete.Add(light.Key);
                     }

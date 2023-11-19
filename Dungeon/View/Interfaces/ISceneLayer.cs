@@ -1,4 +1,5 @@
 ﻿using Dungeon.ECS;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Dungeon.View.Interfaces
@@ -7,7 +8,11 @@ namespace Dungeon.View.Interfaces
     {
         IScene Scene { get; }
 
-        ISceneObject[] Objects { get; }
+        List<ISceneObject> Objects { get; }
+
+        List<ISceneObject> ActiveObjects { get; }
+
+        List<ISceneControl> ActiveObjectControls { get; }
 
         IEffect[] SceneGlobalEffects { get; }
 

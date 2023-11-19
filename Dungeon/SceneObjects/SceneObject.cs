@@ -426,7 +426,7 @@
 
         public virtual IDrawablePath Path { get; set; }
 
-        public ICollection<ISceneObject> Children { get; } = new List<ISceneObject>();
+        public IList<ISceneObject> Children { get; } = new List<ISceneObject>();
 
         /// <summary>
         /// Здесь обрабатываются всевозможные события например пересчёт уровней
@@ -620,7 +620,7 @@
         /// </summary>
         public virtual bool Singleton { get; set; } = false;
 
-        public virtual bool DrawOutOfSight { get; set; } = true;
+        public virtual bool DrawOutOfSight { get; set; } = false;
 
         public virtual bool Shadow { get; set; }
 
@@ -983,5 +983,13 @@
                 Top -= speed;
             }
         }
+
+        public int DrawClientWidth { get; set; }
+
+        public int DrawClientHeight { get; set; }
+
+        public double DrawClientX { get; set; }
+
+        public double DrawClientY { get; set; }
     }
 }

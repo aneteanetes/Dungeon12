@@ -12,7 +12,7 @@ namespace Dungeon.Resources
 
         public bool StretchResources { get; set; }
 
-        public bool EmbeddedMode { get; set; }
+        public bool IsEmbeddedMode { get; set; }
 
         public bool NotDisposingResources { get; set; }
 

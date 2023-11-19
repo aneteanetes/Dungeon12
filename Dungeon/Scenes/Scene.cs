@@ -386,7 +386,7 @@
             LayerMap = null;
             SceneLayerGraph = null;
 
-            if (!ResourceLoader.Settings.EmbeddedMode && !ResourceLoader.Settings.NotDisposingResources)
+            if (!ResourceLoader.Settings.IsEmbeddedMode && !ResourceLoader.Settings.NotDisposingResources)
             {
                 ResourcesMap.ForEach(kv => kv.Value.Dispose());
                 ResourcesMap.Clear();
