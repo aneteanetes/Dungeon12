@@ -50,7 +50,7 @@ namespace Dungeon.Resources
                         var path = Path.Combine(dir, $"{caller}.dtr");
                         Console.WriteLine(path);
                         liteDatabase = new LiteDatabase(path);
-                        DungeonGlobal.Exit += () => liteDatabase.Dispose();
+                        DungeonGlobal.OnExit += () => liteDatabase.Dispose();
                     }
                     return liteDatabase;
                 }
@@ -159,17 +159,17 @@ namespace Dungeon.Resources
             }
 
             bool addToScene = !caching;
-            if (Settings.NotDisposingResources || Settings.IsEmbeddedMode && sceneManager!=null)
-            {
-                addToScene = !(sceneManager ?? DungeonGlobal.SceneManager).Preapering?.ResourcesMap.Any(r => r.Value.Path == res.Path) ?? false;
-            }
+            //if (Settings.NotDisposingResources || Settings.IsEmbeddedMode && sceneManager!=null)
+            //{
+            //    addToScene = !(sceneManager ?? DungeonGlobal.SceneManager).Preapering?.Resources.Any(r => r.Value.Path == res.Path) ?? false;
+            //}
 
             if (addToScene)
             {
                 var sManager = (sceneManager ?? DungeonGlobal.SceneManager);
                 var scene = sManager.Preapering;
-                if (scene!=default && !scene.IsPreloadedScene && !scene.ResourcesMap.ContainsKey(res.Path))
-                    scene.ResourcesMap.Add(res.Path,res);
+                if (scene != default && !scene.IsPreloadedScene && !scene.Resources.ContainsKey(res.Path))
+                    scene.Resources.Add(res.Path, res);
             }
 
             return res;
@@ -224,7 +224,7 @@ namespace Dungeon.Resources
         {
             if (DungeonGlobal.DungeonAssemblyContext == default)
             {
-                DungeonGlobal.DungeonAssemblyContext = new Global.DungeonAssemblyContext();
+                DungeonGlobal.DungeonAssemblyContext = new DungeonAssemblyContext();
             }
 
             try

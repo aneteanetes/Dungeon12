@@ -10,7 +10,7 @@ using Dungeon12.TCG;
 
 namespace Dungeon12.Scenes
 {
-    internal class TCGScene : GameScene<StartScene>
+    internal class TCGScene : GameScene<MenuScene>
     {
         public TCGScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -68,7 +68,7 @@ namespace Dungeon12.Scenes
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
             if (keyPressed == Key.Escape)
-                this.Switch<StartScene>();
+                this.Switch<MenuScene>();
 
             base.KeyPress(keyPressed, keyModifiers, hold);
         }

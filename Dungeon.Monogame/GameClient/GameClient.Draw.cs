@@ -167,12 +167,6 @@ namespace Dungeon.Monogame
 
                 SaveScreenshot();
             }
-
-            if (prevSceneUid != Scene.Uid)
-            {
-                Scene.Loaded();
-                prevSceneUid = Scene.Uid;
-            }
         }
 
         private unsafe void SaveScreenshot()

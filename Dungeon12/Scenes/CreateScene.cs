@@ -15,7 +15,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Dungeon12.Scenes
 {
-    internal class CreateScene : StartScene<StartScene, RegionScene, MUDScene, GlobalMapScene>
+    internal class CreateScene : GameScene<MenuScene, RegionScene, MUDScene, GlobalMapScene>
     {
         public CreateScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -67,7 +67,7 @@ namespace Dungeon12.Scenes
             {
                 Left = 700,
                 Top = 988,
-                OnClick = () => Switch<StartScene>()
+                OnClick = () => Switch<MenuScene>()
             });
 
             var nextBtn = layer.AddObject(new ClassicButton(Global.Strings["StartGame"])
@@ -178,7 +178,7 @@ namespace Dungeon12.Scenes
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
             if (keyPressed == Key.Escape)
-                Switch<StartScene>();
+                Switch<MenuScene>();
             base.KeyPress(keyPressed, keyModifiers, hold);
         }
     }

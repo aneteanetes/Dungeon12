@@ -1,5 +1,6 @@
 ﻿using Dungeon;
 using Dungeon.Control;
+using Dungeon.Control.Pointer;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Types;
 using Dungeon.Varying;
@@ -18,11 +19,17 @@ namespace Dungeon12.SceneObjects.Map
             terrain = this.AddChild(new WorldTerrainSceneObject(component));
         }
 
+        public void SetCoords(int x, int y)
+        {
+            terrain.Move(x, y);
+        }
+
         protected override ControlEventType[] Handles => new ControlEventType[]
         {
             ControlEventType.Click,
             ControlEventType.GlobalClickRelease,
-            ControlEventType.GlobalMouseMove
+            ControlEventType.GlobalMouseMove,
+            ControlEventType.MouseWheel
         };
 
         private bool hold = false;
@@ -33,6 +40,22 @@ namespace Dungeon12.SceneObjects.Map
                 hold = true;
 
             base.Click(args);
+        }
+
+        public override void MouseWheel(MouseWheelEnum mouseWheelEnum)
+        {
+            if(mouseWheelEnum == MouseWheelEnum.Down)
+            {
+                if (terrain.Scale > -1)
+                    terrain.Scale -= 0.1;
+            }
+            if (mouseWheelEnum == MouseWheelEnum.Up)
+            {
+                if (terrain.Scale < 1)
+                    terrain.Scale += 0.1;
+            }
+
+            base.MouseWheel(mouseWheelEnum);
         }
 
         Dot prev = new();

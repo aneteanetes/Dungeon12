@@ -9,7 +9,7 @@ using Dungeon12.SceneObjects.Stats;
 
 namespace Dungeon12.Scenes
 {
-    internal class RegionScene : GameScene<StartScene, RegionScene>
+    internal class RegionScene : GameScene<MenuScene, RegionScene>
     {
         public RegionScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -99,7 +99,7 @@ namespace Dungeon12.Scenes
         {
             if (keyPressed == Key.Escape && !hold)
             {
-                this.Switch<StartScene>();
+                this.Switch<MenuScene>();
             }
             else if (keyPressed == Key.I && !hold)
             {

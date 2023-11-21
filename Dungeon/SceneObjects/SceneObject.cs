@@ -638,7 +638,7 @@
 
         public virtual bool Filtered { get; set; } = true;
 
-        private double _scale;
+        private double _scale = 0;
 
         public double GetScaleValue() => _scale;
 
@@ -965,7 +965,6 @@
 
         public void Move(Direction dir, double speed)
         {
-            Console.WriteLine(dir);
             if (dir.HasFlag(Direction.Right))
             {
                 Left += speed;

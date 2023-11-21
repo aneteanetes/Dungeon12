@@ -7,9 +7,9 @@ namespace Dungeon12.SceneObjects.Playing
     {
         public MapMoveBar(Dungeon12.Game component) : base(component)
         {
-            this.Width = Variables.Get("MapMoveBarWindowW", 460);
+            this.Width = Variables.Get("MapMoveBarWindowW", 400);
             this.Height = Variables.Get("MapMoveBarWindowH", 50);
-            this.Left = Variables.Get("MapMoveBarWindowL", 1420);
+            this.Left = Variables.Get("MapMoveBarWindowL", 1500);
             this.Top = Variables.Get("MapMoveBarWindowT", -5);
 
             this.AddBorderBack();

@@ -339,7 +339,7 @@
 
         public abstract void Initialize();
 
-        public Dictionary<string, Resource> ResourcesMap = new Dictionary<string, Resource>();
+        public ResourceTable Resources = new ResourceTable();
 
         public virtual void Activate()
         {
@@ -388,9 +388,8 @@
 
             if (!ResourceLoader.Settings.IsEmbeddedMode && !ResourceLoader.Settings.NotDisposingResources)
             {
-                ResourcesMap.ForEach(kv => kv.Value.Dispose());
-                ResourcesMap.Clear();
-                ResourcesMap = null;
+                Resources.Dispose();
+                Resources = null;
             }
             GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
 
@@ -465,18 +464,16 @@
             }
         }
 
-        protected Resource LoadResource(string name)
-        {
-            var res = ResourceLoader.Load(name);
-            ResourcesMap.Add(name, res);
-            return res;
-        }
+        protected Resource LoadResource(string name) => Resources.Load(name);
 
         protected virtual IEnumerable<string> LoadResourcesNames() => Enumerable.Empty<string>();
 
         public Resource GetResource(string name)
         {
-            if (ResourcesMap.TryGetValue(name, out var res))
+            if (Resources.TryGetValue(name, out var res))
+                return res;
+
+            if (DungeonGlobal.GlobalResources.TryGetValue(name, out res))
                 return res;
 
             throw new KeyNotFoundException($"Ресурс {name} не загружен на сцену!");

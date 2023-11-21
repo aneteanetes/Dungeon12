@@ -12,11 +12,15 @@ namespace Dungeon12.SceneObjects.Map
 {
     internal class WorldTerrainSceneObject : SceneControl<Entities.Map.World>
     {
+        int tilePlusTop;
+
         public WorldTerrainSceneObject(Entities.Map.World component) : base(component)
         {
+            Scale = 1;
             var tileLayer = component.Map.Layers.FirstOrDefault(x => x.name == "Tiles");
 
             var size = Variables.Get("GlobalMapTileSize", 210);
+            tilePlusTop = size - Variables.Get("GlobalMapTileTopCut", 55);
 
             double left = 0;
             double top = 0;
@@ -47,11 +51,24 @@ namespace Dungeon12.SceneObjects.Map
                     }
                     left += Variables.Get("GlobalMapTileLeftPlus", 172);
                 }
-                top += size-55;
+                top += tilePlusTop;
             }
 
             this.Width = left;
             this.Height = top;
+        }
+
+        public void Move(int x, int y)
+        {
+            x -= 5;
+            y -= 3;
+            if (y % 2 == 0)
+            {
+                this.Left -= Variables.Get<double>("GlobalMapLeftOddOffset");
+            }
+
+            this.Left -= x * Variables.Get<int>("GlobalMapTileLeftPlus");
+            this.Top -= y * tilePlusTop;
         }
     }
 }

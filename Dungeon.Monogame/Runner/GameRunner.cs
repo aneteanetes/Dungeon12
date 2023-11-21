@@ -1,7 +1,5 @@
-﻿using Dungeon.Global;
-using Dungeon.Monogame.Settings;
+﻿using Dungeon.Monogame.Settings;
 using System;
-using System.Threading.Tasks;
 
 namespace Dungeon.Monogame.Runner
 {
@@ -27,12 +25,11 @@ namespace Dungeon.Monogame.Runner
         {
             using (var game = new GameClient(_settings))
             {
-                DungeonGlobal.Exit += () =>
+                DungeonGlobal.OnExit += () =>
                 {
                     game.Exit();
                     game.DrawClient.Dispose();
                     game.Dispose();
-                    Environment.Exit(0);
                 };
 
                 DungeonGlobal.OnRun?.Invoke();

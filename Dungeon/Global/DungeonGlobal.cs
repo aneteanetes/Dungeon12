@@ -2,7 +2,6 @@
 using Dungeon.Configuration;
 using Dungeon.Control;
 using Dungeon.Events;
-using Dungeon.Global;
 using Dungeon.Localization;
 using Dungeon.Logging;
 using Dungeon.Resources;
@@ -34,6 +33,8 @@ namespace Dungeon
         private static DungeonGlobal global;
 
         public static DungeonGlobal GetBindedGlobal() => global;
+
+        public static ResourceTable GlobalResources = new();
 
         public static bool IsDevelopment { get; private set; }
 
@@ -207,14 +208,19 @@ namespace Dungeon
             }
         }
         
-        public static Action Exit { get; set; } = () =>
+        public static void Exit()
         {
-            if(!Directory.Exists("Logs"))
+            OnExit?.Invoke();
+            GlobalResources.Dispose();
+            if (!Directory.Exists("Logs"))
             {
                 Directory.CreateDirectory("Logs");
             }
             Logger.SaveIsNeeded($"Logs\\{DateTime.Now.ToString("dd=MM HH_mm_ss")}");
-        };
+            Environment.Exit(0);
+        }
+
+        public static Action OnExit { get; set; } = () => { };
 
         public static Action OnRun { get; set; }
 

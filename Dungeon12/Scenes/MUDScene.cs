@@ -15,7 +15,7 @@ using Dungeon12.SceneObjects.MUD.ViewRegion;
 
 namespace Dungeon12.Scenes
 {
-    internal class MUDScene : GameScene<StartScene>
+    internal class MUDScene : GameScene<MenuScene>
     {
         public MUDScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -167,7 +167,7 @@ namespace Dungeon12.Scenes
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
             if (keyPressed == Key.Escape)
-                Switch<StartScene>();
+                Switch<MenuScene>();
             base.KeyPress(keyPressed, keyModifiers, hold);
         }
     }

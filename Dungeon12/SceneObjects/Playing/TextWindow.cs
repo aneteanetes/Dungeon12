@@ -8,9 +8,9 @@ namespace Dungeon12.SceneObjects.Playing
         public TextWindow(Dungeon12.Game component) : base(component)
         {
             this.Width = Variables.Get("TextWindowW", 900);
-            this.Height = Variables.Get("TextWindowH", 500);
+            this.Height = Variables.Get("TextWindowH", 250);
             this.Left = Variables.Get("TextWindowL", 450);
-            this.Top = Variables.Get("TextWindowT", 750); ;
+            this.Top = Variables.Get("TextWindowT", 830); ;
 
             this.AddBorderBack();
         }

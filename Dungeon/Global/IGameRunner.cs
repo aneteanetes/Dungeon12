@@ -1,4 +1,4 @@
-﻿namespace Dungeon.Global
+﻿namespace Dungeon
 {
     public interface IGameRunner
     {

@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Runtime.Loader;
 using System.Text;
 
-namespace Dungeon.Global
+namespace Dungeon
 {
     public class DungeonAssemblyContext : AssemblyLoadContext
     {

@@ -11,7 +11,7 @@ using Dungeon12.SceneObjects.Map;
 
 namespace Dungeon12.Scenes
 {
-    internal class GlobalMapScene : GameScene<StartScene>
+    internal class GlobalMapScene : GameScene<MenuScene>
     {
         public GlobalMapScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -26,7 +26,8 @@ namespace Dungeon12.Scenes
             var back = this.AddLayer("back");
             back.AddObject(new ImageObject("Backgrounds/Regions/sea.jpg"));
 
-            back.AddObject(new WorldSceneObject(Global.Game.World));
+            var world = back.AddObject(new WorldSceneObject(Global.Game.World));
+            world.SetCoords(48, 35);
 
             var portraitsY = 30d;
 
@@ -69,20 +70,12 @@ namespace Dungeon12.Scenes
             var res = LoadResource("Maps/World.tmx");
             var tiled = TiledMap.Load(res);
             Global.Game.World = new Entities.Map.World(tiled);
-
-            foreach (var tileSet in tiled.Tilesets)
-            {
-                foreach (var tile in tileSet.Tiles)
-                {
-                    LoadResource(tile.File);
-                }
-            }
         }
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)
         {
             if (keyPressed == Key.Escape)
-                Switch<StartScene>();
+                Switch<MenuScene>();
             base.KeyPress(keyPressed, keyModifiers, hold);
         }
     }

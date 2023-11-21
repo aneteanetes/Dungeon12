@@ -191,7 +191,7 @@
             CurrentScene = Preapering;
 
             _current=next;
-            //Если мы переключаем сцену, а в следующей есть физер - значит надо восстановить её состояние
+            //Если мы переключаем сцену, а в следующей есть фризер - значит надо восстановить её состояние
             if (next.Freezer != null)
             {
                 DungeonGlobal.Freezer.World = next.Freezer;
@@ -201,6 +201,7 @@
             CurrentScene = _current;
 
             IsSwitching = false;
+            _current.Loaded();
         }
 
         public void Change<TScene>(params string[] args) where TScene : GameScene => Switch<TScene>(args);
@@ -255,6 +256,7 @@
             CurrentScene = _current;
 
             IsSwitching = false;
+            _current.Loaded();
         }
 
         private void ProcessArgs(GameScene scene)
