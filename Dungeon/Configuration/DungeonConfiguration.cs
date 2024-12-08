@@ -5,6 +5,10 @@ namespace Dungeon.Configuration
 {
     public class DungeonConfiguration
     {
+        public bool EnableSound { get; set; } = true;
+
+        public bool DrawDebugInfo { get; set; } = false;
+
         public bool ExceptionRethrow { get; set; }
 
         public IConfigurationRoot ConfigurationRoot { get; set; }

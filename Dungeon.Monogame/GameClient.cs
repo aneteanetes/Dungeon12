@@ -225,7 +225,8 @@ namespace Dungeon.Monogame
 
         protected override void Update(GameTime gameTime)
         {
-            FPS.Update(gameTime);
+            if (DungeonGlobal.Configuration.DrawDebugInfo)
+                FPS.Update(gameTime);
             //if (this.сallback != default && !skipCallback && drawCicled)
             //{
             //    this.сallback.Call();

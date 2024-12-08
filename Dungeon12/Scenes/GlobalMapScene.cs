@@ -59,10 +59,10 @@ namespace Dungeon12.Scenes
             return names;
         }
 
-        public override void LoadResources()
+        public override void Load()
         {
             LoadWorld();
-            base.LoadResources();
+            base.Load();
         }
 
         private void LoadWorld()

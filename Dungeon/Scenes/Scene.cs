@@ -1,4 +1,7 @@
-﻿namespace Dungeon.Scenes
+﻿using Dungeon.View.Interfaces;
+using Dungeon;
+
+namespace Dungeon.Scenes
 {
     using Dungeon.Control;
     using Dungeon.Control.Gamepad;
@@ -13,6 +16,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection.Emit;
 
     public abstract class Scene : IScene
     {
@@ -351,6 +355,11 @@
             this.sceneManager.Change<T>(args);
         }
 
+        protected virtual void PreLoad<T>() where T : GameScene
+        {
+            this.sceneManager.PreLoad<T>();
+        }
+
         public bool Destroyed { get; private set; } = false;
 
         public Dictionary<string, Func<int>> LayerMap = new Dictionary<string, Func<int>>();
@@ -361,6 +370,10 @@
         public List<ISystem> Systems { get; set; } = new List<ISystem>();
 
         public virtual bool IsPreloadedScene => false;
+
+        public bool IsLoaded { get; set; }
+
+        public bool IsInitialized { get; set; }
 
         public IEnumerable<ISystem> GetSystems() => Systems;
 
@@ -374,6 +387,8 @@
 
         public TSystem GetSystem<TSystem>() where TSystem : ISystem
             => Systems.FirstOrDefault(s => s.Is<TSystem>()).As<TSystem>();
+
+
 
         public virtual void Destroy()
         {
@@ -455,7 +470,7 @@
 
         public virtual void Loaded() { }
 
-        public virtual void LoadResources()
+        public virtual void Load()
         {
             var names = this.LoadResourcesNames();
             foreach (var name in names)
@@ -477,6 +492,11 @@
                 return res;
 
             throw new KeyNotFoundException($"Ресурс {name} не загружен на сцену!");
+        }
+
+        public virtual void Update(GameTimeLoop gameTimeLoop)
+        {
+            this.ActiveLayer.Update(gameTimeLoop);
         }
     }
 }

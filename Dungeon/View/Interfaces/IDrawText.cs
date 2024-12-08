@@ -56,6 +56,6 @@
 
         bool WordWrap { get; set; }
 
-        IDrawText Copy();
+        IDrawText Clone();
     }
 }

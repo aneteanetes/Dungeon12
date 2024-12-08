@@ -129,6 +129,23 @@
                 SwitchImplementation<TScene>(args);
         }
 
+        public void PreLoad<TScene>() where TScene : GameScene
+        {
+            new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+
+                var sceneType = typeof(TScene);
+                if (!SceneCache.TryGetValue(sceneType, out GameScene next))
+                {
+                    next = sceneType.New<TScene>(this);
+                    SceneCache.Add(typeof(TScene), next);
+                    next.Load();
+                    next.IsLoaded = true;
+                }
+            }).Start();
+        }
+
         public Callback Loading => LoadingScreen;
 
         public Callback LoadingScreen
@@ -172,8 +189,20 @@
                 Populate(_current, next, args);
                 Preapering = next;
                 CurrentScene = Preapering;
-                next.LoadResources();
+                next.Load();
+                next.IsLoaded = true;
+
                 next.Initialize();
+                next.IsInitialized = true;
+
+            }
+            else if (!next.IsInitialized)
+            {
+                Populate(_current, next, args);
+                Preapering = next;
+                CurrentScene = Preapering;
+                next.Initialize();
+                next.IsInitialized = true;
             }
 
             //Если мы переключаем сцену, а она в это время фризит мир - надо освободить мир

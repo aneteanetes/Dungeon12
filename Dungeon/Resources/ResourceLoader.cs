@@ -270,7 +270,7 @@ namespace Dungeon.Resources
         }
 
         public static IEnumerable<Type> LoadTypes<TAssignableFrom>()
-            => DungeonGlobal.Assemblies.Concat(DungeonGlobal.GameAssembly)
+            => DungeonGlobal.Assemblies.Concat(DungeonGlobal.GameAssembly.InEnumerable())
                 .SelectMany(x => x.GetTypesSafe().Where(t => typeof(TAssignableFrom).IsAssignableFrom(t)));
 
 

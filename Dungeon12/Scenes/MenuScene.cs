@@ -4,6 +4,7 @@ using Dungeon.Drawing.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using Dungeon.Types;
+using Dungeon12.SceneObjects;
 using Dungeon12.SceneObjects.UserInterface.Common;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,16 @@ namespace Dungeon12.Scenes
 
             //var snow = this.CreateLayer("snow");
             //snow.AddObject(new BackgroundSnow());
+        }
+
+        public override void Load()
+        {
+            this.Resources.Load("Main.ogg".AsmMusicRes());
+            this.Resources.Load("back.png".AsmImg());
+            this.Resources.Load("UI/btn_a.png".AsmImg());
+            this.Resources.Load("focus.wav".AsmSoundRes());
+            this.LoadBorders();
+            base.Load();
         }
 
         private void InitButtons(SceneLayer ui)

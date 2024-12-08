@@ -4,6 +4,7 @@ using Dungeon.Control.Pointer;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Types;
 using Dungeon.Varying;
+using MonoGame.Extended.Screens;
 
 namespace Dungeon12.SceneObjects.Map
 {

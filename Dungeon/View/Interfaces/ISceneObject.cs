@@ -99,7 +99,7 @@
         string Image { get; set; }
 
         /// <summary>
-        /// По умолчанию должен быть true
+        /// По умолчанию false
         /// </summary>
         bool Updatable { get; }
 

@@ -82,7 +82,7 @@ namespace Dungeon12.SceneObjects.RegionScreen
                     var counter = $"{component.Max}/{component.Max}".AsDrawText().SegoeUIBold().InSize(10).InColor(Global.CommonColor);
                     var measure = MeasureText(counter);
 
-                    var actualCounter = counter.Copy();
+                    var actualCounter = counter.Clone();
                     actualCounter.SetText($"{component.Value}/{component.Max}");
                     _counter = this.AddTextCenter(actualCounter);
                     _counter.Left = 284 - 12 - measure.X;

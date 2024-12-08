@@ -527,7 +527,7 @@ namespace Dungeon.Monogame
             {
                 Console.WriteLine("do not use it!");
                 var scaleVector = Vector2.Multiply(Vector2.One, (float)sceneObject.Scale);
-                font.DrawText(sb, text, new Vector2((int)x, (int)y), color, scaleVector,lineSpacing:lineSpace);
+                font.DrawText(sb, text, new Vector2((int)x, (int)y), color,scale: scaleVector,lineSpacing:lineSpace);
             }
             else
             {

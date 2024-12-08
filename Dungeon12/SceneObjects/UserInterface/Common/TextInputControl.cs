@@ -390,7 +390,7 @@
             {
                 if (IsCarriage)
                 {
-                    var carriagetext = text.Copy();
+                    var carriagetext = text.Clone();
                     carriagetext.SetText("|");
 
                     carriage = this.AddTextCenter(carriagetext);

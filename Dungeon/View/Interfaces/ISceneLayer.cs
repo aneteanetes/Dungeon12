@@ -14,7 +14,11 @@ namespace Dungeon.View.Interfaces
 
         List<ISceneControl> ActiveObjectControls { get; }
 
+        List<ISceneObject> UpdatableObjects { get; }
+
         IEffect[] SceneGlobalEffects { get; }
+
+        void Update(GameTimeLoop gameTime);
 
         double Width { get; }
 

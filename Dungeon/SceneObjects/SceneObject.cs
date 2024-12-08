@@ -428,6 +428,8 @@
 
         public IList<ISceneObject> Children { get; } = new List<ISceneObject>();
 
+        private List<ISceneObject> _updatableComponents=new List<ISceneObject>();
+
         /// <summary>
         /// Здесь обрабатываются всевозможные события например пересчёт уровней
         /// </summary>
@@ -447,6 +449,9 @@
             OnDestroy += () => sceneObject.Destroy();
 
             sceneObject.Parent = this;
+
+            if (sceneObject.Updatable)
+                _updatableComponents.Add(sceneObject);
 
             Children.Add(sceneObject);
             return sceneObject;
@@ -706,7 +711,7 @@
         /// </summary>
         public bool ScaleAndResize { get; set; }
 
-        public virtual bool Updatable => true;
+        public virtual bool Updatable => false;
 
         public bool Drawed { get; set; }
 
@@ -904,6 +909,12 @@
                     }
                 }
             }
+
+            foreach (var component in this._updatableComponents)
+            {
+                component.ComponentUpdateChainCall(gameTime);
+            }
+
             AfterUpdate?.Invoke(this);
         }
 

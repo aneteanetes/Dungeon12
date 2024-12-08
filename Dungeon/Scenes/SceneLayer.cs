@@ -1,4 +1,5 @@
-﻿using Dungeon.Control;
+﻿using Dungeon;
+using Dungeon.Control;
 using Dungeon.Control.Gamepad;
 using Dungeon.Control.Keys;
 using Dungeon.Control.Pointer;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
+using System.Reflection.Emit;
 
 namespace Dungeon.Scenes
 {
@@ -76,6 +78,15 @@ namespace Dungeon.Scenes
         public TSceneObject AddObject<TSceneObject>(TSceneObject sceneObject)
             where TSceneObject : ISceneObject
         {
+            if (sceneObject.Updatable)
+            {
+                this.UpdatableObjects.Add(sceneObject);
+                sceneObject.OnDestroy += () =>
+                {
+                    this.UpdatableObjects.Remove(sceneObject);
+                };
+            }
+
             sceneObject.Scene = this.Scene;
             sceneObject.HighLevelComponent = true;
             if (sceneObject.ControlBinding == null)
@@ -743,6 +754,8 @@ namespace Dungeon.Scenes
 
         public List<ISceneControl> ActiveObjectControls { get; set; } = new();
 
+        public List<ISceneObject> UpdatableObjects { get; set; } = new();
+
         public virtual void Destroy()
         {
             var sceneObjsForRemove = new List<ISceneObject>(SceneObjects);
@@ -755,6 +768,16 @@ namespace Dungeon.Scenes
 
             Destroyed=true;
             this.Owner=null;
+        }
+
+        public void Update(GameTimeLoop gameTime)
+        {
+            var updatables = UpdatableObjects;
+            for (int i = 0; i < updatables.Count; i++)
+            {
+                var updatable = updatables[i];
+                updatable.ComponentUpdateChainCall(gameTime);
+            }
         }
 
         //private static bool IntersectsPixel(Rectangle hitbox1, Texture2D texture1, Rectangle hitbox2, Texture2D texture2)

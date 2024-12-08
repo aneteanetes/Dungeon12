@@ -29,6 +29,7 @@ namespace Dungeon.Monogame
                         UpdateComponent(control, gameTimeLoop);
                     }
                 }
+                Scene.Update(gameTimeLoop);
             }
         }
 

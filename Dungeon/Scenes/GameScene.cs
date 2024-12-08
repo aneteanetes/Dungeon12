@@ -54,6 +54,14 @@
 
             base.Switch<T>(args);
         }
+
+        protected override void PreLoad<T>()
+        {
+            if (!AvailableScenes.Contains(typeof(T)))
+                throw new Exception($"Scene of type '{typeof(T)}' can't be switched from '{this.GetType()}' scene!");
+
+            base.PreLoad<T>();
+        }
     }
 
     /// <summary>

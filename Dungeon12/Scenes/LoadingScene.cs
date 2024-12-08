@@ -16,7 +16,7 @@ namespace Dungeon12.Scenes
         {
         }
 
-        public override void LoadResources()
+        public override void Load()
         {
             #region tileNames
             var tiles = new string[]{ "Images/Tiles/empty.png",

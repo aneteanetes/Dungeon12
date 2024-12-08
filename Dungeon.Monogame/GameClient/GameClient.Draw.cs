@@ -146,7 +146,10 @@ namespace Dungeon.Monogame
                         }
                 }
             }
-            DrawDebugInfo();
+            if (DungeonGlobal.Configuration.DrawDebugInfo)
+            {
+                DrawDebugInfo();
+            }
 
             LayerSpriteBatch.End();
 

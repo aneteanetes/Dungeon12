@@ -35,7 +35,7 @@ namespace Dungeon.Resources
 
         public Resource Load(string path)
         {
-            var res = ResourceLoader.Load(path);
+            var res = ResourceLoader.Load(path, caching: true);
             resources.Add(path, res);
             return res;
         }
@@ -55,6 +55,11 @@ namespace Dungeon.Resources
                 kv.Value.Dispose();
             }
             this.resources.Clear();
+        }
+
+        public void LoadFont(string fontName)
+        {
+            this.Load($"{DungeonGlobal.GameAssemblyName}.Resources.Fonts.ttf/{fontName}.ttf".Embedded());
         }
     }
 }

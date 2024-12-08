@@ -13,9 +13,9 @@
     {
         public void Music(string name, AudioOptions audioOptions = null)
         {
-//#if DisableSound
-            return;
-//#endif
+            if (!DungeonGlobal.Configuration.EnableSound)
+                return;
+
             var song = LoadSong(name);
             MediaPlayer.Stop();
             MediaPlayer.Play(song);
@@ -25,9 +25,9 @@
 
         public void Effect(string effect, AudioOptions audioOptions = null)
         {
-//#if DisableSound
-            return;
-//#endif
+            if (!DungeonGlobal.Configuration.EnableSound)
+                return;
+
             try
             {
                 var sound = LoadSound(effect).CreateInstance();

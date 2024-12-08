@@ -480,7 +480,11 @@ namespace Dungeon.Drawing
             return StringData;
         }
 
-        public IDrawText Copy()
+        /// <summary>
+        /// Копирует в новый экземпляр
+        /// </summary>
+        /// <returns></returns>
+        public IDrawText Clone()
         {
             var @new = new DrawText();
             @new.Size = this.Size;

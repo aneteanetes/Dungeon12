@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6</TargetFramework>
+    <TargetFramework>net8</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
     <OutputType>Library</OutputType>
@@ -34,15 +34,16 @@
     <MonoGameContentReference Remove="Content\Content.Android.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FontStashSharp.MonoGame" Version="1.2.8" />
-    <PackageReference Include="FontStashSharp.Rasterizers.StbTrueTypeSharp" Version="1.1.8" />
+    <PackageReference Include="FontStashSharp.MonoGame" Version="1.3.9" />
+    <PackageReference Include="FontStashSharp.Rasterizers.StbTrueTypeSharp" Version="1.1.9" />
+    <PackageReference Include="MonoGame.Extended" Version="4.0.3" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1700" />
     <PackageReference Include="NSubsys" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="StbImageWriteSharp" Version="1.16.7" />
-    <PackageReference Include="YAXLib" Version="4.0.0" />
+    <PackageReference Include="YAXLib" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dungeon\Dungeon.csproj" />

@@ -1,5 +1,6 @@
 ﻿using Dungeon.ECS;
 using Dungeon.Resources;
+using System;
 using System.Collections.Generic;
 
 namespace Dungeon.View.Interfaces
@@ -18,13 +19,19 @@ namespace Dungeon.View.Interfaces
 
         void Loaded();
 
+        void Update(GameTimeLoop gameTimeLoop);
+
         void AddSystem(ISystem system);
 
         TSystem GetSystem<TSystem>() where TSystem : ISystem;
 
         IEnumerable<ISystem> GetSystems();
 
-        void LoadResources();
+        void Load();
+
+        bool IsLoaded { get; set; }
+
+        bool IsInitialized { get; set; }
 
         Resource GetResource(string name);
 
