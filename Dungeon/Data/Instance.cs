@@ -13,6 +13,6 @@ namespace Dungeon.Data
 
         private readonly Type value;
 
-        public T Value<T>(params object[] args) => value.NewAs<T>(args);
+        public T Value<T>(params object[] args) => value.New(args).As<T>();
     }
 }

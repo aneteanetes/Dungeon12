@@ -1,5 +1,4 @@
 ﻿using Dungeon.SceneObjects.Grouping;
-using Dungeon12.Entities.Turning;
 
 namespace Dungeon12.Entities.Objects.OnMap
 {
@@ -10,7 +9,7 @@ namespace Dungeon12.Entities.Objects.OnMap
         public HeroMapObject(Hero hero)
         {
             _hero=hero;
-            _hero.OnSelect(() => Selected.True());
+            //_hero.OnSelect(() => Selected.True());
             GameObject=hero;
         }
 
@@ -20,15 +19,7 @@ namespace Dungeon12.Entities.Objects.OnMap
 
         public override void Select()
         {
-            if (this.Selected)
-                return;
-
-            var turn = Global.Game.Turns.TurnHero(_hero);
-            if (turn.IsSuccess())
-            {
-                this.Selected.True();
-                _hero.IsActive.True();
-            }
+            
         }
     }
 }

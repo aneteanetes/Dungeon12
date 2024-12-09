@@ -100,7 +100,7 @@ namespace Dungeon12.Entities.Enums
             {
                 Title = skill.Localized(),
                 Icon = $"AbilitiesPeacefull/{skill}.tga",
-                Rank = Ranks.Novice.Localized(),
+                //Rank = Ranks.Novice.Localized(),
                 Subtype = "Skill".Localized(),
                 Text= Global.Strings.Description[skill.ToString()],
                 SizeSettings = new Square() { Width=308 },

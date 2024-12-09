@@ -87,7 +87,7 @@ namespace Dungeon.SceneObjects
         {
             var msgBox = new MessageBox(text,ok);
             DungeonGlobal.Freezer.World = msgBox;            
-            DungeonGlobal.SceneManager.CurrentScene.ShowEffectsBinding(msgBox.InList<ISceneObject>());
+            DungeonGlobal.SceneManager.Current.ShowEffectsBinding(msgBox.InList<ISceneObject>());
             return msgBox;
         }
     }

@@ -40,29 +40,7 @@
 
         public PartySceneObject(Party party) : base(party)
         {
-            Hero1 = new HeroSceneObject(party.Hero1)
-            {
-                LayerLevel = 4
-            };
-            Hero2 = new HeroSceneObject(party.Hero2)
-            {
-                LayerLevel = 1
-            };
-            Hero3 = new HeroSceneObject(party.Hero3)
-            {
-                LayerLevel = 2
-            };
-            Hero4 = new HeroSceneObject(party.Hero4)
-            {
-                LayerLevel = 3
-            };
-
-            this.AddChild(Hero2);
-            this.AddChild(Hero3);
-            this.AddChild(Hero4);
-            this.AddChild(Hero1);
-
-            Heroes = new HeroSceneObject[] { Hero1, Hero2, Hero3, Hero4 };
+            
         }
 
         public override double Left => 0; // ((Global.Game?.Location?.Position?.X ?? 0)+417.5d)-30;

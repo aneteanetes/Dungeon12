@@ -4,15 +4,17 @@ using Dungeon.Drawing.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using Dungeon.Types;
-using Dungeon12.SceneObjects;
+using Dungeon12.Extensions.Resources;
 using Dungeon12.SceneObjects.UserInterface.Common;
+using Dungeon12.Scenes.Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Dungeon12.Scenes
 {
-    internal class MenuScene : GameScene<TCGScene, CreateScene,GlobalMapScene>
+    [EntryScene]
+    internal class MenuScene : GameScene<NabLoadingScreen, TCGScene, CreateScene,GlobalMapScene>
     {
         public MenuScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -39,8 +41,12 @@ namespace Dungeon12.Scenes
             //snow.AddObject(new BackgroundSnow());
         }
 
+        private int counter = 0;
+
         public override void Load()
         {
+            counter++;
+            Console.WriteLine($"counter: {counter}");
             this.Resources.Load("Main.ogg".AsmMusicRes());
             this.Resources.Load("back.png".AsmImg());
             this.Resources.Load("UI/btn_a.png".AsmImg());
@@ -54,11 +60,11 @@ namespace Dungeon12.Scenes
             var data = new (string text, Action click, bool disabled)[]
             {
                 (Strings["NewGame"],NewGame,false),
-                (Strings["Save"],SaveGame,!InGame),
-                (Strings["NewScene"],GlobalMap,!InGame),
-                (Strings["Load"],LoadGame,true),
-                (Strings["Settings"],Settings,true),
-                (Strings["Credits"],TCG,true),
+                //(Strings["Save"],SaveGame,!InGame),
+                //(Strings["NewScene"],GlobalMap,!InGame),
+                //(Strings["Load"],LoadGame,true),
+                //(Strings["Settings"],Settings,true),
+                //(Strings["Credits"],TCG,false),
                 (Strings["ExitGame"],Exit,false)
             };
 

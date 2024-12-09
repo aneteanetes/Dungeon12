@@ -3,7 +3,7 @@ using Dungeon.Scenes.Manager;
 
 namespace Dungeon.Scenes
 {
-    public class @Sys_Clear_Screen : StartScene
+    public class @Sys_Clear_Screen : GameScene
     {
         public Sys_Clear_Screen(SceneManager sceneManager) : base(sceneManager) { }
 

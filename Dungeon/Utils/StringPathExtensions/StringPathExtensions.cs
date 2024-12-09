@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Dungeon.View.Interfaces;
@@ -18,13 +19,13 @@ namespace Dungeon
             return imgPath;
         }
 
-        private static Dictionary<string, string> cache = new Dictionary<string, string>();
+        private static ConcurrentDictionary<string, string> cache = new ConcurrentDictionary<string, string>();
 
         public static string Embedded(this string path)
         {
             if(!cache.ContainsKey(path))
             {
-                cache.Add(path, path.Replace(@"\", ".").Replace(@"/", "."));
+                cache.TryAdd(path, path.Replace(@"\", ".").Replace(@"/", "."));
             }
             return cache[path];
         }

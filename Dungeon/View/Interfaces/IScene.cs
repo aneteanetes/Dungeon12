@@ -34,7 +34,5 @@ namespace Dungeon.View.Interfaces
         bool IsInitialized { get; set; }
 
         Resource GetResource(string name);
-
-        bool IsPreloadedScene {  get; }
     }
 }

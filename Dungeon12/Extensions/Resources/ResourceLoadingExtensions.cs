@@ -1,7 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Scenes;
 
-namespace Dungeon12.SceneObjects
+namespace Dungeon12.Extensions.Resources
 {
     internal static class ResourceLoadingExtensions
     {

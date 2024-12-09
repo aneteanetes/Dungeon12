@@ -13,17 +13,17 @@ namespace Dungeon12.SceneObjects.World
             Width = WorldSettings.cellSize;
             Height = WorldSettings.cellSize;
 
-            h1 = this.AddChild(new WorldHeroSceneObject(component.Hero2)); // mage
+            h1 = this.AddChild(new WorldHeroSceneObject(component.Second)); // mage
             h1.SetSlot(Compass.North);
 
             //component.Hero1.IsSelected = true;
-            h2 = this.AddChild(new WorldHeroSceneObject(component.Hero1)); // warrior
+            h2 = this.AddChild(new WorldHeroSceneObject(component.First)); // warrior
             h2.SetSlot(Compass.West);
 
-            h3 =this.AddChild(new WorldHeroSceneObject(component.Hero4)); // priest
+            h3 =this.AddChild(new WorldHeroSceneObject(component.Fourth)); // priest
             h3.SetSlot(Compass.East);
 
-            h4 = this.AddChild(new WorldHeroSceneObject(component.Hero3)); // thief
+            h4 = this.AddChild(new WorldHeroSceneObject(component.Third)); // thief
             h4.SetSlot(Compass.South);
         }
 

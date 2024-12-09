@@ -1,7 +1,4 @@
-﻿using Dungeon.View.Interfaces;
-using Dungeon;
-
-namespace Dungeon.Scenes
+﻿namespace Dungeon.Scenes
 {
     using Dungeon.Control;
     using Dungeon.Control.Gamepad;
@@ -10,13 +7,11 @@ namespace Dungeon.Scenes
     using Dungeon.ECS;
     using Dungeon.Resources;
     using Dungeon.Scenes.Manager;
-    using Dungeon.Settings;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Reflection.Emit;
 
     public abstract class Scene : IScene
     {
@@ -347,17 +342,12 @@ namespace Dungeon.Scenes
 
         public virtual void Activate()
         {
-            this.sceneManager.GameClient.SetScene(this);
+            this.sceneManager.GameClient.ChangeScene(this);
         }
 
         protected virtual void Switch<T>(params string[] args) where T : GameScene
         {
-            this.sceneManager.Change<T>(args);
-        }
-
-        protected virtual void PreLoad<T>() where T : GameScene
-        {
-            this.sceneManager.PreLoad<T>();
+            this.sceneManager.Switch<T>(args);
         }
 
         public bool Destroyed { get; private set; } = false;
@@ -368,8 +358,6 @@ namespace Dungeon.Scenes
         public ISceneLayer[] Layers => LayerList.ToArray();
 
         public List<ISystem> Systems { get; set; } = new List<ISystem>();
-
-        public virtual bool IsPreloadedScene => false;
 
         public bool IsLoaded { get; set; }
 
@@ -388,8 +376,6 @@ namespace Dungeon.Scenes
         public TSystem GetSystem<TSystem>() where TSystem : ISystem
             => Systems.FirstOrDefault(s => s.Is<TSystem>()).As<TSystem>();
 
-
-
         public virtual void Destroy()
         {
             foreach (var l in LayerList)
@@ -403,7 +389,7 @@ namespace Dungeon.Scenes
 
             if (!ResourceLoader.Settings.IsEmbeddedMode && !ResourceLoader.Settings.NotDisposingResources)
             {
-                Resources.Dispose();
+                Resources?.Dispose();
                 Resources = null;
             }
             GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);

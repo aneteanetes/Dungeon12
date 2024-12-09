@@ -45,15 +45,5 @@ namespace Dungeon12
         public static DrawColor FractionColorVanguard { get; } = new DrawColor(10, 7, 105);
 
         public static GlobalWindows Windows { get; set; } = new GlobalWindows();
-
-        public static Spec DemoSpecNPC() => Game.Party.Hero1.Spec switch
-        {
-            Spec.WarriorWarchief => Spec.PaladinAdept,
-            Spec.MageAoe => Spec.MercenaryLeader,
-            Spec.MercenaryLeader => Spec.MageAoe,
-            Spec.PaladinAdept => Spec.WarriorWarchief,
-            Spec.WarlockNecromancer => Spec.WarriorWarchief,
-            _ => Spec.InquisitorJudge,
-        };
     }
 }

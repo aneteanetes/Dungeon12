@@ -46,12 +46,7 @@ namespace Dungeon12.SceneObjects.Create
                 Left = 133
             });
 
-            Component.ClassChange += (was, now) =>
-            {
-                AvatarViewer.Image = $"Avatars/{now.Short()}{index}.png".AsmImg();
-            };
             Component.Avatar = AvatarViewer.Image;
-            Component.Sex = Component.Archetype.Sex(index);
         }
 
         private void Leaf(bool next)
@@ -73,7 +68,6 @@ namespace Dungeon12.SceneObjects.Create
 
             AvatarViewer.Image = $"Avatars/{Component.Archetype.Short()}{index}.png".AsmImg();
             Component.Avatar = AvatarViewer.Image;
-            Component.Sex = Component.Archetype.Sex(index);
         }
 
         private class IndexButton : EmptySceneControl, ITooltipedDrawText

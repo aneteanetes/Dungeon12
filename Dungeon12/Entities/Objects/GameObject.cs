@@ -1,5 +1,4 @@
 ﻿using Dungeon;
-using Dungeon12.Entities.Turning;
 
 namespace Dungeon12.Entities.Objects
 {
@@ -47,13 +46,7 @@ namespace Dungeon12.Entities.Objects
 
         public virtual GameObjectType GameType => GameObjectType.Object;
 
-        public virtual IEnumerable<Turn> GetTurns() => new Turn(this) { Initiative=(int)this.Initiative.FlatValue }.InEnumerable();
 
         public override string ToString()=> GlobalId.ToString();
-
-        /// <summary>
-        /// skip available
-        /// </summary>
-        public virtual TurnType DoTurn() => TurnType.Next;
     }
 }

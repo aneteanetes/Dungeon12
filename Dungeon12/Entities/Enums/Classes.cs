@@ -1,17 +1,16 @@
-﻿using Dungeon;
-using Dungeon12.Attributes;
+﻿using Dungeon12.Attributes;
 
 namespace Dungeon12.Entities.Enums
 {
     internal enum Classes
     {
-        _default,
+        Peasant,
 
         //warriors
         Monk,
         Knight,
         Shaman,
-        [EnumDot(7,2)]
+        [EnumDot(7, 2)]
         Warrior = 1,
         Templar,
         DeathKnight,

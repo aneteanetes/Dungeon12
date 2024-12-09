@@ -3,11 +3,16 @@
     using Dungeon.Settings;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
+    using Geranium.Reflection;
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
     using System.Threading;
+    using System.Threading.Tasks;
+    using static System.Net.Mime.MediaTypeNames;
 
     public class SceneManager
     {
@@ -25,9 +30,10 @@
 
         public IGameClient GameClient { get; }
 
-        private readonly Dictionary<Type, GameScene> SceneCache = new Dictionary<Type, GameScene>();
+        private readonly ConcurrentDictionary<Type, GameScene> SceneCache = new ConcurrentDictionary<Type, GameScene>();
 
         private GameScene _current;
+
         public GameScene Current
         {
             get
@@ -36,66 +42,18 @@
                     ? null 
                     : _current;
             }
-
         }
-        public GameScene Preapering = null;
-
-        public GameScene CurrentScene { get; set; }
-
-        public Type LoadingScreenType { get; set; }
 
         public bool IsSwitching { get; set; }
 
         public void Start(params string[] args)
         {
-            Type startSceneType = null;
+            var startScene = DungeonGlobal.GameAssembly.GetTypes().FirstOrDefault(x =>  x.Is<GameScene>() && x.IsAttributeExists<EntrySceneAttribute>());
 
-            DungeonGlobal.Assemblies.FirstOrDefault(asm =>
-            {
-                var type = asm.GetTypes().FirstOrDefault(t => t?.BaseType?.Name?.Contains("StartScene") ?? false);
-                if (type == null)
-                {
-                    return false;
-                }
+            if (startScene == null)
+                throw new InvalidOperationException("Невозможно запустить игру без стартовой сцены!");
 
-                if (!type.IsGenericType)
-                {
-                    startSceneType = type;
-                    return true;
-                }
-
-                return false;
-            });
-
-            DungeonGlobal.GameAssemblyName = startSceneType.Assembly.GetName().Name;
-            DungeonGlobal.GameAssembly = startSceneType.Assembly;
-
-            DungeonGlobal.Assemblies.FirstOrDefault(asm =>
-            {
-                try
-                {
-                    var type = asm.GetTypes().FirstOrDefault(t => t?.BaseType?.Name?.Contains("LoadingScene") ?? false);
-                    if (type == null)
-                    {
-                        return false;
-                    }
-
-                    if (!type.IsGenericType)
-                    {
-                        LoadingScreenType = type;
-                        type.New();
-                        return true;
-                    }
-
-                }
-                catch { }
-                return false;
-            });
-
-            if (startSceneType != null)
-            {
-                Change(startSceneType, args);
-            }
+            Switch(startScene, args);
         }
 
         /// <summary>
@@ -108,196 +66,162 @@
 
             if (SceneCache.TryGetValue(sceneType, out var existedScene))
             {
-                SceneCache.Remove(sceneType);
-                existedScene.Destroy();
-                if(existedScene.Loadable)
-                {
-                    LoadingScreen.Then(c => c.Dispose());
-                }
+                SceneCache.TryRemove(sceneType, out var scene);
+                scene.Destroy();
             }
         }
 
         public void Switch<TScene>(params string[] args) where TScene : GameScene
-        {
-            if (_current?.Loadable ?? false)
-                LoadingScreenCustom(_current.LoadArguments).Then(cb =>
-                {
-                    SwitchImplementation<TScene>(args);
-                    cb.Dispose();
-                });
-            else
-                SwitchImplementation<TScene>(args);
-        }
+            => Switch(typeof(TScene), args);
 
-        public void PreLoad<TScene>() where TScene : GameScene
-        {
-            new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-
-                var sceneType = typeof(TScene);
-                if (!SceneCache.TryGetValue(sceneType, out GameScene next))
-                {
-                    next = sceneType.New<TScene>(this);
-                    SceneCache.Add(typeof(TScene), next);
-                    next.Load();
-                    next.IsLoaded = true;
-                }
-            }).Start();
-        }
-
-        public Callback Loading => LoadingScreen;
-
-        public Callback LoadingScreen
-        {
-            get
-            {
-                var loading = LoadingScreenType.NewAs<LoadingScene>();
-                loading.Initialize();
-                return GameClient.SetScene(loading);
-            }
-        }
-
-        public Callback LoadingScreenCustom(params object[] args)
-        {
-            var loading = LoadingScreenType.NewAs<LoadingScene>(2, args);
-            loading.Initialize();
-            return GameClient.SetScene(loading);
-        }
-
-        private void SwitchImplementation<TScene>(string[] args) where TScene : GameScene
+        public void Switch(Type sceneType, params string[] args)
         {
             IsSwitching = true;
 
-            // вначале уничтожаем сцену, потому что если мы
-            // хотим переключить на ту же самую сцену,
-            // она будет в кэше и не будет создана т.к.
-            // будет в состоянии "не удаляемой"
-            if (_current?.Destroyable ?? false)
+            var loadingScreenType = GetLoadingGameScene(sceneType);
+            if (loadingScreenType != null)
             {
-                SceneCache.Remove(_current.GetType());
-                _current.Destroy();
-            }
+                LoadingScreen loadingScreen = null;
 
-            var sceneType = typeof(TScene);
-
-            if (!SceneCache.TryGetValue(sceneType, out GameScene next))
-            {
-                next = sceneType.New<TScene>(this);
-                SceneCache.Add(typeof(TScene), next);
-
-                Populate(_current, next, args);
-                Preapering = next;
-                CurrentScene = Preapering;
-                next.Load();
-                next.IsLoaded = true;
-
-                next.Initialize();
-                next.IsInitialized = true;
-
-            }
-            else if (!next.IsInitialized)
-            {
-                Populate(_current, next, args);
-                Preapering = next;
-                CurrentScene = Preapering;
-                next.Initialize();
-                next.IsInitialized = true;
-            }
-
-            //Если мы переключаем сцену, а она в это время фризит мир - надо освободить мир
-            if (_current?.Freezer != null)
-            {
-                DungeonGlobal.Freezer.World = null;
-            }
-
-            // удаляем ссылки
-            if (_current.Destroyable)
-                _current.sceneManager=null;
-
-
-            Preapering = next;
-            CurrentScene = Preapering;
-
-            _current=next;
-            //Если мы переключаем сцену, а в следующей есть фризер - значит надо восстановить её состояние
-            if (next.Freezer != null)
-            {
-                DungeonGlobal.Freezer.World = next.Freezer;
-            }
-
-            _current.Activate();
-            CurrentScene = _current;
-
-            IsSwitching = false;
-            _current.Loaded();
-        }
-
-        public void Change<TScene>(params string[] args) where TScene : GameScene => Switch<TScene>(args);
-
-        public void Change(Type sceneType, params string[] args)
-        {
-            if (_current?.Loadable ?? false)
-                LoadingScreenCustom(_current.LoadArguments).Then(cb =>
+                // если есть загрузочный экран, запускаем его
+                if (loadingScreenType.Is<LoadingScreen>())
                 {
-                    ChangeImplementation(sceneType, args);
-                    cb.Dispose();
-                });
-            else
-                ChangeImplementation(sceneType, args);
-        }
-
-        private void ChangeImplementation(Type sceneType, string[] args)
-        {
-            IsSwitching=true;
-
-            if (_current?.Destroyable ?? false)
-            {
-                SceneCache.Remove(_current.GetType());
-            }
-
-            if (!SceneCache.TryGetValue(sceneType, out GameScene next))
-            {
-                next = sceneType.NewAs<GameScene>(this);
-                SceneCache.Add(sceneType, next);
-
-                Populate(_current, next);
-                Preapering = next;
-                CurrentScene = Preapering;
-                next.Args = args;
-                ProcessArgs(next);
-                next.Initialize();
-                if (next is StartScene nextStartScene)
-                {
-                    if (nextStartScene.IsFatalException)
+                    loadingScreen = InstantiateLoadingScreen(loadingScreenType, () =>
                     {
-                        nextStartScene.FatalException();
-                    }
+                        Loading(sceneType);
+                        SceneCache.TryRemove(loadingScreenType, out var loadscreen);
+                        loadscreen.Destroy();
+                    }).As<LoadingScreen>();
                 }
             }
-
-            Preapering = next;
-            CurrentScene = Preapering;
-            _current = next;
-
-            _current.Args = args;
-            _current.Activate();
-            CurrentScene = _current;
-
-            IsSwitching = false;
-            _current.Loaded();
+            else
+            {
+                Loading(sceneType);
+            }
         }
 
-        private void ProcessArgs(GameScene scene)
+        /// <summary>
+        /// 
+        /// <para>
+        /// [Кэшируемый]
+        /// </para>
+        /// </summary>
+        public Type GetLoadingGameScene(Type type)
         {
-            var arg = scene.Args?.ElementAtOrDefault(0);
-            if (arg != default)
+            if (!___IsLoadingGameSceneCache.TryGetValue(type, out var value))
             {
-                if (bool.TryParse(arg, out var isInGame))
-                {
-                    scene.InGame = isInGame;
-                }
+                value = GetLoadingGameSceneImplimentation(type);
+                ___IsLoadingGameSceneCache.AddOrUpdate(type, value, (x, y) => value);
             }
+
+            return value;
+        }
+        private static ConcurrentDictionary<Type, Type> ___IsLoadingGameSceneCache = new();
+
+        private Type GetLoadingGameSceneImplimentation(Type sceneType)
+        {
+            if (sceneType == null)
+                return null;
+
+            if (sceneType.IsGenericType)
+            {
+                var loadingScreenType = sceneType.GetGenericArguments()[0];
+                if (loadingScreenType.Is<LoadingScreen>())
+                    return loadingScreenType;
+
+                return GetLoadingGameSceneImplimentation(sceneType.BaseType);
+            }
+            else
+            {
+                return GetLoadingGameSceneImplimentation(sceneType.BaseType);
+            }
+        }
+
+        private void Loading(Type sceneType)
+        {
+            var loadingTask = new Task(() => { });
+
+            // уничтожаем сцену, потому что если переключаем на ту же самую сцену,
+            // она будет в кэше и не будет пересоздана (станет не удаляемая)
+            if (_current?.Destroyable ?? false)
+            {
+                SceneCache.TryRemove(_current.GetType(), out var scene);
+
+                loadingTask = new Task(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    scene.Destroy();
+                });
+            }
+
+            loadingTask.ContinueWith(t =>
+            {
+                var next = InstantiateScene(sceneType);
+
+                //Если мы переключаем сцену, а что-то на ней в это время фризит мир - надо освободить мир
+                if (_current?.Freezer != null)
+                {
+                    DungeonGlobal.Freezer.World = null;
+                }
+
+                // удаляем ссылки
+                if (_current?.Destroyable ?? false)
+                    _current.sceneManager = null;
+
+                _current = next;
+                //Если мы переключаем сцену, а в следующей есть фризер - значит надо восстановить её состояние
+                if (next.Freezer != null)
+                {
+                    DungeonGlobal.Freezer.World = next.Freezer;
+                }
+
+                IsSwitching = false;
+                _current.Loaded();
+
+                _current.Activate();
+            });
+
+            loadingTask.Start();
+        }
+
+        private GameScene InstantiateScene(Type sceneType, params string[] args)
+        {
+            if (!SceneCache.TryGetValue(sceneType, out GameScene scene))
+            {
+                scene = sceneType.New(this).As<GameScene>();
+                SceneCache.TryAdd(sceneType, scene);
+
+                Populate(_current, scene, args);
+
+                scene.Load();
+                scene.IsLoaded = true;
+                scene.Loaded();
+
+                scene.Initialize();
+                scene.IsInitialized = true;
+            }
+
+            return scene;
+        }
+
+        private GameScene InstantiateLoadingScreen(Type sceneType, Action onLoadComplete)
+        {
+            if (!SceneCache.TryGetValue(sceneType, out GameScene scene))
+            {
+                scene = sceneType.New(this, onLoadComplete).As<GameScene>();
+                SceneCache.TryAdd(sceneType, scene);
+
+                scene.Load();
+                scene.IsLoaded = true;
+                scene.Loaded();
+
+                scene.Initialize();
+                scene.IsInitialized = true;
+            }
+
+            scene.Activate();
+
+            return scene;
         }
 
         private static void Populate(GameScene previous, GameScene next, string[] args = default)

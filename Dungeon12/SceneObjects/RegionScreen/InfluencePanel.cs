@@ -34,7 +34,7 @@ namespace Dungeon12.SceneObjects.RegionScreen
 
             var top = 65;
 
-            foreach (var frac in new Fraction[] { Fraction.Vanguard, Fraction.MageGuild, Fraction.Mercenary, Fraction.Exarch, Fraction.Cult })
+            foreach (var frac in new Fraction[] { Fraction.Vanguard, Fraction.MageCircle, Fraction.ShadowGuild, Fraction.Exarchate, Fraction.DeathCult })
             {
                 this.AddChild(new InfluencePlate(component, frac, false)
                 {
@@ -63,10 +63,10 @@ namespace Dungeon12.SceneObjects.RegionScreen
                 {
                     //case Fraction.Neutral: postfix = "_n"; break;
                     case Fraction.Vanguard: postfix = "_v"; break;
-                    case Fraction.MageGuild: postfix = "_m"; break;
-                    case Fraction.Mercenary: postfix = "_r"; break;
-                    case Fraction.Exarch: postfix = "_e"; break;
-                    case Fraction.Cult: postfix = "_c"; break;
+                    case Fraction.MageCircle: postfix = "_m"; break;
+                    case Fraction.ShadowGuild: postfix = "_r"; break;
+                    case Fraction.Exarchate: postfix = "_e"; break;
+                    case Fraction.DeathCult: postfix = "_c"; break;
                     //case Fraction.Friendly:
                     default:
                         break;

@@ -18,7 +18,7 @@ namespace Dungeon
 
         internal TimerTrigger(string name)
         {
-            ActiveScene = DungeonGlobal.SceneManager?.CurrentScene;
+            ActiveScene = DungeonGlobal.SceneManager?.Current;
             this.name = name;
         }
 

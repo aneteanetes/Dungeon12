@@ -6,15 +6,6 @@
 
     public static class IsEmptyExtension
     {
-        public static bool IsNotEmpty<T>(this IEnumerable<T> @enum)
-        {
-            if (@enum is string str)
-                return !string.IsNullOrWhiteSpace(str);
-
-            return @enum != null && @enum.Count() > 0;
-        }
-
-        public static bool IsEmpty<T>(this IEnumerable<T> @enum) => !IsNotEmpty<T>(@enum);
 
         public static void ForEach<T>(this IEnumerable<T> @enum, Action<T> action)
         {

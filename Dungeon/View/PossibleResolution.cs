@@ -1,4 +1,6 @@
-﻿namespace Dungeon.View
+﻿using System.Runtime.CompilerServices;
+
+namespace Dungeon.View
 {
     public class PossibleResolution
     {
@@ -13,6 +15,18 @@
         public int Width { get; set; }
 
         public int Height { get; set; }
+
+        public double CenterH(double width)
+        {
+            var w = (double)this.Width;
+            return w / 2 - width / 2;
+        }
+
+        public double CenterV(double height)
+        {
+            var h = (double)this.Height;
+            return h / 2 - height / 2;
+        }
 
         public override bool Equals(object obj)
         {

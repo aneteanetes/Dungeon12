@@ -1,4 +1,7 @@
 {
+  "Yes": "Да",
+  "AreYouSureAbort": "Вы уверены что хотите отменить операцию?",
+  "Complete": "Готово",
   "Vanguard-whom": "Авангарда",
   "MageGuild-whom": "Круга",
   "Mercenary-whom": "Гильдии",

@@ -31,7 +31,7 @@ namespace Dungeon12.SceneObjects.MUD.Controls
                 Left = 120,
                 Top=40
             });
-            AddChild(new ControlButton('p', "Книга порталов", QuestWindow, !Global.Game.Party.PortalsActive)
+            AddChild(new ControlButton('p', "Книга порталов", QuestWindow, true)
             {
                 Left = 210,
                 Top=40

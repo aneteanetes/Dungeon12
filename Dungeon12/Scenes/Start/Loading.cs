@@ -60,7 +60,7 @@ namespace Dungeon12.Scenes.Start
 
         public override void Update(GameTimeLoop gameTime)
         {
-            if (gameTime.TotalGameTime - gameTimePrev.TotalGameTime >= TimeSpan.FromSeconds(.8))
+            if (gameTime.TotalGameTime - gameTimePrev.TotalGameTime >= TimeSpan.FromSeconds(.2))
             {
                 if (dot3.Visible)
                 {

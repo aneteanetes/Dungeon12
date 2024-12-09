@@ -23,28 +23,25 @@ namespace Dungeon.Monogame
                 SceneLayers.Clear();
 
                 SceneLayers = new Dictionary<ISceneLayer, RenderTarget2D>();
-                //if (value.Is<Scenes.Sys_Clear_Screen>())
-                //{
-                //    GraphicsDevice.Clear(Color.Black);
-                //}
                 _scene = value;
             }
         }
 
-        public Callback SetScene(IScene scene)
+        public void ValidateAndChangeScene()
         {
-            this.Scene = scene;
-            сallback = new Callback(() =>
+            if (_nextScene != null)
             {
-                scene.Destroy();
-            });
-
-            if (drawCicled)
-            {
-                skipCallback = true;
+                _scene?.Destroy();
+                Scene = _nextScene;
+                _nextScene = null;
             }
+        }
 
-            return сallback;
+        private IScene _nextScene;
+
+        public void ChangeScene(IScene scene)
+        {
+            _nextScene = scene;
         }
     }
 }

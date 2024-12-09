@@ -6,10 +6,11 @@ using Dungeon12.ECS.Systems;
 using Dungeon12.SceneObjects.HeroPanelObjs;
 using Dungeon12.SceneObjects.RegionScreen;
 using Dungeon12.SceneObjects.Stats;
+using Dungeon12.Scenes.Start;
 
 namespace Dungeon12.Scenes
 {
-    internal class RegionScene : GameScene<MenuScene, RegionScene>
+    internal class RegionScene : GameScene<NabLoadingScreen, MenuScene, RegionScene>
     {
         public RegionScene(SceneManager sceneManager) : base(sceneManager)
         {
@@ -39,29 +40,29 @@ namespace Dungeon12.Scenes
 
             //ui.AddObject(new ButtonPanel());
 
-            ui.AddObject(new HeroPanel(Global.Game.Party.Hero1)
-            {
-                Left = 427,
-                Top = 887
-            });
+            //ui.AddObject(new HeroPanel(Global.Game.Party.Hero1)
+            //{
+            //    Left = 427,
+            //    Top = 887
+            //});
 
-            ui.AddObject(new HeroPanel(Global.Game.Party.Hero2)
-            {
-                Left = 712,
-                Top = 887
-            });
+            //ui.AddObject(new HeroPanel(Global.Game.Party.Hero2)
+            //{
+            //    Left = 712,
+            //    Top = 887
+            //});
 
-            ui.AddObject(new HeroPanel(Global.Game.Party.Hero3)
-            {
-                Left = 997,
-                Top = 887
-            });
+            //ui.AddObject(new HeroPanel(Global.Game.Party.Hero3)
+            //{
+            //    Left = 997,
+            //    Top = 887
+            //});
 
-            ui.AddObject(new HeroPanel(Global.Game.Party.Hero4)
-            {
-                Left = 1282,
-                Top = 887
-            });
+            //ui.AddObject(new HeroPanel(Global.Game.Party.Hero4)
+            //{
+            //    Left = 1282,
+            //    Top = 887
+            //});
 
             //ui.AddObject(new FoodPanel(Global.Game.Party)
             //{

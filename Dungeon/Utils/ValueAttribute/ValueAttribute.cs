@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Runtime.CompilerServices;
 
     [System.AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = false)]
     public class ValueAttribute : Attribute
@@ -113,5 +114,8 @@
 
             return field.Value<TAttribute, TResult>();
         }
+
+        public static bool IsAttributeExists<TAttribute>(this Type type) where TAttribute : Attribute 
+            => Attribute.GetCustomAttributes(type, typeof(TAttribute)).Length != 0;
     }
 }

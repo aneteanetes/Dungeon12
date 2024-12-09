@@ -31,9 +31,9 @@ namespace Dungeon12
 
             try
             {
-                Console.WriteLine($"{sceneObject.Uid}.{property} was: {sceneObject.GetPropertyExprRaw(property)}");
+                Console.WriteLine($"{sceneObject.Uid}.{property} was: {sceneObject.GetPropValue(property)}");
                 sceneObject.SetPropertyExprConverted(property, value);
-                Console.WriteLine($"{sceneObject.Uid}.{property} now: {sceneObject.GetPropertyExprRaw(property)}");
+                Console.WriteLine($"{sceneObject.Uid}.{property} now: {sceneObject.GetPropValue(property)}");
             }
             catch
             {
@@ -54,7 +54,7 @@ namespace Dungeon12
 
             try
             {
-                Console.WriteLine($"{sceneObject.Uid}.{property} now: {sceneObject.GetPropertyExprRaw(property)}");
+                Console.WriteLine($"{sceneObject.Uid}.{property} now: {sceneObject.GetPropValue(property)}");
             }
             catch
             {

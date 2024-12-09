@@ -27,7 +27,7 @@ namespace Dungeon.Entities
 
         public static TEntity Load(string id)
         {
-            var entity = typeof(TEntity).New<TEntity>();
+            var entity = typeof(TEntity).NewAs<TEntity>();
             if (entity == default)
                 return default;
 
@@ -42,7 +42,7 @@ namespace Dungeon.Entities
 
         public static TEntity Load(Expression<Func<TPersist, bool>> filterOne, object cacheObject=default)
         {
-            var entity = typeof(TEntity).New<TEntity>();
+            var entity = typeof(TEntity).NewAs<TEntity>();
             var dataClass = Store.Entity(filterOne, cacheObject).FirstOrDefault();
             if (dataClass != default)
             {
@@ -59,7 +59,7 @@ namespace Dungeon.Entities
             var dataClasses = Store.Entity(filter, cacheObject).ToList();
             foreach (var dataClass in dataClasses)
             {
-                var entity = typeof(TEntity).New<TEntity>();
+                var entity = typeof(TEntity).NewAs<TEntity>();
                 entity.Init(dataClass);
                 entities.Add(entity);
             }

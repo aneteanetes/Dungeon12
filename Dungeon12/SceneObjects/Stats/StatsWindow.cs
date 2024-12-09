@@ -17,7 +17,7 @@ namespace Dungeon12.SceneObjects.Stats
         ClassBadge _class;
         InventorySceneObject _inventory;
 
-        public StatsWindow(ISceneLayer layer) : base(Global.Game.Party.Hero1)
+        public StatsWindow(ISceneLayer layer) : base(Global.Game.Party.First)
         {
             this.Layer = layer;
             this.Width=1141;
@@ -69,7 +69,7 @@ namespace Dungeon12.SceneObjects.Stats
             index--;
             if (index<0)
                 index= 3;
-            Fill(Global.Game.Party.Heroes[index]);
+            Fill(Global.Game.Party[index]);
         }
 
         private void SlideForward()
@@ -77,7 +77,7 @@ namespace Dungeon12.SceneObjects.Stats
             index++;
             if (index>3)
                 index= 0;
-            Fill(Global.Game.Party.Heroes[index]);
+            Fill(Global.Game.Party[index]);
         }
 
         private ParamBinder binderCommon;
@@ -104,25 +104,25 @@ namespace Dungeon12.SceneObjects.Stats
                 var text = TextGab(skillName);
                 var hint = new TextObjectHint(text, skillName, skillName, Global.Strings.Description[sEnum]) { Left= leftSkill, Top= topSkill };
                 var sk = this.AddChild(hint);
-                var skv = this.AddTextPos(TextSeg(hero.SkillValue(s).ToString(), 18), 193, topSkill, 24, 20);
+                //var skv = this.AddTextPos(TextSeg(hero.SkillValue(s).ToString(), 18), 193, topSkill, 24, 20);
                 skillAndstats.Add(sk);
-                skillAndstats.Add(skv);
+                //skillAndstats.Add(skv);
                 topSkill+=22;
             });
 
-            skillAndstats.Add(this.AddChild(new TextObjectHint(TextGab(Global.Strings[nameof(Hero.Strength)]), Global.Strings[nameof(Hero.Strength)], Global.Strings[nameof(Hero.Strength)], Global.Strings.Description[nameof(Hero.Strength)]) { Left= 33, Top= 223 }));
-            skillAndstats.Add(this.AddTextPos(TextSeg(hero.Strength.ToString(), 18), 193, 222, 24, 20));
+            //skillAndstats.Add(this.AddChild(new TextObjectHint(TextGab(Global.Strings[nameof(Hero.Strength)]), Global.Strings[nameof(Hero.Strength)], Global.Strings[nameof(Hero.Strength)], Global.Strings.Description[nameof(Hero.Strength)]) { Left= 33, Top= 223 }));
+            //skillAndstats.Add(this.AddTextPos(TextSeg(hero.Strength.ToString(), 18), 193, 222, 24, 20));
             
-            skillAndstats.Add(this.AddChild(new TextObjectHint(TextGab(Global.Strings[nameof(Hero.Agility)]), Global.Strings[nameof(Hero.Agility)], Global.Strings[nameof(Hero.Agility)], Global.Strings.Description[nameof(Hero.Agility)]) { Left= 33, Top= 245 })); 
-            skillAndstats.Add(this.AddTextPos(TextSeg(hero.Agility.ToString(), 18), 193, 245, 24, 20));
+            //skillAndstats.Add(this.AddChild(new TextObjectHint(TextGab(Global.Strings[nameof(Hero.Agility)]), Global.Strings[nameof(Hero.Agility)], Global.Strings[nameof(Hero.Agility)], Global.Strings.Description[nameof(Hero.Agility)]) { Left= 33, Top= 245 })); 
+            //skillAndstats.Add(this.AddTextPos(TextSeg(hero.Agility.ToString(), 18), 193, 245, 24, 20));
 
-            skillAndstats.Add(this.AddChild(new TextObjectHint(TextGab(Global.Strings[nameof(Hero.Intellegence)]), Global.Strings[nameof(Hero.Intellegence)], Global.Strings[nameof(Hero.Intellegence)], Global.Strings.Description[nameof(Hero.Intellegence)]) { Left= 33, Top= 266 }));
-            skillAndstats.Add(this.AddTextPos(TextSeg(hero.Intellegence.ToString(), 18), 193, 266, 24, 20));
+            //skillAndstats.Add(this.AddChild(new TextObjectHint(TextGab(Global.Strings[nameof(Hero.Intellegence)]), Global.Strings[nameof(Hero.Intellegence)], Global.Strings[nameof(Hero.Intellegence)], Global.Strings.Description[nameof(Hero.Intellegence)]) { Left= 33, Top= 266 }));
+            //skillAndstats.Add(this.AddTextPos(TextSeg(hero.Intellegence.ToString(), 18), 193, 266, 24, 20));
 
-            skillAndstats.Add(this.AddChild(new TextObjectHint(TextGab(Global.Strings[nameof(Hero.Stamina)]), Global.Strings[nameof(Hero.Stamina)], Global.Strings[nameof(Hero.Stamina)], Global.Strings.Description[nameof(Hero.Stamina)]) { Left= 33, Top= 289 })); 
-            skillAndstats.Add(this.AddTextPos(TextSeg(hero.Stamina.ToString(), 18), 193, 289, 24, 20));
+            //skillAndstats.Add(this.AddChild(new TextObjectHint(TextGab(Global.Strings[nameof(Hero.Stamina)]), Global.Strings[nameof(Hero.Stamina)], Global.Strings[nameof(Hero.Stamina)], Global.Strings.Description[nameof(Hero.Stamina)]) { Left= 33, Top= 289 })); 
+            //skillAndstats.Add(this.AddTextPos(TextSeg(hero.Stamina.ToString(), 18), 193, 289, 24, 20));
 
-            freePoints = this.AddTextPos((Global.Strings[$"навыков и характеристик"]+$" {hero.FreePoints}").SegoeUIBold().InSize(16).InColor(Global.CommonColorLight), 32, 44, 208, 26);
+            //freePoints = this.AddTextPos((Global.Strings[$"навыков и характеристик"]+$" {hero.FreePoints}").SegoeUIBold().InSize(16).InColor(Global.CommonColorLight), 32, 44, 208, 26);
 
             binderCommon = new ParamBinder(this, 255, 183, 104);
             binderCommon.AddParam("Уровень", hero.Level);

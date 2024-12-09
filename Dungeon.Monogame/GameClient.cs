@@ -1,4 +1,5 @@
-﻿using Dungeon.Monogame.Components;
+﻿global using Geranium.Reflection;
+using Dungeon.Monogame.Components;
 using Dungeon.Monogame.Resolvers;
 using Dungeon.Monogame.Settings;
 using Dungeon.Resources;

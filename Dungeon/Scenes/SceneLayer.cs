@@ -86,7 +86,7 @@ namespace Dungeon.Scenes
                     this.UpdatableObjects.Remove(sceneObject);
                 };
             }
-
+            sceneObject.Layer = this;
             sceneObject.Scene = this.Scene;
             sceneObject.HighLevelComponent = true;
             if (sceneObject.ControlBinding == null)

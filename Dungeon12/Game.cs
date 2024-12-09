@@ -3,7 +3,6 @@ using Dungeon12.Entities;
 using Dungeon12.Entities.Journal;
 using Dungeon12.Entities.Map;
 using Dungeon12.Entities.Quests;
-using Dungeon12.Entities.Turning;
 
 namespace Dungeon12
 {
@@ -22,8 +21,6 @@ namespace Dungeon12
         public Location Location { get; set; }
 
         public Polygon FocusPolygon { get; set; }
-
-        public Turns Turns { get; set; }
 
         public void SelectPolygon(Polygon polygon)
         {

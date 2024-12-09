@@ -13,6 +13,7 @@
     using Dungeon.View;
     using Dungeon.View.Enums;
     using Dungeon.View.Interfaces;
+    using Geranium.Reflection;
     using MathNet.Numerics.Distributions;
     using System;
     using System.Collections.Generic;
@@ -33,7 +34,7 @@
         /// </summary>
         public SceneObject(TComponent component, bool bindView = true)
         {
-            var activeLayer = Dungeon.DungeonGlobal.SceneManager?.CurrentScene?.ActiveLayer;
+            var activeLayer = Dungeon.DungeonGlobal.SceneManager?.Current?.ActiveLayer;
             if (activeLayer!=default)
                 this.Layer=activeLayer;
 
@@ -717,7 +718,18 @@
 
         public string Tag { get; set; }
 
-        public ISceneLayer Layer { get; set; }
+        private ISceneLayer _layer;
+        public ISceneLayer Layer
+        {
+            get
+            {
+                if (_layer == null && Parent != null)
+                    _layer = Parent.Layer;
+
+                return _layer;
+            }
+            set { _layer = value; }
+        }
 
         [Title("Рисовать видимую часть")]
         public bool DrawPartInSight { get; set; }

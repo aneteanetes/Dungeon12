@@ -16,23 +16,19 @@ namespace Dungeon12.Entities
                 case Fraction.Vanguard:
                     Good+=10;
                     break;
-                case Fraction.MageGuild:
+                case Fraction.MageCircle:
                     Good+=5;
                     Wisdom+=5;
                     break;
-                case Fraction.Mercenary:
+                case Fraction.ShadowGuild:
                     Evil+=5;
                     Trick+=10;
                     break;
-                case Fraction.Exarch:
+                case Fraction.Exarchate:
                     Evil+=5;
                     Wisdom+=5;
                     break;
-                case Fraction.Cult:
-                    break;
-                case Fraction.Friendly:
-                    break;
-                case Fraction.Neutral:
+                case Fraction.DeathCult:
                     break;
                 default:
                     break;

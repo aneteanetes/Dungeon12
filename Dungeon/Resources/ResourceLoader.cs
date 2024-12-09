@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Dungeon.View.Interfaces;
 using Newtonsoft.Json;
+using System.Reflection.Metadata;
 
 #pragma warning disable CS0618 // Type or member is obsolete
 
@@ -167,8 +168,8 @@ namespace Dungeon.Resources
             if (addToScene)
             {
                 var sManager = (sceneManager ?? DungeonGlobal.SceneManager);
-                var scene = sManager.Preapering;
-                if (scene != default && !scene.IsPreloadedScene && !scene.Resources.ContainsKey(res.Path))
+                var scene = sManager.Current;
+                if (scene != default && !scene.Resources.ContainsKey(res.Path))
                     scene.Resources.Add(res.Path, res);
             }
 
@@ -183,6 +184,7 @@ namespace Dungeon.Resources
         }
 
         private static bool allAssembliesLoaded = false;
+
         public static void LoadAllAssembliesInFolder()
         {
             if (allAssembliesLoaded)
@@ -202,6 +204,16 @@ namespace Dungeon.Resources
             }
             DungeonGlobal.StaticAssemblies = assemblies;
             allAssembliesLoaded = true;
+        }
+
+        private static void LoadModulesAndMods()
+        {
+            var paths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll");
+            var modules = paths.Where(x =>
+            {
+                var file = Path.GetFileNameWithoutExtension(x);
+                return file == "Dungeon.dll" || file.StartsWith(DungeonGlobal.GameAssemblyName);
+            });
         }
 
         public static bool LoadAssembly(string asmPath)

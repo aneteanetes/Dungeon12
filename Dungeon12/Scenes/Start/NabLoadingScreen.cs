@@ -4,13 +4,11 @@ using Dungeon.Scenes.Manager;
 
 namespace Dungeon12.Scenes.Start
 {
-    internal class StartScene : StartScene<MenuScene>
+    internal class NabLoadingScreen : LoadingScreen
     {
-        public StartScene(SceneManager sceneManager) : base(sceneManager)
+        public NabLoadingScreen(SceneManager sceneManager, Action onLoadComplete) : base(sceneManager, onLoadComplete)
         {
         }
-
-        public override bool Destroyable => true;
 
         Loading loading;
 
@@ -20,8 +18,6 @@ namespace Dungeon12.Scenes.Start
 
             var layerBack = CreateLayer("back");
             layerBack.AddObjectCenter(loading = new Loading());
-
-            this.PreLoad<MenuScene>();
         }
 
         public override void Load()
@@ -31,8 +27,8 @@ namespace Dungeon12.Scenes.Start
 
         public override void Update(GameTimeLoop gameTimeLoop)
         {
-            if(loading.Counter>=1)
-                this.Switch<MenuScene>();
+            if (loading.Counter >= 1)
+                LoadComplete();
 
             base.Update(gameTimeLoop);
         }

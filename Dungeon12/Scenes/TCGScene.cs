@@ -6,11 +6,12 @@ using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using Dungeon12.ECS.Systems;
 using Dungeon12.SceneObjects.TCG;
+using Dungeon12.Scenes.Start;
 using Dungeon12.TCG;
 
 namespace Dungeon12.Scenes
 {
-    internal class TCGScene : GameScene<MenuScene>
+    internal class TCGScene : GameScene<NabLoadingScreen, MenuScene>
     {
         public TCGScene(SceneManager sceneManager) : base(sceneManager)
         {

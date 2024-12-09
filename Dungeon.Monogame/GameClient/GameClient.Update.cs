@@ -10,6 +10,8 @@ namespace Dungeon.Monogame
         {
             var gameTimeLoop = new GameTimeLoop(gameTime.TotalGameTime, gameTime.ElapsedGameTime, gameTime.IsRunningSlowly);
 
+            ValidateAndChangeScene();
+
             if (!blockControls && !SceneManager.IsSwitching)
             {
                 if (!DungeonGlobal.GamePadConnected)

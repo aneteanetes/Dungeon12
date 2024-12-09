@@ -11,55 +11,6 @@
 
     public static class PropertyAccessor
     {
-        public static T As<T>(this object obj, bool trowIfTypeWrong = true)
-        {
-            if (obj == default)
-            {
-                return default;
-            }
-
-            if (obj is T tObj)
-            {
-                return tObj;
-            }
-
-            if (obj is null)
-            {
-                throw new System.ArgumentNullException("Property is null!");
-            }
-
-            if (trowIfTypeWrong)
-                throw new System.Exception("Property had wrong type!");
-
-            return default;
-        }
-
-        public static T As<T>(this object obj, T @defaultIfExists)
-        {
-            if (obj == default)
-            {
-                return default;
-            }
-
-            if (obj is T tObj)
-            {
-                return tObj;
-            }
-
-            return @defaultIfExists;
-        }
-
-        public static bool Is<T>(this object obj)
-        {
-            if (obj is T )
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public static bool IsNot<T>(this object obj) => !(obj is T);
-
         public static Func<TClass, TProperty> GetFieldAccessor<TClass, TProperty>(string fieldName)
         {
             ParameterExpression param = Expression.Parameter(typeof(TClass), "arg");

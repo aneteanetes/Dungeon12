@@ -120,7 +120,7 @@ namespace Dungeon12.ECS.Systems
             {
                 if (clickrelease)
                 {
-                    var tooltipsys = Global.SceneManager.CurrentScene.GetSystem<TooltipSystem>();
+                    var tooltipsys = Global.SceneManager.Current.GetSystem<TooltipSystem>();
                     var tooltip = tooltipsys.GetTooltip(ExistedHint.Host);
                     if (tooltip != default)
                         tooltip.Visible = true;

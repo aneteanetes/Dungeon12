@@ -9,7 +9,7 @@
         /// </summary>
         /// <param name="scene"></param>
         /// <returns>After 1 draw circle</returns>
-        Callback SetScene(IScene scene);
+        void ChangeScene(IScene scene);
 
         Dot MeasureText(IDrawText drawText,ISceneObject parent=default);
 

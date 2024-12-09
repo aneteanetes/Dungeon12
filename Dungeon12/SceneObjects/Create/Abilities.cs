@@ -6,6 +6,7 @@ using Dungeon.View.Interfaces;
 using Dungeon12.ECS.Components;
 using Dungeon12.Entities;
 using Dungeon12.Entities.Abilities;
+using Dungeon12.Entities.Characteristics;
 using Dungeon12.Entities.Enums;
 using Dungeon12.SceneObjects.Base;
 using System.Linq;
@@ -86,7 +87,7 @@ namespace Dungeon12.SceneObjects.Create
                     Icon = $"Abilities/{_ability.ClassName}.tga".AsmImg(),
                     Subtype = "Ability".Localized(),
                     Title=_ability.Name,
-                    Rank = Global.Strings[Ranks.Novice],
+                    Rank = Global.Strings[Rank.Novice],
                     Resources=new List<Entities.Plates.ResourceData>()
                     {
                         new Entities.Plates.ResourceData()

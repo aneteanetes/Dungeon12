@@ -25,11 +25,13 @@ namespace Dungeon.Control
                 if (value == null)
                 {
                     DungeonGlobal.Time.Resume();
-                    sceneManager.Current.Freezer = null;
+                    if(sceneManager.Current!=null)
+                        sceneManager.Current.Freezer = null;
                 }
                 else
                 {
-                    sceneManager.Current.Freezer = value;
+                    if (sceneManager.Current != null)
+                        sceneManager.Current.Freezer = value;
                     DungeonGlobal.Time.Pause();
                 }
 

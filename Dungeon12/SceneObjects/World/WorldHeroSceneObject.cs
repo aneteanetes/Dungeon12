@@ -74,8 +74,8 @@ namespace Dungeon12.SceneObjects.World
 
             private void SetModel()
             {
-                var offset = Component.Class.ValueAttr<EnumDotAttribute, Dot>();
-                this.ImageRegion = new Square() { X=offset.X*32, Y=offset.Y*32, Height=32, Width=32 };
+                //var offset = Component.Class.ValueAttr<EnumDotAttribute, Dot>();
+                //this.ImageRegion = new Square() { X=offset.X*32, Y=offset.Y*32, Height=32, Width=32 };
             }
 
             public Dot Coords { get; set; } = new Dot();
