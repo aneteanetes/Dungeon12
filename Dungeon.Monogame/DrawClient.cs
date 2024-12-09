@@ -833,7 +833,7 @@ namespace Dungeon.Monogame
                 lineSpace = drawText.LineSpacing;
             }
 
-            var m = font.MeasureString(data, lineSpacing: lineSpace);
+            var m = font.MeasureString(data.ToLowerInvariant(), lineSpacing: lineSpace);
 
             return new Dungeon.Types.Dot(m.X, m.Y);
         }

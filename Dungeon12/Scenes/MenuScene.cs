@@ -6,6 +6,7 @@ using Dungeon.Scenes.Manager;
 using Dungeon.Types;
 using Dungeon12.Extensions.Resources;
 using Dungeon12.SceneObjects.UserInterface.Common;
+using Dungeon12.Scenes.Creating;
 using Dungeon12.Scenes.Start;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,8 @@ namespace Dungeon12.Scenes
             this.Resources.Load("back.png".AsmImg());
             this.Resources.Load("UI/btn_a.png".AsmImg());
             this.Resources.Load("focus.wav".AsmSoundRes());
+            this.Resources.Load("UI/bordermin/bord3.png".AsmImg());
+            this.Resources.LoadFont("URWGeometricBold");
             this.LoadBorders();
             base.Load();
         }

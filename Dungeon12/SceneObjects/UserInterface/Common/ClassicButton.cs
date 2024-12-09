@@ -2,6 +2,7 @@
 using Dungeon.Control;
 using Dungeon.Drawing;
 using Dungeon.SceneObjects;
+using Dungeon12.SceneObjects.Base;
 using System;
 
 namespace Dungeon12.SceneObjects.UserInterface.Common
@@ -15,15 +16,24 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
 
         readonly TextObject Label;
 
-        public ClassicButton(string text)
+        public ClassicButton(string text, double width=250, double height = 65, int fontSize = 28)
         {
-            this.Width = 250;
-            this.Height = 65;
+            this.Width = width;
+            this.Height = height;
 
-            this.AddBorder();
 
-            this.Label= this.AddTextCenter(text.Gabriela().InColor(Global.CommonColorLight).InSize(34).IsNew(true));
-            this.Image="UI/btn_a.png";
+            this.AddBorderMapBack(new BorderConfiguration()
+            {
+                ImagesPath= "UI/bordermin/bord31.png",
+                Size=16,
+                Padding = 2
+            });
+
+            var txt = text.Gabriela().InColor(Global.CommonColorLight).InSize(fontSize).IsNew(true);
+
+            this.Label= this.AddTextCenter(txt);
+            Label.Top -= 5;
+            //this.Image="UI/btn_a.png";
         }
 
         private bool _disabled;

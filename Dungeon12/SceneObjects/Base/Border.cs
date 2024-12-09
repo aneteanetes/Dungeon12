@@ -1,4 +1,5 @@
-﻿using Dungeon.Drawing.SceneObjects;
+﻿using Dungeon.Drawing;
+using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.SceneObjects.Base;
 using Dungeon.View.Enums;
@@ -9,7 +10,7 @@ namespace Dungeon12.SceneObjects.Base
 {
     internal class Border : EmptySceneObject
     {
-        public Border(double width, double height, double opacity = .9) : this(new NineSliceSettings()
+        public Border(double width, double height, double opacity = .9) : this(new BorderConfiguration()
         {
             Width = width,
             Height = height,
@@ -43,10 +44,10 @@ namespace Dungeon12.SceneObjects.Base
         ImageObject left, right, up, down, leftup, rightup,leftdown,rightdown;
         DarkRectangle back;
 
-        NineSliceSettings _settings;
+        BorderConfiguration _settings;
         double size;
 
-        public Border(NineSliceSettings settings)
+        public Border(BorderConfiguration settings)
         {
             this.Width = settings.Width;
             this.Height = settings.Height;
@@ -69,7 +70,7 @@ namespace Dungeon12.SceneObjects.Base
         }
     }
 
-    internal class NineSliceSettings
+    internal class BorderConfiguration
     {
         public double Size { get; set; }
 
@@ -79,17 +80,21 @@ namespace Dungeon12.SceneObjects.Base
 
         public string ImagesPath { get; set; }
 
+        public int Padding { get; set; }
+
+        public DrawColor Color { get; set; }
+
         public double Opacity { get; set; } = .9;
 
-        private static NineSliceSettings _default;
-        public static NineSliceSettings Default 
-            => _default ??= new NineSliceSettings()
+        private static BorderConfiguration _default;
+        public static BorderConfiguration Default 
+            => _default ??= new BorderConfiguration()
             {
                 Size=5,
                 ImagesPath="UI/border/",
             };
 
-        public NineSliceSettings BindDefaults(ISceneObject sceneObject)
+        public BorderConfiguration BindDefaults(ISceneObject sceneObject)
         {
             if (this.Width==default)
                 this.Width = sceneObject.Width;

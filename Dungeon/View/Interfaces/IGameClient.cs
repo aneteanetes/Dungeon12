@@ -25,6 +25,8 @@
 
         void SetCursor(string texture);
 
+        string GetCursor();
+
         /// <summary>
         /// Кэширование изображения
         /// </summary>

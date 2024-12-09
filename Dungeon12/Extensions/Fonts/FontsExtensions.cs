@@ -36,9 +36,20 @@
 
         public static IDrawText Gabriela(this string text) => text.AsDrawText().Gabriela();
 
+        public static IDrawText Navieo(this string text) => text.AsDrawText().Navieo();
+
+        public static T Navieo<T>(this T drawText) where T : IDrawText
+        {
+            drawText.FontName = "NAVIEO Trial";
+            drawText.FontAssembly = "Dungeon12";
+
+            return drawText;
+        }
+
+
         public static T Gabriela<T>(this T drawText) where T : IDrawText
         {
-            drawText.FontName = "Gabriela";
+            drawText.FontName = "URWGeometricBold";
             drawText.FontAssembly = "Dungeon12";
 
             return drawText;

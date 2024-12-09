@@ -1,4 +1,5 @@
-﻿using Dungeon12.SceneObjects.UserInterface.Common;
+﻿using Dungeon12.SceneObjects.Base;
+using Dungeon12.SceneObjects.UserInterface.Common;
 
 namespace Dungeon12.SceneObjects.HUD
 {
@@ -12,21 +13,26 @@ namespace Dungeon12.SceneObjects.HUD
 
             this.Height = this.MeasureText(drawtext, this).Y + 100;
 
-            this.AddBorderBack(.95);
+            this.AddBorderMapBack(new BorderConfiguration()
+            {
+                ImagesPath = "UI/bordermin/bord21.png",
+                Size = 16,
+                Padding = 2
+            });
 
-            this.AddTextCenter(drawtext, vertical: false).Top = 10;
+            this.AddTextCenter(drawtext, vertical: false).Top = 20;
 
-            this.AddChild(new ClassicButton(left)
+            this.AddChild(new ClassicButton(left,100,30,22)
             {
                 OnClick = () => OnLeft?.Invoke(),
-                Left = 25 / 2,
-                Top = this.Height - 75
+                Left = 125,
+                Top = 75
             });
-            this.AddChild(new ClassicButton(right)
+            this.AddChild(new ClassicButton(right, 100, 30, 22)
             {
                 OnClick = () => OnRight?.Invoke(),
-                Left = 250 + 25 / 2,
-                Top = this.Height - 75
+                Left = 300,
+                Top = 75
             });
         }
 

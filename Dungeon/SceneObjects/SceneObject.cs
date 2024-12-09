@@ -137,7 +137,7 @@
 
             if (vertical)
             {
-                textControl.Top = Math.Abs(height / 2 -  measure.Y / 2);
+                textControl.Top = Math.Floor(Math.Abs(height / 2 -  measure.Y / 2));
             }
 
             this.AddChild(textControl);

@@ -14,10 +14,10 @@ namespace Dungeon12.Scenes.Start
 
         public override void Initialize()
         {
-            DungeonGlobal.GameClient.SetCursor("Cursors/common.png".AsmImg());
+            DungeonGlobal.GameClient.SetCursor("Cursors/pointer_scifi_b.png".AsmImg());
 
             var layerBack = CreateLayer("back");
-            layerBack.AddObjectCenter(loading = new Loading());
+            layerBack.AddObjectCenter(loading = new Loading(Strings["Loading"]));
         }
 
         public override void Load()

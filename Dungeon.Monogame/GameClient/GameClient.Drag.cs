@@ -27,8 +27,11 @@
 
         private MouseCursor CurrentCursor = null;
 
+        private string cursor = null;
+
         public void SetCursor(string textureSrc)
         {
+            cursor = textureSrc;
             var texture = ImageLoader.LoadTexture2D(textureSrc);
             if (texture == default)
                 return;
@@ -38,5 +41,7 @@
                 Mouse.SetCursor(CurrentCursor);
             }
         }
+
+        public string GetCursor() => cursor;
     }
 }

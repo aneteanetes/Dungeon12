@@ -12,15 +12,15 @@ namespace Dungeon12.Scenes.Start
 
         public int Counter = 0;
 
-        public Loading()
+        public Loading(string loadingText)
         {
             this.Width=Global.Resolution.Width;
             this.Height=Global.Resolution.Height;
 
 
-            var loadingtext = new DrawText("Loading", 300)
+            var loadingtext = new DrawText(loadingText, 300)
             {
-                FontName = "NAVIEO Trial",
+                FontName = "Gabriela",
                 FontAssembly = "Dungeon12"
             };
             var txt = new TextObject(loadingtext);
