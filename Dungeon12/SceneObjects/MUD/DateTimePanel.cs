@@ -1,12 +1,12 @@
 ﻿using Dungeon;
 using Dungeon.SceneObjects;
-using Dungeon12.ECS.Components;
-using Dungeon12.Entities;
-using Dungeon12.Entities.Enums;
+using Nabunassar.ECS.Components;
+using Nabunassar.Entities;
+using Nabunassar.Entities.Enums;
 using System;
 using System.ComponentModel;
 
-namespace Dungeon12.SceneObjects.MUD
+namespace Nabunassar.SceneObjects.MUD
 {
     internal class DateTimePanel : SceneControl<Calendar>
     {

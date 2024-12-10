@@ -3,12 +3,12 @@ using Dungeon.Control;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
-using Dungeon12.Entities;
-using Dungeon12.Entities.Enums;
+using Nabunassar.ECS.Components;
+using Nabunassar.Entities;
+using Nabunassar.Entities.Enums;
 using System;
 
-namespace Dungeon12.SceneObjects.Create
+namespace Nabunassar.SceneObjects.Create
 {
     internal class AvatarSelector : SceneControl<Hero>
     {

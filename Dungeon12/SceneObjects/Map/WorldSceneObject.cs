@@ -6,7 +6,7 @@ using Dungeon.Types;
 using Dungeon.Varying;
 using MonoGame.Extended.Screens;
 
-namespace Dungeon12.SceneObjects.Map
+namespace Nabunassar.SceneObjects.Map
 {
     internal class WorldSceneObject : SceneControl<Entities.Map.World>
     {

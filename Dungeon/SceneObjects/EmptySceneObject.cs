@@ -1,4 +1,5 @@
 ﻿using Dungeon.GameObjects;
+using Dungeon.View.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;

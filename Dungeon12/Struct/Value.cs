@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Dungeon12
+namespace Nabunassar
 {
     internal class Value
     {

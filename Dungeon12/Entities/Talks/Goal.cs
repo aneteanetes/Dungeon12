@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Dungeon12.Entities.Talks
+namespace Nabunassar.Entities.Talks
 {
     internal class Goal
     {

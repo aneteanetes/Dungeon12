@@ -1,7 +1,7 @@
-﻿using Dungeon12.Entities.Enums;
-using Dungeon12.Entities.Objects;
+﻿using Nabunassar.Entities.Enums;
+using Nabunassar.Entities.Objects;
 
-namespace Dungeon12.Entities
+namespace Nabunassar.Entities
 {
     internal class Battler : GameObject
     {

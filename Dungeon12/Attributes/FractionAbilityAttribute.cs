@@ -1,8 +1,8 @@
 ﻿using Dungeon;
-using Dungeon12.Entities.Enums;
-using Dungeon12.Entities.FractionPolygons;
+using Nabunassar.Entities.Enums;
+using Nabunassar.Entities.FractionPolygons;
 
-namespace Dungeon12.Attributes
+namespace Nabunassar.Attributes
 {
     internal class FractionAbilityAttribute : ValueAttribute
     {

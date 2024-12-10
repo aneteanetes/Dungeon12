@@ -1,8 +1,8 @@
-﻿namespace Dungeon12.Drawing.SceneObjects.Map
+﻿namespace Nabunassar.Drawing.SceneObjects.Map
 {
     using Dungeon.Control;
     using Dungeon.SceneObjects;
-    using Dungeon12.Entities;
+    using Nabunassar.Entities;
 
     internal class PartySceneObject : SceneControl<Party>
     {

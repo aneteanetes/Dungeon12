@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Entities.Objects
+﻿namespace Nabunassar.Entities.Objects
 {
     internal enum GameObjectType
     {

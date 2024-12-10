@@ -1,8 +1,8 @@
-﻿using Dungeon12.Entities.Map;
-using Dungeon12.SceneObjects.RegionScreen;
+﻿using Nabunassar.Entities.Map;
+using Nabunassar.SceneObjects.RegionScreen;
 using System.ComponentModel;
 
-namespace Dungeon12.SceneObjects.MUD.ViewRegion
+namespace Nabunassar.SceneObjects.MUD.ViewRegion
 {
     internal class MUDMapView : SceneControl<Region>
     {

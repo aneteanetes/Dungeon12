@@ -1,9 +1,9 @@
 ﻿using Dungeon.Types;
-using Dungeon12.Entities.Cooldowns;
-using Dungeon12.Entities.Enums;
-using Dungeon12.Entities.Runes;
+using Nabunassar.Entities.Cooldowns;
+using Nabunassar.Entities.Enums;
+using Nabunassar.Entities.Runes;
 
-namespace Dungeon12.Entities.Plates
+namespace Nabunassar.Entities.Plates
 {
     internal class GenericData
     {

@@ -8,17 +8,6 @@ namespace Dungeon
 {
     public static class StringPathExtensions
     {
-        /// <summary>
-        /// <see cref="Global"/>.<see cref="IGameClient.CacheImage"/>
-        /// </summary>
-        /// <param name="imgPath"></param>
-        /// <returns></returns>
-        public static string Cache(this string imgPath)
-        {
-            DungeonGlobal.GameClient.CacheImage(imgPath);
-            return imgPath;
-        }
-
         private static ConcurrentDictionary<string, string> cache = new ConcurrentDictionary<string, string>();
 
         public static string Embedded(this string path)

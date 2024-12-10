@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Entities.Perks
+﻿namespace Nabunassar.Entities.Perks
 {
     internal class Perk
     {

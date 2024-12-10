@@ -1,10 +1,10 @@
 ﻿using Dungeon.Control;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects.Grouping;
-using Dungeon12.ECS.Components;
-using Dungeon12.Entities.Objects;
+using Nabunassar.ECS.Components;
+using Nabunassar.Entities.Objects;
 
-namespace Dungeon12.SceneObjects.MUD.Locations
+namespace Nabunassar.SceneObjects.MUD.Locations
 {
     internal class ChipView : SceneControl<GameObject>, ITooltiped
     {

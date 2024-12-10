@@ -16,7 +16,7 @@ namespace Dungeon.SceneObjects
 
         Action ok;
 
-        public MessageBox(string msg, Action ok)
+        public MessageBox(string msg, Action ok) : base()
         {
             this.ZIndex = int.MaxValue - 5;
             this.ok = ok;
@@ -31,7 +31,7 @@ namespace Dungeon.SceneObjects
             question.Left = 1;
             question.Top -= 2;
 
-            var yesBtn = this.AddControlCenter(new OkButton(),true);
+            var yesBtn = this.AddControlCenter(new OkButton(), true);
             yesBtn.Top = 5.5;
             yesBtn.Left = 8;
             yesBtn.OnClick = () =>
@@ -86,8 +86,7 @@ namespace Dungeon.SceneObjects
         public static MessageBox Show(string text, Action ok)
         {
             var msgBox = new MessageBox(text,ok);
-            DungeonGlobal.Freezer.World = msgBox;            
-            DungeonGlobal.SceneManager.Current.ShowEffectsBinding(msgBox.InList<ISceneObject>());
+            DungeonGlobal.Freezer.World = msgBox;
             return msgBox;
         }
     }

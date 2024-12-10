@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Entities.Runes
+﻿namespace Nabunassar.Entities.Runes
 {
     internal class Rune
     {

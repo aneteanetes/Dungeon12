@@ -62,8 +62,7 @@ namespace Dungeon
 
         public static UnknownITrigger Trigger(this string className)
         {
-            var triggerType = ResourceLoader.LoadType(className);
-            return new RuntimeTrigger(triggerType);
+            throw new NotImplementedException();
         }
 
         private class RuntimeTrigger : UnknownITrigger

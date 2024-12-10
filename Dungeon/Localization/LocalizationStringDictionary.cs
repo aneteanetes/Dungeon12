@@ -101,7 +101,7 @@ namespace Dungeon.Localization
 
             try
             {
-                Values = Resources.ResourceLoader.LoadJson<Dictionary<string, string>>($"Locales/{lang}.json".AsmRes(this.GetType().Assembly), @throw: false);
+                Values = Resources.ResourceLoader.LoadJson<Dictionary<string, string>>(DungeonGlobal.Resources, $"Locales/{lang}.json".AsmRes(this.GetType().Assembly));
                 if (DungeonGlobal.IsDevelopment)
                     return Values;
 

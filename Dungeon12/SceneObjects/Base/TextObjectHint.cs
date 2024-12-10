@@ -1,11 +1,11 @@
 ﻿using Dungeon;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
-using Dungeon12.Entities.Enums;
+using Nabunassar.ECS.Components;
+using Nabunassar.Entities.Enums;
 using System;
 
-namespace Dungeon12.SceneObjects.Base
+namespace Nabunassar.SceneObjects.Base
 {
     internal class TextObjectHint : SceneControl<IDrawText>, ITooltiped, IMouseHint, ICursored
     {

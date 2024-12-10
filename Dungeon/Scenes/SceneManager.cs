@@ -60,14 +60,24 @@
         /// Возможность явно уничтожать сцены, полезно для сцен которые не <see cref="Scene.Destroyable"/>
         /// </summary>
         /// <typeparam name="TScene"></typeparam>
-        public void Destroy<TScene>() where TScene : GameScene
+        public void Destroy(Scene obj)
         {
-            var sceneType = typeof(TScene);
+            var sceneType = obj.GetType();
 
             if (SceneCache.TryGetValue(sceneType, out var existedScene))
             {
                 SceneCache.TryRemove(sceneType, out var scene);
                 scene.Destroy();
+            }
+        }
+
+        public void RemoveFromCache(Scene obj)
+        {
+            var sceneType = obj.GetType();
+
+            if (SceneCache.TryGetValue(sceneType, out var existedScene))
+            {
+                SceneCache.TryRemove(sceneType, out var scene);
             }
         }
 
@@ -86,17 +96,42 @@
                 // если есть загрузочный экран, запускаем его
                 if (loadingScreenType.Is<LoadingScreen>())
                 {
-                    loadingScreen = InstantiateLoadingScreen(loadingScreenType, () =>
+                    // создаём экран загрузки
+                    var result = InstantiateLoadingScreen(loadingScreenType, () =>
                     {
-                        Loading(sceneType);
-                        SceneCache.TryRemove(loadingScreenType, out var loadscreen);
-                        loadscreen.Destroy();
-                    }).As<LoadingScreen>();
+                        // ПОСЛЕ того как экрану сообщат что ФОНОВАЯ загрузка окончена,
+                        // активируем загруженную сцену
+                        _current.Activate().ContinueWith(t =>
+                        {
+                            // после активации сцены уничтожаем экран загрузки
+                            loadingScreen?.Destroy();
+                            RemoveFromCache(loadingScreen);
+                        });
+                    });
+
+                    // запоминаем ссылку на экран загрузки
+                    loadingScreen = result.loadingScreen.As<LoadingScreen>();
+
+                    // создаём задачу на загрузку следующей сцены 
+                    var loading = Loading(sceneType);
+
+                    // как только сцена будет загружена, сообщаем экрану
+                    loading.ContinueWith(t =>
+                    {
+                        loadingScreen.BackgroudSceneIsLoaded = true;
+                    });
+
+                    // запускаем фоновую загрузку ПОСЛЕ того как экран будет активирован
+                    result.activated.ContinueWith(t =>
+                    {
+                        loading.Start();
+                    });
                 }
             }
             else
             {
-                Loading(sceneType);
+                var task = Loading(sceneType);
+                task.RunSynchronously();
             }
         }
 
@@ -137,7 +172,7 @@
             }
         }
 
-        private void Loading(Type sceneType)
+        private Task Loading(Type sceneType)
         {
             var loadingTask = new Task(() => { });
 
@@ -177,11 +212,9 @@
 
                 IsSwitching = false;
                 _current.Loaded();
-
-                _current.Activate();
             });
 
-            loadingTask.Start();
+            return loadingTask;
         }
 
         private GameScene InstantiateScene(Type sceneType, params string[] args)
@@ -204,11 +237,11 @@
             return scene;
         }
 
-        private GameScene InstantiateLoadingScreen(Type sceneType, Action onLoadComplete)
+        private (GameScene loadingScreen, Task activated) InstantiateLoadingScreen(Type sceneType, Action onLoaded)
         {
             if (!SceneCache.TryGetValue(sceneType, out GameScene scene))
             {
-                scene = sceneType.New(this, onLoadComplete).As<GameScene>();
+                scene = sceneType.New(this, onLoaded).As<GameScene>();
                 SceneCache.TryAdd(sceneType, scene);
 
                 scene.Load();
@@ -219,9 +252,7 @@
                 scene.IsInitialized = true;
             }
 
-            scene.Activate();
-
-            return scene;
+            return (scene, scene.Activate());
         }
 
         private static void Populate(GameScene previous, GameScene next, string[] args = default)

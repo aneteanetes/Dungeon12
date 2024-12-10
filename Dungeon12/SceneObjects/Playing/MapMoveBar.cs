@@ -1,11 +1,11 @@
 ﻿using Dungeon.SceneObjects;
 using Dungeon.Varying;
 
-namespace Dungeon12.SceneObjects.Playing
+namespace Nabunassar.SceneObjects.Playing
 {
-    internal class MapMoveBar : SceneObject<Dungeon12.Game>
+    internal class MapMoveBar : SceneObject<Nabunassar.Game>
     {
-        public MapMoveBar(Dungeon12.Game component) : base(component)
+        public MapMoveBar(Nabunassar.Game component) : base(component)
         {
             this.Width = Variables.Get("MapMoveBarWindowW", 400);
             this.Height = Variables.Get("MapMoveBarWindowH", 50);

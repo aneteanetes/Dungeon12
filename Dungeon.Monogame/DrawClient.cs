@@ -72,7 +72,7 @@ namespace Dungeon.Monogame
             this._resolutionMatrix=resolutionMatrix;
         }
 
-        public void Draw(ISceneLayer layer, RenderTarget2D target, GameTime gameTime, bool lightning)
+        public void Draw(ResourceTable resources, ISceneLayer layer, RenderTarget2D target, GameTime gameTime, bool lightning)
         {
             if (lightning)
                 lightning=penumbra!=null;
@@ -90,7 +90,7 @@ namespace Dungeon.Monogame
 
             for (int i = 0; i < layer.ActiveObjects.Count; i++)
             {
-                DrawSceneObject(layer.ActiveObjects[i], target, spriteBatch, gameTime);
+                DrawSceneObject(resources,layer.ActiveObjects[i], target, spriteBatch, gameTime);
             }
 
             if (lightning)
@@ -100,7 +100,7 @@ namespace Dungeon.Monogame
             }
         }
 
-        private void DrawSceneObject(ISceneObject sceneObject, RenderTarget2D renderTarget, SpriteBatchKnowed spriteBatch, GameTime gameTime, double xParent = 0, double yParent = 0, bool batching = false, double parentScale = 0)
+        private void DrawSceneObject(ResourceTable resources, ISceneObject sceneObject, RenderTarget2D renderTarget, SpriteBatchKnowed spriteBatch, GameTime gameTime, double xParent = 0, double yParent = 0, bool batching = false, double parentScale = 0)
         {
             if (!sceneObject.Visible)
                 return;
@@ -110,8 +110,8 @@ namespace Dungeon.Monogame
             var x = sceneObject.DrawClientX;
             var y = sceneObject.DrawClientY;
 
-            DrawLight(sceneObject, x,y);
-            DrawEffects(sceneObject, x, y, gameTime);
+            DrawLight(resources, sceneObject, x,y);
+            DrawEffects(resources, sceneObject, x, y, gameTime);
 
             int width = sceneObject.DrawClientWidth;
             int height = sceneObject.DrawClientHeight;
@@ -127,7 +127,7 @@ namespace Dungeon.Monogame
 
                     var localSpriteBatch = SpriteBatchManager.GetSpriteBatch(isTransformMatrix: false);
 
-                    DrawSceneObject(sceneObject, renderTarget, localSpriteBatch, gameTime, 0, 0, true);
+                    DrawSceneObject(resources, sceneObject, renderTarget, localSpriteBatch, gameTime, 0, 0, true);
 
                     TileSetCache[sceneObject.Uid] = new Rect(0, 0, width, height);
                     PosCache[sceneObject.Uid] = new Rect(x, y, width, height);
@@ -158,7 +158,7 @@ namespace Dungeon.Monogame
             {
                 if (!string.IsNullOrEmpty(sceneObject.Image))
                 {
-                    DrawSceneImage(sceneObject, y, x);
+                    DrawSceneImage(resources, sceneObject, y, x);
                 }
 
 #warning potencial performance harm!
@@ -167,14 +167,14 @@ namespace Dungeon.Monogame
                     var tls = sceneObject.TileMap.Tiles;
                     if (camera!=null)
                         tls=tls.Where(t => camera.InCamera(t)).ToList();
-                    tls.ForEach(t => DrawSceneTile(t, sceneObject, y, x));
+                    tls.ForEach(t => DrawSceneTile(resources, t, sceneObject, y, x));
                 }
 
                 if (sceneObject.Path != null || BoundMode)
                 {
                     if (BoundMode)
                     {
-                        DrawScenePath(new Dungeon.Drawing.Impl.DrawablePath()
+                        DrawScenePath(resources, new Dungeon.Drawing.Impl.DrawablePath()
                         {
                             Fill=true,
                             ForegroundColor = Drawing.DrawColor.Red,
@@ -185,7 +185,7 @@ namespace Dungeon.Monogame
                         },x,y);
                     }
                     else
-                        DrawScenePath(sceneObject.Path, x, y);
+                        DrawScenePath(resources, sceneObject.Path, x, y);
                 }
 
                 if (sceneObject.Text != null)
@@ -198,16 +198,16 @@ namespace Dungeon.Monogame
 
                     foreach (var range in text.Data)
                     {
-                        DrawSceneText(textY, textX, range, sceneObject);
+                        DrawSceneText(resources, textY, textX, range, sceneObject);
 
                         if (range.StringData == Environment.NewLine)
                         {
                             textX = x;
-                            textY += MeasureText(prev).Y;
+                            textY += MeasureText(resources, prev).Y;
                         }
                         else
                         {
-                            textX += this.MeasureText(range, sceneObject).X;// range.Length * range.LetterSpacing;
+                            textX += this.MeasureText(resources, range, sceneObject).X;// range.Length * range.LetterSpacing;
                         }
 
                         prev = range;
@@ -236,9 +236,9 @@ namespace Dungeon.Monogame
             }
         }
 
-        private void DrawSceneTile(ITile tile, ISceneObject sceneObject, double y, double x)
+        private void DrawSceneTile(ResourceTable resources, ITile tile, ISceneObject sceneObject, double y, double x)
         {
-            var image = ImageLoader.LoadTexture2D(tile.Source);
+            var image = ImageLoader.LoadTexture2D(resources, tile.Source);
             if (image == default)
             {
                 DungeonGlobal.Logger.Log("Медленный рендер тайла из-за отсутствия картинки!");
@@ -300,14 +300,14 @@ namespace Dungeon.Monogame
             }
         }
 
-        private void DrawSceneImage(ISceneObject sceneObject, double y, double x)
+        private void DrawSceneImage(ResourceTable resources, ISceneObject sceneObject, double y, double x)
         {
             if (sceneObject.Opacity == 0)
                 return;
 
             sceneObject.Drawing();
 
-            Texture2D image = ImageLoader.LoadTexture2D(sceneObject.Image, sceneObject);
+            Texture2D image = ImageLoader.LoadTexture2D(resources, sceneObject.Image, sceneObject);
 
             if (image == default)
             {
@@ -490,9 +490,9 @@ namespace Dungeon.Monogame
             }
         }
 
-        private void DrawSceneText(double y, double x, IDrawText range, ISceneObject sceneObject)
+        private void DrawSceneText(ResourceTable resources, double y, double x, IDrawText range, ISceneObject sceneObject)
         {
-            var font = GetTrueTypeFont(range);
+            var font = GetTrueTypeFont(resources, range);
 
             var lineSpace = 0;// font.LineHeight;
 
@@ -535,7 +535,7 @@ namespace Dungeon.Monogame
             }
         }
 
-        private void DrawScenePath(IDrawablePath drawablePath, double x, double y)
+        private void DrawScenePath(ResourceTable resources, IDrawablePath drawablePath, double x, double y)
         {
             if (drawablePath.PathPredefined == PathPredefined.Rectangle)
             {
@@ -562,7 +562,7 @@ namespace Dungeon.Monogame
                     {
                         depth = 1;
                     }
-                    DrawBorder(rect, depth, drawColor, drawablePath);
+                    DrawBorder(resources, rect, depth, drawColor, drawablePath);
                 }
             }
 
@@ -572,7 +572,7 @@ namespace Dungeon.Monogame
 
                 if (drawablePath.Texture.IsNotEmpty())
                 {
-                    texture = ImageLoader.LoadTexture2D(drawablePath.Texture);
+                    texture = ImageLoader.LoadTexture2D(resources, drawablePath.Texture);
                 }
 
                 var from = new Dot(drawablePath.Path.First());
@@ -588,11 +588,11 @@ namespace Dungeon.Monogame
 
                 var drawColor = drawablePath.BackgroundColor.ToColor();
 
-                DrawLineTo(texture, fromVector, toVector, drawColor, (int)drawablePath.Depth, drawablePath.Angle);
+                DrawLineTo(resources, texture, fromVector, toVector, drawColor, (int)drawablePath.Depth, drawablePath.Angle);
             }
         }
 
-        public void DrawLineTo(Texture2D texture, Vector2 src, Vector2 dst, Color color, int depth, double angle)
+        public void DrawLineTo(ResourceTable resources, Texture2D texture, Vector2 src, Vector2 dst, Color color, int depth, double angle)
         {
             if (texture == default)
             {
@@ -626,7 +626,7 @@ namespace Dungeon.Monogame
         /// </summary>
         /// <param name="rectangleToDraw"></param>
         /// <param name="thicknessOfBorder"></param>
-        private void DrawBorder(Rectangle rectangleToDraw, int thicknessOfBorder, Color borderColor, IDrawablePath drawablePath)
+        private void DrawBorder(ResourceTable resources, Rectangle rectangleToDraw, int thicknessOfBorder, Color borderColor, IDrawablePath drawablePath)
         {
             var sb = SpriteBatchManager.GetSpriteBatch(SamplerState.LinearWrap);
             var pixel = PixelTexture.Get();
@@ -649,7 +649,7 @@ namespace Dungeon.Monogame
                                             thicknessOfBorder), borderColor);
         }
 
-        private void DrawLight(ISceneObject sceneObject, double x, double y)
+        private void DrawLight(ResourceTable resources, ISceneObject sceneObject, double x, double y)
         {
             if (sceneObject.Light == null)
                 return;
@@ -704,7 +704,7 @@ namespace Dungeon.Monogame
                             break;
                         case LightType.Texture:
 
-                            light = new TexturedLight(ImageLoader.LoadTexture2D(objLight.Image))
+                            light = new TexturedLight(ImageLoader.LoadTexture2D(resources, objLight.Image))
                             {
                                 Scale = new Vector2(objLight.Range*100),
                                 ShadowType = ShadowType.Illuminated,
@@ -731,7 +731,7 @@ namespace Dungeon.Monogame
             }
         }
 
-        private void DrawEffects(ISceneObject sceneObject, double x, double y, GameTime gameTime)
+        private void DrawEffects(ResourceTable resources, ISceneObject sceneObject, double x, double y, GameTime gameTime)
         {
             if (sceneObject.ParticleEffects==default || sceneObject.ParticleEffects.Count == 0)
                 return;
@@ -751,7 +751,7 @@ namespace Dungeon.Monogame
 
                     if (!ParticleEffects.TryGetValue(sceneObject.Uid, out var particleEffect))
                     {
-                        var particleRes = ResourceLoader.Load(path);
+                        var particleRes = resources.Get(path);
                         if (particleRes==default)
                             return;
 
@@ -799,7 +799,7 @@ namespace Dungeon.Monogame
             }
         }
 
-        public void CacheImage(string image) => ImageLoader.LoadTexture2D(image);
+        public void CacheImage(ResourceTable resources, string image) => ImageLoader.LoadTexture2D(resources, image);
 
         public void Clear(IDrawColor drawColor = null)
         {
@@ -811,9 +811,9 @@ namespace Dungeon.Monogame
             GraphicsDevice.Clear(xnacolor);
         }
 
-        public Dot MeasureText(IDrawText drawText, ISceneObject parent = default)
+        public Dot MeasureText(ResourceTable resources, IDrawText drawText, ISceneObject parent = default)
         {
-            var font = GetTrueTypeFont(drawText);
+            var font = GetTrueTypeFont(resources, drawText);
 
             var data = drawText.StringData;
 
@@ -838,16 +838,16 @@ namespace Dungeon.Monogame
             return new Dungeon.Types.Dot(m.X, m.Y);
         }
 
-        public DynamicSpriteFont GetTrueTypeFont(IDrawText drawText)
+        public DynamicSpriteFont GetTrueTypeFont(ResourceTable resources, IDrawText drawText)
         {
-            var fontSystem = GetTrueTypeFontSystemByName(drawText.FontName);
+            var fontSystem = GetTrueTypeFontSystemByName(resources,drawText.FontName);
             return fontSystem.GetFont(drawText.Size);
         }
 
-        public FontSystem GetTrueTypeFontSystemByName(string fontName)
+        public FontSystem GetTrueTypeFontSystemByName(ResourceTable resources, string fontName)
         {
             var fontResourceKey = $"{DungeonGlobal.GameAssemblyName}.Resources.Fonts.ttf/{fontName}.ttf".Embedded();
-            var fontRes = ResourceLoader.Load(fontResourceKey).Data;
+            var fontRes = resources.Get(fontResourceKey).Data;
 
             return GetTrueTypeFontSystemByNameAndData(fontName, fontRes);
         }
@@ -883,9 +883,9 @@ namespace Dungeon.Monogame
             });
         }
 
-        public Dot MeasureImage(string image)
+        public Dot MeasureImage(ResourceTable resources, string image)
         {
-            var img = ImageLoader.LoadTexture2D(image);
+            var img = ImageLoader.LoadTexture2D(resources, image);
             if (img == default)
                 return new Dungeon.Types.Dot();
 

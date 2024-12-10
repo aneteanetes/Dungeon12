@@ -1,9 +1,9 @@
 ﻿using Dungeon.Control;
 using Dungeon.SceneObjects;
-using Dungeon12.Entities;
-using Dungeon12.SceneObjects.HeroPanelObjs;
+using Nabunassar.Entities;
+using Nabunassar.SceneObjects.HeroPanelObjs;
 
-namespace Dungeon12.SceneObjects.MUD
+namespace Nabunassar.SceneObjects.MUD
 {
     internal class HeroesPanel : SceneControl<Party>
     {
@@ -12,7 +12,7 @@ namespace Dungeon12.SceneObjects.MUD
             throw ex;
         }
 
-        public HeroesPanel(Party component) : base(component, true)
+        public HeroesPanel(Party component) : base(component)
         {
             this.Width=1520;
             this.Height=250;

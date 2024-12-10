@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace Dungeon12.Entities
+namespace Nabunassar.Entities
 {
     internal class Quad<T> : IEnumerable<T>
     {

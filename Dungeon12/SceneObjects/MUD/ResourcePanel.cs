@@ -3,13 +3,13 @@ using Dungeon.Control;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
-using Dungeon12.Entities;
-using Dungeon12.Entities.Abilities;
-using Dungeon12.Entities.Enums;
-using Dungeon12.Entities.Talks;
+using Nabunassar.ECS.Components;
+using Nabunassar.Entities;
+using Nabunassar.Entities.Abilities;
+using Nabunassar.Entities.Enums;
+using Nabunassar.Entities.Talks;
 
-namespace Dungeon12.SceneObjects.MUD
+namespace Nabunassar.SceneObjects.MUD
 {
     internal class ResourcePanel : SceneControl<Party>
     {

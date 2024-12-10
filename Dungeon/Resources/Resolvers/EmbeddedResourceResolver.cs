@@ -4,7 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
-namespace Dungeon.Resources
+namespace Dungeon.Resources.Resolvers
 {
     public class EmbeddedResourceResolver : ResourceResolver
     {
@@ -38,7 +38,7 @@ namespace Dungeon.Resources
             if (contentPath.Contains(' '))
             {
                 var split = contentPath.Split(".");
-                var filename = split[^2]+"."+split[^1];
+                var filename = split[^2] + "." + split[^1];
                 var originalPath = contentPath.Replace(filename, "").Replace(" ", "_");
                 contentPath = $"{originalPath}{filename}";
             }

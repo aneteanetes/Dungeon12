@@ -1,10 +1,10 @@
 ﻿using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
-using Dungeon12.Entities.Map;
-using Dungeon12.SceneObjects.MUD.ViewRegion;
-using Dungeon12.SceneObjects.RegionScreen;
+using Nabunassar.Entities.Map;
+using Nabunassar.SceneObjects.MUD.ViewRegion;
+using Nabunassar.SceneObjects.RegionScreen;
 
-namespace Dungeon12.SceneObjects.MUD
+namespace Nabunassar.SceneObjects.MUD
 {
     internal class LocationPreviewImg : SceneObject<Location>
     {

@@ -92,7 +92,7 @@ namespace Dungeon.Monogame
                         }
                     }
 
-                    DrawClient.Draw(layer, buffer, gameTime, light);
+                    DrawClient.Draw(Scene.Resources, layer, buffer, gameTime, light);
 
                     foreach (var postEffect in layer.SceneGlobalEffects.Where(e => e.When == EffectTime.PostProcess))
                     {

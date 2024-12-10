@@ -1,14 +1,14 @@
 ﻿using Dungeon.SceneObjects;
 using Dungeon.Types;
-using Dungeon12.Entities;
+using Nabunassar.Entities;
 
-namespace Dungeon12.SceneObjects.World
+namespace Nabunassar.SceneObjects.World
 {
     internal class WorldPartySceneObject : SceneObject<Party>
     {
         private WorldHeroSceneObject h1,h2,h3,h4;
 
-        internal WorldPartySceneObject(Party component, bool bindView = true) : base(component, bindView)
+        internal WorldPartySceneObject(Party component) : base(component)
         {
             Width = WorldSettings.cellSize;
             Height = WorldSettings.cellSize;

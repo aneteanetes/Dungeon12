@@ -1,4 +1,5 @@
-﻿using LiteDB;
+﻿using Dungeon.Resources.Internal;
+using LiteDB;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace Dungeon.Resources
+namespace Dungeon.Resources.Compiler
 {
     public class ResourceCompiler
     {
@@ -45,9 +46,9 @@ namespace Dungeon.Resources
         private static bool log = false;
         private static bool _logOnlyNewUpdate = false;
 
-        public ResourceCompiler(bool logging = false, bool logOnlyNewUpdate=false)
+        public ResourceCompiler(bool logging = false, bool logOnlyNewUpdate = false)
         {
-            _logOnlyNewUpdate=logOnlyNewUpdate;
+            _logOnlyNewUpdate = logOnlyNewUpdate;
             log = logging;
             LastBuild = GetLastResourceManifestBuild();
             CurrentBuild = new ResourceManifest();
@@ -188,11 +189,11 @@ namespace Dungeon.Resources
         }
 
         public static string MainPath => Store.MainPath;
-        
+
         // We use manifest file to optimize querying resource metadata without loading content in memory.
         // LiteDB doesn't provide a convenient way to only load certain fields in memory.
         public static string ManifestPath = Path.Combine(MainPath, "ResourceManifest.dtr");
-        
+
         private ResourceManifest GetLastResourceManifestBuild()
         {
             if (File.Exists(ManifestPath))

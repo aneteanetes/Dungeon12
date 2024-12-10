@@ -3,7 +3,7 @@ using Dungeon.SceneObjects;
 using Dungeon.SceneObjects.Base;
 using Dungeon.View.Enums;
 
-namespace Dungeon12.SceneObjects.Base
+namespace Nabunassar.SceneObjects.Base
 {
     internal class BorderMap : EmptySceneObject
     {

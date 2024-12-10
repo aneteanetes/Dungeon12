@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace Dungeon12
+namespace Nabunassar
 {
     public static class ResourcesExtensions
     {

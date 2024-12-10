@@ -1,7 +1,7 @@
 ﻿using Dungeon;
 using System.ComponentModel.DataAnnotations;
 
-namespace Dungeon12.Entities
+namespace Nabunassar.Entities
 {
     internal class Calendar
     {

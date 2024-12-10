@@ -1,9 +1,9 @@
 ﻿using Dungeon.Control;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
+using Nabunassar.ECS.Components;
 
-namespace Dungeon12.SceneObjects.Stats
+namespace Nabunassar.SceneObjects.Stats
 {
     internal class Close29x29 : EmptySceneControl, ITooltiped
     {

@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Entities.Quests
+﻿namespace Nabunassar.Entities.Quests
 {
     internal class Goal
     {

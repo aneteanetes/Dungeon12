@@ -1,9 +1,8 @@
 ﻿using Dungeon.SceneObjects;
-using Dungeon12.Entities;
-using Dungeon12.SceneObjects.Base;
-using System.Drawing.Imaging;
+using Nabunassar.Entities;
+using Nabunassar.SceneObjects.Base;
 
-namespace Dungeon12.Scenes.Creating.Character
+namespace Nabunassar.Scenes.Creating.Character
 {
     internal class HeroCreatePanel : SceneControl<Hero>
     {
@@ -29,12 +28,12 @@ namespace Dungeon12.Scenes.Creating.Character
 
         public override void Focus()
         {
-            DungeonGlobal.GameClient.SetCursor("Cursors/hand_thin_open.png".AsmImg());
+            SetCursor("Cursors/hand_thin_open.png".AsmImg());
         }
 
         public override void Unfocus()
         {
-            DungeonGlobal.GameClient.SetCursor("Cursors/pointer_scifi_b.png".AsmImg());
+            SetCursor("Cursors/pointer_scifi_b.png".AsmImg());
         }
 
         public void BindHero(Hero component)

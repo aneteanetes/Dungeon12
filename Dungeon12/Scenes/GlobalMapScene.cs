@@ -3,12 +3,12 @@ using Dungeon.Drawing.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using Dungeon.Tiled;
-using Dungeon12.SceneObjects.GlobalMap;
-using Dungeon12.SceneObjects.Map;
-using Dungeon12.SceneObjects.Playing;
-using Dungeon12.Scenes.Start;
+using Nabunassar.SceneObjects.GlobalMap;
+using Nabunassar.SceneObjects.Map;
+using Nabunassar.SceneObjects.Playing;
+using Nabunassar.Scenes.Start;
 
-namespace Dungeon12.Scenes
+namespace Nabunassar.Scenes
 {
     internal class GlobalMapScene : GameScene<NabLoadingScreen, MenuScene>
     {
@@ -46,16 +46,6 @@ namespace Dungeon12.Scenes
             back.AddObject(new MapMoveBar(Global.Game));
         }
 
-        protected override IEnumerable<string> LoadResourcesNames()
-        {
-            var names = new List<string>();
-
-            //names.AddRange(Global.Game.Party.Heroes.Select(x => x.Avatar));
-            names.Add(ImageObject.MakeImagePath("Backgrounds/Regions/sea.jpg"));
-
-            return names;
-        }
-
         public override void Load()
         {
             LoadWorld();
@@ -64,7 +54,7 @@ namespace Dungeon12.Scenes
 
         private void LoadWorld()
         {
-            var res = LoadResource("Maps/World.tmx");
+            var res = Resources.Load("Maps/World.tmx");
             var tiled = TiledMap.Load(res);
             Global.Game.World = new Entities.Map.World(tiled);
         }

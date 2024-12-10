@@ -1,6 +1,7 @@
 ﻿namespace Dungeon.SceneObjects
 {
     using Dungeon;
+    using Dungeon.Audio;
     using Dungeon.Drawing;
     using Dungeon.Drawing.SceneObjects;
     using Dungeon.ECS;
@@ -25,19 +26,14 @@
     public abstract class SceneObject<TComponent> : ISceneObject, IFlowable, IMixinContainer
         where TComponent : class
     {
-        private readonly Scenes.GameScene owner;
-
         public virtual TComponent Component { get; private set; }
 
-        /// <summary>
-        /// В КОНСТРУКТОРЕ ЕСТЬ КОСТЫЛЬ
-        /// </summary>
-        public SceneObject(TComponent component, bool bindView = true)
-        {
-            var activeLayer = Dungeon.DungeonGlobal.SceneManager?.Current?.ActiveLayer;
-            if (activeLayer!=default)
-                this.Layer=activeLayer;
+        public ISceneLayer Layer { get; set; }
 
+        public IAudioPlayer AudioPlayer => DungeonGlobal.AudioPlayer;
+
+        public SceneObject(TComponent component)
+        {
             if (this is IAutoFreeze)
             {
                 if (this is IAutoUnfreeze unfreeze)
@@ -46,7 +42,7 @@
                     DungeonGlobal.Freezer.Freeze(this);
             }
 
-            if (bindView && component != default)
+            if (component != default)
             {
                 BindGameComponent(component);
             }
@@ -56,17 +52,17 @@
             ProcessSingleton();
         }
 
+        public void SetCursor(string path)
+        {
+            DungeonGlobal.GameClient.SetCursor(Layer.Scene.Resources, path);
+        }
+
         public void BindGameComponent(TComponent component)
         {
             if (component is IGameComponent gameComponent)
             {
                 gameComponent.SetView(this);
             }
-        }
-
-        public void BindComponent(TComponent component)
-        {
-            Component = component;
         }
 
         public void ClearComponent(TComponent component)
@@ -117,7 +113,7 @@
                 : new EmptyObj() { Width = parentWidth, Height = this.Height };
 
             var textControl = typeof(T).New(drawText).As<T>();
-            var measure = DungeonGlobal.GameClient.MeasureText(textControl.Text, parentWidth==0
+            var measure = this.MeasureText(textControl.Text, parentWidth==0
                 ? this
                 : new EmptyObj() { Width = parentWidth });
 
@@ -170,7 +166,7 @@
         public T CenterChildText<T>(T text, bool x = true, bool y = true)
             where T : SceneObject<IDrawText>
         {
-            var measure = DungeonGlobal.GameClient.MeasureText(text.Text, this);
+            var measure = DungeonGlobal.GameClient.MeasureText(Layer.Scene.Resources, text.Text, this);
             return CenterChild(text, x, y, measure);
         }
 
@@ -220,7 +216,7 @@
 
         public void CenterText(TextObject textControl, bool horizontal = true, bool vertical = true, double parentWidth = 0)
         {
-            var measure = DungeonGlobal.GameClient.MeasureText(textControl.Text, parentWidth == 0
+            var measure = DungeonGlobal.GameClient.MeasureText(Layer.Scene.Resources, textControl.Text, parentWidth == 0
                 ? this
                 : new EmptyObj() { Width = parentWidth });
 
@@ -238,10 +234,10 @@
             }
         }
 
-        protected T AddChildImageCenter<T>(T control, bool horizontal = true, bool vertical = true)
+        protected T AddChildImageCenter<T>(ISceneLayer layer, T control, bool horizontal = true, bool vertical = true)
             where T : ISceneObject
         {
-            var measure = MeasureImage(control.Image);
+            var measure = MeasureImage(layer,control.Image);
             measure.X = measure.X * Settings.DrawingSize.CellF;
             measure.Y = measure.Y * Settings.DrawingSize.CellF;
 
@@ -304,12 +300,12 @@
         /// <param name="text"></param>
         /// <param name="parent">Только если wordWrap</param>
         /// <returns></returns>
-        protected Dot MeasureText(IDrawText text, ISceneObject parent = default)
+        public Dot MeasureText(IDrawText text, ISceneObject parent = default)
         {
             if (text == null)
                 return Dot.Zero;
 
-            return DungeonGlobal.GameClient.MeasureText(text, parent);
+            return DungeonGlobal.GameClient.MeasureText(DungeonGlobal.Resources,  text, parent);
         }
 
             protected DrawText CutText(DrawText text, double height)
@@ -331,9 +327,9 @@
         /// </summary>
         /// <param name="text"></param>
         /// <returns>relative X/Y</returns>
-        protected Dot MeasureImage(string img)
+        protected Dot MeasureImage(ISceneLayer layer, string img)
         {
-            var m = DungeonGlobal.GameClient.MeasureImage(img);
+            var m = DungeonGlobal.GameClient.MeasureImage(layer.Scene.Resources, img);
 
             return new Dot(m.X / Settings.DrawingSize.CellF, m.Y / Settings.DrawingSize.CellF);
         }
@@ -346,11 +342,11 @@
         /// </summary>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        public void AutoSizeImage(double width = 1, double height = 1)
+        public void AutoSizeImage(ISceneLayer layer, double width = 1, double height = 1)
         {
             if (this.Image != default)
             {
-                var m = MeasureImage(this.Image);
+                var m = MeasureImage(layer, this.Image);
                 width = m.X;
                 height = m.Y;
             }
@@ -718,19 +714,6 @@
 
         public string Tag { get; set; }
 
-        private ISceneLayer _layer;
-        public ISceneLayer Layer
-        {
-            get
-            {
-                if (_layer == null && Parent != null)
-                    _layer = Parent.Layer;
-
-                return _layer;
-            }
-            set { _layer = value; }
-        }
-
         [Title("Рисовать видимую часть")]
         public bool DrawPartInSight { get; set; }
 
@@ -966,7 +949,7 @@
             this.GetType()
                 .GetProperties(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public)
                 .Where(p => p.PropertyType.BaseType!=null && p.PropertyType.BaseType.Name=="MulticastDelegate")
-                .ForEach(p => this.SetPropertyExprType(p.Name, null, p.PropertyType));
+                .ForEach(p => this.SetPropValue(p.Name, null));
         }
 
         public virtual void Init() { }

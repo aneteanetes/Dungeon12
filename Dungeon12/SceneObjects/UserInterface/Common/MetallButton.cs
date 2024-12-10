@@ -4,7 +4,7 @@ using Dungeon.Drawing;
 using Dungeon.SceneObjects;
 using System;
 
-namespace Dungeon12.SceneObjects.UserInterface.Common
+namespace Nabunassar.SceneObjects.UserInterface.Common
 {
     internal class MetallButton : EmptySceneControl
     {
@@ -51,7 +51,7 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
             if (Disabled)
                 return;
 
-            DungeonGlobal.AudioPlayer.Effect("focus.wav".AsmSoundRes());
+            AudioPlayer.Sound("focus.wav".AsmSoundRes());
             Image = "UI/Common/mbutton_f.png".AsmImg();
             //this.textControl.Strings.Paint(ActiveColor, true);
         }

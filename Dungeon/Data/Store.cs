@@ -57,42 +57,42 @@
         /// <param name="type"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static T EntitySingle<T>(string type, string id)
-            where T : IPersist
-        {
-            //GetEntityTypeLambdaRuntime(type)
+        //public static T EntitySingle<T>(string type, string id)
+        //    where T : IPersist
+        //{
+        //    //GetEntityTypeLambdaRuntime(type)
 
-            var t = ResourceLoader.LoadType(type);
+        //    var t = Resources.ResourceLoader.LoadType(type);
 
-            var funcType = typeof(Func<,>).MakeGenericType(new Type[] { t, typeof(bool) });
+        //    var funcType = typeof(Func<,>).MakeGenericType(new Type[] { t, typeof(bool) });
 
-            var boolExprParam = Expression.Parameter(typeof(bool));
+        //    var boolExprParam = Expression.Parameter(typeof(bool));
 
-            var typeParameter = Expression.Parameter(t);
+        //    var typeParameter = Expression.Parameter(t);
 
-            var propExpr = Expression.Property(typeParameter, "IdentifyName");
+        //    var propExpr = Expression.Property(typeParameter, "IdentifyName");
 
-            var idExpressionParam = Expression.Parameter(typeof(string));
+        //    var idExpressionParam = Expression.Parameter(typeof(string));
 
-            var setExpr = Expression.Equal(propExpr, Expression.Constant(id));
+        //    var setExpr = Expression.Equal(propExpr, Expression.Constant(id));
 
-            var exprParam = Expression.Lambda(funcType, setExpr, typeParameter);
+        //    var exprParam = Expression.Lambda(funcType, setExpr, typeParameter);
 
-            var expressionTypeParam = Expression.Parameter(exprParam.GetType());
-            var objParam = Expression.Parameter(typeof(object));
+        //    var expressionTypeParam = Expression.Parameter(exprParam.GetType());
+        //    var objParam = Expression.Parameter(typeof(object));
 
-            var dbParam = Expression.Parameter(typeof(string));
+        //    var dbParam = Expression.Parameter(typeof(string));
 
-            var genericEntity = typeof(Store).GetMethods().FirstOrDefault(x => x.Name == "Entity" && x.GetParameters().FirstOrDefault().ParameterType != typeof(string));
-            genericEntity = genericEntity.MakeGenericMethod(t);
+        //    var genericEntity = typeof(Store).GetMethods().FirstOrDefault(x => x.Name == "Entity" && x.GetParameters().FirstOrDefault().ParameterType != typeof(string));
+        //    genericEntity = genericEntity.MakeGenericMethod(t);
 
-            var methodCall = Expression.Call(genericEntity, expressionTypeParam, objParam, dbParam);
+        //    var methodCall = Expression.Call(genericEntity, expressionTypeParam, objParam, dbParam);
 
-            var entity = Expression.Lambda(methodCall, expressionTypeParam, objParam, dbParam).Compile().DynamicInvoke(exprParam, default,"Data");
-            var @enum = entity.As<IEnumerable>().GetEnumerator();
-            @enum.MoveNext();
-            return @enum.Current.As<T>();
-        }
+        //    var entity = Expression.Lambda(methodCall, expressionTypeParam, objParam, dbParam).Compile().DynamicInvoke(exprParam, default,"Data");
+        //    var @enum = entity.As<IEnumerable>().GetEnumerator();
+        //    @enum.MoveNext();
+        //    return @enum.Current.As<T>();
+        //}
 
         /// <summary>
         /// 

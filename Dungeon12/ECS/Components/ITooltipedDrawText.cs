@@ -1,7 +1,7 @@
 ﻿using Dungeon.ECS;
 using Dungeon.View.Interfaces;
 
-namespace Dungeon12.ECS.Components
+namespace Nabunassar.ECS.Components
 {
     internal interface ITooltipedDrawText : IComponent
     {

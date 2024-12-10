@@ -7,7 +7,7 @@ using Dungeon.Types;
 using System;
 using System.Linq;
 
-namespace Dungeon12.SceneObjects.World
+namespace Nabunassar.SceneObjects.World
 {
     internal class WorldSceneObject : EmptySceneControl
     {

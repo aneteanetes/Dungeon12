@@ -3,15 +3,15 @@ using Dungeon.Drawing.SceneObjects;
 using Dungeon.Localization;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
-using Dungeon12.Entities;
-using Dungeon12.Entities.Abilities;
-using Dungeon12.Entities.Characteristics;
-using Dungeon12.Entities.Enums;
-using Dungeon12.SceneObjects.Base;
+using Nabunassar.ECS.Components;
+using Nabunassar.Entities;
+using Nabunassar.Entities.Abilities;
+using Nabunassar.Entities.Characteristics;
+using Nabunassar.Entities.Enums;
+using Nabunassar.SceneObjects.Base;
 using System.Linq;
 
-namespace Dungeon12.SceneObjects.Create
+namespace Nabunassar.SceneObjects.Create
 {
     internal class Abilities : SceneControl<Hero>
     {

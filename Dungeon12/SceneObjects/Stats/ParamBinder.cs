@@ -1,10 +1,10 @@
 ﻿using Dungeon;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
-using Dungeon12.SceneObjects.Base;
+using Nabunassar.SceneObjects.Base;
 using System.Collections.Generic;
 
-namespace Dungeon12.SceneObjects.Stats
+namespace Nabunassar.SceneObjects.Stats
 {
     internal class ParamBinder
     {
@@ -33,11 +33,11 @@ namespace Dungeon12.SceneObjects.Stats
             //_sceneObject.AddControlCenter
 
             var val = Value(value.ToString());
-            var valmeasure = Global.GameClient.MeasureText(val);
+            var valmeasure = _sceneObject.MeasureText(val);
 
             texts.Add(_sceneObject.AddText(val, (_left+_width)-(valmeasure.X+1), _top));
 
-            _top+= Global.GameClient.MeasureText(nam).Y;
+            _top+= _sceneObject.MeasureText(nam).Y;
         }
 
         private static TextObjectHint GetTextComponent(IDrawText text, double left, double top)

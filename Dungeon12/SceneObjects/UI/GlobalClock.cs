@@ -4,12 +4,12 @@ using Dungeon.SceneObjects;
 using Dungeon.SceneObjects.Base;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
-using Dungeon12.Entities;
-using Dungeon12.SceneObjects.Base;
+using Nabunassar.ECS.Components;
+using Nabunassar.Entities;
+using Nabunassar.SceneObjects.Base;
 using System;
 
-namespace Dungeon12.SceneObjects.UI
+namespace Nabunassar.SceneObjects.UI
 {
     internal class GlobalClock : SceneControl<Calendar>
     {
@@ -20,7 +20,7 @@ namespace Dungeon12.SceneObjects.UI
 
         public override bool PerPixelCollision => true;
 
-        public GlobalClock(Calendar component) : base(component, true)
+        public GlobalClock(Calendar component) : base(component)
         {
             this.Width = 250;
             this.Height = 90;

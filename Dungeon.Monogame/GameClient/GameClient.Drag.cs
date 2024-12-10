@@ -3,6 +3,7 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Input;
     using Dungeon.View.Interfaces;
+    using Dungeon.Resources;
 
     public partial class GameClient : Game, IGameClient
     {
@@ -11,7 +12,7 @@
         public void Drag(ISceneObject @object, ISceneObject area = null)
         {
             dragging = true;
-            var texture = ImageLoader.LoadTexture2D(@object.Image);
+            var texture = ImageLoader.LoadTexture2D(Scene.Resources, @object.Image);
             if (texture == default)
                 return;
 
@@ -29,10 +30,10 @@
 
         private string cursor = null;
 
-        public void SetCursor(string textureSrc)
+        public void SetCursor(ResourceTable resources, string textureSrc)
         {
             cursor = textureSrc;
-            var texture = ImageLoader.LoadTexture2D(textureSrc);
+            var texture = ImageLoader.LoadTexture2D(resources, textureSrc);
             if (texture == default)
                 return;
             CurrentCursor = MouseCursor.FromTexture2D(texture, 0, 0);

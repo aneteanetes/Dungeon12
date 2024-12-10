@@ -1,7 +1,7 @@
-﻿using Dungeon12.Entities;
-using Dungeon12.SceneObjects.Base;
+﻿using Nabunassar.Entities;
+using Nabunassar.SceneObjects.Base;
 
-namespace Dungeon12.SceneObjects.GlobalMap
+namespace Nabunassar.SceneObjects.GlobalMap
 {
     internal class PortraitHero : Border
     {

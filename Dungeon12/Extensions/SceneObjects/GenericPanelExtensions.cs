@@ -1,10 +1,10 @@
 ﻿using Dungeon;
 using Dungeon.Drawing;
 using Dungeon.View.Interfaces;
-using Dungeon12.Entities.Plates;
+using Nabunassar.Entities.Plates;
 using System.ComponentModel;
 
-namespace Dungeon12.Extensions.SceneObjects
+namespace Nabunassar.Extensions.SceneObjects
 {
     internal static class GenericPanelExtensions
     {

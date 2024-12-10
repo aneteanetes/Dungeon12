@@ -1,5 +1,6 @@
 ﻿namespace Dungeon.Scenes
 {
+    using Dungeon.Audio;
     using Dungeon.Control;
     using Dungeon.Control.Gamepad;
     using Dungeon.Control.Keys;
@@ -12,12 +13,15 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     public abstract class Scene : IScene
     {
         public SceneManager sceneManager;
 
         public abstract bool Destroyable { get; }
+
+        public IAudioPlayer AudioPlayer=>DungeonGlobal.AudioPlayer;
 
         public string Uid { get; } = Guid.NewGuid().ToString();
 
@@ -338,11 +342,16 @@
 
         public abstract void Initialize();
 
-        public ResourceTable Resources = new ResourceTable();
+        private ResourceTable _resources=new ResourceTable();
+        public ResourceTable Resources => _resources;
 
-        public virtual void Activate()
+        /// <summary>
+        /// Активирует сцену на следующем цикле отрисовки
+        /// </summary>
+        /// <returns></returns>
+        public virtual Task Activate()
         {
-            this.sceneManager.GameClient.ChangeScene(this);
+            return this.sceneManager.GameClient.ChangeScene(this);
         }
 
         protected virtual void Switch<T>(params string[] args) where T : GameScene
@@ -387,94 +396,26 @@
             LayerMap = null;
             SceneLayerGraph = null;
 
-            if (!ResourceLoader.Settings.IsEmbeddedMode && !ResourceLoader.Settings.NotDisposingResources)
+            if (!Dungeon.Resources.ResourceLoader.Settings.IsEmbeddedMode && !Dungeon.Resources.ResourceLoader.Settings.NotDisposingResources)
             {
                 Resources?.Dispose();
-                Resources = null;
+                _resources = null;
             }
             GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
 
             Destroyed = true;
         }
 
-        [Obsolete("Use layers instead")]
-        public void ShowEffectsBinding(List<ISceneObject> e)
-        {
-            e.ForEach(effect =>
-            {
-                //if (effect.ShowInScene == null)
-                //{
-                //    effect.ShowInScene = ShowEffectsBinding;
-                //}
-                //if (effect.ControlBinding == null)
-                //{
-                //    effect.ControlBinding = this.AddControl;
-                //}
-
-                //effect.Destroy += () =>
-                //{
-                //    this.RemoveObject(effect);
-                //};
-                this.AddObject(effect);
-            });
-        }
-
-        [Obsolete("Use layers instead")]
-        public void RemoveObject(ISceneObject sceneObject) => this.LayerList.ForEach(ll => ll.RemoveObject(sceneObject));
-
-        [Obsolete("Use Layer.AddObject instead")]
-        public void AddObject(ISceneObject sceneObject)
-        {
-            CheckLayerExists();
-            ActiveLayer?.AddObject(sceneObject);
-        }
-
-        private void CheckLayerExists()
-        {
-            if (this.LayerList.Count == 0)
-            {
-                var l = CreateLayer("Main");
-                l.IsActive = true;
-            }
-            else
-            {
-                var last = this.LayerList.Last();
-                last.IsActive = true;
-                ActiveLayer = last;
-            }
-        }
-
-        [Obsolete("Use Layer.AddObject instead")]
-        public void AddControl(ISceneControl sceneObjectControl)
-        {
-            CheckLayerExists();
-            ActiveLayer?.AddExistedControl(sceneObjectControl);
-        }
-
-        [Obsolete("Use layers instead")]
-        public void RemoveControl(ISceneControl sceneObjectControl) => this.LayerList.ForEach(ll => ll.RemoveControl(sceneObjectControl));
-
         public virtual void Loaded() { }
 
-        public virtual void Load()
-        {
-            var names = this.LoadResourcesNames();
-            foreach (var name in names)
-            {
-                LoadResource(name);
-            }
-        }
-
-        protected Resource LoadResource(string name) => Resources.Load(name);
-
-        protected virtual IEnumerable<string> LoadResourcesNames() => Enumerable.Empty<string>();
+        public virtual void Load() { }
 
         public Resource GetResource(string name)
         {
             if (Resources.TryGetValue(name, out var res))
                 return res;
 
-            if (DungeonGlobal.GlobalResources.TryGetValue(name, out res))
+            if (DungeonGlobal.Resources.TryGetValue(name, out res))
                 return res;
 
             throw new KeyNotFoundException($"Ресурс {name} не загружен на сцену!");

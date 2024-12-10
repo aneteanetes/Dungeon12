@@ -1,6 +1,6 @@
 ﻿using Dungeon;
 
-namespace Dungeon12.Attributes
+namespace Nabunassar.Attributes
 {
     internal class DescriptionAttribute : ValueAttribute
     {

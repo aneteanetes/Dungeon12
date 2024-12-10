@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Dungeon12.Entities.Quests
+namespace Nabunassar.Entities.Quests
 {
     internal class Quest
     {

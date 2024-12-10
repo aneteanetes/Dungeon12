@@ -1,8 +1,8 @@
 ﻿using Dungeon.SceneObjects;
-using Dungeon12.SceneObjects.Base;
-using Dungeon12.SceneObjects.UserInterface.Common;
+using Nabunassar.SceneObjects.Base;
+using Nabunassar.SceneObjects.UserInterface.Common;
 
-namespace Dungeon12.SceneObjects.HUD
+namespace Nabunassar.SceneObjects.HUD
 {
     internal class TextPanel : EmptySceneObject
     {

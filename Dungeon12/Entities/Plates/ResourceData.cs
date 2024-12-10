@@ -1,7 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Drawing;
 
-namespace Dungeon12.Entities.Plates
+namespace Nabunassar.Entities.Plates
 {
     internal class ResourceData
     {

@@ -9,7 +9,7 @@ namespace Dungeon.SceneObjects.Base
 {
     public class ColoredLine : EmptySceneControl
     {
-        public ColoredLine(double length, Direction direction, double depth)
+        public ColoredLine(ISceneLayer layer, double length, Direction direction, double depth):base(layer)
         {
             Length= length;
             Direction= direction;

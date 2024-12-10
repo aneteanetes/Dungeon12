@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Entities.Enums
+﻿namespace Nabunassar.Entities.Enums
 {
     public enum Archetype
     {

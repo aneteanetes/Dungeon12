@@ -1,7 +1,7 @@
 ﻿using Dungeon.View.Interfaces;
-using Dungeon12.SceneObjects.Base;
+using Nabunassar.SceneObjects.Base;
 
-namespace Dungeon12.ECS.Components
+namespace Nabunassar.ECS.Components
 {
     internal interface IMouseHint
     {

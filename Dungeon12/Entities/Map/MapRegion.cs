@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Dungeon12.Entities.Map
+namespace Nabunassar.Entities.Map
 {
     internal class MapRegion
     {

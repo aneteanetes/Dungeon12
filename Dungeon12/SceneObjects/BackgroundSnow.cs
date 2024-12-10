@@ -1,13 +1,14 @@
 ﻿using Dungeon.Drawing.Impl;
 using Dungeon.SceneObjects;
+using Dungeon.View.Interfaces;
 
-namespace Dungeon12.Drawing.SceneObjects
+namespace Nabunassar.Drawing.SceneObjects
 {
     internal class BackgroundSnow : EmptySceneObject
     {
         public override bool CacheAvailable => false;
 
-        public BackgroundSnow()
+        public BackgroundSnow() : base()
         {
             this.AddChild(new BackgroundSnowParticle());
             this.AddChild(new BackgroundSnowParticle()
@@ -18,7 +19,7 @@ namespace Dungeon12.Drawing.SceneObjects
 
         private class BackgroundSnowParticle : EmptySceneObject
         {
-            public BackgroundSnowParticle()
+            public BackgroundSnowParticle() : base()
             {
                 this.ParticleEffects.Add(new ParticleEffect()
                 {

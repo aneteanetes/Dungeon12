@@ -2,9 +2,9 @@
 using Dungeon.Control;
 using Dungeon.ECS;
 using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
+using Nabunassar.ECS.Components;
 
-namespace Dungeon12.ECS.Systems
+namespace Nabunassar.ECS.Systems
 {
     internal class CursorSystem : ISystem
     {
@@ -21,10 +21,10 @@ namespace Dungeon12.ECS.Systems
         {
             if (sceneObject is ICursored cursored)
             {
-                Global.GameClient.SetCursor($"Cursors/{cursored.Cursor.ToString().ToLowerInvariant()}.png".AsmImg());
+                Global.GameClient.SetCursor(sceneObject.Layer.Scene.Resources, $"Cursors/{cursored.Cursor.ToString().ToLowerInvariant()}.png".AsmImg());
             }
         }
 
-        public void ProcessUnfocus(ISceneObject sceneObject) => Global.GameClient.SetCursor("Cursors/common.png".AsmImg());
+        public void ProcessUnfocus(ISceneObject sceneObject) => Global.GameClient.SetCursor(sceneObject.Layer.Scene.Resources, "Cursors/common.png".AsmImg());
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dungeon12.Entities.Talks
+namespace Nabunassar.Entities.Talks
 {
     internal class Subject
     {

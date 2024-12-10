@@ -1,10 +1,10 @@
 ﻿using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
-using Dungeon12.Entities.Objects;
+using Nabunassar.ECS.Components;
+using Nabunassar.Entities.Objects;
 
-namespace Dungeon12.SceneObjects.Location_
+namespace Nabunassar.SceneObjects.Location_
 {
     internal class LocationObject : SceneControl<MapObject>, ITooltipedDrawText
     {

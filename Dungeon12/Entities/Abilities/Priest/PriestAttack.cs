@@ -1,6 +1,6 @@
-﻿using Dungeon12.Entities.Enums;
+﻿using Nabunassar.Entities.Enums;
 
-namespace Dungeon12.Entities.Abilities.Priest
+namespace Nabunassar.Entities.Abilities.Priest
 {
     /// <summary>
     /// Атака оружием, преобразуется в исцеляющую атаку, таунт, оглушение

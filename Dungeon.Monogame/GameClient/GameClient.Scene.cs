@@ -3,6 +3,7 @@ using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Dungeon.Monogame
 {
@@ -27,6 +28,8 @@ namespace Dungeon.Monogame
             }
         }
 
+        TaskCompletionSource changeTask = null;
+
         public void ValidateAndChangeScene()
         {
             if (_nextScene != null)
@@ -34,14 +37,17 @@ namespace Dungeon.Monogame
                 _scene?.Destroy();
                 Scene = _nextScene;
                 _nextScene = null;
+                changeTask.SetResult();
             }
         }
 
         private IScene _nextScene;
 
-        public void ChangeScene(IScene scene)
+        public Task ChangeScene(IScene scene)
         {
+            changeTask =  new TaskCompletionSource();
             _nextScene = scene;
+            return changeTask.Task;
         }
     }
 }

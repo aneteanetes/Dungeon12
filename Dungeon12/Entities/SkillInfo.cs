@@ -1,6 +1,6 @@
-﻿using Dungeon12.Entities.Enums;
+﻿using Nabunassar.Entities.Enums;
 
-namespace Dungeon12.Entities
+namespace Nabunassar.Entities
 {
     internal class SkillInfo
     {

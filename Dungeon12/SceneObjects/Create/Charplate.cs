@@ -1,10 +1,10 @@
 ﻿using Dungeon;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
-using Dungeon12.Entities;
-using Dungeon12.Entities.Enums;
+using Nabunassar.Entities;
+using Nabunassar.Entities.Enums;
 
-namespace Dungeon12.SceneObjects.Create
+namespace Nabunassar.SceneObjects.Create
 {
     internal class Charplate : SceneControl<Hero>
     {

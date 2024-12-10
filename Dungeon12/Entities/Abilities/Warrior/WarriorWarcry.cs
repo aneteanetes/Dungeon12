@@ -1,6 +1,6 @@
-﻿using Dungeon12.Entities.Enums;
+﻿using Nabunassar.Entities.Enums;
 
-namespace Dungeon12.Entities.Abilities.Warrior
+namespace Nabunassar.Entities.Abilities.Warrior
 {
     internal class WarriorWarcry : Ability
     {

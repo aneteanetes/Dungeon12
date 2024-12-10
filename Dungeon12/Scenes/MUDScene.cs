@@ -3,15 +3,15 @@ using Dungeon.Control.Keys;
 using Dungeon.SceneObjects.Grouping;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
-using Dungeon12.ECS.Systems;
-using Dungeon12.Entities.Map;
-using Dungeon12.Entities.Objects.OnMap;
-using Dungeon12.SceneObjects.MUD;
-using Dungeon12.SceneObjects.MUD.Controls;
-using Dungeon12.SceneObjects.MUD.ViewRegion;
-using Dungeon12.Scenes.Start;
+using Nabunassar.ECS.Systems;
+using Nabunassar.Entities.Map;
+using Nabunassar.Entities.Objects.OnMap;
+using Nabunassar.SceneObjects.MUD;
+using Nabunassar.SceneObjects.MUD.Controls;
+using Nabunassar.SceneObjects.MUD.ViewRegion;
+using Nabunassar.Scenes.Start;
 
-namespace Dungeon12.Scenes
+namespace Nabunassar.Scenes
 {
     internal class MUDScene : GameScene<NabLoadingScreen, MenuScene>
     {

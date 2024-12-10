@@ -147,7 +147,7 @@ namespace Dungeon.Scenes
 
         protected Dot MeasureImage(string img)
         {
-            var m = DungeonGlobal.GameClient.MeasureImage(img);
+            var m = DungeonGlobal.GameClient.MeasureImage(Scene.Resources, img);
 
             return new Dot(m.X, m.Y);
         }

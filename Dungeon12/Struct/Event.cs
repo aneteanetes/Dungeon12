@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Struct
+﻿namespace Nabunassar.Struct
 {
     internal class Event<T>
     {

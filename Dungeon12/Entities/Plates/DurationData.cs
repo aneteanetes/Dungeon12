@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Entities.Plates
+﻿namespace Nabunassar.Entities.Plates
 {
     internal class DurationData
     {

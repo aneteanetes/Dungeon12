@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Entities.Characters
+﻿namespace Nabunassar.Entities.Characters
 {
     internal enum Race
     {

@@ -2,9 +2,9 @@
 using Dungeon.Drawing;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
-using Dungeon12.Entities;
+using Nabunassar.Entities;
 
-namespace Dungeon12.SceneObjects.Base
+namespace Nabunassar.SceneObjects.Base
 {
     internal class ItemHint : EmptySceneObject, ISceneObjectHosted
     {

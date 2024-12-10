@@ -1,12 +1,12 @@
 ﻿using Dungeon;
 using Dungeon.Drawing;
 using Dungeon.Localization;
-using Dungeon12.Entities.Enums;
-using Dungeon12.Locale;
-using Dungeon12.SceneObjects;
+using Nabunassar.Entities.Enums;
+using Nabunassar.Locale;
+using Nabunassar.SceneObjects;
 using System.Reflection;
 
-namespace Dungeon12
+namespace Nabunassar
 {
     internal class Global : DungeonGlobal
     {

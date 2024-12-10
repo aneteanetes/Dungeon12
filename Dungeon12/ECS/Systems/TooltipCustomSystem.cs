@@ -4,11 +4,11 @@ using Dungeon.ECS;
 using Dungeon.Scenes;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
-using Dungeon12.SceneObjects.Base;
+using Nabunassar.ECS.Components;
+using Nabunassar.SceneObjects.Base;
 using System.Collections.Generic;
 
-namespace Dungeon12.ECS.Systems
+namespace Nabunassar.ECS.Systems
 {
     internal class TooltipCustomSystem : ISystem
     {

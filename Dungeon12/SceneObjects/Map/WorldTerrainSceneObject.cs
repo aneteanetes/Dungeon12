@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Dungeon.Varying;
 using Dungeon.SceneObjects.Tilemaps;
 
-namespace Dungeon12.SceneObjects.Map
+namespace Nabunassar.SceneObjects.Map
 {
     internal class WorldTerrainSceneObject : SceneControl<Entities.Map.World>
     {

@@ -1,7 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Types;
 
-namespace Dungeon12.Attributes
+namespace Nabunassar.Attributes
 {
     internal class EnumDotAttribute : ValueAttribute
     {

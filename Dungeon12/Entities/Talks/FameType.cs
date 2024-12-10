@@ -1,7 +1,7 @@
 ﻿using Dungeon.Drawing;
 using System.Drawing;
 
-namespace Dungeon12.Entities.Talks
+namespace Nabunassar.Entities.Talks
 {
     public enum FameType
     {

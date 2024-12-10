@@ -3,7 +3,7 @@ global using Dungeon;
 using Dungeon.Monogame.Runner;
 using Dungeon.Monogame.Settings;
 using Dungeon.VariableEditor;
-using Dungeon12;
+using Nabunassar;
 
 var cfg = DungeonGlobal.Init<Global>(true, true);
 

@@ -1,9 +1,9 @@
 ﻿using Dungeon;
-using Dungeon12.Entities.Enums;
-using Dungeon12.Entities.Talks;
+using Nabunassar.Entities.Enums;
+using Nabunassar.Entities.Talks;
 using Newtonsoft.Json.Linq;
 
-namespace Dungeon12.Entities
+namespace Nabunassar.Entities
 {
     internal class Fame
     {

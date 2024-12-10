@@ -1,19 +1,21 @@
 ﻿namespace Dungeon.View.Interfaces
 {
+    using Dungeon.Resources;
     using Dungeon.Types;
+    using System.Threading.Tasks;
 
     public interface IGameClient : ICamera
     {
         /// <summary>
-        /// 
+        /// Активирует сцену на следующем цикле отрисовки
         /// </summary>
         /// <param name="scene"></param>
         /// <returns>After 1 draw circle</returns>
-        void ChangeScene(IScene scene);
+        Task ChangeScene(IScene scene);
 
-        Dot MeasureText(IDrawText drawText,ISceneObject parent=default);
+        Dot MeasureText(ResourceTable resources, IDrawText drawText,ISceneObject parent=default);
 
-        Dot MeasureImage(string image);
+        Dot MeasureImage(ResourceTable resources, string image);
 
         void SaveObject(ISceneObject sceneObject, string path = default, Dot offset = default, string runtimeCacheName = null);
 
@@ -23,7 +25,7 @@
 
         void Clear(IDrawColor drawColor=default);
 
-        void SetCursor(string texture);
+        void SetCursor(ResourceTable resources, string texture);
 
         string GetCursor();
 
@@ -31,7 +33,7 @@
         /// Кэширование изображения
         /// </summary>
         /// <param name="image">Путь к изображению</param>
-        void CacheImage(string image);
+        void CacheImage(ResourceTable resources, string image);
 
         /// <summary>
         /// Создать эффект который зависит от платформы

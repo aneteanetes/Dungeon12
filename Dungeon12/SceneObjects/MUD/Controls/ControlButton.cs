@@ -1,9 +1,9 @@
 ﻿using Dungeon;
 using Dungeon.Control;
 using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
+using Nabunassar.ECS.Components;
 
-namespace Dungeon12.SceneObjects.MUD.Controls
+namespace Nabunassar.SceneObjects.MUD.Controls
 {
     internal class ControlButton : EmptySceneControl, ITooltipedDrawText
     {

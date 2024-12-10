@@ -1,10 +1,10 @@
 ﻿using Dungeon.Varying;
-using Dungeon12.Entities;
-using Dungeon12.Entities.Journal;
-using Dungeon12.Entities.Map;
-using Dungeon12.Entities.Quests;
+using Nabunassar.Entities;
+using Nabunassar.Entities.Journal;
+using Nabunassar.Entities.Map;
+using Nabunassar.Entities.Quests;
 
-namespace Dungeon12
+namespace Nabunassar
 {
     internal class Game
     {

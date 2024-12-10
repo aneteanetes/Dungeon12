@@ -20,9 +20,9 @@ namespace Dungeon.Tiled
         private TiledMap() { }
 
 
-        public static TiledMap Load(string resourceName)
+        public static TiledMap Load(string resourceName, ResourceTable table)
         {
-            var res = ResourceLoader.Load(resourceName);
+            var res = Resources.ResourceLoader.Load(table, resourceName);
             return Load(res);
         }
 

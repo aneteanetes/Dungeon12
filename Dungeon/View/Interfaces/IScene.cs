@@ -11,6 +11,8 @@ namespace Dungeon.View.Interfaces
 
         ISceneLayer[] Layers { get; }
 
+        ResourceTable Resources { get; }
+
         ISceneLayer GetLayer(string name);
 
         bool AbsolutePositionScene { get; }

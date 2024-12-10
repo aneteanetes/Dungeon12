@@ -1,6 +1,6 @@
 ﻿using Dungeon;
 
-namespace Dungeon12.Entities.Objects
+namespace Nabunassar.Entities.Objects
 {
     internal class GameObject
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dungeon12.Entities.Map
+namespace Nabunassar.Entities.Map
 {
     internal class RegionGraph
     {

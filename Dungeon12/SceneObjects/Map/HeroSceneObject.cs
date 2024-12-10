@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Drawing.SceneObjects.Map
+﻿namespace Nabunassar.Drawing.SceneObjects.Map
 {
     using Dungeon;
     using Dungeon.Control;
@@ -6,7 +6,7 @@
     using Dungeon.SceneObjects;
     using Dungeon.Types;
     using Dungeon.View;
-    using Dungeon12.Entities;
+    using Nabunassar.Entities;
     using System.Collections.Generic;
 
     internal class HeroSceneObject : SceneControl<Hero>

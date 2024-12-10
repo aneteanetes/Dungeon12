@@ -1,8 +1,8 @@
 ﻿using Dungeon.View.Interfaces;
-using Dungeon12.SceneObjects.Stats;
+using Nabunassar.SceneObjects.Stats;
 using System;
 
-namespace Dungeon12
+namespace Nabunassar
 {
     internal class GlobalWindows
     {

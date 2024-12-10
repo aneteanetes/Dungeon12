@@ -2,7 +2,7 @@
 using Dungeon.View;
 using System.Collections.Generic;
 
-namespace Dungeon12.Components
+namespace Nabunassar.Components
 {
     internal class FrameAnimated
     {

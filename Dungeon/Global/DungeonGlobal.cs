@@ -6,6 +6,8 @@ using Dungeon.Events;
 using Dungeon.Localization;
 using Dungeon.Logging;
 using Dungeon.Resources;
+using Dungeon.Resources.Compiler;
+using Dungeon.Resources.Resolvers;
 using Dungeon.Scenes.Manager;
 using Dungeon.Settings;
 using Dungeon.View;
@@ -35,7 +37,10 @@ namespace Dungeon
 
         public static DungeonGlobal GetBindedGlobal() => global;
 
-        public static ResourceTable GlobalResources = new();
+        /// <summary>
+        /// Глобальные ресурсы
+        /// </summary>
+        public static ResourceTable Resources { get; private set; } = new ResourceTable();
 
         public static bool IsDevelopment { get; private set; }
 
@@ -45,14 +50,13 @@ namespace Dungeon
 
         public static DungeonConfiguration Init<T>(bool isDevelop, bool compileData=false) where T : DungeonGlobal
         {
-            ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver(Assembly.GetEntryAssembly()));
+            Dungeon.Resources.ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver(Assembly.GetEntryAssembly()));
             Console.OutputEncoding = Encoding.UTF8;
             IsDevelopment=isDevelop;
 
             DungeonGlobal.GameAssembly = typeof(T).Assembly;
             DungeonGlobal.GameAssemblyName = DungeonGlobal.GameAssembly.GetName().Name;
 
-            ResourceLoader.LoadAllAssembliesInFolder();
             GlobalExceptionHandling();
             global = typeof(T).NewAs<T>();
 
@@ -79,7 +83,6 @@ namespace Dungeon
 
             Configuration = config.Get<DungeonConfiguration>();
             Configuration.ConfigurationRoot = config;
-            ResourceLoader.Settings = Configuration.ResourceLoader;
 
             isInited = true;
 
@@ -212,7 +215,7 @@ namespace Dungeon
         public static void Exit()
         {
             OnExit?.Invoke();
-            GlobalResources.Dispose();
+            Resources.Dispose();
             if (!Directory.Exists("Logs"))
             {
                 Directory.CreateDirectory("Logs");

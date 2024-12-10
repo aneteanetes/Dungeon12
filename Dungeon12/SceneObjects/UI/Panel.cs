@@ -3,7 +3,7 @@ using Dungeon.SceneObjects;
 using System;
 using System.Collections.Generic;
 
-namespace Dungeon12.SceneObjects.UI
+namespace Nabunassar.SceneObjects.UI
 {
     internal class Panel : EmptySceneControl
     {

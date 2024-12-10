@@ -1,7 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.SceneObjects;
 
-namespace Dungeon12.SceneObjects.Create
+namespace Nabunassar.SceneObjects.Create
 {
     internal class CreateTitle : EmptySceneObject
     {

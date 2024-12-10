@@ -3,6 +3,7 @@ using Dungeon.Monogame.Components;
 using Dungeon.Monogame.Resolvers;
 using Dungeon.Monogame.Settings;
 using Dungeon.Resources;
+using Dungeon.Resources.Resolvers;
 using Dungeon.Scenes.Manager;
 using Dungeon.Varying;
 using Dungeon.View.Interfaces;
@@ -87,7 +88,7 @@ namespace Dungeon.Monogame
 
         protected virtual void GraphicsDeviceManagerInitialization(MonogameSettings settings)
         {
-            ResourceLoader.Settings.StretchResources = settings.ResouceStretching;
+            Resources.ResourceLoader.Settings.StretchResources = settings.ResouceStretching;
 
             var monitor = MonitorBounds.ElementAtOrDefault(settings.MonitorIndex);
             if (monitor.w == 0)
@@ -184,7 +185,7 @@ namespace Dungeon.Monogame
         protected override void Initialize()
         {
             Variables.Set("FPSLEFT", this.Window.ClientBounds.Width - 100);
-            ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver(Assembly.GetExecutingAssembly()));
+            Resources.ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver(Assembly.GetExecutingAssembly()));
             this.Window.Title = DungeonGlobal.GameTitle;
 
             Window.TextInput += OnTextInput;

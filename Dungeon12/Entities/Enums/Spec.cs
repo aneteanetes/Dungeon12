@@ -1,8 +1,8 @@
 ﻿using Dungeon;
-using Dungeon12.Attributes;
+using Nabunassar.Attributes;
 using System.ComponentModel.DataAnnotations;
 
-namespace Dungeon12.Entities.Enums
+namespace Nabunassar.Entities.Enums
 {
     public enum Spec
     {

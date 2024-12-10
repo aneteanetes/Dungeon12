@@ -3,10 +3,10 @@ using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
-using Dungeon12.Entities;
+using Nabunassar.Entities;
 using System.Linq;
 
-namespace Dungeon12.SceneObjects.Base
+namespace Nabunassar.SceneObjects.Base
 {
     internal class GameHint : ObjectPanel
     {

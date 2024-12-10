@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.SceneObjects.Base
+﻿namespace Nabunassar.SceneObjects.Base
 {
     using Dungeon.SceneObjects;
     using Dungeon.Types;
@@ -12,7 +12,7 @@
 
         public override bool CacheAvailable => false;
 
-        public FrameAnimatedSceneObject(T @object, Square defaultFramePosition, Func<int, Animation, bool> requestNextFrame = null, bool bindView = true) : base(@object, bindView)
+        public FrameAnimatedSceneObject(T @object, Square defaultFramePosition, Func<int, Animation, bool> requestNextFrame = null) : base(@object)
         {
             this.FramePosition = defaultFramePosition;
             this.RequestNextFrame = requestNextFrame ?? this.DefaultRequestNextFrame;

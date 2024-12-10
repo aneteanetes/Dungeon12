@@ -1,7 +1,7 @@
 ﻿using Dungeon;
-using Dungeon12.Entities.Enums;
+using Nabunassar.Entities.Enums;
 
-namespace Dungeon12.Attributes
+namespace Nabunassar.Attributes
 {
     internal class AvailableSpecsAttribute : ValueAttribute
     {

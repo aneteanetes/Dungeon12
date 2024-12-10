@@ -6,7 +6,7 @@ using Dungeon.View.Enums;
 using Dungeon.View.Interfaces;
 using FontStashSharp.RichText;
 
-namespace Dungeon12.SceneObjects.Base
+namespace Nabunassar.SceneObjects.Base
 {
     internal class Border : EmptySceneObject
     {
@@ -14,9 +14,9 @@ namespace Dungeon12.SceneObjects.Base
         {
             Width = width,
             Height = height,
-            Size=5,
-            ImagesPath="UI/border/",
-            Opacity =opacity
+            Size = 5,
+            ImagesPath = "UI/border/",
+            Opacity = opacity
         })
         { }
 
@@ -47,7 +47,7 @@ namespace Dungeon12.SceneObjects.Base
         BorderConfiguration _settings;
         double size;
 
-        public Border(BorderConfiguration settings)
+        public Border(BorderConfiguration settings) : base()
         {
             this.Width = settings.Width;
             this.Height = settings.Height;

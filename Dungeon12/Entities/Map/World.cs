@@ -1,6 +1,6 @@
 ﻿using Dungeon.Tiled;
 
-namespace Dungeon12.Entities.Map
+namespace Nabunassar.Entities.Map
 {
     internal class World
     {

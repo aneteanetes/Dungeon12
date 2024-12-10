@@ -3,11 +3,11 @@ using Dungeon.Control;
 using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
-using Dungeon12.ECS.Components;
-using Dungeon12.Entities;
+using Nabunassar.ECS.Components;
+using Nabunassar.Entities;
 using System.Reflection.Emit;
 
-namespace Dungeon12.SceneObjects.HeroPanelObjs
+namespace Nabunassar.SceneObjects.HeroPanelObjs
 {
     internal class HeroPanel : SceneControl<Hero>
     {

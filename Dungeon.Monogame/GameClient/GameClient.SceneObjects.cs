@@ -1,16 +1,17 @@
 ﻿namespace Dungeon.Monogame
 {
     using Dungeon.Monogame.Effects.Fogofwar;
+    using Dungeon.Resources;
     using Dungeon.Types;
     using Dungeon.View.Interfaces;
     using Microsoft.Xna.Framework;
 
     public partial class GameClient : Game, IGameClient
     {
-        public Dungeon.Types.Dot MeasureText(IDrawText drawText, ISceneObject parent = default)
-            => DrawClient.MeasureText(drawText, parent);
+        public Dungeon.Types.Dot MeasureText(ResourceTable resources, IDrawText drawText, ISceneObject parent = default)
+            => DrawClient.MeasureText(resources, drawText, parent);
 
-        public Dungeon.Types.Dot MeasureImage(string image) => DrawClient.MeasureImage(image);
+        public Dungeon.Types.Dot MeasureImage(ResourceTable resources, string image) => DrawClient.MeasureImage(resources,image);
 
         public void SaveObject(ISceneObject sceneObject, string path, Dot offset, string runtimeCacheName = null)
         {
@@ -23,7 +24,7 @@
             DrawClient.Clear(drawColor);
         }
 
-        public void CacheImage(string image) => DrawClient.CacheImage(image);
+        public void CacheImage(ResourceTable resources, string image) => DrawClient.CacheImage(resources, image);
 
         public IEffect GetEffect(string name)
         {

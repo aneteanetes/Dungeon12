@@ -1,6 +1,6 @@
 ﻿using Dungeon.SceneObjects.Grouping;
 
-namespace Dungeon12.Entities.Objects.OnMap
+namespace Nabunassar.Entities.Objects.OnMap
 {
     internal class HeroMapObject : MapObject
     {

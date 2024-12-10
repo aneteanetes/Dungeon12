@@ -1,6 +1,6 @@
-﻿using Dungeon12.Entities.Enums;
+﻿using Nabunassar.Entities.Enums;
 
-namespace Dungeon12.Entities.Abilities.Thief
+namespace Nabunassar.Entities.Abilities.Thief
 {
     /// <summary>
     /// атака с ядом, атака дальнего боя, атака таунт ближний

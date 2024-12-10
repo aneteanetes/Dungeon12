@@ -1,6 +1,6 @@
-﻿using Dungeon12.Entities.Perks;
+﻿using Nabunassar.Entities.Perks;
 
-namespace Dungeon12.Entities.Zones
+namespace Nabunassar.Entities.Zones
 {
     internal class Zone
     {

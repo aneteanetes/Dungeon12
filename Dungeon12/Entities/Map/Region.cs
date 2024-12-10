@@ -6,7 +6,7 @@ using Dungeon.Types;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Dungeon12.Entities.Map
+namespace Nabunassar.Entities.Map
 {
     internal class Region
     {
@@ -32,28 +32,30 @@ namespace Dungeon12.Entities.Map
 
         public static Region Load(string id) //ShipFaithIsland
         {
-            var region = ResourceLoader.LoadJson<Region>($"Regions/{id}.json".AsmRes());
-            var tiled = TiledMap.Load($"Maps/{region.MapId}.tmx".AsmRes());            
+            return null;
 
-            region.Locations = tiled.Objects
-                .GroupBy(t => new { t.x, t.y })
-                .Select(g => CreateLocation(g, region))
-                .Where(x => x != null)
-                .ToList();
+            //var region = ResourceLoader.LoadJson<Region>($"Regions/{id}.json".AsmRes());
+            //var tiled = TiledMap.Load($"Maps/{region.MapId}.tmx".AsmRes());            
 
-            foreach (var location in region.Locations)
-            {
-                var linksIds = location.IndexLinks
-                    .ToArray();
+            //region.Locations = tiled.Objects
+            //    .GroupBy(t => new { t.x, t.y })
+            //    .Select(g => CreateLocation(g, region))
+            //    .Where(x => x != null)
+            //    .ToList();
 
-                location.Region = region;
+            //foreach (var location in region.Locations)
+            //{
+            //    var linksIds = location.IndexLinks
+            //        .ToArray();
 
-                location.Links = region.Locations
-                    .Where(x => linksIds.Contains(x.Index))
-                    .ToList();
-            }
+            //    location.Region = region;
 
-            return region;
+            //    location.Links = region.Locations
+            //        .Where(x => linksIds.Contains(x.Index))
+            //        .ToList();
+            //}
+
+            //return region;
         }
 
         private static Location CreateLocation(IEnumerable<TiledObject> tiles, Region region)

@@ -2,10 +2,10 @@
 using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
-using Dungeon12.SceneObjects.UserInterface.Common;
-using Dungeon12.TCG;
+using Nabunassar.SceneObjects.UserInterface.Common;
+using Nabunassar.TCG;
 
-namespace Dungeon12.SceneObjects.TCG
+namespace Nabunassar.SceneObjects.TCG
 {
     internal class CardSceneObject : SceneControl<Card>
     {
@@ -14,7 +14,7 @@ namespace Dungeon12.SceneObjects.TCG
             throw ex;
         }
 
-        public CardSceneObject(Card component) : base(component, false)
+        public CardSceneObject(Card component) : base(component)
         {
             this.Width = 500;
             this.Height = 700;

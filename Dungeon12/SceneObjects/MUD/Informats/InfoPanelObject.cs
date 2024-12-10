@@ -1,6 +1,6 @@
-﻿using Dungeon12.Entities.Map;
+﻿using Nabunassar.Entities.Map;
 
-namespace Dungeon12.SceneObjects.MUD.Informats
+namespace Nabunassar.SceneObjects.MUD.Informats
 {
     internal class InfoPanelObject : SceneControl<Polygon>
     {

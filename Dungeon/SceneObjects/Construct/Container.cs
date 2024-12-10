@@ -8,7 +8,7 @@ namespace Dungeon.SceneObjects.Construct
 {
     public class Container : ColoredRectangle<GameComponentEmpty>
     {
-        public Container() : base(GameComponentEmpty.Empty)
+        public Container(ISceneLayer layer) : base(GameComponentEmpty.Empty)
         {
             Color = new DrawColor(ConsoleColor.Black);
             Depth = 1;

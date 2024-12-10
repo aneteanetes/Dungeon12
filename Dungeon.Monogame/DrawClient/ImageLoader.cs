@@ -12,19 +12,15 @@ namespace Dungeon.Monogame
 
         public ImageLoader(GraphicsDevice graphicsDevice) => _graphicsDevice= graphicsDevice;
 
-        public Texture2D LoadTexture2D(string imageFullPath, ISceneObject sceneObject = default)
+        public Texture2D LoadTexture2D(ResourceTable resource, string imageFullPath, ISceneObject sceneObject = default)
         {
             if (!tilesetsCache.TryGetValue(imageFullPath, out var bitmap))
             {
                 Resource res = null;
-                if (sceneObject!=null)
-                {
-                    res = sceneObject.Layer.Scene.GetResource(imageFullPath);
-                }
 
                 if (res == null)
                 {
-                    res = ResourceLoader.Load(imageFullPath, obj: sceneObject);
+                    res = resource.Get(imageFullPath);
                 }
 
                 if (res == default)

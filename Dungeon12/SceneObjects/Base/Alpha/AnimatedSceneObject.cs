@@ -1,10 +1,11 @@
-﻿namespace Dungeon12.Drawing.SceneObjects
+﻿namespace Nabunassar.Drawing.SceneObjects
 {
     using Dungeon;
     using Dungeon.SceneObjects;
     using Dungeon.Types;
     using Dungeon.View;
-    using Dungeon12.Components;
+    using Dungeon.View.Interfaces;
+    using Nabunassar.Components;
     using System;
 
     internal abstract class AnimatedSceneObject<T> : SceneControl<T>
@@ -14,7 +15,7 @@
 
         public override bool CacheAvailable => false;
 
-        public AnimatedSceneObject(T @object, Func<int, Animation, bool> requestNextFrame = null, bool bindView = true) : base(@object, bindView)
+        public AnimatedSceneObject(T @object, Func<int, Animation, bool> requestNextFrame = null, bool bindView = true) : base(@object)
         {
             this.FramePosition = Component.FrameAnimated.DefaultFramePosition;
             this.RequestNextFrame = requestNextFrame ?? this.DefaultRequestNextFrame;

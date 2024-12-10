@@ -2,13 +2,13 @@
 using Dungeon.Drawing;
 using Dungeon.SceneObjects;
 using Dungeon.Types;
-using Dungeon12.Attributes;
-using Dungeon12.Entities;
+using Nabunassar.Attributes;
+using Nabunassar.Entities;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace Dungeon12.SceneObjects.World
+namespace Nabunassar.SceneObjects.World
 {
     internal class WorldHeroSceneObject : SceneObject<Hero>
     {

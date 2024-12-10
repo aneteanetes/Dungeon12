@@ -27,7 +27,7 @@
     public abstract class SceneControl<T> : SceneObject<T>, ISceneControl, IHandleSceneControl
         where T : class
     {
-        public SceneControl(T component, bool bindView = true) : base(component, bindView)
+        public SceneControl(T component) : base(component)
         {
             //dynamic binding
             new string[] {
@@ -114,14 +114,45 @@
         /// <param name="vertical"></param>
         /// <param name="forceNotImage">принудительно мерять по контролу а не изображению</param>
         /// <returns></returns>
-        public TSceneObject AddControlCenter<TSceneObject>(TSceneObject control, bool horizontal = true, bool vertical = true, bool forceNotImage=false)
+        public TSceneObject AddControlCenter<TSceneObject>( TSceneObject control, bool horizontal = true, bool vertical = true, bool forceNotImage=false)
             where TSceneObject : ISceneControl
         {
             ControlBinding?.Invoke(control);
 
-            Dot measure = string.IsNullOrWhiteSpace(control.Image) && !forceNotImage
-                ? new Dot(control.Width, control.Height)
-                : new Dot(MeasureImage(control.Image).X * Settings.DrawingSize.CellF, MeasureImage(control.Image).Y * Settings.DrawingSize.CellF);
+            Dot measure = new Dot(control.Width, control.Height);
+
+            double width = this.Width;
+            double height = this.Height;
+
+            if (!string.IsNullOrWhiteSpace(control.Image) && !forceNotImage)
+            {
+                width = Width * Settings.DrawingSize.CellF;
+                height = Height * Settings.DrawingSize.CellF;
+            }
+
+            if (horizontal)
+            {
+                var left = width / 2 - measure.X / 2;
+                control.Left = left / Settings.DrawingSize.CellF;
+            }
+
+            if (vertical)
+            {
+                var top = height / 2 - measure.Y / 2;
+                control.Top = top / Settings.DrawingSize.CellF;
+            }
+
+            AddChild(control);
+
+            return control;
+        }
+
+        public TSceneObject AddImageControlCenter<TSceneObject>(ISceneLayer layer, TSceneObject control, bool horizontal = true, bool vertical = true, bool forceNotImage = false)
+            where TSceneObject : ISceneControl
+        {
+            ControlBinding?.Invoke(control);
+
+            Dot measure = new Dot(MeasureImage(layer,control.Image).X * Settings.DrawingSize.CellF, MeasureImage(layer,control.Image).Y * Settings.DrawingSize.CellF);
 
             double width = this.Width;
             double height = this.Height;
@@ -151,32 +182,14 @@
 
         public bool IsInFocus { get; private set; }
 
-        public virtual bool HideCursor { get; set; }
-
         public bool Controlable { get; set; }
 
         public virtual void Focus()
         {
-            IsInFocus = true;
-            if (CursorOld != null)
-            {
-                DungeonGlobal.GameClient.SetCursor(("Cursors." + CursorOld + ".png").PathImage());
-            }
-            if (HideCursor)
-            {
-                DungeonGlobal.GameClient.SetCursor("1px.png".AsmImg());
-            }
-            dynamicEvents[nameof(Focus)]?.DynamicInvoke();
         }
 
         public virtual void Unfocus()
         {
-            IsInFocus = false;
-            if (CursorOld != null || HideCursor)
-            {
-                DungeonGlobal.GameClient.SetCursor("Cursors.common.png".PathImage());
-            }
-            dynamicEvents[nameof(Unfocus)]?.DynamicInvoke();
         }
 
         public virtual void KeyDown(Key key, KeyModifiers modifier, bool hold) => dynamicEvents[nameof(KeyDown)]?.DynamicInvoke(key,modifier,hold);

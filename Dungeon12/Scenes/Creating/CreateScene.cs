@@ -2,16 +2,16 @@
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
-using Dungeon12.ECS.Systems;
-using Dungeon12.Extensions.Resources;
-using Dungeon12.SceneObjects.Create;
-using Dungeon12.SceneObjects.HUD;
-using Dungeon12.SceneObjects.UserInterface.Common;
-using Dungeon12.Scenes.Creating.Character;
-using Dungeon12.Scenes.Start;
+using Nabunassar.ECS.Systems;
+using Nabunassar.Extensions.Resources;
+using Nabunassar.SceneObjects.Create;
+using Nabunassar.SceneObjects.HUD;
+using Nabunassar.SceneObjects.UserInterface.Common;
+using Nabunassar.Scenes.Creating.Character;
+using Nabunassar.Scenes.Start;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace Dungeon12.Scenes.Creating
+namespace Nabunassar.Scenes.Creating
 {
     internal class CreateScene : GameScene<NabLoadingScreen, MenuScene, RegionScene, MUDScene, GlobalMapScene>
     {
@@ -23,7 +23,7 @@ namespace Dungeon12.Scenes.Creating
 
         public override void Initialize()
         {
-            DungeonGlobal.AudioPlayer.Music("CreateParty.ogg".AsmMusicRes());
+            AudioPlayer.Music("CreateParty.ogg".AsmMusicRes());
 
             var backlayer = CreateLayer("back");
             backlayer.AddObject(new ImageObject("Scenes/create.png")

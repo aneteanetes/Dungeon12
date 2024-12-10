@@ -1,6 +1,6 @@
-﻿using Dungeon12.Entities.Enums;
+﻿using Nabunassar.Entities.Enums;
 
-namespace Dungeon12.ECS.Components
+namespace Nabunassar.ECS.Components
 {
     internal interface ICursored
     {

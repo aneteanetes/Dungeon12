@@ -1,17 +1,16 @@
 ﻿namespace Dungeon.Drawing.SceneObjects
 {
     using Dungeon.SceneObjects;
+    using Dungeon.View.Interfaces;
     using System;
     using System.Reflection;
-
-    public class ImageSceneObject : ImageObject { public ImageSceneObject(string imagePath = null) : base(imagePath) { } }
 
     /// <summary>
     /// По умолчанию не реагирует на события
     /// </summary>
     public class ImageObject : EmptySceneObject
     {
-        public ImageObject(string imagePath=null)
+        public ImageObject(string imagePath) : base()
         {
             if (imagePath == null)
                 return;
@@ -36,7 +35,7 @@
             return imagePath;
         }
 
-        public ImageObject(Func<string> imagePath)
+        public ImageObject(Func<string> imagePath) : base()
         {
             imageDelegate = imagePath;
         }

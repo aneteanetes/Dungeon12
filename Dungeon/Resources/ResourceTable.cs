@@ -10,7 +10,16 @@ namespace Dungeon.Resources
         public bool TryGetValue(string path, out Resource value)
         {
             value = this[path];
-            return value != null;
+            if (value != null)
+                return true;
+
+            return DungeonGlobal.Resources.TryGetValue(path, out value);
+        }
+
+        public Resource Get(string path)
+        {
+            TryGetValue(path, out Resource value);
+            return value;
         }
 
         public bool ContainsKey(string path) => resources.ContainsKey(path);
@@ -35,8 +44,13 @@ namespace Dungeon.Resources
 
         public Resource Load(string path)
         {
-            var res = ResourceLoader.Load(path, caching: true);
-            resources.Add(path, res);
+            var res = ResourceLoader.Load(this, path);
+            return res;
+        }
+
+        public Resource LoadGlobal(string path)
+        {
+            var res = ResourceLoader.Load(DungeonGlobal.Resources, path);
             return res;
         }
 
@@ -57,9 +71,13 @@ namespace Dungeon.Resources
             this.resources.Clear();
         }
 
+        /// <summary>
+        /// Все шрифты загружаются глобально
+        /// </summary>
+        /// <param name="fontName"></param>
         public void LoadFont(string fontName)
         {
-            this.Load($"{DungeonGlobal.GameAssemblyName}.Resources.Fonts.ttf/{fontName}.ttf".Embedded());
+            this.LoadGlobal($"{DungeonGlobal.GameAssemblyName}.Resources.Fonts.ttf/{fontName}.ttf".Embedded());
         }
     }
 }

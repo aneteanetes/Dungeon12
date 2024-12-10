@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dungeon12.Entities
+namespace Nabunassar.Entities
 {
     internal class Food
     {

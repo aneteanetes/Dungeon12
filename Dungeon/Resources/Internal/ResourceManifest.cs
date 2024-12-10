@@ -1,9 +1,7 @@
-﻿using System;
+﻿using Dungeon.Data;
 using System.Collections.Generic;
-using System.Text;
-using Dungeon.Data;
 
-namespace Dungeon.Resources
+namespace Dungeon.Resources.Internal
 {
     public class ResourceManifest : Persist
     {

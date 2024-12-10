@@ -1,6 +1,6 @@
-﻿using Dungeon12.Attributes;
+﻿using Nabunassar.Attributes;
 
-namespace Dungeon12.Entities.Enums
+namespace Nabunassar.Entities.Enums
 {
     internal enum Classes
     {

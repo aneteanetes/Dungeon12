@@ -4,7 +4,7 @@ using Dungeon.Drawing;
 using Dungeon.SceneObjects;
 using System;
 
-namespace Dungeon12.SceneObjects.UserInterface.Common
+namespace Nabunassar.SceneObjects.UserInterface.Common
 {
     internal class BrownButton75 : EmptySceneControl
     {

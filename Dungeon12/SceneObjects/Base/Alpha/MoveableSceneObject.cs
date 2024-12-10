@@ -1,8 +1,8 @@
-﻿namespace Dungeon12.Drawing.SceneObjects.Map
+﻿namespace Nabunassar.Drawing.SceneObjects.Map
 {
     using Dungeon.Types;
     using Dungeon.View;
-    using Dungeon12.Components;
+    using Nabunassar.Components;
     using System;
     using System.Collections.Generic;
 

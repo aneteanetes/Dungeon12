@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Entities
+﻿namespace Nabunassar.Entities
 {
     internal class SpecInfo
     {

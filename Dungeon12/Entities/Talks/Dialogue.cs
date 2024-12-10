@@ -1,6 +1,6 @@
 ﻿using Dungeon;
 
-namespace Dungeon12.Entities.Talks
+namespace Nabunassar.Entities.Talks
 {
     internal class Dialogue
     {

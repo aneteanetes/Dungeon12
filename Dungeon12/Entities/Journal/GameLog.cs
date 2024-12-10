@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Entities.Journal
+﻿namespace Nabunassar.Entities.Journal
 {
     internal class GameLog
     {

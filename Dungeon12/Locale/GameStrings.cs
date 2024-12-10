@@ -1,7 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.Localization;
 
-namespace Dungeon12.Locale
+namespace Nabunassar.Locale
 {
     internal class GameStrings : LocalizationStringDictionary
     {

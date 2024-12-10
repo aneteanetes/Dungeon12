@@ -2,13 +2,13 @@
 using Dungeon.Resources;
 using System.Collections.Generic;
 
-namespace Dungeon12.Entities
+namespace Nabunassar.Entities
 {
     internal class ExpTable
     {
         static ExpTable()
         {
-            Table = ResourceLoader.LoadJson<Dictionary<int,int>>("Files/exp.json".AsmRes());
+            //Table = ResourceLoader.LoadJson<Dictionary<int,int>>("Files/exp.json".AsmRes());
         }
 
         public static Dictionary<int,int> Table { get; set; }

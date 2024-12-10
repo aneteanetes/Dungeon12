@@ -23,7 +23,7 @@
             //MediaPlayer.Volume = (float)(audioOptions?.Volume ?? .3);
         }
 
-        public void Effect(string effect, AudioOptions audioOptions = null)
+        public void Sound(string effect, AudioOptions audioOptions = null)
         {
             if (!DungeonGlobal.Configuration.EnableSound)
                 return;
@@ -47,7 +47,7 @@
         {
             if (!soundEffectsCache.TryGetValue(name, out var sound))
             {
-                var res = ResourceLoader.Load(name);
+                var res = ResourceLoader.Load(Scene.Resources, name);
                 sound = SoundEffect.FromStream(res.Stream);
                 soundEffectsCache[name] = sound;
                 res.OnDispose += () =>
@@ -70,7 +70,7 @@
         {
             Song value = default;
 
-            var song = ResourceLoader.Load(name);
+            var song = ResourceLoader.Load(Scene.Resources, name);
 
             var tempPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "temp");
             var tempFilePath = Path.Combine(tempPath, name);

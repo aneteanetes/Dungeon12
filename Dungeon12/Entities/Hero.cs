@@ -1,10 +1,10 @@
 ﻿using Dungeon.SceneObjects.Grouping;
-using Dungeon12.Entities.Abilities;
-using Dungeon12.Entities.Characteristics;
-using Dungeon12.Entities.Characters;
-using Dungeon12.Entities.Enums;
+using Nabunassar.Entities.Abilities;
+using Nabunassar.Entities.Characteristics;
+using Nabunassar.Entities.Characters;
+using Nabunassar.Entities.Enums;
 
-namespace Dungeon12.Entities
+namespace Nabunassar.Entities
 {
     internal class Hero : Battler
     {

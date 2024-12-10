@@ -2,10 +2,10 @@
 using Dungeon.Control;
 using Dungeon.Drawing;
 using Dungeon.SceneObjects;
-using Dungeon12.SceneObjects.Base;
+using Nabunassar.SceneObjects.Base;
 using System;
 
-namespace Dungeon12.SceneObjects.UserInterface.Common
+namespace Nabunassar.SceneObjects.UserInterface.Common
 {
     internal class ClassicButton : EmptySceneControl
     {
@@ -71,7 +71,7 @@ namespace Dungeon12.SceneObjects.UserInterface.Common
             if (Disabled)
                 return;
 
-            DungeonGlobal.AudioPlayer.Effect("focus.wav".AsmSoundRes());
+            AudioPlayer.Sound("focus.wav".AsmSoundRes());
             Label.Text.ForegroundColor = Global.CommonColor;
         }
 

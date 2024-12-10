@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Entities.Perks.Zones
+﻿namespace Nabunassar.Entities.Perks.Zones
 {
     public enum Zones
     {

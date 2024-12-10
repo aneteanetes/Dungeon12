@@ -1,6 +1,6 @@
 ﻿using Dungeon;
 
-namespace Dungeon12.Entities.Enums
+namespace Nabunassar.Entities.Enums
 {
     internal enum ItemMaterial
     {

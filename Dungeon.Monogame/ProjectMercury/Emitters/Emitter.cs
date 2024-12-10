@@ -10,6 +10,7 @@ namespace ProjectMercury.Emitters
 {
     using Dungeon;
     using Dungeon.Resources;
+    using Dungeon.Scenes;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
@@ -421,7 +422,7 @@ namespace ProjectMercury.Emitters
         {
             if (!tilesetsCache.TryGetValue(tilesetName, out var bitmap))
             {
-                var res = ResourceLoader.Load(tilesetName);
+                var res = ResourceLoader.Load(DungeonGlobal.Resources, tilesetName);
                 bitmap = Texture2D.FromStream(DungeonGlobal.TransportVariable as GraphicsDevice, res.Stream);
                 tilesetsCache.TryAdd(tilesetName, bitmap);
 

@@ -1,11 +1,11 @@
 ﻿using Dungeon.SceneObjects;
 using Dungeon.Varying;
 
-namespace Dungeon12.SceneObjects.Playing
+namespace Nabunassar.SceneObjects.Playing
 {
-    internal class StatusBar : SceneObject<Dungeon12.Game>
+    internal class StatusBar : SceneObject<Nabunassar.Game>
     {
-        public StatusBar(Dungeon12.Game component) : base(component)
+        public StatusBar(Nabunassar.Game component) : base(component)
         {
             this.Width = Variables.Get("StatusBarW", 1150);
             this.Height = Variables.Get("StatusBarH", 50);

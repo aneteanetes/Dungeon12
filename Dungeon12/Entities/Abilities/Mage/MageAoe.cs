@@ -1,6 +1,6 @@
-﻿using Dungeon12.Entities.Enums;
+﻿using Nabunassar.Entities.Enums;
 
-namespace Dungeon12.Entities.Abilities.Mage
+namespace Nabunassar.Entities.Abilities.Mage
 {
     internal class MageAoe : Ability
     {

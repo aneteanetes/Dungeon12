@@ -1,9 +1,9 @@
-﻿using Dungeon12.Entities.Enums;
+﻿using Nabunassar.Entities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dungeon12.Entities.Abilities.Priest
+namespace Nabunassar.Entities.Abilities.Priest
 {
     /// <summary>
     /// Призыв ангела - по умолчанию урон, потом может лечить, наносить разный урон, постоянный суммон (инквизитор)

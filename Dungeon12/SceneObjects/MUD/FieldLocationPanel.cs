@@ -1,11 +1,11 @@
 ﻿using Dungeon;
 using Dungeon.Types;
-using Dungeon12.Entities.Map;
-using Dungeon12.SceneObjects.MUD.Locations;
-using Dungeon12.SceneObjects.RegionScreen;
+using Nabunassar.Entities.Map;
+using Nabunassar.SceneObjects.MUD.Locations;
+using Nabunassar.SceneObjects.RegionScreen;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Dungeon12.SceneObjects.MUD
+namespace Nabunassar.SceneObjects.MUD
 {
     internal class FieldLocationPanel : SceneControl<Location>
     {

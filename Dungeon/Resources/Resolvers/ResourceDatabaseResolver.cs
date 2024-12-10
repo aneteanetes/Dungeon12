@@ -1,6 +1,6 @@
 ﻿using LiteDB;
 
-namespace Dungeon.Resources
+namespace Dungeon.Resources.Resolvers
 {
     public abstract class ResourceDatabaseResolver
     {

@@ -1,10 +1,10 @@
-﻿using Dungeon12.Entities.Abilities.Mage;
-using Dungeon12.Entities.Abilities.Priest;
-using Dungeon12.Entities.Abilities.Thief;
-using Dungeon12.Entities.Abilities.Warrior;
-using Dungeon12.Entities.Enums;
+﻿using Nabunassar.Entities.Abilities.Mage;
+using Nabunassar.Entities.Abilities.Priest;
+using Nabunassar.Entities.Abilities.Thief;
+using Nabunassar.Entities.Abilities.Warrior;
+using Nabunassar.Entities.Enums;
 
-namespace Dungeon12.Entities.Abilities
+namespace Nabunassar.Entities.Abilities
 {
     internal abstract class Ability
     {

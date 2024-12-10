@@ -3,9 +3,9 @@ using Dungeon.SceneObjects;
 using Dungeon.SceneObjects.Base;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
-using Dungeon12.Entities;
+using Nabunassar.Entities;
 
-namespace Dungeon12.SceneObjects.UI
+namespace Nabunassar.SceneObjects.UI
 {
     internal class FoodCounter : SceneControl<Food>
     {
@@ -14,7 +14,7 @@ namespace Dungeon12.SceneObjects.UI
             throw ex;
         }
 
-        public FoodCounter(Food component) : base(component, true)
+        public FoodCounter(Food component) : base(component)
         {
             this.Width = 255;
             this.Height = 100;

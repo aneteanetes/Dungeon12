@@ -2,7 +2,7 @@
 using Dungeon.Drawing;
 using Dungeon.SceneObjects;
 
-namespace Dungeon12.Scenes.Start
+namespace Nabunassar.Scenes.Start
 {
     internal class Loading : EmptySceneObject
     {
@@ -24,7 +24,7 @@ namespace Dungeon12.Scenes.Start
                 FontAssembly = "Dungeon12"
             };
             var txt = new TextObject(loadingtext);
-            var m = DungeonGlobal.GameClient.MeasureText(txt.Text); ;
+            var m = MeasureText(txt.Text); ;
             txt.Width = m.X;
             txt.Height = m.Y;
 
@@ -41,7 +41,7 @@ namespace Dungeon12.Scenes.Start
             dot3 = new TextObject(textdot);
             dot3.Visible = false;
 
-            var dotmeasure = Global.GameClient.MeasureText(textdot);
+            var dotmeasure = MeasureText(textdot);
 
             dot1.Width = dot2.Width = dot3.Width = dotmeasure.X;
             dot1.Height = dot2.Height = dot3.Height = dotmeasure.Y;
@@ -60,7 +60,7 @@ namespace Dungeon12.Scenes.Start
 
         public override void Update(GameTimeLoop gameTime)
         {
-            if (gameTime.TotalGameTime - gameTimePrev.TotalGameTime >= TimeSpan.FromSeconds(.2))
+            if (gameTime.TotalGameTime - gameTimePrev.TotalGameTime >= TimeSpan.FromSeconds(.4))
             {
                 if (dot3.Visible)
                 {

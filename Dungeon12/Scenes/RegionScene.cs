@@ -2,13 +2,13 @@
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
-using Dungeon12.ECS.Systems;
-using Dungeon12.SceneObjects.HeroPanelObjs;
-using Dungeon12.SceneObjects.RegionScreen;
-using Dungeon12.SceneObjects.Stats;
-using Dungeon12.Scenes.Start;
+using Nabunassar.ECS.Systems;
+using Nabunassar.SceneObjects.HeroPanelObjs;
+using Nabunassar.SceneObjects.RegionScreen;
+using Nabunassar.SceneObjects.Stats;
+using Nabunassar.Scenes.Start;
 
-namespace Dungeon12.Scenes
+namespace Nabunassar.Scenes
 {
     internal class RegionScene : GameScene<NabLoadingScreen, MenuScene, RegionScene>
     {
@@ -22,7 +22,7 @@ namespace Dungeon12.Scenes
 
         public override void Initialize()
         {
-            Global.AudioPlayer.Music("FaithIsland.ogg".AsmMusicRes());
+            AudioPlayer.Music("FaithIsland.ogg".AsmMusicRes());
             var back = CreateLayer("background");
             back.AddObject(new ImageObject("Regions/background.png"));
             back.AddObject(new AreaImage());

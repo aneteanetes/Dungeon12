@@ -1,7 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.SceneObjects;
 
-namespace Dungeon12.SceneObjects.Base
+namespace Nabunassar.SceneObjects.Base
 {
     internal class Title : EmptySceneObject
     {

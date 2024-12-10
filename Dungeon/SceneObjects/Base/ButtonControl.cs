@@ -3,8 +3,6 @@ using Dungeon.Drawing;
 using Dungeon.Utils;
 using Dungeon.View.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Dungeon.SceneObjects.Base
 {
@@ -26,7 +24,7 @@ namespace Dungeon.SceneObjects.Base
             text.Size = size;
             textControl = new TextObject(text);
 
-            var measure = DungeonGlobal.GameClient.MeasureText(textControl.Text);
+            var measure = this.MeasureText(textControl.Text);
 
             var width = this.Width * Settings.DrawingSize.CellF;
             var height = this.Height * Settings.DrawingSize.CellF;
@@ -39,7 +37,7 @@ namespace Dungeon.SceneObjects.Base
             textControl.Left = left / Settings.DrawingSize.CellF;
             textControl.Top = top / Settings.DrawingSize.CellF;
 
-            this.Children.Add(textControl);
+            this.AddChild(textControl);
         }
 
         public void SetText(string txt)

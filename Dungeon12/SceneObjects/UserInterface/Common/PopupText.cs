@@ -5,7 +5,7 @@ using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using System;
 
-namespace Dungeon12.SceneObjects.UserInterface.Common
+namespace Nabunassar.SceneObjects.UserInterface.Common
 {
     internal class PopupText : SceneObject<IDrawText>
     {

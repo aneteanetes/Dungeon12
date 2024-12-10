@@ -3,7 +3,7 @@ using Dungeon.SceneObjects.Base;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 
-namespace Dungeon12.Scenes
+namespace Nabunassar.Scenes
 {
     internal class FPSTestScene : Dungeon.Scenes.GameScene
     {

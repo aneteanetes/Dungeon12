@@ -1,9 +1,9 @@
-﻿using Dungeon12.Entities.Enums;
+﻿using Nabunassar.Entities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dungeon12.Entities.Abilities.Thief
+namespace Nabunassar.Entities.Abilities.Thief
 {
     /// <summary>
     /// магическая ближняя атака - преобразуется в полноценную магию тьмы

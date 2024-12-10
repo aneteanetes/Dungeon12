@@ -147,7 +147,8 @@ namespace Dungeon.Monogame.Effects.ShaderBlur
         /// </summary>
         public GaussianBlur()
         {
-            var blurShaderRes = ResourceLoader.Load("Shaders/Blur.xnb".AsmRes());
+#warning gaussinan blur loading not from scene resources!
+            var blurShaderRes = Resources.ResourceLoader.Load(DungeonGlobal.Resources, "Shaders/Blur.xnb".AsmRes());
             _effect = GameClient.Instance.Content.Load<Effect>("Shaders/Blur".AsmRes(), blurShaderRes.Stream);
         }
 

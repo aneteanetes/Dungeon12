@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.SceneObjects.World
+﻿namespace Nabunassar.SceneObjects.World
 {
     public static class WorldSettings
     {

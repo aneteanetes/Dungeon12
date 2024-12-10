@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.SceneObjects
+﻿namespace Nabunassar.SceneObjects
 {
     using Dungeon;
     using Dungeon.Control;

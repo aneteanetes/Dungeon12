@@ -8,7 +8,7 @@ namespace Dungeon.Monogame.Resolvers
     {
         public override Stream Resolve(string contentPath)
         {
-            return ResourceLoader.Load(contentPath).Stream;
+            return Resources.ResourceLoader.Load(DungeonGlobal.Resources, contentPath).Stream;
         }
     }
 }

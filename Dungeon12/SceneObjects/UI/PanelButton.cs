@@ -2,10 +2,10 @@
 using Dungeon.Control;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
+using Nabunassar.ECS.Components;
 using System;
 
-namespace Dungeon12.SceneObjects.UI
+namespace Nabunassar.SceneObjects.UI
 {
     internal class PanelButton : EmptySceneControl, ITooltipedDrawText
     {

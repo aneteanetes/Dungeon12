@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Entities.Characteristics
+﻿namespace Nabunassar.Entities.Characteristics
 {
     internal class Secondary
     {

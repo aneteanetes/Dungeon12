@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Components
+﻿namespace Nabunassar.Components
 {
     internal interface IFrameAnimated
     {

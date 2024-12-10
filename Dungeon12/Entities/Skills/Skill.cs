@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Entities.Skills
+﻿namespace Nabunassar.Entities.Skills
 {
     internal class Skill
     {

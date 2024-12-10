@@ -1,7 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.SceneObjects;
 
-namespace Dungeon12.SceneObjects.RegionScreen
+namespace Nabunassar.SceneObjects.RegionScreen
 {
     internal class AreaImage : EmptySceneObject
     {

@@ -1,8 +1,8 @@
-﻿using Dungeon12.Entities.Enums;
-using Dungeon12.Entities.Objects;
+﻿using Nabunassar.Entities.Enums;
+using Nabunassar.Entities.Objects;
 using System.Collections.Generic;
 
-namespace Dungeon12.Entities.Map
+namespace Nabunassar.Entities.Map
 {
     internal class MapPoint
     {

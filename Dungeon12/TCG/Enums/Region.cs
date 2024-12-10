@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Dungeon12.TCG.Enums
+namespace Nabunassar.TCG.Enums
 {
     public enum Region
     {

@@ -87,7 +87,8 @@ namespace Dungeon.Monogame
 
             if (!XnaEffectsLoaded.TryGetValue(effectName, out var xnaeff))
             {
-                var effectres = ResourceLoader.Load($"Shaders/{effectName}.xnb".AsmRes(), @throw: false);
+#warning resources must be load into scene (if possible)
+                var effectres = Resources.ResourceLoader.Load(DungeonGlobal.Resources, $"Shaders/{effectName}.xnb".AsmRes());
                 if (effectres != null)
                 {
                     xnaeff = _contentManager.Load<Effect>($"{effectName}", effectres.Stream);

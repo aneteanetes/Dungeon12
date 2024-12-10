@@ -1,10 +1,10 @@
 ﻿using Dungeon;
 using Dungeon.Localization;
 using Dungeon.Types;
-using Dungeon12.Entities.Plates;
-using Dungeon12.SceneObjects.Base;
+using Nabunassar.Entities.Plates;
+using Nabunassar.SceneObjects.Base;
 
-namespace Dungeon12.Entities.Enums
+namespace Nabunassar.Entities.Enums
 {
     public enum Skill
     {

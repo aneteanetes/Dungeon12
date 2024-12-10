@@ -2,11 +2,11 @@
 using Dungeon.Control;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
-using Dungeon12.SceneObjects.Base;
+using Nabunassar.ECS.Components;
+using Nabunassar.SceneObjects.Base;
 using System;
 
-namespace Dungeon12.SceneObjects.UserInterface.Common
+namespace Nabunassar.SceneObjects.UserInterface.Common
 {
     internal class MapCloseButton : EmptySceneControl, ITooltipedDrawText
     {

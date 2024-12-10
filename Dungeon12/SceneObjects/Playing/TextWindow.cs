@@ -1,11 +1,11 @@
 ﻿using Dungeon.SceneObjects;
 using Dungeon.Varying;
 
-namespace Dungeon12.SceneObjects.Playing
+namespace Nabunassar.SceneObjects.Playing
 {
-    internal class TextWindow : SceneObject<Dungeon12.Game>
+    internal class TextWindow : SceneObject<Nabunassar.Game>
     {
-        public TextWindow(Dungeon12.Game component) : base(component)
+        public TextWindow(Nabunassar.Game component) : base(component)
         {
             this.Width = Variables.Get("TextWindowW", 900);
             this.Height = Variables.Get("TextWindowH", 250);

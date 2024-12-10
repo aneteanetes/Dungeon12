@@ -126,7 +126,8 @@ namespace Dungeon.Monogame.Effects.Fogofwar
                 pp.MultiSampleCount,
                 pp.RenderTargetUsage);
 
-            areaTexture = client.ImageLoader.LoadTexture2D(Image);
+#warning fog of war loading not from scene resources!
+            areaTexture = client.ImageLoader.LoadTexture2D(DungeonGlobal.Resources, Image);
 
             projectionMatrix = Matrix.CreateOrthographicOffCenter(0,
              graphics.GraphicsDevice.PresentationParameters.BackBufferWidth,

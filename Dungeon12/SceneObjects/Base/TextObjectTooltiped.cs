@@ -1,8 +1,8 @@
 ﻿using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
+using Nabunassar.ECS.Components;
 
-namespace Dungeon12.SceneObjects.Base
+namespace Nabunassar.SceneObjects.Base
 {
     internal class TextObjectTooltiped : SceneControl<IDrawText>, ITooltiped
     {

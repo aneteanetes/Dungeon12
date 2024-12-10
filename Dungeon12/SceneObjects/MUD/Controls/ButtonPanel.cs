@@ -1,9 +1,9 @@
 ﻿using Dungeon;
 using Dungeon.Control.Keys;
-using Dungeon12.SceneObjects.Base;
-using Dungeon12.SceneObjects.Stats;
+using Nabunassar.SceneObjects.Base;
+using Nabunassar.SceneObjects.Stats;
 
-namespace Dungeon12.SceneObjects.MUD.Controls
+namespace Nabunassar.SceneObjects.MUD.Controls
 {
     internal class ButtonPanel : EmptySceneControl
     {

@@ -2,11 +2,11 @@
 using Dungeon.Control;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
-using Dungeon12.Entities.Map;
-using Dungeon12.SceneObjects.Base;
+using Nabunassar.ECS.Components;
+using Nabunassar.Entities.Map;
+using Nabunassar.SceneObjects.Base;
 
-namespace Dungeon12.SceneObjects.Location_
+namespace Nabunassar.SceneObjects.Location_
 {
     internal class LocationWindow : SceneControl<MapPoint>, IAutoUnfreeze
     {

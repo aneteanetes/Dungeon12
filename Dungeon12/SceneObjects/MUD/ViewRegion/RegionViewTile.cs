@@ -8,11 +8,11 @@ using Dungeon.SceneObjects;
 using Dungeon.SceneObjects.Base;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
-using Dungeon12.Entities.Map;
+using Nabunassar.ECS.Components;
+using Nabunassar.Entities.Map;
 using System.ComponentModel;
 
-namespace Dungeon12.SceneObjects.MUD.ViewRegion
+namespace Nabunassar.SceneObjects.MUD.ViewRegion
 {
     internal class RegionViewTile : SceneControl<Location>, ITooltipedDrawText
     {

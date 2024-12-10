@@ -1,6 +1,6 @@
-﻿using Dungeon12.TCG.Enums;
+﻿using Nabunassar.TCG.Enums;
 
-namespace Dungeon12.TCG
+namespace Nabunassar.TCG
 {
     internal class Card
     {

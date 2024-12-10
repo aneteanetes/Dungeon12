@@ -1,10 +1,10 @@
 ﻿using Dungeon;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
-using Dungeon12.ECS.Components;
+using Nabunassar.ECS.Components;
 using System.Reflection;
 
-namespace Dungeon12
+namespace Nabunassar
 {
     internal class ImageControl : EmptySceneControl, ITooltiped
     {

@@ -1,9 +1,9 @@
 ﻿using Dungeon.Control;
-using Dungeon12.ECS.Components;
+using Nabunassar.ECS.Components;
 using Dungeon;
 using Dungeon.View.Interfaces;
 
-namespace Dungeon12.SceneObjects.Stats
+namespace Nabunassar.SceneObjects.Stats
 {
     internal class SlideButton : EmptySceneControl, ITooltipedDrawText
     {

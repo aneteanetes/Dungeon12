@@ -1,8 +1,8 @@
 ﻿using Dungeon;
 using Dungeon.SceneObjects;
-using Dungeon12.Entities.Journal;
+using Nabunassar.Entities.Journal;
 
-namespace Dungeon12.SceneObjects.MUD
+namespace Nabunassar.SceneObjects.MUD
 {
     internal class ChatPanel : SceneObject<GameLog>
     {

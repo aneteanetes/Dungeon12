@@ -1,11 +1,11 @@
 ﻿using Dungeon;
 using Dungeon.Control;
 using Dungeon.Drawing.SceneObjects;
-using Dungeon12.ECS.Components;
-using Dungeon12.Entities;
-using Dungeon12.Entities.Map;
+using Nabunassar.ECS.Components;
+using Nabunassar.Entities;
+using Nabunassar.Entities.Map;
 
-namespace Dungeon12.SceneObjects.MUD.Locations
+namespace Nabunassar.SceneObjects.MUD.Locations
 {
     internal class PolygonView : SceneControl<Polygon>, ITooltiped, ITooltipedPositionByComponent
     {

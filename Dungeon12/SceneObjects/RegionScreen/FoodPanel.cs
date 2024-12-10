@@ -2,10 +2,10 @@
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
-using Dungeon12.Entities;
+using Nabunassar.ECS.Components;
+using Nabunassar.Entities;
 
-namespace Dungeon12.SceneObjects.RegionScreen
+namespace Nabunassar.SceneObjects.RegionScreen
 {
     internal class FoodPanel : SceneControl<Party>
     {
@@ -14,7 +14,7 @@ namespace Dungeon12.SceneObjects.RegionScreen
             throw ex;
         }
 
-        public FoodPanel(Party component, bool bindView = true) : base(component, bindView)
+        public FoodPanel(Party component) : base(component)
         {
             this.Height = 65;
             this.Width = 350;

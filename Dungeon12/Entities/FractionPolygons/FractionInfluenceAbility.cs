@@ -1,7 +1,7 @@
 ﻿using Dungeon;
 using System.ComponentModel.DataAnnotations;
 
-namespace Dungeon12.Entities.FractionPolygons
+namespace Nabunassar.Entities.FractionPolygons
 {
     public enum FractionInfluenceAbility
     {

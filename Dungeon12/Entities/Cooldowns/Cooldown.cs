@@ -1,4 +1,4 @@
-﻿namespace Dungeon12.Entities.Cooldowns
+﻿namespace Nabunassar.Entities.Cooldowns
 {
     internal class Cooldown
     {

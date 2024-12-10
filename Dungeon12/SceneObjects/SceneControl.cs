@@ -2,11 +2,11 @@
 using Dungeon.GameObjects;
 using Dungeon.View.Interfaces;
 
-namespace Dungeon12
+namespace Nabunassar
 {
     internal abstract class SceneControl<T> : Dungeon.SceneObjects.SceneControl<T> where T : class
     {
-        public SceneControl(T component, bool bindView = true) : base(component, bindView)
+        public SceneControl(T component) : base(component)
         {
         }
 

@@ -1,7 +1,7 @@
 ﻿using Dungeon.SceneObjects;
 using Dungeon.Types;
 
-namespace Dungeon12.SceneObjects.World
+namespace Nabunassar.SceneObjects.World
 {
     public class WorldTileSceneObject : EmptySceneObject
     {

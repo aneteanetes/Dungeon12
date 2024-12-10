@@ -1,10 +1,10 @@
 ﻿using Dungeon.Control;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
-using Dungeon12.SceneObjects.UserInterface.Common;
+using Nabunassar.SceneObjects.UserInterface.Common;
 using System;
 
-namespace Dungeon12.SceneObjects
+namespace Nabunassar.SceneObjects
 {
     public static class PopUpExtensions
     {

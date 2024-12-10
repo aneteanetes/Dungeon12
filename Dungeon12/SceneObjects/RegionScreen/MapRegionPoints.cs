@@ -4,14 +4,14 @@ using Dungeon.Drawing.Impl;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
-using Dungeon12.Entities.Map;
-using Dungeon12.SceneObjects.Location_;
+using Nabunassar.ECS.Components;
+using Nabunassar.Entities.Map;
+using Nabunassar.SceneObjects.Location_;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Dungeon12.SceneObjects.RegionScreen
+namespace Nabunassar.SceneObjects.RegionScreen
 {
     internal class MapRegionPoints : SceneControl<MapRegion>
     {

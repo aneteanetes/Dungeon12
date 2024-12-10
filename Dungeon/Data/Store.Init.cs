@@ -11,6 +11,7 @@ using Dungeon.Resources;
 using Dungeon.Data;
 using System.Linq.Expressions;
 using Dungeon.Localization;
+using Dungeon.Resources.Internal;
 
 namespace Dungeon
 {
@@ -26,7 +27,6 @@ namespace Dungeon
         public static void Init(JsonSerializerSettings jsonSerializerSettings)
         {
             _jsonSerializerSettings = jsonSerializerSettings;
-            ResourceLoader.LoadAllAssembliesInFolder();
 
             if (!Directory.Exists(MainPath))
                 Directory.CreateDirectory(MainPath);
@@ -212,7 +212,8 @@ namespace Dungeon
                     }
 
                     var typeName = Path.GetFileNameWithoutExtension(csFile);
-                    var type = ResourceLoader.LoadType(typeName);
+                    throw new NotImplementedException("Store сломан");
+                    Type type = null;// Resources.ResourceLoader.LoadType(typeName);
 
                     return new DataInfo
                     {

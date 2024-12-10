@@ -1,7 +1,7 @@
 ﻿using Dungeon;
 using Dungeon.View.Interfaces;
 
-namespace Dungeon12
+namespace Nabunassar
 {
     internal static class Debugger
     {

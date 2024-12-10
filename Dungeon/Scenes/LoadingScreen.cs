@@ -6,24 +6,41 @@ namespace Dungeon.Scenes
     public abstract class LoadingScreen : GameScene
     {
         private bool _loadCompletedCalled = false;
-        Action _loadCompleted;
 
         public override bool Destroyable => true;
 
-        public LoadingScreen(SceneManager sceneManager, Action onLoadCompleted) : base(sceneManager)
+        protected abstract bool IsNeedWaitUntilLoad { get; }
+
+        private Action _onLoaded;
+
+        public LoadingScreen(SceneManager sceneManager, Action onLoaded) : base(sceneManager)
         {
-            _loadCompleted = onLoadCompleted;
+            _onLoaded = onLoaded;
         }
 
         public override void Initialize() { }
 
-        public void LoadComplete()
+        public bool BackgroudSceneIsLoaded { get; set; }
+
+        public override void Update(GameTimeLoop gameTimeLoop)
         {
-            if (!_loadCompletedCalled)
+            if (BackgroudSceneIsLoaded)
             {
-                _loadCompletedCalled = true;
-                _loadCompleted?.Invoke();
+                if (IsNeedWaitUntilLoad)
+                {
+                    if (_loadCompletedCalled)
+                    {
+                        _onLoaded?.Invoke();
+                    }
+                }
+                else
+                {
+                    _onLoaded?.Invoke();
+                }
             }
+            base.Update(gameTimeLoop);
         }
+
+        public void LoadComplete() => _loadCompletedCalled = true;
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Dungeon.Types;
-using Dungeon12.Entities.Objects;
+using Nabunassar.Entities.Objects;
 
-namespace Dungeon12.Entities.Map
+namespace Nabunassar.Entities.Map
 {
     internal class Location : CoordDictionary<Polygon>
     {

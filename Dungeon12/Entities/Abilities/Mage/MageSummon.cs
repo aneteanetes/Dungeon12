@@ -1,9 +1,9 @@
-﻿using Dungeon12.Entities.Enums;
+﻿using Nabunassar.Entities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dungeon12.Entities.Abilities.Mage
+namespace Nabunassar.Entities.Abilities.Mage
 {
     internal class MageSummon : Ability
     {

@@ -4,13 +4,13 @@ using Dungeon.Localization;
 using Dungeon.SceneObjects;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
-using Dungeon12.ECS.Components;
-using Dungeon12.Entities;
-using Dungeon12.Entities.Enums;
-using Dungeon12.SceneObjects.Base;
+using Nabunassar.ECS.Components;
+using Nabunassar.Entities;
+using Nabunassar.Entities.Enums;
+using Nabunassar.SceneObjects.Base;
 using System.Linq;
 
-namespace Dungeon12.SceneObjects.Create
+namespace Nabunassar.SceneObjects.Create
 {
     internal class SkillsList : SceneControl<Hero>
     {

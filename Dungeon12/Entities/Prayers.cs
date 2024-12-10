@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dungeon12.Entities
+namespace Nabunassar.Entities
 {
     internal class Prayers
     {

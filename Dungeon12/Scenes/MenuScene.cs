@@ -4,15 +4,15 @@ using Dungeon.Drawing.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using Dungeon.Types;
-using Dungeon12.Extensions.Resources;
-using Dungeon12.SceneObjects.UserInterface.Common;
-using Dungeon12.Scenes.Creating;
-using Dungeon12.Scenes.Start;
+using Nabunassar.Extensions.Resources;
+using Nabunassar.SceneObjects.UserInterface.Common;
+using Nabunassar.Scenes.Creating;
+using Nabunassar.Scenes.Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Dungeon12.Scenes
+namespace Nabunassar.Scenes
 {
     [EntryScene]
     internal class MenuScene : GameScene<NabLoadingScreen, TCGScene, CreateScene,GlobalMapScene>
@@ -25,7 +25,7 @@ namespace Dungeon12.Scenes
 
         public override void Initialize()
         {
-            Global.AudioPlayer.Music("Main.ogg".AsmMusicRes());
+            AudioPlayer.Music("Main.ogg".AsmMusicRes());
             //layerBack.AddObjectCenter(new ImageObject("d12textM.png".AsmImg()), vertical: false);
 
             var layerBack = this.CreateLayer("back");
@@ -50,9 +50,8 @@ namespace Dungeon12.Scenes
             Console.WriteLine($"counter: {counter}");
             this.Resources.Load("Main.ogg".AsmMusicRes());
             this.Resources.Load("back.png".AsmImg());
-            this.Resources.Load("UI/btn_a.png".AsmImg());
             this.Resources.Load("focus.wav".AsmSoundRes());
-            this.Resources.Load("UI/bordermin/bord3.png".AsmImg());
+            this.Resources.Load("UI/bordermin/bord31.png".AsmImg());
             this.Resources.LoadFont("URWGeometricBold");
             this.LoadBorders();
             base.Load();
@@ -179,7 +178,7 @@ namespace Dungeon12.Scenes
 
         private void LoadGame()
         {
-            Global.AudioPlayer.Music("test3");
+            AudioPlayer.Music("test3");
         }
 
         private void Settings()

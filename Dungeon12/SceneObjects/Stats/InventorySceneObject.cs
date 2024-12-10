@@ -1,8 +1,8 @@
 ﻿using Dungeon.SceneObjects;
-using Dungeon12.Entities;
-using Dungeon12.Entities.Enums;
+using Nabunassar.Entities;
+using Nabunassar.Entities.Enums;
 
-namespace Dungeon12.SceneObjects.Stats
+namespace Nabunassar.SceneObjects.Stats
 {
     internal class InventorySceneObject : SceneControl<Inventory>
     {
@@ -11,7 +11,7 @@ namespace Dungeon12.SceneObjects.Stats
             throw ex;
         }
 
-        public InventorySceneObject(Inventory component, bool bindView = true) : base(component, bindView)
+        public InventorySceneObject(Inventory component) : base(component)
         {
             this.Height=358;
             this.Width=285;

@@ -1,10 +1,10 @@
 ﻿using Dungeon;
 using Dungeon.SceneObjects;
-using Dungeon12.ECS.Components;
-using Dungeon12.Entities;
-using Dungeon12.Entities.Enums;
+using Nabunassar.ECS.Components;
+using Nabunassar.Entities;
+using Nabunassar.Entities.Enums;
 
-namespace Dungeon12.SceneObjects.Stats
+namespace Nabunassar.SceneObjects.Stats
 {
     internal class WearSceneObject : SceneControl<Item>, ITooltiped
     {

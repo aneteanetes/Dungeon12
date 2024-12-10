@@ -5,7 +5,7 @@ using Dungeon.SceneObjects;
 using System;
 using System.Collections.Generic;
 
-namespace Dungeon12.SceneObjects
+namespace Nabunassar.SceneObjects
 {
     public enum HintStates
     {

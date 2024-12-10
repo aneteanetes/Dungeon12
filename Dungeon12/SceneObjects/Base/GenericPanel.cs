@@ -2,10 +2,10 @@
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
-using Dungeon12.Entities.Plates;
-using Dungeon12.Extensions.SceneObjects;
+using Nabunassar.Entities.Plates;
+using Nabunassar.Extensions.SceneObjects;
 
-namespace Dungeon12.SceneObjects.Base
+namespace Nabunassar.SceneObjects.Base
 {
     internal class GenericPanel : SceneControl<GenericData>
     {
@@ -160,7 +160,7 @@ namespace Dungeon12.SceneObjects.Base
 
         private class Icon : ImageObject
         {
-            public Icon(string iconAbs)
+            public Icon(string iconAbs):base(iconAbs)
             {
                 this.Width=69;
                 this.Height=69;

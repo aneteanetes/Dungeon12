@@ -2,11 +2,11 @@
 using Dungeon.Control;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
-using Dungeon12.ECS.Components;
-using Dungeon12.Entities.Quests;
+using Nabunassar.ECS.Components;
+using Nabunassar.Entities.Quests;
 using System;
 
-namespace Dungeon12.SceneObjects.RegionScreen
+namespace Nabunassar.SceneObjects.RegionScreen
 {
     internal class QuestBar : SceneControl<QuestBook>
     {

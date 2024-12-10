@@ -1,9 +1,9 @@
 ﻿using Dungeon;
 using Dungeon.SceneObjects;
-using Dungeon12.Entities.Map;
+using Nabunassar.Entities.Map;
 using System;
 
-namespace Dungeon12.SceneObjects.RegionScreen
+namespace Nabunassar.SceneObjects.RegionScreen
 {
     internal class MapRegionTitle : SceneObject<MapRegion>
     {

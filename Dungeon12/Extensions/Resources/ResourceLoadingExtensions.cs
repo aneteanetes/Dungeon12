@@ -1,14 +1,14 @@
 ﻿using Dungeon;
 using Dungeon.Scenes;
 
-namespace Dungeon12.Extensions.Resources
+namespace Nabunassar.Extensions.Resources
 {
     internal static class ResourceLoadingExtensions
     {
         public static void LoadBorders(this Scene scene)
         {
             var basePath = "UI/border/";
-            new[]
+            (new[]
             {
                 $"{basePath}leftup.png",
                 $"{basePath}rightup.png",
@@ -18,10 +18,10 @@ namespace Dungeon12.Extensions.Resources
                 $"{basePath}right.png",
                 $"{basePath}down.png",
                 $"{basePath}up.png"
-            }.ForEach(s =>
+            }).ForEach((Action<string>)(s =>
             {
                 scene.Resources.Load(s.AsmImg());
-            });
+            }));
         }
     }
 }
