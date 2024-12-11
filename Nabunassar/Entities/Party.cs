@@ -2,6 +2,14 @@
 {
     internal class Party : Quad<Hero>
     {
+        public Party()
+        {
+            First = new Hero();
+            Second = new Hero();
+            Third = new Hero();
+            Fourth = new Hero();
+        }
+
         public RangeValue Movements { get; set; } = new();
 
         public Food Food { get; set; } = new Food();

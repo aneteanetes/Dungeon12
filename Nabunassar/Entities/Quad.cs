@@ -2,15 +2,15 @@
 
 namespace Nabunassar.Entities
 {
-    internal class Quad<T> : IEnumerable<T>
+    public class Quad<T> : IEnumerable<T>
     {
-        public T First { get; set; }
+        public virtual T First { get; set; }
 
-        public T Second { get; set; }
+        public virtual T Second { get; set; }
 
-        public T Third { get; set; }
+        public virtual T Third { get; set; }
 
-        public T Fourth { get; set; }
+        public virtual T Fourth { get; set; }
 
         public IEnumerator<T> GetEnumerator()
         {

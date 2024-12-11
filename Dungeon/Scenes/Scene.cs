@@ -6,6 +6,7 @@
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.ECS;
+    using Dungeon.Localization;
     using Dungeon.Resources;
     using Dungeon.Scenes.Manager;
     using Dungeon.Types;
@@ -22,6 +23,8 @@
         public abstract bool Destroyable { get; }
 
         public IAudioPlayer AudioPlayer=>DungeonGlobal.AudioPlayer;
+
+        public LocalizationStringDictionary Strings => DungeonGlobal.GetBindedGlobal().GetStringsClass();
 
         public string Uid { get; } = Guid.NewGuid().ToString();
 
@@ -354,7 +357,7 @@
             return this.sceneManager.GameClient.ChangeScene(this);
         }
 
-        protected virtual void Switch<T>(params string[] args) where T : GameScene
+        public virtual void Switch<T>(params string[] args) where T : GameScene
         {
             this.sceneManager.Switch<T>(args);
         }

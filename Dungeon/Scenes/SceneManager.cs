@@ -110,28 +110,25 @@
                     });
 
                     // запоминаем ссылку на экран загрузки
-                    loadingScreen = result.loadingScreen.As<LoadingScreen>();
+                    loadingScreen = result.As<LoadingScreen>();
 
-                    // создаём задачу на загрузку следующей сцены 
-                    var loading = Loading(sceneType);
-
-                    // как только сцена будет загружена, сообщаем экрану
-                    loading.ContinueWith(t =>
+                    // активируем сцену с экраном загрузки
+                    result.Activate().ContinueWith(t =>
                     {
-                        loadingScreen.BackgroudSceneIsLoaded = true;
-                    });
+                        // создаём задачу на загрузку следующей сцены 
+                        Task.Run(() =>
+                        {
+                            Loading(sceneType);
 
-                    // запускаем фоновую загрузку ПОСЛЕ того как экран будет активирован
-                    result.activated.ContinueWith(t =>
-                    {
-                        loading.Start();
+                            // как только сцена будет загружена, сообщаем экрану
+                            loadingScreen.BackgroudSceneIsLoaded = true;
+                        });
                     });
                 }
             }
             else
             {
-                var task = Loading(sceneType);
-                task.RunSynchronously();
+                Loading(sceneType);
             }
         }
 
@@ -172,7 +169,7 @@
             }
         }
 
-        private Task Loading(Type sceneType)
+        private void Loading(Type sceneType)
         {
             var loadingTask = new Task(() => { });
 
@@ -181,40 +178,30 @@
             if (_current?.Destroyable ?? false)
             {
                 SceneCache.TryRemove(_current.GetType(), out var scene);
-
-                loadingTask = new Task(() =>
-                {
-                    Thread.CurrentThread.IsBackground = true;
-                    scene.Destroy();
-                });
+                scene.Destroy();
             }
 
-            loadingTask.ContinueWith(t =>
+            var next = InstantiateScene(sceneType);
+
+            //Если мы переключаем сцену, а что-то на ней в это время фризит мир - надо освободить мир
+            if (_current?.Freezer != null)
             {
-                var next = InstantiateScene(sceneType);
+                DungeonGlobal.Freezer.World = null;
+            }
 
-                //Если мы переключаем сцену, а что-то на ней в это время фризит мир - надо освободить мир
-                if (_current?.Freezer != null)
-                {
-                    DungeonGlobal.Freezer.World = null;
-                }
+            // удаляем ссылки
+            if (_current?.Destroyable ?? false)
+                _current.sceneManager = null;
 
-                // удаляем ссылки
-                if (_current?.Destroyable ?? false)
-                    _current.sceneManager = null;
+            _current = next;
+            //Если мы переключаем сцену, а в следующей есть фризер - значит надо восстановить её состояние
+            if (next.Freezer != null)
+            {
+                DungeonGlobal.Freezer.World = next.Freezer;
+            }
 
-                _current = next;
-                //Если мы переключаем сцену, а в следующей есть фризер - значит надо восстановить её состояние
-                if (next.Freezer != null)
-                {
-                    DungeonGlobal.Freezer.World = next.Freezer;
-                }
-
-                IsSwitching = false;
-                _current.Loaded();
-            });
-
-            return loadingTask;
+            IsSwitching = false;
+            _current.Loaded();
         }
 
         private GameScene InstantiateScene(Type sceneType, params string[] args)
@@ -237,7 +224,7 @@
             return scene;
         }
 
-        private (GameScene loadingScreen, Task activated) InstantiateLoadingScreen(Type sceneType, Action onLoaded)
+        private GameScene InstantiateLoadingScreen(Type sceneType, Action onLoaded)
         {
             if (!SceneCache.TryGetValue(sceneType, out GameScene scene))
             {
@@ -252,7 +239,7 @@
                 scene.IsInitialized = true;
             }
 
-            return (scene, scene.Activate());
+            return scene;
         }
 
         private static void Populate(GameScene previous, GameScene next, string[] args = default)

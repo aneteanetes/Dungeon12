@@ -11,8 +11,6 @@
     {
         public Type LoadingScreenType { get; protected set; }
 
-        public LocalizationStringDictionary Strings => DungeonGlobal.GetBindedGlobal().GetStringsClass();
-
         public object Freezer;
 
         public bool InGame { get; set; }
@@ -40,7 +38,7 @@
         {
         }
 
-        protected override void Switch<T>(params string[] args)
+        public override void Switch<T>(params string[] args)
         {
             if (!AvailableScenes.Contains(typeof(T)))
                 throw new Exception($"Scene of type '{typeof(T)}' can't be switched from '{this.GetType()}' scene!");

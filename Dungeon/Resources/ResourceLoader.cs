@@ -1,5 +1,7 @@
-﻿using Dungeon.Resources.Resolvers;
+﻿using Dungeon.Resources.Processing;
+using Dungeon.Resources.Resolvers;
 using LiteDB;
+using Mono.Cecil;
 using MoreLinq;
 using Newtonsoft.Json;
 using System;
@@ -17,6 +19,8 @@ namespace Dungeon.Resources
         public static ResourceLoaderSettings Settings => DungeonGlobal.Configuration.ResourceLoader;
 
         public static List<ResourceResolver> ResourceResolvers { get; set; } = new List<ResourceResolver>();
+
+        public static List<ResourceProcessor> ResourceProcessors { get; set; } = new List<ResourceProcessor>();
 
         private static LiteDatabase liteDatabase;
         private static LiteDatabase LiteDatabase
@@ -87,8 +91,6 @@ namespace Dungeon.Resources
             return res;
         }
 
-
-
         private static Resource LoadResource(string resource, ResourceTable table)
         {
             if (table.ContainsKey(resource))
@@ -118,6 +120,14 @@ namespace Dungeon.Resources
                         break;
                 }
             }
+            else
+            {
+                foreach (var rp in ResourceProcessors)
+                {
+                    if(rp.IsCanProcess(resource))
+                        rp.Process(resource, res);
+                }
+            }
 
             return res;
         }
@@ -136,6 +146,15 @@ namespace Dungeon.Resources
                 {
                     var resources = db.Find(x => x.Path.StartsWith(folder)).ToArray();
                     table.AddFolder(folder, resources);
+
+                    foreach (var res in resources)
+                    {
+                        foreach (var rp in ResourceProcessors)
+                        {
+                            if (rp.IsCanProcess(res.Path))
+                                rp.Process(res.Path, res);
+                        }
+                    }
 
                     return resources;
                 }

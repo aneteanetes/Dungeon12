@@ -209,6 +209,7 @@ namespace Dungeon.Monogame
             DefaultSpriteBatch = new SpriteBatchKnowed(GraphicsDevice);
             LayerSpriteBatch = new SpriteBatchKnowed(GraphicsDevice);
             ImageLoader = new ImageLoader(GraphicsDevice);
+            ResourceLoader.ResourceProcessors.Add(ImageLoader);
 
             LoadPenumbra();
             Load3D();

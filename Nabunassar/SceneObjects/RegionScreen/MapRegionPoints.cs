@@ -44,7 +44,7 @@ namespace Nabunassar.SceneObjects.RegionScreen
                 {
                     Left = -8,
                     Top = -43,
-                    VisibleFunction = () => Global.Game.State.PointId == component.Id
+                    VisibleFunction = () => Global.Game.Vars.PointId == component.Id
                 });
 
                 _illumination = this.AddChild(new EmptySceneObject()
@@ -97,13 +97,13 @@ namespace Nabunassar.SceneObjects.RegionScreen
             {
                 _region.Points.ForEach(p => p.Illuminate = false);
 
-                var shortestPath = _region.Graph.ShortestPathFunction(Global.Game.State.PointId);
+                var shortestPath = _region.Graph.ShortestPathFunction(Global.Game.Vars.PointId);
 
                 _region.Points
                     .Join(shortestPath(Component.Id), x => x.Id, i => i, (x, i) => x)
                     .ForEach(p => p.Illuminate = true);
 
-                _region.PointMap[Global.Game.State.PointId].Illuminate = false;
+                _region.PointMap[Global.Game.Vars.PointId].Illuminate = false;
 
                 base.Focus();
             }
@@ -117,9 +117,9 @@ namespace Nabunassar.SceneObjects.RegionScreen
 
             public override void Click(PointerArgs args)
             {
-                var shortestPath = _region.Graph.ShortestPathFunction(Global.Game.State.PointId);
+                var shortestPath = _region.Graph.ShortestPathFunction(Global.Game.Vars.PointId);
 
-                Global.Game.State.PointId = Component.Id;
+                Global.Game.Vars.PointId = Component.Id;
 
                 this.Layer.AddObject(new LocationWindow(Component));
 

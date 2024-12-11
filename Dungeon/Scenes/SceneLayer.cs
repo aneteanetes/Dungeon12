@@ -24,6 +24,8 @@ namespace Dungeon.Scenes
 
         protected Scene Parent => Owner;
 
+        public Scene SceneOwner => Owner;
+
         public IScene Scene => Owner;
 
         public SceneLayer(Scene parentScene)
@@ -778,6 +780,11 @@ namespace Dungeon.Scenes
                 var updatable = updatables[i];
                 updatable.ComponentUpdateChainCall(gameTime);
             }
+        }
+
+        public void Switch<T>() where T : GameScene
+        {
+            Owner.Switch<T>();
         }
 
         //private static bool IntersectsPixel(Rectangle hitbox1, Texture2D texture1, Rectangle hitbox2, Texture2D texture2)

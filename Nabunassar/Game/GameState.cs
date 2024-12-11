@@ -4,14 +4,16 @@ using Nabunassar.Entities.Journal;
 using Nabunassar.Entities.Map;
 using Nabunassar.Entities.Quests;
 
-namespace Nabunassar
+namespace Nabunassar.Game
 {
-    internal class Game
+    internal class GameState
     {
+        public Creation Creation { get; set; } = new();
+
         public World World { get; set; }
 
-        public Party Party { get; set; }
-        
+        public Party Party { get; set; } = new();
+
         public QuestBook QuestBook { get; set; }
 
         public MapRegion MapRegion { get; set; }
@@ -33,8 +35,10 @@ namespace Nabunassar
 
         public GameLog Log { get; set; }
 
-        public GameState State { get; set; } = new GameState();
-
         public Variables Variables { get; set; } = new();
+
+        public GameVariables Vars { get; set; } = new();
     }
+
+
 }

@@ -25,9 +25,11 @@
 
   <ItemGroup>
     <EmbeddedResource Remove="Resources\EmbeddedResourceResolver.cs" />
+    <EmbeddedResource Remove="Resources\Processing\ResourceProcessor.cs" />
     <EmbeddedResource Remove="Resources\Resource.cs" />
     <EmbeddedResource Remove="Resources\ResourceCompiler.cs" />
     <EmbeddedResource Remove="Resources\ResourceDatabaseResolver.cs" />
+    <EmbeddedResource Remove="Resources\ResourceLoader.cs" />
     <EmbeddedResource Remove="Resources\ResourceLoaderSettings.cs" />
     <EmbeddedResource Remove="Resources\ResourceManifest.cs" />
     <EmbeddedResource Remove="Resources\ResourceResolver.cs" />

@@ -5,6 +5,7 @@
     using Dungeon.Control.Keys;
     using Dungeon.Control.Pointer;
     using Dungeon.Proxy;
+    using Dungeon.Scenes;
     using Dungeon.Scenes.Manager;
     using Dungeon.Types;
     using Dungeon.Utils;
@@ -265,6 +266,11 @@
                 if(activeLayer!=default)
                     activeLayer.AddExistedControl(control);
             }
+        }
+
+        protected void Switch<TScene>(params string[] args) where TScene : GameScene
+        {
+            this.Layer?.Switch<TScene>();
         }
     }
 }

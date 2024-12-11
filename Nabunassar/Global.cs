@@ -2,6 +2,7 @@
 using Dungeon.Drawing;
 using Dungeon.Localization;
 using Nabunassar.Entities.Enums;
+using Nabunassar.Game;
 using Nabunassar.Locale;
 using Nabunassar.SceneObjects;
 using System.Reflection;
@@ -26,7 +27,7 @@ namespace Nabunassar
 
         public static GameStrings Strings { get; set; } = new GameStrings();
 
-        public static Game Game { get; set; }
+        public static GameState Game { get; set; }
 
         public override LocalizationStringDictionary GetStringsClass() => Strings;
 

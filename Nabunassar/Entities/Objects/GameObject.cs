@@ -7,7 +7,7 @@ namespace Nabunassar.Entities.Objects
         public GameObject()
         {
             if (Global.Game!=default)
-                globalId=Global.Game.State.GlobalId++;
+                globalId=Global.Game.Vars.GlobalId++;
         }
 
         private ulong globalId;
@@ -20,7 +20,7 @@ namespace Nabunassar.Entities.Objects
             get
             {
                 if (globalId == default)
-                    globalId=Global.Game.State.GlobalId++;
+                    globalId=Global.Game.Vars.GlobalId++;
 
                 return globalId;
             }

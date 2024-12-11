@@ -1,4 +1,5 @@
 ﻿using Dungeon.ECS;
+using Dungeon.Scenes;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -29,6 +30,8 @@ namespace Dungeon.View.Interfaces
         double Top { get; }
 
         bool Destroyed { get; }
+
+        void Switch<T>() where T : GameScene;
 
         TSceneObject AddObject<TSceneObject>(TSceneObject sceneObject) where TSceneObject : ISceneObject;
 
