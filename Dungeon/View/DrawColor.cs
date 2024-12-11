@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dungeon.SceneObjects;
 using Dungeon.View.Interfaces;
 
 namespace Dungeon.Drawing
@@ -46,6 +47,12 @@ namespace Dungeon.Drawing
         public byte A { get; set; }
 
         public static implicit operator DrawColor(ConsoleColor consoleColor) => new DrawColor(consoleColor);
+
+        public static byte CalculateOpacity(double opacity)
+        {
+            var value = opacity * 255;
+            return Convert.ToByte((int)Math.Round(value));
+        }
 
         private static Dictionary<ConsoleColor, (byte R, byte G, byte B, byte A)> ConsoleMap => new Dictionary<ConsoleColor, (byte R, byte G, byte B, byte A)>()
         {

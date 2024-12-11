@@ -87,6 +87,8 @@ namespace Dungeon.Resources
             return res;
         }
 
+
+
         private static Resource LoadResource(string resource, ResourceTable table)
         {
             if (table.ContainsKey(resource))
@@ -118,6 +120,29 @@ namespace Dungeon.Resources
             }
 
             return res;
+        }
+
+        public static IEnumerable<Resource> LoadResourceFolder(string folder, ResourceTable table)
+        {
+            if (table.IsFolderLoaded(folder))
+            {
+                return table.GetFolder(folder);
+            }
+
+            var db = LiteDatabase?.GetCollection<Resource>();
+            if (db != null)
+            {
+                try
+                {
+                    var resources = db.Find(x => x.Path.StartsWith(folder)).ToArray();
+                    table.AddFolder(folder, resources);
+
+                    return resources;
+                }
+                catch { }
+            }
+
+            return Enumerable.Empty<Resource>();
         }
     }
 }

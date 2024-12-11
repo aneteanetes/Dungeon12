@@ -2,6 +2,7 @@
 using Dungeon.Monogame.Fonts;
 using Dungeon.Resources;
 using Dungeon.SceneObjects;
+using Dungeon.SceneObjects.Base;
 using Dungeon.Types;
 using Dungeon.View.Enums;
 using Dungeon.View.Interfaces;

@@ -122,6 +122,11 @@
                 textControl.Width = boundObj.Width;
                 textControl.Height = boundObj.Height;
             }
+            else
+            {
+                textControl.Width = measure.X;
+                textControl.Height = measure.Y;
+            }
 
             var width = Width;
             var height = Height;
@@ -161,6 +166,16 @@
             }
 
             return child;
+        }
+
+        public double CalculateVerticalCenterPoint(double height)
+        {
+            return Math.Abs(this.Height / 2 - height / 2);
+        }
+
+        public double CalculateHorizontalCenterPoint(double width)
+        {
+            return this.Width / 2 - width / 2;
         }
 
         public T CenterChildText<T>(T text, bool x = true, bool y = true)
@@ -723,6 +738,9 @@
 
         public IDrawColor Color { get; set; }
 
+        /// <summary>
+        /// Отразить изображение
+        /// </summary>
         public FlipStrategy Flip { get; set; } = FlipStrategy.None;
 
         private object flowContext = null;

@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Dungeon.Resources
 {
     public class ResourceTable : IDisposable
     {
         private Dictionary<string, Resource> resources = new();
+        private Dictionary<string,IEnumerable<Resource>> folderResources = new();
+
+        public bool IsFolderLoaded(string path) => folderResources.ContainsKey(path);
+
+        public IEnumerable<Resource> GetFolder(string path) => folderResources[path];
 
         public bool TryGetValue(string path, out Resource value)
         {
@@ -29,6 +35,15 @@ namespace Dungeon.Resources
             resources[path] = res;
         }
 
+        public void AddFolder(string folder, IEnumerable<Resource> folderRes)
+        {
+            folderResources[folder] = folderRes;
+            foreach (var res in folderRes)
+            {
+                this.Add(res.Path,res);
+            }
+        }
+
         public Resource this[string path]
         {
             get
@@ -37,6 +52,9 @@ namespace Dungeon.Resources
                 {
                     res = Load(path);
                 }
+
+                if (res == null)
+                    throw new KeyNotFoundException(path);
 
                 return res;
             }
@@ -54,6 +72,11 @@ namespace Dungeon.Resources
             return res;
         }
 
+        public IEnumerable<Resource> LoadFolder(string path)
+        {
+            return ResourceLoader.LoadResourceFolder(path,this);
+        }
+
         public void Load(IEnumerable<string> paths)
         {
             foreach (var path in paths)
@@ -69,6 +92,7 @@ namespace Dungeon.Resources
                 kv.Value.Dispose();
             }
             this.resources.Clear();
+            this.folderResources.Clear();
         }
 
         /// <summary>
