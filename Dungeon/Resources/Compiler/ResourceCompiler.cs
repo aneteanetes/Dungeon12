@@ -2,18 +2,14 @@
 using LiteDB;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 
 namespace Dungeon.Resources.Compiler
 {
     public class ResourceCompiler
     {
-        public bool PreCompiled { get; set; }
-
         public string PreCompiledPath { get; set; }
 
         public ResourceManifest LastBuild { get; private set; }
@@ -54,41 +50,55 @@ namespace Dungeon.Resources.Compiler
             CurrentBuild = new ResourceManifest();
         }
 
-        private ILiteCollection<Resource> db;
+        private string DataDir = null;
+        private ILiteCollection<Resource> DataDb = null;
+
+        private string LocaleDir = null;
+        private ILiteCollection<Resource> LocaleDb = null;
 
         private void CopyPreCompiled(string path)
         {
             File.Copy(PreCompiledPath, path);
         }
 
-        public void Compile(bool rebuild = false)
+        public void Compile()
         {
             var caller = DungeonGlobal.GameAssemblyName;
-            var dir = Path.Combine(MainPath, "Data");
-            if (!Directory.Exists(dir))
-            {
-                Directory.CreateDirectory(dir);
-            }
 
-            var path = Path.Combine(dir, $"{caller}.dtr");
-            if (rebuild && File.Exists(path))
-            {
-                File.Delete(path);
-            }
+            DataDir = Path.Combine(MainPath, DungeonGlobal.Configuration.DataDirectory);
+            LocaleDir = Path.Combine(MainPath, DungeonGlobal.Configuration.LocaleDirectory);
 
-            if (PreCompiled)
-            {
-                CopyPreCompiled(path);
-                return;
-            }
+            CreateDirectories();
 
-            using var litedb = new LiteDatabase(path);
+            var dataPath = Path.Combine(DataDir, $"{caller}.dtr");
+            var localePath = Path.Combine(LocaleDir, $"{DungeonGlobal.Configuration.TwoLetterISOLanguageName}.dtr");
 
-            db = litedb.GetCollection<Resource>();
-            db.EnsureIndex("Path");
+            using var dataLiteDb = new LiteDatabase(dataPath);
 
-            ProcessProjectResources(rebuild);
+            DataDb = dataLiteDb.GetCollection<Resource>();
+            DataDb.EnsureIndex("Path");
+
+
+            using var localeLiteDb = new LiteDatabase(localePath);
+
+            LocaleDb = localeLiteDb.GetCollection<Resource>();
+            LocaleDb.EnsureIndex("Path");
+
+            ProcessProjectResources();
             WriteCurrentBuild();
+        }
+
+        private void CreateDirectories()
+        {
+            if (!Directory.Exists(DataDir))
+            {
+                Directory.CreateDirectory(DataDir);
+            }
+
+            if (!Directory.Exists(LocaleDir))
+            {
+                Directory.CreateDirectory(LocaleDir);
+            }
         }
 
         private void WriteCurrentBuild()
@@ -98,12 +108,26 @@ namespace Dungeon.Resources.Compiler
             File.WriteAllText(ManifestPath, manifest);
         }
 
-        private void ProcessProjectResources(bool rebuild)
+        private void ProcessProjectResources()
+        {
+            var filePaths = Directory.GetFiles(Path.Combine(DungeonGlobal.ProjectPath, "Resources"), "*.*", SearchOption.AllDirectories);
+
+            var localePath = Path.Combine(Path.Combine(DungeonGlobal.ProjectPath, "Resources", DungeonGlobal.Configuration.LocaleDirectory));
+
+            var localesPaths = filePaths.Where(x => x.StartsWith(localePath)).ToArray();
+            ProcessDatabase(localesPaths, LocaleDb);
+
+
+            filePaths = filePaths.Except(localesPaths).ToArray();
+            ProcessDatabase(filePaths, DataDb);
+        }
+
+        private void ProcessDatabase(string[] filePaths, ILiteCollection<Resource> db)
         {
             string[] currentResourcePathsInDb = db.Query().Select(x => x.Path).ToArray();
-            string[] filePaths = Directory.GetFiles(Path.Combine(DungeonGlobal.ProjectPath, "Resources"), "*.*",
-                SearchOption.AllDirectories);
-            string[] formattedFilePaths = filePaths.Select(path => FormatPathForDB(path)).ToArray();
+
+            string[] formattedFilePaths = filePaths.Select(FormatPathForDB).ToArray();
+
 
             // Delete all resources from DB that are not present in Resource folder
             foreach (var resPathInDb in currentResourcePathsInDb)
@@ -119,7 +143,7 @@ namespace Dungeon.Resources.Compiler
             {
                 try
                 {
-                    ProcessFile(filePath);
+                    ProcessFile(filePath, db);
                 }
                 catch (Exception ex)
                 {
@@ -129,7 +153,7 @@ namespace Dungeon.Resources.Compiler
             }
         }
 
-        private void ProcessFile(string filePath)
+        private void ProcessFile(string filePath, ILiteCollection<Resource> db)
         {
             var formattedPath = FormatPathForDB(filePath);
             var lastTime = File.GetLastWriteTime(filePath);
@@ -190,8 +214,6 @@ namespace Dungeon.Resources.Compiler
 
         public static string MainPath => Store.MainPath;
 
-        // We use manifest file to optimize querying resource metadata without loading content in memory.
-        // LiteDB doesn't provide a convenient way to only load certain fields in memory.
         public static string ManifestPath = Path.Combine(MainPath, "ResourceManifest.dtr");
 
         private ResourceManifest GetLastResourceManifestBuild()

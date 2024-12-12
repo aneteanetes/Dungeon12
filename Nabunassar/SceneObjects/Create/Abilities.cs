@@ -24,7 +24,7 @@ namespace Nabunassar.SceneObjects.Create
             this.Height = 110;
             this.Width = 315;
 
-            var title = this.AddTextCenter(Global.Strings["Abilities"].AsDrawText().Gabriela().InColor(Global.CommonColor).InSize(35), vertical: false);
+            var title = this.AddTextCenter(Global.Strings["Abilities"].ToString().Gabriela().InColor(Global.CommonColor).InSize(35), vertical: false);
             title.Top = -50;
 
             foreach (var archtype in typeof(Archetype).All<Archetype>())

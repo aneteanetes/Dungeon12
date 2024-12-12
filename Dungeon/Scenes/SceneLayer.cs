@@ -88,6 +88,7 @@ namespace Dungeon.Scenes
                     this.UpdatableObjects.Remove(sceneObject);
                 };
             }
+
             sceneObject.Layer = this;
             sceneObject.Scene = this.Scene;
             sceneObject.HighLevelComponent = true;
@@ -224,6 +225,15 @@ namespace Dungeon.Scenes
 
             foreach (var childSceneObject in sceneObject.Children)
             {
+                if (childSceneObject.Updatable)
+                {
+                    this.UpdatableObjects.Add(childSceneObject);
+                    childSceneObject.OnDestroy += () =>
+                    {
+                        this.UpdatableObjects.Remove(sceneObject);
+                    };
+                }
+
                 AddControlRecursive(childSceneObject);
             }
         }

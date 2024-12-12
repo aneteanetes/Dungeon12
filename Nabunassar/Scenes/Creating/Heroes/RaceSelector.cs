@@ -10,7 +10,7 @@ namespace Nabunassar.Scenes.Creating.Heroes
     {
         public RaceSelector(Hero component) : base(component)
         {
-            this.Width = 300;
+            this.Width = 325;
             this.Height = 700;
 
             this.AddBorderMapBack(new BorderConfiguration()
@@ -20,7 +20,11 @@ namespace Nabunassar.Scenes.Creating.Heroes
                 Padding = 2
             });
 
-            var top = 50;
+            var title = this.AddTextCenter(Global.Strings["RaceChoose"].ToString().DefaultTxt(20));
+
+            title.Top = 20;
+
+            var top = 65;
 
             typeof(Race).All<Race>().ForEach(race =>
             {
@@ -31,12 +35,13 @@ namespace Nabunassar.Scenes.Creating.Heroes
                     OnClick = () =>
                     {
                         component.Race = race;
+                        Global.Game.Creation.Hint = Global.Strings["Guide"][race.ToString()];
                     }
                 };
 
                 this.AddChildCenter(raceBtn);
                 raceBtn.Top = top;
-                top += 50;
+                top += 52;
             });
         }
     }

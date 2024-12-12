@@ -1,5 +1,6 @@
 ﻿using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
+using Nabunassar.Entities.Characters;
 using Nabunassar.SceneObjects.HUD;
 using Nabunassar.Scenes.Creating.Character;
 using Nabunassar.Scenes.Start;
@@ -30,11 +31,18 @@ namespace Nabunassar.Scenes.Creating.Heroes
             panel.Top += 65;
             layer.AddObjectCenter(panel);
 
+
+            Global.Game.Creation.Hint = Global.Strings["guide"][hero.Race.ToString()];
+
             var raceSelector = new RaceSelector(hero);
             raceSelector.Top = 300;
             raceSelector.Left = 50;
             layer.AddObject(raceSelector);
 
+            var hints = new CreateDescWindow();
+            hints.Top = 300;
+            hints.Left = Global.Resolution.Width - 50 - hints.Width;
+            layer.AddObject(hints);
 
             layer.AddCancelNextBtns<CreateScene>();
         }
@@ -42,6 +50,7 @@ namespace Nabunassar.Scenes.Creating.Heroes
         public override void Load()
         {
             this.Resources.LoadFolder("Backgrounds/Races".AsmImg());
+            this.Resources.LoadFolder("Portraits".AsmImg());
         }
     }
 }

@@ -13,7 +13,6 @@ using Dungeon.Settings;
 using Dungeon.View;
 using Dungeon.View.Interfaces;
 using Microsoft.Extensions.Configuration;
-using MoreLinq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -60,6 +59,14 @@ namespace Dungeon
             GlobalExceptionHandling();
             global = typeof(T).NewAs<T>();
 
+            var config = new ConfigurationBuilder()
+                .AddJsonFile($"{GameAssemblyName.ToLowerInvariant()}.cfg", true)
+                .AddJsonFile($"{GameAssemblyName.ToLowerInvariant()}.local.cfg", true)
+                .Build();
+
+            Configuration = config.Get<DungeonConfiguration>();
+            Configuration.ConfigurationRoot = config;
+
             if (compileData)
             {
                 var resCompiler = new ResourceCompiler(logOnlyNewUpdate:true);
@@ -75,14 +82,6 @@ namespace Dungeon
                     global.LoadStrings(loaded);
                 }
             }
-
-            var config = new ConfigurationBuilder()
-                .AddJsonFile($"{GameAssemblyName.ToLowerInvariant()}.cfg", true)
-                .AddJsonFile($"{GameAssemblyName.ToLowerInvariant()}.local.cfg", true)
-                .Build();
-
-            Configuration = config.Get<DungeonConfiguration>();
-            Configuration.ConfigurationRoot = config;
 
             isInited = true;
 

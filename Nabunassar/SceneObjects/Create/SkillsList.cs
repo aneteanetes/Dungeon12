@@ -19,7 +19,7 @@ namespace Nabunassar.SceneObjects.Create
             this.Height = 212;
             this.Width = 242;
 
-            var title = this.AddTextCenter(Global.Strings["Skills"].AsDrawText().Gabriela().InColor(Global.CommonColor).InSize(35), vertical: false);
+            var title = this.AddTextCenter(Global.Strings["Skills"].ToString().AsDrawText().Gabriela().InColor(Global.CommonColor).InSize(35), vertical: false);
             title.Top = 5;
 
             var skillgroups = typeof(Skill).All<Skill>()

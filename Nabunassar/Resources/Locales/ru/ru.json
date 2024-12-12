@@ -1,7 +1,9 @@
 {
+  "Description": "Описание",
+  "RaceChoose": "Выбор расы",
   "Muitu": "Муиту",
   "Shamshu": "Шамшу",
-  "Balatu":  "Балату",
+  "Balatu": "Балату",
   "Matu": "Мату",
   "Kararu": "Карару",
   "Esmaru": "Эсмару",
@@ -317,7 +319,6 @@
   "Charges": "зарядов",
   "Requires": "Требуется",
   "nth": "й",
-  "Level": "{level}",
   "level": "уровень",
   "Fraction": "Фракция",
   "Fraction.Friendly": "Арбитры",

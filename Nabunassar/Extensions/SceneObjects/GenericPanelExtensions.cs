@@ -71,7 +71,7 @@ namespace Nabunassar.Extensions.SceneObjects
             text.Append((Global.Strings["Cooldown"]+": ").Default());
             if(data.Cooldown.Type != Entities.Cooldowns.CooldownType.Battle)
             text.Append(data.Cooldown.Value.ToString().Default());
-            text.Append(Global.Strings[data.Cooldown.Type].Default().InSize(10));
+            text.Append(Global.Strings[data.Cooldown.Type].ToString().Default().InSize(10));
 
             return text;
         }

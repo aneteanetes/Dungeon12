@@ -11,7 +11,7 @@ namespace Nabunassar.SceneObjects.Create
             this.Height = 124;
             this.Image = "UI/start/title.png".AsmImg();
 
-            this.AddTextCenter(Global.Strings["CreateParty"].AsDrawText().InColor(Global.CommonColor).Gabriela().InSize(50));
+            this.AddTextCenter(Global.Strings["CreateParty"].ToString().AsDrawText().InColor(Global.CommonColor).Gabriela().InSize(50));
         }
     }
 }

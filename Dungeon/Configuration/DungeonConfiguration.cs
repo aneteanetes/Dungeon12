@@ -5,9 +5,17 @@ namespace Dungeon.Configuration
 {
     public class DungeonConfiguration
     {
+        public string TwoLetterISOLanguageName { get; set; } = "ru";
+
+        public string DataDirectory { get; set; } = "Data";
+
+        public string LocaleDirectory { get; set; } = "Locales";
+
         public bool EnableSound { get; set; } = true;
 
         public bool DrawDebugInfo { get; set; } = false;
+
+        public bool VariableEditor { get; set; } = false;
 
         public bool ExceptionRethrow { get; set; }
 

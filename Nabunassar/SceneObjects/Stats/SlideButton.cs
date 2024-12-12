@@ -17,7 +17,7 @@ namespace Nabunassar.SceneObjects.Stats
             Height=50;
             _click = click;
             Image = $"UI/Windows/Stats/{img}.png";
-            TooltipText = Global.Strings[tooltipText].AsDrawText().Gabriela();;
+            TooltipText = Global.Strings[tooltipText].AsDrawText().Gabriela();
         }
 
         public IDrawText TooltipText { get; }

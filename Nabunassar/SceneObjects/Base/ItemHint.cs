@@ -24,7 +24,7 @@ namespace Nabunassar.SceneObjects.Base
 
             topOffset+=20;
 
-            this.AddText(Global.Strings[item.Type]
+            this.AddText(Global.Strings[item.Type].ToString()
                 .SegoeUIBold()
                 .InSize(12)
                 .WithWordWrap()
@@ -32,12 +32,12 @@ namespace Nabunassar.SceneObjects.Base
 
             topOffset+=20;
 
-            this.AddText(Global.Strings[item.Slot]
+            this.AddText(Global.Strings[item.Slot].ToString()
                 .SegoeUIBold()
                 .InSize(12)
                 .WithWordWrap(), topOffset, leftOffset);
 
-            this.AddText(Global.Strings[item.Material]
+            this.AddText(Global.Strings[item.Material].ToString()
                 .SegoeUIBold()
                 .InSize(12)
                 .WithWordWrap()
@@ -54,7 +54,7 @@ namespace Nabunassar.SceneObjects.Base
             }
             else if (item.Type == Entities.Enums.ItemType.Weapon)
             {
-                this.AddText(Global.Strings[item.AttackType]
+                this.AddText(Global.Strings[item.AttackType].ToString()
                     .SegoeUIBold()
                     .InSize(12)
                     .InColor(new DrawColor(197, 199, 196)), leftOffset, topOffset);

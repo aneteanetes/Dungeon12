@@ -30,8 +30,8 @@ namespace Nabunassar.Entities.Abilities.Thief
                 $"{Global.Strings["Damage"]}: {Value}",
                 $"{Global.Strings["Type"]}: {Element.Display()}",
                 $"{Global.Strings["Range"]}: {UseRange.Display()}",
-                $"{Global.Strings["Incoming"]} {Global.Strings["Damage"].ToLowerInvariant()}: +{PlusIncomingDamagePercent}%",
-                $"{Global.Strings["Active"]} {Global.Strings["Turns"].ToLowerInvariant()}: {DebuffTime}",
+                $"{Global.Strings["Incoming"]} {Global.Strings["Damage"].ToString().ToLowerInvariant()}: +{PlusIncomingDamagePercent}%",
+                $"{Global.Strings["Active"]} {Global.Strings["Turns"].ToString().ToLowerInvariant()}: {DebuffTime}",
                 Global.Strings["LeftHandAttack"],
             };
         }

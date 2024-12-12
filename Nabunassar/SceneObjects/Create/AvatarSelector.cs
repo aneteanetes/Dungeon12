@@ -89,7 +89,7 @@ namespace Nabunassar.SceneObjects.Create
 
             public Action<bool> OnClick { get; set; }
 
-            public IDrawText TooltipText => (_next ? Global.Strings["Далее"] : Global.Strings["Назад"]).AsDrawText().Gabriela();
+            public IDrawText TooltipText => (_next ? Global.Strings["Далее"] : Global.Strings["Назад"]).ToString().AsDrawText().Gabriela();
 
             public bool ShowTooltip => true;
 

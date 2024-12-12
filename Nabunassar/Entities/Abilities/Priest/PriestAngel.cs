@@ -29,7 +29,7 @@ namespace Nabunassar.Entities.Abilities.Priest
                 " ",
                 $"{Global.Strings["HealEffective"]}: +{HealEffective}%",
                 $"{Global.Strings["Sacrifice"]}",
-                $"{Global.Strings["Active"]} {Global.Strings["Turns"].ToLowerInvariant()}: 3",
+                $"{Global.Strings["Active"]} {Global.Strings["Turns"].ToString().ToLowerInvariant()}: 3",
             };
         }
     }

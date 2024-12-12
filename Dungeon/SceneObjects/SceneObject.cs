@@ -482,6 +482,9 @@
 
             sceneObject.Parent = this;
 
+            if (sceneObject.Updatable)
+                _updatableComponents.Add(sceneObject);
+
             Children.Add(sceneObject);
             sceneObject.Parent = this;
 

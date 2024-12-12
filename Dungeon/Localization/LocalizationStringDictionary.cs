@@ -1,5 +1,8 @@
 ﻿using Dungeon.Control.Keys;
+using Dungeon.Drawing;
+using Dungeon.View.Interfaces;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -9,7 +12,7 @@ namespace Dungeon.Localization
 {
     public class LocalizationStringDictionary
     {
-        public LocalizationStringDictionary(string relativeLocalizationFilesPath = "locale", string defaultLanguageCode = "ru")
+        public LocalizationStringDictionary(string defaultLanguageCode = "ru")
         {
             this.GetType().GetProperties().ForEach(p =>
             {
@@ -18,21 +21,19 @@ namespace Dungeon.Localization
             });
         }
 
-        public virtual string ___RelativeLocalizationFilesPath { get; }
-
         public virtual string ___DefaultLanguageCode { get; }
 
         public Dictionary<string, string> Values { get; set; } = new Dictionary<string, string>();
 
-        public string this[string @const]
+        public LocalizationStringDictionaryChain this[string @const]
         {
             get
             {
-                return GetValueInternal(@const);
+                return new LocalizationStringDictionaryChain(@const, this);
             }
         }
 
-        public string this[object @const]
+        public LocalizationStringDictionaryChain this[object @const]
         {
             get
             {
@@ -41,10 +42,10 @@ namespace Dungeon.Localization
 
                 if (type.IsEnum)
                 {
-                    key=$"{type.Name}.{key}";
+                    key = $"{type.Name}.{key}";
                 }
 
-                return GetValueInternal(key);
+                return new LocalizationStringDictionaryChain(key, this);
             }
         }
 
@@ -55,15 +56,15 @@ namespace Dungeon.Localization
 
             if (type.IsEnum)
             {
-                key=$"{type.Name}.{key}";
+                key = $"{type.Name}.{key}";
             }
 
-            return GetValueInternal(prefix+key);
+            return GetValueInternal(prefix + key);
         }
 
-        private string GetValueInternal(string key)
+        internal string GetValueInternal(string key)
         {
-            if (!Values.TryGetValue(key, out var value))
+            if (!Values.TryGetValue(key.ToLowerInvariant(), out var value))
                 return $"LOCALE-STRING-NOT-FOUND: {key}";
 
             if (value.StartsWith("{") && value.EndsWith("}"))
@@ -83,7 +84,7 @@ namespace Dungeon.Localization
         protected string DoPath(string lang)
         {
             var root = DungeonGlobal.BuildLocation;
-            var path = Path.Combine(root, ___RelativeLocalizationFilesPath, lang + ".json");
+            var path = Path.Combine(root, DungeonGlobal.Configuration.LocaleDirectory, lang + ".json");
 
             var dir = Path.GetDirectoryName(path);
             if (!Directory.Exists(dir))
@@ -101,24 +102,8 @@ namespace Dungeon.Localization
 
             try
             {
-                Values = Resources.ResourceLoader.LoadJson<Dictionary<string, string>>(DungeonGlobal.Resources, $"Locales/{lang}.json".AsmRes(this.GetType().Assembly));
-                if (DungeonGlobal.IsDevelopment)
-                    return Values;
-
-
-                if (Values==default)
-                    Values=new Dictionary<string, string>();
-
-                var path = DoPath(lang);
-                if (!File.Exists(path) && strings != default)
-                {
-                    File.WriteAllText(path, JsonConvert.SerializeObject(Values, Formatting.Indented));
-                    return strings;
-                }
-
-                var json = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(DoPath(lang)));
-                Values=json;
-                return this;
+                Values = Resources.ResourceLoader.LoadLocale(lang);
+                return Values;
             }
             catch (FileNotFoundException)
             {
@@ -132,5 +117,71 @@ namespace Dungeon.Localization
         }
 
         public List<LocalizedString> DynamicStrings { get; set; }
+    }
+
+    public class LocalizationStringDictionaryChain
+    {
+        LocalizationStringDictionary _dict;
+
+        internal string KeyChain { get; set; }
+
+        public LocalizationStringDictionaryChain(string key, LocalizationStringDictionary dict)
+        {
+            _dict = dict;
+            ExpandChain(key);
+        }
+
+        private void ExpandChain(string key)
+        {
+            if (KeyChain.IsNotEmpty())
+            {
+                KeyChain += "." + key;
+            }
+            else
+                KeyChain = key;
+        }
+
+        public LocalizationStringDictionaryChain this[string @const]
+        {
+            get
+            {
+                ExpandChain(@const);
+                return this;
+            }
+        }
+
+        public LocalizationStringDictionaryChain this[object @const]
+        {
+            get
+            {
+                string key = @const.ToString();
+                var type = @const.GetType();
+
+                if (type.IsEnum)
+                {
+                    key = $"{type.Name}.{key}";
+                }
+
+                ExpandChain(key);
+                return this;
+            }
+        }
+
+        public static implicit operator string(LocalizationStringDictionaryChain chain)
+        {
+            return chain.ToString();
+        }
+
+        public static implicit operator DrawText(LocalizationStringDictionaryChain chain)
+        {
+            return chain.AsDrawText();
+        }
+
+        public DrawText AsDrawText() => this.ToString().AsDrawText();
+
+        public override string ToString()
+        {
+            return this._dict.GetValueInternal(KeyChain);
+        }
     }
 }

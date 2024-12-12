@@ -44,7 +44,7 @@ namespace Nabunassar.SceneObjects.Stats
             this.AddTextPos(TextSeg(Global.Strings["Основное"], 14), 250, 85, 190, 18);
             this.AddTextPos(TextSeg(Global.Strings["Защита"], 14), 250, 263, 192, 16);
             this.AddTextPos(TextSeg(Global.Strings["Дополнительно"], 14), 38, 316, 190, 18);
-            this.AddTextPos(Global.Strings["Свободные очки"].SegoeUIBold().InSize(16).InColor(Global.CommonColorLight), 32, 30, 208, 26);
+            this.AddTextPos(Global.Strings["Свободные очки"].AsDrawText().SegoeUIBold().InSize(16).InColor(Global.CommonColorLight), 32, 30, 208, 26);
 
             this.AddTextPos(TextGab(Global.Strings["Навыки"], 20), 35, 80, 200, 26);
 

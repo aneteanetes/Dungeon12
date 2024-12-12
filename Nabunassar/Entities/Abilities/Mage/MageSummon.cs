@@ -26,9 +26,9 @@ namespace Nabunassar.Entities.Abilities.Mage
                 $"{Global.Strings["Range"]}: {UseRange.Display()}",
                 $"{Global.Strings["Type"]}: {Element.Display()}",
                 " ",
-                $"{Global.Strings["Health"]} {Global.Strings["ElemenentalUnitHis"].ToLowerInvariant()}: {SummonedHealth}",
-                $"{Global.Strings["Damage"]} {Global.Strings["ElemenentalUnitHis"].ToLowerInvariant()}: {SummonedDamage}",
-                $"{Global.Strings["Attack"]} {Global.Strings["ElemenentalUnitHis"].ToLowerInvariant()}: {Element.Physical.Display()}",
+                $"{Global.Strings["Health"]} {Global.Strings["ElemenentalUnitHis"].ToString().ToLowerInvariant()}: {SummonedHealth}",
+                $"{Global.Strings["Damage"]} {Global.Strings["ElemenentalUnitHis"].ToString().ToLowerInvariant()}: {SummonedDamage}",
+                $"{Global.Strings["Attack"]} {Global.Strings["ElemenentalUnitHis"].ToString().ToLowerInvariant()}: {Element.Physical.Display()}",
             };
         }
     }

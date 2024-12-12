@@ -43,28 +43,28 @@ namespace Nabunassar.Scenes.Creating
             double plus = 50;
             double left = plus;
 
-            var hero1 = layer.AddObject(new HeroCreatePanel(null,0)
+            var hero1 = layer.AddObject(new HeroCreatePanel(null,0,true)
             {
                 Left = left,
                 Top = 215
             });
             left += hero1.Width+ plus;
 
-            var hero2 = layer.AddObject(new HeroCreatePanel(null,1)
+            var hero2 = layer.AddObject(new HeroCreatePanel(null,1,true)
             {
                 Left = left,
                 Top = 215
             });
             left += hero2.Width+ plus;
 
-            var hero3 = layer.AddObject(new HeroCreatePanel(null,2)
+            var hero3 = layer.AddObject(new HeroCreatePanel(null,2,true)
             {
                 Left = left,
                 Top = 215
             });
             left += hero3.Width + plus;
 
-            var hero4 = layer.AddObject(new HeroCreatePanel(null,3)
+            var hero4 = layer.AddObject(new HeroCreatePanel(null,3,true)
             {
                 Left = left,
                 Top = 215

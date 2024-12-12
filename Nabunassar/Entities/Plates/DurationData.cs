@@ -8,7 +8,7 @@
 
         public override string ToString()
         {
-            var dur = Global.Strings[Duration];
+            var dur = Global.Strings[Duration].ToString();
 
             if (Duration== Duration.Turns)
                 dur = $"{Value} {dur}";

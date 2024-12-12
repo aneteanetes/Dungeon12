@@ -1,6 +1,7 @@
 ﻿namespace Nabunassar
 {
     using Dungeon;
+    using Dungeon.Drawing;
     using Dungeon.View.Interfaces;
 
     public static class FontsExtensions
@@ -10,7 +11,7 @@
         public static T Calibri<T>(this T drawText) where T : IDrawText
         {
             drawText.FontName = "Calibri";
-            drawText.FontAssembly = "Dungeon12";
+            drawText.FontAssembly = "Global.GameAssemblyName";
 
             if (drawText.Bold)
                 drawText.FontName+=" Bold";
@@ -41,7 +42,7 @@
         public static T Navieo<T>(this T drawText) where T : IDrawText
         {
             drawText.FontName = "NAVIEO Trial";
-            drawText.FontAssembly = "Dungeon12";
+            drawText.FontAssembly = "Global.GameAssemblyName";
 
             return drawText;
         }
@@ -50,9 +51,26 @@
         public static T Gabriela<T>(this T drawText) where T : IDrawText
         {
             drawText.FontName = "URWGeometricBold";
-            drawText.FontAssembly = "Dungeon12";
+            drawText.FontAssembly = "Global.GameAssemblyName";
 
             return drawText;
+        }
+
+
+        /// <summary>
+        /// Оформление текста по умолчанию
+        /// </summary>
+        /// <returns></returns>
+        public static IDrawText DefaultTxt(this string text, int size, bool wordWrap = false)
+        {
+            var drawText = text.AsDrawText();            
+
+            drawText.FontName = "URWGeometricBold";
+            drawText.FontAssembly = Global.GameAssemblyName;
+
+            drawText.WordWrap = wordWrap;
+
+            return drawText.InSize(size).InColor(Global.CommonColorLight);
         }
 
         public static IDrawText HeroName(this string name)
@@ -63,7 +81,7 @@
         public static T Gabriola<T>(this T drawText) where T : IDrawText
         {
             drawText.FontName = "Gabriola";
-            drawText.FontAssembly = "Dungeon12";
+            drawText.FontAssembly = "Global.GameAssemblyName";
 
             return drawText;
         }
@@ -73,7 +91,7 @@
         public static T SegoeUI<T>(this T drawText) where T : IDrawText
         {
             drawText.FontName = "Segoe UI";
-            drawText.FontAssembly = "Dungeon12";
+            drawText.FontAssembly = "Global.GameAssemblyName";
 
             return drawText;
         }
@@ -84,7 +102,7 @@
             return Calibri(drawText);
 
             //drawText.FontName = "Segoe UI Bold";
-            //drawText.FontAssembly = "Dungeon12";
+            //drawText.FontAssembly = "Global.GameAssemblyName";
 
             //return drawText;
         }
@@ -92,7 +110,7 @@
         public static T FrizQuad<T>(this T drawText) where T : IDrawText
         {
             drawText.FontName = "Fritz";
-            drawText.FontAssembly = "Dungeon12";
+            drawText.FontAssembly = "Global.GameAssemblyName";
 
             return drawText;
         }
@@ -100,7 +118,7 @@
         public static T FrizBold<T>(this T drawText) where T : IDrawText
         {            
             drawText.FontName = "Friz";
-            drawText.FontAssembly = "Dungeon12";
+            drawText.FontAssembly = "Global.GameAssemblyName";
 
             return drawText;
         }

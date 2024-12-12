@@ -3,5 +3,7 @@
     internal class Creation
     {
         public int CharacterCreationPosition { get; set; }
+
+        public string Hint { get; set; } = "";
     }
 }

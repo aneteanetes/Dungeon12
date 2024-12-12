@@ -32,7 +32,7 @@ namespace Dungeon.Resources
                     if (liteDatabase == default)
                     {
 
-                        if (Store.MainPath==null)
+                        if (Store.MainPath == null)
                             return null;
 
                         var caller = DungeonGlobal.GameAssemblyName;
@@ -55,6 +55,63 @@ namespace Dungeon.Resources
                     return null;
                 }
             }
+        }
+
+        private static LiteDatabase LocaleDatabase(string locale)
+        {
+            var dir = Path.Combine(Store.MainPath, DungeonGlobal.Configuration.LocaleDirectory);
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+
+            var path = Path.Combine(dir, $"{locale}.dtr");
+            var liteDatabase = new LiteDatabase(path);
+            return liteDatabase;
+        }
+
+        private static Dictionary<string, Dictionary<string,string>> LoadedLocales = new();
+
+        public static Dictionary<string, string> LoadLocale(string lang)
+        {
+            if(LoadedLocales.ContainsKey(lang))
+                return LoadedLocales[lang];
+
+            using var db = LocaleDatabase(lang);
+
+            var collection = db?.GetCollection<Resource>();
+            if (collection != null)
+            {
+                var locale = new Dictionary<string, string>();
+
+                try
+                {
+                    var files = collection.FindAll().ToList();
+                    foreach (var file in files)
+                    {
+                        var localeFile = JsonConvert.DeserializeObject<Dictionary<string, string>>(file.Stream.AsString());
+
+                        var segments = file.Path.Split(".");
+                        var fileName = segments[segments.Length - 2].ToLowerInvariant();
+                        if (fileName == lang){
+                            fileName = string.Empty;
+                        }
+                        else { fileName += "."; }
+
+                        foreach (var pair in localeFile)
+                        {
+                            var key = fileName + pair.Key;
+                            locale.Add(key.ToLowerInvariant(), pair.Value);
+                        }
+                    }
+                }
+                catch { }
+
+                LoadedLocales.Add(lang, locale);
+                return locale;
+            }
+
+            return null;
         }
 
         public static T LoadJson<T>(ResourceTable table, string resource, bool @throw = true)

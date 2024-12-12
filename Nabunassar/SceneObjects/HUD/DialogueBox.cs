@@ -3,7 +3,7 @@ using Nabunassar.SceneObjects.UserInterface.Common;
 
 namespace Nabunassar.SceneObjects.HUD
 {
-    internal class DialogueBox : EmptySceneControl, IAutoUnfreeze
+    internal class DialogueBox : EmptySceneControl, IAutoFreeze
     {
         public DialogueBox(string left, string right, string text, bool autoresize=true)
         {

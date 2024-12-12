@@ -44,9 +44,9 @@ namespace Dungeon.Localization
 
         public static implicit operator string(LocalizedString localizedString) => localizedString.LocalizedValue;
 
-        public static implicit operator LocalizedString(string @string)=>new LocalizedString()
+        public static implicit operator LocalizedString(string @string) => new LocalizedString()
         {
-            Value=@string
+            Value = @string
         };
     }
 }
