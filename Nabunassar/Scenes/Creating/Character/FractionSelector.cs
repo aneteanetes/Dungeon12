@@ -7,9 +7,9 @@ using Nabunassar.SceneObjects.UserInterface.Common;
 
 namespace Nabunassar.Scenes.Creating.Character
 {
-    internal class ClassSelector : CreatePart
+    internal class FractionSelector : CreatePart
     {
-        public ClassSelector(Hero component) : base(component)
+        public FractionSelector(Hero component) : base(component)
         {
             Width = 325;
             Height = 700;
@@ -23,23 +23,23 @@ namespace Nabunassar.Scenes.Creating.Character
                 Padding = 2
             });
 
-            var title = AddTextCenter(Global.Strings["ClassChoose"].ToString().DefaultTxt(20));
+            var title = AddTextCenter(Global.Strings["FractionChoose"].ToString().DefaultTxt(20));
 
             title.Top = 20;
 
             var top = 65;
 
-            typeof(Archetype).All<Archetype>().ForEach(arch =>
+            typeof(Fraction).All<Fraction>().Skip(1).ForEach(frac =>
             {
-                var clsBtn = new ClassicButton(Global.Strings[arch.ToString()], 200, 40, 18)
+                var clsBtn = new ClassicButton(Global.Strings[frac.ToString()], 200, 40, 18)
                 {
                     Top = top,
                     Disabled = false,
                     OnClick = () =>
                     {
                         this.Cube.Next.Visible = true;
-                        component.Archetype = arch;
-                        Global.Game.Creation.Hint = Global.Strings["Guide"][arch.ToString()];
+                        component.Fraction = frac;
+                        Global.Game.Creation.Hint = Global.Strings["Guide"][frac.ToString()];
                     }
                 };
 

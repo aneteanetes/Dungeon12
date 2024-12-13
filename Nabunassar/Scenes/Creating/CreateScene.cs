@@ -84,7 +84,18 @@ namespace Nabunassar.Scenes.Creating
             Resources.Load("UI/btn_a.png".AsmImg());
             Resources.Load("UI/bordermin/bord1.png".AsmImg());
             Resources.LoadFolder("UI/panelmin".AsmImg());
+
+            this.Resources.LoadFolderGlobal("Backgrounds/Races".AsmImg());
+            this.Resources.LoadFolderGlobal("Portraits".AsmImg());
+
             this.LoadBorders();
+        }
+
+        public override void Unload()
+        {
+            this.Resources.UnloadFolderGlobal("Baclgrounds/Races".AsmImg());
+            this.Resources.UnloadFolderGlobal("Portraits".AsmImg());
+            base.Unload();
         }
 
         public override void Update(GameTimeLoop gameTimeLoop)

@@ -77,6 +77,16 @@ namespace Dungeon.Resources
             return ResourceLoader.LoadResourceFolder(path,this);
         }
 
+        public IEnumerable<Resource> LoadFolderGlobal(string path)
+        {
+            return ResourceLoader.LoadResourceFolder(path, DungeonGlobal.Resources);
+        }
+
+        public void UnloadFolderGlobal(string path)
+        {
+            DungeonGlobal.Resources.folderResources[path].ForEach(r => r.Dispose());
+        }
+
         public void Load(IEnumerable<string> paths)
         {
             foreach (var path in paths)

@@ -31,6 +31,8 @@ namespace Dungeon.View.Interfaces
 
         void Load();
 
+        void Unload();
+
         bool IsLoaded { get; set; }
 
         bool IsInitialized { get; set; }

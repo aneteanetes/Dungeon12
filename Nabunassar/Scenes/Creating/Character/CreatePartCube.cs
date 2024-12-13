@@ -1,5 +1,6 @@
 ﻿using Dungeon.Control;
 using Dungeon.Drawing.SceneObjects;
+using Nabunassar.Entities;
 using Nabunassar.SceneObjects.Base;
 using Nabunassar.Scenes.Creating.Heroes;
 
@@ -13,8 +14,13 @@ namespace Nabunassar.Scenes.Creating.Character
         private CreateHeroScene _scene;
         private string _hint;
 
+        public CreatePartCube Next;
+
         public CreatePartCube(string img, string text, string activatehint, CreatePart showPart, CreateHeroScene scene)
         {
+            showPart.Cube = this;
+            Visible = false;
+
             _hint=activatehint;
             _part = showPart;
             _scene=scene;
@@ -49,18 +55,23 @@ namespace Nabunassar.Scenes.Creating.Character
 
         public override void Click(PointerArgs args)
         {
-
             if (_scene.ActivePart != _part)
             {
                 if (_scene.ActivePart != null)
                     _scene.ActivePart.Visible = false;
 
-                _part.Visible = true;
                 _scene.ActivePart = _part;
-                Global.Game.Creation.Hint = _hint;
+                _scene.ActivePart.Visible = true;
             }
+            Global.Game.Creation.Hint = _hint;
 
             base.Click(args);
+        }
+
+        private void AccessNext()
+        {
+            if (Next != null)
+                Next.Visible = true;
         }
 
     }

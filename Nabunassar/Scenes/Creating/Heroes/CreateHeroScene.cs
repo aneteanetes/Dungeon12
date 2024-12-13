@@ -60,7 +60,11 @@ namespace Nabunassar.Scenes.Creating.Heroes
             };
             layer.AddObject(racebtn);
 
-            var fractbtn = new CreatePartCube("Icons/Chroma/fraction.png", Global.Strings["Fraction"], Global.Strings["guide"]["fraction"], raceSelector, this)
+            var fractionSelector = new FractionSelector(hero);
+            fractionSelector.Visible = false;
+            layer.AddObject(fractionSelector);
+
+            var fractbtn = new CreatePartCube("Icons/Chroma/fraction.png", Global.Strings["Fraction"], Global.Strings["guide"]["fraction"], fractionSelector, this)
             {
                 Left = title.Left-cubeoffcet-racebtn.Width,
                 Top = cubetop
@@ -71,6 +75,7 @@ namespace Nabunassar.Scenes.Creating.Heroes
             classSelector.Visible = false;
             layer.AddObject(classSelector);
 
+
             var classbtn = new CreatePartCube("Icons/Chroma/class.png", Global.Strings["Archetype"], Global.Strings["guide"]["Archetype"], classSelector, this)
             {
                 Left = 275,
@@ -80,32 +85,54 @@ namespace Nabunassar.Scenes.Creating.Heroes
 
             var aftertitlespacepart = (Global.Resolution.Width - (title.Left + cubeoffcet * 2) / 2);
 
-            var namebtn = new CreatePartCube("Icons/Chroma/name.png", Global.Strings["Name"], Global.Strings["guide"]["name"], raceSelector, this)
+            var statsbtn = new CreatePartCube("Icons/Chroma/stats.png", Global.Strings["Stats"], Global.Strings["guide"]["stats"], new CreatePart(hero), this)
             {
-                Left = 1400,
+                Left = 1300,
+                Top = cubetop
+            };
+            layer.AddObject(statsbtn);
+
+            var namebtn = new CreatePartCube("Icons/Chroma/name.png", Global.Strings["Name"], Global.Strings["guide"]["name"], new CreatePart(hero), this)
+            {
+                Left = 1535,
                 Top = cubetop
             };
             layer.AddObject(namebtn);
 
-            var abilbtn = new CreatePartCube("Icons/Chroma/abilities.png", Global.Strings["Abilities"], Global.Strings["guide"]["CreateAbilities"], raceSelector, this)
+            var abilbtn = new CreatePartCube("Icons/Chroma/abilities.png", Global.Strings["Abilities"], Global.Strings["guide"]["CreateAbilities"],  new CreatePart(hero), this)
             {
-                Left = 1650,
+                Left = 1750,
                 Top = cubetop
             };
             layer.AddObject(abilbtn);
+
+            racebtn.Next = classbtn;
+            racebtn.Visible = true;
+
+            classbtn.Next = fractbtn;
+            fractbtn.Next = statsbtn;
+            statsbtn.Next = namebtn;
+            namebtn.Next = abilbtn;
 
             var hints = new CreateDescWindow();
             hints.Top = 300;
             hints.Left = Global.Resolution.Width - 50 - hints.Width;
             layer.AddObject(hints);
 
-            layer.AddCancelNextBtns<CreateScene>();
+            var ctrlbtns = layer.AddCancelNextBtns<CreateScene>();
+            ctrlbtns.next.OnClick = Next;
+        }
+
+        private void Next()
+        {
+            if (ActivePart.Cube.Next?.Visible ?? false == true)
+            {
+                ActivePart.Cube.Next.Click(null);
+            }
         }
 
         public override void Load()
         {
-            this.Resources.LoadFolder("Backgrounds/Races".AsmImg());
-            this.Resources.LoadFolder("Portraits".AsmImg());
         }
     }
 }

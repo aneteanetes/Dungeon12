@@ -36,6 +36,7 @@ namespace Nabunassar.Scenes.Creating.Character
                     Disabled = false,
                     OnClick = () =>
                     {
+                        this.Cube.Next.Visible = true;
                         component.Race = race;
                         Global.Game.Creation.Hint = Global.Strings["Guide"][race.ToString()];
                     }

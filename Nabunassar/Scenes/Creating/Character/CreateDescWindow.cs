@@ -1,7 +1,7 @@
 ﻿using Dungeon.SceneObjects;
 using Nabunassar.SceneObjects.Base;
 
-namespace Nabunassar.Scenes.Creating.Heroes
+namespace Nabunassar.Scenes.Creating.Character
 {
     internal class CreateDescWindow : EmptySceneControl
     {
@@ -11,8 +11,8 @@ namespace Nabunassar.Scenes.Creating.Heroes
 
         public CreateDescWindow() : base()
         {
-            this.Width = 400;
-            this.Height = 700;
+            Width = 400;
+            Height = 700;
 
             this.AddBorderMapBack(new BorderConfiguration()
             {
@@ -21,11 +21,11 @@ namespace Nabunassar.Scenes.Creating.Heroes
                 Padding = 2
             });
 
-            var title = this.AddTextCenter(Global.Strings["Description"].ToString().DefaultTxt(22));
+            var title = AddTextCenter(Global.Strings["Description"].ToString().DefaultTxt(22));
 
             title.Top = 20;
 
-            text = this.AddTextCenter("".DefaultTxt(18,true));
+            text = AddTextCenter("".DefaultTxt(18, true));
             text.Width = 350;
             text.Height = 600;
             text.Left = 25;

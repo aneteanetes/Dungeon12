@@ -1,14 +1,11 @@
 ﻿using Nabunassar.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Nabunassar.Scenes.Creating.Character
 {
     internal class CreatePart : SceneControl<Hero>
     {
+        public CreatePartCube Cube { get; set; }
+
         public CreatePart(Hero component) : base(component)
         {
         }

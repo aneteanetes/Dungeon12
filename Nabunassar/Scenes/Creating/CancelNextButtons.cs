@@ -28,11 +28,10 @@ namespace Nabunassar.Scenes.Creating
                 }
             };
 
-            var completeBtn = new ClassicButton(scene.Strings["Complete"])
+            var completeBtn = new ClassicButton(scene.Strings["Next"])
             {
                 Left = DungeonGlobal.Resolution.CenterH(250) + 250 / 2 + 25,
                 Top = DungeonGlobal.Resolution.Height - 100,
-                Disabled = true
             };
 
             layer.AddObject(cancelBtn);

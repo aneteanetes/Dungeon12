@@ -3,14 +3,14 @@ using Nabunassar.Entities;
 using Nabunassar.Entities.Characters;
 using System.ComponentModel;
 
-namespace Nabunassar.Scenes.Creating.Heroes
+namespace Nabunassar.Scenes.Creating.Character
 {
     internal class HeroCreatingBackground : SceneObject<Hero>
     {
         public HeroCreatingBackground(Hero component) : base(component)
         {
-            this.Width = Global.Resolution.Width;
-            this.Height = Global.Resolution.Height;
+            Width = DungeonGlobal.Resolution.Width;
+            Height = DungeonGlobal.Resolution.Height;
 
             _race = component.Race;
             SetBackgroundByRace(Race.Muitu);
@@ -25,7 +25,7 @@ namespace Nabunassar.Scenes.Creating.Heroes
             if (Component.Race != _race)
             {
                 SetBackgroundByRace(Component.Race.Value);
-                _race=Component.Race.Value;
+                _race = Component.Race.Value;
             }
         }
 

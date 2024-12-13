@@ -413,6 +413,8 @@
 
         public virtual void Load() { }
 
+        public virtual void Unload() { }
+
         public Resource GetResource(string name)
         {
             if (Resources.TryGetValue(name, out var res))

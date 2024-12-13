@@ -2,9 +2,9 @@
 using Dungeon.SceneObjects;
 using Nabunassar.Entities;
 using Nabunassar.SceneObjects.Base;
-using Nabunassar.Scenes.Creating.Heroes;
+using Nabunassar.Scenes.Creating.Character;
 
-namespace Nabunassar.Scenes.Creating.Character
+namespace Nabunassar.Scenes.Creating.Heroes
 {
     internal class HeroCreatePanel : SceneControl<Hero>
     {
@@ -21,10 +21,10 @@ namespace Nabunassar.Scenes.Creating.Character
 
         public HeroCreatePanel(Hero component, int idx, bool isInteractive = false) : base(component)
         {
-            _isInteractive=isInteractive;
+            _isInteractive = isInteractive;
             _idx = idx;
-            this.Width = 400;
-            this.Height = 700;
+            Width = 425;
+            Height = 700;
 
             this.AddBorderMapBack(new BorderConfiguration()
             {
@@ -33,19 +33,24 @@ namespace Nabunassar.Scenes.Creating.Character
                 Padding = 2
             });
 
-            plus = this.AddTextCenter("+".Navieo().InSize(300).InColor(Global.CommonColorLight));
+            plus = AddTextCenter("+".Navieo().InSize(300).InColor(Global.CommonColorLight));
             plus.Visible = component == null;
 
-            portrait = this.AddChild(new HeroPortrait(component)
+            portrait = AddChild(new HeroPortrait(component)
             {
                 Left = 25,
                 Top = 25
             });
 
-            name = this.AddText(Global.Strings["Unknown"].ToString().DefaultTxt(25), 215, 15);
-            race = this.AddText(Global.Strings["Race"].ToString().DefaultTxt(25), 215, 50);
-            archetype = this.AddText(Global.Strings["Archetype"].ToString().DefaultTxt(25), 190, 85);
+            var topOffset = 35;
+            var leftOffsetCut = 215;
+            var leftOffset = leftOffsetCut - 30;
+            var statTextSize = 25;
 
+            name = AddText(Global.Strings["Unknown"].ToString().DefaultTxt(statTextSize), leftOffsetCut, 15);
+            race = AddText(Global.Strings["Race"].ToString().DefaultTxt(statTextSize), leftOffsetCut, name.Top + topOffset);
+            archetype = AddText(Global.Strings["Archetype"].ToString().DefaultTxt(statTextSize), leftOffset, race.Top + topOffset);
+            fraction = AddText(Global.Strings["Fraction"].ToString().DefaultTxt(statTextSize), leftOffset, archetype.Top + topOffset);
         }
 
         public override void Focus()
@@ -60,7 +65,7 @@ namespace Nabunassar.Scenes.Creating.Character
             {
                 Global.Game.Creation.CharacterCreationPosition = _idx;
                 SetCursor(SceneObjects.Cursors.Cursor.Normal);
-                this.Switch<CreateHeroScene>();
+                Switch<CreateHeroScene>();
             }
         }
 
@@ -75,16 +80,15 @@ namespace Nabunassar.Scenes.Creating.Character
             plus.Visible = component == null;
         }
 
-
-
         public override bool Updatable => true;
 
         public override void Update(GameTimeLoop gameTime)
         {
             portrait.Visible = Component?.Race != null;
             race.Visible = Component?.Race != null;
-            name.Visible = Component?.Name != null;
+            name.Visible = Component?.Race != null;
             archetype.Visible = Component?.Archetype != null;
+            fraction.Visible = Component?.Fraction != null;
 
             if (Component != null)
             {
@@ -93,6 +97,10 @@ namespace Nabunassar.Scenes.Creating.Character
 
                 if (Component.Archetype != null)
                     archetype.SetText(Global.Strings["Archetype"] + " : " + Global.Strings[Component.Archetype.ToString()]);
+
+                if (Component.Fraction != null)
+                    fraction.SetText(Global.Strings["Fraction"] + " : " + Global.Strings[Component.Fraction.ToString()]);
+
             }
         }
     }
