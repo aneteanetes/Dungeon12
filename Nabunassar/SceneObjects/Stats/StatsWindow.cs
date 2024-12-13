@@ -39,7 +39,7 @@ namespace Nabunassar.SceneObjects.Stats
                 Top=186,
             });
             this.AddChild(new ImageObject("UI/start/icon.png") { Left=610, Top=307 });
-            _class = this.AddChild(new ClassBadge(Component.Archetype) { Left=613, Top=310 });
+            _class = this.AddChild(new ClassBadge(Component.Archetype.Value) { Left=613, Top=310 });
 
             this.AddTextPos(TextSeg(Global.Strings["Основное"], 14), 250, 85, 190, 18);
             this.AddTextPos(TextSeg(Global.Strings["Защита"], 14), 250, 263, 192, 16);
@@ -97,7 +97,7 @@ namespace Nabunassar.SceneObjects.Stats
             var leftSkill = 33;
             var topSkill = 106;
 
-            hero.Archetype.Skills().ForEach(s =>
+            hero.Archetype.Value.Skills().ForEach(s =>
             {
                 var sEnum = s.ToString();
                 var skillName = Global.Strings[s];
@@ -185,7 +185,7 @@ namespace Nabunassar.SceneObjects.Stats
             });
 
             Avatar.Image=hero.Avatar;
-            _class.Set(hero.Archetype);
+            _class.Set(hero.Archetype.Value);
             AddTexts(hero);
         }
 

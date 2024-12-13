@@ -4,14 +4,16 @@ using Nabunassar.Entities.Characters;
 using Nabunassar.SceneObjects.Base;
 using Nabunassar.SceneObjects.UserInterface.Common;
 
-namespace Nabunassar.Scenes.Creating.Heroes
+namespace Nabunassar.Scenes.Creating.Character
 {
-    internal class RaceSelector : SceneControl<Hero>
+    internal class RaceSelector : CreatePart
     {
         public RaceSelector(Hero component) : base(component)
         {
-            this.Width = 325;
-            this.Height = 700;
+            Width = 325;
+            Height = 700;
+            Top = 300;
+            Left = 50;
 
             this.AddBorderMapBack(new BorderConfiguration()
             {
@@ -20,7 +22,7 @@ namespace Nabunassar.Scenes.Creating.Heroes
                 Padding = 2
             });
 
-            var title = this.AddTextCenter(Global.Strings["RaceChoose"].ToString().DefaultTxt(20));
+            var title = AddTextCenter(Global.Strings["RaceChoose"].ToString().DefaultTxt(20));
 
             title.Top = 20;
 
@@ -39,7 +41,7 @@ namespace Nabunassar.Scenes.Creating.Heroes
                     }
                 };
 
-                this.AddChildCenter(raceBtn);
+                AddChildCenter(raceBtn);
                 raceBtn.Top = top;
                 top += 52;
             });

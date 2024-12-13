@@ -19,7 +19,8 @@ namespace Dungeon.Monogame
             for (int i = 0; i < objs.Count; i++)
             {
                 var obj = objs[i];
-                SelectSceneObject(layer, obj);
+                if (obj.Visible)
+                    SelectSceneObject(layer, obj);
             }
         }
 

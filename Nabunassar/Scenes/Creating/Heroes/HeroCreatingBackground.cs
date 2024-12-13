@@ -13,10 +13,10 @@ namespace Nabunassar.Scenes.Creating.Heroes
             this.Height = Global.Resolution.Height;
 
             _race = component.Race;
-            SetBackgroundByRace(component.Race);
+            SetBackgroundByRace(Race.Muitu);
         }
 
-        private Race _race;
+        private Race? _race;
 
         public override bool Updatable => true;
 
@@ -24,10 +24,9 @@ namespace Nabunassar.Scenes.Creating.Heroes
         {
             if (Component.Race != _race)
             {
-                SetBackgroundByRace(Component.Race);
-                _race=Component.Race;
+                SetBackgroundByRace(Component.Race.Value);
+                _race=Component.Race.Value;
             }
-
         }
 
         private void SetBackgroundByRace(Race race)

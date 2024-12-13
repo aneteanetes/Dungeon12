@@ -37,7 +37,7 @@ namespace Dungeon.Monogame
 
         private void UpdateComponent(ISceneObject sceneObject, GameTimeLoop gameTimeLoop)
         {
-            if (!sceneObject.Updatable)
+            if (!sceneObject.Updatable || !sceneObject.Visible)
                 return;
 
             sceneObject.ComponentUpdateChainCall(gameTimeLoop);

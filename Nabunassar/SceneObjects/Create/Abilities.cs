@@ -112,7 +112,7 @@ namespace Nabunassar.SceneObjects.Create
                     {
                         new Entities.Plates.RequiredData()
                         {
-                            Text="Требуется: "+Component.Archetype.Display()
+                            Text="Требуется: "+Component.Archetype.Value.Display()
                         }
                     },
                     RequiresLevel = 1,

@@ -23,7 +23,7 @@ namespace Nabunassar.SceneObjects.Create
 
         public AvatarSelector(Hero component) : base(component)
         {
-            AvatarViewer = this.AddChild(new ImageObject($"Avatars/{component.Archetype.Short()}1.png")
+            AvatarViewer = this.AddChild(new ImageObject($"Avatars/{component.Archetype.Value.Short()}1.png")
             {
                 Width = 100,
                 Height = 158,
@@ -66,7 +66,7 @@ namespace Nabunassar.SceneObjects.Create
                     index--;
             }
 
-            AvatarViewer.Image = $"Avatars/{Component.Archetype.Short()}{index}.png".AsmImg();
+            AvatarViewer.Image = $"Avatars/{Component.Archetype.Value.Short()}{index}.png".AsmImg();
             Component.Avatar = AvatarViewer.Image;
         }
 

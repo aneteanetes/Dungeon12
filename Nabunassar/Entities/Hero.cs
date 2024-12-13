@@ -10,11 +10,11 @@ namespace Nabunassar.Entities
     {
         public ObjectGroupProperty IsActive { get; set; } = new ObjectGroupProperty();
 
-        public Race Race { get; set; }
+        public Race? Race { get; set; }
 
-        public Fraction Fraction { get; set; }
+        public Fraction? Fraction { get; set; }
 
-        public Archetype Archetype { get; set; }
+        public Archetype? Archetype { get; set; }
         
         public Primary PrimaryStats { get; set; }
 

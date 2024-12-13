@@ -1,5 +1,6 @@
 ﻿using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
+using Dungeon.View.Interfaces;
 using Nabunassar.Entities.Characters;
 using Nabunassar.SceneObjects.HUD;
 using Nabunassar.Scenes.Creating.Character;
@@ -9,6 +10,16 @@ namespace Nabunassar.Scenes.Creating.Heroes
 {
     internal class CreateHeroScene : GameScene<NabLoadingScreen, CreateScene>
     {
+        private CreatePart _activePart;
+        public CreatePart ActivePart
+        {
+            get => _activePart;
+            set {
+                _activePart= value;
+                _activePart.IsActivated = true;
+            }
+        }
+
         public CreateHeroScene(SceneManager sceneManager) : base(sceneManager)
         {
 
@@ -32,12 +43,56 @@ namespace Nabunassar.Scenes.Creating.Heroes
             layer.AddObjectCenter(panel);
 
 
-            Global.Game.Creation.Hint = Global.Strings["guide"][hero.Race.ToString()];
+            Global.Game.Creation.Hint = Global.Strings["guide"]["race"];// hero.Race.ToString()];
 
             var raceSelector = new RaceSelector(hero);
-            raceSelector.Top = 300;
-            raceSelector.Left = 50;
             layer.AddObject(raceSelector);
+            ActivePart = raceSelector;
+
+
+            var cubeoffcet = 50;
+            var cubetop = 25;
+
+            var racebtn = new CreatePartCube("Icons/Chroma/race.png", Global.Strings["Race"], Global.Strings["guide"]["race"], raceSelector, this)
+            {
+                Left = cubeoffcet,
+                Top = cubetop
+            };
+            layer.AddObject(racebtn);
+
+            var fractbtn = new CreatePartCube("Icons/Chroma/fraction.png", Global.Strings["Fraction"], Global.Strings["guide"]["fraction"], raceSelector, this)
+            {
+                Left = title.Left-cubeoffcet-racebtn.Width,
+                Top = cubetop
+            };
+            layer.AddObject(fractbtn);
+
+            var classSelector = new ClassSelector(hero);
+            classSelector.Visible = false;
+            layer.AddObject(classSelector);
+
+            var classbtn = new CreatePartCube("Icons/Chroma/class.png", Global.Strings["Archetype"], Global.Strings["guide"]["Archetype"], classSelector, this)
+            {
+                Left = 275,
+                Top = cubetop
+            };
+            layer.AddObject(classbtn);
+
+            var aftertitlespacepart = (Global.Resolution.Width - (title.Left + cubeoffcet * 2) / 2);
+
+            var namebtn = new CreatePartCube("Icons/Chroma/name.png", Global.Strings["Name"], Global.Strings["guide"]["name"], raceSelector, this)
+            {
+                Left = 1400,
+                Top = cubetop
+            };
+            layer.AddObject(namebtn);
+
+            var abilbtn = new CreatePartCube("Icons/Chroma/abilities.png", Global.Strings["Abilities"], Global.Strings["guide"]["CreateAbilities"], raceSelector, this)
+            {
+                Left = 1650,
+                Top = cubetop
+            };
+            layer.AddObject(abilbtn);
 
             var hints = new CreateDescWindow();
             hints.Top = 300;

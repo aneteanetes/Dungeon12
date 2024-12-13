@@ -788,7 +788,8 @@ namespace Dungeon.Scenes
             for (int i = 0; i < updatables.Count; i++)
             {
                 var updatable = updatables[i];
-                updatable.ComponentUpdateChainCall(gameTime);
+                if (updatable.Visible)
+                    updatable.ComponentUpdateChainCall(gameTime);
             }
         }
 
