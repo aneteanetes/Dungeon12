@@ -8,6 +8,14 @@ namespace Nabunassar.Entities
 {
     internal class Hero : Battler
     {
+        public Hero()
+        {
+            PrimaryStats.Constitution = Rank.d6;
+            PrimaryStats.Agility = Rank.d6;
+            PrimaryStats.Intelligence = Rank.d6;
+            PrimaryStats.Dialectics = Rank.d6;
+        }
+
         public ObjectGroupProperty IsActive { get; set; } = new ObjectGroupProperty();
 
         public Race? Race { get; set; }
@@ -15,8 +23,8 @@ namespace Nabunassar.Entities
         public Fraction? Fraction { get; set; }
 
         public Archetype? Archetype { get; set; }
-        
-        public Primary PrimaryStats { get; set; }
+
+        public Primary PrimaryStats { get; set; } = new Primary();
 
         public Secondary SecondaryStats { get; set; }
 

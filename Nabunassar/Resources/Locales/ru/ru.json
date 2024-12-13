@@ -1,4 +1,13 @@
 {
+  "C": "Т",
+  "A": "Л",
+  "I": "И",
+  "D": "Д",
+  "Constitution": "Телосложение",
+  "Intelligence": "Интеллект",
+  "Dialectics": "Диалектика",
+  "Free": "Свободно",
+  "Characteristics": "Характеристики",
   "Stats": "Характеристики",
   "FractionChoose": "Выбор фракции",
   "Fraction": "Фракция",

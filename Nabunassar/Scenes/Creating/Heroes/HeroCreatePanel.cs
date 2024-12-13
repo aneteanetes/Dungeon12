@@ -14,6 +14,7 @@ namespace Nabunassar.Scenes.Creating.Heroes
         HeroPortrait portrait;
 
         private TextObject race, archetype, fraction, name;
+        private HeroPrimaryStatValue con, agi, @int, dia;
 
         protected override ControlEventType[] Handles => new[] { ControlEventType.Click, ControlEventType.Focus };
 
@@ -51,6 +52,28 @@ namespace Nabunassar.Scenes.Creating.Heroes
             race = AddText(Global.Strings["Race"].ToString().DefaultTxt(statTextSize), leftOffsetCut, name.Top + topOffset);
             archetype = AddText(Global.Strings["Archetype"].ToString().DefaultTxt(statTextSize), leftOffset, race.Top + topOffset);
             fraction = AddText(Global.Strings["Fraction"].ToString().DefaultTxt(statTextSize), leftOffset, archetype.Top + topOffset);
+
+            con = this.AddChild(new HeroPrimaryStatValue(component, 0));
+            con.Left = fraction.Left;
+            con.Top = fraction.TopMax + 60;
+            con.Visible = false;
+
+            agi = this.AddChild(new HeroPrimaryStatValue(component, 1));
+            agi.Left = con.LeftMax+20;
+            agi.Top = con.Top;
+            con.Visible = false;
+
+            @int = this.AddChild(new HeroPrimaryStatValue(component, 2));
+            @int.Left = agi.LeftMax + 20;
+            @int.Top = con.Top;
+            con.Visible = false;
+
+            dia = this.AddChild(new HeroPrimaryStatValue(component, 3));
+            dia.Left = @int.LeftMax + 20;
+            dia.Top = con.Top;
+            con.Visible = false;
+
+
         }
 
         public override void Focus()
@@ -89,6 +112,7 @@ namespace Nabunassar.Scenes.Creating.Heroes
             name.Visible = Component?.Race != null;
             archetype.Visible = Component?.Archetype != null;
             fraction.Visible = Component?.Fraction != null;
+            con.Visible = agi.Visible = @int.Visible = dia.Visible = Global.Game.Creation.StatsUnblocked;
 
             if (Component != null)
             {

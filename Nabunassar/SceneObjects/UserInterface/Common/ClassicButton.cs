@@ -16,7 +16,7 @@ namespace Nabunassar.SceneObjects.UserInterface.Common
 
         readonly TextObject Label;
 
-        public ClassicButton(string text, double width=250, double height = 65, int fontSize = 28)
+        public ClassicButton(string text, double width=250, double height = 65, int fontSize = 28, string border="bord31.png")
         {
             this.Width = width;
             this.Height = height;
@@ -24,7 +24,7 @@ namespace Nabunassar.SceneObjects.UserInterface.Common
 
             this.AddBorderMapBack(new BorderConfiguration()
             {
-                ImagesPath= "UI/bordermin/bord31.png",
+                ImagesPath= $"UI/bordermin/"+border,
                 Size=16,
                 Padding = 2
             });

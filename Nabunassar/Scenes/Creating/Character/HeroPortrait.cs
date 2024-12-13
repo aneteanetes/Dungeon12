@@ -26,13 +26,13 @@ namespace Nabunassar.Scenes.Creating.Character
                 Opacity=0
             });
 
-            m = this.AddChild(new ClassicButton(Global.Strings["M"], 25, 25, 12)
+            m = this.AddChild(new ClassicButton(Global.Strings["M"], 25, 25, 12,"bord15.png")
             {
                 Left = this.Width,
                 OnClick = () => this._sex = Sex.Male
             });
 
-            f = this.AddChild(new ClassicButton(Global.Strings["F"], 25, 25, 12)
+            f = this.AddChild(new ClassicButton(Global.Strings["F"], 25, 25, 12, "bord15.png")
             {
                 Left = this.Width,
                 Top = 30,

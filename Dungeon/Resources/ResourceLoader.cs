@@ -101,7 +101,7 @@ namespace Dungeon.Resources
                         foreach (var pair in localeFile)
                         {
                             var key = fileName + pair.Key;
-                            locale.Add(key.ToLowerInvariant(), pair.Value);
+                            locale.Add(key.ToLowerInvariant(), pair.Value.Replace("\\r\\n",Environment.NewLine));
                         }
                     }
                 }

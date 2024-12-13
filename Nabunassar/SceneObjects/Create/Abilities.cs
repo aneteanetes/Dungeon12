@@ -87,7 +87,7 @@ namespace Nabunassar.SceneObjects.Create
                     Icon = $"Abilities/{_ability.ClassName}.tga".AsmImg(),
                     Subtype = "Ability".Localized(),
                     Title=_ability.Name,
-                    Rank = Global.Strings[Rank.Novice],
+                    Rank = Global.Strings[Rank.d4],
                     Resources=new List<Entities.Plates.ResourceData>()
                     {
                         new Entities.Plates.ResourceData()

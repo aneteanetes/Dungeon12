@@ -4,6 +4,7 @@ using Dungeon.View.Interfaces;
 using Nabunassar.Entities.Characters;
 using Nabunassar.SceneObjects.HUD;
 using Nabunassar.Scenes.Creating.Character;
+using Nabunassar.Scenes.Creating.Character.Stats;
 using Nabunassar.Scenes.Start;
 
 namespace Nabunassar.Scenes.Creating.Heroes
@@ -85,7 +86,11 @@ namespace Nabunassar.Scenes.Creating.Heroes
 
             var aftertitlespacepart = (Global.Resolution.Width - (title.Left + cubeoffcet * 2) / 2);
 
-            var statsbtn = new CreatePartCube("Icons/Chroma/stats.png", Global.Strings["Stats"], Global.Strings["guide"]["stats"], new CreatePart(hero), this)
+            var statEditor = new StatsEditor(hero);
+            statEditor.Visible = false;
+            layer.AddObject(statEditor);
+
+            var statsbtn = new CreatePartCube("Icons/Chroma/stats.png", Global.Strings["Stats"], Global.Strings["guide"]["stats"], statEditor, this)
             {
                 Left = 1300,
                 Top = cubetop
