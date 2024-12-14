@@ -54,7 +54,7 @@ namespace Nabunassar.Scenes.Creating.Heroes
             var cubeoffcet = 50;
             var cubetop = 25;
 
-            var racebtn = new CreatePartCube("Icons/Chroma/race.png", Global.Strings["Race"], Global.Strings["guide"]["race"], raceSelector, this)
+            var racebtn = new CreatePartCube("Icons/Flat/race.png", Global.Strings["Race"], Global.Strings["guide"]["race"], raceSelector, this)
             {
                 Left = cubeoffcet,
                 Top = cubetop
@@ -65,7 +65,7 @@ namespace Nabunassar.Scenes.Creating.Heroes
             fractionSelector.Visible = false;
             layer.AddObject(fractionSelector);
 
-            var fractbtn = new CreatePartCube("Icons/Chroma/fraction.png", Global.Strings["Fraction"], Global.Strings["guide"]["fraction"], fractionSelector, this)
+            var fractbtn = new CreatePartCube("Icons/Flat/fraction.png", Global.Strings["Fraction"], Global.Strings["guide"]["fraction"], fractionSelector, this)
             {
                 Left = title.Left-cubeoffcet-racebtn.Width,
                 Top = cubetop
@@ -77,7 +77,7 @@ namespace Nabunassar.Scenes.Creating.Heroes
             layer.AddObject(classSelector);
 
 
-            var classbtn = new CreatePartCube("Icons/Chroma/class.png", Global.Strings["Archetype"], Global.Strings["guide"]["Archetype"], classSelector, this)
+            var classbtn = new CreatePartCube("Icons/Flat/class.png", Global.Strings["Archetype"], Global.Strings["guide"]["Archetype"], classSelector, this)
             {
                 Left = 275,
                 Top = cubetop
@@ -90,21 +90,21 @@ namespace Nabunassar.Scenes.Creating.Heroes
             statEditor.Visible = false;
             layer.AddObject(statEditor);
 
-            var statsbtn = new CreatePartCube("Icons/Chroma/stats.png", Global.Strings["Stats"], Global.Strings["guide"]["stats"], statEditor, this)
+            var statsbtn = new CreatePartCube("Icons/Flat/stats.png", Global.Strings["Stats"], Global.Strings["guide"]["stats"], statEditor, this)
             {
                 Left = 1300,
                 Top = cubetop
             };
             layer.AddObject(statsbtn);
 
-            var namebtn = new CreatePartCube("Icons/Chroma/name.png", Global.Strings["Name"], Global.Strings["guide"]["name"], new CreatePart(hero), this)
+            var namebtn = new CreatePartCube("Icons/Flat/name.png", Global.Strings["Name"], Global.Strings["guide"]["name"], new CreatePart(hero), this)
             {
                 Left = 1535,
                 Top = cubetop
             };
             layer.AddObject(namebtn);
 
-            var abilbtn = new CreatePartCube("Icons/Chroma/abilities.png", Global.Strings["Abilities"], Global.Strings["guide"]["CreateAbilities"],  new CreatePart(hero), this)
+            var abilbtn = new CreatePartCube("Icons/Flat/abilities.png", Global.Strings["Abilities"], Global.Strings["guide"]["CreateAbilities"],  new CreatePart(hero), this)
             {
                 Left = 1750,
                 Top = cubetop

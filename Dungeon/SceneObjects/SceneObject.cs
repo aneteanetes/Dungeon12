@@ -928,7 +928,8 @@
 
             foreach (var component in this._updatableComponents)
             {
-                component.ComponentUpdateChainCall(gameTime);
+                if (component.Visible)
+                    component.ComponentUpdateChainCall(gameTime);
             }
 
             AfterUpdate?.Invoke(this);

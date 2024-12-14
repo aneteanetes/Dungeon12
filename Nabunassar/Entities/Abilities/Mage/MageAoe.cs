@@ -17,7 +17,7 @@ namespace Nabunassar.Entities.Abilities.Mage
         public override string[] GetTextParams()
         {
             return new string[] {
-                $"{Global.Strings["Damage"]}: {Value}",
+                $"{Nabunassar.Global.Strings["Damage"]}: {Value}",
                 $"{Global.Strings["Type"]}: {Element.Display()}",
                 $"{Global.Strings["Range"]}: {UseRange.Display()}"
             };

@@ -19,21 +19,21 @@ namespace Nabunassar.SceneObjects.HeroPanelObjs
             this.Width=235;
             this.Height=17;
 
-            var textProvide = () => (isHp ? component.Hp.ToString() : component.Endurance.ToString()).AsDrawText().InBold().InSize(13).Calibri();
+            //var textProvide = () => (isHp ? component.Hp.ToString() : component.Endurance.ToString()).AsDrawText().InBold().InSize(13).Calibri();
 
-            this.AddChild(new ValueBarColor(isHp)
-            {
-                _value=() =>
-                {
-                    if (isHp)
-                        return component.Hp.Current / component.Hp.Max.FlatValue;
-                    else
-                        return component.Endurance / 100d;
-                }
-            });
+            //this.AddChild(new ValueBarColor(isHp)
+            //{
+            //    _value=() =>
+            //    {
+            //        if (isHp)
+            //            return component.Hp.Current / component.Hp.Max.FlatValue;
+            //        else
+            //            return component.Endurance / 100d;
+            //    }
+            //});
 
-            var label = this.AddTextCenter<BindedTextObject>(textProvide(), true, true);
-            label._label=textProvide;
+            //var label = this.AddTextCenter<BindedTextObject>(textProvide(), true, true);
+            //label._label=textProvide;
         }
 
         public string TooltipText => _ishp ? "HPs".Localized() : "EPs".Localized();

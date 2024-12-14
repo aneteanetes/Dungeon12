@@ -1,5 +1,5 @@
 ﻿using Dungeon.SceneObjects;
-using Nabunassar.Entities.Characteristics;
+using Nabunassar.Entities.Stats.PrimaryStats;
 
 namespace Nabunassar.Scenes.Creating.Character.Stats.RankValue
 {

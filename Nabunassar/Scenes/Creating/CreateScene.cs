@@ -88,6 +88,7 @@ namespace Nabunassar.Scenes.Creating
             this.Resources.LoadFolderGlobal("Backgrounds/Races".AsmImg());
             this.Resources.LoadFolderGlobal("Portraits".AsmImg());
             this.Resources.LoadFolderGlobal("Dices".AsmImg());
+            this.Resources.LoadFolderGlobal("Icons/Flat".AsmImg());
 
             this.LoadBorders();
         }
@@ -97,6 +98,7 @@ namespace Nabunassar.Scenes.Creating
             this.Resources.UnloadFolderGlobal("Baclgrounds/Races".AsmImg());
             this.Resources.UnloadFolderGlobal("Portraits".AsmImg());
             this.Resources.UnloadFolderGlobal("Dices".AsmImg());
+            this.Resources.UnloadFolderGlobal("Icons/Flat".AsmImg());
             base.Unload();
         }
 

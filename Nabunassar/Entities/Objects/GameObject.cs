@@ -42,8 +42,6 @@ namespace Nabunassar.Entities.Objects
         /// </summary>
         public virtual string Chip { get; set; }
 
-        public Value Initiative { get; set; } = new Value(1);
-
         public virtual GameObjectType GameType => GameObjectType.Object;
 
 

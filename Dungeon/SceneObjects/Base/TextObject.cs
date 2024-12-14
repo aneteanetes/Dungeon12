@@ -14,6 +14,8 @@
 
         public void SetText(string txt) => Text.SetText(txt);
 
+        public void SetText(IDrawText txt) => Text = txt;
+
         public override void Throw(Exception ex)
         {
             throw ex;

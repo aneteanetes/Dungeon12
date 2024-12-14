@@ -7,7 +7,7 @@ namespace Nabunassar.SceneObjects.GlobalMap
     {
         public PortraitHero(Hero hero) : base(75, 115, 0)
         {
-            this.Image = hero.Avatar;
+            this.Image = hero.PortraitImage;
         }
     }
 }

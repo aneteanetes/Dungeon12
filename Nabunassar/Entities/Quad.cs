@@ -12,7 +12,7 @@ namespace Nabunassar.Entities
 
         public virtual T Fourth { get; set; }
 
-        public IEnumerator<T> GetEnumerator()
+        public virtual IEnumerator<T> GetEnumerator()
         {
             yield return First;
             yield return Second;

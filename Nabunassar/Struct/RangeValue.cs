@@ -22,7 +22,7 @@
         public void Set(double current, double max)
         {
             Current=current;
-            Max.Set(max);
+            //Max.SetBaseValue(max);
         }
 
         public bool ValuesEquals()=>Current==Max.FlatValue;

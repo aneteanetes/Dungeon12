@@ -28,7 +28,7 @@ namespace Nabunassar.SceneObjects.HeroPanelObjs
                 Top=75
             });
 
-            this.AddChild(new ImageControl(component.Avatar)
+            this.AddChild(new ImageControl(component.PortraitImage)
             {
                 Width = 87,
                 Height = 140,
@@ -55,7 +55,7 @@ namespace Nabunassar.SceneObjects.HeroPanelObjs
 
             int i = 1;
 
-            foreach (var abil in component.Abilities)
+            foreach (var abil in component.CombatAbilities)
             {
                 var abilscnobj = this.AddChild(new AbilityItemBig(Component, abil)
                 {

@@ -3,6 +3,7 @@ using Dungeon.SceneObjects;
 using Nabunassar.Entities;
 using Nabunassar.SceneObjects.Base;
 using Nabunassar.Scenes.Creating.Character;
+using Nabunassar.Scenes.Creating.Character.Stats;
 
 namespace Nabunassar.Scenes.Creating.Heroes
 {
@@ -14,11 +15,20 @@ namespace Nabunassar.Scenes.Creating.Heroes
         HeroPortrait portrait;
 
         private TextObject race, archetype, fraction, name;
+
+        private TextObject hp;
+
+        private FlatStat ad, ap, arm, bar;
+
+        private FlatStat speed, actp, movp;
+
         private HeroPrimaryStatValue con, agi, @int, dia;
 
         protected override ControlEventType[] Handles => new[] { ControlEventType.Click, ControlEventType.Focus };
 
         private bool _isInteractive;
+
+        private int statTextSize = 25;
 
         public HeroCreatePanel(Hero component, int idx, bool isInteractive = false) : base(component)
         {
@@ -46,7 +56,6 @@ namespace Nabunassar.Scenes.Creating.Heroes
             var topOffset = 35;
             var leftOffsetCut = 215;
             var leftOffset = leftOffsetCut - 30;
-            var statTextSize = 25;
 
             name = AddText(Global.Strings["Unknown"].ToString().DefaultTxt(statTextSize), leftOffsetCut, 15);
             race = AddText(Global.Strings["Race"].ToString().DefaultTxt(statTextSize), leftOffsetCut, name.Top + topOffset);
@@ -61,19 +70,84 @@ namespace Nabunassar.Scenes.Creating.Heroes
             agi = this.AddChild(new HeroPrimaryStatValue(component, 1));
             agi.Left = con.LeftMax+20;
             agi.Top = con.Top;
-            con.Visible = false;
+            agi.Visible = false;
 
             @int = this.AddChild(new HeroPrimaryStatValue(component, 2));
             @int.Left = agi.LeftMax + 20;
             @int.Top = con.Top;
-            con.Visible = false;
+            @int.Visible = false;
 
             dia = this.AddChild(new HeroPrimaryStatValue(component, 3));
             dia.Left = @int.LeftMax + 20;
             dia.Top = con.Top;
-            con.Visible = false;
+            dia.Visible = false;
+
+            var statsTopOffset = 10;
+            var delimiterTopoffset = 35;
+
+            hp = this.AddText("_".DefaultTxt(statTextSize), fraction.Left, 245);
+            hp.Visible = false;
 
 
+            var leftstatoffset = 15;
+            var aaabTop = hp.TopMax + delimiterTopoffset+10;
+            ad = this.AddChild(new FlatStat(component, "Icons/Flat/ad.png", () => Component.Offencive.AttackDamage.AsDrawText(statTextSize + 7), Global.Strings["guide"]["AttackDamage"])
+            {
+                Left = 50,
+                Top= aaabTop,
+                Visible =false
+            });
+
+            ap = this.AddChild(new FlatStat(component, "Icons/Flat/ap.png", () => Component.Offencive.AbilityPower.AsDrawText(statTextSize + 7), Global.Strings["guide"]["AbilityPower"])
+            {
+                Left = ad.LeftMax + leftstatoffset,
+                Top = aaabTop,
+                Visible = false
+            });
+
+            //arm = this.AddChild(new FlatStat(component, "Icons/Flat/arm.png", () => Component.Offencive.Armor.AsDrawText(statTextSize + 7))
+            //{
+            //    Left = ap.LeftMax+ leftstatoffset,
+            //    Top = aaabTop,
+            //    Visible = false
+            //});
+
+            //bar = this.AddChild(new FlatStat(component, "Icons/Flat/bar.png", () => Component.Offencive.Barrier.AsDrawText(statTextSize + 7))
+            //{
+            //    Left = ap.LeftMax + leftstatoffset,
+            //    Top = aaabTop,
+            //    Visible = false
+            //});
+
+            actp = this.AddChild(new FlatStat(component, "Icons/Flat/actp.png", () => Component.MapStats.ActionPoints.AsDrawText(statTextSize + 7), Global.Strings["guide"]["ActionPoints"])
+            {
+                Left = ap.LeftMax + leftstatoffset,
+                Top = aaabTop,
+                Visible = false
+            });
+
+            movp = this.AddChild(new FlatStat(component, "Icons/Flat/movp.png", () => Component.MapStats.MovementPoints.AsDrawText(statTextSize + 7), Global.Strings["guide"]["MovementPoints"])
+            {
+                Left = actp.LeftMax + leftstatoffset,
+                Top = aaabTop,
+                Visible = false
+            });
+
+            speed = this.AddChild(new FlatStat(component, "Icons/Flat/speed.png", () => Component.Speed.AsDrawText(statTextSize + 7), Global.Strings["guide"]["Speed"])
+            {
+                Left = movp.LeftMax + leftstatoffset,
+                Top = aaabTop,
+                Visible = false
+            });
+
+            //actp = this.AddText("_".DefaultTxt(20), con.Left, bar.TopMax + delimiterTopoffset);
+            //actp.Visible = false;
+
+            //movp = this.AddText("_".DefaultTxt(20), con.Left, actp.TopMax + statsTopOffset);
+            //movp.Visible = false;
+
+            //speed = this.AddText("_".DefaultTxt(20), con.Left, movp.TopMax + statsTopOffset);
+            //speed.Visible = false;
         }
 
         public override void Focus()
@@ -112,7 +186,21 @@ namespace Nabunassar.Scenes.Creating.Heroes
             name.Visible = Component?.Race != null;
             archetype.Visible = Component?.Archetype != null;
             fraction.Visible = Component?.Fraction != null;
-            con.Visible = agi.Visible = @int.Visible = dia.Visible = Global.Game.Creation.StatsUnblocked;
+
+            con.Visible = agi.Visible = @int.Visible = dia.Visible = hp.Visible = ap.Visible = ad.Visible = /*arm.Visible = bar.Visible =*/ actp.Visible = movp.Visible = speed.Visible = Global.Game.Creation.StatsUnblocked;
+
+            if(Global.Game.Creation.StatsUnblocked)
+            {
+                Component.BindPersona();
+                hp.SetText(Component.Health.AsDrawText(statTextSize,true));
+            //    ad.SetText(Component.Offencive.AttackDamage.AsDrawText(true,20));
+            //    ap.SetText(Component.Offencive.AbilityPower.AsDrawText(true, 20));
+            //    arm.SetText(Component.Offencive.Armor.AsDrawText(true, 20));
+            //    bar.SetText(Component.Offencive.Barrier.AsDrawText(true, 20));
+            //    actp.SetText(Component.MapStats.ActionPoints.AsDrawText(true, 20));
+            //    movp.SetText(Component.MapStats.MovementPoints.AsDrawText(true, 20));
+            //    speed.SetText(Component.Speed.AsDrawText(true, 20));
+            }
 
             if (Component != null)
             {
@@ -124,7 +212,6 @@ namespace Nabunassar.Scenes.Creating.Heroes
 
                 if (Component.Fraction != null)
                     fraction.SetText(Global.Strings["Fraction"] + " : " + Global.Strings[Component.Fraction.ToString()]);
-
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace Nabunassar.Entities.Characteristics
+﻿namespace Nabunassar.Entities.Stats.PrimaryStats
 {
     internal enum Rank
     {

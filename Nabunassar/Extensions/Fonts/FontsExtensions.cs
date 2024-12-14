@@ -64,7 +64,7 @@
         public static IDrawText DefaultTxt(this string text, int size, bool wordWrap = false)
         => DefaultTxt(text.AsDrawText(), size, wordWrap);
 
-        public static IDrawText DefaultTxt(this IDrawText drawText, int size, bool wordWrap)
+        public static IDrawText DefaultTxt(this IDrawText drawText, int size, bool wordWrap=false)
         {
             drawText.FontName = "URWGeometricBold";
             drawText.FontAssembly = Global.GameAssemblyName;

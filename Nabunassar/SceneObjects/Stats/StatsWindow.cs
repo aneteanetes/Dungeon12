@@ -31,7 +31,7 @@ namespace Nabunassar.SceneObjects.Stats
                 Top=28,
             });
 
-            Avatar = this.AddChild(new ImageObject(Component.Avatar)
+            Avatar = this.AddChild(new ImageObject(Component.PortraitImage)
             {
                 Width=115,
                 Height=180,
@@ -124,42 +124,42 @@ namespace Nabunassar.SceneObjects.Stats
 
             //freePoints = this.AddTextPos((Global.Strings[$"навыков и характеристик"]+$" {hero.FreePoints}").SegoeUIBold().InSize(16).InColor(Global.CommonColorLight), 32, 44, 208, 26);
 
-            binderCommon = new ParamBinder(this, 255, 183, 104);
-            binderCommon.AddParam("Уровень", hero.Level);
-            binderCommon.AddParam("Опыт", $"{hero.Exp}/{hero.ExpTable[hero.Level]}");
-            binderCommon.AddParam("Здоровье", hero.Hp.ToString());
-            binderCommon.AddParam("Урон", hero.Damage.ToString("-"));
-            binderCommon.AddParam("Сила атаки", hero.AD);
-            binderCommon.AddParam("Сила магии", hero.AP);
-            binderCommon.AddParam("Скорость", hero.Speed);
-            binderCommon.AddParam("Меткость", $"{hero.Accuracy}%");
-            binderCommon.AddParam("Шанс крит.", $"{hero.CritChance}%");
+            //binderCommon = new ParamBinder(this, 255, 183, 104);
+            //binderCommon.AddParam("Уровень", hero.Level);
+            //binderCommon.AddParam("Опыт", $"{hero.Exp}/{hero.ExpTable[hero.Level]}");
+            //binderCommon.AddParam("Здоровье", hero.Hp.ToString());
+            //binderCommon.AddParam("Урон", hero.Damage.ToString("-"));
+            //binderCommon.AddParam("Сила атаки", hero.AD);
+            //binderCommon.AddParam("Сила магии", hero.AP);
+            //binderCommon.AddParam("Скорость", hero.Speed);
+            //binderCommon.AddParam("Меткость", $"{hero.Accuracy}%");
+            //binderCommon.AddParam("Шанс крит.", $"{hero.CritChance}%");
 
-            binderDef=new ParamBinder(this, 254, 183, 277);
-            binderDef.AddParam("Броня", hero.Armor);
-            binderDef.AddParam("Класс брони", hero.ArmorClass);
-            binderDef.AddEmpty();
-            binderDef.AddParam("Отражение магии", $"{hero.SpellReflect}%");
-            binderDef.AddParam("Защита от огня", hero.FireProtection);
-            binderDef.AddParam("Защита от холода", hero.FrostProtection);
-            binderDef.AddParam("Защита от магии", hero.MagicProtection);
-            binderDef.AddParam("Защита от света", hero.LightProtection);
-            binderDef.AddParam("Защита от тьмы", hero.DarkProtection);
-            binderDef.AddParam("Уклонение", $"{hero.DodgeChance}%");
-            binderDef.AddParam("Шанс физ. блока", $"{hero.BlockChance}%");
+            //binderDef=new ParamBinder(this, 254, 183, 277);
+            //binderDef.AddParam("Броня", hero.Armor);
+            //binderDef.AddParam("Класс брони", hero.ArmorClass);
+            //binderDef.AddEmpty();
+            //binderDef.AddParam("Отражение магии", $"{hero.SpellReflect}%");
+            //binderDef.AddParam("Защита от огня", hero.FireProtection);
+            //binderDef.AddParam("Защита от холода", hero.FrostProtection);
+            //binderDef.AddParam("Защита от магии", hero.MagicProtection);
+            //binderDef.AddParam("Защита от света", hero.LightProtection);
+            //binderDef.AddParam("Защита от тьмы", hero.DarkProtection);
+            //binderDef.AddParam("Уклонение", $"{hero.DodgeChance}%");
+            //binderDef.AddParam("Шанс физ. блока", $"{hero.BlockChance}%");
 
-            binderAdd=new ParamBinder(this, 41, 189, 334);
-            binderAdd.AddParam("Инициатива", hero.Initiative);
-            binderAdd.AddParam("Проницание магии", hero.MagicPenetration);
-            binderAdd.AddParam("Сокрушительный удар", $"{hero.CrushingBlowChance}%");
-            binderAdd.AddParam("Скользящий удар", $"{hero.GlancingBlowChance}%");
-            binderAdd.AddParam("Урон скольз. ударов", $"x{hero.GlancingBlowMultiplier}");
-            binderAdd.AddParam("Парирование", $"{hero.ParryChance}%");
-            binderAdd.AddEmpty();
-            binderAdd.AddParam("Шанс физ. эффектов", $"{hero.EffectPhysicalChance}%");
-            binderAdd.AddParam("Урон физ. эффектов", $"{hero.EffectPhysicalDamage}%");
-            binderAdd.AddParam("Шанс маг. эффектов", $"{hero.EffectMagicChance}%");
-            binderAdd.AddParam("Урон маг. эффектов", $"{hero.EffectMagicDamage}%");
+            //binderAdd=new ParamBinder(this, 41, 189, 334);
+            //binderAdd.AddParam("Инициатива", hero.Initiative);
+            //binderAdd.AddParam("Проницание магии", hero.MagicPenetration);
+            //binderAdd.AddParam("Сокрушительный удар", $"{hero.CrushingBlowChance}%");
+            //binderAdd.AddParam("Скользящий удар", $"{hero.GlancingBlowChance}%");
+            //binderAdd.AddParam("Урон скольз. ударов", $"x{hero.GlancingBlowMultiplier}");
+            //binderAdd.AddParam("Парирование", $"{hero.ParryChance}%");
+            //binderAdd.AddEmpty();
+            //binderAdd.AddParam("Шанс физ. эффектов", $"{hero.EffectPhysicalChance}%");
+            //binderAdd.AddParam("Урон физ. эффектов", $"{hero.EffectPhysicalDamage}%");
+            //binderAdd.AddParam("Шанс маг. эффектов", $"{hero.EffectMagicChance}%");
+            //binderAdd.AddParam("Урон маг. эффектов", $"{hero.EffectMagicDamage}%");
 
         }
 
@@ -184,7 +184,7 @@ namespace Nabunassar.SceneObjects.Stats
                 Top=101
             });
 
-            Avatar.Image=hero.Avatar;
+            Avatar.Image=hero.PortraitImage;
             _class.Set(hero.Archetype.Value);
             AddTexts(hero);
         }

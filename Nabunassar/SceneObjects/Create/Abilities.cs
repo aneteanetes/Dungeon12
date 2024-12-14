@@ -6,8 +6,8 @@ using Dungeon.View.Interfaces;
 using Nabunassar.ECS.Components;
 using Nabunassar.Entities;
 using Nabunassar.Entities.Abilities;
-using Nabunassar.Entities.Characteristics;
 using Nabunassar.Entities.Enums;
+using Nabunassar.Entities.Stats.PrimaryStats;
 using Nabunassar.SceneObjects.Base;
 using System.Linq;
 

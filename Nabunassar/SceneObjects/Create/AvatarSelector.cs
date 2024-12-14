@@ -46,7 +46,7 @@ namespace Nabunassar.SceneObjects.Create
                 Left = 133
             });
 
-            Component.Avatar = AvatarViewer.Image;
+            Component.PortraitImage = AvatarViewer.Image;
         }
 
         private void Leaf(bool next)
@@ -67,7 +67,7 @@ namespace Nabunassar.SceneObjects.Create
             }
 
             AvatarViewer.Image = $"Avatars/{Component.Archetype.Value.Short()}{index}.png".AsmImg();
-            Component.Avatar = AvatarViewer.Image;
+            Component.PortraitImage = AvatarViewer.Image;
         }
 
         private class IndexButton : EmptySceneControl, ITooltipedDrawText

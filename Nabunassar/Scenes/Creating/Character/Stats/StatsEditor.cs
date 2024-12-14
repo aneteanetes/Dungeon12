@@ -56,7 +56,12 @@ namespace Nabunassar.Scenes.Creating.Character.Stats
         public override void Update(GameTimeLoop gameTime)
         {
             if (this.Visible == true && !Global.Game.Creation.StatsUnblocked)
+            {
                 Global.Game.Creation.StatsUnblocked = true;
+            }
+
+            if (Global.Game.Creation.StatsUnblocked)
+                Component.BindPersona();
 
             freepoints.SetText(Global.Strings["Free"] + " : " + Component.PrimaryStats.FreePoints);
             base.Update(gameTime);
