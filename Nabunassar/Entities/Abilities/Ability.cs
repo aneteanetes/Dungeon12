@@ -2,7 +2,9 @@
 using Nabunassar.Entities.Abilities.Priest;
 using Nabunassar.Entities.Abilities.Thief;
 using Nabunassar.Entities.Abilities.Warrior;
+using Nabunassar.Entities.Combat;
 using Nabunassar.Entities.Enums;
+using Nabunassar.Entities.Stats.PrimaryStats;
 
 namespace Nabunassar.Entities.Abilities
 {
@@ -17,6 +19,14 @@ namespace Nabunassar.Entities.Abilities
         }
 
         public string Name { get; protected set; }
+
+        public string Icon { get; set; }
+
+        public virtual Archetype Archetype { get; }
+
+        public virtual bool IsRanked => true;
+
+        public Rank Rank { get; set; }
 
         public string ClassName => this.GetType().Name;
 
@@ -37,8 +47,6 @@ namespace Nabunassar.Entities.Abilities
         public Ability[] Debuffs { get; set; }
 
         public string[] TextParams { get; protected set; }
-
-        public virtual Archetype Class { get; }
 
         /// <summary>
         /// Здесь надо присвоить Title, Description, Area, Element, Range, Cooldown
@@ -65,5 +73,36 @@ namespace Nabunassar.Entities.Abilities
             Archetype.Priest => new Ability[] { new PriestAttack(), new PriestHeal(), new PriestHolyNova(), new PriestAngel() },
             _ => new Ability[0],
         };
+
+        /// <summary>
+        /// Может ли урон от способности быть "срезан" защитами или способностями. Правило работает только на **основной** урон.
+        /// </summary>
+        public virtual bool IsAvailableForCutting => true;
+
+        /// <summary>
+        /// Является ли способность бустером силы способностей
+        /// </summary>
+        public virtual bool IsAPBooser => false;
+
+        /// <summary>
+        /// Если способность - бустер, то она проверяет может ли быть улучшена этим бустером
+        /// </summary>
+        /// <param name="ability"></param>
+        /// <returns></returns>
+        public virtual bool IsApplicable(Ability ability) => false;
+
+        /// <summary>
+        /// При атаке
+        /// </summary>
+        /// <param name="damage"></param>
+        /// <returns></returns>
+        public virtual DamageRange OnAttack(DamageRange damage) => damage;
+
+        /// <summary>
+        /// При получении урона
+        /// </summary>
+        /// <param name="damage"></param>
+        /// <returns></returns>
+        public virtual DamageRange OnDamage(DamageRange damage) => damage;
     }
 }

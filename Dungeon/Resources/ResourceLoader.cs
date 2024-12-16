@@ -1,7 +1,6 @@
 ﻿using Dungeon.Resources.Processing;
 using Dungeon.Resources.Resolvers;
 using LiteDB;
-using Mono.Cecil;
 using MoreLinq;
 using Newtonsoft.Json;
 using System;
@@ -22,14 +21,14 @@ namespace Dungeon.Resources
 
         public static List<ResourceProcessor> ResourceProcessors { get; set; } = new List<ResourceProcessor>();
 
-        private static LiteDatabase liteDatabase;
-        private static LiteDatabase LiteDatabase
+        private static LiteDatabase resourceDatabase;
+        private static LiteDatabase ResourceDatabase
         {
             get
             {
                 try
                 {
-                    if (liteDatabase == default)
+                    if (resourceDatabase == default)
                     {
 
                         if (Store.MainPath == null)
@@ -42,12 +41,47 @@ namespace Dungeon.Resources
                             Directory.CreateDirectory(dir);
                         }
 
-                        var path = Path.Combine(dir, $"{caller}.dtr");
+                        var path = Path.Combine(dir, DungeonGlobal.Configuration.DbAssetsFileName);
                         Console.WriteLine(path);
-                        liteDatabase = new LiteDatabase(path);
-                        DungeonGlobal.OnExit += () => liteDatabase.Dispose();
+                        resourceDatabase = new LiteDatabase(path);
+                        DungeonGlobal.OnExit += () => resourceDatabase.Dispose();
                     }
-                    return liteDatabase;
+                    return resourceDatabase;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    return null;
+                }
+            }
+        }
+
+        private static LiteDatabase dataDb;
+        private static LiteDatabase DataDb
+        {
+            get
+            {
+                try
+                {
+                    if (dataDb == default)
+                    {
+
+                        if (Store.MainPath == null)
+                            return null;
+
+                        var caller = DungeonGlobal.GameAssemblyName;
+                        var dir = Path.Combine(Store.MainPath, DungeonGlobal.Configuration.DbDataFileName);
+                        if (!Directory.Exists(dir))
+                        {
+                            Directory.CreateDirectory(dir);
+                        }
+
+                        var path = Path.Combine(dir, $"Data.dtr");
+                        Console.WriteLine(path);
+                        dataDb = new LiteDatabase(path);
+                        DungeonGlobal.OnExit += () => dataDb.Dispose();
+                    }
+                    return dataDb;
                 }
                 catch (Exception ex)
                 {
@@ -114,9 +148,9 @@ namespace Dungeon.Resources
             return null;
         }
 
-        public static T LoadJson<T>(ResourceTable table, string resource, bool @throw = true)
+        public static T LoadData<T>(ResourceTable table, string resource, bool @throw = true)
         {
-            var res = Load(table, resource, @throw);
+            var res = LoadResource(resource, table, DataDb);
             if (res == default)
                 return default;
 
@@ -130,7 +164,7 @@ namespace Dungeon.Resources
                 resource = Assembly.GetEntryAssembly().GetName().Name + ".Resources." + resource.Embedded();
             }
 
-            var res = LoadResource(resource,table);
+            var res = LoadResource(resource,table,ResourceDatabase);
 
             if (res == default)
             {
@@ -148,7 +182,7 @@ namespace Dungeon.Resources
             return res;
         }
 
-        private static Resource LoadResource(string resource, ResourceTable table)
+        private static Resource LoadResource(string resource, ResourceTable table, LiteDatabase liteDb)
         {
             if (table.ContainsKey(resource))
             {
@@ -157,7 +191,7 @@ namespace Dungeon.Resources
 
             Resource res = default;
 
-            var db = LiteDatabase?.GetCollection<Resource>();
+            var db = liteDb?.GetCollection<Resource>();
             if (db != null)
             {
                 try
@@ -196,7 +230,7 @@ namespace Dungeon.Resources
                 return table.GetFolder(folder);
             }
 
-            var db = LiteDatabase?.GetCollection<Resource>();
+            var db = ResourceDatabase?.GetCollection<Resource>();
             if (db != null)
             {
                 try

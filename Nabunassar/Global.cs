@@ -1,7 +1,6 @@
-﻿using Dungeon;
-using Dungeon.Drawing;
+﻿using Dungeon.Drawing;
 using Dungeon.Localization;
-using Nabunassar.Entities.Enums;
+using Nabunassar.Entities.Dices;
 using Nabunassar.Game;
 using Nabunassar.Locale;
 using Nabunassar.SceneObjects;
@@ -46,5 +45,7 @@ namespace Nabunassar
         public static DrawColor FractionColorVanguard { get; } = new DrawColor(10, 7, 105);
 
         public static GlobalWindows Windows { get; set; } = new GlobalWindows();
+
+        public static DiceTower DiceTower { get; private set; } = new DiceTower();
     }
 }

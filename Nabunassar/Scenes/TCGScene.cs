@@ -59,11 +59,11 @@ namespace Nabunassar.Scenes
             //    Top = -3
             //});
 
-            var warriorcard = Dungeon.Resources.ResourceLoader.LoadJson<Card>(this.Resources, $"Cards/warrior.json".AsmRes());
+            //var warriorcard = Dungeon.Resources.ResourceLoader.LoadJson<Card>(this.Resources, $"Cards/warrior.json".AsmRes());
 
-            var cards = this.CreateLayer("cards");
-            this.AddSystem(new TooltipSystem());
-            cards.AddObjectCenter(new CardSceneObject(warriorcard));
+            //var cards = this.CreateLayer("cards");
+            //this.AddSystem(new TooltipSystem());
+            //cards.AddObjectCenter(new CardSceneObject(warriorcard));
         }
 
         protected override void KeyPress(Key keyPressed, KeyModifiers keyModifiers, bool hold)

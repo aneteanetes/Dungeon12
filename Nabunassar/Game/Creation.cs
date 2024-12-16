@@ -7,5 +7,7 @@
         public string Hint { get; set; } = "";
 
         public bool StatsUnblocked { get; set; }
+
+        public int SelectedAbilityName { get; set; }
     }
 }

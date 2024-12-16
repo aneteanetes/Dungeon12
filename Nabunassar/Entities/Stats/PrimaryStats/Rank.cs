@@ -1,6 +1,6 @@
 ﻿namespace Nabunassar.Entities.Stats.PrimaryStats
 {
-    internal enum Rank
+    public enum Rank
     {
         /// <summary>
         /// None

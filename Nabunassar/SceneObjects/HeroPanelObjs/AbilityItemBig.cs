@@ -82,7 +82,7 @@ namespace Nabunassar.SceneObjects.HeroPanelObjs
             base.Unfocus();
         }
 
-        public override bool Visible => Component.Archetype == _ability.Class;
+        public override bool Visible => Component.Archetype == _ability.Archetype;
 
         public IDrawText TooltipText => $"{Global.Strings[_title]}".AsDrawText().WithOpacity(1.1).Gabriela();
 

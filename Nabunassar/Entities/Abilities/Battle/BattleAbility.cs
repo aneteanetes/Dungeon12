@@ -1,4 +1,6 @@
-﻿namespace Nabunassar.Entities.Abilities.Battle
+﻿using Nabunassar.Entities.Enums;
+
+namespace Nabunassar.Entities.Abilities.Battle
 {
     internal class BattleAbility : Ability
     {

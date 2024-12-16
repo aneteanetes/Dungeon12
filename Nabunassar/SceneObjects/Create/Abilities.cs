@@ -66,7 +66,7 @@ namespace Nabunassar.SceneObjects.Create
                 });
             }
 
-            public override bool Visible => Component.Archetype == _ability.Class;
+            public override bool Visible => Component.Archetype == _ability.Archetype;
 
             public IDrawText TooltipText => $"{Global.Strings[_ability.ClassName]} ({Global.Strings["RightMouseButton"]} - {Global.Strings["Info"]})".AsDrawText().WithOpacity(1.1).Gabriela();
 

@@ -53,6 +53,9 @@ namespace Dungeon.Resources.Compiler
         private string DataDir = null;
         private ILiteCollection<Resource> DataDb = null;
 
+        private string ResDir = null;
+        private ILiteCollection<Resource> ResourceDb = null;
+
         private string LocaleDir = null;
         private ILiteCollection<Resource> LocaleDb = null;
 
@@ -65,22 +68,25 @@ namespace Dungeon.Resources.Compiler
         {
             var caller = DungeonGlobal.GameAssemblyName;
 
-            DataDir = Path.Combine(MainPath, DungeonGlobal.Configuration.DataDirectory);
+            DataDir = ResDir = Path.Combine(MainPath, DungeonGlobal.Configuration.DataDirectory);
             LocaleDir = Path.Combine(MainPath, DungeonGlobal.Configuration.LocaleDirectory);
 
             CreateDirectories();
 
-            var dataPath = Path.Combine(DataDir, $"{caller}.dtr");
+            var dataPath = Path.Combine(ResDir, DungeonGlobal.Configuration.DbDataFileName);
+            var resPath = Path.Combine(ResDir, DungeonGlobal.Configuration.DbAssetsFileName);
             var localePath = Path.Combine(LocaleDir, $"{DungeonGlobal.Configuration.TwoLetterISOLanguageName}.dtr");
 
-            using var dataLiteDb = new LiteDatabase(dataPath);
+            using var resLiteDb = new LiteDatabase(resPath);
+            ResourceDb = resLiteDb.GetCollection<Resource>();
+            ResourceDb.EnsureIndex("Path");
 
+            using var dataLiteDb = new LiteDatabase(dataPath);
             DataDb = dataLiteDb.GetCollection<Resource>();
             DataDb.EnsureIndex("Path");
 
 
             using var localeLiteDb = new LiteDatabase(localePath);
-
             LocaleDb = localeLiteDb.GetCollection<Resource>();
             LocaleDb.EnsureIndex("Path");
 
@@ -90,9 +96,9 @@ namespace Dungeon.Resources.Compiler
 
         private void CreateDirectories()
         {
-            if (!Directory.Exists(DataDir))
+            if (!Directory.Exists(ResDir))
             {
-                Directory.CreateDirectory(DataDir);
+                Directory.CreateDirectory(ResDir);
             }
 
             if (!Directory.Exists(LocaleDir))
@@ -117,9 +123,13 @@ namespace Dungeon.Resources.Compiler
             var localesPaths = filePaths.Where(x => x.StartsWith(localePath)).ToArray();
             ProcessDatabase(localesPaths, LocaleDb);
 
+            var dataPath = Path.Combine(Path.Combine(DungeonGlobal.ProjectPath, "Resources", "Data"));
+            var dataPaths = filePaths.Where(x => x.StartsWith(dataPath)).ToArray();
+            ProcessDatabase(dataPaths, DataDb);
 
-            filePaths = filePaths.Except(localesPaths).ToArray();
-            ProcessDatabase(filePaths, DataDb);
+
+            filePaths = filePaths.Except(localesPaths.Concat(dataPaths)).ToArray();
+            ProcessDatabase(filePaths, ResourceDb);
         }
 
         private void ProcessDatabase(string[] filePaths, ILiteCollection<Resource> db)

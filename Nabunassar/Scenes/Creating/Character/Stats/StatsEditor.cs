@@ -11,7 +11,7 @@ namespace Nabunassar.Scenes.Creating.Character.Stats
     {
         TextObject freepoints;
 
-        public StatsEditor(Hero component) : base(component)
+        public StatsEditor(Hero component) : base(component, Global.Strings["guide"]["stats"])
         {
             Width = 400;
             Height = 700;
@@ -55,6 +55,8 @@ namespace Nabunassar.Scenes.Creating.Character.Stats
 
         public override void Update(GameTimeLoop gameTime)
         {
+            this.Cube.Next.Visible = true;
+
             if (this.Visible == true && !Global.Game.Creation.StatsUnblocked)
             {
                 Global.Game.Creation.StatsUnblocked = true;

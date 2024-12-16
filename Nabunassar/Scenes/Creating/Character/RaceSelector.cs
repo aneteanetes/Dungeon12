@@ -8,7 +8,7 @@ namespace Nabunassar.Scenes.Creating.Character
 {
     internal class RaceSelector : CreatePart
     {
-        public RaceSelector(Hero component) : base(component)
+        public RaceSelector(Hero component) : base(component, Global.Strings["guide"]["race"])
         {
             Width = 325;
             Height = 700;

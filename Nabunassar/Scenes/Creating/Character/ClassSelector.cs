@@ -9,7 +9,7 @@ namespace Nabunassar.Scenes.Creating.Character
 {
     internal class ClassSelector : CreatePart
     {
-        public ClassSelector(Hero component) : base(component)
+        public ClassSelector(Hero component) : base(component,Global.Strings["guide"]["archetype"])
         {
             Width = 325;
             Height = 700;
@@ -31,6 +31,9 @@ namespace Nabunassar.Scenes.Creating.Character
 
             typeof(Archetype).All<Archetype>().ForEach(arch =>
             {
+                if (arch == Archetype.None)
+                    return;
+
                 var clsBtn = new ClassicButton(Global.Strings[arch.ToString()], 200, 40, 18)
                 {
                     Top = top,

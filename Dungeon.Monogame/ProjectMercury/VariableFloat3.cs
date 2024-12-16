@@ -11,6 +11,7 @@ namespace ProjectMercury
     using System;
     using System.ComponentModel;
     using System.Globalization;
+    using Dungeon.Monogame.Tools;
     using Microsoft.Xna.Framework;
 
     /// <summary>

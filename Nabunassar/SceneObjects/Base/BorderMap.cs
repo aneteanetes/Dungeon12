@@ -1,4 +1,5 @@
-﻿using Dungeon.Drawing.SceneObjects;
+﻿using Dungeon.Drawing;
+using Dungeon.Drawing.SceneObjects;
 using Dungeon.SceneObjects;
 using Dungeon.SceneObjects.Base;
 using Dungeon.View.Enums;
@@ -185,6 +186,11 @@ namespace Nabunassar.SceneObjects.Base
                 },
                 Color = Global.CommonColor
             });
+        }
+
+        public void SetColor(DrawColor color)
+        {
+            left.Color = right.Color = up.Color = down.Color = leftup.Color = rightup.Color = leftdown.Color = rightdown.Color = color;
         }
     }
 }

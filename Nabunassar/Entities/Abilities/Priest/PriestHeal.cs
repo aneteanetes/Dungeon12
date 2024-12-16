@@ -10,7 +10,7 @@ namespace Nabunassar.Entities.Abilities.Priest
     /// </summary>
     internal class PriestHeal : Ability
     {
-        public override Archetype Class => Archetype.Priest;
+        public override Archetype Archetype => Archetype.Priest;
 
         public override void Bind()
         {

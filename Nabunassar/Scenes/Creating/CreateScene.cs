@@ -84,6 +84,7 @@ namespace Nabunassar.Scenes.Creating
             Resources.Load("UI/btn_a.png".AsmImg());
             Resources.Load("UI/bordermin/bord1.png".AsmImg());
             Resources.LoadFolder("UI/panelmin".AsmImg());
+            Resources.LoadFolder("Icons//Common".AsmImg());
 
             this.Resources.LoadFolderGlobal("Backgrounds/Races".AsmImg());
             this.Resources.LoadFolderGlobal("Portraits".AsmImg());

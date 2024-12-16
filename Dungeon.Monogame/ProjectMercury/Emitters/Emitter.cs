@@ -9,6 +9,7 @@
 namespace ProjectMercury.Emitters
 {
     using Dungeon;
+    using Dungeon.Monogame.Tools;
     using Dungeon.Resources;
     using Dungeon.Scenes;
     using Microsoft.Xna.Framework;

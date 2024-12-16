@@ -4,7 +4,7 @@ namespace Nabunassar.Entities.Abilities.Mage
 {
     internal class MageAoe : Ability
     {
-        public override Archetype Class => Archetype.Mage;
+        public override Archetype Archetype => Archetype.Mage;
 
         public override void Bind()
         {

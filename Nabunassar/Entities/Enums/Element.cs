@@ -4,6 +4,8 @@ namespace Nabunassar.Entities.Enums
 {
     public enum Element
     {
+        None=0,
+
         Mental, //Ментальный, психический
         Physical, //физический, воздух, земля и вода тоже физическая
 

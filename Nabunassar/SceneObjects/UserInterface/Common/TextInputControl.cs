@@ -8,6 +8,7 @@
     using Dungeon.SceneObjects;
     using Dungeon.SceneObjects.Base;
     using Dungeon.View.Interfaces;
+    using Nabunassar.SceneObjects.Base;
     using System;
     using System.Linq;
     using System.Text.RegularExpressions;
@@ -83,6 +84,20 @@
         private bool _invisibleBack;
         private TextObject _placeholder;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="drawText"></param>
+        /// <param name="chars"></param>
+        /// <param name="capitalize"></param>
+        /// <param name="autofocus"></param>
+        /// <param name="absolute">абсолютное позиционирование</param>
+        /// <param name="onEnterOnBlur"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="invisibleBack"></param>
+        /// <param name="placeholder"></param>
+        /// <param name="carrige"></param>
         public TextInputControl(IDrawText drawText, 
             int chars, 
             bool capitalize = false, 
@@ -126,6 +141,13 @@
 
             Width = width;
             Height = height;
+
+            this.AddBorderMapBack(new BorderConfiguration()
+            {
+                ImagesPath = "UI/bordermin/border30.png",
+                Size = 16,
+                Padding = 2
+            });
 
             drawText.SetText("");
 
@@ -363,6 +385,8 @@
                 SetInputTextPosition();
             }
         }
+
+        public string GetValue() => Value;
 
         public Action<string> OnEnter { get; set; }
 

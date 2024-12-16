@@ -10,7 +10,7 @@ namespace Nabunassar.Entities.Abilities.Mage
     /// </summary>
     internal class MageShield : Ability
     {
-        public override Archetype Class => Archetype.Mage;
+        public override Archetype Archetype => Archetype.Mage;
 
         public override void Bind()
         {

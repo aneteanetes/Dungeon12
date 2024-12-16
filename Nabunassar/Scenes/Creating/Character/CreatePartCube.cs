@@ -1,4 +1,5 @@
 ﻿using Dungeon.Control;
+using Dungeon.Drawing;
 using Dungeon.Drawing.SceneObjects;
 using Nabunassar.Entities;
 using Nabunassar.SceneObjects.Base;
@@ -15,6 +16,7 @@ namespace Nabunassar.Scenes.Creating.Character
         private string _hint;
 
         public CreatePartCube Next;
+        BorderMap _border;
 
         public CreatePartCube(string img, string text, string activatehint, CreatePart showPart, CreateHeroScene scene)
         {
@@ -29,7 +31,7 @@ namespace Nabunassar.Scenes.Creating.Character
             this.Width = 125;
 
 
-            this.AddBorderMapBack(new BorderConfiguration()
+            _border = this.AddBorderMapBack(new BorderConfiguration()
             {
                 ImagesPath = "UI/bordermin/bord7.png",
                 Size = 16,
@@ -53,25 +55,25 @@ namespace Nabunassar.Scenes.Creating.Character
             this.SetCursor(SceneObjects.Cursors.Cursor.Normal);
         }
 
+        public void SetColor(DrawColor drawColor) => _border.SetColor(drawColor);
+
         public override void Click(PointerArgs args)
         {
             if (_scene.ActivePart != _part)
             {
                 if (_scene.ActivePart != null)
+                {
                     _scene.ActivePart.Visible = false;
+                    _scene.ActivePart.Cube.SetColor(Global.CommonColor);
+                }
 
                 _scene.ActivePart = _part;
                 _scene.ActivePart.Visible = true;
+                _border.SetColor(Global.CommonColorLight);
             }
             Global.Game.Creation.Hint = _hint;
 
             base.Click(args);
-        }
-
-        private void AccessNext()
-        {
-            if (Next != null)
-                Next.Visible = true;
         }
 
     }

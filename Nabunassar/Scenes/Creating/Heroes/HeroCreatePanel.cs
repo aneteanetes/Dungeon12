@@ -61,10 +61,13 @@ namespace Nabunassar.Scenes.Creating.Heroes
             race = AddText(Global.Strings["Race"].ToString().DefaultTxt(statTextSize), leftOffsetCut, name.Top + topOffset);
             archetype = AddText(Global.Strings["Archetype"].ToString().DefaultTxt(statTextSize), leftOffset, race.Top + topOffset);
             fraction = AddText(Global.Strings["Fraction"].ToString().DefaultTxt(statTextSize), leftOffset, archetype.Top + topOffset);
+            hp = this.AddText("_".DefaultTxt(statTextSize), fraction.Left, fraction.Top + topOffset);
+            hp.Visible = false;
+
 
             con = this.AddChild(new HeroPrimaryStatValue(component, 0));
             con.Left = fraction.Left;
-            con.Top = fraction.TopMax + 60;
+            con.Top = 205;
             con.Visible = false;
 
             agi = this.AddChild(new HeroPrimaryStatValue(component, 1));
@@ -85,12 +88,8 @@ namespace Nabunassar.Scenes.Creating.Heroes
             var statsTopOffset = 10;
             var delimiterTopoffset = 35;
 
-            hp = this.AddText("_".DefaultTxt(statTextSize), fraction.Left, 245);
-            hp.Visible = false;
-
-
             var leftstatoffset = 15;
-            var aaabTop = hp.TopMax + delimiterTopoffset+10;
+            var aaabTop = 300;
             ad = this.AddChild(new FlatStat(component, "Icons/Flat/ad.png", () => Component.Offencive.AttackDamage.AsDrawText(statTextSize + 7), Global.Strings["guide"]["AttackDamage"])
             {
                 Left = 50,
@@ -201,6 +200,9 @@ namespace Nabunassar.Scenes.Creating.Heroes
             //    movp.SetText(Component.MapStats.MovementPoints.AsDrawText(true, 20));
             //    speed.SetText(Component.Speed.AsDrawText(true, 20));
             }
+
+            if (Component != null && Component.Name.IsNotEmpty())
+                name.SetText(Component.Name);
 
             if (Component != null)
             {

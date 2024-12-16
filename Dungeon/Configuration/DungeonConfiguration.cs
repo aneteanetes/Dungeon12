@@ -11,6 +11,10 @@ namespace Dungeon.Configuration
 
         public string LocaleDirectory { get; set; } = "Locales";
 
+        public string DbDataFileName { get; set; } = "Data.dtr";
+
+        public string DbAssetsFileName { get; set; } = "Assets.dtr";
+
         public bool EnableSound { get; set; } = true;
 
         public bool DrawDebugInfo { get; set; } = false;

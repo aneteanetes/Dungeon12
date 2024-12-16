@@ -8,6 +8,7 @@
 
 namespace ProjectMercury
 {
+    using Dungeon.Monogame.Tools;
     using System;
     using System.ComponentModel;
     using System.Globalization;

@@ -11,6 +11,7 @@ namespace ProjectMercury.Emitters
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using Dungeon.Monogame.Tools;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 

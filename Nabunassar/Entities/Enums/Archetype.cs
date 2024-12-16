@@ -5,7 +5,8 @@
         Warrior,
         Mage,
         Thief,
-        Priest
+        Priest,
+        None
     }
 
     public static class ArchetypeExtensions

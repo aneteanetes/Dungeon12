@@ -30,6 +30,7 @@ namespace Dungeon
         public DungeonGlobal()
         {
             TimeTrigger.GlobalTimeSource = () => Time;
+            Random = new Random();
         }
 
         private static DungeonGlobal global;
@@ -232,6 +233,8 @@ namespace Dungeon
         public static DrawingSize Sizes { get; set; } = new DrawingSize();
 
         public static CultureInfo CultureInfo { get; set; }
+
+        public static Random Random { get; set; }
 
         public static void SetCulture(CultureInfo cultureInfo)
         {

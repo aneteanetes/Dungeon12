@@ -9,7 +9,7 @@ namespace Nabunassar.Scenes.Creating.Character
 {
     internal class FractionSelector : CreatePart
     {
-        public FractionSelector(Hero component) : base(component)
+        public FractionSelector(Hero component) : base(component, Global.Strings["guide"]["fraction"])
         {
             Width = 325;
             Height = 700;

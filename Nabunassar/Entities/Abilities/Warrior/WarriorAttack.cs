@@ -4,7 +4,7 @@ namespace Nabunassar.Entities.Abilities.Warrior
 {
     internal class WarriorAttack : Ability
     {
-        public override Archetype Class => Archetype.Warrior;
+        public override Archetype Archetype => Archetype.Warrior;
 
         public override void Bind()
         {

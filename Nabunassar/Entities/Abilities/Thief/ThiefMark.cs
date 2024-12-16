@@ -10,7 +10,7 @@ namespace Nabunassar.Entities.Abilities.Thief
     /// </summary>
     internal class ThiefMark : Ability
     {
-        public override Archetype Class => Archetype.Thief;
+        public override Archetype Archetype => Archetype.Thief;
 
         public override void Bind()
         {

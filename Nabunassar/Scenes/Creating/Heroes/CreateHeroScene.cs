@@ -59,6 +59,7 @@ namespace Nabunassar.Scenes.Creating.Heroes
                 Left = cubeoffcet,
                 Top = cubetop
             };
+            racebtn.SetColor(Global.CommonColorLight);
             layer.AddObject(racebtn);
 
             var fractionSelector = new FractionSelector(hero);
@@ -97,14 +98,18 @@ namespace Nabunassar.Scenes.Creating.Heroes
             };
             layer.AddObject(statsbtn);
 
-            var namebtn = new CreatePartCube("Icons/Flat/name.png", Global.Strings["Name"], Global.Strings["guide"]["name"], new CreatePart(hero), this)
+            var nameEditor = new NameSelector(hero);
+            nameEditor.Visible = false;
+            layer.AddObject(nameEditor);
+
+            var namebtn = new CreatePartCube("Icons/Flat/name.png", Global.Strings["Name"], Global.Strings["guide"]["name"], nameEditor, this)
             {
                 Left = 1535,
                 Top = cubetop
             };
             layer.AddObject(namebtn);
 
-            var abilbtn = new CreatePartCube("Icons/Flat/abilities.png", Global.Strings["Abilities"], Global.Strings["guide"]["CreateAbilities"],  new CreatePart(hero), this)
+            var abilbtn = new CreatePartCube("Icons/Flat/abilities.png", Global.Strings["Abilities"], Global.Strings["guide"]["CreateAbilities"],  new CreatePart(hero,""), this)
             {
                 Left = 1750,
                 Top = cubetop
