@@ -6,12 +6,11 @@ namespace Nabunassar.Entities.Abilities.Battle
     {
         public override void Bind()
         {
-            throw new NotImplementedException();
         }
 
         public override string[] GetTextParams()
         {
-            throw new NotImplementedException();
+            return default;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Nabunassar.Entities.Abilities.Mage
         public override void Bind()
         {
             Area = new AbilityArea(friendlytarget: true);
-            Element = Element.Magical;
+            Element = Element.Magic;
             Cooldown = 8;
             UseRange = AbilRange.Friendly;
         }

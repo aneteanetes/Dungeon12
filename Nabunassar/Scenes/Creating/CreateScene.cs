@@ -82,14 +82,14 @@ namespace Nabunassar.Scenes.Creating
             Resources.Load("CreateParty.ogg".AsmMusicRes());
             Resources.Load("Scenes/create.png".AsmImg());
             Resources.Load("UI/btn_a.png".AsmImg());
-            Resources.Load("UI/bordermin/bord1.png".AsmImg());
             Resources.LoadFolder("UI/panelmin".AsmImg());
-            Resources.LoadFolder("Icons//Common".AsmImg());
+            Resources.LoadFolder("Icons/Common".AsmImg());
 
             this.Resources.LoadFolderGlobal("Backgrounds/Races".AsmImg());
             this.Resources.LoadFolderGlobal("Portraits".AsmImg());
             this.Resources.LoadFolderGlobal("Dices".AsmImg());
             this.Resources.LoadFolderGlobal("Icons/Flat".AsmImg());
+            this.Resources.LoadFolderGlobal("Abilities".AsmImg());
 
             this.LoadBorders();
         }

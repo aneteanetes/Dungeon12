@@ -10,7 +10,9 @@ namespace Nabunassar.Entities.Combat
             Element = element;
         }
 
-        public int Value { get; private set; }
+        public int Value { get; set; }
+
+        public bool IsIgnoreDefence { get; set; }
 
         public Element Element { get; private set; }
     }

@@ -4,7 +4,7 @@ using Nabunassar.SceneObjects.Base;
 
 namespace Nabunassar.Entities.Stats
 {
-    internal class BaseRangeStat : BaseStat
+    internal class BaseRangeStat : PersonaBinded
     {
         protected double BaseValue { get; set; }
 

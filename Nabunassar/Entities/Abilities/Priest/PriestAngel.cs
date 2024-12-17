@@ -14,7 +14,7 @@ namespace Nabunassar.Entities.Abilities.Priest
 
         public override void Bind()
         {
-            Element = Element.HolyMagic;
+            Element = Element.Holy;
             Cooldown = 6;
             UseRange = AbilRange.Summon;
         }

@@ -1,20 +1,27 @@
-﻿using Nabunassar.Entities.Abilities.Mage;
+﻿using Nabunassar.Entities.Abilities.Battle;
+using Nabunassar.Entities.Abilities.Mage;
 using Nabunassar.Entities.Abilities.Priest;
 using Nabunassar.Entities.Abilities.Thief;
 using Nabunassar.Entities.Abilities.Warrior;
+using Nabunassar.Entities.Characters;
 using Nabunassar.Entities.Combat;
 using Nabunassar.Entities.Enums;
 using Nabunassar.Entities.Stats.PrimaryStats;
+using System.Security.AccessControl;
 
 namespace Nabunassar.Entities.Abilities
 {
-    internal abstract class Ability
+
+    /// <summary>
+    /// Кастомный jsonconverter будет сохранять название типа и Rank, не более
+    /// </summary>
+    internal abstract class Ability : PersonaBinded
     {
         public Ability()
         {
             Name=Nabunassar.Global.Strings[ClassName];
             Description= Nabunassar.Global.Strings.Description[ClassName];
-            Bind();
+            //Bind();
             TextParams = GetTextParams();
         }
 
@@ -104,5 +111,144 @@ namespace Nabunassar.Entities.Abilities
         /// <param name="damage"></param>
         /// <returns></returns>
         public virtual DamageRange OnDamage(DamageRange damage) => damage;
+
+        public static List<Ability> GetRaceCombatAbilities(Persona persona)
+        {
+            var race = persona.Race.Value;
+            var list = new List<Ability>();
+
+            switch (race)
+            {
+                case Race.Muitu:
+                case Race.Shamshu:
+                case Race.Nahazu:
+                case Race.Shalmu:
+                    list.Add(GetAbility(race.ToString(), AbilitySource.Race));
+                    list.Add(GetAbility(race.ToString(), AbilitySource.Race));
+                    break;
+                case Race.Matu:
+                    if(persona.Sex== Sex.Female)
+                    {
+                        list.Add(GetAbility("Sinisat", AbilitySource.Race));
+                    }
+
+                    list.Add(GetAbility("Ketsoal", AbilitySource.Race));
+                    break;
+                case Race.Habash:
+                    if ((int)persona.PrimaryStats.Constitution>= (int)Rank.d10)
+                    {
+                        list.Add(GetAbility("Habash", AbilitySource.Race));
+                    }
+                    if ((int)persona.PrimaryStats.Intelligence >= (int)Rank.d10)
+                    {
+                        list.Add(GetAbility("Isshar", AbilitySource.Race));
+                    }
+                    list.Add(GetAbility($"Shelib_{(persona.Sex== Sex.Male ? "m" : "f")}", AbilitySource.Race));
+                    break;
+                default:
+                    break;
+            }
+
+            return list;
+        }
+
+        public static List<Ability> GetRaceGloballyAbilities(Persona persona)
+        {
+            var race = persona.Race.Value;
+            var list = new List<Ability>();
+
+            if (race is Race.Muitu or Race.Shalmu or Race.Nahazu or Race.Shamshu or Race.Habash)
+                return [];
+
+            if (race == Race.Matu && persona.Sex == Sex.Male)
+                list.Add(GetAbility("Adamatu", AbilitySource.Race));
+
+            list.Add(GetAbility(race.ToString(), AbilitySource.Race));
+
+            return list;
+        }
+
+        public static List<Ability> GetClassGloballyAbilies(Archetype archetype)
+        {
+            var list = new List<Ability>();
+
+            switch (archetype)
+            {
+                case Archetype.Warrior:
+                    list.Add(GetAbility("Landscape", AbilitySource.Archetype, archetype));
+                    break;
+                case Archetype.Mage:
+                    list.Add(GetAbility("Portals", AbilitySource.Archetype, archetype));
+                    break;
+                case Archetype.Thief:
+                    list.Add(GetAbility("Attension", AbilitySource.Archetype, archetype));
+                    break;
+                case Archetype.Priest:
+                    list.Add(GetAbility("Prayers", AbilitySource.Archetype, archetype));
+                    break;
+                case Archetype.None:
+                    break;
+                default:
+                    break;
+            }
+
+            return list;
+        }
+
+        public static List<Ability> GetFractionAbilies(Persona persona)
+        {
+            var frac = persona.Fraction.Value;
+            return
+            [
+                GetAbility(frac.ToString(), AbilitySource.Fraction),
+                GetAbility($"{frac}.Globally", AbilitySource.Fraction)
+            ];
+        }
+
+        public static List<Ability> GetClassCombatAbilies(Archetype archetype)
+        {
+            var list = new List<Ability>();
+
+            switch (archetype)
+            {
+                case Archetype.Warrior:
+                    list.Add(GetAbility("WarriorAttack", AbilitySource.Archetype, archetype));
+                    list.Add(GetAbility("WarriorStand", AbilitySource.Archetype, archetype));
+                    list.Add(GetAbility("WarriorThrow", AbilitySource.Archetype, archetype));
+                    list.Add(GetAbility("WarriorWarCry", AbilitySource.Archetype, archetype));
+                    break;
+                case Archetype.Mage:
+                    list.Add(GetAbility("MageArrowAttack", AbilitySource.Archetype, archetype));
+                    list.Add(GetAbility("MageShield", AbilitySource.Archetype, archetype));
+                    list.Add(GetAbility("MageAoe", AbilitySource.Archetype, archetype));
+                    list.Add(GetAbility("MageSummon", AbilitySource.Archetype, archetype));
+                    break;
+                case Archetype.Thief:
+                    list.Add(GetAbility("ThiefAttack", AbilitySource.Archetype, archetype));
+                    list.Add(GetAbility("ThiefMark", AbilitySource.Archetype, archetype));
+                    list.Add(GetAbility("ThiefShadow", AbilitySource.Archetype, archetype));
+                    list.Add(GetAbility("ThiefStep", AbilitySource.Archetype, archetype));
+                    break;
+                case Archetype.Priest:
+                    list.Add(GetAbility("PriestAttack", AbilitySource.Archetype, archetype));
+                    list.Add(GetAbility("PriestHeal", AbilitySource.Archetype, archetype));
+                    list.Add(GetAbility("PriestAngel", AbilitySource.Archetype, archetype));
+                    list.Add(GetAbility("PriestHolyNova", AbilitySource.Archetype, archetype));
+                    break;
+                case Archetype.None:
+                    break;
+                default:
+                    break;
+            }
+
+            return list;
+        }
+
+        private static Ability GetAbility(string name, AbilitySource source, Archetype archetype = Archetype.None)
+        {
+            var pathSource = source == AbilitySource.Archetype ? archetype.ToString() : source.ToString();
+
+            return new BattleAbility() { Icon = $"Abilities/{pathSource}/{name}.tga", Name = Global.Strings["abilities"][name], Description = Global.Strings["abilities"][name]["desc"] };
+        }
     }
 }

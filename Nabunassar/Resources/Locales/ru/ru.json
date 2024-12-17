@@ -1,4 +1,7 @@
 {
+  "CombatAbilities": "Боевые способности",
+  "GloballyAbilities": "Глобальные способности",
+  "AbilityChoose": "Выбор способностей",
   "EnterName": "Введите имя",
   "NameMeaning": "Значение имени",
   "C": "Т",

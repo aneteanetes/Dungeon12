@@ -1,4 +1,5 @@
-﻿using Nabunassar.Entities.Combat;
+﻿using Nabunassar.Entities.Characters;
+using Nabunassar.Entities.Combat;
 
 namespace Nabunassar.Entities.Abilities.Globally.Passive.Names
 {
@@ -13,7 +14,7 @@ namespace Nabunassar.Entities.Abilities.Globally.Passive.Names
 
         public override DamageRange OnAttack(DamageRange damage)
         {
-            damage.Add(new Damage(Global.DiceTower.Throw(Stats.PrimaryStats.Rank.d4), Element));
+            damage.Add(new Damage(Global.DiceTower.Throw(Stats.PrimaryStats.Rank.d4), Persona.Race.Element()));
             return base.OnAttack(damage);
         }
     }

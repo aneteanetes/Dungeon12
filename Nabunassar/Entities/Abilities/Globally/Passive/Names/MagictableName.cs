@@ -1,4 +1,6 @@
-﻿namespace Nabunassar.Entities.Abilities.Globally.Passive.Names
+﻿using Nabunassar.Entities.Characters;
+
+namespace Nabunassar.Entities.Abilities.Globally.Passive.Names
 {
     /// <summary>
     /// Добавляет d4 силы магии при использовании способностей
@@ -16,7 +18,7 @@
 
         public override bool IsApplicable(Ability ability)
         {
-            return ability.Element == this.Element;
+            return ability.Element == Persona.Race.Element();
         }
     }
 }

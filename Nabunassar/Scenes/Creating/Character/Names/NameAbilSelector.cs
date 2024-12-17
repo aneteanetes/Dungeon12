@@ -19,17 +19,18 @@ namespace Nabunassar.Scenes.Creating.Character.Names
             _descBlock = descBlock;
             _hint = hint;
 
-            Width = 47;
-            Height = 47;
+            Width = 45;
+            Height = 45;
+
+            AddChild(new ImageObject(icon) { Height = Height+2, Width = Width+2 });
 
             this.AddBorderMapBack(new BorderConfiguration()
             {
                 ImagesPath = "UI/bordermin/bord2.png",
                 Size = 16,
-                Padding = 2
+                Padding = 2,
+                Opacity = 0
             });
-
-            AddChild(new ImageObject(icon) { Height = Height-2, Width = Width-2 });
         }
 
         public override void Focus()

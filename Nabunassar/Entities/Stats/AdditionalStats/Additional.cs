@@ -5,7 +5,7 @@ namespace Nabunassar.Entities.Stats.AdditionalStats
     /// <summary>
     /// Крит, сокрушительный и скользящий удар - механики бросков кубиков (базовый крит работает на рандом)
     /// </summary>
-    internal class Additional : BaseStat
+    internal class Additional : PersonaBinded
     {
         public Element DamageType { get; set; } = Element.Physical;
 

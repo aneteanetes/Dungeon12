@@ -3,7 +3,7 @@ using Dungeon.View.Interfaces;
 
 namespace Nabunassar.Entities.Stats
 {
-    internal class BaseStandaloneStat : BaseStat
+    internal class BaseStandaloneStat : PersonaBinded
     {
         public double Value { get; protected set; }
 

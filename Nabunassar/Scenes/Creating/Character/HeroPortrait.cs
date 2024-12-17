@@ -29,14 +29,22 @@ namespace Nabunassar.Scenes.Creating.Character
             m = this.AddChild(new ClassicButton(Global.Strings["M"], 25, 25, 12,"bord15.png")
             {
                 Left = this.Width,
-                OnClick = () => this._sex = Sex.Male
+                OnClick = () =>
+                {
+                    Component.Sex = Sex.Male;
+                    this._sex = Sex.Male;
+                }
             });
 
             f = this.AddChild(new ClassicButton(Global.Strings["F"], 25, 25, 12, "bord15.png")
             {
                 Left = this.Width,
                 Top = 30,
-                OnClick = () => this._sex = Sex.Female
+                OnClick = () =>
+                {
+                    Component.Sex = Sex.Female;
+                    this._sex = Sex.Female;
+                }
             });
         }
 

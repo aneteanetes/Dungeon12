@@ -15,7 +15,7 @@ namespace Nabunassar.Entities.Abilities.Thief
         public override void Bind()
         {
             Area = new AbilityArea(true, true);
-            Element = Element.DarkMagic;
+            Element = Element.Darkmagic;
             Cooldown = 2;
             UseRange = AbilRange.Weapon;
         }

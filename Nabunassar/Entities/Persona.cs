@@ -26,6 +26,8 @@ namespace Nabunassar.Entities
         public string PortraitImage { get; set; }
         public override string Image => PortraitImage;
 
+        public Sex Sex { get; set; }
+
         /// <summary>
         /// Раса
         /// </summary>

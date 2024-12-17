@@ -1,6 +1,6 @@
 ﻿namespace Nabunassar.Entities.Stats.GlobalStats
 {
-    internal class MapStats : BaseStat
+    internal class MapStats : PersonaBinded
     {
         public MovementPoints MovementPoints { get; set; } = new();
 

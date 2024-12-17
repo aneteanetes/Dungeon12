@@ -36,9 +36,8 @@
 
 	<ItemGroup>
 		<Folder Include="Components\Movable\" />
-		<Folder Include="Entities\Abilities\Battle\Passive\" />
 		<Folder Include="Entities\Ranks\" />
-		<Folder Include="Resources\Data\Abilities\" />
+		<Folder Include="Resources\Data\" />
 		<Folder Include="Resources\Images\Backgrounds\Regions\" />
 		<Folder Include="Resources\Loot\" />
 		<Folder Include="Tools\" />

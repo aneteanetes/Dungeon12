@@ -109,7 +109,11 @@ namespace Nabunassar.Scenes.Creating.Heroes
             };
             layer.AddObject(namebtn);
 
-            var abilbtn = new CreatePartCube("Icons/Flat/abilities.png", Global.Strings["Abilities"], Global.Strings["guide"]["CreateAbilities"],  new CreatePart(hero,""), this)
+            var abilSelector = new AbilitySelector(hero);
+            abilSelector.Visible = false;
+            layer.AddObject(abilSelector);
+
+            var abilbtn = new CreatePartCube("Icons/Flat/abilities.png", Global.Strings["Abilities"], Global.Strings["guide"]["CreateAbilities"], abilSelector, this)
             {
                 Left = 1750,
                 Top = cubetop

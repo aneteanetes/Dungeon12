@@ -12,7 +12,7 @@ namespace Nabunassar.Entities.Abilities.Mage
         public override void Bind()
         {
             Area = new AbilityArea();
-            Element = Element.Magical;
+            Element = Element.Magic;
             UseRange = AbilRange.Any;
         }
 

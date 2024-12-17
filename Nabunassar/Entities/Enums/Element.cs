@@ -6,17 +6,73 @@ namespace Nabunassar.Entities.Enums
     {
         None=0,
 
+        Spirit, // природная магия - магия смерти, некромантия, магия духа
         Mental, //Ментальный, психический
+
+        /// <summary>
+        /// Физический урон
+        /// </summary>
         Physical, //физический, воздух, земля и вода тоже физическая
 
-        Fire, // огонь, тепло, магия огня
-        Frost, //холод
+        /// <summary>
+        /// Холод
+        /// </summary>
+        Frost,
 
-        Magical, //магия, атсрал, пустота, вакуум
-        Spirit, // природная магия - магия смерти, некромантия, магия духа
+        /// <summary>
+        /// Магия
+        /// </summary>
+        Magic,
 
-        HolyMagic, // священная магия (радиация)
-        DarkMagic, // магия тьмы, ну просто магия ёпт
+        /// <summary>
+        /// Святая магия - радиация
+        /// </summary>
+        Holy, 
+
+        /// <summary>
+        /// тёмная магия (вуду)
+        /// </summary>
+        Darkmagic,
+
+        /// <summary>
+        /// кислота
+        /// </summary>
+        Acid,
+
+        /// <summary>
+        /// Вода
+        /// </summary>
+        Water,
+
+        /// <summary>
+        /// Огонь
+        /// </summary>
+        Fire,
+
+        /// <summary>
+        /// Земля
+        /// </summary>
+        Earth,
+
+        /// <summary>
+        /// Воздух
+        /// </summary>
+        Air,
+
+        /// <summary>
+        /// Кровь
+        /// </summary>
+        Blood,
+
+        /// <summary>
+        /// Лунная магия
+        /// </summary>
+        Moonmagic,
+
+        /// <summary>
+        /// Дикая магия
+        /// </summary>
+        Wildmagic,
     }
 
     class MyClass
@@ -36,10 +92,10 @@ namespace Nabunassar.Entities.Enums
                 case Element.Physical: return Global.Strings["ElementPhysical"];
                 case Element.Fire: return Global.Strings["ElementFire"];
                 case Element.Frost: return Global.Strings["ElementFrost"];
-                case Element.Magical:return Global.Strings["ElementMagical"];
+                case Element.Magic:return Global.Strings["ElementMagical"];
                 case Element.Spirit: return Global.Strings["ElementSpirit"];
-                case Element.HolyMagic: return Global.Strings["ElementHoly"];
-                case Element.DarkMagic: return Global.Strings["ElementDark"];
+                case Element.Holy: return Global.Strings["ElementHoly"];
+                case Element.Darkmagic: return Global.Strings["ElementDark"];
                 default: return "";
             }
         }

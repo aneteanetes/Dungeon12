@@ -6,12 +6,15 @@ namespace Nabunassar.Entities.Combat
     {
         public DamageRange(Damage damage)
         {
-            Damages[damage.Element] = [damage.Value];
+            Damages[damage.Element] = damage;
         }
 
-        Dictionary<Element, List<int>> Damages { get; set; } = new();
+        Dictionary<Element, Damage> Damages { get; set; } = new();
+        HashSet<Element> Ignorance = new();
 
         List<Damage> PureDamages = new();
+
+        public void IgnoreElementDefence(Element element) => Ignorance.Add(element);
 
         public void Add(Damage dmg, bool isSumming = true)
         {
@@ -21,35 +24,22 @@ namespace Nabunassar.Entities.Combat
             }
             else
             {
-                if (Damages.TryGetValue(dmg.Element, out var list))
+                if (Damages.TryGetValue(dmg.Element, out var value))
                 {
-                    list.Add(dmg.Value);
+                    value.Value += dmg.Value;
+                    if (dmg.IsIgnoreDefence)
+                        Ignorance.Add(dmg.Element);
                 }
             }
         }
 
         public void Decrease(Damage dmg)
         {
-            if (Damages.TryGetValue(dmg.Element, out var list))
+            if (Damages.TryGetValue(dmg.Element, out var value))
             {
-                bool iszero = false;
-                var idx = 0;
-                while (!iszero)
-                {
-                    if(idx==list.Count-1)
-                        iszero = true;
-
-                    list[idx] -= dmg.Value;
-                    if (list[idx] <= 0)
-                    {
-                        list[idx] = 0;
-                        iszero = true;
-                    }
-
-                    idx++;
-                }
-
-                list.RemoveAll(x => x == 0);
+                value.Value -= dmg.Value;
+                if (value.Value < 0)
+                    value.Value = 0;
             }
         }
     }
