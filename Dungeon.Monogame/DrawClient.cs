@@ -532,7 +532,7 @@ namespace Dungeon.Monogame
             }
             else
             {
-                font.DrawText(sb, text, new Vector2((float)x, (float)y), color,lineSpacing:lineSpace);
+                font.DrawText(sb, text, new Vector2((float)x, (float)y), color, lineSpacing: lineSpace);
             }
         }
 

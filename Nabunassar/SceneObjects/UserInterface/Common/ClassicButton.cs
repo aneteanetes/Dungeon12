@@ -1,9 +1,7 @@
-﻿using Dungeon;
-using Dungeon.Control;
+﻿using Dungeon.Control;
 using Dungeon.Drawing;
 using Dungeon.SceneObjects;
 using Nabunassar.SceneObjects.Base;
-using System;
 
 namespace Nabunassar.SceneObjects.UserInterface.Common
 {
@@ -20,7 +18,6 @@ namespace Nabunassar.SceneObjects.UserInterface.Common
         {
             this.Width = width;
             this.Height = height;
-
 
             this.AddBorderMapBack(new BorderConfiguration()
             {

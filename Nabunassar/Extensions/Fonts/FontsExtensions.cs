@@ -50,7 +50,7 @@
 
         public static T Gabriela<T>(this T drawText) where T : IDrawText
         {
-            drawText.FontName = "URWGeometricBold";
+            drawText.FontName = "Retron2000";
             drawText.FontAssembly = "Global.GameAssemblyName";
 
             return drawText;
@@ -66,7 +66,7 @@
 
         public static IDrawText DefaultTxt(this IDrawText drawText, int size, bool wordWrap=false)
         {
-            drawText.FontName = "URWGeometricBold";
+            drawText.FontName = "Retron2000";
             drawText.FontAssembly = Global.GameAssemblyName;
 
             drawText.WordWrap = wordWrap;

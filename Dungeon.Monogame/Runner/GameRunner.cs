@@ -16,8 +16,8 @@ namespace Dungeon.Monogame.Runner
 
             DungeonGlobal.Resolution = new View.PossibleResolution()
             {
-                Width = settings.WidthPixel,
-                Height = settings.HeightPixel
+                Width = settings.OriginWidthPixel,
+                Height = settings.OriginHeightPixel
             };
         }
 

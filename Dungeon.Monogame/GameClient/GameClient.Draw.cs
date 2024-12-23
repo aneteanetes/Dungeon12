@@ -68,7 +68,7 @@ namespace Dungeon.Monogame
             PreProcessed.Clear();
             PostProcessed.Clear();
 
-            this.DrawClient.SpriteBatchManager.Begin(Matrix.Identity);// /*_resolutionMatrix*/);
+            this.DrawClient.SpriteBatchManager.Begin(Matrix.Identity);
             if (this.Scene != default)
             {
                 foreach (var info in SceneLayers)

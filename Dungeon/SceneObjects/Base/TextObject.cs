@@ -8,6 +8,11 @@
         public TextObject(IDrawText component) : base(component)
         {
             Text = component;
+
+            var m = this.MeasureText(this.Text);
+
+            Width = m.X;
+            Height = m.Y;   
         }
 
         public void SetDrawText(IDrawText text) => Text = text;
