@@ -11,7 +11,7 @@ using System.Reflection;
 
 namespace Dungeon.Monogame
 {
-    public partial class GameClient : Game, IGameClient
+    public partial class MonoGameClient : Game, IGameClient
     {
         private int _frame;
         private TimeSpan _lastFps;

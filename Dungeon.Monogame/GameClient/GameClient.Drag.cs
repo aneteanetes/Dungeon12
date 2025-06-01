@@ -5,7 +5,7 @@
     using Dungeon.View.Interfaces;
     using Dungeon.Resources;
 
-    public partial class GameClient : Game, IGameClient
+    public partial class MonoGameClient : Game, IGameClient
     {
         private bool dragging = false;
 

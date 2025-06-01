@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Dungeon.Monogame
 {
-    public partial class GameClient : Game, IGameClient
+    public partial class MonoGameClient : Game, IGameClient
     {
 
         private Dictionary<ISceneLayer, List<(Texture2D texture, IMonogameEffect effect)>> PostProcessed = new Dictionary<ISceneLayer, List<(Texture2D, IMonogameEffect)>>();

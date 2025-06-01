@@ -12,6 +12,11 @@ namespace Dungeon.View.Enums
         /// <summary>
         /// Заполнение размера через LinearWrap
         /// </summary>
-        Tiled = 1
+        Tiled = 1,
+
+        /// <summary>
+        /// Масштабирование без потери качества
+        /// </summary>
+        Pixelize=2
     }
 }

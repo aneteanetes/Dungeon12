@@ -1,0 +1,11 @@
+{
+  "Id": "NPCApprentice",
+  "Name": "Ассистент",
+  "ObjectImage": "Pirate.png",
+  "P0": {
+    "Name": "Диалог",
+    "Icon": "talk.png",
+    "ObjectId": "NPCApprenticeShip",
+    "Function": "DialogueFunction"
+  }
+}

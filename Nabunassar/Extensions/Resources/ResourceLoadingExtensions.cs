@@ -20,7 +20,7 @@ namespace Nabunassar.Extensions.Resources
                 $"{basePath}up.png"
             }).ForEach((Action<string>)(s =>
             {
-                scene.Resources.Load(s.AsmImg());
+                scene.Resources.Load(s.AsmImg(),scene.ResourceSceneObject);
             }));
         }
     }

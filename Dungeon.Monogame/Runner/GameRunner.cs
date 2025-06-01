@@ -23,7 +23,7 @@ namespace Dungeon.Monogame.Runner
 
         public void Run()
         {
-            using (var game = new GameClient(_settings))
+            using (var game = new MonoGameClient(_settings))
             {
                 DungeonGlobal.OnExit += () =>
                 {

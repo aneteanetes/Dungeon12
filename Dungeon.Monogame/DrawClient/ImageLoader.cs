@@ -27,7 +27,7 @@ namespace Dungeon.Monogame
 
                 if (res == null)
                 {
-                    res = resource.Get(imageFullPath);
+                    res = resource.Get(imageFullPath, sceneObject);
                 }
 
                 if (res == default)

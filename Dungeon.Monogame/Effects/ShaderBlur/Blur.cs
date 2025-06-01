@@ -11,10 +11,10 @@ namespace Dungeon.Monogame.Effects.ShaderBlur
         public double Scale => 1;
 
         private GaussianBlur gaussianBlur;
-        private GameClient _gameClient;
+        private MonoGameClient _gameClient;
         public Blur()
         {
-            _gameClient=GameClient.Instance;
+            _gameClient=MonoGameClient.Instance;
             Assembly = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
             gaussianBlur=new GaussianBlur();
             gaussianBlur.ComputeKernel(7, 2f);
@@ -62,7 +62,7 @@ namespace Dungeon.Monogame.Effects.ShaderBlur
             return result;
         }
 
-        public void Load(GameClient client)
+        public void Load(MonoGameClient client)
         {
             //throw new NotImplementedException();
         }

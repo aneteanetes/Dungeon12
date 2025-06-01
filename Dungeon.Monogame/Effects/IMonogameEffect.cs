@@ -11,7 +11,7 @@ namespace Dungeon.Monogame.Effects
         public bool NotDrawOriginal { get; }
 
 #if !Engine
-        void Load(GameClient client);
+        void Load(MonoGameClient client);
 #endif
 
         Texture2D Draw(RenderTarget2D input);

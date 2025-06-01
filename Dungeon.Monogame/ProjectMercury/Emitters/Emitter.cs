@@ -403,7 +403,7 @@ namespace ProjectMercury.Emitters
                             path = $"{this.FromAssemblyName}.Resources.Images.Particles.{this.ParticleTextureAssetName}.png";
                         }
 
-                        this.ParticleTexture = TileSetByName(path);
+                        this.ParticleTexture = content.Load<Texture2D>(path);
                     }
                 }
                 catch (ContentLoadException e)
@@ -418,24 +418,6 @@ namespace ProjectMercury.Emitters
         }
 
         private static readonly Dictionary<string, Texture2D> tilesetsCache = new Dictionary<string, Texture2D>();
-
-        private Texture2D TileSetByName(string tilesetName)
-        {
-            if (!tilesetsCache.TryGetValue(tilesetName, out var bitmap))
-            {
-                var res = ResourceLoader.Load(DungeonGlobal.Resources, tilesetName);
-                bitmap = Texture2D.FromStream(DungeonGlobal.TransportVariable as GraphicsDevice, res.Stream);
-                tilesetsCache.TryAdd(tilesetName, bitmap);
-
-                res.OnDispose += () =>
-                {
-                    bitmap.Dispose();
-                    tilesetsCache.Remove(tilesetName);
-                };
-            }
-
-            return bitmap;
-        }
 
         /// <summary>
         /// Retires the specified number of Particles.

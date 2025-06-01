@@ -77,7 +77,7 @@ namespace Dungeon.Monogame.Effects.Fogofwar
 
         public bool NotDrawOriginal => true;
 
-        GameClient client;
+        MonoGameClient client;
 
         RenderTarget2D fogMaskCursor;
 
@@ -96,7 +96,7 @@ namespace Dungeon.Monogame.Effects.Fogofwar
 
         DepthStencilState state2;
 
-        public void Load(GameClient client)
+        public void Load(MonoGameClient client)
         {
             this.client = client;
             var pp = GraphicsDevice.PresentationParameters;
@@ -127,7 +127,7 @@ namespace Dungeon.Monogame.Effects.Fogofwar
                 pp.RenderTargetUsage);
 
 #warning fog of war loading not from scene resources!
-            areaTexture = client.ImageLoader.LoadTexture2D(DungeonGlobal.Resources, Image);
+            areaTexture = client.ImageLoader.LoadTexture2D(DungeonGlobal.GlobalResources, Image);
 
             projectionMatrix = Matrix.CreateOrthographicOffCenter(0,
              graphics.GraphicsDevice.PresentationParameters.BackBufferWidth,

@@ -1,10 +1,5 @@
-﻿using Dungeon.Data;
-using Dungeon.Monogame.Resolvers;
-using Dungeon.Resources;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended.Content;
 using System;
 
 namespace Dungeon.Monogame.Effects.ShaderBlur
@@ -147,9 +142,7 @@ namespace Dungeon.Monogame.Effects.ShaderBlur
         /// </summary>
         public GaussianBlur()
         {
-#warning gaussinan blur loading not from scene resources!
-            var blurShaderRes = Resources.ResourceLoader.Load(DungeonGlobal.Resources, "Shaders/Blur.xnb".AsmRes());
-            _effect = GameClient.Instance.Content.Load<Effect>("Shaders/Blur".AsmRes(), blurShaderRes.Stream);
+            _effect = MonoGameClient.Instance.Content.Load<Effect>("Shaders/Blur".AsmRes());
         }
 
         /// <summary>
@@ -246,7 +239,7 @@ namespace Dungeon.Monogame.Effects.ShaderBlur
 
             // Perform horizontal Gaussian blur.
 
-            GameClient.Instance.GraphicsDevice.SetRenderTarget(renderTarget1);
+            MonoGameClient.Instance.GraphicsDevice.SetRenderTarget(renderTarget1);
 
             _effect.CurrentTechnique = _effect.Techniques["GaussianBlur"];
             _effect.Parameters["weights"].SetValue(_kernel);
@@ -259,7 +252,7 @@ namespace Dungeon.Monogame.Effects.ShaderBlur
 
             // Perform vertical Gaussian blur.
 
-            GameClient.Instance.GraphicsDevice.SetRenderTarget(renderTarget2);
+            MonoGameClient.Instance.GraphicsDevice.SetRenderTarget(renderTarget2);
             outputTexture = (Texture2D)renderTarget1;
 
             _effect.Parameters["colorMap+colorMapTexture"].SetValue(outputTexture);
@@ -271,7 +264,7 @@ namespace Dungeon.Monogame.Effects.ShaderBlur
 
             // Return the Gaussian blurred texture.
 
-            GameClient.Instance.GraphicsDevice.SetRenderTarget(null);
+            MonoGameClient.Instance.GraphicsDevice.SetRenderTarget(null);
             outputTexture = (Texture2D)renderTarget2;
 
             return outputTexture;

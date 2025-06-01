@@ -13,9 +13,9 @@
         /// <returns>After 1 draw circle</returns>
         Task ChangeScene(IScene scene);
 
-        Dot MeasureText(ResourceTable resources, IDrawText drawText,ISceneObject parent=default);
+        Dot MeasureText(ResourceTable resources, IDrawText drawText, ISceneObject sceneObject,ISceneObject parent =default);
 
-        Dot MeasureImage(ResourceTable resources, string image);
+        Dot MeasureImage(ResourceTable resources, ISceneObject sceneObject,string image);
 
         void SaveObject(ISceneObject sceneObject, string path = default, Dot offset = default, string runtimeCacheName = null);
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dungeon.SceneObjects;
+using Dungeon.View.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,20 +15,29 @@ namespace Dungeon.Resources
 
         public IEnumerable<Resource> GetFolder(string path) => folderResources[path];
 
-        public bool TryGetValue(string path, out Resource value)
+        public bool TryGetValue(string path, ISceneObject sceneObject, out Resource value)
         {
-            value = this[path];
-            if (value != null)
-                return true;
+            if (!resources.TryGetValue(path, out value))
+            {
+                if (this != DungeonGlobal.GlobalResources)
+                {
+                    if (!DungeonGlobal.GlobalResources.TryGetValue(path, sceneObject, out value))
+                        throw ResourceNotFound(sceneObject);
+                }
+            }
 
-            return DungeonGlobal.Resources.TryGetValue(path, out value);
+            return value != null;
         }
 
-        public Resource Get(string path)
+        public Resource Get(string path, ISceneObject sceneObject)
         {
-            TryGetValue(path, out Resource value);
+            if (!TryGetValue(path, sceneObject, out Resource value))
+                throw ResourceNotFound(sceneObject);
             return value;
         }
+
+        private Exception ResourceNotFound(ISceneObject sceneObject) 
+            => new KeyNotFoundException($"SceneObject {sceneObject} requested not registered resource!");
 
         public bool ContainsKey(string path) => resources.ContainsKey(path);
 
@@ -40,35 +51,20 @@ namespace Dungeon.Resources
             folderResources[folder] = folderRes;
             foreach (var res in folderRes)
             {
+                res.OnDispose += () => resources.Remove(res.Path);
                 this.Add(res.Path,res);
             }
         }
 
-        public Resource this[string path]
+        public Resource Load(string path,ISceneObject sceneObject)
         {
-            get
-            {
-                if(!resources.TryGetValue(path, out var res))
-                {
-                    res = Load(path);
-                }
-
-                if (res == null)
-                    throw new KeyNotFoundException(path);
-
-                return res;
-            }
-        }
-
-        public Resource Load(string path)
-        {
-            var res = ResourceLoader.Load(this, path);
+            var res = ResourceLoader.Load(this, sceneObject, path);
             return res;
         }
 
-        public Resource LoadGlobal(string path)
+        public Resource LoadGlobal(string path, ISceneObject sceneObject)
         {
-            var res = ResourceLoader.Load(DungeonGlobal.Resources, path);
+            var res = ResourceLoader.Load(DungeonGlobal.GlobalResources, sceneObject, path);
             return res;
         }
 
@@ -79,19 +75,26 @@ namespace Dungeon.Resources
 
         public IEnumerable<Resource> LoadFolderGlobal(string path)
         {
-            return ResourceLoader.LoadResourceFolder(path, DungeonGlobal.Resources);
+            return ResourceLoader.LoadResourceFolder(path, DungeonGlobal.GlobalResources);
         }
 
         public void UnloadFolderGlobal(string path)
         {
-            DungeonGlobal.Resources.folderResources[path].ForEach(r => r.Dispose());
+            var table = DungeonGlobal.GlobalResources;
+            var folder = table.folderResources[path];
+            foreach (var resource in folder)
+            {
+                resource.Dispose();
+            }
+
+            table.folderResources.Remove(path);
         }
 
-        public void Load(IEnumerable<string> paths)
+        public void Load(IEnumerable<string> paths, ISceneObject sceneObject)
         {
             foreach (var path in paths)
             {
-                Load(path);
+                Load(path, sceneObject);
             }
         }
 
@@ -99,7 +102,7 @@ namespace Dungeon.Resources
         {
             foreach (var kv in this.resources)
             {
-                kv.Value.Dispose();
+                kv.Value?.Dispose();
             }
             this.resources.Clear();
             this.folderResources.Clear();
@@ -109,9 +112,9 @@ namespace Dungeon.Resources
         /// Все шрифты загружаются глобально
         /// </summary>
         /// <param name="fontName"></param>
-        public void LoadFont(string fontName)
+        public void LoadFont(string fontName, ISceneObject sceneObject)
         {
-            this.LoadGlobal($"{DungeonGlobal.GameAssemblyName}.Resources.Fonts.ttf/{fontName}.ttf".Embedded());
+            this.LoadGlobal($"{DungeonGlobal.GameAssemblyName}.Resources.Assets.Fonts.ttf/{fontName}.ttf".Embedded(), sceneObject);
         }
     }
 }

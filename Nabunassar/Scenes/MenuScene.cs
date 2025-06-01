@@ -1,5 +1,4 @@
-﻿using Dungeon;
-using Dungeon.Control.Gamepad;
+﻿using Dungeon.Control.Gamepad;
 using Dungeon.Drawing.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
@@ -8,9 +7,6 @@ using Nabunassar.Extensions.Resources;
 using Nabunassar.SceneObjects.UserInterface.Common;
 using Nabunassar.Scenes.Creating;
 using Nabunassar.Scenes.Start;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Nabunassar.Scenes
 {
@@ -25,14 +21,15 @@ namespace Nabunassar.Scenes
 
         public override void Initialize()
         {
-            AudioPlayer.Music("Main.ogg".AsmMusicRes());
+            //AudioPlayer.Music("Main.ogg".AsmMusicRes());
             //layerBack.AddObjectCenter(new ImageObject("d12textM.png".AsmImg()), vertical: false);
 
             var layerBack = this.CreateLayer("back");
-            layerBack.AddObject(new ImageObject("back.png".AsmImg())
+            layerBack.AddObject(new ImageObject("Tilesets/monochrome-transparent_packed.png".AsmImg())
             {
                 Width = Global.Resolution.Width,
-                Height = Global.Resolution.Height
+                Height = Global.Resolution.Height,
+                 Mode = Dungeon.View.Enums.DrawMode.Pixelize
             });
 
             var ui = this.CreateLayer("ui");
@@ -48,11 +45,11 @@ namespace Nabunassar.Scenes
         {
             counter++;
             Console.WriteLine($"counter: {counter}");
-            this.Resources.Load("Main.ogg".AsmMusicRes());
-            this.Resources.Load("back.png".AsmImg());
-            this.Resources.Load("focus.wav".AsmSoundRes());
-            this.Resources.Load("UI/bordermin/bord31.png".AsmImg());
-            this.Resources.LoadFont("URWGeometricBold");
+            this.Resources.Load("Main.ogg".AsmMusicRes(), ResourceSceneObject);
+            this.Resources.Load("back.png".AsmImg(), ResourceSceneObject);
+            this.Resources.Load("focus.wav".AsmSoundRes(), ResourceSceneObject);
+            this.Resources.Load("UI/bordermin/bord31.png".AsmImg(), ResourceSceneObject);
+            this.Resources.LoadFont("URWGeometricBold", ResourceSceneObject);
             this.LoadBorders();
             base.Load();
         }

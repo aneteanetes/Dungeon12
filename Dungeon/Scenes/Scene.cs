@@ -20,6 +20,11 @@
     {
         public SceneManager sceneManager;
 
+        /// <summary>
+        /// Объект идентификации для загрузки ресурсов
+        /// </summary>
+        public ISceneObject ResourceSceneObject { get; private set; }
+
         public abstract bool Destroyable { get; }
 
         public IAudioPlayer AudioPlayer=>DungeonGlobal.AudioPlayer;
@@ -37,6 +42,7 @@
 
         public Scene(SceneManager sceneManager)
         {
+            ResourceSceneObject = new SceneLayerSceneObject(scene: this);
             this.sceneManager = sceneManager;
             SceneLayerGraph = new SceneLayerGraph()
             {
@@ -390,6 +396,8 @@
 
         public virtual void Destroy()
         {
+            this.Unload();
+
             foreach (var l in LayerList)
             {
                 l.Destroy();
@@ -415,12 +423,12 @@
 
         public virtual void Unload() { }
 
-        public Resource GetResource(string name)
+        public Resource GetResource(string name, ISceneObject sceneObject)
         {
-            if (Resources.TryGetValue(name, out var res))
+            if (Resources.TryGetValue(name, sceneObject, out var res))
                 return res;
 
-            if (DungeonGlobal.Resources.TryGetValue(name, out res))
+            if (DungeonGlobal.GlobalResources.TryGetValue(name, sceneObject, out res))
                 return res;
 
             throw new KeyNotFoundException($"Ресурс {name} не загружен на сцену!");

@@ -1,0 +1,22 @@
+{
+  "Description": "Могучие берсерки сосредоточены на нанесении прямого урона врагу в ближнем бою.",
+  "DamageIcon": "Damage",
+  "Damage": 3,
+  "Health": 1,
+  "Armor": 1,
+  "CardName": "Колода Берсерка",
+  "Skills": [
+    {
+      "IsBase": true
+    },
+    {
+      "IsBase": false
+    },
+    {
+      "IsBase": false
+    },
+    {
+      "IsBase": false
+    }
+  ]
+}

@@ -21,6 +21,7 @@ using System.Linq;
 using System.Numerics;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
+using System.Runtime.Versioning;
 using System.Text;
 
 namespace Dungeon
@@ -40,7 +41,7 @@ namespace Dungeon
         /// <summary>
         /// Глобальные ресурсы
         /// </summary>
-        public static ResourceTable Resources { get; private set; } = new ResourceTable();
+        public static ResourceTable GlobalResources { get; private set; } = new ResourceTable();
 
         public static bool IsDevelopment { get; private set; }
 
@@ -48,6 +49,13 @@ namespace Dungeon
 
         public static Action<string> ScreenshotSaved { get; set; }
 
+        /// <summary>
+        /// Инициализация: чтение конфигурации, компиляция ресурсов, загрузка локализации
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="isDevelop"></param>
+        /// <param name="compileData"></param>
+        /// <returns></returns>
         public static DungeonConfiguration Init<T>(bool isDevelop, bool compileData=false) where T : DungeonGlobal
         {
             Dungeon.Resources.ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver(Assembly.GetEntryAssembly()));
@@ -67,11 +75,18 @@ namespace Dungeon
 
             Configuration = config.Get<DungeonConfiguration>();
             Configuration.ConfigurationRoot = config;
+            if (Configuration.ProjectPath.IsEmpty())
+                throw new ArgumentException("Project path is empty!");
+
+            Configuration.PathBin = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
             if (compileData)
             {
-                var resCompiler = new ResourceCompiler(logOnlyNewUpdate:true);
-                resCompiler.Compile();
+                var rcCfg = Configuration.Get<ResourceCompilerConfiguration>("Resources");
+                rcCfg.PathProject = Configuration.ProjectPath;
+                rcCfg.PathBin = Configuration.PathBin;
+
+                ResourceCompiler.Compile(rcCfg);
             }
 
             var strings = global.GetStringsClass();
@@ -215,7 +230,7 @@ namespace Dungeon
         public static void Exit()
         {
             OnExit?.Invoke();
-            Resources.Dispose();
+            GlobalResources.Dispose();
             if (!Directory.Exists("Logs"))
             {
                 Directory.CreateDirectory("Logs");

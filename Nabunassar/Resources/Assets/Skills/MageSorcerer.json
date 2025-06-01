@@ -1,0 +1,22 @@
+{
+  "Description": "Маг специализируется на нанесении сильного урона одной цели.",
+  "DamageIcon": "Magic",
+  "Damage": 3,
+  "Health": 1,
+  "Armor": 1,
+  "CardName": "Колода Мага",
+  "Skills": [
+    {
+      "IsBase": true
+    },
+    {
+      "IsBase": false
+    },
+    {
+      "IsBase": false
+    },
+    {
+      "IsBase": false
+    }
+  ]
+}

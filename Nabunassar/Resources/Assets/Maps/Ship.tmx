@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.2" orientation="hexagonal" renderorder="left-up" width="1" height="1" tilewidth="167" tileheight="192" infinite="1" hexsidelength="105" staggeraxis="y" staggerindex="odd" nextlayerid="27" nextobjectid="279">
+ <editorsettings>
+  <chunksize width="4" height="4"/>
+ </editorsettings>
+ <tileset firstgid="1" name="ship" tilewidth="210" tileheight="210" tilecount="8" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="1">
+   <image width="210" height="210" source="../Images/Tiles/HK_oceaniconography_007.png"/>
+  </tile>
+  <tile id="2">
+   <image width="210" height="210" source="../Images/Tiles/hk_new-blank_001.png"/>
+  </tile>
+  <tile id="10">
+   <image width="210" height="210" source="../Images/Tiles/hk_new-blank_009.png"/>
+  </tile>
+  <tile id="16">
+   <image width="210" height="210" source="../Images/Tiles/hk_new-blank_015.png"/>
+  </tile>
+  <tile id="45">
+   <image width="210" height="210" source="../Images/Tiles/HK_the-brine_003.png"/>
+  </tile>
+  <tile id="47">
+   <image width="210" height="210" source="../Images/Backgrounds/line.png"/>
+  </tile>
+  <tile id="48">
+   <image width="210" height="210" source="../Images/Tiles/hk_gold-metal_001.png"/>
+  </tile>
+  <tile id="49">
+   <image width="210" height="210" source="../Images/Icons/tablescroll.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="51" name="back" tilewidth="1600" tileheight="900" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="1">
+   <image width="1600" height="900" source="../Images/Backgrounds/shipsize.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="53" name="tokens" tilewidth="835" tileheight="600" tilecount="4" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="11">
+   <image width="240" height="240" source="../Images/Backgrounds/_token-editor_token-uploads_beast_giantrat_2021-11-16T20_12_25.808Z.png"/>
+  </tile>
+  <tile id="14">
+   <image width="190" height="190" source="../Images/Backgrounds/scrollandquill.png"/>
+  </tile>
+  <tile id="15">
+   <image width="240" height="240" source="../Images/Backgrounds/guard.png"/>
+  </tile>
+  <tile id="17">
+   <image width="835" height="600" source="../Images/Backgrounds/arrow.png"/>
+  </tile>
+ </tileset>
+ <objectgroup id="15" name="Lines">
+  <object id="275" gid="48" x="1079" y="740" width="210" height="210"/>
+  <object id="276" gid="48" x="747" y="740" width="210" height="210"/>
+  <object id="277" gid="48" x="415" y="740" width="210" height="210"/>
+ </objectgroup>
+ <objectgroup id="14" name="Cells">
+  <object id="272" gid="17" x="913" y="740" width="210" height="210">
+   <properties>
+    <property name="Index" value="1"/>
+    <property name="IndexLinks" value="0,2"/>
+    <property name="ObjectId" value="NPCApprentice"/>
+   </properties>
+  </object>
+  <object id="273" gid="46" x="249" y="740" width="210" height="210">
+   <properties>
+    <property name="Index" value="3"/>
+    <property name="IndexLinks" value="2"/>
+    <property name="ObjectId" value="PierFaithIsland"/>
+   </properties>
+  </object>
+  <object id="274" gid="11" x="581" y="740" width="210" height="210">
+   <properties>
+    <property name="Index" value="2"/>
+    <property name="IndexLinks" value="1,3"/>
+    <property name="ObjectId" value="MobRat"/>
+   </properties>
+  </object>
+  <object id="278" gid="49" x="1245" y="740" width="210" height="210">
+   <properties>
+    <property name="Index" value="0"/>
+    <property name="IndexLinks" value="1"/>
+    <property name="IsOpen" type="bool" value="true"/>
+    <property name="ObjectId" value="TableInfo"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

@@ -1,6 +1,7 @@
 ﻿using Dungeon.Resources;
 using Dungeon.Types;
 using Dungeon.Utils.XElementExtensions;
+using Dungeon.View.Interfaces;
 using MoreLinq;
 using System;
 using System.Collections.Generic;
@@ -20,9 +21,9 @@ namespace Dungeon.Tiled
         private TiledMap() { }
 
 
-        public static TiledMap Load(string resourceName, ResourceTable table)
+        public static TiledMap Load(string resourceName,ISceneObject sceneObject, ResourceTable table)
         {
-            var res = Resources.ResourceLoader.Load(table, resourceName);
+            var res = Resources.ResourceLoader.Load(table,sceneObject, resourceName);
             return Load(res);
         }
 

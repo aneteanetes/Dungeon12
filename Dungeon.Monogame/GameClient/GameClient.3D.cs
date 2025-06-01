@@ -1,6 +1,6 @@
 ﻿namespace Dungeon.Monogame
 {
-    public partial class GameClient
+    public partial class MonoGameClient
     {
         public void Load3D() { }
 

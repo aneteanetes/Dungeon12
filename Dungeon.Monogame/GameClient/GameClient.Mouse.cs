@@ -8,7 +8,7 @@
     using Dungeon.Control;
     using Microsoft.Xna.Framework;
 
-    public partial class GameClient
+    public partial class MonoGameClient
     {
         private Microsoft.Xna.Framework.Point mousePosition;
         private int scrollWeelValue;

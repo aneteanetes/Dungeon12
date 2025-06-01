@@ -61,6 +61,7 @@ namespace Dungeon.Monogame.Settings
         public Color AmbientColor2DLight { get; set; }
 
         [Hidden]
+        [Display(Name = "Размер клетки", Description = "Размер клетки для позиционирования элементов, по умолчанию 1=32")]
         public int CellSize { get; set; }
 
         public bool Borderless { get; set; } = false;

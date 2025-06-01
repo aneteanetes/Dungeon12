@@ -39,7 +39,7 @@ namespace Dungeon.Monogame.Effects
         }
 
 #if !Engine
-        public void Load(GameClient client)
+        public void Load(MonoGameClient client)
         {
             throw new NotImplementedException();
         }

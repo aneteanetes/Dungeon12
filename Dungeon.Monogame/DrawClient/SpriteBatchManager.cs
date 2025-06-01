@@ -1,4 +1,5 @@
 ﻿using Dungeon.Resources;
+using Dungeon.Scenes.Manager;
 using Dungeon.View.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -87,13 +88,7 @@ namespace Dungeon.Monogame
 
             if (!XnaEffectsLoaded.TryGetValue(effectName, out var xnaeff))
             {
-#warning resources must be load into scene (if possible)
-                var effectres = Resources.ResourceLoader.Load(DungeonGlobal.Resources, $"Shaders/{effectName}.xnb".AsmRes());
-                if (effectres != null)
-                {
-                    xnaeff = _contentManager.Load<Effect>($"{effectName}", effectres.Stream);
-                }
-
+                xnaeff = _contentManager.Load<Effect>($"{effectName}");
                 XnaEffectsLoaded[effectName] = xnaeff;
             }
 

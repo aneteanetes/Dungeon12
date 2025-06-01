@@ -1,0 +1,22 @@
+{
+  "Description": "Целитель восстанавливает здоровье группе в малом количестве постоянно.",
+  "DamageIcon": "Heal",
+  "Damage": 1,
+  "Health": 1,
+  "Armor": 1,
+  "CardName": "Колода Целителя",
+  "Skills": [
+    {
+      "IsBase": true
+    },
+    {
+      "IsBase": false
+    },
+    {
+      "IsBase": false
+    },
+    {
+      "IsBase": false
+    }
+  ]
+}

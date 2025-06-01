@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 
 namespace Dungeon.Monogame
 {
-    public partial class GameClient
+    public partial class MonoGameClient
     {
         [DllImport("kernel32", SetLastError = true, CharSet = CharSet.Unicode)]
 		public static extern IntPtr LoadLibraryW(string lpszLib);

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Dungeon.Monogame
 {
-    public partial class GameClient : Game, IGameClient
+    public partial class MonoGameClient : Game, IGameClient
     {
         private Dictionary<ISceneLayer, RenderTarget2D> SceneLayers = new Dictionary<ISceneLayer, RenderTarget2D>();
 

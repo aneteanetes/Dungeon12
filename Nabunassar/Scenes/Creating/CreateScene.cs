@@ -78,10 +78,10 @@ namespace Nabunassar.Scenes.Creating
 
         public override void Load()
         {
-            Resources.Load("UI/start/title.png".AsmImg());
-            Resources.Load("CreateParty.ogg".AsmMusicRes());
-            Resources.Load("Scenes/create.png".AsmImg());
-            Resources.Load("UI/btn_a.png".AsmImg());
+            Resources.Load("UI/start/title.png".AsmImg(),ResourceSceneObject);
+            Resources.Load("CreateParty.ogg".AsmMusicRes(), ResourceSceneObject);
+            Resources.Load("Scenes/create.png".AsmImg(), ResourceSceneObject);
+            Resources.Load("UI/btn_a.png".AsmImg(), ResourceSceneObject);
             Resources.LoadFolder("UI/panelmin".AsmImg());
             Resources.LoadFolder("Icons/Common".AsmImg());
 
@@ -96,7 +96,7 @@ namespace Nabunassar.Scenes.Creating
 
         public override void Unload()
         {
-            this.Resources.UnloadFolderGlobal("Baclgrounds/Races".AsmImg());
+            this.Resources.UnloadFolderGlobal("Backgrounds/Races".AsmImg());
             this.Resources.UnloadFolderGlobal("Portraits".AsmImg());
             this.Resources.UnloadFolderGlobal("Dices".AsmImg());
             this.Resources.UnloadFolderGlobal("Icons/Flat".AsmImg());

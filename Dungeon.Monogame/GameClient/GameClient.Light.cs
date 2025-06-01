@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 
 namespace Dungeon.Monogame
 {
-    public partial class GameClient
+    public partial class MonoGameClient
     {
         private void LoadPenumbra()
         {
@@ -35,7 +35,8 @@ namespace Dungeon.Monogame
                         {
                             stream.Seek(0, SeekOrigin.Begin);
                         }
-                        penumbraShaders.Add(key, Content.Load<Effect>(path, stream));
+#warning CONTENTMANAGER
+                        penumbraShaders.Add(key, Content.Load<Effect>(path));//, stream));
                     }
                 }
                 penumbra = new PenumbraComponent(this, penumbraShaders);

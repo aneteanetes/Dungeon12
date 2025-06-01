@@ -6,7 +6,7 @@
     using System;
     using System.Collections.Generic;
 
-    public partial class GameClient : Game, IGameClient
+    public partial class MonoGameClient : Game, IGameClient
     {
         private readonly HashSet<Direction> CameraMovings = new HashSet<Direction>();
 

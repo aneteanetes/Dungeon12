@@ -3,7 +3,6 @@ using Dungeon.Drawing.SceneObjects;
 using Dungeon.Scenes;
 using Dungeon.Scenes.Manager;
 using Dungeon.Tiled;
-using Nabunassar.SceneObjects.GlobalMap;
 using Nabunassar.SceneObjects.Map;
 using Nabunassar.SceneObjects.Playing;
 using Nabunassar.Scenes.Start;
@@ -54,7 +53,7 @@ namespace Nabunassar.Scenes
 
         private void LoadWorld()
         {
-            var res = Resources.Load("Maps/World.tmx");
+            var res = Resources.Load("Assets/Maps/World.tmx",ResourceSceneObject);
             var tiled = TiledMap.Load(res);
             Global.Game.World = new Entities.Map.World(tiled);
         }

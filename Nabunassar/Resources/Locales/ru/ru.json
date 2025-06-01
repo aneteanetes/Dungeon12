@@ -1,4 +1,5 @@
 {
+  "test": "Тестовая строка",
   "CombatAbilities": "Боевые способности",
   "GloballyAbilities": "Глобальные способности",
   "AbilityChoose": "Выбор способностей",

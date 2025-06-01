@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Dungeon.Monogame
 {
-    public partial class GameClient
+    public partial class MonoGameClient
     {
         public void UpdateGamepadEvents()
         {

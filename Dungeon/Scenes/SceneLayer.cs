@@ -1,11 +1,8 @@
-﻿using Dungeon;
-using Dungeon.Control;
+﻿using Dungeon.Control;
 using Dungeon.Control.Gamepad;
 using Dungeon.Control.Keys;
 using Dungeon.Control.Pointer;
 using Dungeon.Drawing.SceneObjects;
-using Dungeon.ECS;
-using Dungeon.Settings;
 using Dungeon.Types;
 using Dungeon.View.Interfaces;
 using System;
@@ -13,13 +10,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
-using System.Reflection.Emit;
 
 namespace Dungeon.Scenes
 {
     [DebuggerDisplay("{Name}")]
     public class SceneLayer : ISceneLayer
     {
+        private SceneLayerSceneObject _layerSceneObject;
+
         protected Scene Owner;
 
         protected Scene Parent => Owner;
@@ -31,6 +29,7 @@ namespace Dungeon.Scenes
         public SceneLayer(Scene parentScene)
         {
             Owner = parentScene;
+            _layerSceneObject=new SceneLayerSceneObject(this);
         }
 
         public string Name { get; set; }
@@ -150,7 +149,7 @@ namespace Dungeon.Scenes
 
         protected Dot MeasureImage(string img)
         {
-            var m = DungeonGlobal.GameClient.MeasureImage(Scene.Resources, img);
+            var m = DungeonGlobal.GameClient.MeasureImage(Scene.Resources,_layerSceneObject, img);
 
             return new Dot(m.X, m.Y);
         }

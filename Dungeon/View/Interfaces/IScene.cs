@@ -7,6 +7,11 @@ namespace Dungeon.View.Interfaces
 {
     public interface IScene
     {
+        /// <summary>
+        /// Объект для идентификации
+        /// </summary>
+        ISceneObject ResourceSceneObject { get;}
+
         string Uid { get; } 
 
         ISceneLayer[] Layers { get; }
@@ -37,6 +42,6 @@ namespace Dungeon.View.Interfaces
 
         bool IsInitialized { get; set; }
 
-        Resource GetResource(string name);
+        Resource GetResource(string name, ISceneObject sceneObject);
     }
 }

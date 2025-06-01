@@ -6,12 +6,12 @@
     using Dungeon.View.Interfaces;
     using Microsoft.Xna.Framework;
 
-    public partial class GameClient : Game, IGameClient
+    public partial class MonoGameClient : Game, IGameClient
     {
-        public Dungeon.Types.Dot MeasureText(ResourceTable resources, IDrawText drawText, ISceneObject parent = default)
-            => DrawClient.MeasureText(resources, drawText, parent);
+        public Dungeon.Types.Dot MeasureText(ResourceTable resources, IDrawText drawText, ISceneObject sceneObject, ISceneObject parent = default)
+            => DrawClient.MeasureText(resources, drawText, sceneObject, parent);
 
-        public Dungeon.Types.Dot MeasureImage(ResourceTable resources, string image) => DrawClient.MeasureImage(resources,image);
+        public Dungeon.Types.Dot MeasureImage(ResourceTable resources, ISceneObject sceneObject, string image) => DrawClient.MeasureImage(resources,image,sceneObject);
 
         public void SaveObject(ISceneObject sceneObject, string path, Dot offset, string runtimeCacheName = null)
         {

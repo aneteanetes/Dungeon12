@@ -1,8 +1,6 @@
-﻿using Dungeon.Drawing;
-using Dungeon.Monogame.Fonts;
+﻿using Dungeon.Monogame.Fonts;
 using Dungeon.Resources;
 using Dungeon.SceneObjects;
-using Dungeon.SceneObjects.Base;
 using Dungeon.Types;
 using Dungeon.View.Enums;
 using Dungeon.View.Interfaces;
@@ -11,7 +9,6 @@ using FontStashSharp.Rasterizers.StbTrueTypeSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended;
 using Penumbra;
 using ProjectMercury;
 using ProjectMercury.Renderers;
@@ -19,8 +16,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Security.Principal;
 using Matrix = Microsoft.Xna.Framework.Matrix;
 using Rect = Dungeon.Types.Square;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
@@ -204,7 +199,7 @@ namespace Dungeon.Monogame
                         if (range.StringData == Environment.NewLine)
                         {
                             textX = x;
-                            textY += MeasureText(resources, prev).Y;
+                            textY += MeasureText(resources, prev,sceneObject).Y;
                         }
                         else
                         {
@@ -458,9 +453,20 @@ namespace Dungeon.Monogame
             }
             else
             {
-                samplerstate =/*sceneObject.Mode == DrawMode.Normal
-                    ? SamplerState.PointWrap
-                    : */SamplerState.LinearWrap;
+
+                switch (sceneObject.Mode)
+                {
+                    case DrawMode.Pixelize:
+                        samplerstate = SamplerState.PointWrap;
+                        break;
+                    case DrawMode.Tiled:
+                        //samplerstate = SamplerState.PointWrap;
+                        //break;
+                    case DrawMode.Normal:
+                    default:
+                        samplerstate = SamplerState.LinearWrap;
+                        break;
+                }
 
                 var sb = SpriteBatchManager.GetSpriteBatch(samplerstate,effect: effect);
 
@@ -493,7 +499,7 @@ namespace Dungeon.Monogame
 
         private void DrawSceneText(ResourceTable resources, double y, double x, IDrawText range, ISceneObject sceneObject)
         {
-            var font = GetTrueTypeFont(resources, range);
+            var font = GetTrueTypeFont(resources, range,sceneObject);
 
             var lineSpace = 0;// font.LineHeight;
 
@@ -752,7 +758,7 @@ namespace Dungeon.Monogame
 
                     if (!ParticleEffects.TryGetValue(sceneObject.Uid, out var particleEffect))
                     {
-                        var particleRes = resources.Get(path);
+                        var particleRes = resources.Get(path,sceneObject);
                         if (particleRes==default)
                             return;
 
@@ -812,9 +818,9 @@ namespace Dungeon.Monogame
             GraphicsDevice.Clear(xnacolor);
         }
 
-        public Dot MeasureText(ResourceTable resources, IDrawText drawText, ISceneObject parent = default)
+        public Dot MeasureText(ResourceTable resources, IDrawText drawText,ISceneObject sceneObject, ISceneObject parent = default)
         {
-            var font = GetTrueTypeFont(resources, drawText);
+            var font = GetTrueTypeFont(resources, drawText, sceneObject);
 
             var data = drawText.StringData;
 
@@ -839,16 +845,16 @@ namespace Dungeon.Monogame
             return new Dungeon.Types.Dot(m.X, m.Y);
         }
 
-        public DynamicSpriteFont GetTrueTypeFont(ResourceTable resources, IDrawText drawText)
+        public DynamicSpriteFont GetTrueTypeFont(ResourceTable resources, IDrawText drawText, ISceneObject sceneObject)
         {
-            var fontSystem = GetTrueTypeFontSystemByName(resources,drawText.FontName);
+            var fontSystem = GetTrueTypeFontSystemByName(resources,drawText.FontName, sceneObject);
             return fontSystem.GetFont(drawText.Size);
         }
 
-        public FontSystem GetTrueTypeFontSystemByName(ResourceTable resources, string fontName)
+        public FontSystem GetTrueTypeFontSystemByName(ResourceTable resources, string fontName, ISceneObject sceneObject)
         {
-            var fontResourceKey = $"{DungeonGlobal.GameAssemblyName}.Resources.Fonts.ttf/{fontName}.ttf".Embedded();
-            var fontRes = resources.Get(fontResourceKey).Data;
+            var fontResourceKey = $"{DungeonGlobal.GameAssemblyName}.Resources.Assets.Fonts.ttf/{fontName}.ttf".Embedded();
+            var fontRes = resources.Get(fontResourceKey,sceneObject).Data;
 
             return GetTrueTypeFontSystemByNameAndData(fontName, fontRes);
         }
@@ -884,9 +890,9 @@ namespace Dungeon.Monogame
             });
         }
 
-        public Dot MeasureImage(ResourceTable resources, string image)
+        public Dot MeasureImage(ResourceTable resources, string image, ISceneObject sceneObject)
         {
-            var img = ImageLoader.LoadTexture2D(resources, image);
+            var img = ImageLoader.LoadTexture2D(resources, image, sceneObject);
             if (img == default)
                 return new Dungeon.Types.Dot();
 

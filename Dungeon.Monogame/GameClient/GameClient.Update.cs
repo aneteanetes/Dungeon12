@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Dungeon.Monogame
 {
-    public partial class GameClient
+    public partial class MonoGameClient
     {
         private void UpdateLoop(Microsoft.Xna.Framework.GameTime gameTime)
         {

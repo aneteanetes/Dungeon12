@@ -1,5 +1,6 @@
 ﻿using Dungeon.Resources.Processing;
 using Dungeon.Resources.Resolvers;
+using Dungeon.View.Interfaces;
 using LiteDB;
 using MoreLinq;
 using Newtonsoft.Json;
@@ -148,23 +149,23 @@ namespace Dungeon.Resources
             return null;
         }
 
-        public static T LoadData<T>(ResourceTable table, string resource, bool @throw = true)
+        public static T LoadData<T>(ResourceTable table,ISceneObject sceneObject, string resource, bool @throw = true)
         {
-            var res = LoadResource(resource, table, DataDb);
+            var res = LoadResource(resource,sceneObject, table, DataDb);
             if (res == default)
                 return default;
 
             return JsonConvert.DeserializeObject<T>(res.Stream.AsString());
         }
 
-        public static Resource Load(ResourceTable table, string resource, bool @throw = true)
+        public static Resource Load(ResourceTable table,ISceneObject sceneObject, string resource, bool @throw = true)
         {
             if (!resource.Contains(".Resources."))
             {
                 resource = Assembly.GetEntryAssembly().GetName().Name + ".Resources." + resource.Embedded();
             }
 
-            var res = LoadResource(resource,table,ResourceDatabase);
+            var res = LoadResource(resource, sceneObject,table, ResourceDatabase);
 
             if (res == default)
             {
@@ -173,7 +174,7 @@ namespace Dungeon.Resources
                 {
                     var fileName = resource.Substring(0, resResolution);
                     var fileExt = Path.GetExtension(resource);
-                    return Load(table, $"{fileName}{fileExt}", @throw);
+                    return Load(table, sceneObject, $"{fileName}{fileExt}", @throw);
                 }
             }
 
@@ -182,11 +183,12 @@ namespace Dungeon.Resources
             return res;
         }
 
-        private static Resource LoadResource(string resource, ResourceTable table, LiteDatabase liteDb)
+        private static Resource LoadResource(string resource, ISceneObject sceneObject, ResourceTable table, LiteDatabase liteDb)
         {
             if (table.ContainsKey(resource))
             {
-                return table[resource];
+                if (table.TryGetValue(resource,sceneObject, out var loadedRes))
+                    return loadedRes;
             }
 
             Resource res = default;

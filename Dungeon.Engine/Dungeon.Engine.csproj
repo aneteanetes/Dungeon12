@@ -1,0 +1,134 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RestoreFallbackFolders>clear</RestoreFallbackFolders>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>TRACE;Core;WINDOWS;Engine;</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <None Remove="Resources\**\*" />
+    <None Remove="Icons\**\*" />
+    <None Remove="Data\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\**\*" />
+    <EmbeddedResource Include="Icons\**\*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Resources\Templates\Classes\Global.cs" />
+    <Compile Remove="Resources\Templates\Classes\Program.cs" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Include="..\Dungeon.Monogame\Penumbra\**\*.*">
+        <Link>Penumbra\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Compile>
+    <Compile Include="..\Dungeon.Monogame\ProjectMercury\**\*.*">
+      <Link>ProjectMercury\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Compile>
+</ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Dungeon.Monogame\Settings\MonogameSettings.cs" Link="Host\MonogameSettings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.5" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.5" />
+    <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.3" />
+    <PackageReference Include="Selen.Wpf" Version="1.0.0" />
+    <PackageReference Include="SharpDX.Direct3D11" Version="4.2.0" />
+    <PackageReference Include="SharpDX.Direct3D9" Version="4.2.0" />
+    <PackageReference Include="YAXLib" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Build\" />
+    <Folder Include="Styles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\Templates\Projects\PCProject.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dungeon.Monogame\Dungeon.Monogame.csproj" />
+    <ProjectReference Include="..\Dungeon\Dungeon.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Controls\EngineCollectionEditor.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Forms\CollectionView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Forms\NestedPropertyGrid.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Forms\AddStructureObject.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Forms\Message.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Forms\LiteDbEditorForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Forms\AddProjRefForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Forms\AddResourceForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Forms\AddNamedForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Controls\EngineCollectionEditor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Forms\CollectionView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Forms\NestedPropertyGrid.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Forms\AddStructureObject.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Forms\Message.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Forms\LiteDbEditorForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Forms\AddProjRefForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Forms\AddResourceForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Forms\AddNamedForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

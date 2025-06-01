@@ -30,17 +30,18 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Dungeon.Monogame\Dungeon.Monogame.csproj" />
-		<ProjectReference Include="..\Dungeon.VariableEditor\Dungeon.VariableEditor.csproj" />
 		<ProjectReference Include="..\Dungeon\Dungeon.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="Components\Movable\" />
 		<Folder Include="Entities\Ranks\" />
-		<Folder Include="Resources\Data\" />
-		<Folder Include="Resources\Images\Backgrounds\Regions\" />
-		<Folder Include="Resources\Loot\" />
+		<Folder Include="Resources\Assets\Loot\" />
 		<Folder Include="Tools\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="YAXLib" Version="4.3.0" />
 	</ItemGroup>
 
 </Project>

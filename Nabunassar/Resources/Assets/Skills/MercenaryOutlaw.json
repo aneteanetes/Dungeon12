@@ -1,0 +1,22 @@
+{
+  "Description": "Убийцы специализируются на ядах, ловушках, и накоплении взрывного урона.",
+  "DamageIcon": "Trap",
+  "Damage": 2,
+  "Health": 1,
+  "Armor": 1,
+  "CardName": "Колода Убийцы",
+  "Skills": [
+    {
+      "IsBase": true
+    },
+    {
+      "IsBase": false
+    },
+    {
+      "IsBase": false
+    },
+    {
+      "IsBase": false
+    }
+  ]
+}

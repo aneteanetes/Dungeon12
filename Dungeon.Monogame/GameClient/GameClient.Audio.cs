@@ -9,7 +9,7 @@
     using System.Collections.Generic;
     using System.IO;
 
-    public partial class GameClient : Game, IAudioPlayer
+    public partial class MonoGameClient : Game, IAudioPlayer
     {
         public void Music(string name, AudioOptions audioOptions = null)
         {
@@ -47,7 +47,7 @@
         {
             if (!soundEffectsCache.TryGetValue(name, out var sound))
             {
-                var res = ResourceLoader.Load(Scene.Resources, name);
+                var res = ResourceLoader.Load(Scene.Resources,Scene.ResourceSceneObject, name);
                 sound = SoundEffect.FromStream(res.Stream);
                 soundEffectsCache[name] = sound;
                 res.OnDispose += () =>
@@ -70,7 +70,7 @@
         {
             Song value = default;
 
-            var song = ResourceLoader.Load(Scene.Resources, name);
+            var song = ResourceLoader.Load(Scene.Resources,Scene.ResourceSceneObject, name);
 
             var tempPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "temp");
             var tempFilePath = Path.Combine(tempPath, name);

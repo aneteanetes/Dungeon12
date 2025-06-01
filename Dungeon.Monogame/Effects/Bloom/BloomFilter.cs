@@ -209,7 +209,7 @@ namespace InTheWood.Shaders.Bloom
 
         #region initialize
 
-        private GameClient client;
+        private MonoGameClient client;
 
         /// <summary>
         /// Loads all needed components for the BloomEffect. This effect won't work without calling load
@@ -220,7 +220,7 @@ namespace InTheWood.Shaders.Bloom
         /// <param name="height">initial value for creating the rendertargets</param>
         /// <param name="renderTargetFormat">The intended format for the rendertargets. For normal, non-hdr, applications color or rgba1010102 are fine NOTE: For OpenGL, SurfaceFormat.Color is recommended for non-HDR applications.</param>
         /// <param name="quadRenderer">if you already have quadRenderer you may reuse it here</param>
-        public void Load(GameClient client)
+        public void Load(MonoGameClient client)
         {
             this.client = client;
             _graphicsDevice = client.GraphicsDevice;
@@ -239,7 +239,8 @@ namespace InTheWood.Shaders.Bloom
                 {
                     stream.Seek(0, SeekOrigin.Begin);
                 }
-                _bloomEffect = client.Content.Load<Effect>("Bloom.xnb", stream);
+#warning CONTENTMANAGER
+                _bloomEffect = client.Content.Load<Effect>("Bloom.xnb");//, stream);
             }
 
             //Load the shader parameters and passes for cheap and easy access

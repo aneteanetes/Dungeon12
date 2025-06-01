@@ -1,8 +1,7 @@
-﻿global using Geranium.Reflection;
-global using Dungeon;
+﻿global using Dungeon;
+global using Geranium.Reflection;
 using Dungeon.Monogame.Runner;
 using Dungeon.Monogame.Settings;
-using Dungeon.VariableEditor;
 using Nabunassar;
 
 var cfg = DungeonGlobal.Init<Global>(true, true);
@@ -42,11 +41,11 @@ DungeonGlobal.OnRun+=() =>
     });
 };
 
-if (cfg.VariableEditor)
-{
-    var form = new VariablesForm();
-    form.WindowState = System.Windows.Forms.FormWindowState.Minimized;
-    form.Show();
-}
+//if (cfg.VariableEditor)
+//{
+//    var form = new VariablesForm();
+//    form.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+//    form.Show();
+//}
 
 DungeonGlobal.Run(client);

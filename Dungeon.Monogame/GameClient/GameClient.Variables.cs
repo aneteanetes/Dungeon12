@@ -9,7 +9,7 @@ using System;
 
 namespace Dungeon.Monogame
 {
-    public partial class GameClient
+    public partial class MonoGameClient
     {
         private PenumbraComponent penumbra;
         internal DrawClient DrawClient;
@@ -39,6 +39,6 @@ namespace Dungeon.Monogame
         private Dot originSize;
 
         private MonogameSettings _settings;
-        public ContentResolver contentResolver;
+        //public ContentResolver contentResolver;
     }
 }

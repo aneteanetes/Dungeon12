@@ -320,7 +320,7 @@
             if (text == null)
                 return Dot.Zero;
 
-            return DungeonGlobal.GameClient.MeasureText(DungeonGlobal.Resources,  text, parent);
+            return DungeonGlobal.GameClient.MeasureText(DungeonGlobal.GlobalResources,  text,this, parent);
         }
 
             protected DrawText CutText(DrawText text, double height)
@@ -344,7 +344,7 @@
         /// <returns>relative X/Y</returns>
         protected Dot MeasureImage(ISceneLayer layer, string img)
         {
-            var m = DungeonGlobal.GameClient.MeasureImage(layer.Scene.Resources, img);
+            var m = DungeonGlobal.GameClient.MeasureImage(layer.Scene.Resources,this, img);
 
             return new Dot(m.X / Settings.DrawingSize.CellF, m.Y / Settings.DrawingSize.CellF);
         }
@@ -697,8 +697,17 @@
         public string StringTo { get; private set; }
         public override string ToString()
         {
-            if(StringTo==null)
+            if (StringTo == null)
+            {
                 StringTo = $"{this.GetType().Name}.{Parent?.ToString()} :base {base.ToString()}";
+                if (Layer != null)
+                {
+                    StringTo += $" on layer {Layer}";
+
+                    if (Layer.Scene != null)
+                        StringTo += $" on scene {Layer.Scene}";
+                }
+            }
 
             return StringTo;
         }
@@ -850,9 +859,9 @@
             set
             {
                 _image = value;
-                if (!_image.Contains(".Resources.Images."))
+                if (!_image.Contains(".Resources.Assets.Images."))
                 {
-                    _image = Assembly.GetCallingAssembly().GetName().Name + ".Resources.Images." + _image.Embedded();
+                    _image = Assembly.GetCallingAssembly().GetName().Name + ".Resources.Assets.Images." + _image.Embedded();
                 }
             }
 

@@ -24,12 +24,12 @@
             if (imagePath.IsEmpty())
                 throw new NullReferenceException("imagePath is empty!");
 
-            if (!imagePath.Contains(".Resources."))
+            if (!imagePath.Contains(".Resources.Assets."))
             {
                 if (!imagePath.StartsWith("Images"))
                     imagePath = $"Images/{imagePath}";
 
-                return Assembly.GetEntryAssembly().GetName().Name + ".Resources." + imagePath.Embedded();
+                return Assembly.GetEntryAssembly().GetName().Name + ".Resources.Assets." + imagePath.Embedded();
             }
 
             return imagePath;

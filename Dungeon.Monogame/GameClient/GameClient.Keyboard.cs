@@ -8,7 +8,7 @@
     using System.Collections.Generic;
     using System.IO;
 
-    public partial class GameClient
+    public partial class MonoGameClient
     {
         private KeyboardState keyboardState;
         private Keys[] pressed;

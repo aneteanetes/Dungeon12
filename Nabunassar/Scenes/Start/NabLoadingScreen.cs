@@ -24,9 +24,10 @@ namespace Nabunassar.Scenes.Start
 
         public override void Load()
         {
-            this.Resources.LoadFont("NAVIEO Trial");
-            Resources.LoadGlobal("Cursors/pointer_scifi_b.png".AsmImg());
-            Resources.LoadGlobal("Cursors/hand_thin_open.png".AsmImg());
+            this.Resources.LoadFont("NAVIEO Trial",ResourceSceneObject);
+            Resources.LoadFont("Gabriela", ResourceSceneObject);
+            Resources.LoadGlobal("Cursors/pointer_scifi_b.png".AsmImg(), ResourceSceneObject);
+            Resources.LoadGlobal("Cursors/hand_thin_open.png".AsmImg(), ResourceSceneObject);
         }
 
         public override void Update(GameTimeLoop gameTimeLoop)

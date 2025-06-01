@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dungeon.Monogame
 {
-    public partial class GameClient
+    public partial class MonoGameClient
     {
         public SceneManager SceneManager { get; set; }
 
@@ -34,7 +34,7 @@ namespace Dungeon.Monogame
         {
             if (_nextScene != null)
             {
-                _scene?.Destroy();
+                //_scene?.Destroy();
                 Scene = _nextScene;
                 _nextScene = null;
                 changeTask.SetResult();
