@@ -179,7 +179,8 @@ namespace Dungeon.Engine.Forms
             else
             {
                 var db = new LiteDatabase(project.DbFilePath).GetCollection<Resource>();
-                db.Delete(x => x.Path == item.GetFullPath());
+                var path = item.GetFullPath();
+                db.DeleteMany(x => x.Path == path);
             }
 
             project.Save();

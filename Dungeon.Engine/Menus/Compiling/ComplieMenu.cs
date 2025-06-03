@@ -2,6 +2,7 @@
 using Dungeon.Engine.Forms;
 using Dungeon.Engine.Projects;
 using Dungeon.Resources;
+using Dungeon.SceneObjects;
 using System;
 using System.IO;
 using System.Windows;
@@ -26,7 +27,7 @@ namespace Dungeon.Engine.Menus.File
             DungeonGlobal.Events.Raise(new FreezeAllEvent());
 
 
-            var res = ResourceLoader.Load($"Templates.Projects.{proj.Type}Project.csproj".AsmRes());
+            var res = ResourceLoader.Load(DungeonGlobal.GlobalResources, new EmptySceneObject(),$"Templates.Projects.{proj.Type}Project.csproj".AsmRes());
             var projFile = res.Stream.AsString();
 
             System.IO.File.WriteAllText(Path.Combine(proj.Path, proj.Name, $"{proj.Name}.csproj"), projFile);

@@ -50,8 +50,6 @@ namespace Dungeon.Engine
 
         public Scene SelectedScene { get; set; }
 
-        public SceneManager SceneManager { get; set; }
-
         public MainWindow()
         {
             DataContext = this;
@@ -71,10 +69,6 @@ namespace Dungeon.Engine
             DungeonGlobal.Events.Subscribe<SceneResolutionChangedEvent>(ChangedResolutionEvent, false);
             DungeonGlobal.Events.Subscribe<RemoveSceneObjectFromSceneEvent>(RemovingSceneObjectFromSceneEvent,false);
             DungeonGlobal.Events.Subscribe<AddStructObjectEvent>(AddStructObjectEvent, false);
-
-            SceneManager = new SceneManager(XnaHost);
-            DungeonGlobal.SceneManager = SceneManager;
-            XnaHost.BindSceneManager(SceneManager);
 
             this.KeyDown += XnaHost.OnKeyDown;
             this.KeyUp += XnaHost.OnKeyUp;
@@ -183,12 +177,6 @@ namespace Dungeon.Engine
                 //ResourceLoader.ResourceResolvers.Add(new EmbeddedResourceResolver());
                 //ResourceLoader.ResourceResolvers.Add(new PhysicalFileResourceResolver());
 
-                SceneManager = new SceneManager(XnaHost);
-                DungeonGlobal.SceneManager = SceneManager;
-                XnaHost.BindSceneManager(SceneManager);
-
-                SceneManager.Start();
-                SceneManager.Switch<EasyScene>();
                 PublishCurrentScene();
 
                 DungeonGlobal.Sizes.Width = Project.CompileSettings.WidthPixel;
@@ -209,11 +197,6 @@ namespace Dungeon.Engine
                 Project = default;
                 PropGrid.Clear();
                 WindowTitle.Text = $"Dungeon Engine";
-                if (SceneManager != default)
-                {
-                    SceneManager.Switch<EasyScene>();
-                    ChangeStatus();
-                }
             }
         }
 
@@ -359,7 +342,6 @@ namespace Dungeon.Engine
                 SelectedScene = (Scene)item;
                 SelectScene((Scene)item);
 
-                SceneManager.Switch<EasyScene>();
                 PublishCurrentScene();
 
                 return;
@@ -374,21 +356,11 @@ namespace Dungeon.Engine
             if (SelectedScene == default)
                 return;
 
-            SceneManager.Switch<Scenes.Sys_Clear_Screen>();
-            SceneManager.Switch<EasyScene>();
             foreach (var @struct in SelectedScene.StructObjects)
             {
                 if (@struct is StructureLayer structureLayer) //always, but easy cast
                 {
-                    structureLayer.SceneLayer = SceneManager.Current.CreateLayer(structureLayer.Name);
 
-                    foreach (var obj in structureLayer.Nodes)
-                    {
-                        if (obj is StructureSceneObject structSceneObject && structSceneObject.SceneObject != default)
-                        {
-                            PushSceneObjectToScene(structSceneObject.SceneObject, layer: structureLayer.SceneLayer);
-                        }
-                    }
                 }
             }
         }
@@ -771,7 +743,6 @@ namespace Dungeon.Engine
 
         private void refreshSceneBtn_Click(object sender, RoutedEventArgs e)
         {
-            SceneManager.Switch<EasyScene>();
             if (SelectedScene == default)
                 return;
 
@@ -780,7 +751,6 @@ namespace Dungeon.Engine
 
         private void resetScaleBtn(object sender, RoutedEventArgs e)
         {
-            XnaHost.Camera.CameraOffsetZ = 0;
         }
     }
 }

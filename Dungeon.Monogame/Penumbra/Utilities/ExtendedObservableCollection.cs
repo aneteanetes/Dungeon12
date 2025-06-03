@@ -27,7 +27,8 @@ namespace Penumbra.Utilities
 
             // Add the items directly to the inner collection. In case the framework's inner
             // implementation uses List{T} type, use its add range instead for better performance.
-            Items.AddRange(items);
+            Penumbra.Extensions.AddRange(Items,items);
+            //Items.AddRange(items);
 
             // Now raise the changed events.
             OnPropertyChanged(CountPropertyChangedEventArgs);

@@ -256,6 +256,114 @@ namespace Dungeon.Resources
 
             return Enumerable.Empty<Resource>();
         }
+
+        public static IEnumerable<Type> LoadTypes<TAssignableFrom>()
+            => DungeonGlobal.Assemblies.Concat([DungeonGlobal.GameAssembly])
+                .SelectMany(x => x.GetTypesSafe().Where(t => typeof(TAssignableFrom).IsAssignableFrom(t)));
+
+        /// <summary>
+        /// 
+        /// <para>
+        /// [Кэшируемый]
+        /// </para>
+        /// </summary>
+        public static Type LoadType(string className, bool force = false)
+        {
+            if (!___LoadTypeCache.TryGetValue(className, out var value) && !force)
+            {
+                value = LoadTypeImpl(className);
+                ___LoadTypeCache.Add(className, value);
+            }
+
+            return value;
+        }
+        private static readonly Dictionary<string, Type> ___LoadTypeCache = new Dictionary<string, Type>();
+
+
+        private static Type LoadTypeImpl(string className)
+        {
+            if (string.IsNullOrWhiteSpace(className))
+                return default;
+
+            if (className.Contains("`"))
+            {
+                var openGeneric = className.IndexOf("[");
+                var genericClassName = className.Substring(0, openGeneric);
+                var genericClass = LoadTypeInternal(genericClassName, true);
+
+                var argumentTypes = className
+                    .Substring(openGeneric)
+                    .Split("]", StringSplitOptions.RemoveEmptyEntries)
+                    .Select(s => s.Replace("[", "").Replace("]", ""))
+                    .Select(s => LoadTypeInternal(s, true))
+                    .ToArray();
+
+                return genericClass.MakeGenericType(argumentTypes);
+            }
+            else return LoadTypeInternal(className);
+        }
+
+        private static Type LoadTypeInternal(string className, bool domainForce = false)
+        {
+            var type = TryGetFromAssembly(className, DungeonGlobal.GameAssembly);
+            if (type == default)
+            {
+                foreach (var asm in DungeonGlobal.Assemblies)
+                {
+                    type = TryGetFromAssembly(className, asm);
+                    if (type != default)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (type == default)
+            {
+                type = Type.GetType(className);
+            }
+
+            if (domainForce)
+            {
+                var domain = AppDomain.CurrentDomain.GetAssemblies();
+                foreach (var domainAsm in domain)
+                {
+                    type = TryGetFromAssembly(className, domainAsm);
+                    if (type != default)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (type == default)
+            {
+                throw new DllNotFoundException($"Тип {className} не найден ни в одной из загруженных сборок!");
+            }
+
+            return type;
+        }
+
+        private static Type TryGetFromAssembly(string className, Assembly assembly)
+        {
+            if (assembly == default)
+                return default;
+
+            var type = assembly.GetType(className);
+            if (type == default && className.Contains("Culture"))
+            {
+                var comma = className.IndexOf(",");
+                className = className.Substring(0, comma).Trim();
+                type = assembly.GetType(className);
+            }
+
+            if (type == default)
+            {
+                type = assembly.GetTypesSafe().FirstOrDefault(x => x.Name == className);
+            }
+
+            return type;
+        }
     }
 }
 

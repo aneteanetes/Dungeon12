@@ -85,7 +85,7 @@ namespace Dungeon.Engine.Utils
                         .Select(param => properties.FirstOrDefault(p => p.Name == param.Name).Value)
                         .ToArray();
 
-                    return obj.ClassType.New<object>(activeCtorInstance, @params);
+                    return obj.ClassType.New(activeCtorInstance, @params);
                 }
             }
 

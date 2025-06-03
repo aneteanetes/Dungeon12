@@ -74,7 +74,7 @@ namespace Dungeon.Engine.Host
         {
             if (System.Windows.Input.Keyboard.IsKeyDown(Key.LeftCtrl))
             {
-                Camera.CameraOffsetZ += 0.3 * (e.Delta < 0 ? -1 : 1);
+                //Camera.CameraOffsetZ += 0.3 * (e.Delta < 0 ? -1 : 1);
             }
 
             base.OnMouseWheel(e);
@@ -86,7 +86,7 @@ namespace Dungeon.Engine.Host
         /// </summary>
         public D3D11Host()
         {
-            Camera = new DungeonEngineCamera(this);
+            //Camera = new DungeonEngineCamera(this);
             _timer = new Stopwatch();
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
@@ -283,13 +283,6 @@ namespace Dungeon.Engine.Host
         {
             InitEvents();
             InitImpl();
-        }
-
-        SceneManager sceneManager;
-
-        public void BindSceneManager(SceneManager sceneManager)
-        {
-            this.sceneManager = sceneManager;
         }
 
 

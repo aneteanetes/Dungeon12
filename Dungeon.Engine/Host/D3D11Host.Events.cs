@@ -29,58 +29,7 @@ namespace Dungeon.Engine.Host
             {
                 UpdateMouseEvents();
             }
-            if (this.scene != default)
-            {
-                //for (int i = 0; i < scene.Objects.Length; i++)
-                //{
-                //    var obj = scene.Objects[i];
-                //    if (DungeonGlobal.ComponentUpdateCompatibility)
-                //    {
-                //        if (obj.Updatable && InCamera(obj))
-                //            UpdateComponent(obj);
-                //    }
-                //    else
-                //    {
-                //        UpdateComponent(obj, gameTimeLoop);
-                //    }
-                //}
-            }
-            UpdateLayers(gameTime);
-        }
-
-
-      
-
-        private void UpdateComponent(ISceneObject sceneObject, GameTimeLoop gameTimeLoop)
-        {
-            sceneObject.Update(gameTimeLoop);
-
-            for (int i = 0; i < sceneObject.Children.Count; i++)
-            {
-                var child = sceneObject.Children.ElementAtOrDefault(i);
-                if (child != null)
-                {
-                    UpdateComponent(child, gameTimeLoop);
-                }
-            }
-        }
-
-        private void UpdateComponent(ISceneObject sceneObject)
-        {
-            //if(frameEnd)
-            //{
-            sceneObject.Update();
-            //}
-
-            for (int i = 0; i < sceneObject.Children.Count; i++)
-            {
-                var child = sceneObject.Children.ElementAtOrDefault(i);
-                if (child != null)
-                {
-                    if (child.Updatable && InCamera(child))
-                        UpdateComponent(child);
-                }
-            }
+            
         }
 
         private static void OnTextInput(object sender, TextInputEventArgs e)
@@ -97,12 +46,7 @@ namespace Dungeon.Engine.Host
                 key = Control.Keys.Key.None;
             }
 
-            sceneManager.Current?.OnKeyDown(new Dungeon.Control.Keys.KeyArgs
-            {
-                Key = key.As<Control.Keys.Key>(),
-                Modifiers = GetModifier()
-                //Hold = 
-            });
+            
         }
 
         private static KeyModifiers GetModifier()
@@ -138,11 +82,7 @@ namespace Dungeon.Engine.Host
                 key = Control.Keys.Key.None;
             }
 
-            sceneManager.Current?.OnKeyUp(new Dungeon.Control.Keys.KeyArgs
-            {
-                Key = key.As<Control.Keys.Key>(),
-                Modifiers = GetModifier()
-            });
+            
         }
 
 
@@ -179,7 +119,6 @@ namespace Dungeon.Engine.Host
 
         private void OnPointerWheelChanged(bool isTop)
         {
-            sceneManager.Current?.OnMouseWheel(isTop ? Dungeon.Control.Pointer.MouseWheelEnum.Up : Dungeon.Control.Pointer.MouseWheelEnum.Down);
         }
 
         private delegate ConditionalDelegate ConditionalDelegate(Func<MouseButton, MouseButtonState, bool> func, MouseButton arg, MouseButtonState arg2);
@@ -227,31 +166,7 @@ namespace Dungeon.Engine.Host
 
         private void OnPointerMoved()
         {
-            var currentScene = sceneManager.Current;
-            if (currentScene != default)
-            {
-
-                MouseButton mb = MouseButton.XButton1;
-
-                if (mouseState.LeftButton == MouseButtonState.Pressed)
-                    mb = MouseButton.Left;
-
-                if (mouseState.RightButton == MouseButtonState.Pressed)
-                    mb = MouseButton.Right;
-
-                if (mouseState.MiddleButton == MouseButtonState.Pressed)
-                    mb = MouseButton.Middle;
-
-                //this.light.Position = new Microsoft.Xna.Framework.Vector2(mousePosition.X, mousePosition.Y);
-
-                currentScene.OnMouseMove(new PointerArgs
-                {
-                    ClickCount = 0,
-                    MouseButton = (Dungeon.Control.Pointer.MouseButton)Enum.Parse(typeof(Control.Pointer.MouseButton), mb== MouseButton.XButton1 ? "None" : mb.ToString()),
-                    X = mousePosition.X,
-                    Y = mousePosition.Y
-                }, new Dot(CameraOffsetX, CameraOffsetY));
-            }
+            
         }
 
         private readonly Dictionary<MouseButton, MouseButtonState> buttonPressings = new Dictionary<MouseButton, MouseButtonState>()
@@ -264,31 +179,16 @@ namespace Dungeon.Engine.Host
         private void OnPointerPressed(MouseButton mouseButton)
         {
             var pos = mousePosition;
-            var offset = new Dot(CameraOffsetX, CameraOffsetY);
+            var offset = new Dot(0,0);
 
-            sceneManager.Current?.OnMousePress(new PointerArgs
-            {
-                ClickCount = 1,
-                MouseButton = (Dungeon.Control.Pointer.MouseButton)Enum.Parse(typeof(Control.Pointer.MouseButton), mouseButton.ToString()),
-                X = pos.X,
-                Y = pos.Y,
-                Offset = offset
-            }, offset);
+            
         }
 
         private void OnPointerReleased(MouseButton mouseButton)
         {
             var pos = mousePosition;
-            var offset = new Dot(CameraOffsetX, CameraOffsetY);
+            var offset = new Dot(0,0);
 
-            sceneManager.Current?.OnMouseRelease(new PointerArgs
-            {
-                ClickCount = 1,
-                MouseButton = (Dungeon.Control.Pointer.MouseButton)Enum.Parse(typeof(Control.Pointer.MouseButton), mouseButton.ToString()),
-                X = pos.X,
-                Y = pos.Y,
-                Offset = offset
-            }, offset);
         }
     }
 }

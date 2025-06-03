@@ -415,7 +415,7 @@ namespace Dungeon.Engine.Controls
 
             if (collectionClass == default)
             {
-                var collectionType = type.ExtractGenericCollectionItem();
+                var collectionType = type.GetGenericArguments().FirstOrDefault();
                 collectionClass = new SceneObjectClass()
                 {
                     ClassName = collectionType.FullName,

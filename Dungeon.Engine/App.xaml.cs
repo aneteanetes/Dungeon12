@@ -1,4 +1,5 @@
-﻿using Dungeon.Engine.Utils;
+﻿global using Geranium.Reflection;
+using Dungeon.Engine.Utils;
 using Dungeon.Resources;
 using System.Windows;
 
@@ -13,10 +14,6 @@ namespace Dungeon.Engine
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            var resCompiler = new ResourceCompiler();
-            resCompiler.Compile();
-
-            ResourceLoader.LoadAllAssembliesInFolder();
             Container = new Container();
         }
     }

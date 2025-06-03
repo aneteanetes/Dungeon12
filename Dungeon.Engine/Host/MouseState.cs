@@ -12,14 +12,6 @@ namespace Dungeon.Engine.Host
     {
         public object obj { get; set; }
 
-        public async Task Do()
-        {
-            lock (obj)
-            {
-                await Task.CompletedTask;
-            }
-        }
-
         public MouseState(double x, double y, int scrollWheel, MouseButtonState leftButton, MouseButtonState middleButton, MouseButtonState rightButton)
         {
             X = x;

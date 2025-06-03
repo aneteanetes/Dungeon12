@@ -8,45 +8,13 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProjectMercury.Renderers;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using Color = Microsoft.Xna.Framework.Color;
 
 namespace Dungeon.Engine.Host
 {
-    public partial class D3D11Host : IGameClient
+    public partial class D3D11Host
     {
-        private IScene _scene { get; set; }
-        public IScene scene
-        {
-            get => _scene;
-            set
-            {
-                SceneLayers = new Dictionary<ISceneLayer, RenderTarget2D>();
-                if(value.Is<Scenes.Sys_Clear_Screen>())
-                {
-                    GraphicsDevice.Clear(Color.White);
-                }
-                _scene = value;
-            }
-        }
-
-        public DungeonEngineCamera Camera { get; set; }
-
-        public double CameraOffsetX => Camera.CameraOffsetX;
-
-        public double CameraOffsetY => Camera.CameraOffsetY;
-
-        public double CameraOffsetZ => Camera.CameraOffsetZ;
-
-        public double CameraOffsetLimitX => Camera.CameraOffsetLimitX;
-
-        public double CameraOffsetLimitY => Camera.CameraOffsetLimitY;
-
-        public double CameraOffsetLimitZ => Camera.CameraOffsetLimitZ;
-
         SpriteBatchKnowed spriteBatch;
-        XNADrawClientImplementation XNADrawClientImplementation;
 
         public void InitImpl()
         {
@@ -58,17 +26,11 @@ namespace Dungeon.Engine.Host
             DungeonGlobal.TransportVariable = GraphicsDevice;
 
             var cellSize = App.Container.Resolve<EngineProject>()?.CompileSettings.CellSize ?? 32;
-
-            XNADrawClientImplementation = new XNADrawClientImplementation(GraphicsDevice, default, spriteBatch, cellSize, default, _content, Camera,new SpriteBatchRenderer
-            {
-                GraphicsDeviceService = graphicsService
-            });
         }
 
         public void ChangeCell(int newCellSize)
         {
             DrawingSize.Cell = newCellSize;
-            XNADrawClientImplementation.cell = newCellSize;
         }
 
 
@@ -106,71 +68,15 @@ namespace Dungeon.Engine.Host
 
         private bool skipCallback = false;
 
-        public Types.Rectangle CameraView => Camera.CameraView;
-
-        public Callback SetScene(IScene scene)
-        {
-            drawed = false;
-            XNADrawClientImplementation.scene = scene;
-            this.scene = scene;
-            callback = new Callback(() =>
-            {
-                scene.Destroy();
-            });
-
-            return callback;
-        }
-
-        public Dot MeasureText(IDrawText drawText, ISceneObject parent = null)
-            => XNADrawClientImplementation.MeasureText(drawText, parent);
-
-        public Dot MeasureImage(string image)
-            => XNADrawClientImplementation.MeasureImage(image);
-
-        public void SaveObject(ISceneObject sceneObject, string path, Dot offset, string runtimeCacheName = null)
-            => XNADrawClientImplementation.SaveObject(sceneObject,path,offset,runtimeCacheName);
-
-        public void Animate(IAnimationSession animationSession)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Drag(ISceneObject @object, ISceneObject area = null)
         {
             
         }
 
-
-        public void Clear(IDrawColor drawColor = null)
-            => XNADrawClientImplementation.Clear(drawColor);
-
         public void SetCursor(string texture)
         {
             
         }
-
-        public void CacheObject(ISceneObject @object)
-            => XNADrawClientImplementation.CacheObject(@object);
-
-        public void CacheImage(string image)
-            => XNADrawClientImplementation.CacheImage(image);
-
-        public void MoveCamera(Direction direction, bool stop = false, bool once = false)
-            => Camera.MoveCamera(direction, stop);
-
-        public void StopMoveCamera() 
-            => Camera.StopMoveCamera();
-
-        public void SetCamera(double x, double y)
-            => Camera.SetCamera(x,y);
-
-        public void ResetCamera()
-            => Camera.ResetCamera();
-
-        public void SetCameraSpeed(double speed)
-            => Camera.SetCameraSpeed(speed);
-
-        public bool InCamera(ISceneObject sceneObject)
-            => Camera.InCamera(sceneObject);
     }
 }
